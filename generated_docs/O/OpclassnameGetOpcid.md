@@ -34,3 +34,34 @@ This function performs operator class resolution by searching through the curren
 - Uses the CLAAMNAMENSP system cache for efficient lookup by access method, name, and namespace
 - Essential for index creation and maintenance operations where operator classes must be resolved
 - Part of PostgreSQL's extensible indexing framework supporting multiple access methods
+
+## Simplified Source
+
+```c
+Oid OpclassnameGetOpcid(Oid amid, const char *opcname) {
+    // Ensure namespace search path is current
+    recomputeNamespacePath();
+
+    // Search through each namespace in the active search path
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        // Skip temporary namespace
+        if (namespaceId == myTempNamespace)
+            continue;
+
+        // Look up operator class by access method, name, and namespace
+        opcid = GetSysCacheOid3(CLAAMNAMENSP,
+                               ObjectIdGetDatum(amid),
+                               PointerGetDatum(opcname),
+                               ObjectIdGetDatum(namespaceId));
+
+        // Return first match found
+        if (OidIsValid(opcid))
+            return opcid;
+    }
+
+    // Not found in any namespace
+    return InvalidOid;
+}
+```

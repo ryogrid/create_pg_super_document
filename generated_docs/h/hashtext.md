@@ -38,3 +38,52 @@ The hashtext function generates hash values for text data types in PostgreSQL, w
 - Preserves legacy behavior by including the terminating NUL character in transformed strings
 - Properly handles toasted inputs with memory cleanup using PG_FREE_IF_COPY
 - Located at src/backend/access/hash/hashfunc.c:267-322
+
+## Simplified Source
+
+```c
+Datum hashtext(PG_FUNCTION_ARGS) {
+    text *key = PG_GETARG_TEXT_PP(0);
+    Oid collid = PG_GET_COLLATION();
+    pg_locale_t mylocale = 0;
+    Datum result;
+
+    // Ensure collation is specified
+    if (!collid)
+        ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                errmsg("could not determine which collation to use for string hashing"),
+                errhint("Use the COLLATE clause to set the collation explicitly.")));
+
+    // Get locale information for non-C collations
+    if (!lc_collate_is_c(collid))
+        mylocale = pg_newlocale_from_collation(collid);
+
+    // Fast path: deterministic collations can hash directly
+    if (pg_locale_deterministic(mylocale)) {
+        result = hash_any((unsigned char *) VARDATA_ANY(key), VARSIZE_ANY_EXHDR(key));
+    } else {
+        // Slow path: transform text according to collation rules
+        const char *keydata = VARDATA_ANY(key);
+        size_t keylen = VARSIZE_ANY_EXHDR(key);
+
+        // Get required buffer size and allocate
+        Size bsize = pg_strnxfrm(NULL, 0, keydata, keylen, mylocale);
+        char *buf = palloc(bsize + 1);
+
+        // Transform the string
+        Size rsize = pg_strnxfrm(buf, bsize + 1, keydata, keylen, mylocale);
+        if (rsize > bsize)
+            elog(ERROR, "pg_strnxfrm() returned unexpected result");
+
+        // Hash the transformed string (includes NUL for legacy compatibility)
+        result = hash_any((uint8_t *) buf, bsize + 1);
+
+        pfree(buf);
+    }
+
+    // Clean up memory for toasted inputs
+    PG_FREE_IF_COPY(key, 0);
+
+    return result;
+}
+```

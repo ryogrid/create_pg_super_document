@@ -41,3 +41,18 @@ The function is designed to be used within ereport() calls to provide contextual
 - The return value (0) does not matter and is ignored by callers
 - Designed to be used as part of ereport() chains to enhance error messages with table context
 - Uses PostgreSQL's standard diagnostic message fields for structured error reporting
+
+## Simplified Source
+
+```c
+int errtable(Relation rel) {
+    // Store schema name in error context
+    err_generic_string(PG_DIAG_SCHEMA_NAME,
+                      get_namespace_name(RelationGetNamespace(rel)));
+
+    // Store table name in error context
+    err_generic_string(PG_DIAG_TABLE_NAME, RelationGetRelationName(rel));
+
+    return 0;  // Return value doesn't matter
+}
+```

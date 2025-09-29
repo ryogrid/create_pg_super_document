@@ -29,3 +29,23 @@ The  function checks if a given character is considered valid for variable name 
 - The function allows characters beyond standard alphanumeric: underscore (_), greater than (>), hyphen (-), and period (.)
 - Characters with ASCII values >= 128 are considered valid, allowing for extended character sets
 - Used primarily in variable name parsing and replacement operations within ECPG prepared statements
+
+## Simplified Source
+
+```c
+static bool isvarchar(unsigned char c) {
+    // Allow alphanumeric characters
+    if (isalnum(c))
+        return true;
+
+    // Allow specific special characters
+    if (c == '_' || c == '>' || c == '-' || c == '.')
+        return true;
+
+    // Allow extended character set (non-ASCII)
+    if (c >= 128)
+        return true;
+
+    return false;
+}
+```

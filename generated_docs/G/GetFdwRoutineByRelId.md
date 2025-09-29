@@ -34,3 +34,19 @@ This function is commonly used when working directly with foreign tables and nee
 - Returns a pointer to FdwRoutine structure
 - More convenient than calling the individual lookup functions when starting with a relation ID
 - Used in query planning and execution contexts where FDW callbacks are needed
+
+## Simplified Source
+
+```c
+FdwRoutine *
+GetFdwRoutineByRelId(Oid relid)
+{
+    Oid serverid;
+
+    // Get server OID for the foreign table
+    serverid = GetForeignServerIdByRelId(relid);
+
+    // Retrieve server's FdwRoutine struct
+    return GetFdwRoutineByServerId(serverid);
+}
+```

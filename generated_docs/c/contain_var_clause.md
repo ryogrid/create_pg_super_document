@@ -45,3 +45,12 @@ This function is particularly useful for:
 - Does not examine subqueries - this is an important limitation
 - Used extensively throughout PostgreSQL for variable dependency analysis
 - Part of the optimizer's variable analysis utilities
+
+## Simplified Source
+
+```c
+bool contain_var_clause(Node *node) {
+    // Delegate to the walker function to recursively search for Var nodes
+    return contain_var_clause_walker(node, NULL);
+}
+```

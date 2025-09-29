@@ -43,3 +43,32 @@ The function performs a system catalog lookup in pg_operator using the provided 
 - Commutator relationships are essential for query optimization, allowing the optimizer to rewrite expressions in equivalent forms
 - The oprcom field in pg_operator stores the OID of the commutator operator, or 0 if none exists
 - This function is frequently used in the query optimizer for expression rewriting and index matching
+
+## Simplified Source
+
+```c
+Oid
+get_commutator(Oid opno)
+{
+    HeapTuple tp;
+
+    // Look up operator in system cache
+    tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+
+    if (HeapTupleIsValid(tp))
+    {
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+        Oid result;
+
+        // Extract commutator operator OID from catalog entry
+        result = optup->oprcom;
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else
+    {
+        // Operator not found
+        return InvalidOid;
+    }
+}
+```

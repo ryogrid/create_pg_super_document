@@ -58,3 +58,48 @@ This ordering is crucial for RelationBuildPartitionDesc() which relies on the fa
 - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md) enum values are designed to compare correctly when cast to integers
 - The boundary type comparison (upper vs lower) is essential for maintaining the partition descriptor's invariant that only upper bounds are stored for contiguous partitions
 - Return value encoding allows callers to identify both the ordering and the specific column where the difference occurred
+
+## Simplified Source
+```c
+static int32 partition_rbound_cmp(int partnatts, FmgrInfo *partsupfunc,
+                                 Oid *partcollation,
+                                 Datum *datums1, PartitionRangeDatumKind *kind1,
+                                 bool lower1, PartitionRangeBound *b2)
+{
+    int32 colnum = 0;
+    int32 cmpval = 0;
+    Datum *datums2 = b2->datums;
+    PartitionRangeDatumKind *kind2 = b2->kind;
+    bool lower2 = b2->lower;
+
+    // Compare each partition column in order
+    for (int i = 0; i < partnatts; i++) {
+        colnum++;
+
+        // Handle special boundary cases (MINVALUE/MAXVALUE)
+        if (kind1[i] < kind2[i])
+            return -colnum;
+        else if (kind1[i] > kind2[i])
+            return colnum;
+        else if (kind1[i] != PARTITION_RANGE_DATUM_VALUE) {
+            // Both are MINVALUE or both are MAXVALUE
+            break;
+        }
+
+        // Compare actual data values using partition comparison function
+        cmpval = DatumGetInt32(FunctionCall2Coll(&partsupfunc[i],
+                                                partcollation[i],
+                                                datums1[i],
+                                                datums2[i]));
+        if (cmpval != 0)
+            break;
+    }
+
+    // If values are equal, consider boundary types (upper vs lower)
+    if (cmpval == 0 && lower1 != lower2)
+        cmpval = lower1 ? 1 : -1;
+
+    // Return 0 for equal, or signed column number for ordering
+    return cmpval == 0 ? 0 : (cmpval < 0 ? -colnum : colnum);
+}
+```

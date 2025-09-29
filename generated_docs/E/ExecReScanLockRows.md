@@ -33,3 +33,17 @@ This optimization avoids unnecessary work when the outer plan will be rescanned 
 - [LockRows](../L/LockRows.md) nodes do not maintain their own state that needs resetting, only the outer subplan
 - The function follows the standard PostgreSQL executor rescan protocol
 - Function is located at src/backend/executor/nodeLockRows.c:394-404
+
+## Simplified Source
+
+```c
+void ExecReScanLockRows(LockRowsState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Only rescan outer plan if no parameter changes detected
+    // If parameters changed, rescan will happen automatically on next ExecProcNode call
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

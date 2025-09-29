@@ -46,3 +46,33 @@ The function operates by:
 - Uses SearchSysCacheCopy1 to get a modifiable copy of the tuple rather than the cached version
 - Properly manages memory by calling heap_freetuple() on the copied tuple
 - The defaultPartId can be set to InvalidOid to indicate no default partition exists
+
+## Simplified Source
+
+```c
+void update_default_partition_oid(Oid parentId, Oid defaultPartId) {
+    HeapTuple tuple;
+    Relation pg_partitioned_table;
+    Form_pg_partitioned_table part_table_form;
+
+    // Open catalog with exclusive lock
+    pg_partitioned_table = table_open(PartitionedRelationId, RowExclusiveLock);
+
+    // Find the existing tuple for this partitioned table
+    tuple = SearchSysCacheCopy1(PARTRELID, ObjectIdGetDatum(parentId));
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for partition key of relation %u", parentId);
+
+    // Update the default partition OID
+    part_table_form = (Form_pg_partitioned_table) GETSTRUCT(tuple);
+    part_table_form->partdefid = defaultPartId;
+
+    // Update the catalog
+    CatalogTupleUpdate(pg_partitioned_table, &tuple->t_self, tuple);
+
+    // Clean up
+    heap_freetuple(tuple);
+    table_close(pg_partitioned_table, RowExclusiveLock);
+}
+```

@@ -36,3 +36,39 @@ The algorithm runs in O(n) time complexity, making it efficient for large lists.
 - Time complexity is O(n) where n is the length of the list
 - Used in foreign key constraint processing and publication relation management
 - Part of PostgreSQL's generic list manipulation utilities in src/backend/nodes/list.c
+
+## Simplified Source
+
+```c
+void
+list_deduplicate_oid(List *list)
+{
+    int len;
+
+    // Validate input is an OID list
+    Assert(IsOidList(list));
+    len = list_length(list);
+
+    // Only process lists with more than one element
+    if (len > 1) {
+        ListCell *elements = list->elements;
+        int i = 0;  // Write position for unique elements
+
+        // Scan through all elements starting from position 1
+        for (int j = 1; j < len; j++) {
+            // If current element differs from last unique element
+            if (elements[i].oid_value != elements[j].oid_value) {
+                // Copy unique element to next write position
+                elements[++i].oid_value = elements[j].oid_value;
+            }
+            // Skip duplicates (j advances but i doesn't)
+        }
+
+        // Update list length to reflect deduplicated size
+        list->length = i + 1;
+    }
+
+    // Verify list integrity after modification
+    check_list_invariants(list);
+}
+```

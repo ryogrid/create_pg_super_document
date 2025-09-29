@@ -47,3 +47,52 @@ The function uses different validation strategies depending on whether random ac
 - Critical for preventing acceptance of corrupted or torn WAL pages
 - Returns boolean value indicating validation success/failure
 - Error details are reported through the report_invalid_record function when validation fails
+
+## Simplified Source
+
+```c
+static bool ValidXLogRecordHeader(XLogReaderState *state, XLogRecPtr RecPtr,
+                                  XLogRecPtr PrevRecPtr, XLogRecord *record,
+                                  bool randAccess) {
+
+    // Check minimum record length
+    if (record->xl_tot_len < SizeOfXLogRecord) {
+        report_invalid_record(state,
+                             "invalid record length at %X/%X: expected at least %u, got %u",
+                             LSN_FORMAT_ARGS(RecPtr),
+                             (uint32) SizeOfXLogRecord, record->xl_tot_len);
+        return false;
+    }
+
+    // Validate resource manager ID
+    if (!RmgrIdIsValid(record->xl_rmid)) {
+        report_invalid_record(state,
+                             "invalid resource manager ID %u at %X/%X",
+                             record->xl_rmid, LSN_FORMAT_ARGS(RecPtr));
+        return false;
+    }
+
+    // Validate previous link based on access mode
+    if (randAccess) {
+        // For random access: prev-link should be less than current record
+        if (!(record->xl_prev < RecPtr)) {
+            report_invalid_record(state,
+                                 "record with incorrect prev-link %X/%X at %X/%X",
+                                 LSN_FORMAT_ARGS(record->xl_prev),
+                                 LSN_FORMAT_ARGS(RecPtr));
+            return false;
+        }
+    } else {
+        // For sequential access: prev-link must match exactly
+        if (record->xl_prev != PrevRecPtr) {
+            report_invalid_record(state,
+                                 "record with incorrect prev-link %X/%X at %X/%X",
+                                 LSN_FORMAT_ARGS(record->xl_prev),
+                                 LSN_FORMAT_ARGS(RecPtr));
+            return false;
+        }
+    }
+
+    return true;
+}
+```

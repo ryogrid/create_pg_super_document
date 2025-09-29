@@ -40,3 +40,13 @@ This is the standard function used throughout PostgreSQL for inheritance hierarc
 - When lockmode is NoLock, callers must handle potential race conditions with concurrent DROP operations on child relations
 - For more control over partition inclusion/exclusion and additional filtering, use find_inheritance_children_extended directly
 - Located in src/backend/catalog/pg_inherits.c:58-81
+
+## Simplified Source
+
+```c
+List *find_inheritance_children(Oid parentrelId, LOCKMODE lockmode) {
+    // Simple wrapper that finds direct inheritance children
+    // Excludes detached partitions by default
+    return find_inheritance_children_extended(parentrelId, true, lockmode, NULL, NULL);
+}
+```

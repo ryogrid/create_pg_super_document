@@ -33,3 +33,14 @@ This function implements a simple but critical decision logic for logical replic
 - Used throughout the logical decoding infrastructure to filter relevant transactions
 - Simple comparison function but critical for proper logical replication behavior
 - Located in src/backend/replication/logical/snapbuild.c:443-454
+
+## Simplified Source
+
+```c
+bool
+SnapBuildXactNeedsSkip(SnapBuild *builder, XLogRecPtr ptr)
+{
+    // Skip transaction if it ends before we started decoding
+    return ptr < builder->start_decoding_at;
+}
+```

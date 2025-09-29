@@ -36,3 +36,14 @@ The function can trigger FSM updates if it encounters FSM entries pointing to bl
 - Part of PostgreSQL's Free Space Map public API
 - Thread-safe and handles concurrent access scenarios
 - Located in src/backend/storage/freespace/freespace.c:137-153
+
+## Simplified Source
+```c
+BlockNumber GetPageWithFreeSpace(Relation rel, Size spaceNeeded) {
+    // Convert space requirement to FSM category
+    uint8 min_cat = fsm_space_needed_to_cat(spaceNeeded);
+
+    // Search FSM for a page with sufficient free space
+    return fsm_search(rel, min_cat);
+}
+```

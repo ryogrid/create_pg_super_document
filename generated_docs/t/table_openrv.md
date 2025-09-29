@@ -39,3 +39,20 @@ This function provides a convenient way to open table relations by name (with op
 - Will raise an error if the relation does not exist or is not a table
 - Part of the table access method interface for name-based table operations
 - Callers should still verify the relation is not a view or foreign table before assuming physical storage
+
+## Simplified Source
+
+```c
+Relation table_openrv(const RangeVar *relation, LOCKMODE lockmode)
+{
+    Relation r;
+
+    // Open relation using RangeVar
+    r = relation_openrv(relation, lockmode);
+
+    // Validate that this is actually a table
+    validate_relation_kind(r);
+
+    return r;
+}
+```

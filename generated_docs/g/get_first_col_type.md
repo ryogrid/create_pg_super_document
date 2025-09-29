@@ -40,3 +40,31 @@ The function handles edge cases such as EXISTS queries where the target list mig
 - In cases where the target list is empty or contains only resjunk entries, the function defaults to VOIDOID type with invalid typmod and collation
 - The function specifically looks for the first non-resjunk entry in the target list
 - Located in src/backend/optimizer/plan/subselect.c:118-161
+
+## Simplified Source
+
+```c
+static void
+get_first_col_type(Plan *plan, Oid *coltype, int32 *coltypmod, Oid *colcollation)
+{
+    // Handle empty target list (e.g., EXISTS queries)
+    if (plan->targetlist)
+    {
+        TargetEntry *first_entry = linitial_node(TargetEntry, plan->targetlist);
+
+        // Use first non-junk entry
+        if (!first_entry->resjunk)
+        {
+            *coltype = exprType((Node *) first_entry->expr);
+            *coltypmod = exprTypmod((Node *) first_entry->expr);
+            *colcollation = exprCollation((Node *) first_entry->expr);
+            return;
+        }
+    }
+
+    // Default to VOID if no suitable entry found
+    *coltype = VOIDOID;
+    *coltypmod = -1;
+    *colcollation = InvalidOid;
+}
+```

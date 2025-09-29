@@ -44,3 +44,54 @@ The function maintains constraint lists and manages memory efficiently by option
 - The function is static (internal to deadlock.c) and part of the deadlock resolution algorithm
 - Each recursive level adds one constraint and explores all possibilities at that level before backtracking
 - The algorithm ensures that all possible solutions are explored systematically
+
+## Simplified Source
+```c
+static bool DeadLockCheckRecurse(PGPROC *proc) {
+    // Test current configuration for constraint edges
+    int nEdges = TestConfiguration(proc);
+
+    if (nEdges < 0) {
+        return true;  // Hard deadlock - no solution possible
+    }
+    if (nEdges == 0) {
+        return false; // Found valid deadlock-free configuration
+    }
+    if (nCurConstraints >= maxCurConstraints) {
+        return true;  // Hit recursion limit
+    }
+
+    // Decide whether to save edge list or regenerate on-the-fly
+    int oldPossibleConstraints = nPossibleConstraints;
+    bool savedList = false;
+    if (nPossibleConstraints + nEdges + MaxBackends <= maxPossibleConstraints) {
+        nPossibleConstraints += nEdges;
+        savedList = true;
+    }
+
+    // Try each constraint edge as a potential solution
+    for (int i = 0; i < nEdges; i++) {
+        // Regenerate edges if not saved and not first iteration
+        if (!savedList && i > 0) {
+            if (nEdges != TestConfiguration(proc)) {
+                elog(FATAL, "inconsistent results during deadlock check");
+            }
+        }
+
+        // Add constraint and recurse
+        curConstraints[nCurConstraints] = possibleConstraints[oldPossibleConstraints + i];
+        nCurConstraints++;
+
+        if (!DeadLockCheckRecurse(proc)) {
+            return false;  // Found valid solution
+        }
+
+        // Backtrack: remove constraint and try next
+        nCurConstraints--;
+    }
+
+    // Restore state and report no solution found
+    nPossibleConstraints = oldPossibleConstraints;
+    return true;
+}
+```

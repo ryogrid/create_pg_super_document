@@ -37,3 +37,35 @@ After cleanup, the function resets the buffer pointer to NULL and marks the part
 - Sets buffer to NULL and partition_spooled to false to indicate the partition has been fully released
 - This function is essential for preventing memory leaks in queries processing multiple partitions
 - Must be called before beginning a new partition to ensure clean state
+
+## Simplified Source
+
+```c
+static void release_partition(WindowAggState *winstate) {
+    // Clear partition-local state for all window functions
+    for (int i = 0; i < winstate->numfuncs; i++) {
+        WindowStatePerFunc perfuncstate = &(winstate->perfunc[i]);
+
+        if (perfuncstate->winobj)
+            perfuncstate->winobj->localmem = NULL;
+    }
+
+    // Reset all partition-local memory contexts
+    MemoryContextReset(winstate->partcontext);
+    MemoryContextReset(winstate->aggcontext);
+
+    // Reset individual aggregate contexts if they differ from main context
+    for (int i = 0; i < winstate->numaggs; i++) {
+        if (winstate->peragg[i].aggcontext != winstate->aggcontext)
+            MemoryContextReset(winstate->peragg[i].aggcontext);
+    }
+
+    // Clean up tuplestore buffer
+    if (winstate->buffer)
+        tuplestore_end(winstate->buffer);
+
+    // Reset partition state
+    winstate->buffer = NULL;
+    winstate->partition_spooled = false;
+}
+```

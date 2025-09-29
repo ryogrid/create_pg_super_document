@@ -39,3 +39,59 @@ SHA256_Last implements the crucial final phase of SHA-256 hashing, applying the 
 - The 0x80 byte represents a single '1' bit followed by seven '0' bits
 - Critical for preventing length extension attacks in cryptographic applications
 - Must be called exactly once at the end of each hash computation for correct results
+
+## Simplified Source
+
+```c
+static void
+SHA256_Last(pg_sha256_ctx *context)
+{
+    unsigned int usedspace;
+
+    // Calculate bytes used in current block
+    usedspace = (context->bitcount >> 3) % PG_SHA256_BLOCK_LENGTH;
+
+    // Convert bit count to big-endian format
+#ifndef WORDS_BIGENDIAN
+    REVERSE64(context->bitcount, context->bitcount);
+#endif
+
+    if (usedspace > 0)
+    {
+        // Add mandatory '1' bit (0x80)
+        context->buffer[usedspace++] = 0x80;
+
+        if (usedspace <= PG_SHA256_SHORT_BLOCK_LENGTH)
+        {
+            // Padding fits in current block
+            memset(&context->buffer[usedspace], 0, PG_SHA256_SHORT_BLOCK_LENGTH - usedspace);
+        }
+        else
+        {
+            // Need additional block for padding
+            if (usedspace < PG_SHA256_BLOCK_LENGTH)
+            {
+                memset(&context->buffer[usedspace], 0, PG_SHA256_BLOCK_LENGTH - usedspace);
+            }
+            // Process current block
+            SHA256_Transform(context, context->buffer);
+
+            // Prepare new block for length field
+            memset(context->buffer, 0, PG_SHA256_SHORT_BLOCK_LENGTH);
+        }
+    }
+    else
+    {
+        // Empty block - start with zero padding
+        memset(context->buffer, 0, PG_SHA256_SHORT_BLOCK_LENGTH);
+        // Add mandatory '1' bit at beginning
+        *context->buffer = 0x80;
+    }
+
+    // Append 64-bit length field at end of block
+    *(uint64 *) &context->buffer[PG_SHA256_SHORT_BLOCK_LENGTH] = context->bitcount;
+
+    // Process final block
+    SHA256_Transform(context, context->buffer);
+}
+```

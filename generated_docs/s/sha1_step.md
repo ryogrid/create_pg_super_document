@@ -51,3 +51,82 @@ Each round updates the five working variables through rotation, addition, and lo
 - Implements the SHA-1 specification from FIPS PUB 180-1
 - Each call processes exactly one 512-bit block and updates the hash state
 - The function modifies the context's hash state (H0-H4) in place
+
+## Simplified Source
+
+```c
+static void
+sha1_step(pg_sha1_ctx *ctx)
+{
+    uint32 a, b, c, d, e;
+    size_t t, s;
+    uint32 tmp;
+
+#ifndef WORDS_BIGENDIAN
+    // Little-endian systems: swap bytes for each 32-bit word
+    pg_sha1_ctx tctx;
+    memmove(&tctx.m.b8[0], &ctx->m.b8[0], 64);
+    // Reverse byte order for all 16 words (simplified representation)
+    for (int i = 0; i < 16; i++) {
+        for (int j = 0; j < 4; j++) {
+            ctx->m.b8[i*4 + j] = tctx.m.b8[i*4 + (3-j)];
+        }
+    }
+#endif
+
+    // Initialize working variables with current hash state
+    a = H(0); b = H(1); c = H(2); d = H(3); e = H(4);
+
+    // SHA-1 algorithm: 80 rounds in 4 groups of 20
+
+    // Rounds 0-19: F0 function
+    for (t = 0; t < 20; t++) {
+        s = t & 0x0f;
+        if (t >= 16) {
+            // Extend message schedule
+            W(s) = S(1, W((s + 13) & 0x0f) ^ W((s + 8) & 0x0f) ^
+                      W((s + 2) & 0x0f) ^ W(s));
+        }
+        tmp = S(5, a) + F0(b, c, d) + e + W(s) + K(t);
+        // Rotate variables: e=d, d=c, c=rotate(b,30), b=a, a=tmp
+        e = d; d = c; c = S(30, b); b = a; a = tmp;
+    }
+
+    // Rounds 20-39: F1 function
+    for (t = 20; t < 40; t++) {
+        s = t & 0x0f;
+        W(s) = S(1, W((s + 13) & 0x0f) ^ W((s + 8) & 0x0f) ^
+                  W((s + 2) & 0x0f) ^ W(s));
+        tmp = S(5, a) + F1(b, c, d) + e + W(s) + K(t);
+        e = d; d = c; c = S(30, b); b = a; a = tmp;
+    }
+
+    // Rounds 40-59: F2 function
+    for (t = 40; t < 60; t++) {
+        s = t & 0x0f;
+        W(s) = S(1, W((s + 13) & 0x0f) ^ W((s + 8) & 0x0f) ^
+                  W((s + 2) & 0x0f) ^ W(s));
+        tmp = S(5, a) + F2(b, c, d) + e + W(s) + K(t);
+        e = d; d = c; c = S(30, b); b = a; a = tmp;
+    }
+
+    // Rounds 60-79: F3 function
+    for (t = 60; t < 80; t++) {
+        s = t & 0x0f;
+        W(s) = S(1, W((s + 13) & 0x0f) ^ W((s + 8) & 0x0f) ^
+                  W((s + 2) & 0x0f) ^ W(s));
+        tmp = S(5, a) + F3(b, c, d) + e + W(s) + K(t);
+        e = d; d = c; c = S(30, b); b = a; a = tmp;
+    }
+
+    // Add results back to hash state
+    H(0) = H(0) + a;
+    H(1) = H(1) + b;
+    H(2) = H(2) + c;
+    H(3) = H(3) + d;
+    H(4) = H(4) + e;
+
+    // Clear message buffer for security
+    memset(&ctx->m.b8[0], 0, 64);
+}
+```

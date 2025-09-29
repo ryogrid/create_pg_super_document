@@ -49,3 +49,65 @@ The function ensures proper state transitions through assertions and clears rela
 - Concurrent index operations minimize locking by carefully orchestrating these state transitions
 - INDEX_DROP_CLEAR_VALID allows retrying failed DROP INDEX CONCURRENTLY operations
 - The indisready flag controls whether DML operations maintain the index, while indisvalid controls query visibility
+
+## Simplified Source
+
+```c
+void
+index_set_state_flags(Oid indexId, IndexStateFlagsAction action)
+{
+    Relation pg_index;
+    HeapTuple indexTuple;
+    Form_pg_index indexForm;
+
+    // Open pg_index catalog and fetch the index tuple
+    pg_index = table_open(IndexRelationId, RowExclusiveLock);
+
+    indexTuple = SearchSysCacheCopy1(INDEXRELID, ObjectIdGetDatum(indexId));
+    if (!HeapTupleIsValid(indexTuple))
+        elog(ERROR, "cache lookup failed for index %u", indexId);
+
+    indexForm = (Form_pg_index) GETSTRUCT(indexTuple);
+
+    // Apply the requested state change
+    switch (action)
+    {
+        case INDEX_CREATE_SET_READY:
+            // Set indisready during CREATE INDEX CONCURRENTLY
+            Assert(indexForm->indislive);
+            Assert(!indexForm->indisready);
+            Assert(!indexForm->indisvalid);
+            indexForm->indisready = true;
+            break;
+
+        case INDEX_CREATE_SET_VALID:
+            // Set indisvalid during CREATE INDEX CONCURRENTLY
+            Assert(indexForm->indislive);
+            Assert(indexForm->indisready);
+            Assert(!indexForm->indisvalid);
+            indexForm->indisvalid = true;
+            break;
+
+        case INDEX_DROP_CLEAR_VALID:
+            // Clear indisvalid during DROP INDEX CONCURRENTLY
+            indexForm->indisvalid = false;
+            indexForm->indisclustered = false;
+            indexForm->indisreplident = false;
+            break;
+
+        case INDEX_DROP_SET_DEAD:
+            // Clear indisready/indislive during DROP INDEX CONCURRENTLY
+            Assert(!indexForm->indisvalid);
+            Assert(!indexForm->indisclustered);
+            Assert(!indexForm->indisreplident);
+            indexForm->indisready = false;
+            indexForm->indislive = false;
+            break;
+    }
+
+    // Update the catalog tuple
+    CatalogTupleUpdate(pg_index, &indexTuple->t_self, indexTuple);
+
+    table_close(pg_index, RowExclusiveLock);
+}
+```

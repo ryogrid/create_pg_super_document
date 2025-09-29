@@ -46,3 +46,35 @@ This function takes no parameters as it operates on global lock manager data str
 - Uses hash table sequential scanning to efficiently iterate through all entries in the PROCLOCK hash table.
 - This is primarily a debugging function and the output is only visible when appropriate debug flags are enabled in the build.
 - The comprehensive nature of this function makes it potentially expensive to call in production systems with many locks.
+
+## Simplified Source
+
+```c
+void DumpAllLocks(void) {
+    PGPROC *proc;
+    PROCLOCK *proclock;
+    LOCK *lock;
+    HASH_SEQ_STATUS status;
+
+    proc = MyProc;
+
+    // Show if current process is waiting on any lock
+    if (proc && proc->waitLock)
+        LOCK_PRINT("DumpAllLocks: waiting on", proc->waitLock, 0);
+
+    // Iterate through all process locks in the hash table
+    hash_seq_init(&status, LockMethodProcLockHash);
+
+    while ((proclock = (PROCLOCK *) hash_seq_search(&status)) != NULL) {
+        // Print information about this process lock
+        PROCLOCK_PRINT("DumpAllLocks", proclock);
+
+        // Print information about the associated lock
+        lock = proclock->tag.myLock;
+        if (lock)
+            LOCK_PRINT("DumpAllLocks", lock, 0);
+        else
+            elog(LOG, "DumpAllLocks: proclock->tag.myLock = NULL");
+    }
+}
+```

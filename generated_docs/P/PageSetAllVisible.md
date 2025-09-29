@@ -37,3 +37,14 @@ The function uses a bitwise OR operation to set the PD_ALL_VISIBLE flag bit whil
 - Often called in conjunction with visibility map updates
 - Used during both normal vacuum operations and WAL recovery
 - The function uses bitwise OR to safely set the flag without affecting other flags
+
+## Simplified Source
+
+```c
+static inline void
+PageSetAllVisible(Page page)
+{
+    // Set the PD_ALL_VISIBLE flag in the page header
+    ((PageHeader) page)->pd_flags |= PD_ALL_VISIBLE;
+}
+```

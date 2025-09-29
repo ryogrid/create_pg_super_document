@@ -35,3 +35,33 @@ This function performs memory allocation for relation option structures by calcu
 - Accounts for NULL default values when default_isnull is true
 - Memory calculation includes space for null terminators (+1 for standard strings)
 - The returned pointer must be cast to the appropriate struct type by the caller
+
+## Simplified Source
+
+```c
+static void *allocateReloptStruct(Size base, relopt_value *options, int numoptions) {
+    Size total_size = base;
+
+    // Calculate additional space needed for string options
+    for (int i = 0; i < numoptions; i++) {
+        relopt_value *option = &options[i];
+
+        if (option->gen->type == RELOPT_TYPE_STRING) {
+            relopt_string *string_opt = (relopt_string *) option->gen;
+
+            if (string_opt->fill_cb) {
+                // Use custom callback to determine space needed
+                const char *value = option->isset ? option->values.string_val :
+                                  (string_opt->default_isnull ? NULL : string_opt->default_val);
+                total_size += string_opt->fill_cb(value, NULL);
+            } else {
+                // Standard string: add length + null terminator
+                total_size += GET_STRING_RELOPTION_LEN(*option) + 1;
+            }
+        }
+    }
+
+    // Allocate and return zero-initialized memory
+    return palloc0(total_size);
+}
+```

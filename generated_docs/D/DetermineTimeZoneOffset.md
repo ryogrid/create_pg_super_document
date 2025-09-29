@@ -38,3 +38,16 @@ This function acts as a simple wrapper around DetermineTimeZoneOffsetInternal, p
 - Returns 0 offset and sets tm_isdst = 0 for dates outside the calculable range
 - Does not throw errors for out-of-range dates, leaving error handling to higher-level code
 - Critical for timezone-aware timestamp operations in PostgreSQL
+
+## Simplified Source
+
+```c
+int
+DetermineTimeZoneOffset(struct pg_tm *tm, pg_tz *tzp)
+{
+    pg_time_t t;
+
+    // Delegate to internal implementation that also provides pg_time_t
+    return DetermineTimeZoneOffsetInternal(tm, tzp, &t);
+}
+```

@@ -42,3 +42,76 @@ The function includes comprehensive error handling for memory allocation failure
 - Enforces the MAX_COLOR limit to prevent excessive memory usage
 - Critical function for color assignment during regular expression compilation
 - All new color descriptors are initialized with safe default values
+
+## Simplified Source
+
+```c
+static color
+newcolor(struct colormap *cm)
+{
+    struct colordesc *cd;
+    size_t n;
+
+    // Check for errors early
+    if (CISERR())
+        return COLORLESS;
+
+    // Try to reuse a freed color from the free list
+    if (cm->free != 0) {
+        cd = &cm->cd[cm->free];
+        cm->free = cd->sub;  // Update free list
+    }
+    // Try sequential allocation within existing array
+    else if (cm->max < cm->ncds - 1) {
+        cm->max++;
+        cd = &cm->cd[cm->max];
+    }
+    // Need to expand the array
+    else {
+        // Check color limit
+        if (cm->max == MAX_COLOR) {
+            CERR(REG_ECOLORS);
+            return COLORLESS;
+        }
+
+        // Calculate new size (double, but cap at MAX_COLOR + 1)
+        n = cm->ncds * 2;
+        if (n > MAX_COLOR + 1)
+            n = MAX_COLOR + 1;
+
+        // Allocate new array (handle transition from inline to dynamic storage)
+        struct colordesc *newCd;
+        if (cm->cd == cm->cdspace) {
+            // First expansion from inline storage
+            newCd = MALLOC(n * sizeof(struct colordesc));
+            if (newCd != NULL)
+                memcpy(newCd, cm->cdspace, cm->ncds * sizeof(struct colordesc));
+        } else {
+            // Expand existing dynamic array
+            newCd = REALLOC(cm->cd, n * sizeof(struct colordesc));
+        }
+
+        if (newCd == NULL) {
+            CERR(REG_ESPACE);
+            return COLORLESS;
+        }
+
+        // Update colormap with new array
+        cm->cd = newCd;
+        cm->ncds = n;
+        cm->max++;
+        cd = &cm->cd[cm->max];
+    }
+
+    // Initialize new color descriptor
+    cd->nschrs = 0;
+    cd->nuchrs = 0;
+    cd->sub = NOSUB;
+    cd->arcs = NULL;
+    cd->firstchr = CHR_MIN;
+    cd->flags = 0;
+
+    // Return color index
+    return (color) (cd - cm->cd);
+}
+```

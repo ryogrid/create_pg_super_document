@@ -36,3 +36,12 @@ The function is part of PostgreSQL's resource management system that ensures pro
 - Essential for transaction safety and preventing resource leaks during error conditions
 - The relref_resowner_desc provides the specific cleanup callbacks for relation references
 - Used internally by the relation cache management system
+
+## Simplified Source
+
+```c
+static inline void ResourceOwnerRememberRelationRef(ResourceOwner owner, Relation rel) {
+    // Register relation reference with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(rel), &relref_resowner_desc);
+}
+```

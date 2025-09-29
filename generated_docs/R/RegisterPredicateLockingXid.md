@@ -42,3 +42,42 @@ This mapping is crucial for the predicate locking system because other parts of 
 - The mapping created here is essential for other transactions to find this transaction's serializable state during conflict detection
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - The hash table entry will be cleaned up when the transaction completes and its serializable state is released
+
+## Simplified Source
+
+```c
+void
+RegisterPredicateLockingXid(TransactionId xid)
+{
+    SERIALIZABLEXIDTAG sxidtag;
+    SERIALIZABLEXID *sxid;
+    bool found;
+
+    // Skip if not tracking predicate locks for this transaction
+    if (MySerializableXact == InvalidSerializableXact)
+        return;
+
+    // Validate transaction ID and ensure at top level
+    Assert(TransactionIdIsValid(xid));
+
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+    // This should only be called once per transaction
+    Assert(MySerializableXact->topXid == InvalidTransactionId);
+
+    // Store XID in serializable transaction structure
+    MySerializableXact->topXid = xid;
+
+    // Create hash table entry mapping XID to serializable transaction
+    sxidtag.xid = xid;
+    sxid = (SERIALIZABLEXID *) hash_search(SerializableXidHash,
+                                          &sxidtag,
+                                          HASH_ENTER, &found);
+    Assert(!found);  // Should be new entry
+
+    // Initialize the mapping structure
+    sxid->myXact = MySerializableXact;
+
+    LWLockRelease(SerializableXactHashLock);
+}
+```

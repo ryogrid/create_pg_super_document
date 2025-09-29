@@ -43,3 +43,42 @@ The function is designed to handle race conditions gracefully - if the target pr
 - The function performs an exact match on both procNumber and localTransactionId components of the VXID
 - Thread-safe operation ensured through proper locking protocols
 - Essential building block for hot standby conflict resolution and general backend process management
+
+## Simplified Source
+
+```c
+pid_t SignalVirtualTransaction(VirtualTransactionId vxid, ProcSignalReason sigmode,
+                              bool conflictPending) {
+    ProcArrayStruct *arrayP = procArray;
+    pid_t pid = 0;
+
+    // Lock process array for safe scanning
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Search for matching virtual transaction ID
+    for (int index = 0; index < arrayP->numProcs; index++) {
+        PGPROC *proc = &allProcs[arrayP->pgprocnos[index]];
+        VirtualTransactionId procvxid;
+
+        GET_VXID_FROM_PGPROC(procvxid, *proc);
+
+        // Check if this process matches the target VXID
+        if (procvxid.procNumber == vxid.procNumber &&
+            procvxid.localTransactionId == vxid.localTransactionId) {
+
+            // Set recovery conflict flag if requested
+            proc->recoveryConflictPending = conflictPending;
+            pid = proc->pid;
+
+            // Send signal to the process if it exists
+            if (pid != 0) {
+                SendProcSignal(pid, sigmode, vxid.procNumber);
+            }
+            break;
+        }
+    }
+
+    LWLockRelease(ProcArrayLock);
+    return pid;
+}
+```

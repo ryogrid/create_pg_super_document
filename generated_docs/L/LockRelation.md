@@ -39,3 +39,29 @@ This function acquires a lock on a relation that is already open. It creates a L
 - Includes cache invalidation handling to maintain consistency when the lock was not already held locally
 - Part of PostgreSQL's lock manager subsystem located in src/backend/storage/lmgr/lmgr.c
 - The invalidation message processing ensures that any cached relation information is updated if other processes modified the relation
+
+## Simplified Source
+
+```c
+void
+LockRelation(Relation relation, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+    LOCALLOCK *locallock;
+
+    // Set up lock tag for the relation
+    SET_LOCKTAG_RELATION(tag,
+                         relation->rd_lockInfo.lockRelId.dbId,
+                         relation->rd_lockInfo.lockRelId.relId);
+
+    // Acquire the lock
+    LockAcquireResult res = LockAcquireExtended(&tag, lockmode, false, false,
+                                                true, &locallock);
+
+    // Handle cache invalidation if lock was newly acquired
+    if (res != LOCKACQUIRE_ALREADY_CLEAR) {
+        AcceptInvalidationMessages();
+        MarkLockClear(locallock);
+    }
+}
+```

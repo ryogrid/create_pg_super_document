@@ -36,3 +36,26 @@ This function implements the clear callback for heap tuple table slots within th
 - The slot becomes reusable after clearing but retains its tuple descriptor
 - Part of the standard slot lifecycle management in PostgreSQL's executor
 - Critical for preventing memory leaks in tuple processing operations
+
+## Simplified Source
+
+```c
+static void tts_heap_clear(TupleTableSlot *slot) {
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Free the heap tuple if we own it
+    if (TTS_SHOULDFREE(slot)) {
+        heap_freetuple(hslot->tuple);
+        slot->tts_flags &= ~TTS_FLAG_SHOULDFREE;
+    }
+
+    // Reset slot to empty state
+    slot->tts_nvalid = 0;
+    slot->tts_flags |= TTS_FLAG_EMPTY;
+    ItemPointerSetInvalid(&slot->tts_tid);
+
+    // Clear heap-specific fields
+    hslot->off = 0;
+    hslot->tuple = NULL;
+}
+```

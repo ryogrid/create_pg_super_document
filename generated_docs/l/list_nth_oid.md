@@ -44,3 +44,15 @@ This function ensures type safety by asserting that the provided list is actuall
 - No bounds checking beyond what's provided by the underlying list_nth_cell function
 - Part of PostgreSQL's type-safe list manipulation API for object identifier management
 - Calling with a non-OidList or invalid index will result in assertion failure
+
+## Simplified Source
+
+```c
+static inline Oid list_nth_oid(const List *list, int n) {
+    // Verify list is actually an OidList
+    Assert(IsA(list, OidList));
+
+    // Get nth cell and extract OID value
+    return lfirst_oid(list_nth_cell(list, n));
+}
+```

@@ -46,3 +46,56 @@ The function inherits parallel safety characteristics from the input relation, a
 - Extension hooks allow custom distinct path implementations through create_upper_paths_hook
 - Critical for performance of queries with large result sets where duplicate elimination is expensive
 - The choice between different distinct strategies depends on data characteristics, available memory, and sorting costs
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+create_distinct_paths(PlannerInfo *root, RelOptInfo *input_rel,
+                      PathTarget *target)
+{
+    RelOptInfo *distinct_rel;
+
+    // Create the distinct relation for this planning level
+    distinct_rel = fetch_upper_rel(root, UPPERREL_DISTINCT, NULL);
+
+    // Inherit parallel safety and FDW information from input
+    distinct_rel->consider_parallel = input_rel->consider_parallel;
+    distinct_rel->serverid = input_rel->serverid;
+    distinct_rel->userid = input_rel->userid;
+    distinct_rel->useridiscurrent = input_rel->useridiscurrent;
+    distinct_rel->fdwroutine = input_rel->fdwroutine;
+
+    // Build distinct paths from regular input paths
+    create_final_distinct_paths(root, input_rel, distinct_rel);
+
+    // Build distinct paths from partial input paths
+    create_partial_distinct_paths(root, input_rel, distinct_rel, target);
+
+    // Error if no paths could be created
+    if (distinct_rel->pathlist == NIL)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not implement DISTINCT"),
+                 errdetail("Some of the datatypes only support hashing, while others only support sorting.")));
+
+    // Allow FDW to add foreign paths
+    if (distinct_rel->fdwroutine &&
+        distinct_rel->fdwroutine->GetForeignUpperPaths)
+        distinct_rel->fdwroutine->GetForeignUpperPaths(root,
+                                                       UPPERREL_DISTINCT,
+                                                       input_rel,
+                                                       distinct_rel,
+                                                       NULL);
+
+    // Allow extensions to add custom paths
+    if (create_upper_paths_hook)
+        (*create_upper_paths_hook) (root, UPPERREL_DISTINCT, input_rel,
+                                    distinct_rel, NULL);
+
+    // Choose the best paths
+    set_cheapest(distinct_rel);
+
+    return distinct_rel;
+}
+```

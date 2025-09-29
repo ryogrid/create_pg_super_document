@@ -46,3 +46,49 @@ The function creates the necessary sort infrastructure by populating sortColIdx,
 - Automatically enables parallel mode by setting 
 - The merge operation is performed using the sort operators, collations, and null handling specifications computed from the pathkeys
 - Essential for queries that need both parallelism and ordered results, such as ORDER BY clauses or merge joins
+
+## Simplified Source
+
+```c
+static GatherMerge *
+create_gather_merge_plan(PlannerInfo *root, GatherMergePath *best_path)
+{
+    // Build target list and create subplan
+    List *tlist = build_path_tlist(root, &best_path->path);
+    Plan *subplan = create_plan_recurse(root, best_path->subpath, CP_EXACT_TLIST);
+
+    // Create GatherMerge plan node
+    GatherMerge *gm_plan = makeNode(GatherMerge);
+    gm_plan->plan.targetlist = tlist;
+    gm_plan->num_workers = best_path->num_workers;
+
+    // Set up parallel coordination parameter
+    gm_plan->rescan_param = assign_special_exec_param(root);
+
+    // Prepare sort information for merge operation
+    List *pathkeys = best_path->path.pathkeys;
+    Assert(pathkeys != NIL); // GatherMerge requires ordering
+
+    subplan = prepare_sort_from_pathkeys(subplan, pathkeys,
+                                        best_path->subpath->parent->relids,
+                                        gm_plan->sortColIdx, false,
+                                        &gm_plan->numCols,
+                                        &gm_plan->sortColIdx,
+                                        &gm_plan->sortOperators,
+                                        &gm_plan->collations,
+                                        &gm_plan->nullsFirst);
+
+    // Verify subplan is sufficiently sorted
+    if (!pathkeys_contained_in(pathkeys, best_path->subpath->pathkeys))
+        elog(ERROR, "gather merge input not sufficiently sorted");
+
+    // Finalize the plan
+    gm_plan->plan.lefttree = subplan;
+    copy_generic_path_info(&gm_plan->plan, &best_path->path);
+
+    // Enable parallel mode
+    root->glob->parallelModeNeeded = true;
+
+    return gm_plan;
+}
+```

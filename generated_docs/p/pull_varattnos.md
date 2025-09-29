@@ -43,3 +43,20 @@ The function has limited subquery support - it handles already-planned SubPlan n
 - Limited subquery support compared to the pull_varnos family of functions
 - Commonly used for index analysis, statistics creation, and partition attribute handling
 - Essential for column-level dependency analysis in query planning and DDL operations
+
+## Simplified Source
+
+```c
+void
+pull_varattnos(Node *node, Index varno, Bitmapset **varattnos)
+{
+    pull_varattnos_context context;
+
+    context.varattnos = *varattnos;
+    context.varno = varno;
+
+    (void) pull_varattnos_walker(node, &context);
+
+    *varattnos = context.varattnos;
+}
+```

@@ -41,3 +41,42 @@ When either xmin value changes, the function marks the slot as dirty for eventua
 - Critical for preventing premature tuple removal on primary that could break standby queries
 - Handles both normal transaction IDs and special values (bootstrap, frozen) appropriately
 - Located in src/backend/replication/walsender.c:2511-2559
+
+## Simplified Source
+
+```c
+static void PhysicalReplicationSlotNewXmin(TransactionId feedbackXmin, TransactionId feedbackCatalogXmin) {
+    bool changed = false;
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    // Lock slot for atomic updates
+    SpinLockAcquire(&slot->mutex);
+    MyProc->xmin = InvalidTransactionId;
+
+    // Update regular xmin if feedback is newer
+    if (!TransactionIdIsNormal(slot->data.xmin) ||
+        !TransactionIdIsNormal(feedbackXmin) ||
+        TransactionIdPrecedes(slot->data.xmin, feedbackXmin)) {
+        changed = true;
+        slot->data.xmin = feedbackXmin;
+        slot->effective_xmin = feedbackXmin;
+    }
+
+    // Update catalog xmin if feedback is newer
+    if (!TransactionIdIsNormal(slot->data.catalog_xmin) ||
+        !TransactionIdIsNormal(feedbackCatalogXmin) ||
+        TransactionIdPrecedes(slot->data.catalog_xmin, feedbackCatalogXmin)) {
+        changed = true;
+        slot->data.catalog_xmin = feedbackCatalogXmin;
+        slot->effective_catalog_xmin = feedbackCatalogXmin;
+    }
+
+    SpinLockRelease(&slot->mutex);
+
+    // Update global state if anything changed
+    if (changed) {
+        ReplicationSlotMarkDirty();
+        ReplicationSlotsComputeRequiredXmin(false);
+    }
+}
+```

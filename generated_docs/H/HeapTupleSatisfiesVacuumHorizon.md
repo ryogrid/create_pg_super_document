@@ -67,3 +67,86 @@ The function returns HTSV_Result values indicating specific vacuum states:
 The dead_after parameter is crucial for vacuum optimization - [when](../w/when.md) set, it indicates the specific transaction ID that determined the tuple's death. Callers can compare this against various horizons (oldest running transaction, etc.) to make precise vacuum decisions.
 
 The function includes comprehensive hint bit management to optimize future tuple visibility checks, carefully balancing performance with correctness. Special handling for MultiXact scenarios ensures proper behavior in complex locking situations where multiple transactions may have interacted with the same tuple.
+
+## Simplified Source
+
+```c
+HTSV_Result
+HeapTupleSatisfiesVacuumHorizon(HeapTuple htup, Buffer buffer, TransactionId *dead_after)
+{
+    HeapTupleHeader tuple = htup->t_data;
+
+    Assert(ItemPointerIsValid(&htup->t_self));
+    Assert(htup->t_tableOid != InvalidOid);
+    Assert(dead_after != NULL);
+
+    *dead_after = InvalidTransactionId;
+
+    // Check if inserting transaction committed
+    if (!HeapTupleHeaderXminCommitted(tuple)) {
+        if (HeapTupleHeaderXminInvalid(tuple))
+            return HEAPTUPLE_DEAD;
+
+        // Handle current transaction cases
+        if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tuple))) {
+            if (tuple->t_infomask & HEAP_XMAX_INVALID)
+                return HEAPTUPLE_INSERT_IN_PROGRESS;
+            // Check for delete in same transaction
+            if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetUpdateXid(tuple)))
+                return HEAPTUPLE_DELETE_IN_PROGRESS;
+            return HEAPTUPLE_INSERT_IN_PROGRESS;
+        }
+
+        // Check if insertion still in progress
+        if (TransactionIdIsInProgress(HeapTupleHeaderGetRawXmin(tuple)))
+            return HEAPTUPLE_INSERT_IN_PROGRESS;
+
+        // Check if insertion committed or aborted
+        if (TransactionIdDidCommit(HeapTupleHeaderGetRawXmin(tuple))) {
+            SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, HeapTupleHeaderGetRawXmin(tuple));
+        } else {
+            SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+            return HEAPTUPLE_DEAD;
+        }
+    }
+
+    // Inserter committed, now check deleting transaction
+    if (tuple->t_infomask & HEAP_XMAX_INVALID)
+        return HEAPTUPLE_LIVE;
+
+    // Handle locked-only tuples
+    if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask)) {
+        // Tuple is only locked, not deleted
+        return HEAPTUPLE_LIVE;
+    }
+
+    // Handle multi-transaction scenarios
+    if (tuple->t_infomask & HEAP_XMAX_IS_MULTI) {
+        TransactionId xmax = HeapTupleGetUpdateXid(tuple);
+
+        if (TransactionIdIsInProgress(xmax))
+            return HEAPTUPLE_DELETE_IN_PROGRESS;
+        else if (TransactionIdDidCommit(xmax)) {
+            *dead_after = xmax;
+            return HEAPTUPLE_RECENTLY_DEAD;
+        }
+        return HEAPTUPLE_LIVE;
+    }
+
+    // Check simple deletion transaction
+    if (!(tuple->t_infomask & HEAP_XMAX_COMMITTED)) {
+        if (TransactionIdIsInProgress(HeapTupleHeaderGetRawXmax(tuple)))
+            return HEAPTUPLE_DELETE_IN_PROGRESS;
+        else if (TransactionIdDidCommit(HeapTupleHeaderGetRawXmax(tuple))) {
+            SetHintBits(tuple, buffer, HEAP_XMAX_COMMITTED, HeapTupleHeaderGetRawXmax(tuple));
+        } else {
+            SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+            return HEAPTUPLE_LIVE;
+        }
+    }
+
+    // Deleter committed - return transaction ID for horizon comparison
+    *dead_after = HeapTupleHeaderGetRawXmax(tuple);
+    return HEAPTUPLE_RECENTLY_DEAD;
+}
+```

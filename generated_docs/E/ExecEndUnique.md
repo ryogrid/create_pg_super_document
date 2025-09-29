@@ -28,3 +28,12 @@ ExecEndUnique is responsible for the orderly shutdown of a UNIQUE plan node duri
 - Does not require explicit memory deallocation as resources are managed by PostgreSQL's memory context system
 - Simple implementation reflects the stateless nature of the UNIQUE node operation
 - Part of the standard executor node lifecycle: Init -> Execute -> End
+
+## Simplified Source
+
+```c
+void ExecEndUnique(UniqueState *node) {
+    // Shut down the outer subplan
+    ExecEndNode(outerPlanState(node));
+}
+```

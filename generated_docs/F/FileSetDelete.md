@@ -49,3 +49,19 @@ This function is essential for explicit resource management in FileSet operation
 - The function assumes the FileSet structure is valid and properly initialized
 - Delegates actual deletion semantics to PostgreSQL's temporary file management system
 - Critical for preventing resource leaks in long-running operations that create many temporary files
+
+## Simplified Source
+
+```c
+bool
+FileSetDelete(FileSet *fileset, const char *name, bool error_on_failure)
+{
+    char path[MAXPGPATH];
+
+    // Build complete file path
+    FilePath(path, fileset, name);
+
+    // Delete the file and return whether it existed
+    return PathNameDeleteTemporaryFile(path, error_on_failure);
+}
+```

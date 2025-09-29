@@ -54,3 +54,44 @@ This function removes all dependency records from pg_depend where the specified 
 - Part of object redefinition workflow where dependencies must be refreshed
 - Does not affect incoming dependencies (where this object is referenced by others)
 - Critical for maintaining consistency during ALTER operations and object replacements
+
+## Simplified Source
+
+```c
+long deleteDependencyRecordsFor(Oid classId, Oid objectId, bool skipExtensionDeps)
+{
+    long count = 0;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_depend catalog
+    depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Set up scan keys for this object
+    ScanKeyInit(&key[0], Anum_pg_depend_classid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objectId));
+
+    // Scan for dependency records
+    scan = systable_beginscan(depRel, DependDependerIndexId, true, NULL, 2, key);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        // Skip extension dependencies if requested
+        if (skipExtensionDeps &&
+            ((Form_pg_depend) GETSTRUCT(tup))->deptype == DEPENDENCY_EXTENSION)
+            continue;
+
+        // Delete this dependency record
+        CatalogTupleDelete(depRel, &tup->t_self);
+        count++;
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, RowExclusiveLock);
+
+    return count;
+}
+```

@@ -49,3 +49,98 @@ The function creates a new RangeTblEntry for the join, constructs a JoinExpr tha
 - Adds nulling relids to handle nullable variables in outer joins
 - Optimizes by setting mergeJoinCondition to NULL when no NOT MATCHED BY SOURCE actions exist
 - When NOT MATCHED BY SOURCE actions exist, adds "src IS NOT NULL" check to prevent incorrect results during recheck evaluation
+
+## Simplified Source
+
+```c
+void transform_MERGE_to_join(Query *parse) {
+    if (parse->commandType != CMD_MERGE)
+        return;
+
+    // Determine what join type is needed based on MERGE actions
+    bool have_action[NUM_MERGE_MATCH_KINDS] = {false, false, false};
+
+    foreach_node(MergeAction, action, parse->mergeActionList) {
+        if (action->commandType != CMD_NOTHING)
+            have_action[action->matchKind] = true;
+    }
+
+    // Choose join type based on which WHEN clauses exist
+    JoinType jointype;
+    if (have_action[MERGE_WHEN_NOT_MATCHED_BY_SOURCE] &&
+        have_action[MERGE_WHEN_NOT_MATCHED_BY_TARGET])
+        jointype = JOIN_FULL;
+    else if (have_action[MERGE_WHEN_NOT_MATCHED_BY_SOURCE])
+        jointype = JOIN_LEFT;
+    else if (have_action[MERGE_WHEN_NOT_MATCHED_BY_TARGET])
+        jointype = JOIN_RIGHT;
+    else
+        jointype = JOIN_INNER;
+
+    // Create join RTE with appropriate type
+    RangeTblEntry *joinrte = makeNode(RangeTblEntry);
+    joinrte->rtekind = RTE_JOIN;
+    joinrte->jointype = jointype;
+    joinrte->eref = makeAlias("*MERGE*", NIL);
+
+    // Add to range table and get index
+    parse->rtable = lappend(parse->rtable, joinrte);
+    int joinrti = list_length(parse->rtable);
+
+    // Setup target relation (with any quals)
+    RangeTblRef *target_rtr = makeNode(RangeTblRef);
+    target_rtr->rtindex = parse->mergeTargetRelation;
+    FromExpr *target = makeFromExpr(list_make1(target_rtr), parse->jointree->quals);
+
+    // Get source relation
+    Node *source = linitial(parse->jointree->fromlist);
+    int sourcerti = IsA(source, RangeTblRef) ?
+        ((RangeTblRef *) source)->rtindex :
+        ((JoinExpr *) source)->rtindex;
+
+    // Create the join expression
+    JoinExpr *joinexpr = makeNode(JoinExpr);
+    joinexpr->jointype = jointype;
+    joinexpr->larg = (Node *) target;
+    joinexpr->rarg = source;
+    joinexpr->quals = parse->mergeJoinCondition;
+    joinexpr->rtindex = joinrti;
+
+    // Replace the query's fromlist with our new join
+    parse->jointree->fromlist = list_make1(joinexpr);
+    parse->jointree->quals = NULL;
+
+    // Handle nullability for outer joins
+    if (jointype == JOIN_LEFT || jointype == JOIN_FULL) {
+        // Mark source vars as nullable in join condition and actions
+        parse->mergeJoinCondition = add_nulling_relids(
+            parse->mergeJoinCondition,
+            bms_make_singleton(sourcerti),
+            bms_make_singleton(joinrti));
+
+        foreach_node(MergeAction, action, parse->mergeActionList) {
+            action->qual = add_nulling_relids(action->qual,
+                bms_make_singleton(sourcerti), bms_make_singleton(joinrti));
+            action->targetList = (List *) add_nulling_relids(
+                (Node *) action->targetList,
+                bms_make_singleton(sourcerti), bms_make_singleton(joinrti));
+        }
+    }
+
+    // Add source NULL check for NOT MATCHED BY SOURCE handling
+    if (have_action[MERGE_WHEN_NOT_MATCHED_BY_SOURCE]) {
+        Var *src_var = makeWholeRowVar(rt_fetch(sourcerti, parse->rtable),
+                                       sourcerti, 0, false);
+        src_var->varnullingrels = bms_make_singleton(joinrti);
+
+        NullTest *ntest = makeNode(NullTest);
+        ntest->arg = (Expr *) src_var;
+        ntest->nulltesttype = IS_NOT_NULL;
+
+        parse->mergeJoinCondition = (Node *) make_and_qual(
+            (Node *) ntest, parse->mergeJoinCondition);
+    } else {
+        parse->mergeJoinCondition = NULL;  // Not needed
+    }
+}
+```

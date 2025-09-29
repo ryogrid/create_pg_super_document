@@ -39,3 +39,14 @@ This function is essential for proper cleanup and must be called after using  to
 - Failure to call this function can result in error context stack corruption
 - Part of the cleanup phase in the setup → call → cancel pattern for error context management
 - Location: src/backend/parser/parse_node.c:156-169
+
+## Simplified Source
+
+```c
+void
+cancel_parser_errposition_callback(ParseCallbackState *pcbstate)
+{
+    // Pop the error context stack to restore previous state
+    error_context_stack = pcbstate->errcallback.previous;
+}
+```

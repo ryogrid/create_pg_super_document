@@ -47,3 +47,62 @@ For example, given , the function generates the subplan target:  where  will be 
 - The function results in some redundant cost calculation as noted in the code comment
 - Essential for proper query plan structure when queries contain both grouping and non-grouping elements
 - Handles complex expressions by flattening them into component variables for subplan computation
+
+## Simplified Source
+
+```c
+static PathTarget *make_group_input_target(PlannerInfo *root, PathTarget *final_target)
+{
+    Query *parse = root->parse;
+    PathTarget *input_target;
+    List *non_group_cols;
+    List *non_group_vars;
+    int i;
+    ListCell *lc;
+
+    // Create new empty target and list for non-grouping columns
+    input_target = create_empty_pathtarget();
+    non_group_cols = NIL;
+
+    // Process each expression in the final target
+    i = 0;
+    foreach(lc, final_target->exprs)
+    {
+        Expr *expr = (Expr *) lfirst(lc);
+        Index sgref = get_pathtarget_sortgroupref(final_target, i);
+
+        // Check if this is a grouping column
+        if (sgref && root->processed_groupClause &&
+            get_sortgroupref_clause_noerr(sgref, root->processed_groupClause) != NULL)
+        {
+            // Grouping column: add as-is to preserve grouping identity
+            add_column_to_pathtarget(input_target, expr, sgref);
+        }
+        else
+        {
+            // Non-grouping column: collect for variable extraction
+            non_group_cols = lappend(non_group_cols, expr);
+        }
+
+        i++;
+    }
+
+    // Add HAVING clause variables if present
+    if (parse->havingQual)
+        non_group_cols = lappend(non_group_cols, parse->havingQual);
+
+    // Extract variables from non-grouping expressions and HAVING
+    non_group_vars = pull_var_clause((Node *) non_group_cols,
+                                    PVC_RECURSE_AGGREGATES |
+                                    PVC_RECURSE_WINDOWFUNCS |
+                                    PVC_INCLUDE_PLACEHOLDERS);
+    add_new_columns_to_pathtarget(input_target, non_group_vars);
+
+    // Clean up temporary lists
+    list_free(non_group_vars);
+    list_free(non_group_cols);
+
+    // Set costs and return the target
+    return set_pathtarget_cost_width(root, input_target);
+}
+```

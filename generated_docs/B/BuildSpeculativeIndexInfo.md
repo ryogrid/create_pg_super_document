@@ -9,19 +9,7 @@ BuildSpeculativeIndexInfo augments an IndexInfo structure with additional metada
 ## Definition
 
 ```c
-struct values[] and isnull[] arrays for a new index tuple.
- *
- *	indexInfo		Info about the index
- *	slot			Heap tuple for which we must prepare an index entry
- *	estate			executor state for evaluating any index expressions
- *	values			Array of index Datums (output area)
- *	isnull			Array of is-null indicators (output area)
- *
- * When there are no index expressions, estate may be NULL.  Otherwise it
- * must be supplied, *and* the ecxt_scantuple slot of its per-tuple expr
- * context must point to the heap tuple passed in.
- *
- * Notice we don't actually call index_form_tuple() here;
+void BuildSpeculativeIndexInfo(Relation index, IndexInfo *ii)
 ```
 ## Detailed Description
 BuildSpeculativeIndexInfo extends an existing IndexInfo structure with specialized information needed to support speculative insertion in unique B-tree indexes. This function is specifically designed for PostgreSQL's speculative insertion mechanism, which allows for optimistic insertion followed by uniqueness checking. The function allocates and populates arrays for unique operators, procedure OIDs, and strategy numbers that are used during the speculative insertion process. This processing is done separately from BuildIndexInfo() to avoid overhead in common non-speculative cases, ensuring optimal performance for regular index operations.
@@ -46,3 +34,46 @@ BuildSpeculativeIndexInfo extends an existing IndexInfo structure with specializ
 - Uses BTEqualStrategyNumber strategy for all key attributes
 - Performs validation to ensure required operators exist in the opfamily
 - This function is part of PostgreSQL's speculative insertion optimization that reduces lock contention during concurrent unique constraint checking
+
+## Simplified Source
+
+```c
+void BuildSpeculativeIndexInfo(Relation index, IndexInfo *ii)
+{
+    int indnkeyatts;
+    int i;
+
+    indnkeyatts = IndexRelationGetNumberOfKeyAttributes(index);
+
+    // Verify this is a unique B-tree index
+    Assert(ii->ii_Unique);
+
+    if (index->rd_rel->relam != BTREE_AM_OID)
+        elog(ERROR, "unexpected non-btree speculative unique index");
+
+    // Allocate arrays for uniqueness checking metadata
+    ii->ii_UniqueOps = (Oid *) palloc(sizeof(Oid) * indnkeyatts);
+    ii->ii_UniqueProcs = (Oid *) palloc(sizeof(Oid) * indnkeyatts);
+    ii->ii_UniqueStrats = (uint16 *) palloc(sizeof(uint16) * indnkeyatts);
+
+    // Populate arrays with equality operators and procedures
+    for (i = 0; i < indnkeyatts; i++)
+    {
+        ii->ii_UniqueStrats[i] = BTEqualStrategyNumber;
+
+        // Get equality operator from opfamily
+        ii->ii_UniqueOps[i] = get_opfamily_member(index->rd_opfamily[i],
+                                                  index->rd_opcintype[i],
+                                                  index->rd_opcintype[i],
+                                                  ii->ii_UniqueStrats[i]);
+
+        if (!OidIsValid(ii->ii_UniqueOps[i]))
+            elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+                 ii->ii_UniqueStrats[i], index->rd_opcintype[i],
+                 index->rd_opcintype[i], index->rd_opfamily[i]);
+
+        // Get procedure OID for the operator
+        ii->ii_UniqueProcs[i] = get_opcode(ii->ii_UniqueOps[i]);
+    }
+}
+```

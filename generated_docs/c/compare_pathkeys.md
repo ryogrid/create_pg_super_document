@@ -39,3 +39,34 @@ The comparison algorithm first checks for identical list pointers as an optimiza
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's query optimization process, as it enables the planner to determine which paths provide better sort ordering. The canonical nature of pathkeys allows for efficient pointer-based equality checking rather than deep structural comparison.
+
+## Simplified Source
+
+```c
+PathKeysComparison compare_pathkeys(List *keys1, List *keys2)
+{
+    // Quick check for identical lists (including both NULL)
+    if (keys1 == keys2)
+        return PATHKEYS_EQUAL;
+
+    // Compare pathkeys element by element
+    ListCell *key1, *key2;
+    forboth(key1, keys1, key2, keys2)
+    {
+        PathKey *pathkey1 = (PathKey *) lfirst(key1);
+        PathKey *pathkey2 = (PathKey *) lfirst(key2);
+
+        // Pathkeys are canonical, so pointer comparison is sufficient
+        if (pathkey1 != pathkey2)
+            return PATHKEYS_DIFFERENT;
+    }
+
+    // Determine which list is longer (or if they're the same length)
+    if (key1 != NULL)
+        return PATHKEYS_BETTER1;  // keys1 has more elements
+    if (key2 != NULL)
+        return PATHKEYS_BETTER2;  // keys2 has more elements
+
+    return PATHKEYS_EQUAL;  // Same length and all elements matched
+}
+```

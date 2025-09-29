@@ -40,3 +40,59 @@ XLogSaveBufferForHint handles WAL logging for hint bit modifications on pages th
 - Returns WAL record LSN if written, InvalidXLogRecPtr if no write needed
 - Multiple concurrent backends may write same page (acceptable for correctness)
 - Uses XLOG_FPI_FOR_HINT WAL record type for hint-related full page images
+
+## Simplified Source
+
+```c
+XLogRecPtr XLogSaveBufferForHint(Buffer buffer, bool buffer_std) {
+    XLogRecPtr recptr = InvalidXLogRecPtr;
+    XLogRecPtr lsn;
+    XLogRecPtr RedoRecPtr;
+
+    // Ensure checkpoint cannot change our view
+    Assert((MyProc->delayChkptFlags & DELAY_CHKPT_START) != 0);
+
+    // Get current redo checkpoint pointer
+    RedoRecPtr = GetRedoRecPtr();
+
+    // Get page LSN atomically (with buffer header lock)
+    lsn = BufferGetLSNAtomic(buffer);
+
+    // Only write WAL if page hasn't been checkpointed yet
+    if (lsn <= RedoRecPtr) {
+        int flags = 0;
+        PGAlignedBlock copied_buffer;
+        char *origdata = (char *) BufferGetBlock(buffer);
+        RelFileLocator rlocator;
+        ForkNumber forkno;
+        BlockNumber blkno;
+
+        // Copy buffer to avoid concurrent modifications
+        if (buffer_std) {
+            // Optimize standard pages by skipping hole between pd_lower/pd_upper
+            Page page = BufferGetPage(buffer);
+            uint16 lower = ((PageHeader) page)->pd_lower;
+            uint16 upper = ((PageHeader) page)->pd_upper;
+
+            memcpy(copied_buffer.data, origdata, lower);
+            memcpy(copied_buffer.data + upper, origdata + upper, BLCKSZ - upper);
+        } else {
+            // Copy entire page for non-standard layouts
+            memcpy(copied_buffer.data, origdata, BLCKSZ);
+        }
+
+        // Build and insert WAL record
+        XLogBeginInsert();
+
+        if (buffer_std)
+            flags |= REGBUF_STANDARD;
+
+        BufferGetTag(buffer, &rlocator, &forkno, &blkno);
+        XLogRegisterBlock(0, &rlocator, forkno, blkno, copied_buffer.data, flags);
+
+        recptr = XLogInsert(RM_XLOG_ID, XLOG_FPI_FOR_HINT);
+    }
+
+    return recptr;
+}
+```

@@ -40,3 +40,21 @@ The key difference from `is_member_of_role` is that superusers are not automatic
 - Primarily used in contexts where superuser privilege escalation should not apply
 - This variant is more appropriate for authentication and role management scenarios where explicit membership is required
 - Located in `src/backend/utils/adt/acl.c:5259-5280`
+
+## Simplified Source
+
+```c
+bool
+is_member_of_role_nosuper(Oid member, Oid role)
+{
+    // Quick check: member is same as target role
+    if (member == role)
+        return true;
+
+    // Find all roles that member belongs to (with recursion)
+    // Check if target role is among them
+    return list_member_oid(roles_is_member_of(member, ROLERECURSE_MEMBERS,
+                                              InvalidOid, NULL),
+                           role);
+}
+```

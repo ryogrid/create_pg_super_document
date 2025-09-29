@@ -54,3 +54,90 @@ This function is the core execution engine for individual after-trigger events. 
 - Critical for cross-partition update support in partitioned tables
 - The function is highly optimized for performance with caching mechanisms
 - Proper handling of foreign table trigger execution through FDW interfaces
+
+## Simplified Source
+
+```c
+static void
+AfterTriggerExecute(EState *estate, AfterTriggerEvent event, ResultRelInfo *relInfo,
+                    ResultRelInfo *src_relInfo, ResultRelInfo *dst_relInfo,
+                    TriggerDesc *trigdesc, FmgrInfo *finfo, Instrumentation *instr,
+                    MemoryContext per_tuple_context, TupleTableSlot *trig_tuple_slot1,
+                    TupleTableSlot *trig_tuple_slot2)
+{
+    // Get trigger info from event
+    AfterTriggerShared evtshared = GetTriggerSharedData(event);
+    Oid tgoid = evtshared->ats_tgoid;
+    TriggerData LocTriggerData = {0};
+    int tgindx;
+
+    // Find trigger in descriptor (may have been dropped)
+    if (!trigdesc) return;
+    for (tgindx = 0; tgindx < trigdesc->numtriggers; tgindx++) {
+        if (trigdesc->triggers[tgindx].tgoid == tgoid) {
+            LocTriggerData.tg_trigger = &(trigdesc->triggers[tgindx]);
+            break;
+        }
+    }
+    if (!LocTriggerData.tg_trigger) return;
+
+    // Start timing if doing EXPLAIN ANALYZE
+    if (instr) InstrStartNode(instr + tgindx);
+
+    // Fetch required tuples based on event type
+    switch (event->ate_flags & AFTER_TRIGGER_TUP_BITS) {
+        case AFTER_TRIGGER_FDW_FETCH:
+            // Fetch from foreign data wrapper tuplestore
+            // ... fetch old/new tuples for FDW
+            break;
+
+        default:
+            // Fetch from heap using CTIDs
+            if (ItemPointerIsValid(&(event->ate_ctid1))) {
+                // Fetch old tuple, handle partition mapping if needed
+                // ... fetch and convert tuple
+            }
+            if (ItemPointerIsValid(&(event->ate_ctid2))) {
+                // Fetch new tuple for UPDATE
+                // ... fetch and convert tuple
+            }
+            break;
+    }
+
+    // Setup transition tables if trigger uses them
+    if (evtshared->ats_table) {
+        if (LocTriggerData.tg_trigger->tgoldtable) {
+            // Setup old table reference
+            evtshared->ats_table->closed = true;
+        }
+        if (LocTriggerData.tg_trigger->tgnewtable) {
+            // Setup new table reference
+            evtshared->ats_table->closed = true;
+        }
+    }
+
+    // Setup trigger context
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = evtshared->ats_event & (TRIGGER_EVENT_OPMASK | TRIGGER_EVENT_ROW);
+    LocTriggerData.tg_relation = relInfo->ri_RelationDesc;
+
+    // Reset per-tuple memory context
+    MemoryContextReset(per_tuple_context);
+
+    // Execute the trigger function
+    HeapTuple rettuple = ExecCallTriggerFunc(&LocTriggerData, tgindx, finfo,
+                                             NULL, per_tuple_context);
+
+    // Clean up returned tuple if needed
+    if (rettuple && rettuple != LocTriggerData.tg_trigtuple &&
+        rettuple != LocTriggerData.tg_newtuple) {
+        heap_freetuple(rettuple);
+    }
+
+    // Release resources and clear slots
+    // ... cleanup code
+
+    // Stop timing if doing EXPLAIN ANALYZE
+    if (instr) InstrStopNode(instr + tgindx, 1);
+}
+```

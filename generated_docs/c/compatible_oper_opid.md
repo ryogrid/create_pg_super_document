@@ -38,3 +38,30 @@ The `compatible_oper_opid` function is a simplified interface to `compatible_ope
 - More convenient than compatible_oper when only the operator OID is needed
 - Located in src/backend/parser/parse_oper.c:487-517
 - Part of PostgreSQL's operator resolution API family
+
+## Simplified Source
+
+```c
+Oid
+compatible_oper_opid(List *op, Oid arg1, Oid arg2, bool noError)
+{
+    Operator optup;
+    Oid result;
+
+    // Find compatible operator using main resolution function
+    optup = compatible_oper(NULL, op, arg1, arg2, noError, -1);
+
+    if (optup != NULL)
+    {
+        // Extract operator OID from syscache entry
+        result = oprid(optup);
+
+        // Clean up syscache entry
+        ReleaseSysCache(optup);
+        return result;
+    }
+
+    // No compatible operator found
+    return InvalidOid;
+}
+```

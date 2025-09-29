@@ -61,3 +61,68 @@ This function performs a crucial optimization by rearranging the GROUP BY clause
 - **Index Utilization**: Enables better use of existing indexes that match the reordered GROUP BY
 - **Parser Integration**: Unlike distinctClause, GROUP BY requires this processing since parser doesnt enforce ORDER BY matching
 - Located in src/backend/optimizer/plan/planner.c:2884-2979
+
+## Simplified Source
+
+```c
+static List *
+preprocess_groupclause(PlannerInfo *root, List *force)
+{
+    Query      *parse = root->parse;
+    List       *new_groupclause = NIL;
+
+    // Handle grouping sets with forced ordering
+    if (force) {
+        foreach(sl, force) {
+            Index ref = lfirst_int(sl);
+            SortGroupClause *cl = get_sortgroupref_clause(ref, parse->groupClause);
+            new_groupclause = lappend(new_groupclause, cl);
+        }
+        return new_groupclause;
+    }
+
+    // If no ORDER BY, keep original GROUP BY order
+    if (parse->sortClause == NIL)
+        return list_copy(parse->groupClause);
+
+    // Build GROUP BY prefix that matches ORDER BY
+    foreach(sl, parse->sortClause) {
+        SortGroupClause *sc = lfirst_node(SortGroupClause, sl);
+
+        // Look for matching GROUP BY clause
+        foreach(gl, parse->groupClause) {
+            SortGroupClause *gc = lfirst_node(SortGroupClause, gl);
+
+            if (equal(gc, sc)) {
+                new_groupclause = lappend(new_groupclause, gc);
+                break;
+            }
+        }
+        if (gl == NULL)
+            break; // No match found, stop prefix matching
+    }
+
+    // If no matches at all, keep original order
+    if (new_groupclause == NIL)
+        return list_copy(parse->groupClause);
+
+    // Add remaining GROUP BY items
+    foreach(gl, parse->groupClause) {
+        SortGroupClause *gc = lfirst_node(SortGroupClause, gl);
+
+        // Skip if already included
+        if (list_member_ptr(new_groupclause, gc))
+            continue;
+
+        // Check if sortable - give up if not
+        if (!OidIsValid(gc->sortop))
+            return list_copy(parse->groupClause);
+
+        new_groupclause = lappend(new_groupclause, gc);
+    }
+
+    // Verify we have all original clauses
+    Assert(list_length(parse->groupClause) == list_length(new_groupclause));
+    return new_groupclause;
+}
+```

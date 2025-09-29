@@ -65,3 +65,73 @@ The function also sets up a GroupPathExtraData structure containing flags and me
 - Partially grouped paths are currently only built as partial paths requiring Gather nodes
 - The executor limitations around DISTINCT/ORDER BY aggregates with hashing are enforced here
 - Partitionwise aggregation support is conditional on user settings and query characteristics
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+create_grouping_paths(PlannerInfo *root,
+                      RelOptInfo *input_rel,
+                      PathTarget *target,
+                      bool target_parallel_safe,
+                      grouping_sets_data *gd)
+{
+    Query *parse = root->parse;
+    RelOptInfo *grouped_rel;
+    RelOptInfo *partially_grouped_rel;
+    AggClauseCosts agg_costs;
+
+    // Get aggregate cost estimates
+    MemSet(&agg_costs, 0, sizeof(AggClauseCosts));
+    get_agg_clause_costs(root, AGGSPLIT_SIMPLE, &agg_costs);
+
+    // Create grouping relation to hold aggregated paths
+    grouped_rel = make_grouping_rel(root, input_rel, target,
+                                    target_parallel_safe, parse->havingQual);
+
+    // Handle degenerate vs ordinary grouping
+    if (is_degenerate_grouping(root))
+        create_degenerate_grouping_paths(root, input_rel, grouped_rel);
+    else
+    {
+        int flags = 0;
+        GroupPathExtraData extra;
+
+        // Determine if sort-based grouping is possible
+        if ((gd && gd->rollups != NIL) ||
+            grouping_is_sortable(root->processed_groupClause))
+            flags |= GROUPING_CAN_USE_SORT;
+
+        // Determine if hash-based grouping is possible
+        if ((parse->groupClause != NIL &&
+             root->numOrderedAggs == 0 &&
+             (gd ? gd->any_hashable : grouping_is_hashable(root->processed_groupClause))))
+            flags |= GROUPING_CAN_USE_HASH;
+
+        // Determine if partial aggregation is possible
+        if (can_partial_agg(root))
+            flags |= GROUPING_CAN_PARTIAL_AGG;
+
+        // Set up extra data for path creation
+        extra.flags = flags;
+        extra.target_parallel_safe = target_parallel_safe;
+        extra.havingQual = parse->havingQual;
+        extra.targetList = parse->targetList;
+        extra.partial_costs_set = false;
+
+        // Determine partitionwise aggregation support
+        if (enable_partitionwise_aggregate && !parse->groupingSets)
+            extra.patype = PARTITIONWISE_AGGREGATE_FULL;
+        else
+            extra.patype = PARTITIONWISE_AGGREGATE_NONE;
+
+        // Create the actual grouping paths
+        create_ordinary_grouping_paths(root, input_rel, grouped_rel,
+                                       &agg_costs, gd, &extra,
+                                       &partially_grouped_rel);
+    }
+
+    set_cheapest(grouped_rel);
+    return grouped_rel;
+}
+```

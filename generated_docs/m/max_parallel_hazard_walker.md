@@ -82,3 +82,80 @@ The function uses PostgreSQL's standard tree walking infrastructure ( and ) to e
 - SELECT FOR UPDATE/SHARE queries are immediately marked as unsafe without further analysis
 - The function handles both completely unplanned trees (with Query nodes) and planned expression trees
 - Located in src/backend/optimizer/util/clauses.c:829-992
+
+## Simplified Source
+
+```c
+static bool max_parallel_hazard_walker(Node *node, max_parallel_hazard_context *context) {
+    if (node == NULL) return false;
+
+    // Check for hazardous functions in the current node
+    if (check_functions_in_node(node, max_parallel_hazard_checker, context)) {
+        return true;
+    }
+
+    // Handle specific node types with known parallel restrictions
+    if (IsA(node, CoerceToDomain)) {
+        return max_parallel_hazard_test(PROPARALLEL_RESTRICTED, context);
+    }
+    else if (IsA(node, NextValueExpr)) {
+        return max_parallel_hazard_test(PROPARALLEL_UNSAFE, context);
+    }
+    else if (IsA(node, WindowFunc)) {
+        // Window functions are restricted due to potential ordering issues
+        return max_parallel_hazard_test(PROPARALLEL_RESTRICTED, context);
+    }
+    else if (IsA(node, RestrictInfo)) {
+        // Transparent wrapper - recurse into the clause
+        RestrictInfo *rinfo = (RestrictInfo *) node;
+        return max_parallel_hazard_walker((Node *) rinfo->clause, context);
+    }
+    else if (IsA(node, SubLink)) {
+        return max_parallel_hazard_test(PROPARALLEL_RESTRICTED, context);
+    }
+    else if (IsA(node, SubPlan)) {
+        // Handle SubPlan with special parameter safety tracking
+        SubPlan *subplan = (SubPlan *) node;
+        if (!subplan->parallel_safe &&
+            max_parallel_hazard_test(PROPARALLEL_RESTRICTED, context)) {
+            return true;
+        }
+
+        // Temporarily add subplan parameters to safe list
+        List *save_safe_param_ids = context->safe_param_ids;
+        context->safe_param_ids = list_concat_copy(context->safe_param_ids, subplan->paramIds);
+
+        // Check testexpr and args
+        bool result = max_parallel_hazard_walker(subplan->testexpr, context) ||
+                     max_parallel_hazard_walker((Node *) subplan->args, context);
+
+        // Restore original safe parameter list
+        list_free(context->safe_param_ids);
+        context->safe_param_ids = save_safe_param_ids;
+        return result;
+    }
+    else if (IsA(node, Param)) {
+        // Handle parameter safety based on type and safe parameter list
+        Param *param = (Param *) node;
+        if (param->paramkind == PARAM_EXTERN) return false;
+
+        if (param->paramkind != PARAM_EXEC ||
+            !list_member_int(context->safe_param_ids, param->paramid)) {
+            return max_parallel_hazard_test(PROPARALLEL_RESTRICTED, context);
+        }
+        return false;
+    }
+    else if (IsA(node, Query)) {
+        // Handle subqueries - SELECT FOR UPDATE/SHARE is unsafe
+        Query *query = (Query *) node;
+        if (query->rowMarks != NULL) {
+            context->max_hazard = PROPARALLEL_UNSAFE;
+            return true;
+        }
+        return query_tree_walker(query, max_parallel_hazard_walker, context, 0);
+    }
+
+    // Default: recurse into child nodes
+    return expression_tree_walker(node, max_parallel_hazard_walker, context);
+}
+```

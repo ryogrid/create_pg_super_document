@@ -60,3 +60,42 @@ The optimization and canonicalization steps are essential because the planner co
 - Critical for partial index optimization and query plan generation
 - The implicit-AND format simplifies planner logic for predicate matching
 - Located in src/backend/utils/cache/relcache.c:5156-5248
+
+## Simplified Source
+
+```c
+List *RelationGetIndexPredicate(Relation relation) {
+    // Return cached result if already computed
+    if (relation->rd_indpred)
+        return copyObject(relation->rd_indpred);
+
+    // Return NIL if not an index or no predicate
+    if (relation->rd_indextuple == NULL ||
+        heap_attisnull(relation->rd_indextuple, Anum_pg_index_indpred, NULL))
+        return NIL;
+
+    // Get the predicate string from pg_index.indpred
+    Datum predDatum = heap_getattr(relation->rd_indextuple,
+                                  Anum_pg_index_indpred,
+                                  GetPgIndexDescriptor(),
+                                  &isnull);
+    char *predString = TextDatumGetCString(predDatum);
+
+    // Parse the string into a node tree
+    List *result = (List *) stringToNode(predString);
+    pfree(predString);
+
+    // Optimize and canonicalize for planner compatibility
+    result = (List *) eval_const_expressions(NULL, (Node *) result);
+    result = (List *) canonicalize_qual((Expr *) result, false);
+    result = make_ands_implicit((Expr *) result);
+    fix_opfuncids((Node *) result);
+
+    // Cache the result in relation's context
+    MemoryContext oldcxt = MemoryContextSwitchTo(relation->rd_indexcxt);
+    relation->rd_indpred = copyObject(result);
+    MemoryContextSwitchTo(oldcxt);
+
+    return result;
+}
+```

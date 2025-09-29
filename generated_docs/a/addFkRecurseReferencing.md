@@ -84,3 +84,103 @@ Key features include constraint reuse optimization (avoiding duplicate constrain
 - The function efficiently manages the trigger catalog relation during partition processing to avoid excessive open/close operations
 - Memory management includes proper cleanup of attribute maps and copied objects
 - Phase 3 validation is only scheduled for regular relations that require it (not partitioned tables themselves)
+
+## Simplified Source
+
+```c
+static void addFkRecurseReferencing(List **wqueue, Constraint *fkconstraint, Relation rel,
+                                   Relation pkrel, Oid indexOid, Oid parentConstr,
+                                   int numfks, int16 *pkattnum, int16 *fkattnum,
+                                   Oid *pfeqoperators, Oid *ppeqoperators, Oid *ffeqoperators,
+                                   int numfkdelsetcols, int16 *fkdelsetcols,
+                                   bool old_check_ok, LOCKMODE lockmode,
+                                   Oid parentInsTrigger, Oid parentUpdTrigger)
+{
+    Oid insertTriggerOid, updateTriggerOid;
+
+    // Validate preconditions
+    Assert(OidIsValid(parentConstr));
+    Assert(CheckRelationLockedByMe(rel, ShareRowExclusiveLock, true));
+    Assert(CheckRelationLockedByMe(pkrel, ShareRowExclusiveLock, true));
+
+    // Foreign tables are not supported
+    if (rel->rd_rel->relkind == RELKIND_FOREIGN_TABLE)
+        ereport(ERROR, "foreign key constraints are not supported on foreign tables");
+
+    // Create check triggers for this relation
+    createForeignKeyCheckTriggers(RelationGetRelid(rel), RelationGetRelid(pkrel),
+                                 fkconstraint, parentConstr, indexOid,
+                                 parentInsTrigger, parentUpdTrigger,
+                                 &insertTriggerOid, &updateTriggerOid);
+
+    if (rel->rd_rel->relkind == RELKIND_RELATION) {
+        // For regular tables: schedule validation if needed
+        if (wqueue && !old_check_ok && !fkconstraint->skip_validation) {
+            NewConstraint *newcon = palloc0(sizeof(NewConstraint));
+            AlteredTableInfo *tab = ATGetQueueEntry(wqueue, rel);
+
+            // Set up validation task
+            newcon->name = get_constraint_name(parentConstr);
+            newcon->contype = CONSTR_FOREIGN;
+            newcon->refrelid = RelationGetRelid(pkrel);
+            newcon->refindid = indexOid;
+            newcon->conid = parentConstr;
+            newcon->qual = (Node *) fkconstraint;
+
+            tab->constraints = lappend(tab->constraints, newcon);
+        }
+    }
+    else if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        // For partitioned tables: recurse to each partition
+        PartitionDesc pd = RelationGetPartitionDesc(rel, true);
+        Relation trigrel = table_open(TriggerRelationId, RowExclusiveLock);
+
+        for (int i = 0; i < pd->nparts; i++) {
+            Oid partitionId = pd->oids[i];
+            Relation partition = table_open(partitionId, lockmode);
+            AttrNumber mapped_fkattnum[INDEX_MAX_KEYS];
+            bool attached = false;
+
+            // Map attributes from parent to partition
+            AttrMap *attmap = build_attrmap_by_name(RelationGetDescr(partition),
+                                                   RelationGetDescr(rel), false);
+            for (int j = 0; j < numfks; j++)
+                mapped_fkattnum[j] = attmap->attnums[fkattnum[j] - 1];
+
+            // Try to reuse existing compatible constraint
+            List *partFKs = copyObject(RelationGetFKeyList(partition));
+            foreach(cell, partFKs) {
+                ForeignKeyCacheInfo *fk = lfirst_node(ForeignKeyCacheInfo, cell);
+                if (tryAttachPartitionForeignKey(fk, partitionId, parentConstr,
+                                               numfks, mapped_fkattnum, pkattnum,
+                                               pfeqoperators, insertTriggerOid,
+                                               updateTriggerOid, trigrel)) {
+                    attached = true;
+                    break;
+                }
+            }
+
+            if (!attached) {
+                // Create new constraint for this partition
+                ObjectAddress address = addFkConstraint(addFkReferencingSide,
+                                                      fkconstraint->conname, fkconstraint,
+                                                      partition, pkrel, indexOid, parentConstr,
+                                                      numfks, pkattnum, mapped_fkattnum,
+                                                      pfeqoperators, ppeqoperators, ffeqoperators,
+                                                      numfkdelsetcols, fkdelsetcols, true);
+
+                // Recursively process this partition
+                addFkRecurseReferencing(wqueue, fkconstraint, partition, pkrel, indexOid,
+                                      address.objectId, numfks, pkattnum, mapped_fkattnum,
+                                      pfeqoperators, ppeqoperators, ffeqoperators,
+                                      numfkdelsetcols, fkdelsetcols, old_check_ok, lockmode,
+                                      insertTriggerOid, updateTriggerOid);
+            }
+
+            table_close(partition, NoLock);
+        }
+
+        table_close(trigrel, RowExclusiveLock);
+    }
+}
+```

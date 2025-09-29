@@ -40,3 +40,12 @@ This function serves as a convenient wrapper around `expression_returns_set_walk
 - The function is commonly used in the optimizer to determine if additional projection steps are needed
 - Returns false for NULL input, treating it as a non-set-returning case
 - Critical for proper handling of functions like generate_series(), unnest(), and other set-returning functions in SQL queries
+
+## Simplified Source
+
+```c
+bool expression_returns_set(Node *clause) {
+    // Delegate to walker function to check for set-returning expressions
+    return expression_returns_set_walker(clause, NULL);
+}
+```

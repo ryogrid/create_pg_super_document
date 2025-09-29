@@ -53,3 +53,89 @@ The function handles security by switching to the table owner's userid and restr
 - Security context switching ensures index functions run with appropriate privileges
 - Progress reporting provides visibility into long-running validation operations
 - Maintains ShareUpdateExclusiveLock on the heap and RowExclusiveLock on the index during validation
+
+## Simplified Source
+
+```c
+void
+validate_index(Oid heapId, Oid indexId, Snapshot snapshot)
+{
+    Relation heapRelation, indexRelation;
+    IndexInfo *indexInfo;
+    IndexVacuumInfo ivinfo;
+    ValidateIndexState state;
+    Oid save_userid;
+    int save_sec_context;
+    int save_nestlevel;
+
+    // Update progress reporting
+    pgstat_progress_update_multi_param(5, progress_index,
+        {PROGRESS_CREATEIDX_PHASE_VALIDATE_IDXSCAN, 0, 0, 0, 0});
+
+    // Open and lock relations
+    heapRelation = table_open(heapId, ShareUpdateExclusiveLock);
+    indexRelation = index_open(indexId, RowExclusiveLock);
+
+    // Switch to table owner's security context
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(heapRelation->rd_rel->relowner,
+                           save_sec_context | SECURITY_RESTRICTED_OPERATION);
+    save_nestlevel = NewGUCNestLevel();
+    RestrictSearchPath();
+
+    // Build index information structure
+    indexInfo = BuildIndexInfo(indexRelation);
+    indexInfo->ii_Concurrent = true;
+
+    // Set up index vacuum info
+    ivinfo.index = indexRelation;
+    ivinfo.heaprel = heapRelation;
+    ivinfo.analyze_only = false;
+    ivinfo.report_progress = true;
+    ivinfo.estimated_count = true;
+    ivinfo.message_level = DEBUG2;
+    ivinfo.num_heap_tuples = heapRelation->rd_rel->reltuples;
+    ivinfo.strategy = NULL;
+
+    // Initialize tuplesort for TID collection
+    // Use int8 encoding for better performance than direct TID sorting
+    state.tuplesort = tuplesort_begin_datum(INT8OID, Int8LessOperator,
+                                            InvalidOid, false,
+                                            maintenance_work_mem,
+                                            NULL, TUPLESORT_NONE);
+    state.htups = state.itups = state.tups_inserted = 0;
+
+    // Phase 1: Collect all TIDs from the index
+    (void) index_bulk_delete(&ivinfo, NULL,
+                             validate_index_callback, (void *) &state);
+
+    // Phase 2: Sort collected TIDs
+    pgstat_progress_update_multi_param(3, progress_index,
+        {PROGRESS_CREATEIDX_PHASE_VALIDATE_SORT, 0, 0});
+    tuplesort_performsort(state.tuplesort);
+
+    // Phase 3: Scan heap and merge with index TIDs
+    pgstat_progress_update_param(PROGRESS_CREATEIDX_PHASE,
+                                 PROGRESS_CREATEIDX_PHASE_VALIDATE_TABLESCAN);
+    table_index_validate_scan(heapRelation, indexRelation, indexInfo,
+                              snapshot, &state);
+
+    // Clean up tuplesort
+    tuplesort_end(state.tuplesort);
+
+    // Release index resources
+    index_insert_cleanup(indexRelation, indexInfo);
+
+    elog(DEBUG2,
+         "validate_index found %.0f heap tuples, %.0f index tuples; inserted %.0f missing tuples",
+         state.htups, state.itups, state.tups_inserted);
+
+    // Restore security context and GUC settings
+    AtEOXact_GUC(false, save_nestlevel);
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+
+    // Close relations but keep locks
+    index_close(indexRelation, NoLock);
+    table_close(heapRelation, NoLock);
+}
+```

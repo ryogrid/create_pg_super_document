@@ -46,3 +46,51 @@ When promotion is determined necessary, the function acquires the coarsest eligi
 - The function ensures that parent lock counts are accurate even when promotion occurs
 - Lock promotion automatically triggers cleanup of redundant child locks through PredicateLockAcquire
 - Critical for maintaining performance in workloads with many small locks
+
+## Simplified Source
+
+```c
+static bool
+CheckAndPromotePredicateLockRequest(const PREDICATELOCKTARGETTAG *reqtag)
+{
+    PREDICATELOCKTARGETTAG current_tag, parent_tag, promotion_tag;
+    LOCALPREDICATELOCK *parent_lock;
+    bool should_promote = false;
+
+    current_tag = *reqtag;
+
+    // Walk up the lock hierarchy checking each ancestor
+    while (GetParentPredicateLockTag(&current_tag, &parent_tag))
+    {
+        current_tag = parent_tag;
+
+        // Find or create parent lock entry in hash table
+        parent_lock = hash_search(LocalPredicateLockHash, &current_tag, HASH_ENTER, &found);
+
+        if (!found) {
+            // New entry - initialize with first child
+            parent_lock->held = false;
+            parent_lock->childLocks = 1;
+        } else {
+            // Existing entry - increment child count
+            parent_lock->childLocks++;
+        }
+
+        // Check if this parent has too many children
+        if (parent_lock->childLocks > MaxPredicateChildLocks(&current_tag)) {
+            // Mark for promotion but keep checking ancestors
+            // to find the coarsest eligible lock
+            promotion_tag = current_tag;
+            should_promote = true;
+        }
+    }
+
+    if (should_promote) {
+        // Acquire the coarsest ancestor that exceeded threshold
+        PredicateLockAcquire(&promotion_tag);
+        return true;
+    }
+
+    return false;
+}
+```

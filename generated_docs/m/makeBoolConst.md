@@ -37,3 +37,14 @@ The  function is a utility function that creates a Const node specifically for b
 - Returns a Node pointer that can be cast to Const when needed
 - Used extensively throughout the optimizer and parser for creating boolean constant expressions
 - The function handles both regular boolean values and NULL boolean values through the isnull parameter
+
+## Simplified Source
+
+```c
+Node *makeBoolConst(bool value, bool isnull) {
+    // Create a Const node for boolean values
+    // Boolean size is hardwired as 1 byte (from pg_type.h)
+    return (Node *) makeConst(BOOLOID, -1, InvalidOid, 1,
+                             BoolGetDatum(value), isnull, true);
+}
+```

@@ -44,3 +44,19 @@ The function safely handles cases where the index scan descriptor or index relat
 - Complementary to ExecInitIndexScan which initializes the index scan state
 - Does not directly free the IndexScanState node itself, only its internal resources
 - Critical for proper resource management in long-running database sessions
+
+## Simplified Source
+
+```c
+void ExecEndIndexScan(IndexScanState *node) {
+    // Extract resources from node state
+    Relation indexRelation = node->iss_RelationDesc;
+    IndexScanDesc indexScan = node->iss_ScanDesc;
+
+    // Clean up index scan and close index relation
+    if (indexScan)
+        index_endscan(indexScan);
+    if (indexRelation)
+        index_close(indexRelation, NoLock);
+}
+```

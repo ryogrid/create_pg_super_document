@@ -40,3 +40,12 @@ This function is essential for preventing memory leaks when working with minimal
 - Critical for memory management in executor nodes that work with minimal tuples
 - Used extensively in hash joins, tuple stores, and other executor operations where minimal tuples provide space efficiency
 - Must be called to prevent memory leaks when minimal tuples are no longer needed
+
+## Simplified Source
+
+```c
+void heap_free_minimal_tuple(MinimalTuple mtup) {
+    // Simply free the minimal tuple memory
+    pfree(mtup);
+}
+```

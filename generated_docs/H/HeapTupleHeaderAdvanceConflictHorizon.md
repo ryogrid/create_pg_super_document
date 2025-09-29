@@ -13,7 +13,7 @@ void HeapTupleHeaderAdvanceConflictHorizon(HeapTupleHeader tuple,
 ```
 
 ## Detailed Description
-This function maintains the snapshotConflictHorizon for the caller by ratcheting forward its value using any committed XIDs contained in an obsolescent heap tuple that the caller is physically removing (e.g., via HOT pruning or index deletion). 
+This function maintains the snapshotConflictHorizon for the caller by ratcheting forward its value using any committed XIDs contained in an obsolescent heap tuple that the caller is physically removing (e.g., via HOT pruning or index deletion).
 
 The function examines the tuple's transaction IDs (xmin, xmax, xvac) and updates the conflict horizon to ensure that recovery conflicts are properly handled during WAL replay. It specifically:
 
@@ -48,3 +48,31 @@ The caller must initialize the snapshotConflictHorizon to InvalidTransactionId (
 - Used primarily in HOT pruning and index tuple deletion scenarios
 - The conflict horizon value is ultimately written to WAL records for proper replay handling
 - Ignores tuples where the inserting transaction also updated/deleted the tuple (xmax == xmin)
+
+## Simplified Source
+
+```c
+void HeapTupleHeaderAdvanceConflictHorizon(HeapTupleHeader tuple,
+                                          TransactionId *snapshotConflictHorizon)
+{
+    TransactionId xmin = HeapTupleHeaderGetXmin(tuple);
+    TransactionId xmax = HeapTupleHeaderGetUpdateXid(tuple);
+    TransactionId xvac = HeapTupleHeaderGetXvac(tuple);
+
+    // Handle HEAP_MOVED tuples - advance horizon using xvac
+    if (tuple->t_infomask & HEAP_MOVED) {
+        if (TransactionIdPrecedes(*snapshotConflictHorizon, xvac))
+            *snapshotConflictHorizon = xvac;
+    }
+
+    // Check if tuple was committed by looking at hint bits or clog
+    if (HeapTupleHeaderXminCommitted(tuple) ||
+        (!HeapTupleHeaderXminInvalid(tuple) && TransactionIdDidCommit(xmin))) {
+
+        // Advance horizon using xmax if it's different from xmin
+        if (xmax != xmin &&
+            TransactionIdFollows(xmax, *snapshotConflictHorizon))
+            *snapshotConflictHorizon = xmax;
+    }
+}
+```

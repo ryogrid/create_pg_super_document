@@ -36,3 +36,59 @@ This function is responsible for cleaning up all resources associated with an ag
 - Ensures all expression contexts are properly rescanned to trigger shutdown callbacks
 - Part of the standard PostgreSQL executor node cleanup protocol
 - Must be called when aggregate processing is complete to prevent resource leaks
+
+## Simplified Source
+
+```c
+void
+ExecEndAgg(AggState *node)
+{
+    PlanState *outerPlan;
+    int transno;
+    int numGroupingSets = Max(node->maxsets, 1);
+    int setno;
+
+    // Copy parallel worker statistics back to shared memory
+    if (node->shared_info && IsParallelWorker()) {
+        AggregateInstrumentation *si;
+        si = &node->shared_info->sinstrument[ParallelWorkerNumber];
+        si->hash_batches_used = node->hash_batches_used;
+        si->hash_disk_used = node->hash_disk_used;
+        si->hash_mem_peak = node->hash_mem_peak;
+    }
+
+    // Close any open tuplesorts
+    if (node->sort_in)
+        tuplesort_end(node->sort_in);
+    if (node->sort_out)
+        tuplesort_end(node->sort_out);
+
+    // Reset hash aggregation spill state
+    hashagg_reset_spill_state(node);
+
+    // Delete hash memory context
+    if (node->hash_metacxt != NULL) {
+        MemoryContextDelete(node->hash_metacxt);
+        node->hash_metacxt = NULL;
+    }
+
+    // Close per-transition tuplesorts
+    for (transno = 0; transno < node->numtrans; transno++) {
+        AggStatePerTrans pertrans = &node->pertrans[transno];
+        for (setno = 0; setno < numGroupingSets; setno++) {
+            if (pertrans->sortstates[setno])
+                tuplesort_end(pertrans->sortstates[setno]);
+        }
+    }
+
+    // Trigger aggregate shutdown callbacks
+    for (setno = 0; setno < numGroupingSets; setno++)
+        ReScanExprContext(node->aggcontexts[setno]);
+    if (node->hashcontext)
+        ReScanExprContext(node->hashcontext);
+
+    // Recursively end the outer plan node
+    outerPlan = outerPlanState(node);
+    ExecEndNode(outerPlan);
+}
+```

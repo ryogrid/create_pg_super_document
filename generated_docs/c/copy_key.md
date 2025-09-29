@@ -38,3 +38,14 @@ The function delegates the actual copying to the  stored in the hash table's par
 - It's essential for operations that need to store keys in the hash table, such as insertions
 - The copy function can handle complex key types that may require deep copying or special handling
 - Located at src/backend/lib/dshash.c:1085-1090
+
+## Simplified Source
+
+```c
+static inline void copy_key(dshash_table *hash_table, void *dest, const void *src) {
+    // Delegate to hash table's configured copy function
+    hash_table->params.copy_function(dest, src,
+                                   hash_table->params.key_size,
+                                   hash_table->arg);
+}
+```

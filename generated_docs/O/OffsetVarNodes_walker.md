@@ -43,3 +43,87 @@ This function implements a recursive tree walker that adjusts relation identifie
   - [AppendRelInfo](../A/AppendRelInfo.md): adjusts parent_relid and child_relid
 - Used during query rewriting when combining range tables or adjusting variable references
 - Critical for maintaining correct variable-to-relation mappings during query transformation
+
+## Simplified Source
+
+```c
+static bool OffsetVarNodes_walker(Node *node, OffsetVarNodes_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Handle Var nodes - adjust variable numbers at target level
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        if (var->varlevelsup == context->sublevels_up) {
+            var->varno += context->offset;
+            var->varnullingrels = offset_relid_set(var->varnullingrels, context->offset);
+            if (var->varnosyn > 0)
+                var->varnosyn += context->offset;
+        }
+        return false;
+    }
+
+    // Handle CurrentOfExpr - adjust at top level only
+    if (IsA(node, CurrentOfExpr)) {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) node;
+
+        if (context->sublevels_up == 0)
+            cexpr->cvarno += context->offset;
+        return false;
+    }
+
+    // Handle RangeTblRef - adjust table references
+    if (IsA(node, RangeTblRef)) {
+        RangeTblRef *rtr = (RangeTblRef *) node;
+
+        if (context->sublevels_up == 0)
+            rtr->rtindex += context->offset;
+        return false;
+    }
+
+    // Handle JoinExpr - adjust join table index if present
+    if (IsA(node, JoinExpr)) {
+        JoinExpr *j = (JoinExpr *) node;
+
+        if (j->rtindex && context->sublevels_up == 0)
+            j->rtindex += context->offset;
+        // Continue to examine children
+    }
+
+    // Handle PlaceHolderVar - adjust relation sets
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        if (phv->phlevelsup == context->sublevels_up) {
+            phv->phrels = offset_relid_set(phv->phrels, context->offset);
+            phv->phnullingrels = offset_relid_set(phv->phnullingrels, context->offset);
+        }
+        // Continue to examine children
+    }
+
+    // Handle AppendRelInfo - adjust parent and child relation IDs
+    if (IsA(node, AppendRelInfo)) {
+        AppendRelInfo *appinfo = (AppendRelInfo *) node;
+
+        if (context->sublevels_up == 0) {
+            appinfo->parent_relid += context->offset;
+            appinfo->child_relid += context->offset;
+        }
+        // Continue to examine children
+    }
+
+    // Handle subqueries by adjusting nesting level
+    if (IsA(node, Query)) {
+        bool result;
+
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node, OffsetVarNodes_walker, (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Recursively process all other nodes
+    return expression_tree_walker(node, OffsetVarNodes_walker, (void *) context);
+}
+```

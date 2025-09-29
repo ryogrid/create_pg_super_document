@@ -43,3 +43,40 @@ If no options procedure exists but options are provided, the function raises an 
 - Error handling ensures that options are only accepted for operator classes that actually support them
 - The validate parameter allows for different processing modes during index creation versus runtime usage
 - Part of PostgreSQL's extensible index framework, allowing custom operator classes to define their own configuration parameters
+
+## Simplified Source
+
+```c
+bytea *
+index_opclass_options(Relation indrel, AttrNumber attnum, Datum attoptions,
+                      bool validate)
+{
+    // Check if access method has options processing procedure
+    int amoptsprocnum = indrel->rd_indam->amoptsprocnum;
+    Oid procid = InvalidOid;
+
+    if (amoptsprocnum != 0)
+        procid = index_getprocid(indrel, attnum, amoptsprocnum);
+
+    // If no options procedure but options provided, error
+    if (!OidIsValid(procid)) {
+        if (!DatumGetPointer(attoptions))
+            return NULL;  // No options, no procedure - OK
+
+        // Error: opclass doesn't support options
+        Oid opclass = get_opclass_from_index(indrel, attnum);
+        ereport(ERROR, (errmsg("operator class %s has no options",
+                              generate_opclass_name(opclass))));
+    }
+
+    // Initialize options structure and process through opclass procedure
+    local_relopts relopts;
+    init_local_reloptions(&relopts, 0);
+
+    FmgrInfo *procinfo = index_getprocinfo(indrel, attnum, amoptsprocnum);
+    FunctionCall1(procinfo, PointerGetDatum(&relopts));
+
+    // Build final binary options
+    return build_local_reloptions(&relopts, attoptions, validate);
+}
+```

@@ -36,3 +36,40 @@ The function is particularly important for handling parameterized scans where sc
 - Memory management is carefully handled through expression context reset
 - Only calls index_rescan if runtime keys are successfully prepared
 - Located at src/backend/executor/nodeBitmapIndexscan.c:131-174
+
+## Simplified Source
+
+```c
+void ExecReScanBitmapIndexScan(BitmapIndexScanState *node) {
+    ExprContext *econtext = node->biss_RuntimeContext;
+
+    // Reset expression context to prevent memory leaks
+    if (econtext) {
+        ResetExprContext(econtext);
+    }
+
+    // Recalculate runtime keys if any exist
+    if (node->biss_NumRuntimeKeys != 0) {
+        ExecIndexEvalRuntimeKeys(econtext,
+                                node->biss_RuntimeKeys,
+                                node->biss_NumRuntimeKeys);
+    }
+
+    // Evaluate array keys for IN-clause expressions
+    if (node->biss_NumArrayKeys != 0) {
+        node->biss_RuntimeKeysReady =
+            ExecIndexEvalArrayKeys(econtext,
+                                  node->biss_ArrayKeys,
+                                  node->biss_NumArrayKeys);
+    } else {
+        node->biss_RuntimeKeysReady = true;
+    }
+
+    // Reset index scan with new key values
+    if (node->biss_RuntimeKeysReady) {
+        index_rescan(node->biss_ScanDesc,
+                    node->biss_ScanKeys, node->biss_NumScanKeys,
+                    NULL, 0);
+    }
+}
+```

@@ -45,3 +45,25 @@ This function is used both by the optimizer during query planning and by the par
 - The function asserts that the top node is not the Query itself, as it is designed to work on expressions or LATERAL subqueries
 - When called from the parser, PlaceHolderVar creation is avoided since adjust_standard_join_alias_expression can handle all parser-generated join alias expressions
 - The function maintains a context structure to track subquery levels and SubLink insertion status
+
+## Simplified Source
+
+```c
+Node *flatten_join_alias_vars(PlannerInfo *root, Query *query, Node *node) {
+    // Safety check: should not be applied to whole Query
+    Assert(node != (Node *) query);
+
+    // Setup context for flattening operation
+    flatten_join_alias_vars_context context;
+    context.root = root;
+    context.query = query;
+    context.sublevels_up = 0;
+
+    // Track SubLink information for hasSubLinks field maintenance
+    context.possible_sublink = query->hasSubLinks;
+    context.inserted_sublink = query->hasSubLinks;
+
+    // Delegate to mutator function to perform the actual flattening
+    return flatten_join_alias_vars_mutator(node, &context);
+}
+```

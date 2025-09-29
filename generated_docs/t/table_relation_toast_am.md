@@ -33,3 +33,13 @@ The function delegates to the underlying table access method's relation_toast_am
 - Different table access methods may choose different TOAST access methods based on their storage characteristics
 - Critical for the TOAST table creation process during table definition and modification
 - Located in src/include/access/tableam.h:1888-1916
+
+## Simplified Source
+
+```c
+static inline Oid table_relation_toast_am(Relation rel)
+{
+    // Delegate to the table access method's TOAST AM function
+    return rel->rd_tableam->relation_toast_am(rel);
+}
+```

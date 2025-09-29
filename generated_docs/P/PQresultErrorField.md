@@ -36,3 +36,21 @@ The returned pointer points to memory owned by the PGresult object and should no
 - Part of PostgreSQL's structured error reporting system
 - Widely used throughout PostgreSQL client tools and applications for detailed error analysis
 - The function performs a linear search through the error fields list
+
+## Simplified Source
+
+```c
+char *PQresultErrorField(const PGresult *res, int fieldcode) {
+    // Null check
+    if (!res)
+        return NULL;
+
+    // Search through error fields for matching code
+    for (PGMessageField *field = res->errFields; field != NULL; field = field->next) {
+        if (field->code == fieldcode)
+            return field->contents;
+    }
+
+    return NULL;  // Field not found
+}
+```

@@ -20,12 +20,12 @@ For STARTUP_COST criterion:
 - Tiebreaker: total_cost
 
 For TOTAL_COST criterion (default):
-- Primary comparison: total_cost  
+- Primary comparison: total_cost
 - Tiebreaker: startup_cost
 
 ## Parameters / Member Variables
 - : First path to compare
-- : Second path to compare  
+- : Second path to compare
 - : Cost selection criterion (STARTUP_COST or TOTAL_COST)
 
 ## Dependencies
@@ -43,3 +43,42 @@ For TOTAL_COST criterion (default):
 
 ## Notes and Other Information
 This is a fundamental utility function used throughout the PostgreSQL query optimizer for path selection and cost-based optimization. The deterministic tiebreaking ensures consistent behavior when paths have identical primary costs, which is important for reproducible query plans.
+
+## Simplified Source
+
+```c
+int compare_path_costs(Path *path1, Path *path2, CostSelector criterion)
+{
+    if (criterion == STARTUP_COST)
+    {
+        // Compare startup costs first
+        if (path1->startup_cost < path2->startup_cost)
+            return -1;
+        if (path1->startup_cost > path2->startup_cost)
+            return +1;
+
+        // Use total cost as tiebreaker
+        if (path1->total_cost < path2->total_cost)
+            return -1;
+        if (path1->total_cost > path2->total_cost)
+            return +1;
+    }
+    else
+    {
+        // Compare total costs first (default case)
+        if (path1->total_cost < path2->total_cost)
+            return -1;
+        if (path1->total_cost > path2->total_cost)
+            return +1;
+
+        // Use startup cost as tiebreaker
+        if (path1->startup_cost < path2->startup_cost)
+            return -1;
+        if (path1->startup_cost > path2->startup_cost)
+            return +1;
+    }
+
+    // Costs are identical
+    return 0;
+}
+```

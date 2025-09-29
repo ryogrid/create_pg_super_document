@@ -34,3 +34,20 @@ The Alphabetic property is a fundamental Unicode property that encompasses not j
 - Part of the Unicode property system that supports PostgreSQL's text processing capabilities
 - Essential for implementing proper alphabetic character detection across all Unicode scripts
 - Located in src/common/unicode_category.c:111-121
+
+## Simplified Source
+
+```c
+bool
+pg_u_prop_alphabetic(pg_wchar code)
+{
+    // Fast path for ASCII characters using bitmask lookup
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_ALPHABETIC;
+
+    // For non-ASCII characters, search the alphabetic ranges table
+    return range_search(unicode_alphabetic,
+                        lengthof(unicode_alphabetic),
+                        code);
+}
+```

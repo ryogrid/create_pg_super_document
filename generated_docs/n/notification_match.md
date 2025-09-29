@@ -37,3 +37,30 @@ This function follows the hash table convention where returning 0 indicates the 
 - Performs efficient early exit by checking lengths before doing expensive memory comparison
 - The +2 in memcmp length accounts for separator/terminator characters in the data structure
 - Uses assertion to verify keysize matches expected Notification pointer size
+
+## Simplified Source
+
+```c
+static int
+notification_match(const void *key1, const void *key2, Size keysize)
+{
+    // Extract notifications from double pointers
+    const Notification *n1 = *(const Notification *const *) key1;
+    const Notification *n2 = *(const Notification *const *) key2;
+
+    // Verify expected key size
+    Assert(keysize == sizeof(Notification *));
+
+    // Quick length comparison first
+    if (n1->channel_len != n2->channel_len || n1->payload_len != n2->payload_len) {
+        return 1;  // Not equal
+    }
+
+    // Compare actual data (channel + payload + separators)
+    if (memcmp(n1->data, n2->data, n1->channel_len + n1->payload_len + 2) == 0) {
+        return 0;  // Equal
+    }
+
+    return 1;      // Not equal
+}
+```

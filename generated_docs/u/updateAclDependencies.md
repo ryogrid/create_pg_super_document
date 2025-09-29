@@ -26,7 +26,7 @@ The function is designed to handle the complexity of ACL updates efficiently by 
 - `ownerId`: OID of the role that owns the object
 - `noldmembers`: Number of roles in the old ACL array
 - `oldmembers`: Array of role OIDs that appeared in the previous ACL (must be sorted and de-duped)
-- `nnewmembers`: Number of roles in the new ACL array  
+- `nnewmembers`: Number of roles in the new ACL array
 - `newmembers`: Array of role OIDs that appear in the updated ACL (must be sorted and de-duped)
 
 ## Dependencies
@@ -48,3 +48,19 @@ The function is designed to handle the complexity of ACL updates efficiently by 
 - Handles complex scenarios where REVOKE may actually add dependencies due to default ACL instantiation
 - Part of PostgreSQL's shared dependency tracking system for cross-database privilege relationships
 - Owner dependencies are typically ignored as they are handled separately
+
+## Simplified Source
+
+```c
+void updateAclDependencies(Oid classId, Oid objectId, int32 objsubId,
+                          Oid ownerId,
+                          int noldmembers, Oid *oldmembers,
+                          int nnewmembers, Oid *newmembers)
+{
+    // Delegate to worker function with ACL dependency type
+    updateAclDependenciesWorker(classId, objectId, objsubId,
+                               ownerId, SHARED_DEPENDENCY_ACL,
+                               noldmembers, oldmembers,
+                               nnewmembers, newmembers);
+}
+```

@@ -34,3 +34,26 @@ This function initializes the prng_state field of a PGconn structure to provide 
 - Process ID and timestamp provide temporal and process-specific variation
 - Essential for security-sensitive operations that require random numbers in libpq
 - Location: src/interfaces/libpq/fe-connect.c:1093-1119
+
+## Simplified Source
+
+```c
+static void
+libpq_prng_init(PGconn *conn)
+{
+    // Try to use strong random seed first
+    if (pg_prng_strong_seed(&conn->prng_state))
+        return;
+
+    // Fallback: combine multiple entropy sources
+    struct timeval tval = {0};
+    gettimeofday(&tval, NULL);
+
+    uint64 rseed = ((uintptr_t) conn) ^
+                   ((uint64) getpid()) ^
+                   ((uint64) tval.tv_usec) ^
+                   ((uint64) tval.tv_sec);
+
+    pg_prng_seed(&conn->prng_state, rseed);
+}
+```

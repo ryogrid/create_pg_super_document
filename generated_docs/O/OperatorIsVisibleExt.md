@@ -38,3 +38,41 @@ This function provides extended operator visibility checking with enhanced error
 - The is_missing parameter allows callers to handle non-existent operators without exceptions
 - System catalog operators (PG_CATALOG_NAMESPACE) are always considered to be in the search path
 - Critical for implementing PostgreSQL's operator resolution and visibility semantics
+
+## Simplified Source
+
+```c
+static bool OperatorIsVisibleExt(Oid oprid, bool *is_missing) {
+    HeapTuple oprtup;
+    Form_pg_operator oprform;
+    bool visible;
+
+    // Look up operator in system cache
+    oprtup = SearchSysCache1(OPEROID, ObjectIdGetDatum(oprid));
+    if (!HeapTupleIsValid(oprtup)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for operator %u", oprid);
+    }
+
+    oprform = (Form_pg_operator) GETSTRUCT(oprtup);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    Oid oprnamespace = oprform->oprnamespace;
+    if (oprnamespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, oprnamespace)) {
+        visible = false;
+    } else {
+        // Check if this operator would be found by name resolution
+        char *oprname = NameStr(oprform->oprname);
+        visible = (OpernameGetOprid(list_make1(makeString(oprname)),
+                                   oprform->oprleft, oprform->oprright) == oprid);
+    }
+
+    ReleaseSysCache(oprtup);
+    return visible;
+}
+```

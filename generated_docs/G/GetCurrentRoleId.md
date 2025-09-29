@@ -34,3 +34,18 @@ This function reports the current role ID following the semantics of PostgreSQL'
 - Part of PostgreSQL's role-based access control system
 - The function distinguishes between session authorization and current role
 - Critical for parallel query processing to maintain proper role context
+
+## Simplified Source
+
+```c
+Oid
+GetCurrentRoleId(void)
+{
+    // Return the outer-level role ID if a role is active
+    if (SetRoleIsActive)
+        return OuterUserId;
+    else
+        // Return InvalidOid when no role is set (SET ROLE NONE)
+        return InvalidOid;
+}
+```

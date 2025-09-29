@@ -35,3 +35,12 @@ The function is marked as `static inline` for performance optimization, allowing
 - Used conditionally based on PG_HAVE_ATOMIC_TEST_SET_FLAG and PG_HAVE_ATOMIC_EXCHANGE_U32 compilation flags
 - Part of PostgreSQL's atomic operations abstraction layer that provides portable atomic primitives across different architectures
 - The 'unlocked' variant indicates this doesn't use explicit locking mechanisms, relying on hardware atomicity
+
+## Simplified Source
+
+```c
+static inline void pg_atomic_unlocked_write_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 val) {
+    // Direct write to atomic variable value field
+    ptr->value = val;
+}
+```

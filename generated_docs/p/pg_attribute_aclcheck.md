@@ -37,3 +37,15 @@ This is a wrapper function that provides column-level access control checking in
 - Critical for implementing PostgreSQL's column-level security model
 - Unlike table-level checking, column privileges are more granular and require the specific attribute number
 - Function is exported and declared in src/include/utils/acl.h for use throughout the system
+
+## Simplified Source
+
+```c
+AclResult
+pg_attribute_aclcheck(Oid table_oid, AttrNumber attnum,
+                      Oid roleid, AclMode mode)
+{
+    // Delegate to extended version with no missing object handling
+    return pg_attribute_aclcheck_ext(table_oid, attnum, roleid, mode, NULL);
+}
+```

@@ -50,3 +50,40 @@ If the resulting identifier length exceeds NAMEDATALEN and truncation is enabled
 - The hybrid approach prevents corruption of multi-byte characters while providing reasonable case conversion
 - Comments indicate future plans for full Unicode-aware case normalization when infrastructure becomes available
 - Critical component of PostgreSQL's identifier processing pipeline in the parser subsystem
+
+## Simplified Source
+
+```c
+char *downcase_identifier(const char *ident, int len, bool warn, bool truncate) {
+    char *result;
+    int i;
+    bool enc_is_single_byte;
+
+    // Allocate result string
+    result = palloc(len + 1);
+    enc_is_single_byte = pg_database_encoding_max_length() == 1;
+
+    // Convert each character to lowercase
+    for (i = 0; i < len; i++) {
+        unsigned char ch = (unsigned char) ident[i];
+
+        if (ch >= 'A' && ch <= 'Z') {
+            // ASCII uppercase - simple arithmetic conversion
+            ch += 'a' - 'A';
+        } else if (enc_is_single_byte && IS_HIGHBIT_SET(ch) && isupper(ch)) {
+            // High-bit character in single-byte encoding - use locale-aware conversion
+            ch = tolower(ch);
+        }
+        // Other characters remain unchanged
+
+        result[i] = (char) ch;
+    }
+    result[i] = '\0';
+
+    // Truncate if needed and requested
+    if (i >= NAMEDATALEN && truncate)
+        truncate_identifier(result, i, warn);
+
+    return result;
+}
+```

@@ -37,3 +37,12 @@ oprid is a utility function that extracts the OID from an operator tuple (HeapTu
 - Part of the operator management and system catalog interface
 - Returns the same OID that would be used to look up the operator in pg_operator
 - Used extensively in BRIN index processing and operator compatibility checks
+
+## Simplified Source
+
+```c
+Oid oprid(Operator op) {
+    // Extract OID from operator tuple structure
+    return ((Form_pg_operator) GETSTRUCT(op))->oid;
+}
+```

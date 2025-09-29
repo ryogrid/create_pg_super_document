@@ -39,3 +39,22 @@ This function is commonly used in debugging, error messages, and system catalog 
 - Returns a string literal "???" for unrecognized storage type values, providing graceful handling of invalid input
 - The function is used extensively in table definition and inheritance operations where storage types need to be displayed or compared
 - Storage types are fundamental to PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system for handling large data values
+
+## Simplified Source
+```c
+static const char *storage_name(char c)
+{
+    switch (c) {
+        case TYPSTORAGE_PLAIN:
+            return "PLAIN";
+        case TYPSTORAGE_EXTERNAL:
+            return "EXTERNAL";
+        case TYPSTORAGE_EXTENDED:
+            return "EXTENDED";
+        case TYPSTORAGE_MAIN:
+            return "MAIN";
+        default:
+            return "???";
+    }
+}
+```

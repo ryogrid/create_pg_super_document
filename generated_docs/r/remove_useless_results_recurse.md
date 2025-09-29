@@ -16,7 +16,7 @@ This function is the core recursive worker for remove_useless_result_rtes(). It 
 
 **For RangeTblRef nodes**: No immediate processing possible, returned as-is.
 
-**For FromExpr nodes**: 
+**For FromExpr nodes**:
 - Recursively processes all children in the fromlist
 - Removes RTE_RESULT children that have siblings and no dependent PlaceHolderVars
 - Elides single-child FromExprs when safe (no quals or quals can be pushed to parent)
@@ -62,3 +62,152 @@ The function carefully handles PlaceHolderVar dependencies to ensure they remain
 - Maintains dropped_outer_joins set for later cleanup of nulling relation references
 - Error handling for unrecognized node types and join types (JOIN_RIGHT should be eliminated by this point)
 - Part of PostgreSQL's query optimization pipeline, specifically the join tree preprocessing phase
+
+## Simplified Source
+
+```c
+static Node *remove_useless_results_recurse(PlannerInfo *root, Node *jtnode,
+                                          Node **parent_quals,
+                                          Relids *dropped_outer_joins)
+{
+    if (IsA(jtnode, RangeTblRef))
+    {
+        // Base relations can't be simplified
+        return jtnode;
+    }
+    else if (IsA(jtnode, FromExpr))
+    {
+        FromExpr *f = (FromExpr *) jtnode;
+        Relids result_relids = NULL;
+
+        // Process all children recursively
+        ListCell *cell;
+        foreach(cell, f->fromlist)
+        {
+            Node *child = (Node *) lfirst(cell);
+
+            // Recursively transform child, allowing qual pushup
+            child = remove_useless_results_recurse(root, child, &f->quals, dropped_outer_joins);
+            lfirst(cell) = child;
+
+            // Check if child is RTE_RESULT that can be removed
+            int varno = get_result_relid(root, child);
+            if (list_length(f->fromlist) > 1 && varno != 0 &&
+                !find_dependent_phvs_in_jointree(root, (Node *) f, varno))
+            {
+                // Remove this RTE_RESULT child
+                f->fromlist = foreach_delete_current(f->fromlist, cell);
+                result_relids = bms_add_member(result_relids, varno);
+            }
+        }
+
+        // Clean up references to removed RTEs
+        if (result_relids)
+        {
+            int varno = -1;
+            while ((varno = bms_next_member(result_relids, varno)) >= 0)
+                remove_result_refs(root, varno, (Node *) f);
+        }
+
+        // Try to eliminate single-child FromExpr
+        if (list_length(f->fromlist) == 1 && f != root->parse->jointree &&
+            (f->quals == NULL || parent_quals != NULL))
+        {
+            // Merge quals upward if possible
+            if (f->quals != NULL)
+                *parent_quals = (Node *) list_concat(castNode(List, f->quals),
+                                                    castNode(List, *parent_quals));
+            return (Node *) linitial(f->fromlist);
+        }
+        return (Node *) f;
+    }
+    else if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        // Recursively process left and right sides
+        j->larg = remove_useless_results_recurse(root, j->larg,
+                                               (j->jointype == JOIN_INNER) ? &j->quals :
+                                               (j->jointype == JOIN_LEFT) ? parent_quals : NULL,
+                                               dropped_outer_joins);
+
+        j->rarg = remove_useless_results_recurse(root, j->rarg,
+                                               (j->jointype == JOIN_INNER || j->jointype == JOIN_LEFT) ?
+                                               &j->quals : NULL,
+                                               dropped_outer_joins);
+
+        // Apply join-specific optimizations
+        int varno;
+        switch (j->jointype)
+        {
+            case JOIN_INNER:
+                // Can replace join with non-RTE_RESULT side
+                if ((varno = get_result_relid(root, j->larg)) != 0 &&
+                    !find_dependent_phvs_in_jointree(root, j->rarg, varno))
+                {
+                    remove_result_refs(root, varno, j->rarg);
+                    if (j->quals != NULL && parent_quals == NULL)
+                        return (Node *) makeFromExpr(list_make1(j->rarg), j->quals);
+                    else
+                    {
+                        if (j->quals != NULL)
+                            *parent_quals = (Node *) list_concat(castNode(List, j->quals),
+                                                                castNode(List, *parent_quals));
+                        return j->rarg;
+                    }
+                }
+                else if ((varno = get_result_relid(root, j->rarg)) != 0)
+                {
+                    remove_result_refs(root, varno, j->larg);
+                    if (j->quals != NULL && parent_quals == NULL)
+                        return (Node *) makeFromExpr(list_make1(j->larg), j->quals);
+                    else
+                    {
+                        if (j->quals != NULL)
+                            *parent_quals = (Node *) list_concat(castNode(List, j->quals),
+                                                                castNode(List, *parent_quals));
+                        return j->larg;
+                    }
+                }
+                break;
+
+            case JOIN_LEFT:
+                // Can eliminate RTE_RESULT on right side
+                if ((varno = get_result_relid(root, j->rarg)) != 0 &&
+                    (j->quals == NULL || !find_dependent_phvs(root, varno)))
+                {
+                    remove_result_refs(root, varno, j->larg);
+                    *dropped_outer_joins = bms_add_member(*dropped_outer_joins, j->rtindex);
+                    return j->larg;
+                }
+                break;
+
+            case JOIN_SEMI:
+                // Convert to filter when RHS is RTE_RESULT
+                if ((varno = get_result_relid(root, j->rarg)) != 0)
+                {
+                    remove_result_refs(root, varno, j->larg);
+                    if (j->quals != NULL && parent_quals == NULL)
+                        return (Node *) makeFromExpr(list_make1(j->larg), j->quals);
+                    else
+                    {
+                        if (j->quals != NULL)
+                            *parent_quals = (Node *) list_concat(castNode(List, j->quals),
+                                                                castNode(List, *parent_quals));
+                        return j->larg;
+                    }
+                }
+                break;
+
+            default:
+                // FULL and ANTI joins: no optimization
+                break;
+        }
+        return (Node *) j;
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+
+    return jtnode;
+}
+```

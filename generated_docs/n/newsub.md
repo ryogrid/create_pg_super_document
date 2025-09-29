@@ -48,3 +48,37 @@ This design allows multiple characters or character ranges to be moved into the 
 - Part of PostgreSQL's regex engine color management system
 - The function name appears in other contexts (event triggers, replication) but this analysis focuses on the regex engine implementation
 - Essential for efficiently managing color hierarchies in complex regular expressions
+
+## Simplified Source
+
+```c
+static color
+newsub(struct colormap *cm, color co)
+{
+    color sco = cm->cd[co].sub;
+
+    // If no subcolor exists yet
+    if (sco == NOSUB)
+    {
+        // Optimization: singly-referenced colors don't need subcolors
+        if ((cm->cd[co].nschrs + cm->cd[co].nuchrs) == 1)
+            return co;
+
+        // Create new subcolor for multiply-referenced colors
+        sco = newcolor(cm);
+        if (sco == COLORLESS)
+        {
+            assert(CISERR());
+            return COLORLESS;
+        }
+
+        // Link original color to new subcolor
+        cm->cd[co].sub = sco;
+        // Make subcolor self-referential (marks it as "open")
+        cm->cd[sco].sub = sco;
+    }
+
+    assert(sco != NOSUB);
+    return sco;
+}
+```

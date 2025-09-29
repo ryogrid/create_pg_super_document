@@ -44,3 +44,56 @@ DeconstructQualifiedName takes a list of String nodes representing a qualified n
 - The function modifies the output parameters rather than returning values
 - Widely used throughout the PostgreSQL codebase for parsing qualified object names
 - Located in src/backend/catalog/namespace.c:3301-3354
+
+## Simplified Source
+
+```c
+void
+DeconstructQualifiedName(const List *names,
+                        char **nspname_p,
+                        char **objname_p)
+{
+    char *catalogname;
+    char *schemaname = NULL;
+    char *objname = NULL;
+
+    switch (list_length(names)) {
+        case 1:
+            // Unqualified name: "object"
+            objname = strVal(linitial(names));
+            break;
+
+        case 2:
+            // Schema-qualified name: "schema.object"
+            schemaname = strVal(linitial(names));
+            objname = strVal(lsecond(names));
+            break;
+
+        case 3:
+            // Fully-qualified name: "database.schema.object"
+            catalogname = strVal(linitial(names));
+            schemaname = strVal(lsecond(names));
+            objname = strVal(lthird(names));
+
+            // Validate catalog name matches current database
+            if (strcmp(catalogname, get_database_name(MyDatabaseId)) != 0) {
+                ereport(ERROR,
+                       (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("cross-database references are not implemented: %s",
+                               NameListToString(names))));
+            }
+            break;
+
+        default:
+            // Too many components
+            ereport(ERROR,
+                   (errcode(ERRCODE_SYNTAX_ERROR),
+                    errmsg("improper qualified name (too many dotted names): %s",
+                           NameListToString(names))));
+            break;
+    }
+
+    *nspname_p = schemaname;
+    *objname_p = objname;
+}
+```

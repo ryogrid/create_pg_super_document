@@ -31,3 +31,15 @@ The function follows PostgreSQL's standard pattern for executor cleanup routines
 - This is part of the standard PostgreSQL executor cleanup interface
 - Proper resource cleanup is critical to prevent memory leaks and lock contention
 - The function assumes that any other cleanup specific to TID range scans has already been handled elsewhere, focusing only on the generic scan descriptor cleanup
+
+## Simplified Source
+
+```c
+void ExecEndTidRangeScan(TidRangeScanState *node) {
+    TableScanDesc scan = node->ss.ss_currentScanDesc;
+
+    // End the table scan if one is active
+    if (scan != NULL)
+        table_endscan(scan);
+}
+```

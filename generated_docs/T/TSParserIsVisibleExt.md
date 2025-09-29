@@ -42,3 +42,62 @@ The function handles missing parsers gracefully when the is_missing parameter is
 - Implements proper namespace shadowing semantics - earlier entries in search path hide later ones with same name
 - Part of PostgreSQL's visibility infrastructure for text search objects
 - Located in src/backend/catalog/namespace.c at lines 2786-2860
+
+## Simplified Source
+
+```c
+static bool TSParserIsVisibleExt(Oid prsId, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_ts_parser form;
+    Oid namespace;
+    bool visible;
+
+    // Look up parser in system cache
+    tuple = SearchSysCache1(TSPARSEROID, ObjectIdGetDatum(prsId));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing parser gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for text search parser %u", prsId);
+    }
+
+    form = (Form_pg_ts_parser) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace = form->prsnamespace;
+    if (namespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace)) {
+        visible = false;
+    } else {
+        // Check for name conflicts in earlier namespaces
+        char *name = NameStr(form->prsname);
+        visible = false;
+
+        // Search through path to see if we find this parser first
+        foreach(ListCell *l, activeSearchPath) {
+            Oid namespaceId = lfirst_oid(l);
+
+            if (namespaceId == myTempNamespace)
+                continue;  // Skip temp namespace
+
+            if (namespaceId == namespace) {
+                visible = true;  // Found our parser first
+                break;
+            }
+
+            // Check if another parser with same name exists here
+            if (SearchSysCacheExists2(TSPARSERNAMENSP,
+                                    PointerGetDatum(name),
+                                    ObjectIdGetDatum(namespaceId))) {
+                break;  // Found conflicting parser earlier in path
+            }
+        }
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

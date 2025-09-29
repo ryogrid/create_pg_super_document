@@ -57,3 +57,65 @@ The function ensures that exactly one insert trigger and one update trigger are 
 - Check triggers are the counterpart to action triggers (which reside on the referenced table)
 - These trigger OIDs are used for establishing parent-child relationships during partition operations
 - Part of PostgreSQL's referential integrity enforcement system
+
+## Simplified Source
+
+```c
+static void GetForeignKeyCheckTriggers(Relation trigrel,
+                                     Oid conoid, Oid confrelid, Oid conrelid,
+                                     Oid *insertTriggerOid,
+                                     Oid *updateTriggerOid)
+{
+    ScanKeyData key;
+    SysScanDesc scan;
+    HeapTuple trigtup;
+
+    // Initialize output parameters
+    *insertTriggerOid = *updateTriggerOid = InvalidOid;
+
+    // Set up scan key to find triggers for this constraint
+    ScanKeyInit(&key, Anum_pg_trigger_tgconstraint,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(conoid));
+
+    // Scan pg_trigger catalog for constraint triggers
+    scan = systable_beginscan(trigrel, TriggerConstraintIndexId, true,
+                             NULL, 1, &key);
+
+    while ((trigtup = systable_getnext(scan)) != NULL) {
+        Form_pg_trigger trgform = (Form_pg_trigger) GETSTRUCT(trigtup);
+
+        // Skip triggers not on the correct tables
+        if (trgform->tgconstrrelid != confrelid) continue;
+        if (trgform->tgrelid != conrelid) continue;
+
+        // Only look at "check" triggers on the FK side
+        if (RI_FKey_trigger_type(trgform->tgfoid) != RI_TRIGGER_FK)
+            continue;
+
+        // Identify INSERT or UPDATE check triggers
+        if (TRIGGER_FOR_INSERT(trgform->tgtype)) {
+            Assert(*insertTriggerOid == InvalidOid);
+            *insertTriggerOid = trgform->oid;
+        }
+        else if (TRIGGER_FOR_UPDATE(trgform->tgtype)) {
+            Assert(*updateTriggerOid == InvalidOid);
+            *updateTriggerOid = trgform->oid;
+        }
+
+        // Early exit if both triggers found (except in assert builds)
+        #ifndef USE_ASSERT_CHECKING
+        if (OidIsValid(*insertTriggerOid) && OidIsValid(*updateTriggerOid))
+            break;
+        #endif
+    }
+
+    systable_endscan(scan);
+
+    // Verify both triggers were found
+    if (!OidIsValid(*insertTriggerOid))
+        elog(ERROR, "could not find ON INSERT check triggers of foreign key constraint %u", conoid);
+    if (!OidIsValid(*updateTriggerOid))
+        elog(ERROR, "could not find ON UPDATE check triggers of foreign key constraint %u", conoid);
+}
+```

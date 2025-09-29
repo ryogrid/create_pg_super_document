@@ -57,3 +57,89 @@ The function supports graceful handling of missing relations through the  parame
 - The function performs efficient caching through the system cache mechanism
 - Special handling for sequences vs. tables when determining default permissions
 - Memory management includes proper cleanup of detoasted ACL data
+
+## Simplified Source
+
+```c
+static AclMode pg_class_aclmask_ext(Oid table_oid, Oid roleid, AclMode mask,
+                                    AclMaskHow how, bool *is_missing) {
+    AclMode result;
+    HeapTuple tuple;
+    Form_pg_class classForm;
+    Datum aclDatum;
+    bool isNull;
+    Acl *acl;
+    Oid ownerId;
+
+    // Look up relation in pg_class
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(table_oid));
+    if (!HeapTupleIsValid(tuple)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return 0;
+        } else
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_TABLE),
+                           errmsg("relation with OID %u does not exist", table_oid)));
+    }
+
+    classForm = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Protect system catalogs from non-superuser modifications
+    if ((mask & (ACL_INSERT | ACL_UPDATE | ACL_DELETE | ACL_TRUNCATE | ACL_USAGE)) &&
+        IsSystemClass(table_oid, classForm) &&
+        classForm->relkind != RELKIND_VIEW &&
+        !superuser_arg(roleid))
+        mask &= ~(ACL_INSERT | ACL_UPDATE | ACL_DELETE | ACL_TRUNCATE | ACL_USAGE);
+
+    // Superusers bypass permission checks
+    if (superuser_arg(roleid)) {
+        ReleaseSysCache(tuple);
+        return mask;
+    }
+
+    // Get relation owner and ACL
+    ownerId = classForm->relowner;
+    aclDatum = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_relacl, &isNull);
+
+    if (isNull) {
+        // Build default ACL based on relation type
+        switch (classForm->relkind) {
+            case RELKIND_SEQUENCE:
+                acl = acldefault(OBJECT_SEQUENCE, ownerId);
+                break;
+            default:
+                acl = acldefault(OBJECT_TABLE, ownerId);
+                break;
+        }
+        aclDatum = (Datum) 0;
+    } else {
+        acl = DatumGetAclP(aclDatum);
+    }
+
+    // Check base ACL permissions
+    result = aclmask(acl, roleid, ownerId, mask, how);
+
+    // Clean up detoasted ACL if needed
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+        pfree(acl);
+
+    ReleaseSysCache(tuple);
+
+    // Grant additional privileges based on predefined roles
+    if (mask & ACL_SELECT && !(result & ACL_SELECT) &&
+        has_privs_of_role(roleid, ROLE_PG_READ_ALL_DATA))
+        result |= ACL_SELECT;
+
+    if (mask & (ACL_INSERT | ACL_UPDATE | ACL_DELETE) &&
+        !(result & (ACL_INSERT | ACL_UPDATE | ACL_DELETE)) &&
+        has_privs_of_role(roleid, ROLE_PG_WRITE_ALL_DATA))
+        result |= (mask & (ACL_INSERT | ACL_UPDATE | ACL_DELETE));
+
+    if (mask & ACL_MAINTAIN &&
+        !(result & ACL_MAINTAIN) &&
+        has_privs_of_role(roleid, ROLE_PG_MAINTAIN))
+        result |= ACL_MAINTAIN;
+
+    return result;
+}
+```

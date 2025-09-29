@@ -42,3 +42,37 @@ The function is crucial for PostgreSQL's constraint enforcement mechanism, allow
 - Part of PostgreSQL's transaction-level constraint management system
 - Essential for implementing SQL standard deferrable constraints
 - The function examines both per-trigger and global constraint states set by SET CONSTRAINTS commands
+
+## Simplified Source
+
+```c
+static bool
+afterTriggerCheckState(AfterTriggerShared evtshared)
+{
+    Oid tgoid = evtshared->ats_tgoid;
+    SetConstraintState state = afterTriggers.state;
+
+    // Non-deferrable triggers are never deferred
+    if ((evtshared->ats_event & AFTER_TRIGGER_DEFERRABLE) == 0) {
+        return false;
+    }
+
+    // Check if constraint state was explicitly set
+    if (state != NULL) {
+        // Look for specific trigger setting
+        for (int i = 0; i < state->numstates; i++) {
+            if (state->trigstates[i].sct_tgoid == tgoid) {
+                return state->trigstates[i].sct_tgisdeferred;
+            }
+        }
+
+        // Check for global "SET CONSTRAINTS ALL" setting
+        if (state->all_isset) {
+            return state->all_isdeferred;
+        }
+    }
+
+    // Return trigger's default deferral state
+    return ((evtshared->ats_event & AFTER_TRIGGER_INITDEFERRED) != 0);
+}
+```

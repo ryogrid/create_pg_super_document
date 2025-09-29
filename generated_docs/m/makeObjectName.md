@@ -47,3 +47,69 @@ When truncation is necessary due to length constraints, the function preferentia
 - Implements a fair truncation algorithm that prefers shortening the longer name component
 - Critical for maintaining consistent naming conventions across PostgreSQL's automatic object creation
 - The function assumes the label is reasonably short since it's never truncated
+
+## Simplified Source
+
+```c
+char *
+makeObjectName(const char *name1, const char *name2, const char *label)
+{
+    char *name;
+    int overhead = 0;    // chars needed for label and underscores
+    int availchars;      // chars available for name(s)
+    int name1chars, name2chars;
+
+    // Calculate initial lengths
+    name1chars = strlen(name1);
+    if (name2) {
+        name2chars = strlen(name2);
+        overhead++;      // underscore separator
+    } else {
+        name2chars = 0;
+    }
+    if (label)
+        overhead += strlen(label) + 1;  // label + underscore
+
+    // Calculate available space for names
+    availchars = NAMEDATALEN - 1 - overhead;
+    Assert(availchars > 0);
+
+    // Truncate names if necessary, preferring to shorten the longer one
+    while (name1chars + name2chars > availchars) {
+        if (name1chars > name2chars)
+            name1chars--;
+        else
+            name2chars--;
+    }
+
+    // Ensure multibyte character boundaries are respected
+    name1chars = pg_mbcliplen(name1, name1chars, name1chars);
+    if (name2)
+        name2chars = pg_mbcliplen(name2, name2chars, name2chars);
+
+    // Construct the final name: "name1_name2_label"
+    name = palloc(name1chars + name2chars + overhead + 1);
+    int ndx = 0;
+
+    // Copy name1
+    memcpy(name, name1, name1chars);
+    ndx = name1chars;
+
+    // Add name2 if present
+    if (name2) {
+        name[ndx++] = '_';
+        memcpy(name + ndx, name2, name2chars);
+        ndx += name2chars;
+    }
+
+    // Add label if present
+    if (label) {
+        name[ndx++] = '_';
+        strcpy(name + ndx, label);
+    } else {
+        name[ndx] = '\0';
+    }
+
+    return name;
+}
+```

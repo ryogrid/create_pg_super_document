@@ -35,3 +35,12 @@ chareqfast is a performance-optimized equality comparison function specifically 
 - Critical for catalog cache performance as character comparisons are frequently performed during cache lookups
 - Works in conjunction with charhashfast for complete key handling in hash-based catalog cache structures
 - The optimization provides substantial performance improvements for catalog cache operations involving character data types
+
+## Simplified Source
+
+```c
+static bool chareqfast(Datum a, Datum b) {
+    // Direct character comparison for fast equality check
+    return DatumGetChar(a) == DatumGetChar(b);
+}
+```

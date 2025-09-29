@@ -31,3 +31,29 @@ The isCommit parameter controls whether callbacks are actually executed or just 
 
 ## Notes and Other Information
 This function is declared static, making it internal to execUtils.c. The reverse execution order (LIFO) is crucial for proper resource cleanup, as components registered later often depend on components registered earlier. The memory context switching ensures cleanup robustness even with poorly written callbacks that leak memory.
+
+## Simplified Source
+
+```c
+static void ShutdownExprContext(ExprContext *econtext, bool isCommit) {
+    ExprContext_CB *ecxt_callback;
+    MemoryContext oldcontext;
+
+    // Fast path: nothing to do if no callbacks
+    if (econtext->ecxt_callbacks == NULL)
+        return;
+
+    // Switch to per-tuple context for cleanup safety
+    oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Execute callbacks in reverse order (LIFO)
+    while ((ecxt_callback = econtext->ecxt_callbacks) != NULL) {
+        econtext->ecxt_callbacks = ecxt_callback->next;
+        if (isCommit)
+            ecxt_callback->function(ecxt_callback->arg);
+        pfree(ecxt_callback);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

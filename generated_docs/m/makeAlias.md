@@ -36,3 +36,20 @@ The `makeAlias` function creates an Alias node that stores alias information for
 - Used extensively throughout the parser and rewriter for managing SQL aliases
 - Essential for query processing where table and column renaming is involved
 - Memory management consideration: caller must ensure colnames list remains valid for the lifetime of the Alias node
+
+## Simplified Source
+
+```c
+Alias *makeAlias(const char *aliasname, List *colnames) {
+    // Create new Alias node
+    Alias *a = makeNode(Alias);
+
+    // Copy the alias name for memory safety
+    a->aliasname = pstrdup(aliasname);
+
+    // Use column names list directly (not copied)
+    a->colnames = colnames;
+
+    return a;
+}
+```

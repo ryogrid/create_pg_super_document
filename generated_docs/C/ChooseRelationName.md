@@ -54,3 +54,64 @@ The conflict resolution strategy is conservative - it continues incrementing the
 - Caller should use CommandCounterIncrement when choosing multiple names in one command
 - Critical for ensuring unique names in PostgreSQL's automatic object creation
 - The race condition window exists but is minimal in practice, especially when holding exclusive locks
+
+## Simplified Source
+
+```c
+char *
+ChooseRelationName(const char *name1, const char *name2,
+                   const char *label, Oid namespaceid,
+                   bool isconstraint)
+{
+    int pass = 0;
+    char *relname = NULL;
+    char modlabel[NAMEDATALEN];
+    SnapshotData SnapshotDirty;
+    Relation pgclassrel;
+
+    // Prepare to search pg_class with dirty snapshot (sees uncommitted changes)
+    InitDirtySnapshot(SnapshotDirty);
+    pgclassrel = table_open(RelationRelationId, AccessShareLock);
+
+    // Start with unmodified label
+    strlcpy(modlabel, label, sizeof(modlabel));
+
+    for (;;)
+    {
+        ScanKeyData key[2];
+        SysScanDesc scan;
+        bool collides;
+
+        // Generate candidate name
+        relname = makeObjectName(name1, name2, modlabel);
+
+        // Check for conflicting relation name in pg_class
+        ScanKeyInit(&key[0], Anum_pg_class_relname,
+                    BTEqualStrategyNumber, F_NAMEEQ,
+                    CStringGetDatum(relname));
+        ScanKeyInit(&key[1], Anum_pg_class_relnamespace,
+                    BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(namespaceid));
+
+        scan = systable_beginscan(pgclassrel, ClassNameNspIndexId,
+                                  true, &SnapshotDirty, 2, key);
+
+        collides = HeapTupleIsValid(systable_getnext(scan));
+        systable_endscan(scan);
+
+        // If no relation conflict, check constraint conflicts if needed
+        if (!collides)
+        {
+            if (!isconstraint || !ConstraintNameExists(relname, namespaceid))
+                break;  // No conflicts found
+        }
+
+        // Name conflicts exist, try next variation
+        pfree(relname);
+        snprintf(modlabel, sizeof(modlabel), "%s%d", label, ++pass);
+    }
+
+    table_close(pgclassrel, AccessShareLock);
+    return relname;
+}
+```

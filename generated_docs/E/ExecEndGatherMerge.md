@@ -38,3 +38,16 @@ This function is typically called during query termination, whether due to norma
 - This function is guaranteed to be called during query cleanup, even in error scenarios
 - Cleanup order is important: child nodes must be cleaned up before parent nodes to maintain proper resource management
 - The function is void as cleanup operations should not fail or throw errors that would prevent other cleanup from occurring
+
+## Simplified Source
+
+```c
+void ExecEndGatherMerge(GatherMergeState *node)
+{
+    // Clean up child plan first
+    ExecEndNode(outerPlanState(node));
+
+    // Shut down parallel workers and release parallel resources
+    ExecShutdownGatherMerge(node);
+}
+```

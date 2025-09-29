@@ -51,3 +51,67 @@ The function uses unrolled loops and optimized macros (ROUND512_0_TO_15, ROUND51
 - Implements the standard SHA-512 80-round compression function with message schedule expansion
 - All temporary variables are explicitly zeroed after use for security
 - Part of the critical path for SHA-512 performance - heavily optimized with unrolled loops and macros
+
+## Simplified Source
+
+```c
+static void
+SHA512_Transform(pg_sha512_ctx *context, const uint8 *data)
+{
+    uint64 a, b, c, d, e, f, g, h;
+    uint64 s0, s1, T1;
+    uint64 *W512 = (uint64 *) context->buffer;
+    int j;
+
+    // Initialize working variables with current hash state
+    a = context->state[0];
+    b = context->state[1];
+    c = context->state[2];
+    d = context->state[3];
+    e = context->state[4];
+    f = context->state[5];
+    g = context->state[6];
+    h = context->state[7];
+
+    j = 0;
+
+    // Rounds 0-15: Process input data directly
+    do {
+        // Unrolled loop: 8 rounds per iteration
+        ROUND512_0_TO_15(a, b, c, d, e, f, g, h);
+        ROUND512_0_TO_15(h, a, b, c, d, e, f, g);
+        ROUND512_0_TO_15(g, h, a, b, c, d, e, f);
+        ROUND512_0_TO_15(f, g, h, a, b, c, d, e);
+        ROUND512_0_TO_15(e, f, g, h, a, b, c, d);
+        ROUND512_0_TO_15(d, e, f, g, h, a, b, c);
+        ROUND512_0_TO_15(c, d, e, f, g, h, a, b);
+        ROUND512_0_TO_15(b, c, d, e, f, g, h, a);
+    } while (j < 16);
+
+    // Rounds 16-79: Use extended message schedule
+    do {
+        // Unrolled loop: 8 rounds per iteration
+        ROUND512(a, b, c, d, e, f, g, h);
+        ROUND512(h, a, b, c, d, e, f, g);
+        ROUND512(g, h, a, b, c, d, e, f);
+        ROUND512(f, g, h, a, b, c, d, e);
+        ROUND512(e, f, g, h, a, b, c, d);
+        ROUND512(d, e, f, g, h, a, b, c);
+        ROUND512(c, d, e, f, g, h, a, b);
+        ROUND512(b, c, d, e, f, g, h, a);
+    } while (j < 80);
+
+    // Add working variables back to hash state
+    context->state[0] += a;
+    context->state[1] += b;
+    context->state[2] += c;
+    context->state[3] += d;
+    context->state[4] += e;
+    context->state[5] += f;
+    context->state[6] += g;
+    context->state[7] += h;
+
+    // Clear working variables for security
+    a = b = c = d = e = f = g = h = T1 = 0;
+}
+```

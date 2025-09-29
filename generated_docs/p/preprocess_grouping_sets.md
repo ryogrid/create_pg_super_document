@@ -44,3 +44,121 @@ The function creates a grouping_sets_data structure containing all the informati
 - Creates separate handling paths for sortable sets (organized into rollups) and unsortable sets (hash-only)
 - The tleref_to_colnum_map workspace array is used for remapping sort group references to column indices
 - Sets processed_groupClause to the original groupClause when grouping sets are present (no optimization currently performed)
+
+## Simplified Source
+
+```c
+static grouping_sets_data *
+preprocess_grouping_sets(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+    List *sets;
+    int maxref = 0;
+    grouping_sets_data *gd = palloc0(sizeof(grouping_sets_data));
+
+    // Expand grouping sets specification
+    parse->groupingSets = expand_grouping_sets(parse->groupingSets,
+                                               parse->groupDistinct, -1);
+
+    // Initialize tracking variables
+    gd->any_hashable = false;
+    gd->unhashable_refs = NULL;
+    gd->unsortable_refs = NULL;
+    gd->unsortable_sets = NIL;
+
+    // No optimization for groupClause when grouping sets present
+    root->processed_groupClause = parse->groupClause;
+
+    // Analyze group clauses for hashability and sortability
+    if (parse->groupClause) {
+        foreach(lc, parse->groupClause) {
+            SortGroupClause *gc = lfirst_node(SortGroupClause, lc);
+            Index ref = gc->tleSortGroupRef;
+
+            if (ref > maxref)
+                maxref = ref;
+
+            if (!gc->hashable)
+                gd->unhashable_refs = bms_add_member(gd->unhashable_refs, ref);
+
+            if (!OidIsValid(gc->sortop))
+                gd->unsortable_refs = bms_add_member(gd->unsortable_refs, ref);
+        }
+    }
+
+    // Allocate workspace for mapping
+    gd->tleref_to_colnum_map = palloc((maxref + 1) * sizeof(int));
+
+    // Handle unsortable sets separately
+    if (!bms_is_empty(gd->unsortable_refs)) {
+        List *sortable_sets = NIL;
+
+        foreach(lc, parse->groupingSets) {
+            List *gset = (List *) lfirst(lc);
+
+            if (bms_overlap_list(gd->unsortable_refs, gset)) {
+                // Unsortable set - must be hashable
+                GroupingSetData *gs = makeNode(GroupingSetData);
+                gs->set = gset;
+                gd->unsortable_sets = lappend(gd->unsortable_sets, gs);
+
+                // Validate that unsortable set is hashable
+                if (bms_overlap_list(gd->unhashable_refs, gset))
+                    ereport(ERROR,
+                            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                             errmsg("could not implement GROUP BY"),
+                             errdetail("Some of the datatypes only support hashing, while others only support sorting.")));
+            } else {
+                sortable_sets = lappend(sortable_sets, gset);
+            }
+        }
+
+        sets = sortable_sets ? extract_rollup_sets(sortable_sets) : NIL;
+    } else {
+        sets = extract_rollup_sets(parse->groupingSets);
+    }
+
+    // Process rollup sets
+    foreach(lc_set, sets) {
+        List *current_sets = (List *) lfirst(lc_set);
+        RollupData *rollup = makeNode(RollupData);
+
+        // Reorder sets optimally (match ORDER BY if single pass)
+        current_sets = reorder_grouping_sets(current_sets,
+                                              (list_length(sets) == 1
+                                               ? parse->sortClause : NIL));
+
+        GroupingSetData *gs = linitial_node(GroupingSetData, current_sets);
+
+        // Set up group clause for this rollup
+        if (gs->set)
+            rollup->groupClause = preprocess_groupclause(root, gs->set);
+        else
+            rollup->groupClause = NIL;
+
+        // Check if hashable
+        if (gs->set && !bms_overlap_list(gd->unhashable_refs, gs->set)) {
+            rollup->hashable = true;
+            gd->any_hashable = true;
+        }
+
+        // Remap to column indices
+        rollup->gsets = remap_to_groupclause_idx(rollup->groupClause,
+                                                 current_sets,
+                                                 gd->tleref_to_colnum_map);
+        rollup->gsets_data = current_sets;
+
+        gd->rollups = lappend(gd->rollups, rollup);
+    }
+
+    // Handle unsortable sets index mapping
+    if (gd->unsortable_sets) {
+        gd->hash_sets_idx = remap_to_groupclause_idx(parse->groupClause,
+                                                     gd->unsortable_sets,
+                                                     gd->tleref_to_colnum_map);
+        gd->any_hashable = true;
+    }
+
+    return gd;
+}
+```

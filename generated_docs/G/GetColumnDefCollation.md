@@ -48,3 +48,36 @@ The function also performs validation to ensure that collations are only applied
 - Returns InvalidOid for non-collatable types when no explicit collation is specified
 - Error reporting includes precise location information when ParseState is available
 - Located in src/backend/parser/parse_type.c:540-577
+
+## Simplified Source
+```c
+Oid GetColumnDefCollation(ParseState *pstate, const ColumnDef *coldef, Oid typeOid)
+{
+    Oid result;
+    Oid typcollation = get_typcollation(typeOid);
+    int location = coldef->location;
+
+    // Determine collation based on priority: explicit COLLATE > precooked > type default
+    if (coldef->collClause) {
+        // Explicit COLLATE clause specified
+        location = coldef->collClause->location;
+        result = LookupCollation(pstate, coldef->collClause->collname, location);
+    } else if (OidIsValid(coldef->collOid)) {
+        // Precooked collation specification
+        result = coldef->collOid;
+    } else {
+        // Use data type's default collation
+        result = typcollation;
+    }
+
+    // Validate: don't allow collations on non-collatable types
+    if (OidIsValid(result) && !OidIsValid(typcollation))
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("collations are not supported by type %s",
+                        format_type_be(typeOid)),
+                 parser_errposition(pstate, location)));
+
+    return result;
+}
+```

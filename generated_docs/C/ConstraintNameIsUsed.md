@@ -46,3 +46,38 @@ This function checks if a constraint name is already being used on a specific ob
 - Uses ConstraintRelidTypidNameIndexId for efficient scanning
 - Only checks for name conflicts on the same object, unlike system-generated name checking
 - Part of the constraint name validation process during DDL operations
+
+## Simplified Source
+
+```c
+bool ConstraintNameIsUsed(ConstraintCategory conCat, Oid objId, const char *conname)
+{
+    bool found;
+    Relation conDesc;
+    SysScanDesc conscan;
+    ScanKeyData skey[3];
+
+    // Open pg_constraint catalog
+    conDesc = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Set up scan keys for constraint lookup
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum((conCat == CONSTRAINT_RELATION) ? objId : InvalidOid));
+    ScanKeyInit(&skey[1], Anum_pg_constraint_contypid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum((conCat == CONSTRAINT_DOMAIN) ? objId : InvalidOid));
+    ScanKeyInit(&skey[2], Anum_pg_constraint_conname, BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(conname));
+
+    // Scan for matching constraint
+    conscan = systable_beginscan(conDesc, ConstraintRelidTypidNameIndexId, true, NULL, 3, skey);
+
+    // Check if constraint exists (at most one should match)
+    found = (HeapTupleIsValid(systable_getnext(conscan)));
+
+    // Cleanup
+    systable_endscan(conscan);
+    table_close(conDesc, AccessShareLock);
+
+    return found;
+}
+```

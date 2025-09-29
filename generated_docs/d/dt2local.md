@@ -33,3 +33,13 @@ The dt2local function performs timezone conversion by subtracting the timezone o
 
 ## Notes and Other Information
 This is a static function local to timestamp.c used internally for timezone conversions throughout PostgreSQL's timestamp handling system. The function assumes the input timestamp is in UTC and the timezone parameter follows the conventional sign where positive values represent timezones ahead of UTC (east of Greenwich). The subtraction operation effectively moves the timestamp backward in time to represent the same moment in the local timezone.
+
+## Simplified Source
+```c
+static Timestamp dt2local(Timestamp dt, int timezone) {
+    // Convert UTC timestamp to local time by subtracting timezone offset
+    // timezone is in seconds, convert to microseconds for timestamp arithmetic
+    dt -= (timezone * USECS_PER_SEC);
+    return dt;
+}
+```

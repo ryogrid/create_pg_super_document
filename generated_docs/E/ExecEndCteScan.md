@@ -38,3 +38,18 @@ This design ensures that the shared tuplestore is freed exactly once, regardless
 - Follower nodes' read pointers are automatically cleaned up when the tuplestore is freed
 - Sets cte_table to NULL after freeing to prevent dangling pointer issues
 - Located at src/backend/executor/nodeCtescan.c:288-306
+
+## Simplified Source
+
+```c
+void ExecEndCteScan(CteScanState *node)
+{
+    // Only the leader node frees the shared tuplestore
+    if (node->leader == node)
+    {
+        tuplestore_end(node->cte_table);
+        node->cte_table = NULL;
+    }
+    // Follower nodes do nothing - they just held read pointers
+}
+```

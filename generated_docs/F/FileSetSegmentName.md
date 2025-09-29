@@ -38,3 +38,14 @@ The function uses snprintf to safely format the filename, ensuring it does not e
 - The function assumes the output buffer is at least MAXPGPATH characters long
 - Used exclusively in the context of FileSet-managed BufFiles, not standalone temporary files
 - The generated names are used consistently across FileSet operations for segment management
+
+## Simplified Source
+
+```c
+static void
+FileSetSegmentName(char *name, const char *buffile_name, int segment)
+{
+    // Create segment filename: "basename.segmentnum"
+    snprintf(name, MAXPGPATH, "%s.%d", buffile_name, segment);
+}
+```

@@ -46,3 +46,56 @@ This function is critical for maintaining performance in the dependency system, 
 - Critical for performance in systems with complex expressions that reference many objects
 - Maintains the sorted order as a side effect, which can be beneficial for downstream processing
 - The deduplication logic preserves the most specific dependency relationship available
+
+## Simplified Source
+
+```c
+static void eliminate_duplicate_dependencies(ObjectAddresses *addrs) {
+    ObjectAddress *priorobj;
+    int oldref, newrefs;
+
+    // Cannot sort with extra data present
+    Assert(!addrs->extras);
+
+    // Early exit for trivial cases
+    if (addrs->numrefs <= 1)
+        return;
+
+    // Sort to group duplicates together
+    qsort(addrs->refs, addrs->numrefs, sizeof(ObjectAddress), object_address_comparator);
+
+    // Compact array by removing duplicates
+    priorobj = addrs->refs;
+    newrefs = 1;
+
+    for (oldref = 1; oldref < addrs->numrefs; oldref++) {
+        ObjectAddress *thisobj = addrs->refs + oldref;
+
+        // Check if objects are related
+        if (priorobj->classId == thisobj->classId &&
+            priorobj->objectId == thisobj->objectId) {
+
+            // Exact duplicate - skip it
+            if (priorobj->objectSubId == thisobj->objectSubId) {
+                continue;
+            }
+
+            // Handle whole-object vs sub-object optimization
+            // If we have both whole-object (subId=0) and partial reference,
+            // prefer the more specific partial reference
+            if (priorobj->objectSubId == 0) {
+                priorobj->objectSubId = thisobj->objectSubId;
+                continue;
+            }
+        }
+
+        // Not a duplicate - add to compacted array
+        priorobj++;
+        *priorobj = *thisobj;
+        newrefs++;
+    }
+
+    // Update array size to reflect removed duplicates
+    addrs->numrefs = newrefs;
+}
+```

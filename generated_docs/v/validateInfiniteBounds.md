@@ -37,3 +37,44 @@ The function implements a state machine approach where it tracks the current bou
 - Throws ERRCODE_DATATYPE_MISMATCH errors when invalid bound sequences are detected
 - Critical for maintaining partition definition integrity in PostgreSQL's declarative partitioning system
 - The validation prevents logically impossible partition ranges that could cause runtime errors or incorrect query planning
+
+## Simplified Source
+
+```c
+static void validateInfiniteBounds(ParseState *pstate, List *blist) {
+    ListCell *lc;
+    PartitionRangeDatumKind kind = PARTITION_RANGE_DATUM_VALUE;
+
+    // Validate each partition bound in the list
+    foreach(lc, blist) {
+        PartitionRangeDatum *prd = lfirst_node(PartitionRangeDatum, lc);
+
+        // If same kind as previous, continue
+        if (kind == prd->kind)
+            continue;
+
+        switch (kind) {
+            case PARTITION_RANGE_DATUM_VALUE:
+                // First non-value bound - transition to new kind
+                kind = prd->kind;
+                break;
+
+            case PARTITION_RANGE_DATUM_MAXVALUE:
+                // Once MAXVALUE is seen, all following bounds must be MAXVALUE
+                ereport(ERROR,
+                       (errcode(ERRCODE_DATATYPE_MISMATCH),
+                        errmsg("every bound following MAXVALUE must also be MAXVALUE"),
+                        parser_errposition(pstate, exprLocation((Node *) prd))));
+                break;
+
+            case PARTITION_RANGE_DATUM_MINVALUE:
+                // Once MINVALUE is seen, all following bounds must be MINVALUE
+                ereport(ERROR,
+                       (errcode(ERRCODE_DATATYPE_MISMATCH),
+                        errmsg("every bound following MINVALUE must also be MINVALUE"),
+                        parser_errposition(pstate, exprLocation((Node *) prd))));
+                break;
+        }
+    }
+}
+```

@@ -40,3 +40,15 @@ The `pg_attribute_aclcheck_all` function is an exported routine that verifies wh
 - ACLMASK_ANY mode requires at least one accessible column, ACLMASK_ALL mode requires all columns to be accessible
 - Returns ACLCHECK_OK if privilege requirements are met, ACLCHECK_NO_PRIV otherwise
 - Located in src/backend/catalog/aclchk.c lines 3967-3977
+
+## Simplified Source
+
+```c
+AclResult
+pg_attribute_aclcheck_all(Oid table_oid, Oid roleid, AclMode mode,
+                          AclMaskHow how)
+{
+    // Delegate to extended version with no missing object handling
+    return pg_attribute_aclcheck_all_ext(table_oid, roleid, mode, how, NULL);
+}
+```

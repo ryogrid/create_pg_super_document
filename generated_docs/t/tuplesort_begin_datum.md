@@ -44,3 +44,56 @@ This function creates a specialized tuplesort state for sorting raw datum values
 - Configures tuples field based on whether the type is pass-by-value or pass-by-reference
 - Supports comprehensive type system integration through SortSupport infrastructure
 - Includes DTrace/tracing support for performance monitoring when enabled
+
+## Simplified Source
+
+```c
+Tuplesortstate *tuplesort_begin_datum(Oid datumType, Oid sortOperator, Oid sortCollation,
+                                      bool nullsFirstFlag, int workMem,
+                                      SortCoordinate coordinate, int sortopt) {
+    // Initialize common tuplesort state
+    Tuplesortstate *state = tuplesort_begin_common(workMem, coordinate, sortopt);
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortDatumArg *arg;
+
+    // Switch to sort memory context and allocate argument structure
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->maincontext);
+    arg = (TuplesortDatumArg *) palloc(sizeof(TuplesortDatumArg));
+
+    // Configure as single-column sort
+    base->nKeys = 1;
+
+    // Set up datum-specific function pointers
+    base->comparetup = comparetup_datum;
+    base->writetup = writetup_datum;
+    base->readtup = readtup_datum;
+    base->haveDatum1 = true;
+    base->arg = arg;
+
+    // Get type properties and configure based on pass-by-value vs pass-by-reference
+    int16 typlen;
+    bool typbyval;
+    get_typlenbyval(datumType, &typlen, &typbyval);
+
+    arg->datumType = datumType;
+    arg->datumTypeLen = typlen;
+    base->tuples = !typbyval;  // Store tuples for pass-by-reference types
+
+    // Set up sort support with collation and null handling
+    base->sortKeys = (SortSupport) palloc0(sizeof(SortSupportData));
+    base->sortKeys->ssup_cxt = CurrentMemoryContext;
+    base->sortKeys->ssup_collation = sortCollation;
+    base->sortKeys->ssup_nulls_first = nullsFirstFlag;
+
+    // Enable abbreviation only for pass-by-reference types
+    base->sortKeys->abbreviate = !typbyval;
+
+    // Configure sort operator and enable onlyKey optimization if no abbreviation
+    PrepareSortSupportFromOrderingOp(sortOperator, base->sortKeys);
+    if (!base->sortKeys->abbrev_converter)
+        base->onlyKey = base->sortKeys;
+
+    MemoryContextSwitchTo(oldcontext);
+    return state;
+}
+```

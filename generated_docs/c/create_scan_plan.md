@@ -60,3 +60,68 @@ The function handles both base relation scans and join-replacement scans (for Fo
 - Automatically adds gating Result nodes for pseudoconstant qualification evaluation
 - Falls back to regular target list building when physical target list generation fails due to dropped columns
 - Located at src/backend/optimizer/plan/createplan.c:560-825
+
+## Simplified Source
+
+```c
+static Plan *
+create_scan_plan(PlannerInfo *root, Path *best_path, int flags)
+{
+    RelOptInfo *rel = best_path->parent;
+    List *scan_clauses;
+    List *gating_clauses;
+    List *tlist;
+    Plan *plan;
+
+    // Extract restriction clauses based on path type
+    // For index scans, use predicate-filtered clauses
+    if (best_path->pathtype == T_IndexScan || best_path->pathtype == T_IndexOnlyScan)
+        scan_clauses = castNode(IndexPath, best_path)->indexinfo->indrestrictinfo;
+    else
+        scan_clauses = rel->baserestrictinfo;
+
+    // Add parameterized join clauses if needed
+    if (best_path->param_info)
+        scan_clauses = list_concat_copy(scan_clauses, best_path->param_info->ppi_clauses);
+
+    // Handle pseudoconstant qualifications
+    gating_clauses = get_gating_quals(root, scan_clauses);
+    if (gating_clauses)
+        flags = 0;
+
+    // Build optimal target list
+    if (flags == CP_IGNORE_TLIST)
+        tlist = NULL;
+    else if (use_physical_tlist(root, best_path, flags))
+        tlist = build_optimized_tlist(root, best_path, flags);
+    else
+        tlist = build_path_tlist(root, best_path);
+
+    // Dispatch to specific scan plan creator based on path type
+    switch (best_path->pathtype)
+    {
+        case T_SeqScan:
+            plan = (Plan *) create_seqscan_plan(root, best_path, tlist, scan_clauses);
+            break;
+        case T_IndexScan:
+            plan = (Plan *) create_indexscan_plan(root, (IndexPath *) best_path,
+                                                  tlist, scan_clauses, false);
+            break;
+        case T_BitmapHeapScan:
+            plan = (Plan *) create_bitmap_scan_plan(root, (BitmapHeapPath *) best_path,
+                                                    tlist, scan_clauses);
+            break;
+        // ... other scan types handled similarly
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) best_path->pathtype);
+            plan = NULL;
+            break;
+    }
+
+    // Add gating Result node for pseudoconstant clauses if needed
+    if (gating_clauses)
+        plan = create_gating_plan(root, best_path, plan, gating_clauses);
+
+    return plan;
+}
+```

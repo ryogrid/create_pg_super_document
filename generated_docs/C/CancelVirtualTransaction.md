@@ -36,3 +36,12 @@ The function searches through the process array to find the backend with the mat
 - The conflictPending flag being set to true helps the target backend understand that it's being canceled due to a recovery conflict
 - The function handles the case where the target process might have already terminated between lookup and signaling
 - Thread-safe operation through proper use of ProcArrayLock in the underlying SignalVirtualTransaction function
+
+## Simplified Source
+```c
+pid_t CancelVirtualTransaction(VirtualTransactionId vxid, ProcSignalReason sigmode) {
+    // Delegate to SignalVirtualTransaction with conflict pending flag set to true
+    // This indicates the cancellation is due to a recovery conflict
+    return SignalVirtualTransaction(vxid, sigmode, true);
+}
+```

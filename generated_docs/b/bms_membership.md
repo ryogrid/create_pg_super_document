@@ -41,3 +41,38 @@ The function iterates through the bitmap words and uses bitwise operations to de
 - More efficient than  when exact count is not required
 - Commonly used in query optimization to make decisions based on set cardinality categories
 - Essential for various PostgreSQL optimizer components including path planning, equivalence classes, and extended statistics
+
+## Simplified Source
+
+```c
+BMS_Membership
+bms_membership(const Bitmapset *a)
+{
+    BMS_Membership result = BMS_EMPTY_SET;
+    int nwords;
+    int wordnum;
+
+    Assert(bms_is_valid_set(a));
+
+    if (a == NULL)
+        return BMS_EMPTY_SET;
+
+    nwords = a->nwords;
+    wordnum = 0;
+
+    do
+    {
+        bitmapword w = a->words[wordnum];
+
+        if (w != 0)
+        {
+            // If we already found bits or this word has multiple bits
+            if (result != BMS_EMPTY_SET || HAS_MULTIPLE_ONES(w))
+                return BMS_MULTIPLE;
+            result = BMS_SINGLETON;
+        }
+    } while (++wordnum < nwords);
+
+    return result;
+}
+```

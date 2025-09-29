@@ -43,3 +43,33 @@ The function manages the partexprs_item iterator to advance through expression-b
 - All returned structures are freshly allocated with palloc
 - Advances partexprs_item iterator when processing expression-based keys
 - Error checking ensures correct number of partition key expressions
+
+## Simplified Source
+
+```c
+static void get_range_key_properties(PartitionKey key, int keynum,
+                                   PartitionRangeDatum *ldatum, PartitionRangeDatum *udatum,
+                                   ListCell **partexprs_item,
+                                   Expr **keyCol, Const **lower_val, Const **upper_val) {
+
+    // Build partition key expression for this column
+    if (key->partattrs[keynum] != 0) {
+        // Simple attribute reference: create Var node
+        *keyCol = (Expr *) makeVar(1, key->partattrs[keynum], key->parttypid[keynum],
+                                  key->parttypmod[keynum], key->parttypcoll[keynum], 0);
+    } else {
+        // Expression-based partition key: copy from expression list
+        if (*partexprs_item == NULL)
+            elog(ERROR, "wrong number of partition key expressions");
+        *keyCol = copyObject(lfirst(*partexprs_item));
+        *partexprs_item = lnext(key->partexprs, *partexprs_item);
+    }
+
+    // Extract bound values (NULL for MINVALUE/MAXVALUE)
+    *lower_val = (ldatum->kind == PARTITION_RANGE_DATUM_VALUE) ?
+                 castNode(Const, copyObject(ldatum->value)) : NULL;
+
+    *upper_val = (udatum->kind == PARTITION_RANGE_DATUM_VALUE) ?
+                 castNode(Const, copyObject(udatum->value)) : NULL;
+}
+```

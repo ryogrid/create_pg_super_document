@@ -35,3 +35,12 @@ Unlike direct string comparison, this function properly handles PostgreSQL's tex
 - Wraps the result of texteq in DatumGetBool for proper return type handling
 - Ensures consistent text comparison behavior across different locales and collation settings
 - Critical for maintaining cache correctness when text values are used as cache keys
+
+## Simplified Source
+
+```c
+static bool texteqfast(Datum a, Datum b) {
+    // Use default collation for deterministic comparison
+    return DatumGetBool(DirectFunctionCall2Coll(texteq, DEFAULT_COLLATION_OID, a, b));
+}
+```

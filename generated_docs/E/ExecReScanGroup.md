@@ -42,3 +42,22 @@ The function includes an optimization where it only rescans the child node if no
 - Parameter change optimization (chgParam check) prevents unnecessary rescans
 - The scan tuple slot clearing ensures group detection starts fresh on rescan
 - Part of PostgreSQL's standard node interface supporting parameterized and repeated execution
+
+## Simplified Source
+
+```c
+void ExecReScanGroup(GroupState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Step 1: Reset group processing state
+    node->grp_done = false;
+
+    // Step 2: Clear the first tuple for fresh group detection
+    ExecClearTuple(node->ss.ss_ScanTupleSlot);
+
+    // Step 3: Rescan child plan if no parameter changes
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

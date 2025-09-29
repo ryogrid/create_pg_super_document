@@ -43,3 +43,17 @@ This is a read-only operation that does not modify the connection options array 
 - The returned pointer remains valid as long as the connOptions array is valid
 - Used throughout libpq for retrieving connection parameters during connection establishment
 - Thread-safe as long as the underlying connOptions array is not being modified concurrently
+
+## Simplified Source
+
+```c
+static const char *
+conninfo_getval(PQconninfoOption *connOptions, const char *keyword)
+{
+    // Find the option with the specified keyword
+    PQconninfoOption *option = conninfo_find(connOptions, keyword);
+
+    // Return the value if found, NULL otherwise
+    return option ? option->val : NULL;
+}
+```

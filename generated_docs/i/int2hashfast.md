@@ -32,3 +32,12 @@ This function generates hash values for PostgreSQL `int2` (16-bit integer) data 
 - Static function scope limits usage to catcache.c compilation unit
 - Complements `int2eqfast` for complete int2-based hash table operations
 - Provides good hash distribution despite the limited input range of 16-bit integers
+
+## Simplified Source
+
+```c
+static uint32 int2hashfast(Datum datum) {
+    // Extract 16-bit int, cast to 32-bit, and hash using MurmurHash32
+    return murmurhash32((int32) DatumGetInt16(datum));
+}
+```

@@ -31,3 +31,13 @@ This inline function provides a simple accessor to retrieve the type modifier fo
 - The function assumes the caller has validated that  is within the valid range for the partition key
 - Type modifiers are essential for ensuring partition bounds match the exact type specifications of partitioning columns
 - Used primarily during DDL operations when creating or validating partition bounds
+
+## Simplified Source
+```c
+static inline int32
+get_partition_col_typmod(PartitionKey key, int col)
+{
+    // Simple accessor: return type modifier for specified partition column
+    return key->parttypmod[col];
+}
+```

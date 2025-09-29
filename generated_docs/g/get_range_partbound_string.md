@@ -44,3 +44,45 @@ This function processes a list of PartitionRangeDatum structures representing th
 - The returned string is allocated in the current memory context and should be managed by the caller
 - Output format follows SQL syntax: "(value1, value2, ...)" or "(MINVALUE, value, MAXVALUE)" etc.
 - Used in both partition validation and SQL output generation contexts
+
+## Simplified Source
+
+```c
+char *get_range_partbound_string(List *bound_datums) {
+    deparse_context context;
+    StringInfo buf = makeStringInfo();
+
+    // Initialize deparse context
+    memset(&context, 0, sizeof(deparse_context));
+    context.buf = buf;
+
+    // Start with opening parenthesis
+    appendStringInfoChar(buf, '(');
+
+    // Process each boundary datum
+    char *sep = "";
+    foreach(cell, bound_datums) {
+        PartitionRangeDatum *datum = lfirst_node(PartitionRangeDatum, cell);
+
+        appendStringInfoString(buf, sep);
+
+        // Handle different datum types
+        if (datum->kind == PARTITION_RANGE_DATUM_MINVALUE)
+            appendStringInfoString(buf, "MINVALUE");
+        else if (datum->kind == PARTITION_RANGE_DATUM_MAXVALUE)
+            appendStringInfoString(buf, "MAXVALUE");
+        else {
+            // Format actual constant value
+            Const *val = castNode(Const, datum->value);
+            get_const_expr(val, &context, -1);
+        }
+
+        sep = ", ";
+    }
+
+    // Close with parenthesis
+    appendStringInfoChar(buf, ')');
+
+    return buf->data;
+}
+```

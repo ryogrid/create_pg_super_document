@@ -43,3 +43,58 @@ The function allocates memory for the uniqueness comparison arrays only when nee
 - Memory allocation using palloc for the uniqueness arrays occurs only when WITH TIES is specified
 - Essential for implementing SQL standard LIMIT/OFFSET functionality
 - The WITH TIES feature allows returning additional rows that have the same sort key values as the last row that would be included by a plain LIMIT
+
+## Simplified Source
+
+```c
+static Limit *
+create_limit_plan(PlannerInfo *root, LimitPath *best_path, int flags)
+{
+    Limit *plan;
+    Plan *subplan;
+    int numUniqkeys = 0;
+    AttrNumber *uniqColIdx = NULL;
+    Oid *uniqOperators = NULL;
+    Oid *uniqCollations = NULL;
+
+    // Create subplan - Limit doesn't project, so tlist requirements pass through
+    subplan = create_plan_recurse(root, best_path->subpath, flags);
+
+    // Handle WITH TIES: extract sorting information for tie-breaking
+    if (best_path->limitOption == LIMIT_OPTION_WITH_TIES)
+    {
+        Query *parse = root->parse;
+        ListCell *l;
+
+        // Allocate arrays for uniqueness comparison
+        numUniqkeys = list_length(parse->sortClause);
+        uniqColIdx = (AttrNumber *) palloc(numUniqkeys * sizeof(AttrNumber));
+        uniqOperators = (Oid *) palloc(numUniqkeys * sizeof(Oid));
+        uniqCollations = (Oid *) palloc(numUniqkeys * sizeof(Oid));
+
+        // Extract sort key information for each ORDER BY column
+        numUniqkeys = 0;
+        foreach(l, parse->sortClause)
+        {
+            SortGroupClause *sortcl = (SortGroupClause *) lfirst(l);
+            TargetEntry *tle = get_sortgroupclause_tle(sortcl, parse->targetList);
+
+            uniqColIdx[numUniqkeys] = tle->resno;
+            uniqOperators[numUniqkeys] = sortcl->eqop;
+            uniqCollations[numUniqkeys] = exprCollation((Node *) tle->expr);
+            numUniqkeys++;
+        }
+    }
+
+    // Create the Limit plan node
+    plan = make_limit(subplan,
+                      best_path->limitOffset,
+                      best_path->limitCount,
+                      best_path->limitOption,
+                      numUniqkeys, uniqColIdx, uniqOperators, uniqCollations);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

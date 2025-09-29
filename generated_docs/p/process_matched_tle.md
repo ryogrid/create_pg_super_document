@@ -68,3 +68,100 @@ For domain-typed columns, it strips CoerceToDomain nodes during processing and r
 - For SubscriptingRef operations, nesting is always required
 - Domain constraint checking is deferred until after all field updates are complete
 - Generates syntax errors for incompatible multiple assignments to prevent data corruption
+
+## Simplified Source
+
+```c
+static TargetEntry *
+process_matched_tle(TargetEntry *src_tle,
+                    TargetEntry *prior_tle,
+                    const char *attrName)
+{
+    TargetEntry *result;
+    Node *src_expr, *prior_expr;
+    Node *newexpr;
+    CoerceToDomain *coerce_expr = NULL;
+
+    // First assignment to this attribute - just return it
+    if (prior_tle == NULL)
+        return src_tle;
+
+    // Handle multiple assignments to same attribute
+    src_expr = (Node *) src_tle->expr;
+    prior_expr = (Node *) prior_tle->expr;
+
+    // Extract any CoerceToDomain wrappers
+    if (IsA(src_expr, CoerceToDomain) && IsA(prior_expr, CoerceToDomain))
+    {
+        coerce_expr = (CoerceToDomain *) src_expr;
+        src_expr = (Node *) coerce_expr->arg;
+        prior_expr = (Node *) ((CoerceToDomain *) prior_expr)->arg;
+    }
+
+    // Validate that both expressions are compatible assignment operations
+    Node *src_input = get_assignment_input(src_expr);
+    Node *prior_input = get_assignment_input(prior_expr);
+
+    if (src_input == NULL || prior_input == NULL)
+        ereport(ERROR, (errmsg("multiple assignments to same column \"%s\"", attrName)));
+
+    // Find the bottom-level input reference and validate compatibility
+    Node *priorbottom = prior_input;
+    while (get_assignment_input(priorbottom) != NULL)
+        priorbottom = get_assignment_input(priorbottom);
+
+    if (!equal(priorbottom, src_input))
+        ereport(ERROR, (errmsg("multiple assignments to same column \"%s\"", attrName)));
+
+    // Combine the assignments based on type
+    if (IsA(src_expr, FieldStore))
+    {
+        FieldStore *fstore = makeNode(FieldStore);
+
+        if (IsA(prior_expr, FieldStore))
+        {
+            // Combine two FieldStores into single operation
+            memcpy(fstore, prior_expr, sizeof(FieldStore));
+            fstore->newvals = list_concat_copy(
+                ((FieldStore *) prior_expr)->newvals,
+                ((FieldStore *) src_expr)->newvals);
+            fstore->fieldnums = list_concat_copy(
+                ((FieldStore *) prior_expr)->fieldnums,
+                ((FieldStore *) src_expr)->fieldnums);
+        }
+        else
+        {
+            // Nest new FieldStore over prior expression
+            memcpy(fstore, src_expr, sizeof(FieldStore));
+            fstore->arg = (Expr *) prior_expr;
+        }
+        newexpr = (Node *) fstore;
+    }
+    else if (IsA(src_expr, SubscriptingRef))
+    {
+        // Nest SubscriptingRef operations
+        SubscriptingRef *sbsref = makeNode(SubscriptingRef);
+        memcpy(sbsref, src_expr, sizeof(SubscriptingRef));
+        sbsref->refexpr = (Expr *) prior_expr;
+        newexpr = (Node *) sbsref;
+    }
+    else
+    {
+        elog(ERROR, "unsupported assignment operation");
+    }
+
+    // Restore CoerceToDomain wrapper if present
+    if (coerce_expr)
+    {
+        CoerceToDomain *newcoerce = makeNode(CoerceToDomain);
+        memcpy(newcoerce, coerce_expr, sizeof(CoerceToDomain));
+        newcoerce->arg = (Expr *) newexpr;
+        newexpr = (Node *) newcoerce;
+    }
+
+    // Create result TargetEntry with combined expression
+    result = flatCopyTargetEntry(src_tle);
+    result->expr = (Expr *) newexpr;
+    return result;
+}
+```

@@ -44,3 +44,88 @@ The function includes sophisticated recursive containment detection to prevent s
 - Stack depth checking prevents stack overflow during deep recursion
 - Critical for maintaining type system integrity in PostgreSQL
 - Located in src/backend/catalog/heap.c:549-681
+
+## Simplified Source
+
+```c
+void
+CheckAttributeType(const char *attname, Oid atttypid, Oid attcollation,
+                   List *containing_rowtypes, int flags)
+{
+    char att_typtype = get_typtype(atttypid);
+    Oid att_typelem;
+
+    // Prevent infinite recursion
+    check_stack_depth();
+
+    if (att_typtype == TYPTYPE_PSEUDO)
+    {
+        // Disallow pseudo-types except for allowed ones based on flags
+        if (!((atttypid == ANYARRAYOID && (flags & CHKATYPE_ANYARRAY)) ||
+              (atttypid == RECORDOID && (flags & CHKATYPE_ANYRECORD)) ||
+              (atttypid == RECORDARRAYOID && (flags & CHKATYPE_ANYRECORD))))
+        {
+            if (flags & CHKATYPE_IS_PARTKEY)
+                ereport(ERROR, "Partition key column has pseudo-type");
+            else
+                ereport(ERROR, "Column has pseudo-type");
+        }
+    }
+    else if (att_typtype == TYPTYPE_DOMAIN)
+    {
+        // Recurse to validate domain base type
+        CheckAttributeType(attname, getBaseType(atttypid), attcollation,
+                           containing_rowtypes, flags);
+    }
+    else if (att_typtype == TYPTYPE_COMPOSITE)
+    {
+        // Check for self-containment to prevent infinite recursion
+        if (list_member_oid(containing_rowtypes, atttypid))
+            ereport(ERROR, "Composite type cannot be made a member of itself");
+
+        containing_rowtypes = lappend_oid(containing_rowtypes, atttypid);
+
+        // Open composite type relation and validate all attributes
+        Relation relation = relation_open(get_typ_typrelid(atttypid), AccessShareLock);
+        TupleDesc tupdesc = RelationGetDescr(relation);
+
+        for (int i = 0; i < tupdesc->natts; i++)
+        {
+            Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+            if (attr->attisdropped)
+                continue;
+
+            CheckAttributeType(NameStr(attr->attname),
+                               attr->atttypid, attr->attcollation,
+                               containing_rowtypes,
+                               flags & ~CHKATYPE_IS_PARTKEY);
+        }
+
+        relation_close(relation, AccessShareLock);
+        containing_rowtypes = list_delete_last(containing_rowtypes);
+    }
+    else if (att_typtype == TYPTYPE_RANGE)
+    {
+        // Recurse to validate range subtype
+        CheckAttributeType(attname, get_range_subtype(atttypid),
+                           get_range_collation(atttypid),
+                           containing_rowtypes, flags);
+    }
+    else if (OidIsValid((att_typelem = get_element_type(atttypid))))
+    {
+        // Recurse to validate array element type
+        CheckAttributeType(attname, att_typelem, attcollation,
+                           containing_rowtypes, flags);
+    }
+
+    // Validate collation for collatable types
+    if (!OidIsValid(attcollation) && type_is_collatable(atttypid))
+    {
+        if (flags & CHKATYPE_IS_PARTKEY)
+            ereport(ERROR, "No collation derived for partition key column with collatable type");
+        else
+            ereport(ERROR, "No collation derived for column with collatable type");
+    }
+}
+```

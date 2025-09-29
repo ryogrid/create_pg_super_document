@@ -41,3 +41,24 @@ The function includes a debug check at the end using `dlist_check` to verify lis
 - Commonly used in PostgreSQL's catalog cache system for implementing LRU (Least Recently Used) behavior
 - The function performs integrity checking in debug builds via `dlist_check`
 - This operation maintains the total number of nodes in the list - it's purely a repositioning operation
+
+## Simplified Source
+
+```c
+static inline void
+dlist_move_head(dlist_head *head, dlist_node *node)
+{
+    // Fast path: already at head, nothing to do
+    if (head->head.next == node)
+        return;
+
+    // Remove node from current position
+    dlist_delete(node);
+
+    // Insert at head position
+    dlist_push_head(head, node);
+
+    // Verify list integrity (debug builds)
+    dlist_check(head);
+}
+```

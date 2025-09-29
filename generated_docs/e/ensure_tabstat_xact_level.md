@@ -39,3 +39,18 @@ This lazy approach optimizes performance by only creating transaction tracking s
 - This is called before every table modification operation to ensure proper statistics rollback capability
 - The nest level comparison ensures that nested transactions (savepoints) get their own tracking records
 - Part of PostgreSQL's MVCC-aware statistics system that must handle complex transaction scenarios including partial rollbacks
+
+## Simplified Source
+```c
+static void ensure_tabstat_xact_level(PgStat_TableStatus *pgstat_info) {
+    // Get current transaction nesting level
+    int nest_level = GetCurrentTransactionNestLevel();
+
+    // Check if we need a new transaction record
+    if (pgstat_info->trans == NULL ||
+        pgstat_info->trans->nest_level != nest_level) {
+        // Create transaction record for this nesting level
+        add_tabstat_xact_level(pgstat_info, nest_level);
+    }
+}
+```

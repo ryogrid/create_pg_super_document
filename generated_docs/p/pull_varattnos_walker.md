@@ -42,3 +42,31 @@ The function explicitly asserts that it should not encounter unplanned Query nod
 - Includes assertion to catch unexpected unplanned subqueries
 - Returns false to continue tree traversal in all cases
 - Essential component for column-level analysis in PostgreSQL's optimizer
+
+## Simplified Source
+
+```c
+static bool pull_varattnos_walker(Node *node, pull_varattnos_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Check if this is a Var node
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Only collect attributes from the target relation at current level
+        if (var->varno == context->varno && var->varlevelsup == 0) {
+            // Add attribute number to the bitmap (with offset for system attributes)
+            context->varattnos = bms_add_member(context->varattnos,
+                                               var->varattno - FirstLowInvalidHeapAttributeNumber);
+        }
+        return false;
+    }
+
+    // Ensure we don't encounter unplanned subqueries
+    Assert(!IsA(node, Query));
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, pull_varattnos_walker, (void *) context);
+}
+```

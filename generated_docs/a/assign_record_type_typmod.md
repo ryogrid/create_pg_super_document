@@ -46,3 +46,65 @@ The process involves multiple steps: hash table initialization (if needed), cach
 - Integrates with shared record type registry system for cross-session record type sharing
 - The assigned typmod value is stored in both the cache entry and the input TupleDesc's tdtypmod field
 - Ensures cache array slots exist before creating new entries to prevent allocation failures
+
+## Simplified Source
+
+```c
+void assign_record_type_typmod(TupleDesc tupDesc) {
+    RecordCacheEntry *recentry;
+    TupleDesc entDesc;
+    bool found;
+    MemoryContext oldcxt;
+
+    Assert(tupDesc->tdtypeid == RECORDOID);
+
+    // Initialize hash table on first use
+    if (RecordCacheHash == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = sizeof(TupleDesc);
+        ctl.entrysize = sizeof(RecordCacheEntry);
+        ctl.hash = record_type_typmod_hash;
+        ctl.match = record_type_typmod_compare;
+        RecordCacheHash = hash_create("Record information cache", 64, &ctl,
+                                    HASH_ELEM | HASH_FUNCTION | HASH_COMPARE);
+
+        if (!CacheMemoryContext)
+            CreateCacheMemoryContext();
+    }
+
+    // Look for existing cache entry
+    recentry = hash_search(RecordCacheHash, &tupDesc, HASH_FIND, &found);
+    if (found && recentry->tupdesc != NULL) {
+        tupDesc->tdtypmod = recentry->tupdesc->tdtypmod;
+        return;
+    }
+
+    // Create new entry in cache memory context
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Try to find or create matching tuple descriptor
+    entDesc = find_or_make_matching_shared_tupledesc(tupDesc);
+    if (entDesc == NULL) {
+        // Create local copy with new typmod
+        ensure_record_cache_typmod_slot_exists(NextRecordTypmod);
+        entDesc = CreateTupleDescCopy(tupDesc);
+        entDesc->tdrefcount = 1;
+        entDesc->tdtypmod = NextRecordTypmod++;
+    } else {
+        ensure_record_cache_typmod_slot_exists(entDesc->tdtypmod);
+    }
+
+    // Store in cache array and assign unique ID
+    RecordCacheArray[entDesc->tdtypmod].tupdesc = entDesc;
+    RecordCacheArray[entDesc->tdtypmod].id = ++tupledesc_id_counter;
+
+    // Create hash table entry
+    recentry = hash_search(RecordCacheHash, &tupDesc, HASH_ENTER, NULL);
+    recentry->tupdesc = entDesc;
+
+    // Update caller's tuple descriptor
+    tupDesc->tdtypmod = entDesc->tdtypmod;
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

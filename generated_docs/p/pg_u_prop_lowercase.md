@@ -35,3 +35,20 @@ The Lowercase property is distinct from the general category "Lowercase Letter" 
 - Used in implementing proper lowercase detection across all Unicode scripts
 - Part of the casing system that supports PostgreSQL's text processing and pattern matching
 - Located in src/common/unicode_category.c:122-132
+
+## Simplified Source
+
+```c
+bool
+pg_u_prop_lowercase(pg_wchar code)
+{
+    // Fast path for ASCII characters using bitmask lookup
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_LOWERCASE;
+
+    // For non-ASCII characters, search the lowercase ranges table
+    return range_search(unicode_lowercase,
+                        lengthof(unicode_lowercase),
+                        code);
+}
+```

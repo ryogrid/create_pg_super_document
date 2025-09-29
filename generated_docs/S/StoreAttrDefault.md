@@ -46,3 +46,83 @@ This function creates a new pg_attrdef tuple to store a default expression for a
 
 ## Notes and Other Information
 The function includes legacy code for handling missing values when adding columns (add_column_mode), but this functionality is currently unused in core PostgreSQL as noted in the comments. The function carefully manages memory allocation and deallocation, freeing temporary structures like the stringified expression and heap tuples. It establishes proper dependency relationships to ensure cascading deletion behavior when columns or tables are dropped. For generated columns, it creates internal dependencies to prevent separate deletion of the default expression.
+
+## Simplified Source
+
+```c
+Oid
+StoreAttrDefault(Relation rel, AttrNumber attnum, Node *expr,
+                 bool is_internal, bool add_column_mode)
+{
+    // Convert expression to string for storage
+    char *adbin = nodeToString(expr);
+
+    // Open pg_attrdef catalog
+    Relation adrel = table_open(AttrDefaultRelationId, RowExclusiveLock);
+
+    // Create new pg_attrdef entry
+    Oid attrdefOid = GetNewOidWithIndex(adrel, AttrDefaultOidIndexId, Anum_pg_attrdef_oid);
+
+    // Set up tuple values
+    Datum values[4];
+    bool nulls[4] = {false, false, false, false};
+    values[Anum_pg_attrdef_oid - 1] = ObjectIdGetDatum(attrdefOid);
+    values[Anum_pg_attrdef_adrelid - 1] = RelationGetRelid(rel);
+    values[Anum_pg_attrdef_adnum - 1] = attnum;
+    values[Anum_pg_attrdef_adbin - 1] = CStringGetTextDatum(adbin);
+
+    // Insert tuple into pg_attrdef
+    HeapTuple tuple = heap_form_tuple(adrel->rd_att, values, nulls);
+    CatalogTupleInsert(adrel, tuple);
+    table_close(adrel, RowExclusiveLock);
+
+    // Update pg_attribute to mark default exists
+    Relation attrrel = table_open(AttributeRelationId, RowExclusiveLock);
+    HeapTuple atttup = SearchSysCacheCopy2(ATTNUM,
+                                          ObjectIdGetDatum(RelationGetRelid(rel)),
+                                          Int16GetDatum(attnum));
+
+    Form_pg_attribute attStruct = (Form_pg_attribute) GETSTRUCT(atttup);
+    if (!attStruct->atthasdef)
+    {
+        // Mark attribute as having default
+        Datum valuesAtt[Natts_pg_attribute] = {0};
+        bool nullsAtt[Natts_pg_attribute] = {0};
+        bool replacesAtt[Natts_pg_attribute] = {0};
+
+        valuesAtt[Anum_pg_attribute_atthasdef - 1] = true;
+        replacesAtt[Anum_pg_attribute_atthasdef - 1] = true;
+
+        atttup = heap_modify_tuple(atttup, RelationGetDescr(attrrel),
+                                  valuesAtt, nullsAtt, replacesAtt);
+        CatalogTupleUpdate(attrrel, &atttup->t_self, atttup);
+    }
+    table_close(attrrel, RowExclusiveLock);
+
+    // Create dependency relationships
+    ObjectAddress defobject, colobject;
+    defobject.classId = AttrDefaultRelationId;
+    defobject.objectId = attrdefOid;
+    defobject.objectSubId = 0;
+
+    colobject.classId = RelationRelationId;
+    colobject.objectId = RelationGetRelid(rel);
+    colobject.objectSubId = attnum;
+
+    // Record dependencies
+    recordDependencyOn(&defobject, &colobject,
+                      attStruct->attgenerated ? DEPENDENCY_INTERNAL : DEPENDENCY_AUTO);
+    recordDependencyOnSingleRelExpr(&defobject, expr, RelationGetRelid(rel),
+                                   DEPENDENCY_NORMAL, DEPENDENCY_NORMAL, false);
+
+    // Cleanup and invoke hooks
+    pfree(adbin);
+    heap_freetuple(tuple);
+    heap_freetuple(atttup);
+
+    InvokeObjectPostCreateHookArg(AttrDefaultRelationId, RelationGetRelid(rel),
+                                 attnum, is_internal);
+
+    return attrdefOid;
+}
+```

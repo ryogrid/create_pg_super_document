@@ -46,3 +46,24 @@ The function follows the same synchronous execution pattern as other libpq exec 
 - Parameter type inference (paramTypes = NULL) is often sufficient for most use cases
 - Prepared statements improve performance for repeatedly executed queries
 - The statement name must be unique within the session scope
+
+## Simplified Source
+
+```c
+PGresult *PQprepare(PGconn *conn,
+                    const char *stmtName,
+                    const char *query,
+                    int nParams,
+                    const Oid *paramTypes) {
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send the prepare request to the server
+    if (!PQsendPrepare(conn, stmtName, query, nParams, paramTypes))
+        return NULL;
+
+    // Wait for and retrieve the result
+    return PQexecFinish(conn);
+}
+```

@@ -47,3 +47,65 @@ The function deliberately excludes certain node types (MinMaxExpr, XmlExpr, Coer
 - Cache invalidation is the responsibility of code that modifies RestrictInfo or PathTarget nodes
 - Static function indicating it's an internal implementation detail of the volatility analysis system
 - Critical for determining parallel query safety and index optimization decisions
+
+## Simplified Source
+
+```c
+static bool
+contain_volatile_functions_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check functions in current node
+    if (check_functions_in_node(node, contain_volatile_functions_checker, context))
+        return true;
+
+    // NextValueExpr is always volatile
+    if (IsA(node, NextValueExpr))
+        return true;
+
+    // Cache results for RestrictInfo nodes
+    if (IsA(node, RestrictInfo))
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) node;
+
+        if (rinfo->has_volatile == VOLATILITY_NOVOLATILE)
+            return false;
+        else if (rinfo->has_volatile == VOLATILITY_VOLATILE)
+            return true;
+        else
+        {
+            // Check and cache volatility
+            bool hasvolatile = contain_volatile_functions_walker((Node *) rinfo->clause, context);
+            rinfo->has_volatile = hasvolatile ? VOLATILITY_VOLATILE : VOLATILITY_NOVOLATILE;
+            return hasvolatile;
+        }
+    }
+
+    // Cache results for PathTarget nodes
+    if (IsA(node, PathTarget))
+    {
+        PathTarget *target = (PathTarget *) node;
+
+        if (target->has_volatile_expr == VOLATILITY_NOVOLATILE)
+            return false;
+        else if (target->has_volatile_expr == VOLATILITY_VOLATILE)
+            return true;
+        else
+        {
+            // Check and cache volatility
+            bool hasvolatile = contain_volatile_functions_walker((Node *) target->exprs, context);
+            target->has_volatile_expr = hasvolatile ? VOLATILITY_VOLATILE : VOLATILITY_NOVOLATILE;
+            return hasvolatile;
+        }
+    }
+
+    // Handle subqueries
+    if (IsA(node, Query))
+        return query_tree_walker((Query *) node, contain_volatile_functions_walker, context, 0);
+
+    // Continue recursive traversal
+    return expression_tree_walker(node, contain_volatile_functions_walker, context);
+}
+```

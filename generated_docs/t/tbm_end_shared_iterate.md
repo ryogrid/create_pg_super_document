@@ -32,3 +32,12 @@ This distinction is crucial in parallel processing scenarios where multiple proc
 
 ## Notes and Other Information
 Critical for parallel bitmap scans where shared memory state must persist beyond individual process cleanup. The shared state (including the actual bitmap data and shared iterator state) remains valid for other processes. Always pair with appropriate shared iterator initialization. The function does not acquire locks since it only affects local process state.
+
+## Simplified Source
+
+```c
+void tbm_end_shared_iterate(TBMSharedIterator *iterator) {
+    // Clean up only backend-private state, leave shared state intact
+    pfree(iterator);
+}
+```

@@ -50,3 +50,58 @@ The function uses a field mask (fmask) to determine which date components need v
 - Maps 2-digit years to 1970-2069 range following common conventions
 - Performs day-of-month validation that accounts for leap years and varying month lengths
 - Uses different error codes for different types of overflow (DTERR_FIELD_OVERFLOW vs DTERR_MD_FIELD_OVERFLOW)
+
+## Simplified Source
+```c
+int ValidateDate(int fmask, bool isjulian, bool is2digits, bool bc, struct pg_tm *tm) {
+    // Process year field if present
+    if (fmask & DTK_M(YEAR)) {
+        if (isjulian) {
+            // Julian calendar - year is already correct
+        } else if (bc) {
+            // BC year: convert to internal representation (1 BC = year 0)
+            if (tm->tm_year <= 0)
+                return DTERR_FIELD_OVERFLOW;
+            tm->tm_year = -(tm->tm_year - 1);
+        } else if (is2digits) {
+            // 2-digit year: map to 1970-2069 range
+            if (tm->tm_year < 0)
+                return DTERR_FIELD_OVERFLOW;
+            if (tm->tm_year < 70)
+                tm->tm_year += 2000;
+            else if (tm->tm_year < 100)
+                tm->tm_year += 1900;
+        } else {
+            // Regular AD year: no year zero allowed
+            if (tm->tm_year <= 0)
+                return DTERR_FIELD_OVERFLOW;
+        }
+    }
+
+    // Convert day-of-year to month/day if specified
+    if (fmask & DTK_M(DOY)) {
+        j2date(date2j(tm->tm_year, 1, 1) + tm->tm_yday - 1,
+               &tm->tm_year, &tm->tm_mon, &tm->tm_mday);
+    }
+
+    // Validate month range (1-12)
+    if (fmask & DTK_M(MONTH)) {
+        if (tm->tm_mon < 1 || tm->tm_mon > MONTHS_PER_YEAR)
+            return DTERR_MD_FIELD_OVERFLOW;
+    }
+
+    // Basic day range check (1-31)
+    if (fmask & DTK_M(DAY)) {
+        if (tm->tm_mday < 1 || tm->tm_mday > 31)
+            return DTERR_MD_FIELD_OVERFLOW;
+    }
+
+    // Detailed day validation considering month length and leap years
+    if ((fmask & DTK_DATE_M) == DTK_DATE_M) {
+        if (tm->tm_mday > day_tab[isleap(tm->tm_year)][tm->tm_mon - 1])
+            return DTERR_FIELD_OVERFLOW;
+    }
+
+    return 0; // All validations passed
+}
+```

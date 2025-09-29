@@ -37,3 +37,39 @@ This function checks if a relation (table) has a primary key by examining all in
 - Does not validate the index (ignores indisvalid flag) to maintain constraint that only one primary key can exist
 - Uses system cache lookups for efficiency when examining index properties
 - Properly handles memory cleanup by freeing the index OID list
+
+## Simplified Source
+
+```c
+static bool relationHasPrimaryKey(Relation rel)
+{
+    bool result = false;
+    List *indexoidlist;
+    ListCell *indexoidscan;
+
+    // Get all indexes for this relation
+    indexoidlist = RelationGetIndexList(rel);
+
+    // Search through each index to find primary key
+    foreach(indexoidscan, indexoidlist)
+    {
+        Oid indexoid = lfirst_oid(indexoidscan);
+        HeapTuple indexTuple;
+
+        // Look up index metadata
+        indexTuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(indexoid));
+        if (!HeapTupleIsValid(indexTuple))
+            elog(ERROR, "cache lookup failed for index %u", indexoid);
+
+        // Check if this index is marked as primary key
+        result = ((Form_pg_index) GETSTRUCT(indexTuple))->indisprimary;
+        ReleaseSysCache(indexTuple);
+
+        if (result)
+            break;  // Found primary key, stop searching
+    }
+
+    list_free(indexoidlist);
+    return result;
+}
+```

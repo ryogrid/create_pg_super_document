@@ -47,3 +47,59 @@ The function properly handles subquery nesting by tracking sublevels_up and only
 - Part of PostgreSQL's query rewriting infrastructure for detecting unused range table entries
 - Handles both direct variable references and nulling relation references for outer join semantics
 - Properly manages query nesting levels to avoid false matches across subquery boundaries
+
+## Simplified Source
+
+```c
+static bool rangeTableEntry_used_walker(Node *node, rangeTableEntry_used_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Check for Var references to our target range table entry
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+        if (var->varlevelsup == context->sublevels_up &&
+            (var->varno == context->rt_index ||
+             bms_is_member(context->rt_index, var->varnullingrels)))
+            return true;
+        return false;
+    }
+
+    // Check for CurrentOfExpr references
+    if (IsA(node, CurrentOfExpr)) {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) node;
+        if (context->sublevels_up == 0 && cexpr->cvarno == context->rt_index)
+            return true;
+        return false;
+    }
+
+    // Check for RangeTblRef and JoinExpr references
+    if (IsA(node, RangeTblRef)) {
+        RangeTblRef *rtr = (RangeTblRef *) node;
+        if (rtr->rtindex == context->rt_index && context->sublevels_up == 0)
+            return true;
+        return false;
+    }
+
+    if (IsA(node, JoinExpr)) {
+        JoinExpr *j = (JoinExpr *) node;
+        if (j->rtindex == context->rt_index && context->sublevels_up == 0)
+            return true;
+        // Continue examining children
+    }
+
+    // Handle subqueries by adjusting sublevel counter
+    if (IsA(node, Query)) {
+        bool result;
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node, rangeTableEntry_used_walker,
+                                 (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Recursively examine all other expression nodes
+    return expression_tree_walker(node, rangeTableEntry_used_walker,
+                                (void *) context);
+}
+```

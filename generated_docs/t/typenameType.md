@@ -37,3 +37,28 @@ typenameType is the recommended high-level interface for converting TypeName obj
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:264-290. This function is the preferred choice for most code that needs to resolve type names, as it provides complete validation and error handling. Unlike the lower-level LookupTypeName functions, callers can safely assume the returned Type represents a fully valid type without additional checking. The function always raises errors rather than returning NULL, simplifying error handling for callers.
+
+## Simplified Source
+
+```c
+Type typenameType(ParseState *pstate, const TypeName *typeName, int32 *typmod_p) {
+    Type tup;
+
+    // Look up the type name
+    tup = LookupTypeName(pstate, typeName, typmod_p, false);
+
+    // Ensure type exists
+    if (tup == NULL)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("type \"%s\" does not exist",
+                              TypeNameToString(typeName))));
+
+    // Ensure type is fully defined (not just a shell)
+    if (!((Form_pg_type) GETSTRUCT(tup))->typisdefined)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("type \"%s\" is only a shell",
+                              TypeNameToString(typeName))));
+
+    return tup;
+}
+```

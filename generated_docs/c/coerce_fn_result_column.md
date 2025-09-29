@@ -49,3 +49,69 @@ The function respects query semantics by avoiding modifications to columns refer
 - Preserves column names and other metadata during coercion
 - Works in conjunction with PostgreSQL's broader type coercion system
 - Essential component of the SQL function return type checking infrastructure
+
+## Simplified Source
+
+```c
+static bool
+coerce_fn_result_column(TargetEntry *src_tle,
+                        Oid res_type,
+                        int32 res_typmod,
+                        bool tlist_is_modifiable,
+                        List **upper_tlist,
+                        bool *upper_tlist_nontrivial)
+{
+    TargetEntry *new_tle;
+    Expr *new_tle_expr;
+    Node *cast_result;
+
+    // Check if we can safely modify the source target entry in-place
+    if (tlist_is_modifiable && src_tle->ressortgroupref == 0) {
+        // Safe to modify in-place - coerce the source expression directly
+        cast_result = coerce_to_target_type(NULL,
+                                           (Node *) src_tle->expr,
+                                           exprType((Node *) src_tle->expr),
+                                           res_type, res_typmod,
+                                           COERCION_ASSIGNMENT,
+                                           COERCE_IMPLICIT_CAST,
+                                           -1);
+        if (cast_result == NULL)
+            return false;  // Coercion failed
+
+        assign_expr_collations(NULL, cast_result);
+        src_tle->expr = (Expr *) cast_result;
+
+        // Create a Var referencing the modified target entry
+        new_tle_expr = (Expr *) makeVarFromTargetEntry(1, src_tle);
+    } else {
+        // Must perform coercion in upper target list to preserve semantics
+        Var *var = makeVarFromTargetEntry(1, src_tle);
+
+        cast_result = coerce_to_target_type(NULL,
+                                           (Node *) var,
+                                           var->vartype,
+                                           res_type, res_typmod,
+                                           COERCION_ASSIGNMENT,
+                                           COERCE_IMPLICIT_CAST,
+                                           -1);
+        if (cast_result == NULL)
+            return false;  // Coercion failed
+
+        assign_expr_collations(NULL, cast_result);
+
+        // Check if coercion actually changed anything
+        if (cast_result != (Node *) var)
+            *upper_tlist_nontrivial = true;
+
+        new_tle_expr = (Expr *) cast_result;
+    }
+
+    // Create new target entry for the upper target list
+    new_tle = makeTargetEntry(new_tle_expr,
+                             list_length(*upper_tlist) + 1,
+                             src_tle->resname, false);
+    *upper_tlist = lappend(*upper_tlist, new_tle);
+
+    return true;
+}
+```

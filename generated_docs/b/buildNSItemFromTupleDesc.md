@@ -44,3 +44,56 @@ This function constructs a ParseNamespaceItem that encapsulates a relation's col
 - Column attribute numbers are stored as 1-based (varattno + 1) following PostgreSQL conventions
 - The namespace item serves as the interface between physical storage and logical query representation
 - Both regular and synonym attribute numbers are initialized to the same values initially
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *buildNSItemFromTupleDesc(RangeTblEntry *rte, Index rtindex,
+                                                   RTEPermissionInfo *perminfo,
+                                                   TupleDesc tupdesc) {
+    ParseNamespaceItem *nsitem;
+    ParseNamespaceColumn *nscolumns;
+    int maxattrs = tupdesc->natts;
+
+    // Verify column name count matches tuple descriptor
+    Assert(maxattrs == list_length(rte->eref->colnames));
+
+    // Allocate column metadata array
+    nscolumns = (ParseNamespaceColumn *) palloc0(maxattrs * sizeof(ParseNamespaceColumn));
+
+    // Extract column information from tuple descriptor
+    for (int varattno = 0; varattno < maxattrs; varattno++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, varattno);
+
+        // Skip dropped columns (leave as zeroes)
+        if (attr->attisdropped) {
+            continue;
+        }
+
+        // Set column metadata
+        nscolumns[varattno].p_varno = rtindex;
+        nscolumns[varattno].p_varattno = varattno + 1;        // 1-based indexing
+        nscolumns[varattno].p_vartype = attr->atttypid;
+        nscolumns[varattno].p_vartypmod = attr->atttypmod;
+        nscolumns[varattno].p_varcollid = attr->attcollation;
+        nscolumns[varattno].p_varnosyn = rtindex;
+        nscolumns[varattno].p_varattnosyn = varattno + 1;
+    }
+
+    // Build and initialize namespace item
+    nsitem = (ParseNamespaceItem *) palloc(sizeof(ParseNamespaceItem));
+    nsitem->p_names = rte->eref;
+    nsitem->p_rte = rte;
+    nsitem->p_rtindex = rtindex;
+    nsitem->p_perminfo = perminfo;
+    nsitem->p_nscolumns = nscolumns;
+
+    // Set default visibility flags
+    nsitem->p_rel_visible = true;
+    nsitem->p_cols_visible = true;
+    nsitem->p_lateral_only = false;
+    nsitem->p_lateral_ok = true;
+
+    return nsitem;
+}
+```

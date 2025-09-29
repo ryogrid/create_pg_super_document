@@ -70,3 +70,109 @@ If the constraints are equivalent, the function:
 - Critical optimization that avoids creating duplicate FK constraints during partition operations
 - Includes special handling for partitioned referenced tables to clean up extra constraint records
 - Uses multiple CommandCounterIncrement calls to ensure catalog visibility during multi-step operations
+
+## Simplified Source
+
+```c
+static bool tryAttachPartitionForeignKey(ForeignKeyCacheInfo *fk, Oid partRelid,
+                                        Oid parentConstrOid, int numfks,
+                                        AttrNumber *mapped_conkey, AttrNumber *confkey,
+                                        Oid *conpfeqop, Oid parentInsTrigger,
+                                        Oid parentUpdTrigger, Relation trigrel) {
+    HeapTuple parentConstrTup, partcontup;
+    Form_pg_constraint parentConstr, partConstr;
+    ScanKeyData key;
+    SysScanDesc scan;
+    HeapTuple trigtup;
+    Oid insertTriggerOid, updateTriggerOid;
+
+    // Look up parent constraint
+    parentConstrTup = SearchSysCache1(CONSTROID, ObjectIdGetDatum(parentConstrOid));
+    if (!HeapTupleIsValid(parentConstrTup))
+        elog(ERROR, "cache lookup failed for constraint %u", parentConstrOid);
+    parentConstr = (Form_pg_constraint) GETSTRUCT(parentConstrTup);
+
+    // Quick compatibility checks
+    if (fk->confrelid != parentConstr->confrelid || fk->nkeys != numfks) {
+        ReleaseSysCache(parentConstrTup);
+        return false;
+    }
+
+    // Check column and operator compatibility
+    for (int i = 0; i < numfks; i++) {
+        if (fk->conkey[i] != mapped_conkey[i] ||
+            fk->confkey[i] != confkey[i] ||
+            fk->conpfeqop[i] != conpfeqop[i]) {
+            ReleaseSysCache(parentConstrTup);
+            return false;
+        }
+    }
+
+    // Look up partition constraint details
+    partcontup = SearchSysCache1(CONSTROID, ObjectIdGetDatum(fk->conoid));
+    if (!HeapTupleIsValid(partcontup))
+        elog(ERROR, "cache lookup failed for constraint %u", fk->conoid);
+    partConstr = (Form_pg_constraint) GETSTRUCT(partcontup);
+
+    // Check constraint properties compatibility
+    if (OidIsValid(partConstr->conparentid) ||
+        !partConstr->convalidated ||
+        partConstr->condeferrable != parentConstr->condeferrable ||
+        partConstr->condeferred != parentConstr->condeferred ||
+        partConstr->confupdtype != parentConstr->confupdtype ||
+        partConstr->confdeltype != parentConstr->confdeltype ||
+        partConstr->confmatchtype != parentConstr->confmatchtype) {
+        ReleaseSysCache(parentConstrTup);
+        ReleaseSysCache(partcontup);
+        return false;
+    }
+
+    ReleaseSysCache(partcontup);
+    ReleaseSysCache(parentConstrTup);
+
+    // Constraints are compatible - proceed with attachment
+
+    // Remove redundant action triggers from partition
+    ScanKeyInit(&key, Anum_pg_trigger_tgconstraint, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(fk->conoid));
+    scan = systable_beginscan(trigrel, TriggerConstraintIndexId, true, NULL, 1, &key);
+
+    while ((trigtup = systable_getnext(scan)) != NULL) {
+        Form_pg_trigger trgform = (Form_pg_trigger) GETSTRUCT(trigtup);
+        ObjectAddress trigger;
+
+        if (trgform->tgconstrrelid != fk->conrelid)
+            continue;
+        if (trgform->tgrelid != fk->confrelid)
+            continue;
+
+        // Remove dependency and delete the trigger
+        deleteDependencyRecordsFor(TriggerRelationId, trgform->oid, false);
+        CommandCounterIncrement();
+
+        ObjectAddressSet(trigger, TriggerRelationId, trgform->oid);
+        performDeletion(&trigger, DROP_RESTRICT, 0);
+        CommandCounterIncrement();
+    }
+    systable_endscan(scan);
+
+    // Set parent constraint relationship
+    ConstraintSetParentConstraint(fk->conoid, parentConstrOid, partRelid);
+
+    // Attach partition check triggers to parent triggers
+    GetForeignKeyCheckTriggers(trigrel, fk->conoid, fk->confrelid, fk->conrelid,
+                              &insertTriggerOid, &updateTriggerOid);
+
+    TriggerSetParentTrigger(trigrel, insertTriggerOid, parentInsTrigger, partRelid);
+    TriggerSetParentTrigger(trigrel, updateTriggerOid, parentUpdTrigger, partRelid);
+
+    // Clean up extra constraints/triggers if referenced table is partitioned
+    if (get_rel_relkind(fk->confrelid) == RELKIND_PARTITIONED_TABLE) {
+        // Remove subsidiary constraint records and their triggers
+        // (implementation simplified - involves scanning and deleting child constraints)
+    }
+
+    CommandCounterIncrement();
+    return true;
+}
+```

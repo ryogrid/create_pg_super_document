@@ -34,3 +34,19 @@ The function is part of PostgreSQL's resource management infrastructure, which e
 - The callback is executed during the RESOURCE_RELEASE_BEFORE_LOCKS phase with RELEASE_PRIO_RELCACHE_REFS priority
 - This function should not be called directly; it is intended to be invoked automatically by the resource owner cleanup mechanism
 - The function assumes the reference has already been removed from the resource owner, so it only needs to handle the actual resource cleanup
+
+## Simplified Source
+
+```c
+static void
+ResOwnerReleaseRelation(Datum res)
+{
+    Relation rel = (Relation) DatumGetPointer(res);
+
+    // Reference already removed from resource owner, just decrement count
+    Assert(rel->rd_refcnt > 0);
+    rel->rd_refcnt -= 1;
+
+    RelationCloseCleanup((Relation) res);
+}
+```

@@ -29,3 +29,13 @@ RelationIsVisible is a convenience wrapper function that checks if a relation is
 
 ## Notes and Other Information
 This function is a simple wrapper that provides backward compatibility and a simpler interface when the extended functionality of RelationIsVisibleExt is not needed. The function is defined in src/backend/catalog/namespace.c:913-924.
+
+## Simplified Source
+
+```c
+bool RelationIsVisible(Oid relid) {
+    // Simple wrapper that delegates to the extended version
+    // with NULL for the second parameter (no error handling)
+    return RelationIsVisibleExt(relid, NULL);
+}
+```

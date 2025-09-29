@@ -59,3 +59,28 @@ This function requires that the caller hold a lock on the given relation to prev
 - Returns true immediately upon finding the first matching inheritance relationship
 - This is the definitive way to check if a relation participates in inheritance as a child
 - Located in src/backend/catalog/pg_inherits.c:377-405
+
+## Simplified Source
+
+```c
+bool has_superclass(Oid relationId) {
+    // Open pg_inherits catalog for scanning
+    Relation catalog = table_open(InheritsRelationId, AccessShareLock);
+
+    // Set up scan key to find inheritance relationships where this relation is a child
+    ScanKeyData skey;
+    ScanKeyInit(&skey, Anum_pg_inherits_inhrelid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relationId));
+
+    // Begin indexed scan
+    SysScanDesc scan = systable_beginscan(catalog, InheritsRelidSeqnoIndexId, true, NULL, 1, &skey);
+
+    // Check if any inheritance relationship exists
+    bool result = HeapTupleIsValid(systable_getnext(scan));
+
+    // Cleanup
+    systable_endscan(scan);
+    table_close(catalog, AccessShareLock);
+
+    return result;
+}
+```

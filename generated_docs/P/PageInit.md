@@ -41,3 +41,29 @@ PageInit is a fundamental function that initializes a PostgreSQL page structure.
 - The special space is aligned to MAXALIGN boundaries
 - Page size validation ensures it matches BLCKSZ and provides sufficient space for header and special area
 - The pd_prune_xid field is left as InvalidTransactionId through the MemSet operation
+
+## Simplified Source
+```c
+void PageInit(Page page, Size pageSize, Size specialSize) {
+    PageHeader p = (PageHeader) page;
+
+    // Align special space to proper boundary
+    specialSize = MAXALIGN(specialSize);
+
+    // Validate page size and space requirements
+    Assert(pageSize == BLCKSZ);
+    Assert(pageSize > specialSize + SizeOfPageHeaderData);
+
+    // Zero out entire page
+    MemSet(p, 0, pageSize);
+
+    // Initialize page header fields
+    p->pd_flags = 0;
+    p->pd_lower = SizeOfPageHeaderData;           // End of header
+    p->pd_upper = pageSize - specialSize;        // Start of special space
+    p->pd_special = pageSize - specialSize;      // Special space location
+
+    // Set page size and layout version
+    PageSetPageSizeAndVersion(page, pageSize, PG_PAGE_LAYOUT_VERSION);
+}
+```

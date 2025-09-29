@@ -32,3 +32,20 @@ ExecReScanWorkTableScan implements the rescan functionality for WorkTableScan pl
 - Safe to call before first execution due to initialization check
 - Essential for scenarios where the same worktable needs to be scanned multiple times
 - Does not recreate or modify the tuplestore contents, only repositions the scan
+
+## Simplified Source
+
+```c
+void ExecReScanWorkTableScan(WorkTableScanState *node) {
+    // Clear any cached result tuple
+    if (node->ss.ps.ps_ResultTupleSlot)
+        ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+
+    // Reset generic scan state
+    ExecScanReScan(&node->ss);
+
+    // Rewind tuplestore to beginning if it's been initialized
+    if (node->rustate)
+        tuplestore_rescan(node->rustate->working_table);
+}
+```

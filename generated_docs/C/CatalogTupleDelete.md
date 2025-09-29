@@ -45,3 +45,14 @@ Unlike insert and update operations, there is no "WithInfo" version of this func
 - Future caching of CatalogIndexState might eliminate the need for WithInfo variants across all catalog operations
 - The uniform abstraction allows callers to not worry about storage-specific implementation details
 - Essential for maintaining referential integrity when dropping database objects
+
+## Simplified Source
+
+```c
+void CatalogTupleDelete(Relation heapRel, ItemPointer tid)
+{
+    // Simple wrapper around heap deletion
+    // No immediate index work needed - VACUUM handles cleanup later
+    simple_heap_delete(heapRel, tid);
+}
+```

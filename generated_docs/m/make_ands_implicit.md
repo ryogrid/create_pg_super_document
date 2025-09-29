@@ -43,3 +43,29 @@ This function is crucial for query optimization as it normalizes different repre
 - The function treats NULL input as TRUE because the parser sets WHERE clause to NULL when no WHERE condition exists
 - Essential for converting complex boolean expressions into a form suitable for constraint processing and query optimization
 - Used extensively in index processing, constraint validation, and query planning phases
+
+## Simplified Source
+
+```c
+List *
+make_ands_implicit(Expr *clause)
+{
+    // NULL input is treated as TRUE (empty constraint list)
+    if (clause == NULL)
+        return NIL;
+
+    // If it's already an AND clause, return its arguments
+    else if (is_andclause(clause))
+        return ((BoolExpr *) clause)->args;
+
+    // If it's a constant TRUE, return empty list
+    else if (IsA(clause, Const) &&
+             !((Const *) clause)->constisnull &&
+             DatumGetBool(((Const *) clause)->constvalue))
+        return NIL;
+
+    // For any other expression, wrap it in a single-element list
+    else
+        return list_make1(clause);
+}
+```

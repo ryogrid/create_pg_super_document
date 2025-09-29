@@ -39,3 +39,18 @@ The function is specifically designed for operations that require vectorized pro
 - Used primarily in specialized SIMD search and comparison operations where 32-bit integer processing is required
 - The unaligned load capability ensures the function works with arbitrary memory addresses, not just 16-byte aligned ones
 - Part of PostgreSQL's performance optimization infrastructure for operations on larger integer data types
+
+## Simplified Source
+
+```c
+static inline void
+vector32_load(Vector32 *v, const uint32 *s)
+{
+    // Load 4 consecutive 32-bit integers (16 bytes) into Vector32 register
+#ifdef USE_SSE2
+    *v = _mm_loadu_si128((const __m128i *) s);
+#elif defined(USE_NEON)
+    *v = vld1q_u32(s);
+#endif
+}
+```

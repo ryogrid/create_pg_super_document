@@ -40,3 +40,54 @@ ExecGetTriggerResultRel manages ResultRelInfo structures specifically for trigge
 - Supports self-join scenarios where multiple ResultRelInfo entries may have the same OID
 - Essential for efficient execution of cascading triggers and referential integrity constraints
 - Enables performance monitoring of triggers on relations not directly involved in the main query
+
+## Simplified Source
+
+```c
+ResultRelInfo *
+ExecGetTriggerResultRel(EState *estate, Oid relid, ResultRelInfo *rootRelInfo)
+{
+    ResultRelInfo *rInfo;
+    ListCell *l;
+
+    // Search through query result relations
+    foreach(l, estate->es_opened_result_relations) {
+        rInfo = lfirst(l);
+        if (RelationGetRelid(rInfo->ri_RelationDesc) == relid) {
+            return rInfo;
+        }
+    }
+
+    // Search through tuple routing result relations
+    foreach(l, estate->es_tuple_routing_result_relations) {
+        rInfo = (ResultRelInfo *) lfirst(l);
+        if (RelationGetRelid(rInfo->ri_RelationDesc) == relid) {
+            return rInfo;
+        }
+    }
+
+    // Search through cached trigger target relations
+    foreach(l, estate->es_trig_target_relations) {
+        rInfo = (ResultRelInfo *) lfirst(l);
+        if (RelationGetRelid(rInfo->ri_RelationDesc) == relid) {
+            return rInfo;
+        }
+    }
+
+    // Create new ResultRelInfo for this relation
+    Relation rel = table_open(relid, NoLock);
+
+    // Switch to query context for proper lifetime
+    MemoryContext oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Create and initialize new ResultRelInfo
+    rInfo = makeNode(ResultRelInfo);
+    InitResultRelInfo(rInfo, rel, 0, rootRelInfo, estate->es_instrument);
+
+    // Cache it for future use
+    estate->es_trig_target_relations = lappend(estate->es_trig_target_relations, rInfo);
+
+    MemoryContextSwitchTo(oldcontext);
+    return rInfo;
+}
+```

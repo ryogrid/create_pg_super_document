@@ -36,3 +36,23 @@ The callback is designed to gather a complete inventory of all tuples currently 
 - Maintains a counter (itups) to track the number of index tuples processed
 - Part of PostgreSQL's sophisticated concurrent index building mechanism that minimizes locking overhead
 - The collected TIDs will be sorted and used for efficient merge-join processing during table validation
+
+## Simplified Source
+
+```c
+static bool validate_index_callback(ItemPointer itemptr, void *opaque) {
+    ValidateIndexState *state = (ValidateIndexState *) opaque;
+
+    // Encode the TID as an int64 for efficient sorting
+    int64 encoded = itemptr_encode(itemptr);
+
+    // Add the encoded TID to the tuplesort
+    tuplesort_putdatum(state->tuplesort, Int64GetDatum(encoded), false);
+
+    // Increment the count of index tuples processed
+    state->itups += 1;
+
+    // Return false to indicate no actual deletion should occur
+    return false;
+}
+```

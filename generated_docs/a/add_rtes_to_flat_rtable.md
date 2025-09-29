@@ -52,3 +52,52 @@ The function intelligently determines whether to flatten unplanned RTEs or recur
 - Ensures permission checks are performed for all tables, even those in dead subqueries
 - Uses RelOptInfo array to determine subquery planning state and decide on processing approach
 - Recursively calls itself when processing nested subqueries
+
+## Simplified Source
+
+```c
+static void add_rtes_to_flat_rtable(PlannerInfo *root, bool recursing) {
+    PlannerGlobal *glob = root->glob;
+    Index rti;
+    ListCell *lc;
+
+    // Phase 1: Add live RTEs to flattened rangetable
+    foreach(lc, root->parse->rtable) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+
+        // At top level: add all RTEs; when recursing: only relations and converted subqueries
+        if (!recursing || rte->rtekind == RTE_RELATION ||
+            (rte->rtekind == RTE_SUBQUERY && OidIsValid(rte->relid))) {
+            add_rte_to_flat_rtable(glob, root->parse->rteperminfos, rte);
+        }
+    }
+
+    // Phase 2: Handle dead subqueries for permission checks
+    rti = 1;
+    foreach(lc, root->parse->rtable) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+
+        // Process non-inheritance subquery RTEs that have RelOptInfo entries
+        if (rte->rtekind == RTE_SUBQUERY && !rte->inh &&
+            rti < root->simple_rel_array_size) {
+
+            RelOptInfo *rel = root->simple_rel_array[rti];
+            if (rel != NULL) {
+                Assert(rel->relid == rti);
+
+                // Handle unplanned or dummy subqueries
+                if (rel->subroot == NULL) {
+                    // Unplanned subquery - flatten its RTEs
+                    flatten_unplanned_rtes(glob, rte);
+                }
+                else if (recursing ||
+                         IS_DUMMY_REL(fetch_upper_rel(rel->subroot, UPPERREL_FINAL, NULL))) {
+                    // Recursively process subquery's rangetable
+                    add_rtes_to_flat_rtable(rel->subroot, true);
+                }
+            }
+        }
+        rti++;
+    }
+}
+```

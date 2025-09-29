@@ -42,3 +42,20 @@ The function is used to guard write-side serialization conflict detection, ensur
 - No side effects, unlike the read version which can release locks
 - Part of the write-side serialization conflict detection in PostgreSQL's SSI implementation
 - Works with CheckForSerializableConflictIn functions to detect dangerous write patterns that could cause serialization anomalies
+
+## Simplified Source
+
+```c
+static inline bool SerializationNeededForWrite(Relation relation) {
+    // Skip if not in a serializable transaction
+    if (MySerializableXact == InvalidSerializableXact)
+        return false;
+
+    // Check if relation participates in predicate locking
+    if (!PredicateLockingNeededForRelation(relation))
+        return false;
+
+    // All checks passed - serialization is needed
+    return true;
+}
+```

@@ -38,3 +38,38 @@ The function is critical for PostgreSQL's collation resolution mechanism, ensuri
 - ICU collations require special encoding compatibility checking, while libc collations with encoding -1 work with all encodings
 - Returns InvalidOid when no compatible collation is found
 - Uses PostgreSQL's system cache for efficient catalog lookups
+
+## Simplified Source
+
+```c
+static Oid lookup_collation(const char *collname, Oid collnamespace, int32 encoding) {
+    // First, check for exact encoding match
+    Oid collid = GetSysCacheOid3(COLLNAMEENCNSP,
+                                 PointerGetDatum(collname),
+                                 Int32GetDatum(encoding),
+                                 ObjectIdGetDatum(collnamespace));
+    if (OidIsValid(collid))
+        return collid;
+
+    // No exact match - try any-encoding collation
+    HeapTuple colltup = SearchSysCache3(COLLNAMEENCNSP,
+                                        PointerGetDatum(collname),
+                                        Int32GetDatum(-1),  // any encoding
+                                        ObjectIdGetDatum(collnamespace));
+    if (!HeapTupleIsValid(colltup))
+        return InvalidOid;
+
+    // Check if ICU collation supports this encoding
+    Form_pg_collation collform = (Form_pg_collation) GETSTRUCT(colltup);
+    if (collform->collprovider == COLLPROVIDER_ICU) {
+        collid = is_encoding_supported_by_icu(encoding) ?
+                 collform->oid : InvalidOid;
+    } else {
+        // Non-ICU collations work with all encodings
+        collid = collform->oid;
+    }
+
+    ReleaseSysCache(colltup);
+    return collid;
+}
+```

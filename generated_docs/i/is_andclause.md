@@ -43,3 +43,16 @@ This function provides a type-safe way to determine if a clause represents an AN
 - AND clauses are fundamental to SQL query structure and optimization, making this function critical for many optimizer operations
 - Often used in conjunction with clause decomposition routines that break down complex AND expressions into individual conjuncts
 - Important for partition pruning, statistics collection, and join planning algorithms
+
+## Simplified Source
+
+```c
+static inline bool
+is_andclause(const void *clause)
+{
+    // Check if clause is non-NULL, is a BoolExpr, and is an AND operation
+    return (clause != NULL &&
+            IsA(clause, BoolExpr) &&
+            ((const BoolExpr *) clause)->boolop == AND_EXPR);
+}
+```

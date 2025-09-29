@@ -40,3 +40,38 @@ Cost estimation includes the base cost from the subpath plus an additional cpu_t
 - Uses the same pathtarget as the subpath since LockRows doesn't project new columns
 - Cost estimation is somewhat conservative, charging cpu_tuple_cost per row for locking overhead
 - [EvalPlanQual](../E/EvalPlanQual.md) mechanism is supported through the epqParam for handling concurrent modifications
+
+## Simplified Source
+
+```c
+LockRowsPath *create_lockrows_path(PlannerInfo *root, RelOptInfo *rel,
+                                  Path *subpath, List *rowMarks, int epqParam)
+{
+    LockRowsPath *pathnode = makeNode(LockRowsPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_LockRows;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = subpath->pathtarget;  // No projection needed
+    pathnode->path.param_info = NULL;                 // Above joins
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = false;             // Locking not parallel-safe
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.rows = subpath->rows;
+
+    // Locking may modify sort keys, so no pathkeys preserved
+    pathnode->path.pathkeys = NIL;
+
+    // Store locking information
+    pathnode->subpath = subpath;
+    pathnode->rowMarks = rowMarks;
+    pathnode->epqParam = epqParam;
+
+    // Calculate costs: base cost + locking overhead
+    pathnode->path.startup_cost = subpath->startup_cost;
+    pathnode->path.total_cost = subpath->total_cost +
+                               cpu_tuple_cost * subpath->rows;
+
+    return pathnode;
+}
+```

@@ -44,3 +44,27 @@ Non-deterministic collations can treat different strings as equivalent (for exam
 - Non-deterministic collations may not support all PostgreSQL features, particularly those requiring exact string matching
 - This function is critical for PostgreSQL's query optimization and constraint enforcement systems
 - The deterministic property affects hash-based operations, index scans, and foreign key constraint checking
+
+## Simplified Source
+
+```c
+bool get_collation_isdeterministic(Oid colloid)
+{
+    HeapTuple tp;
+    Form_pg_collation colltup;
+    bool result;
+
+    // Look up collation in system cache
+    tp = SearchSysCache1(COLLOID, ObjectIdGetDatum(colloid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for collation %u", colloid);
+
+    // Extract deterministic flag from catalog entry
+    colltup = (Form_pg_collation) GETSTRUCT(tp);
+    result = colltup->collisdeterministic;
+
+    // Clean up and return result
+    ReleaseSysCache(tp);
+    return result;
+}
+```

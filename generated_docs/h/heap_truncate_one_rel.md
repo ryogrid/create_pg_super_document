@@ -37,3 +37,31 @@ The truncation process involves: (1) truncating the underlying relation storage 
 - TOAST tables and their indexes are automatically truncated if they exist
 - Used by both the non-transactional heap_truncate and the transactional ExecuteTruncateGuts
 - The function maintains locks on TOAST tables until transaction end to prevent concurrent access
+
+## Simplified Source
+
+```c
+void heap_truncate_one_rel(Relation rel) {
+    // Skip partitioned tables - they have no storage
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        return;
+
+    // Truncate the main relation storage
+    table_relation_nontransactional_truncate(rel);
+
+    // Truncate all indexes on the relation
+    RelationTruncateIndexes(rel);
+
+    // Handle TOAST table if present
+    Oid toastrelid = rel->rd_rel->reltoastrelid;
+    if (OidIsValid(toastrelid)) {
+        Relation toastrel = table_open(toastrelid, AccessExclusiveLock);
+
+        // Truncate TOAST table and its indexes
+        table_relation_nontransactional_truncate(toastrel);
+        RelationTruncateIndexes(toastrel);
+
+        table_close(toastrel, NoLock);  // Keep lock until transaction end
+    }
+}
+```

@@ -20,7 +20,7 @@ This static function is responsible for flagging read-write conflicts between se
 
 The function handles three different conflict scenarios:
 - **Summary conflict in**: When the reader is OldCommittedSxact, sets SXACT_FLAG_SUMMARY_CONFLICT_IN on the writer
-- **Summary conflict out**: When the writer is OldCommittedSxact, sets SXACT_FLAG_SUMMARY_CONFLICT_OUT on the reader  
+- **Summary conflict out**: When the writer is OldCommittedSxact, sets SXACT_FLAG_SUMMARY_CONFLICT_OUT on the reader
 - **Direct conflict**: For active transactions, calls SetRWConflict to create explicit conflict tracking
 
 This design optimizes memory usage by using summary flags when one transaction has been committed long enough to be represented by OldCommittedSxact, while maintaining detailed conflict tracking for active transactions.
@@ -47,3 +47,28 @@ This design optimizes memory usage by using summary flags when one transaction h
 - Uses OldCommittedSxact optimization to reduce memory usage for conflicts with old committed transactions
 - Critical path function that can trigger immediate serialization failures
 - Located in src/backend/storage/lmgr/predicate.c:4491-4525
+
+## Simplified Source
+
+```c
+static void
+FlagRWConflict(SERIALIZABLEXACT *reader, SERIALIZABLEXACT *writer)
+{
+    Assert(reader != writer);
+
+    // Check if this conflict causes serialization failure
+    OnConflict_CheckForSerializationFailure(reader, writer);
+
+    // Record the conflict appropriately
+    if (reader == OldCommittedSxact) {
+        // Reader is old committed - set summary conflict flag on writer
+        writer->flags |= SXACT_FLAG_SUMMARY_CONFLICT_IN;
+    } else if (writer == OldCommittedSxact) {
+        // Writer is old committed - set summary conflict flag on reader
+        reader->flags |= SXACT_FLAG_SUMMARY_CONFLICT_OUT;
+    } else {
+        // Both transactions are active - create explicit conflict
+        SetRWConflict(reader, writer);
+    }
+}
+```

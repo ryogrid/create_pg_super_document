@@ -58,3 +58,72 @@ Key features:
 - The reverse_self option is useful for cases where columns should depend on their containing table
 - Memory management handles both regular and self-dependency address collections
 - Critical for DDL operations involving single-table expressions like defaults, constraints, and indexes
+
+## Simplified Source
+
+```c
+void recordDependencyOnSingleRelExpr(const ObjectAddress *depender,
+                                   Node *expr, Oid relId,
+                                   DependencyType behavior,
+                                   DependencyType self_behavior,
+                                   bool reverse_self) {
+    find_expr_references_context context;
+    RangeTblEntry rte = {0};
+
+    // Create address collection for dependencies
+    context.addrs = new_object_addresses();
+
+    // Create minimal range table entry for the relation
+    rte.type = T_RangeTblEntry;
+    rte.rtekind = RTE_RELATION;
+    rte.relid = relId;
+    rte.relkind = RELKIND_RELATION;
+    rte.rellockmode = AccessShareLock;
+    context.rtables = list_make1(list_make1(&rte));
+
+    // Find all object references in the expression
+    find_expr_references_walker(expr, &context);
+    eliminate_duplicate_dependencies(context.addrs);
+
+    // Separate self-dependencies if special handling needed
+    if ((behavior != self_behavior || reverse_self) && context.addrs->numrefs > 0) {
+        ObjectAddresses *self_addrs = new_object_addresses();
+        ObjectAddress *outobj = context.addrs->refs;
+        int outrefs = 0;
+
+        // Separate self-references from external references
+        for (int oldref = 0; oldref < context.addrs->numrefs; oldref++) {
+            ObjectAddress *thisobj = context.addrs->refs + oldref;
+
+            if (thisobj->classId == RelationRelationId && thisobj->objectId == relId) {
+                // Move to self-dependencies
+                add_exact_object_address(thisobj, self_addrs);
+            } else {
+                // Keep as external dependency
+                *outobj++ = *thisobj;
+                outrefs++;
+            }
+        }
+        context.addrs->numrefs = outrefs;
+
+        // Record self-dependencies with appropriate direction
+        if (!reverse_self) {
+            recordMultipleDependencies(depender, self_addrs->refs,
+                                     self_addrs->numrefs, self_behavior);
+        } else {
+            // Reverse direction: columns depend on table
+            for (int selfref = 0; selfref < self_addrs->numrefs; selfref++) {
+                recordDependencyOn(&self_addrs->refs[selfref], depender, self_behavior);
+            }
+        }
+
+        free_object_addresses(self_addrs);
+    }
+
+    // Record external dependencies
+    recordMultipleDependencies(depender, context.addrs->refs,
+                             context.addrs->numrefs, behavior);
+
+    free_object_addresses(context.addrs);
+}
+```

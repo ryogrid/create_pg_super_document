@@ -42,3 +42,22 @@ Importantly, this function explicitly excludes superuser privileges from automat
 - Used primarily in the context of processing '+' prefixed role specifications in pg_hba.conf entries
 - Part of PostgreSQL's Host-Based Authentication (HBA) system for controlling database access
 - The function distinguishes between direct role membership and inherited membership through role hierarchies
+
+## Simplified Source
+```c
+static bool
+is_member(Oid userid, const char *role)
+{
+    // Validate user OID
+    if (!OidIsValid(userid))
+        return false;
+
+    // Look up the role OID from the role name
+    Oid roleid = get_role_oid(role, true);
+    if (!OidIsValid(roleid))
+        return false;
+
+    // Check if user is a member of the role (excluding superuser privilege)
+    return is_member_of_role_nosuper(userid, roleid);
+}
+```

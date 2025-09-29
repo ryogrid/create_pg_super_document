@@ -38,3 +38,30 @@ This static function implements the standby wait logic used by ResolveRecoveryCo
 - Integrates with PostgreSQL's wait event reporting system for monitoring
 - Essential for avoiding busy-waiting during recovery conflict resolution
 - Returns false to continue waiting, true when time limit exceeded
+
+## Simplified Source
+```c
+static bool WaitExceedsMaxStandbyDelay(uint32 wait_event_info) {
+    // Check for pending interrupts
+    CHECK_FOR_INTERRUPTS();
+
+    // Check if we've exceeded the maximum standby delay time
+    TimestampTz limit_time = GetStandbyLimitTime();
+    if (limit_time && GetCurrentTimestamp() >= limit_time) {
+        return true;  // Time limit exceeded
+    }
+
+    // Sleep with wait event reporting
+    pgstat_report_wait_start(wait_event_info);
+    pg_usleep(standbyWait_us);
+    pgstat_report_wait_end();
+
+    // Implement exponential backoff: double sleep time, cap at 1 second
+    standbyWait_us *= 2;
+    if (standbyWait_us > 1000000) {
+        standbyWait_us = 1000000;  // Max 1 second for platform compatibility
+    }
+
+    return false;  // Can continue waiting
+}
+```

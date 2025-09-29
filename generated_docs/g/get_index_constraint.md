@@ -31,3 +31,52 @@ This function searches the PostgreSQL dependency system to find the constraint t
 
 ## Notes and Other Information
 The function performs a catalog scan on pg_depend using the DependDependerIndexId index for efficient lookup. It specifically searches for internal dependencies where the index is the dependent object and a constraint is the referenced object. This relationship is crucial for PostgreSQL's constraint system, as constraints like primary keys and unique constraints are implemented using indexes. The function returns InvalidOid when no constraint owns the index, which is the case for indexes created independently of constraints.
+
+## Simplified Source
+
+```c
+Oid get_index_constraint(Oid indexId)
+{
+    Oid constraintId = InvalidOid;
+    Relation depRel;
+    ScanKeyData key[3];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open the dependency table
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys to find dependencies for this index
+    ScanKeyInit(&key[0], Anum_pg_depend_classid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(indexId));
+    ScanKeyInit(&key[2], Anum_pg_depend_objsubid,
+                BTEqualStrategyNumber, F_INT4EQ,
+                Int32GetDatum(0));
+
+    // Scan for dependency entries
+    scan = systable_beginscan(depRel, DependDependerIndexId, true,
+                             NULL, 3, key);
+
+    // Look for internal dependency on a constraint
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_depend deprec = (Form_pg_depend) GETSTRUCT(tup);
+
+        if (deprec->refclassid == ConstraintRelationId &&
+            deprec->refobjsubid == 0 &&
+            deprec->deptype == DEPENDENCY_INTERNAL)
+        {
+            constraintId = deprec->refobjid;
+            break;
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+    return constraintId;
+}
+```

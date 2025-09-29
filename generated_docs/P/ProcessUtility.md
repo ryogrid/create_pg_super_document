@@ -55,3 +55,25 @@ This design pattern enables sophisticated extensions like logical replication, a
 - Some utility statements like CREATE SCHEMA recursively call ProcessUtility for sub-statements, often passing the same queryString and location information
 - The hook mechanism is designed for extensions that typically call standard_ProcessUtility after performing their own processing
 - [Command](../C/Command.md) completion tracking through QueryCompletion parameter supports proper statistics and monitoring
+
+## Simplified Source
+
+```c
+void ProcessUtility(PlannedStmt *pstmt, const char *queryString, bool readOnlyTree,
+                   ProcessUtilityContext context, ParamListInfo params,
+                   QueryEnvironment *queryEnv, DestReceiver *dest, QueryCompletion *qc) {
+    // Validate input parameters
+    Assert(IsA(pstmt, PlannedStmt));
+    Assert(pstmt->commandType == CMD_UTILITY);
+    Assert(queryString != NULL);
+    Assert(qc == NULL || qc->commandTag == CMDTAG_UNKNOWN);
+
+    // Execute through hook if available, otherwise use standard processing
+    if (ProcessUtility_hook)
+        (*ProcessUtility_hook)(pstmt, queryString, readOnlyTree,
+                              context, params, queryEnv, dest, qc);
+    else
+        standard_ProcessUtility(pstmt, queryString, readOnlyTree,
+                               context, params, queryEnv, dest, qc);
+}
+```

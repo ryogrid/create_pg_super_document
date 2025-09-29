@@ -54,3 +54,55 @@ The function also properly initializes the relation's tuple descriptor type info
 - The relispartition field is always initialized to false and updated later if the relation becomes a partition
 - The function ensures proper type information is set in the tuple descriptor even when reltype is zero (using RECORDOID as fallback)
 - Transaction IDs for visibility are properly initialized to maintain MVCC consistency
+
+## Simplified Source
+
+```c
+static void
+AddNewRelationTuple(Relation pg_class_desc,
+                    Relation new_rel_desc,
+                    Oid new_rel_oid,
+                    Oid new_type_oid,
+                    Oid reloftype,
+                    Oid relowner,
+                    char relkind,
+                    TransactionId relfrozenxid,
+                    TransactionId relminmxid,
+                    Datum relacl,
+                    Datum reloptions) {
+
+    Form_pg_class new_rel_reltup;
+
+    // Update the relation descriptor with initial metadata
+    new_rel_reltup = new_rel_desc->rd_rel;
+
+    // Initialize relation as empty
+    new_rel_reltup->relpages = 0;
+    new_rel_reltup->reltuples = -1;
+    new_rel_reltup->relallvisible = 0;
+
+    // Special case: sequences have known size
+    if (relkind == RELKIND_SEQUENCE) {
+        new_rel_reltup->relpages = 1;
+        new_rel_reltup->reltuples = 1;
+    }
+
+    // Set transaction IDs and ownership info
+    new_rel_reltup->relfrozenxid = relfrozenxid;
+    new_rel_reltup->relminmxid = relminmxid;
+    new_rel_reltup->relowner = relowner;
+    new_rel_reltup->reltype = new_type_oid;
+    new_rel_reltup->reloftype = reloftype;
+
+    // Initialize partition status (updated later if needed)
+    new_rel_reltup->relispartition = false;
+
+    // Set tuple descriptor type info with fallback
+    new_rel_desc->rd_att->tdtypeid = new_type_oid ? new_type_oid : RECORDOID;
+    new_rel_desc->rd_att->tdtypmod = -1;
+
+    // Insert the tuple into pg_class catalog
+    InsertPgClassTuple(pg_class_desc, new_rel_desc, new_rel_oid,
+                       relacl, reloptions);
+}
+```

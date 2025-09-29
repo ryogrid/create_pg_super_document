@@ -44,3 +44,28 @@ The function enforces strict non-NULL semantics - neither the argument nor the r
 - Significantly faster than standard fmgr calling conventions
 - Commonly used in performance-critical internal PostgreSQL code
 - The function pointer must be obtained through other means (e.g., fmgr_symbol lookup)
+
+## Simplified Source
+
+```c
+Datum DirectFunctionCall1Coll(PGFunction func, Oid collation, Datum arg1) {
+    LOCAL_FCINFO(fcinfo, 1);
+    Datum result;
+
+    // Initialize function call info with 1 argument and specified collation
+    InitFunctionCallInfoData(*fcinfo, NULL, 1, collation, NULL, NULL);
+
+    // Set the single argument as non-null
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+
+    // Call the function directly
+    result = (*func)(fcinfo);
+
+    // Ensure function didn't return NULL unexpectedly
+    if (fcinfo->isnull)
+        elog(ERROR, "function %p returned NULL", (void *) func);
+
+    return result;
+}
+```

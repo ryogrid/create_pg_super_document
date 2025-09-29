@@ -42,3 +42,24 @@ This function takes no parameters.
 - Returns InvalidOid when no temporary tablespaces are configured, indicating fallback to default tablespace
 - Critical for load balancing in systems with multiple temporary tablespaces
 - The returned OID may itself be InvalidOid if that was stored in the tablespace array, indicating default tablespace usage for that position
+
+## Simplified Source
+
+```c
+Oid
+GetNextTempTableSpace(void)
+{
+    if (numTempTableSpaces > 0)
+    {
+        // Advance counter with wraparound for round-robin selection
+        if (++nextTempTableSpace >= numTempTableSpaces)
+            nextTempTableSpace = 0;
+
+        // Return the tablespace OID at current position
+        return tempTableSpaces[nextTempTableSpace];
+    }
+
+    // No temp tablespaces configured - use default tablespace
+    return InvalidOid;
+}
+```

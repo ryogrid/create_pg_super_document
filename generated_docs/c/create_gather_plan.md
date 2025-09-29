@@ -41,3 +41,35 @@ Key aspects of the implementation:
 - The special execution parameter assigned is used for coordinating parallel execution between leader and workers
 - Single-copy mode allows certain operations to be performed by only one worker to avoid duplicate work
 - [Gather](../G/Gather.md) nodes cannot preserve ordering of their input - for ordered parallel execution, GatherMerge should be used instead
+
+## Simplified Source
+
+```c
+static Gather *
+create_gather_plan(PlannerInfo *root, GatherPath *best_path)
+{
+    // Push projection down to workers for parallelization
+    Plan *subplan = create_plan_recurse(root, best_path->subpath, CP_EXACT_TLIST);
+
+    // Build target list for the gather operation
+    List *tlist = build_path_tlist(root, &best_path->path);
+
+    // Create the Gather plan node
+    Gather *gather_plan = make_gather(
+        tlist,
+        NIL,                                    // No quals at gather level
+        best_path->num_workers,                 // Number of worker processes
+        assign_special_exec_param(root),        // Parallel coordination parameter
+        best_path->single_copy,                 // Single-copy mode flag
+        subplan                                 // Child plan to execute in parallel
+    );
+
+    // Copy generic path information
+    copy_generic_path_info(&gather_plan->plan, &best_path->path);
+
+    // Enable parallel mode globally
+    root->glob->parallelModeNeeded = true;
+
+    return gather_plan;
+}
+```

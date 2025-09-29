@@ -42,3 +42,19 @@ An important characteristic of this function is that when the new spaceAvail val
 - Widely used across heap operations, BRIN operations, vacuum, and index FSM management
 - Part of PostgreSQL's Free Space Map public API
 - Located in src/backend/storage/freespace/freespace.c:194-210
+
+## Simplified Source
+```c
+void RecordPageWithFreeSpace(Relation rel, BlockNumber heapBlk, Size spaceAvail) {
+    // Convert available space to FSM category
+    int new_cat = fsm_space_avail_to_cat(spaceAvail);
+
+    // Get FSM location for this heap block
+    FSMAddress addr;
+    uint16 slot;
+    addr = fsm_get_location(heapBlk, &slot);
+
+    // Update the FSM with new space category
+    fsm_set_and_search(rel, addr, slot, new_cat, 0);
+}
+```

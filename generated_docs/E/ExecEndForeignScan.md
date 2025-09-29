@@ -43,3 +43,30 @@ The function maintains consistency with the initialization and execution phases 
 - Outer plan cleanup is conditional on the existence of outer plans, preventing unnecessary calls
 - No explicit memory context cleanup is performed as this is handled by the broader executor framework
 - The function complements ExecInitForeignScan by providing symmetric cleanup operations
+
+## Simplified Source
+
+```c
+void ExecEndForeignScan(ForeignScanState *node)
+{
+    ForeignScan *plan = (ForeignScan *) node->ss.ps.plan;
+    EState *estate = node->ss.ps.state;
+
+    // Let the FDW perform its specific cleanup
+    if (plan->operation != CMD_SELECT)
+    {
+        // For direct modifications, only cleanup if not in EvalPlanQual mode
+        if (estate->es_epq_active == NULL)
+            node->fdwroutine->EndDirectModify(node);
+    }
+    else
+    {
+        // For SELECT operations, always cleanup
+        node->fdwroutine->EndForeignScan(node);
+    }
+
+    // Clean up any outer plan nodes
+    if (outerPlanState(node))
+        ExecEndNode(outerPlanState(node));
+}
+```

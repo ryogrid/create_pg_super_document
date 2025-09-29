@@ -57,3 +57,88 @@ All array fields are validated to ensure they are properly formatted 1-dimension
 - The confdelsetcols array (for SET operations) is optional and may be NULL in the constraint tuple
 - Array validation ensures all arrays are 1-dimensional, properly typed, and contain no NULL elements
 - Used extensively in foreign key constraint processing, cloning, and referential integrity trigger setup
+
+## Simplified Source
+
+```c
+void DeconstructFkConstraintRow(HeapTuple tuple, int *numfks,
+                               AttrNumber *conkey, AttrNumber *confkey,
+                               Oid *pf_eq_oprs, Oid *pp_eq_oprs, Oid *ff_eq_oprs,
+                               int *num_fk_del_set_cols, AttrNumber *fk_del_set_cols) {
+    Datum adatum;
+    bool isNull;
+    ArrayType *arr;
+    int numkeys;
+
+    // Extract conkey array (referencing columns)
+    adatum = SysCacheGetAttrNotNull(CONSTROID, tuple, Anum_pg_constraint_conkey);
+    arr = DatumGetArrayTypeP(adatum);
+
+    // Validate array structure
+    if (ARR_NDIM(arr) != 1 || ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != INT2OID)
+        elog(ERROR, "conkey is not a 1-D smallint array");
+
+    numkeys = ARR_DIMS(arr)[0];
+    if (numkeys <= 0 || numkeys > INDEX_MAX_KEYS)
+        elog(ERROR, "foreign key constraint cannot have %d columns", numkeys);
+
+    // Copy referencing column numbers
+    memcpy(conkey, ARR_DATA_PTR(arr), numkeys * sizeof(int16));
+    if ((Pointer) arr != DatumGetPointer(adatum))
+        pfree(arr);
+
+    // Extract confkey array (referenced columns)
+    adatum = SysCacheGetAttrNotNull(CONSTROID, tuple, Anum_pg_constraint_confkey);
+    arr = DatumGetArrayTypeP(adatum);
+
+    // Validate and copy referenced column numbers
+    if (ARR_NDIM(arr) != 1 || ARR_DIMS(arr)[0] != numkeys ||
+        ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != INT2OID)
+        elog(ERROR, "confkey is not a 1-D smallint array");
+
+    memcpy(confkey, ARR_DATA_PTR(arr), numkeys * sizeof(int16));
+    if ((Pointer) arr != DatumGetPointer(adatum))
+        pfree(arr);
+
+    // Extract operator arrays if requested
+    if (pf_eq_oprs) {
+        adatum = SysCacheGetAttrNotNull(CONSTROID, tuple, Anum_pg_constraint_conpfeqop);
+        arr = DatumGetArrayTypeP(adatum);
+
+        if (ARR_NDIM(arr) != 1 || ARR_DIMS(arr)[0] != numkeys ||
+            ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != OIDOID)
+            elog(ERROR, "conpfeqop is not a 1-D Oid array");
+
+        memcpy(pf_eq_oprs, ARR_DATA_PTR(arr), numkeys * sizeof(Oid));
+        if ((Pointer) arr != DatumGetPointer(adatum))
+            pfree(arr);
+    }
+
+    // Similar extraction for pp_eq_oprs and ff_eq_oprs if requested
+    // (code structure same as pf_eq_oprs)
+
+    // Extract delete SET columns if requested
+    if (fk_del_set_cols) {
+        adatum = SysCacheGetAttr(CONSTROID, tuple, Anum_pg_constraint_confdelsetcols, &isNull);
+
+        if (isNull) {
+            *num_fk_del_set_cols = 0;
+        } else {
+            arr = DatumGetArrayTypeP(adatum);
+
+            if (ARR_NDIM(arr) != 1 || ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != INT2OID)
+                elog(ERROR, "confdelsetcols is not a 1-D smallint array");
+
+            int num_delete_cols = ARR_DIMS(arr)[0];
+            memcpy(fk_del_set_cols, ARR_DATA_PTR(arr), num_delete_cols * sizeof(int16));
+
+            if ((Pointer) arr != DatumGetPointer(adatum))
+                pfree(arr);
+
+            *num_fk_del_set_cols = num_delete_cols;
+        }
+    }
+
+    *numfks = numkeys;
+}
+```

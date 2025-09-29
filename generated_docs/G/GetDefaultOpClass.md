@@ -49,3 +49,80 @@ For domain types, the function automatically resolves to the base type before pe
 - Automatically handles domain types by resolving to their base types
 - Critical for automatic operator class selection in index creation and partitioning
 - The preference system resolves ambiguity for types like varchar that are compatible with multiple operator classes
+
+## Simplified Source
+
+```c
+Oid
+GetDefaultOpClass(Oid type_id, Oid am_id)
+{
+    Oid result = InvalidOid;
+    int nexact = 0;
+    int ncompatible = 0;
+    int ncompatiblepreferred = 0;
+    Relation rel;
+    ScanKeyData skey[1];
+    SysScanDesc scan;
+    HeapTuple tup;
+    TYPCATEGORY tcategory;
+
+    // Resolve domains to their base types
+    type_id = getBaseType(type_id);
+    tcategory = TypeCategory(type_id);
+
+    // Scan all operator classes for this access method
+    rel = table_open(OperatorClassRelationId, AccessShareLock);
+
+    ScanKeyInit(&skey[0], Anum_pg_opclass_opcmethod,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(am_id));
+
+    scan = systable_beginscan(rel, OpclassAmNameNspIndexId, true, NULL, 1, skey);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_opclass opclass = (Form_pg_opclass) GETSTRUCT(tup);
+
+        // Only consider default operator classes
+        if (!opclass->opcdefault)
+            continue;
+
+        if (opclass->opcintype == type_id)
+        {
+            // Exact match - highest priority
+            nexact++;
+            result = opclass->oid;
+        }
+        else if (nexact == 0 && IsBinaryCoercible(type_id, opclass->opcintype))
+        {
+            // Binary compatible match
+            if (IsPreferredType(tcategory, opclass->opcintype))
+            {
+                // Preferred type - second highest priority
+                ncompatiblepreferred++;
+                result = opclass->oid;
+            }
+            else if (ncompatiblepreferred == 0)
+            {
+                // Compatible but not preferred - lowest priority
+                ncompatible++;
+                result = opclass->oid;
+            }
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    // Validate result - should not have multiple exact matches
+    if (nexact > 1)
+        ereport(ERROR, "Multiple default operator classes for data type");
+
+    // Return result if we found a unique match at any priority level
+    if (nexact == 1 ||
+        ncompatiblepreferred == 1 ||
+        (ncompatiblepreferred == 0 && ncompatible == 1))
+        return result;
+
+    return InvalidOid;
+}
+```

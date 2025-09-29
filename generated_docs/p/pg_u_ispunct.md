@@ -50,3 +50,27 @@ The function uses Unicode category masks for efficient category checking. This d
 - Located in src/common/unicode_category.c:290-310
 - Essential for text parsing, regex operations, and locale-aware text processing
 - The dual-mode design ensures compatibility across different character classification standards
+
+## Simplified Source
+
+```c
+bool
+pg_u_ispunct(pg_wchar code, bool posix) {
+    uint32 category_mask;
+
+    if (posix) {
+        // POSIX mode: exclude alphabetic characters first
+        if (pg_u_isalpha(code)) {
+            return false;
+        }
+
+        // Include punctuation AND symbol characters
+        category_mask = PG_U_CATEGORY_MASK(unicode_category(code));
+        return category_mask & (PG_U_P_MASK | PG_U_S_MASK);
+    } else {
+        // Unicode mode: only punctuation characters
+        category_mask = PG_U_CATEGORY_MASK(unicode_category(code));
+        return category_mask & PG_U_P_MASK;
+    }
+}
+```

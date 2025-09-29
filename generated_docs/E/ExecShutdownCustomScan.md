@@ -33,3 +33,17 @@ The function follows PostgreSQL's established pattern of providing optional meth
 - This function is typically called during the cleanup phase of parallel query execution
 - Custom scan implementations should use this opportunity to release any resources that were allocated during parallel execution setup
 - The function is declared in src/include/executor/nodeCustom.h and implemented in src/backend/executor/nodeCustom.c
+
+## Simplified Source
+
+```c
+void ExecShutdownCustomScan(CustomScanState *node) {
+    // Get the custom scan's method table
+    const CustomExecMethods *methods = node->methods;
+
+    // Call shutdown method if provided by the custom scan implementation
+    if (methods->ShutdownCustomScan) {
+        methods->ShutdownCustomScan(node);
+    }
+}
+```

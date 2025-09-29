@@ -41,3 +41,65 @@ The `replace_variables` function transforms SQL statements containing named para
 - Performs dynamic memory reallocation to accommodate the text changes
 - Handles edge cases where parameter replacement might reach the end of the string
 - The function modifies the original text pointer, replacing it with a newly allocated string
+
+## Simplified Source
+
+```c
+static bool replace_variables(char **text, int lineno) {
+    bool in_string = false;
+    int counter = 1;
+    int ptr = 0;
+
+    // Scan through the text character by character
+    for (; (*text)[ptr] != '\0'; ptr++) {
+        // Track if we're inside a string literal
+        if ((*text)[ptr] == '\'')
+            in_string = !in_string;
+
+        // Skip characters inside strings or non-parameter characters
+        if (in_string || ((*text)[ptr] != ':' && (*text)[ptr] != '?'))
+            continue;
+
+        // Skip PostgreSQL cast operator '::'
+        if ((*text)[ptr] == ':' && (*text)[ptr + 1] == ':') {
+            ptr += 2;
+        } else {
+            // Found a parameter - replace it with $N
+            int buffersize = sizeof(int) * CHAR_BIT * 10 / 3;
+            char *buffer, *newcopy;
+            int len;
+
+            // Create numbered parameter string
+            buffer = ecpg_alloc(buffersize, lineno);
+            if (!buffer) return false;
+
+            snprintf(buffer, buffersize, "$%d", counter++);
+
+            // Find end of parameter name
+            for (len = 1; (*text)[ptr + len] && isvarchar((*text)[ptr + len]); len++);
+
+            // Allocate new string with replacement
+            newcopy = ecpg_alloc(strlen(*text) - len + strlen(buffer) + 1, lineno);
+            if (!newcopy) {
+                ecpg_free(buffer);
+                return false;
+            }
+
+            // Build new string: before + replacement + after
+            memcpy(newcopy, *text, ptr);
+            strcpy(newcopy + ptr, buffer);
+            strcat(newcopy, (*text) + ptr + len);
+
+            // Clean up and update text pointer
+            ecpg_free(*text);
+            ecpg_free(buffer);
+            *text = newcopy;
+
+            // Adjust pointer for end-of-string case
+            if ((*text)[ptr] == '\0')
+                ptr--;
+        }
+    }
+    return true;
+}
+```

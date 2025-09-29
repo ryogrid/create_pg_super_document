@@ -36,3 +36,21 @@ This function simplifies the process of recording tablespace dependencies in Pos
 - This function helps enforce referential integrity for tablespace dependencies
 - Part of PostgreSQL's shared dependency tracking system for cross-database objects
 - Located in src/backend/catalog/pg_shdepend.c:370-390
+
+## Simplified Source
+
+```c
+void
+recordDependencyOnTablespace(Oid classId, Oid objectId, Oid tablespace)
+{
+    ObjectAddress myself, referenced;
+
+    // Set up object addresses for dependent object and tablespace
+    ObjectAddressSet(myself, classId, objectId);
+    ObjectAddressSet(referenced, TableSpaceRelationId, tablespace);
+
+    // Record the tablespace dependency relationship
+    recordSharedDependencyOn(&myself, &referenced,
+                            SHARED_DEPENDENCY_TABLESPACE);
+}
+```

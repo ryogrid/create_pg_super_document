@@ -38,3 +38,25 @@ The function conditionally sets up parser error callbacks only when a ParseState
 - Error callbacks are only set up when pstate is non-NULL, allowing the function to work in various parsing contexts
 - Returns InvalidOid if the collation cannot be found (behavior inherited from get_collation_oid)
 - Located in src/backend/parser/parse_type.c:515-539
+
+## Simplified Source
+
+```c
+Oid LookupCollation(ParseState *pstate, List *collnames, int location) {
+    Oid colloid;
+    ParseCallbackState pcbstate;
+
+    // Set up error position tracking if parser state is available
+    if (pstate)
+        setup_parser_errposition_callback(&pcbstate, pstate, location);
+
+    // Look up the collation by name
+    colloid = get_collation_oid(collnames, false);
+
+    // Clean up error callback
+    if (pstate)
+        cancel_parser_errposition_callback(&pcbstate);
+
+    return colloid;
+}
+```

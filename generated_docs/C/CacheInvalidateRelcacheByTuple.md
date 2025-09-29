@@ -39,3 +39,28 @@ This variant is particularly useful during catalog operations where relations ar
 - Commonly used in low-level catalog manipulation functions where tuple-level access is more natural than relation-level access
 - The classTuple parameter must be a valid pg_class tuple - no validation is performed on the input
 - Often used as an intermediate function by other invalidation routines that work with relation OIDs
+
+## Simplified Source
+
+```c
+void CacheInvalidateRelcacheByTuple(HeapTuple classTuple) {
+    Form_pg_class classtup = (Form_pg_class) GETSTRUCT(classTuple);
+    Oid databaseId;
+    Oid relationId;
+
+    // Prepare invalidation subsystem
+    PrepareInvalidationState();
+
+    // Extract relation information from tuple
+    relationId = classtup->oid;
+
+    // Determine database scope: shared relations use InvalidOid
+    if (classtup->relisshared)
+        databaseId = InvalidOid;
+    else
+        databaseId = MyDatabaseId;
+
+    // Register the relcache invalidation
+    RegisterRelcacheInvalidation(databaseId, relationId);
+}
+```

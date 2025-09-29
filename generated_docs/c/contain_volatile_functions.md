@@ -42,3 +42,12 @@ The function prevents unsafe optimizations such as:
 - Part of the broader volatility analysis framework critical for query correctness
 - Used extensively throughout the optimizer for index usage decisions, join planning, and subquery optimization
 - Cache invalidation responsibility lies with code that modifies nodes - they must reset cached values to VOLATILITY_UNKNOWN
+
+## Simplified Source
+
+```c
+bool contain_volatile_functions(Node *clause) {
+    // Delegate to walker function to recursively search for volatile functions
+    return contain_volatile_functions_walker(clause, NULL);
+}
+```

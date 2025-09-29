@@ -35,3 +35,20 @@ This function provides a portable implementation of locale-specific wide charact
 - On non-Windows platforms, the function saves and restores the current locale to ensure thread safety
 - Returns the number of bytes written to the destination array (not including null terminator), or (size_t)-1 on error
 - Complementary function to mbstowcs_l, performing the reverse conversion
+
+## Simplified Source
+
+```c
+static size_t wcstombs_l(char *dest, const wchar_t *src, size_t n, locale_t loc) {
+#ifdef WIN32
+    // Windows: use system function directly
+    return _wcstombs_l(dest, src, n, loc);
+#else
+    // POSIX: temporarily switch locale for conversion
+    locale_t save_locale = uselocale(loc);
+    size_t result = wcstombs(dest, src, n);
+    uselocale(save_locale);  // restore original locale
+    return result;
+#endif
+}
+```

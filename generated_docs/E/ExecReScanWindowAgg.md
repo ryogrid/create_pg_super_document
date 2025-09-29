@@ -34,3 +34,38 @@ ExecReScanWindowAgg reinitializes a WindowAgg executor node for re-execution. Th
 - Window function values and null indicators are reset using MemSet for efficiency
 - The outer plan is only rescanned if no parameter changes are pending (chgParam == NULL)
 - Located in src/backend/executor/nodeWindowAgg.c:2708-2747
+
+## Simplified Source
+
+```c
+void ExecReScanWindowAgg(WindowAggState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+    ExprContext *econtext = node->ss.ps.ps_ExprContext;
+
+    // Reset window aggregation state to beginning
+    node->status = WINDOWAGG_RUN;
+    node->all_first = true;
+
+    // Release partition resources and clear all tuple slots
+    release_partition(node);
+    ExecClearTuple(node->ss.ss_ScanTupleSlot);
+    ExecClearTuple(node->first_part_slot);
+    ExecClearTuple(node->agg_row_slot);
+    ExecClearTuple(node->temp_slot_1);
+    ExecClearTuple(node->temp_slot_2);
+
+    // Clear optional frame slots if they exist
+    if (node->framehead_slot)
+        ExecClearTuple(node->framehead_slot);
+    if (node->frametail_slot)
+        ExecClearTuple(node->frametail_slot);
+
+    // Reset window function values and null indicators
+    MemSet(econtext->ecxt_aggvalues, 0, sizeof(Datum) * node->numfuncs);
+    MemSet(econtext->ecxt_aggnulls, 0, sizeof(bool) * node->numfuncs);
+
+    // Rescan outer plan if no parameter changes pending
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+}
+```

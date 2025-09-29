@@ -48,3 +48,51 @@ The caller must already hold locks on all partitions of the lock tables before c
 - Deadlock details are recorded for later reporting but not printed immediately to avoid holding locks during I/O
 - Queue rearrangements are applied atomically after deadlock analysis completes
 - The function may wake up previously blocked processes after successful queue rearrangement
+
+## Simplified Source
+
+```c
+DeadLockState DeadLockCheck(PGPROC *proc) {
+    // Initialize deadlock detection state
+    nCurConstraints = 0;
+    nPossibleConstraints = 0;
+    nWaitOrders = 0;
+    blocking_autovacuum_proc = NULL;
+
+    // Search for deadlocks starting from this process
+    if (DeadLockCheckRecurse(proc)) {
+        // Found a deadlock that cannot be resolved - record details
+        TRACE_POSTGRESQL_DEADLOCK_FOUND();
+        nWaitOrders = 0;
+
+        if (!FindLockCycle(proc, possibleConstraints, &nSoftEdges))
+            elog(FATAL, "deadlock seems to have disappeared");
+
+        return DS_HARD_DEADLOCK;
+    }
+
+    // Apply queue rearrangements to resolve soft deadlocks
+    for (int i = 0; i < nWaitOrders; i++) {
+        LOCK *lock = waitOrders[i].lock;
+        PGPROC **procs = waitOrders[i].procs;
+        int nProcs = waitOrders[i].nProcs;
+
+        // Reset wait queue and re-add processes in resolved order
+        dclist_init(&lock->waitProcs);
+        for (int j = 0; j < nProcs; j++) {
+            dclist_push_tail(&lock->waitProcs, &procs[j]->links);
+        }
+
+        // Wake up any processes that can now proceed
+        ProcLockWakeup(GetLocksMethodTable(lock), lock);
+    }
+
+    // Return appropriate status based on what was found/resolved
+    if (nWaitOrders > 0)
+        return DS_SOFT_DEADLOCK;
+    else if (blocking_autovacuum_proc != NULL)
+        return DS_BLOCKED_BY_AUTOVACUUM;
+    else
+        return DS_NO_DEADLOCK;
+}
+```

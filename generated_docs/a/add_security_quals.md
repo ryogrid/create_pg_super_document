@@ -52,3 +52,58 @@ When combining multiple permissive policy qualifiers, it creates a single OR exp
 - Tracks sublink presence to inform query planning decisions
 - The function ensures policy qualifiers are unique using 
 - Policy expressions are deep-copied to avoid interference between different query contexts
+
+## Simplified Source
+
+```c
+static void add_security_quals(int rt_index,
+                               List *permissive_policies,
+                               List *restrictive_policies,
+                               List **securityQuals,
+                               bool *hasSubLinks) {
+    List *permissive_quals = NIL;
+
+    // Collect all permissive policy qualifiers
+    foreach(item, permissive_policies) {
+        RowSecurityPolicy *policy = (RowSecurityPolicy *) lfirst(item);
+
+        if (policy->qual != NULL) {
+            permissive_quals = lappend(permissive_quals, copyObject(policy->qual));
+            *hasSubLinks |= policy->hassublinks;
+        }
+    }
+
+    if (permissive_quals != NIL) {
+        // Add restrictive policies (must all be satisfied - AND logic)
+        foreach(item, restrictive_policies) {
+            RowSecurityPolicy *policy = (RowSecurityPolicy *) lfirst(item);
+
+            if (policy->qual != NULL) {
+                Expr *qual = copyObject(policy->qual);
+                ChangeVarNodes((Node *) qual, 1, rt_index, 0);
+
+                *securityQuals = list_append_unique(*securityQuals, qual);
+                *hasSubLinks |= policy->hassublinks;
+            }
+        }
+
+        // Combine permissive policies with OR logic
+        Expr *rowsec_expr;
+        if (list_length(permissive_quals) == 1)
+            rowsec_expr = (Expr *) linitial(permissive_quals);
+        else
+            rowsec_expr = makeBoolExpr(OR_EXPR, permissive_quals, -1);
+
+        // Adjust column references and add to security qualifiers
+        ChangeVarNodes((Node *) rowsec_expr, 1, rt_index, 0);
+        *securityQuals = list_append_unique(*securityQuals, rowsec_expr);
+
+    } else {
+        // No permissive policies = no rows visible (default deny)
+        *securityQuals = lappend(*securityQuals,
+                                makeConst(BOOLOID, -1, InvalidOid,
+                                         sizeof(bool), BoolGetDatum(false),
+                                         false, true));
+    }
+}
+```

@@ -39,3 +39,60 @@ The function resets various categories of server state including pending notific
 - Designed to be separate from pqDropConnection to allow for different timing of physical vs logical connection cleanup
 - Essential for proper connection reuse and switching between different PostgreSQL servers
 - Handles memory management for dynamically allocated notification and parameter status structures
+
+## Simplified Source
+
+```c
+static void
+pqDropServerData(PGconn *conn)
+{
+    // Clear pending notifications
+    PGnotify *notify = conn->notifyHead;
+    while (notify != NULL)
+    {
+        PGnotify *prev = notify;
+        notify = notify->next;
+        free(prev);
+    }
+    conn->notifyHead = conn->notifyTail = NULL;
+
+    // Clear parameter status list
+    pgParameterStatus *pstatus = conn->pstatus;
+    while (pstatus != NULL)
+    {
+        pgParameterStatus *prev = pstatus;
+        pstatus = pstatus->next;
+        free(prev);
+    }
+
+    // Reset connection parameters to defaults
+    conn->pstatus = NULL;
+    conn->client_encoding = PG_SQL_ASCII;
+    conn->std_strings = false;
+    conn->default_transaction_read_only = PG_BOOL_UNKNOWN;
+    conn->in_hot_standby = PG_BOOL_UNKNOWN;
+    conn->scram_sha_256_iterations = SCRAM_SHA_256_DEFAULT_ITERATIONS;
+    conn->sversion = 0;
+
+    // Clear large object functions
+    free(conn->lobjfuncs);
+    conn->lobjfuncs = NULL;
+
+    // Reset connection state flags
+    conn->last_sqlstate[0] = '\0';
+    conn->auth_req_received = false;
+    conn->client_finished_auth = false;
+    conn->password_needed = false;
+    conn->gssapi_used = false;
+    conn->write_failed = false;
+    free(conn->write_err_msg);
+    conn->write_err_msg = NULL;
+
+    // Preserve backend process info for cancel connections
+    if (!conn->cancelRequest)
+    {
+        conn->be_pid = 0;
+        conn->be_key = 0;
+    }
+}
+```

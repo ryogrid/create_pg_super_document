@@ -35,3 +35,25 @@ The Material node acts as a buffer between its child and parent plans, allowing 
 - The target list is directly copied from the child plan
 - [Material](../M/Material.md) nodes are often used in scenarios where rescanning is required
 - Located in src/backend/optimizer/plan/createplan.c at lines 6506-6527
+
+## Simplified Source
+
+```c
+static Material *make_material(Plan *lefttree) {
+    // Create new Material node
+    Material *node = makeNode(Material);
+    Plan *plan = &node->plan;
+
+    // Copy target list from child plan (no transformation)
+    plan->targetlist = lefttree->targetlist;
+
+    // Material nodes don't apply additional qualifications
+    plan->qual = NIL;
+
+    // Set up parent-child relationship
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;  // Material nodes have no right child
+
+    return node;
+}
+```

@@ -51,3 +51,47 @@ The implementation handles cases where OFFSET or LIMIT expressions might not be 
 - Estimate values of 0 indicate the clause is not present, -1 indicates it's present but value unknown
 - The function assumes operations are above joins, so no parameterization is needed
 - Critical for implementing efficient pagination and result set truncation in queries
+
+## Simplified Source
+
+```c
+LimitPath *create_limit_path(PlannerInfo *root, RelOptInfo *rel,
+                            Path *subpath,
+                            Node *limitOffset, Node *limitCount,
+                            LimitOption limitOption,
+                            int64 offset_est, int64 count_est)
+{
+    LimitPath *pathnode = makeNode(LimitPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Limit;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = subpath->pathtarget;  // No projection needed
+    pathnode->path.param_info = NULL;                 // Above joins
+    pathnode->path.parallel_aware = false;
+
+    // Set parallel safety based on subpath and relation
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+
+    // Copy cost and row estimates from subpath
+    pathnode->path.rows = subpath->rows;
+    pathnode->path.startup_cost = subpath->startup_cost;
+    pathnode->path.total_cost = subpath->total_cost;
+    pathnode->path.pathkeys = subpath->pathkeys;      // Preserve ordering
+
+    // Store limit/offset information
+    pathnode->subpath = subpath;
+    pathnode->limitOffset = limitOffset;
+    pathnode->limitCount = limitCount;
+    pathnode->limitOption = limitOption;
+
+    // Adjust costs and row count based on offset/limit estimates
+    adjust_limit_rows_costs(&pathnode->path.rows,
+                           &pathnode->path.startup_cost,
+                           &pathnode->path.total_cost,
+                           offset_est, count_est);
+
+    return pathnode;
+}
+```

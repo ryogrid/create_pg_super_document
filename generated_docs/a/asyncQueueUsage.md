@@ -36,3 +36,21 @@ This function computes the current utilization of the asynchronous notification 
 - The calculation is based on page-level granularity rather than individual notification granularity
 - Internal static function, not exposed outside async.c module
 - Used for both monitoring (via SQL function) and internal queue management decisions
+
+## Simplified Source
+
+```c
+static double asyncQueueUsage(void) {
+    // Get head and tail page positions
+    int64 headPage = QUEUE_POS_PAGE(QUEUE_HEAD);
+    int64 tailPage = QUEUE_POS_PAGE(QUEUE_TAIL);
+    int64 occupied = headPage - tailPage;
+
+    // Fast exit for empty queue
+    if (occupied == 0)
+        return 0.0;
+
+    // Return fraction of queue occupied
+    return (double) occupied / (double) max_notify_queue_pages;
+}
+```

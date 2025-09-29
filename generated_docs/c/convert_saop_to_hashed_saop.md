@@ -37,3 +37,15 @@ This optimization is particularly beneficial for expressions like "column IN (co
 - The actual work is delegated to convert_saop_to_hashed_saop_walker which performs the recursive tree traversal
 - This optimization can significantly improve performance for large IN clauses and similar array operations
 - The hash table approach trades setup cost for faster lookups when array size justifies it
+
+## Simplified Source
+
+```c
+void
+convert_saop_to_hashed_saop(Node *node)
+{
+    // Recursively search expression tree for ScalarArrayOpExprs
+    // and optimize them for hash table evaluation when beneficial
+    (void) convert_saop_to_hashed_saop_walker(node, NULL);
+}
+```

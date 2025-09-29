@@ -74,3 +74,85 @@ The function builds evaluation steps that:
 - Assumes a direct correspondence between parameter expressions and equality functions
 - Essential for memoization operations where parameter sets need to be compared for cache hits
 - Performs security validation by checking function execution permissions for each equality function
+
+## Simplified Source
+
+```c
+ExprState *
+ExecBuildParamSetEqual(TupleDesc desc,
+                       const TupleTableSlotOps *lops,
+                       const TupleTableSlotOps *rops,
+                       const Oid *eqfunctions,
+                       const Oid *collations,
+                       const List *param_exprs,
+                       PlanState *parent)
+{
+    // Initialize expression state for tuple equality comparison
+    ExprState *state = makeNode(ExprState);
+    ExprEvalStep step = {0};
+    int max_attrs = list_length(param_exprs);
+    List *jump_fixups = NIL;
+
+    // Set up basic state properties
+    state->expr = NULL;
+    state->flags = EEO_FLAG_IS_QUAL;
+    state->parent = parent;
+    step.resvalue = &state->resvalue;
+    step.resnull = &state->resnull;
+
+    // Add steps to fetch all needed attributes from inner tuple
+    step.opcode = EEOP_INNER_FETCHSOME;
+    step.d.fetch.last_var = max_attrs;
+    step.d.fetch.known_desc = desc;
+    step.d.fetch.kind = lops;
+    if (ExecComputeSlotInfo(state, &step))
+        ExprEvalPushStep(state, &step);
+
+    // Add steps to fetch all needed attributes from outer tuple
+    step.opcode = EEOP_OUTER_FETCHSOME;
+    step.d.fetch.last_var = max_attrs;
+    step.d.fetch.known_desc = desc;
+    step.d.fetch.kind = rops;
+    if (ExecComputeSlotInfo(state, &step))
+        ExprEvalPushStep(state, &step);
+
+    // For each attribute, build comparison steps
+    for (int attno = 0; attno < max_attrs; attno++)
+    {
+        Form_pg_attribute attr = TupleDescAttr(desc, attno);
+        Oid eq_func_oid = eqfunctions[attno];
+        Oid collation_oid = collations[attno];
+
+        // Check permission to execute equality function
+        check_function_execute_permission(eq_func_oid);
+
+        // Set up function call info for equality comparison
+        FmgrInfo *finfo = setup_equality_function(eq_func_oid);
+        FunctionCallInfo fcinfo = setup_function_call_info(finfo, collation_oid);
+
+        // Add step to get left operand from inner tuple
+        add_var_fetch_step(state, EEOP_INNER_VAR, attno, attr->atttypid,
+                          &fcinfo->args[0]);
+
+        // Add step to get right operand from outer tuple
+        add_var_fetch_step(state, EEOP_OUTER_VAR, attno, attr->atttypid,
+                          &fcinfo->args[1]);
+
+        // Add step to perform NOT DISTINCT comparison (NULL = NULL is true)
+        add_not_distinct_step(state, finfo, fcinfo);
+
+        // Add qualifier step that exits early if comparison is false
+        add_qual_step(state, &jump_fixups);
+    }
+
+    // Fix up jump targets to point to end of expression
+    fix_jump_targets(state, jump_fixups);
+
+    // Add final DONE step
+    step.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &step);
+
+    ExecReadyExpr(state);
+    return state;
+}
+```

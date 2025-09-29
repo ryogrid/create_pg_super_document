@@ -34,3 +34,25 @@ This function maps string names of compression methods to their internal numeric
 - Includes conditional compilation for LZ4 support via USE_LZ4 preprocessor directive
 - Part of PostgreSQL's TOAST compression infrastructure
 - Case-sensitive string matching for compression method names
+
+## Simplified Source
+
+```c
+char CompressionNameToMethod(const char *compression) {
+    // Check for PGLZ compression
+    if (strcmp(compression, "pglz") == 0)
+        return TOAST_PGLZ_COMPRESSION;
+
+    // Check for LZ4 compression
+    if (strcmp(compression, "lz4") == 0) {
+        // Ensure LZ4 support is compiled in
+        #ifndef USE_LZ4
+            NO_LZ4_SUPPORT();
+        #endif
+        return TOAST_LZ4_COMPRESSION;
+    }
+
+    // Unknown compression method
+    return InvalidCompressionMethod;
+}
+```

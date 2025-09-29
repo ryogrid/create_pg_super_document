@@ -40,3 +40,27 @@ The `pprint` function is a debugging utility similar to `print` but with enhance
 - Output is flushed immediately to ensure visibility during debugging
 - Commonly used in optimizer debugging contexts where readability is crucial
 - Located in src/backend/nodes/print.c:54-71
+
+## Simplified Source
+
+```c
+void
+pprint(const void *obj)
+{
+    // Convert node to string representation with location info
+    char *node_string = nodeToStringWithLocations(obj);
+
+    // Apply pretty formatting for readability
+    char *formatted_string = pretty_format_node_dump(node_string);
+
+    // Clean up intermediate string
+    pfree(node_string);
+
+    // Print the formatted output and ensure immediate visibility
+    printf("%s\n", formatted_string);
+    fflush(stdout);
+
+    // Clean up formatted string
+    pfree(formatted_string);
+}
+```

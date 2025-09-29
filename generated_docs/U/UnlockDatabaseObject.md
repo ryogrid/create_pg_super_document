@@ -44,3 +44,17 @@ Like its locking counterpart, this function is designed for database-scoped obje
 - The lock is scoped to the current database (MyDatabaseId is used in the lock tag)
 - Simple wrapper around the core LockRelease functionality with object-specific lock tag construction
 - Located in src/backend/storage/lmgr/lmgr.c:1059-1078
+
+## Simplified Source
+
+```c
+void UnlockDatabaseObject(Oid classid, Oid objid, uint16 objsubid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Build lock tag for the database object
+    SET_LOCKTAG_OBJECT(tag, MyDatabaseId, classid, objid, objsubid);
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```

@@ -30,3 +30,15 @@ This function serves as a hash function callback for the missing attribute cache
 - The function ignores the `keysize` parameter and instead uses the length stored in the cache key structure
 - Part of PostgreSQL missing attribute cache infrastructure for optimizing tuple processing
 - Returns a 32-bit hash value suitable for hash table operations
+
+## Simplified Source
+
+```c
+static uint32 missing_hash(const void *key, Size keysize) {
+    // Extract cache key structure
+    const missing_cache_key *entry = (missing_cache_key *) key;
+
+    // Hash the value using its stored length
+    return hash_bytes((const unsigned char *) entry->value, entry->len);
+}
+```

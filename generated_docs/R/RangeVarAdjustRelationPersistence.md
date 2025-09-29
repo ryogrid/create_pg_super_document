@@ -42,3 +42,41 @@ The function prevents creation of relations in temporary namespaces belonging to
 - Raises errors for invalid combinations rather than attempting automatic corrections in most cases
 - Prevents cross-session temporary namespace access which could lead to security issues
 - Critical for maintaining the integrity of the temporary table system in PostgreSQL
+
+## Simplified Source
+
+```c
+void RangeVarAdjustRelationPersistence(RangeVar *newRelation, Oid nspid) {
+    switch (newRelation->relpersistence) {
+        case RELPERSISTENCE_TEMP:
+            // Temporary relations must be in appropriate temp namespaces
+            if (!isTempOrTempToastNamespace(nspid)) {
+                if (isAnyTempNamespace(nspid)) {
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                                   errmsg("cannot create relations in temporary schemas of other sessions")));
+                } else {
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                                   errmsg("cannot create temporary relation in non-temporary schema")));
+                }
+            }
+            break;
+
+        case RELPERSISTENCE_PERMANENT:
+            // Auto-convert permanent to temp if in our temp namespace
+            if (isTempOrTempToastNamespace(nspid)) {
+                newRelation->relpersistence = RELPERSISTENCE_TEMP;
+            } else if (isAnyTempNamespace(nspid)) {
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                               errmsg("cannot create relations in temporary schemas of other sessions")));
+            }
+            break;
+
+        default:
+            // Other persistence types (unlogged, etc.) not allowed in temp schemas
+            if (isAnyTempNamespace(nspid)) {
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                               errmsg("only temporary relations may be created in temporary schemas")));
+            }
+    }
+}
+```

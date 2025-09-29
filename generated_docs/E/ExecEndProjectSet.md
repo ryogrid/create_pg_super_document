@@ -34,3 +34,11 @@ The cleanup is relatively straightforward compared to other node types because:
 - The function relies on PostgreSQL's memory context management for most cleanup
 - Only explicitly calls ExecEndNode on the outer child plan
 - Part of the standard executor node lifecycle (Init -> Exec -> End)
+
+## Simplified Source
+```c
+void ExecEndProjectSet(ProjectSetState *node) {
+    // Shut down subplans - cleanup outer child plan
+    ExecEndNode(outerPlanState(node));
+}
+```

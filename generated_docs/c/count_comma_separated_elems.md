@@ -30,3 +30,21 @@ This utility function provides a simple way to determine how many elements are p
 - Does not handle escaped commas or quoted values that might contain commas
 - Simple implementation optimized for basic comma-separated parameter lists in libpq
 - Location: src/interfaces/libpq/fe-connect.c:1034-1057
+
+## Simplified Source
+
+```c
+static int
+count_comma_separated_elems(const char *input)
+{
+    int n = 1;
+
+    // Count commas in the string
+    for (; *input != '\0'; input++) {
+        if (*input == ',')
+            n++;
+    }
+
+    return n;
+}
+```

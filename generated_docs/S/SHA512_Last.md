@@ -52,3 +52,61 @@ The function ensures that the message length modulo 1024 bits equals 896 bits, l
 - After this function completes, the context->state array contains the final SHA-512 hash value
 - Must be called exactly once per hash computation, typically by pg_sha512_final()
 - The 128-bit length counter allows for messages up to 2^128-1 bits (2^125-1 bytes) in length
+
+## Simplified Source
+
+```c
+static void
+SHA512_Last(pg_sha512_ctx *context)
+{
+    unsigned int usedspace;
+
+    // Calculate bytes used in current 128-byte block
+    usedspace = (context->bitcount[0] >> 3) % PG_SHA512_BLOCK_LENGTH;
+
+    // Convert 128-bit length counter to big-endian format
+#ifndef WORDS_BIGENDIAN
+    REVERSE64(context->bitcount[0], context->bitcount[0]);
+    REVERSE64(context->bitcount[1], context->bitcount[1]);
+#endif
+
+    if (usedspace > 0)
+    {
+        // Add mandatory '1' bit (0x80)
+        context->buffer[usedspace++] = 0x80;
+
+        if (usedspace <= PG_SHA512_SHORT_BLOCK_LENGTH)
+        {
+            // Padding fits in current block (≤ 112 bytes)
+            memset(&context->buffer[usedspace], 0, PG_SHA512_SHORT_BLOCK_LENGTH - usedspace);
+        }
+        else
+        {
+            // Need additional block for padding (> 112 bytes)
+            if (usedspace < PG_SHA512_BLOCK_LENGTH)
+            {
+                memset(&context->buffer[usedspace], 0, PG_SHA512_BLOCK_LENGTH - usedspace);
+            }
+            // Process current block
+            SHA512_Transform(context, context->buffer);
+
+            // Prepare new block for 128-bit length field
+            memset(context->buffer, 0, PG_SHA512_BLOCK_LENGTH - 2);
+        }
+    }
+    else
+    {
+        // Empty block - start with zero padding
+        memset(context->buffer, 0, PG_SHA512_SHORT_BLOCK_LENGTH);
+        // Add mandatory '1' bit at beginning
+        *context->buffer = 0x80;
+    }
+
+    // Append 128-bit message length (high 64 bits, then low 64 bits)
+    *(uint64 *) &context->buffer[PG_SHA512_SHORT_BLOCK_LENGTH] = context->bitcount[1];
+    *(uint64 *) &context->buffer[PG_SHA512_SHORT_BLOCK_LENGTH + 8] = context->bitcount[0];
+
+    // Process final block
+    SHA512_Transform(context, context->buffer);
+}
+```

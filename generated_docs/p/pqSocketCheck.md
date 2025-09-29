@@ -41,3 +41,37 @@ pqSocketCheck is the foundational socket monitoring function used by other libpq
 - Validates connection and socket before proceeding with the poll operation
 - Static function - only used internally within fe-misc.c
 - File location: src/interfaces/libpq/fe-misc.c:1067-1116
+
+## Simplified Source
+```c
+static int pqSocketCheck(PGconn *conn, int forRead, int forWrite, pg_usec_time_t end_time) {
+    // Validate connection and socket
+    if (!conn || conn->sock == PGINVALID_SOCKET) {
+        if (conn && conn->sock == PGINVALID_SOCKET)
+            libpq_append_conn_error(conn, "invalid socket");
+        return -1;
+    }
+
+#ifdef USE_SSL
+    // Check SSL buffer for pending data before polling socket
+    if (forRead && conn->ssl_in_use && pgtls_read_pending(conn)) {
+        return 1;  // Data available in SSL buffer
+    }
+#endif
+
+    // Poll socket with retry on interruption
+    int result;
+    do {
+        result = PQsocketPoll(conn->sock, forRead, forWrite, end_time);
+    } while (result < 0 && SOCK_ERRNO == EINTR);
+
+    // Handle polling errors
+    if (result < 0) {
+        char error_buf[PG_STRERROR_R_BUFLEN];
+        libpq_append_conn_error(conn, "select() failed: %s",
+                               SOCK_STRERROR(SOCK_ERRNO, error_buf, sizeof(error_buf)));
+    }
+
+    return result;
+}
+```

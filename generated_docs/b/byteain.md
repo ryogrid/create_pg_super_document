@@ -53,3 +53,71 @@ The function performs a two-pass algorithm: first pass validates the input and c
 - Part of PostgreSQL's type system infrastructure, automatically called when converting text to bytea
 - Located in `src/backend/utils/adt/varlena.c` as part of variable-length data type support
 - Critical for data import/export operations involving binary data
+
+## Simplified Source
+
+```c
+Datum byteain(PG_FUNCTION_ARGS)
+{
+    char *inputText = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    char *tp, *rp;
+    int bc;
+    bytea *result;
+
+    // Handle hexadecimal format (\x...)
+    if (inputText[0] == '\\' && inputText[1] == 'x') {
+        size_t len = strlen(inputText);
+
+        bc = (len - 2) / 2 + VARHDRSZ;  // Calculate max length
+        result = palloc(bc);
+        bc = hex_decode_safe(inputText + 2, len - 2, VARDATA(result), escontext);
+        SET_VARSIZE(result, bc + VARHDRSZ);
+
+        PG_RETURN_BYTEA_P(result);
+    }
+
+    // Handle traditional escaped format - First pass: calculate length
+    for (bc = 0, tp = inputText; *tp != '\0'; bc++) {
+        if (tp[0] != '\\') {
+            tp++;
+        } else if (tp[0] == '\\' && tp[1] >= '0' && tp[1] <= '3' &&
+                   tp[2] >= '0' && tp[2] <= '7' && tp[3] >= '0' && tp[3] <= '7') {
+            tp += 4;  // Valid octal sequence
+        } else if (tp[0] == '\\' && tp[1] == '\\') {
+            tp += 2;  // Escaped backslash
+        } else {
+            // Invalid escape sequence
+            ereturn(escontext, (Datum) 0,
+                   (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                    errmsg("invalid input syntax for type %s", "bytea")));
+        }
+    }
+
+    // Allocate result
+    bc += VARHDRSZ;
+    result = (bytea *) palloc(bc);
+    SET_VARSIZE(result, bc);
+
+    // Second pass: convert data
+    tp = inputText;
+    rp = VARDATA(result);
+    while (*tp != '\0') {
+        if (tp[0] != '\\') {
+            *rp++ = *tp++;
+        } else if (tp[0] == '\\' && tp[1] >= '0' && tp[1] <= '3' &&
+                   tp[2] >= '0' && tp[2] <= '7' && tp[3] >= '0' && tp[3] <= '7') {
+            // Convert octal sequence to byte
+            bc = VAL(tp[1]);
+            bc = (bc << 3) + VAL(tp[2]);
+            *rp++ = (bc << 3) + VAL(tp[3]);
+            tp += 4;
+        } else if (tp[0] == '\\' && tp[1] == '\\') {
+            *rp++ = '\\';
+            tp += 2;
+        }
+    }
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

@@ -41,3 +41,27 @@ This function is essential for preventing memory leaks when removing cache entri
 - Part of PostgreSQL's catalog cache cleanup infrastructure
 - Handles the complexity of PostgreSQL's varied data type storage methods
 - Must be called before deallocating the keys array itself
+
+## Simplified Source
+
+```c
+static void
+CatCacheFreeKeys(TupleDesc tupdesc, int nkeys, int *attnos, Datum *keys)
+{
+    // Free each key that's stored by reference
+    for (int i = 0; i < nkeys; i++) {
+        int attnum = attnos[i];
+        Form_pg_attribute att;
+
+        // System attributes are not supported in caches
+        Assert(attnum > 0);
+
+        // Get attribute descriptor
+        att = TupleDescAttr(tupdesc, attnum - 1);
+
+        // Free memory for by-reference attributes
+        if (!att->attbyval)
+            pfree(DatumGetPointer(keys[i]));
+    }
+}
+```

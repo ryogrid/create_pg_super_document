@@ -45,3 +45,25 @@ This functionality is essential during query optimization phases where the optim
 - Essential for outer join reduction and optimization where nulling relations become unnecessary
 - Part of PostgreSQL's comprehensive outer join handling system that maintains semantic correctness during query transformation
 - Used extensively during query optimization to clean up nulling relation information when outer joins are eliminated or simplified
+
+## Simplified Source
+
+```c
+Node *remove_nulling_relids(Node *node,
+                           const Bitmapset *removable_relids,
+                           const Bitmapset *except_relids)
+{
+    remove_nulling_relids_context context;
+
+    // Set up context for tree traversal
+    context.removable_relids = removable_relids;
+    context.except_relids = except_relids;
+    context.sublevels_up = 0;
+
+    // Traverse expression tree and remove nulling relation IDs
+    return query_or_expression_tree_mutator(node,
+                                          remove_nulling_relids_mutator,
+                                          &context,
+                                          0);
+}
+```

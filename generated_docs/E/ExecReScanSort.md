@@ -40,3 +40,38 @@ This optimization allows Sort nodes to avoid expensive re-sorting operations whe
 - Bounded sort parameter changes (`bounded`, `bound`) force a complete re-sort since the sort criteria may have changed
 - The function properly manages memory by ending the previous tuplesort state before invalidating
 - Only rescans the outer plan if its change parameters are NULL, otherwise the outer plan will be rescanned automatically on next execution
+
+## Simplified Source
+
+```c
+void ExecReScanSort(SortState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // If not sorted yet, nothing to rescan
+    if (!node->sort_Done)
+        return;
+
+    // Clear result tuple
+    ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+
+    // Check if full re-sort is needed
+    bool needFullResort = (outerPlan->chgParam != NULL ||
+                          node->bounded != node->bounded_Done ||
+                          node->bound != node->bound_Done ||
+                          !node->randomAccess);
+
+    if (needFullResort) {
+        // Invalidate sort state and prepare for re-sort
+        node->sort_Done = false;
+        tuplesort_end((Tuplesortstate *) node->tuplesortstate);
+        node->tuplesortstate = NULL;
+
+        // Rescan outer plan if needed
+        if (outerPlan->chgParam == NULL)
+            ExecReScan(outerPlan);
+    } else {
+        // Just rewind to beginning of sorted results
+        tuplesort_rescan((Tuplesortstate *) node->tuplesortstate);
+    }
+}
+```

@@ -36,3 +36,36 @@ This function converts a string-based storage specification into a storage type 
 - Returns the appropriate TYPSTORAGE constant for valid storage modes
 - Used during table creation and ALTER TABLE SET STORAGE operations
 - Provides clear error messages for invalid storage types and unsupported combinations
+
+## Simplified Source
+```c
+static char GetAttributeStorage(Oid atttypid, const char *storagemode)
+{
+    char cstorage = 0;
+
+    // Convert storage mode string to storage type constant
+    if (pg_strcasecmp(storagemode, "plain") == 0)
+        cstorage = TYPSTORAGE_PLAIN;
+    else if (pg_strcasecmp(storagemode, "external") == 0)
+        cstorage = TYPSTORAGE_EXTERNAL;
+    else if (pg_strcasecmp(storagemode, "extended") == 0)
+        cstorage = TYPSTORAGE_EXTENDED;
+    else if (pg_strcasecmp(storagemode, "main") == 0)
+        cstorage = TYPSTORAGE_MAIN;
+    else if (pg_strcasecmp(storagemode, "default") == 0)
+        cstorage = get_typstorage(atttypid);  // Get type's default storage
+    else
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid storage type \"%s\"", storagemode)));
+
+    // Safety check: non-toastable types can only use PLAIN storage
+    if (!(cstorage == TYPSTORAGE_PLAIN || TypeIsToastable(atttypid)))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("column data type %s can only have storage PLAIN",
+                        format_type_be(atttypid))));
+
+    return cstorage;
+}
+```

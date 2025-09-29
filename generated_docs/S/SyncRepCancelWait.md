@@ -34,3 +34,25 @@ This function is typically called during error conditions, process termination, 
 
 ## Notes and Other Information
 The function uses dlist_delete_thoroughly instead of simple deletion to ensure the list node links are properly reinitialized, preventing potential issues with subsequent operations. The exclusive lock ensures that queue modifications are atomic with respect to WAL sender processes that may be concurrently processing the queue. This function is essential for graceful handling of interrupted synchronous replication waits.
+
+## Simplified Source
+
+```c
+static void
+SyncRepCancelWait(void)
+{
+    // Acquire exclusive lock for safe queue manipulation
+    LWLockAcquire(SyncRepLock, LW_EXCLUSIVE);
+
+    // Remove from wait queue if currently queued
+    if (!dlist_node_is_detached(&MyProc->syncRepLinks)) {
+        dlist_delete_thoroughly(&MyProc->syncRepLinks);
+    }
+
+    // Reset synchronization state
+    MyProc->syncRepState = SYNC_REP_NOT_WAITING;
+
+    // Release lock
+    LWLockRelease(SyncRepLock);
+}
+```

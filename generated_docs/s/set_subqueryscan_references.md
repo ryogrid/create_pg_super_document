@@ -45,3 +45,36 @@ This optimization is significant because it can eliminate entire levels of plan 
 
 ## Notes and Other Information
 The decision not to use  for non-trivial SubqueryScans is important - [SubqueryScan](../S/SubqueryScan.md) nodes are unique in that they're created with correct references to their subplan outputs from the start, unlike other upper nodes that need reference transformation. The function represents a key optimization in PostgreSQL's query planning, as eliminating unnecessary SubqueryScan nodes can significantly improve query performance by reducing the number of tuple passing operations between plan levels. The recursive call to  using the subquery's own subroot ensures that variable references within the subplan are resolved correctly within the subquery's scope.
+
+## Simplified Source
+
+```c
+static Plan *
+set_subqueryscan_references(PlannerInfo *root, SubqueryScan *plan, int rtoffset)
+{
+    RelOptInfo *rel;
+    Plan *result;
+
+    // Look up the subquery's RelOptInfo to get its subroot
+    rel = find_base_rel(root, plan->scan.scanrelid);
+
+    // Recursively process the subplan with its own planner context
+    plan->subplan = set_plan_references(rel->subroot, plan->subplan);
+
+    // Check if we can eliminate the SubqueryScan entirely
+    if (trivial_subqueryscan(plan)) {
+        // Remove SubqueryScan and pull up the subplan directly
+        result = clean_up_removed_plan_level((Plan *) plan, plan->subplan);
+    } else {
+        // Keep the SubqueryScan and fix its references
+        plan->scan.scanrelid += rtoffset;
+        plan->scan.plan.targetlist = fix_scan_list(root, plan->scan.plan.targetlist,
+                                                  rtoffset, NUM_EXEC_TLIST((Plan *) plan));
+        plan->scan.plan.qual = fix_scan_list(root, plan->scan.plan.qual,
+                                            rtoffset, NUM_EXEC_QUAL((Plan *) plan));
+        result = (Plan *) plan;
+    }
+
+    return result;
+}
+```

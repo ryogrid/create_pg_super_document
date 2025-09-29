@@ -47,3 +47,43 @@ This step is performed during the setrefs phase rather than createplan phase to 
 - The child Aggref retains the original arguments and filter, while the parent Aggref gets a single argument (the child Aggref wrapped in a TargetEntry)
 - This transformation enables efficient parallel execution of aggregate queries
 - The function uses expression_tree_mutator for recursive traversal of the expression tree
+
+## Simplified Source
+
+```c
+static Node *convert_combining_aggrefs(Node *node, void *context) {
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Aggref)) {
+        Aggref *orig_agg = (Aggref *) node;
+        Aggref *child_agg;
+        Aggref *parent_agg;
+
+        // Create child aggregate for partial aggregation
+        child_agg = makeNode(Aggref);
+        memcpy(child_agg, orig_agg, sizeof(Aggref));
+
+        // Create parent aggregate by copying child but without args/filter
+        child_agg->args = NIL;
+        child_agg->aggfilter = NULL;
+        parent_agg = copyObject(child_agg);
+
+        // Restore original args and filter to child
+        child_agg->args = orig_agg->args;
+        child_agg->aggfilter = orig_agg->aggfilter;
+
+        // Mark child for initial partial aggregation
+        mark_partial_aggref(child_agg, AGGSPLIT_INITIAL_SERIAL);
+
+        // Set up parent to take child as single argument for final aggregation
+        parent_agg->args = list_make1(makeTargetEntry((Expr *) child_agg, 1, NULL, false));
+        mark_partial_aggref(parent_agg, AGGSPLIT_FINAL_DESERIAL);
+
+        return (Node *) parent_agg;
+    }
+
+    // Recursively process other node types
+    return expression_tree_mutator(node, convert_combining_aggrefs, context);
+}
+```

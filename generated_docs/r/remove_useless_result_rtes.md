@@ -50,3 +50,42 @@ The optimization is most effective when run after expression preprocessing (whic
 - Removes PlanRowMarks for RTE_RESULT entries to prevent executor issues with whole-row Var generation
 - Part of the query optimization pipeline in PostgreSQL's planner
 - Originally attempted as part of pull_up_subqueries() but separated for simplicity and effectiveness
+
+## Simplified Source
+
+```c
+void remove_useless_result_rtes(PlannerInfo *root) {
+    Relids dropped_outer_joins = NULL;
+
+    // Ensure we have a FromExpr at the top level
+    Assert(IsA(root->parse->jointree, FromExpr));
+
+    // Recursively remove useless RTE_RESULT nodes
+    root->parse->jointree = (FromExpr *)
+        remove_useless_results_recurse(root,
+                                     (Node *) root->parse->jointree,
+                                     NULL,
+                                     &dropped_outer_joins);
+
+    // Clean up nulling relation references if we removed outer joins
+    if (!bms_is_empty(dropped_outer_joins)) {
+        root->parse = (Query *)
+            remove_nulling_relids((Node *) root->parse,
+                                dropped_outer_joins,
+                                NULL);
+        root->append_rel_list = (List *)
+            remove_nulling_relids((Node *) root->append_rel_list,
+                                dropped_outer_joins,
+                                NULL);
+    }
+
+    // Remove PlanRowMarks for RTE_RESULT entries
+    ListCell *cell;
+    foreach(cell, root->rowMarks) {
+        PlanRowMark *rc = (PlanRowMark *) lfirst(cell);
+
+        if (rt_fetch(rc->rti, root->parse->rtable)->rtekind == RTE_RESULT)
+            root->rowMarks = foreach_delete_current(root->rowMarks, cell);
+    }
+}
+```

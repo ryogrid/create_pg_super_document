@@ -42,3 +42,21 @@ The function returns 0 if the available space is insufficient to accommodate eve
 - Accounts for line pointer overhead by subtracting sizeof(ItemIdData)
 - Returns 0 when insufficient space is available for a new line pointer
 - Located in src/backend/storage/page/bufpage.c:907-933
+
+## Simplified Source
+
+```c
+Size
+PageGetFreeSpace(Page page)
+{
+    // Calculate available space between upper and lower bounds
+    int space = ((PageHeader) page)->pd_upper - ((PageHeader) page)->pd_lower;
+
+    // Ensure we have space for at least one line pointer
+    if (space < sizeof(ItemIdData))
+        return 0;
+
+    // Reserve space for line pointer overhead
+    return space - sizeof(ItemIdData);
+}
+```

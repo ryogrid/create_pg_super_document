@@ -36,3 +36,23 @@ The function allocates memory for the buffer using `palloc`, sets up the initial
 - The lazy initialization pattern is particularly beneficial for external sort operations where many temporary tapes may be created but not all accessed
 - The function sets initial reading state by resetting position (`pos`) and byte count (`nbytes`) to 0, then positioning at the first block
 - Memory is allocated from PostgreSQL's memory context system using `palloc`
+
+## Simplified Source
+
+```c
+static void ltsInitReadBuffer(LogicalTape *lt) {
+    // Ensure buffer size is valid
+    Assert(lt->buffer_size > 0);
+
+    // Allocate memory for the read buffer
+    lt->buffer = palloc(lt->buffer_size);
+
+    // Initialize reading position to start of tape
+    lt->nextBlockNumber = lt->firstBlockNumber;
+    lt->pos = 0;
+    lt->nbytes = 0;
+
+    // Fill buffer with first block of data (or handle empty tape)
+    ltsReadFillBuffer(lt);
+}
+```

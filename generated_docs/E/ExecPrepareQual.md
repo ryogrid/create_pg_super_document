@@ -57,3 +57,28 @@ Like ExecPrepareExpr, it handles memory context management by switching to the E
 - **Common use cases**: Index constraint checking, trigger conditions, exclusion constraints, and heap validation during index operations
 - **Boolean evaluation**: Compiled expressions are optimized for boolean result evaluation rather than general expression evaluation
 - **Performance optimization**: Planning transformations can significantly improve qualifier evaluation performance through constant folding and predicate simplification
+
+## Simplified Source
+
+```c
+ExprState *
+ExecPrepareQual(List *qual, EState *estate)
+{
+    ExprState  *result;
+    MemoryContext oldcontext;
+
+    // Switch to query context for proper memory management
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Apply expression planning transformations (optimization)
+    qual = (List *) expression_planner((Expr *) qual);
+
+    // Initialize the qualifier for execution
+    result = ExecInitQual(qual, NULL);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return result;
+}
+```

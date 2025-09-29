@@ -38,3 +38,15 @@ The function is part of PostgreSQL's access control system and is used throughou
 - The function will throw an error if the specified relation does not exist, unlike its extended counterpart
 - Part of the broader ACL (Access Control List) framework in PostgreSQL
 - Located in src/backend/catalog/aclchk.c, which contains the core access control checking logic
+
+## Simplified Source
+
+```c
+AclMode
+pg_class_aclmask(Oid table_oid, Oid roleid,
+                 AclMode mask, AclMaskHow how)
+{
+    // Delegate to extended version with no missing object handling
+    return pg_class_aclmask_ext(table_oid, roleid, mask, how, NULL);
+}
+```

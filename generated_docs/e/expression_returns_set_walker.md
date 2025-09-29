@@ -39,3 +39,37 @@ This static function implements the core logic for detecting set-returning expre
 - The funcretset and opretset flags are set during function/operator lookup and indicate the return type characteristics
 - Part of PostgreSQL's broader framework for handling set-returning functions (SRFs) which require special execution strategies
 - Returns true as soon as any set-returning expression is found, providing early termination for efficiency
+
+## Simplified Source
+
+```c
+static bool
+expression_returns_set_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check function expressions
+    if (IsA(node, FuncExpr))
+    {
+        FuncExpr *expr = (FuncExpr *) node;
+        if (expr->funcretset)
+            return true;  // Found set-returning function
+    }
+
+    // Check operator expressions
+    if (IsA(node, OpExpr))
+    {
+        OpExpr *expr = (OpExpr *) node;
+        if (expr->opretset)
+            return true;  // Found set-returning operator
+    }
+
+    // Skip nodes known not to return sets
+    if (IsA(node, Aggref) || IsA(node, GroupingFunc) || IsA(node, WindowFunc))
+        return false;
+
+    // Continue recursive traversal
+    return expression_tree_walker(node, expression_returns_set_walker, context);
+}
+```

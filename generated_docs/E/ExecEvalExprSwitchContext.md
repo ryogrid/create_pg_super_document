@@ -44,3 +44,26 @@ The function saves the current memory context, switches to the econtext's per-tu
 - The function maintains the same interface as ExecEvalExpr but adds the critical memory management aspect
 - Static inline definition ensures efficient execution while providing the memory safety benefits
 - Used extensively throughout the executor when expression evaluation needs to be performed with proper memory context management
+
+## Simplified Source
+
+```c
+static inline Datum ExecEvalExprSwitchContext(ExprState *state,
+                                              ExprContext *econtext,
+                                              bool *isNull)
+{
+    Datum retDatum;
+    MemoryContext oldContext;
+
+    // Switch to per-tuple memory context for evaluation
+    oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Evaluate the expression using compiled evaluation function
+    retDatum = state->evalfunc(state, econtext, isNull);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldContext);
+
+    return retDatum;
+}
+```

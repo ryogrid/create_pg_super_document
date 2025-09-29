@@ -41,3 +41,38 @@ This function implements a binary search algorithm specifically designed for ran
 - Critical for range partition bound validation and comparison operations
 - Uses partition_rbound_cmp for sophisticated multi-column range bound comparisons
 - The comparison considers partition key attributes, boundary kinds, and default partition status
+
+## Simplified Source
+```c
+static int partition_range_bsearch(int partnatts, FmgrInfo *partsupfunc,
+                                  Oid *partcollation,
+                                  PartitionBoundInfo boundinfo,
+                                  PartitionRangeBound *probe, int32 *cmpval)
+{
+    int lo = -1;
+    int hi = boundinfo->ndatums - 1;
+
+    // Binary search through range partition bounds
+    while (lo < hi) {
+        int mid = (lo + hi + 1) / 2;
+
+        // Compare current bound with probe using range comparison
+        *cmpval = partition_rbound_cmp(partnatts, partsupfunc,
+                                      partcollation,
+                                      boundinfo->datums[mid],
+                                      boundinfo->kind[mid],
+                                      (boundinfo->indexes[mid] == -1),
+                                      probe);
+
+        if (*cmpval <= 0) {
+            lo = mid;
+            if (*cmpval == 0)
+                break;  // Found exact match
+        } else {
+            hi = mid - 1;
+        }
+    }
+
+    return lo;  // Index of greatest bound <= probe, or -1 if none found
+}
+```

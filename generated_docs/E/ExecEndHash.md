@@ -29,3 +29,15 @@ The function is called as part of the executor's cleanup phase when a query cont
 - The function does not directly clean up the hash table itself - that is handled elsewhere in the hash join cleanup process
 - Part of the Hash node implementation in nodeHash.c, which supports hash operations in hash joins
 - The cleanup is performed in a top-down manner, ensuring child nodes are properly terminated before parent nodes
+
+## Simplified Source
+
+```c
+void ExecEndHash(HashState *node) {
+    // Get the outer plan that feeds data to this hash node
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Recursively shut down the subplan
+    ExecEndNode(outerPlan);
+}
+```

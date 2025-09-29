@@ -41,3 +41,25 @@ This function performs a system catalog lookup to retrieve the textual name of a
 - Essential for error messages, debugging output, and user-facing displays of query plans
 - Different from get_opcode which returns the implementation function rather than the name
 - Used primarily for display and logging purposes rather than execution
+
+## Simplified Source
+
+```c
+char *get_opname(Oid opno) {
+    // Look up the operator in pg_operator catalog
+    HeapTuple tuple = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+
+    if (HeapTupleIsValid(tuple)) {
+        // Extract operator information and copy the name
+        Form_pg_operator operTuple = (Form_pg_operator) GETSTRUCT(tuple);
+        char *operatorName = pstrdup(NameStr(operTuple->oprname));
+
+        // Cleanup and return the operator name
+        ReleaseSysCache(tuple);
+        return operatorName;
+    } else {
+        // Operator not found
+        return NULL;
+    }
+}
+```

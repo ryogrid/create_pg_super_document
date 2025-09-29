@@ -36,3 +36,24 @@ The parameter change handling follows PostgreSQL's lazy rescanning optimization 
 - Essential for correct behavior in nested loop joins and parameterized plans
 - Uses UpdateChangedParamSet, which was mentioned in the provided context as filtering parameter changes to only those the node actually depends on
 - Located in src/backend/executor/nodeBitmapAnd.c:201-223
+
+## Simplified Source
+
+```c
+void ExecReScanBitmapAnd(BitmapAndState *node) {
+    // Rescan all bitmap subplans
+    for (int i = 0; i < node->nplans; i++) {
+        PlanState *subnode = node->bitmapplans[i];
+
+        // Propagate parameter changes to subplan
+        if (node->ps.chgParam != NULL) {
+            UpdateChangedParamSet(subnode, node->ps.chgParam);
+        }
+
+        // Rescan subplan if it has no pending parameter changes
+        if (subnode->chgParam == NULL) {
+            ExecReScan(subnode);
+        }
+    }
+}
+```

@@ -50,3 +50,80 @@ The function preserves the original input tuples and returns either the original
 - Handles speculative insertions by filtering out HEAP_INSERT_SPECULATIVE option
 - The algorithm is designed to avoid unnecessary work by externalizing very large values early
 - Returns original tuple unchanged if no toasting is required, otherwise returns a new tuple
+
+## Simplified Source
+```c
+HeapTuple heap_toast_insert_or_update(Relation rel, HeapTuple newtup, HeapTuple oldtup, int options) {
+    HeapTuple result_tuple;
+    TupleDesc tupleDesc = rel->rd_att;
+    int numAttrs = tupleDesc->natts;
+    Size maxDataLen, hoff;
+
+    // Arrays for tuple data extraction
+    bool toast_isnull[MaxHeapAttributeNumber];
+    bool toast_oldisnull[MaxHeapAttributeNumber];
+    Datum toast_values[MaxHeapAttributeNumber];
+    Datum toast_oldvalues[MaxHeapAttributeNumber];
+    ToastAttrInfo toast_attr[MaxHeapAttributeNumber];
+    ToastTupleContext ttc;
+
+    // Filter out speculative insertion flag
+    options &= ~HEAP_INSERT_SPECULATIVE;
+
+    // Extract tuple data into arrays
+    heap_deform_tuple(newtup, tupleDesc, toast_values, toast_isnull);
+    if (oldtup != NULL)
+        heap_deform_tuple(oldtup, tupleDesc, toast_oldvalues, toast_oldisnull);
+
+    // Initialize toast context
+    toast_tuple_init(&ttc);
+
+    // Calculate maximum data length target
+    hoff = calculate_header_overhead(numAttrs, ttc.ttc_flags);
+    maxDataLen = RelationGetToastTupleTarget(rel, TOAST_TUPLE_TARGET) - hoff;
+
+    // Phase 1: Compress EXTENDED attributes, externalize very large ones
+    while (heap_compute_data_size(tupleDesc, toast_values, toast_isnull) > maxDataLen) {
+        int biggest_attno = toast_tuple_find_biggest_attribute(&ttc, true, false);
+        if (biggest_attno < 0) break;
+
+        if (is_extended_storage(biggest_attno))
+            toast_tuple_try_compression(&ttc, biggest_attno);
+
+        if (is_oversized_and_has_toast_table(biggest_attno))
+            toast_tuple_externalize(&ttc, biggest_attno, options);
+    }
+
+    // Phase 2: Externalize remaining EXTENDED/EXTERNAL attributes
+    while (still_oversized_and_has_toast_table()) {
+        int biggest_attno = toast_tuple_find_biggest_attribute(&ttc, false, false);
+        if (biggest_attno < 0) break;
+        toast_tuple_externalize(&ttc, biggest_attno, options);
+    }
+
+    // Phase 3: Compress MAIN storage attributes
+    while (heap_compute_data_size(tupleDesc, toast_values, toast_isnull) > maxDataLen) {
+        int biggest_attno = toast_tuple_find_biggest_attribute(&ttc, true, true);
+        if (biggest_attno < 0) break;
+        toast_tuple_try_compression(&ttc, biggest_attno);
+    }
+
+    // Phase 4: Externalize MAIN attributes (higher threshold)
+    maxDataLen = TOAST_TUPLE_TARGET_MAIN - hoff;
+    while (still_oversized_and_has_toast_table()) {
+        int biggest_attno = toast_tuple_find_biggest_attribute(&ttc, false, true);
+        if (biggest_attno < 0) break;
+        toast_tuple_externalize(&ttc, biggest_attno, options);
+    }
+
+    // Build new tuple if any changes were made
+    if ((ttc.ttc_flags & TOAST_NEEDS_CHANGE) != 0) {
+        result_tuple = build_new_tuple_with_toasted_values(&ttc, newtup, tupleDesc);
+    } else {
+        result_tuple = newtup;
+    }
+
+    toast_tuple_cleanup(&ttc);
+    return result_tuple;
+}
+```

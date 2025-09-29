@@ -38,3 +38,20 @@ This function sets the internal cursor position in the current error data struct
 - Part of PostgreSQL's comprehensive error reporting system that provides context for both user and internal queries
 - Helps developers and users understand whether an error originated from their SQL or from PostgreSQL's internal processing
 - Essential for debugging complex scenarios involving query rewriting, function execution, and stored procedures
+
+## Simplified Source
+
+```c
+int internalerrposition(int cursorpos) {
+    // Get current error data structure
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Check stack depth is valid
+    CHECK_STACK_DEPTH();
+
+    // Set the internal cursor position for error reporting
+    edata->internalpos = cursorpos;
+
+    return 0;  // Return value not used
+}
+```

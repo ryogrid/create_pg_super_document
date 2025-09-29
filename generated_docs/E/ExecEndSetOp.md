@@ -30,3 +30,15 @@ ExecEndSetOp performs the cleanup operations required when a SetOp execution nod
 - The tableContext memory context is only deleted if it exists (non-NULL check)
 - The function follows the standard PostgreSQL executor pattern of recursively cleaning up child nodes
 - Declared in src/include/executor/nodeSetOp.h and defined in src/backend/executor/nodeSetOp.c:583-593
+
+## Simplified Source
+```c
+void ExecEndSetOp(SetOpState *node) {
+    // Free hashtable memory context if it was created
+    if (node->tableContext)
+        MemoryContextDelete(node->tableContext);
+
+    // Cleanup the outer subplan
+    ExecEndNode(outerPlanState(node));
+}
+```

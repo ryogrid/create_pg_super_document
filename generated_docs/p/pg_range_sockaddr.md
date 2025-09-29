@@ -35,3 +35,31 @@ This function performs subnet matching by checking if a given socket address lie
 - AF_UNIX addresses are explicitly not supported
 - Returns 0 for unsupported address families
 - Returns non-zero if the address is within the specified subnet range
+
+## Simplified Source
+
+```c
+int
+pg_range_sockaddr(const struct sockaddr_storage *addr,
+                  const struct sockaddr_storage *netaddr,
+                  const struct sockaddr_storage *netmask)
+{
+    // Check if address is within subnet range based on address family
+    if (addr->ss_family == AF_INET) {
+        // Handle IPv4 addresses
+        return range_sockaddr_AF_INET((const struct sockaddr_in *) addr,
+                                    (const struct sockaddr_in *) netaddr,
+                                    (const struct sockaddr_in *) netmask);
+    }
+    else if (addr->ss_family == AF_INET6) {
+        // Handle IPv6 addresses
+        return range_sockaddr_AF_INET6((const struct sockaddr_in6 *) addr,
+                                     (const struct sockaddr_in6 *) netaddr,
+                                     (const struct sockaddr_in6 *) netmask);
+    }
+    else {
+        // Unsupported address family
+        return 0;
+    }
+}
+```

@@ -34,3 +34,19 @@ The function acts as a wrapper that initializes the depth tracking to 0 and dele
 - The depth tracking starts at 0, meaning depth will be 1 when examining the immediate contents of the input Query
 - External recursive self-references can affect whether a CTE can be inlined during optimization
 - This is a static function, meaning it's only accessible within the subselect.c compilation unit
+
+## Simplified Source
+
+```c
+static bool
+contain_outer_selfref(Node *node)
+{
+    Index depth = 0;
+
+    // Ensure we start with a Query node
+    Assert(IsA(node, Query));
+
+    // Delegate to walker with depth tracking starting at 0
+    return contain_outer_selfref_walker(node, &depth);
+}
+```

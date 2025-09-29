@@ -51,3 +51,31 @@ The function uses a callback-based approach through `replace_rte_variables`, whi
 - Handles whole-tuple references by expanding them into RowExpr constructs
 - Part of PostgreSQL's rule system and view rewriting infrastructure
 - The function is designed to be flexible in handling cases where target list entries don't match variables through the `nomatch_option` parameter
+
+## Simplified Source
+
+```c
+Node *
+ReplaceVarsFromTargetList(Node *node,
+                         int target_varno, int sublevels_up,
+                         RangeTblEntry *target_rte,
+                         List *targetlist,
+                         ReplaceVarsNoMatchOption nomatch_option,
+                         int nomatch_varno,
+                         bool *outer_hasSubLinks)
+{
+    ReplaceVarsFromTargetList_context context;
+
+    // Set up context for callback function
+    context.target_rte = target_rte;
+    context.targetlist = targetlist;
+    context.nomatch_option = nomatch_option;
+    context.nomatch_varno = nomatch_varno;
+
+    // Delegate to generic variable replacement function
+    return replace_rte_variables(node, target_varno, sublevels_up,
+                                ReplaceVarsFromTargetList_callback,
+                                (void *) &context,
+                                outer_hasSubLinks);
+}
+```

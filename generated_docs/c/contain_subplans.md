@@ -36,8 +36,17 @@ This function is typically used during the early stages of query planning, befor
   - [inline_set_returning_function](../i/inline_set_returning_function.md)
 
 ## Notes and Other Information
-- This is a simple wrapper function that delegates the actual work to 
+- This is a simple wrapper function that delegates the actual work to
 - Used primarily during query planning to determine optimization strategies
 - Makes conservative assumptions about SubLink nodes becoming subplans
 - Part of PostgreSQL's subplan detection and manipulation subsystem
 - Returns true if any subplan is found, false otherwise
+
+## Simplified Source
+
+```c
+bool contain_subplans(Node *clause) {
+    // Delegate to walker function to recursively search for subplans
+    return contain_subplans_walker(clause, NULL);
+}
+```

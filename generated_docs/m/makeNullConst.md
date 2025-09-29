@@ -40,3 +40,23 @@ The function uses the PostgreSQL type system to determine how the data type is s
 - Widely used throughout the system for creating typed NULL constants during query processing
 - More convenient than calling makeConst directly when creating NULL values
 - Located in src/backend/nodes/makefuncs.c:386-405
+
+## Simplified Source
+
+```c
+Const *makeNullConst(Oid consttype, int32 consttypmod, Oid constcollid) {
+    // Get type storage properties from system catalog
+    int16 typLen;
+    bool typByVal;
+    get_typlenbyval(consttype, &typLen, &typByVal);
+
+    // Create NULL constant with appropriate type information
+    return makeConst(consttype,         // data type OID
+                     consttypmod,       // type modifier
+                     constcollid,       // collation OID
+                     (int) typLen,      // type length
+                     (Datum) 0,         // NULL value
+                     true,              // is NULL flag
+                     typByVal);         // pass-by-value flag
+}
+```

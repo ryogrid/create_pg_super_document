@@ -41,3 +41,20 @@ The function assumes the buffer is valid and includes an assertion to verify thi
 - Shared buffers are stored in a contiguous memory region starting at BufferBlocks
 - The returned Block is a pointer to the actual page data that can be read or modified
 - This is a low-level function that provides direct access to buffer memory
+
+## Simplified Source
+
+```c
+static inline Block
+BufferGetBlock(Buffer buffer)
+{
+    Assert(BufferIsValid(buffer));
+
+    // Handle local buffers (negative buffer numbers)
+    if (BufferIsLocal(buffer))
+        return LocalBufferBlockPointers[-buffer - 1];
+    else
+        // Handle shared buffers (positive buffer numbers)
+        return (Block) (BufferBlocks + ((Size) (buffer - 1)) * BLCKSZ);
+}
+```

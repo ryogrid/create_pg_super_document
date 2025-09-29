@@ -38,3 +38,39 @@ get_am_type_oid serves as a core utility function for access method OID lookups 
 - Uses system cache for efficient repeated lookups
 - Error handling distinguishes between missing access methods and type mismatches
 - Location: src/backend/commands/amcmds.c:129-162
+
+## Simplified Source
+
+```c
+static Oid get_am_type_oid(const char *amname, char amtype, bool missing_ok)
+{
+    HeapTuple tup;
+    Oid oid = InvalidOid;
+
+    // Look up access method by name
+    tup = SearchSysCache1(AMNAME, CStringGetDatum(amname));
+    if (HeapTupleIsValid(tup))
+    {
+        Form_pg_am amform = (Form_pg_am) GETSTRUCT(tup);
+
+        // Validate access method type if specified
+        if (amtype != '\0' && amform->amtype != amtype)
+            ereport(ERROR,
+                    (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                     errmsg("access method \"%s\" is not of type %s",
+                            NameStr(amform->amname),
+                            get_am_type_string(amtype))));
+
+        oid = amform->oid;
+        ReleaseSysCache(tup);
+    }
+
+    // Handle missing access method
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("access method \"%s\" does not exist", amname)));
+
+    return oid;
+}
+```

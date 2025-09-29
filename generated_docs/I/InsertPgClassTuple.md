@@ -46,3 +46,50 @@ The function uses heap_form_tuple to construct the tuple from arrays of values a
 - [Variable](../V/Variable.md)-width fields (relacl, reloptions) are handled specially since they're not present in cached relation descriptors
 - The function assumes all fixed-width relation metadata is available in the new_rel_desc->rd_rel structure
 - Memory management is handled automatically - the function allocates and frees the tuple as needed
+
+## Simplified Source
+
+```c
+void
+InsertPgClassTuple(Relation pg_class_desc, Relation new_rel_desc,
+                   Oid new_rel_oid, Datum relacl, Datum reloptions)
+{
+    Form_pg_class rd_rel = new_rel_desc->rd_rel;
+    Datum values[Natts_pg_class];
+    bool nulls[Natts_pg_class];
+
+    // Initialize arrays
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    // Copy standard fields from relation descriptor
+    values[Anum_pg_class_oid - 1] = ObjectIdGetDatum(new_rel_oid);
+    values[Anum_pg_class_relname - 1] = NameGetDatum(&rd_rel->relname);
+    values[Anum_pg_class_relnamespace - 1] = ObjectIdGetDatum(rd_rel->relnamespace);
+    values[Anum_pg_class_reltype - 1] = ObjectIdGetDatum(rd_rel->reltype);
+    values[Anum_pg_class_relowner - 1] = ObjectIdGetDatum(rd_rel->relowner);
+    values[Anum_pg_class_relam - 1] = ObjectIdGetDatum(rd_rel->relam);
+    values[Anum_pg_class_relkind - 1] = CharGetDatum(rd_rel->relkind);
+    values[Anum_pg_class_relnatts - 1] = Int16GetDatum(rd_rel->relnatts);
+    // ... (additional field assignments)
+
+    // Handle variable-width fields
+    if (relacl != (Datum) 0)
+        values[Anum_pg_class_relacl - 1] = relacl;
+    else
+        nulls[Anum_pg_class_relacl - 1] = true;
+
+    if (reloptions != (Datum) 0)
+        values[Anum_pg_class_reloptions - 1] = reloptions;
+    else
+        nulls[Anum_pg_class_reloptions - 1] = true;
+
+    // Set relpartbound to NULL initially
+    nulls[Anum_pg_class_relpartbound - 1] = true;
+
+    // Create and insert tuple
+    HeapTuple tup = heap_form_tuple(RelationGetDescr(pg_class_desc), values, nulls);
+    CatalogTupleInsert(pg_class_desc, tup);
+    heap_freetuple(tup);
+}
+```

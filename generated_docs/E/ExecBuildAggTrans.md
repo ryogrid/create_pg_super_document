@@ -45,3 +45,67 @@ The function supports different aggregation modes: combine operations (for paral
 - Manages filter evaluation before argument evaluation to avoid unnecessary computation
 - Creates separate execution paths for sort-based and hash-based aggregation when both are needed
 - Uses jump target adjustment mechanism to handle conditional execution flow
+
+## Simplified Source
+
+```c
+ExprState *ExecBuildAggTrans(AggState *aggstate, AggStatePerPhase phase,
+                           bool doSort, bool doHash, bool nullcheck) {
+    ExprState *state = makeNode(ExprState);
+    bool isCombine = DO_AGGSPLIT_COMBINE(aggstate->aggsplit);
+
+    // Initialize expression state
+    state->expr = (Expr *) aggstate;
+    state->parent = &aggstate->ss.ps;
+
+    // Setup slot deformation for all transition inputs
+    ExprSetupInfo deform = {0, 0, 0, NIL};
+    for (int transno = 0; transno < aggstate->numtrans; transno++) {
+        AggStatePerTrans pertrans = &aggstate->pertrans[transno];
+        expr_setup_walker((Node *) pertrans->aggref->aggdirectargs, &deform);
+        expr_setup_walker((Node *) pertrans->aggref->args, &deform);
+        // ... setup other fields
+    }
+    ExecPushExprSetupSteps(state, &deform);
+
+    // Build evaluation steps for each transition
+    for (int transno = 0; transno < aggstate->numtrans; transno++) {
+        AggStatePerTrans pertrans = &aggstate->pertrans[transno];
+
+        // Handle filter evaluation first
+        if (pertrans->aggref->aggfilter && !isCombine) {
+            ExecInitExprRec(pertrans->aggref->aggfilter, state, ...);
+            // Add jump if filter fails
+        }
+
+        // Evaluate arguments based on mode (combine vs regular vs sorted)
+        if (isCombine) {
+            // Handle combining transition values
+            // ... combine-specific logic
+        } else if (!pertrans->aggsortrequired) {
+            // Regular transition with pre-sorted input
+            // ... regular argument processing
+        } else {
+            // Sorted/distinct processing
+            // ... sorted argument processing
+        }
+
+        // Add strict input checking for strict functions
+        if (trans_fcinfo->flinfo->fn_strict && pertrans->numTransInputs > 0) {
+            // Add null-checking steps
+        }
+
+        // Generate transition function calls for sort/hash modes
+        if (doSort) {
+            // Generate sort-based transition calls
+        }
+        if (doHash) {
+            // Generate hash-based transition calls
+        }
+    }
+
+    // Finalize expression
+    ExecReadyExpr(state);
+    return state;
+}
+```

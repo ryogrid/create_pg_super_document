@@ -34,3 +34,24 @@ ExecReScanMemoize handles the complexities of restarting a Memoize node scan whi
 - Uses bitmap operations (bms_nonempty_difference) to efficiently determine if non-cache-key parameters changed
 - Preserves cache entries when only cache key parameters change, maximizing cache reuse across rescans
 - Implements a conservative approach by purging the entire cache when any non-cache-key parameter changes, ensuring result correctness
+
+## Simplified Source
+
+```c
+void ExecReScanMemoize(MemoizeState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Reset memoize state for new scan
+    node->mstatus = MEMO_CACHE_LOOKUP;
+    node->entry = NULL;
+    node->last_tuple = NULL;
+
+    // Rescan outer plan if no parameters changed
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+
+    // Purge cache if non-cache-key parameters changed
+    if (bms_nonempty_difference(outerPlan->chgParam, node->keyparamids))
+        cache_purge_all(node);
+}
+```

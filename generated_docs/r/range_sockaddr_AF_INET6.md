@@ -34,3 +34,24 @@ This static function implements IPv6 subnet matching by iterating through all 16
 - Returns 1 if the address is within the subnet, 0 otherwise
 - The loop iterates through all 16 bytes of the IPv6 address (s6_addr array)
 - Uses early exit optimization: returns 0 immediately when any byte fails the subnet test
+
+## Simplified Source
+
+```c
+static int
+range_sockaddr_AF_INET6(const struct sockaddr_in6 *addr,
+                        const struct sockaddr_in6 *netaddr,
+                        const struct sockaddr_in6 *netmask)
+{
+    // Check all 16 bytes of IPv6 address
+    for (int i = 0; i < 16; i++)
+    {
+        // Apply subnet test to each byte: (addr XOR netaddr) AND netmask != 0
+        if (((addr->sin6_addr.s6_addr[i] ^ netaddr->sin6_addr.s6_addr[i]) &
+             netmask->sin6_addr.s6_addr[i]) != 0)
+            return 0;  // Address not in subnet
+    }
+
+    return 1;  // All bytes passed - address is in subnet
+}
+```

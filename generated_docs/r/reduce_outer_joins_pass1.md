@@ -48,3 +48,67 @@ This information gathering phase is crucial for the optimizations efficiency, al
 - The recursive nature allows it to build a complete picture of the jointree structure
 - [Join](../J/Join.md) expressions own RT indexes are intentionally excluded from the relids result
 - Error handling is provided for unrecognized node types to aid debugging
+
+## Simplified Source
+
+```c
+static reduce_outer_joins_pass1_state *
+reduce_outer_joins_pass1(Node *jtnode)
+{
+    reduce_outer_joins_pass1_state *result;
+
+    // Initialize result state
+    result = (reduce_outer_joins_pass1_state *) palloc(sizeof(reduce_outer_joins_pass1_state));
+    result->relids = NULL;
+    result->contains_outer = false;
+    result->sub_states = NIL;
+
+    if (jtnode == NULL)
+        return result;
+
+    if (IsA(jtnode, RangeTblRef)) {
+        // Base relation - add its relid
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+        result->relids = bms_make_singleton(varno);
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        // FROM expression - process all children
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *l;
+
+        foreach(l, f->fromlist) {
+            reduce_outer_joins_pass1_state *sub_state;
+
+            sub_state = reduce_outer_joins_pass1(lfirst(l));
+            result->relids = bms_add_members(result->relids, sub_state->relids);
+            result->contains_outer |= sub_state->contains_outer;
+            result->sub_states = lappend(result->sub_states, sub_state);
+        }
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        // Join expression - process left and right, track outer joins
+        JoinExpr *j = (JoinExpr *) jtnode;
+        reduce_outer_joins_pass1_state *sub_state;
+
+        // Mark if this is an outer join
+        if (IS_OUTER_JOIN(j->jointype))
+            result->contains_outer = true;
+
+        // Process left argument
+        sub_state = reduce_outer_joins_pass1(j->larg);
+        result->relids = bms_add_members(result->relids, sub_state->relids);
+        result->contains_outer |= sub_state->contains_outer;
+        result->sub_states = lappend(result->sub_states, sub_state);
+
+        // Process right argument
+        sub_state = reduce_outer_joins_pass1(j->rarg);
+        result->relids = bms_add_members(result->relids, sub_state->relids);
+        result->contains_outer |= sub_state->contains_outer;
+        result->sub_states = lappend(result->sub_states, sub_state);
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+
+    return result;
+}
+```

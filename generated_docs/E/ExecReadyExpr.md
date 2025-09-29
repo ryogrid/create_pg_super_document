@@ -37,3 +37,18 @@ ExecReadyExpr is a crucial function in PostgreSQL's expression evaluation pipeli
 - The function is designed for future extensibility to support additional expression evaluation methods
 - JIT compilation can significantly improve performance for complex expressions
 - The function provides a clean abstraction that hides the choice between JIT and interpreted execution from callers
+
+## Simplified Source
+
+```c
+static void
+ExecReadyExpr(ExprState *state)
+{
+    // Try JIT compilation first for better performance
+    if (jit_compile_expr(state))
+        return;
+
+    // Fall back to interpreted execution
+    ExecReadyInterpretedExpr(state);
+}
+```

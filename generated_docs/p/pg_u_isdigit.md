@@ -41,3 +41,18 @@ This dual-mode approach allows applications to choose between strict ASCII compa
 - Essential component of pg_u_isalnum for alphanumeric character detection
 - POSIX mode ensures compatibility with traditional C library isdigit() behavior
 - Standard mode enables proper internationalization support for numeric input from various writing systems
+
+## Simplified Source
+
+```c
+bool
+pg_u_isdigit(pg_wchar code, bool posix) {
+    if (posix) {
+        // POSIX mode: only ASCII digits 0-9
+        return ('0' <= code && code <= '9');
+    } else {
+        // Unicode mode: all decimal number characters
+        return unicode_category(code) == PG_U_DECIMAL_NUMBER;
+    }
+}
+```

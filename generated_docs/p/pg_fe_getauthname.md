@@ -37,3 +37,18 @@ This function is commonly used during connection establishment when no explicit 
 - Returns NULL on failure with optional error message population
 - Inherits thread-safety characteristics from underlying  function
 - Primarily used as fallback when no explicit username is specified in connection parameters
+
+## Simplified Source
+
+```c
+char *
+pg_fe_getauthname(PQExpBuffer errorMessage)
+{
+    // Platform-specific user ID determination
+#ifdef WIN32
+    return pg_fe_getusername(0, errorMessage);
+#else
+    return pg_fe_getusername(geteuid(), errorMessage);
+#endif
+}
+```

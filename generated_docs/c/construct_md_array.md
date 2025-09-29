@@ -70,3 +70,79 @@ The function performs extensive validation on the input parameters, calculates t
 - Creates null bitmaps only when necessary (when hasnulls is true)
 - The resulting array uses palloc0 for zero-initialized memory allocation
 - Essential foundation function that other array construction utilities depend upon
+
+## Simplified Source
+
+```c
+ArrayType *construct_md_array(Datum *elems, bool *nulls, int ndims, int *dims, int *lbs,
+                              Oid elmtype, int elmlen, bool elmbyval, char elmalign) {
+    ArrayType *result;
+    bool hasnulls;
+    int32 nbytes;
+    int32 dataoffset;
+    int i;
+    int nelems;
+
+    // Validate number of dimensions
+    if (ndims < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid number of dimensions: %d", ndims)));
+    if (ndims > MAXDIM)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("number of array dimensions (%d) exceeds the maximum allowed (%d)",
+                              ndims, MAXDIM)));
+
+    // Calculate total number of elements and validate bounds
+    nelems = ArrayGetNItems(ndims, dims);
+    ArrayCheckBounds(ndims, dims, lbs);
+
+    // Return empty array if no elements
+    if (nelems <= 0)
+        return construct_empty_array(elmtype);
+
+    // Calculate required space and check for null elements
+    nbytes = 0;
+    hasnulls = false;
+    for (i = 0; i < nelems; i++) {
+        if (nulls && nulls[i]) {
+            hasnulls = true;
+            continue;
+        }
+        // Detoast variable-length elements
+        if (elmlen == -1)
+            elems[i] = PointerGetDatum(PG_DETOAST_DATUM(elems[i]));
+
+        nbytes = att_addlength_datum(nbytes, elmlen, elems[i]);
+        nbytes = att_align_nominal(nbytes, elmalign);
+
+        // Check for allocation size overflow
+        if (!AllocSizeIsValid(nbytes))
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                           errmsg("array size exceeds the maximum allowed (%d)",
+                                  (int) MaxAllocSize)));
+    }
+
+    // Calculate total size including array overhead
+    if (hasnulls) {
+        dataoffset = ARR_OVERHEAD_WITHNULLS(ndims, nelems);
+        nbytes += dataoffset;
+    } else {
+        dataoffset = 0;  // No null bitmap needed
+        nbytes += ARR_OVERHEAD_NONULLS(ndims);
+    }
+
+    // Allocate and initialize array structure
+    result = (ArrayType *) palloc0(nbytes);
+    SET_VARSIZE(result, nbytes);
+    result->ndim = ndims;
+    result->dataoffset = dataoffset;
+    result->elemtype = elmtype;
+    memcpy(ARR_DIMS(result), dims, ndims * sizeof(int));
+    memcpy(ARR_LBOUND(result), lbs, ndims * sizeof(int));
+
+    // Copy element data into the array
+    CopyArrayEls(result, elems, nulls, nelems, elmlen, elmbyval, elmalign, false);
+
+    return result;
+}
+```

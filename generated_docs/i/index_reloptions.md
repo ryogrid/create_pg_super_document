@@ -36,3 +36,20 @@ The `index_reloptions` function serves as a generic wrapper for parsing index re
 - The function assumes the amoptions function is strict (returns NULL for NULL input) and performs early NULL checking
 - Returns NULL if no valid reloptions are provided, allowing callers to handle the absence of options gracefully
 - This design enables extensibility - new access methods can be added with their own option parsing without modifying this core function
+
+## Simplified Source
+
+```c
+bytea *
+index_reloptions(amoptions_function amoptions, Datum reloptions, bool validate)
+{
+    Assert(amoptions != NULL);
+
+    // Return NULL if no options provided
+    if (!PointerIsValid(DatumGetPointer(reloptions)))
+        return NULL;
+
+    // Delegate to access method's option parser
+    return amoptions(reloptions, validate);
+}
+```

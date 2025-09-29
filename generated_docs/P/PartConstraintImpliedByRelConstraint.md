@@ -43,3 +43,36 @@ This optimization is crucial for efficient partition operations, as it can elimi
 - Uses location=-1 for generated constraint expressions since they don't correspond to user input
 - Essential for partition-wise operations and constraint validation optimization
 - Part of the partition constraint infrastructure in src/backend/commands/tablecmds.c (lines 18304-18356)
+
+## Simplified Source
+
+```c
+bool PartConstraintImpliedByRelConstraint(Relation scanrel, List *partConstraint) {
+    List *existConstraint = NIL;
+    TupleConstr *constr = RelationGetDescr(scanrel)->constr;
+
+    // Extract NOT NULL constraints from relation attributes
+    if (constr && constr->has_not_null) {
+        int natts = scanrel->rd_att->natts;
+
+        for (int i = 1; i <= natts; i++) {
+            Form_pg_attribute att = TupleDescAttr(scanrel->rd_att, i - 1);
+
+            if (att->attnotnull && !att->attisdropped) {
+                // Create IS NOT NULL test for this attribute
+                NullTest *ntest = makeNode(NullTest);
+                ntest->arg = (Expr *) makeVar(1, i, att->atttypid, att->atttypmod,
+                                             att->attcollation, 0);
+                ntest->nulltesttype = IS_NOT_NULL;
+                ntest->argisrow = false;  // IS DISTINCT FROM NULL semantics
+                ntest->location = -1;
+
+                existConstraint = lappend(existConstraint, ntest);
+            }
+        }
+    }
+
+    // Delegate to main constraint implication logic
+    return ConstraintImpliedByRelConstraint(scanrel, partConstraint, existConstraint);
+}
+```

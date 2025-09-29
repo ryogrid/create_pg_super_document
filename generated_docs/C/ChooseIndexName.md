@@ -44,3 +44,35 @@ The function uses ChooseIndexNameAddition to create a column-based name componen
 - Primary key naming is standardized and doesn't include column names in the index name
 - The function handles four distinct index naming scenarios with appropriate suffixes
 - Uses different conflict resolution strategies (true/false for the last parameter to ChooseRelationName) depending on index type
+
+## Simplified Source
+
+```c
+static char *ChooseIndexName(const char *tabname, Oid namespaceId,
+                            const List *colnames, const List *exclusionOpNames,
+                            bool primary, bool isconstraint) {
+    char *indexname;
+
+    if (primary) {
+        // Primary key: use "pkey" suffix, no column names
+        indexname = ChooseRelationName(tabname, NULL, "pkey", namespaceId, true);
+    }
+    else if (exclusionOpNames != NIL) {
+        // Exclusion constraint: use "excl" suffix with column names
+        indexname = ChooseRelationName(tabname, ChooseIndexNameAddition(colnames),
+                                      "excl", namespaceId, true);
+    }
+    else if (isconstraint) {
+        // Regular constraint: use "key" suffix with column names
+        indexname = ChooseRelationName(tabname, ChooseIndexNameAddition(colnames),
+                                      "key", namespaceId, true);
+    }
+    else {
+        // Regular index: use "idx" suffix with column names
+        indexname = ChooseRelationName(tabname, ChooseIndexNameAddition(colnames),
+                                      "idx", namespaceId, false);
+    }
+
+    return indexname;
+}
+```

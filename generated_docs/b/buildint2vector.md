@@ -39,3 +39,27 @@ buildint2vector is a utility function that constructs a PostgreSQL int2vector fr
 - If int2s is NULL, the caller is responsible for filling the values array afterward
 - Memory allocation size is calculated using Int2VectorSize macro
 - Returns a fully initialized int2vector ready for use in PostgreSQL internals
+
+## Simplified Source
+
+```c
+int2vector *buildint2vector(const int16 *int2s, int n) {
+    // Allocate zero-initialized int2vector structure
+    int2vector *result = (int2vector *) palloc0(Int2VectorSize(n));
+
+    // Copy input values if provided
+    if (n > 0 && int2s) {
+        memcpy(result->values, int2s, n * sizeof(int16));
+    }
+
+    // Set up standard array header with metadata
+    SET_VARSIZE(result, Int2VectorSize(n));
+    result->ndim = 1;           // One-dimensional array
+    result->dataoffset = 0;     // No nulls allowed
+    result->elemtype = INT2OID; // Element type is int16
+    result->dim1 = n;           // Array size
+    result->lbound1 = 0;        // Lower bound is 0 (historical)
+
+    return result;
+}
+```

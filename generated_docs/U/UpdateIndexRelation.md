@@ -61,3 +61,73 @@ The function is responsible for setting all index flags and properties including
 - The function uses RowExclusiveLock when accessing the pg_index catalog
 - Memory management is handled properly with pfree() calls for temporary strings
 - The function is located at src/backend/catalog/index.c:561-723
+
+## Simplified Source
+
+```c
+static void UpdateIndexRelation(Oid indexoid, Oid heapoid, Oid parentIndexId,
+                               const IndexInfo *indexInfo, const Oid *collationOids,
+                               const Oid *opclassOids, const int16 *coloptions,
+                               bool primary, bool isexclusion, bool immediate,
+                               bool isvalid, bool isready)
+{
+    int2vector *indkey;
+    oidvector *indcollation, *indclass;
+    int2vector *indoption;
+    Datum exprsDatum, predDatum;
+    Datum values[Natts_pg_index];
+    bool nulls[Natts_pg_index] = {0};
+    Relation pg_index;
+    HeapTuple tuple;
+
+    // Build vectors for index keys, collations, opclasses, and options
+    indkey = buildint2vector(NULL, indexInfo->ii_NumIndexAttrs);
+    for (int i = 0; i < indexInfo->ii_NumIndexAttrs; i++)
+        indkey->values[i] = indexInfo->ii_IndexAttrNumbers[i];
+
+    indcollation = buildoidvector(collationOids, indexInfo->ii_NumIndexKeyAttrs);
+    indclass = buildoidvector(opclassOids, indexInfo->ii_NumIndexKeyAttrs);
+    indoption = buildint2vector(coloptions, indexInfo->ii_NumIndexKeyAttrs);
+
+    // Convert expressions and predicates to text format
+    if (indexInfo->ii_Expressions != NIL)
+    {
+        char *exprsString = nodeToString(indexInfo->ii_Expressions);
+        exprsDatum = CStringGetTextDatum(exprsString);
+        pfree(exprsString);
+    }
+    else
+        exprsDatum = (Datum) 0;
+
+    if (indexInfo->ii_Predicate != NIL)
+    {
+        char *predString = nodeToString(make_ands_explicit(indexInfo->ii_Predicate));
+        predDatum = CStringGetTextDatum(predString);
+        pfree(predString);
+    }
+    else
+        predDatum = (Datum) 0;
+
+    // Open pg_index catalog
+    pg_index = table_open(IndexRelationId, RowExclusiveLock);
+
+    // Fill in the values array for pg_index tuple
+    values[Anum_pg_index_indexrelid - 1] = ObjectIdGetDatum(indexoid);
+    values[Anum_pg_index_indrelid - 1] = ObjectIdGetDatum(heapoid);
+    values[Anum_pg_index_indnatts - 1] = Int16GetDatum(indexInfo->ii_NumIndexAttrs);
+    values[Anum_pg_index_indisunique - 1] = BoolGetDatum(indexInfo->ii_Unique);
+    values[Anum_pg_index_indisprimary - 1] = BoolGetDatum(primary);
+    values[Anum_pg_index_indisexclusion - 1] = BoolGetDatum(isexclusion);
+    values[Anum_pg_index_indisvalid - 1] = BoolGetDatum(isvalid);
+    values[Anum_pg_index_indisready - 1] = BoolGetDatum(isready);
+    // ... set other boolean flags and vector fields ...
+
+    // Create and insert the tuple
+    tuple = heap_form_tuple(RelationGetDescr(pg_index), values, nulls);
+    CatalogTupleInsert(pg_index, tuple);
+
+    // Cleanup
+    table_close(pg_index, RowExclusiveLock);
+    heap_freetuple(tuple);
+}
+```

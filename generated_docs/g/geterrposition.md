@@ -38,3 +38,18 @@ The function is intended only for internal use within error handling contexts, a
 - Does not increment recursion_depth as it's a simple accessor
 - Part of the PostgreSQL error reporting and logging subsystem
 - The cursor position typically refers to character positions in SQL statements where errors occurred
+
+## Simplified Source
+
+```c
+int geterrposition(void) {
+    // Get current error data structure
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Check stack depth is valid
+    CHECK_STACK_DEPTH();
+
+    // Return the stored cursor position (0 if none set)
+    return edata->cursorpos;
+}
+```

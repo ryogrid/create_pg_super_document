@@ -45,3 +45,34 @@ The function sets inhdetachpending to false, indicating this is not a pending de
 - The seqNumber parameter is important for multiple inheritance scenarios where order matters
 - Part of the internal catalog management system, not typically called directly by user code
 - Location: src/backend/catalog/pg_inherits.c:508-551
+
+## Simplified Source
+
+```c
+void StoreSingleInheritance(Oid relationId, Oid parentOid, int32 seqNumber) {
+    Datum values[Natts_pg_inherits];
+    bool nulls[Natts_pg_inherits];
+    HeapTuple tuple;
+    Relation inhRelation;
+
+    // Open pg_inherits catalog for modification
+    inhRelation = table_open(InheritsRelationId, RowExclusiveLock);
+
+    // Prepare tuple data for inheritance entry
+    values[Anum_pg_inherits_inhrelid - 1] = ObjectIdGetDatum(relationId);
+    values[Anum_pg_inherits_inhparent - 1] = ObjectIdGetDatum(parentOid);
+    values[Anum_pg_inherits_inhseqno - 1] = Int32GetDatum(seqNumber);
+    values[Anum_pg_inherits_inhdetachpending - 1] = BoolGetDatum(false);
+
+    // Initialize nulls array (no null values)
+    memset(nulls, 0, sizeof(nulls));
+
+    // Create and insert the inheritance tuple
+    tuple = heap_form_tuple(RelationGetDescr(inhRelation), values, nulls);
+    CatalogTupleInsert(inhRelation, tuple);
+
+    // Cleanup
+    heap_freetuple(tuple);
+    table_close(inhRelation, RowExclusiveLock);
+}
+```

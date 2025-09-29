@@ -41,3 +41,69 @@ The function first acquires the appropriate locks (SerializablePredicateListLock
 - Provides detailed error messages suggesting max_pred_locks_per_transaction tuning when memory is exhausted
 - Maintains bidirectional linked lists between targets and transactions for efficient lock management
 - Sets commitSeqNo to InvalidSerCommitSeqNo for new locks
+
+## Simplified Source
+
+```c
+static void
+CreatePredicateLock(const PREDICATELOCKTARGETTAG *targettag,
+                    uint32 targettaghash,
+                    SERIALIZABLEXACT *sxact)
+{
+    PREDICATELOCKTARGET *target;
+    PREDICATELOCKTAG locktag;
+    PREDICATELOCK *lock;
+    LWLock *partitionLock;
+    bool found;
+
+    // Get appropriate partition lock
+    partitionLock = PredicateLockHashPartitionLock(targettaghash);
+
+    // Acquire necessary locks in proper order
+    LWLockAcquire(SerializablePredicateListLock, LW_SHARED);
+    if (IsInParallelMode())
+        LWLockAcquire(&sxact->perXactPredicateListLock, LW_EXCLUSIVE);
+    LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+    // Ensure target exists in hash table
+    target = hash_search_with_hash_value(PredicateLockTargetHash,
+                                        targettag, targettaghash,
+                                        HASH_ENTER_NULL, &found);
+    if (!target) {
+        // Out of memory error with helpful hint
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of shared memory"),
+                       errhint("You might need to increase \"max_pred_locks_per_transaction\".")));
+    }
+
+    if (!found)
+        dlist_init(&target->predicateLocks);
+
+    // Create lock joining transaction and target
+    locktag.myTarget = target;
+    locktag.myXact = sxact;
+
+    lock = hash_search_with_hash_value(PredicateLockHash, &locktag,
+                                      PredicateLockHashCodeFromTargetHashCode(&locktag, targettaghash),
+                                      HASH_ENTER_NULL, &found);
+    if (!lock) {
+        // Out of memory error
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                       errmsg("out of shared memory"),
+                       errhint("You might need to increase \"max_pred_locks_per_transaction\".")));
+    }
+
+    if (!found) {
+        // Link lock into both target and transaction lists
+        dlist_push_tail(&target->predicateLocks, &lock->targetLink);
+        dlist_push_tail(&sxact->predicateLocks, &lock->xactLink);
+        lock->commitSeqNo = InvalidSerCommitSeqNo;
+    }
+
+    // Release locks in reverse order
+    LWLockRelease(partitionLock);
+    if (IsInParallelMode())
+        LWLockRelease(&sxact->perXactPredicateListLock);
+    LWLockRelease(SerializablePredicateListLock);
+}
+```

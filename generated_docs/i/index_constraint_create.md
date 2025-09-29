@@ -65,3 +65,107 @@ The function supports various constraint types (PRIMARY KEY, UNIQUE, EXCLUSION) 
 - The INDEX_CONSTR_CREATE_REMOVE_OLD_DEPS flag is used when converting pre-existing indexes to constraints
 - Requires table-level locking to prevent concurrent modifications when updating index metadata
 - Returns the ObjectAddress of the newly created constraint for dependency tracking
+
+## Simplified Source
+
+```c
+ObjectAddress index_constraint_create(Relation heapRelation, Oid indexRelationId,
+                                     Oid parentConstraintId, const IndexInfo *indexInfo,
+                                     const char *constraintName, char constraintType,
+                                     bits16 constr_flags, bool allow_system_table_mods,
+                                     bool is_internal)
+{
+    Oid namespaceId = RelationGetNamespace(heapRelation);
+    ObjectAddress myself, idxaddr;
+    Oid conOid;
+    bool deferrable, initdeferred, mark_as_primary;
+    bool islocal, noinherit;
+    int inhcount;
+
+    // Extract flags
+    deferrable = (constr_flags & INDEX_CONSTR_CREATE_DEFERRABLE) != 0;
+    initdeferred = (constr_flags & INDEX_CONSTR_CREATE_INIT_DEFERRED) != 0;
+    mark_as_primary = (constr_flags & INDEX_CONSTR_CREATE_MARK_AS_PRIMARY) != 0;
+
+    // Validate constraints and system restrictions
+    Assert(!IsBootstrapProcessingMode());
+    if (!allow_system_table_mods && IsSystemRelation(heapRelation) && IsNormalProcessingMode())
+        ereport(ERROR, "user-defined indexes on system catalog tables are not supported");
+
+    if (indexInfo->ii_Expressions && constraintType != CONSTRAINT_EXCLUSION)
+        elog(ERROR, "constraints cannot have index expressions");
+
+    // Remove old dependencies if converting existing index
+    if (constr_flags & INDEX_CONSTR_CREATE_REMOVE_OLD_DEPS)
+        deleteDependencyRecordsForClass(RelationRelationId, indexRelationId,
+                                       RelationRelationId, DEPENDENCY_AUTO);
+
+    // Set inheritance properties
+    if (OidIsValid(parentConstraintId))
+    {
+        islocal = false;
+        inhcount = 1;
+        noinherit = false;
+    }
+    else
+    {
+        islocal = true;
+        inhcount = 0;
+        noinherit = true;
+    }
+
+    // Create constraint entry in pg_constraint
+    conOid = CreateConstraintEntry(constraintName, namespaceId, constraintType,
+                                  deferrable, initdeferred, true, parentConstraintId,
+                                  RelationGetRelid(heapRelation),
+                                  indexInfo->ii_IndexAttrNumbers,
+                                  indexInfo->ii_NumIndexKeyAttrs,
+                                  indexInfo->ii_NumIndexAttrs,
+                                  InvalidOid, indexRelationId, InvalidOid,
+                                  /* ... many other parameters ... */
+                                  islocal, inhcount, noinherit, is_internal);
+
+    // Register dependencies between constraint and index
+    ObjectAddressSet(myself, ConstraintRelationId, conOid);
+    ObjectAddressSet(idxaddr, RelationRelationId, indexRelationId);
+    recordDependencyOn(&idxaddr, &myself, DEPENDENCY_INTERNAL);
+
+    // Handle partition constraints
+    if (OidIsValid(parentConstraintId))
+    {
+        ObjectAddress referenced;
+        ObjectAddressSet(referenced, ConstraintRelationId, parentConstraintId);
+        recordDependencyOn(&myself, &referenced, DEPENDENCY_PARTITION_PRI);
+        ObjectAddressSet(referenced, RelationRelationId, RelationGetRelid(heapRelation));
+        recordDependencyOn(&myself, &referenced, DEPENDENCY_PARTITION_SEC);
+    }
+
+    // Create deferred uniqueness trigger if needed
+    if (deferrable)
+    {
+        CreateTrigStmt *trigger = makeNode(CreateTrigStmt);
+        trigger->isconstraint = true;
+        trigger->trigname = (constraintType == CONSTRAINT_PRIMARY) ?
+            "PK_ConstraintTrigger" : "Unique_ConstraintTrigger";
+        trigger->funcname = SystemFuncName("unique_key_recheck");
+        trigger->row = true;
+        trigger->timing = TRIGGER_TYPE_AFTER;
+        trigger->events = TRIGGER_TYPE_INSERT | TRIGGER_TYPE_UPDATE;
+        trigger->deferrable = true;
+        trigger->initdeferred = initdeferred;
+
+        (void) CreateTrigger(trigger, NULL, RelationGetRelid(heapRelation),
+                           InvalidOid, conOid, indexRelationId, InvalidOid,
+                           InvalidOid, NULL, true, false);
+    }
+
+    // Update pg_index flags if needed
+    if ((constr_flags & INDEX_CONSTR_CREATE_UPDATE_INDEX) && (mark_as_primary || deferrable))
+    {
+        // Update indisprimary and indimmediate flags in pg_index
+        // ... catalog update logic ...
+    }
+
+    return myself;
+}
+```

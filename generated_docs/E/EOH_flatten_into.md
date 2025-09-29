@@ -43,3 +43,13 @@ The function delegates to the appropriate type-specific implementation through t
 - Part of the expanded object API that enables conversion between expanded and flattened representations
 - Used in TOAST operations, tuple materialization, and datum serialization
 - The function is defined in src/backend/utils/adt/expandeddatum.c:81-94
+
+## Simplified Source
+
+```c
+void EOH_flatten_into(ExpandedObjectHeader *eohptr,
+                      void *result, Size allocated_size) {
+    // Delegate to type-specific flatten method
+    eohptr->eoh_methods->flatten_into(eohptr, result, allocated_size);
+}
+```

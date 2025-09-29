@@ -54,3 +54,72 @@ The function is significantly more efficient than repeated `heap_getattr` calls,
 - Caller must ensure arrays are sized according to `tupleDesc->natts`
 - Used extensively throughout PostgreSQL for tuple processing, type conversion, and data access
 - Critical performance path in many query execution scenarios
+
+## Simplified Source
+
+```c
+void heap_deform_tuple(HeapTuple tuple, TupleDesc tupleDesc, Datum *values, bool *isnull) {
+    HeapTupleHeader tup = tuple->t_data;
+    bool hasnulls = HeapTupleHasNulls(tuple);
+    int tdesc_natts = tupleDesc->natts;
+    int natts = HeapTupleHeaderGetNatts(tup);
+    char *tp = (char *) tup + tup->t_hoff;  // Start of tuple data
+    uint32 off = 0;  // Current offset
+    bits8 *bp = tup->t_bits;  // Null bitmap
+    bool slow = false;  // Can we use cached offsets?
+
+    // Don't read more attributes than caller expects
+    natts = Min(natts, tdesc_natts);
+
+    // Extract each attribute
+    for (int attnum = 0; attnum < natts; attnum++) {
+        Form_pg_attribute thisatt = TupleDescAttr(tupleDesc, attnum);
+
+        // Handle null attributes
+        if (hasnulls && att_isnull(attnum, bp)) {
+            values[attnum] = (Datum) 0;
+            isnull[attnum] = true;
+            slow = true;  // Nulls prevent offset caching
+            continue;
+        }
+
+        isnull[attnum] = false;
+
+        // Calculate or use cached attribute offset
+        if (!slow && thisatt->attcacheoff >= 0) {
+            off = thisatt->attcacheoff;
+        } else {
+            // Handle alignment for different attribute types
+            if (thisatt->attlen == -1) {
+                // Variable-length attribute: careful alignment
+                if (!slow && off == att_align_nominal(off, thisatt->attalign)) {
+                    thisatt->attcacheoff = off;
+                } else {
+                    off = att_align_pointer(off, thisatt->attalign, -1, tp + off);
+                    slow = true;
+                }
+            } else {
+                // Fixed-length attribute: use nominal alignment
+                off = att_align_nominal(off, thisatt->attalign);
+                if (!slow) {
+                    thisatt->attcacheoff = off;
+                }
+            }
+        }
+
+        // Extract the attribute value
+        values[attnum] = fetchatt(thisatt, tp + off);
+
+        // Move to next attribute
+        off = att_addlength_pointer(off, thisatt->attlen, tp + off);
+        if (thisatt->attlen <= 0) {
+            slow = true;  // Variable-length prevents caching
+        }
+    }
+
+    // Handle missing attributes (inheritance scenarios)
+    for (; attnum < tdesc_natts; attnum++) {
+        values[attnum] = getmissingattr(tupleDesc, attnum + 1, &isnull[attnum]);
+    }
+}
+```

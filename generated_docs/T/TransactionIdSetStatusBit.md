@@ -42,3 +42,40 @@ The function includes important safeguards for recovery scenarios, where some tr
 - Updates group LSN tracking for efficient page flushing
 - Uses bit manipulation to pack multiple transaction statuses into single bytes
 - During recovery, LSN updates are skipped since the LSN will be invalid
+
+## Simplified Source
+
+```c
+static void TransactionIdSetStatusBit(TransactionId xid, XidStatus status,
+                                      XLogRecPtr lsn, int slotno) {
+    // Calculate byte and bit position within the CLOG page
+    int byteno = TransactionIdToByte(xid);
+    int bshift = TransactionIdToBIndex(xid) * CLOG_BITS_PER_XACT;
+    char *byteptr = XactCtl->shared->page_buffer[slotno] + byteno;
+    char curval = (*byteptr >> bshift) & CLOG_XACT_BITMASK;
+
+    // Handle recovery case where transaction may already be committed
+    if (InRecovery && status == TRANSACTION_STATUS_SUB_COMMITTED &&
+        curval == TRANSACTION_STATUS_COMMITTED)
+        return;
+
+    // Verify valid state transition
+    Assert(curval == 0 ||
+           (curval == TRANSACTION_STATUS_SUB_COMMITTED &&
+            status != TRANSACTION_STATUS_IN_PROGRESS) ||
+           curval == status);
+
+    // Update the transaction status bits
+    char byteval = *byteptr;
+    byteval &= ~(((1 << CLOG_BITS_PER_XACT) - 1) << bshift);  // Clear old status
+    byteval |= (status << bshift);                             // Set new status
+    *byteptr = byteval;
+
+    // Update group LSN for efficient page flushing
+    if (!XLogRecPtrIsInvalid(lsn)) {
+        int lsnindex = GetLSNIndex(slotno, xid);
+        if (XactCtl->shared->group_lsn[lsnindex] < lsn)
+            XactCtl->shared->group_lsn[lsnindex] = lsn;
+    }
+}
+```

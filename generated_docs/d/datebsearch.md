@@ -29,7 +29,7 @@ The algorithm maintains two pointers (base and last) and iteratively narrows the
   - strncmp (standard string comparison function)
 - Called from (representative examples):
   - [DecodeTimezoneAbbrev](../D/DecodeTimezoneAbbrev.md)
-  - [DecodeSpecial](../D/DecodeSpecial.md)  
+  - [DecodeSpecial](../D/DecodeSpecial.md)
   - [DecodeUnits](../D/DecodeUnits.md)
   - [DecodeTimezoneAbbrevPrefix](../D/DecodeTimezoneAbbrevPrefix.md)
   - APPEND_CHAR
@@ -40,3 +40,38 @@ The algorithm maintains two pointers (base and last) and iteratively narrows the
 - Returns NULL if no match is found, otherwise returns a pointer to the matching datetkn structure
 - The function assumes the input array is sorted, which is a requirement for binary search algorithms
 - Uses bit shifting (>> 1) instead of division by 2 for performance optimization
+
+## Simplified Source
+
+```c
+static const datetkn *
+datebsearch(const char *key, const datetkn *base, int nel)
+{
+    if (nel > 0) {
+        const datetkn *last = base + nel - 1;
+        const datetkn *position;
+
+        // Binary search loop
+        while (last >= base) {
+            // Find middle element
+            position = base + ((last - base) >> 1);
+
+            // Quick first character comparison for speed
+            int result = (int)key[0] - (int)position->token[0];
+            if (result == 0) {
+                // Full string comparison if first chars match
+                result = strncmp(key, position->token, TOKMAXLEN);
+                if (result == 0)
+                    return position;  // Found match
+            }
+
+            // Adjust search range based on comparison
+            if (result < 0)
+                last = position - 1;
+            else
+                base = position + 1;
+        }
+    }
+    return NULL;  // Not found
+}
+```

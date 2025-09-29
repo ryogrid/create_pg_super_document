@@ -20,7 +20,7 @@ The implementation avoids using the system's mktime() function for performance a
 
 ## Parameters / Member Variables
 - `tm`: Pointer to pg_tm struct with input date/time fields, will have tm_isdst set on output
-- `tzp`: Pointer to timezone definition containing DST rules and offset information  
+- `tzp`: Pointer to timezone definition containing DST rules and offset information
 - `tp`: Output parameter that receives the calculated UTC time as pg_time_t
 
 ## Dependencies
@@ -41,3 +41,89 @@ The implementation avoids using the system's mktime() function for performance a
 - Implements consistent disambiguation rules for invalid/ambiguous times during DST transitions
 - Significantly faster than system mktime() implementations
 - Static function not exposed globally to prevent misuse of overflow behavior
+
+## Simplified Source
+
+```c
+static int
+DetermineTimeZoneOffsetInternal(struct pg_tm *tm, pg_tz *tzp, pg_time_t *tp)
+{
+    int date, sec;
+    pg_time_t day, mytime, prevtime, boundary, beforetime, aftertime;
+    long int before_gmtoff, after_gmtoff;
+    int before_isdst, after_isdst;
+    int res;
+
+    // Convert date/time to GMT timestamp
+    if (!IS_VALID_JULIAN(tm->tm_year, tm->tm_mon, tm->tm_mday))
+        goto overflow;
+
+    date = date2j(tm->tm_year, tm->tm_mon, tm->tm_mday) - UNIX_EPOCH_JDATE;
+    day = ((pg_time_t)date) * SECS_PER_DAY;
+    if (day / SECS_PER_DAY != date)
+        goto overflow;
+
+    sec = tm->tm_sec + (tm->tm_min + tm->tm_hour * MINS_PER_HOUR) * SECS_PER_MINUTE;
+    mytime = day + sec;
+    if (mytime < 0 && day > 0)
+        goto overflow;
+
+    // Find DST boundary around this time
+    prevtime = mytime - SECS_PER_DAY;
+    if (mytime < 0 && prevtime > 0)
+        goto overflow;
+
+    res = pg_next_dst_boundary(&prevtime, &before_gmtoff, &before_isdst,
+                               &boundary, &after_gmtoff, &after_isdst, tzp);
+    if (res < 0)
+        goto overflow;
+
+    // Simple case: no DST transitions
+    if (res == 0) {
+        tm->tm_isdst = before_isdst;
+        *tp = mytime - before_gmtoff;
+        return -(int)before_gmtoff;
+    }
+
+    // Handle DST transitions and ambiguous times
+    beforetime = mytime - before_gmtoff;
+    aftertime = mytime - after_gmtoff;
+
+    // Check for overflow in offset calculations
+    if ((before_gmtoff > 0 && mytime < 0 && beforetime > 0) ||
+        (before_gmtoff <= 0 && mytime > 0 && beforetime < 0) ||
+        (after_gmtoff > 0 && mytime < 0 && aftertime > 0) ||
+        (after_gmtoff <= 0 && mytime > 0 && aftertime < 0))
+        goto overflow;
+
+    // Determine which side of boundary we're on
+    if (beforetime < boundary && aftertime < boundary) {
+        tm->tm_isdst = before_isdst;
+        *tp = beforetime;
+        return -(int)before_gmtoff;
+    }
+    if (beforetime > boundary && aftertime >= boundary) {
+        tm->tm_isdst = after_isdst;
+        *tp = aftertime;
+        return -(int)after_gmtoff;
+    }
+
+    // Handle invalid/ambiguous times during transitions
+    if (beforetime > aftertime) {
+        // Spring forward: prefer "before" interpretation
+        tm->tm_isdst = before_isdst;
+        *tp = beforetime;
+        return -(int)before_gmtoff;
+    }
+    // Fall back: prefer "after" interpretation
+    tm->tm_isdst = after_isdst;
+    *tp = aftertime;
+    return -(int)after_gmtoff;
+
+overflow:
+    // Out of range: assume UTC
+    tm->tm_isdst = 0;
+    *tp = 0;
+    return 0;
+}
+```

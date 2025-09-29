@@ -33,3 +33,12 @@ For ASCII characters (code < 0x80), the function uses a pre-computed lookup tabl
 - Follows Unicode standard for uppercase character classification, not just ASCII A-Z
 - Performance optimized with ASCII fast-path and binary search for Unicode ranges
 - Correctly handles uppercase characters from various scripts like Greek, Cyrillic, etc.
+
+## Simplified Source
+
+```c
+bool pg_u_isupper(pg_wchar code) {
+    // Check if Unicode code point has uppercase property
+    return pg_u_prop_uppercase(code);
+}
+```

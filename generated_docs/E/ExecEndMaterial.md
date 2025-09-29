@@ -34,3 +34,17 @@ The function is straightforward in its operation: it first checks if a tuplestor
 - After releasing the tuplestore, it sets the pointer to NULL to prevent double-free errors
 - The cleanup order is important: tuplestore resources are released before shutting down child nodes
 - This function is part of the standard PostgreSQL executor cleanup pattern
+
+## Simplified Source
+
+```c
+void ExecEndMaterial(MaterialState *node) {
+    // Release tuplestore resources if they exist
+    if (node->tuplestorestate != NULL)
+        tuplestore_end(node->tuplestorestate);
+    node->tuplestorestate = NULL;
+
+    // Recursively shut down the child plan
+    ExecEndNode(outerPlanState(node));
+}
+```

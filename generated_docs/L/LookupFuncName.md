@@ -37,3 +37,52 @@ This function serves as the primary public interface for function name lookup in
 
 ## Notes and Other Information
 This function specifically excludes procedures from search results, even if they match the name and arguments. For historical compatibility, it allows aggregates and window functions to be found when searching for functions. The function provides user-friendly error messages with suggestions for resolving ambiguous function names by specifying argument lists. When nargs is -1, it indicates that argument types are not specified, which can lead to ambiguity errors if multiple functions exist with the same name.
+
+## Simplified Source
+
+```c
+Oid LookupFuncName(List *funcname, int nargs, const Oid *argtypes, bool missing_ok) {
+    Oid funcoid;
+    FuncLookupError lookupError;
+
+    // Call internal lookup function for functions only
+    funcoid = LookupFuncNameInternal(OBJECT_FUNCTION,
+                                    funcname, nargs, argtypes,
+                                    false, missing_ok,
+                                    &lookupError);
+
+    // Return if function found successfully
+    if (OidIsValid(funcoid))
+        return funcoid;
+
+    // Handle lookup errors
+    switch (lookupError) {
+        case FUNCLOOKUP_NOSUCHFUNC:
+            // Return InvalidOid if caller accepts missing functions
+            if (missing_ok)
+                return InvalidOid;
+
+            // Report appropriate error message
+            if (nargs < 0)
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                               errmsg("could not find a function named \"%s\"",
+                                     NameListToString(funcname))));
+            else
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                               errmsg("function %s does not exist",
+                                     func_signature_string(funcname, nargs,
+                                                          NIL, argtypes))));
+            break;
+
+        case FUNCLOOKUP_AMBIGUOUS:
+            // Always error on ambiguous function names
+            ereport(ERROR, (errcode(ERRCODE_AMBIGUOUS_FUNCTION),
+                           errmsg("function name \"%s\" is not unique",
+                                 NameListToString(funcname)),
+                           errhint("Specify the argument list to select the function unambiguously.")));
+            break;
+    }
+
+    return InvalidOid;
+}
+```

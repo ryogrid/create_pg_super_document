@@ -55,3 +55,40 @@ The optimization step is crucial because the planner compares these expressions 
 - Critical for functional indexes and expression-based indexing in PostgreSQL
 - The function builds results in caller's context first, then caches to avoid partial state on errors
 - Located in src/backend/utils/cache/relcache.c:5043-5101
+
+## Simplified Source
+
+```c
+List *RelationGetIndexExpressions(Relation relation) {
+    // Return cached result if already computed
+    if (relation->rd_indexprs)
+        return copyObject(relation->rd_indexprs);
+
+    // Return NIL if not an index or no expressions
+    if (relation->rd_indextuple == NULL ||
+        heap_attisnull(relation->rd_indextuple, Anum_pg_index_indexprs, NULL))
+        return NIL;
+
+    // Get the expressions string from pg_index.indexprs
+    Datum exprsDatum = heap_getattr(relation->rd_indextuple,
+                                   Anum_pg_index_indexprs,
+                                   GetPgIndexDescriptor(),
+                                   &isnull);
+    char *exprsString = TextDatumGetCString(exprsDatum);
+
+    // Parse the string into a node tree
+    List *result = (List *) stringToNode(exprsString);
+    pfree(exprsString);
+
+    // Optimize expressions for planner compatibility
+    result = (List *) eval_const_expressions(NULL, (Node *) result);
+    fix_opfuncids((Node *) result);
+
+    // Cache the result in relation's context
+    MemoryContext oldcxt = MemoryContextSwitchTo(relation->rd_indexcxt);
+    relation->rd_indexprs = copyObject(result);
+    MemoryContextSwitchTo(oldcxt);
+
+    return result;
+}
+```

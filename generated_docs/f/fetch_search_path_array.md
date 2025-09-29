@@ -38,3 +38,32 @@ The design intentionally avoids complications with temporary namespace initializ
 - Avoids dynamic memory allocation, making it suitable for performance-critical code paths
 - If count exceeds sarray_len, only the first sarray_len entries are stored but the full count is still returned
 - Used primarily by parser and operator resolution code where temporary namespace exclusion is desired
+
+## Simplified Source
+
+```c
+int
+fetch_search_path_array(Oid *sarray, int sarray_len)
+{
+    int count = 0;
+    ListCell *l;
+
+    // Ensure search path is up to date
+    recomputeNamespacePath();
+
+    // Copy namespace OIDs to array, excluding temp namespace
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        if (namespaceId == myTempNamespace)
+            continue;  // Skip temp namespace
+
+        // Store in array if space available
+        if (count < sarray_len)
+            sarray[count] = namespaceId;
+        count++;
+    }
+
+    return count;  // Total count (may exceed sarray_len)
+}
+```

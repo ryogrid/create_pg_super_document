@@ -48,3 +48,38 @@ For TOAST pointer datums, this returns the size of the pointer datum itself, not
 - For C-string types (typLen == -2), the size includes the null terminator
 - Invalid typLen values result in an ERROR being thrown
 - This function is essential for memory management operations involving datums
+
+## Simplified Source
+
+```c
+Size datumGetSize(Datum value, bool typByVal, int typLen) {
+    if (typByVal) {
+        // Pass-by-value: return declared type length
+        return (Size) typLen;
+    }
+
+    if (typLen > 0) {
+        // Fixed-length pass-by-ref: return declared length
+        return (Size) typLen;
+    }
+    else if (typLen == -1) {
+        // Variable-length data: get size from varlena header
+        struct varlena *s = (struct varlena *) DatumGetPointer(value);
+        if (!PointerIsValid(s))
+            ereport(ERROR, "invalid Datum pointer");
+        return (Size) VARSIZE_ANY(s);
+    }
+    else if (typLen == -2) {
+        // C-string: calculate string length + null terminator
+        char *s = (char *) DatumGetPointer(value);
+        if (!PointerIsValid(s))
+            ereport(ERROR, "invalid Datum pointer");
+        return (Size) (strlen(s) + 1);
+    }
+    else {
+        // Invalid type length
+        elog(ERROR, "invalid typLen: %d", typLen);
+        return 0;
+    }
+}
+```

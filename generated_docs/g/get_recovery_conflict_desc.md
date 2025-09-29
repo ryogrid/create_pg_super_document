@@ -43,3 +43,40 @@ The function handles seven distinct types of recovery conflicts that can occur w
   - **Database conflicts**: When a database is being dropped but connections still exist
 - Returns "unknown reason" as a fallback for unrecognized signal reasons
 - Used exclusively in recovery conflict logging to provide clear, user-friendly error messages in PostgreSQL logs
+
+## Simplified Source
+
+```c
+static const char *get_recovery_conflict_desc(ProcSignalReason reason) {
+    const char *reasonDesc = _("unknown reason");
+
+    switch (reason) {
+        case PROCSIG_RECOVERY_CONFLICT_BUFFERPIN:
+            reasonDesc = _("recovery conflict on buffer pin");
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_LOCK:
+            reasonDesc = _("recovery conflict on lock");
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_TABLESPACE:
+            reasonDesc = _("recovery conflict on tablespace");
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_SNAPSHOT:
+            reasonDesc = _("recovery conflict on snapshot");
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT:
+            reasonDesc = _("recovery conflict on replication slot");
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK:
+            reasonDesc = _("recovery conflict on buffer deadlock");
+            break;
+        case PROCSIG_RECOVERY_CONFLICT_DATABASE:
+            reasonDesc = _("recovery conflict on database");
+            break;
+        default:
+            // reasonDesc remains "unknown reason"
+            break;
+    }
+
+    return reasonDesc;
+}
+```

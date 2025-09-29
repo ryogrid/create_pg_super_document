@@ -35,3 +35,55 @@ The function implements sophisticated lag computation logic including interpolat
 - Handles clock backwards movement gracefully by treating such cases as data unavailable
 - Automatically clears stale data when the standby has processed all available WAL to prevent using irrelevant samples after idle periods
 - Part of PostgreSQL's comprehensive replication monitoring system that provides separate lag measurements for write, flush, and apply operations
+
+## Simplified Source
+
+```c
+static TimeOffset LagTrackerRead(int head, XLogRecPtr lsn, TimestampTz now) {
+    TimestampTz time = 0;
+
+    // Read all samples up to the requested LSN
+    while (lag_tracker->read_heads[head] != lag_tracker->write_head &&
+           lag_tracker->buffer[lag_tracker->read_heads[head]].lsn <= lsn) {
+        time = lag_tracker->buffer[lag_tracker->read_heads[head]].time;
+        lag_tracker->last_read[head] = lag_tracker->buffer[lag_tracker->read_heads[head]];
+        lag_tracker->read_heads[head] = (lag_tracker->read_heads[head] + 1) % LAG_TRACKER_BUFFER_SIZE;
+    }
+
+    // Clear stale data if buffer is empty
+    if (lag_tracker->read_heads[head] == lag_tracker->write_head)
+        lag_tracker->last_read[head].time = 0;
+
+    // Handle clock going backwards
+    if (time > now)
+        return -1;
+
+    // If no direct sample, try interpolation
+    if (time == 0) {
+        if (lag_tracker->read_heads[head] == lag_tracker->write_head) {
+            // No future samples - cannot interpolate
+            return -1;
+        } else if (lag_tracker->last_read[head].time != 0) {
+            // Interpolate between last_read and next sample
+            double fraction;
+            WalTimeSample prev = lag_tracker->last_read[head];
+            WalTimeSample next = lag_tracker->buffer[lag_tracker->read_heads[head]];
+
+            // Validate LSN ordering
+            if (lsn < prev.lsn || prev.time > next.time)
+                return -1;
+
+            // Calculate proportional time
+            fraction = (double)(lsn - prev.lsn) / (double)(next.lsn - prev.lsn);
+            time = (TimestampTz)((double)prev.time + (next.time - prev.time) * fraction);
+        } else {
+            // Use future sample as hypothetical lag
+            time = lag_tracker->buffer[lag_tracker->read_heads[head]].time;
+        }
+    }
+
+    // Return elapsed time in microseconds
+    Assert(time != 0);
+    return now - time;
+}
+```

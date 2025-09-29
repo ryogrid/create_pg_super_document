@@ -37,3 +37,16 @@ This automatic cleanup mechanism is essential for embedded SQL applications that
 - Part of ECPG's thread-safe automatic memory management system
 - Works in conjunction with pthread thread-specific data to provide per-thread memory cleanup
 - The function design follows pthread destructor callback conventions
+
+## Simplified Source
+
+```c
+static void
+auto_mem_destructor(void *arg)
+{
+    (void) arg;  // Silence compiler warning
+
+    // Clean up all automatic memory for this thread
+    ECPGfree_auto_mem();
+}
+```

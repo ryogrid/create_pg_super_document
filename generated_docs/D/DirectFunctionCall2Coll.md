@@ -41,3 +41,30 @@ The function uses the `LOCAL_FCINFO` macro to create a local function call info 
 - Error handling ensures that unexpected NULL returns are caught and reported
 - Part of a family of DirectFunctionCall functions that handle different numbers of arguments
 - The collation parameter allows for locale-specific operations, particularly important for text processing functions
+
+## Simplified Source
+
+```c
+Datum DirectFunctionCall2Coll(PGFunction func, Oid collation, Datum arg1, Datum arg2) {
+    LOCAL_FCINFO(fcinfo, 2);
+    Datum result;
+
+    // Initialize function call info with 2 arguments and specified collation
+    InitFunctionCallInfoData(*fcinfo, NULL, 2, collation, NULL, NULL);
+
+    // Set both arguments as non-null
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[1].isnull = false;
+
+    // Call the function
+    result = (*func)(fcinfo);
+
+    // Ensure function didn't return NULL unexpectedly
+    if (fcinfo->isnull)
+        elog(ERROR, "function %p returned NULL", (void *) func);
+
+    return result;
+}
+```

@@ -39,3 +39,25 @@ The function safely handles NULL pointers and only frees memory that was actuall
 - The function carefully checks allocation flags before freeing memory to avoid segmentation faults
 - Part of PostgreSQL's internal regular expression engine implementation
 - The DFA structure contains arrays for state sets (ssets), states area, outputs area, and incoming area that may need cleanup
+
+## Simplified Source
+
+```c
+static void freedfa(struct dfa *d) {
+    // Free DFA internal arrays if they were dynamically allocated
+    if (d->arraysmalloced) {
+        if (d->ssets != NULL)
+            FREE(d->ssets);
+        if (d->statesarea != NULL)
+            FREE(d->statesarea);
+        if (d->outsarea != NULL)
+            FREE(d->outsarea);
+        if (d->incarea != NULL)
+            FREE(d->incarea);
+    }
+
+    // Free the DFA structure itself if it was dynamically allocated
+    if (d->ismalloced)
+        FREE(d);
+}
+```

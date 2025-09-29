@@ -56,3 +56,53 @@ The function implements a field-based cache mechanism to optimize repeated looku
 - Dynamic timezones (DYNTZ) require additional resolution through FetchDynamicTimeZone
 - Full timezone names like 'America/New_York' are not handled by this function
 - Cache lookup occurs before table search for performance optimization
+
+## Simplified Source
+
+```c
+int
+DecodeTimezoneAbbrev(int field, const char *lowtoken,
+                     int *ftype, int *offset, pg_tz **tz,
+                     DateTimeErrorExtra *extra)
+{
+    const datetkn *tp;
+
+    // Try cache first for this field
+    tp = abbrevcache[field];
+    if (tp == NULL || strncmp(lowtoken, tp->token, TOKMAXLEN) != 0) {
+        // Cache miss: search timezone abbreviation table
+        if (zoneabbrevtbl) {
+            tp = datebsearch(lowtoken, zoneabbrevtbl->abbrevs,
+                           zoneabbrevtbl->numabbrevs);
+        } else {
+            tp = NULL;
+        }
+    }
+
+    if (tp == NULL) {
+        // Abbreviation not found
+        *ftype = UNKNOWN_FIELD;
+        *offset = 0;
+        *tz = NULL;
+    } else {
+        // Found abbreviation: cache it and process
+        abbrevcache[field] = tp;
+        *ftype = tp->type;
+
+        if (tp->type == DYNTZ) {
+            // Dynamic timezone: resolve full timezone object
+            *offset = 0;
+            *tz = FetchDynamicTimeZone(zoneabbrevtbl, tp, extra);
+            if (*tz == NULL) {
+                return DTERR_BAD_ZONE_ABBREV;
+            }
+        } else {
+            // Static timezone: use fixed offset
+            *offset = tp->value;
+            *tz = NULL;
+        }
+    }
+
+    return 0;
+}
+```

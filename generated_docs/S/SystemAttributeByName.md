@@ -33,3 +33,24 @@ The function uses strcmp to perform case-sensitive name comparison and returns t
 - Commonly used in SQL parsing and attribute resolution contexts
 - Complements SystemAttributeDefinition which works with attribute numbers instead of names
 - Located in src/backend/catalog/heap.c:253-266
+
+## Simplified Source
+
+```c
+const FormData_pg_attribute *
+SystemAttributeByName(const char *attname)
+{
+    // Search through all predefined system attributes
+    for (int j = 0; j < lengthof(SysAtt); j++)
+    {
+        const FormData_pg_attribute *att = SysAtt[j];
+
+        // Compare attribute name (case-sensitive)
+        if (strcmp(NameStr(att->attname), attname) == 0)
+            return att;
+    }
+
+    // Not found - return NULL
+    return NULL;
+}
+```

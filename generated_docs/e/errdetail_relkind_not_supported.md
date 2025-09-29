@@ -53,3 +53,37 @@ The function uses a switch statement to map each RELKIND constant to a specific 
 - Located in src/backend/catalog/pg_class.c, which is appropriate as it deals with relation classification
 - The default case protects against programming errors by logging unrecognized relkind values
 - This centralized approach helps maintain consistency in error messages across the entire PostgreSQL codebase
+
+## Simplified Source
+
+```c
+int errdetail_relkind_not_supported(char relkind) {
+    // Return appropriate error message based on relation type
+    switch (relkind) {
+        case RELKIND_RELATION:
+            return errdetail("This operation is not supported for tables.");
+        case RELKIND_INDEX:
+            return errdetail("This operation is not supported for indexes.");
+        case RELKIND_SEQUENCE:
+            return errdetail("This operation is not supported for sequences.");
+        case RELKIND_TOASTVALUE:
+            return errdetail("This operation is not supported for TOAST tables.");
+        case RELKIND_VIEW:
+            return errdetail("This operation is not supported for views.");
+        case RELKIND_MATVIEW:
+            return errdetail("This operation is not supported for materialized views.");
+        case RELKIND_COMPOSITE_TYPE:
+            return errdetail("This operation is not supported for composite types.");
+        case RELKIND_FOREIGN_TABLE:
+            return errdetail("This operation is not supported for foreign tables.");
+        case RELKIND_PARTITIONED_TABLE:
+            return errdetail("This operation is not supported for partitioned tables.");
+        case RELKIND_PARTITIONED_INDEX:
+            return errdetail("This operation is not supported for partitioned indexes.");
+        default:
+            // Programming error - unknown relation kind
+            elog(ERROR, "unrecognized relkind: '%c'", relkind);
+            return 0;
+    }
+}
+```

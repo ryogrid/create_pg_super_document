@@ -43,3 +43,49 @@ The function checks for seven different incompatible features and generates spec
 - All error messages use ERRCODE_FEATURE_NOT_SUPPORTED error code
 - The function assumes strength != LCS_NONE and will assert if called incorrectly
 - Located in src/backend/parser/analyze.c at lines 3238-3301
+
+## Simplified Source
+
+```c
+void
+CheckSelectLocking(Query *qry, LockClauseStrength strength)
+{
+    Assert(strength != LCS_NONE);
+
+    // Check for incompatible features and report specific errors
+    if (qry->setOperations)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with UNION/INTERSECT/EXCEPT",
+                              LCS_asString(strength))));
+
+    if (qry->distinctClause != NIL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with DISTINCT clause",
+                              LCS_asString(strength))));
+
+    if (qry->groupClause != NIL || qry->groupingSets != NIL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with GROUP BY clause",
+                              LCS_asString(strength))));
+
+    if (qry->havingQual != NULL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with HAVING clause",
+                              LCS_asString(strength))));
+
+    if (qry->hasAggs)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with aggregate functions",
+                              LCS_asString(strength))));
+
+    if (qry->hasWindowFuncs)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with window functions",
+                              LCS_asString(strength))));
+
+    if (qry->hasTargetSRFs)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("%s is not allowed with set-returning functions in the target list",
+                              LCS_asString(strength))));
+}
+```

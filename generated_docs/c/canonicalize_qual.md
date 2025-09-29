@@ -42,3 +42,24 @@ The function only works within the top-level AND/OR structure and does not recur
 - Asserts that input is not in implicit-AND format (should not be a List)
 - Part of PostgreSQL's query preprocessing and optimization pipeline
 - Focuses on practical optimization benefits rather than theoretical canonical forms
+
+## Simplified Source
+
+```c
+Expr *
+canonicalize_qual(Expr *qual, bool is_check)
+{
+    // Quick exit for empty qualification
+    if (qual == NULL)
+        return NULL;
+
+    // Ensure input is not in implicit-AND format
+    Assert(!IsA(qual, List));
+
+    // Remove redundant subclauses in OR-of-AND trees
+    // and eliminate NULL constants from top-level structure
+    Expr *optimized_qual = find_duplicate_ors(qual, is_check);
+
+    return optimized_qual;
+}
+```

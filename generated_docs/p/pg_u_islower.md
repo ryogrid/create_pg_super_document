@@ -33,3 +33,13 @@ For ASCII characters (code < 0x80), the function uses a pre-computed lookup tabl
 - Follows Unicode standard for lowercase character classification, not just ASCII a-z
 - Performance optimized with ASCII fast-path and binary search for Unicode ranges
 - Correctly handles lowercase characters from various scripts like Greek, Cyrillic, etc.
+
+## Simplified Source
+
+```c
+bool
+pg_u_islower(pg_wchar code) {
+    // Check if character has Unicode lowercase property
+    return pg_u_prop_lowercase(code);
+}
+```

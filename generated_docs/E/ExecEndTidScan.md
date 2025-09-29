@@ -31,3 +31,13 @@ ExecEndTidScan is responsible for cleaning up resources associated with a TID sc
 - Follows the standard PostgreSQL executor pattern for node cleanup functions
 - Essential for preventing resource leaks when TID scan operations complete
 - The function is called during query plan tree teardown to ensure proper resource management
+
+## Simplified Source
+
+```c
+void ExecEndTidScan(TidScanState *node) {
+    // End the table scan if one is active
+    if (node->ss.ss_currentScanDesc)
+        table_endscan(node->ss.ss_currentScanDesc);
+}
+```

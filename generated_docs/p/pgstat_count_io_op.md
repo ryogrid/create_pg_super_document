@@ -35,3 +35,12 @@ This is the most commonly used interface for tracking individual IO operations i
 - For cases where multiple operations need to be counted at once, use pgstat_count_io_op_n() directly
 - Part of PostgreSQL's IO statistics subsystem for performance monitoring and analysis
 - The actual statistics validation and backend type checking is handled by the underlying pgstat_count_io_op_n() function
+
+## Simplified Source
+
+```c
+void pgstat_count_io_op(IOObject io_object, IOContext io_context, IOOp io_op) {
+    // Increment IO operation count by 1
+    pgstat_count_io_op_n(io_object, io_context, io_op, 1);
+}
+```

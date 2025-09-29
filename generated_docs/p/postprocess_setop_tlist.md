@@ -36,3 +36,42 @@ The function enforces that resjunk (result junk) columns are not supported in se
 - [Sort](../S/Sort.md) group references (ressortgroupref) are essential for maintaining proper ordering semantics in set operations
 - The function modifies the new_tlist in-place by updating the ressortgroupref fields
 - Static function scope indicates it's only used within the planner.c module for set operation post-processing
+
+## Simplified Source
+
+```c
+static List *
+postprocess_setop_tlist(List *new_tlist, List *orig_tlist)
+{
+    ListCell   *l;
+    ListCell   *orig_tlist_item = list_head(orig_tlist);
+
+    foreach(l, new_tlist) {
+        TargetEntry *new_tle = lfirst_node(TargetEntry, l);
+        TargetEntry *orig_tle;
+
+        // Skip resjunk columns in setop result
+        if (new_tle->resjunk)
+            continue;
+
+        Assert(orig_tlist_item != NULL);
+        orig_tle = lfirst_node(TargetEntry, orig_tlist_item);
+        orig_tlist_item = lnext(orig_tlist, orig_tlist_item);
+
+        // Resjunk output columns are not supported
+        if (orig_tle->resjunk)
+            elog(ERROR, "resjunk output columns are not implemented");
+
+        Assert(new_tle->resno == orig_tle->resno);
+
+        // Transfer sort key information
+        new_tle->ressortgroupref = orig_tle->ressortgroupref;
+    }
+
+    // Check for extra original columns (also not supported)
+    if (orig_tlist_item != NULL)
+        elog(ERROR, "resjunk output columns are not implemented");
+
+    return new_tlist;
+}
+```

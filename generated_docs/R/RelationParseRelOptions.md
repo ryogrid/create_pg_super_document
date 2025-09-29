@@ -37,3 +37,46 @@ The function uses a switch statement to determine the appropriate parsing approa
 - Requires that rd_rel and rd_indam (for indexes) are already valid before calling
 - Uses hardwired pg_class descriptor to handle bootstrap cases where normal descriptors may not be available
 - Sets rd_options to NULL initially and only allocates if options are present
+
+## Simplified Source
+
+```c
+static void
+RelationParseRelOptions(Relation relation, HeapTuple tuple)
+{
+    bytea *options;
+    amoptions_function amoptsfn;
+
+    relation->rd_options = NULL;
+
+    // Determine appropriate parsing function based on relation kind
+    switch (relation->rd_rel->relkind)
+    {
+        case RELKIND_RELATION:
+        case RELKIND_TOASTVALUE:
+        case RELKIND_VIEW:
+        case RELKIND_MATVIEW:
+        case RELKIND_PARTITIONED_TABLE:
+            amoptsfn = NULL;  // Use default parsing
+            break;
+
+        case RELKIND_INDEX:
+        case RELKIND_PARTITIONED_INDEX:
+            amoptsfn = relation->rd_indam->amoptions;  // Use AM-specific parsing
+            break;
+
+        default:
+            return;  // No options supported for this relation kind
+    }
+
+    // Extract and parse options from pg_class tuple
+    options = extractRelOptions(tuple, GetPgClassDescriptor(), amoptsfn);
+
+    if (options) {
+        // Copy parsed options to cache memory context for safety
+        relation->rd_options = MemoryContextAlloc(CacheMemoryContext, VARSIZE(options));
+        memcpy(relation->rd_options, options, VARSIZE(options));
+        pfree(options);
+    }
+}
+```

@@ -35,3 +35,15 @@ The function is designed to be called automatically by PostgreSQL's exit callbac
 - Critical for preventing resource leaks in the notification system
 - The function doesn't attempt to detect if cleanup is actually necessary (e.g., if user already UNLISTENed everything)
 - Location: src/backend/commands/async.c:823-835
+
+## Simplified Source
+
+```c
+static void Async_UnlistenOnExit(int code, Datum arg) {
+    // Clean up all LISTEN registrations for this backend
+    Exec_UnlistenAllCommit();
+
+    // Remove backend from shared notification queue
+    asyncQueueUnregister();
+}
+```

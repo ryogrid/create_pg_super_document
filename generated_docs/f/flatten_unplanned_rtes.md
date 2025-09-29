@@ -42,3 +42,18 @@ The  flag ensures that RTEs are examined before recursing into substructures, wh
 - Works in conjunction with  to perform the actual RTE extraction work
 - Essential for ensuring permission checks are performed on all tables, even in unplanned subqueries
 - The walker context structure allows passing both global state and subquery-specific information to the walker function
+
+## Simplified Source
+
+```c
+static void flatten_unplanned_rtes(PlannerGlobal *glob, RangeTblEntry *rte) {
+    // Set up context for walking the subquery tree
+    flatten_rtes_walker_context cxt = {glob, rte->subquery};
+
+    // Walk the subquery parse tree to extract all RTEs
+    query_tree_walker(rte->subquery,
+                     flatten_rtes_walker,
+                     (void *) &cxt,
+                     QTW_EXAMINE_RTES_BEFORE);
+}
+```

@@ -38,3 +38,11 @@ Result nodes are relatively lightweight and don't maintain complex state that re
 - This is part of PostgreSQL's hierarchical cleanup pattern where parent nodes are responsible for cleaning up their children
 - The function's simplicity reflects that Result nodes don't maintain persistent resources beyond their child nodes
 - Called during query termination, transaction abort, or when freeing executor state
+
+## Simplified Source
+```c
+void ExecEndResult(ResultState *node) {
+    // Shut down child plan if present
+    ExecEndNode(outerPlanState(node));
+}
+```

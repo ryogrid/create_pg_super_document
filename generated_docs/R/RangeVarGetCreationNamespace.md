@@ -43,3 +43,47 @@ Key behaviors include:
 - Returns InvalidOid and raises an error if no schema has been selected for creation
 - The activeTempCreationPending flag indicates when temporary namespace initialization is needed
 - Cross-database references are explicitly not supported and will raise an error
+
+## Simplified Source
+
+```c
+Oid RangeVarGetCreationNamespace(const RangeVar *newRelation) {
+    Oid namespaceId;
+
+    // Check and reject cross-database references
+    if (newRelation->catalogname) {
+        if (strcmp(newRelation->catalogname, get_database_name(MyDatabaseId)) != 0) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("cross-database references are not implemented")));
+        }
+    }
+
+    if (newRelation->schemaname) {
+        // Handle special pg_temp alias
+        if (strcmp(newRelation->schemaname, "pg_temp") == 0) {
+            AccessTempTableNamespace(false);
+            return myTempNamespace;
+        }
+        // Use explicitly specified schema
+        namespaceId = get_namespace_oid(newRelation->schemaname, false);
+    } else if (newRelation->relpersistence == RELPERSISTENCE_TEMP) {
+        // Temporary relation without explicit schema - use temp namespace
+        AccessTempTableNamespace(false);
+        return myTempNamespace;
+    } else {
+        // Use default creation namespace from search path
+        recomputeNamespacePath();
+        if (activeTempCreationPending) {
+            AccessTempTableNamespace(true);
+            return myTempNamespace;
+        }
+        namespaceId = activeCreationNamespace;
+        if (!OidIsValid(namespaceId)) {
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                           errmsg("no schema has been selected to create in")));
+        }
+    }
+
+    return namespaceId;
+}
+```

@@ -45,3 +45,75 @@ The constraint generation includes special logic for single-column list partitio
 - Creates IS NULL tests for partitions that do accept nulls
 - For default partitions, applies NOT to the entire constraint expression to exclude other partition values
 - The generated constraints never evaluate to NULL, making NOT application work as intended
+
+## Simplified Source
+
+```c
+static List *get_qual_for_list(Relation parent, PartitionBoundSpec *spec) {
+    PartitionKey key = RelationGetPartitionKey(parent);
+    List *elems = NIL;
+    bool list_has_null = false;
+
+    // Get partition key column expression
+    if (key->partattrs[0] != 0)
+        keyCol = (Expr *) makeVar(1, key->partattrs[0], key->parttypid[0],
+                                 key->parttypmod[0], key->parttypcoll[0], 0);
+    else
+        keyCol = (Expr *) copyObject(linitial(key->partexprs));
+
+    if (spec->is_default) {
+        // For default partition, collect all other partition values
+        PartitionDesc pdesc = RelationGetPartitionDesc(parent, false);
+        if (pdesc->boundinfo) {
+            for (int i = 0; i < pdesc->boundinfo->ndatums; i++) {
+                Const *val = makeConst(/* create constant from bound datum */);
+                elems = lappend(elems, val);
+            }
+        }
+        if (partition_bound_accepts_nulls(pdesc->boundinfo))
+            list_has_null = true;
+    } else {
+        // For regular partition, use specified list values
+        foreach(cell, spec->listdatums) {
+            Const *val = lfirst_node(Const, cell);
+            if (val->constisnull)
+                list_has_null = true;
+            else
+                elems = lappend(elems, copyObject(val));
+        }
+    }
+
+    // Create equality expression for non-null values
+    if (elems) {
+        opexpr = make_partition_op_expr(key, 0, BTEqualStrategyNumber,
+                                       keyCol, (Expr *) elems);
+    }
+
+    // Handle NULL value constraints
+    if (!list_has_null) {
+        // Add IS NOT NULL test
+        nulltest = makeNode(NullTest);
+        nulltest->arg = keyCol;
+        nulltest->nulltesttype = IS_NOT_NULL;
+        result = opexpr ? list_make2(nulltest, opexpr) : list_make1(nulltest);
+    } else {
+        // Add IS NULL test and combine with OR
+        nulltest = makeNode(NullTest);
+        nulltest->arg = keyCol;
+        nulltest->nulltesttype = IS_NULL;
+        if (opexpr) {
+            result = list_make1(makeBoolExpr(OR_EXPR, list_make2(nulltest, opexpr), -1));
+        } else {
+            result = list_make1(nulltest);
+        }
+    }
+
+    // For default partitions, negate the entire constraint
+    if (spec->is_default) {
+        result = list_make1(make_ands_explicit(result));
+        result = list_make1(makeBoolExpr(NOT_EXPR, result, -1));
+    }
+
+    return result;
+}
+```

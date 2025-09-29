@@ -46,3 +46,48 @@ PQconnectStartParams is the foundational function for creating asynchronous Post
 - Error messages are accumulated in the connection structure throughout the process
 - Callers must use PQfinish to clean up the connection structure regardless of success/failure
 - This is the underlying implementation used by higher-level connection functions
+
+## Simplified Source
+
+```c
+PGconn *PQconnectStartParams(const char *const *keywords,
+                            const char *const *values,
+                            int expand_dbname) {
+    PGconn *conn;
+    PQconninfoOption *connOptions;
+
+    // Allocate and initialize empty connection structure
+    conn = pqMakeEmptyPGconn();
+    if (conn == NULL)
+        return NULL;
+
+    // Parse connection parameter arrays
+    connOptions = conninfo_array_parse(keywords, values,
+                                      &conn->errorMessage,
+                                      true, expand_dbname);
+    if (connOptions == NULL) {
+        conn->status = CONNECTION_BAD;
+        return conn;
+    }
+
+    // Move parsed options into connection structure
+    if (!fillPGconn(conn, connOptions)) {
+        PQconninfoFree(connOptions);
+        return conn;
+    }
+
+    // Clean up temporary option structure
+    PQconninfoFree(connOptions);
+
+    // Compute derived connection options
+    if (!pqConnectOptions2(conn))
+        return conn;
+
+    // Start the actual database connection
+    if (!pqConnectDBStart(conn)) {
+        conn->status = CONNECTION_BAD;
+    }
+
+    return conn;
+}
+```

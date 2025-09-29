@@ -55,3 +55,55 @@ The function is specifically designed for single-input plan nodes and handles th
 - Uses NRM_EQUAL for nulling relation matching since upper-level single-input operations don't introduce additional nulling
 - The function creates a completely new target list rather than modifying the existing one to ensure proper memory management and avoid side effects
 - Located in src/backend/optimizer/plan/setrefs.c:2431-2496
+
+## Simplified Source
+
+```c
+static void
+set_upper_references(PlannerInfo *root, Plan *plan, int rtoffset)
+{
+    Plan *subplan = plan->lefttree;
+    indexed_tlist *subplan_itlist;
+    List *output_targetlist = NIL;
+    ListCell *l;
+
+    // Build index of subplan's target list for efficient lookups
+    subplan_itlist = build_tlist_index(subplan->targetlist);
+
+    // Process each target entry in the plan's target list
+    foreach(l, plan->targetlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+        Node *newexpr;
+
+        // For sort/group items, try to match by sort reference first
+        if (tle->ressortgroupref != 0) {
+            newexpr = (Node *) search_indexed_tlist_for_sortgroupref(
+                tle->expr, tle->ressortgroupref, subplan_itlist, OUTER_VAR);
+
+            // If no match found, use standard expression fixing
+            if (!newexpr)
+                newexpr = fix_upper_expr(root, (Node *) tle->expr, subplan_itlist,
+                                       OUTER_VAR, rtoffset, NRM_EQUAL, NUM_EXEC_TLIST(plan));
+        } else {
+            // Standard expression reference fixing
+            newexpr = fix_upper_expr(root, (Node *) tle->expr, subplan_itlist,
+                                   OUTER_VAR, rtoffset, NRM_EQUAL, NUM_EXEC_TLIST(plan));
+        }
+
+        // Create new target entry with updated expression
+        tle = flatCopyTargetEntry(tle);
+        tle->expr = (Expr *) newexpr;
+        output_targetlist = lappend(output_targetlist, tle);
+    }
+
+    // Update plan's target list
+    plan->targetlist = output_targetlist;
+
+    // Fix qualification expressions
+    plan->qual = (List *) fix_upper_expr(root, (Node *) plan->qual, subplan_itlist,
+                                        OUTER_VAR, rtoffset, NRM_EQUAL, NUM_EXEC_QUAL(plan));
+
+    // Clean up temporary index
+    pfree(subplan_itlist);
+}
+```

@@ -18,7 +18,7 @@ This function is part of PostgreSQL's statistics collection system for SLRU (Sim
 The function operates by calling get_slru_entry() to retrieve the statistics entry for the given SLRU index and then atomically incrementing the blocks_written field.
 
 ## Parameters / Member Variables
-- : Integer index identifying which SLRU cache to update statistics for (must be between 0 and SLRU_NUM_ELEMENTS-1)
+- `slru_idx`: Integer index identifying which SLRU cache to update statistics for (must be between 0 and SLRU_NUM_ELEMENTS-1)
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -32,3 +32,12 @@ The function operates by calling get_slru_entry() to retrieve the statistics ent
 - The statistics collected are used for monitoring and performance analysis of SLRU caches
 - The function assumes the caller has validated the slru_idx parameter
 - Part of the PostgreSQL statistics collector subsystem for tracking buffer cache performance
+
+## Simplified Source
+```c
+void pgstat_count_slru_page_written(int slru_idx) {
+    // Get the statistics entry for the specified SLRU cache
+    // and increment the blocks written counter
+    get_slru_entry(slru_idx)->blocks_written += 1;
+}
+```

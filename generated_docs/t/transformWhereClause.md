@@ -42,3 +42,25 @@ This function is a core component of the PostgreSQL parser responsible for proce
 - Type coercion to boolean handles implicit conversions (e.g., integers, NULL values) according to PostgreSQL's type system
 - The function is declared in parse_clause.h, making it available to other parser modules
 - Used in security-related contexts like row-level security policies and triggers
+
+## Simplified Source
+
+```c
+Node *transformWhereClause(ParseState *pstate, Node *clause,
+                          ParseExprKind exprKind, const char *constructName)
+{
+    Node *qual;
+
+    // Handle NULL clause (optional WHERE)
+    if (clause == NULL)
+        return NULL;
+
+    // Transform the expression tree
+    qual = transformExpr(pstate, clause, exprKind);
+
+    // Ensure result is boolean type
+    qual = coerce_to_boolean(pstate, qual, constructName);
+
+    return qual;
+}
+```

@@ -32,3 +32,15 @@ This function generates hash values for PostgreSQL `name` data types within the 
 - Part of PostgreSQL's internal catalog cache hash table infrastructure
 - Static function scope limits usage to catcache.c compilation unit
 - Complements `nameeqfast` for complete name-based hash table operations
+
+## Simplified Source
+
+```c
+static uint32 namehashfast(Datum datum) {
+    // Extract C-string from Name Datum
+    char *key = NameStr(*DatumGetName(datum));
+
+    // Compute hash using actual string length
+    return hash_any((unsigned char *) key, strlen(key));
+}
+```

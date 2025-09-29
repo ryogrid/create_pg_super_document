@@ -35,3 +35,41 @@ This is the core function for converting PostgreSQL expression node trees back i
 
 ## Notes and Other Information
 This function is declared static and is not directly accessible from outside ruleutils.c. It serves as the workhorse for all expression deparsing operations in PostgreSQL. The deparse_context structure it creates contains all the necessary state for interpreting variable references, managing namespaces, and controlling output formatting. The function allocates the result string using palloc, so the caller is responsible for memory management.
+
+## Simplified Source
+
+```c
+static char *
+deparse_expression_pretty(Node *expr, List *dpcontext,
+                          bool forceprefix, bool showimplicit,
+                          int prettyFlags, int startIndent)
+{
+    StringInfoData buf;
+    deparse_context context;
+
+    // Initialize output buffer
+    initStringInfo(&buf);
+
+    // Setup deparse context with formatting options
+    context.buf = &buf;
+    context.namespaces = dpcontext;
+    context.varprefix = forceprefix;
+    context.prettyFlags = prettyFlags;
+    context.indentLevel = startIndent;
+    context.wrapColumn = WRAP_COLUMN_DEFAULT;
+
+    // Set default context values
+    context.resultDesc = NULL;
+    context.targetList = NIL;
+    context.windowClause = NIL;
+    context.colNamesVisible = true;
+    context.inGroupBy = false;
+    context.varInOrderBy = false;
+    context.appendparents = NULL;
+
+    // Deparse the expression into the buffer
+    get_rule_expr(expr, &context, showimplicit);
+
+    return buf.data;
+}
+```

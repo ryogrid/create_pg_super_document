@@ -45,3 +45,25 @@ The function uses PostgreSQL's system cache (NAMESPACENAME) for efficient lookup
 - Core utility function used throughout PostgreSQL's namespace resolution infrastructure
 - Does not perform any permission checking - purely a name-to-OID resolution function
 - Essential for DDL operations, schema management, and qualified name resolution
+
+## Simplified Source
+
+```c
+Oid
+get_namespace_oid(const char *nspname, bool missing_ok)
+{
+    Oid oid;
+
+    // Look up namespace OID in system cache
+    oid = GetSysCacheOid1(NAMESPACENAME, Anum_pg_namespace_oid,
+                          CStringGetDatum(nspname));
+
+    // Handle missing namespace based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                 errmsg("schema \"%s\" does not exist", nspname)));
+
+    return oid;
+}
+```

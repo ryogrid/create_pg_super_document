@@ -54,3 +54,55 @@ The vectored I/O approach is particularly beneficial when reading scattered data
 - Essential for high-performance I/O operations in PostgreSQL's buffer management system
 - The iovec array allows specifying multiple buffers of different sizes in a single operation
 - Includes retry logic for EINTR (interrupted system call) errors on Unix systems
+
+## Simplified Source
+
+```c
+ssize_t
+FileReadV(File file, const struct iovec *iov, int iovcnt, off_t offset,
+          uint32 wait_event_info)
+{
+    ssize_t returnCode;
+    Vfd *vfdP;
+
+    Assert(FileIsValid(file));
+
+    // Ensure file is accessible
+    returnCode = FileAccess(file);
+    if (returnCode < 0)
+        return returnCode;
+
+    vfdP = &VfdCache[file];
+
+retry:
+    // Start monitoring wait event
+    pgstat_report_wait_start(wait_event_info);
+
+    // Perform vectored read operation
+    returnCode = pg_preadv(vfdP->fd, iov, iovcnt, offset);
+
+    // End monitoring wait event
+    pgstat_report_wait_end();
+
+    if (returnCode < 0) {
+        // Handle platform-specific errors
+#ifdef WIN32
+        DWORD error = GetLastError();
+
+        if (error == ERROR_NO_SYSTEM_RESOURCES) {
+            // Windows kernel buffer exhaustion - wait and retry
+            pg_usleep(1000L);
+            errno = EINTR;
+        } else {
+            _dosmaperr(error);
+        }
+#endif
+
+        // Retry if interrupted
+        if (errno == EINTR)
+            goto retry;
+    }
+
+    return returnCode;
+}
+```

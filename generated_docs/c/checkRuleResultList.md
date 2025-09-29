@@ -42,3 +42,72 @@ checkRuleResultList performs comprehensive validation of target lists against re
 - Provides context-sensitive error messages that distinguish between SELECT rules and RETURNING lists
 - Critical for maintaining data integrity when creating view rules and RETURNING clause validation
 - The requireColumnNameMatch parameter is only used for SELECT rules on views where exact column name correspondence is required
+
+## Simplified Source
+
+```c
+static void checkRuleResultList(List *targetList, TupleDesc resultDesc,
+                               bool isSelect, bool requireColumnNameMatch) {
+    ListCell *tllist;
+    int i = 0;
+
+    // Validate each non-junk target entry
+    foreach(tllist, targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(tllist);
+
+        if (tle->resjunk)
+            continue;
+
+        i++;
+
+        // Check if we have too many entries
+        if (i > resultDesc->natts)
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    isSelect ?
+                    errmsg("SELECT rule's target list has too many entries") :
+                    errmsg("RETURNING list has too many entries")));
+
+        Form_pg_attribute attr = TupleDescAttr(resultDesc, i - 1);
+        char *attname = NameStr(attr->attname);
+
+        // Reject dropped columns
+        if (attr->attisdropped)
+            ereport(ERROR,
+                   (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    isSelect ?
+                    errmsg("cannot convert relation containing dropped columns to view") :
+                    errmsg("cannot create a RETURNING list for a relation containing dropped columns")));
+
+        // Check column name match if required
+        if (requireColumnNameMatch && strcmp(tle->resname, attname) != 0)
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg("SELECT rule's target entry %d has different column name from column \"%s\"",
+                           i, attname)));
+
+        // Check type compatibility
+        Oid tletypid = exprType((Node *) tle->expr);
+        if (attr->atttypid != tletypid)
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg("target entry %d has different type from column \"%s\"", i, attname)));
+
+        // Check type modifier compatibility (allow if either is unspecified)
+        int32 tletypmod = exprTypmod((Node *) tle->expr);
+        if (attr->atttypmod != tletypmod &&
+            attr->atttypmod != -1 && tletypmod != -1)
+            ereport(ERROR,
+                   (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg("target entry %d has different size from column \"%s\"", i, attname)));
+    }
+
+    // Check if we have too few entries
+    if (i != resultDesc->natts)
+        ereport(ERROR,
+               (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                isSelect ?
+                errmsg("SELECT rule's target list has too few entries") :
+                errmsg("RETURNING list has too few entries")));
+}
+```

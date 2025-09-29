@@ -34,3 +34,40 @@ This function creates a minimal deparse context suitable for expressions that re
 
 ## Notes and Other Information
 This function is particularly useful when you need to deparse expressions that are stored in the system catalogs and reference a single table, such as check constraints, index expressions, or partition bounds. The resulting context is sufficient for resolving column references but may not be suitable for more complex expressions involving joins or subqueries. The function sets up the relation with basic properties like RELKIND_RELATION and AccessShareLock, which are sufficient for deparsing purposes even if not exactly accurate.
+
+## Simplified Source
+```c
+List *
+deparse_context_for(const char *aliasname, Oid relid)
+{
+    deparse_namespace *dpns;
+    RangeTblEntry *rte;
+
+    // Allocate and initialize deparse namespace
+    dpns = (deparse_namespace *) palloc0(sizeof(deparse_namespace));
+
+    // Build minimal RTE for the relation
+    rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RELATION;
+    rte->relid = relid;
+    rte->relkind = RELKIND_RELATION;
+    rte->rellockmode = AccessShareLock;
+    rte->alias = makeAlias(aliasname, NIL);
+    rte->eref = rte->alias;
+    rte->lateral = false;
+    rte->inh = false;
+    rte->inFromCl = true;
+
+    // Setup deparse namespace with single-element rtable
+    dpns->rtable = list_make1(rte);
+    dpns->subplans = NIL;
+    dpns->ctes = NIL;
+    dpns->appendrels = NULL;
+
+    // Configure naming and return context
+    set_rtable_names(dpns, NIL, NULL);
+    set_simple_column_names(dpns);
+
+    return list_make1(dpns);
+}
+```

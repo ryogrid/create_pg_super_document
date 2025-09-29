@@ -44,3 +44,43 @@ The ModifyTable node is one of the most complex plan nodes in PostgreSQL due to 
   - Row-level security and locking (rowMarks, epqParam)
 - Essential component for all data modification operations in PostgreSQL
 - Supports both simple and complex modification scenarios across regular and partitioned tables
+
+## Simplified Source
+
+```c
+static ModifyTable *
+create_modifytable_plan(PlannerInfo *root, ModifyTablePath *best_path)
+{
+    ModifyTable *plan;
+    Path *subpath = best_path->subpath;
+    Plan *subplan;
+
+    // Subplan must produce exactly the specified tlist
+    subplan = create_plan_recurse(root, subpath, CP_EXACT_TLIST);
+
+    // Transfer resname/resjunk labeling for executor compatibility
+    apply_tlist_labeling(subplan->targetlist, root->processed_tlist);
+
+    // Create ModifyTable plan with all modification parameters
+    plan = make_modifytable(root,
+                            subplan,
+                            best_path->operation,
+                            best_path->canSetTag,
+                            best_path->nominalRelation,
+                            best_path->rootRelation,
+                            best_path->partColsUpdated,
+                            best_path->resultRelations,
+                            best_path->updateColnosLists,
+                            best_path->withCheckOptionLists,
+                            best_path->returningLists,
+                            best_path->rowMarks,
+                            best_path->onconflict,
+                            best_path->mergeActionLists,
+                            best_path->mergeJoinConditions,
+                            best_path->epqParam);
+
+    copy_generic_path_info(&plan->plan, &best_path->path);
+
+    return plan;
+}
+```

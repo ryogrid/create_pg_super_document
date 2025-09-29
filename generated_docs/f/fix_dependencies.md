@@ -36,3 +36,64 @@ The function handles backward compatibility issues, such as fixing missing BLOB 
 - The depCount field represents remaining unprocessed dependencies and gets decremented as dependencies are satisfied
 - Locking dependencies are separate from logical dependencies and prevent concurrent execution of conflicting operations
 - Memory allocation for revDeps arrays is done precisely based on actual dependency counts to minimize memory usage
+
+## Simplified Source
+
+```c
+static void
+fix_dependencies(ArchiveHandle *AH)
+{
+    // Initialize dependency fields for all TOC entries
+    for (TocEntry *te = AH->toc->next; te != AH->toc; te = te->next) {
+        te->depCount = te->nDeps;
+        te->revDeps = NULL;
+        te->nRevDeps = 0;
+        te->pending_prev = NULL;
+        te->pending_next = NULL;
+    }
+
+    // Fix table dependencies to point to data instead of table
+    repoint_table_dependencies(AH);
+
+    // Handle pre-8.4 BLOB COMMENTS dependency issue
+    if (AH->version < K_VERS_1_11) {
+        fix_blob_comments_dependency(AH);
+    }
+
+    // Count incoming dependencies for each item
+    for (TocEntry *te = AH->toc->next; te != AH->toc; te = te->next) {
+        for (int i = 0; i < te->nDeps; i++) {
+            DumpId depid = te->dependencies[i];
+            if (depid <= AH->maxDumpId && AH->tocsByDumpId[depid] != NULL)
+                AH->tocsByDumpId[depid]->nRevDeps++;
+            else
+                te->depCount--;  // Remove invalid dependencies
+        }
+    }
+
+    // Allocate reverse dependency arrays
+    for (TocEntry *te = AH->toc->next; te != AH->toc; te = te->next) {
+        if (te->nRevDeps > 0)
+            te->revDeps = pg_malloc(te->nRevDeps * sizeof(DumpId));
+        te->nRevDeps = 0;  // Reset for building arrays
+    }
+
+    // Build reverse dependency arrays
+    for (TocEntry *te = AH->toc->next; te != AH->toc; te = te->next) {
+        for (int i = 0; i < te->nDeps; i++) {
+            DumpId depid = te->dependencies[i];
+            if (depid <= AH->maxDumpId && AH->tocsByDumpId[depid] != NULL) {
+                TocEntry *otherte = AH->tocsByDumpId[depid];
+                otherte->revDeps[otherte->nRevDeps++] = te->dumpId;
+            }
+        }
+    }
+
+    // Set up locking dependencies
+    for (TocEntry *te = AH->toc->next; te != AH->toc; te = te->next) {
+        te->lockDeps = NULL;
+        te->nLockDeps = 0;
+        identify_locking_dependencies(AH, te);
+    }
+}
+```

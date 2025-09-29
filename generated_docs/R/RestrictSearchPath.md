@@ -48,3 +48,16 @@ This function takes no parameters.
 - Prevents search_path-based privilege escalation attacks during system operations
 - Does nothing during bootstrap because search_path is already restricted and cannot be changed
 - Essential for maintaining security invariants during automated maintenance tasks
+
+## Simplified Source
+
+```c
+void RestrictSearchPath(void) {
+    // Only restrict search path outside bootstrap mode
+    if (!IsBootstrapProcessingMode()) {
+        // Set search_path to safe value for maintenance operations
+        set_config_option("search_path", GUC_SAFE_SEARCH_PATH, PGC_USERSET,
+                         PGC_S_SESSION, GUC_ACTION_SAVE, true, 0, false);
+    }
+}
+```

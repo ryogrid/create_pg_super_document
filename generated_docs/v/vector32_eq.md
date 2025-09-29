@@ -39,3 +39,19 @@ This function is optimized for comparing 32-bit values such as integers, array i
 - Returns a mask vector with 0xFFFFFFFF for equal elements, 0x00000000 for unequal elements
 - Specialized for 32-bit element comparisons, more efficient than byte-wise operations for larger data types
 - Primarily used in optimized search functions for 32-bit integer arrays
+
+## Simplified Source
+
+```c
+static inline Vector32
+vector32_eq(const Vector32 v1, const Vector32 v2)
+{
+    // Perform element-wise equality comparison
+    // Returns 0xFFFFFFFF for equal elements, 0x00000000 for unequal
+#ifdef USE_SSE2
+    return _mm_cmpeq_epi32(v1, v2);
+#elif defined(USE_NEON)
+    return vceqq_u32(v1, v2);
+#endif
+}
+```

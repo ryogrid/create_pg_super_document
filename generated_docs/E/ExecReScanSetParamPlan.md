@@ -40,3 +40,34 @@ Special handling is provided for CTE (Common Table Expression) subplans, which a
 - The actual rescan is deferred until the parameter values are needed (lazy evaluation)
 - Direct correlated subqueries are not supported as initplans and will cause an error
 - The function updates the parent's chgParam bitmap to ensure dependent plan nodes know to rescan when parameters change
+
+## Simplified Source
+
+```c
+void ExecReScanSetParamPlan(SubPlanState *node, PlanState *parent) {
+    PlanState *planstate = node->planstate;
+    SubPlan *subplan = node->subplan;
+    EState *estate = parent->state;
+
+    // Validate initplan configuration
+    if (subplan->parParam != NIL)
+        elog(ERROR, "direct correlated subquery unsupported as initplan");
+    if (subplan->setParam == NIL)
+        elog(ERROR, "setParam list of initplan is empty");
+    if (bms_is_empty(planstate->plan->extParam))
+        elog(ERROR, "extParam set of initplan is empty");
+
+    // Mark output parameters as needing recalculation
+    foreach(l, subplan->setParam) {
+        int paramid = lfirst_int(l);
+        ParamExecData *prm = &(estate->es_param_exec_vals[paramid]);
+
+        // CTE subplans have special handling - don't mark as dirty
+        if (subplan->subLinkType != CTE_SUBLINK)
+            prm->execPlan = node;
+
+        // Update parent's change parameter bitmap
+        parent->chgParam = bms_add_member(parent->chgParam, paramid);
+    }
+}
+```

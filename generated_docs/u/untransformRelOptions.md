@@ -38,3 +38,41 @@ This function performs the reverse transformation of , taking the internal text-
 - Used extensively in foreign data wrapper code and relation option introspection
 - The parsing splits strings on first '=' character, so values can contain '=' if needed
 - Function is defined in src/backend/access/common/reloptions.c:1340-1387
+
+## Simplified Source
+
+```c
+List *untransformRelOptions(Datum options) {
+    List *result = NIL;
+
+    // Return empty list if no options provided
+    if (!PointerIsValid(DatumGetPointer(options)))
+        return result;
+
+    // Extract text array from datum
+    ArrayType *array = DatumGetArrayTypeP(options);
+    Datum *optiondatums;
+    int noptions;
+
+    // Deconstruct array to get individual option strings
+    deconstruct_array_builtin(array, TEXTOID, &optiondatums, NULL, &noptions);
+
+    // Parse each "name=value" string into DefElem
+    for (int i = 0; i < noptions; i++) {
+        char *option_string = TextDatumGetCString(optiondatums[i]);
+        char *equals_pos = strchr(option_string, '=');
+        Node *value = NULL;
+
+        // Split on '=' to separate name from value
+        if (equals_pos) {
+            *equals_pos++ = '\0';  // Terminate name, advance to value
+            value = (Node *) makeString(equals_pos);
+        }
+
+        // Add DefElem to result list
+        result = lappend(result, makeDefElem(option_string, value, -1));
+    }
+
+    return result;
+}
+```

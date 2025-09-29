@@ -37,3 +37,16 @@ This function is critical for resource management in parallel queries, as it ens
 - Called during both normal query completion and error/cancellation scenarios
 - The cleanup is idempotent - can be safely called multiple times
 - Works in conjunction with PostgreSQL's resource management system to ensure clean shutdown
+
+## Simplified Source
+
+```c
+void ExecEndGather(GatherState *node)
+{
+    // Clean up child plan first
+    ExecEndNode(outerPlanState(node));
+
+    // Shut down parallel workers and release parallel context
+    ExecShutdownGather(node);
+}
+```

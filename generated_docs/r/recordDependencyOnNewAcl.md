@@ -45,3 +45,25 @@ If the ACL parameter is NULL (indicating default system permissions), the functi
 - Part of PostgreSQL's shared dependency system that prevents dropping roles while objects depend on them
 - Essential for maintaining referential integrity between roles and objects that reference them in ACLs
 - Called after object creation but before transaction commit to ensure proper dependency tracking
+
+## Simplified Source
+
+```c
+void recordDependencyOnNewAcl(Oid classId, Oid objectId, int32 objsubId,
+                              Oid ownerId, Acl *acl) {
+    int nmembers;
+    Oid *members;
+
+    // Skip dependency tracking for default permissions
+    if (acl == NULL)
+        return;
+
+    // Extract all roles mentioned in the ACL
+    nmembers = aclmembers(acl, &members);
+
+    // Record dependencies between the object and all ACL roles
+    updateAclDependencies(classId, objectId, objsubId, ownerId,
+                         0, NULL,           // No old ACL (new object)
+                         nmembers, members); // New ACL roles
+}
+```

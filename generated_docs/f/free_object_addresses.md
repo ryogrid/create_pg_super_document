@@ -41,3 +41,19 @@ This function performs proper memory deallocation for an ObjectAddresses structu
 - The function safely handles the case where  might be NULL by checking before freeing
 - Always called after dependency operations are complete to prevent memory leaks
 - Part of PostgreSQL's dependency tracking infrastructure located in src/backend/catalog/dependency.c
+
+## Simplified Source
+
+```c
+void free_object_addresses(ObjectAddresses *addrs) {
+    // Free the main array of object references
+    pfree(addrs->refs);
+
+    // Free the optional extras array if it exists
+    if (addrs->extras)
+        pfree(addrs->extras);
+
+    // Free the structure itself
+    pfree(addrs);
+}
+```

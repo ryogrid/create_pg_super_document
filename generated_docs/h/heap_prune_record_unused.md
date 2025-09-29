@@ -39,3 +39,21 @@ The function tracks unused line pointers in the pruning state's `nowunused` arra
 - Used when immediate space reclamation is possible and beneficial
 - Part of PostgreSQL's heap pruning optimization for better space utilization
 - Allows new tuples to reuse the space immediately without waiting for VACUUM
+
+## Simplified Source
+
+```c
+static void heap_prune_record_unused(PruneState *prstate, OffsetNumber offnum, bool was_normal)
+{
+    // Mark as processed to avoid duplicate handling
+    prstate->processed[offnum] = true;
+
+    // Add to list of line pointers to mark as unused
+    prstate->nowunused[prstate->nunused] = offnum;
+    prstate->nunused++;
+
+    // Count as deletion if it was a normal tuple (not a redirect)
+    if (was_normal)
+        prstate->ndeleted++;
+}
+```

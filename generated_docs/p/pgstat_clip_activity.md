@@ -44,3 +44,30 @@ The implementation leverages the fact that all supported server encodings allow 
 - The function is specifically designed to work with PostgreSQL's statistics activity tracking system
 - Multi-byte character safety is ensured only for server encodings (not client encodings like GB18030)
 - Located in src/backend/utils/activity/backend_status.c:1164-1197
+
+## Simplified Source
+
+```c
+char *
+pgstat_clip_activity(const char *raw_activity)
+{
+    char *activity;
+    int rawlen;
+    int cliplen;
+
+    // Create safe copy with size limit to prevent buffer overruns
+    activity = pnstrdup(raw_activity, pgstat_track_activity_query_size - 1);
+
+    // Get actual string length (now guaranteed NUL-terminated)
+    rawlen = strlen(activity);
+
+    // Find safe clipping position that respects multi-byte character boundaries
+    cliplen = pg_mbcliplen(activity, rawlen,
+                           pgstat_track_activity_query_size - 1);
+
+    // Ensure proper NUL termination at clipped position
+    activity[cliplen] = '\0';
+
+    return activity;
+}
+```

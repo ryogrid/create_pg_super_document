@@ -39,3 +39,25 @@ The function uses an unsigned comparison trick `(uint32) relid < (uint32) root->
 - The unsigned comparison technique efficiently handles both bounds checking and negative value detection
 - Widely used throughout the optimizer when the relation is expected to exist
 - Part of the core relation access API alongside build_simple_rel and find_base_rel_noerr
+
+## Simplified Source
+
+```c
+RelOptInfo *find_base_rel(PlannerInfo *root, int relid)
+{
+    RelOptInfo *rel;
+
+    // Use unsigned comparison to check bounds and prevent negative access
+    if ((uint32) relid < (uint32) root->simple_rel_array_size)
+    {
+        rel = root->simple_rel_array[relid];
+        if (rel)
+            return rel;
+    }
+
+    // Relation not found - this is an error condition
+    elog(ERROR, "no relation entry for relid %d", relid);
+
+    return NULL;  // Keep compiler quiet
+}
+```

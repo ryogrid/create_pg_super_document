@@ -35,3 +35,15 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: A two-eleme
 - The overflow check  detects when addition to the low-order word has wrapped around
 - Located in src/common/sha2.c as part of PostgreSQL's cryptographic hash implementations
 - Essential for maintaining accurate message length tracking in SHA-512 computations
+
+## Simplified Source
+
+```c
+// Macro to add 64-bit value n to 128-bit integer w (array of 2x 64-bit words)
+#define ADDINC128(w,n) { \
+    (w)[0] += (uint64)(n);     // Add to low-order word
+    if ((w)[0] < (n)) {        // Check for overflow
+        (w)[1]++;              // Increment high-order word
+    } \
+}
+```

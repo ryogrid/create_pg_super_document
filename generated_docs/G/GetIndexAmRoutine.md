@@ -10,7 +10,7 @@ GetIndexAmRoutine calls the specified access method handler routine to get its I
 
 ```c
 struct",
-			 amhandler);
+		 amhandler);
 ```
 ## Detailed Description
 This function serves as a central interface for obtaining the IndexAmRoutine structure from an access method handler function. It takes an OID of an access method handler function and calls it to retrieve the IndexAmRoutine struct that defines the operations supported by that index access method.
@@ -41,3 +41,25 @@ The returned IndexAmRoutine struct is palloc'd in the caller's context and conta
 - Error handling: Validates that the handler function returns a proper IndexAmRoutine struct
 - Memory management: The returned struct is allocated in the caller's memory context
 - Critical for index access method abstraction layer in PostgreSQL
+
+## Simplified Source
+
+```c
+IndexAmRoutine *
+GetIndexAmRoutine(Oid amhandler)
+{
+    Datum datum;
+    IndexAmRoutine *routine;
+
+    // Call the access method handler function
+    datum = OidFunctionCall0(amhandler);
+    routine = (IndexAmRoutine *) DatumGetPointer(datum);
+
+    // Validate the returned structure
+    if (routine == NULL || !IsA(routine, IndexAmRoutine))
+        elog(ERROR, "index access method handler function %u did not return an IndexAmRoutine struct",
+             amhandler);
+
+    return routine;
+}
+```

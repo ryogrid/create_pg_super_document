@@ -52,3 +52,53 @@ The conflict detection logic ensures that:
 - Uses multiple LWLock acquisitions with careful lock ordering to prevent deadlocks
 - The function handles parallel mode by acquiring additional per-transaction predicate list locks when necessary
 - Located in src/backend/storage/lmgr/predicate.c:4156-4325
+
+## Simplified Source
+
+```c
+static void CheckTargetForConflictsIn(PREDICATELOCKTARGETTAG *targettag) {
+    // Calculate hash and get partition lock for the target
+    uint32 targettaghash = PredicateLockTargetTagHashCode(targettag);
+    LWLock *partitionLock = PredicateLockHashPartitionLock(targettaghash);
+
+    // Find the target in the hash table
+    LWLockAcquire(partitionLock, LW_SHARED);
+    PREDICATELOCKTARGET *target = hash_search_with_hash_value(
+        PredicateLockTargetHash, targettag, targettaghash, HASH_FIND, NULL);
+
+    if (!target) {
+        // No locks on this target
+        LWLockRelease(partitionLock);
+        return;
+    }
+
+    // Check each predicate lock on this target for conflicts
+    PREDICATELOCK *mypredlock = NULL;
+    LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+
+    foreach_predicate_lock_on_target(target) {
+        SERIALIZABLEXACT *sxact = predlock->tag.myXact;
+
+        if (sxact == MySerializableXact) {
+            // Our own lock - mark for potential removal if writing to tuple
+            if (!IsSubTransaction() && target_is_tuple(targettag)) {
+                mypredlock = predlock;
+            }
+        }
+        else if (transaction_needs_conflict_check(sxact)) {
+            // Flag conflict with this transaction
+            upgrade_to_exclusive_lock();
+            FlagRWConflict(sxact, MySerializableXact);
+            downgrade_to_shared_lock();
+        }
+    }
+
+    LWLockRelease(SerializableXactHashLock);
+    LWLockRelease(partitionLock);
+
+    // Remove our own SIREAD lock if we're getting a write lock
+    if (mypredlock != NULL) {
+        remove_predicate_lock_safely(mypredlock, target, targettaghash);
+    }
+}
+```

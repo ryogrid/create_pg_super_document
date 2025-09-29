@@ -39,3 +39,17 @@ The conversion from 32-bit to full transaction ID is performed safely by using t
 - The function avoids lock acquisition by using the pre-computed `definitely_needed` reference point
 - The conversion assumes the xid is within 2 billion transactions of the reference point, which is guaranteed for wraparound-protected sources
 - This is part of PostgreSQL's global visibility checking infrastructure used during vacuum and pruning operations
+
+## Simplified Source
+```c
+bool
+GlobalVisTestIsRemovableXid(GlobalVisState *state, TransactionId xid)
+{
+    // Convert 32-bit xid to full transaction ID using reference point
+    // This avoids lock acquisition while ensuring correct epoch determination
+    FullTransactionId fxid = FullXidRelativeTo(state->definitely_needed, xid);
+
+    // Test removability using the full transaction ID version
+    return GlobalVisTestIsRemovableFullXid(state, fxid);
+}
+```

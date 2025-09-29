@@ -41,3 +41,56 @@ The visibility check involves two phases: first, a quick check to see if the typ
 - Handles both system catalog types (PG_CATALOG_NAMESPACE) and user-defined types
 - The function is used as the implementation backend for both TypeIsVisible and pg_type_is_visible SQL functions
 - Error handling behavior depends on the is_missing parameter - if NULL, throws elog(ERROR) on missing types
+
+## Simplified Source
+
+```c
+static bool TypeIsVisibleExt(Oid typid, bool *is_missing) {
+    HeapTuple typtup;
+    Form_pg_type typform;
+    bool visible;
+
+    // Look up type in system cache
+    typtup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(typtup)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for type %u", typid);
+    }
+
+    typform = (Form_pg_type) GETSTRUCT(typtup);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    Oid typnamespace = typform->typnamespace;
+    if (typnamespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, typnamespace)) {
+        visible = false;
+    } else {
+        // Check if this type would be found first in search path
+        char *typname = NameStr(typform->typname);
+
+        visible = false;
+        foreach(l, activeSearchPath) {
+            Oid namespaceId = lfirst_oid(l);
+
+            if (namespaceId == typnamespace) {
+                // Found our type first - it's visible
+                visible = true;
+                break;
+            }
+            if (SearchSysCacheExists2(TYPENAMENSP,
+                                     PointerGetDatum(typname),
+                                     ObjectIdGetDatum(namespaceId))) {
+                // Found another type with same name first - not visible
+                break;
+            }
+        }
+    }
+
+    ReleaseSysCache(typtup);
+    return visible;
+}
+```

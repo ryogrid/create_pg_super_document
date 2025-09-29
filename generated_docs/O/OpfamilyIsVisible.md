@@ -33,3 +33,13 @@ The visibility check is essential for PostgreSQL's schema system, as it determin
 - Returns true if the operator family is visible, false otherwise
 - Does not handle missing operator families gracefully - use OpfamilyIsVisibleExt for error handling
 - Similar in structure and purpose to OpclassIsVisible but for operator families instead of operator classes
+
+## Simplified Source
+
+```c
+bool OpfamilyIsVisible(Oid opfid) {
+    // Simple wrapper that delegates to the extended version
+    // with NULL for the second parameter (no error handling)
+    return OpfamilyIsVisibleExt(opfid, NULL);
+}
+```

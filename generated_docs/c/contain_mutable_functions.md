@@ -43,5 +43,15 @@ This function is designed to work on clauses that have been processed through ex
 - Designed for use within the query planner on preprocessed expressions
 - Prevents incorrect constant folding of expressions containing mutable functions
 - Recursively examines Query nodes but not SubPlans
-- For use outside the planner, prefer 
+- For use outside the planner, prefer
 - Part of PostgreSQL's expression analysis and optimization safety checks
+
+## Simplified Source
+
+```c
+bool
+contain_mutable_functions(Node *clause)
+{
+    return contain_mutable_functions_walker(clause, NULL);
+}
+```

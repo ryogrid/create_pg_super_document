@@ -38,3 +38,27 @@ This function performs a system catalog lookup to fetch two important type attri
 
 ## Notes and Other Information
 This function is a core component of PostgreSQL's type system infrastructure. It's heavily used in type resolution algorithms, particularly in contexts where the parser needs to determine which type to use when multiple options are available (such as in function overload resolution or UNION operations). The function accesses the system cache for efficiency, as type information is frequently queried during query planning and execution.
+
+## Simplified Source
+
+```c
+void
+get_type_category_preferred(Oid typid, char *typcategory, bool *typispreferred)
+{
+    HeapTuple tp;
+    Form_pg_type typtup;
+
+    // Look up type in system cache
+    tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for type %u", typid);
+
+    // Extract type information from tuple
+    typtup = (Form_pg_type) GETSTRUCT(tp);
+    *typcategory = typtup->typcategory;
+    *typispreferred = typtup->typispreferred;
+
+    // Release cache entry
+    ReleaseSysCache(tp);
+}
+```

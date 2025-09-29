@@ -68,3 +68,99 @@ ExecBuildUpdateProjection creates a specialized ProjectionInfo for UPDATE operat
   - "outer" slot contains pre-computed values when evalTargetList is false
 - **Dropped column handling**: Explicitly sets dropped columns to NULL in the result tuple to maintain tuple structure consistency
 - **Resjunk column handling**: Evaluates resjunk columns when needed but discards their values from the final result
+
+## Simplified Source
+
+```c
+ProjectionInfo *
+ExecBuildUpdateProjection(List *targetList,
+                          bool evalTargetList,
+                          List *targetColnos,
+                          TupleDesc relDesc,
+                          ExprContext *econtext,
+                          TupleTableSlot *slot,
+                          PlanState *parent)
+{
+    // Initialize projection state with embedded ExprState
+    ProjectionInfo *projInfo = makeNode(ProjectionInfo);
+    ExprState *state = &projInfo->pi_state;
+    ExprEvalStep step = {0};
+    Bitmapset *assignedCols = NULL;
+    int nAssignableCols = 0;
+
+    // Set basic properties
+    projInfo->pi_exprContext = econtext;
+    state->type = T_ExprState;
+    state->expr = evalTargetList ? (Expr *) targetList : NULL;
+    state->parent = parent;
+    state->resultslot = slot;
+
+    // Validate target list structure and count assignable columns
+    validate_target_list_structure(targetList, targetColnos, &nAssignableCols);
+
+    // Build bitmap of assigned column numbers for efficient lookup
+    assignedCols = build_assigned_columns_bitmap(targetColnos);
+
+    // Determine minimum tuple deconstruction requirements
+    ExprSetupInfo deform = calculate_deform_requirements(relDesc, assignedCols,
+                                                        targetList, evalTargetList,
+                                                        nAssignableCols);
+
+    // Add setup steps for tuple deconstruction
+    ExecPushExprSetupSteps(state, &deform);
+
+    // Process assignable columns (non-junk entries)
+    int outerattnum = 0;
+    forboth(lc, targetList, lc2, targetColnos)
+    {
+        TargetEntry *tle = lfirst_node(TargetEntry, lc);
+        AttrNumber targetattnum = lfirst_int(lc2);
+
+        if (tle->resjunk)
+            break;  // Only process non-junk columns
+
+        // Perform safety validation
+        validate_target_column(tle, targetattnum, relDesc);
+
+        // Generate assignment code
+        if (evalTargetList)
+        {
+            // Compile and evaluate the SET expression
+            ExecInitExprRec(tle->expr, state, &state->resvalue, &state->resnull);
+            add_assignment_step(state, EEOP_ASSIGN_TMP, targetattnum - 1);
+        }
+        else
+        {
+            // Direct assignment from outer tuple
+            add_var_assignment_step(state, EEOP_ASSIGN_OUTER_VAR,
+                                  outerattnum, targetattnum - 1);
+        }
+        outerattnum++;
+    }
+
+    // Handle unchanged columns and dropped columns
+    for (int attnum = 1; attnum <= relDesc->natts; attnum++)
+    {
+        Form_pg_attribute attr = TupleDescAttr(relDesc, attnum - 1);
+
+        if (attr->attisdropped)
+        {
+            // Set dropped columns to NULL
+            add_null_assignment(state, attnum - 1);
+        }
+        else if (!bms_is_member(attnum, assignedCols))
+        {
+            // Copy unchanged columns from original tuple
+            add_var_assignment_step(state, EEOP_ASSIGN_SCAN_VAR,
+                                  attnum - 1, attnum - 1);
+        }
+    }
+
+    // Finalize and return
+    step.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &step);
+    ExecReadyExpr(state);
+
+    return projInfo;
+}
+```

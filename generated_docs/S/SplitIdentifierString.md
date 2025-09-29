@@ -60,3 +60,94 @@ The function is designed to minimize memory allocation, making it suitable for G
 - The function handles both qualified object names (dot-separated) and configuration lists (comma-separated)
 - Critical for PostgreSQL's configuration system and SQL object name resolution
 - Location: src/backend/utils/adt/varlena.c:3457-3583
+
+## Simplified Source
+
+```c
+bool
+SplitIdentifierString(char *rawstring, char separator,
+                      List **namelist)
+{
+    char *nextp = rawstring;
+    bool done = false;
+
+    *namelist = NIL;
+
+    // Skip leading whitespace
+    while (scanner_isspace(*nextp))
+        nextp++;
+
+    // Allow empty string
+    if (*nextp == '\0')
+        return true;
+
+    // Parse each identifier
+    do {
+        char *curname;
+        char *endp;
+
+        if (*nextp == '"') {
+            // Handle quoted identifier
+            curname = nextp + 1;
+
+            // Find end quote, handle quote-quote escapes
+            for (;;) {
+                endp = strchr(nextp + 1, '"');
+                if (endp == NULL)
+                    return false;  // Mismatched quotes
+                if (endp[1] != '"')
+                    break;  // Found real end quote
+                // Collapse quote-quote to single quote
+                memmove(endp, endp + 1, strlen(endp));
+                nextp = endp;
+            }
+            nextp = endp + 1;
+        }
+        else {
+            // Handle unquoted identifier
+            char *downname;
+            int len;
+
+            curname = nextp;
+            // Find end of identifier
+            while (*nextp && *nextp != separator && !scanner_isspace(*nextp))
+                nextp++;
+            endp = nextp;
+
+            if (curname == nextp)
+                return false;  // Empty identifier not allowed
+
+            // Downcase the identifier
+            len = endp - curname;
+            downname = downcase_truncate_identifier(curname, len, false);
+            strncpy(curname, downname, len);
+            pfree(downname);
+        }
+
+        // Skip whitespace
+        while (scanner_isspace(*nextp))
+            nextp++;
+
+        // Check for separator or end
+        if (*nextp == separator) {
+            nextp++;
+            while (scanner_isspace(*nextp))
+                nextp++;  // Skip whitespace after separator
+        }
+        else if (*nextp == '\0')
+            done = true;
+        else
+            return false;  // Invalid syntax
+
+        // Terminate current identifier
+        *endp = '\0';
+
+        // Truncate if needed and add to list
+        truncate_identifier(curname, strlen(curname), false);
+        *namelist = lappend(*namelist, curname);
+
+    } while (!done);
+
+    return true;
+}
+```

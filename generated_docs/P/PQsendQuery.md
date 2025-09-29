@@ -44,3 +44,12 @@ After calling PQsendQuery, applications typically use PQgetResult() to retrieve 
 - The query parameter must be a null-terminated C string
 - Does not support parameterized queries (use PQsendQueryParams for that)
 - Part of the foundation for more complex features like query pipelining
+
+## Simplified Source
+
+```c
+int PQsendQuery(PGconn *conn, const char *query) {
+    // Submit query asynchronously with error message reset
+    return PQsendQueryInternal(conn, query, true);
+}
+```

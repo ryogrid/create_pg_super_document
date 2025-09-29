@@ -41,3 +41,30 @@ The returned pointer is directly from the relation cache (relcache), meaning it 
 - Essential for view expansion and query rewriting operations
 - Used during view processing, locking operations, and DDL commands on views
 - Provides the foundation for view transparency in PostgreSQL's query processing
+
+## Simplified Source
+
+```c
+Query *get_view_query(Relation view) {
+    // Assert that we have a view relation
+    Assert(view->rd_rel->relkind == RELKIND_VIEW);
+
+    // Search through all rules for the SELECT rule
+    for (int i = 0; i < view->rd_rules->numLocks; i++) {
+        RewriteRule *rule = view->rd_rules->rules[i];
+
+        if (rule->event == CMD_SELECT) {
+            // Validate _RETURN rule has exactly one action
+            if (list_length(rule->actions) != 1)
+                elog(ERROR, "invalid _RETURN rule action specification");
+
+            // Return the Query from the first (and only) action
+            return (Query *) linitial(rule->actions);
+        }
+    }
+
+    // Should never reach here for a proper view
+    elog(ERROR, "failed to find _RETURN rule for view");
+    return NULL;
+}
+```

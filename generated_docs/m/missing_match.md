@@ -33,3 +33,22 @@ This function serves as a key comparison callback for the missing attribute cach
 - Implements lexicographic ordering: first by length, then by byte content
 - Returns 0 for equal keys, positive for key1 > key2, negative for key1 < key2
 - Part of PostgreSQL missing attribute cache infrastructure for efficient tuple processing
+
+## Simplified Source
+
+```c
+static int missing_match(const void *key1, const void *key2, Size keysize) {
+    // Cast to cache key structures
+    const missing_cache_key *entry1 = (missing_cache_key *) key1;
+    const missing_cache_key *entry2 = (missing_cache_key *) key2;
+
+    // First compare lengths
+    if (entry1->len != entry2->len)
+        return entry1->len > entry2->len ? 1 : -1;
+
+    // If lengths match, compare byte content
+    return memcmp(DatumGetPointer(entry1->value),
+                  DatumGetPointer(entry2->value),
+                  entry1->len);
+}
+```

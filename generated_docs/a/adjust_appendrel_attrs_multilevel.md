@@ -41,3 +41,34 @@ This function manages the complex scenario where a child relation is separated f
 - Uses find_appinfos_by_relids to locate the appropriate AppendRelInfo mappings
 - Properly manages memory by freeing temporary AppendRelInfo arrays
 - Essential for complex inheritance scenarios where multiple levels of translation are needed
+
+## Simplified Source
+
+```c
+Node *
+adjust_appendrel_attrs_multilevel(PlannerInfo *root, Node *node,
+                                  RelOptInfo *childrel,
+                                  RelOptInfo *parentrel)
+{
+    AppendRelInfo **appinfos;
+    int nappinfos;
+
+    // Recurse if immediate parent is not the top parent
+    if (childrel->parent != parentrel)
+    {
+        if (childrel->parent)
+            node = adjust_appendrel_attrs_multilevel(root, node,
+                                                     childrel->parent,
+                                                     parentrel);
+        else
+            elog(ERROR, "childrel is not a child of parentrel");
+    }
+
+    // Translate for this child level
+    appinfos = find_appinfos_by_relids(root, childrel->relids, &nappinfos);
+    node = adjust_appendrel_attrs(root, node, nappinfos, appinfos);
+    pfree(appinfos);
+
+    return node;
+}
+```

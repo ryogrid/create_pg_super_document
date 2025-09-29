@@ -45,3 +45,120 @@ The function handles special cases for complex node types like aggregates (calli
 - Special handling exists for nodes that don't contribute to parent collation (like RowExpr, join nodes)
 - Error reporting includes source location information to help users identify collation conflicts
 - The function sets both result collation and input collation on nodes, as functions may need different collation information for their inputs vs outputs
+
+## Simplified Source
+
+```c
+static bool
+assign_collations_walker(Node *node, assign_collations_context *context)
+{
+    assign_collations_context loccontext;
+    Oid collation;
+    CollateStrength strength;
+    int location;
+
+    // Handle null nodes
+    if (node == NULL)
+        return false;
+
+    // Initialize local context for this recursion level
+    loccontext.pstate = context->pstate;
+    loccontext.collation = InvalidOid;
+    loccontext.strength = COLLATE_NONE;
+    loccontext.location = -1;
+
+    // Process node based on its type
+    switch (nodeTag(node))
+    {
+        case T_CollateExpr:
+            // COLLATE clause sets explicit collation
+            expression_tree_walker(node, assign_collations_walker, &loccontext);
+            collation = ((CollateExpr *) node)->collOid;
+            strength = COLLATE_EXPLICIT;
+            location = ((CollateExpr *) node)->location;
+            break;
+
+        case T_FieldSelect:
+            // Field selection uses the field's declared collation
+            expression_tree_walker(node, assign_collations_walker, &loccontext);
+            collation = ((FieldSelect *) node)->resultcollid;
+            if (OidIsValid(collation)) {
+                strength = COLLATE_IMPLICIT;
+                location = exprLocation(node);
+            } else {
+                strength = COLLATE_NONE;
+                location = -1;
+            }
+            break;
+
+        case T_RowExpr:
+            // Row expressions don't have collations
+            assign_list_collations(context->pstate, ((RowExpr *) node)->args);
+            return false;
+
+        case T_Var:
+        case T_Const:
+        case T_Param:
+            // Leaf nodes should already have collation assigned
+            collation = exprCollation(node);
+            strength = OidIsValid(collation) ? COLLATE_IMPLICIT : COLLATE_NONE;
+            location = exprLocation(node);
+            break;
+
+        default:
+            // General case: recurse to children, then assign based on type
+            {
+                Oid typcollation;
+
+                // Special handling for complex nodes like aggregates and CASE
+                switch (nodeTag(node))
+                {
+                    case T_Aggref:
+                        assign_aggregate_collations((Aggref *) node, &loccontext);
+                        break;
+                    case T_CaseExpr:
+                        assign_case_collations((CaseExpr *) node, &loccontext);
+                        break;
+                    default:
+                        // Normal case: all children contribute equally
+                        expression_tree_walker(node, assign_collations_walker, &loccontext);
+                        break;
+                }
+
+                // Determine collation based on result type and children
+                typcollation = get_typcollation(exprType(node));
+                if (OidIsValid(typcollation)) {
+                    if (loccontext.strength > COLLATE_NONE) {
+                        // Bubble up from children
+                        collation = loccontext.collation;
+                        strength = loccontext.strength;
+                        location = loccontext.location;
+                    } else {
+                        // Use type's default collation
+                        collation = typcollation;
+                        strength = COLLATE_IMPLICIT;
+                        location = exprLocation(node);
+                    }
+                } else {
+                    // Non-collatable type
+                    collation = InvalidOid;
+                    strength = COLLATE_NONE;
+                    location = -1;
+                }
+
+                // Save collation info to the node
+                exprSetCollation(node, strength == COLLATE_CONFLICT ? InvalidOid : collation);
+                exprSetInputCollation(node, loccontext.strength == COLLATE_CONFLICT ?
+                                           InvalidOid : loccontext.collation);
+            }
+            break;
+    }
+
+    // Merge this node's collation state into parent context
+    merge_collation_state(collation, strength, location,
+                         loccontext.collation2, loccontext.location2,
+                         context);
+
+    return false;
+}
+```

@@ -50,3 +50,124 @@ The function uses a sophisticated batching mechanism that limits the number of s
 - When inserting multiple attributes, it's more efficient to pass a valid indstate parameter rather than letting the function fetch index information repeatedly
 - The function automatically handles memory management for the tuple slots and ensures proper cleanup
 - [Variable](../V/Variable.md)-length pg_attribute fields (attacl, attfdwoptions, attmissingval) are always set to null for new columns
+
+## Simplified Source
+
+```c
+void
+InsertPgAttributeTuples(Relation pg_attribute_rel, TupleDesc tupdesc,
+                       Oid new_rel_oid,
+                       const FormExtraData_pg_attribute tupdesc_extra[],
+                       CatalogIndexState indstate)
+{
+    TupleDesc td = RelationGetDescr(pg_attribute_rel);
+
+    // Calculate optimal batch size for memory efficiency
+    int nslots = Min(tupdesc->natts,
+                    (MAX_CATALOG_MULTI_INSERT_BYTES / sizeof(FormData_pg_attribute)));
+
+    // Create array of tuple table slots for batching
+    TupleTableSlot **slot = palloc(sizeof(TupleTableSlot *) * nslots);
+    for (int i = 0; i < nslots; i++)
+        slot[i] = MakeSingleTupleTableSlot(td, &TTSOpsHeapTuple);
+
+    int natts = 0;
+    int slotCount = 0;
+    bool close_index = false;
+
+    // Process each attribute from the tuple descriptor
+    while (natts < tupdesc->natts)
+    {
+        Form_pg_attribute attrs = TupleDescAttr(tupdesc, natts);
+        const FormExtraData_pg_attribute *attrs_extra =
+            tupdesc_extra ? &tupdesc_extra[natts] : NULL;
+
+        ExecClearTuple(slot[slotCount]);
+
+        // Initialize all values as non-null
+        memset(slot[slotCount]->tts_isnull, false,
+               slot[slotCount]->tts_tupleDescriptor->natts * sizeof(bool));
+
+        // Set core attribute values
+        Oid rel_oid = (new_rel_oid != InvalidOid) ? new_rel_oid : attrs->attrelid;
+        slot[slotCount]->tts_values[Anum_pg_attribute_attrelid - 1] =
+            ObjectIdGetDatum(rel_oid);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attname - 1] =
+            NameGetDatum(&attrs->attname);
+        slot[slotCount]->tts_values[Anum_pg_attribute_atttypid - 1] =
+            ObjectIdGetDatum(attrs->atttypid);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attlen - 1] =
+            Int16GetDatum(attrs->attlen);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attnum - 1] =
+            Int16GetDatum(attrs->attnum);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attcacheoff - 1] =
+            Int32GetDatum(-1);
+
+        // Set attribute properties
+        slot[slotCount]->tts_values[Anum_pg_attribute_atttypmod - 1] =
+            Int32GetDatum(attrs->atttypmod);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attbyval - 1] =
+            BoolGetDatum(attrs->attbyval);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attnotnull - 1] =
+            BoolGetDatum(attrs->attnotnull);
+        slot[slotCount]->tts_values[Anum_pg_attribute_atthasdef - 1] =
+            BoolGetDatum(attrs->atthasdef);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attisdropped - 1] =
+            BoolGetDatum(attrs->attisdropped);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attislocal - 1] =
+            BoolGetDatum(attrs->attislocal);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attinhcount - 1] =
+            Int16GetDatum(attrs->attinhcount);
+        slot[slotCount]->tts_values[Anum_pg_attribute_attcollation - 1] =
+            ObjectIdGetDatum(attrs->attcollation);
+
+        // Handle extended attribute data if provided
+        if (attrs_extra)
+        {
+            slot[slotCount]->tts_values[Anum_pg_attribute_attstattarget - 1] =
+                attrs_extra->attstattarget.value;
+            slot[slotCount]->tts_isnull[Anum_pg_attribute_attstattarget - 1] =
+                attrs_extra->attstattarget.isnull;
+            slot[slotCount]->tts_values[Anum_pg_attribute_attoptions - 1] =
+                attrs_extra->attoptions.value;
+            slot[slotCount]->tts_isnull[Anum_pg_attribute_attoptions - 1] =
+                attrs_extra->attoptions.isnull;
+        }
+        else
+        {
+            slot[slotCount]->tts_isnull[Anum_pg_attribute_attstattarget - 1] = true;
+            slot[slotCount]->tts_isnull[Anum_pg_attribute_attoptions - 1] = true;
+        }
+
+        // Set remaining fields as null for new columns
+        slot[slotCount]->tts_isnull[Anum_pg_attribute_attacl - 1] = true;
+        slot[slotCount]->tts_isnull[Anum_pg_attribute_attfdwoptions - 1] = true;
+        slot[slotCount]->tts_isnull[Anum_pg_attribute_attmissingval - 1] = true;
+
+        ExecStoreVirtualTuple(slot[slotCount]);
+        slotCount++;
+
+        // Insert batch when slots are full or at end
+        if (slotCount == nslots || natts == tupdesc->natts - 1)
+        {
+            if (!indstate)
+            {
+                indstate = CatalogOpenIndexes(pg_attribute_rel);
+                close_index = true;
+            }
+
+            CatalogTuplesMultiInsertWithInfo(pg_attribute_rel, slot, slotCount, indstate);
+            slotCount = 0;
+        }
+
+        natts++;
+    }
+
+    // Cleanup
+    if (close_index)
+        CatalogCloseIndexes(indstate);
+    for (int i = 0; i < nslots; i++)
+        ExecDropSingleTupleTableSlot(slot[i]);
+    pfree(slot);
+}
+```

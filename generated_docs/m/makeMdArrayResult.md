@@ -49,3 +49,31 @@ The function switches to the result memory context to construct the array, then 
 - The release parameter should only be set to true if the astate was initialized with subcontext=true (its own memory context)
 - If release=false, the caller is responsible for cleaning up the astate memory context appropriately
 - The function is commonly used in aggregate functions and array construction scenarios where multi-dimensional arrays are needed
+
+## Simplified Source
+
+```c
+Datum makeMdArrayResult(ArrayBuildState *astate, int ndims, int *dims, int *lbs,
+                        MemoryContext rcontext, bool release) {
+    ArrayType *result;
+    MemoryContext oldcontext;
+
+    // Switch to result context to build the array
+    oldcontext = MemoryContextSwitchTo(rcontext);
+
+    // Create multi-dimensional array from accumulated data
+    result = construct_md_array(astate->dvalues, astate->dnulls, ndims, dims, lbs,
+                               astate->element_type, astate->typlen,
+                               astate->typbyval, astate->typalign);
+
+    // Switch back to original context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Clean up working state if requested and safe
+    if (release) {
+        MemoryContextDelete(astate->mcontext);
+    }
+
+    return PointerGetDatum(result);
+}
+```

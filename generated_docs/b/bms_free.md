@@ -38,3 +38,15 @@ This function frees the memory allocated for a Bitmapset structure. It provides 
 - Essential for preventing memory leaks when working with dynamically allocated bitmapsets
 - The function follows PostgreSQL's naming convention for bitmapset operations with the 'bms_' prefix
 - Commonly used in query optimization, join processing, and relation management code
+
+## Simplified Source
+
+```c
+void
+bms_free(Bitmapset *a)
+{
+    // Free the bitmapset if it's not NULL
+    if (a)
+        pfree(a);
+}
+```

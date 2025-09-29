@@ -48,3 +48,41 @@ This function is commonly used in dependency tracking scenarios where the system
 - Memory allocated for the role array is caller's responsibility to free
 - Both grantee and grantor roles are collected, though grantor is typically never PUBLIC
 - Critical for ACL dependency tracking and role management operations
+
+## Simplified Source
+
+```c
+int aclmembers(const Acl *acl, Oid **roleids)
+{
+    // Handle empty ACL
+    if (acl == NULL || ACL_NUM(acl) == 0) {
+        *roleids = NULL;
+        return 0;
+    }
+
+    check_acl(acl);
+
+    // Allocate space for worst case (grantee + grantor for each entry)
+    Oid *list = palloc(ACL_NUM(acl) * 2 * sizeof(Oid));
+    const AclItem *acldat = ACL_DAT(acl);
+
+    // Collect all non-PUBLIC role IDs from ACL entries
+    int j = 0;
+    for (int i = 0; i < ACL_NUM(acl); i++) {
+        const AclItem *ai = &acldat[i];
+
+        // Add grantee if not PUBLIC
+        if (ai->ai_grantee != ACL_ID_PUBLIC)
+            list[j++] = ai->ai_grantee;
+
+        // Add grantor if not PUBLIC
+        if (ai->ai_grantor != ACL_ID_PUBLIC)
+            list[j++] = ai->ai_grantor;
+    }
+
+    // Sort and remove duplicates
+    qsort(list, j, sizeof(Oid), oid_cmp);
+    *roleids = list;
+    return qunique(list, j, sizeof(Oid), oid_cmp);
+}
+```

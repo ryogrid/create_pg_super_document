@@ -40,3 +40,16 @@ This function is part of PostgreSQL's disciplined resource management system whe
 - Critical for preventing resource leaks in complex query plans
 - The outer plan cleanup handles all child node resources including tuple slots and expression contexts
 - Part of the three-phase node lifecycle: Init -> Exec -> End
+
+## Simplified Source
+
+```c
+void ExecEndGroup(GroupState *node)
+{
+    // Get reference to child plan
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Recursively clean up the child plan
+    ExecEndNode(outerPlan);
+}
+```

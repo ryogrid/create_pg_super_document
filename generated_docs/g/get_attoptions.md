@@ -43,3 +43,34 @@ The function uses the PostgreSQL system cache mechanism (ATTNUM cache) to perfor
 - The returned datum is a copy, so the caller is responsible for memory management
 - Attribute options are stored as text[] arrays and typically contain storage parameters like fillfactor, compression settings, etc.
 - This function is commonly used during index operations and DDL command processing where column-specific options need to be preserved or validated
+
+## Simplified Source
+
+```c
+Datum get_attoptions(Oid relid, int16 attnum)
+{
+    HeapTuple tuple;
+    Datum attopts;
+    bool isnull;
+
+    // Look up the attribute in system cache
+    tuple = SearchSysCache2(ATTNUM,
+                           ObjectIdGetDatum(relid),
+                           Int16GetDatum(attnum));
+
+    // Error if attribute not found
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u",
+             attnum, relid);
+
+    // Extract the attoptions field
+    attopts = SysCacheGetAttr(ATTNAME, tuple, Anum_pg_attribute_attoptions,
+                             &isnull);
+
+    // Return null datum if no options, otherwise copy the options
+    Datum result = isnull ? (Datum) 0 : datumCopy(attopts, false, -1);
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

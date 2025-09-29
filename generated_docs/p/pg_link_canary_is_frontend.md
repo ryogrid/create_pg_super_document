@@ -38,3 +38,18 @@ This function takes no parameters.
 - libpq should test that this function returns  to verify correct linking behavior
 - The function helps prevent subtle bugs that can occur when shared libraries inadvertently call backend functions instead of their intended frontend equivalents
 - This mechanism is especially important on ELF-based platforms where symbol resolution can be ambiguous
+
+## Simplified Source
+
+```c
+bool
+pg_link_canary_is_frontend(void)
+{
+    // Return true if compiled for frontend, false for backend
+#ifdef FRONTEND
+    return true;
+#else
+    return false;
+#endif
+}
+```

@@ -44,3 +44,57 @@ The mapping process assumes that relevant targetlist entries are plain Var nodes
 - Assumes that the view has been validated as simply-updatable and that targetlist entries for user columns are plain Var nodes
 - Returns a new bitmapset containing the mapped column numbers in base relation context
 - Used primarily in the query rewrite process to maintain proper column permissions and references when rewriting view operations into base table operations
+
+## Simplified Source
+
+```c
+static Bitmapset *
+adjust_view_column_set(Bitmapset *cols, List *targetlist)
+{
+    Bitmapset  *result = NULL;
+    int         col;
+
+    col = -1;
+    while ((col = bms_next_member(cols, col)) >= 0)
+    {
+        // Convert bit number to attribute number
+        AttrNumber  attno = col + FirstLowInvalidHeapAttributeNumber;
+
+        if (attno == InvalidAttrNumber)
+        {
+            // Whole-row reference: expand to all view columns
+            ListCell   *lc;
+
+            foreach(lc, targetlist)
+            {
+                TargetEntry *tle = lfirst_node(TargetEntry, lc);
+                Var        *var;
+
+                if (tle->resjunk)
+                    continue;
+                var = castNode(Var, tle->expr);
+                result = bms_add_member(result,
+                                       var->varattno - FirstLowInvalidHeapAttributeNumber);
+            }
+        }
+        else
+        {
+            // Specific column reference: map view column to base column
+            TargetEntry *tle = get_tle_by_resno(targetlist, attno);
+
+            if (tle != NULL && !tle->resjunk && IsA(tle->expr, Var))
+            {
+                Var        *var = (Var *) tle->expr;
+
+                result = bms_add_member(result,
+                                       var->varattno - FirstLowInvalidHeapAttributeNumber);
+            }
+            else
+                elog(ERROR, "attribute number %d not found in view targetlist",
+                     attno);
+        }
+    }
+
+    return result;
+}
+```

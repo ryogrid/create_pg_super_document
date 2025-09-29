@@ -55,3 +55,32 @@ If the file is already open and is the most recently used (at the head of the LR
 - Debug logging shows the file number and filename being accessed
 - The LRU strategy helps optimize performance by keeping frequently accessed files open
 - Failure typically occurs when the system cannot provide a file descriptor or file cannot be reopened
+
+## Simplified Source
+
+```c
+static int
+FileAccess(File file)
+{
+    // Debug logging: show which file is being accessed
+    DO_DB(elog(LOG, "FileAccess %d (%s)", file, VfdCache[file].fileName));
+
+    // Check if file needs to be opened
+    if (FileIsNotOpen(file))
+    {
+        // Open file and place at head of LRU ring
+        int result = LruInsert(file);
+        if (result != 0)
+            return result;  // Return error if open failed
+    }
+    else if (VfdCache[0].lruLessRecently != file)
+    {
+        // File is open but not most recent - move to LRU head
+        Delete(file);   // Remove from current position
+        Insert(file);   // Insert at head of LRU ring
+    }
+    // If file is already open and most recent, do nothing
+
+    return 0;  // Success
+}
+```

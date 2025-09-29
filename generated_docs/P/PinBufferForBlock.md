@@ -50,3 +50,74 @@ PinBufferForBlock is a critical function in PostgreSQL's buffer manager that han
 - PostgreSQL tracing probes are included for performance monitoring
 - The function asserts that blockNum is not P_NEW, as new blocks require different handling
 - Local buffer allocation is used for temporary relations while shared buffer allocation is used for permanent relations
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline Buffer
+PinBufferForBlock(Relation rel,
+                  SMgrRelation smgr,
+                  char smgr_persistence,
+                  ForkNumber forkNum,
+                  BlockNumber blockNum,
+                  BufferAccessStrategy strategy,
+                  bool *foundPtr)
+{
+    BufferDesc *bufHdr;
+    IOContext io_context;
+    IOObject io_object;
+    char persistence;
+
+    // Determine relation persistence type
+    if (rel)
+        persistence = rel->rd_rel->relpersistence;
+    else if (smgr_persistence == 0)
+        persistence = RELPERSISTENCE_PERMANENT;
+    else
+        persistence = smgr_persistence;
+
+    // Set I/O context based on persistence
+    if (persistence == RELPERSISTENCE_TEMP) {
+        io_context = IOCONTEXT_NORMAL;
+        io_object = IOOBJECT_TEMP_RELATION;
+    } else {
+        io_context = IOContextForStrategy(strategy);
+        io_object = IOOBJECT_RELATION;
+    }
+
+    // Start buffer read tracing
+    TRACE_POSTGRESQL_BUFFER_READ_START(forkNum, blockNum, /* relation info */);
+
+    // Allocate buffer based on persistence
+    if (persistence == RELPERSISTENCE_TEMP) {
+        bufHdr = LocalBufferAlloc(smgr, forkNum, blockNum, foundPtr);
+        if (*foundPtr)
+            pgBufferUsage.local_blks_hit++;
+    } else {
+        bufHdr = BufferAlloc(smgr, persistence, forkNum, blockNum,
+                            strategy, foundPtr, io_context);
+        if (*foundPtr)
+            pgBufferUsage.shared_blks_hit++;
+    }
+
+    // Update per-relation statistics
+    if (rel) {
+        pgstat_count_buffer_read(rel);
+        if (*foundPtr)
+            pgstat_count_buffer_hit(rel);
+    }
+
+    // Update vacuum and I/O statistics for cache hits
+    if (*foundPtr) {
+        VacuumPageHit++;
+        pgstat_count_io_op(io_object, io_context, IOOP_HIT);
+        if (VacuumCostActive)
+            VacuumCostBalance += VacuumCostPageHit;
+
+        // Complete buffer read tracing
+        TRACE_POSTGRESQL_BUFFER_READ_DONE(/* relation info */, true);
+    }
+
+    return BufferDescriptorGetBuffer(bufHdr);
+}
+```

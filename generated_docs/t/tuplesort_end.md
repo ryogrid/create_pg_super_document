@@ -44,3 +44,15 @@ The function ensures complete cleanup of both working memory (handled by tupleso
 - Used extensively throughout PostgreSQL for cleanup in index builds, executor nodes, and aggregates
 - The function is designed to be safe to call once per tuplesort state
 - Memory context deletion ensures complete cleanup even if some resources were missed by tuplesort_free
+
+## Simplified Source
+
+```c
+void tuplesort_end(Tuplesortstate *state) {
+    // Clean up sort-specific resources
+    tuplesort_free(state);
+
+    // Delete the main memory context (including the state struct itself)
+    MemoryContextDelete(state->base.maincontext);
+}
+```

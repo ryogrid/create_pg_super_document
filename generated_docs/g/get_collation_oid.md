@@ -42,3 +42,58 @@ This function searches for a collation by name, which can be either a simple nam
 - Returns InvalidOid if collation not found and missing_ok is true
 - Raises ERRCODE_UNDEFINED_OBJECT error if collation not found and missing_ok is false
 - The error message includes both the collation name and the database encoding name for clarity
+
+## Simplified Source
+
+```c
+Oid
+get_collation_oid(List *collname, bool missing_ok)
+{
+    char *schemaname;
+    char *collation_name;
+    int32 dbencoding = GetDatabaseEncoding();
+    Oid namespaceId;
+    Oid colloid;
+    ListCell *l;
+
+    // Parse the collation name
+    DeconstructQualifiedName(collname, &schemaname, &collation_name);
+
+    if (schemaname)
+    {
+        // Schema-qualified lookup
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            return InvalidOid;
+
+        colloid = lookup_collation(collation_name, namespaceId, dbencoding);
+        if (OidIsValid(colloid))
+            return colloid;
+    }
+    else
+    {
+        // Search through active search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath)
+        {
+            namespaceId = lfirst_oid(l);
+
+            // Skip temp namespace
+            if (namespaceId == myTempNamespace)
+                continue;
+
+            colloid = lookup_collation(collation_name, namespaceId, dbencoding);
+            if (OidIsValid(colloid))
+                return colloid;
+        }
+    }
+
+    // Not found in path
+    if (!missing_ok)
+        ereport(ERROR, "Collation \"%s\" for encoding \"%s\" does not exist",
+                NameListToString(collname), GetDatabaseEncodingName());
+
+    return InvalidOid;
+}
+```

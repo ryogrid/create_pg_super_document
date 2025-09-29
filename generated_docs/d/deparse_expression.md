@@ -34,3 +34,15 @@ This function serves as a simplified wrapper around deparse_expression_pretty, p
 
 ## Notes and Other Information
 This function is primarily used when a simple string representation of an expression is needed without concern for formatting or readability. For formatted output suitable for display, use deparse_expression_pretty directly with appropriate pretty printing flags.
+
+## Simplified Source
+```c
+char *
+deparse_expression(Node *expr, List *dpcontext,
+                   bool forceprefix, bool showimplicit)
+{
+    // Simple wrapper that disables pretty printing
+    return deparse_expression_pretty(expr, dpcontext, forceprefix,
+                                     showimplicit, 0, 0);
+}
+```

@@ -35,3 +35,22 @@ This function performs a tree traversal to detect MULTIEXPR parameters within an
 - Deliberately skips SubLinks to limit scope to current query level
 - Used in rewrite rule processing to detect multi-expression parameters
 - Returns true immediately upon finding a MULTIEXPR Param to optimize performance
+
+## Simplified Source
+
+```c
+static bool contains_multiexpr_param(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    // Check if this is a MULTIEXPR parameter
+    if (IsA(node, Param)) {
+        if (((Param *) node)->paramkind == PARAM_MULTIEXPR)
+            return true; // Found one, abort traversal
+        return false;
+    }
+
+    // Recursively check child nodes
+    return expression_tree_walker(node, contains_multiexpr_param, context);
+}
+```

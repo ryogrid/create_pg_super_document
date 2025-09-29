@@ -35,3 +35,19 @@ The function iterates through each element in the array sequentially, performing
 - Simple scalar implementation with no SIMD dependencies
 - Part of PostgreSQL's layered optimization strategy for linear search operations
 - Returns true immediately upon finding the first match (short-circuit evaluation)
+
+## Simplified Source
+
+```c
+static inline bool
+pg_lfind32_one_by_one_helper(uint32 key, const uint32 *base, uint32 nelem)
+{
+    // Simple linear search through array elements
+    for (uint32 i = 0; i < nelem; i++) {
+        if (key == base[i])
+            return true;  // Found match
+    }
+
+    return false;  // No match found
+}
+```

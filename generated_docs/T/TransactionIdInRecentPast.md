@@ -36,3 +36,39 @@ The function works by comparing the provided epoch with the next transaction's e
 - The function specifically notes that it doesn't care about whether clog (commit log) exists for the transaction IDs
 - Critical for maintaining consistency in master-standby replication scenarios
 - Helps prevent issues with transaction ID wraparound in distributed PostgreSQL setups
+
+## Simplified Source
+
+```c
+static bool
+TransactionIdInRecentPast(TransactionId xid, uint32 epoch)
+{
+    FullTransactionId nextFullXid;
+    TransactionId nextXid;
+    uint32 nextEpoch;
+
+    // Get current transaction state
+    nextFullXid = ReadNextFullTransactionId();
+    nextXid = XidFromFullTransactionId(nextFullXid);
+    nextEpoch = EpochFromFullTransactionId(nextFullXid);
+
+    // Check epoch validity based on xid position
+    if (xid <= nextXid) {
+        // XID hasn't wrapped - epoch should match exactly
+        if (epoch != nextEpoch)
+            return false;
+    }
+    else {
+        // XID has wrapped - epoch should be one less than current
+        if (epoch + 1 != nextEpoch)
+            return false;
+    }
+
+    // Final check: ensure xid is actually before or equal to nextXid
+    // (accounting for wraparound)
+    if (!TransactionIdPrecedesOrEquals(xid, nextXid))
+        return false;  // Epoch OK but it's wrapped around too far
+
+    return true;
+}
+```

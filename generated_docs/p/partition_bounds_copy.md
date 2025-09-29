@@ -54,3 +54,101 @@ Key copying behaviors:
 - [Hash](../H/Hash.md) partitions always use int32 for modulus/remainder values
 - Only copies actual datum values for PARTITION_RANGE_DATUM_VALUE kinds
 - Critical for relation descriptor building and caching infrastructure
+
+## Simplified Source
+
+```c
+PartitionBoundInfo
+partition_bounds_copy(PartitionBoundInfo src, PartitionKey key)
+{
+    PartitionBoundInfo dest;
+    int i, ndatums, nindexes, partnatts;
+    bool hash_part;
+    int natts;
+    Datum *boundDatums;
+
+    // Allocate destination structure
+    dest = (PartitionBoundInfo) palloc(sizeof(PartitionBoundInfoData));
+
+    // Copy basic properties
+    dest->strategy = src->strategy;
+    ndatums = dest->ndatums = src->ndatums;
+    nindexes = dest->nindexes = src->nindexes;
+    partnatts = key->partnatts;
+
+    // Allocate arrays
+    dest->datums = (Datum **) palloc(sizeof(Datum *) * ndatums);
+
+    // Copy range partition kinds for RANGE partitioning
+    if (src->kind != NULL)
+    {
+        PartitionRangeDatumKind *boundKinds;
+
+        dest->kind = (PartitionRangeDatumKind **) palloc(ndatums *
+                                    sizeof(PartitionRangeDatumKind *));
+
+        // Allocate single chunk for efficiency
+        boundKinds = (PartitionRangeDatumKind *) palloc(ndatums * partnatts *
+                                    sizeof(PartitionRangeDatumKind));
+
+        for (i = 0; i < ndatums; i++)
+        {
+            dest->kind[i] = &boundKinds[i * partnatts];
+            memcpy(dest->kind[i], src->kind[i],
+                   sizeof(PartitionRangeDatumKind) * partnatts);
+        }
+    }
+    else
+        dest->kind = NULL;
+
+    // Copy interleaved partitions bitmap for LIST partitions
+    dest->interleaved_parts = bms_copy(src->interleaved_parts);
+
+    // Copy datums with appropriate handling for each partition strategy
+    hash_part = (key->strategy == PARTITION_STRATEGY_HASH);
+    natts = hash_part ? 2 : partnatts; // Hash uses modulus/remainder pairs
+    boundDatums = palloc(ndatums * natts * sizeof(Datum));
+
+    for (i = 0; i < ndatums; i++)
+    {
+        dest->datums[i] = &boundDatums[i * natts];
+
+        for (int j = 0; j < natts; j++)
+        {
+            bool byval;
+            int typlen;
+
+            if (hash_part)
+            {
+                // Hash partitions always use int32
+                typlen = sizeof(int32);
+                byval = true;
+            }
+            else
+            {
+                // Use partition key type info
+                byval = key->parttypbyval[j];
+                typlen = key->parttyplen[j];
+            }
+
+            // Only copy actual values, not MINVALUE/MAXVALUE markers
+            if (dest->kind == NULL ||
+                dest->kind[i][j] == PARTITION_RANGE_DATUM_VALUE)
+            {
+                dest->datums[i][j] = datumCopy(src->datums[i][j],
+                                             byval, typlen);
+            }
+        }
+    }
+
+    // Copy indexes array
+    dest->indexes = (int *) palloc(sizeof(int) * nindexes);
+    memcpy(dest->indexes, src->indexes, sizeof(int) * nindexes);
+
+    // Copy special indexes
+    dest->null_index = src->null_index;
+    dest->default_index = src->default_index;
+
+    return dest;
+}
+```

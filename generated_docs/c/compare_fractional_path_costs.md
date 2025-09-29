@@ -39,3 +39,26 @@ When fraction is <= 0 or >= 1, the function delegates to compare_path_costs with
 
 ## Notes and Other Information
 This function is crucial for optimizing queries with LIMIT clauses or when the query planner knows that only a fraction of the result will be consumed. The linear interpolation between startup and total cost provides a reasonable approximation of the actual cost for partial result fetching.
+
+## Simplified Source
+
+```c
+int compare_fractional_path_costs(Path *path1, Path *path2, double fraction) {
+    Cost cost1, cost2;
+
+    // For full result set or invalid fraction, use total cost comparison
+    if (fraction <= 0.0 || fraction >= 1.0) {
+        return compare_path_costs(path1, path2, TOTAL_COST);
+    }
+
+    // Calculate interpolated costs for partial result fetch
+    // cost = startup_cost + fraction * (total_cost - startup_cost)
+    cost1 = path1->startup_cost + fraction * (path1->total_cost - path1->startup_cost);
+    cost2 = path2->startup_cost + fraction * (path2->total_cost - path2->startup_cost);
+
+    // Return comparison result: -1 (path1 cheaper), 0 (equal), +1 (path2 cheaper)
+    if (cost1 < cost2) return -1;
+    if (cost1 > cost2) return +1;
+    return 0;
+}
+```

@@ -46,3 +46,28 @@ The function works by:
 - Both relations must be from the same partitioning hierarchy
 - The function handles NIL input gracefully by returning it unchanged
 - Whole-row variable handling is managed internally and the found_whole_row result is ignored since a target row type is provided
+
+## Simplified Source
+
+```c
+List *map_partition_varattnos(List *expr, int fromrel_varno,
+                             Relation to_rel, Relation from_rel) {
+    if (expr != NIL) {
+        // Build attribute mapping between relations by column name
+        AttrMap *part_attmap = build_attrmap_by_name(RelationGetDescr(to_rel),
+                                                    RelationGetDescr(from_rel),
+                                                    false);
+
+        // Map variable attribute numbers using the attribute map
+        bool found_whole_row;
+        expr = (List *) map_variable_attnos((Node *) expr,
+                                           fromrel_varno, 0,
+                                           part_attmap,
+                                           RelationGetForm(to_rel)->reltype,
+                                           &found_whole_row);
+        // found_whole_row is ignored since we provided to_rowtype
+    }
+
+    return expr;
+}
+```

@@ -44,3 +44,17 @@ This function implements the newer scheme for array building where you always ge
 - Always returns a non-NULL ArrayBuildState pointer
 - The returned state can be used with accumArrayResult() and makeArrayResult()
 - Initial array size is automatically chosen based on memory management strategy
+
+## Simplified Source
+
+```c
+ArrayBuildState *
+initArrayResult(Oid element_type, MemoryContext rcontext, bool subcontext)
+{
+    // Choose initial size based on memory management strategy:
+    // - With subcontext: 64 elements (each state has own context)
+    // - Without subcontext: 8 elements (conservative, shared context)
+    return initArrayResultWithSize(element_type, rcontext, subcontext,
+                                   subcontext ? 64 : 8);
+}
+```

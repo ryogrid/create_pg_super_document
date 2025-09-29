@@ -38,3 +38,26 @@ transformExpr(ParseState *pstate, Node *expr, ParseExprKind exprKind)
 - Critical validation ensures exprKind is never EXPR_KIND_NONE, preventing invalid expression context states
 - Used extensively throughout the parser for all types of SQL expressions across different statement contexts
 - The separation between transformExpr and transformExprRecurse allows for clean context management while maintaining the recursive transformation logic
+
+## Simplified Source
+```c
+Node *
+transformExpr(ParseState *pstate, Node *expr, ParseExprKind exprKind)
+{
+    Node       *result;
+    ParseExprKind sv_expr_kind;
+
+    // Validate input and save current expression context
+    Assert(exprKind != EXPR_KIND_NONE);
+    sv_expr_kind = pstate->p_expr_kind;
+    pstate->p_expr_kind = exprKind;
+
+    // Perform the actual expression transformation
+    result = transformExprRecurse(pstate, expr);
+
+    // Restore previous expression context
+    pstate->p_expr_kind = sv_expr_kind;
+
+    return result;
+}
+```

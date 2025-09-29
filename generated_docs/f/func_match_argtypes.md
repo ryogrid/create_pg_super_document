@@ -41,3 +41,37 @@ The function modifies the input list structure by creating a new filtered list o
 - Critical component in PostgreSQL's function resolution process
 - UNKNOWN type inputs are treated as compatible with any target type
 - Creates a new linked list of compatible candidates in reverse order
+
+## Simplified Source
+
+```c
+int func_match_argtypes(int nargs,
+                       Oid *input_typeids,
+                       FuncCandidateList raw_candidates,
+                       FuncCandidateList *candidates) {
+    FuncCandidateList current_candidate;
+    FuncCandidateList next_candidate;
+    int ncandidates = 0;
+
+    *candidates = NULL;
+
+    // Check each candidate function
+    for (current_candidate = raw_candidates;
+         current_candidate != NULL;
+         current_candidate = next_candidate) {
+
+        next_candidate = current_candidate->next;
+
+        // Test if input types can be coerced to function's expected types
+        if (can_coerce_type(nargs, input_typeids, current_candidate->args,
+                           COERCION_IMPLICIT)) {
+            // Add compatible candidate to result list
+            current_candidate->next = *candidates;
+            *candidates = current_candidate;
+            ncandidates++;
+        }
+    }
+
+    return ncandidates;
+}
+```

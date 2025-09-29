@@ -35,3 +35,14 @@ The function performs a direct comparison against the PG_CATALOG_NAMESPACE const
 - The pg_catalog namespace contains PostgreSQL's system catalog tables and built-in functions
 - PG_CATALOG_NAMESPACE is defined as OID 11 in pg_namespace.dat
 - Located in src/backend/catalog/catalog.c at lines 212-229
+
+## Simplified Source
+
+```c
+bool
+IsCatalogNamespace(Oid namespaceId)
+{
+    // Check if namespace is pg_catalog (OID 11)
+    return namespaceId == PG_CATALOG_NAMESPACE;
+}
+```

@@ -39,3 +39,17 @@ This function is critical for preventing resource leaks, especially when dealing
 - Essential for proper resource management in queries involving large datasets or temporary file usage
 - Must be called even if the sort operation was never completed (e.g., due to early termination)
 - Part of the standard executor lifecycle: ExecInitSort → ExecSort → ExecEndSort
+
+## Simplified Source
+```c
+void ExecEndSort(SortState *node) {
+    // Release tuplesort resources if they exist
+    if (node->tuplesortstate != NULL) {
+        tuplesort_end((Tuplesortstate *) node->tuplesortstate);
+        node->tuplesortstate = NULL;
+    }
+
+    // Shutdown the child plan node
+    ExecEndNode(outerPlanState(node));
+}
+```

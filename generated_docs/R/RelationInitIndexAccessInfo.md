@@ -39,3 +39,73 @@ This function performs complete initialization of index access method support da
 - Initializes support function arrays only if the access method requires support functions (amsupport > 0)
 - The rd_indexprs, rd_indpred, rd_exclops, rd_exclprocs, rd_exclstrats, and rd_amcache fields are initialized as empty and filled later on demand
 - Essential for index functionality as it bridges the gap between catalog information and runtime access method operations
+
+## Simplified Source
+
+```c
+void RelationInitIndexAccessInfo(Relation relation)
+{
+    HeapTuple tuple;
+    Form_pg_am aform;
+    MemoryContext indexcxt, oldcontext;
+    int indnatts, indnkeyatts;
+    uint16 amsupport;
+
+    // Get and cache pg_index entry
+    tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(RelationGetRelid(relation)));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for index %u", RelationGetRelid(relation));
+
+    oldcontext = MemoryContextSwitchTo(CacheMemoryContext);
+    relation->rd_indextuple = heap_copytuple(tuple);
+    relation->rd_index = (Form_pg_index) GETSTRUCT(relation->rd_indextuple);
+    MemoryContextSwitchTo(oldcontext);
+    ReleaseSysCache(tuple);
+
+    // Look up access method and get handler function
+    tuple = SearchSysCache1(AMOID, ObjectIdGetDatum(relation->rd_rel->relam));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for access method %u", relation->rd_rel->relam);
+    aform = (Form_pg_am) GETSTRUCT(tuple);
+    relation->rd_amhandler = aform->amhandler;
+    ReleaseSysCache(tuple);
+
+    // Get attribute counts
+    indnatts = RelationGetNumberOfAttributes(relation);
+    indnkeyatts = IndexRelationGetNumberOfKeyAttributes(relation);
+
+    // Create memory context for index access info
+    indexcxt = AllocSetContextCreate(CacheMemoryContext, "index info", ALLOCSET_SMALL_SIZES);
+    relation->rd_indexcxt = indexcxt;
+
+    // Initialize access method API
+    InitIndexAmRoutine(relation);
+
+    // Allocate arrays for opfamily, opclass, support functions, etc.
+    relation->rd_opfamily = (Oid *) MemoryContextAllocZero(indexcxt, indnkeyatts * sizeof(Oid));
+    relation->rd_opcintype = (Oid *) MemoryContextAllocZero(indexcxt, indnkeyatts * sizeof(Oid));
+    relation->rd_indcollation = (Oid *) MemoryContextAllocZero(indexcxt, indnkeyatts * sizeof(Oid));
+    relation->rd_indoption = (int16 *) MemoryContextAllocZero(indexcxt, indnkeyatts * sizeof(int16));
+
+    amsupport = relation->rd_indam->amsupport;
+    if (amsupport > 0)
+    {
+        int nsupport = indnatts * amsupport;
+        relation->rd_support = (RegProcedure *) MemoryContextAllocZero(indexcxt, nsupport * sizeof(RegProcedure));
+        relation->rd_supportinfo = (FmgrInfo *) MemoryContextAllocZero(indexcxt, nsupport * sizeof(FmgrInfo));
+    }
+
+    // Extract and copy variable-length fields from pg_index
+    // (indcollation, indclass, indoption)
+    // ... extract using fastgetattr and copy data ...
+
+    // Initialize support procedure information
+    IndexSupportInitialize(...);
+
+    // Initialize remaining fields as empty (filled on demand)
+    relation->rd_indexprs = NIL;
+    relation->rd_indpred = NIL;
+    relation->rd_exclops = NULL;
+    relation->rd_amcache = NULL;
+}
+```

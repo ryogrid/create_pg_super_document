@@ -36,4 +36,21 @@ The function preserves all the behavioral characteristics of , including base co
 - Uses PostgreSQL's  keyword for performance optimization by indicating non-aliased pointers
 - Essential for safe integer parsing where overflow detection is required
 - Returns the converted integer value, but callers should check  to detect range errors
-- The validation  efficiently detects when a long value cannot be represented as an int
+- The validation efficiently detects when a long value cannot be represented as an int
+
+## Simplified Source
+
+```c
+int
+strtoint(const char *pg_restrict str, char **pg_restrict endptr, int base)
+{
+    // Convert string to long using standard function
+    long val = strtol(str, endptr, base);
+
+    // Check if result fits in int range
+    if (val != (int) val)
+        errno = ERANGE;
+
+    return (int) val;
+}
+```

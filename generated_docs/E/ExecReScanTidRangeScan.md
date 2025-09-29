@@ -30,3 +30,16 @@ The function sets the `trss_inScan` flag to false, indicating that the scan is n
 - The `trss_inScan` flag is used to track whether a scan is currently active
 - This function is part of the standard PostgreSQL executor interface for rescan operations
 - The deferred rescan approach helps optimize cases where a rescan is requested but the scan may not actually be resumed
+
+## Simplified Source
+
+```c
+void ExecReScanTidRangeScan(TidRangeScanState *node) {
+    // Mark scan as not in progress
+    node->trss_inScan = false;
+
+    // Handle common rescan operations
+    // (actual table rescan deferred until TidRangeNext is called)
+    ExecScanReScan(&node->ss);
+}
+```

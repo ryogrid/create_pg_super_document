@@ -62,3 +62,63 @@ A special case is handled when the unique method is UNIQUE_PATH_NOOP, where no a
 - For sort-based uniquification, it constructs appropriate SortGroupClause structures with proper ordering and equality operators
 - The function preserves parallel safety information when modifying target lists
 - Cost information is copied from the UniquePath to the resulting Plan node
+
+## Simplified Source
+
+```c
+static Plan *
+create_unique_plan(PlannerInfo *root, UniquePath *best_path, int flags)
+{
+    Plan *plan;
+    Plan *subplan;
+    List *newtlist;
+    bool newitems = false;
+
+    // Create subplan
+    subplan = create_plan_recurse(root, best_path->subpath, flags);
+
+    // Skip uniquification if not needed
+    if (best_path->umethod == UNIQUE_PATH_NOOP)
+        return subplan;
+
+    // Build target list with unique expressions
+    newtlist = build_path_tlist(root, &best_path->path);
+    foreach(lc, best_path->uniq_exprs)
+    {
+        Expr *uniqexpr = lfirst(lc);
+        if (!tlist_member(uniqexpr, newtlist))
+        {
+            // Add missing unique expressions to target list
+            newtlist = lappend(newtlist, makeTargetEntry(uniqexpr, nextresno++, NULL, false));
+            newitems = true;
+        }
+    }
+
+    // Update subplan target list if needed
+    if (newitems || best_path->umethod == UNIQUE_PATH_SORT)
+        subplan = change_plan_targetlist(subplan, newtlist, best_path->path.parallel_safe);
+
+    // Build column indexes and operators
+    setup_unique_columns(best_path, subplan, &groupColIdx, &groupCollations);
+
+    if (best_path->umethod == UNIQUE_PATH_HASH)
+    {
+        // Create hash-based uniquification using Agg node
+        plan = (Plan *) make_agg(build_path_tlist(root, &best_path->path),
+                                 NIL, AGG_HASHED, AGGSPLIT_SIMPLE,
+                                 numGroupCols, groupColIdx, groupOperators,
+                                 groupCollations, NIL, NIL,
+                                 best_path->path.rows, 0, subplan);
+    }
+    else
+    {
+        // Create sort-based uniquification
+        Sort *sort = make_sort_from_sortclauses(build_sort_list(best_path), subplan);
+        label_sort_with_costsize(root, sort, -1.0);
+        plan = (Plan *) make_unique_from_sortclauses((Plan *) sort, sortList);
+    }
+
+    copy_generic_path_info(plan, &best_path->path);
+    return plan;
+}
+```

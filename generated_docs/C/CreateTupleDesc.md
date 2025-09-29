@@ -37,3 +37,22 @@ This function creates a fully populated tuple descriptor by first creating a tem
 - Used primarily in bootstrap and catalog operations where complete attribute definitions are available
 - More efficient than manually setting up each attribute individually when you have a complete attribute array
 - The copied attributes retain their original metadata including names, types, and other properties
+
+## Simplified Source
+
+```c
+TupleDesc
+CreateTupleDesc(int natts, Form_pg_attribute *attrs)
+{
+    // Create base tuple descriptor template
+    TupleDesc desc = CreateTemplateTupleDesc(natts);
+
+    // Copy each attribute definition into the descriptor
+    for (int i = 0; i < natts; ++i)
+    {
+        memcpy(TupleDescAttr(desc, i), attrs[i], ATTRIBUTE_FIXED_PART_SIZE);
+    }
+
+    return desc;
+}
+```

@@ -45,3 +45,45 @@ For local buffers, the function only needs to check the local reference count si
 - Useful for opportunistic cleanup operations where blocking is not acceptable
 - Properly cleans up any partially acquired locks on failure
 - Asserts that the buffer is valid and that the caller holds at least one pin
+
+## Simplified Source
+```c
+bool
+ConditionalLockBufferForCleanup(Buffer buffer)
+{
+    // Verify buffer is valid
+    Assert(BufferIsValid(buffer));
+
+    // Handle local buffers (simpler case - no cross-backend contention)
+    if (BufferIsLocal(buffer)) {
+        uint32 refcount = LocalRefCount[-buffer - 1];
+        // Must have exactly one pin for cleanup
+        return (refcount == 1);
+    }
+
+    // Check private reference count for shared buffers
+    uint32 refcount = GetPrivateRefCount(buffer);
+    if (refcount != 1)
+        return false;
+
+    // Try to acquire exclusive lock (non-blocking)
+    if (!ConditionalLockBuffer(buffer))
+        return false;
+
+    // Check global pin count
+    BufferDesc *bufHdr = GetBufferDescriptor(buffer - 1);
+    uint32 buf_state = LockBufHdr(bufHdr);
+    refcount = BUF_STATE_GET_REFCOUNT(buf_state);
+
+    if (refcount == 1) {
+        // Success: exclusive lock with pin count = 1
+        UnlockBufHdr(bufHdr, buf_state);
+        return true;
+    }
+
+    // Failed: release lock and return false
+    UnlockBufHdr(bufHdr, buf_state);
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+    return false;
+}
+```

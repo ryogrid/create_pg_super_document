@@ -39,3 +39,25 @@ The function uses the system cache (FOREIGNTABLEREL) for efficient lookups and i
 - Throws an ERROR if the foreign table lookup fails
 - Uses system cache for performance optimization
 - Part of PostgreSQL's foreign data wrapper infrastructure
+
+## Simplified Source
+
+```c
+Oid GetForeignServerIdByRelId(Oid relid) {
+    HeapTuple tp;
+    Form_pg_foreign_table tableform;
+    Oid serverid;
+
+    // Look up foreign table in system catalog
+    tp = SearchSysCache1(FOREIGNTABLEREL, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for foreign table %u", relid);
+
+    // Extract server ID from foreign table entry
+    tableform = (Form_pg_foreign_table) GETSTRUCT(tp);
+    serverid = tableform->ftserver;
+    ReleaseSysCache(tp);
+
+    return serverid;
+}
+```

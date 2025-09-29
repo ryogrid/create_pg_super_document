@@ -50,3 +50,23 @@ This function is particularly useful in index construction, page allocation for 
 - The returned Buffer represents the newly allocated block
 - Commonly used during index builds and maintenance operations
 - Part of the buffered relation extension API introduced for more efficient bulk operations
+
+## Simplified Source
+
+```c
+Buffer
+ExtendBufferedRel(BufferManagerRelation bmr,
+                  ForkNumber forkNum,
+                  BufferAccessStrategy strategy,
+                  uint32 flags)
+{
+    Buffer buf;
+    uint32 extend_by = 1;
+
+    // Extend the relation by exactly one block
+    ExtendBufferedRelBy(bmr, forkNum, strategy, flags, extend_by,
+                        &buf, &extend_by);
+
+    return buf;
+}
+```

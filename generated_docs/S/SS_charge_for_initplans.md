@@ -47,3 +47,42 @@ This separation from SS_attach_initplans allows the planner to account for initP
 - The function does not call set_cheapest() - the caller is responsible for recomputing the cheapest paths after cost adjustments
 - This function is part of the broader initPlan management system in PostgreSQL query optimization
 - InitPlans differ from regular SubPlans in that they execute exactly once and their results can be reused throughout the main query execution
+
+## Simplified Source
+
+```c
+void SS_charge_for_initplans(PlannerInfo *root, RelOptInfo *final_rel) {
+    // Early exit if no initPlans to process
+    if (root->init_plans == NIL)
+        return;
+
+    // Calculate cost and parallel safety of all initPlans
+    Cost initplan_cost;
+    bool unsafe_initplans;
+    SS_compute_initplan_cost(root->init_plans, &initplan_cost, &unsafe_initplans);
+
+    // Add initPlan costs to all regular paths
+    foreach(lc, final_rel->pathlist) {
+        Path *path = (Path *) lfirst(lc);
+        path->startup_cost += initplan_cost;
+        path->total_cost += initplan_cost;
+
+        if (unsafe_initplans)
+            path->parallel_safe = false;
+    }
+
+    // Handle partial paths based on parallel safety
+    if (unsafe_initplans) {
+        // Remove all partial paths if any initPlan is unsafe
+        final_rel->partial_pathlist = NIL;
+        final_rel->consider_parallel = false;
+    } else {
+        // Add costs to partial paths too
+        foreach(lc, final_rel->partial_pathlist) {
+            Path *path = (Path *) lfirst(lc);
+            path->startup_cost += initplan_cost;
+            path->total_cost += initplan_cost;
+        }
+    }
+}
+```

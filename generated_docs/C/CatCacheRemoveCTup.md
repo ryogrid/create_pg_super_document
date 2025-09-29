@@ -48,3 +48,36 @@ The function ensures data integrity by requiring zero reference counts, preventi
 - Distinguishes between positive and negative cache entries for proper key memory management
 - Decrements both cache-specific and global tuple counters to maintain accurate statistics
 - Critical for maintaining cache consistency during invalidation and cleanup operations
+
+## Simplified Source
+
+```c
+static void
+CatCacheRemoveCTup(CatCache *cache, CatCTup *ct)
+{
+    // Validate preconditions
+    Assert(ct->refcount == 0);
+    Assert(ct->my_cache == cache);
+
+    // Handle associated cache list if present
+    if (ct->c_list) {
+        // Mark as dead and remove the list (which will recursively remove this entry)
+        ct->dead = true;
+        CatCacheRemoveCList(cache, ct->c_list);
+        return;
+    }
+
+    // Remove from cache's linked list
+    dlist_delete(&ct->cache_elem);
+
+    // Free keys for negative entries (positive entries have embedded keys)
+    if (ct->negative)
+        CatCacheFreeKeys(cache->cc_tupdesc, cache->cc_nkeys,
+                         cache->cc_keyno, ct->keys);
+
+    // Free the entry and update counters
+    pfree(ct);
+    --cache->cc_ntup;
+    --CacheHdr->ch_ntup;
+}
+```

@@ -35,3 +35,21 @@ The comparison follows standard C library conventions: returning a negative valu
 - NULL policy names are treated as greater than any non-NULL name for consistent ordering
 - The function follows the standard comparator contract expected by sorting algorithms
 - Policy name comparison is case-sensitive following strcmp behavior
+
+## Simplified Source
+
+```c
+static int row_security_policy_cmp(const ListCell *a, const ListCell *b) {
+    const RowSecurityPolicy *pa = (const RowSecurityPolicy *) lfirst(a);
+    const RowSecurityPolicy *pb = (const RowSecurityPolicy *) lfirst(b);
+
+    // Handle NULL policy names from extensions
+    if (pa->policy_name == NULL)
+        return pb->policy_name == NULL ? 0 : 1;
+    if (pb->policy_name == NULL)
+        return -1;
+
+    // Standard string comparison
+    return strcmp(pa->policy_name, pb->policy_name);
+}
+```

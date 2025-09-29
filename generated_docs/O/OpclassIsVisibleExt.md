@@ -45,3 +45,44 @@ The extended version provides graceful error handling for cases where the operat
 - Performs name shadowing detection to ensure correct visibility semantics
 - Uses the activeSearchPath global variable for namespace resolution
 - The is_missing parameter allows callers to differentiate between missing operator classes and invisible ones
+
+## Simplified Source
+
+```c
+static bool OpclassIsVisibleExt(Oid opcid, bool *is_missing) {
+    HeapTuple opctup;
+    Form_pg_opclass opcform;
+    Oid opcnamespace;
+    bool visible;
+
+    // Look up operator class in system cache
+    opctup = SearchSysCache1(CLAOID, ObjectIdGetDatum(opcid));
+    if (!HeapTupleIsValid(opctup)) {
+        // Handle missing operator class gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for opclass %u", opcid);
+    }
+
+    opcform = (Form_pg_opclass) GETSTRUCT(opctup);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    opcnamespace = opcform->opcnamespace;
+    if (opcnamespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, opcnamespace)) {
+        visible = false;
+    } else {
+        // Check if this opclass would be found by name resolution
+        char *opcname = NameStr(opcform->opcname);
+
+        // Use the standard name lookup to see if it finds this opclass
+        visible = (OpclassnameGetOpcid(opcform->opcmethod, opcname) == opcid);
+    }
+
+    ReleaseSysCache(opctup);
+    return visible;
+}
+```

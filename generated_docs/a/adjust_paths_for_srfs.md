@@ -54,3 +54,73 @@ The function assumes that existing paths emit the first target in the targets li
 - For partial paths, uses create_projection_path() instead of apply_projection_to_path() to avoid issues with multiple references
 - The function works in conjunction with split_pathtarget_at_srfs() to properly structure SRF evaluation
 - Essential for ensuring SRFs are evaluated in the correct plan node type (ProjectSet)
+
+## Simplified Source
+
+```c
+static void
+adjust_paths_for_srfs(PlannerInfo *root, RelOptInfo *rel,
+                      List *targets, List *targets_contain_srfs)
+{
+    ListCell *lc;
+
+    Assert(list_length(targets) == list_length(targets_contain_srfs));
+    Assert(!linitial_int(targets_contain_srfs));
+
+    // If no SRFs appear at this plan level, nothing to do
+    if (list_length(targets) == 1)
+        return;
+
+    // Stack SRF-evaluation nodes atop each regular path
+    foreach(lc, rel->pathlist)
+    {
+        Path *subpath = (Path *) lfirst(lc);
+        Path *newpath = subpath;
+        ListCell *lc1, *lc2;
+
+        Assert(subpath->param_info == NULL);
+
+        // Apply each target level with appropriate projection type
+        forboth(lc1, targets, lc2, targets_contain_srfs)
+        {
+            PathTarget *thistarget = lfirst_node(PathTarget, lc1);
+            bool contains_srfs = (bool) lfirst_int(lc2);
+
+            if (contains_srfs)
+                newpath = (Path *) create_set_projection_path(root, rel, newpath, thistarget);
+            else
+                newpath = (Path *) apply_projection_to_path(root, rel, newpath, thistarget);
+        }
+
+        // Update path references
+        lfirst(lc) = newpath;
+        if (subpath == rel->cheapest_startup_path)
+            rel->cheapest_startup_path = newpath;
+        if (subpath == rel->cheapest_total_path)
+            rel->cheapest_total_path = newpath;
+    }
+
+    // Process partial paths similarly
+    foreach(lc, rel->partial_pathlist)
+    {
+        Path *subpath = (Path *) lfirst(lc);
+        Path *newpath = subpath;
+        ListCell *lc1, *lc2;
+
+        Assert(subpath->param_info == NULL);
+
+        forboth(lc1, targets, lc2, targets_contain_srfs)
+        {
+            PathTarget *thistarget = lfirst_node(PathTarget, lc1);
+            bool contains_srfs = (bool) lfirst_int(lc2);
+
+            if (contains_srfs)
+                newpath = (Path *) create_set_projection_path(root, rel, newpath, thistarget);
+            else
+                // Use create_projection_path for partial paths to avoid multiple refs
+                newpath = (Path *) create_projection_path(root, rel, newpath, thistarget);
+        }
+        lfirst(lc) = newpath;
+    }
+}
+```

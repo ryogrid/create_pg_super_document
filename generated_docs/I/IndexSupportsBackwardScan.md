@@ -43,3 +43,35 @@ The function performs the following steps:
 - Error handling is included for cases where the index relation lookup fails
 - Memory management is properly handled with pfree() and ReleaseSysCache() calls
 - The function relies on the access method's  capability flag
+
+## Simplified Source
+
+```c
+static bool IndexSupportsBackwardScan(Oid indexid) {
+    bool result;
+    HeapTuple ht_idxrel;
+    Form_pg_class idxrelrec;
+    IndexAmRoutine *amroutine;
+
+    // Look up the index relation in pg_class catalog
+    ht_idxrel = SearchSysCache1(RELOID, ObjectIdGetDatum(indexid));
+    if (!HeapTupleIsValid(ht_idxrel)) {
+        elog(ERROR, "cache lookup failed for relation %u", indexid);
+    }
+
+    // Extract the relation record
+    idxrelrec = (Form_pg_class) GETSTRUCT(ht_idxrel);
+
+    // Get the access method's API structure
+    amroutine = GetIndexAmRoutineByAmId(idxrelrec->relam, false);
+
+    // Check if the access method supports backward scanning
+    result = amroutine->amcanbackward;
+
+    // Clean up allocated resources
+    pfree(amroutine);
+    ReleaseSysCache(ht_idxrel);
+
+    return result;
+}
+```

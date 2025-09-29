@@ -44,3 +44,20 @@ The function uses Unicode category masks to efficiently check multiple character
 - Located in src/common/unicode_category.c:268-278
 - Graphical characters form a subset of printable characters (printable = graphical + whitespace)
 - Designed to provide consistent Unicode character classification across different platforms and locales
+
+## Simplified Source
+
+```c
+bool
+pg_u_isgraph(pg_wchar code) {
+    uint32 category_mask = PG_U_CATEGORY_MASK(unicode_category(code));
+
+    // Exclude control, surrogate, unassigned characters and whitespace
+    if (category_mask & (PG_U_CC_MASK | PG_U_CS_MASK | PG_U_CN_MASK) ||
+        pg_u_isspace(code)) {
+        return false;
+    }
+
+    return true;
+}
+```

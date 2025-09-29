@@ -39,3 +39,36 @@ The function loads data into four separate vector registers, performs parallel e
 - Calculates nelem_per_vector dynamically based on vector and element sizes
 - Combines results efficiently using a tree-like OR reduction pattern
 - Returns true if any of the processed elements match the search key
+
+## Simplified Source
+
+```c
+static inline bool
+pg_lfind32_simd_helper(const Vector32 keys, const uint32 *base)
+{
+    const uint32 nelem_per_vector = sizeof(Vector32) / sizeof(uint32);
+    Vector32 vals1, vals2, vals3, vals4;
+    Vector32 result1, result2, result3, result4;
+    Vector32 tmp1, tmp2, result;
+
+    // Load 4 vector registers worth of data from array
+    vector32_load(&vals1, base);
+    vector32_load(&vals2, &base[nelem_per_vector]);
+    vector32_load(&vals3, &base[nelem_per_vector * 2]);
+    vector32_load(&vals4, &base[nelem_per_vector * 3]);
+
+    // Compare search key against all loaded values in parallel
+    result1 = vector32_eq(keys, vals1);
+    result2 = vector32_eq(keys, vals2);
+    result3 = vector32_eq(keys, vals3);
+    result4 = vector32_eq(keys, vals4);
+
+    // Combine all comparison results using OR operations
+    tmp1 = vector32_or(result1, result2);
+    tmp2 = vector32_or(result3, result4);
+    result = vector32_or(tmp1, tmp2);
+
+    // Return true if any comparison found a match
+    return vector32_is_highbit_set(result);
+}
+```

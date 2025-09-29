@@ -54,3 +54,85 @@ struct and reconstruct column
 - The function is static, meaning it's only callable from within the parse_expr.c module
 - Critical error handling for unrecognized node types to catch parser bugs during development
 - Self-recursive design allows for proper transformation of arbitrarily nested expression structures
+
+## Simplified Source
+
+```c
+static Node *
+transformExprRecurse(ParseState *pstate, Node *expr)
+{
+    Node *result;
+
+    // Handle null expression
+    if (expr == NULL)
+        return NULL;
+
+    // Prevent stack overflow from deeply nested expressions
+    check_stack_depth();
+
+    // Dispatch based on expression node type
+    switch (nodeTag(expr))
+    {
+        // Basic expressions
+        case T_ColumnRef:
+            result = transformColumnRef(pstate, (ColumnRef *) expr);
+            break;
+        case T_ParamRef:
+            result = transformParamRef(pstate, (ParamRef *) expr);
+            break;
+        case T_A_Const:
+            result = (Node *) make_const(pstate, (A_Const *) expr);
+            break;
+
+        // Complex expressions requiring sub-dispatching
+        case T_A_Expr:
+            result = transformAExpr(pstate, (A_Expr *) expr);
+            break;
+        case T_FuncCall:
+            result = transformFuncCall(pstate, (FuncCall *) expr);
+            break;
+        case T_SubLink:
+            result = transformSubLink(pstate, (SubLink *) expr);
+            break;
+        case T_CaseExpr:
+            result = transformCaseExpr(pstate, (CaseExpr *) expr);
+            break;
+
+        // Array and type operations
+        case T_A_ArrayExpr:
+            result = transformArrayExpr(pstate, (A_ArrayExpr *) expr,
+                                      InvalidOid, InvalidOid, -1);
+            break;
+        case T_TypeCast:
+            result = transformTypeCast(pstate, (TypeCast *) expr);
+            break;
+
+        // JSON expressions (newer PostgreSQL features)
+        case T_JsonObjectConstructor:
+            result = transformJsonObjectConstructor(pstate, (JsonObjectConstructor *) expr);
+            break;
+        case T_JsonArrayConstructor:
+            result = transformJsonArrayConstructor(pstate, (JsonArrayConstructor *) expr);
+            break;
+
+        // Special handling for already-transformed nodes
+        case T_CaseTestExpr:
+        case T_Var:
+            result = expr;
+            break;
+
+        // Error cases
+        case T_SetToDefault:
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("DEFAULT is not allowed in this context")));
+            break;
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(expr));
+            result = NULL;
+            break;
+    }
+
+    return result;
+}
+```

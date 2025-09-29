@@ -68,3 +68,120 @@ reportDependentObjects serves as both a validation and reporting function in Pos
 - Sub-objects are also excluded from reporting since the whole object is reported elsewhere
 - Message localization is supported through the underscore macro _() for translatable strings
 - Server and client logs may have different levels of detail based on configuration settings
+
+## Simplified Source
+
+```c
+static void
+reportDependentObjects(const ObjectAddresses *targetObjects,
+                      DropBehavior behavior,
+                      int flags,
+                      const ObjectAddress *origObject)
+{
+    int msglevel = (flags & PERFORM_DELETION_QUIETLY) ? DEBUG2 : NOTICE;
+    bool ok = true;
+    StringInfoData clientdetail, logdetail;
+    int numReportedClient = 0, numNotReportedClient = 0;
+
+    // Validate partition dependencies - ensure partition objects have proper dependencies
+    for (int i = 0; i < targetObjects->numrefs; i++)
+    {
+        const ObjectAddressExtra *extra = &targetObjects->extras[i];
+
+        if ((extra->flags & DEPFLAG_IS_PART) && !(extra->flags & DEPFLAG_PARTITION))
+        {
+            // Error: trying to delete partition object without its partition dependency
+            const ObjectAddress *object = &targetObjects->refs[i];
+            char *otherObjDesc = getObjectDescription(&extra->dependee, false);
+
+            ereport(ERROR,
+                   (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                    errmsg("cannot drop %s because %s requires it",
+                           getObjectDescription(object, false), otherObjDesc),
+                    errhint("You can drop %s instead.", otherObjDesc)));
+        }
+    }
+
+    // Early return if CASCADE mode and message level too low
+    if (behavior == DROP_CASCADE && !message_level_is_interesting(msglevel))
+        return;
+
+    // Initialize detail strings for client and server logging
+    initStringInfo(&clientdetail);
+    initStringInfo(&logdetail);
+
+    // Process each object and categorize dependencies
+    for (int i = 0; i < targetObjects->numrefs; i++)
+    {
+        const ObjectAddress *obj = &targetObjects->refs[i];
+        const ObjectAddressExtra *extra = &targetObjects->extras[i];
+
+        // Skip original objects and sub-objects
+        if ((extra->flags & DEPFLAG_ORIGINAL) || (extra->flags & DEPFLAG_SUBOBJECT))
+            continue;
+
+        char *objDesc = getObjectDescription(obj, false);
+
+        // Categorize dependency types for appropriate reporting
+        if (extra->flags & (DEPFLAG_AUTO | DEPFLAG_INTERNAL | DEPFLAG_PARTITION | DEPFLAG_EXTENSION))
+        {
+            // Auto-cascades - minimal visibility reporting
+            appendStringInfo(&logdetail, "drop auto-cascades to %s\n", objDesc);
+        }
+        else
+        {
+            // Normal cascades - prominent reporting
+            if (numReportedClient < MAX_REPORTED_DEPS)
+            {
+                appendStringInfo(&clientdetail,
+                    behavior == DROP_CASCADE ? "drop cascades to %s\n" : "%s depends on\n",
+                    objDesc);
+                numReportedClient++;
+            }
+            else
+                numNotReportedClient++;
+
+            appendStringInfo(&logdetail,
+                behavior == DROP_CASCADE ? "drop cascades to %s\n" : "%s depends on\n",
+                objDesc);
+        }
+
+        pfree(objDesc);
+    }
+
+    // Report to client with message limiting
+    if (numReportedClient > 0)
+    {
+        if (behavior == DROP_CASCADE)
+        {
+            ereport(msglevel,
+                   (errmsg_plural("drop cascades to %d other object",
+                                  "drop cascades to %d other objects",
+                                  numReportedClient + numNotReportedClient,
+                                  numReportedClient + numNotReportedClient),
+                    numReportedClient > 0 ? errdetail("%s", clientdetail.data) : 0));
+        }
+        else
+        {
+            // RESTRICT mode - report dependencies and error out
+            ereport(ERROR,
+                   (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                    errmsg_plural("%d dependent object",
+                                  "%d dependent objects",
+                                  numReportedClient + numNotReportedClient,
+                                  numReportedClient + numNotReportedClient),
+                    errdetail("%s", clientdetail.data)));
+            ok = false;
+        }
+    }
+
+    // Always log complete details to server log
+    if (logdetail.len > 0)
+    {
+        ereport(LOG, (errmsg_internal("%s", logdetail.data)));
+    }
+
+    pfree(clientdetail.data);
+    pfree(logdetail.data);
+}
+```

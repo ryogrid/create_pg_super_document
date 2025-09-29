@@ -45,3 +45,28 @@ The function implements backward compatibility by returning the last result when
 - Error message accumulation happens automatically in the connection's errorMessage buffer
 - The returned result (if not NULL) must be freed by the caller using PQclear()
 - Essential for proper cleanup and result retrieval in synchronous command execution
+
+## Simplified Source
+
+```c
+static PGresult *PQexecFinish(PGconn *conn) {
+    PGresult *result;
+    PGresult *lastResult = NULL;
+
+    // Loop through all results, keeping the last one
+    while ((result = PQgetResult(conn)) != NULL) {
+        // Free previous result and keep current one
+        PQclear(lastResult);
+        lastResult = result;
+
+        // Stop if we hit COPY operations or connection failure
+        if (result->resultStatus == PGRES_COPY_IN ||
+            result->resultStatus == PGRES_COPY_OUT ||
+            result->resultStatus == PGRES_COPY_BOTH ||
+            conn->status == CONNECTION_BAD)
+            break;
+    }
+
+    return lastResult;
+}
+```

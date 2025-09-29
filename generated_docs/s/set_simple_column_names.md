@@ -34,3 +34,26 @@ This function provides a simplified approach to column name assignment for scena
 - Creates a one-to-one mapping between rtable entries and rtable_columns entries
 - Uses palloc0 to ensure deparse_columns structures are properly zeroed before processing
 - More efficient than set_deparse_for_query for cases that don't need full join analysis
+
+## Simplified Source
+
+```c
+static void set_simple_column_names(deparse_namespace *dpns) {
+    ListCell *lc;
+    ListCell *lc2;
+
+    // Initialize rtable_columns with zeroed structs
+    dpns->rtable_columns = NIL;
+    while (list_length(dpns->rtable_columns) < list_length(dpns->rtable))
+        dpns->rtable_columns = lappend(dpns->rtable_columns,
+                                      palloc0(sizeof(deparse_columns)));
+
+    // Assign unique column aliases for each RTE
+    forboth(lc, dpns->rtable, lc2, dpns->rtable_columns) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+        deparse_columns *colinfo = (deparse_columns *) lfirst(lc2);
+
+        set_relation_column_names(dpns, rte, colinfo);
+    }
+}
+```

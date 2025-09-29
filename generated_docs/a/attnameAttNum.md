@@ -38,3 +38,30 @@ The  function searches through a relation's attributes to find the attribute num
 - Uses 1-based attribute numbering (adds 1 to the internal 0-based index)
 - Only works with already opened relations - use get_attnum() for non-opened relations
 - Supports searching system columns when sysColOK is true
+
+## Simplified Source
+
+```c
+int attnameAttNum(Relation rd, const char *attname, bool sysColOK)
+{
+    int i;
+
+    // Search through regular attributes
+    for (i = 0; i < RelationGetNumberOfAttributes(rd); i++) {
+        Form_pg_attribute att = TupleDescAttr(rd->rd_att, i);
+
+        // Check name match and not dropped
+        if (namestrcmp(&(att->attname), attname) == 0 && !att->attisdropped)
+            return i + 1;  // Return 1-based attribute number
+    }
+
+    // Check system columns if allowed
+    if (sysColOK) {
+        if ((i = specialAttNum(attname)) != InvalidAttrNumber)
+            return i;
+    }
+
+    // Attribute not found
+    return InvalidAttrNumber;
+}
+```

@@ -38,3 +38,38 @@ The function carefully avoids closing the root partitioned table (index 0 in par
 - The function checks `is_borrowed_rel` flag to avoid closing relations that belong to the owning ModifyTableState
 - FDW (Foreign Data Wrapper) shutdown is properly handled for foreign partitions through the EndForeignInsert callback
 - All table closures use NoLock since the locks were acquired during the initial setup phase
+
+## Simplified Source
+
+```c
+void ExecCleanupTupleRouting(ModifyTableState *mtstate, PartitionTupleRouting *proute) {
+    // Clean up partition dispatch info (skip root table at index 0)
+    for (int i = 1; i < proute->num_dispatch; i++) {
+        PartitionDispatch pd = proute->partition_dispatch_info[i];
+
+        table_close(pd->reldesc, NoLock);
+        if (pd->tupslot)
+            ExecDropSingleTupleTableSlot(pd->tupslot);
+    }
+
+    // Clean up leaf partitions
+    for (int i = 0; i < proute->num_partitions; i++) {
+        ResultRelInfo *resultRelInfo = proute->partitions[i];
+
+        // Shutdown FDW operations if applicable
+        if (resultRelInfo->ri_FdwRoutine != NULL &&
+            resultRelInfo->ri_FdwRoutine->EndForeignInsert != NULL) {
+            resultRelInfo->ri_FdwRoutine->EndForeignInsert(mtstate->ps.state,
+                                                          resultRelInfo);
+        }
+
+        // Skip borrowed relations (will be closed by caller)
+        if (proute->is_borrowed_rel[i])
+            continue;
+
+        // Close indices and table
+        ExecCloseIndices(resultRelInfo);
+        table_close(resultRelInfo->ri_RelationDesc, NoLock);
+    }
+}
+```

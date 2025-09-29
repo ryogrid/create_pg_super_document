@@ -36,3 +36,26 @@ This information is crucial for the rewrite system to determine whether default 
 - Used as an optimization check in the rewrite phase
 - Part of the VALUES clause processing logic in the query rewriter
 - Helps determine whether default value expansion is necessary
+
+## Simplified Source
+
+```c
+static bool searchForDefault(RangeTblEntry *rte) {
+    // Search through each row in the VALUES clause
+    foreach(lc, rte->values_lists) {
+        List *sublist = (List *) lfirst(lc);
+
+        // Check each column value in this row
+        foreach(lc2, sublist) {
+            Node *col = (Node *) lfirst(lc2);
+
+            // Return true immediately if DEFAULT keyword found
+            if (IsA(col, SetToDefault))
+                return true;
+        }
+    }
+
+    // No DEFAULT keywords found in any values
+    return false;
+}
+```

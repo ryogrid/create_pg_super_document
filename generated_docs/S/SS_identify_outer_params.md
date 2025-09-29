@@ -46,3 +46,42 @@ The collected parameter set is stored in root->outer_params and is later used du
 - Worktable parameters support recursive CTEs by providing access to the working table
 - The computed outer_params bitmap is essential for proper parameter passing in nested query execution
 - Part of the subselect processing framework that handles correlated subqueries and parameter passing between query levels
+
+## Simplified Source
+
+```c
+void SS_identify_outer_params(PlannerInfo *root) {
+    // Early exit if no parameters exist in the query tree
+    if (root->glob->paramExecTypes == NIL)
+        return;
+
+    // Collect parameters available from all outer query levels
+    Bitmapset *outer_params = NULL;
+
+    // Walk up through all parent query levels
+    for (PlannerInfo *proot = root->parent_root; proot != NULL; proot = proot->parent_root) {
+
+        // Add regular parameters (Var/PHV/Aggref/GroupingFunc)
+        foreach(l, proot->plan_params) {
+            PlannerParamItem *pitem = (PlannerParamItem *) lfirst(l);
+            outer_params = bms_add_member(outer_params, pitem->paramId);
+        }
+
+        // Add parameters from outer-level initPlans
+        foreach(l, proot->init_plans) {
+            SubPlan *initsubplan = (SubPlan *) lfirst(l);
+
+            foreach(l2, initsubplan->setParam) {
+                outer_params = bms_add_member(outer_params, lfirst_int(l2));
+            }
+        }
+
+        // Add worktable parameter for recursive queries
+        if (proot->wt_param_id >= 0)
+            outer_params = bms_add_member(outer_params, proot->wt_param_id);
+    }
+
+    // Store the collected parameters for later use
+    root->outer_params = outer_params;
+}
+```

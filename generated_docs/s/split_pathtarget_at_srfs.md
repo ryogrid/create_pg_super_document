@@ -46,3 +46,133 @@ The function preserves sortgroupref annotations and handles cases where SRFs hav
 - The output lists are ordered from lowest (most basic) to highest (original target) evaluation level
 - Uses helper structures like split_pathtarget_context and split_pathtarget_item for internal organization
 - Critical for proper execution of queries with complex SRF expressions that cannot be evaluated in a single ProjectSet node
+
+## Simplified Source
+
+```c
+void split_pathtarget_at_srfs(PlannerInfo *root,
+                             PathTarget *target, PathTarget *input_target,
+                             List **targets, List **targets_contain_srfs)
+{
+    split_pathtarget_context context;
+    int max_depth;
+    bool need_extra_projection;
+    List *prev_level_tlist;
+    int lci;
+
+    // Quick optimization: if target equals input_target, no splitting needed
+    if (target == input_target) {
+        *targets = list_make1(target);
+        *targets_contain_srfs = list_make1_int(false);
+        return;
+    }
+
+    // Initialize context for SRF analysis
+    context.input_target_exprs = input_target ? input_target->exprs : NIL;
+    context.level_srfs = list_make1(NIL);
+    context.level_input_vars = list_make1(NIL);
+    context.level_input_srfs = list_make1(NIL);
+    context.current_input_vars = NIL;
+    context.current_input_srfs = NIL;
+    max_depth = 0;
+    need_extra_projection = false;
+
+    // Analyze each expression in the PathTarget for SRFs
+    lci = 0;
+    foreach(lc, target->exprs) {
+        Node *node = (Node *) lfirst(lc);
+
+        context.current_sgref = get_pathtarget_sortgroupref(target, lci);
+        lci++;
+
+        // Find SRFs and Vars in this expression
+        context.current_depth = 0;
+        split_pathtarget_walker(node, &context);
+
+        // Skip expressions with no SRFs
+        if (context.current_depth == 0)
+            continue;
+
+        // Track maximum SRF nesting depth
+        if (max_depth < context.current_depth) {
+            max_depth = context.current_depth;
+            need_extra_projection = false;
+        }
+
+        // Check if extra projection level is needed
+        if (max_depth == context.current_depth && !IS_SRF_CALL(node))
+            need_extra_projection = true;
+    }
+
+    // No SRFs found that need evaluation
+    if (max_depth == 0) {
+        *targets = list_make1(target);
+        *targets_contain_srfs = list_make1_int(false);
+        return;
+    }
+
+    // Add top-level variables to appropriate level
+    if (need_extra_projection) {
+        context.level_srfs = lappend(context.level_srfs, NIL);
+        context.level_input_vars = lappend(context.level_input_vars,
+                                          context.current_input_vars);
+        context.level_input_srfs = lappend(context.level_input_srfs,
+                                          context.current_input_srfs);
+    } else {
+        // Add to existing max_depth level
+        ListCell *lc = list_nth_cell(context.level_input_vars, max_depth);
+        lfirst(lc) = list_concat(lfirst(lc), context.current_input_vars);
+        lc = list_nth_cell(context.level_input_srfs, max_depth);
+        lfirst(lc) = list_concat(lfirst(lc), context.current_input_srfs);
+    }
+
+    // Construct output PathTargets for each level
+    *targets = *targets_contain_srfs = NIL;
+    prev_level_tlist = NIL;
+
+    forthree(lc1, context.level_srfs,
+             lc2, context.level_input_vars,
+             lc3, context.level_input_srfs) {
+        List *level_srfs = (List *) lfirst(lc1);
+        PathTarget *ntarget;
+
+        if (lnext(context.level_srfs, lc1) == NULL) {
+            // Use original target for final level
+            ntarget = target;
+        } else {
+            // Create new target for intermediate level
+            ntarget = create_empty_pathtarget();
+
+            // Add SRFs for this level
+            add_sp_items_to_pathtarget(ntarget, level_srfs);
+
+            // Add input vars needed by later levels
+            for_each_cell(lc, context.level_input_vars,
+                         lnext(context.level_input_vars, lc2)) {
+                List *input_vars = (List *) lfirst(lc);
+                add_sp_items_to_pathtarget(ntarget, input_vars);
+            }
+
+            // Add input SRFs from earlier levels
+            for_each_cell(lc, context.level_input_srfs,
+                         lnext(context.level_input_srfs, lc3)) {
+                List *input_srfs = (List *) lfirst(lc);
+                foreach(lcx, input_srfs) {
+                    split_pathtarget_item *item = lfirst(lcx);
+                    if (list_member(prev_level_tlist, item->expr))
+                        add_sp_item_to_pathtarget(ntarget, item);
+                }
+            }
+
+            set_pathtarget_cost_width(root, ntarget);
+        }
+
+        // Add to output lists
+        *targets = lappend(*targets, ntarget);
+        *targets_contain_srfs = lappend_int(*targets_contain_srfs,
+                                           (level_srfs != NIL));
+
+        prev_level_tlist = ntarget->exprs;
+    }
+}
+```

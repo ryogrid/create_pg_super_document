@@ -44,3 +44,43 @@ This function analyzes a range table entry and the requested lock clause strengt
 - Foreign table row marking behavior is extensible through the FDW interface
 - Row marking is essential for implementing SELECT FOR UPDATE/SHARE semantics and ensuring data consistency in concurrent environments
 - Located in src/backend/optimizer/plan/planner.c:2407-2472
+
+## Simplified Source
+
+```c
+RowMarkType
+select_rowmark_type(RangeTblEntry *rte, LockClauseStrength strength)
+{
+    if (rte->rtekind != RTE_RELATION) {
+        // Non-relation (subquery, function, etc.) - use copy
+        return ROW_MARK_COPY;
+    }
+    else if (rte->relkind == RELKIND_FOREIGN_TABLE) {
+        // Foreign table - delegate to FDW or use copy
+        FdwRoutine *fdwroutine = GetFdwRoutineByRelId(rte->relid);
+
+        if (fdwroutine->GetForeignRowMarkType != NULL)
+            return fdwroutine->GetForeignRowMarkType(rte, strength);
+
+        return ROW_MARK_COPY;
+    }
+    else {
+        // Regular table - map lock strength to row mark type
+        switch (strength) {
+            case LCS_NONE:
+                return ROW_MARK_REFERENCE;
+            case LCS_FORKEYSHARE:
+                return ROW_MARK_KEYSHARE;
+            case LCS_FORSHARE:
+                return ROW_MARK_SHARE;
+            case LCS_FORNOKEYUPDATE:
+                return ROW_MARK_NOKEYEXCLUSIVE;
+            case LCS_FORUPDATE:
+                return ROW_MARK_EXCLUSIVE;
+        }
+
+        elog(ERROR, "unrecognized LockClauseStrength %d", (int) strength);
+        return ROW_MARK_EXCLUSIVE;  // keep compiler quiet
+    }
+}
+```

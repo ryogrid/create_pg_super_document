@@ -35,3 +35,15 @@ This function provides the SQL operator  for oidvector values in PostgreSQL. An 
 - Oidvectors are primarily used in system catalogs like pg_proc.proargtypes to store arrays of type OIDs
 - The equality check leverages the existing B-tree comparison infrastructure for consistency
 - The function name follows PostgreSQL's naming convention for comparison operators (oidvector + eq for 'equal')
+
+## Simplified Source
+
+```c
+Datum oidvectoreq(PG_FUNCTION_ARGS) {
+    // Use existing btree comparison function and check for equality
+    int32 cmp = DatumGetInt32(btoidvectorcmp(fcinfo));
+
+    // Return true if comparison result is 0 (equal)
+    PG_RETURN_BOOL(cmp == 0);
+}
+```

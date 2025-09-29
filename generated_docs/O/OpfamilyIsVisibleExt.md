@@ -46,3 +46,40 @@ The extended version provides graceful error handling for cases where the operat
 - Uses the activeSearchPath global variable for namespace resolution
 - The is_missing parameter allows callers to differentiate between missing operator families and invisible ones
 - Similar in structure to OpclassIsVisibleExt but operates on operator families and includes access method checking
+
+## Simplified Source
+
+```c
+static bool OpfamilyIsVisibleExt(Oid opfid, bool *is_missing) {
+    HeapTuple opftup;
+    Form_pg_opfamily opfform;
+    bool visible;
+
+    // Look up operator family in system cache
+    opftup = SearchSysCache1(OPFAMILYOID, ObjectIdGetDatum(opfid));
+    if (!HeapTupleIsValid(opftup)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for opfamily %u", opfid);
+    }
+
+    opfform = (Form_pg_opfamily) GETSTRUCT(opftup);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    Oid opfnamespace = opfform->opfnamespace;
+    if (opfnamespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, opfnamespace)) {
+        visible = false;
+    } else {
+        // Check if this operator family would be found by name resolution
+        char *opfname = NameStr(opfform->opfname);
+        visible = (OpfamilynameGetOpfid(opfform->opfmethod, opfname) == opfid);
+    }
+
+    ReleaseSysCache(opftup);
+    return visible;
+}
+```

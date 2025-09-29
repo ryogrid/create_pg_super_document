@@ -43,3 +43,26 @@ This function is part of the internal implementation of the dynamic shared hash 
 - Includes an assertion that should never fail - if delete_item_from_bucket returns false, it indicates a serious internal error
 - The partition count is automatically decremented upon successful deletion
 - Part of the low-level hash table management infrastructure
+
+## Simplified Source
+
+```c
+static void delete_item(dshash_table *hash_table, dshash_table_item *item) {
+    size_t hash = item->hash;
+    size_t partition = PARTITION_FOR_HASH(hash);
+
+    // Verify we hold the partition lock
+    Assert(LWLockHeldByMe(PARTITION_LOCK(hash_table, partition)));
+
+    // Remove item from its bucket
+    if (delete_item_from_bucket(hash_table, item,
+                                &BUCKET_FOR_HASH(hash_table, hash))) {
+        // Decrement partition count on successful deletion
+        Assert(hash_table->control->partitions[partition].count > 0);
+        --hash_table->control->partitions[partition].count;
+    } else {
+        // This should never happen
+        Assert(false);
+    }
+}
+```

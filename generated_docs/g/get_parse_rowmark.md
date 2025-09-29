@@ -42,3 +42,21 @@ Row marks are essential for:
 - This function is crucial for proper implementation of SQL row-level locking semantics
 - The linear search approach is appropriate given that rowMarks lists are typically small
 - Used extensively in query rewriting and analysis phases to determine locking requirements for relations
+
+## Simplified Source
+
+```c
+RowMarkClause *get_parse_rowmark(Query *qry, Index rtindex) {
+    // Search through the query's row marks list
+    foreach(l, qry->rowMarks) {
+        RowMarkClause *rc = (RowMarkClause *) lfirst(l);
+
+        // Return matching row mark clause
+        if (rc->rti == rtindex)
+            return rc;
+    }
+
+    // No row mark found for this relation
+    return NULL;
+}
+```

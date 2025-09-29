@@ -39,3 +39,29 @@ This function performs a system catalog lookup to determine the element type of 
 
 ## Notes and Other Information
 This function is crucial for array type handling throughout PostgreSQL. It's used in type coercion, function parameter validation, array operations, and many other contexts where the system needs to understand the relationship between array types and their elements. The function's strict checking for "true" array types helps maintain type safety by ensuring that only proper arrays are treated as such, even if other types might have some array-like characteristics.
+
+## Simplified Source
+
+```c
+Oid get_element_type(Oid typid) {
+    // Look up the type in system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        Oid result;
+
+        // Return element type only for true array types
+        if (IsTrueArrayType(typtup)) {
+            result = typtup->typelem;
+        } else {
+            result = InvalidOid;
+        }
+
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        return InvalidOid;
+    }
+}
+```

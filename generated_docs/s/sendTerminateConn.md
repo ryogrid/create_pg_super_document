@@ -37,3 +37,20 @@ The `sendTerminateConn` function is responsible for sending a protocol-level ter
 - Only sends the terminate message when the connection is in a healthy state (CONNECTION_OK)
 - Part of the graceful connection shutdown process in libpq
 - Uses the PostgreSQL wire protocol message format for communication
+
+## Simplified Source
+```c
+static void sendTerminateConn(PGconn *conn) {
+    // Skip terminate messages for cancellation requests
+    if (conn->cancelRequest)
+        return;
+
+    // Only send terminate message when connection is valid and ready
+    if (conn->sock != PGINVALID_SOCKET && conn->status == CONNECTION_OK) {
+        // Send terminate message to backend (ignore any errors)
+        pqPutMsgStart(PqMsg_Terminate, conn);
+        pqPutMsgEnd(conn);
+        pqFlush(conn);
+    }
+}
+```

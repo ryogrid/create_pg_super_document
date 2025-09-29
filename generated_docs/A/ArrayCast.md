@@ -30,7 +30,17 @@ The function assumes that the caller has already determined that the element is 
 ## Notes and Other Information
 - The caller is responsible for null checking before calling this function
 - This is a thin wrapper that provides semantic clarity for array-specific operations
-- Part of PostgreSQL's internal array support routines  
+- Part of PostgreSQL's internal array support routines
 - The function is static, meaning it's only accessible within the arrayfuncs.c compilation unit
 - The byval and len parameters must match the characteristics of the array's element type
 - Returns a properly formed Datum that can be used in PostgreSQL's expression evaluation system
+
+## Simplified Source
+```c
+static Datum
+ArrayCast(char *value, bool byval, int len)
+{
+    // Convert array element memory to Datum
+    return fetch_att(value, byval, len);
+}
+```

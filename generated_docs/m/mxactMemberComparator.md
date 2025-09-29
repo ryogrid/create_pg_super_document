@@ -34,3 +34,26 @@ The comparison follows standard qsort conventions: returning negative values whe
 - This comparator ensures consistent ordering of MultiXactMember arrays, which is critical for multixact operations and caching
 - The two-level comparison (xid first, then status) provides a stable and deterministic sort order
 - Being a static function, it is only accessible within the multixact.c compilation unit
+
+## Simplified Source
+
+```c
+static int mxactMemberComparator(const void *arg1, const void *arg2) {
+    MultiXactMember member1 = *(const MultiXactMember *) arg1;
+    MultiXactMember member2 = *(const MultiXactMember *) arg2;
+
+    // Compare by transaction ID first
+    if (member1.xid > member2.xid)
+        return 1;
+    if (member1.xid < member2.xid)
+        return -1;
+
+    // If XIDs equal, compare by status
+    if (member1.status > member2.status)
+        return 1;
+    if (member1.status < member2.status)
+        return -1;
+
+    return 0; // Equal
+}
+```

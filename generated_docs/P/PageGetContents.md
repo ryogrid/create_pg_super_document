@@ -40,3 +40,11 @@ This function calculates and returns a pointer to the content area of a page by 
 - Widely used across access methods for accessing metadata stored directly on pages
 - Used for accessing data structures like meta pages, free space maps, and visibility maps
 - The returned pointer points to immediately after the properly aligned page header
+
+## Simplified Source
+```c
+static inline char *PageGetContents(Page page) {
+    // Return pointer to content area after aligned page header
+    return (char *) page + MAXALIGN(SizeOfPageHeaderData);
+}
+```

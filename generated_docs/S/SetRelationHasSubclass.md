@@ -50,3 +50,42 @@ The SI invalidation is crucial because query plans cache information about inher
 - Uses SearchSysCacheCopy1 to get a modifiable tuple copy
 - Handles both cases: when catalog update is needed and when only cache invalidation is required
 - Essential for query planner optimization of inheritance hierarchies
+
+## Simplified Source
+
+```c
+void SetRelationHasSubclass(Oid relationId, bool relhassubclass) {
+    Relation relationRelation;
+    HeapTuple tuple;
+    Form_pg_class classtuple;
+
+    // Verify proper locking requirements
+    Assert(CheckRelationOidLockedByMe(relationId, ShareUpdateExclusiveLock, false) ||
+           CheckRelationOidLockedByMe(relationId, ShareRowExclusiveLock, true));
+
+    // Open pg_class catalog for modification
+    relationRelation = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Get modifiable copy of the relation's catalog tuple
+    tuple = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(relationId));
+    if (!HeapTupleIsValid(tuple)) {
+        elog(ERROR, "cache lookup failed for relation %u", relationId);
+    }
+
+    classtuple = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Update relhassubclass field if value differs
+    if (classtuple->relhassubclass != relhassubclass) {
+        classtuple->relhassubclass = relhassubclass;
+        CatalogTupleUpdate(relationRelation, &tuple->t_self, tuple);
+    } else {
+        // Force cache invalidation even if no change needed
+        // This ensures all backends rebuild query plans
+        CacheInvalidateRelcacheByTuple(tuple);
+    }
+
+    // Cleanup
+    heap_freetuple(tuple);
+    table_close(relationRelation, RowExclusiveLock);
+}
+```

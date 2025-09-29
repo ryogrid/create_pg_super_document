@@ -48,3 +48,39 @@ This function is typically used for expressions that need to be evaluated indepe
 - Shares the same memory context requirements as ExecInitExpr - must be called in a context that persists for the expression's lifetime
 - Like ExecInitExpr, returns NULL for NULL input and requires no explicit cleanup function
 - Primarily used in specialized contexts like partition pruning where expressions need evaluation outside normal query execution
+
+## Simplified Source
+
+```c
+ExprState *
+ExecInitExprWithParams(Expr *node, ParamListInfo ext_params)
+{
+    // Handle NULL expression - return NULL for caller convenience
+    if (node == NULL)
+        return NULL;
+
+    // Initialize empty ExprState for standalone evaluation
+    ExprState *state = makeNode(ExprState);
+    ExprEvalStep step = {0};
+
+    // Set properties for standalone expression (no parent PlanState)
+    state->expr = node;
+    state->parent = NULL;          // No parent since this is standalone
+    state->ext_params = ext_params; // External parameters for PARAM_EXTERN nodes
+
+    // Insert any required setup steps for parameters, etc.
+    ExecCreateExprSetupSteps(state, (Node *) node);
+
+    // Recursively compile the expression tree into evaluation steps
+    ExecInitExprRec(node, state, &state->resvalue, &state->resnull);
+
+    // Add final DONE step
+    step.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &step);
+
+    // Finalize for execution
+    ExecReadyExpr(state);
+
+    return state;
+}
+```

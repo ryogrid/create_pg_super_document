@@ -37,3 +37,17 @@ This function performs a simple but essential task in index creation: it updates
 - Called after ConstructTupleDescriptor creates the initial tuple descriptor structure
 - Part of the index creation workflow where relation OIDs are finalized after initial structure creation
 - The function modifies the tuple descriptor in-place rather than returning a new one
+
+## Simplified Source
+
+```c
+static void
+InitializeAttributeOids(Relation indexRelation, int numatts, Oid indexoid)
+{
+    // Get the tuple descriptor and update each attribute's relation OID
+    TupleDesc tupleDescriptor = RelationGetDescr(indexRelation);
+
+    for (int i = 0; i < numatts; i++)
+        TupleDescAttr(tupleDescriptor, i)->attrelid = indexoid;
+}
+```

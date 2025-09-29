@@ -34,3 +34,39 @@ On little-endian systems, the function simply copies the 16 bytes directly from 
 - Handles endianness conversion to ensure consistent MD5 output across different architectures
 - The byte ordering in the final digest follows the MD5 specification (RFC 1321) little-endian format
 - This function completes the MD5 hashing process by providing the final binary hash value
+
+## Simplified Source
+
+```c
+static void
+md5_result(uint8 *digest, pg_md5_ctx *ctx)
+{
+    // Extract 16-byte MD5 digest from context state
+#ifndef WORDS_BIGENDIAN
+    // Little-endian: direct copy of 16 bytes
+    memmove(digest, &ctx->md5_st8[0], 16);
+#else
+    // Big-endian: reverse byte order for each 32-bit word
+    // Word 1 (md5_sta)
+    digest[0] = ctx->md5_st8[3];
+    digest[1] = ctx->md5_st8[2];
+    digest[2] = ctx->md5_st8[1];
+    digest[3] = ctx->md5_st8[0];
+    // Word 2 (md5_stb)
+    digest[4] = ctx->md5_st8[7];
+    digest[5] = ctx->md5_st8[6];
+    digest[6] = ctx->md5_st8[5];
+    digest[7] = ctx->md5_st8[4];
+    // Word 3 (md5_stc)
+    digest[8] = ctx->md5_st8[11];
+    digest[9] = ctx->md5_st8[10];
+    digest[10] = ctx->md5_st8[9];
+    digest[11] = ctx->md5_st8[8];
+    // Word 4 (md5_std)
+    digest[12] = ctx->md5_st8[15];
+    digest[13] = ctx->md5_st8[14];
+    digest[14] = ctx->md5_st8[13];
+    digest[15] = ctx->md5_st8[12];
+#endif
+}
+```

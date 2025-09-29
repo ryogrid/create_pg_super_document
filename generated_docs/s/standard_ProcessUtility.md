@@ -57,3 +57,115 @@ Key operational aspects include: stack depth checking for recursion protection, 
 - The function includes performance optimizations by fast-pathing commands that conditionally support event triggers
 - Uses CommandCounterIncrement at completion to make command effects visible for subsequent operations within the same transaction
 - Supports recursive processing for complex commands like CREATE SCHEMA that contain embedded utility statements
+
+## Simplified Source
+
+```c
+void standard_ProcessUtility(PlannedStmt *pstmt,
+                            const char *queryString,
+                            bool readOnlyTree,
+                            ProcessUtilityContext context,
+                            ParamListInfo params,
+                            QueryEnvironment *queryEnv,
+                            DestReceiver *dest,
+                            QueryCompletion *qc) {
+    Node *parsetree;
+    bool isTopLevel = (context == PROCESS_UTILITY_TOPLEVEL);
+    bool isAtomicContext = (!(context == PROCESS_UTILITY_TOPLEVEL ||
+                             context == PROCESS_UTILITY_QUERY_NONATOMIC) ||
+                           IsTransactionBlock());
+    ParseState *pstate;
+    int readonly_flags;
+
+    // Protect against excessive recursion
+    check_stack_depth();
+
+    // Copy tree if read-only to prevent modifications
+    if (readOnlyTree)
+        pstmt = copyObject(pstmt);
+    parsetree = pstmt->utilityStmt;
+
+    // Validate read-only and parallel mode restrictions
+    readonly_flags = ClassifyUtilityCommandAsReadOnly(parsetree);
+    if (readonly_flags != COMMAND_IS_STRICTLY_READ_ONLY &&
+        (XactReadOnly || IsInParallelMode())) {
+        CommandTag commandtag = CreateCommandTag(parsetree);
+
+        if ((readonly_flags & COMMAND_OK_IN_READ_ONLY_TXN) == 0)
+            PreventCommandIfReadOnly(GetCommandTagName(commandtag));
+        if ((readonly_flags & COMMAND_OK_IN_PARALLEL_MODE) == 0)
+            PreventCommandIfParallelMode(GetCommandTagName(commandtag));
+        if ((readonly_flags & COMMAND_OK_IN_RECOVERY) == 0)
+            PreventCommandDuringRecovery(GetCommandTagName(commandtag));
+    }
+
+    // Setup parse state
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+    pstate->p_queryEnv = queryEnv;
+
+    // Main command dispatch
+    switch (nodeTag(parsetree)) {
+        case T_TransactionStmt:
+            // Handle BEGIN/COMMIT/ROLLBACK/SAVEPOINT operations
+            handle_transaction_stmt((TransactionStmt *) parsetree, qc);
+            break;
+
+        case T_DeclareCursorStmt:
+            PerformCursorOpen(pstate, (DeclareCursorStmt *) parsetree, params, isTopLevel);
+            break;
+
+        case T_ClosePortalStmt:
+            CheckRestrictedOperation("CLOSE");
+            PerformPortalClose(((ClosePortalStmt *) parsetree)->portalname);
+            break;
+
+        case T_FetchStmt:
+            PerformPortalFetch((FetchStmt *) parsetree, dest, qc);
+            break;
+
+        case T_DoStmt:
+            ExecuteDoStmt(pstate, (DoStmt *) parsetree, isAtomicContext);
+            break;
+
+        case T_CreateTableSpaceStmt:
+            PreventInTransactionBlock(isTopLevel, "CREATE TABLESPACE");
+            CreateTableSpace((CreateTableSpaceStmt *) parsetree);
+            break;
+
+        case T_DropTableSpaceStmt:
+            PreventInTransactionBlock(isTopLevel, "DROP TABLESPACE");
+            DropTableSpace((DropTableSpaceStmt *) parsetree);
+            break;
+
+        // ... many more cases for different utility commands ...
+
+        case T_GrantStmt:
+        case T_DropStmt:
+        case T_RenameStmt:
+        case T_AlterObjectDependsStmt:
+        case T_AlterObjectSchemaStmt:
+        case T_AlterOwnerStmt:
+        case T_CommentStmt:
+        case T_SecLabelStmt:
+            // Commands that may support event triggers
+            if (EventTriggerSupportsObjectType(get_object_type(parsetree)))
+                ProcessUtilitySlow(pstate, pstmt, queryString, context,
+                                 params, queryEnv, dest, qc);
+            else
+                execute_simple_command(parsetree, isTopLevel);
+            break;
+
+        default:
+            // All other commands have event trigger support
+            ProcessUtilitySlow(pstate, pstmt, queryString, context,
+                             params, queryEnv, dest, qc);
+            break;
+    }
+
+    free_parsestate(pstate);
+
+    // Make command effects visible
+    CommandCounterIncrement();
+}
+```

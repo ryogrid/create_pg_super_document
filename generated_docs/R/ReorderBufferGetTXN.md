@@ -35,3 +35,31 @@ ReorderBufferGetTXN creates a fresh ReorderBufferTXN instance by allocating memo
 - Zeroes out the entire structure before initialization to ensure clean state
 - Sets output_plugin_private to NULL for plugin-specific data
 - Memory is automatically freed when the reorder buffer's context is deleted
+
+## Simplified Source
+
+```c
+static ReorderBufferTXN *
+ReorderBufferGetTXN(ReorderBuffer *rb)
+{
+    ReorderBufferTXN *txn;
+
+    // Allocate memory for new transaction from reorder buffer context
+    txn = (ReorderBufferTXN *)
+        MemoryContextAlloc(rb->txn_context, sizeof(ReorderBufferTXN));
+
+    // Clear all fields to zero
+    memset(txn, 0, sizeof(ReorderBufferTXN));
+
+    // Initialize empty linked lists for transaction data
+    dlist_init(&txn->changes);      // List of changes in this transaction
+    dlist_init(&txn->tuplecids);    // List of tuple command IDs
+    dlist_init(&txn->subtxns);      // List of subtransactions
+
+    // Set command ID to invalid (not zero)
+    txn->command_id = InvalidCommandId;
+    txn->output_plugin_private = NULL;
+
+    return txn;
+}
+```

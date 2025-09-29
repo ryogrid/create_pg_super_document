@@ -51,3 +51,44 @@ The function includes strict error handling - it must PANIC on failure rather th
 - Handles both regular and speculative insertions differently for CTID management
 - Updates both tuple->t_self and the stored tuple's t_ctid fields for proper tuple chain management
 - Failure to add tuple to page results in PANIC, indicating a serious system-level error
+
+## Simplified Source
+
+```c
+void RelationPutHeapTuple(Relation relation,
+                          Buffer buffer,
+                          HeapTuple tuple,
+                          bool token)
+{
+    Page pageHeader;
+    OffsetNumber offnum;
+
+    // Validate speculative insertion token consistency
+    Assert(!token || HeapTupleHeaderIsSpeculative(tuple->t_data));
+
+    // Validate tuple hint bits to prevent corruption
+    Assert(!((tuple->t_data->t_infomask & HEAP_XMAX_COMMITTED) &&
+             (tuple->t_data->t_infomask & HEAP_XMAX_IS_MULTI)));
+
+    // Add tuple to the page
+    pageHeader = BufferGetPage(buffer);
+
+    offnum = PageAddItem(pageHeader, (Item) tuple->t_data,
+                         tuple->t_len, InvalidOffsetNumber, false, true);
+
+    if (offnum == InvalidOffsetNumber)
+        elog(PANIC, "failed to add tuple to page");
+
+    // Update tuple's self-reference with actual storage position
+    ItemPointerSet(&(tuple->t_self), BufferGetBlockNumber(buffer), offnum);
+
+    // Set CTID in stored tuple (except for speculative insertions)
+    if (!token)
+    {
+        ItemId itemId = PageGetItemId(pageHeader, offnum);
+        HeapTupleHeader item = (HeapTupleHeader) PageGetItem(pageHeader, itemId);
+
+        item->t_ctid = tuple->t_self;
+    }
+}
+```

@@ -38,3 +38,36 @@ The function ensures that grouping columns are properly labeled by passing the C
 - Uses clamp_cardinality_to_long to safely convert cardinality estimates from double to long to prevent overflow
 - The CP_LABEL_TLIST flag ensures grouping columns are properly labeled, which is crucial for set operation execution
 - Part of PostgreSQL's query planner infrastructure for handling set operations like UNION, INTERSECT, and EXCEPT
+
+## Simplified Source
+
+```c
+static SetOp *
+create_setop_plan(PlannerInfo *root, SetOpPath *best_path, int flags)
+{
+    SetOp *plan;
+    Plan *subplan;
+    long numGroups;
+
+    // Create subplan with labeled target list for grouping
+    subplan = create_plan_recurse(root, best_path->subpath,
+                                  flags | CP_LABEL_TLIST);
+
+    // Convert cardinality estimate to safe long value
+    numGroups = clamp_cardinality_to_long(best_path->numGroups);
+
+    // Create the SetOp plan node
+    plan = make_setop(best_path->cmd,
+                      best_path->strategy,
+                      subplan,
+                      best_path->distinctList,
+                      best_path->flagColIdx,
+                      best_path->firstFlag,
+                      numGroups);
+
+    // Copy cost and path information
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

@@ -56,3 +56,51 @@ The function excludes detached partitions automatically since it relies on find_
 - No provision is made for including concurrently detached partitions, as no current callers require this functionality
 - The caller is responsible for locking the root relation before calling this function
 - Located in src/backend/catalog/pg_inherits.c:255-354
+
+## Simplified Source
+
+```c
+List *find_all_inheritors(Oid parentrelId, LOCKMODE lockmode, List **numparents) {
+    // Create hash table for duplicate detection
+    HTAB *seen_rels = hash_create("find_all_inheritors temporary table", 32,
+                                  &ctl, HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    // Initialize result lists with parent relation
+    List *rels_list = list_make1_oid(parentrelId);
+    List *rel_numparents = list_make1_int(0);
+
+    // Process each relation in the list (list grows during iteration)
+    foreach(cell, rels_list) {
+        Oid currentrel = lfirst_oid(cell);
+
+        // Get direct children of current relation
+        List *currentchildren = find_inheritance_children(currentrel, lockmode);
+
+        // Add each child if not already seen
+        foreach(child_cell, currentchildren) {
+            Oid child_oid = lfirst_oid(child_cell);
+            SeenRelsEntry *hash_entry = hash_search(seen_rels, &child_oid, HASH_ENTER, &found);
+
+            if (found) {
+                // Child already exists - increment parent count
+                numparents_cell = list_nth_cell(rel_numparents, hash_entry->list_index);
+                lfirst_int(numparents_cell)++;
+            } else {
+                // New child - add to lists
+                hash_entry->list_index = list_length(rels_list);
+                rels_list = lappend_oid(rels_list, child_oid);
+                rel_numparents = lappend_int(rel_numparents, 1);
+            }
+        }
+    }
+
+    // Clean up and return results
+    if (numparents)
+        *numparents = rel_numparents;
+    else
+        list_free(rel_numparents);
+
+    hash_destroy(seen_rels);
+    return rels_list;
+}
+```

@@ -39,3 +39,31 @@ This function retrieves the user's home directory and stores it in the provided 
 - Designed to avoid namespace pollution by not using get_home_path() from path.c
 - Some users intentionally run in home-directory-less environments
 - Buffer must be large enough to hold the resulting path
+
+## Simplified Source
+
+```c
+bool
+pqGetHomeDirectory(char *buf, int bufsize)
+{
+#ifndef WIN32
+    // Unix: check HOME environment variable first
+    const char *home = getenv("HOME");
+    if (home == NULL || home[0] == '\0')
+        return pg_get_user_home_dir(geteuid(), buf, bufsize);
+
+    strlcpy(buf, home, bufsize);
+    return true;
+#else
+    // Windows: use application data folder
+    char tmppath[MAX_PATH];
+    ZeroMemory(tmppath, sizeof(tmppath));
+
+    if (SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, tmppath) != S_OK)
+        return false;
+
+    snprintf(buf, bufsize, "%s/postgresql", tmppath);
+    return true;
+#endif
+}
+```

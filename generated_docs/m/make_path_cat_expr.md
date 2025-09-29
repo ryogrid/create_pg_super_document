@@ -35,3 +35,26 @@ This static function constructs a FuncExpr that represents an array concatenatio
 - Used in both SEARCH depth-first and CYCLE detection scenarios to build up the path array
 - The path_varattno parameter specifies which column in the CTE contains the path array to extend
 - The location field is set to -1 indicating no specific source location for the constructed nodes
+
+## Simplified Source
+
+```c
+static Expr *
+make_path_cat_expr(RowExpr *rowexpr, AttrNumber path_varattno)
+{
+    // Create array wrapper: ARRAY[ROW(cols)]
+    ArrayExpr *arr = makeNode(ArrayExpr);
+    arr->array_typeid = RECORDARRAYOID;
+    arr->element_typeid = RECORDOID;
+    arr->location = -1;
+    arr->elements = list_make1(rowexpr);
+
+    // Create concatenation: path_var || ARRAY[ROW(cols)]
+    Expr *path_var = makeVar(1, path_varattno, RECORDARRAYOID, -1, 0, 0);
+    FuncExpr *concat_expr = makeFuncExpr(F_ARRAY_CAT, RECORDARRAYOID,
+                                        list_make2(path_var, arr),
+                                        InvalidOid, InvalidOid, COERCE_EXPLICIT_CALL);
+
+    return (Expr *) concat_expr;
+}
+```

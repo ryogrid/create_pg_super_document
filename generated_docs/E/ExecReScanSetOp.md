@@ -36,3 +36,48 @@ ExecReScanSetOp prepares a SetOp execution node for re-execution by resetting it
 - Follows PostgreSQL's parameter change propagation mechanism through chgParam
 - The function is part of the executor's rescan framework for set operations like UNION, INTERSECT, and EXCEPT
 - Declared in src/include/executor/nodeSetOp.h and defined in src/backend/executor/nodeSetOp.c:594-649
+
+## Simplified Source
+
+```c
+void ExecReScanSetOp(SetOpState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Reset result tuple and state flags
+    ExecClearTuple(node->ps.ps_ResultTupleSlot);
+    node->setop_done = false;
+    node->numOutput = 0;
+
+    // Handle hashed strategy optimizations
+    if (((SetOp *) node->ps.plan)->strategy == SETOP_HASHED) {
+        // If hash table not built yet, nothing to undo
+        if (!node->table_filled)
+            return;
+
+        // If no parameter changes, just reset iterator
+        if (outerPlan->chgParam == NULL) {
+            ResetTupleHashIterator(node->hashtable, &node->hashiter);
+            return;
+        }
+    }
+
+    // Clean up cached data
+    if (node->grp_firstTuple != NULL) {
+        heap_freetuple(node->grp_firstTuple);
+        node->grp_firstTuple = NULL;
+    }
+
+    // Reset hashtable memory and rebuild if needed
+    if (node->tableContext)
+        MemoryContextReset(node->tableContext);
+
+    if (((SetOp *) node->ps.plan)->strategy == SETOP_HASHED) {
+        ResetTupleHashTable(node->hashtable);
+        node->table_filled = false;
+    }
+
+    // Rescan outer plan if parameters unchanged
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+}
+```

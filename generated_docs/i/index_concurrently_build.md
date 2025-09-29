@@ -49,3 +49,54 @@ The function operates under security restrictions and manages GUC variable chang
 - Maintains locks until transaction end but closes relations
 - Manages GUC variables and security context properly during execution
 - Located at src/backend/catalog/index.c:1482-1548
+
+## Simplified Source
+
+```c
+void
+index_concurrently_build(Oid heapRelationId, Oid indexRelationId)
+{
+    Relation heapRel;
+    Relation indexRelation;
+    IndexInfo *indexInfo;
+    Oid save_userid;
+    int save_sec_context;
+    int save_nestlevel;
+
+    // Ensure we have an active snapshot
+    Assert(ActiveSnapshotSet());
+
+    // Open the table with lock to prevent schema changes
+    heapRel = table_open(heapRelationId, ShareUpdateExclusiveLock);
+
+    // Switch to table owner's security context
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(heapRel->rd_rel->relowner,
+                          save_sec_context | SECURITY_RESTRICTED_OPERATION);
+    save_nestlevel = NewGUCNestLevel();
+    RestrictSearchPath();
+
+    // Open the index relation
+    indexRelation = index_open(indexRelationId, RowExclusiveLock);
+
+    // Rebuild IndexInfo structure (lost after catalog creation transaction)
+    indexInfo = BuildIndexInfo(indexRelation);
+    Assert(!indexInfo->ii_ReadyForInserts);
+    indexInfo->ii_Concurrent = true;
+    indexInfo->ii_BrokenHotChain = false;
+
+    // Build the index data
+    index_build(heapRel, indexRelation, indexInfo, false, true);
+
+    // Restore security context and GUC settings
+    AtEOXact_GUC(false, save_nestlevel);
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+
+    // Close relations (keep locks until transaction end)
+    table_close(heapRel, NoLock);
+    index_close(indexRelation, NoLock);
+
+    // Mark index as ready for inserts
+    index_set_state_flags(indexRelationId, INDEX_CREATE_SET_READY);
+}
+```

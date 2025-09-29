@@ -36,3 +36,22 @@ This is a critical cleanup function that prevents dangling pointers and ensures 
 - The function ensures that no dangling pointers remain in either the relation cache or statistics system
 - This is part of the cleanup path for both normal relation closure and error recovery scenarios
 - The function is designed to be idempotent - calling it multiple times has no additional effect
+
+## Simplified Source
+
+```c
+void
+pgstat_unlink_relation(Relation rel)
+{
+    // If no stats info linked, nothing to do
+    if (rel->pgstat_info == NULL)
+        return;
+
+    // Verify bidirectional link integrity
+    Assert(rel->pgstat_info->relation == rel);
+
+    // Break the mutual link
+    rel->pgstat_info->relation = NULL;
+    rel->pgstat_info = NULL;
+}
+```

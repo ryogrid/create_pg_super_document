@@ -44,3 +44,15 @@ Unlike FreeExprContext, this function preserves the ExprContext structure itself
 - Always calls shutdown callbacks with isCommit=true since this is a controlled reset operation
 - Commonly used in aggregate nodes and other operators that support rescanning
 - The function makes no assumptions about the caller's memory context
+
+## Simplified Source
+
+```c
+void ReScanExprContext(ExprContext *econtext) {
+    // Execute shutdown callbacks to cancel any partial operations
+    ShutdownExprContext(econtext, true);
+
+    // Clear per-tuple memory but keep the context structure
+    MemoryContextReset(econtext->ecxt_per_tuple_memory);
+}
+```

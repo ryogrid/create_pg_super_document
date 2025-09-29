@@ -57,3 +57,94 @@ For each constraint to be cloned, the function:
 - Requires appropriate locking (ShareRowExclusiveLock) on the referencing relation to safely create triggers
 - The function handles both simple partitions and nested partitioning through recursive calls
 - Part of PostgreSQL's partition-wise foreign key constraint management system
+
+## Simplified Source
+```c
+static void CloneFkReferenced(Relation parentRel, Relation partitionRel)
+{
+    Relation pg_constraint;
+    AttrMap *attmap;
+    List *clone = NIL;
+    Relation trigrel;
+
+    // Phase 1: Find all FK constraints that reference the parent relation
+    pg_constraint = table_open(ConstraintRelationId, RowShareLock);
+
+    // Scan for foreign keys where parent is the referenced table
+    ScanKeyData key[2];
+    ScanKeyInit(&key[0], Anum_pg_constraint_confrelid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationGetRelid(parentRel)));
+    ScanKeyInit(&key[1], Anum_pg_constraint_contype, BTEqualStrategyNumber,
+                F_CHAREQ, CharGetDatum(CONSTRAINT_FOREIGN));
+
+    SysScanDesc scan = systable_beginscan(pg_constraint, InvalidOid, true, NULL, 2, key);
+    HeapTuple tuple;
+    while ((tuple = systable_getnext(scan)) != NULL) {
+        Form_pg_constraint constrForm = (Form_pg_constraint) GETSTRUCT(tuple);
+        clone = lappend_oid(clone, constrForm->oid);
+    }
+    systable_endscan(scan);
+    table_close(pg_constraint, RowShareLock);
+
+    // Open trigger catalog for constraint creation
+    trigrel = table_open(TriggerRelationId, RowExclusiveLock);
+
+    // Build attribute mapping between partition and parent
+    attmap = build_attrmap_by_name(RelationGetDescr(partitionRel),
+                                   RelationGetDescr(parentRel), false);
+
+    // Phase 2: Clone each constraint, avoiding duplicates
+    ListCell *cell;
+    foreach(cell, clone) {
+        Oid constrOid = lfirst_oid(cell);
+
+        // Get constraint details from catalog
+        tuple = SearchSysCache1(CONSTROID, ObjectIdGetDatum(constrOid));
+        Form_pg_constraint constrForm = (Form_pg_constraint) GETSTRUCT(tuple);
+
+        // Skip if parent constraint is also being cloned (avoid duplicates)
+        if (list_member_oid(clone, constrForm->conparentid)) {
+            ReleaseSysCache(tuple);
+            continue;
+        }
+
+        // Open the referencing relation
+        Relation fkRel = table_open(constrForm->conrelid, ShareRowExclusiveLock);
+
+        // Extract constraint details and map column attributes
+        int numfks;
+        AttrNumber conkey[INDEX_MAX_KEYS];
+        AttrNumber confkey[INDEX_MAX_KEYS];
+        AttrNumber mapped_confkey[INDEX_MAX_KEYS];
+        // ... extract other constraint details ...
+
+        DeconstructFkConstraintRow(tuple, &numfks, conkey, confkey, /*...*/);
+
+        // Map referenced columns from parent to partition
+        for (int i = 0; i < numfks; i++)
+            mapped_confkey[i] = attmap->attnums[confkey[i] - 1];
+
+        // Create new constraint node and set properties
+        Constraint *fkconstraint = makeNode(Constraint);
+        // ... set constraint properties ...
+
+        // Find corresponding index in partition
+        Oid partIndexId = index_get_partition(partitionRel, constrForm->conindid);
+
+        // Get action triggers for inheritance
+        Oid deleteTriggerOid, updateTriggerOid;
+        GetForeignKeyActionTriggers(trigrel, constrOid, /*...*/);
+
+        // Create the constraint on the partition
+        ObjectAddress address = addFkConstraint(addFkReferencedSide, /*...*/);
+
+        // Recursively handle sub-partitions
+        addFkRecurseReferenced(fkconstraint, fkRel, partitionRel, /*...*/);
+
+        table_close(fkRel, NoLock);
+        ReleaseSysCache(tuple);
+    }
+
+    table_close(trigrel, RowExclusiveLock);
+}
+```

@@ -38,3 +38,37 @@ The generated string serves as the column-specific portion of index names, helpi
 - Stops concatenating column names once NAMEDATALEN limit is reached
 - Each column name is separated by an underscore character
 - Returns a palloc'd string that must be freed by the caller
+
+## Simplified Source
+
+```c
+static char *
+ChooseIndexNameAddition(const List *colnames)
+{
+    char buf[NAMEDATALEN * 2];
+    int buflen = 0;
+    ListCell *lc;
+
+    buf[0] = '\0';
+
+    // Concatenate column names with underscores
+    foreach(lc, colnames)
+    {
+        const char *name = (const char *) lfirst(lc);
+
+        // Add separator between names
+        if (buflen > 0)
+            buf[buflen++] = '_';
+
+        // Safely copy column name, respecting length limits
+        strlcpy(buf + buflen, name, NAMEDATALEN);
+        buflen += strlen(buf + buflen);
+
+        // Stop if we've reached the name length limit
+        if (buflen >= NAMEDATALEN)
+            break;
+    }
+
+    return pstrdup(buf);
+}
+```

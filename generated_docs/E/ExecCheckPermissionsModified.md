@@ -42,3 +42,39 @@ The function prevents whole-row updates by explicitly checking for InvalidAttrNu
 - The function explicitly prevents whole-row updates by throwing an ERROR
 - Column numbers are offset by FirstLowInvalidHeapAttributeNumber to handle system columns
 - Designed to work uniformly for both INSERT and UPDATE operations
+
+## Simplified Source
+
+```c
+static bool
+ExecCheckPermissionsModified(Oid relOid, Oid userid, Bitmapset *modifiedCols,
+                             AclMode requiredPerms)
+{
+    int col = -1;
+
+    // Handle case where no specific columns are modified
+    // (e.g., SELECT FOR UPDATE) - require permission on any column
+    if (bms_is_empty(modifiedCols)) {
+        if (pg_attribute_aclcheck_all(relOid, userid, requiredPerms,
+                                      ACLMASK_ANY) != ACLCHECK_OK)
+            return false;
+    }
+
+    // Check permission on each modified column
+    while ((col = bms_next_member(modifiedCols, col)) >= 0) {
+        // Convert bit position to attribute number
+        AttrNumber attno = col + FirstLowInvalidHeapAttributeNumber;
+
+        if (attno == InvalidAttrNumber) {
+            // Whole-row updates are not supported
+            elog(ERROR, "whole-row update is not implemented");
+        } else {
+            // Check permission on this specific column
+            if (pg_attribute_aclcheck(relOid, attno, userid,
+                                      requiredPerms) != ACLCHECK_OK)
+                return false;
+        }
+    }
+    return true;
+}
+```

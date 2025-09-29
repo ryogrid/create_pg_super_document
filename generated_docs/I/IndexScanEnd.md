@@ -34,3 +34,20 @@ This function is deliberately simple and focused solely on memory management, as
 - This is part of the two-phase scan termination process: AM endscan first, then IndexScanEnd
 - The function does not perform any locking operations - those are handled by the AM's endscan routine
 - Memory is freed using pfree, PostgreSQL's standard memory deallocation function
+
+## Simplified Source
+
+```c
+void IndexScanEnd(IndexScanDesc scan) {
+    // Free scan key data if allocated
+    if (scan->keyData != NULL)
+        pfree(scan->keyData);
+
+    // Free order-by data if allocated
+    if (scan->orderByData != NULL)
+        pfree(scan->orderByData);
+
+    // Free the scan descriptor itself
+    pfree(scan);
+}
+```

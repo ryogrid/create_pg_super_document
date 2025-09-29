@@ -34,3 +34,25 @@ Memory cleanup is performed hierarchically through memory context deletion. Sinc
 - Memory context deletion automatically handles all child contexts (batchCxt, spillCxt) and their allocations
 - The function is safe to call even if some temporary files were never opened or if the hash table was only partially initialized
 - Part of the hash join cleanup sequence that ensures no resources are leaked when queries complete or are aborted
+
+## Simplified Source
+
+```c
+void ExecHashTableDestroy(HashJoinTable hashtable) {
+    // Close temporary batch files (skip batch 0, it has no temp files)
+    if (hashtable->innerBatchFile != NULL) {
+        for (int i = 1; i < hashtable->nbatch; i++) {
+            if (hashtable->innerBatchFile[i])
+                BufFileClose(hashtable->innerBatchFile[i]);
+            if (hashtable->outerBatchFile[i])
+                BufFileClose(hashtable->outerBatchFile[i]);
+        }
+    }
+
+    // Release all working memory (including child contexts)
+    MemoryContextDelete(hashtable->hashCxt);
+
+    // Free the control structure
+    pfree(hashtable);
+}
+```

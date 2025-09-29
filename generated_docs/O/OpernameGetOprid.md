@@ -43,3 +43,74 @@ This function performs operator resolution in the PostgreSQL catalog system. It 
 - Skips the temporary namespace during search path traversal
 - Uses system cache lookups for efficient operator resolution
 - Critical for operator resolution in SQL parsing and execution phases
+
+## Simplified Source
+
+```c
+Oid
+OpernameGetOprid(List *names, Oid oprleft, Oid oprright)
+{
+    char *schemaname;
+    char *opername;
+    CatCList *catlist;
+    ListCell *l;
+
+    // Parse the qualified name into schema and operator parts
+    DeconstructQualifiedName(names, &schemaname, &opername);
+
+    if (schemaname) {
+        // Schema-qualified: search only in specified schema
+        Oid namespaceId = LookupExplicitNamespace(schemaname, true);
+
+        if (OidIsValid(namespaceId)) {
+            HeapTuple opertup = SearchSysCache4(OPERNAMENSP,
+                                               CStringGetDatum(opername),
+                                               ObjectIdGetDatum(oprleft),
+                                               ObjectIdGetDatum(oprright),
+                                               ObjectIdGetDatum(namespaceId));
+            if (HeapTupleIsValid(opertup)) {
+                Form_pg_operator operclass = (Form_pg_operator) GETSTRUCT(opertup);
+                Oid result = operclass->oid;
+                ReleaseSysCache(opertup);
+                return result;
+            }
+        }
+        return InvalidOid;
+    }
+
+    // Unqualified: search by name and argument types across search path
+    catlist = SearchSysCacheList3(OPERNAMENSP,
+                                  CStringGetDatum(opername),
+                                  ObjectIdGetDatum(oprleft),
+                                  ObjectIdGetDatum(oprright));
+
+    if (catlist->n_members == 0) {
+        ReleaseSysCacheList(catlist);
+        return InvalidOid;
+    }
+
+    // Find the first match in the namespace search path
+    recomputeNamespacePath();
+
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        if (namespaceId == myTempNamespace)
+            continue;  // Skip temp namespace
+
+        for (int i = 0; i < catlist->n_members; i++) {
+            HeapTuple opertup = &catlist->members[i]->tuple;
+            Form_pg_operator operform = (Form_pg_operator) GETSTRUCT(opertup);
+
+            if (operform->oprnamespace == namespaceId) {
+                Oid result = operform->oid;
+                ReleaseSysCacheList(catlist);
+                return result;
+            }
+        }
+    }
+
+    ReleaseSysCacheList(catlist);
+    return InvalidOid;
+}
+```

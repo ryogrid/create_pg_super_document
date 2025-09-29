@@ -43,3 +43,43 @@ The function serves as a specialized dispatcher that identifies qualification co
 - Works in conjunction with preprocess_expression to maintain consistent qual processing across the entire query
 - Part of the critical path for query optimization ensuring all conditions are in canonical form before planning
 - Located in src/backend/optimizer/plan/planner.c:1258-1301
+
+## Simplified Source
+```c
+static void preprocess_qual_conditions(PlannerInfo *root, Node *jtnode)
+{
+    // Handle empty nodes
+    if (jtnode == NULL)
+        return;
+
+    if (IsA(jtnode, RangeTblRef))
+    {
+        // Simple table reference - no quals to process
+    }
+    else if (IsA(jtnode, FromExpr))
+    {
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *l;
+
+        // Recursively process all items in the FROM list
+        foreach(l, f->fromlist)
+            preprocess_qual_conditions(root, lfirst(l));
+
+        // Process WHERE clause
+        f->quals = preprocess_expression(root, f->quals, EXPRKIND_QUAL);
+    }
+    else if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        // Recursively process left and right join arguments
+        preprocess_qual_conditions(root, j->larg);
+        preprocess_qual_conditions(root, j->rarg);
+
+        // Process ON clause
+        j->quals = preprocess_expression(root, j->quals, EXPRKIND_QUAL);
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+}
+```

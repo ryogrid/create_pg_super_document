@@ -29,7 +29,7 @@ The function transforms each target entry in the plan's targetlist to reference 
   - [makeVar](../m/makeVar.md)
   - OUTER_VAR (special varno for referencing outer plan)
   - [exprType](../e/exprType.md)
-  - [exprTypmod](../e/exprTypmod.md)  
+  - [exprTypmod](../e/exprTypmod.md)
   - [exprCollation](../e/exprCollation.md)
   - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
 - Called from (representative examples):
@@ -46,3 +46,45 @@ The function transforms each target entry in the plan's targetlist to reference 
 - The qual expressions of the plan are not modified by this function
 - Could potentially use set_upper_references() but that fails for Append nodes due to lack of lefttree subplan
 - Single-purpose implementation provides better performance than more general alternatives
+
+## Simplified Source
+
+```c
+static void
+set_dummy_tlist_references(Plan *plan, int rtoffset) {
+    List *output_targetlist = NIL;
+
+    foreach(l, plan->targetlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+        Var *oldvar = (Var *) tle->expr;
+
+        // Keep constants as constants for cleaner EXPLAIN output
+        if (IsA(oldvar, Const)) {
+            output_targetlist = lappend(output_targetlist, tle);
+            continue;
+        }
+
+        // Create new OUTER_VAR reference to child plan output
+        Var *newvar = makeVar(OUTER_VAR, tle->resno,
+                             exprType((Node *) oldvar),
+                             exprTypmod((Node *) oldvar),
+                             exprCollation((Node *) oldvar), 0);
+
+        // Handle syntactic variable information for subqueries
+        if (IsA(oldvar, Var) && oldvar->varnosyn > 0) {
+            newvar->varnosyn = oldvar->varnosyn + rtoffset;
+            newvar->varattnosyn = oldvar->varattnosyn;
+        } else {
+            newvar->varnosyn = 0;
+            newvar->varattnosyn = 0;
+        }
+
+        // Create new target entry with OUTER_VAR reference
+        tle = flatCopyTargetEntry(tle);
+        tle->expr = (Expr *) newvar;
+        output_targetlist = lappend(output_targetlist, tle);
+    }
+
+    plan->targetlist = output_targetlist;
+}
+```

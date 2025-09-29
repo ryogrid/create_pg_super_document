@@ -46,3 +46,31 @@ Hash nodes are unique in that they don't evaluate or project data - they simply 
 - [Hash](../H/Hash.md) nodes don't evaluate qualifiers - they purely organize data for join operations
 - The OUTER_VAR context ensures hashkeys reference the correct input tuples during hash table construction
 - This function is simpler than other set_*_references functions because Hash nodes have a more limited role in query execution
+
+## Simplified Source
+
+```c
+static void
+set_hash_references(PlannerInfo *root, Plan *plan, int rtoffset) {
+    Hash *hplan = (Hash *) plan;
+    Plan *outer_plan = plan->lefttree;
+
+    // Build index of outer plan's target list for efficient lookups
+    indexed_tlist *outer_itlist = build_tlist_index(outer_plan->targetlist);
+
+    // Adjust hashkeys to reference outer plan output using OUTER_VAR
+    hplan->hashkeys = (List *) fix_upper_expr(root,
+                                             (Node *) hplan->hashkeys,
+                                             outer_itlist,
+                                             OUTER_VAR,
+                                             rtoffset,
+                                             NRM_EQUAL,
+                                             NUM_EXEC_QUAL(plan));
+
+    // Hash doesn't project - use dummy target list references
+    set_dummy_tlist_references(plan, rtoffset);
+
+    // Hash nodes don't have their own qualifiers
+    Assert(plan->qual == NIL);
+}
+```

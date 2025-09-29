@@ -48,3 +48,45 @@ The caching strategy assumes that distinct timezone settings never have the same
 - Critical for implementing SQL standard time functions that require high precision and timezone awareness
 - The caching mechanism significantly improves performance for applications that frequently query current time within transactions
 - Part of PostgreSQL's comprehensive date/time infrastructure that ensures consistent temporal semantics
+
+## Simplified Source
+
+```c
+void
+GetCurrentTimeUsec(struct pg_tm *tm, fsec_t *fsec, int *tzp)
+{
+    TimestampTz cur_ts = GetCurrentTransactionStartTimestamp();
+
+    // Static cache to avoid repeated conversions within a transaction
+    static TimestampTz cache_ts = 0;
+    static pg_tz *cache_timezone = NULL;
+    static struct pg_tm cache_tm;
+    static fsec_t cache_fsec;
+    static int cache_tz;
+
+    // Check if we need to refresh the cache
+    if (cur_ts != cache_ts || session_timezone != cache_timezone) {
+        // Mark cache invalid during update to handle potential errors
+        cache_timezone = NULL;
+
+        // Convert current timestamp to broken-down time
+        if (timestamp2tm(cur_ts, &cache_tz, &cache_tm, &cache_fsec,
+                        NULL, session_timezone) != 0) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                     errmsg("timestamp out of range")));
+        }
+
+        // Mark cache as valid
+        cache_ts = cur_ts;
+        cache_timezone = session_timezone;
+    }
+
+    // Return cached results
+    *tm = cache_tm;
+    *fsec = cache_fsec;
+    if (tzp != NULL) {
+        *tzp = cache_tz;
+    }
+}
+```

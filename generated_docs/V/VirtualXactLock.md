@@ -64,3 +64,76 @@ The function provides both blocking (wait=true) and non-blocking (wait=false) mo
 - Returns different semantics based on wait parameter: status check vs. blocking wait
 - Critical for PostgreSQL's transaction isolation and concurrency control mechanisms
 - Handles both normal and prepared transaction scenarios transparently
+
+## Simplified Source
+
+```c
+bool
+VirtualXactLock(VirtualTransactionId vxid, bool wait)
+{
+    LOCKTAG tag;
+    PGPROC *proc;
+    TransactionId xid = InvalidTransactionId;
+
+    Assert(VirtualTransactionIdIsValid(vxid));
+
+    // Handle recovered prepared transactions
+    if (VirtualTransactionIdIsRecoveredPreparedXact(vxid))
+        return XactLockForVirtualXact(vxid, vxid.localTransactionId, wait);
+
+    SET_LOCKTAG_VIRTUALTRANSACTION(tag, vxid);
+
+    // Get target process
+    proc = ProcNumberGetProc(vxid.procNumber);
+    if (proc == NULL)
+        return XactLockForVirtualXact(vxid, InvalidTransactionId, wait);
+
+    // Check transaction status under lock
+    LWLockAcquire(&proc->fpInfoLock, LW_EXCLUSIVE);
+
+    if (proc->vxid.procNumber != vxid.procNumber ||
+        proc->fpLocalTransactionId != vxid.localTransactionId) {
+        // VXID ended
+        LWLockRelease(&proc->fpInfoLock);
+        return XactLockForVirtualXact(vxid, InvalidTransactionId, wait);
+    }
+
+    // If not waiting, just return status
+    if (!wait) {
+        LWLockRelease(&proc->fpInfoLock);
+        return false;
+    }
+
+    // Materialize fast-path lock if needed
+    if (proc->fpVXIDLock) {
+        // Set up lock table entry for waiting
+        uint32 hashcode = LockTagHashCode(&tag);
+        LWLock *partitionLock = LockHashPartitionLock(hashcode);
+
+        LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+        PROCLOCK *proclock = SetupLockInTable(LockMethods[DEFAULT_LOCKMETHOD],
+                                              proc, &tag, hashcode, ExclusiveLock);
+        if (!proclock) {
+            LWLockRelease(partitionLock);
+            LWLockRelease(&proc->fpInfoLock);
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                           errmsg("out of shared memory")));
+        }
+
+        GrantLock(proclock->tag.myLock, proclock, ExclusiveLock);
+        LWLockRelease(partitionLock);
+        proc->fpVXIDLock = false;
+    }
+
+    // Capture current XID for later use
+    xid = proc->xid;
+    LWLockRelease(&proc->fpInfoLock);
+
+    // Wait for the virtual transaction
+    LockAcquire(&tag, ShareLock, false, false);
+    LockRelease(&tag, ShareLock, false);
+
+    return XactLockForVirtualXact(vxid, xid, wait);
+}
+```

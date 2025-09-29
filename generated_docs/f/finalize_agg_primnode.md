@@ -47,3 +47,31 @@ This specialized processing is necessary for hashed aggregation plans because th
 - Critical for determining when hash tables need rebuilding in response to parameter changes
 - Part of PostgreSQL's parameter finalization subsystem specialized for aggregate processing
 - Located in src/backend/optimizer/plan/subselect.c (static function)
+
+## Simplified Source
+
+```c
+static bool
+finalize_agg_primnode(Node *node, finalize_primnode_context *context)
+{
+    // Handle NULL nodes
+    if (node == NULL)
+        return false;
+
+    // Process aggregate function references
+    if (IsA(node, Aggref))
+    {
+        Aggref *agg = (Aggref *) node;
+
+        // Collect parameters from aggregate arguments and filter
+        finalize_primnode((Node *) agg->args, context);
+        finalize_primnode((Node *) agg->aggfilter, context);
+
+        // Stop traversal - no nested aggregates allowed
+        return false;
+    }
+
+    // Continue tree traversal for other node types
+    return expression_tree_walker(node, finalize_agg_primnode, context);
+}
+```

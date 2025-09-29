@@ -53,3 +53,12 @@ None - this function takes no parameters and operates on the current database en
 - Used extensively throughout PostgreSQL's string handling functions
 - Enables safe buffer allocation without per-character encoding checks
 - Essential for performance in multi-byte character processing scenarios
+
+## Simplified Source
+
+```c
+int pg_database_encoding_max_length(void) {
+    // Return max bytes per character for current database encoding
+    return pg_wchar_table[GetDatabaseEncoding()].maxmblen;
+}
+```

@@ -45,3 +45,50 @@ The function uses the short-circuit evaluation pattern typical of PostgreSQL tre
 - The function carefully manages nesting levels when encountering subqueries, incrementing before recursion and decrementing after
 - [PlaceHolderVar](../P/PlaceHolderVar.md) handling is special: it first checks the placeholder level, then continues traversing the contained expression even if the level matches
 - [CurrentOfExpr](../C/CurrentOfExpr.md) nodes are only considered to match at the outermost query level (sublevels_up == 0)
+
+## Simplified Source
+
+```c
+static bool contain_vars_of_level_walker(Node *node, int *sublevels_up) {
+    if (node == NULL)
+        return false;
+
+    // Check for Var nodes at target level
+    if (IsA(node, Var)) {
+        if (((Var *) node)->varlevelsup == *sublevels_up)
+            return true; // Found match, abort traversal
+        return false;
+    }
+
+    // Check for CurrentOfExpr at outermost level only
+    if (IsA(node, CurrentOfExpr)) {
+        if (*sublevels_up == 0)
+            return true;
+        return false;
+    }
+
+    // Check for PlaceHolderVar at target level
+    if (IsA(node, PlaceHolderVar)) {
+        if (((PlaceHolderVar *) node)->phlevelsup == *sublevels_up)
+            return true; // Found match, abort traversal
+        // Continue checking contained expression
+    }
+
+    // Handle subqueries by adjusting nesting level
+    if (IsA(node, Query)) {
+        bool result;
+
+        (*sublevels_up)++; // Descend into subquery
+        result = query_tree_walker((Query *) node,
+                                 contain_vars_of_level_walker,
+                                 (void *) sublevels_up, 0);
+        (*sublevels_up)--; // Restore level
+        return result;
+    }
+
+    // Recursively check all other expression nodes
+    return expression_tree_walker(node,
+                                contain_vars_of_level_walker,
+                                (void *) sublevels_up);
+}
+```

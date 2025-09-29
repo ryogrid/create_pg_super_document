@@ -35,3 +35,16 @@ This function serves as a wrapper that calls the access method-specific cleanup 
 - The actual cleanup work is delegated to the specific access method implementation
 - Not all index types may require cleanup operations, so the aminsertcleanup function pointer may be NULL
 - Located in src/backend/access/index/indexam.c:241-255
+
+## Simplified Source
+
+```c
+void index_insert_cleanup(Relation indexRelation, IndexInfo *indexInfo) {
+    // Validate the relation is in good state
+    RELATION_CHECKS;
+
+    // Call access method's cleanup function if it exists
+    if (indexRelation->rd_indam->aminsertcleanup)
+        indexRelation->rd_indam->aminsertcleanup(indexRelation, indexInfo);
+}
+```

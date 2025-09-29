@@ -36,3 +36,27 @@ ExecCheck is used to evaluate check constraints in PostgreSQL. The function take
 - Includes assertion to verify expression was not compiled as a qualifier
 - Used extensively for table constraints, partition constraints, and domain constraints
 - The function switches execution context to ensure proper memory management during evaluation
+
+## Simplified Source
+
+```c
+bool ExecCheck(ExprState *state, ExprContext *econtext) {
+    // No constraint to check - passes by default
+    if (state == NULL)
+        return true;
+
+    // Verify expression was prepared correctly
+    Assert(!(state->flags & EEO_FLAG_IS_QUAL));
+
+    // Evaluate the constraint expression
+    bool isnull;
+    Datum result = ExecEvalExprSwitchContext(state, econtext, &isnull);
+
+    // NULL result means constraint passes (SQL standard)
+    if (isnull)
+        return true;
+
+    // Return boolean result
+    return DatumGetBool(result);
+}
+```

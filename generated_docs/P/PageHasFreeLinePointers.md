@@ -33,3 +33,14 @@ The function operates on the page header structure, which contains metadata abou
 - The function only checks the flag state and does not modify the page
 - Used as part of PostgreSQL's space management strategy to efficiently reuse freed line pointers
 - The flag is managed by PageSetHasFreeLinePointers and PageClearHasFreeLinePointers functions
+
+## Simplified Source
+
+```c
+static inline bool
+PageHasFreeLinePointers(Page page)
+{
+    // Check if page has reusable line pointers
+    return ((PageHeader) page)->pd_flags & PD_HAS_FREE_LINES;
+}
+```

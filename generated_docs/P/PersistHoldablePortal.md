@@ -59,3 +59,87 @@ The function distinguishes between scrollable and non-scrollable cursors: scroll
 - After successful completion, the portal can only be accessed via the tuplestore, not through executor calls
 - All subsidiary memory contexts are cleaned up after persistence to free transaction-specific resources
 - The holdContext and holdStore must be pre-allocated by the caller before calling this function
+
+## Simplified Source
+
+```c
+void PersistHoldablePortal(Portal portal) {
+    QueryDesc *queryDesc = portal->queryDesc;
+
+    // Copy tuple descriptor to long-term memory
+    MemoryContext oldcxt = MemoryContextSwitchTo(portal->holdContext);
+    portal->tupDesc = CreateTupleDescCopy(portal->tupDesc);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Mark portal as active and set up execution context
+    MarkPortalActive(portal);
+
+    // Save current global state
+    Portal saveActivePortal = ActivePortal;
+    ResourceOwner saveResourceOwner = CurrentResourceOwner;
+    MemoryContext savePortalContext = PortalContext;
+
+    PG_TRY(); {
+        // Set up execution context
+        ActivePortal = portal;
+        if (portal->resowner)
+            CurrentResourceOwner = portal->resowner;
+        PortalContext = portal->portalContext;
+
+        PushActiveSnapshot(queryDesc->snapshot);
+
+        // Handle scrollable vs non-scrollable cursors
+        ScanDirection direction = ForwardScanDirection;
+        if (portal->cursorOptions & CURSOR_OPT_SCROLL) {
+            ExecutorRewind(queryDesc);  // Start from beginning for scrollable
+        } else if (portal->atEnd) {
+            direction = NoMovementScanDirection;  // No more tuples
+        }
+
+        // Configure output to tuplestore with detoasting
+        queryDesc->dest = CreateDestReceiver(DestTuplestore);
+        SetTuplestoreDestReceiverParams(queryDesc->dest, portal->holdStore,
+                                       portal->holdContext, true, NULL, NULL);
+
+        // Execute query and store all results
+        ExecutorRun(queryDesc, direction, 0, false);
+
+        // Clean up executor
+        queryDesc->dest->rDestroy(queryDesc->dest);
+        queryDesc->dest = NULL;
+        portal->queryDesc = NULL;
+        ExecutorFinish(queryDesc);
+        ExecutorEnd(queryDesc);
+        FreeQueryDesc(queryDesc);
+
+        // Position tuplestore cursor correctly
+        MemoryContextSwitchTo(portal->holdContext);
+        if (portal->atEnd) {
+            // Skip to end
+            while (tuplestore_skiptuples(portal->holdStore, 1000000, true));
+        } else {
+            tuplestore_rescan(portal->holdStore);
+            if (portal->cursorOptions & CURSOR_OPT_SCROLL) {
+                tuplestore_skiptuples(portal->holdStore, portal->portalPos, true);
+            }
+        }
+    }
+    PG_CATCH(); {
+        // Handle errors
+        MarkPortalFailed(portal);
+        ActivePortal = saveActivePortal;
+        CurrentResourceOwner = saveResourceOwner;
+        PortalContext = savePortalContext;
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Restore state and clean up
+    portal->status = PORTAL_READY;
+    ActivePortal = saveActivePortal;
+    CurrentResourceOwner = saveResourceOwner;
+    PortalContext = savePortalContext;
+    PopActiveSnapshot();
+    MemoryContextDeleteChildren(portal->portalContext);
+}
+```

@@ -20,7 +20,7 @@ Key characteristics:
 
 Common use cases include:
 - Pages created or modified outside the standard buffer pool
-- Temporary pages that don't go through shared buffers  
+- Temporary pages that don't go through shared buffers
 - Special system pages with direct management
 - Hint bit logging for pages accessed via different mechanisms
 
@@ -38,7 +38,7 @@ The function maintains the same block_id management and validation as XLogRegist
 - Functions called/Symbols referenced:
   - RelFileLocatorEquals: Validates against duplicate block registration
   - [registered_buffer](../r/registered_buffer.md): Buffer registration structure type
-  - [XLogRecData](XLogRecData.md): Data chain structure for block-associated data  
+  - [XLogRecData](XLogRecData.md): Data chain structure for block-associated data
 - Called from (representative examples):
   - [XLogSaveBufferForHint](XLogSaveBufferForHint.md): Hint bit logging for buffer pages
   - [log_newpage](../l/log_newpage.md): Single page initialization logging
@@ -51,3 +51,49 @@ The function maintains the same block_id management and validation as XLogRegist
 - Essential for WAL logging of pages that bypass standard buffer management
 - Less commonly used than XLogRegisterBuffer since most PostgreSQL operations go through the buffer pool
 - Block identification parameters must be provided explicitly since they cannot be extracted from a Buffer
+
+## Simplified Source
+
+```c
+void
+XLogRegisterBlock(uint8 block_id, RelFileLocator *rlocator, ForkNumber forknum,
+                  BlockNumber blknum, Page page, uint8 flags)
+{
+    registered_buffer *regbuf;
+
+    Assert(begininsert_called);
+
+    // Track maximum block ID used
+    if (block_id >= max_registered_block_id)
+        max_registered_block_id = block_id + 1;
+
+    // Validate block_id range
+    if (block_id >= max_registered_buffers)
+        elog(ERROR, "too many registered buffers");
+
+    // Initialize buffer registration structure
+    regbuf = &registered_buffers[block_id];
+    regbuf->rlocator = *rlocator;
+    regbuf->forkno = forknum;
+    regbuf->block = blknum;
+    regbuf->page = page;
+    regbuf->flags = flags;
+    regbuf->rdata_tail = (XLogRecData *) &regbuf->rdata_head;
+    regbuf->rdata_len = 0;
+
+    // Debug: Check for duplicate registrations
+    #ifdef USE_ASSERT_CHECKING
+    for (int i = 0; i < max_registered_block_id; i++) {
+        registered_buffer *regbuf_old = &registered_buffers[i];
+        if (i == block_id || !regbuf_old->in_use)
+            continue;
+
+        Assert(!RelFileLocatorEquals(regbuf_old->rlocator, regbuf->rlocator) ||
+               regbuf_old->forkno != regbuf->forkno ||
+               regbuf_old->block != regbuf->block);
+    }
+    #endif
+
+    regbuf->in_use = true;
+}
+```

@@ -36,3 +36,15 @@ This function is particularly useful for comparing large unsigned values like LS
 - Commonly used for comparing LSNs in replication and WAL processing where performance is critical
 - Part of a family of comparison functions for different integer types, providing consistent comparison semantics
 - Essential for sorting operations involving large unsigned identifiers in PostgreSQL's internal data structures
+
+## Simplified Source
+
+```c
+static inline int
+pg_cmp_u64(uint64 a, uint64 b)
+{
+    // Branchless three-way comparison
+    // Returns: -1 if a < b, 0 if a == b, 1 if a > b
+    return (a > b) - (a < b);
+}
+```

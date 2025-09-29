@@ -43,3 +43,37 @@ The function must be called while a snapshot is active or registered to avoid wr
 - The returned state contains definitely_needed and maybe_needed transaction IDs that must be valid
 - Different relation types (shared, catalog, data, temp) have different visibility horizons
 - Critical for ensuring MVCC correctness during cleanup operations
+
+## Simplified Source
+```c
+GlobalVisState *
+GlobalVisTestFor(Relation rel)
+{
+    GlobalVisState *state = NULL;
+
+    // Ensure we have an active snapshot
+    Assert(RecentXmin);
+
+    // Determine which visibility horizon applies to this relation
+    switch (GlobalVisHorizonKindForRel(rel)) {
+        case VISHORIZON_SHARED:
+            state = &GlobalVisSharedRels;
+            break;
+        case VISHORIZON_CATALOG:
+            state = &GlobalVisCatalogRels;
+            break;
+        case VISHORIZON_DATA:
+            state = &GlobalVisDataRels;
+            break;
+        case VISHORIZON_TEMP:
+            state = &GlobalVisTempRels;
+            break;
+    }
+
+    // Verify state is valid before returning
+    Assert(FullTransactionIdIsValid(state->definitely_needed) &&
+           FullTransactionIdIsValid(state->maybe_needed));
+
+    return state;
+}
+```

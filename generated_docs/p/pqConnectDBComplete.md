@@ -37,3 +37,68 @@ This function implements a blocking connection completion mechanism that repeate
 
 ## Notes and Other Information
 This function is part of the internal libpq connection establishment process and should not be called directly by application code. It implements the blocking variant of connection completion, while `PQconnectPoll()` provides the non-blocking alternative. The function handles multiple host/address combinations and implements per-host timeout logic, allowing clients to fail over to alternative servers when connection attempts time out. The function returns 1 on successful connection establishment and 0 on failure, with detailed error information stored in the PGconn structure.
+
+## Simplified Source
+
+```c
+int pqConnectDBComplete(PGconn *conn) {
+    PostgresPollingStatusType flag = PGRES_POLLING_WRITING;
+    pg_usec_time_t end_time = -1;
+    int timeout = 0;
+
+    // Validate connection
+    if (conn == NULL || conn->status == CONNECTION_BAD)
+        return 0;
+
+    // Parse timeout if specified
+    if (conn->connect_timeout != NULL) {
+        if (!pqParseIntParam(conn->connect_timeout, &timeout, conn, "connect_timeout")) {
+            conn->status = CONNECTION_BAD;
+            return 0;
+        }
+    }
+
+    for (;;) {
+        // Set timeout for current host/address if changed
+        if (flag != PGRES_POLLING_OK && timeout > 0) {
+            end_time = PQgetCurrentTimeUSec() + timeout * 1000000;
+        }
+
+        // Wait for socket readiness based on polling state
+        switch (flag) {
+            case PGRES_POLLING_OK:
+                return 1;  // Success!
+
+            case PGRES_POLLING_READING:
+                if (pqWaitTimed(1, 0, conn, end_time) == -1) {
+                    conn->status = CONNECTION_BAD;
+                    return 0;
+                }
+                break;
+
+            case PGRES_POLLING_WRITING:
+                if (pqWaitTimed(0, 1, conn, end_time) == -1) {
+                    conn->status = CONNECTION_BAD;
+                    return 0;
+                }
+                break;
+
+            default:
+                conn->status = CONNECTION_BAD;
+                return 0;
+        }
+
+        // Handle timeout - try next server
+        if (timeout_occurred) {
+            conn->try_next_addr = true;
+            conn->status = CONNECTION_NEEDED;
+        }
+
+        // Advance connection state machine
+        if (conn->cancelRequest)
+            flag = PQcancelPoll((PGcancelConn *) conn);
+        else
+            flag = PQconnectPoll(conn);
+    }
+}
+```

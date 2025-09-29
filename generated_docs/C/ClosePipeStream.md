@@ -41,3 +41,29 @@ This function is part of PostgreSQL's file descriptor management system that ens
 - Part of PostgreSQL's resource management strategy to prevent file descriptor and process leaks
 - Commonly used in COPY operations where data is piped to/from external programs
 - Essential for proper cleanup of child processes spawned through pipe operations
+
+## Simplified Source
+
+```c
+int
+ClosePipeStream(FILE *file)
+{
+    int i;
+
+    // Debug logging for allocated descriptors count
+    DO_DB(elog(LOG, "ClosePipeStream: Allocated %d", numAllocatedDescs));
+
+    // Search for the file in allocated descriptors list
+    for (i = numAllocatedDescs; --i >= 0;) {
+        AllocateDesc *desc = &allocatedDescs[i];
+
+        if (desc->kind == AllocateDescPipe && desc->desc.file == file)
+            return FreeDesc(desc);  // Found it, clean it up properly
+    }
+
+    // File not found in our managed list - log warning and close directly
+    elog(WARNING, "file passed to ClosePipeStream was not obtained from OpenPipeStream");
+
+    return pclose(file);
+}
+```

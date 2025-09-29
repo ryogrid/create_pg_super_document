@@ -52,3 +52,42 @@ The typical usage pattern is:
   - [Query](../Q/Query.md) optimization and equivalence class management
   - Statistics collection and dependency analysis
 - The distinctive -2 return value enables sophisticated iteration control flow
+
+## Simplified Source
+
+```c
+int
+bms_next_member(const Bitmapset *a, int prevbit)
+{
+    // Handle null set
+    if (a == NULL)
+        return -2;
+
+    Assert(bms_is_valid_set(a));
+
+    // Start search from next bit position
+    prevbit++;
+    int nwords = a->nwords;
+    bitmapword mask = (~(bitmapword) 0) << BITNUM(prevbit);
+
+    // Search through bitmap words
+    for (int wordnum = WORDNUM(prevbit); wordnum < nwords; wordnum++) {
+        bitmapword w = a->words[wordnum];
+
+        // Apply mask to ignore bits before prevbit
+        w &= mask;
+
+        // If any bits are set in this word
+        if (w != 0) {
+            int result = wordnum * BITS_PER_BITMAPWORD;
+            result += bmw_rightmost_one_pos(w);
+            return result;
+        }
+
+        // For subsequent words, check all bits
+        mask = (~(bitmapword) 0);
+    }
+
+    return -2;  // No more members found
+}
+```

@@ -36,3 +36,24 @@ If an invalid or unknown access method type is provided, the function generates 
 - Part of PostgreSQL's access method management infrastructure
 - Primarily used for generating user-friendly error messages when access method type validation fails
 - The function covers the standard access method types: INDEX and TABLE
+
+## Simplified Source
+
+```c
+static const char *
+get_am_type_string(char amtype)
+{
+    // Convert access method type character to readable string
+    switch (amtype)
+    {
+        case AMTYPE_INDEX:
+            return "INDEX";
+        case AMTYPE_TABLE:
+            return "TABLE";
+        default:
+            // Report error for invalid access method type
+            elog(ERROR, "invalid access method type '%c'", amtype);
+            return NULL;
+    }
+}
+```

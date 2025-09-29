@@ -44,3 +44,37 @@ The function uses PostgreSQL's temporary file management system, which provides 
 - The  parameter in the second PathNameCreateTemporaryFile call is set to  to ensure proper error reporting if directory creation doesn't resolve the issue
 - Files created are automatically managed by PostgreSQL's resource cleanup system
 - The tablespace selection is handled by ChooseTablespace, which implements the distribution strategy across available tablespaces
+
+## Simplified Source
+
+```c
+File
+FileSetCreate(FileSet *fileset, const char *name)
+{
+    char path[MAXPGPATH];
+
+    // Build file path within the fileset
+    FilePath(path, fileset, name);
+
+    // Try to create the temporary file
+    File file = PathNameCreateTemporaryFile(path, false);
+
+    // If creation failed, create directory structure and retry
+    if (file <= 0)
+    {
+        char tempdirpath[MAXPGPATH];
+        char filesetpath[MAXPGPATH];
+        Oid tablespace = ChooseTablespace(fileset, name);
+
+        // Create directory structure on demand
+        TempTablespacePath(tempdirpath, tablespace);
+        FileSetPath(filesetpath, fileset, tablespace);
+        PathNameCreateTemporaryDir(tempdirpath, filesetpath);
+
+        // Retry file creation
+        file = PathNameCreateTemporaryFile(path, true);
+    }
+
+    return file;
+}
+```

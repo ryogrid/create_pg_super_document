@@ -71,3 +71,128 @@ The function handles different relation types (permanent, temporary, unlogged) a
 - Replica identity is set to DEFAULT for user tables but NOTHING for system catalogs
 - The function switches memory contexts to ensure proper allocation in CacheMemoryContext
 - Returns a pinned relation reference that the caller must eventually release
+
+## Simplified Source
+
+```c
+Relation
+RelationBuildLocalRelation(const char *relname,
+                          Oid relnamespace,
+                          TupleDesc tupDesc,
+                          Oid relid,
+                          Oid accessmtd,
+                          RelFileNumber relfilenumber,
+                          Oid reltablespace,
+                          bool shared_relation,
+                          bool mapped_relation,
+                          char relpersistence,
+                          char relkind)
+{
+    Relation rel;
+    MemoryContext oldcxt;
+    bool nailit;
+
+    // Check if this relation should be nailed in cache (system catalogs)
+    nailit = (relid == DatabaseRelationId || relid == AuthIdRelationId ||
+              relid == RelationRelationId || relid == AttributeRelationId ||
+              relid == ProcedureRelationId || relid == TypeRelationId);
+
+    // Validate shared relation flag consistency
+    if (shared_relation != IsSharedRelation(relid))
+        elog(ERROR, "shared_relation flag mismatch for relation %s", relname);
+
+    // Switch to cache memory context for persistent allocation
+    if (!CacheMemoryContext)
+        CreateCacheMemoryContext();
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Allocate and initialize relation descriptor
+    rel = (Relation) palloc0(sizeof(RelationData));
+    rel->rd_smgr = NULL;
+    rel->rd_isnailed = nailit;
+    rel->rd_refcnt = nailit ? 1 : 0;
+    rel->rd_createSubid = GetCurrentSubTransactionId();
+
+    // Create tuple descriptor copy and preserve attribute properties
+    rel->rd_att = CreateTupleDescCopy(tupDesc);
+    rel->rd_att->tdrefcount = 1;
+
+    // Set up NOT NULL constraints if present
+    bool has_not_null = false;
+    for (int i = 0; i < tupDesc->natts; i++) {
+        Form_pg_attribute satt = TupleDescAttr(tupDesc, i);
+        Form_pg_attribute datt = TupleDescAttr(rel->rd_att, i);
+
+        datt->attnotnull = satt->attnotnull;
+        has_not_null |= satt->attnotnull;
+    }
+
+    if (has_not_null) {
+        TupleConstr *constr = (TupleConstr *) palloc0(sizeof(TupleConstr));
+        constr->has_not_null = true;
+        rel->rd_att->constr = constr;
+    }
+
+    // Initialize relation tuple form (pg_class data)
+    rel->rd_rel = (Form_pg_class) palloc0(CLASS_TUPLE_SIZE);
+    namestrcpy(&rel->rd_rel->relname, relname);
+    rel->rd_rel->relnamespace = relnamespace;
+    rel->rd_rel->relkind = relkind;
+    rel->rd_rel->relnatts = tupDesc->natts;
+    rel->rd_rel->relpersistence = relpersistence;
+
+    // Set persistence-dependent fields
+    switch (relpersistence) {
+        case RELPERSISTENCE_TEMP:
+            rel->rd_backend = ProcNumberForTempRelations();
+            rel->rd_islocaltemp = true;
+            break;
+        default:
+            rel->rd_backend = INVALID_PROC_NUMBER;
+            rel->rd_islocaltemp = false;
+            break;
+    }
+
+    // Handle materialized views (initially unpopulated)
+    rel->rd_rel->relispopulated = (relkind != RELKIND_MATVIEW);
+
+    // Set replica identity
+    if (!IsCatalogNamespace(relnamespace) &&
+        (relkind == RELKIND_RELATION || relkind == RELKIND_MATVIEW))
+        rel->rd_rel->relreplident = REPLICA_IDENTITY_DEFAULT;
+    else
+        rel->rd_rel->relreplident = REPLICA_IDENTITY_NOTHING;
+
+    // Set physical identifiers and file mapping
+    rel->rd_rel->relisshared = shared_relation;
+    RelationGetRelid(rel) = relid;
+    rel->rd_rel->reltablespace = reltablespace;
+
+    if (mapped_relation) {
+        rel->rd_rel->relfilenode = InvalidRelFileNumber;
+        RelationMapUpdateMap(relid, relfilenumber, shared_relation, true);
+    } else {
+        rel->rd_rel->relfilenode = relfilenumber;
+    }
+
+    // Initialize locking and physical address
+    RelationInitLockInfo(rel);
+    RelationInitPhysicalAddr(rel);
+    rel->rd_rel->relam = accessmtd;
+
+    // Switch back to original context for table access method init
+    MemoryContextSwitchTo(oldcxt);
+
+    if (RELKIND_HAS_TABLE_AM(relkind) || relkind == RELKIND_SEQUENCE)
+        RelationInitTableAccessMethod(rel);
+
+    // Insert into relcache and mark for transaction cleanup
+    RelationCacheInsert(rel, nailit);
+    EOXactListAdd(rel);
+    rel->rd_isvalid = true;
+
+    // Pin and return the relation
+    RelationIncrementReferenceCount(rel);
+    return rel;
+}
+```

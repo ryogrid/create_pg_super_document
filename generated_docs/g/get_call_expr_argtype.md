@@ -46,3 +46,44 @@ The function supports various types of expression nodes including function calls
 - Special case handling for ScalarArrayOpExpr where the second argument gets the array's element type rather than the array type itself
 - This function is crucial for polymorphic function resolution where argument types must be determined from the calling context
 - Primarily used during query planning and type resolution phases of query processing
+
+## Simplified Source
+
+```c
+Oid get_call_expr_argtype(Node *expr, int argnum) {
+    List *args;
+    Oid argtype;
+
+    if (expr == NULL)
+        return InvalidOid;
+
+    // Extract argument list based on expression type
+    if (IsA(expr, FuncExpr))
+        args = ((FuncExpr *) expr)->args;
+    else if (IsA(expr, OpExpr))
+        args = ((OpExpr *) expr)->args;
+    else if (IsA(expr, DistinctExpr))
+        args = ((DistinctExpr *) expr)->args;
+    else if (IsA(expr, ScalarArrayOpExpr))
+        args = ((ScalarArrayOpExpr *) expr)->args;
+    else if (IsA(expr, NullIfExpr))
+        args = ((NullIfExpr *) expr)->args;
+    else if (IsA(expr, WindowFunc))
+        args = ((WindowFunc *) expr)->args;
+    else
+        return InvalidOid;
+
+    // Check bounds
+    if (argnum < 0 || argnum >= list_length(args))
+        return InvalidOid;
+
+    // Get the argument type
+    argtype = exprType((Node *) list_nth(args, argnum));
+
+    // Special case: ScalarArrayOpExpr second argument needs element type
+    if (IsA(expr, ScalarArrayOpExpr) && argnum == 1)
+        argtype = get_base_element_type(argtype);
+
+    return argtype;
+}
+```

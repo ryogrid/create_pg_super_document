@@ -48,3 +48,48 @@ The function performs three main operations: transaction header setup (setting x
 - Skips toasting for non-regular relations to avoid recursion in toast tables
 - Sets t_tableOid to establish the tuple's relation membership
 - Critical for maintaining transaction visibility and MVCC semantics
+
+## Simplified Source
+
+```c
+static HeapTuple
+heap_prepare_insert(Relation relation, HeapTuple tup, TransactionId xid,
+                    CommandId cid, int options)
+{
+    // Block parallel worker inserts (they can't generate new CommandIds safely)
+    if (IsParallelWorker())
+        ereport(ERROR, "cannot insert tuples in a parallel worker");
+
+    // Set up transaction header fields
+    tup->t_data->t_infomask &= ~(HEAP_XACT_MASK);
+    tup->t_data->t_infomask2 &= ~(HEAP2_XACT_MASK);
+    tup->t_data->t_infomask |= HEAP_XMAX_INVALID;
+
+    HeapTupleHeaderSetXmin(tup->t_data, xid);
+    if (options & HEAP_INSERT_FROZEN)
+        HeapTupleHeaderSetXminFrozen(tup->t_data);
+
+    HeapTupleHeaderSetCmin(tup->t_data, cid);
+    HeapTupleHeaderSetXmax(tup->t_data, 0);
+    tup->t_tableOid = RelationGetRelid(relation);
+
+    // Handle toasting for oversized tuples or external references
+    if (relation->rd_rel->relkind != RELKIND_RELATION &&
+        relation->rd_rel->relkind != RELKIND_MATVIEW)
+    {
+        // Toast tables and system tables: no recursive toasting
+        Assert(!HeapTupleHasExternal(tup));
+        return tup;
+    }
+    else if (HeapTupleHasExternal(tup) || tup->t_len > TOAST_TUPLE_THRESHOLD)
+    {
+        // Tuple needs toasting due to size or external references
+        return heap_toast_insert_or_update(relation, tup, NULL, options);
+    }
+    else
+    {
+        // Tuple is ready as-is
+        return tup;
+    }
+}
+```

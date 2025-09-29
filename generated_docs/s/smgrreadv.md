@@ -38,3 +38,14 @@ The smgrreadv function is a storage manager interface for performing vectorized 
 - Part of the storage manager abstraction layer
 - More efficient than multiple calls to smgrread for consecutive blocks
 - Critical for bulk read operations and buffer management optimization
+
+## Simplified Source
+```c
+void
+smgrreadv(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+          void **buffers, BlockNumber nblocks)
+{
+    // Delegate to appropriate storage manager implementation
+    smgrsw[reln->smgr_which].smgr_readv(reln, forknum, blocknum, buffers, nblocks);
+}
+```

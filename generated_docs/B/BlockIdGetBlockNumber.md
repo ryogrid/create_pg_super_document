@@ -34,3 +34,13 @@ BlockIdGetBlockNumber performs the inverse operation of BlockIdSet by reconstruc
 - The function uses const-qualified parameter indicating it does not modify the input structure
 - Commonly used in GIN index operations, WAL replay, and item pointer management
 - Essential for converting between the space-efficient storage format and the computational format used in algorithms
+
+## Simplified Source
+
+```c
+static inline BlockNumber BlockIdGetBlockNumber(const BlockIdData *blockId) {
+    // Reconstruct 32-bit block number from high/low 16-bit components
+    // Formula: (high_16_bits << 16) | low_16_bits
+    return (((BlockNumber) blockId->bi_hi) << 16) | ((BlockNumber) blockId->bi_lo);
+}
+```

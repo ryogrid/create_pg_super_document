@@ -33,3 +33,18 @@ The `release_conn_addrinfo` function is a static utility function responsible fo
 - After freeing the memory, the pointer is set to NULL to prevent accidental reuse
 - This function is typically called during connection cleanup or reset operations
 - Part of the libpq connection management infrastructure
+
+## Simplified Source
+
+```c
+static void
+release_conn_addrinfo(PGconn *conn)
+{
+    // Free address info and prevent dangling pointer
+    if (conn->addr)
+    {
+        free(conn->addr);
+        conn->addr = NULL;
+    }
+}
+```

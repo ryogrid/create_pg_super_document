@@ -43,3 +43,108 @@ The optimization includes smart bank lock management - if group members need to 
 - The function handles race conditions where the group leader might change pages between checking and joining
 - Uses atomic operations and memory barriers to ensure correct ordering of operations across multiple processes
 - Includes sophisticated wakeup logic to handle spurious semaphore signals during group waiting
+
+## Simplified Source
+
+```c
+static bool TransactionGroupUpdateXidStatus(TransactionId xid, XidStatus status,
+                                            XLogRecPtr lsn, int64 pageno) {
+    volatile PROC_HDR *procglobal = ProcGlobal;
+    PGPROC *proc = MyProc;
+    uint32 nextidx, wakeidx;
+
+    // Prepare process for group membership
+    proc->clogGroupMember = true;
+    proc->clogGroupMemberXid = xid;
+    proc->clogGroupMemberXidStatus = status;
+    proc->clogGroupMemberPage = pageno;
+    proc->clogGroupMemberLsn = lsn;
+
+    // Try to join the group
+    nextidx = pg_atomic_read_u32(&procglobal->clogGroupFirst);
+
+    while (true) {
+        // Check if we can join the existing group (same page)
+        if (nextidx != INVALID_PROC_NUMBER &&
+            GetPGProcByNumber(nextidx)->clogGroupMemberPage != proc->clogGroupMemberPage) {
+            // Cannot join group, use normal path
+            proc->clogGroupMember = false;
+            pg_atomic_write_u32(&proc->clogGroupNext, INVALID_PROC_NUMBER);
+            return false;
+        }
+
+        // Try to add ourselves to the front of the list
+        pg_atomic_write_u32(&proc->clogGroupNext, nextidx);
+        if (pg_atomic_compare_exchange_u32(&procglobal->clogGroupFirst,
+                                           &nextidx, (uint32) MyProcNumber))
+            break;
+    }
+
+    // If we're not the first, wait for leader to process our update
+    if (nextidx != INVALID_PROC_NUMBER) {
+        pgstat_report_wait_start(WAIT_EVENT_XACT_GROUP_UPDATE);
+
+        // Wait until leader updates our status
+        while (proc->clogGroupMember) {
+            PGSemaphoreLock(proc->sem);
+        }
+
+        pgstat_report_wait_end();
+        return true;
+    }
+
+    // We're the leader - acquire lock and process the group
+    LWLock *prevlock = SimpleLruGetBankLock(XactCtl, pageno);
+    LWLockAcquire(prevlock, LW_EXCLUSIVE);
+
+    // Get the list of processes to update
+    nextidx = pg_atomic_exchange_u32(&procglobal->clogGroupFirst,
+                                     INVALID_PROC_NUMBER);
+    wakeidx = nextidx;
+
+    // Process each member in the group
+    while (nextidx != INVALID_PROC_NUMBER) {
+        PGPROC *nextproc = &ProcGlobal->allProcs[nextidx];
+        int64 thispageno = nextproc->clogGroupMemberPage;
+
+        // Switch bank lock if needed for different page
+        if (thispageno != pageno) {
+            LWLock *lock = SimpleLruGetBankLock(XactCtl, thispageno);
+            if (prevlock != lock) {
+                LWLockRelease(prevlock);
+                LWLockAcquire(lock, LW_EXCLUSIVE);
+                prevlock = lock;
+            }
+        }
+
+        // Update the transaction status
+        TransactionIdSetPageStatusInternal(nextproc->clogGroupMemberXid,
+                                           nextproc->subxidStatus.count,
+                                           nextproc->subxids.xids,
+                                           nextproc->clogGroupMemberXidStatus,
+                                           nextproc->clogGroupMemberLsn,
+                                           nextproc->clogGroupMemberPage);
+
+        nextidx = pg_atomic_read_u32(&nextproc->clogGroupNext);
+    }
+
+    // Release the lock
+    if (prevlock != NULL)
+        LWLockRelease(prevlock);
+
+    // Wake up all group members
+    while (wakeidx != INVALID_PROC_NUMBER) {
+        PGPROC *wakeproc = &ProcGlobal->allProcs[wakeidx];
+        wakeidx = pg_atomic_read_u32(&wakeproc->clogGroupNext);
+
+        pg_atomic_write_u32(&wakeproc->clogGroupNext, INVALID_PROC_NUMBER);
+        pg_write_barrier();
+        wakeproc->clogGroupMember = false;
+
+        if (wakeproc != MyProc)
+            PGSemaphoreUnlock(wakeproc->sem);
+    }
+
+    return true;
+}
+```

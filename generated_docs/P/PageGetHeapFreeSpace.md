@@ -54,3 +54,43 @@ The function also handles hint validation - it checks if the PageHasFreeLinePoin
 - Prevents breaking assumptions in code that relies on MaxHeapTuplesPerPage as a hard limit
 - Handles both redirected and dead line pointers in its calculations
 - Located in src/backend/storage/page/bufpage.c:991-1051
+
+## Simplified Source
+```c
+Size
+PageGetHeapFreeSpace(Page page)
+{
+    Size space = PageGetFreeSpace(page);
+
+    if (space > 0) {
+        OffsetNumber nline = PageGetMaxOffsetNumber(page);
+
+        // Check if we've reached the maximum line pointer limit
+        if (nline >= MaxHeapTuplesPerPage) {
+            if (PageHasFreeLinePointers(page)) {
+                // Verify there's actually a free line pointer
+                bool found_free = false;
+                for (OffsetNumber offnum = FirstOffsetNumber;
+                     offnum <= nline;
+                     offnum = OffsetNumberNext(offnum)) {
+                    ItemId lp = PageGetItemId(page, offnum);
+                    if (!ItemIdIsUsed(lp)) {
+                        found_free = true;
+                        break;
+                    }
+                }
+
+                if (!found_free) {
+                    // Hint was wrong - no space available
+                    space = 0;
+                }
+            } else {
+                // No free line pointers available
+                space = 0;
+            }
+        }
+    }
+
+    return space;
+}
+```

@@ -45,3 +45,16 @@ The function is a lightweight wrapper that performs early validation checks and 
 - Commonly used in storage manager operations and local buffer management
 - Simpler implementation compared to PageSetChecksumCopy but with stricter usage constraints
 - Part of PostgreSQL's dual-strategy approach to safe checksum calculation
+
+## Simplified Source
+
+```c
+void PageSetChecksumInplace(Page page, BlockNumber blkno) {
+    // Skip checksum calculation if not needed
+    if (PageIsNew(page) || !DataChecksumsEnabled())
+        return;
+
+    // Calculate and set checksum directly in page header
+    ((PageHeader) page)->pd_checksum = pg_checksum_page((char *) page, blkno);
+}
+```

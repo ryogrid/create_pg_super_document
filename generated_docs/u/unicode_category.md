@@ -43,3 +43,38 @@ The function validates that the input codepoint is within the valid Unicode rang
 - Validates input range with Assert for debugging builds
 - Central function used by many Unicode property checking functions in PostgreSQL
 - Located in src/common/unicode_category.c:85-110
+
+## Simplified Source
+
+```c
+pg_unicode_category
+unicode_category(pg_wchar code)
+{
+    int min = 0;
+    int mid;
+    int max = lengthof(unicode_categories) - 1;
+
+    Assert(code <= 0x10ffff);
+
+    // Fast path for ASCII characters
+    if (code < 0x80)
+        return unicode_opt_ascii[code].category;
+
+    // Binary search for non-ASCII characters
+    while (max >= min) {
+        mid = (min + max) / 2;
+
+        if (code > unicode_categories[mid].last) {
+            min = mid + 1;
+        } else if (code < unicode_categories[mid].first) {
+            max = mid - 1;
+        } else {
+            // Found the range containing this codepoint
+            return unicode_categories[mid].category;
+        }
+    }
+
+    // Codepoint not found in any range
+    return PG_U_UNASSIGNED;
+}
+```

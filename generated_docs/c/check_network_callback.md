@@ -44,3 +44,29 @@ The callback uses early termination - once a match is found, it sets the result 
 - The callback modifies the  field in the  structure passed through 
 - This function is static and only used within the HBA authentication module
 - It supports both IPv4 and IPv6 through the underlying  and  functions
+
+## Simplified Source
+
+```c
+static void
+check_network_callback(struct sockaddr *addr, struct sockaddr *netmask,
+                      void *cb_data)
+{
+    check_network_data *cn = (check_network_data *) cb_data;
+    struct sockaddr_storage mask;
+
+    // Skip if already found a match
+    if (cn->result)
+        return;
+
+    if (cn->method == ipCmpSameHost) {
+        // Create all-ones netmask for exact host matching
+        pg_sockaddr_cidr_mask(&mask, NULL, addr->sa_family);
+        cn->result = check_ip(cn->raddr, addr, (struct sockaddr *) &mask);
+    }
+    else {
+        // Use interface's own netmask for subnet matching
+        cn->result = check_ip(cn->raddr, addr, netmask);
+    }
+}
+```

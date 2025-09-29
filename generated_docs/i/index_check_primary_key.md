@@ -46,3 +46,58 @@ This function performs essential validation checks before creating a PRIMARY KEY
 - Error handling provides detailed messages for different constraint violations
 - The function assumes proper locking (ShareLock minimum) for reliable NOT NULL checking
 - Historical behavior of automatically setting columns to NOT NULL was removed to avoid operation ordering issues in complex ALTER TABLE commands
+
+## Simplified Source
+
+```c
+void
+index_check_primary_key(Relation heapRel,
+                        const IndexInfo *indexInfo,
+                        bool is_alter_table,
+                        const IndexStmt *stmt)
+{
+    // Check for existing primary key in ALTER TABLE or partition scenarios
+    if ((is_alter_table || heapRel->rd_rel->relispartition) &&
+        relationHasPrimaryKey(heapRel))
+    {
+        ereport(ERROR, "multiple primary keys not allowed");
+    }
+
+    // Primary keys cannot use NULLS NOT DISTINCT indexes
+    if (indexInfo->ii_NullsNotDistinct)
+    {
+        ereport(ERROR, "primary keys cannot use NULLS NOT DISTINCT indexes");
+    }
+
+    // Validate each indexed column
+    for (int i = 0; i < indexInfo->ii_NumIndexKeyAttrs; i++)
+    {
+        AttrNumber attnum = indexInfo->ii_IndexAttrNumbers[i];
+
+        // Primary keys cannot be expressions
+        if (attnum == 0)
+            ereport(ERROR, "primary keys cannot be expressions");
+
+        // Skip system attributes (they're always NOT NULL)
+        if (attnum < 0)
+            continue;
+
+        // Look up attribute information in system cache
+        HeapTuple atttuple = SearchSysCache2(ATTNUM,
+                                           ObjectIdGetDatum(RelationGetRelid(heapRel)),
+                                           Int16GetDatum(attnum));
+
+        if (!HeapTupleIsValid(atttuple))
+            elog(ERROR, "cache lookup failed for attribute %d", attnum);
+
+        Form_pg_attribute attform = (Form_pg_attribute) GETSTRUCT(atttuple);
+
+        // Ensure column is marked NOT NULL
+        if (!attform->attnotnull)
+            ereport(ERROR, "primary key column \"%s\" is not marked NOT NULL",
+                    NameStr(attform->attname));
+
+        ReleaseSysCache(atttuple);
+    }
+}
+```

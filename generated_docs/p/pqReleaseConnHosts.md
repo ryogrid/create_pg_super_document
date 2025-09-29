@@ -49,3 +49,33 @@ Swap:        8388608           0     8388608 (memory deallocation)
 - Does not reset  or  pointer after freeing - caller responsibility
 - Password field is checked for NULL before attempting to clear and free it
 - All string fields are freed using standard  except passwords which get secure clearing first
+
+## Simplified Source
+
+```c
+void
+pqReleaseConnHosts(PGconn *conn)
+{
+    if (conn->connhost)
+    {
+        // Free each host entry
+        for (int i = 0; i < conn->nconnhost; ++i)
+        {
+            free(conn->connhost[i].host);
+            free(conn->connhost[i].hostaddr);
+            free(conn->connhost[i].port);
+
+            // Securely clear password before freeing
+            if (conn->connhost[i].password != NULL)
+            {
+                explicit_bzero(conn->connhost[i].password,
+                               strlen(conn->connhost[i].password));
+                free(conn->connhost[i].password);
+            }
+        }
+
+        // Free the host array itself
+        free(conn->connhost);
+    }
+}
+```

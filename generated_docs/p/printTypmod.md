@@ -41,3 +41,27 @@ The function ensures that typmod values are non-negative (asserts ) and should n
 - The assertion  indicates this function should never be called with -1 (the "no typmod" sentinel value)
 - Used extensively in PostgreSQL's type system for generating user-friendly representations of typed columns and expressions
 - Examples of output: "varchar(50)", "numeric(10,2)", "timestamp(6)"
+
+## Simplified Source
+
+```c
+static char *printTypmod(const char *typname, int32 typmod, Oid typmodout) {
+    char *result;
+
+    // Assert that typmod is valid (>= 0)
+    Assert(typmod >= 0);
+
+    if (typmodout == InvalidOid) {
+        // Default: print type name with numeric typmod in parentheses
+        result = psprintf("%s(%d)", typname, (int) typmod);
+    } else {
+        // Use type-specific typmod output function
+        char *modifier_str = DatumGetCString(
+            OidFunctionCall1(typmodout, Int32GetDatum(typmod))
+        );
+        result = psprintf("%s%s", typname, modifier_str);
+    }
+
+    return result;
+}
+```

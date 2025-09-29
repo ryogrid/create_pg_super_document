@@ -40,3 +40,24 @@ The function returns true if the type is fully defined and ready for use, or fal
 - Used primarily during DDL operations like CREATE TYPE to ensure type consistency
 - Essential for preventing use of incomplete type definitions that could cause system instability
 - Part of the low-level system cache API (lsyscache.c) that provides convenient access to catalog information
+
+## Simplified Source
+
+```c
+bool get_typisdefined(Oid typid)
+{
+    // Look up the type in system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract type information and get typisdefined flag
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        bool result = typtup->typisdefined;
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Type not found
+    return false;
+}
+```

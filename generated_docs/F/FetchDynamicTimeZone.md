@@ -51,3 +51,33 @@ The function includes safety assertions to prevent out-of-bounds memory access w
 - Memory safety is ensured through offset validation assertions
 - The cached pg_tz pointer remains valid for the lifetime of the timezone abbreviation table
 - Timezone names come from configuration files and may reference invalid zones if misconfigured
+
+## Simplified Source
+
+```c
+static pg_tz *
+FetchDynamicTimeZone(TimeZoneAbbrevTable *tbl, const datetkn *tp,
+                     DateTimeErrorExtra *extra)
+{
+    DynamicZoneAbbrev *dtza;
+
+    // Safety checks to prevent invalid memory access
+    Assert(tp->type == DYNTZ);
+    Assert(tp->value > 0 && tp->value < tbl->tblsize);
+
+    // Get the dynamic timezone abbreviation structure
+    dtza = (DynamicZoneAbbrev *)((char *)tbl + tp->value);
+
+    // Lazy loading: load timezone on first access
+    if (dtza->tz == NULL) {
+        dtza->tz = pg_tzset(dtza->zone);
+        if (dtza->tz == NULL) {
+            // Timezone loading failed - populate error context
+            extra->dtee_timezone = dtza->zone;
+            extra->dtee_abbrev = tp->token;
+        }
+    }
+
+    return dtza->tz;
+}
+```

@@ -41,3 +41,61 @@ The extended version provides graceful error handling - if the statistics object
 - Part of PostgreSQL's extended statistics system that supports multi-column statistics objects
 - Uses SearchSysCacheExists2 to check for name conflicts in earlier namespaces
 - Located in src/backend/catalog/namespace.c:2644-2715
+
+## Simplified Source
+
+```c
+static bool StatisticsObjIsVisibleExt(Oid stxid, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_statistic_ext stx_form;
+    Oid namespace_oid;
+    bool visible;
+
+    // Look up statistics object in system cache
+    tuple = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(stxid));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing object gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for statistics object %u", stxid);
+    }
+
+    stx_form = (Form_pg_statistic_ext) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace_oid = stx_form->stxnamespace;
+    if (namespace_oid != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace_oid)) {
+        visible = false;
+    } else {
+        // Check if this object would be found first in search path
+        char *stx_name = NameStr(stx_form->stxname);
+        ListCell *cell;
+
+        visible = false;
+        foreach(cell, activeSearchPath) {
+            Oid current_namespace = lfirst_oid(cell);
+
+            if (current_namespace == namespace_oid) {
+                // Found our object first - it's visible
+                visible = true;
+                break;
+            }
+
+            // Check if another object with same name exists earlier
+            if (SearchSysCacheExists2(STATEXTNAMENSP,
+                                    PointerGetDatum(stx_name),
+                                    ObjectIdGetDatum(current_namespace))) {
+                // Another object shadows this one
+                break;
+            }
+        }
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

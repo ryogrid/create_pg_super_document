@@ -45,3 +45,16 @@ The get_namespace_name_or_temp function is a specialized version of get_namespac
 - Helps hide the internal implementation details of temporary namespace naming from users
 - Part of the PG_NAMESPACE CACHE section in lsyscache.c
 - Essential for DDL command logging, EXPLAIN output, and rule/view definition formatting where temporary objects need consistent representation
+
+## Simplified Source
+
+```c
+char *get_namespace_name_or_temp(Oid nspid) {
+    // Return "pg_temp" for current backend's temporary namespace
+    if (isTempNamespace(nspid))
+        return pstrdup("pg_temp");
+    else
+        // Return actual namespace name for all other namespaces
+        return get_namespace_name(nspid);
+}
+```

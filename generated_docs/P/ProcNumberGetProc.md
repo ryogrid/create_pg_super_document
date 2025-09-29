@@ -34,3 +34,24 @@ The function includes important safety considerations: the returned PGPROC point
 - Callers must handle the possibility of NULL return values
 - Part of the process array management infrastructure that enables inter-backend communication
 - The function is declared in src/include/storage/procarray.h
+
+## Simplified Source
+
+```c
+PGPROC *ProcNumberGetProc(ProcNumber procNumber) {
+    PGPROC *result;
+
+    // Check if process number is within valid range
+    if (procNumber < 0 || procNumber >= ProcGlobal->allProcCount)
+        return NULL;
+
+    // Get the PGPROC structure for this process number
+    result = GetPGProcByNumber(procNumber);
+
+    // Return NULL if backend is not active (no PID assigned)
+    if (result->pid == 0)
+        return NULL;
+
+    return result;
+}
+```

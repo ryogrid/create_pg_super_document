@@ -36,3 +36,20 @@ The Uppercase property is distinct from the general category "Uppercase Letter" 
 - Part of the casing system that supports PostgreSQL's text processing and pattern matching
 - Works in conjunction with pg_u_prop_lowercase for comprehensive case handling
 - Located in src/common/unicode_category.c:133-143
+
+## Simplified Source
+
+```c
+bool
+pg_u_prop_uppercase(pg_wchar code)
+{
+    // Fast path for ASCII characters using bitmask lookup
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_UPPERCASE;
+
+    // For non-ASCII characters, search the uppercase ranges table
+    return range_search(unicode_uppercase,
+                        lengthof(unicode_uppercase),
+                        code);
+}
+```

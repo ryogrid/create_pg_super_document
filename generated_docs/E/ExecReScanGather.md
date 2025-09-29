@@ -26,3 +26,29 @@ ExecReScanGather handles the complex task of preparing a Gather node for a resca
 
 ## Notes and Other Information
 This function is part of the executor node interface and is exposed via nodeGather.h. It handles the intricate coordination required when rescanning parallel operations, including proper management of parameter changes and the relationship between shared and local state. The function includes detailed comments about the ordering requirements between ReInitializeDSM, ReScan, and ExecProcNode calls, which is critical for parallel-aware child nodes. The rescan_param mechanism allows the Gather node to signal that the leader process subset might change even if the overall rowset remains the same.
+
+## Simplified Source
+
+```c
+void ExecReScanGather(GatherState *node) {
+    Gather *gather = (Gather *) node->ps.plan;
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Shutdown any existing parallel workers
+    ExecShutdownGatherWorkers(node);
+
+    // Mark node for reinitialization of shared state
+    node->initialized = false;
+
+    // Set rescan parameter to indicate leader subset might change
+    if (gather->rescan_param >= 0) {
+        outerPlan->chgParam = bms_add_member(outerPlan->chgParam,
+                                            gather->rescan_param);
+    }
+
+    // Rescan outer plan if no parameter changes are pending
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

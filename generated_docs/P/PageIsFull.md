@@ -32,3 +32,13 @@ The PD_PAGE_FULL flag is a performance optimization that prevents unnecessary wo
 - Used primarily in heap page pruning and space management operations
 - The flag is managed by the PageSetFull function
 - Helps optimize insertion performance by avoiding futile space allocation attempts on full pages
+
+## Simplified Source
+```c
+static inline bool
+PageIsFull(Page page)
+{
+    // Check if the PD_PAGE_FULL flag is set in the page header
+    return ((PageHeader) page)->pd_flags & PD_PAGE_FULL;
+}
+```

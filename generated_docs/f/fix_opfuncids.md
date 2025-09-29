@@ -50,3 +50,13 @@ The modification is performed in-place, which is acceptable because the same cha
 - Safe to call multiple times on the same tree due to idempotent nature of the operation
 - Part of PostgreSQL's operator resolution and function lookup system
 - Located in src/backend/nodes/nodeFuncs.c:1831-1837
+
+## Simplified Source
+
+```c
+void fix_opfuncids(Node *node) {
+    // Walk the expression tree and populate opfuncid fields
+    // in all OpExpr nodes by looking up function OIDs from operator OIDs
+    fix_opfuncids_walker(node, NULL);
+}
+```

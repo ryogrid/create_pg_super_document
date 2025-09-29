@@ -42,3 +42,28 @@ This function is commonly used throughout the PostgreSQL query planner when conv
 - The function asserts that all provided sort clauses are sortable - it is a caller error if they are not
 - Widely used throughout the planner for converting sort specifications to pathkey representations
 - The canonical form ensures that equivalent pathkeys can be efficiently compared and merged
+
+## Simplified Source
+
+```c
+List *
+make_pathkeys_for_sortclauses(PlannerInfo *root,
+                              List *sortclauses,
+                              List *tlist)
+{
+    List       *result;
+    bool        sortable;
+
+    // Call the extended version with default parameters
+    result = make_pathkeys_for_sortclauses_extended(root,
+                                                   &sortclauses,
+                                                   tlist,
+                                                   false,        // reverse
+                                                   &sortable,
+                                                   false);       // nulls_first
+
+    // All clauses must be sortable - caller error if not
+    Assert(sortable);
+    return result;
+}
+```

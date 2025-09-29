@@ -37,3 +37,33 @@ The function iterates through a list of sublists containing Query nodes, examini
 - Throws ERROR-level exceptions when unsupported constructs are detected
 - Used both during function creation/validation and runtime initialization
 - Part of the broader SQL function execution framework in functions.c
+
+## Simplified Source
+
+```c
+void check_sql_fn_statements(List *queryTreeLists)
+{
+    // Iterate through all sublists of query trees
+    foreach(lc, queryTreeLists) {
+        List *sublist = lfirst_node(List, lc);
+
+        // Check each query in the sublist
+        foreach(lc2, sublist) {
+            Query *query = lfirst_node(Query, lc2);
+
+            // Check for unsupported CALL statements with output arguments
+            if (query->commandType == CMD_UTILITY &&
+                IsA(query->utilityStmt, CallStmt)) {
+
+                CallStmt *stmt = (CallStmt *) query->utilityStmt;
+
+                // Reject procedures with output arguments
+                if (stmt->outargs != NIL) {
+                    ereport(ERROR,
+                           "calling procedures with output arguments is not supported in SQL functions");
+                }
+            }
+        }
+    }
+}
+```

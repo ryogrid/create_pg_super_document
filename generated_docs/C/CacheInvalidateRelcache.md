@@ -38,3 +38,26 @@ The function extracts the relation OID from the relation structure and determine
 - It's used extensively throughout the catalog management code for operations that modify relation metadata indirectly
 - The invalidation is deferred until command end to avoid performance issues with multiple invalidations during complex operations
 - This is more targeted than CacheInvalidateCatalog as it affects only one specific relation rather than an entire catalog
+
+## Simplified Source
+
+```c
+void CacheInvalidateRelcache(Relation relation) {
+    Oid databaseId;
+    Oid relationId;
+
+    // Prepare invalidation state
+    PrepareInvalidationState();
+
+    relationId = RelationGetRelid(relation);
+
+    // Determine database context (shared vs database-specific)
+    if (relation->rd_rel->relisshared)
+        databaseId = InvalidOid;
+    else
+        databaseId = MyDatabaseId;
+
+    // Register the invalidation
+    RegisterRelcacheInvalidation(databaseId, relationId);
+}
+```

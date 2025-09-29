@@ -37,7 +37,7 @@ This is part of PostgreSQL's query optimization strategy for UNION ALL operation
 - Functions called/Symbols referenced:
   - makeNode (for creating AppendRelInfo and RangeTblRef)
   - [make_setop_translation_list](../m/make_setop_translation_list.md)
-  - [lappend](../l/lappend.md) 
+  - [lappend](../l/lappend.md)
   - [pull_up_subqueries_recurse](pull_up_subqueries_recurse.md)
   - IsA (macro for type checking)
   - nodeTag
@@ -53,3 +53,47 @@ This is part of PostgreSQL's query optimization strategy for UNION ALL operation
 - The AppendRelInfo structure must be built before calling pull_up_subqueries_recurse because that function may modify it
 - The function can safely pass NULL for containing-join info even under outer joins because child expressions don't propagate up to the join level
 - Error handling includes checking for unrecognized node types with appropriate error reporting
+
+## Simplified Source
+
+```c
+static void
+pull_up_union_leaf_queries(Node *setOp, PlannerInfo *root, int parentRTindex,
+                           Query *setOpQuery, int childRToffset)
+{
+    if (IsA(setOp, RangeTblRef))
+    {
+        // Process leaf query - create AppendRelInfo and optimize
+        RangeTblRef *rtr = (RangeTblRef *) setOp;
+        int childRTindex = childRToffset + rtr->rtindex;
+
+        // Build AppendRelInfo to link parent and child relations
+        AppendRelInfo *appinfo = makeNode(AppendRelInfo);
+        appinfo->parent_relid = parentRTindex;
+        appinfo->child_relid = childRTindex;
+        appinfo->parent_reltype = InvalidOid;
+        appinfo->child_reltype = InvalidOid;
+
+        // Create translation mapping between parent and child columns
+        make_setop_translation_list(setOpQuery, childRTindex, appinfo);
+        appinfo->parent_reloid = InvalidOid;
+        root->append_rel_list = lappend(root->append_rel_list, appinfo);
+
+        // Apply subquery pullup optimization to the leaf query
+        rtr = makeNode(RangeTblRef);
+        rtr->rtindex = childRTindex;
+        pull_up_subqueries_recurse(root, (Node *) rtr, NULL, appinfo);
+    }
+    else if (IsA(setOp, SetOperationStmt))
+    {
+        // Recurse into set operation tree
+        SetOperationStmt *op = (SetOperationStmt *) setOp;
+        pull_up_union_leaf_queries(op->larg, root, parentRTindex, setOpQuery, childRToffset);
+        pull_up_union_leaf_queries(op->rarg, root, parentRTindex, setOpQuery, childRToffset);
+    }
+    else
+    {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(setOp));
+    }
+}
+```

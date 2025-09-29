@@ -24,7 +24,7 @@ This function provides a safe way to access lock method information, ensuring th
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCK_LOCKMETHOD (macro that extracts lockmethodid from lock tag)
-  - LOCKMETHODID (type definition)  
+  - LOCKMETHODID (type definition)
   - LockMethods (global array of lock method structures)
   - lengthof (macro to get array length)
   - Assert (assertion macro)
@@ -37,3 +37,17 @@ This function provides a safe way to access lock method information, ensuring th
 - This is primarily used by the deadlock detector and other lock management routines that need to access lock method-specific information
 - The returned LockMethod contains function pointers for lock conflict checking, tracing flags, and other method-specific configuration
 - Invalid lock method IDs will cause assertion failures in debug builds
+
+## Simplified Source
+```c
+LockMethod GetLocksMethodTable(const LOCK *lock) {
+    // Extract lock method ID from the lock's tag
+    LOCKMETHODID lockmethodid = LOCK_LOCKMETHOD(*lock);
+
+    // Validate the lock method ID is in valid range
+    Assert(0 < lockmethodid && lockmethodid < lengthof(LockMethods));
+
+    // Return the corresponding lock method table
+    return LockMethods[lockmethodid];
+}
+```

@@ -47,3 +47,76 @@ The function ensures data integrity by re-validating pages even if previously re
 - Supports non-blocking operation when page_read callback respects nonblocking flag
 - Special handling for segment boundary crossings with first-page header validation
 - pageptr parameter must be aligned to XLOG_BLCKSZ boundaries
+
+## Simplified Source
+
+```c
+static int ReadPageInternal(XLogReaderState *state, XLogRecPtr pageptr, int reqLen) {
+    int readLen;
+    uint32 targetPageOff;
+    XLogSegNo targetSegNo;
+    XLogPageHeader hdr;
+
+    Assert((pageptr % XLOG_BLCKSZ) == 0);
+
+    // Get segment number and offset
+    XLByteToSeg(pageptr, targetSegNo, state->segcxt.ws_segsize);
+    targetPageOff = XLogSegmentOffset(pageptr, state->segcxt.ws_segsize);
+
+    // Check if we already have the requested data in cache
+    if (targetSegNo == state->seg.ws_segno &&
+        targetPageOff == state->segoff &&
+        reqLen <= state->readLen)
+        return state->readLen;
+
+    // Invalidate cache before new read
+    state->readLen = 0;
+
+    // For new segments, validate first page header
+    if (targetSegNo != state->seg.ws_segno && targetPageOff != 0) {
+        XLogRecPtr targetSegmentPtr = pageptr - targetPageOff;
+        readLen = state->routine.page_read(state, targetSegmentPtr, XLOG_BLCKSZ,
+                                          state->currRecPtr, state->readBuf);
+        if (readLen == XLREAD_WOULDBLOCK || readLen < 0)
+            goto err;
+
+        if (!XLogReaderValidatePageHeader(state, targetSegmentPtr, state->readBuf))
+            goto err;
+    }
+
+    // Read requested page data
+    readLen = state->routine.page_read(state, pageptr, Max(reqLen, SizeOfXLogShortPHD),
+                                      state->currRecPtr, state->readBuf);
+    if (readLen == XLREAD_WOULDBLOCK || readLen < 0)
+        goto err;
+
+    // Validate we have enough data for header
+    if (readLen <= SizeOfXLogShortPHD)
+        goto err;
+
+    hdr = (XLogPageHeader) state->readBuf;
+
+    // Read full header if needed
+    if (readLen < XLogPageHeaderSize(hdr)) {
+        readLen = state->routine.page_read(state, pageptr, XLogPageHeaderSize(hdr),
+                                          state->currRecPtr, state->readBuf);
+        if (readLen == XLREAD_WOULDBLOCK || readLen < 0)
+            goto err;
+    }
+
+    // Validate complete header
+    if (!XLogReaderValidatePageHeader(state, pageptr, (char *) hdr))
+        goto err;
+
+    // Update read state
+    state->seg.ws_segno = targetSegNo;
+    state->segoff = targetPageOff;
+    state->readLen = readLen;
+
+    return readLen;
+
+err:
+    XLogReaderInvalReadState(state);
+    return XLREAD_FAIL;
+}
+```

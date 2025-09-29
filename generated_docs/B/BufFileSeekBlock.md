@@ -37,3 +37,16 @@ BufFileSeekBlock provides a block-oriented seek interface that positions the fil
 - Primarily used by GiST index building, log tape operations, and shared tuple store implementations
 - Provides a more convenient interface than BufFileSeek when working with block-aligned data
 - Each block corresponds to PostgreSQL's standard block size (BLCKSZ)
+
+## Simplified Source
+
+```c
+int BufFileSeekBlock(BufFile *file, int64 blknum) {
+    // Convert block number to file segment and byte offset
+    int segment_num = (int)(blknum / BUFFILE_SEG_SIZE);
+    off_t byte_offset = (off_t)(blknum % BUFFILE_SEG_SIZE) * BLCKSZ;
+
+    // Perform the actual seek using BufFileSeek
+    return BufFileSeek(file, segment_num, byte_offset, SEEK_SET);
+}
+```

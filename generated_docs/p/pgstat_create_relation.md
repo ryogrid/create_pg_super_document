@@ -39,3 +39,17 @@ This transactional approach prevents orphaned statistics entries that could occu
 - For regular relations, MyDatabaseId provides the appropriate database context
 - This is part of the statistics system's integration with PostgreSQL's transaction management
 - The function ensures that statistics tracking is established at relation creation time rather than at first access
+
+## Simplified Source
+
+```c
+void
+pgstat_create_relation(Relation rel)
+{
+    // Create transactional statistics entry for the relation
+    // Use InvalidOid for shared relations, MyDatabaseId for regular relations
+    pgstat_create_transactional(PGSTAT_KIND_RELATION,
+                                rel->rd_rel->relisshared ? InvalidOid : MyDatabaseId,
+                                RelationGetRelid(rel));
+}
+```

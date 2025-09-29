@@ -95,3 +95,60 @@ index_build is a comprehensive function that manages the entire index building p
 - Performs exclusion constraint validation as a final step for indexes with exclusion operators
 - Maintains proper transaction boundaries and security context restoration for robustness
 - The function assumes relations are already opened by caller and does not close them (changed behavior from pre-8.2 PostgreSQL versions)
+
+## Simplified Source
+
+```c
+void index_build(Relation heapRelation, Relation indexRelation,
+                 IndexInfo *indexInfo, bool isreindex, bool parallel)
+{
+    IndexBuildResult *stats;
+    Oid save_userid;
+    int save_sec_context, save_nestlevel;
+
+    // Determine if parallel building is possible
+    if (parallel && indexRelation->rd_indam->amcanbuildparallel)
+        indexInfo->ii_ParallelWorkers = plan_create_index_workers(...);
+
+    // Switch to table owner's security context
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(heapRelation->rd_rel->relowner,
+                          save_sec_context | SECURITY_RESTRICTED_OPERATION);
+    save_nestlevel = NewGUCNestLevel();
+    RestrictSearchPath();
+
+    // Set up progress reporting
+    pgstat_progress_update_multi_param(...);
+
+    // Call access method's build procedure
+    stats = indexRelation->rd_indam->ambuild(heapRelation, indexRelation, indexInfo);
+
+    // Handle unlogged indexes - create init fork if needed
+    if (indexRelation->rd_rel->relpersistence == RELPERSISTENCE_UNLOGGED &&
+        !smgrexists(RelationGetSmgr(indexRelation), INIT_FORKNUM))
+    {
+        smgrcreate(RelationGetSmgr(indexRelation), INIT_FORKNUM, false);
+        indexRelation->rd_indam->ambuildempty(indexRelation);
+    }
+
+    // Handle broken HOT chains for non-concurrent, non-reindex operations
+    if (indexInfo->ii_BrokenHotChain && !isreindex && !indexInfo->ii_Concurrent)
+    {
+        // Mark index as requiring xmin check
+        // ... update pg_index with indcheckxmin = true
+    }
+
+    // Update catalog statistics
+    index_update_stats(heapRelation, true, stats->heap_tuples);
+    index_update_stats(indexRelation, false, stats->index_tuples);
+    CommandCounterIncrement();
+
+    // Validate exclusion constraints if needed
+    if (indexInfo->ii_ExclusionOps != NULL)
+        IndexCheckExclusion(heapRelation, indexRelation, indexInfo);
+
+    // Restore security context
+    AtEOXact_GUC(false, save_nestlevel);
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+}
+```

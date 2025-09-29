@@ -46,3 +46,62 @@ The function follows PostgreSQL's namespace precedence rules where objects in ea
 - Temporary namespaces are explicitly skipped during visibility checking
 - The function follows the pattern of other *IsVisibleExt functions in the codebase for consistent error handling
 - Essential for text search template management and proper namespace isolation
+
+## Simplified Source
+
+```c
+static bool TSTemplateIsVisibleExt(Oid tmplId, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_ts_template form;
+    Oid namespace;
+    bool visible;
+
+    // Look up template in system cache
+    tuple = SearchSysCache1(TSTEMPLATEOID, ObjectIdGetDatum(tmplId));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing template gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for text search template %u", tmplId);
+    }
+
+    form = (Form_pg_ts_template) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace = form->tmplnamespace;
+    if (namespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace)) {
+        visible = false;
+    } else {
+        // Check for name conflicts in earlier namespaces
+        char *name = NameStr(form->tmplname);
+        visible = false;
+
+        // Search through path to see if we find this template first
+        foreach(ListCell *l, activeSearchPath) {
+            Oid namespaceId = lfirst_oid(l);
+
+            if (namespaceId == myTempNamespace)
+                continue;  // Skip temp namespace
+
+            if (namespaceId == namespace) {
+                visible = true;  // Found our template first
+                break;
+            }
+
+            // Check if another template with same name exists here
+            if (SearchSysCacheExists2(TSTEMPLATENAMENSP,
+                                    PointerGetDatum(name),
+                                    ObjectIdGetDatum(namespaceId))) {
+                break;  // Found conflicting template earlier in path
+            }
+        }
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

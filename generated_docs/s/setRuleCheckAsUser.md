@@ -37,3 +37,12 @@ setRuleCheckAsUser modifies the permission checking context within query trees b
 - Critical for maintaining security boundaries in rule-based access control and view definitions
 - Works in conjunction with the broader permission checking system to support security-definer semantics for database rules
 - The traversal is performed through specialized walker functions that understand PostgreSQL's query tree structure
+
+## Simplified Source
+
+```c
+void setRuleCheckAsUser(Node *node, Oid userid) {
+    // Delegate to walker function to recursively update permissions
+    (void) setRuleCheckAsUser_walker(node, &userid);
+}
+```

@@ -42,3 +42,30 @@ Check constraints have specific evaluation semantics (must return boolean, handl
 - **Data integrity focus**: Optimized for constraint validation scenarios rather than general boolean evaluation
 - **Limited usage**: Currently primarily used for partition constraint checking, indicating its specialized nature
 - **Constraint semantics**: Unlike general qualifiers, check constraints must handle the three-valued logic of SQL constraints (true/false/null) correctly
+
+## Simplified Source
+
+```c
+ExprState *
+ExecPrepareCheck(List *qual, EState *estate)
+{
+    ExprState *result;
+    MemoryContext oldcontext;
+
+    // Switch to per-query context for persistent allocation
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Apply planning transformations to the constraint expressions
+    // This optimizes the expressions for constraint evaluation
+    qual = (List *) expression_planner((Expr *) qual);
+
+    // Compile the constraint using CHECK constraint semantics
+    // (NULL results are treated as TRUE - constraint passes)
+    result = ExecInitCheck(qual, NULL);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return result;
+}
+```

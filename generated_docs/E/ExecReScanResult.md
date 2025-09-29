@@ -41,3 +41,19 @@ The conditional rescanning logic is an optimization: if the child node's paramet
 - [Result](../R/Result.md) nodes are often used for constant expressions, one-time filters, or as leaf nodes in execution trees
 - The optimization to avoid unnecessary rescanning when chgParam is non-NULL is a common pattern across executor node types
 - Located in src/backend/executor/nodeResult.c:249-262
+
+## Simplified Source
+
+```c
+void ExecReScanResult(ResultState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Reset result node state
+    node->rs_done = false;
+    node->rs_checkqual = (node->resconstantqual != NULL);
+
+    // Rescan outer plan if it exists and no parameters changed
+    if (outerPlan && outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+}
+```

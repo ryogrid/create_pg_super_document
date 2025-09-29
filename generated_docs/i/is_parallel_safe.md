@@ -46,3 +46,39 @@ The function also handles parameter safety by building a list of 'safe' paramete
 - The function implements an optimization where if the global query is parallel-safe and no execution parameters exist, it can skip the expensive tree walk
 - Parameters from the same or parent query levels are considered safe as they are computed at Gather nodes
 - Located in src/backend/optimizer/util/clauses.c:753-793
+
+## Simplified Source
+
+```c
+bool is_parallel_safe(PlannerInfo *root, Node *node)
+{
+    max_parallel_hazard_context context;
+    PlannerInfo *proot;
+    ListCell *l;
+
+    // Fast path: if query is already known safe and no PARAM_EXEC params
+    if (root->glob->maxParallelHazard == PROPARALLEL_SAFE &&
+        root->glob->paramExecTypes == NIL)
+        return true;
+
+    // Set up context for hazard detection
+    context.max_hazard = PROPARALLEL_SAFE;
+    context.max_interesting = PROPARALLEL_RESTRICTED;
+    context.safe_param_ids = NIL;
+
+    // Build list of safe parameter IDs from init plans
+    for (proot = root; proot != NULL; proot = proot->parent_root)
+    {
+        foreach(l, proot->init_plans)
+        {
+            SubPlan *initsubplan = (SubPlan *) lfirst(l);
+
+            context.safe_param_ids = list_concat(context.safe_param_ids,
+                                                initsubplan->setParam);
+        }
+    }
+
+    // Walk the expression tree looking for parallel hazards
+    return !max_parallel_hazard_walker(node, &context);
+}
+```

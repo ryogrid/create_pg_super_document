@@ -53,3 +53,98 @@ The function carefully distinguishes between temporary unavailability of data (r
 - Sets appropriate error messages and connection status on failures
 - Does not drop already-read data when connection fails, allowing caller to process any remaining data
 - Part of the core PostgreSQL wire protocol implementation in libpq
+
+## Simplified Source
+```c
+int pqReadData(PGconn *conn) {
+    int someread = 0;
+    int nread;
+
+    // Validate socket
+    if (conn->sock == PGINVALID_SOCKET) {
+        libpq_append_conn_error(conn, "connection not open");
+        return -1;
+    }
+
+    // Compact buffer by moving data to beginning
+    if (conn->inStart < conn->inEnd) {
+        if (conn->inStart > 0) {
+            memmove(conn->inBuffer, conn->inBuffer + conn->inStart,
+                   conn->inEnd - conn->inStart);
+            conn->inEnd -= conn->inStart;
+            conn->inCursor -= conn->inStart;
+            conn->inStart = 0;
+        }
+    } else {
+        // Reset empty buffer
+        conn->inStart = conn->inCursor = conn->inEnd = 0;
+    }
+
+    // Enlarge buffer if nearly full (8K threshold)
+    if (conn->inBufSize - conn->inEnd < 8192) {
+        if (pqCheckInBufferSpace(conn->inEnd + 8192, conn)) {
+            if (conn->inBufSize - conn->inEnd < 100)
+                return -1;  // Need minimum space
+        }
+    }
+
+    // Main read loop with retry for long messages
+retry_read:
+    nread = pqsecure_read(conn, conn->inBuffer + conn->inEnd,
+                         conn->inBufSize - conn->inEnd);
+
+    if (nread < 0) {
+        // Handle read errors
+        if (SOCK_ERRNO == EINTR)
+            goto retry_read;
+        if (SOCK_ERRNO == EAGAIN || SOCK_ERRNO == EWOULDBLOCK)
+            return someread;
+        if (/* connection failure */)
+            goto connection_failed;
+        return -1;  // Other error
+    }
+
+    if (nread > 0) {
+        conn->inEnd += nread;
+
+        // Optimization: retry for long messages to avoid O(N²) performance
+        if (conn->inEnd > 32768 && (conn->inBufSize - conn->inEnd) >= 8192) {
+            someread = 1;
+            goto retry_read;
+        }
+        return 1;
+    }
+
+    if (someread)
+        return 1;  // Got data in previous iterations
+
+    // Zero read: check if it's EOF or just no data available
+#ifdef USE_SSL
+    if (conn->ssl_in_use)
+        return 0;  // SSL handles EOF detection differently
+#endif
+
+    // Check if socket has data ready
+    switch (pqReadReady(conn)) {
+        case 0: return 0;      // No data available
+        case 1: break;         // Data ready, try again
+        default: goto connection_eof;  // Error or EOF
+    }
+
+    // One more read attempt to distinguish EOF from temporary unavailability
+    nread = pqsecure_read(conn, conn->inBuffer + conn->inEnd,
+                         conn->inBufSize - conn->inEnd);
+    if (nread > 0) {
+        conn->inEnd += nread;
+        return 1;
+    }
+
+connection_eof:
+    libpq_append_conn_error(conn, "server closed the connection unexpectedly");
+
+connection_failed:
+    pqDropConnection(conn, false);  // Keep existing data
+    conn->status = CONNECTION_BAD;
+    return -1;
+}
+```

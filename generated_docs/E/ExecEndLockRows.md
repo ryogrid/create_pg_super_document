@@ -33,3 +33,15 @@ The function is designed to be safe to call multiple times, as EvalPlanQualEnd c
 - Cleanup is performed in reverse order of initialization
 - Part of the standard PostgreSQL plan node lifecycle (Init, Exec, End)
 - Function is located at src/backend/executor/nodeLockRows.c:385-393
+
+## Simplified Source
+
+```c
+void ExecEndLockRows(LockRowsState *node) {
+    // Clean up EvalPlanQual state (safe to call multiple times)
+    EvalPlanQualEnd(&node->lr_epqstate);
+
+    // Recursively shut down the outer subplan
+    ExecEndNode(outerPlanState(node));
+}
+```

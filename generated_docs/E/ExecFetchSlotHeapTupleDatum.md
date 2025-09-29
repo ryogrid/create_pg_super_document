@@ -36,3 +36,29 @@ The result is always freshly allocated in the caller's memory context, ensuring 
 - Commonly used when tuple data needs to be passed as a composite-type argument to functions
 - Part of PostgreSQL's type system that allows tuples to be treated as first-class values
 - The resulting Datum represents the entire tuple as a single composite value that can be manipulated by the type system
+
+## Simplified Source
+
+```c
+Datum ExecFetchSlotHeapTupleDatum(TupleTableSlot *slot)
+{
+    HeapTuple tup;
+    TupleDesc tupdesc;
+    bool shouldFree;
+    Datum ret;
+
+    // Step 1: Get the slot's contents as a HeapTuple
+    tup = ExecFetchSlotHeapTuple(slot, false, &shouldFree);
+    tupdesc = slot->tts_tupleDescriptor;
+
+    // Step 2: Convert HeapTuple to Datum format
+    ret = heap_copy_tuple_as_datum(tup, tupdesc);
+
+    // Step 3: Clean up intermediate HeapTuple if needed
+    if (shouldFree) {
+        pfree(tup);
+    }
+
+    return ret;  // Freshly allocated composite-type Datum
+}
+```

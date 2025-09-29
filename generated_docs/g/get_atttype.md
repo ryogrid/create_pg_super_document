@@ -42,3 +42,27 @@ This function performs a system cache lookup to retrieve the atttypid field from
 - Part of the PostgreSQL type system infrastructure
 - Commonly used in conjunction with type catalog functions to build complete type information
 - The OID returned refers to an entry in the pg_type system catalog
+
+## Simplified Source
+
+```c
+Oid get_atttype(Oid relid, AttrNumber attnum)
+{
+    // Look up the attribute in system cache
+    HeapTuple tp = SearchSysCache2(ATTNUM,
+                                  ObjectIdGetDatum(relid),
+                                  Int16GetDatum(attnum));
+
+    if (HeapTupleIsValid(tp))
+    {
+        // Extract attribute structure and get type OID
+        Form_pg_attribute att_tup = (Form_pg_attribute) GETSTRUCT(tp);
+        Oid result = att_tup->atttypid;
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else
+        return InvalidOid;  // Attribute not found
+}
+```

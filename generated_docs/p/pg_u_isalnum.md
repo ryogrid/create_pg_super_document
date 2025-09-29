@@ -35,3 +35,13 @@ This function is essential for text processing operations that need to identify 
 - The posix parameter allows compatibility with traditional POSIX character classes
 - Used in text formatting, regex processing, and word boundary detection
 - Combines Unicode alphabetic property with configurable digit classification
+
+## Simplified Source
+
+```c
+bool
+pg_u_isalnum(pg_wchar code, bool posix) {
+    // Check if character is either alphabetic or digit
+    return pg_u_isalpha(code) || pg_u_isdigit(code, posix);
+}
+```

@@ -20,7 +20,7 @@ The function first checks for partitioned tables, which don't need TOAST tables 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - [IsCatalogRelation](../I/IsCatalogRelation.md)  
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
   - [table_relation_needs_toast_table](../t/table_relation_needs_toast_table.md)
 - Called from (representative examples):
   - [create_toast_table](../c/create_toast_table.md)
@@ -32,3 +32,25 @@ The function first checks for partitioned tables, which don't need TOAST tables 
 - Catalog table toasting is explicitly controlled via catalog/pg_*.h definitions during bootstrap
 - The final decision is delegated to the access method via table_relation_needs_toast_table()
 - This function acts as a policy layer above the access method's technical evaluation
+
+## Simplified Source
+
+```c
+static bool needs_toast_table(Relation rel)
+{
+    // Partitioned tables don't need TOAST tables
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        return false;
+
+    // Shared relations cannot be toasted after initdb
+    if (rel->rd_rel->relisshared && !IsBootstrapProcessingMode())
+        return false;
+
+    // Catalog toasting is explicitly controlled during bootstrap
+    if (IsCatalogRelation(rel) && !IsBootstrapProcessingMode())
+        return false;
+
+    // Let the access method decide based on table structure
+    return table_relation_needs_toast_table(rel);
+}
+```

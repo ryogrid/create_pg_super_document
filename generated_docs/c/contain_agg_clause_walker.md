@@ -38,3 +38,34 @@ This static function serves as the core implementation for aggregate function de
 - Returns true immediately upon finding an aggregate, short-circuiting the traversal
 - The function expects that sublinks have already been processed and converted to subplans
 - Part of the aggregate-function clause manipulation utilities in the PostgreSQL optimizer
+
+## Simplified Source
+
+```c
+static bool
+contain_agg_clause_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check for aggregate function nodes
+    if (IsA(node, Aggref))
+    {
+        Assert(((Aggref *) node)->agglevelsup == 0);
+        return true;  // Found aggregate, abort traversal
+    }
+
+    // Check for grouping function nodes
+    if (IsA(node, GroupingFunc))
+    {
+        Assert(((GroupingFunc *) node)->agglevelsup == 0);
+        return true;  // Found grouping function, abort traversal
+    }
+
+    // Sublinks should have been processed by now
+    Assert(!IsA(node, SubLink));
+
+    // Continue recursive traversal
+    return expression_tree_walker(node, contain_agg_clause_walker, context);
+}
+```

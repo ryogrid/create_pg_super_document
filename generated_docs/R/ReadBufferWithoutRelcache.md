@@ -45,3 +45,20 @@ Note that this function cannot handle temporary relations, as temporary relation
 - Provides a more direct path to buffer access when relcache entries are unavailable
 - Commonly used in WAL recovery and database maintenance operations
 - The permanent parameter is critical for proper buffer management and determines the persistence characteristics used internally
+
+## Simplified Source
+
+```c
+Buffer ReadBufferWithoutRelcache(RelFileLocator rlocator, ForkNumber forkNum,
+                                BlockNumber blockNum, ReadBufferMode mode,
+                                BufferAccessStrategy strategy, bool permanent) {
+    // Open storage manager relation without relcache
+    SMgrRelation smgr = smgropen(rlocator, INVALID_PROC_NUMBER);
+
+    // Delegate to common buffer reading function
+    return ReadBuffer_common(NULL, smgr,
+                           permanent ? RELPERSISTENCE_PERMANENT : RELPERSISTENCE_UNLOGGED,
+                           forkNum, blockNum,
+                           mode, strategy);
+}
+```

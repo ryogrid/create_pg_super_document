@@ -40,3 +40,120 @@ The `create_groupingsets_plan` function constructs a complex aggregation plan fo
 - Only the topmost Agg node's costs are meaningful for EXPLAIN output
 - Handles three aggregation strategies: AGG_HASHED, AGG_PLAIN, and AGG_SORTED based on rollup characteristics
 - Optimizes by removing unnecessary target lists and left trees from subsidiary sort plans to reduce debug output bloat
+
+## Simplified Source
+
+```c
+static Plan *
+create_groupingsets_plan(PlannerInfo *root, GroupingSetsPath *best_path)
+{
+    List *rollups = best_path->rollups;
+
+    // Validate inputs
+    Assert(root->parse->groupingSets);
+    Assert(rollups != NIL);
+
+    // Create subplan with grouping columns available
+    Plan *subplan = create_plan_recurse(root, best_path->subpath, CP_LABEL_TLIST);
+
+    // Build grouping map from tleSortGroupRef to column index
+    int maxref = 0;
+    foreach(lc, root->processed_groupClause)
+    {
+        SortGroupClause *gc = (SortGroupClause *) lfirst(lc);
+        if (gc->tleSortGroupRef > maxref)
+            maxref = gc->tleSortGroupRef;
+    }
+
+    AttrNumber *grouping_map = (AttrNumber *) palloc0((maxref + 1) * sizeof(AttrNumber));
+
+    // Map sort group references to target list positions
+    foreach(lc, root->processed_groupClause)
+    {
+        SortGroupClause *gc = (SortGroupClause *) lfirst(lc);
+        TargetEntry *tle = get_sortgroupclause_tle(gc, subplan->targetlist);
+        grouping_map[gc->tleSortGroupRef] = tle->resno;
+    }
+
+    // Save grouping map for setrefs.c
+    root->grouping_map = grouping_map;
+
+    // Build chain of subsidiary Agg nodes for additional grouping sets
+    List *chain = NIL;
+    if (list_length(rollups) > 1)
+    {
+        bool is_first_sort = ((RollupData *) linitial(rollups))->is_hashed;
+
+        for_each_from(lc, rollups, 1)
+        {
+            RollupData *rollup = lfirst(lc);
+
+            // Remap grouping columns
+            AttrNumber *new_grpColIdx = remap_groupColIdx(root, rollup->groupClause);
+
+            // Create Sort node if needed
+            Plan *sort_plan = NULL;
+            if (!rollup->is_hashed && !is_first_sort)
+            {
+                sort_plan = (Plan *) make_sort_from_groupcols(rollup->groupClause,
+                                                            new_grpColIdx, subplan);
+            }
+
+            if (!rollup->is_hashed)
+                is_first_sort = false;
+
+            // Determine aggregation strategy
+            AggStrategy strat;
+            if (rollup->is_hashed)
+                strat = AGG_HASHED;
+            else if (linitial(rollup->gsets) == NIL)
+                strat = AGG_PLAIN;
+            else
+                strat = AGG_SORTED;
+
+            // Create subsidiary Agg node
+            Plan *agg_plan = (Plan *) make_agg(NIL, NIL, strat, AGGSPLIT_SIMPLE,
+                                              list_length((List *) linitial(rollup->gsets)),
+                                              new_grpColIdx,
+                                              extract_grouping_ops(rollup->groupClause),
+                                              extract_grouping_collations(rollup->groupClause, subplan->targetlist),
+                                              rollup->gsets, NIL,
+                                              rollup->numGroups,
+                                              best_path->transitionSpace,
+                                              sort_plan);
+
+            // Clean up subsidiary nodes to reduce debug output
+            if (sort_plan)
+            {
+                sort_plan->targetlist = NIL;
+                sort_plan->lefttree = NULL;
+            }
+
+            chain = lappend(chain, agg_plan);
+        }
+    }
+
+    // Create the main Agg node
+    RollupData *rollup = linitial(rollups);
+    AttrNumber *top_grpColIdx = remap_groupColIdx(root, rollup->groupClause);
+    int numGroupCols = list_length((List *) linitial(rollup->gsets));
+
+    Agg *plan = make_agg(build_path_tlist(root, &best_path->path),
+                        best_path->qual,
+                        best_path->aggstrategy,
+                        AGGSPLIT_SIMPLE,
+                        numGroupCols,
+                        top_grpColIdx,
+                        extract_grouping_ops(rollup->groupClause),
+                        extract_grouping_collations(rollup->groupClause, subplan->targetlist),
+                        rollup->gsets,
+                        chain,
+                        rollup->numGroups,
+                        best_path->transitionSpace,
+                        subplan);
+
+    copy_generic_path_info(&plan->plan, &best_path->path);
+
+    return (Plan *) plan;
+}
+```

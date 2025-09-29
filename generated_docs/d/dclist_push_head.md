@@ -35,3 +35,20 @@ The function leverages the underlying dlist_push_head implementation for the act
 - Maintains the circular list property while providing counting functionality
 - Implemented as a static inline function for performance efficiency
 - Part of PostgreSQL's intrusive list implementation that doesn't require separate memory allocation for list nodes
+
+## Simplified Source
+
+```c
+static inline void dclist_push_head(dclist_head *head, dlist_node *node) {
+    // Initialize list if empty
+    if (head->dlist.head.next == NULL) {
+        dclist_init(head);
+    }
+
+    // Add node to head and increment count
+    dlist_push_head(&head->dlist, node);
+    head->count++;
+
+    Assert(head->count > 0); // Check for overflow
+}
+```

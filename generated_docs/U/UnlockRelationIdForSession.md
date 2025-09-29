@@ -33,3 +33,17 @@ This function releases a session-level lock on the specified relation. It constr
 - Uses LockRelease with session=true to indicate session-level lock release
 - Provides explicit control over session lock cleanup instead of relying on error or exit cleanup
 - Located in src/backend/storage/lmgr/lmgr.c:400-419
+
+## Simplified Source
+
+```c
+void UnlockRelationIdForSession(LockRelId *relid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Create lock tag from relation ID
+    SET_LOCKTAG_RELATION(tag, relid->dbId, relid->relId);
+
+    // Release the session-level lock
+    LockRelease(&tag, lockmode, true);
+}
+```

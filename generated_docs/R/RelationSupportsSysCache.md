@@ -33,3 +33,30 @@ RelationSupportsSysCache determines if a relation participates in the system cat
 - Relies on SysCacheSupportingRelOid being pre-sorted for correct binary search operation
 - Important for determining which relations need special handling during updates and cache invalidation
 - Located in src/backend/utils/cache/syscache.c:771-795
+
+## Simplified Source
+
+```c
+bool
+RelationSupportsSysCache(Oid relid)
+{
+    // Binary search through sorted array of cache-supporting relation OIDs
+    int low = 0;
+    int high = SysCacheSupportingRelOidSize - 1;
+
+    while (low <= high) {
+        int middle = low + (high - low) / 2;
+
+        if (SysCacheSupportingRelOid[middle] == relid)
+            return true;
+
+        // Adjust search range based on comparison
+        if (SysCacheSupportingRelOid[middle] < relid)
+            low = middle + 1;
+        else
+            high = middle - 1;
+    }
+
+    return false;
+}
+```

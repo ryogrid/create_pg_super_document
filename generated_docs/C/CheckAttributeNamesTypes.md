@@ -36,3 +36,48 @@ The function is designed to catch schema definition errors early and provide cle
 - Error messages are user-friendly and specify the problematic attribute name
 - Works in conjunction with CheckAttributeType for complete schema validation
 - Located in src/backend/catalog/heap.c:457-518
+
+## Simplified Source
+
+```c
+void
+CheckAttributeNamesTypes(TupleDesc tupdesc, char relkind, int flags) {
+    int i, j;
+    int natts = tupdesc->natts;
+
+    // Validate column count doesn't exceed maximum
+    if (natts < 0 || natts > MaxHeapAttributeNumber)
+        ereport(ERROR, "tables can have at most %d columns", MaxHeapAttributeNumber);
+
+    // Check for conflicts with system attribute names
+    // Skip this for views and composite types which don't have system attributes
+    if (relkind != RELKIND_VIEW && relkind != RELKIND_COMPOSITE_TYPE) {
+        for (i = 0; i < natts; i++) {
+            Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+            if (SystemAttributeByName(NameStr(attr->attname)) != NULL)
+                ereport(ERROR, "column name \"%s\" conflicts with a system column name",
+                        NameStr(attr->attname));
+        }
+    }
+
+    // Check for duplicate attribute names
+    for (i = 1; i < natts; i++) {
+        for (j = 0; j < i; j++) {
+            if (strcmp(NameStr(TupleDescAttr(tupdesc, j)->attname),
+                      NameStr(TupleDescAttr(tupdesc, i)->attname)) == 0)
+                ereport(ERROR, "column name \"%s\" specified more than once",
+                        NameStr(TupleDescAttr(tupdesc, j)->attname));
+        }
+    }
+
+    // Validate each attribute type
+    for (i = 0; i < natts; i++) {
+        CheckAttributeType(NameStr(TupleDescAttr(tupdesc, i)->attname),
+                          TupleDescAttr(tupdesc, i)->atttypid,
+                          TupleDescAttr(tupdesc, i)->attcollation,
+                          NIL, /* assume we're creating a new rowtype */
+                          flags);
+    }
+}
+```

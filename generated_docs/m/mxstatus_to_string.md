@@ -50,3 +50,27 @@ The returned strings are static literals, so callers do not need to manage memor
   - "upd": Update or delete operation
 - Triggers an ERROR-level elog message for unrecognized status values, which will abort the current transaction
 - Being a static function, it is only accessible within the multixact.c compilation unit
+
+## Simplified Source
+
+```c
+static char *mxstatus_to_string(MultiXactStatus status) {
+    switch (status) {
+        case MultiXactStatusForKeyShare:
+            return "keysh";
+        case MultiXactStatusForShare:
+            return "sh";
+        case MultiXactStatusForNoKeyUpdate:
+            return "fornokeyupd";
+        case MultiXactStatusForUpdate:
+            return "forupd";
+        case MultiXactStatusNoKeyUpdate:
+            return "nokeyupd";
+        case MultiXactStatusUpdate:
+            return "upd";
+        default:
+            elog(ERROR, "unrecognized multixact status %d", status);
+            return "";
+    }
+}
+```

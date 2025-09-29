@@ -41,3 +41,29 @@ RTEPermissionInfo *addRTEPermissionInfo(List **rteperminfos, RangeTblEntry *rte)
 - Only basic information (relid and inh flag) is copied initially; other permission details are populated as needed later
 - This function is part of PostgreSQL's access control infrastructure and is declared in src/include/parser/parse_relation.h
 - The returned RTEPermissionInfo pointer allows immediate access to the newly created permission info structure
+
+## Simplified Source
+
+```c
+RTEPermissionInfo *
+addRTEPermissionInfo(List **rteperminfos, RangeTblEntry *rte)
+{
+    RTEPermissionInfo *perminfo;
+
+    Assert(OidIsValid(rte->relid));
+    Assert(rte->perminfoindex == 0);
+
+    // Create new permission info node
+    perminfo = makeNode(RTEPermissionInfo);
+    perminfo->relid = rte->relid;
+    perminfo->inh = rte->inh;
+
+    // Add to permission info list
+    *rteperminfos = lappend(*rteperminfos, perminfo);
+
+    // Set 1-based index in RTE
+    rte->perminfoindex = list_length(*rteperminfos);
+
+    return perminfo;
+}
+```

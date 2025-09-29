@@ -38,3 +38,17 @@ This distinction is crucial for proper shared dependency tracking, as it allows 
 - Database-specific relations get the current database's OID from MyDatabaseId
 - The return value directly determines the dbid field in pg_shdepend tuples
 - Simple but critical function for the shared dependency tracking system's correctness
+
+## Simplified Source
+
+```c
+static Oid
+classIdGetDbId(Oid classId)
+{
+    // Shared catalogs use InvalidOid (0), others use current database ID
+    if (IsSharedRelation(classId))
+        return InvalidOid;
+    else
+        return MyDatabaseId;
+}
+```

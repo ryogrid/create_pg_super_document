@@ -41,3 +41,26 @@ This function performs regular expression matching using a compiled regex stored
 - Used throughout the authentication process for flexible pattern matching in HBA rules
 - Part of PostgreSQL's authentication infrastructure in src/backend/libpq/hba.c
 - Works in conjunction with regcomp_auth_token for complete regex functionality
+
+## Simplified Source
+```c
+static int
+regexec_auth_token(const char *match, AuthToken *token, size_t nmatch,
+                   regmatch_t pmatch[])
+{
+    // Verify this is a compiled regex token
+    Assert(token->string[0] == '/' && token->regex);
+
+    // Convert match string to wide characters for multi-byte support
+    pg_wchar *wmatchstr = palloc((strlen(match) + 1) * sizeof(pg_wchar));
+    int wmatchlen = pg_mb2wchar_with_len(match, wmatchstr, strlen(match));
+
+    // Execute the regex against the wide character string
+    int result = pg_regexec(token->regex, wmatchstr, wmatchlen, 0, NULL,
+                           nmatch, pmatch, 0);
+
+    // Clean up allocated memory
+    pfree(wmatchstr);
+    return result;
+}
+```

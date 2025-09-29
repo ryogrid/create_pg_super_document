@@ -44,3 +44,44 @@ The level tracking mechanism ensures that aggregates are correctly attributed to
 - Handles proper level adjustment when recursing into subqueries
 - Returns true immediately upon finding a matching aggregate (short-circuit evaluation)
 - Critical for maintaining correct aggregate scoping in nested query structures
+
+## Simplified Source
+
+```c
+static bool contain_aggs_of_level_walker(Node *node, contain_aggs_of_level_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Check for aggregate functions at the target level
+    if (IsA(node, Aggref)) {
+        if (((Aggref *) node)->agglevelsup == context->sublevels_up)
+            return true;  // Found matching aggregate
+        // Continue searching through aggregate's arguments
+    }
+
+    // Check for GROUPING functions at the target level
+    if (IsA(node, GroupingFunc)) {
+        if (((GroupingFunc *) node)->agglevelsup == context->sublevels_up)
+            return true;  // Found matching grouping function
+        // Continue searching through function's arguments
+    }
+
+    // Handle subqueries with proper level adjustment
+    if (IsA(node, Query)) {
+        bool result;
+
+        // Increment level for subquery recursion
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node,
+                                 contain_aggs_of_level_walker,
+                                 context, 0);
+        // Restore original level
+        context->sublevels_up--;
+
+        return result;
+    }
+
+    // Continue searching through other expression nodes
+    return expression_tree_walker(node, contain_aggs_of_level_walker, context);
+}
+```

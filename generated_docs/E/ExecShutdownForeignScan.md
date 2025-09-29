@@ -32,3 +32,17 @@ The function is part of PostgreSQL's extensible foreign data wrapper architectur
 - Part of the asynchronous foreign scan infrastructure introduced to support concurrent/parallel foreign scans
 - Should be called during plan node shutdown to ensure proper cleanup of FDW resources
 - Located in src/backend/executor/nodeForeignscan.c:441-455
+
+## Simplified Source
+
+```c
+void ExecShutdownForeignScan(ForeignScanState *node) {
+    // Get the FDW's routine table
+    FdwRoutine *fdwroutine = node->fdwroutine;
+
+    // Call shutdown callback if the FDW provides one
+    if (fdwroutine->ShutdownForeignScan) {
+        fdwroutine->ShutdownForeignScan(node);
+    }
+}
+```

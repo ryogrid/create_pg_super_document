@@ -37,3 +37,46 @@ The `create_windowagg_plan` function constructs a WindowAgg plan node that imple
 - Supports complex window frame definitions with ROWS, RANGE, and GROUPS modes
 - The created plan includes run conditions for optimized window function execution and qualifications for filtering
 - Essential for implementing SQL:2003 window function standards including analytical functions and frame-aware aggregates
+
+## Simplified Source
+
+```c
+static WindowAgg *
+create_windowagg_plan(PlannerInfo *root, WindowAggPath *best_path)
+{
+    WindowAgg *plan;
+    WindowClause *wc = best_path->winclause;
+    Plan *subplan;
+    List *tlist;
+
+    // Create subplan with small target list for tuplestore efficiency
+    subplan = create_plan_recurse(root, best_path->subpath,
+                                  CP_LABEL_TLIST | CP_SMALL_TLIST);
+
+    // Build target list for window operations
+    tlist = build_path_tlist(root, &best_path->path);
+
+    // Convert PARTITION BY clauses to executor arrays
+    AttrNumber *partColIdx = build_partition_columns(wc->partitionClause, subplan);
+    Oid *partOperators = build_partition_operators(wc->partitionClause);
+    Oid *partCollations = build_partition_collations(wc->partitionClause, subplan);
+
+    // Convert ORDER BY clauses to executor arrays
+    AttrNumber *ordColIdx = build_order_columns(wc->orderClause, subplan);
+    Oid *ordOperators = build_order_operators(wc->orderClause);
+    Oid *ordCollations = build_order_collations(wc->orderClause, subplan);
+
+    // Create WindowAgg plan node
+    plan = make_windowagg(tlist, wc->winref,
+                          partNumCols, partColIdx, partOperators, partCollations,
+                          ordNumCols, ordColIdx, ordOperators, ordCollations,
+                          wc->frameOptions, wc->startOffset, wc->endOffset,
+                          wc->startInRangeFunc, wc->endInRangeFunc,
+                          wc->inRangeColl, wc->inRangeAsc, wc->inRangeNullsFirst,
+                          best_path->runCondition, best_path->qual,
+                          best_path->topwindow, subplan);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+    return plan;
+}
+```

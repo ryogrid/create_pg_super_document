@@ -64,3 +64,132 @@ The function balances correctness, performance, and parallelism while maintainin
 - Critical for partitionwise aggregate optimization by computing targets at partition level
 - The function modifies path lists in-place for efficiency while maintaining path ordering
 - Location: src/backend/optimizer/plan/planner.c:7705-7939
+
+## Simplified Source
+
+```c
+static void
+apply_scanjoin_target_to_paths(PlannerInfo *root,
+                               RelOptInfo *rel,
+                               List *scanjoin_targets,
+                               List *scanjoin_targets_contain_srfs,
+                               bool scanjoin_target_parallel_safe,
+                               bool tlist_same_exprs)
+{
+    bool rel_is_partitioned = IS_PARTITIONED_REL(rel);
+    PathTarget *scanjoin_target;
+    ListCell *lc;
+
+    check_stack_depth();
+
+    // For partitioned relations, drop existing paths
+    if (rel_is_partitioned)
+        rel->pathlist = NIL;
+
+    // Handle non-parallel-safe targets
+    if (!scanjoin_target_parallel_safe)
+    {
+        // Generate Gather paths before losing parallel capability
+        generate_useful_gather_paths(root, rel, false);
+        rel->partial_pathlist = NIL;
+        rel->consider_parallel = false;
+    }
+
+    if (rel_is_partitioned)
+        rel->partial_pathlist = NIL;
+
+    // Get the SRF-free scan/join target
+    scanjoin_target = linitial_node(PathTarget, scanjoin_targets);
+
+    // Apply target to existing paths
+    foreach(lc, rel->pathlist)
+    {
+        Path *subpath = (Path *) lfirst(lc);
+        Assert(subpath->param_info == NULL);
+
+        if (tlist_same_exprs)
+            // Just update sortgroupref info
+            subpath->pathtarget->sortgrouprefs = scanjoin_target->sortgrouprefs;
+        else
+        {
+            // Create projection path
+            Path *newpath = (Path *) create_projection_path(root, rel, subpath, scanjoin_target);
+            lfirst(lc) = newpath;
+        }
+    }
+
+    // Handle partial paths similarly
+    foreach(lc, rel->partial_pathlist)
+    {
+        Path *subpath = (Path *) lfirst(lc);
+        Assert(subpath->param_info == NULL);
+
+        if (tlist_same_exprs)
+            subpath->pathtarget->sortgrouprefs = scanjoin_target->sortgrouprefs;
+        else
+        {
+            Path *newpath = (Path *) create_projection_path(root, rel, subpath, scanjoin_target);
+            lfirst(lc) = newpath;
+        }
+    }
+
+    // Handle SRFs if present
+    if (root->parse->hasTargetSRFs)
+        adjust_paths_for_srfs(root, rel, scanjoin_targets, scanjoin_targets_contain_srfs);
+
+    // Update relation target
+    rel->reltarget = llast_node(PathTarget, scanjoin_targets);
+
+    // Handle partitioned relations recursively
+    if (rel_is_partitioned)
+    {
+        List *live_children = NIL;
+        int i = -1;
+
+        // Process each partition
+        while ((i = bms_next_member(rel->live_parts, i)) >= 0)
+        {
+            RelOptInfo *child_rel = rel->part_rels[i];
+            AppendRelInfo **appinfos;
+            int nappinfos;
+            List *child_scanjoin_targets = NIL;
+
+            if (!child_rel || IS_DUMMY_REL(child_rel))
+                continue;
+
+            // Translate targets for this partition
+            appinfos = find_appinfos_by_relids(root, child_rel->relids, &nappinfos);
+            foreach(lc, scanjoin_targets)
+            {
+                PathTarget *target = lfirst_node(PathTarget, lc);
+                target = copy_pathtarget(target);
+                target->exprs = (List *) adjust_appendrel_attrs(root,
+                                                               (Node *) target->exprs,
+                                                               nappinfos, appinfos);
+                child_scanjoin_targets = lappend(child_scanjoin_targets, target);
+            }
+            pfree(appinfos);
+
+            // Recursive call for child
+            apply_scanjoin_target_to_paths(root, child_rel,
+                                          child_scanjoin_targets,
+                                          scanjoin_targets_contain_srfs,
+                                          scanjoin_target_parallel_safe,
+                                          tlist_same_exprs);
+
+            if (!IS_DUMMY_REL(child_rel))
+                live_children = lappend(live_children, child_rel);
+        }
+
+        // Build new Append paths
+        add_paths_to_append_rel(root, rel, live_children);
+    }
+
+    // Generate Gather paths if appropriate
+    if (rel->consider_parallel && !IS_OTHER_REL(rel))
+        generate_useful_gather_paths(root, rel, false);
+
+    // Update cheapest paths
+    set_cheapest(rel);
+}
+```

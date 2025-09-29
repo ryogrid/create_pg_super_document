@@ -41,3 +41,20 @@ This logic is crucial for 's operation because parse tree nodes created during a
 - Part of the location tracking infrastructure used throughout the parser
 - Always returns a valid location if at least one input is valid, or -1 if both are unknown
 - Located in src/backend/nodes/nodeFuncs.c:1810-1830
+
+## Simplified Source
+
+```c
+static int
+leftmostLoc(int loc1, int loc2)
+{
+    // Return the other location if one is unknown (-1)
+    if (loc1 < 0)
+        return loc2;
+    if (loc2 < 0)
+        return loc1;
+
+    // Both locations are valid, return the leftmost (minimum)
+    return Min(loc1, loc2);
+}
+```

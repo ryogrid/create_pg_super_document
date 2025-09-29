@@ -45,3 +45,42 @@ The blocks are stored in descending order to enable efficient popping from the e
 - This optimization reduces contention on the global free list and improves locality
 - The preallocation size grows from `TAPE_WRITE_PREALLOC_MIN` to `TAPE_WRITE_PREALLOC_MAX`
 - Memory is managed using PostgreSQL's palloc/repalloc memory management functions
+
+## Simplified Source
+
+```c
+static int64 ltsGetPreallocBlock(LogicalTapeSet *lts, LogicalTape *lt) {
+    // If we have preallocated blocks, return the lowest one
+    // (stored at end of descending-ordered array)
+    if (lt->nprealloc > 0) {
+        return lt->prealloc[--lt->nprealloc];
+    }
+
+    // Initialize preallocation cache if needed
+    if (lt->prealloc == NULL) {
+        lt->prealloc_size = TAPE_WRITE_PREALLOC_MIN;
+        lt->prealloc = palloc(sizeof(int64) * lt->prealloc_size);
+    }
+    // Expand cache if not at maximum size
+    else if (lt->prealloc_size < TAPE_WRITE_PREALLOC_MAX) {
+        lt->prealloc_size *= 2;  // Double the size
+        if (lt->prealloc_size > TAPE_WRITE_PREALLOC_MAX) {
+            lt->prealloc_size = TAPE_WRITE_PREALLOC_MAX;
+        }
+        lt->prealloc = repalloc(lt->prealloc, sizeof(int64) * lt->prealloc_size);
+    }
+
+    // Refill the entire preallocation cache
+    lt->nprealloc = lt->prealloc_size;
+    for (int i = lt->nprealloc; i > 0; i--) {
+        // Get blocks from global free list in descending order
+        lt->prealloc[i - 1] = ltsGetFreeBlock(lts);
+
+        // Verify blocks are in descending order
+        Assert(i == lt->nprealloc || lt->prealloc[i - 1] > lt->prealloc[i]);
+    }
+
+    // Return the lowest preallocated block
+    return lt->prealloc[--lt->nprealloc];
+}
+```

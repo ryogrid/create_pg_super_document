@@ -39,3 +39,12 @@ This function is the inverse operation of NameGetDatum() and is essential for re
 - Used extensively in system catalog operations and identifier processing
 - The returned Name is a pointer to the actual name data structure, not a copy
 - Care should be taken to ensure the underlying data remains valid while the Name is in use
+
+## Simplified Source
+
+```c
+static inline Name DatumGetName(Datum X) {
+    // Extract Name pointer from Datum - used for PostgreSQL identifiers
+    return (Name) DatumGetPointer(X);
+}
+```

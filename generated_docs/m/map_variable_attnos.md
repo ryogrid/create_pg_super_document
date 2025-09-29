@@ -60,3 +60,31 @@ This utility is essential for maintaining expression correctness when table sche
 - Used extensively in partitioning logic to adapt expressions for different partition schemas
 - The AttrMap structure defines the old-to-new attribute number mapping rules
 - Supports optional row type conversion for whole-row variables, useful in inheritance scenarios
+
+## Simplified Source
+
+```c
+Node *map_variable_attnos(Node *node,
+                         int target_varno, int sublevels_up,
+                         const AttrMap *attno_map,
+                         Oid to_rowtype, bool *found_whole_row)
+{
+    map_variable_attnos_context context;
+
+    // Set up mapping context
+    context.target_varno = target_varno;
+    context.sublevels_up = sublevels_up;
+    context.attno_map = attno_map;
+    context.to_rowtype = to_rowtype;
+    context.found_whole_row = found_whole_row;
+
+    // Initialize whole-row indicator
+    *found_whole_row = false;
+
+    // Process the expression tree, handling both Queries and expressions
+    return query_or_expression_tree_mutator(node,
+                                           map_variable_attnos_mutator,
+                                           (void *) &context,
+                                           0);
+}
+```

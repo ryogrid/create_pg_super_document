@@ -52,3 +52,62 @@ The compilation process creates evaluation steps for each qualification expressi
 - Jump targets are adjusted after compilation to point to the correct end position
 - Widely used throughout the executor for filtering tuples based on WHERE conditions
 - The resulting ExprState can only be used with ExecQual, not general ExecEvalExpr
+
+## Simplified Source
+
+```c
+ExprState *
+ExecInitQual(List *qual, PlanState *parent)
+{
+    // Short-circuit for empty qualification list - always TRUE
+    if (qual == NIL)
+        return NULL;
+
+    // Initialize ExprState for qualification evaluation
+    ExprState *state = makeNode(ExprState);
+    ExprEvalStep step = {0};
+    List *jump_fixups = NIL;
+
+    // Set basic properties
+    state->expr = (Expr *) qual;
+    state->parent = parent;
+    state->ext_params = NULL;
+    state->flags = EEO_FLAG_IS_QUAL;  // Mark as qualification expression
+
+    // Add setup steps for tuple access, parameters, etc.
+    ExecCreateExprSetupSteps(state, (Node *) qual);
+
+    // Prepare QUAL step template for short-circuit evaluation
+    step.opcode = EEOP_QUAL;
+    step.resvalue = &state->resvalue;
+    step.resnull = &state->resnull;
+
+    // Compile each qualification expression with short-circuit logic
+    foreach_ptr(Expr, expr_node, qual)
+    {
+        // Compile the individual qualification expression
+        ExecInitExprRec(expr_node, state, &state->resvalue, &state->resnull);
+
+        // Add QUAL step that jumps to end if FALSE or NULL
+        step.d.qualexpr.jumpdone = -1;  // Will be fixed up later
+        ExprEvalPushStep(state, &step);
+
+        // Remember this step for jump target fixup
+        jump_fixups = lappend_int(jump_fixups, state->steps_len - 1);
+    }
+
+    // Fix up all jump targets to point to the end
+    foreach_int(jump_pos, jump_fixups)
+    {
+        ExprEvalStep *qual_step = &state->steps[jump_pos];
+        qual_step->d.qualexpr.jumpdone = state->steps_len;
+    }
+
+    // Add final DONE step - if we reach here, all quals were TRUE
+    step.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &step);
+
+    ExecReadyExpr(state);
+    return state;
+}
+```

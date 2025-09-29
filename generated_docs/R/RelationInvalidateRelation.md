@@ -37,3 +37,22 @@ This approach allows for efficient cache invalidation without the overhead of co
 - Preserves most cached data while invalidating stale components
 - Commonly used after operations that change file-level properties but not relation structure
 - Part of PostgreSQL's incremental cache invalidation strategy
+
+## Simplified Source
+
+```c
+static void
+RelationInvalidateRelation(Relation relation)
+{
+    // Close storage manager files to ensure consistency
+    RelationCloseSmgr(relation);
+
+    // Free cached access method data if present
+    if (relation->rd_amcache)
+        pfree(relation->rd_amcache);
+    relation->rd_amcache = NULL;
+
+    // Mark the relation as invalid for reload on next access
+    relation->rd_isvalid = false;
+}
+```

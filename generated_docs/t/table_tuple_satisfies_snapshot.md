@@ -38,3 +38,15 @@ The function is implemented as a static inline function in the tableam interface
 - Access method implementations may have side effects on buffer dirty state
 - The caller must ensure the tuple in the slot is valid and properly formatted for the target access method
 - This function is critical for MVCC (Multi-Version Concurrency Control) implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+static inline bool
+table_tuple_satisfies_snapshot(Relation rel, TupleTableSlot *slot,
+                               Snapshot snapshot)
+{
+    // Delegate to table access method's specific visibility check
+    return rel->rd_tableam->tuple_satisfies_snapshot(rel, slot, snapshot);
+}
+```

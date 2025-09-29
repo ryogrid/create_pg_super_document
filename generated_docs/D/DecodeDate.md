@@ -58,3 +58,96 @@ Key features:
 - Returns 0 on success or DTERR_BAD_FORMAT on parsing errors
 - Field masking prevents duplicate date components (e.g., two month fields)
 - Located in src/backend/utils/adt/datetime.c:2398-2507
+
+## Simplified Source
+```c
+static int DecodeDate(char *str, int fmask, int *tmask, bool *is2digits, struct pg_tm *tm) {
+    fsec_t fsec;
+    int nf = 0;
+    int i, len, dterr;
+    bool haveTextMonth = false;
+    int type, val, dmask = 0;
+    char *field[MAXDATEFIELDS];
+
+    *tmask = 0;
+
+    // Parse string into fields, using non-alphanumeric chars as separators
+    while (*str != '\0' && nf < MAXDATEFIELDS) {
+        // Skip separators
+        while (*str != '\0' && !isalnum((unsigned char) *str))
+            str++;
+
+        if (*str == '\0')
+            return DTERR_BAD_FORMAT;
+
+        // Extract field (digits or letters)
+        field[nf] = str;
+        if (isdigit((unsigned char) *str)) {
+            while (isdigit((unsigned char) *str))
+                str++;
+        } else if (isalpha((unsigned char) *str)) {
+            while (isalpha((unsigned char) *str))
+                str++;
+        }
+
+        // Null-terminate field and advance
+        if (*str != '\0')
+            *str++ = '\0';
+        nf++;
+    }
+
+    // First pass: process textual fields (month names)
+    for (i = 0; i < nf; i++) {
+        if (isalpha((unsigned char) *field[i])) {
+            type = DecodeSpecial(i, field[i], &val);
+            if (type == IGNORE_DTF)
+                continue;
+
+            dmask = DTK_M(type);
+            if (type == MONTH) {
+                tm->tm_mon = val;
+                haveTextMonth = true;
+            } else {
+                return DTERR_BAD_FORMAT;
+            }
+
+            // Check for duplicate fields
+            if (fmask & dmask)
+                return DTERR_BAD_FORMAT;
+
+            fmask |= dmask;
+            *tmask |= dmask;
+            field[i] = NULL;  // Mark as processed
+        }
+    }
+
+    // Second pass: process remaining numeric fields
+    for (i = 0; i < nf; i++) {
+        if (field[i] == NULL)
+            continue;
+
+        len = strlen(field[i]);
+        if (len <= 0)
+            return DTERR_BAD_FORMAT;
+
+        // Decode numeric field based on context
+        dterr = DecodeNumber(len, field[i], haveTextMonth, fmask,
+                           &dmask, tm, &fsec, is2digits);
+        if (dterr)
+            return dterr;
+
+        // Check for duplicate fields
+        if (fmask & dmask)
+            return DTERR_BAD_FORMAT;
+
+        fmask |= dmask;
+        *tmask |= dmask;
+    }
+
+    // Verify we have complete date (allowing DOY and TZ as optional)
+    if ((fmask & ~(DTK_M(DOY) | DTK_M(TZ))) != DTK_DATE_M)
+        return DTERR_BAD_FORMAT;
+
+    return 0;  // Success - validation deferred to ValidateDate()
+}
+```

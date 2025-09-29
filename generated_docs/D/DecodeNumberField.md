@@ -56,3 +56,81 @@ The function returns DTK tokens for successful parsing or DTERR error codes for 
 - The function uses context from previously parsed fields (fmask) to make intelligent decisions about field interpretation
 - Supports legacy 2-digit year formats and sets the is2digits flag accordingly
 - Part of PostgreSQL's flexible datetime parsing system that can handle various input formats
+
+## Simplified Source
+
+```c
+static int
+DecodeNumberField(int len, char *str, int fmask,
+                  int *tmask, struct pg_tm *tm, fsec_t *fsec, bool *is2digits)
+{
+    char *cp;
+
+    // Handle fractional seconds (decimal point present)
+    if ((cp = strchr(str, '.')) != NULL) {
+        if (cp[1] == '\0') {
+            *fsec = 0;  // Just a trailing dot
+        } else {
+            double frac = strtod(cp, NULL);
+            if (errno != 0) return DTERR_BAD_FORMAT;
+            *fsec = rint(frac * 1000000);  // Convert to microseconds
+        }
+        // Truncate fractional part for further processing
+        *cp = '\0';
+        len = strlen(str);
+    }
+
+    // Try to parse as concatenated date if no complete date yet
+    else if ((fmask & DTK_DATE_M) != DTK_DATE_M) {
+        if (len >= 6) {
+            *tmask = DTK_DATE_M;
+
+            // Parse from right to left: YYYYMMDD -> day, month, year
+            tm->tm_mday = atoi(str + (len - 2));    // Last 2 digits = day
+            *(str + (len - 2)) = '\0';
+
+            tm->tm_mon = atoi(str + (len - 4));     // Next 2 digits = month
+            *(str + (len - 4)) = '\0';
+
+            tm->tm_year = atoi(str);                // Remaining digits = year
+            if ((len - 4) == 2) {
+                *is2digits = true;  // 2-digit year detected
+            }
+
+            return DTK_DATE;
+        }
+    }
+
+    // Try to parse as concatenated time if time fields missing
+    if ((fmask & DTK_TIME_M) != DTK_TIME_M) {
+        if (len == 6) {
+            // HHMMSS format
+            *tmask = DTK_TIME_M;
+
+            tm->tm_sec = atoi(str + 4);     // Last 2 digits = seconds
+            *(str + 4) = '\0';
+
+            tm->tm_min = atoi(str + 2);     // Next 2 digits = minutes
+            *(str + 2) = '\0';
+
+            tm->tm_hour = atoi(str);        // First 2 digits = hours
+
+            return DTK_TIME;
+        }
+        else if (len == 4) {
+            // HHMM format
+            *tmask = DTK_TIME_M;
+
+            tm->tm_sec = 0;                 // No seconds specified
+            tm->tm_min = atoi(str + 2);     // Last 2 digits = minutes
+            *(str + 2) = '\0';
+
+            tm->tm_hour = atoi(str);        // First 2 digits = hours
+
+            return DTK_TIME;
+        }
+    }
+
+    return DTERR_BAD_FORMAT;
+}
+```

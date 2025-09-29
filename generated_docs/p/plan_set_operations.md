@@ -71,3 +71,69 @@ For recursive operations (Common Table Expressions with UNION), it calls . For n
 - Column names for all generated target lists are taken from the leftmost component query to ensure compatibility with SELECT INTO statements
 - The function validates several constraints through assertions, ensuring the query doesn't contain unsupported combinations with set operations
 - The resulting RelOptInfo is an "upperrel" that represents the output of the entire set operation tree
+
+## Simplified Source
+
+```c
+RelOptInfo *
+plan_set_operations(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+    SetOperationStmt *topop = castNode(SetOperationStmt, parse->setOperations);
+    Node *node;
+    RangeTblEntry *leftmostRTE;
+    Query *leftmostQuery;
+    RelOptInfo *setop_rel;
+    List *top_tlist;
+
+    Assert(topop);
+
+    // Validate query structure - set operations have restrictions
+    Assert(parse->jointree->fromlist == NIL);
+    Assert(parse->jointree->quals == NULL);
+    Assert(parse->groupClause == NIL);
+    Assert(parse->havingQual == NULL);
+    Assert(parse->windowClause == NIL);
+    Assert(parse->distinctClause == NIL);
+
+    // Set up equivalence classes for pathkey generation
+    Assert(root->eq_classes == NIL);
+    root->ec_merging_done = true;
+
+    // Prepare relation arrays for subqueries
+    setup_simple_rel_arrays(root);
+
+    // Find leftmost component query for column naming
+    node = topop->larg;
+    while (node && IsA(node, SetOperationStmt))
+        node = ((SetOperationStmt *) node)->larg;
+    Assert(node && IsA(node, RangeTblRef));
+
+    leftmostRTE = root->simple_rte_array[((RangeTblRef *) node)->rtindex];
+    leftmostQuery = leftmostRTE->subquery;
+    Assert(leftmostQuery != NULL);
+
+    // Handle recursive vs non-recursive set operations
+    if (root->hasRecursion) {
+        // Special handling for recursive UNION (CTEs)
+        setop_rel = generate_recursion_path(topop, root,
+                                            leftmostQuery->targetList,
+                                            &top_tlist);
+    } else {
+        // Regular set operations - recurse through the tree
+        bool trivial_tlist;
+
+        setop_rel = recurse_set_operations((Node *) topop, root,
+                                           topop->colTypes, topop->colCollations,
+                                           true, -1,
+                                           leftmostQuery->targetList,
+                                           &top_tlist,
+                                           &trivial_tlist);
+    }
+
+    // Return the target list for upper-level processing
+    root->processed_tlist = top_tlist;
+
+    return setop_rel;
+}
+```

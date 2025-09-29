@@ -33,3 +33,16 @@ This function is a critical component of the query planning phase, as it handles
 - The isQual parameter is important for optimization: when processing top-level WHERE/HAVING qualifiers, the distinction between FALSE and UNKNOWN (NULL) return values from sublinks can be ignored, potentially enabling more efficient execution strategies.
 - This function is part of the broader subselect processing framework in PostgreSQL optimizer.
 - The actual work is delegated to process_sublinks_mutator, which performs the recursive tree traversal and node transformation.
+
+## Simplified Source
+
+```c
+Node *SS_process_sublinks(PlannerInfo *root, Node *expr, bool isQual)
+{
+    process_sublinks_context context;
+
+    context.root = root;
+    context.isTopQual = isQual;
+    return process_sublinks_mutator(expr, &context);
+}
+```

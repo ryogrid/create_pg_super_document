@@ -56,3 +56,126 @@ The function also maintains important state:
 - Whole-row expansion creates RowExpr with COERCE_IMPLICIT_CAST format and explicit column names
 - The QTW_IGNORE_JOINALIASES flag prevents infinite recursion when processing Query nodes
 - [Variable](../V/Variable.md)-free expressions in add_nullingrels_if_needed require special evaluation placement logic
+
+## Simplified Source
+
+```c
+static Node *
+flatten_join_alias_vars_mutator(Node *node, flatten_join_alias_vars_context *context)
+{
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+        RangeTblEntry *rte;
+        Node *newvar;
+
+        // Only process Vars at target nesting level
+        if (var->varlevelsup != context->sublevels_up)
+            return node;
+
+        // Must be a JOIN relation
+        rte = rt_fetch(var->varno, context->query->rtable);
+        if (rte->rtekind != RTE_JOIN)
+            return node;
+
+        if (var->varattno == InvalidAttrNumber)
+        {
+            // Expand whole-row reference into RowExpr
+            RowExpr *rowexpr = makeNode(RowExpr);
+            List *fields = NIL;
+            List *colnames = NIL;
+            ListCell *lv, *ln;
+
+            // Build field list from join alias vars
+            forboth(lv, rte->joinaliasvars, ln, rte->eref->colnames)
+            {
+                newvar = (Node *) lfirst(lv);
+                if (newvar == NULL)  // Skip dropped columns
+                    continue;
+
+                newvar = copyObject(newvar);
+
+                // Adjust variable levels if needed
+                if (context->sublevels_up != 0)
+                    IncrementVarSublevelsUp(newvar, context->sublevels_up, 0);
+
+                // Preserve location and recurse
+                if (IsA(newvar, Var))
+                    ((Var *) newvar)->location = var->location;
+                newvar = flatten_join_alias_vars_mutator(newvar, context);
+
+                fields = lappend(fields, newvar);
+                colnames = lappend(colnames, copyObject((Node *) lfirst(ln)));
+            }
+
+            // Create RowExpr with proper typing
+            rowexpr->args = fields;
+            rowexpr->row_typeid = var->vartype;
+            rowexpr->row_format = COERCE_IMPLICIT_CAST;
+            rowexpr->colnames = colnames;
+            rowexpr->location = var->location;
+
+            return add_nullingrels_if_needed(context->root, (Node *) rowexpr, var);
+        }
+
+        // Expand regular join alias reference
+        Assert(var->varattno > 0);
+        newvar = (Node *) list_nth(rte->joinaliasvars, var->varattno - 1);
+        Assert(newvar != NULL);
+        newvar = copyObject(newvar);
+
+        // Adjust variable levels and preserve location
+        if (context->sublevels_up != 0)
+            IncrementVarSublevelsUp(newvar, context->sublevels_up, 0);
+        if (IsA(newvar, Var))
+            ((Var *) newvar)->location = var->location;
+
+        // Recurse and track sublinks
+        newvar = flatten_join_alias_vars_mutator(newvar, context);
+        if (context->possible_sublink && !context->inserted_sublink)
+            context->inserted_sublink = checkExprHasSubLink(newvar);
+
+        return add_nullingrels_if_needed(context->root, newvar, var);
+    }
+
+    if (IsA(node, PlaceHolderVar))
+    {
+        // Handle PlaceHolderVar with relid set updates
+        PlaceHolderVar *phv = (PlaceHolderVar *) expression_tree_mutator(node,
+                                                                         flatten_join_alias_vars_mutator,
+                                                                         (void *) context);
+        if (phv->phlevelsup == context->sublevels_up)
+            phv->phrels = alias_relid_set(context->query, phv->phrels);
+
+        return (Node *) phv;
+    }
+
+    if (IsA(node, Query))
+    {
+        // Handle subqueries with level tracking
+        Query *newnode;
+        bool save_inserted_sublink;
+
+        context->sublevels_up++;
+        save_inserted_sublink = context->inserted_sublink;
+        context->inserted_sublink = ((Query *) node)->hasSubLinks;
+
+        newnode = query_tree_mutator((Query *) node,
+                                     flatten_join_alias_vars_mutator,
+                                     (void *) context,
+                                     QTW_IGNORE_JOINALIASES);
+
+        newnode->hasSubLinks |= context->inserted_sublink;
+        context->inserted_sublink = save_inserted_sublink;
+        context->sublevels_up--;
+
+        return (Node *) newnode;
+    }
+
+    // Continue recursive mutation
+    return expression_tree_mutator(node, flatten_join_alias_vars_mutator, (void *) context);
+}
+```

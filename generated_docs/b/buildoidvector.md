@@ -41,3 +41,27 @@ The buildoidvector function creates an oidvector structure, which is PostgreSQL'
 - The oidvector type is optimized for system catalog storage and doesn't support null values
 - Can create empty oidvectors for later population by passing NULL for oids parameter
 - Location: src/backend/utils/adt/oid.c:87-113
+
+## Simplified Source
+
+```c
+oidvector *buildoidvector(const Oid *oids, int n) {
+    // Allocate zero-initialized oidvector structure
+    oidvector *result = (oidvector *) palloc0(OidVectorSize(n));
+
+    // Copy input OIDs if provided
+    if (n > 0 && oids) {
+        memcpy(result->values, oids, n * sizeof(Oid));
+    }
+
+    // Set up standard array header with metadata
+    SET_VARSIZE(result, OidVectorSize(n));
+    result->ndim = 1;           // One-dimensional array
+    result->dataoffset = 0;     // No nulls allowed
+    result->elemtype = OIDOID;  // Element type is OID
+    result->dim1 = n;           // Array size
+    result->lbound1 = 0;        // Lower bound is 0 (historical)
+
+    return result;
+}
+```

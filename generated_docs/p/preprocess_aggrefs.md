@@ -42,3 +42,14 @@ For optimizations to be valid, all aggregate properties used in the transition p
 - Must be called during the planning phase before aggregate nodes are created
 - The actual recursive processing is delegated to preprocess_aggrefs_walker
 - Final functions must be nondestructive of transition state for optimizations to work
+
+## Simplified Source
+
+```c
+void
+preprocess_aggrefs(PlannerInfo *root, Node *clause)
+{
+    // Delegate to the recursive walker function
+    (void) preprocess_aggrefs_walker(clause, root);
+}
+```

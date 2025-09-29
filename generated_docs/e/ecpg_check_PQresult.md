@@ -47,3 +47,49 @@ The  function serves as a central validation point for all PostgreSQL query resu
 - All error paths call PQclear() to prevent memory leaks
 - Uses different error raising functions based on error origin (backend vs. ECPG-internal)
 - Comprehensive logging for debugging and error tracking purposes
+
+## Simplified Source
+
+```c
+bool ecpg_check_PQresult(PGresult *results, int lineno, PGconn *connection, enum COMPAT_MODE compat) {
+    // Handle NULL result
+    if (results == NULL) {
+        ecpg_log("ecpg_check_PQresult on line %d: no result - %s", lineno, PQerrorMessage(connection));
+        ecpg_raise_backend(lineno, NULL, connection, compat);
+        return false;
+    }
+
+    // Check result status and handle accordingly
+    switch (PQresultStatus(results)) {
+        case PGRES_TUPLES_OK:
+        case PGRES_COMMAND_OK:
+        case PGRES_COPY_OUT:
+            return true;  // Success cases
+
+        case PGRES_EMPTY_QUERY:
+            ecpg_raise(lineno, ECPG_EMPTY, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR, NULL);
+            PQclear(results);
+            return false;
+
+        case PGRES_NONFATAL_ERROR:
+        case PGRES_FATAL_ERROR:
+        case PGRES_BAD_RESPONSE:
+            ecpg_log("ecpg_check_PQresult on line %d: bad response - %s", lineno, PQresultErrorMessage(results));
+            ecpg_raise_backend(lineno, results, connection, compat);
+            PQclear(results);
+            return false;
+
+        case PGRES_COPY_IN:
+            ecpg_log("ecpg_check_PQresult on line %d: COPY IN data transfer in progress", lineno);
+            PQendcopy(connection);
+            PQclear(results);
+            return false;
+
+        default:
+            ecpg_log("ecpg_check_PQresult on line %d: unknown execution status type", lineno);
+            ecpg_raise_backend(lineno, results, connection, compat);
+            PQclear(results);
+            return false;
+    }
+}
+```

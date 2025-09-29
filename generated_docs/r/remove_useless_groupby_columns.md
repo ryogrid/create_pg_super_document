@@ -60,3 +60,101 @@ This function performs an important query optimization by eliminating redundant 
 - **Limitation**: Currently only handles simple Var references, not complex expressions
 - **Safety**: Carefully handles inheritance hierarchies and outer query variables
 - Located in src/backend/optimizer/plan/planner.c:2717-2883
+
+## Simplified Source
+
+```c
+static void remove_useless_groupby_columns(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+    Bitmapset **groupbyattnos;
+    Bitmapset **surplusvars;
+    ListCell *lc;
+    int relid;
+
+    // Early exit for simple cases
+    if (list_length(root->processed_groupClause) < 2)
+        return;
+
+    if (parse->groupingSets)
+        return;
+
+    // Build bitmapsets of GROUP BY columns for each relation
+    groupbyattnos = (Bitmapset **) palloc0(sizeof(Bitmapset *) *
+                                          (list_length(parse->rtable) + 1));
+    foreach(lc, root->processed_groupClause) {
+        SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
+        TargetEntry *tle = get_sortgroupclause_tle(sgc, parse->targetList);
+        Var *var = (Var *) tle->expr;
+
+        // Only process simple Vars from current query level
+        if (!IsA(var, Var) || var->varlevelsup > 0)
+            continue;
+
+        relid = var->varno;
+        groupbyattnos[relid] = bms_add_member(groupbyattnos[relid],
+                                            var->varattno - FirstLowInvalidHeapAttributeNumber);
+    }
+
+    // Find relations where some GROUP BY columns can be removed
+    surplusvars = NULL;
+    relid = 0;
+    foreach(lc, parse->rtable) {
+        RangeTblEntry *rte = lfirst_node(RangeTblEntry, lc);
+        Bitmapset *relattnos;
+        Bitmapset *pkattnos;
+        Oid constraintOid;
+
+        relid++;
+
+        // Only regular relations have primary keys
+        if (rte->rtekind != RTE_RELATION)
+            continue;
+
+        // Skip inheritance parents (except partitioned tables)
+        if (rte->inh && rte->relkind != RELKIND_PARTITIONED_TABLE)
+            continue;
+
+        // Need multiple GROUP BY columns for this relation
+        relattnos = groupbyattnos[relid];
+        if (bms_membership(relattnos) != BMS_MULTIPLE)
+            continue;
+
+        // Get primary key columns
+        pkattnos = get_primary_key_attnos(rte->relid, false, &constraintOid);
+        if (pkattnos == NULL)
+            continue;
+
+        // Check if primary key is subset of GROUP BY columns
+        if (bms_subset_compare(pkattnos, relattnos) == BMS_SUBSET1) {
+            // Initialize surplus array if needed
+            if (surplusvars == NULL)
+                surplusvars = (Bitmapset **) palloc0(sizeof(Bitmapset *) *
+                                                   (list_length(parse->rtable) + 1));
+
+            // Mark surplus columns for removal
+            surplusvars[relid] = bms_difference(relattnos, pkattnos);
+        }
+    }
+
+    // Rebuild GROUP BY clause without surplus columns
+    if (surplusvars != NULL) {
+        List *new_groupby = NIL;
+
+        foreach(lc, root->processed_groupClause) {
+            SortGroupClause *sgc = lfirst_node(SortGroupClause, lc);
+            TargetEntry *tle = get_sortgroupclause_tle(sgc, parse->targetList);
+            Var *var = (Var *) tle->expr;
+
+            // Keep non-Vars, outer Vars, and non-surplus columns
+            if (!IsA(var, Var) ||
+                var->varlevelsup > 0 ||
+                !bms_is_member(var->varattno - FirstLowInvalidHeapAttributeNumber,
+                              surplusvars[var->varno]))
+                new_groupby = lappend(new_groupby, sgc);
+        }
+
+        root->processed_groupClause = new_groupby;
+    }
+}
+```

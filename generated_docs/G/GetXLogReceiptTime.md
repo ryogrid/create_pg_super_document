@@ -35,3 +35,17 @@ This function retrieves information about when the current chunk of WAL (Write-A
 - The relevant state variables (XLogReceiptTime, XLogReceiptSource) are process-local, not shared memory
 - Used for determining WAL source and timing for standby coordination and recovery monitoring
 - The fromStream boolean helps distinguish between streaming replication and archive-based recovery modes
+
+## Simplified Source
+```c
+void GetXLogReceiptTime(TimestampTz *rtime, bool *fromStream) {
+    // Verify we're in recovery process (startup process only)
+    Assert(InRecovery);
+
+    // Return the receipt time of current XLOG chunk
+    *rtime = XLogReceiptTime;
+
+    // Indicate if data came from streaming replication vs archives
+    *fromStream = (XLogReceiptSource == XLOG_FROM_STREAM);
+}
+```

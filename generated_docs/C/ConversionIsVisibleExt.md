@@ -40,3 +40,42 @@ The extended version provides graceful error handling - if the conversion is not
 - The PG_CATALOG_NAMESPACE is always considered to be in the search path
 - Part of PostgreSQL's comprehensive namespace visibility system that ensures proper object resolution
 - Located in src/backend/catalog/namespace.c:2521-2574
+
+## Simplified Source
+
+```c
+static bool ConversionIsVisibleExt(Oid conid, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_conversion conv_form;
+    Oid namespace_oid;
+    bool visible;
+
+    // Look up conversion in system cache
+    tuple = SearchSysCache1(CONVOID, ObjectIdGetDatum(conid));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing conversion gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for conversion %u", conid);
+    }
+
+    conv_form = (Form_pg_conversion) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace_oid = conv_form->connamespace;
+    if (namespace_oid != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace_oid)) {
+        visible = false;
+    } else {
+        // Use full resolution to check if this conversion would be found
+        char *conv_name = NameStr(conv_form->conname);
+        visible = (ConversionGetConid(conv_name) == conid);
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

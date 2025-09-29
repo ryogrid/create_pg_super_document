@@ -45,3 +45,48 @@ This function completes the index creation process by inserting attribute metada
 - InvalidOid is passed to InsertPgAttributeTuples indicating this is for an index (not a table)
 - Essential for making index attributes visible in system views like information_schema and pg_attribute
 - Part of the final phase of index creation after physical storage structures are established
+
+## Simplified Source
+
+```c
+static void AppendAttributeTuples(Relation indexRelation, const Datum *attopts,
+                                 const NullableDatum *stattargets)
+{
+    Relation pg_attribute;
+    CatalogIndexState indstate;
+    TupleDesc indexTupDesc;
+    FormExtraData_pg_attribute *attrs_extra = NULL;
+
+    // Prepare extra attribute data if options are provided
+    if (attopts)
+    {
+        attrs_extra = palloc0_array(FormExtraData_pg_attribute, indexRelation->rd_att->natts);
+
+        for (int i = 0; i < indexRelation->rd_att->natts; i++)
+        {
+            // Set attribute options and statistics targets
+            if (attopts[i])
+                attrs_extra[i].attoptions.value = attopts[i];
+            else
+                attrs_extra[i].attoptions.isnull = true;
+
+            if (stattargets)
+                attrs_extra[i].attstattarget = stattargets[i];
+            else
+                attrs_extra[i].attstattarget.isnull = true;
+        }
+    }
+
+    // Open pg_attribute catalog and its indexes
+    pg_attribute = table_open(AttributeRelationId, RowExclusiveLock);
+    indstate = CatalogOpenIndexes(pg_attribute);
+
+    // Insert attribute tuples from index's tuple descriptor
+    indexTupDesc = RelationGetDescr(indexRelation);
+    InsertPgAttributeTuples(pg_attribute, indexTupDesc, InvalidOid, attrs_extra, indstate);
+
+    // Close catalog and indexes
+    CatalogCloseIndexes(indstate);
+    table_close(pg_attribute, RowExclusiveLock);
+}
+```

@@ -42,3 +42,31 @@ The function is optimized for the common case where no filters are active by fir
 - Database-level filtering uses  and  as wildcards
 - Inline function for optimal performance in the prefetching hot path
 - Critical safety mechanism to prevent reading non-existent or invalid blocks during recovery
+
+## Simplified Source
+```c
+static inline bool XLogPrefetcherIsFiltered(XLogPrefetcher *prefetcher,
+                                          RelFileLocator rlocator,
+                                          BlockNumber blockno) {
+    // Fast path: if no filters active, allow prefetching
+    if (unlikely(!dlist_is_empty(&prefetcher->filter_queue))) {
+        XLogPrefetcherFilter *filter;
+
+        // Check for relation-specific filter
+        filter = hash_search(prefetcher->filter_table, &rlocator, HASH_FIND, NULL);
+        if (filter && filter->filter_from_block <= blockno) {
+            return true; // Block is filtered
+        }
+
+        // Check for database-level filter
+        rlocator.relNumber = InvalidRelFileNumber;
+        rlocator.spcOid = InvalidOid;
+        filter = hash_search(prefetcher->filter_table, &rlocator, HASH_FIND, NULL);
+        if (filter) {
+            return true; // Database is filtered
+        }
+    }
+
+    return false; // Block can be prefetched
+}
+```

@@ -39,3 +39,19 @@ The function handles the syscache management automatically, ensuring proper clea
 
 ## Notes and Other Information
 This function is preferred over  when the caller only needs the type OID and typmod values, as it handles the syscache cleanup automatically and provides a cleaner interface. It's commonly used in DDL operations, type casting, and other scenarios where type identification is needed without requiring access to the full type catalog information.
+
+## Simplified Source
+```c
+void typenameTypeIdAndMod(ParseState *pstate, const TypeName *typeName,
+                         Oid *typeid_p, int32 *typmod_p)
+{
+    // Get the full type tuple from system catalog
+    Type tup = typenameType(pstate, typeName, typmod_p);
+
+    // Extract just the type OID from the tuple
+    *typeid_p = ((Form_pg_type) GETSTRUCT(tup))->oid;
+
+    // Clean up the syscache entry
+    ReleaseSysCache(tup);
+}
+```

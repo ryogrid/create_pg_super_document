@@ -40,3 +40,18 @@ The newly created tape is initialized in write state, ready to accept data. The 
 - Error message "cannot create new tapes in leader process" indicates parallel processing constraint violation
 - The tape creation process allocates logical addressing space within the shared BufFile storage
 - Each tape maintains independent state despite sharing underlying file storage with other tapes in the set
+
+## Simplified Source
+
+```c
+LogicalTape *LogicalTapeCreate(LogicalTapeSet *lts) {
+    // Prevent tape creation in parallel sort leader processes
+    // Leaders can only read shared tapes, not create new ones
+    if (lts->fileset && lts->worker == -1) {
+        elog(ERROR, "cannot create new tapes in leader process");
+    }
+
+    // Create and return new tape in write state
+    return ltsCreateTape(lts);
+}
+```

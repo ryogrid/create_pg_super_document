@@ -41,3 +41,23 @@ The flag is eventually cleaned up by ANALYZE operations on childless tables, whi
 - This function is logically related to inheritance operations but doesn't actually access pg_inherits
 - The false positive behavior is acceptable since the function is only used to skip unnecessary work, not for correctness
 - Located in src/backend/catalog/pg_inherits.c:355-376
+
+## Simplified Source
+```c
+bool has_subclass(Oid relationId)
+{
+    HeapTuple tuple;
+    bool result;
+
+    // Look up relation in pg_class system catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relationId));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relationId);
+
+    // Check relhassubclass flag
+    result = ((Form_pg_class) GETSTRUCT(tuple))->relhassubclass;
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

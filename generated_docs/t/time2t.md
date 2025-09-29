@@ -33,3 +33,12 @@ The time2t function performs a time-to-offset conversion by calculating the tota
 
 ## Notes and Other Information
 This is a static function local to timestamp.c, used internally for timestamp conversion operations. The function performs straightforward arithmetic to convert time components into a microsecond offset, which is the internal representation used by PostgreSQL's timestamp system.
+
+## Simplified Source
+```c
+static TimeOffset time2t(const int hour, const int min, const int sec, const fsec_t fsec) {
+    // Convert time components to total microseconds since midnight
+    // Formula: ((hour * 60 + min) * 60 + sec) * 1,000,000 + fsec
+    return (((((hour * MINS_PER_HOUR) + min) * SECS_PER_MINUTE) + sec) * USECS_PER_SEC) + fsec;
+}
+```

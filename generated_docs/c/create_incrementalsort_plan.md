@@ -41,3 +41,29 @@ The function follows the same pattern as , including the CP_SMALL_TLIST optimiza
 - Like regular Sort nodes, IncrementalSort nodes don't perform projection and pass through target list requirements
 - The function uses the same CP_SMALL_TLIST optimization as create_sort_plan to minimize memory usage
 - [IncrementalSort](../I/IncrementalSort.md) was introduced as a performance enhancement to reduce sorting overhead in scenarios with partial pre-sorting
+
+## Simplified Source
+
+```c
+static IncrementalSort *
+create_incrementalsort_plan(PlannerInfo *root, IncrementalSortPath *best_path, int flags)
+{
+    // Create subplan with small target list optimization
+    Plan *subplan = create_plan_recurse(root, best_path->spath.subpath,
+                                       flags | CP_SMALL_TLIST);
+
+    // Create IncrementalSort node from pathkeys
+    IncrementalSort *plan = make_incrementalsort_from_pathkeys(
+        subplan,
+        best_path->spath.path.pathkeys,
+        IS_OTHER_REL(best_path->spath.subpath->parent) ?
+            best_path->spath.path.parent->relids : NULL,
+        best_path->nPresortedCols  // Number of columns already sorted
+    );
+
+    // Copy generic path information
+    copy_generic_path_info(&plan->sort.plan, (Path *) best_path);
+
+    return plan;
+}
+```

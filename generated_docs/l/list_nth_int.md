@@ -43,3 +43,15 @@ This function ensures type safety by asserting that the list is of type IntList 
 - Part of PostgreSQL's type-safe list manipulation API
 - Commonly used in query optimization and command processing where integer lists are manipulated
 - Calling with a non-IntList or invalid index will result in assertion failure
+
+## Simplified Source
+
+```c
+static inline int list_nth_int(const List *list, int n) {
+    // Verify list is actually an IntList
+    Assert(IsA(list, IntList));
+
+    // Get nth cell and extract integer value
+    return lfirst_int(list_nth_cell(list, n));
+}
+```

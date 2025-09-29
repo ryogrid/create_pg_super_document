@@ -50,3 +50,63 @@ The function is crucial for scenarios where trigger descriptors need to exist in
 - Essential for proper memory management when trigger descriptors need to exist in multiple memory contexts
 - Used primarily when copying trigger descriptors from working memory to cache memory context
 - The copied structure is completely independent of the original and can be safely freed without affecting the source
+
+## Simplified Source
+
+```c
+TriggerDesc *
+CopyTriggerDesc(TriggerDesc *trigdesc)
+{
+    TriggerDesc *newdesc;
+    Trigger *trigger;
+    int i;
+
+    // Return NULL if source is empty or has no triggers
+    if (trigdesc == NULL || trigdesc->numtriggers <= 0)
+        return NULL;
+
+    // Create new TriggerDesc and copy basic fields
+    newdesc = palloc(sizeof(TriggerDesc));
+    memcpy(newdesc, trigdesc, sizeof(TriggerDesc));
+
+    // Allocate and copy trigger array
+    trigger = palloc(trigdesc->numtriggers * sizeof(Trigger));
+    memcpy(trigger, trigdesc->triggers,
+           trigdesc->numtriggers * sizeof(Trigger));
+    newdesc->triggers = trigger;
+
+    // Deep copy each trigger's variable-length fields
+    for (i = 0; i < trigdesc->numtriggers; i++) {
+        // Copy trigger name
+        trigger->tgname = pstrdup(trigger->tgname);
+
+        // Copy column attribute numbers if present
+        if (trigger->tgnattr > 0) {
+            int16 *newattr = palloc(trigger->tgnattr * sizeof(int16));
+            memcpy(newattr, trigger->tgattr,
+                   trigger->tgnattr * sizeof(int16));
+            trigger->tgattr = newattr;
+        }
+
+        // Copy trigger function arguments if present
+        if (trigger->tgnargs > 0) {
+            char **newargs = palloc(trigger->tgnargs * sizeof(char *));
+            for (int16 j = 0; j < trigger->tgnargs; j++)
+                newargs[j] = pstrdup(trigger->tgargs[j]);
+            trigger->tgargs = newargs;
+        }
+
+        // Copy optional string fields
+        if (trigger->tgqual)
+            trigger->tgqual = pstrdup(trigger->tgqual);
+        if (trigger->tgoldtable)
+            trigger->tgoldtable = pstrdup(trigger->tgoldtable);
+        if (trigger->tgnewtable)
+            trigger->tgnewtable = pstrdup(trigger->tgnewtable);
+
+        trigger++;
+    }
+
+    return newdesc;
+}
+```

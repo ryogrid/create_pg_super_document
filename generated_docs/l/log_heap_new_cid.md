@@ -54,3 +54,58 @@ The function differentiates between tuples that have combo CIDs (inserted and de
 - The function asserts that the tuple has a valid TID and table OID
 - Returns an XLogRecPtr representing the LSN of the inserted WAL record
 - WAL records are examined regardless of origin for logical decoding purposes
+
+## Simplified Source
+
+```c
+static XLogRecPtr
+log_heap_new_cid(Relation relation, HeapTuple tup)
+{
+    xl_heap_new_cid xlrec;
+    XLogRecPtr recptr;
+    HeapTupleHeader hdr = tup->t_data;
+
+    Assert(ItemPointerIsValid(&tup->t_self));
+    Assert(tup->t_tableOid != InvalidOid);
+
+    // Set up basic WAL record info
+    xlrec.top_xid = GetTopTransactionId();
+    xlrec.target_locator = relation->rd_locator;
+    xlrec.target_tid = tup->t_self;
+
+    // Handle combo CID case (tuple inserted & deleted in same TX)
+    if (hdr->t_infomask & HEAP_COMBOCID)
+    {
+        Assert(!(hdr->t_infomask & HEAP_XMAX_INVALID));
+        Assert(!HeapTupleHeaderXminInvalid(hdr));
+        xlrec.cmin = HeapTupleHeaderGetCmin(hdr);
+        xlrec.cmax = HeapTupleHeaderGetCmax(hdr);
+        xlrec.combocid = HeapTupleHeaderGetRawCommandId(hdr);
+    }
+    // Handle regular case (only cmin or cmax set by this TX)
+    else
+    {
+        if (hdr->t_infomask & HEAP_XMAX_INVALID ||
+            HEAP_XMAX_IS_LOCKED_ONLY(hdr->t_infomask))
+        {
+            // Tuple was just inserted (or lock-only)
+            xlrec.cmin = HeapTupleHeaderGetRawCommandId(hdr);
+            xlrec.cmax = InvalidCommandId;
+        }
+        else
+        {
+            // Tuple was updated/deleted by different TX
+            xlrec.cmin = InvalidCommandId;
+            xlrec.cmax = HeapTupleHeaderGetRawCommandId(hdr);
+        }
+        xlrec.combocid = InvalidCommandId;
+    }
+
+    // Write WAL record (no buffer registration needed - page not modified)
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, SizeOfHeapNewCid);
+    recptr = XLogInsert(RM_HEAP2_ID, XLOG_HEAP2_NEW_CID);
+
+    return recptr;
+}
+```

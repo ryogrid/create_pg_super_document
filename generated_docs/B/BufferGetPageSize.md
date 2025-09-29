@@ -37,3 +37,14 @@ The function accepts any valid buffer (both local and shared) and assumes the bu
 - Used extensively throughout PostgreSQL access methods for buffer size calculations
 - The function assumes buffer validity and will assert if buffer is invalid
 - Future versions may extract page size from buffer descriptor to support variable-sized pages
+
+## Simplified Source
+```c
+static inline Size BufferGetPageSize(Buffer buffer) {
+    // Ensure buffer is valid
+    AssertMacro(BufferIsValid(buffer));
+
+    // Currently return fixed block size (future: get from buffer descriptor)
+    return (Size) BLCKSZ;
+}
+```

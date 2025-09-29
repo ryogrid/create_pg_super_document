@@ -35,3 +35,33 @@ This function calculates how many pages will be needed to accommodate the remain
 - Uses MAXALIGN to ensure proper tuple alignment on pages
 - The calculation helps optimize relation extension by determining exact page requirements upfront
 - Returns the number of pages needed starting from 1 (assumes at least one page is needed)
+
+## Simplified Source
+
+```c
+static int
+heap_multi_insert_pages(HeapTuple *heaptuples, int done, int ntuples, Size saveFreeSpace)
+{
+    // Calculate available space per page (total page size minus header and reserved space)
+    size_t page_avail = BLCKSZ - SizeOfPageHeaderData - saveFreeSpace;
+    int npages = 1;  // Start with at least one page
+
+    // Iterate through remaining tuples to count required pages
+    for (int i = done; i < ntuples; i++) {
+        // Calculate space needed for this tuple (data + item identifier)
+        size_t tup_sz = sizeof(ItemIdData) + MAXALIGN(heaptuples[i]->t_len);
+
+        // Check if tuple fits on current page
+        if (page_avail < tup_sz) {
+            // Need a new page
+            npages++;
+            page_avail = BLCKSZ - SizeOfPageHeaderData - saveFreeSpace;
+        }
+
+        // Consume space for this tuple
+        page_avail -= tup_sz;
+    }
+
+    return npages;
+}
+```

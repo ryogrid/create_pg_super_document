@@ -47,3 +47,92 @@ Key optimization steps include:
 - Static function scope limits usage to the planner.c module
 - Optimization is conservative - if any window function in a clause disagrees with the optimization, no changes are made
 - The duplicate detection logic matches the same checks performed in transformWindowFuncCall()
+
+## Simplified Source
+
+```c
+static void
+optimize_window_clauses(PlannerInfo *root, WindowFuncLists *wflists)
+{
+    List *windowClause = root->parse->windowClause;
+
+    foreach(lc, windowClause) {
+        WindowClause *wc = lfirst_node(WindowClause, lc);
+        int optimizedFrameOptions = 0;
+
+        Assert(wc->winref <= wflists->maxWinRef);
+
+        // Skip window clauses with no window functions
+        if (wflists->windowFuncs[wc->winref] == NIL)
+            continue;
+
+        // Check if all window functions agree on frame optimization
+        foreach(lc2, wflists->windowFuncs[wc->winref]) {
+            WindowFunc *wfunc = lfirst_node(WindowFunc, lc2);
+            Oid prosupport = get_func_support(wfunc->winfnoid);
+
+            // Skip if no support function available
+            if (!OidIsValid(prosupport))
+                break;
+
+            // Request frame optimization from support function
+            SupportRequestOptimizeWindowClause req;
+            req.type = T_SupportRequestOptimizeWindowClause;
+            req.window_clause = wc;
+            req.window_func = wfunc;
+            req.frameOptions = wc->frameOptions;
+
+            SupportRequestOptimizeWindowClause *res =
+                (SupportRequestOptimizeWindowClause *)
+                DatumGetPointer(OidFunctionCall1(prosupport,
+                                                 PointerGetDatum(&req)));
+
+            // Skip if support function doesn't handle this request
+            if (res == NULL)
+                break;
+
+            // Store optimized options from first function
+            if (foreach_current_index(lc2) == 0)
+                optimizedFrameOptions = res->frameOptions;
+            // All functions must agree on optimization
+            else if (optimizedFrameOptions != res->frameOptions)
+                break;
+        }
+
+        // Apply optimization if all functions agreed
+        if (lc2 == NULL && wc->frameOptions != optimizedFrameOptions) {
+            wc->frameOptions = optimizedFrameOptions;
+
+            // Check for duplicate window clauses after optimization
+            if (list_length(windowClause) > 1) {
+                foreach(lc3, windowClause) {
+                    WindowClause *existing_wc = lfirst_node(WindowClause, lc3);
+
+                    if (existing_wc == wc) continue;
+
+                    // Check if clauses are now duplicates
+                    if (equal(wc->partitionClause, existing_wc->partitionClause) &&
+                        equal(wc->orderClause, existing_wc->orderClause) &&
+                        wc->frameOptions == existing_wc->frameOptions &&
+                        equal(wc->startOffset, existing_wc->startOffset) &&
+                        equal(wc->endOffset, existing_wc->endOffset)) {
+
+                        // Merge window functions into existing clause
+                        foreach(lc4, wflists->windowFuncs[wc->winref]) {
+                            WindowFunc *wfunc = lfirst_node(WindowFunc, lc4);
+                            wfunc->winref = existing_wc->winref;
+                        }
+
+                        // Move function lists
+                        wflists->windowFuncs[existing_wc->winref] =
+                            list_concat(wflists->windowFuncs[existing_wc->winref],
+                                        wflists->windowFuncs[wc->winref]);
+                        wflists->windowFuncs[wc->winref] = NIL;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+```

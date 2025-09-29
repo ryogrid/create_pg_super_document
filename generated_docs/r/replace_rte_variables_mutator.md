@@ -54,3 +54,68 @@ The function carefully manages the SubLink tracking state, preserving and restor
 - [SubLink](../S/SubLink.md) tracking is carefully managed across recursive calls to ensure accurate query metadata
 - The function handles both planned and unplanned subquery contexts appropriately
 - Recursive calls to itself occur when processing Query nodes and through expression_tree_mutator for general expression processing
+
+## Simplified Source
+
+```c
+Node *replace_rte_variables_mutator(Node *node, replace_rte_variables_context *context) {
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Check if this variable matches our target
+        if (var->varno == context->target_varno &&
+            var->varlevelsup == context->sublevels_up) {
+
+            // Apply the callback to replace the variable
+            Node *newnode = context->callback(var, context);
+
+            // Track if we added sublinks during replacement
+            if (!context->inserted_sublink)
+                context->inserted_sublink = checkExprHasSubLink(newnode);
+
+            return newnode;
+        }
+        // Variable doesn't match - copy normally
+    }
+    else if (IsA(node, CurrentOfExpr)) {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) node;
+
+        // Check if this cursor expression applies to our target
+        if (cexpr->cvarno == context->target_varno &&
+            context->sublevels_up == 0) {
+            // WHERE CURRENT OF on views is not supported
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("WHERE CURRENT OF on a view is not implemented")));
+        }
+        // Expression doesn't match - copy normally
+    }
+    else if (IsA(node, Query)) {
+        // Handle subquery recursion
+        Query *newnode;
+        bool save_inserted_sublink;
+
+        // Adjust sublevel tracking for recursive descent
+        context->sublevels_up++;
+        save_inserted_sublink = context->inserted_sublink;
+        context->inserted_sublink = ((Query *) node)->hasSubLinks;
+
+        // Recursively process the subquery
+        newnode = query_tree_mutator((Query *) node,
+                                   replace_rte_variables_mutator,
+                                   context, 0);
+
+        // Update sublink tracking and restore context
+        newnode->hasSubLinks |= context->inserted_sublink;
+        context->inserted_sublink = save_inserted_sublink;
+        context->sublevels_up--;
+
+        return (Node *) newnode;
+    }
+
+    // For all other node types, use standard expression tree traversal
+    return expression_tree_mutator(node, replace_rte_variables_mutator, context);
+}
+```

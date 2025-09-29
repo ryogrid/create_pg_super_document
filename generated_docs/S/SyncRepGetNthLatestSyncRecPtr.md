@@ -48,3 +48,51 @@ The algorithm creates three separate arrays for write, flush, and apply position
 - Sorts arrays in descending order to easily access the Nth latest position
 - Function implements the "wait for N of M" semantics of quorum-based sync replication
 - Function location: src/backend/replication/syncrep.c:693-737
+
+## Simplified Source
+
+```c
+static void
+SyncRepGetNthLatestSyncRecPtr(XLogRecPtr *writePtr,
+                              XLogRecPtr *flushPtr,
+                              XLogRecPtr *applyPtr,
+                              SyncRepStandbyData *sync_standbys,
+                              int num_standbys,
+                              uint8 nth)
+{
+    XLogRecPtr *write_array;
+    XLogRecPtr *flush_array;
+    XLogRecPtr *apply_array;
+    int i;
+
+    // Validate input parameters
+    Assert(nth > 0 && nth <= num_standbys);
+
+    // Allocate arrays for each LSN type
+    write_array = palloc(sizeof(XLogRecPtr) * num_standbys);
+    flush_array = palloc(sizeof(XLogRecPtr) * num_standbys);
+    apply_array = palloc(sizeof(XLogRecPtr) * num_standbys);
+
+    // Copy standby positions into separate arrays
+    for (i = 0; i < num_standbys; i++) {
+        write_array[i] = sync_standbys[i].write;
+        flush_array[i] = sync_standbys[i].flush;
+        apply_array[i] = sync_standbys[i].apply;
+    }
+
+    // Sort each array in descending order (latest first)
+    qsort(write_array, num_standbys, sizeof(XLogRecPtr), cmp_lsn);
+    qsort(flush_array, num_standbys, sizeof(XLogRecPtr), cmp_lsn);
+    qsort(apply_array, num_standbys, sizeof(XLogRecPtr), cmp_lsn);
+
+    // Select the Nth latest position from each sorted array
+    *writePtr = write_array[nth - 1];
+    *flushPtr = flush_array[nth - 1];
+    *applyPtr = apply_array[nth - 1];
+
+    // Clean up temporary arrays
+    pfree(write_array);
+    pfree(flush_array);
+    pfree(apply_array);
+}
+```

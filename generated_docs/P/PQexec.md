@@ -45,3 +45,20 @@ This function is ideal for simple, synchronous database operations where the app
 - Part of the core public libpq API and the most commonly used query execution function
 - Suitable for most simple database operations where blocking behavior is acceptable
 - The query parameter can contain multiple SQL statements separated by semicolons
+
+## Simplified Source
+
+```c
+PGresult *PQexec(PGconn *conn, const char *query) {
+    // Prepare connection for query execution
+    if (!PQexecStart(conn))
+        return NULL;
+
+    // Send the query to the server
+    if (!PQsendQuery(conn, query))
+        return NULL;
+
+    // Wait for and retrieve the complete result
+    return PQexecFinish(conn);
+}
+```

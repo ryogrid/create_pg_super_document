@@ -22,7 +22,7 @@ The function assumes that all input parameters have been validated by the caller
 ## Parameters / Member Variables
 - : Number of dimensions in the array
 - : Array of dimension sizes for each dimension
-- : Array of lower bound values for each dimension 
+- : Array of lower bound values for each dimension
 - : Array of subscript indices to convert to linear offset
 
 ## Dependencies
@@ -39,6 +39,27 @@ The function assumes that all input parameters have been validated by the caller
 
 ## Notes and Other Information
 - Assumes caller has performed range checking on dimensions and subscripts to prevent overflow
-- Uses row-major ordering consistent with PostgreSQL's internal array representation  
+- Uses row-major ordering consistent with PostgreSQL's internal array representation
 - The algorithm processes dimensions in reverse order for efficiency in the row-major layout
 - Critical utility function for all array element access operations in PostgreSQL
+
+## Simplified Source
+```c
+int
+ArrayGetOffset(int n, const int *dim, const int *lb, const int *indx)
+{
+    int offset = 0;
+    int scale = 1;
+
+    // Process dimensions in reverse order (row-major)
+    for (int i = n - 1; i >= 0; i--) {
+        // Calculate offset for this dimension
+        offset += (indx[i] - lb[i]) * scale;
+
+        // Update scale for next dimension
+        scale *= dim[i];
+    }
+
+    return offset;
+}
+```

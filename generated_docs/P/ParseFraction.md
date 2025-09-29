@@ -38,3 +38,29 @@ The function performs strict validation, ensuring that the entire input string a
 - Uses errno checking to detect strtod() failures
 - Requires input string to start with decimal point (enforced by assertion)
 - Validates that entire input string after decimal point is consumed during parsing
+
+## Simplified Source
+
+```c
+static int ParseFraction(char *cp, double *frac) {
+    // Input must start with decimal point
+    Assert(*cp == '.');
+
+    // Handle standalone decimal point case
+    if (cp[1] == '\0') {
+        *frac = 0;
+        return 0;
+    }
+
+    // Parse fractional digits using standard library
+    errno = 0;
+    *frac = strtod(cp, &cp);
+
+    // Validate complete consumption and no errors
+    if (*cp != '\0' || errno != 0) {
+        return DTERR_BAD_FORMAT;
+    }
+
+    return 0;
+}
+```

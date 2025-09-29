@@ -38,3 +38,13 @@ The function is declared as static inline for performance optimization, allowing
 - Complementary to DatumGetInt16 function
 - Heavily used in catalog operations, index operations, and function return processing
 - Common in attribute management, constraint handling, and statistics collection
+
+## Simplified Source
+
+```c
+static inline Datum Int16GetDatum(int16 X) {
+    // Simple cast from 16-bit integer to Datum type
+    // No validation needed - just type conversion
+    return (Datum) X;
+}
+```

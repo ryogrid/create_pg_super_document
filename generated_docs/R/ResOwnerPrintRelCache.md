@@ -41,3 +41,15 @@ This callback is essential for diagnosing issues with relation cache resource ma
 - Used primarily for debugging and error reporting, not for normal operation
 - Follows the standard ResourceOwner callback interface pattern
 - The function assumes the Datum contains a valid Relation pointer
+
+## Simplified Source
+
+```c
+static char *
+ResOwnerPrintRelCache(Datum res)
+{
+    Relation rel = (Relation) DatumGetPointer(res);
+
+    return psprintf("relation \"%s\"", RelationGetRelationName(rel));
+}
+```

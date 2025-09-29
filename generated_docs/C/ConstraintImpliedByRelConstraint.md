@@ -48,3 +48,35 @@ The function is crucial for partition constraint validation and constraint optim
 - Uses weak implication logic, assuming existing constraints are not-false
 - [Constraint](Constraint.md) expressions are canonicalized before comparison to ensure valid matches are detected
 - Critical for PostgreSQL's constraint optimization and partition management features
+
+## Simplified Source
+
+```c
+bool ConstraintImpliedByRelConstraint(Relation scanrel, List *testConstraint, List *provenConstraint) {
+    List *existConstraint = list_copy(provenConstraint);
+    TupleConstr *constr = RelationGetDescr(scanrel)->constr;
+    int num_check = (constr != NULL) ? constr->num_check : 0;
+
+    // Add all valid CHECK constraints from the relation
+    for (int i = 0; i < num_check; i++) {
+        // Skip constraints that haven't been fully validated
+        if (!constr->check[i].ccvalid)
+            continue;
+
+        // Parse the constraint expression from its binary form
+        Node *cexpr = stringToNode(constr->check[i].ccbin);
+
+        // Normalize the constraint expression for comparison
+        cexpr = eval_const_expressions(NULL, cexpr);
+        cexpr = (Node *) canonicalize_qual((Expr *) cexpr, true);
+
+        // Add constraint clauses to our existing constraint list
+        existConstraint = list_concat(existConstraint,
+                                    make_ands_implicit((Expr *) cexpr));
+    }
+
+    // Test if existing constraints logically imply the test constraint
+    // Uses weak implication (assumes existing constraints are not-false)
+    return predicate_implied_by(testConstraint, existConstraint, true);
+}
+```

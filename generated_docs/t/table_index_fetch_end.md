@@ -94,3 +94,12 @@ The function serves as a thin wrapper around the table access method's implement
 - The actual implementation is delegated to the specific table access method via a function pointer
 - Should be paired with a corresponding table_index_fetch_begin call
 - Critical for preventing resource leaks in index scanning operations
+
+## Simplified Source
+
+```c
+static inline void table_index_fetch_end(struct IndexFetchTableData *scan) {
+    // Delegate to the table access method's cleanup function
+    scan->rel->rd_tableam->index_fetch_end(scan);
+}
+```

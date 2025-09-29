@@ -45,3 +45,20 @@ After calling this function, the PQExpBuffer is in a "broken" but safe state, si
 - The function ensures the buffer remains in a valid empty state rather than leaving dangling pointers
 - Widely used throughout PostgreSQL's frontend utilities for proper resource cleanup
 - Part of the public libpq API for client applications
+
+## Simplified Source
+
+```c
+void
+termPQExpBuffer(PQExpBuffer str)
+{
+    // Free dynamically allocated buffer (avoid freeing static oom_buffer)
+    if (str->data != oom_buffer)
+        free(str->data);
+
+    // Reset to empty but valid state
+    str->data = unconstify(char *, oom_buffer_ptr);
+    str->maxlen = 0;
+    str->len = 0;
+}
+```

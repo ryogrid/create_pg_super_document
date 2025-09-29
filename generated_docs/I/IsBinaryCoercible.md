@@ -39,3 +39,14 @@ This function replaced the older IsBinaryCompatible() function, which was symmet
 - The function is essentially a wrapper around IsBinaryCoercibleWithCast that discards the cast OID information
 - Domain constraint checks are still required when converting from base type to domain type
 - The asymmetric nature means IsBinaryCoercible(A, B) may differ from IsBinaryCoercible(B, A)
+
+## Simplified Source
+
+```c
+bool IsBinaryCoercible(Oid srctype, Oid targettype) {
+    Oid castoid;
+
+    // Delegate to the extended version that also returns cast OID
+    return IsBinaryCoercibleWithCast(srctype, targettype, &castoid);
+}
+```

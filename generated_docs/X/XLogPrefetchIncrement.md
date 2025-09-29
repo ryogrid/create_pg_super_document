@@ -32,3 +32,14 @@ The function includes an assertion to ensure it's only called by the startup pro
 - The function provides memory-safe increment operations on platforms where direct uint64 increment might not be atomic
 - Used extensively by XLogPrefetcherNextBlock for tracking various prefetch statistics including blocks examined, skipped, and prefetched
 - The assertion ensures proper execution context, as WAL prefetching is typically done by the startup process during recovery
+
+## Simplified Source
+```c
+static inline void XLogPrefetchIncrement(pg_atomic_uint64 *counter) {
+    // Verify we're in the correct execution context (startup process)
+    Assert(AmStartupProcess() || !IsUnderPostmaster);
+
+    // Atomically increment counter by 1 using safe read-modify-write
+    pg_atomic_write_u64(counter, pg_atomic_read_u64(counter) + 1);
+}
+```

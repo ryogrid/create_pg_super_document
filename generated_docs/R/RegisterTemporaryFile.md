@@ -45,3 +45,21 @@ The function also sets a global flag (have_xact_temporary_files) to indicate tha
 - Setting have_xact_temporary_files to true triggers transaction-end cleanup routines
 - Essential for preventing temporary file leaks in PostgreSQL's transaction system
 - Part of PostgreSQL's comprehensive resource management and cleanup infrastructure
+
+## Simplified Source
+
+```c
+static void
+RegisterTemporaryFile(File file)
+{
+    // Register file with current resource owner for cleanup
+    ResourceOwnerRememberFile(CurrentResourceOwner, file);
+    VfdCache[file].resowner = CurrentResourceOwner;
+
+    // Set backup cleanup mechanism - close at transaction end
+    VfdCache[file].fdstate |= FD_CLOSE_AT_EOXACT;
+
+    // Mark that this transaction has temporary files needing cleanup
+    have_xact_temporary_files = true;
+}
+```

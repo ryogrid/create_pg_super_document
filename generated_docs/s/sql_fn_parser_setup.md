@@ -36,4 +36,21 @@ This function configures a ParseState structure with the necessary hooks for par
 - The function sets p_pre_columnref_hook to NULL, indicating no preprocessing is needed for column references
 - The p_coerce_param_hook is explicitly not used as noted in the comment
 - The pinfo parameter is stored in p_ref_hook_state for access by the registered hook functions
-- This setup is essential for proper parsing of parameter references (, , etc.) within SQL function bodies
+- This setup is essential for proper parsing of parameter references ($1, $2, etc.) within SQL function bodies
+
+## Simplified Source
+
+```c
+void sql_fn_parser_setup(struct ParseState *pstate, SQLFunctionParseInfoPtr pinfo)
+{
+    // Configure parser hooks for SQL function context
+    pstate->p_pre_columnref_hook = NULL;                    // No preprocessing needed
+    pstate->p_post_columnref_hook = sql_fn_post_column_ref; // Handle column references
+    pstate->p_paramref_hook = sql_fn_param_ref;             // Handle parameter references ($1, $2, etc.)
+
+    // Store function parse info for use by the hooks
+    pstate->p_ref_hook_state = (void *) pinfo;
+
+    // Note: p_coerce_param_hook is not needed for SQL functions
+}
+```

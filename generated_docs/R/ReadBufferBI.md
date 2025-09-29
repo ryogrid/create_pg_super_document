@@ -50,3 +50,36 @@ The function includes assertions to ensure LOCK variants are only used for relat
 - Buffer reference counting ensures proper cleanup and prevents premature eviction
 - The caching strategy reduces I/O overhead during bulk operations by avoiding redundant buffer reads
 - Assert checks prevent misuse of locking modes with cached buffers
+
+## Simplified Source
+
+```c
+static Buffer ReadBufferBI(Relation relation, BlockNumber targetBlock,
+                          ReadBufferMode mode, BulkInsertState bistate) {
+    // If not bulk-insert, use standard ReadBuffer
+    if (!bistate)
+        return ReadBufferExtended(relation, MAIN_FORKNUM, targetBlock, mode, NULL);
+
+    // Check if we already have the desired block cached
+    if (bistate->current_buf != InvalidBuffer) {
+        if (BufferGetBlockNumber(bistate->current_buf) == targetBlock) {
+            // Reuse cached buffer - increment reference count and return
+            IncrBufferRefCount(bistate->current_buf);
+            return bistate->current_buf;
+        }
+        // Different block needed - release old cached buffer
+        ReleaseBuffer(bistate->current_buf);
+        bistate->current_buf = InvalidBuffer;
+    }
+
+    // Read the new buffer using bulk insert strategy
+    Buffer buffer = ReadBufferExtended(relation, MAIN_FORKNUM, targetBlock,
+                                      mode, bistate->strategy);
+
+    // Cache this buffer for future reuse
+    IncrBufferRefCount(buffer);
+    bistate->current_buf = buffer;
+
+    return buffer;
+}
+```

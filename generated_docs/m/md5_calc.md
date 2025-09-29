@@ -41,3 +41,63 @@ The implementation handles endianness differences: on little-endian systems it d
 - Big-endian systems require explicit byte swapping due to MD5's little-endian word processing requirements
 - Each round applies 16 operations with specific mathematical transformations and rotation amounts
 - The function maintains the cumulative hash state by adding the round results to the existing context values
+
+## Simplified Source
+
+```c
+static void
+md5_calc(const uint8 *b64, pg_md5_ctx *ctx)
+{
+    // Load current hash state into working variables
+    uint32 A = ctx->md5_sta;
+    uint32 B = ctx->md5_stb;
+    uint32 C = ctx->md5_stc;
+    uint32 D = ctx->md5_std;
+
+    // Handle endianness - convert 64 bytes to 16 32-bit words
+#ifndef WORDS_BIGENDIAN
+    const uint32 *X = (const uint32 *) b64;  // Little endian: direct cast
+#else
+    uint32 X[16];  // Big endian: need byte swapping
+    uint8 *y = (uint8 *) X;
+    // Swap bytes for each 32-bit word (code simplified for readability)
+    for (int i = 0; i < 16; i++) {
+        y[i*4+0] = b64[i*4+3];
+        y[i*4+1] = b64[i*4+2];
+        y[i*4+2] = b64[i*4+1];
+        y[i*4+3] = b64[i*4+0];
+    }
+#endif
+
+    // MD5 Algorithm: 4 rounds of 16 operations each
+    // Round 1: F(B,C,D) = (B & C) | (~B & D)
+    for (int i = 0; i < 16; i++) {
+        ROUND1(A, B, C, D, i, shift_amounts[i], i+1);
+        // Rotate variables: A->D, B->A, C->B, D->C
+    }
+
+    // Round 2: G(B,C,D) = (B & D) | (C & ~D)
+    for (int i = 0; i < 16; i++) {
+        ROUND2(A, B, C, D, message_schedule[i], shift_amounts[i], i+17);
+        // Rotate variables
+    }
+
+    // Round 3: H(B,C,D) = B ^ C ^ D
+    for (int i = 0; i < 16; i++) {
+        ROUND3(A, B, C, D, message_schedule[i], shift_amounts[i], i+33);
+        // Rotate variables
+    }
+
+    // Round 4: I(B,C,D) = C ^ (B | ~D)
+    for (int i = 0; i < 16; i++) {
+        ROUND4(A, B, C, D, message_schedule[i], shift_amounts[i], i+49);
+        // Rotate variables
+    }
+
+    // Add computed values back to context state
+    ctx->md5_sta += A;
+    ctx->md5_stb += B;
+    ctx->md5_stc += C;
+    ctx->md5_std += D;
+}
+```

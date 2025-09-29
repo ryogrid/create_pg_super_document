@@ -48,3 +48,45 @@ The function uses a linear O(N) approach by deforming the entire tuple upfront r
 - Commonly used in catalog updates where only certain columns need modification
 - The doReplace array allows fine-grained control over which attributes are updated
 - Widely used throughout DDL operations and privilege management systems
+
+## Simplified Source
+
+```c
+HeapTuple heap_modify_tuple(HeapTuple tuple, TupleDesc tupleDesc,
+                            const Datum *replValues, const bool *replIsnull,
+                            const bool *doReplace) {
+    int numberOfAttributes = tupleDesc->natts;
+    Datum *values;
+    bool *isnull;
+    HeapTuple newTuple;
+
+    // Allocate temporary arrays for values and null flags
+    values = (Datum *) palloc(numberOfAttributes * sizeof(Datum));
+    isnull = (bool *) palloc(numberOfAttributes * sizeof(bool));
+
+    // Extract all values from original tuple
+    heap_deform_tuple(tuple, tupleDesc, values, isnull);
+
+    // Replace specified attributes
+    for (int attoff = 0; attoff < numberOfAttributes; attoff++) {
+        if (doReplace[attoff]) {
+            values[attoff] = replValues[attoff];
+            isnull[attoff] = replIsnull[attoff];
+        }
+    }
+
+    // Create new tuple from modified values
+    newTuple = heap_form_tuple(tupleDesc, values, isnull);
+
+    // Clean up temporary arrays
+    pfree(values);
+    pfree(isnull);
+
+    // Preserve tuple identity information
+    newTuple->t_data->t_ctid = tuple->t_data->t_ctid;
+    newTuple->t_self = tuple->t_self;
+    newTuple->t_tableOid = tuple->t_tableOid;
+
+    return newTuple;
+}
+```

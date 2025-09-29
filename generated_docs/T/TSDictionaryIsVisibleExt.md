@@ -43,3 +43,62 @@ The visibility determination follows PostgreSQL's standard namespace resolution 
 - Implements PostgreSQL's standard namespace visibility rules for text search objects
 - Temporary namespaces are explicitly skipped during visibility checking
 - The function follows the pattern of other *IsVisibleExt functions in the codebase for consistent error handling
+
+## Simplified Source
+
+```c
+static bool TSDictionaryIsVisibleExt(Oid dictId, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_ts_dict form;
+    Oid namespace;
+    bool visible;
+
+    // Look up dictionary in system cache
+    tuple = SearchSysCache1(TSDICTOID, ObjectIdGetDatum(dictId));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing dictionary gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for text search dictionary %u", dictId);
+    }
+
+    form = (Form_pg_ts_dict) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace = form->dictnamespace;
+    if (namespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace)) {
+        visible = false;
+    } else {
+        // Check for name conflicts in earlier namespaces
+        char *name = NameStr(form->dictname);
+        visible = false;
+
+        // Search through path to see if we find this dictionary first
+        foreach(ListCell *l, activeSearchPath) {
+            Oid namespaceId = lfirst_oid(l);
+
+            if (namespaceId == myTempNamespace)
+                continue;  // Skip temp namespace
+
+            if (namespaceId == namespace) {
+                visible = true;  // Found our dictionary first
+                break;
+            }
+
+            // Check if another dictionary with same name exists here
+            if (SearchSysCacheExists2(TSDICTNAMENSP,
+                                    PointerGetDatum(name),
+                                    ObjectIdGetDatum(namespaceId))) {
+                break;  // Found conflicting dictionary earlier in path
+            }
+        }
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

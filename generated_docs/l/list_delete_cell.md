@@ -38,3 +38,12 @@ If the deleted cell was the last remaining member of the list, the entire list s
 - Memory management is handled automatically - the list is freed if it becomes empty
 - This is part of PostgreSQL's generic list implementation used throughout the codebase
 - The cell parameter must be a valid cell that actually belongs to the specified list
+
+## Simplified Source
+
+```c
+List *list_delete_cell(List *list, ListCell *cell) {
+    // Calculate cell position and delegate to list_delete_nth_cell
+    return list_delete_nth_cell(list, cell - list->elements);
+}
+```

@@ -38,3 +38,13 @@ The function returns a List of expressions corresponding to each partition key p
 - Contains expression trees for computed partition keys
 - Used during partition bound parsing and constraint generation
 - Located at src/include/utils/partcache.h:70-74
+
+## Simplified Source
+```c
+static inline List *
+get_partition_exprs(PartitionKey key)
+{
+    // Simple accessor: return partition expressions list
+    return key->partexprs;
+}
+```

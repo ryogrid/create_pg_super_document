@@ -45,3 +45,37 @@ This encoding ensures that when the serialized output is later parsed by Postgre
 - The function modifies the StringInfo buffer in-place by appending the escaped content
 - Special attention is paid to numeric patterns to avoid confusion with numeric literals during parsing
 - The function is used extensively throughout the node output system for safely serializing string data
+
+## Simplified Source
+
+```c
+void
+outToken(StringInfo str, const char *s)
+{
+    // Handle special cases
+    if (s == NULL) {
+        appendStringInfoString(str, "<>");
+        return;
+    }
+    if (*s == '\0') {
+        appendStringInfoString(str, "\"\"");
+        return;
+    }
+
+    // Escape special characters at start of string
+    if (*s == '<' || *s == '"' || isdigit((unsigned char) *s) ||
+        ((*s == '+' || *s == '-') && (isdigit((unsigned char) s[1]) || s[1] == '.')))
+        appendStringInfoChar(str, '\\');
+
+    // Process each character, escaping as needed
+    while (*s) {
+        // Escape special characters anywhere in string
+        if (*s == ' ' || *s == '\n' || *s == '\t' ||
+            *s == '(' || *s == ')' || *s == '{' || *s == '}' ||
+            *s == '\\')
+            appendStringInfoChar(str, '\\');
+
+        appendStringInfoChar(str, *s++);
+    }
+}
+```

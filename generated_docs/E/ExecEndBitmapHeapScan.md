@@ -43,3 +43,38 @@ The function follows a systematic cleanup approach: first it shuts down child no
 - Part of the standard executor node interface for cleanup operations
 - Critical for preventing memory leaks and resource exhaustion in bitmap heap scans
 - The cleanup order is important: child nodes are terminated first, then bitmaps and iterators, then buffers, and finally the table scan
+
+## Simplified Source
+
+```c
+void ExecEndBitmapHeapScan(BitmapHeapScanState *node)
+{
+    // Get the table scan descriptor
+    TableScanDesc scanDesc = node->ss.ss_currentScanDesc;
+
+    // Shut down child plans (bitmap index scans)
+    ExecEndNode(outerPlanState(node));
+
+    // Clean up bitmap iterators and memory structures
+    if (node->tbmiterator)
+        tbm_end_iterate(node->tbmiterator);
+    if (node->prefetch_iterator)
+        tbm_end_iterate(node->prefetch_iterator);
+    if (node->tbm)
+        tbm_free(node->tbm);
+
+    // Clean up shared bitmap iterators for parallel processing
+    if (node->shared_tbmiterator)
+        tbm_end_shared_iterate(node->shared_tbmiterator);
+    if (node->shared_prefetch_iterator)
+        tbm_end_shared_iterate(node->shared_prefetch_iterator);
+
+    // Release any held buffer
+    if (node->pvmbuffer != InvalidBuffer)
+        ReleaseBuffer(node->pvmbuffer);
+
+    // Close the heap table scan
+    if (scanDesc)
+        table_endscan(scanDesc);
+}
+```

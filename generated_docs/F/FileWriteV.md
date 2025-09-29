@@ -57,3 +57,62 @@ The function includes sophisticated temporary file management, automatically tra
 - Includes retry logic for EINTR (interrupted system call) errors and Windows-specific resource exhaustion handling
 - The iovec array allows specifying multiple buffers of different sizes in a single operation
 - Throws ERROR (not just returning -1) when temporary file limits are exceeded, which is a modularity violation noted in the code but necessary for proper error reporting
+
+## Simplified Source
+
+```c
+ssize_t FileWriteV(File file, const struct iovec *iov, int iovcnt,
+                   off_t offset, uint32 wait_event_info) {
+    ssize_t result;
+    Vfd *vfd_entry;
+
+    // Validate file and ensure it's accessible
+    Assert(FileIsValid(file));
+    result = FileAccess(file);
+    if (result < 0)
+        return result;
+
+    vfd_entry = &VfdCache[file];
+
+    // Check temp file size limits before writing
+    if (temp_file_limit >= 0 && (vfd_entry->fdstate & FD_TEMP_FILE_LIMIT)) {
+        off_t total_write_end = offset;
+
+        // Calculate total bytes to be written
+        for (int i = 0; i < iovcnt; ++i)
+            total_write_end += iov[i].iov_len;
+
+        // Check if write would exceed temp file limit
+        if (total_write_end > vfd_entry->fileSize) {
+            uint64 new_temp_size = temporary_files_size +
+                                  (total_write_end - vfd_entry->fileSize);
+            if (new_temp_size > (uint64) temp_file_limit * 1024)
+                ereport(ERROR, "temporary file size exceeds temp_file_limit");
+        }
+    }
+
+retry:
+    // Perform vectored write with wait event tracking
+    pgstat_report_wait_start(wait_event_info);
+    result = pg_pwritev(vfd_entry->fd, iov, iovcnt, offset);
+    pgstat_report_wait_end();
+
+    if (result >= 0) {
+        // Update file size tracking for temp files
+        if (vfd_entry->fdstate & FD_TEMP_FILE_LIMIT) {
+            off_t write_end = offset + result;
+            if (write_end > vfd_entry->fileSize) {
+                temporary_files_size += write_end - vfd_entry->fileSize;
+                vfd_entry->fileSize = write_end;
+            }
+        }
+        errno = ENOSPC; // Help callers detect short writes
+    } else {
+        // Handle platform-specific errors and retry interrupts
+        if (errno == EINTR)
+            goto retry;
+    }
+
+    return result;
+}
+```

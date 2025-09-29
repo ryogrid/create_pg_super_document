@@ -34,3 +34,22 @@ The function follows the standard cleanup pattern used throughout the PostgreSQL
 - Follows the PostgreSQL convention of cleaning up in reverse order of initialization
 - Does not attempt to free memory allocated for the node state itself - that's handled by the memory context system
 - Located at src/backend/executor/nodeBitmapIndexscan.c:175-201
+
+## Simplified Source
+
+```c
+void ExecEndBitmapIndexScan(BitmapIndexScanState *node)
+{
+    // Extract index descriptors from node
+    Relation indexRelationDesc = node->biss_RelationDesc;
+    IndexScanDesc indexScanDesc = node->biss_ScanDesc;
+
+    // Close the index scan if it was opened
+    if (indexScanDesc)
+        index_endscan(indexScanDesc);
+
+    // Close the index relation (NoLock since locks managed at higher level)
+    if (indexRelationDesc)
+        index_close(indexRelationDesc, NoLock);
+}
+```

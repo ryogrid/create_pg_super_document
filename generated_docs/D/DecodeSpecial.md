@@ -48,3 +48,34 @@ Like DecodeUnits, this function implements a cache mechanism (datecache) to impr
 - Central to parsing special date/time keywords like 'today', 'tomorrow', 'yesterday', epoch values, and other special date constants
 - Works alongside DecodeUnits but focuses on the main date token table rather than interval units
 - Essential for PostgreSQL's flexible date/time input parsing that supports various keyword formats
+
+## Simplified Source
+
+```c
+int
+DecodeSpecial(int field, const char *lowtoken, int *val)
+{
+    int type;
+    const datetkn *tp;
+
+    // First try cache lookup - check if we have a cached entry for this field
+    tp = datecache[field];
+    if (tp == NULL || strncmp(lowtoken, tp->token, TOKMAXLEN) != 0) {
+        // Cache miss or mismatch: perform binary search in main table
+        tp = datebsearch(lowtoken, datetktbl, szdatetktbl);
+    }
+
+    if (tp == NULL) {
+        // Token not found in lookup table
+        type = UNKNOWN_FIELD;
+        *val = 0;
+    } else {
+        // Found token: cache it for future use
+        datecache[field] = tp;
+        type = tp->type;
+        *val = tp->value;
+    }
+
+    return type;
+}
+```

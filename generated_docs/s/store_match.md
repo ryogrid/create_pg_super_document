@@ -40,3 +40,46 @@ The function implements dynamic memory management by doubling the allocated spac
 - Memory allocation failures are handled gracefully by returning false rather than throwing errors
 - The ranges array stores pairs of characters (start, end) for each range
 - Used during character class construction to build efficient representations of character sets
+
+## Simplified Source
+
+```c
+static bool
+store_match(pg_ctype_cache *pcc, pg_wchar chr1, int nchrs) {
+    chr *newchrs;
+
+    if (nchrs > 1) {
+        // Handle character range storage
+        if (pcc->cv.nranges >= pcc->cv.rangespace) {
+            // Expand ranges array by doubling
+            pcc->cv.rangespace *= 2;
+            newchrs = (chr *) realloc(pcc->cv.ranges,
+                                     pcc->cv.rangespace * sizeof(chr) * 2);
+            if (newchrs == NULL)
+                return false;
+            pcc->cv.ranges = newchrs;
+        }
+
+        // Store start and end of range
+        pcc->cv.ranges[pcc->cv.nranges * 2] = chr1;
+        pcc->cv.ranges[pcc->cv.nranges * 2 + 1] = chr1 + nchrs - 1;
+        pcc->cv.nranges++;
+    } else {
+        // Handle single character storage
+        if (pcc->cv.nchrs >= pcc->cv.chrspace) {
+            // Expand chars array by doubling
+            pcc->cv.chrspace *= 2;
+            newchrs = (chr *) realloc(pcc->cv.chrs,
+                                     pcc->cv.chrspace * sizeof(chr));
+            if (newchrs == NULL)
+                return false;
+            pcc->cv.chrs = newchrs;
+        }
+
+        // Store single character
+        pcc->cv.chrs[pcc->cv.nchrs++] = chr1;
+    }
+
+    return true;
+}
+```

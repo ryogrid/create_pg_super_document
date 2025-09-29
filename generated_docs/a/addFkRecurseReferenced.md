@@ -78,3 +78,79 @@ Key responsibilities include attribute mapping for partitions (since column orde
 - Memory management includes proper cleanup of attribute maps and maintaining lock consistency
 - The function is designed to work with the partitioning system introduced in PostgreSQL 10+
 - Triggers created at each level enforce referential integrity for that specific relation/partition
+
+## Simplified Source
+
+```c
+static void addFkRecurseReferenced(Constraint *fkconstraint, Relation rel,
+                                  Relation pkrel, Oid indexOid, Oid parentConstr,
+                                  int numfks, int16 *pkattnum, int16 *fkattnum,
+                                  Oid *pfeqoperators, Oid *ppeqoperators, Oid *ffeqoperators,
+                                  int numfkdelsetcols, int16 *fkdelsetcols, bool old_check_ok,
+                                  Oid parentDelTrigger, Oid parentUpdTrigger) {
+    Oid deleteTriggerOid, updateTriggerOid;
+
+    // Verify locks are held
+    Assert(CheckRelationLockedByMe(pkrel, ShareRowExclusiveLock, true));
+    Assert(CheckRelationLockedByMe(rel, ShareRowExclusiveLock, true));
+
+    // Create action triggers that enforce the constraint
+    createForeignKeyActionTriggers(rel, RelationGetRelid(pkrel), fkconstraint,
+                                  parentConstr, indexOid, parentDelTrigger, parentUpdTrigger,
+                                  &deleteTriggerOid, &updateTriggerOid);
+
+    // If referenced table is partitioned, recurse through each partition
+    if (pkrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        PartitionDesc pd = RelationGetPartitionDesc(pkrel, true);
+
+        for (int i = 0; i < pd->nparts; i++) {
+            Relation partRel;
+            AttrMap *map;
+            AttrNumber *mapped_pkattnum;
+            Oid partIndexId;
+            ObjectAddress address;
+
+            // Open the partition with proper locks
+            partRel = table_open(pd->oids[i], ShareRowExclusiveLock);
+
+            // Map attribute numbers to match partition column layout
+            map = build_attrmap_by_name_if_req(RelationGetDescr(partRel),
+                                              RelationGetDescr(pkrel), false);
+            if (map) {
+                mapped_pkattnum = palloc(sizeof(AttrNumber) * numfks);
+                for (int j = 0; j < numfks; j++)
+                    mapped_pkattnum[j] = map->attnums[pkattnum[j] - 1];
+            } else {
+                mapped_pkattnum = pkattnum;
+            }
+
+            // Find the corresponding index on this partition
+            partIndexId = index_get_partition(partRel, indexOid);
+            if (!OidIsValid(partIndexId))
+                elog(ERROR, "index for %u not found in partition %s",
+                     indexOid, RelationGetRelationName(partRel));
+
+            // Create constraint entry for this partition
+            address = addFkConstraint(addFkReferencedSide, fkconstraint->conname,
+                                     fkconstraint, rel, partRel, partIndexId, parentConstr,
+                                     numfks, mapped_pkattnum, fkattnum, pfeqoperators,
+                                     ppeqoperators, ffeqoperators, numfkdelsetcols,
+                                     fkdelsetcols, true);
+
+            // Recurse to handle nested partitions
+            addFkRecurseReferenced(fkconstraint, rel, partRel, partIndexId,
+                                  address.objectId, numfks, mapped_pkattnum, fkattnum,
+                                  pfeqoperators, ppeqoperators, ffeqoperators,
+                                  numfkdelsetcols, fkdelsetcols, old_check_ok,
+                                  deleteTriggerOid, updateTriggerOid);
+
+            // Clean up partition resources
+            table_close(partRel, NoLock);
+            if (map) {
+                pfree(mapped_pkattnum);
+                free_attrmap(map);
+            }
+        }
+    }
+}
+```

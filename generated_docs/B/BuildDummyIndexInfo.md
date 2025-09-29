@@ -47,3 +47,38 @@ The function maintains the same basic structure and attribute information as a f
 - The ii_Concurrent flag is set to false, consistent with BuildIndexInfo
 - Access method properties are still copied correctly from the index access method structure
 - Safer for operations where index expressions might contain volatile functions or functions that should not be executed in the current context
+
+## Simplified Source
+
+```c
+IndexInfo *
+BuildDummyIndexInfo(Relation index)
+{
+    IndexInfo *ii;
+    Form_pg_index indexStruct = index->rd_index;
+    int numAtts = indexStruct->indnatts;
+
+    // Validate attribute count
+    if (numAtts < 1 || numAtts > INDEX_MAX_KEYS)
+        elog(ERROR, "invalid indnatts %d for index %u",
+             numAtts, RelationGetRelid(index));
+
+    // Create IndexInfo with dummy expressions and no predicate
+    ii = makeIndexInfo(indexStruct->indnatts,
+                       indexStruct->indnkeyatts,
+                       index->rd_rel->relam,
+                       RelationGetDummyIndexExpressions(index), // Safe dummy expressions
+                       NIL,  // No predicate
+                       indexStruct->indisunique,
+                       indexStruct->indnullsnotdistinct,
+                       indexStruct->indisready,
+                       false,
+                       index->rd_indam->amsummarizing);
+
+    // Copy attribute numbers from index structure
+    for (int i = 0; i < numAtts; i++)
+        ii->ii_IndexAttrNumbers[i] = indexStruct->indkey.values[i];
+
+    return ii;
+}
+```

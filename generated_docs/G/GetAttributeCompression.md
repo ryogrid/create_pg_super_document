@@ -34,3 +34,31 @@ This function converts a string-based compression specification into a compressi
 - Provides clear error messages for unsupported data types and invalid compression methods
 - The function intentionally allows attcompression and attstorage to be independent settings
 - Used during table creation and ALTER TABLE operations to set column compression
+
+## Simplified Source
+```c
+static char GetAttributeCompression(Oid atttypid, const char *compression)
+{
+    // Handle default compression cases
+    if (compression == NULL || strcmp(compression, "default") == 0)
+        return InvalidCompressionMethod;
+
+    // Verify that data type supports compression (is toastable)
+    if (!TypeIsToastable(atttypid))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("column data type %s does not support compression",
+                        format_type_be(atttypid))));
+
+    // Convert compression name to method identifier
+    char cmethod = CompressionNameToMethod(compression);
+
+    // Validate the compression method
+    if (!CompressionMethodIsValid(cmethod))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid compression method \"%s\"", compression)));
+
+    return cmethod;
+}
+```

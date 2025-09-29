@@ -35,3 +35,17 @@ The callback extracts the ParseState and location information from the ParseCall
 - Used as part of PostgreSQL's error handling infrastructure to provide better error messages with location context
 - The callback is typically installed temporarily around calls to non-parser functions that might throw errors
 - Location: src/backend/parser/parse_node.c:170-188
+
+## Simplified Source
+
+```c
+static void
+pcb_error_callback(void *arg)
+{
+    ParseCallbackState *pcbstate = (ParseCallbackState *) arg;
+
+    // Add parser location info to error, but skip for query cancellations
+    if (geterrcode() != ERRCODE_QUERY_CANCELED)
+        (void) parser_errposition(pcbstate->pstate, pcbstate->location);
+}
+```

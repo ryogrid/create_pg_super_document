@@ -14,7 +14,7 @@ The fetch_att function is a fundamental tuple manipulation utility that extracts
 
 ## Parameters / Member Variables
 - `T`: Pointer to the attribute data location in tuple storage
-- `attbyval`: Boolean indicating if the attribute is stored by value (true) or by reference (false)  
+- `attbyval`: Boolean indicating if the attribute is stored by value (true) or by reference (false)
 - `attlen`: Length of the attribute in bytes for by-value types
 
 ## Dependencies
@@ -38,3 +38,30 @@ The fetch_att function is a fundamental tuple manipulation utility that extracts
 - For unsupported byval lengths, it throws an ERROR to prevent data corruption
 - This function is the complement to store_att_byval for reading attribute data
 - Critical for array processing, range types, statistics, and general tuple deformation operations
+
+## Simplified Source
+```c
+static inline Datum fetch_att(const void *T, bool attbyval, int attlen) {
+    if (attbyval) {
+        // For by-value attributes, cast based on length
+        switch (attlen) {
+            case sizeof(char):
+                return CharGetDatum(*((const char *) T));
+            case sizeof(int16):
+                return Int16GetDatum(*((const int16 *) T));
+            case sizeof(int32):
+                return Int32GetDatum(*((const int32 *) T));
+#if SIZEOF_DATUM == 8
+            case sizeof(Datum):
+                return *((const Datum *) T);
+#endif
+            default:
+                elog(ERROR, "unsupported byval length: %d", attlen);
+                return 0;
+        }
+    } else {
+        // For by-reference attributes, return pointer to data
+        return PointerGetDatum(T);
+    }
+}
+```

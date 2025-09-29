@@ -47,4 +47,44 @@ The function intelligently handles different rescan scenarios:
 - The  mechanism allows the executor to detect when subplan parameters have changed, requiring fresh data
 - The  flag is crucial for determining whether the tuplestore can be reused
 - In pass-through mode, the Material node acts as a transparent wrapper around its subplan
-- The  flag is reset to false to ensure proper iteration behavior after rescan
+- The eof_underlying flag is reset to false to ensure proper iteration behavior after rescan
+
+## Simplified Source
+
+```c
+void ExecReScanMaterial(MaterialState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Always clear the result tuple slot
+    ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+
+    if (node->eflags != 0) {
+        // Materialization mode
+        if (!node->tuplestorestate) {
+            // Not materialized yet, let subplan handle rescan
+            return;
+        }
+
+        // Check if we need to rematerialize or can reuse stored data
+        if (outerPlan->chgParam != NULL || (node->eflags & EXEC_FLAG_REWIND) == 0) {
+            // Must rematerialize: destroy old store and rescan subplan
+            tuplestore_end(node->tuplestorestate);
+            node->tuplestorestate = NULL;
+
+            if (outerPlan->chgParam == NULL) {
+                ExecReScan(outerPlan);
+            }
+            node->eof_underlying = false;
+        } else {
+            // Can reuse stored data: just rewind the tuplestore
+            tuplestore_rescan(node->tuplestorestate);
+        }
+    } else {
+        // Pass-through mode: delegate to subplan
+        if (outerPlan->chgParam == NULL) {
+            ExecReScan(outerPlan);
+        }
+        node->eof_underlying = false;
+    }
+}
+```

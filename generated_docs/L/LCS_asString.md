@@ -36,3 +36,25 @@ The function is used extensively throughout the parser and planner components wh
 - Returns a fallback string "FOR some" if an unexpected enum value is passed, though this should not happen in normal operation
 - The enum ordering is significant as higher numerical values take precedence when a relation is specified with multiple locking clauses
 - Located in src/backend/parser/analyze.c at lines 3213-3237
+
+## Simplified Source
+
+```c
+const char *LCS_asString(LockClauseStrength strength)
+{
+    switch (strength) {
+        case LCS_NONE:
+            Assert(false);  // Should not be called with LCS_NONE
+            break;
+        case LCS_FORKEYSHARE:
+            return "FOR KEY SHARE";
+        case LCS_FORSHARE:
+            return "FOR SHARE";
+        case LCS_FORNOKEYUPDATE:
+            return "FOR NO KEY UPDATE";
+        case LCS_FORUPDATE:
+            return "FOR UPDATE";
+    }
+    return "FOR some";  // Fallback for unexpected values
+}
+```

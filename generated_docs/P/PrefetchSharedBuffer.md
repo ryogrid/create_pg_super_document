@@ -41,3 +41,41 @@ The function follows a non-blocking approach - it only performs a shared lock on
 - Prefetching is disabled when direct I/O is enabled (IO_DIRECT_DATA flag)
 - In recovery mode, missing relation files do not cause errors but simply skip prefetching
 - The function is conditional on USE_PREFETCH compilation flag for platform compatibility
+
+## Simplified Source
+```c
+PrefetchBufferResult PrefetchSharedBuffer(SMgrRelation smgr_reln,
+                                        ForkNumber forkNum,
+                                        BlockNumber blockNum) {
+    PrefetchBufferResult result = {InvalidBuffer, false};
+    BufferTag newTag;
+    uint32 newHash;
+    LWLock *newPartitionLock;
+    int buf_id;
+
+    // Create buffer tag for the requested block
+    InitBufferTag(&newTag, &smgr_reln->smgr_rlocator.locator, forkNum, blockNum);
+
+    // Calculate hash and get partition lock
+    newHash = BufTableHashCode(&newTag);
+    newPartitionLock = BufMappingPartitionLock(newHash);
+
+    // Check if block is already in buffer pool
+    LWLockAcquire(newPartitionLock, LW_SHARED);
+    buf_id = BufTableLookup(&newTag, newHash);
+    LWLockRelease(newPartitionLock);
+
+    if (buf_id < 0) {
+        // Block not in cache - initiate async I/O if prefetch enabled
+        if ((io_direct_flags & IO_DIRECT_DATA) == 0 &&
+            smgrprefetch(smgr_reln, forkNum, blockNum, 1)) {
+            result.initiated_io = true;
+        }
+    } else {
+        // Block found in cache - return buffer ID for potential optimization
+        result.recent_buffer = buf_id + 1;
+    }
+
+    return result;
+}
+```

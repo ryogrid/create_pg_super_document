@@ -32,3 +32,16 @@ This function performs optimized equality comparison between two PostgreSQL `nam
 - Part of PostgreSQL's internal catalog cache optimization infrastructure
 - Static function scope restricts usage to catcache.c compilation unit
 - The `NameStr` macro converts Name pointer to C-string representation
+
+## Simplified Source
+
+```c
+static bool nameeqfast(Datum a, Datum b) {
+    // Extract C-strings from Name Datums
+    char *ca = NameStr(*DatumGetName(a));
+    char *cb = NameStr(*DatumGetName(b));
+
+    // Compare strings up to NAMEDATALEN characters
+    return strncmp(ca, cb, NAMEDATALEN) == 0;
+}
+```

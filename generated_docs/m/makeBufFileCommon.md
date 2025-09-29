@@ -34,3 +34,26 @@ The function initializes the BufFile with safe defaults: not inter-transaction p
 - All position tracking fields (curFile, curOffset, pos, nbytes) are initialized to 0
 - The dirty flag is initialized to false, indicating no pending writes
 - The function relies on palloc for memory allocation, which will automatically handle cleanup on transaction abort
+
+## Simplified Source
+
+```c
+static BufFile *
+makeBufFileCommon(int nfiles)
+{
+    // Allocate memory for new BufFile structure
+    BufFile *file = (BufFile *) palloc(sizeof(BufFile));
+
+    // Initialize common fields with safe defaults
+    file->numFiles = nfiles;           // Number of associated files
+    file->isInterXact = false;         // Not persistent across transactions
+    file->dirty = false;               // No pending writes
+    file->resowner = CurrentResourceOwner;  // Current resource owner for cleanup
+    file->curFile = 0;                 // Start at first file
+    file->curOffset = 0;               // Position 0 in current file
+    file->pos = 0;                     // Logical position 0
+    file->nbytes = 0;                  // No data buffered
+
+    return file;
+}
+```

@@ -77,3 +77,102 @@ The function builds a series of evaluation steps that:
 - Returns NULL when numCols is 0, indicating all comparisons should return true
 - Uses short-circuit evaluation via QUAL opcodes to exit early on mismatches
 - Essential for proper GROUP BY behavior with NULL values in PostgreSQL
+
+## Simplified Source
+
+```c
+ExprState *ExecBuildGroupingEqual(TupleDesc ldesc, TupleDesc rdesc,
+                                const TupleTableSlotOps *lops, const TupleTableSlotOps *rops,
+                                int numCols, const AttrNumber *keyColIdx,
+                                const Oid *eqfunctions, const Oid *collations,
+                                PlanState *parent) {
+    ExprState *state = makeNode(ExprState);
+
+    // Handle zero-column comparison case
+    if (numCols == 0)
+        return NULL;
+
+    // Initialize expression state
+    state->expr = NULL;
+    state->flags = EEO_FLAG_IS_QUAL;
+    state->parent = parent;
+
+    // Find maximum attribute number for slot deformation
+    int maxatt = -1;
+    for (int natt = 0; natt < numCols; natt++) {
+        int attno = keyColIdx[natt];
+        if (attno > maxatt)
+            maxatt = attno;
+    }
+
+    // Push deformation steps for both inner and outer tuples
+    ExprEvalStep scratch = {0};
+    scratch.opcode = EEOP_INNER_FETCHSOME;
+    scratch.d.fetch.last_var = maxatt;
+    scratch.d.fetch.known_desc = ldesc;
+    scratch.d.fetch.kind = lops;
+    if (ExecComputeSlotInfo(state, &scratch))
+        ExprEvalPushStep(state, &scratch);
+
+    scratch.opcode = EEOP_OUTER_FETCHSOME;
+    scratch.d.fetch.known_desc = rdesc;
+    scratch.d.fetch.kind = rops;
+    if (ExecComputeSlotInfo(state, &scratch))
+        ExprEvalPushStep(state, &scratch);
+
+    // Compare attributes in reverse order for optimization
+    List *adjust_jumps = NIL;
+    for (int natt = numCols; --natt >= 0;) {
+        int attno = keyColIdx[natt];
+        Oid foid = eqfunctions[natt];
+        Oid collid = collations[natt];
+
+        // Setup function call info with permission checking
+        FmgrInfo *finfo = palloc0(sizeof(FmgrInfo));
+        FunctionCallInfo fcinfo = palloc0(SizeForFunctionCallInfo(2));
+        fmgr_info(foid, finfo);
+        InitFunctionCallInfoData(*fcinfo, finfo, 2, collid, NULL, NULL);
+
+        // Generate steps: left var, right var, NOT DISTINCT, QUAL
+        // Left argument
+        scratch.opcode = EEOP_INNER_VAR;
+        scratch.d.var.attnum = attno - 1;
+        scratch.resvalue = &fcinfo->args[0].value;
+        scratch.resnull = &fcinfo->args[0].isnull;
+        ExprEvalPushStep(state, &scratch);
+
+        // Right argument
+        scratch.opcode = EEOP_OUTER_VAR;
+        scratch.d.var.attnum = attno - 1;
+        scratch.resvalue = &fcinfo->args[1].value;
+        scratch.resnull = &fcinfo->args[1].isnull;
+        ExprEvalPushStep(state, &scratch);
+
+        // NOT DISTINCT evaluation
+        scratch.opcode = EEOP_NOT_DISTINCT;
+        scratch.d.func.finfo = finfo;
+        scratch.d.func.fcinfo_data = fcinfo;
+        scratch.resvalue = &state->resvalue;
+        scratch.resnull = &state->resnull;
+        ExprEvalPushStep(state, &scratch);
+
+        // QUAL step for short-circuit evaluation
+        scratch.opcode = EEOP_QUAL;
+        scratch.d.qualexpr.jumpdone = -1;  // Adjusted later
+        ExprEvalPushStep(state, &scratch);
+        adjust_jumps = lappend_int(adjust_jumps, state->steps_len - 1);
+    }
+
+    // Adjust jump targets and finalize
+    foreach(lc, adjust_jumps) {
+        ExprEvalStep *as = &state->steps[lfirst_int(lc)];
+        as->d.qualexpr.jumpdone = state->steps_len;
+    }
+
+    scratch.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &scratch);
+    ExecReadyExpr(state);
+
+    return state;
+}
+```

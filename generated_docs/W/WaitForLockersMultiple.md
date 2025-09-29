@@ -50,3 +50,69 @@ The function includes optional progress reporting functionality that can update 
 - Memory management: properly frees the list of lock holders using list_free_deep
 - Commonly used in DDL operations that need to ensure exclusive access to database objects
 - Essential for operations like partition detachment where conflicts with ongoing transactions must be resolved
+
+## Simplified Source
+
+```c
+void WaitForLockersMultiple(List *locktags, LOCKMODE lockmode, bool progress) {
+    List *holders = NIL;
+    int total = 0;
+    int done = 0;
+
+    // Nothing to do if no lock tags provided
+    if (locktags == NIL)
+        return;
+
+    // Collect all transactions holding conflicting locks
+    foreach(lc, locktags) {
+        LOCKTAG *locktag = lfirst(lc);
+        int count;
+
+        holders = lappend(holders,
+                         GetLockConflicts(locktag, lockmode,
+                                         progress ? &count : NULL));
+        if (progress)
+            total += count;
+    }
+
+    // Update progress with total count if requested
+    if (progress)
+        pgstat_progress_update_param(PROGRESS_WAITFOR_TOTAL, total);
+
+    // Wait for each transaction to complete
+    foreach(lc, holders) {
+        VirtualTransactionId *lockholders = lfirst(lc);
+
+        while (VirtualTransactionIdIsValid(*lockholders)) {
+            // Report current PID if progress tracking enabled
+            if (progress) {
+                PGPROC *holder = ProcNumberGetProc(lockholders->procNumber);
+                if (holder)
+                    pgstat_progress_update_param(PROGRESS_WAITFOR_CURRENT_PID,
+                                                holder->pid);
+            }
+
+            // Wait for this transaction to finish
+            VirtualXactLock(*lockholders, true);
+            lockholders++;
+
+            // Update completion count
+            if (progress)
+                pgstat_progress_update_param(PROGRESS_WAITFOR_DONE, ++done);
+        }
+    }
+
+    // Reset progress counters if tracking was enabled
+    if (progress) {
+        const int64 values[] = {0, 0, 0};
+        pgstat_progress_update_multi_param(3,
+                                          (int[]){PROGRESS_WAITFOR_TOTAL,
+                                                  PROGRESS_WAITFOR_DONE,
+                                                  PROGRESS_WAITFOR_CURRENT_PID},
+                                          values);
+    }
+
+    // Clean up memory
+    list_free_deep(holders);
+}
+```

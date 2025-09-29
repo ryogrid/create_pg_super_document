@@ -36,3 +36,16 @@ This operation is commonly used in cache management and LRU (Least Recently Used
 - The list count remains unchanged since this is a reordering operation, not insertion/deletion
 - Commonly used in transaction management for multixact caching
 - Caution: The node must already be a member of the specified list before calling this function
+
+## Simplified Source
+
+```c
+static inline void dclist_move_head(dclist_head *head, dlist_node *node) {
+    // Verify node belongs to this list
+    dlist_member_check(&head->dlist, node);
+    Assert(head->count > 0);
+
+    // Move node to head position
+    dlist_move_head(&head->dlist, node);
+}
+```

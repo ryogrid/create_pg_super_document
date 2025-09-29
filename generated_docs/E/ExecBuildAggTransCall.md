@@ -65,3 +65,80 @@ The function determines the execution context (hash or regular aggregate context
 - Supports both hash-based and sort-based aggregation strategies
 - The opcode selection logic is designed to minimize runtime checks during aggregate execution
 - Jump target fixups ensure proper control flow for null checking scenarios
+
+## Simplified Source
+
+```c
+static void
+ExecBuildAggTransCall(ExprState *state, AggState *aggstate,
+                      ExprEvalStep *scratch,
+                      FunctionCallInfo fcinfo, AggStatePerTrans pertrans,
+                      int transno, int setno, int setoff, bool ishash,
+                      bool nullcheck)
+{
+    // Determine execution context (hash vs regular)
+    ExprContext *aggcontext;
+    if (ishash)
+        aggcontext = aggstate->hashcontext;
+    else
+        aggcontext = aggstate->aggcontexts[setno];
+
+    // Add null check step if required
+    int adjust_jumpnull = -1;
+    if (nullcheck)
+    {
+        scratch->opcode = EEOP_AGG_PLAIN_PERGROUP_NULLCHECK;
+        scratch->d.agg_plain_pergroup_nullcheck.setoff = setoff;
+        scratch->d.agg_plain_pergroup_nullcheck.jumpnull = -1; // Fixed later
+        ExprEvalPushStep(state, scratch);
+        adjust_jumpnull = state->steps_len - 1;
+    }
+
+    // Select appropriate transition function opcode based on characteristics
+    if (!pertrans->aggsortrequired)
+    {
+        // Non-ordered aggregates: choose based on strictness and data type
+        if (pertrans->transtypeByVal)
+        {
+            if (fcinfo->flinfo->fn_strict && pertrans->initValueIsNull)
+                scratch->opcode = EEOP_AGG_PLAIN_TRANS_INIT_STRICT_BYVAL;
+            else if (fcinfo->flinfo->fn_strict)
+                scratch->opcode = EEOP_AGG_PLAIN_TRANS_STRICT_BYVAL;
+            else
+                scratch->opcode = EEOP_AGG_PLAIN_TRANS_BYVAL;
+        }
+        else
+        {
+            if (fcinfo->flinfo->fn_strict && pertrans->initValueIsNull)
+                scratch->opcode = EEOP_AGG_PLAIN_TRANS_INIT_STRICT_BYREF;
+            else if (fcinfo->flinfo->fn_strict)
+                scratch->opcode = EEOP_AGG_PLAIN_TRANS_STRICT_BYREF;
+            else
+                scratch->opcode = EEOP_AGG_PLAIN_TRANS_BYREF;
+        }
+    }
+    else
+    {
+        // Ordered aggregates: choose based on number of inputs
+        if (pertrans->numInputs == 1)
+            scratch->opcode = EEOP_AGG_ORDERED_TRANS_DATUM;
+        else
+            scratch->opcode = EEOP_AGG_ORDERED_TRANS_TUPLE;
+    }
+
+    // Setup step data and add to expression
+    scratch->d.agg_trans.pertrans = pertrans;
+    scratch->d.agg_trans.setno = setno;
+    scratch->d.agg_trans.setoff = setoff;
+    scratch->d.agg_trans.transno = transno;
+    scratch->d.agg_trans.aggcontext = aggcontext;
+    ExprEvalPushStep(state, scratch);
+
+    // Fix up null check jump target if needed
+    if (adjust_jumpnull != -1)
+    {
+        ExprEvalStep *nullcheck_step = &state->steps[adjust_jumpnull];
+        nullcheck_step->d.agg_plain_pergroup_nullcheck.jumpnull = state->steps_len;
+    }
+}
+```

@@ -41,3 +41,33 @@ DecodeTime is specifically designed for timestamp processing and serves as a wra
 - Uses intermediate pg_itm structure internally via DecodeTimeCommon
 - Part of PostgreSQL's datetime parsing infrastructure
 - Has corresponding implementations in ECPG client library
+
+## Simplified Source
+
+```c
+static int
+DecodeTime(char *str, int fmask, int range,
+           int *tmask, struct pg_tm *tm, fsec_t *fsec)
+{
+    struct pg_itm itm;
+    int dterr;
+
+    // Delegate to common time parsing function
+    dterr = DecodeTimeCommon(str, fmask, range, tmask, &itm);
+    if (dterr) {
+        return dterr;
+    }
+
+    // Check for hour overflow and copy results to timestamp structure
+    if (itm.tm_hour > INT_MAX) {
+        return DTERR_FIELD_OVERFLOW;
+    }
+
+    tm->tm_hour = (int) itm.tm_hour;
+    tm->tm_min = itm.tm_min;
+    tm->tm_sec = itm.tm_sec;
+    *fsec = itm.tm_usec;
+
+    return 0;
+}
+```

@@ -43,3 +43,41 @@ The `CatalogCacheComputeHashValue` function creates a composite hash value from 
 - [Hash](../H/Hash.md) combination technique (XOR with rotation) is designed to minimize clustering and collisions
 - Debug logging can be enabled to monitor hash computation performance
 - Returns a FATAL error for invalid key counts, ensuring cache integrity
+
+## Simplified Source
+
+```c
+static uint32
+CatalogCacheComputeHashValue(CatCache *cache, int nkeys,
+                             Datum v1, Datum v2, Datum v3, Datum v4)
+{
+    uint32 hashValue = 0;
+    uint32 oneHash;
+    CCHashFN *cc_hashfunc = cache->cc_hashfunc;
+
+    // Combine hash values using fallthrough switch with bit rotation
+    switch (nkeys) {
+        case 4:
+            oneHash = (cc_hashfunc[3])(v4);
+            hashValue ^= pg_rotate_left32(oneHash, 24);
+            /* FALLTHROUGH */
+        case 3:
+            oneHash = (cc_hashfunc[2])(v3);
+            hashValue ^= pg_rotate_left32(oneHash, 16);
+            /* FALLTHROUGH */
+        case 2:
+            oneHash = (cc_hashfunc[1])(v2);
+            hashValue ^= pg_rotate_left32(oneHash, 8);
+            /* FALLTHROUGH */
+        case 1:
+            oneHash = (cc_hashfunc[0])(v1);
+            hashValue ^= oneHash;
+            break;
+        default:
+            elog(FATAL, "wrong number of hash keys: %d", nkeys);
+            break;
+    }
+
+    return hashValue;
+}
+```

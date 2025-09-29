@@ -48,3 +48,44 @@ The resulting structure is used throughout the range partitioning system for bou
 - Memory allocation uses palloc0 to ensure all fields are initialized to zero
 - The datums and kind arrays are allocated based on the number of partitioning attributes (key->partnatts)
 - Used extensively in range partition bound creation and comparison operations
+
+## Simplified Source
+
+```c
+static PartitionRangeBound *make_one_partition_rbound(PartitionKey key, int index,
+                                                     List *datums, bool lower) {
+    Assert(datums != NIL);
+
+    // Allocate and initialize the range bound structure
+    PartitionRangeBound *bound = (PartitionRangeBound *) palloc0(sizeof(PartitionRangeBound));
+    bound->index = index;
+    bound->lower = lower;
+
+    // Allocate arrays for datums and their kinds
+    bound->datums = (Datum *) palloc0(key->partnatts * sizeof(Datum));
+    bound->kind = (PartitionRangeDatumKind *) palloc0(key->partnatts *
+                                                     sizeof(PartitionRangeDatumKind));
+
+    // Process each datum in the list
+    int i = 0;
+    foreach(lc, datums) {
+        PartitionRangeDatum *datum = lfirst_node(PartitionRangeDatum, lc);
+
+        // Store the datum kind (MINVALUE, MAXVALUE, or VALUE)
+        bound->kind[i] = datum->kind;
+
+        if (datum->kind == PARTITION_RANGE_DATUM_VALUE) {
+            // Extract and validate concrete value
+            Const *val = castNode(Const, datum->value);
+            if (val->constisnull)
+                elog(ERROR, "invalid range bound datum");
+
+            bound->datums[i] = val->constvalue;
+        }
+
+        i++;
+    }
+
+    return bound;
+}
+```

@@ -48,3 +48,43 @@ The function uses a specific naming scheme (PG_TEMP_FILE_PREFIX + ProcPid + coun
 - The naming scheme helps PostgreSQL identify and clean up orphaned temporary files during startup
 - The absence of O_EXCL allows reuse of existing files, which can be beneficial for performance
 - Error handling is configurable through the rejectError parameter, allowing both silent and noisy failure modes
+
+## Simplified Source
+
+```c
+static File
+OpenTemporaryFileInTablespace(Oid tblspcOid, bool rejectError)
+{
+    char tempdirpath[MAXPGPATH];
+    char tempfilepath[MAXPGPATH];
+    File file;
+
+    // Step 1: Get the temporary directory path for this tablespace
+    TempTablespacePath(tempdirpath, tblspcOid);
+
+    // Step 2: Generate unique filename using process ID and counter
+    snprintf(tempfilepath, sizeof(tempfilepath), "%s/%s%d.%ld",
+             tempdirpath, PG_TEMP_FILE_PREFIX, MyProcPid, tempFileCounter++);
+
+    // Step 3: Try to open/create the file
+    file = PathNameOpenFile(tempfilepath,
+                            O_RDWR | O_CREAT | O_TRUNC | PG_BINARY);
+
+    // Step 4: If failed, create directory and retry
+    if (file <= 0) {
+        // Create temp directory (ignore errors - might already exist)
+        MakePGDirectory(tempdirpath);
+
+        // Retry file creation
+        file = PathNameOpenFile(tempfilepath,
+                                O_RDWR | O_CREAT | O_TRUNC | PG_BINARY);
+
+        // Report error if still failed and error reporting is enabled
+        if (file <= 0 && rejectError)
+            elog(ERROR, "could not create temporary file \"%s\": %m",
+                 tempfilepath);
+    }
+
+    return file;
+}
+```

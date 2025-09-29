@@ -40,3 +40,36 @@ This function implements a binary search algorithm specifically designed for lis
 - The search finds the rightmost position where value could be inserted while maintaining sorted order
 - Critical for efficient partition pruning in list-partitioned tables
 - The `is_equal` parameter allows callers to distinguish between exact matches and range positions
+
+## Simplified Source
+```c
+int partition_list_bsearch(FmgrInfo *partsupfunc, Oid *partcollation,
+                          PartitionBoundInfo boundinfo,
+                          Datum value, bool *is_equal)
+{
+    int lo = -1;
+    int hi = boundinfo->ndatums - 1;
+
+    // Binary search through list partition bounds
+    while (lo < hi) {
+        int mid = (lo + hi + 1) / 2;
+
+        // Compare bound datum with target value using partition comparison function
+        int32 cmpval = DatumGetInt32(FunctionCall2Coll(&partsupfunc[0],
+                                                       partcollation[0],
+                                                       boundinfo->datums[mid][0],
+                                                       value));
+
+        if (cmpval <= 0) {
+            lo = mid;
+            *is_equal = (cmpval == 0);
+            if (*is_equal)
+                break;  // Found exact match
+        } else {
+            hi = mid - 1;
+        }
+    }
+
+    return lo;  // Index of greatest bound <= value, or -1 if none found
+}
+```

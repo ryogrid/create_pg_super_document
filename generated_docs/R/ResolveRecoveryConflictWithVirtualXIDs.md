@@ -51,3 +51,71 @@ The function includes sophisticated timing and reporting logic, tracking wait ti
 - Recovery conflicts are logged only when they exceed the deadlock_timeout threshold
 - The function handles both successful resolution (transactions complete naturally) and forced resolution (transactions are cancelled)
 - Fast exit optimization is implemented for empty waitlists to avoid unnecessary system calls
+
+## Simplified Source
+
+```c
+static void
+ResolveRecoveryConflictWithVirtualXIDs(VirtualTransactionId *waitlist,
+                                       ProcSignalReason reason, uint32 wait_event_info,
+                                       bool report_waiting)
+{
+    TimestampTz waitStart = 0;
+    bool waiting = false;
+    bool logged_recovery_conflict = false;
+
+    // Quick exit if no transactions to wait for
+    if (!VirtualTransactionIdIsValid(*waitlist))
+        return;
+
+    // Set up timing for reporting if needed
+    if (report_waiting && (log_recovery_conflict_waits || update_process_title))
+        waitStart = GetCurrentTimestamp();
+
+    // Process each virtual transaction in the waitlist
+    while (VirtualTransactionIdIsValid(*waitlist)) {
+        standbyWait_us = STANDBY_INITIAL_WAIT_US;
+
+        // Wait for the virtual transaction to complete
+        while (!VirtualXactLock(*waitlist, false)) {
+            // Check if maximum wait time exceeded - cancel if needed
+            if (WaitExceedsMaxStandbyDelay(wait_event_info)) {
+                pid_t pid = CancelVirtualTransaction(*waitlist, reason);
+
+                // Brief pause to avoid flooding unresponsive backends
+                if (pid != 0)
+                    pg_usleep(5000L);
+            }
+
+            // Handle progress reporting
+            if (waitStart != 0 && (!logged_recovery_conflict || !waiting)) {
+                TimestampTz now = GetCurrentTimestamp();
+
+                // Update process title after 500ms
+                if (update_process_title && !waiting &&
+                    TimestampDifferenceExceeds(waitStart, now, 500)) {
+                    set_ps_display_suffix("waiting");
+                    waiting = true;
+                }
+
+                // Log conflicts that exceed deadlock timeout
+                if (log_recovery_conflict_waits && !logged_recovery_conflict &&
+                    TimestampDifferenceExceeds(waitStart, now, DeadlockTimeout)) {
+                    LogRecoveryConflict(reason, waitStart, now, waitlist, true);
+                    logged_recovery_conflict = true;
+                }
+            }
+        }
+
+        // Move to next transaction
+        waitlist++;
+    }
+
+    // Final logging and cleanup
+    if (logged_recovery_conflict)
+        LogRecoveryConflict(reason, waitStart, GetCurrentTimestamp(), NULL, false);
+
+    if (waiting)
+        set_ps_display_remove_suffix();
+}
+```

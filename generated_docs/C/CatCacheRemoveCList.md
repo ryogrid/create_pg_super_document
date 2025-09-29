@@ -48,3 +48,44 @@ The function handles both normal operation and CATCACHE_FORCE_RELEASE mode, wher
 - Works in conjunction with CatCacheRemoveCTup to handle mutual dependencies between lists and their members
 - Critical for maintaining cache consistency during list invalidation and cleanup operations
 - Member tuple removal is conditional on both dead status and zero reference count to prevent premature deletion
+
+## Simplified Source
+
+```c
+static void
+CatCacheRemoveCList(CatCache *cache, CatCList *cl)
+{
+    int i;
+
+    // Validate preconditions
+    Assert(cl->refcount == 0);
+    Assert(cl->my_cache == cache);
+
+    // Clean up member tuple associations
+    for (i = cl->n_members; --i >= 0;) {
+        CatCTup *ct = cl->members[i];
+
+        Assert(ct->c_list == cl);
+        ct->c_list = NULL;
+
+        // Remove dead member tuples with no remaining references
+        if (
+#ifndef CATCACHE_FORCE_RELEASE
+            ct->dead &&
+#endif
+            ct->refcount == 0)
+            CatCacheRemoveCTup(cache, ct);
+    }
+
+    // Remove from cache's linked list
+    dlist_delete(&cl->cache_elem);
+
+    // Free key memory
+    CatCacheFreeKeys(cache->cc_tupdesc, cl->nkeys,
+                     cache->cc_keyno, cl->keys);
+
+    // Free the list structure and update cache counter
+    pfree(cl);
+    --cache->cc_nlist;
+}
+```

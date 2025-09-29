@@ -42,3 +42,24 @@ This function is primarily used during query planning and rewriting phases to pr
 - The context structure tracks sublevels_up to handle nested subqueries correctly
 - This function is essential for maintaining correct outer join semantics throughout query optimization
 - Part of PostgreSQL's sophisticated outer join handling that ensures proper NULL propagation in complex join scenarios
+
+## Simplified Source
+
+```c
+Node *add_nulling_relids(Node *node,
+                        const Bitmapset *target_relids,
+                        const Bitmapset *added_relids) {
+    add_nulling_relids_context context;
+
+    // Set up context for tree traversal
+    context.target_relids = target_relids;
+    context.added_relids = added_relids;
+    context.sublevels_up = 0;
+
+    // Traverse tree and apply nulling relation updates
+    return query_or_expression_tree_mutator(node,
+                                           add_nulling_relids_mutator,
+                                           &context,
+                                           0);
+}
+```

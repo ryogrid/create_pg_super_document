@@ -38,3 +38,22 @@ The function retrieves the namespace name using `get_namespace_name()` and perfo
 - It returns false if the namespace OID is invalid or doesn't exist
 - The function is used extensively throughout the codebase for permission checks, schema validation, and event trigger handling
 - Unlike `isTempNamespace()`, this function identifies temporary namespaces from any backend session, not just the current one
+
+## Simplified Source
+
+```c
+bool isAnyTempNamespace(Oid namespaceId) {
+    // Get the namespace name for the given OID
+    char *nspname = get_namespace_name(namespaceId);
+
+    if (!nspname)
+        return false;  // Namespace doesn't exist
+
+    // Check if name starts with temporary namespace prefixes
+    bool result = (strncmp(nspname, "pg_temp_", 8) == 0) ||
+                  (strncmp(nspname, "pg_toast_temp_", 14) == 0);
+
+    pfree(nspname);
+    return result;
+}
+```

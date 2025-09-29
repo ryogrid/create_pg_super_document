@@ -38,3 +38,30 @@ The function includes optimization considerations, specifically designed to leve
 - Integrates with PostgreSQL's memory context debugging and profiling infrastructure
 - Handles allocation failures by returning NULL when the underlying realloc method fails
 - Located in src/backend/utils/mmgr/mcxt.c:1581-1617
+
+## Simplified Source
+
+```c
+void *repalloc_extended(void *pointer, Size size, int flags) {
+    // Get the memory context for debugging/validation
+    MemoryContext context = GetMemoryChunkContext(pointer);
+
+    // Ensure we're not in a critical section
+    AssertNotInCriticalSection(context);
+    Assert(!context->isReset);
+
+    // Delegate to the memory context's specific realloc method
+    // This allows different allocation strategies per context type
+    void *ret = MCXT_METHOD(pointer, realloc)(pointer, size, flags);
+
+    // Handle allocation failure
+    if (unlikely(ret == NULL)) {
+        return NULL;
+    }
+
+    // Update Valgrind memory pool tracking
+    VALGRIND_MEMPOOL_CHANGE(context, pointer, ret, size);
+
+    return ret;
+}
+```

@@ -35,3 +35,18 @@ The conditional rescanning logic optimizes performance by avoiding redundant res
 - Resetting pending_srf_tuples is crucial for SRF correctness across rescans
 - Part of the standard executor rescan protocol used throughout PostgreSQL's executor
 - [ProjectSet](../P/ProjectSet.md) nodes don't maintain complex state that requires extensive cleanup during rescan
+
+## Simplified Source
+
+```c
+void ExecReScanProjectSet(ProjectSetState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Clear any incompletely-evaluated SRFs
+    node->pending_srf_tuples = false;
+
+    // Rescan outer plan if no parameters changed
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+}
+```

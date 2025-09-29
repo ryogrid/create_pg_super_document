@@ -41,3 +41,60 @@ In priority mode, if there are more candidates than needed (num_sync), the funct
 - Behavior differs between priority and quorum synchronous replication modes
 - Uses volatile pointers when accessing shared memory to prevent compiler optimizations
 - Quick exit optimization when SyncRepConfig is NULL (sync replication not configured)
+
+## Simplified Source
+
+```c
+int SyncRepGetCandidateStandbys(SyncRepStandbyData **standbys) {
+    int i, n;
+
+    // Allocate result array for all possible walsenders
+    *standbys = (SyncRepStandbyData *)
+        palloc(max_wal_senders * sizeof(SyncRepStandbyData));
+
+    // Quick exit if sync replication is not configured
+    if (SyncRepConfig == NULL)
+        return 0;
+
+    // Collect candidate standbys from shared memory
+    n = 0;
+    for (i = 0; i < max_wal_senders; i++) {
+        volatile WalSnd *walsnd = &WalSndCtl->walsnds[i];
+        SyncRepStandbyData *stby = *standbys + n;
+        WalSndState state;
+
+        // Copy data under spinlock protection
+        SpinLockAcquire(&walsnd->mutex);
+        stby->pid = walsnd->pid;
+        state = walsnd->state;
+        stby->write = walsnd->write;
+        stby->flush = walsnd->flush;
+        stby->apply = walsnd->apply;
+        stby->sync_standby_priority = walsnd->sync_standby_priority;
+        SpinLockRelease(&walsnd->mutex);
+
+        // Apply filtering criteria
+        if (stby->pid == 0) continue;                          // Must be active
+        if (state != WALSNDSTATE_STREAMING &&                 // Must be streaming
+            state != WALSNDSTATE_STOPPING) continue;          // or stopping
+        if (stby->sync_standby_priority == 0) continue;       // Must be synchronous
+        if (XLogRecPtrIsInvalid(stby->flush)) continue;       // Must have valid flush position
+
+        // Valid candidate found
+        stby->walsnd_index = i;
+        stby->is_me = (walsnd == MyWalSnd);
+        n++;
+    }
+
+    // In priority mode, limit to num_sync highest priority standbys
+    if (SyncRepConfig->syncrep_method == SYNC_REP_PRIORITY &&
+        n > SyncRepConfig->num_sync) {
+        // Sort by priority and keep only the top ones
+        qsort(*standbys, n, sizeof(SyncRepStandbyData),
+              standby_priority_comparator);
+        n = SyncRepConfig->num_sync;
+    }
+
+    return n;
+}
+```

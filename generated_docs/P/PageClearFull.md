@@ -31,3 +31,13 @@ This function operates directly on the page header's flags field using a bitwise
 - Changes to this flag are not WAL-logged as they represent optimization hints
 - Typically called after operations that free up space on a page, such as pruning or tuple removal
 - The function uses bitwise operations to efficiently clear only the target flag bit
+
+## Simplified Source
+
+```c
+static inline void PageClearFull(Page page)
+{
+    // Clear the PD_PAGE_FULL flag bit from page header
+    ((PageHeader) page)->pd_flags &= ~PD_PAGE_FULL;
+}
+```

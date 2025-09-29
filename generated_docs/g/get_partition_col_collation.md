@@ -32,3 +32,13 @@ This inline function provides a simple accessor to retrieve the collation object
 - Collation is particularly important for text/string partitioning columns to ensure consistent sorting and comparison behavior
 - The returned OID can be used with collation-aware comparison functions
 - Used primarily during DDL operations when creating or validating partition bounds for string-based partitioning columns
+
+## Simplified Source
+```c
+static inline Oid
+get_partition_col_collation(PartitionKey key, int col)
+{
+    // Simple accessor: return collation OID for specified partition column
+    return key->partcollation[col];
+}
+```

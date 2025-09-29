@@ -45,3 +45,58 @@ When name conflicts arise, the function automatically resolves them by appending
 - The "expr" default name is used for expression-based index columns that don't have explicit names
 - All returned strings are palloc'd and must be freed by the caller
 - Names are generated in the same order as the input IndexElem list
+
+## Simplified Source
+
+```c
+static List *ChooseIndexColumnNames(const List *indexElems) {
+    List *result = NIL;
+    ListCell *lc;
+
+    foreach(lc, indexElems) {
+        IndexElem *ielem = (IndexElem *) lfirst(lc);
+        const char *origname;
+        const char *curname;
+
+        // Get the preliminary name from IndexElem
+        if (ielem->indexcolname)
+            origname = ielem->indexcolname;    // Explicit name
+        else if (ielem->name)
+            origname = ielem->name;            // Column name
+        else
+            origname = "expr";                 // Default for expressions
+
+        // Resolve name conflicts by appending numbers
+        curname = origname;
+        for (int i = 1; ; i++) {
+            // Check if current name conflicts with existing names
+            ListCell *lc2;
+            bool conflict = false;
+            foreach(lc2, result) {
+                if (strcmp(curname, (char *) lfirst(lc2)) == 0) {
+                    conflict = true;
+                    break;
+                }
+            }
+            if (!conflict)
+                break;  // Found unique name
+
+            // Generate new name with numeric suffix
+            char nbuf[32];
+            char buf[NAMEDATALEN];
+            sprintf(nbuf, "%d", i);
+
+            // Ensure name fits within NAMEDATALEN limit
+            int nlen = pg_mbcliplen(origname, strlen(origname),
+                                   NAMEDATALEN - 1 - strlen(nbuf));
+            memcpy(buf, origname, nlen);
+            strcpy(buf + nlen, nbuf);
+            curname = buf;
+        }
+
+        // Add the unique name to result list
+        result = lappend(result, pstrdup(curname));
+    }
+    return result;
+}
+```

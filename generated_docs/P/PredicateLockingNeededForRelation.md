@@ -40,3 +40,13 @@ Both types of relations are exempt from predicate locking because:
 - This is a static inline function for performance, as it's called frequently during predicate lock operations
 - The exclusion of system relations and temporary tables is a significant optimization that reduces predicate locking overhead
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation for preventing serialization anomalies
+
+## Simplified Source
+
+```c
+static inline bool PredicateLockingNeededForRelation(Relation relation) {
+    // Exclude system relations (OID < FirstUnpinnedObjectId) and temporary relations
+    return !(relation->rd_id < FirstUnpinnedObjectId ||
+             RelationUsesLocalBuffers(relation));
+}
+```

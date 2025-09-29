@@ -36,3 +36,12 @@ This function provides a fast path for comparing oidvector values in the catalog
 - Unlike text comparison functions, does not require collation parameters since OID comparison is inherently deterministic
 - Essential for efficient lookup of functions, operators, and other database objects that use oidvector keys
 - The direct function call approach bypasses PostgreSQL's function manager overhead for better cache performance
+
+## Simplified Source
+
+```c
+static bool oidvectoreqfast(Datum a, Datum b) {
+    // Fast oidvector equality: call standard oidvectoreq function directly
+    return DatumGetBool(DirectFunctionCall2(oidvectoreq, a, b));
+}
+```

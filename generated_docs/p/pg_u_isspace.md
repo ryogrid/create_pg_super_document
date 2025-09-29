@@ -31,3 +31,12 @@ This function determines if a given Unicode code point has the White_Space prope
 - It follows the Unicode White_Space property definition, which includes spaces, tabs, newlines, and other whitespace characters
 - The function is used in regex processing and text handling throughout PostgreSQL
 - Returns a boolean value: true if the character is whitespace, false otherwise
+
+## Simplified Source
+
+```c
+bool pg_u_isspace(pg_wchar code) {
+    // Check if Unicode code point has White_Space property
+    return pg_u_prop_white_space(code);
+}
+```

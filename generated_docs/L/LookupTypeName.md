@@ -36,3 +36,16 @@ LookupTypeName serves as a convenience wrapper around LookupTypeNameExtended, pr
 
 ## Notes and Other Information
 This function is defined in src/backend/parser/parse_type.c:38-42 and serves as the standard entry point for type name lookups in most PostgreSQL parsing scenarios. It always allows temporary types (temp_ok=true) which is the typical behavior desired in most parsing contexts. For cases requiring more control over the lookup process, callers should use LookupTypeNameExtended directly.
+
+## Simplified Source
+
+```c
+Type
+LookupTypeName(ParseState *pstate, const TypeName *typeName,
+               int32 *typmod_p, bool missing_ok)
+{
+    // Wrapper that calls the extended version with temp_ok=true
+    return LookupTypeNameExtended(pstate, typeName, typmod_p,
+                                 true, missing_ok);
+}
+```

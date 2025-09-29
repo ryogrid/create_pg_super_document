@@ -48,3 +48,35 @@ The function requires the caller to hold an appropriate lock on the relation bei
 - The function handles the case where no actual change is needed but still forces a relcache rebuild
 - Critical for maintaining the integrity of PostgreSQL's rewrite rule system
 - Located in src/backend/rewrite/rewriteSupport.c:53-91
+
+## Simplified Source
+
+```c
+void SetRelationRuleStatus(Oid relationId, bool relHasRules) {
+    Relation relationRelation;
+    HeapTuple tuple;
+    Form_pg_class classForm;
+
+    // Open pg_class catalog and find the relation tuple
+    relationRelation = table_open(RelationRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(relationId));
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relationId);
+
+    classForm = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Update the relhasrules field if it has changed
+    if (classForm->relhasrules != relHasRules) {
+        classForm->relhasrules = relHasRules;
+        CatalogTupleUpdate(relationRelation, &tuple->t_self, tuple);
+    } else {
+        // Force relcache rebuild even if no change needed
+        CacheInvalidateRelcacheByTuple(tuple);
+    }
+
+    // Clean up
+    heap_freetuple(tuple);
+    table_close(relationRelation, RowExclusiveLock);
+}
+```

@@ -38,3 +38,40 @@ The `create_join_plan` function serves as the main dispatcher for creating join 
 - Will throw an ERROR for unrecognized path types to catch programming errors
 - The function is static, meaning it's only used within the createplan.c compilation unit
 - Gating clauses provide an optimization opportunity by allowing early termination of expensive join operations
+
+## Simplified Source
+
+```c
+static Plan *
+create_join_plan(PlannerInfo *root, JoinPath *best_path)
+{
+    Plan *plan;
+    List *gating_clauses;
+
+    // Dispatch to specific join type implementation
+    switch (best_path->path.pathtype)
+    {
+        case T_MergeJoin:
+            plan = (Plan *) create_mergejoin_plan(root, (MergePath *) best_path);
+            break;
+        case T_HashJoin:
+            plan = (Plan *) create_hashjoin_plan(root, (HashPath *) best_path);
+            break;
+        case T_NestLoop:
+            plan = (Plan *) create_nestloop_plan(root, (NestPath *) best_path);
+            break;
+        default:
+            elog(ERROR, "unrecognized join path type: %d",
+                 (int) best_path->path.pathtype);
+            plan = NULL;
+            break;
+    }
+
+    // Add gating Result node for pseudoconstant clauses if needed
+    gating_clauses = get_gating_quals(root, best_path->joinrestrictinfo);
+    if (gating_clauses)
+        plan = create_gating_plan(root, (Path *) best_path, plan, gating_clauses);
+
+    return plan;
+}
+```

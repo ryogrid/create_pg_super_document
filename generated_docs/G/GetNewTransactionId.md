@@ -49,3 +49,113 @@ The function implements a multi-layered protection system:
 - Cannot be called during parallel operations or recovery
 - Returns special BootstrapTransactionId during bootstrap processing
 - Critical for maintaining ACID properties and preventing data loss from XID wraparound
+
+## Simplified Source
+
+```c
+FullTransactionId
+GetNewTransactionId(bool isSubXact)
+{
+    FullTransactionId full_xid;
+    TransactionId xid;
+
+    // Prevent XID assignment during parallel operations
+    if (IsInParallelMode())
+        elog(ERROR, "cannot assign TransactionIds during a parallel operation");
+
+    // Return special bootstrap XID during initialization
+    if (IsBootstrapProcessingMode())
+    {
+        Assert(!isSubXact);
+        MyProc->xid = BootstrapTransactionId;
+        ProcGlobal->xids[MyProc->pgxactoff] = BootstrapTransactionId;
+        return FullTransactionIdFromEpochAndXid(0, BootstrapTransactionId);
+    }
+
+    // Prevent XID assignment during recovery
+    if (RecoveryInProgress())
+        elog(ERROR, "cannot assign TransactionIds during recovery");
+
+    LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+
+    // Get next available XID
+    full_xid = TransamVariables->nextXid;
+    xid = XidFromFullTransactionId(full_xid);
+
+    // Check wraparound safety limits
+    if (TransactionIdFollowsOrEquals(xid, TransamVariables->xidVacLimit))
+    {
+        // Copy limits for safe access without lock
+        TransactionId xidWarnLimit = TransamVariables->xidWarnLimit;
+        TransactionId xidStopLimit = TransamVariables->xidStopLimit;
+        TransactionId xidWrapLimit = TransamVariables->xidWrapLimit;
+        Oid oldest_datoid = TransamVariables->oldestXidDB;
+
+        LWLockRelease(XidGenLock);
+
+        // Trigger autovacuum periodically
+        if (IsUnderPostmaster && (xid % 65536) == 0)
+            SendPostmasterSignal(PMSIGNAL_START_AUTOVAC_LAUNCHER);
+
+        // Stop assignment if approaching wraparound limit
+        if (IsUnderPostmaster && TransactionIdFollowsOrEquals(xid, xidStopLimit))
+        {
+            char *oldest_datname = get_database_name(oldest_datoid);
+            ereport(ERROR,
+                   (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                    errmsg("database is not accepting commands to avoid wraparound data loss"),
+                    errhint("Execute a database-wide VACUUM.")));
+        }
+        // Issue warnings when approaching limits
+        else if (TransactionIdFollowsOrEquals(xid, xidWarnLimit))
+        {
+            char *oldest_datname = get_database_name(oldest_datoid);
+            ereport(WARNING,
+                   (errmsg("database must be vacuumed within %u transactions",
+                          xidWrapLimit - xid),
+                    errhint("To avoid XID assignment failures, execute VACUUM.")));
+        }
+
+        // Re-acquire lock and reload values
+        LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+        full_xid = TransamVariables->nextXid;
+        xid = XidFromFullTransactionId(full_xid);
+    }
+
+    // Extend transaction logs as needed
+    ExtendCLOG(xid);
+    ExtendCommitTs(xid);
+    ExtendSUBTRANS(xid);
+
+    // Advance to next XID
+    FullTransactionIdAdvance(&TransamVariables->nextXid);
+
+    // Update shared ProcArray state
+    if (!isSubXact)
+    {
+        // Main transaction - store XID directly
+        Assert(ProcGlobal->subxidStates[MyProc->pgxactoff].count == 0);
+        MyProc->xid = xid;
+        ProcGlobal->xids[MyProc->pgxactoff] = xid;
+    }
+    else
+    {
+        // Subtransaction - add to subtransaction list or mark overflow
+        XidCacheStatus *substat = &ProcGlobal->subxidStates[MyProc->pgxactoff];
+        int nxids = MyProc->subxidStatus.count;
+
+        if (nxids < PGPROC_MAX_CACHED_SUBXIDS)
+        {
+            MyProc->subxids.xids[nxids] = xid;
+            pg_write_barrier();
+            MyProc->subxidStatus.count = substat->count = nxids + 1;
+        }
+        else
+            MyProc->subxidStatus.overflowed = substat->overflowed = true;
+    }
+
+    LWLockRelease(XidGenLock);
+
+    return full_xid;
+}
+```

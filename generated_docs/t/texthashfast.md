@@ -36,3 +36,12 @@ The function follows the same collation strategy as texteqfast, using DEFAULT_CO
 - Critical for maintaining cache performance and correctness when text values are used as cache keys
 - Ensures that equivalent text values (as determined by texteqfast) produce identical hash values
 - The deterministic collation approach prevents hash value variations across different locale settings
+
+## Simplified Source
+
+```c
+static uint32 texthashfast(Datum datum) {
+    // Use default collation for deterministic hashing
+    return DatumGetInt32(DirectFunctionCall1Coll(hashtext, DEFAULT_COLLATION_OID, datum));
+}
+```

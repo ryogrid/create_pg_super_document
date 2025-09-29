@@ -36,3 +36,16 @@ This function provides a way to identify whether a given namespace is the callin
 - TOAST tables for temporary tables are stored separately from regular TOAST tables to maintain proper isolation and cleanup semantics
 - The myTempToastNamespace variable may be InvalidOid if no temporary tables requiring TOAST have been created in the current session
 - This function is used primarily for namespace classification and special handling of temporary TOAST objects in the PostgreSQL system
+
+## Simplified Source
+
+```c
+bool
+isTempToastNamespace(Oid namespaceId)
+{
+    // Check if we have a valid temp TOAST namespace and it matches the given one
+    if (OidIsValid(myTempToastNamespace) && myTempToastNamespace == namespaceId)
+        return true;
+    return false;
+}
+```

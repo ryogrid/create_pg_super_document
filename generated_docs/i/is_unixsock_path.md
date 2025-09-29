@@ -35,3 +35,14 @@ The function is implemented as a static inline for performance efficiency since 
 - The '@' prefix for abstract sockets is a Linux-specific feature that allows socket names to exist in an abstract namespace rather than the filesystem
 - This function is defined in the header file pqcomm.h, making it available throughout the PostgreSQL codebase for connection-related operations
 - The function helps distinguish between TCP/IP hostnames and Unix socket paths in connection strings
+
+## Simplified Source
+
+```c
+static inline bool
+is_unixsock_path(const char *path)
+{
+    // Check if path is absolute or starts with '@' (abstract socket)
+    return is_absolute_path(path) || path[0] == '@';
+}
+```

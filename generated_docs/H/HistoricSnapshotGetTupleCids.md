@@ -36,3 +36,16 @@ The returned hash table is used by visibility checking functions to determine wh
 - Located in src/backend/utils/time/snapmgr.c at lines 1678-1691
 - Used primarily by heap tuple visibility checking functions during historical MVCC operations
 - The assertion ensures program correctness by preventing calls when no historical snapshot is active
+
+## Simplified Source
+```c
+HTAB *
+HistoricSnapshotGetTupleCids(void)
+{
+    // Ensure historical snapshot is active before accessing data
+    Assert(HistoricSnapshotActive());
+
+    // Return the global tuple command ID hash table
+    return tuplecid_data;
+}
+```

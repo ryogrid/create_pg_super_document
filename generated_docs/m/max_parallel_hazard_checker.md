@@ -40,3 +40,13 @@ This design separates the concern of function lookup (handled here) from the haz
 - The function acts as a thin wrapper that bridges the generic function-checking infrastructure with the specific parallel hazard evaluation logic
 - Uses the func_parallel() system function to retrieve the parallel classification from PostgreSQL's system catalogs
 - Located in src/backend/optimizer/util/clauses.c:822-828
+
+## Simplified Source
+
+```c
+static bool max_parallel_hazard_checker(Oid func_id, void *context) {
+    // Get function's parallel classification and test if it's safe
+    return max_parallel_hazard_test(func_parallel(func_id),
+                                   (max_parallel_hazard_context *) context);
+}
+```

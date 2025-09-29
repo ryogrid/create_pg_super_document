@@ -37,3 +37,23 @@ The function has important limitations: it may return false positives or false n
 - The function specifically checks the 'held' field of the LOCALPREDICATELOCK structure
 - Should be used carefully due to potential false positives/negatives in concurrent scenarios
 - Part of PostgreSQL's serializable snapshot isolation implementation
+
+## Simplified Source
+
+```c
+static bool
+PredicateLockExists(const PREDICATELOCKTARGETTAG *targettag)
+{
+    LOCALPREDICATELOCK *lock;
+
+    // Look up lock in local hash table
+    lock = hash_search(LocalPredicateLockHash, targettag, HASH_FIND, NULL);
+
+    if (!lock)
+        return false;
+
+    // Found entry - check if it's actually held
+    // (could be just a parent of some held lock)
+    return lock->held;
+}
+```

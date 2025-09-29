@@ -45,3 +45,39 @@ The function acts as a dispatcher, delegating to strategy-specific functions (cr
 - The function performs deduplication for range bounds as part of preprocessing
 - The canonical ordering enables efficient partition pruning and lookup operations
 - Critical component in the partition descriptor building process
+
+## Simplified Source
+
+```c
+PartitionBoundInfo
+partition_bounds_create(PartitionBoundSpec **boundspecs, int nparts,
+                       PartitionKey key, int **mapping)
+{
+    int i;
+
+    Assert(nparts > 0);
+
+    // Initialize mapping array with invalid values
+    // This will be filled by strategy-specific functions
+    *mapping = (int *) palloc(sizeof(int) * nparts);
+    for (i = 0; i < nparts; i++)
+        (*mapping)[i] = -1;
+
+    // Dispatch to appropriate strategy-specific function
+    switch (key->strategy)
+    {
+        case PARTITION_STRATEGY_HASH:
+            return create_hash_bounds(boundspecs, nparts, key, mapping);
+
+        case PARTITION_STRATEGY_LIST:
+            return create_list_bounds(boundspecs, nparts, key, mapping);
+
+        case PARTITION_STRATEGY_RANGE:
+            return create_range_bounds(boundspecs, nparts, key, mapping);
+    }
+
+    // Should never reach here
+    Assert(false);
+    return NULL;
+}
+```

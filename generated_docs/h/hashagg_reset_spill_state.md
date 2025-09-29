@@ -45,3 +45,30 @@ This function ensures no memory leaks occur when hash aggregation operations are
 - Does not free the hash tables themselves, only spill-related resources
 - Sets all freed pointers to NULL to prevent double-free errors
 - Essential for preventing memory leaks in long-running queries with multiple aggregation phases
+
+## Simplified Source
+
+```c
+static void hashagg_reset_spill_state(AggState *aggstate) {
+    // Free spill structures from initial pass
+    if (aggstate->hash_spills != NULL) {
+        for (int setno = 0; setno < aggstate->num_hashes; setno++) {
+            HashAggSpill *spill = &aggstate->hash_spills[setno];
+            pfree(spill->ntuples);
+            pfree(spill->partitions);
+        }
+        pfree(aggstate->hash_spills);
+        aggstate->hash_spills = NULL;
+    }
+
+    // Free batch structures
+    list_free_deep(aggstate->hash_batches);
+    aggstate->hash_batches = NIL;
+
+    // Close tape set for disk I/O
+    if (aggstate->hash_tapeset != NULL) {
+        LogicalTapeSetClose(aggstate->hash_tapeset);
+        aggstate->hash_tapeset = NULL;
+    }
+}
+```

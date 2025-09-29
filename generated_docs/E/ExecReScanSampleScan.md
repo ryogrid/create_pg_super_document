@@ -31,3 +31,18 @@ The function specifically resets four key state variables:
 - `donetuples`: Reset to 0 to restart the tuple counter
 
 This function is essential for supporting PostgreSQL's ability to restart scans, which is required for certain query execution scenarios like nested loops.
+
+## Simplified Source
+
+```c
+void ExecReScanSampleScan(SampleScanState *node) {
+    // Reset sample scan state flags
+    node->begun = false;       // Need to call BeginSampleScan again
+    node->done = false;        // Scan not completed
+    node->haveblock = false;   // No current block available
+    node->donetuples = 0;      // Reset tuple counter
+
+    // Reset underlying scan state
+    ExecScanReScan(&node->ss);
+}
+```

@@ -32,3 +32,19 @@ This function ensures that subsequent calls to the scan will start from the begi
 - Delegates common rescan operations to ExecScanReScan for consistency with other scan types
 - Essential for correct behavior in nested loop joins and other operations requiring multiple scan passes
 - Part of the standard executor interface for scan node operations
+
+## Simplified Source
+
+```c
+void ExecReScanValuesScan(ValuesScanState *node) {
+    // Clear result tuple if it exists
+    if (node->ss.ps.ps_ResultTupleSlot)
+        ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+
+    // Handle common scan rescan operations
+    ExecScanReScan(&node->ss);
+
+    // Reset to beginning of VALUES list
+    node->curr_idx = -1;
+}
+```

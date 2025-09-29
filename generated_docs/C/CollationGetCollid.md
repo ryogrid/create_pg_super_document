@@ -35,3 +35,32 @@ This is the primary entry point for resolving unqualified collation names in SQL
 - Returns InvalidOid if no matching collation is found in the search path
 - The search stops at the first matching collation found, following namespace precedence order
 - Part of PostgreSQL's general object resolution framework
+
+## Simplified Source
+
+```c
+Oid CollationGetCollid(const char *collname) {
+    // Get current database encoding for compatibility check
+    int32 dbencoding = GetDatabaseEncoding();
+
+    // Ensure search path is up to date
+    recomputeNamespacePath();
+
+    // Search through each namespace in the active search path
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        // Skip temporary namespace
+        if (namespaceId == myTempNamespace)
+            continue;
+
+        // Look up collation in this namespace
+        Oid collid = lookup_collation(collname, namespaceId, dbencoding);
+        if (OidIsValid(collid))
+            return collid;
+    }
+
+    // Not found in any namespace
+    return InvalidOid;
+}
+```

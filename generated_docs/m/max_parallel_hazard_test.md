@@ -44,3 +44,35 @@ For  functions, the traversal always stops immediately since no further analysis
 - The early termination mechanism is crucial for performance, avoiding unnecessary traversal once an unacceptable hazard level is found
 - Uses elog(ERROR) for unrecognized proparallel values, which will terminate query processing with an error message
 - Located in src/backend/optimizer/util/clauses.c:794-821
+
+## Simplified Source
+
+```c
+static bool max_parallel_hazard_test(char proparallel, max_parallel_hazard_context *context) {
+    // Test parallel safety level and update context
+    switch (proparallel) {
+        case PROPARALLEL_SAFE:
+            // Safe for parallel execution - continue checking
+            break;
+
+        case PROPARALLEL_RESTRICTED:
+            // Update hazard level to restricted
+            context->max_hazard = proparallel;
+
+            // Stop if we've reached the maximum interesting level
+            if (context->max_interesting == proparallel)
+                return true;
+            break;
+
+        case PROPARALLEL_UNSAFE:
+            // Unsafe for parallel - always stop traversal
+            context->max_hazard = proparallel;
+            return true;
+
+        default:
+            elog(ERROR, "unrecognized proparallel value \"%c\"", proparallel);
+    }
+
+    return false;
+}
+```

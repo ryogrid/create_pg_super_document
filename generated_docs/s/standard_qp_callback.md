@@ -67,3 +67,111 @@ The function operates through several key phases:
 - The choice between DISTINCT and ORDER BY pathkeys is straightforward since the parser ensures one is a superset of the other
 - GROUP BY + ORDER BY interaction requires careful consideration to avoid missing available sort orders
 - Set operation pathkeys are only computed when the operation benefits from presorted results
+
+## Simplified Source
+
+```c
+static void standard_qp_callback(PlannerInfo *root, void *extra)
+{
+    Query *parse = root->parse;
+    standard_qp_extra *qp_extra = (standard_qp_extra *) extra;
+    List *tlist = root->processed_tlist;
+    List *activeWindows = qp_extra->activeWindows;
+
+    // Compute group pathkeys
+    if (qp_extra->gset_data) {
+        // With grouping sets, use first RollupData's groupClause
+        List *rollups = qp_extra->gset_data->rollups;
+        List *groupClause = (rollups ? linitial_node(RollupData, rollups)->groupClause : NIL);
+
+        if (grouping_is_sortable(groupClause)) {
+            root->group_pathkeys = make_pathkeys_for_sortclauses(root,
+                                                               groupClause,
+                                                               tlist);
+            root->num_groupby_pathkeys = list_length(root->group_pathkeys);
+        } else {
+            root->group_pathkeys = NIL;
+            root->num_groupby_pathkeys = 0;
+        }
+    }
+    else if (parse->groupClause || root->numOrderedAggs > 0) {
+        // Plain GROUP BY: remove redundant items via EquivalenceClass processing
+        bool sortable;
+
+        root->group_pathkeys =
+            make_pathkeys_for_sortclauses_extended(root,
+                                                 &root->processed_groupClause,
+                                                 tlist, true, &sortable, true);
+        if (!sortable) {
+            root->group_pathkeys = NIL;
+            root->num_groupby_pathkeys = 0;
+        } else {
+            root->num_groupby_pathkeys = list_length(root->group_pathkeys);
+            // Add aggregate ordering if present
+            if (root->numOrderedAggs > 0)
+                adjust_group_pathkeys_for_groupagg(root);
+        }
+    } else {
+        root->group_pathkeys = NIL;
+        root->num_groupby_pathkeys = 0;
+    }
+
+    // Compute window pathkeys (only first window considered)
+    if (activeWindows != NIL) {
+        WindowClause *wc = linitial_node(WindowClause, activeWindows);
+        root->window_pathkeys = make_pathkeys_for_window(root, wc, tlist);
+    } else {
+        root->window_pathkeys = NIL;
+    }
+
+    // Compute distinct pathkeys
+    if (parse->distinctClause) {
+        bool sortable;
+        root->processed_distinctClause = list_copy(parse->distinctClause);
+        root->distinct_pathkeys =
+            make_pathkeys_for_sortclauses_extended(root,
+                                                 &root->processed_distinctClause,
+                                                 tlist, true, &sortable, false);
+        if (!sortable)
+            root->distinct_pathkeys = NIL;
+    } else {
+        root->distinct_pathkeys = NIL;
+    }
+
+    // Compute sort pathkeys
+    root->sort_pathkeys = make_pathkeys_for_sortclauses(root,
+                                                       parse->sortClause,
+                                                       tlist);
+
+    // Compute set operation pathkeys if useful
+    if (qp_extra->setop != NULL &&
+        set_operation_ordered_results_useful(qp_extra->setop)) {
+        List *groupClauses;
+        bool sortable;
+
+        groupClauses = generate_setop_child_grouplist(qp_extra->setop, tlist);
+        root->setop_pathkeys =
+            make_pathkeys_for_sortclauses_extended(root, &groupClauses,
+                                                 tlist, false, &sortable, false);
+        if (!sortable)
+            root->setop_pathkeys = NIL;
+    } else {
+        root->setop_pathkeys = NIL;
+    }
+
+    // Choose query_pathkeys in priority order
+    if (root->group_pathkeys)
+        root->query_pathkeys = root->group_pathkeys;
+    else if (root->window_pathkeys)
+        root->query_pathkeys = root->window_pathkeys;
+    else if (list_length(root->distinct_pathkeys) >
+             list_length(root->sort_pathkeys))
+        root->query_pathkeys = root->distinct_pathkeys;
+    else if (root->sort_pathkeys)
+        root->query_pathkeys = root->sort_pathkeys;
+    else if (root->setop_pathkeys != NIL)
+        root->query_pathkeys = root->setop_pathkeys;
+    else
+        root->query_pathkeys = NIL;
+}
+```

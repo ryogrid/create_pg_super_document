@@ -39,3 +39,48 @@ Events marked with AFTER_TRIGGER_DONE are safely ignored, as even if such flags 
 - Handles the edge case where TRUNCATE/DDL operations are executed within functions or triggers of updating queries on the same relation
 - Returns immediately upon finding any pending event for the relation, making it efficient for the common case where no conflicts exist
 - The design acknowledges that removing pending events would require deep knowledge of trigger semantics, so it opts for prevention rather than resolution
+
+## Simplified Source
+
+```c
+bool
+AfterTriggerPendingOnRel(Oid relid)
+{
+    AfterTriggerEvent event;
+    AfterTriggerEventChunk *chunk;
+    int depth;
+
+    // Scan main event queue for pending triggers on this relation
+    for_each_event_chunk(event, chunk, afterTriggers.events)
+    {
+        AfterTriggerShared evtshared = GetTriggerSharedData(event);
+
+        // Skip completed events (marked DONE)
+        if (event->ate_flags & AFTER_TRIGGER_DONE)
+            continue;
+
+        // Found pending trigger for this relation
+        if (evtshared->ats_relid == relid)
+            return true;
+    }
+
+    // Also scan events from incomplete queries at all depth levels
+    // (handles edge case of DDL within triggers/functions)
+    for (depth = 0; depth <= afterTriggers.query_depth &&
+         depth < afterTriggers.maxquerydepth; depth++)
+    {
+        for_each_event_chunk(event, chunk, afterTriggers.query_stack[depth].events)
+        {
+            AfterTriggerShared evtshared = GetTriggerSharedData(event);
+
+            if (event->ate_flags & AFTER_TRIGGER_DONE)
+                continue;
+
+            if (evtshared->ats_relid == relid)
+                return true;
+        }
+    }
+
+    return false;
+}
+```

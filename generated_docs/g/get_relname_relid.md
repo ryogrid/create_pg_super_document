@@ -42,3 +42,14 @@ This function performs a system catalog lookup to find the OID of a relation (ta
 - Used extensively in DDL operations, parser functions, and catalog manipulation
 - Part of the relation cache subsystem that provides efficient access to relation metadata
 - The function uses the RELNAMENSP system cache for fast lookups by name and namespace
+
+## Simplified Source
+
+```c
+Oid get_relname_relid(const char *relname, Oid relnamespace) {
+    // Look up relation OID by name and namespace using system cache
+    return GetSysCacheOid2(RELNAMENSP, Anum_pg_class_oid,
+                          PointerGetDatum(relname),
+                          ObjectIdGetDatum(relnamespace));
+}
+```

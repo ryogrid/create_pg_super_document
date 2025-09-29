@@ -41,3 +41,28 @@ This systematic cleanup prevents memory leaks and ensures all associated resourc
 - The cleanup order is important: local resources are freed before shutting down child nodes
 - This function is part of the standard PostgreSQL executor node cleanup protocol
 - Debug output is provided via SO_printf to trace node shutdown process
+
+## Simplified Source
+
+```c
+void ExecEndIncrementalSort(IncrementalSortState *node) {
+    // Clean up tuple table slots
+    ExecDropSingleTupleTableSlot(node->group_pivot);
+    ExecDropSingleTupleTableSlot(node->transfer_tuple);
+
+    // Release tuplesort resources for full sorting
+    if (node->fullsort_state != NULL) {
+        tuplesort_end(node->fullsort_state);
+        node->fullsort_state = NULL;
+    }
+
+    // Release tuplesort resources for prefix sorting
+    if (node->prefixsort_state != NULL) {
+        tuplesort_end(node->prefixsort_state);
+        node->prefixsort_state = NULL;
+    }
+
+    // Shut down the child node
+    ExecEndNode(outerPlanState(node));
+}
+```

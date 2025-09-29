@@ -36,3 +36,21 @@ The hash is computed over the combined data of channel name and payload to ensur
 - Deliberately excludes the payload's trailing null character from the hash calculation
 - Uses an assertion to verify that keysize matches the expected size of a Notification pointer
 - The hash covers both channel name and payload data to ensure proper uniqueness
+
+## Simplified Source
+
+```c
+static uint32
+notification_hash(const void *key, Size keysize)
+{
+    // Extract notification from double pointer
+    const Notification *notification = *(const Notification *const *) key;
+
+    // Verify expected key size
+    Assert(keysize == sizeof(Notification *));
+
+    // Hash channel name + payload data (exclude trailing null)
+    return DatumGetUInt32(hash_any((const unsigned char *) notification->data,
+                                   notification->channel_len + notification->payload_len + 1));
+}
+```

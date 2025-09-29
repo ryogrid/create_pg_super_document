@@ -48,3 +48,37 @@ The optimization is safe only when there's exactly one child plan and the parall
 - The parallel awareness check prevents incorrect behavior in parallel execution contexts
 - Partition pruning steps (both initial and execution-time) are properly adjusted with range table offsets
 - The function asserts that Append nodes have no left or right subtrees, consistent with their structure
+
+## Simplified Source
+
+```c
+static Plan *
+set_append_references(PlannerInfo *root, Append *aplan, int rtoffset) {
+    // Process all child plans recursively
+    foreach(l, aplan->appendplans) {
+        lfirst(l) = set_plan_refs(root, (Plan *) lfirst(l), rtoffset);
+    }
+
+    // Optimization: eliminate single-child Append if parallel awareness matches
+    if (list_length(aplan->appendplans) == 1) {
+        Plan *child = (Plan *) linitial(aplan->appendplans);
+        if (child->parallel_aware == aplan->plan.parallel_aware) {
+            return clean_up_removed_plan_level((Plan *) aplan, child);
+        }
+    }
+
+    // Adjust references for remaining Append node
+    set_dummy_tlist_references((Plan *) aplan, rtoffset);
+    aplan->apprelids = offset_relid_set(aplan->apprelids, rtoffset);
+
+    // Update partition pruning information if present
+    if (aplan->part_prune_info) {
+        foreach(l, aplan->part_prune_info->prune_infos) {
+            // Adjust pruning steps with proper offsets
+            fix_pruning_steps_with_offsets(l, rtoffset);
+        }
+    }
+
+    return (Plan *) aplan;
+}
+```

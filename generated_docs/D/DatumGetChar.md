@@ -32,3 +32,12 @@ DatumGetChar provides type conversion from PostgreSQL Datum format to a C char v
 - The function performs no validation - assumes the Datum contains a valid character
 - Part of PostgreSQLs fundamental datum conversion system for type-safe value access
 - Commonly used in SQL function implementations and internal PostgreSQL operations handling char data
+
+## Simplified Source
+
+```c
+static inline char DatumGetChar(Datum X) {
+    // Simple cast from Datum to char - extracts character value
+    return (char) X;
+}
+```

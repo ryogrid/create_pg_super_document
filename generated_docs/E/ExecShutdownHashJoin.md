@@ -34,3 +34,18 @@ This shutdown process is essential for parallel hash joins where multiple worker
 - The detachment operations ensure no pointers into DSM memory remain by the time ExecEndHashJoin executes
 - The function only performs cleanup if a hash table exists (node->hj_HashTable is not NULL)
 - Part of the PostgreSQL executor's node shutdown infrastructure for proper resource management
+
+## Simplified Source
+
+```c
+void ExecShutdownHashJoin(HashJoinState *node) {
+    // Only cleanup if we have a hash table
+    if (node->hj_HashTable) {
+        // Detach from current batch to avoid DSM pointer issues
+        ExecHashTableDetachBatch(node->hj_HashTable);
+
+        // Detach from the overall hash table shared state
+        ExecHashTableDetach(node->hj_HashTable);
+    }
+}
+```

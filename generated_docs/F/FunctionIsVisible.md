@@ -32,3 +32,12 @@ The function delegates all actual work to FunctionIsVisibleExt, passing NULL for
 - Throws an error if the function OID does not exist in pg_proc
 - Commonly used throughout PostgreSQL for determining whether functions should be displayed or referenced without schema qualification
 - Part of PostgreSQL's broader namespace visibility system for database objects
+
+## Simplified Source
+
+```c
+bool FunctionIsVisible(Oid funcid) {
+    // Simple wrapper that delegates to the extended version
+    return FunctionIsVisibleExt(funcid, NULL);
+}
+```

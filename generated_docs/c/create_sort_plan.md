@@ -39,3 +39,29 @@ Special handling is implemented for child relations in inheritance hierarchies, 
 - Special relid handling for child relations ensures correct equivalence class member resolution in inheritance scenarios
 - The function preserves all generic path information (costs, parallel safety, etc.) in the resulting plan node
 - [Sort](../S/Sort.md) nodes are non-projecting, meaning they pass through their input unchanged except for ordering
+
+## Simplified Source
+
+```c
+static Sort *
+create_sort_plan(PlannerInfo *root, SortPath *best_path, int flags)
+{
+    Sort *plan;
+    Plan *subplan;
+
+    // Create subplan with smaller target list to reduce sorting overhead
+    subplan = create_plan_recurse(root, best_path->subpath,
+                                  flags | CP_SMALL_TLIST);
+
+    // Create Sort node from pathkeys
+    // Handle child relations by providing appropriate relids
+    plan = make_sort_from_pathkeys(subplan, best_path->path.pathkeys,
+                                   IS_OTHER_REL(best_path->subpath->parent) ?
+                                   best_path->path.parent->relids : NULL);
+
+    // Copy cost and path information
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

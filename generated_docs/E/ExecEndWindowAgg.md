@@ -33,3 +33,29 @@ ExecEndWindowAgg performs comprehensive cleanup for a WindowAgg executor node wh
 - Per-aggregate contexts are only deleted if they differ from the main aggregate context
 - The cleanup order is important: partition resources first, then per-aggregate contexts, then main contexts
 - Located in src/backend/executor/nodeWindowAgg.c:2681-2707
+
+## Simplified Source
+
+```c
+void ExecEndWindowAgg(WindowAggState *node) {
+    // Release partition-specific resources
+    release_partition(node);
+
+    // Clean up per-aggregate memory contexts that differ from main context
+    for (int i = 0; i < node->numaggs; i++) {
+        if (node->peragg[i].aggcontext != node->aggcontext)
+            MemoryContextDelete(node->peragg[i].aggcontext);
+    }
+
+    // Delete main memory contexts
+    MemoryContextDelete(node->partcontext);
+    MemoryContextDelete(node->aggcontext);
+
+    // Free arrays
+    pfree(node->perfunc);
+    pfree(node->peragg);
+
+    // Shut down the outer plan
+    ExecEndNode(outerPlanState(node));
+}
+```

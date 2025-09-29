@@ -38,3 +38,29 @@ ExecEndMemoize handles the proper shutdown of a Memoize execution node. In debug
 - Deletes the entire "MemoizeHashTable" memory context, which automatically frees all cached entries and tuples
 - Ensures proper cleanup chain by calling ExecEndNode on the outer plan node
 - Uses conditional compilation (#ifdef USE_ASSERT_CHECKING) to include expensive validation only in debug builds
+
+## Simplified Source
+
+```c
+void ExecEndMemoize(MemoizeState *node) {
+    // In debug builds, validate memory accounting by iterating through cache
+    // (complex validation logic omitted for brevity)
+
+    // For parallel workers, copy statistics back to shared memory
+    if (node->shared_info != NULL && IsParallelWorker()) {
+        // Set peak memory usage if not already recorded
+        if (node->stats.mem_peak == 0)
+            node->stats.mem_peak = node->mem_used;
+
+        // Copy worker statistics to shared memory for main process
+        MemoizeInstrumentation *si = &node->shared_info->sinstrument[ParallelWorkerNumber];
+        memcpy(si, &node->stats, sizeof(MemoizeInstrumentation));
+    }
+
+    // Delete the cache memory context (frees all cached data)
+    MemoryContextDelete(node->tableContext);
+
+    // Recursively shut down the outer plan
+    ExecEndNode(outerPlanState(node));
+}
+```

@@ -33,3 +33,15 @@ ExecEndSeqScan handles the termination and cleanup of a sequential scan operatio
 - Essential for preventing resource leaks in long-running transactions
 - The function is minimal by design, focusing only on scan-specific cleanup
 - Other cleanup operations (like expression context and tuple slots) are handled by higher-level cleanup functions
+
+## Simplified Source
+```c
+void ExecEndSeqScan(SeqScanState *node) {
+    // Get the scan descriptor from node state
+    TableScanDesc scanDesc = node->ss.ss_currentScanDesc;
+
+    // Close the table scan if it was opened
+    if (scanDesc != NULL)
+        table_endscan(scanDesc);
+}
+```

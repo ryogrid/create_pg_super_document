@@ -51,3 +51,71 @@ The mapping files follow the LOGICAL_REWRITE_FORMAT naming convention and contai
 - The function includes extensive validation to ensure only relevant and valid mapping files are processed
 - Mapping files that correspond to aborted transactions are ignored
 - The function is critical for maintaining data consistency during logical replication when heap rewrites occur
+
+## Simplified Source
+
+```c
+static void
+UpdateLogicalMappings(HTAB *tuplecid_data, Oid relid, Snapshot snapshot)
+{
+    DIR *mapping_dir;
+    struct dirent *mapping_de;
+    List *files = NIL;
+    Oid dboid = IsSharedRelation(relid) ? InvalidOid : MyDatabaseId;
+
+    // Open the logical mappings directory
+    mapping_dir = AllocateDir("pg_logical/mappings");
+
+    // Scan directory for relevant mapping files
+    while ((mapping_de = ReadDir(mapping_dir, "pg_logical/mappings")) != NULL) {
+        Oid f_dboid, f_relid;
+        TransactionId f_mapped_xid, f_create_xid;
+        XLogRecPtr f_lsn;
+        uint32 f_hi, f_lo;
+        RewriteMappingFile *f;
+
+        // Skip non-mapping files
+        if (strncmp(mapping_de->d_name, "map-", 4) != 0)
+            continue;
+
+        // Parse filename for metadata
+        if (sscanf(mapping_de->d_name, LOGICAL_REWRITE_FORMAT,
+                   &f_dboid, &f_relid, &f_hi, &f_lo,
+                   &f_mapped_xid, &f_create_xid) != 6) {
+            elog(ERROR, "could not parse filename \"%s\"", mapping_de->d_name);
+        }
+
+        f_lsn = ((uint64) f_hi) << 32 | f_lo;
+
+        // Filter: only our database and relation
+        if (f_dboid != dboid || f_relid != relid)
+            continue;
+
+        // Filter: only committed creating transactions
+        if (!TransactionIdDidCommit(f_create_xid))
+            continue;
+
+        // Filter: only mappings for our transaction
+        if (!TransactionIdInArray(f_mapped_xid, snapshot->subxip, snapshot->subxcnt))
+            continue;
+
+        // Add to processing list
+        f = palloc(sizeof(RewriteMappingFile));
+        f->lsn = f_lsn;
+        strcpy(f->fname, mapping_de->d_name);
+        files = lappend(files, f);
+    }
+    FreeDir(mapping_dir);
+
+    // Sort files by LSN for proper ordering
+    list_sort(files, file_sort_by_lsn);
+
+    // Apply each relevant mapping file
+    ListCell *file;
+    foreach(file, files) {
+        RewriteMappingFile *f = (RewriteMappingFile *) lfirst(file);
+        ApplyLogicalMappingFile(tuplecid_data, relid, f->fname);
+        pfree(f);
+    }
+}
+```

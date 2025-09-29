@@ -117,3 +117,154 @@ The function can operate in two modes: creating a completely new type or updatin
 - Pass-by-value types are restricted to specific sizes with matching alignment requirements
 - Creates appropriate ACL entries except for dependent types which inherit permissions
 - The function sets  to true, marking the type as fully defined and usable
+
+## Simplified Source
+
+```c
+ObjectAddress
+TypeCreate(Oid newTypeOid,
+           const char *typeName,
+           Oid typeNamespace,
+           Oid relationOid,
+           char relationKind,
+           Oid ownerId,
+           int16 internalSize,
+           char typeType,
+           char typeCategory,
+           bool typePreferred,
+           char typDelim,
+           Oid inputProcedure,
+           Oid outputProcedure,
+           Oid receiveProcedure,
+           Oid sendProcedure,
+           Oid typmodinProcedure,
+           Oid typmodoutProcedure,
+           Oid analyzeProcedure,
+           Oid subscriptProcedure,
+           Oid elementType,
+           bool isImplicitArray,
+           Oid arrayType,
+           Oid baseType,
+           const char *defaultTypeValue,
+           char *defaultTypeBin,
+           bool passedByValue,
+           char alignment,
+           char storage,
+           int32 typeMod,
+           int32 typNDims,
+           bool typeNotNull,
+           Oid typeCollation) {
+
+    Relation pg_type_desc;
+    Oid typeObjectId;
+    bool isDependentType;
+    bool rebuildDeps = false;
+    Acl *typacl;
+    HeapTuple tup;
+    bool nulls[Natts_pg_type];
+    bool replaces[Natts_pg_type];
+    Datum values[Natts_pg_type];
+    NameData name;
+    ObjectAddress address;
+
+    // Validate size specifications
+    if (!(internalSize > 0 || internalSize == -1 || internalSize == -2))
+        ereport(ERROR, "invalid type internal size");
+
+    // Validate pass-by-value types and alignment
+    if (passedByValue) {
+        validate_pass_by_value_alignment(internalSize, alignment);
+    } else {
+        // Validate varlena and cstring alignment
+        validate_reference_type_alignment(internalSize, alignment);
+    }
+
+    // Only varlena types can be toasted
+    if (storage != TYPSTORAGE_PLAIN && internalSize != -1)
+        ereport(ERROR, "fixed-size types must have storage PLAIN");
+
+    // Determine if this is a dependent type
+    isDependentType = isImplicitArray ||
+                     typeType == TYPTYPE_MULTIRANGE ||
+                     (OidIsValid(relationOid) && relationKind != RELKIND_COMPOSITE_TYPE);
+
+    // Initialize arrays for tuple creation
+    initialize_tuple_arrays(nulls, replaces, values);
+
+    // Set all the type attribute values
+    setup_type_values(values, nulls, typeName, typeNamespace, ownerId,
+                      internalSize, typeType, typeCategory, typePreferred,
+                      typDelim, relationOid, subscriptProcedure, elementType,
+                      arrayType, inputProcedure, outputProcedure,
+                      receiveProcedure, sendProcedure, typmodinProcedure,
+                      typmodoutProcedure, analyzeProcedure, alignment,
+                      storage, typeNotNull, baseType, typeMod, typNDims,
+                      typeCollation, defaultTypeBin, defaultTypeValue);
+
+    // Set up ACL for non-dependent types
+    if (isDependentType) {
+        typacl = NULL;
+    } else {
+        typacl = get_user_default_acl(OBJECT_TYPE, ownerId, typeNamespace);
+    }
+
+    if (typacl != NULL)
+        values[Anum_pg_type_typacl - 1] = PointerGetDatum(typacl);
+    else
+        nulls[Anum_pg_type_typacl - 1] = true;
+
+    // Open pg_type catalog
+    pg_type_desc = table_open(TypeRelationId, RowExclusiveLock);
+
+    // Check if type already exists (as shell type)
+    tup = SearchSysCacheCopy2(TYPENAMENSP,
+                              CStringGetDatum(typeName),
+                              ObjectIdGetDatum(typeNamespace));
+
+    if (HeapTupleIsValid(tup)) {
+        // Update existing shell type
+        Form_pg_type typform = (Form_pg_type) GETSTRUCT(tup);
+
+        if (typform->typisdefined)
+            ereport(ERROR, "type already exists");
+
+        if (typform->typowner != ownerId)
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_TYPE, typeName);
+
+        // Update the shell type
+        replaces[Anum_pg_type_oid - 1] = false;
+        tup = heap_modify_tuple(tup, RelationGetDescr(pg_type_desc),
+                               values, nulls, replaces);
+        CatalogTupleUpdate(pg_type_desc, &tup->t_self, tup);
+        typeObjectId = typform->oid;
+        rebuildDeps = true;
+    } else {
+        // Create new type entry
+        if (OidIsValid(newTypeOid))
+            typeObjectId = newTypeOid;
+        else if (IsBinaryUpgrade)
+            typeObjectId = binary_upgrade_next_pg_type_oid;
+        else
+            typeObjectId = GetNewOidWithIndex(pg_type_desc, TypeOidIndexId, Anum_pg_type_oid);
+
+        values[Anum_pg_type_oid - 1] = ObjectIdGetDatum(typeObjectId);
+        tup = heap_form_tuple(RelationGetDescr(pg_type_desc), values, nulls);
+        CatalogTupleInsert(pg_type_desc, tup);
+    }
+
+    // Create dependencies unless in bootstrap mode
+    if (!IsBootstrapProcessingMode()) {
+        GenerateTypeDependencies(tup, pg_type_desc,
+                                defaultTypeBin ? stringToNode(defaultTypeBin) : NULL,
+                                typacl, relationKind, isImplicitArray,
+                                isDependentType, true, rebuildDeps);
+    }
+
+    // Post-creation hook
+    InvokeObjectPostCreateHook(TypeRelationId, typeObjectId, 0);
+    ObjectAddressSet(address, TypeRelationId, typeObjectId);
+
+    table_close(pg_type_desc, RowExclusiveLock);
+    return address;
+}
+```

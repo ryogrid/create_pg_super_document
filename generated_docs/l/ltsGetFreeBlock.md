@@ -42,3 +42,55 @@ When extracting from the min-heap, the function performs a standard heap deletio
 - When no free blocks exist, it allocates sequentially by incrementing `nBlocksAllocated`
 - The sift-down implementation manually handles heap property restoration after root removal
 - This allocation strategy supports efficient block recycling in the logical tape system
+
+## Simplified Source
+
+```c
+static int64 ltsGetFreeBlock(LogicalTapeSet *lts) {
+    // Case 1: No free blocks - allocate new one
+    if (lts->nFreeBlocks == 0) {
+        return lts->nBlocksAllocated++;
+    }
+
+    // Case 2: Only one free block - simple return
+    if (lts->nFreeBlocks == 1) {
+        lts->nFreeBlocks--;
+        return lts->freeBlocks[0];
+    }
+
+    // Case 3: Multiple free blocks - use min-heap extraction
+    int64 blocknum = lts->freeBlocks[0];  // Get minimum (root)
+
+    // Replace root with last element and shrink heap
+    int64 last_value = lts->freeBlocks[--lts->nFreeBlocks];
+
+    // Sift down to restore heap property
+    uint64 pos = 0;
+    while (true) {
+        uint64 left = left_offset(pos);
+        uint64 right = right_offset(pos);
+        uint64 min_child;
+
+        // Find the smaller child
+        if (left < lts->nFreeBlocks && right < lts->nFreeBlocks) {
+            min_child = (lts->freeBlocks[left] < lts->freeBlocks[right]) ? left : right;
+        } else if (left < lts->nFreeBlocks) {
+            min_child = left;
+        } else {
+            break;  // No children
+        }
+
+        // If heap property satisfied, stop
+        if (lts->freeBlocks[min_child] >= last_value) {
+            break;
+        }
+
+        // Move smaller child up and continue sifting
+        lts->freeBlocks[pos] = lts->freeBlocks[min_child];
+        pos = min_child;
+    }
+
+    lts->freeBlocks[pos] = last_value;
+    return blocknum;
+}
+```

@@ -38,3 +38,13 @@ The function immediately raises an ERROR with the message "ExecReScanModifyTable
 - Unlike query nodes (SELECT operations) which can be safely rescanned, modification operations have permanent effects on data
 - If rescan functionality were ever needed for ModifyTable nodes, it would require careful consideration of transaction semantics and side effects
 - The function exists primarily to satisfy the executor's function pointer interface requirements
+
+## Simplified Source
+
+```c
+void ExecReScanModifyTable(ModifyTableState *node) {
+    // ModifyTable nodes cannot be rescanned - DML operations have
+    // side effects that cannot be safely repeated
+    elog(ERROR, "ExecReScanModifyTable is not implemented");
+}
+```

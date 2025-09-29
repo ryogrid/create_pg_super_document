@@ -56,3 +56,69 @@ The `array_get_element` function is a core array access routine that retrieves a
 - For expanded arrays, delegates to specialized handling function
 - Critical function for PostgreSQL's array element access infrastructure
 - Located in `src/backend/utils/adt/arrayfuncs.c` at lines 1820-1920
+
+## Simplified Source
+
+```c
+Datum array_get_element(Datum arraydatum, int nSubscripts, int *indx,
+                       int arraytyplen, int elmlen, bool elmbyval,
+                       char elmalign, bool *isNull) {
+    int ndim, *dim, *lb, offset;
+    int fixedDim[1], fixedLb[1];
+    char *arraydataptr, *retptr;
+    bits8 *arraynullsptr;
+
+    // Handle fixed-length arrays (1-d, 0-based)
+    if (arraytyplen > 0) {
+        ndim = 1;
+        fixedDim[0] = arraytyplen / elmlen;
+        fixedLb[0] = 0;
+        dim = fixedDim;
+        lb = fixedLb;
+        arraydataptr = (char *) DatumGetPointer(arraydatum);
+        arraynullsptr = NULL;
+    }
+    // Handle expanded arrays
+    else if (VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(arraydatum))) {
+        return array_get_element_expanded(arraydatum, nSubscripts, indx,
+                                        arraytyplen, elmlen, elmbyval, elmalign, isNull);
+    }
+    // Handle normal varlena arrays
+    else {
+        ArrayType *array = DatumGetArrayTypeP(arraydatum);
+        ndim = ARR_NDIM(array);
+        dim = ARR_DIMS(array);
+        lb = ARR_LBOUND(array);
+        arraydataptr = ARR_DATA_PTR(array);
+        arraynullsptr = ARR_NULLBITMAP(array);
+    }
+
+    // Validate subscripts
+    if (ndim != nSubscripts || ndim <= 0 || ndim > MAXDIM) {
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Check bounds for each dimension
+    for (int i = 0; i < ndim; i++) {
+        if (indx[i] < lb[i] || indx[i] >= (dim[i] + lb[i])) {
+            *isNull = true;
+            return (Datum) 0;
+        }
+    }
+
+    // Calculate element offset and check for NULL
+    offset = ArrayGetOffset(nSubscripts, dim, lb, indx);
+
+    if (array_get_isnull(arraynullsptr, offset)) {
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Get the element data
+    *isNull = false;
+    retptr = array_seek(arraydataptr, 0, arraynullsptr, offset,
+                        elmlen, elmbyval, elmalign);
+    return ArrayCast(retptr, elmbyval, elmlen);
+}
+```

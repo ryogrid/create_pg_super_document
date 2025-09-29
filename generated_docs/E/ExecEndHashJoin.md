@@ -42,3 +42,19 @@ The function safely handles cases where no hash table was created (node->hj_Hash
 This is a relatively simple cleanup function compared to the complexity of hash join initialization and execution, reflecting PostgreSQL's design principle of making resource cleanup straightforward and reliable.
 
 Location: src/backend/executor/nodeHashjoin.c:859-889
+
+## Simplified Source
+
+```c
+void ExecEndHashJoin(HashJoinState *node) {
+    // Free the hash table if it exists
+    if (node->hj_HashTable) {
+        ExecHashTableDestroy(node->hj_HashTable);
+        node->hj_HashTable = NULL;
+    }
+
+    // Recursively clean up both child plans
+    ExecEndNode(outerPlanState(node));  // Clean up outer relation
+    ExecEndNode(innerPlanState(node));  // Clean up inner relation
+}
+```

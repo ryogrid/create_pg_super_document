@@ -32,3 +32,12 @@ This function provides a convenient wrapper around  to detect the presence of ag
 - For handling subqueries, consider using  from rewriteManip.c instead
 - Returns a boolean value indicating aggregate presence
 - Part of the aggregate-function clause manipulation utilities in the PostgreSQL optimizer
+
+## Simplified Source
+
+```c
+bool contain_agg_clause(Node *clause) {
+    // Delegate to walker function to recursively search for aggregates
+    return contain_agg_clause_walker(clause, NULL);
+}
+```

@@ -41,3 +41,62 @@ This function builds the effective reference (eref) column name list for a relat
 - Error checking ensures users don't specify more column aliases than available non-dropped columns
 - This code is shared between relation and function RTEs for consistent alias handling
 - The function operates at parse time during query analysis to establish proper column references
+
+## Simplified Source
+
+```c
+static void buildRelationAliases(TupleDesc tupdesc, Alias *alias, Alias *eref) {
+    int maxattrs = tupdesc->natts;
+    List *aliaslist;
+    ListCell *aliaslc;
+    int numaliases;
+    int numdropped = 0;
+
+    Assert(eref->colnames == NIL);
+
+    // Initialize alias processing
+    if (alias) {
+        aliaslist = alias->colnames;
+        aliaslc = list_head(aliaslist);
+        numaliases = list_length(aliaslist);
+        alias->colnames = NIL;  // Will rebuild this list
+    } else {
+        aliaslist = NIL;
+        aliaslc = NULL;
+        numaliases = 0;
+    }
+
+    // Process each column in the tuple descriptor
+    for (int varattno = 0; varattno < maxattrs; varattno++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, varattno);
+        String *attrname;
+
+        if (attr->attisdropped) {
+            // Insert empty string for dropped columns
+            attrname = makeString(pstrdup(""));
+            if (aliaslc) {
+                alias->colnames = lappend(alias->colnames, attrname);
+            }
+            numdropped++;
+        } else if (aliaslc) {
+            // Use user-supplied alias
+            attrname = lfirst_node(String, aliaslc);
+            aliaslc = lnext(aliaslist, aliaslc);
+            alias->colnames = lappend(alias->colnames, attrname);
+        } else {
+            // Use original column name
+            attrname = makeString(pstrdup(NameStr(attr->attname)));
+        }
+
+        eref->colnames = lappend(eref->colnames, attrname);
+    }
+
+    // Check for too many user-supplied aliases
+    if (aliaslc) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("table \"%s\" has %d columns available but %d columns specified",
+                        eref->aliasname, maxattrs - numdropped, numaliases)));
+    }
+}
+```

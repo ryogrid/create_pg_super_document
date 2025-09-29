@@ -50,3 +50,99 @@ The function handles three types of slots (inner, outer, scan) and uses differen
 - The function considers both explicitly set slot operations (via parent->innerops, etc.) and dynamically determined operations
 - Slot fixedness depends on the plan configuration and can vary based on whether operations are explicitly set or inherited from child plans
 - This optimization is crucial for performance as unnecessary tuple deformation can be expensive in tight expression evaluation loops
+
+## Simplified Source
+
+```c
+static bool
+ExecComputeSlotInfo(ExprState *state, ExprEvalStep *op)
+{
+    PlanState *parent = state->parent;
+    TupleDesc desc = NULL;
+    const TupleTableSlotOps *tts_ops = NULL;
+    bool isfixed = false;
+    ExprEvalOp opcode = op->opcode;
+
+    // Validate operation type
+    Assert(opcode == EEOP_INNER_FETCHSOME ||
+           opcode == EEOP_OUTER_FETCHSOME ||
+           opcode == EEOP_SCAN_FETCHSOME);
+
+    // Use pre-computed slot info if available
+    if (op->d.fetch.known_desc != NULL)
+    {
+        desc = op->d.fetch.known_desc;
+        tts_ops = op->d.fetch.kind;
+        isfixed = op->d.fetch.kind != NULL;
+    }
+    else if (!parent)
+    {
+        isfixed = false;
+    }
+    // Compute slot info based on slot type
+    else if (opcode == EEOP_INNER_FETCHSOME)
+    {
+        PlanState *is = innerPlanState(parent);
+
+        if (parent->inneropsset && !parent->inneropsfixed)
+            isfixed = false;
+        else if (parent->inneropsset && parent->innerops)
+        {
+            isfixed = true;
+            tts_ops = parent->innerops;
+            desc = ExecGetResultType(is);
+        }
+        else if (is)
+        {
+            tts_ops = ExecGetResultSlotOps(is, &isfixed);
+            desc = ExecGetResultType(is);
+        }
+    }
+    else if (opcode == EEOP_OUTER_FETCHSOME)
+    {
+        PlanState *os = outerPlanState(parent);
+
+        if (parent->outeropsset && !parent->outeropsfixed)
+            isfixed = false;
+        else if (parent->outeropsset && parent->outerops)
+        {
+            isfixed = true;
+            tts_ops = parent->outerops;
+            desc = ExecGetResultType(os);
+        }
+        else if (os)
+        {
+            tts_ops = ExecGetResultSlotOps(os, &isfixed);
+            desc = ExecGetResultType(os);
+        }
+    }
+    else if (opcode == EEOP_SCAN_FETCHSOME)
+    {
+        desc = parent->scandesc;
+        if (parent->scanops)
+            tts_ops = parent->scanops;
+        if (parent->scanopsset)
+            isfixed = parent->scanopsfixed;
+    }
+
+    // Store computed slot information
+    if (isfixed && desc != NULL && tts_ops != NULL)
+    {
+        op->d.fetch.fixed = true;
+        op->d.fetch.kind = tts_ops;
+        op->d.fetch.known_desc = desc;
+    }
+    else
+    {
+        op->d.fetch.fixed = false;
+        op->d.fetch.kind = NULL;
+        op->d.fetch.known_desc = NULL;
+    }
+
+    // Skip deformation for virtual slots
+    if (op->d.fetch.fixed && op->d.fetch.kind == &TTSOpsVirtual)
+        return false;
+
+    return true; // Deformation step needed
+}
+```

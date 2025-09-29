@@ -40,3 +40,28 @@ The uniqueness determination is based on the pathkeys and the number of key colu
 - This function handles upper-level uniqueness operations, distinct from base relation uniqueness constraints
 - The pathkeys must already be established (typically through sorting) for the Unique node to function correctly
 - Used in contexts like DISTINCT operations, UNION operations, and other scenarios requiring duplicate elimination
+
+## Simplified Source
+
+```c
+static Unique *
+create_upper_unique_plan(PlannerInfo *root, UpperUniquePath *best_path, int flags)
+{
+    Unique *plan;
+    Plan *subplan;
+
+    // Create subplan with labeled target list for grouping
+    subplan = create_plan_recurse(root, best_path->subpath,
+                                  flags | CP_LABEL_TLIST);
+
+    // Create Unique node using pathkeys and key count
+    plan = make_unique_from_pathkeys(subplan,
+                                     best_path->path.pathkeys,
+                                     best_path->numkeys);
+
+    // Copy cost and path information
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

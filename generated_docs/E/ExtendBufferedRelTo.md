@@ -56,3 +56,77 @@ The function can optionally create the fork if it doesn't exist (with EB_CREATE_
 - Automatically promotes RBM_ZERO_AND_LOCK and RBM_ZERO_AND_CLEANUP_LOCK modes to include EB_LOCK_TARGET
 - Essential for auxiliary relation maintenance (VM, FSM) and recovery operations
 - Provides strong consistency guarantees for target block accessibility
+
+## Simplified Source
+
+```c
+Buffer ExtendBufferedRelTo(BufferManagerRelation bmr,
+                          ForkNumber fork,
+                          BufferAccessStrategy strategy,
+                          uint32 flags,
+                          BlockNumber extend_to,
+                          ReadBufferMode mode) {
+    BlockNumber current_size;
+    uint32 extended_by = 0;
+    Buffer buffer = InvalidBuffer;
+    Buffer buffers[64];
+
+    Assert((bmr.rel != NULL) != (bmr.smgr != NULL));
+    Assert(extend_to != InvalidBlockNumber && extend_to > 0);
+
+    // Ensure storage manager is available
+    if (bmr.smgr == NULL) {
+        bmr.smgr = RelationGetSmgr(bmr.rel);
+        bmr.relpersistence = bmr.rel->rd_rel->relpersistence;
+    }
+
+    // Create fork if needed and doesn't exist
+    if ((flags & EB_CREATE_FORK_IF_NEEDED) && !smgrexists(bmr.smgr, fork)) {
+        LockRelationForExtension(bmr.rel, ExclusiveLock);
+        if (!smgrexists(bmr.smgr, fork)) {
+            smgrcreate(bmr.smgr, fork, flags & EB_PERFORMING_RECOVERY);
+        }
+        UnlockRelationForExtension(bmr.rel, ExclusiveLock);
+    }
+
+    // Clear size cache if requested
+    if (flags & EB_CLEAR_SIZE_CACHE) {
+        bmr.smgr->smgr_cached_nblocks[fork] = InvalidBlockNumber;
+    }
+
+    // Get current relation size
+    current_size = smgrnblocks(bmr.smgr, fork);
+
+    // Set locking flag for zero-and-lock modes
+    if (mode == RBM_ZERO_AND_LOCK || mode == RBM_ZERO_AND_CLEANUP_LOCK) {
+        flags |= EB_LOCK_TARGET;
+    }
+
+    // Extend relation in batches until we reach target size
+    while (current_size < extend_to) {
+        uint32 num_pages = Min(lengthof(buffers), extend_to - current_size);
+
+        BlockNumber first_block = ExtendBufferedRelCommon(bmr, fork, strategy, flags,
+                                                         num_pages, extend_to,
+                                                         buffers, &extended_by);
+        current_size = first_block + extended_by;
+
+        // Release all buffers except the target one
+        for (uint32 i = 0; i < extended_by; i++) {
+            if (first_block + i != extend_to - 1) {
+                ReleaseBuffer(buffers[i]);
+            } else {
+                buffer = buffers[i];
+            }
+        }
+    }
+
+    // Handle concurrent extension case - read existing buffer
+    if (buffer == InvalidBuffer) {
+        buffer = ReadBuffer_common(bmr.rel, bmr.smgr, 0,
+                                 fork, extend_to - 1, mode, strategy);
+    }
+
+    return buffer;
+}
+```

@@ -36,3 +36,45 @@ This function serves as the main entry point for parsing relation options from t
 - Memory management note: string values are allocated separately and must be freed by caller
 - Performs lazy initialization of the reloptions system via initialize_reloptions()
 - Uses global relOpts array to determine available options for each kind
+
+## Simplified Source
+
+```c
+static relopt_value *parseRelOptions(Datum options, bool validate, relopt_kind kind, int *numrelopts) {
+    relopt_value *reloptions = NULL;
+    int numoptions = 0;
+
+    // Initialize reloptions system if needed
+    if (need_initialization)
+        initialize_reloptions();
+
+    // Count how many options apply to this kind
+    for (int i = 0; relOpts[i]; i++) {
+        if (relOpts[i]->kinds & kind)
+            numoptions++;
+    }
+
+    // Allocate and initialize option array if any options exist
+    if (numoptions > 0) {
+        reloptions = palloc(numoptions * sizeof(relopt_value));
+
+        // Fill array with applicable options, all initially unset
+        int j = 0;
+        for (int i = 0; relOpts[i]; i++) {
+            if (relOpts[i]->kinds & kind) {
+                reloptions[j].gen = relOpts[i];
+                reloptions[j].isset = false;
+                j++;
+            }
+        }
+    }
+
+    // Parse actual option values if provided
+    if (PointerIsValid(DatumGetPointer(options))) {
+        parseRelOptionsInternal(options, validate, reloptions, numoptions);
+    }
+
+    *numrelopts = numoptions;
+    return reloptions;
+}
+```

@@ -40,3 +40,18 @@ The function allocates a new BoolExpr node, sets its operation type to AND_EXPR,
 - This function is part of PostgreSQL's node creation utilities in makefuncs.c
 - The returned Expr pointer can be cast back to BoolExpr when needed
 - Used extensively in query optimization phases like constant folding, sublink processing, and join condition handling
+
+## Simplified Source
+
+```c
+Expr *make_andclause(List *andclauses) {
+    // Create AND boolean expression from list of subclauses
+    BoolExpr *expr = makeNode(BoolExpr);
+
+    expr->boolop = AND_EXPR;
+    expr->args = andclauses;
+    expr->location = -1;  // No specific source location
+
+    return (Expr *) expr;
+}
+```

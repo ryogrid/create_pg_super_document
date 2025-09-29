@@ -38,3 +38,32 @@ The store_att_byval function is a partial inverse of fetch_att that stores a giv
 - Throws an ERROR for unsupported attribute lengths to prevent data corruption
 - Commonly used in serialization operations, tuple construction, and array processing
 - Works as a complement to fetch_att for writing attribute data to tuple storage
+
+## Simplified Source
+
+```c
+static inline void
+store_att_byval(void *T, Datum newdatum, int attlen)
+{
+    // Store by-value attributes based on their length
+    switch (attlen)
+    {
+        case sizeof(char):
+            *(char *) T = DatumGetChar(newdatum);
+            break;
+        case sizeof(int16):
+            *(int16 *) T = DatumGetInt16(newdatum);
+            break;
+        case sizeof(int32):
+            *(int32 *) T = DatumGetInt32(newdatum);
+            break;
+#if SIZEOF_DATUM == 8
+        case sizeof(Datum):
+            *(Datum *) T = newdatum;
+            break;
+#endif
+        default:
+            elog(ERROR, "unsupported byval length: %d", attlen);
+    }
+}
+```

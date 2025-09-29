@@ -42,3 +42,27 @@ Unlike most other functions in prepjointree.c, this function does not recurse on
 - The RTE_RESULT relation type represents a relation that produces rows without scanning any actual table
 - This transformation is essential for proper functioning of the query optimizer's join processing and subquery handling mechanisms
 - Non-recursive design requires careful coordination with other query processing phases
+
+## Simplified Source
+
+```c
+void replace_empty_jointree(Query *parse) {
+    // Skip if jointree already has relations or is part of set operations
+    if (parse->jointree->fromlist != NIL || parse->setOperations)
+        return;
+
+    // Create a dummy RTE_RESULT relation
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RESULT;
+    rte->eref = makeAlias("*RESULT*", NIL);
+
+    // Add to range table and get its index
+    parse->rtable = lappend(parse->rtable, rte);
+    Index rti = list_length(parse->rtable);
+
+    // Create reference and add to jointree
+    RangeTblRef *rtr = makeNode(RangeTblRef);
+    rtr->rtindex = rti;
+    parse->jointree->fromlist = list_make1(rtr);
+}
+```

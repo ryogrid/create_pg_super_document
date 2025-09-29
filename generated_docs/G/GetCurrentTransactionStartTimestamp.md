@@ -38,3 +38,14 @@ GetCurrentTransactionStartTimestamp is a simple accessor function that returns t
 - Located in src/backend/access/transam/xact.c:867-875
 - Simple getter function with no side effects or error conditions
 - Critical component of PostgreSQL's transaction timestamp management system
+
+## Simplified Source
+
+```c
+TimestampTz
+GetCurrentTransactionStartTimestamp(void)
+{
+    // Return the timestamp set when current transaction started
+    return xactStartTimestamp;
+}
+```

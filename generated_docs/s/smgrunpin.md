@@ -30,3 +30,21 @@ The `smgrunpin` function decrements the pin count of an SMgrRelation object, pot
 - Relations in the unpinned list are automatically destroyed by AtEOXact_SMgr()
 - This function must be called for each corresponding smgrpin call to properly release references
 - The object remains valid until AtEOXact_SMgr() is called, even after unpinning
+
+## Simplified Source
+
+```c
+void
+smgrunpin(SMgrRelation reln)
+{
+    // Ensure relation is actually pinned
+    Assert(reln->pincount > 0);
+
+    // Decrement reference count
+    reln->pincount--;
+
+    // If no more references, add to cleanup list
+    if (reln->pincount == 0)
+        dlist_push_tail(&unpinned_relns, &reln->node);
+}
+```

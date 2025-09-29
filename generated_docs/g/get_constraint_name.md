@@ -43,3 +43,28 @@ The function performs a system cache lookup to efficiently retrieve the constrai
 - Primarily intended for error messages and diagnostic output where human-readable constraint names are helpful
 - Part of PostgreSQL's constraint enforcement and metadata management infrastructure
 - Handles all types of constraints: PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, and EXCLUSION constraints
+
+## Simplified Source
+
+```c
+char *get_constraint_name(Oid conoid)
+{
+    HeapTuple tp;
+
+    // Look up constraint in system cache
+    tp = SearchSysCache1(CONSTROID, ObjectIdGetDatum(conoid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract constraint tuple and get name
+        Form_pg_constraint contup = (Form_pg_constraint) GETSTRUCT(tp);
+        char *result = pstrdup(NameStr(contup->conname));
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else {
+        // Constraint not found
+        return NULL;
+    }
+}
+```

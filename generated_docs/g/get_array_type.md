@@ -42,3 +42,24 @@ The function uses the system cache (syscache) for efficient lookups, which provi
 - The function accesses the  field of the  catalog entry
 - This is a fundamental utility function used throughout the PostgreSQL codebase for type system operations
 - The function is located in the system cache utilities module (), indicating its role as a low-level type system utility
+
+## Simplified Source
+
+```c
+Oid
+get_array_type(Oid typid)
+{
+    HeapTuple tp;
+    Oid result = InvalidOid;
+
+    // Look up the type in the system cache
+    tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (HeapTupleIsValid(tp)) {
+        // Extract the array type OID from the typarray field
+        result = ((Form_pg_type) GETSTRUCT(tp))->typarray;
+        ReleaseSysCache(tp);
+    }
+
+    return result;  // Returns InvalidOid if no array type found
+}
+```

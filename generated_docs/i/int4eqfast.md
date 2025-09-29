@@ -33,3 +33,12 @@ The function is used specifically by the catalog cache system (catcache) to effi
 - Part of the catalog cache optimization system that provides fast lookup functions for commonly used data types
 - The function bypasses the normal PostgreSQL function call overhead for better performance in cache operations
 - Returns a simple boolean result indicating whether the two integer values are equal
+
+## Simplified Source
+
+```c
+static bool int4eqfast(Datum a, Datum b) {
+    // Fast equality check: extract int32 values from Datums and compare
+    return DatumGetInt32(a) == DatumGetInt32(b);
+}
+```

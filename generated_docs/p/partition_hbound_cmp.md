@@ -33,3 +33,22 @@ This is a comparison function specifically designed for hash partition bounds. H
 - This is a static function internal to the partbounds.c module
 - The comparison logic prioritizes modulus over remainder, which is essential for proper hash partition ordering
 - Used in binary search operations and sorting of hash partition bounds
+
+## Simplified Source
+
+```c
+static int32 partition_hbound_cmp(int modulus1, int remainder1, int modulus2, int remainder2) {
+    // Compare modulus first
+    if (modulus1 < modulus2)
+        return -1;
+    if (modulus1 > modulus2)
+        return 1;
+
+    // If modulus equal, compare remainder
+    if (modulus1 == modulus2 && remainder1 != remainder2)
+        return (remainder1 > remainder2) ? 1 : -1;
+
+    // Everything equal
+    return 0;
+}
+```

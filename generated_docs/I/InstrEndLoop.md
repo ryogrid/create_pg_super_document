@@ -34,3 +34,35 @@ InstrEndLoop is a critical function in PostgreSQLs query execution instrumentati
 - Resets per-cycle counters (starttime, counter, firsttuple, tuplecount) for potential reuse
 - Sets the running flag to false to indicate the cycle is complete
 - This function is part of PostgreSQLs EXPLAIN ANALYZE functionality that provides detailed execution statistics
+
+## Simplified Source
+
+```c
+void InstrEndLoop(Instrumentation *instr) {
+    double totaltime;
+
+    // Skip if not running or already shut down
+    if (!instr->running)
+        return;
+
+    // Error check: should not be called on actively running node
+    if (!INSTR_TIME_IS_ZERO(instr->starttime))
+        elog(ERROR, "InstrEndLoop called on running node");
+
+    // Get total execution time for this cycle
+    totaltime = INSTR_TIME_GET_DOUBLE(instr->counter);
+
+    // Accumulate cycle statistics into running totals
+    instr->startup += instr->firsttuple;
+    instr->total += totaltime;
+    instr->ntuples += instr->tuplecount;
+    instr->nloops += 1;
+
+    // Reset for next cycle
+    instr->running = false;
+    INSTR_TIME_SET_ZERO(instr->starttime);
+    INSTR_TIME_SET_ZERO(instr->counter);
+    instr->firsttuple = 0;
+    instr->tuplecount = 0;
+}
+```

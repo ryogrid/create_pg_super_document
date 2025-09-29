@@ -41,3 +41,54 @@ Only the 'oversized' flag is initialized in the returned record, leaving other i
 - Initializes circular decode buffer on first use with DEFAULT_DECODE_BUFFER_SIZE
 - Uses unlikely() macro for performance optimization on buffer initialization path
 - Memory allocated with oversized=true must be explicitly freed with pfree()
+
+## Simplified Source
+
+```c
+static DecodedXLogRecord *XLogReadRecordAlloc(XLogReaderState *state, size_t xl_tot_len, bool allow_oversized) {
+    size_t required_space = DecodeXLogRecordRequiredSpace(xl_tot_len);
+    DecodedXLogRecord *decoded = NULL;
+
+    // Initialize circular decode buffer if needed
+    if (unlikely(state->decode_buffer == NULL)) {
+        if (state->decode_buffer_size == 0)
+            state->decode_buffer_size = DEFAULT_DECODE_BUFFER_SIZE;
+        state->decode_buffer = palloc(state->decode_buffer_size);
+        state->decode_buffer_head = state->decode_buffer;
+        state->decode_buffer_tail = state->decode_buffer;
+        state->free_decode_buffer = true;
+    }
+
+    // Try to allocate in circular buffer
+    if (state->decode_buffer_tail >= state->decode_buffer_head) {
+        // Case 1: Try space after tail
+        if (required_space <= state->decode_buffer_size - (state->decode_buffer_tail - state->decode_buffer)) {
+            decoded = (DecodedXLogRecord *) state->decode_buffer_tail;
+            decoded->oversized = false;
+            return decoded;
+        }
+        // Case 2: Try space before head (wrap around)
+        else if (required_space < state->decode_buffer_head - state->decode_buffer) {
+            decoded = (DecodedXLogRecord *) state->decode_buffer;
+            decoded->oversized = false;
+            return decoded;
+        }
+    } else {
+        // Case 3: Tail is left of head - try space between them
+        if (required_space < state->decode_buffer_head - state->decode_buffer_tail) {
+            decoded = (DecodedXLogRecord *) state->decode_buffer_tail;
+            decoded->oversized = false;
+            return decoded;
+        }
+    }
+
+    // No space in buffer - allocate oversized if allowed
+    if (allow_oversized) {
+        decoded = palloc(required_space);
+        decoded->oversized = true;
+        return decoded;
+    }
+
+    return NULL;
+}
+```

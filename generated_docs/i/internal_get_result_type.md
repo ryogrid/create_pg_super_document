@@ -58,3 +58,93 @@ The function handles the most complex scenarios in PostgreSQL's type system, inc
 - Includes comprehensive error handling for invalid function OIDs and unresolvable polymorphic types
 - Located in src/backend/utils/fmgr/funcapi.c at lines 430-550
 - Forms the foundation of PostgreSQL's function result type introspection system
+
+## Simplified Source
+
+```c
+static TypeFuncClass internal_get_result_type(Oid funcid,
+                                              Node *call_expr,
+                                              ReturnSetInfo *rsinfo,
+                                              Oid *resultTypeId,
+                                              TupleDesc *resultTupleDesc) {
+    TypeFuncClass result;
+    HeapTuple tp;
+    Form_pg_proc procform;
+    Oid rettype;
+    Oid base_rettype;
+    TupleDesc tupdesc;
+
+    // Get function info from system catalog
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+    procform = (Form_pg_proc) GETSTRUCT(tp);
+    rettype = procform->prorettype;
+
+    // Check for OUT parameters defining a RECORD result
+    tupdesc = build_function_result_tupdesc_t(tp);
+    if (tupdesc) {
+        // Function has OUT parameters - handle as composite type
+        if (resultTypeId)
+            *resultTypeId = rettype;
+
+        if (resolve_polymorphic_tupdesc(tupdesc, &procform->proargtypes, call_expr)) {
+            // Successfully resolved polymorphic types
+            if (tupdesc->tdtypeid == RECORDOID && tupdesc->tdtypmod < 0)
+                assign_record_type_typmod(tupdesc);
+            if (resultTupleDesc)
+                *resultTupleDesc = tupdesc;
+            result = TYPEFUNC_COMPOSITE;
+        } else {
+            // Could not resolve polymorphic types
+            if (resultTupleDesc)
+                *resultTupleDesc = NULL;
+            result = TYPEFUNC_RECORD;
+        }
+
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Handle scalar polymorphic result types
+    if (IsPolymorphicType(rettype)) {
+        Oid newrettype = exprType(call_expr);
+        if (newrettype == InvalidOid)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                          errmsg("could not determine actual result type for function \"%s\"",
+                                NameStr(procform->proname))));
+        rettype = newrettype;
+    }
+
+    // Set output parameters
+    if (resultTypeId)
+        *resultTypeId = rettype;
+    if (resultTupleDesc)
+        *resultTupleDesc = NULL;
+
+    // Classify the result type and handle accordingly
+    result = get_type_func_class(rettype, &base_rettype);
+    switch (result) {
+        case TYPEFUNC_COMPOSITE:
+        case TYPEFUNC_COMPOSITE_DOMAIN:
+            if (resultTupleDesc)
+                *resultTupleDesc = lookup_rowtype_tupdesc_copy(base_rettype, -1);
+            break;
+        case TYPEFUNC_SCALAR:
+            break;
+        case TYPEFUNC_RECORD:
+            // Try to get tuple descriptor from call context
+            if (rsinfo && IsA(rsinfo, ReturnSetInfo) && rsinfo->expectedDesc != NULL) {
+                result = TYPEFUNC_COMPOSITE;
+                if (resultTupleDesc)
+                    *resultTupleDesc = rsinfo->expectedDesc;
+            }
+            break;
+        default:
+            break;
+    }
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

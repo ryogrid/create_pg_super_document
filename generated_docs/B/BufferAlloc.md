@@ -78,3 +78,79 @@ The function is designed to handle high concurrency scenarios and includes robus
 - The victim buffer selection and eviction logic is delegated to GetVictimBuffer()
 - Proper resource management ensures no buffer leaks even in error conditions
 - The BM_PERMANENT flag is set based on relation persistence and fork type to control checkpoint behavior
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline BufferDesc *
+BufferAlloc(SMgrRelation smgr, char relpersistence, ForkNumber forkNum,
+            BlockNumber blockNum, BufferAccessStrategy strategy,
+            bool *foundPtr, IOContext io_context) {
+    BufferTag newTag;
+    uint32 newHash;
+    LWLock *newPartitionLock;
+    int existing_buf_id;
+
+    // Prepare for buffer allocation
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+    ReservePrivateRefCountEntry();
+
+    // Create buffer tag and calculate hash
+    InitBufferTag(&newTag, &smgr->smgr_rlocator.locator, forkNum, blockNum);
+    newHash = BufTableHashCode(&newTag);
+    newPartitionLock = BufMappingPartitionLock(newHash);
+
+    // Phase 1: Check if buffer already exists
+    LWLockAcquire(newPartitionLock, LW_SHARED);
+    existing_buf_id = BufTableLookup(&newTag, newHash);
+    if (existing_buf_id >= 0) {
+        // Buffer found - pin it and return
+        BufferDesc *buf = GetBufferDescriptor(existing_buf_id);
+        bool valid = PinBuffer(buf, strategy);
+        LWLockRelease(newPartitionLock);
+
+        *foundPtr = valid;  // Set to false if buffer needs I/O
+        return buf;
+    }
+
+    // Phase 2: Buffer not found - allocate new one
+    LWLockRelease(newPartitionLock);
+
+    // Get victim buffer from replacement strategy
+    Buffer victim_buffer = GetVictimBuffer(strategy, io_context);
+    BufferDesc *victim_buf_hdr = GetBufferDescriptor(victim_buffer - 1);
+
+    // Try to insert new buffer mapping
+    LWLockAcquire(newPartitionLock, LW_EXCLUSIVE);
+    existing_buf_id = BufTableInsert(&newTag, newHash, victim_buf_hdr->buf_id);
+
+    if (existing_buf_id >= 0) {
+        // Collision - someone else inserted the buffer
+        UnpinBuffer(victim_buf_hdr);
+        StrategyFreeBuffer(victim_buf_hdr);
+
+        // Use the already-inserted buffer
+        BufferDesc *existing_buf_hdr = GetBufferDescriptor(existing_buf_id);
+        bool valid = PinBuffer(existing_buf_hdr, strategy);
+        LWLockRelease(newPartitionLock);
+
+        *foundPtr = valid;
+        return existing_buf_hdr;
+    }
+
+    // Successfully allocated - initialize victim buffer
+    uint32 victim_buf_state = LockBufHdr(victim_buf_hdr);
+    victim_buf_hdr->tag = newTag;
+
+    // Set buffer flags based on relation persistence
+    victim_buf_state |= BM_TAG_VALID | BUF_USAGECOUNT_ONE;
+    if (relpersistence == RELPERSISTENCE_PERMANENT || forkNum == INIT_FORKNUM)
+        victim_buf_state |= BM_PERMANENT;
+
+    UnlockBufHdr(victim_buf_hdr, victim_buf_state);
+    LWLockRelease(newPartitionLock);
+
+    *foundPtr = false;  // Buffer allocated but needs I/O
+    return victim_buf_hdr;
+}
+```

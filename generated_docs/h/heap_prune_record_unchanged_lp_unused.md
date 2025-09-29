@@ -34,3 +34,13 @@ The function is called when an unused line pointer is encountered that should re
 - The function includes an assertion to ensure the line pointer hasn't already been processed
 - Part of PostgreSQL's vacuum and pruning subsystem for managing dead tuples and reclaiming space
 - The function is simple but critical for maintaining the correctness of the pruning state tracking
+
+## Simplified Source
+
+```c
+static void heap_prune_record_unchanged_lp_unused(Page page, PruneState *prstate, OffsetNumber offnum)
+{
+    // Simply mark this unused line pointer as processed
+    prstate->processed[offnum] = true;
+}
+```

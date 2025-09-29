@@ -35,3 +35,25 @@ The function follows PostgreSQL's standard cleanup pattern by checking for valid
 - It safely handles cases where resources may not have been allocated (null checks)
 - The visibility map buffer release is particularly important for index-only scans as they rely heavily on visibility map information
 - The index relation is closed with NoLock, indicating that lock management is handled elsewhere in the transaction lifecycle
+
+## Simplified Source
+
+```c
+void ExecEndIndexOnlyScan(IndexOnlyScanState *node) {
+    // Extract resources from node state
+    Relation indexRelation = node->ioss_RelationDesc;
+    IndexScanDesc indexScan = node->ioss_ScanDesc;
+
+    // Release visibility map buffer pin if held
+    if (node->ioss_VMBuffer != InvalidBuffer) {
+        ReleaseBuffer(node->ioss_VMBuffer);
+        node->ioss_VMBuffer = InvalidBuffer;
+    }
+
+    // Clean up index scan and close index relation
+    if (indexScan)
+        index_endscan(indexScan);
+    if (indexRelation)
+        index_close(indexRelation, NoLock);
+}
+```

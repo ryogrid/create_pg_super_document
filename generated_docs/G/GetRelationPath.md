@@ -45,3 +45,69 @@ This function generates the full filesystem path for a relation file based on it
 - Temporary files include process number: 't{procNumber}_{relNumber}' format
 - Main fork files don't include fork suffix, other forks append '_{forkName}'
 - procNumber parameter typed as int rather than ProcNumber to avoid header dependencies
+
+## Simplified Source
+
+```c
+char *
+GetRelationPath(Oid dbOid, Oid spcOid, RelFileNumber relNumber,
+                int procNumber, ForkNumber forkNumber)
+{
+    char *path;
+
+    if (spcOid == GLOBALTABLESPACE_OID) {
+        // Global tablespace: shared system relations in global/
+        Assert(dbOid == 0);
+        Assert(procNumber == INVALID_PROC_NUMBER);
+
+        if (forkNumber != MAIN_FORKNUM)
+            path = psprintf("global/%u_%s", relNumber, forkNames[forkNumber]);
+        else
+            path = psprintf("global/%u", relNumber);
+    }
+    else if (spcOid == DEFAULTTABLESPACE_OID) {
+        // Default tablespace: base/{dbOid}/
+        if (procNumber == INVALID_PROC_NUMBER) {
+            // Regular file
+            if (forkNumber != MAIN_FORKNUM)
+                path = psprintf("base/%u/%u_%s", dbOid, relNumber, forkNames[forkNumber]);
+            else
+                path = psprintf("base/%u/%u", dbOid, relNumber);
+        }
+        else {
+            // Temporary file with process number
+            if (forkNumber != MAIN_FORKNUM)
+                path = psprintf("base/%u/t%d_%u_%s", dbOid, procNumber, relNumber, forkNames[forkNumber]);
+            else
+                path = psprintf("base/%u/t%d_%u", dbOid, procNumber, relNumber);
+        }
+    }
+    else {
+        // Custom tablespace: pg_tblspc/{spcOid}/version/{dbOid}/
+        if (procNumber == INVALID_PROC_NUMBER) {
+            // Regular file
+            if (forkNumber != MAIN_FORKNUM)
+                path = psprintf("pg_tblspc/%u/%s/%u/%u_%s",
+                                spcOid, TABLESPACE_VERSION_DIRECTORY,
+                                dbOid, relNumber, forkNames[forkNumber]);
+            else
+                path = psprintf("pg_tblspc/%u/%s/%u/%u",
+                                spcOid, TABLESPACE_VERSION_DIRECTORY,
+                                dbOid, relNumber);
+        }
+        else {
+            // Temporary file with process number
+            if (forkNumber != MAIN_FORKNUM)
+                path = psprintf("pg_tblspc/%u/%s/%u/t%d_%u_%s",
+                                spcOid, TABLESPACE_VERSION_DIRECTORY,
+                                dbOid, procNumber, relNumber, forkNames[forkNumber]);
+            else
+                path = psprintf("pg_tblspc/%u/%s/%u/t%d_%u",
+                                spcOid, TABLESPACE_VERSION_DIRECTORY,
+                                dbOid, procNumber, relNumber);
+        }
+    }
+
+    return path;
+}
+```

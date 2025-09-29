@@ -37,3 +37,36 @@ The function walks up the planner hierarchy to collect all initplan parameters f
 - Parameter collection traverses the entire planner hierarchy (root and all parent_root levels)
 - The initParam field stores the intersection of external parameters needed by the subtree and parameters available from initplans
 - This mechanism is crucial for proper parameter passing in parallel query execution
+
+## Simplified Source
+
+```c
+static void
+set_param_references(PlannerInfo *root, Plan *plan) {
+    Assert(IsA(plan, Gather) || IsA(plan, GatherMerge));
+
+    if (plan->lefttree->extParam) {
+        Bitmapset *initSetParam = NULL;
+        PlannerInfo *proot;
+
+        // Collect all initplan parameters from current and parent query levels
+        for (proot = root; proot != NULL; proot = proot->parent_root) {
+            foreach(l, proot->init_plans) {
+                SubPlan *initsubplan = (SubPlan *) lfirst(l);
+                foreach(l2, initsubplan->setParam) {
+                    initSetParam = bms_add_member(initSetParam, lfirst_int(l2));
+                }
+            }
+        }
+
+        // Store intersection of external params needed and initplan params available
+        if (IsA(plan, Gather)) {
+            ((Gather *) plan)->initParam =
+                bms_intersect(plan->lefttree->extParam, initSetParam);
+        } else {
+            ((GatherMerge *) plan)->initParam =
+                bms_intersect(plan->lefttree->extParam, initSetParam);
+        }
+    }
+}
+```

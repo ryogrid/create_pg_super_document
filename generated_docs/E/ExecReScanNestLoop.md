@@ -37,3 +37,21 @@ The function resets the nested loop's state flags to indicate that a new outer t
 - Critical for correct execution of nested loops within subqueries and correlated queries
 - Part of the standard rescan protocol for plan nodes that can be re-executed
 - Handles the complex interaction between parameter changes and scan state management
+
+## Simplified Source
+
+```c
+void ExecReScanNestLoop(NestLoopState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Rescan outer plan only if no parameters changed
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+
+    // Reset nested loop state flags
+    // Note: Inner plan is NOT rescanned here - it's rescanned
+    // for each outer tuple to handle parameterized scans properly
+    node->nl_NeedNewOuter = true;
+    node->nl_MatchedOuter = false;
+}
+```

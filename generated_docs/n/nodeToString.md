@@ -33,3 +33,12 @@ nodeToString is one of the main externally visible entry points for converting P
 - The function is widely used across the PostgreSQL codebase for serializing parse trees, expressions, and other node structures
 - Memory for the returned string is allocated using PostgreSQL's palloc mechanism
 - This function is preferred over nodeToStringWithLocations for production use cases where debugging location information is not needed
+
+## Simplified Source
+
+```c
+char *nodeToString(const void *obj) {
+    // Convert node to string without location fields
+    return nodeToStringInternal(obj, false);
+}
+```

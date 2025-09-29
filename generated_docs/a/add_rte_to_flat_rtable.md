@@ -55,3 +55,46 @@ The  function creates an optimized copy of a RangeTblEntry for inclusion in the 
 - Handles schema invalidation requirements for expanded views, eliminated child tables, and other cases
 - The perminfoindex manipulation ensures proper linkage between RTEs and their permission information in the flattened structure
 - Essential for preparing the rangetable for efficient executor access while maintaining necessary metadata for EXPLAIN and permissions
+
+## Simplified Source
+
+```c
+static void add_rte_to_flat_rtable(PlannerGlobal *glob, List *rteperminfos, RangeTblEntry *rte) {
+    // Create a copy of the RTE for the flattened rangetable
+    RangeTblEntry *newrte = (RangeTblEntry *) palloc(sizeof(RangeTblEntry));
+    memcpy(newrte, rte, sizeof(RangeTblEntry));
+
+    // Zero out unneeded substructures to save memory
+    newrte->tablesample = NULL;
+    newrte->subquery = NULL;
+    newrte->joinaliasvars = NIL;
+    newrte->joinleftcols = NIL;
+    newrte->joinrightcols = NIL;
+    newrte->join_using_alias = NULL;
+    newrte->functions = NIL;
+    newrte->tablefunc = NULL;
+    newrte->values_lists = NIL;
+    newrte->coltypes = NIL;
+    newrte->coltypmods = NIL;
+    newrte->colcollations = NIL;
+    newrte->securityQuals = NIL;
+
+    // Add to final rangetable
+    glob->finalrtable = lappend(glob->finalrtable, newrte);
+
+    // Track relation OID for schema invalidation if needed
+    if (newrte->rtekind == RTE_RELATION ||
+        (newrte->rtekind == RTE_SUBQUERY && OidIsValid(newrte->relid))) {
+        glob->relationOids = lappend_oid(glob->relationOids, newrte->relid);
+    }
+
+    // Handle permission information if present
+    if (rte->perminfoindex > 0) {
+        RTEPermissionInfo *perminfo = getRTEPermissionInfo(rteperminfos, newrte);
+
+        newrte->perminfoindex = 0;
+        RTEPermissionInfo *newperminfo = addRTEPermissionInfo(&glob->finalrteperminfos, newrte);
+        memcpy(newperminfo, perminfo, sizeof(RTEPermissionInfo));
+    }
+}
+```

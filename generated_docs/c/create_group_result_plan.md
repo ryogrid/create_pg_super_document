@@ -41,3 +41,25 @@ The function creates a minimal plan structure that simply applies any remaining 
 - Qualification clauses from the GroupResultPath are applied as filters in the Result node
 - This optimization avoids the overhead of full grouping operations when they're not actually needed
 - Commonly used for queries like "SELECT COUNT(*) FROM table WHERE false" or similar constant-result cases
+
+## Simplified Source
+
+```c
+static Result *
+create_group_result_plan(PlannerInfo *root, GroupResultPath *best_path)
+{
+    // Build target list for the result
+    List *tlist = build_path_tlist(root, &best_path->path);
+
+    // Process any remaining qualification clauses
+    List *quals = order_qual_clauses(root, best_path->quals);
+
+    // Create the Result plan node
+    Result *plan = make_result(tlist, (Node *) quals, NULL);
+
+    // Copy generic path information
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

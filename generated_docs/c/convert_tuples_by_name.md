@@ -39,3 +39,25 @@ The function acts as a convenience wrapper that first calls  to create the attri
 - Returns NULL if no runtime conversion is needed (descriptors are compatible)
 - Error messages may be unhelpful unless both rowtypes are named composite types
 - More flexible than position-based conversion as it handles column reordering
+
+## Simplified Source
+
+```c
+TupleConversionMap *
+convert_tuples_by_name(TupleDesc indesc,
+                       TupleDesc outdesc)
+{
+    AttrMap *attrMap;
+
+    // Build attribute mapping by matching column names
+    attrMap = build_attrmap_by_name_if_req(indesc, outdesc, false);
+
+    if (attrMap == NULL) {
+        // No conversion needed - descriptors are compatible
+        return NULL;
+    }
+
+    // Create conversion map using the attribute mapping
+    return convert_tuples_by_name_attrmap(indesc, outdesc, attrMap);
+}
+```

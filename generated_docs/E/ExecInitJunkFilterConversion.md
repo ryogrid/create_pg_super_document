@@ -43,3 +43,62 @@ Key differences from ExecInitJunkFilter:
 - The mapping algorithm assumes caller has verified that non-deleted columns correspond to non-junk target entries
 - Zero entries in cleanMap indicate deleted columns that should produce NULL values in output
 - Critical for maintaining data integrity during schema evolution and type conversion operations
+
+## Simplified Source
+
+```c
+JunkFilter *ExecInitJunkFilterConversion(List *targetList, TupleDesc cleanTupType, TupleTableSlot *slot)
+{
+    JunkFilter *junkfilter;
+    int cleanLength;
+    AttrNumber *cleanMap;
+    ListCell *t;
+    int i;
+
+    // Step 1: Set up the result slot with the clean tuple descriptor
+    if (slot) {
+        ExecSetSlotDescriptor(slot, cleanTupType);
+    } else {
+        slot = MakeSingleTupleTableSlot(cleanTupType, &TTSOpsVirtual);
+    }
+
+    // Step 2: Build mapping from clean tuple positions to original tuple positions
+    cleanLength = cleanTupType->natts;
+
+    if (cleanLength > 0) {
+        // Zero-initialize mapping array (zeros indicate deleted/NULL columns)
+        cleanMap = (AttrNumber *) palloc0(cleanLength * sizeof(AttrNumber));
+
+        t = list_head(targetList);
+
+        // For each attribute in the clean tuple
+        for (i = 0; i < cleanLength; i++) {
+            if (TupleDescAttr(cleanTupType, i)->attisdropped) {
+                continue;  // Deleted column: map entry remains zero
+            }
+
+            // Find next non-junk target entry
+            for (;;) {
+                TargetEntry *tle = lfirst(t);
+                t = lnext(targetList, t);
+
+                if (!tle->resjunk) {
+                    cleanMap[i] = tle->resno;  // Map to original position
+                    break;
+                }
+            }
+        }
+    } else {
+        cleanMap = NULL;  // No attributes to map
+    }
+
+    // Step 3: Create and initialize the JunkFilter structure
+    junkfilter = makeNode(JunkFilter);
+    junkfilter->jf_targetList = targetList;
+    junkfilter->jf_cleanTupType = cleanTupType;
+    junkfilter->jf_cleanMap = cleanMap;
+    junkfilter->jf_resultSlot = slot;
+
+    return junkfilter;
+}
+```

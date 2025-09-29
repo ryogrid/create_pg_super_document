@@ -34,3 +34,12 @@ This function is essential for proper memory management in bitmap scan operation
 
 ## Notes and Other Information
 This is a simple but important cleanup function that could be extended in future versions to provide more sophisticated iterator management. Always pair with  to ensure proper resource management. For shared iterators, use  instead.
+
+## Simplified Source
+
+```c
+void tbm_end_iterate(TBMIterator *iterator) {
+    // Clean up iterator resources
+    pfree(iterator);
+}
+```

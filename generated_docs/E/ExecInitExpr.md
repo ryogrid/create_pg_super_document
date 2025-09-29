@@ -49,3 +49,39 @@ The compilation process supports concurrent execution of the same plan tree sinc
 - Functions requiring additional cleanup can register shutdown callbacks in the ExprContext
 - Returns NULL for NULL input expressions; NULL ExprState pointers are accepted by ExecQual and ExecCheck but not ExecEvalExpr
 - The compiled ExprState uses a step-based execution model for optimal performance
+
+## Simplified Source
+
+```c
+ExprState *
+ExecInitExpr(Expr *node, PlanState *parent)
+{
+    // Handle NULL expression - return NULL for caller convenience
+    if (node == NULL)
+        return NULL;
+
+    // Initialize empty ExprState
+    ExprState *state = makeNode(ExprState);
+    ExprEvalStep step = {0};
+
+    // Set basic properties
+    state->expr = node;
+    state->parent = parent;
+    state->ext_params = NULL;
+
+    // Insert any required setup steps (param setup, etc.)
+    ExecCreateExprSetupSteps(state, (Node *) node);
+
+    // Recursively compile the expression tree into evaluation steps
+    ExecInitExprRec(node, state, &state->resvalue, &state->resnull);
+
+    // Add final DONE step to mark end of execution
+    step.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &step);
+
+    // Finalize expression for execution
+    ExecReadyExpr(state);
+
+    return state;
+}
+```

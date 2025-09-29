@@ -41,3 +41,21 @@ StartReadBuffer is a convenience function that provides a streamlined interface 
 - This function provides a cleaner API for single-block reads compared to setting up the nblocks parameter for StartReadBuffers
 - The optimization comes from compile-time specialization rather than runtime parameter checking
 - Used extensively in the read stream infrastructure and general buffer management code paths
+
+## Simplified Source
+
+```c
+bool StartReadBuffer(ReadBuffersOperation *operation, Buffer *buffer,
+                    BlockNumber blocknum, int flags) {
+    // Always reading exactly one block
+    int nblocks = 1;
+
+    // Call the main implementation
+    bool result = StartReadBuffersImpl(operation, buffer, blocknum, &nblocks, flags);
+
+    // Single block operations can't be short
+    Assert(nblocks == 1);
+
+    return result;
+}
+```

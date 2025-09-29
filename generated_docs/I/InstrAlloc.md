@@ -30,3 +30,33 @@ InstrAlloc is a core function in PostgreSQL's execution instrumentation system t
 
 ## Notes and Other Information
 The function follows PostgreSQL's memory management conventions by using palloc0 for zero-initialized allocation. The instrumentation options are processed using bitwise operations to enable specific monitoring features. All allocated Instrumentation structures in the array share the same configuration based on the provided parameters, ensuring consistent monitoring behavior across multiple execution nodes.
+
+## Simplified Source
+
+```c
+Instrumentation *
+InstrAlloc(int n, int instrument_options, bool async_mode)
+{
+    Instrumentation *instr;
+
+    // Allocate array of instrumentation structures, zero-initialized
+    instr = palloc0(n * sizeof(Instrumentation));
+
+    // Configure instrumentation features if any are requested
+    if (instrument_options & (INSTRUMENT_BUFFERS | INSTRUMENT_TIMER | INSTRUMENT_WAL)) {
+        bool need_buffers = (instrument_options & INSTRUMENT_BUFFERS) != 0;
+        bool need_wal = (instrument_options & INSTRUMENT_WAL) != 0;
+        bool need_timer = (instrument_options & INSTRUMENT_TIMER) != 0;
+
+        // Apply configuration to all structures in the array
+        for (int i = 0; i < n; i++) {
+            instr[i].need_bufusage = need_buffers;
+            instr[i].need_walusage = need_wal;
+            instr[i].need_timer = need_timer;
+            instr[i].async_mode = async_mode;
+        }
+    }
+
+    return instr;
+}
+```

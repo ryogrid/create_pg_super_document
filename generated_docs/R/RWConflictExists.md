@@ -43,3 +43,33 @@ This function determines if there is already an existing read-write conflict bet
 - Uses unconstify to work around const restrictions in dlist_foreach
 - Part of PostgreSQL's serializable snapshot isolation implementation
 - Located in src/backend/storage/lmgr/predicate.c:610-642
+
+## Simplified Source
+
+```c
+static bool
+RWConflictExists(const SERIALIZABLEXACT *reader, const SERIALIZABLEXACT *writer)
+{
+    dlist_iter iter;
+
+    Assert(reader != writer);
+
+    // Quick checks for impossible conflicts
+    if (SxactIsDoomed(reader) ||
+        SxactIsDoomed(writer) ||
+        dlist_is_empty(&reader->outConflicts) ||
+        dlist_is_empty(&writer->inConflicts)) {
+        return false;
+    }
+
+    // Search through reader's outgoing conflicts
+    dlist_foreach(iter, &unconstify(SERIALIZABLEXACT *, reader)->outConflicts) {
+        RWConflict conflict = dlist_container(RWConflictData, outLink, iter.cur);
+
+        if (conflict->sxactIn == writer)
+            return true;
+    }
+
+    return false;
+}
+```

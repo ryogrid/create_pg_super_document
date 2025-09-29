@@ -62,3 +62,46 @@ The function specifically excludes domain types from processing, as domain typmo
 - Essential for enforcing length constraints on types like VARCHAR(n), CHAR(n), NUMERIC(p,s)
 - Always preserves the expression's collation when applying RelabelType
 - Located in src/backend/parser/parse_coerce.c:753-810
+
+## Simplified Source
+
+```c
+static Node *
+coerce_type_typmod(Node *node, Oid targetTypeId, int32 targetTypMod,
+                   CoercionContext ccontext, CoercionForm cformat,
+                   int location, bool hideInputCoercion) {
+    CoercionPathType pathtype;
+    Oid funcId;
+
+    // Skip if already has correct typmod
+    if (targetTypMod == exprTypmod(node))
+        return node;
+
+    // Hide nested coercion steps if requested
+    if (hideInputCoercion)
+        hide_coercion_node(node);
+
+    // Determine coercion approach
+    if (targetTypMod < 0) {
+        // Negative typmod = no actual coercion needed
+        pathtype = COERCION_PATH_NONE;
+    } else {
+        // Find appropriate coercion function
+        pathtype = find_typmod_coercion_function(targetTypeId, &funcId);
+    }
+
+    if (pathtype != COERCION_PATH_NONE) {
+        // Apply functional coercion (e.g., for length constraints)
+        node = build_coercion_expression(node, pathtype, funcId,
+                                       targetTypeId, targetTypMod,
+                                       ccontext, cformat, location);
+    } else {
+        // Apply RelabelType to expose the intended typmod
+        node = applyRelabelType(node, targetTypeId, targetTypMod,
+                              exprCollation(node),
+                              cformat, location, false);
+    }
+
+    return node;
+}
+```

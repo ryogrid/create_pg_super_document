@@ -36,3 +36,16 @@ This function is typically used by other WAL management routines to determine wh
 - Essential for conditional WAL file management operations
 - Location: src/backend/access/transam/xlog.c:9508-9522
 - Part of the thread-safe interface for WAL optimization state management
+
+## Simplified Source
+
+```c
+bool IsInstallXLogFileSegmentActive(void) {
+    // Thread-safe read of WAL file installation status
+    LWLockAcquire(ControlFileLock, LW_SHARED);
+    bool result = XLogCtl->InstallXLogFileSegmentActive;
+    LWLockRelease(ControlFileLock);
+
+    return result;
+}
+```

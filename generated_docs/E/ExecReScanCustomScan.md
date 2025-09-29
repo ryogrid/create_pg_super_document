@@ -28,3 +28,15 @@ ExecReScanCustomScan is called when a custom scan node needs to be reset to rest
 - The custom scan provider must properly implement state reset logic in their ReScanCustomScan callback
 - The function assumes the custom scan provider has implemented the ReScanCustomScan method
 - Rescan operations must ensure the scan can be restarted from the beginning with consistent results
+
+## Simplified Source
+
+```c
+void ExecReScanCustomScan(CustomScanState *node) {
+    // Ensure the custom scan provider has implemented rescan method
+    Assert(node->methods->ReScanCustomScan != NULL);
+
+    // Delegate to custom scan provider's rescan implementation
+    node->methods->ReScanCustomScan(node);
+}
+```

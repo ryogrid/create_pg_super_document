@@ -45,3 +45,41 @@ The distinction between expressions that get converted to INDEX_VAR (targetlist,
 
 ## Notes and Other Information
 IndexOnlyScan is the only scan type that requires this specialized handling because it's the only scan that changes the source of column values from heap tuples to index tuples. The function carefully distinguishes between expressions that need INDEX_VAR transformation (those that will be evaluated using index column values) and those that don't (those that are already in index column terms or serve structural purposes). The recheckqual field is particularly important as it contains conditions that must be rechecked after retrieving heap tuples if the index scan's visibility map indicates potential tuple visibility issues.
+
+## Simplified Source
+
+```c
+static Plan *
+set_indexonlyscan_references(PlannerInfo *root, IndexOnlyScan *plan, int rtoffset) {
+    // Create stripped index targetlist (remove non-returnable columns)
+    List *stripped_indextlist = NIL;
+    foreach(lc, plan->indextlist) {
+        TargetEntry *indextle = (TargetEntry *) lfirst(lc);
+        if (!indextle->resjunk) {
+            stripped_indextlist = lappend(stripped_indextlist, indextle);
+        }
+    }
+
+    // Build index for efficient column lookups
+    indexed_tlist *index_itlist = build_tlist_index(stripped_indextlist);
+
+    // Adjust scan relation ID
+    plan->scan.scanrelid += rtoffset;
+
+    // Convert heap-referencing expressions to index-referencing using INDEX_VAR
+    plan->scan.plan.targetlist = fix_upper_expr(root, plan->scan.plan.targetlist,
+                                               index_itlist, INDEX_VAR, rtoffset);
+    plan->scan.plan.qual = fix_upper_expr(root, plan->scan.plan.qual,
+                                         index_itlist, INDEX_VAR, rtoffset);
+    plan->recheckqual = fix_upper_expr(root, plan->recheckqual,
+                                     index_itlist, INDEX_VAR, rtoffset);
+
+    // Process expressions that already reference index columns (no INDEX_VAR conversion)
+    plan->indexqual = fix_scan_list(root, plan->indexqual, rtoffset, 1);
+    plan->indexorderby = fix_scan_list(root, plan->indexorderby, rtoffset, 1);
+    plan->indextlist = fix_scan_list(root, plan->indextlist, rtoffset);
+
+    pfree(index_itlist);
+    return (Plan *) plan;
+}
+```

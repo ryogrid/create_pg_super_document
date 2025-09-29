@@ -40,3 +40,29 @@ This function constructs a new Bitmapset with a single bit set at position . It 
 - The resulting Bitmapset has its type field set to T_Bitmapset for node type identification
 - The nwords field is set to accommodate the highest word needed for the specified bit position
 - This is a foundational function used throughout PostgreSQL's query optimizer and planner
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_make_singleton(int x)
+{
+    // Validate input
+    if (x < 0)
+        elog(ERROR, "negative bitmapset member not allowed");
+
+    // Calculate word and bit position
+    int wordnum = WORDNUM(x);
+    int bitnum = BITNUM(x);
+
+    // Allocate and initialize bitmapset
+    Bitmapset *result = (Bitmapset *) palloc0(BITMAPSET_SIZE(wordnum + 1));
+    result->type = T_Bitmapset;
+    result->nwords = wordnum + 1;
+
+    // Set the single bit
+    result->words[wordnum] = ((bitmapword) 1 << bitnum);
+
+    return result;
+}
+```

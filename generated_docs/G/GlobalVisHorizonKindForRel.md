@@ -42,3 +42,26 @@ The function implements a hierarchical decision tree, checking from most conserv
 - Contains an assertion to ensure only supported relation kinds (regular relations, materialized views, and TOAST values) are processed
 - The decision logic prioritizes safety: shared relations and recovery mode always use the most conservative horizon
 - Temporary relations get the most aggressive cleanup since they're session-local and don't need to consider other transactions
+
+## Simplified Source
+
+```c
+static inline GlobalVisHorizonKind GlobalVisHorizonKindForRel(Relation rel)
+{
+    // Most conservative case: NULL relation, shared relations, or during recovery
+    if (rel == NULL || rel->rd_rel->relisshared || RecoveryInProgress())
+        return VISHORIZON_SHARED;
+
+    // Catalog relations and logical decoding accessible relations
+    else if (IsCatalogRelation(rel) || RelationIsAccessibleInLogicalDecoding(rel))
+        return VISHORIZON_CATALOG;
+
+    // Regular user data relations
+    else if (!RELATION_IS_LOCAL(rel))
+        return VISHORIZON_DATA;
+
+    // Local temporary relations (most aggressive cleanup)
+    else
+        return VISHORIZON_TEMP;
+}
+```

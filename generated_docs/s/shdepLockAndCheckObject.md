@@ -49,3 +49,47 @@ The locking prevents the object from being dropped while a dependency is being r
 - Function does not return if the object is found to be missing (ereport with ERROR)
 - Critical for preventing orphaned dependency records in pg_shdepend
 - Memory management: properly frees allocated strings for tablespace and database names
+
+## Simplified Source
+
+```c
+void
+shdepLockAndCheckObject(Oid classId, Oid objectId)
+{
+    // Lock the object to prevent concurrent drops
+    LockSharedObject(classId, objectId, 0, AccessShareLock);
+
+    // Verify object still exists after acquiring lock
+    switch (classId)
+    {
+        case AuthIdRelationId:
+            // Check role existence via syscache
+            if (!SearchSysCacheExists1(AUTHOID, ObjectIdGetDatum(objectId)))
+                ereport(ERROR, "role %u was concurrently dropped", objectId);
+            break;
+
+        case TableSpaceRelationId:
+            {
+                // Check tablespace existence (no syscache available)
+                char *tablespace = get_tablespace_name(objectId);
+                if (tablespace == NULL)
+                    ereport(ERROR, "tablespace %u was concurrently dropped", objectId);
+                pfree(tablespace);
+                break;
+            }
+
+        case DatabaseRelationId:
+            {
+                // Check database existence (no syscache available)
+                char *database = get_database_name(objectId);
+                if (database == NULL)
+                    ereport(ERROR, "database %u was concurrently dropped", objectId);
+                pfree(database);
+                break;
+            }
+
+        default:
+            elog(ERROR, "unrecognized shared classId: %u", classId);
+    }
+}
+```

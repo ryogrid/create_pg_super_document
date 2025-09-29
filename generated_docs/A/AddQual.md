@@ -53,3 +53,46 @@ The function is primarily used during rule processing where additional condition
 - Special handling for NOTIFY statements allows rules to execute even when qualifiers would normally prevent them
 - Maintains query metadata (hasSubLinks flag) to ensure proper query processing downstream
 - Used extensively in rule processing where dynamic addition of WHERE conditions is common
+
+## Simplified Source
+
+```c
+void
+AddQual(Query *parsetree, Node *qual)
+{
+    Node       *copy;
+
+    if (qual == NULL)
+        return;
+
+    if (parsetree->commandType == CMD_UTILITY)
+    {
+        // Special case: silently ignore qual for NOTIFY statements
+        if (parsetree->utilityStmt && IsA(parsetree->utilityStmt, NotifyStmt))
+            return;
+        else
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("conditional utility statements are not implemented")));
+    }
+
+    if (parsetree->setOperations != NULL)
+    {
+        // Cannot add quals to set operations (UNION/INTERSECT/EXCEPT)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("conditional UNION/INTERSECT/EXCEPT statements are not implemented")));
+    }
+
+    // Copy the qualifier and add to WHERE clause
+    copy = copyObject(qual);
+    parsetree->jointree->quals = make_and_qual(parsetree->jointree->quals, copy);
+
+    // Verify no aggregates were added to WHERE clause
+    Assert(!contain_aggs_of_level(copy, 0));
+
+    // Update hasSubLinks flag if qualifier contains sublinks
+    if (!parsetree->hasSubLinks)
+        parsetree->hasSubLinks = checkExprHasSubLink(copy);
+}
+```

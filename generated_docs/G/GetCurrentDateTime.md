@@ -38,3 +38,16 @@ The function fills the provided pg_tm structure with the current transaction tim
 - The function maintains transaction-level consistency by using the transaction start time
 - The timezone conversion is handled automatically based on the session's timezone setting
 - Part of PostgreSQL's internal datetime handling utilities located in src/backend/utils/adt/datetime.c
+
+## Simplified Source
+
+```c
+void
+GetCurrentDateTime(struct pg_tm *tm)
+{
+    fsec_t fsec;
+
+    // Get current time with microseconds, but ignore the precision
+    GetCurrentTimeUsec(tm, &fsec, NULL);
+}
+```

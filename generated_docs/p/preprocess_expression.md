@@ -53,3 +53,51 @@ The function is context-aware, applying different optimizations based on the exp
 - Essential effect includes constant expression evaluation which cannot be skipped in modern PostgreSQL versions
 - Handles correlation variables by replacing them with Param nodes for outer query references
 - Located in src/backend/optimizer/plan/planner.c:1156-1257
+
+## Simplified Source
+```c
+static Node *preprocess_expression(PlannerInfo *root, Node *expr, int kind)
+{
+    // Quick exit for empty expressions
+    if (expr == NULL)
+        return NULL;
+
+    // Step 1: Flatten join alias variables to base-relation variables
+    // Skip for certain RTE types that can't contain query-level Vars
+    if (root->hasJoinRTEs &&
+        !(kind == EXPRKIND_RTFUNC ||
+          kind == EXPRKIND_VALUES ||
+          kind == EXPRKIND_TABLESAMPLE ||
+          kind == EXPRKIND_TABLEFUNC))
+        expr = flatten_join_alias_vars(root, root->parse, expr);
+
+    // Step 2: Simplify constant expressions and convert function calls
+    // This also flattens nested AND/OR expressions
+    if (kind != EXPRKIND_RTFUNC)
+        expr = eval_const_expressions(root, expr);
+
+    // Step 3: Canonicalize qualification expressions
+    if (kind == EXPRKIND_QUAL) {
+        expr = (Node *) canonicalize_qual((Expr *) expr, false);
+    }
+
+    // Step 4: Optimize ScalarArrayOpExpr with hash lookups
+    if (kind == EXPRKIND_QUAL || kind == EXPRKIND_TARGET) {
+        convert_saop_to_hashed_saop(expr);
+    }
+
+    // Step 5: Expand SubLinks to SubPlans
+    if (root->parse->hasSubLinks)
+        expr = SS_process_sublinks(root, expr, (kind == EXPRKIND_QUAL));
+
+    // Step 6: Replace correlation variables with Param nodes
+    if (root->query_level > 1)
+        expr = SS_replace_correlation_vars(root, expr);
+
+    // Step 7: Convert qual expressions to implicit-AND format
+    if (kind == EXPRKIND_QUAL)
+        expr = (Node *) make_ands_implicit((Expr *) expr);
+
+    return expr;
+}
+```

@@ -24,3 +24,12 @@ TypeIsVisible is a convenience wrapper function that checks if a type is visible
 
 ## Notes and Other Information
 This function is a simple wrapper that provides backward compatibility and a simpler interface when the extended functionality of TypeIsVisibleExt is not needed. The function follows the same pattern as RelationIsVisible for relations. It is defined in src/backend/catalog/namespace.c:1040-1051.
+
+## Simplified Source
+
+```c
+bool TypeIsVisible(Oid typid) {
+    // Simple wrapper that delegates to the extended version
+    return TypeIsVisibleExt(typid, NULL);
+}
+```

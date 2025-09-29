@@ -46,3 +46,32 @@ This comprehensive reset ensures that the recursive union can be executed again 
 - Clears tuple stores without deallocating them, maintaining efficiency for subsequent executions
 - Essential for nested loop joins and other scenarios where recursive queries may need multiple executions
 - Maintains proper coordination between recursive and non-recursive terms during rescan operations
+
+## Simplified Source
+
+```c
+void ExecReScanRecursiveUnion(RecursiveUnionState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+    PlanState *innerPlan = innerPlanState(node);
+    RecursiveUnion *plan = (RecursiveUnion *) node->ps.plan;
+
+    // Mark recursive term for rescan due to working table changes
+    innerPlan->chgParam = bms_add_member(innerPlan->chgParam, plan->wtParam);
+
+    // Rescan non-recursive term if no parameters changed
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+
+    // Reset memory contexts and hash table
+    if (node->tableContext)
+        MemoryContextReset(node->tableContext);
+    if (plan->numCols > 0)
+        ResetTupleHashTable(node->hashtable);
+
+    // Reset execution state to initial values
+    node->recursing = false;
+    node->intermediate_empty = true;
+    tuplestore_clear(node->working_table);
+    tuplestore_clear(node->intermediate_table);
+}
+```

@@ -57,3 +57,48 @@ The function also handles async commit semantics by ensuring proper coordination
 - For commits, subtransactions are first marked SUB_COMMITTED, then the main transaction is marked COMMITTED, then subtransactions are updated to COMMITTED
 - Marks the SLRU page as dirty after updates to ensure eventual disk persistence
 - Contains assertions to verify all transactions are actually on the expected page
+
+## Simplified Source
+
+```c
+static void
+TransactionIdSetPageStatusInternal(TransactionId xid, int nsubxids,
+                                   TransactionId *subxids, XidStatus status,
+                                   XLogRecPtr lsn, int64 pageno)
+{
+    int slotno;
+    int i;
+
+    // Validate input parameters
+    Assert(status == TRANSACTION_STATUS_COMMITTED ||
+           status == TRANSACTION_STATUS_ABORTED ||
+           (status == TRANSACTION_STATUS_SUB_COMMITTED && !TransactionIdIsValid(xid)));
+
+    // Read the CLOG page into memory
+    // Wait for writes if doing async commit (lsn is valid)
+    slotno = SimpleLruReadPage(XactCtl, pageno, XLogRecPtrIsInvalid(lsn), xid);
+
+    // Update main transaction if valid
+    if (TransactionIdIsValid(xid)) {
+        // For commits: mark subtransactions as SUB_COMMITTED first
+        if (status == TRANSACTION_STATUS_COMMITTED) {
+            for (i = 0; i < nsubxids; i++) {
+                TransactionIdSetStatusBit(subxids[i],
+                                        TRANSACTION_STATUS_SUB_COMMITTED,
+                                        lsn, slotno);
+            }
+        }
+
+        // Set the main transaction status
+        TransactionIdSetStatusBit(xid, status, lsn, slotno);
+    }
+
+    // Set final status for all subtransactions
+    for (i = 0; i < nsubxids; i++) {
+        TransactionIdSetStatusBit(subxids[i], status, lsn, slotno);
+    }
+
+    // Mark page as dirty for eventual persistence
+    XactCtl->shared->page_dirty[slotno] = true;
+}
+```

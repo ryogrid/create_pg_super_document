@@ -34,3 +34,31 @@ This function implements the registration mechanism for ON COMMIT actions on tem
 - Tracks subtransaction IDs for proper cleanup in case of subtransaction rollback
 - [Backend](../B/Backend.md)-local storage is sufficient since temp tables are session-specific
 - Critical component of PostgreSQL's temporary table lifecycle management
+
+## Simplified Source
+
+```c
+void register_on_commit_action(Oid relid, OnCommitAction action) {
+    OnCommitItem *oc;
+    MemoryContext oldcxt;
+
+    // Skip registration for actions that don't need commit-time processing
+    if (action == ONCOMMIT_NOOP || action == ONCOMMIT_PRESERVE_ROWS)
+        return;
+
+    // Switch to cache context to survive transaction boundaries
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+
+    // Create and initialize the commit item
+    oc = palloc(sizeof(OnCommitItem));
+    oc->relid = relid;
+    oc->oncommit = action;
+    oc->creating_subid = GetCurrentSubTransactionId();
+    oc->deleting_subid = InvalidSubTransactionId;
+
+    // Add to front of list (reverse processing order)
+    on_commits = lcons(oc, on_commits);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

@@ -38,3 +38,17 @@ Note that the function only handles cleanup of the subplans themselves - the Mer
 - Memory allocated for the MergeAppendState itself and related structures is handled by memory context destruction rather than explicit deallocation
 - Critical for preventing resource leaks in complex queries with multiple subplans
 - The function assumes that all entries in the mergeplans array are valid PlanState pointers (non-null)
+
+## Simplified Source
+
+```c
+void ExecEndMergeAppend(MergeAppendState *node) {
+    // Extract the array of child plans and count
+    PlanState **mergeplans = node->mergeplans;
+    int nplans = node->ms_nplans;
+
+    // Recursively shut down each child plan
+    for (int i = 0; i < nplans; i++)
+        ExecEndNode(mergeplans[i]);
+}
+```

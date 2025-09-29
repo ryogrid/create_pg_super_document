@@ -52,3 +52,70 @@ This optimization is crucial for performance, preventing the accumulation of red
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - The function only operates on locks owned by the current transaction (MySerializableXact)
 - Careful lock ordering prevents deadlocks during cleanup operations
+
+## Simplified Source
+
+```c
+static void
+DeleteChildTargetLocks(const PREDICATELOCKTARGETTAG *newtargettag)
+{
+    SERIALIZABLEXACT *sxact;
+    PREDICATELOCK *predlock;
+    dlist_mutable_iter iter;
+
+    // Acquire locks for safe access to transaction data
+    LWLockAcquire(SerializablePredicateListLock, LW_SHARED);
+    sxact = MySerializableXact;
+    if (IsInParallelMode())
+        LWLockAcquire(&sxact->perXactPredicateListLock, LW_EXCLUSIVE);
+
+    // Iterate through all locks held by this transaction
+    dlist_foreach_modify(iter, &sxact->predicateLocks)
+    {
+        PREDICATELOCKTAG oldlocktag;
+        PREDICATELOCKTARGET *oldtarget;
+        PREDICATELOCKTARGETTAG oldtargettag;
+
+        predlock = dlist_container(PREDICATELOCK, xactLink, iter.cur);
+
+        oldlocktag = predlock->tag;
+        oldtarget = oldlocktag.myTarget;
+        oldtargettag = oldtarget->tag;
+
+        // Check if this old lock is covered by the new target
+        if (TargetTagIsCoveredBy(oldtargettag, *newtargettag))
+        {
+            uint32 oldtargettaghash;
+            LWLock *partitionLock;
+
+            // Calculate hash and get partition lock
+            oldtargettaghash = PredicateLockTargetTagHashCode(&oldtargettag);
+            partitionLock = PredicateLockHashPartitionLock(oldtargettaghash);
+
+            LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+            // Remove lock from all data structures
+            dlist_delete(&predlock->xactLink);
+            dlist_delete(&predlock->targetLink);
+
+            hash_search_with_hash_value(PredicateLockHash,
+                                       &oldlocktag,
+                                       PredicateLockHashCodeFromTargetHashCode(&oldlocktag, oldtargettaghash),
+                                       HASH_REMOVE, NULL);
+
+            // Clean up target if no longer used
+            RemoveTargetIfNoLongerUsed(oldtarget, oldtargettaghash);
+
+            LWLockRelease(partitionLock);
+
+            // Update parent lock counts
+            DecrementParentLocks(&oldtargettag);
+        }
+    }
+
+    // Release locks in reverse order
+    if (IsInParallelMode())
+        LWLockRelease(&sxact->perXactPredicateListLock);
+    LWLockRelease(SerializablePredicateListLock);
+}
+```

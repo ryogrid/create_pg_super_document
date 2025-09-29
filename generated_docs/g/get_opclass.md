@@ -37,3 +37,32 @@ The function uses the system catalog cache to look up the operator class informa
 - Uses system catalog cache (CLAOID) for efficient operator class lookup
 - Returns NIL when no explicit operator class specification is needed, which helps generate cleaner SQL
 - Part of the index constraint transformation logic in PostgreSQL's parser
+
+## Simplified Source
+
+```c
+static List *get_opclass(Oid opclass, Oid actual_datatype)
+{
+    List *result = NIL;
+
+    // Look up the operator class in system cache
+    HeapTuple ht_opc = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclass));
+    if (!HeapTupleIsValid(ht_opc))
+        elog(ERROR, "cache lookup failed for opclass %u", opclass);
+
+    Form_pg_opclass opc_rec = (Form_pg_opclass) GETSTRUCT(ht_opc);
+
+    // Only return qualified name if not the default operator class
+    if (GetDefaultOpClass(actual_datatype, opc_rec->opcmethod) != opclass)
+    {
+        // Always schema-qualify for simplicity
+        char *nsp_name = get_namespace_name(opc_rec->opcnamespace);
+        char *opc_name = pstrdup(NameStr(opc_rec->opcname));
+
+        result = list_make2(makeString(nsp_name), makeString(opc_name));
+    }
+
+    ReleaseSysCache(ht_opc);
+    return result;
+}
+```

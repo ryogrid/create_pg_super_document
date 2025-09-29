@@ -33,3 +33,23 @@ ExecReScanTidScan performs a rescan operation on a TID scan node, resetting all 
 - The table_rescan call with NULL parameter indicates a full rescan without new scan keys
 - Follows the standard PostgreSQL executor pattern of calling generic rescan functions after node-specific cleanup
 - The function ensures the scan can be restarted multiple times during query execution
+
+## Simplified Source
+
+```c
+void ExecReScanTidScan(TidScanState *node) {
+    // Clean up TID list and reset state
+    if (node->tss_TidList)
+        pfree(node->tss_TidList);
+    node->tss_TidList = NULL;
+    node->tss_NumTids = 0;
+    node->tss_TidPtr = -1;
+
+    // Reset table scan if active
+    if (node->ss.ss_currentScanDesc)
+        table_rescan(node->ss.ss_currentScanDesc, NULL);
+
+    // Handle common scan rescan operations
+    ExecScanReScan(&node->ss);
+}
+```

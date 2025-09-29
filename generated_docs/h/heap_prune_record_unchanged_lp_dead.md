@@ -39,3 +39,19 @@ The function implements an important optimization assumption: LP_DEAD items enco
 - Part of PostgreSQL's strategy to optimize relation truncation by treating LP_DEAD items as provisional
 - The dead offsets are collected for later processing by the vacuum machinery
 - Critical for maintaining the correctness of VACUUM's page processing and space reclamation
+
+## Simplified Source
+
+```c
+static void heap_prune_record_unchanged_lp_dead(Page page, PruneState *prstate, OffsetNumber offnum)
+{
+    // Mark this line pointer as processed
+    prstate->processed[offnum] = true;
+
+    // Record the dead offset for vacuum to handle later
+    prstate->deadoffsets[prstate->lpdead_items++] = offnum;
+
+    // Note: We deliberately don't set hastup flag here to allow
+    // potential page truncation optimization during vacuum
+}
+```

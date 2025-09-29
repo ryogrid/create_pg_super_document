@@ -39,3 +39,24 @@ Since LockRows doesn't modify the target list, it simply passes through the tlis
 - Essential for implementing PostgreSQL's row-level locking mechanisms
 - Used primarily for SELECT FOR UPDATE, SELECT FOR SHARE, and similar locking constructs
 - The plan node handles lock acquisition during query execution, not during planning
+
+## Simplified Source
+
+```c
+static LockRows *
+create_lockrows_plan(PlannerInfo *root, LockRowsPath *best_path, int flags)
+{
+    LockRows *plan;
+    Plan *subplan;
+
+    // LockRows doesn't project, so tlist requirements pass through
+    subplan = create_plan_recurse(root, best_path->subpath, flags);
+
+    // Create LockRows plan with row marks and evaluation parameters
+    plan = make_lockrows(subplan, best_path->rowMarks, best_path->epqParam);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

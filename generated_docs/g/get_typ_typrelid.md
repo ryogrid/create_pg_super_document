@@ -35,3 +35,25 @@ This function performs a system catalog lookup to fetch the typrelid field from 
 
 ## Notes and Other Information
 This function is essential for distinguishing between simple and complex types in PostgreSQL. It's commonly used in dependency tracking, type validation, and situations where the system needs to understand the internal structure of a type. The function's graceful handling of invalid type OIDs (returning InvalidOid instead of throwing an error) makes it suitable for defensive programming contexts where type existence is uncertain.
+
+## Simplified Source
+
+```c
+Oid get_typ_typrelid(Oid typid) {
+    // Look up the type in the system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract the typrelid field from the pg_type tuple
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        Oid result = typtup->typrelid;
+
+        // Clean up and return the relation OID
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Type not found - return invalid OID
+    return InvalidOid;
+}
+```

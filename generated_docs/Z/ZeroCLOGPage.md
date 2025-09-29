@@ -48,3 +48,20 @@ The function requires that the appropriate control lock be held before entry and
 - The function returns the slot number where the new page has been placed in the buffer pool
 - This function is critical for extending CLOG coverage as new transactions are assigned XIDs beyond the current CLOG range
 - Proper locking ensures that concurrent access to CLOG pages is coordinated correctly
+
+## Simplified Source
+
+```c
+static int
+ZeroCLOGPage(int64 pageno, bool writeXlog)
+{
+    // Create a zeroed CLOG page in shared memory
+    int slotno = SimpleLruZeroPage(XactCtl, pageno);
+
+    // Optionally write WAL record for recovery
+    if (writeXlog)
+        WriteZeroPageXlogRec(pageno);
+
+    return slotno;
+}
+```

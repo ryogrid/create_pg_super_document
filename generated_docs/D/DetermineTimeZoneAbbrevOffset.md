@@ -47,3 +47,31 @@ This behavior is crucial for handling historical timezone abbreviations that may
 - The tm_isdst field in the input structure is modified to reflect the determined DST status
 - Handles potential overflow in UTC time computation by probing at the epoch as a fallback
 - Located in src/backend/utils/adt/datetime.c:1746-1783
+
+## Simplified Source
+
+```c
+int
+DetermineTimeZoneAbbrevOffset(struct pg_tm *tm, const char *abbr, pg_tz *tzp)
+{
+    pg_time_t t;
+    int zone_offset;
+    int abbr_offset;
+    int abbr_isdst;
+
+    // First compute the UTC time to probe at
+    // (Falls back to epoch if overflow occurs)
+    zone_offset = DetermineTimeZoneOffsetInternal(tm, tzp, &t);
+
+    // Try to match the abbreviation to specific timezone data
+    if (DetermineTimeZoneAbbrevOffsetInternal(t, abbr, tzp,
+                                             &abbr_offset, &abbr_isdst)) {
+        // Found abbreviation-specific match: use its values
+        tm->tm_isdst = abbr_isdst;
+        return abbr_offset;
+    }
+
+    // No abbreviation match found: use standard zone offset
+    return zone_offset;
+}
+```

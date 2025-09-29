@@ -33,3 +33,20 @@ This static function implements IPv4 subnet matching using bitwise operations. I
 - Uses the standard IPv4 subnet matching algorithm: ((addr ^ netaddr) & netmask) == 0
 - Returns 1 if the address is within the subnet, 0 otherwise
 - Operates directly on the s_addr field of the sockaddr_in structure, which contains the 32-bit IPv4 address in network byte order
+
+## Simplified Source
+
+```c
+static int
+range_sockaddr_AF_INET(const struct sockaddr_in *addr,
+                       const struct sockaddr_in *netaddr,
+                       const struct sockaddr_in *netmask)
+{
+    // Check if address is in subnet using: (addr XOR netaddr) AND netmask == 0
+    if (((addr->sin_addr.s_addr ^ netaddr->sin_addr.s_addr) &
+         netmask->sin_addr.s_addr) == 0)
+        return 1;  // Address is in subnet
+    else
+        return 0;  // Address is not in subnet
+}
+```

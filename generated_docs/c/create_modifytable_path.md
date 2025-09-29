@@ -65,3 +65,73 @@ Cost calculation is intentionally simplified since ModifyTable is always a top-l
 - Row count is set to subpath rows if RETURNING is present, otherwise 0
 - [Path](../P/Path.md) target width handling is acknowledged as suboptimal but maintained for historical compatibility
 - No pathkeys (sort order) since modification operations don't preserve ordering
+
+## Simplified Source
+
+```c
+ModifyTablePath *create_modifytable_path(PlannerInfo *root, RelOptInfo *rel,
+                                        Path *subpath,
+                                        CmdType operation, bool canSetTag,
+                                        Index nominalRelation, Index rootRelation,
+                                        bool partColsUpdated,
+                                        List *resultRelations,
+                                        List *updateColnosLists,
+                                        List *withCheckOptionLists, List *returningLists,
+                                        List *rowMarks, OnConflictExpr *onconflict,
+                                        List *mergeActionLists, List *mergeJoinConditions,
+                                        int epqParam)
+{
+    ModifyTablePath *pathnode = makeNode(ModifyTablePath);
+
+    // Validate list length consistency
+    Assert(operation == CMD_MERGE ||
+           (operation == CMD_UPDATE ?
+            list_length(resultRelations) == list_length(updateColnosLists) :
+            updateColnosLists == NIL));
+    Assert(withCheckOptionLists == NIL ||
+           list_length(resultRelations) == list_length(withCheckOptionLists));
+    Assert(returningLists == NIL ||
+           list_length(resultRelations) == list_length(returningLists));
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_ModifyTable;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;       // Minimal valid target
+    pathnode->path.param_info = NULL;                 // Above joins
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = false;             // No parallelization
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.pathkeys = NIL;                    // No ordering preserved
+
+    // Set costs and row counts
+    pathnode->path.startup_cost = subpath->startup_cost;
+    pathnode->path.total_cost = subpath->total_cost;
+
+    if (returningLists != NIL) {
+        pathnode->path.rows = subpath->rows;
+        pathnode->path.pathtarget->width = subpath->pathtarget->width;
+    } else {
+        pathnode->path.rows = 0;
+        pathnode->path.pathtarget->width = 0;
+    }
+
+    // Store modification parameters
+    pathnode->subpath = subpath;
+    pathnode->operation = operation;
+    pathnode->canSetTag = canSetTag;
+    pathnode->nominalRelation = nominalRelation;
+    pathnode->rootRelation = rootRelation;
+    pathnode->partColsUpdated = partColsUpdated;
+    pathnode->resultRelations = resultRelations;
+    pathnode->updateColnosLists = updateColnosLists;
+    pathnode->withCheckOptionLists = withCheckOptionLists;
+    pathnode->returningLists = returningLists;
+    pathnode->rowMarks = rowMarks;
+    pathnode->onconflict = onconflict;
+    pathnode->epqParam = epqParam;
+    pathnode->mergeActionLists = mergeActionLists;
+    pathnode->mergeJoinConditions = mergeJoinConditions;
+
+    return pathnode;
+}
+```

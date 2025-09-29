@@ -30,3 +30,12 @@ This function takes no parameters.
 - The created key () is used later with  and  to manage per-thread connection state
 - Part of ECPG's thread safety infrastructure for PostgreSQL embedded SQL applications
 - The NULL parameter to  indicates no destructor function is needed for the thread-specific data
+
+## Simplified Source
+
+```c
+static void ecpg_actual_connection_init(void) {
+    // Create thread-specific key for storing connection per thread
+    pthread_key_create(&actual_connection_key, NULL);
+}
+```

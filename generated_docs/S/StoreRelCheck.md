@@ -50,3 +50,85 @@ The function performs several key operations:
 - The function handles duplicate column references by maintaining a unique list of attribute numbers
 - Memory allocated for the binary form of the constraint (ccbin) is properly freed after use
 - Returns the OID of the newly created constraint for reference by calling code
+
+## Simplified Source
+
+```c
+static Oid
+StoreRelCheck(Relation rel, const char *ccname, Node *expr,
+              bool is_validated, bool is_local, int inhcount,
+              bool is_no_inherit, bool is_internal)
+{
+    // Convert expression to string for storage
+    char *ccbin = nodeToString(expr);
+
+    // Find columns referenced in the expression
+    List *varList = pull_var_clause(expr, 0);
+    int keycount = list_length(varList);
+    int16 *attNos = NULL;
+
+    if (keycount > 0)
+    {
+        // Extract unique attribute numbers from variables
+        attNos = (int16 *) palloc(keycount * sizeof(int16));
+        int i = 0;
+
+        foreach(cell, varList)
+        {
+            Var *var = (Var *) lfirst(cell);
+
+            // Check for duplicates
+            bool found = false;
+            for (int j = 0; j < i; j++)
+            {
+                if (attNos[j] == var->varattno)
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                attNos[i++] = var->varattno;
+        }
+        keycount = i;
+    }
+
+    // Validate constraint properties
+    if (is_no_inherit && rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+    {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                 errmsg("cannot add NO INHERIT constraint to partitioned table \"%s\"",
+                        RelationGetRelationName(rel))));
+    }
+
+    // Create the constraint entry
+    Oid constrOid = CreateConstraintEntry(ccname,
+                                          RelationGetNamespace(rel),
+                                          CONSTRAINT_CHECK,
+                                          false, /* not deferrable */
+                                          false, /* not deferred */
+                                          is_validated,
+                                          InvalidOid, /* no parent */
+                                          RelationGetRelid(rel),
+                                          attNos,
+                                          keycount,
+                                          keycount,
+                                          InvalidOid, /* not domain */
+                                          InvalidOid, /* no index */
+                                          InvalidOid, /* foreign key fields */
+                                          NULL, NULL, NULL, NULL,
+                                          0, ' ', ' ', NULL, 0, ' ',
+                                          NULL, /* not exclusion */
+                                          expr, /* tree form */
+                                          ccbin, /* binary form */
+                                          is_local,
+                                          inhcount,
+                                          is_no_inherit,
+                                          is_internal);
+
+    pfree(ccbin);
+    return constrOid;
+}
+```

@@ -41,5 +41,40 @@ The constant simplification step ensures that  will detect constants when presen
 ## Notes and Other Information
 - This function modifies the query tree structure in place, converting RTE_FUNCTION entries to RTE_SUBQUERY entries when inlining is successful
 - The original  field is temporarily preserved even after conversion to RTE_SUBQUERY to support  operations, and is later cleared in 
-- Function inlining is only performed when it's safe and beneficial, as determined by 
+- Function inlining is only performed when it's safe and beneficial, as determined by inline_set_returning_function
 - This preprocessing step is critical for enabling subsequent subquery optimization techniques on inlined functions
+
+## Simplified Source
+```c
+void preprocess_function_rtes(PlannerInfo *root)
+{
+    ListCell *rt;
+
+    // Process each RTE in the range table
+    foreach(rt, root->parse->rtable)
+    {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(rt);
+
+        if (rte->rtekind == RTE_FUNCTION)
+        {
+            Query *funcquery;
+
+            // Step 1: Apply constant-folding to function expressions
+            rte->functions = (List *) eval_const_expressions(root, (Node *) rte->functions);
+
+            // Step 2: Try to inline set-returning functions as subqueries
+            funcquery = inline_set_returning_function(root, rte);
+            if (funcquery)
+            {
+                // Successfully inlined - convert to subquery RTE
+                rte->rtekind = RTE_SUBQUERY;
+                rte->subquery = funcquery;
+                rte->security_barrier = false;
+
+                // Clear function-specific fields (keep functions field temporarily)
+                rte->funcordinality = false;
+            }
+        }
+    }
+}
+```

@@ -39,3 +39,53 @@ The function is designed to handle the complexities of concurrent updates by req
 - The returned tuple is a palloc'd copy that must be freed with heap_freetuple
 - [Snapshot](Snapshot.md) selection logic accommodates both normal and non-historic catalog access patterns
 - Essential for maintaining relcache consistency during concurrent database operations
+
+## Simplified Source
+
+```c
+static HeapTuple
+ScanPgRelation(Oid targetRelId, bool indexOK, bool force_non_historic)
+{
+    HeapTuple pg_class_tuple;
+    Relation pg_class_desc;
+    SysScanDesc pg_class_scan;
+    ScanKeyData key[1];
+    Snapshot snapshot = NULL;
+
+    // Safety check - ensure database is selected before accessing pg_class
+    if (!OidIsValid(MyDatabaseId))
+        elog(FATAL, "cannot read pg_class without having selected a database");
+
+    // Setup scan key to find relation by OID
+    ScanKeyInit(&key[0],
+                Anum_pg_class_oid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(targetRelId));
+
+    // Open pg_class relation
+    pg_class_desc = table_open(RelationRelationId, AccessShareLock);
+
+    // Use non-historic snapshot if requested (for logical decoding)
+    if (force_non_historic)
+        snapshot = GetNonHistoricCatalogSnapshot(RelationRelationId);
+
+    // Begin system table scan (index or heap scan based on conditions)
+    pg_class_scan = systable_beginscan(pg_class_desc, ClassOidIndexId,
+                                      indexOK && criticalRelcachesBuilt,
+                                      snapshot,
+                                      1, key);
+
+    // Get the tuple
+    pg_class_tuple = systable_getnext(pg_class_scan);
+
+    // Copy tuple before releasing buffer (caller must free)
+    if (HeapTupleIsValid(pg_class_tuple))
+        pg_class_tuple = heap_copytuple(pg_class_tuple);
+
+    // Cleanup scan and close relation
+    systable_endscan(pg_class_scan);
+    table_close(pg_class_desc, AccessShareLock);
+
+    return pg_class_tuple;
+}
+```

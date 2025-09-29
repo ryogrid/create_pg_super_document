@@ -30,3 +30,20 @@ This static helper function takes a RowExpr and wraps it in an ArrayExpr to crea
 - Used to initialize both SEARCH depth-first path arrays and CYCLE detection path arrays
 - The location field is set to -1 indicating no specific source location for the constructed node
 - The resulting array serves as the starting point for path accumulation in recursive CTE processing
+
+## Simplified Source
+
+```c
+static Expr *
+make_path_initial_array(RowExpr *rowexpr)
+{
+    // Wrap row expression in array: ARRAY[ROW(...)]
+    ArrayExpr *arr = makeNode(ArrayExpr);
+    arr->array_typeid = RECORDARRAYOID;
+    arr->element_typeid = RECORDOID;
+    arr->location = -1;
+    arr->elements = list_make1(rowexpr);
+
+    return (Expr *) arr;
+}
+```

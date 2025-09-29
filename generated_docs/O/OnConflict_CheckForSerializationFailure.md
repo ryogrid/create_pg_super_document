@@ -26,7 +26,7 @@ The function detects three main dangerous patterns:
 
 When the writer is already committed and has an outbound rw-conflict, this creates a dangerous structure requiring reader abortion.
 
-**Pattern 2: Writer as Pivot with Later Committer**  
+**Pattern 2: Writer as Pivot with Later Committer**
 
 The writer becomes a dangerous pivot when T2 commits first, checked through sequence number comparisons and transaction state analysis.
 
@@ -43,7 +43,7 @@ The function includes sophisticated optimizations for READ ONLY transactions and
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLockHeldByMe](../L/LWLockHeldByMe.md)
-  - SxactIsCommitted  
+  - SxactIsCommitted
   - SxactHasConflictOut
   - SxactHasSummaryConflictOut
   - SxactHasSummaryConflictIn
@@ -65,3 +65,79 @@ The function includes sophisticated optimizations for READ ONLY transactions and
 - Critical for maintaining serializability guarantees in PostgreSQL's SSI implementation
 - Uses unconstify() macro to work around const constraints in dlist iteration
 - Located in src/backend/storage/lmgr/predicate.c:4526-4692
+
+## Simplified Source
+
+```c
+static void
+OnConflict_CheckForSerializationFailure(const SERIALIZABLEXACT *reader,
+                                      SERIALIZABLEXACT *writer)
+{
+    bool failure = false;
+
+    // Check Pattern 1: Already committed writer with outbound conflict
+    if (SxactIsCommitted(writer) &&
+        (SxactHasConflictOut(writer) || SxactHasSummaryConflictOut(writer))) {
+        failure = true;
+    }
+
+    // Check Pattern 2: Writer as pivot with outbound conflicts
+    if (!failure && SxactHasSummaryConflictOut(writer)) {
+        failure = true;
+    } else if (!failure) {
+        // Check individual outbound conflicts from writer
+        dlist_iter iter;
+        dlist_foreach(iter, &writer->outConflicts) {
+            RWConflict conflict = dlist_container(RWConflictData, outLink, iter.cur);
+            SERIALIZABLEXACT *t2 = conflict->sxactIn;
+
+            // Check if T2 creates dangerous structure based on commit order
+            if (SxactIsPrepared(t2) &&
+                (!SxactIsCommitted(reader) || t2->prepareSeqNo <= reader->commitSeqNo) &&
+                (!SxactIsCommitted(writer) || t2->prepareSeqNo <= writer->commitSeqNo) &&
+                (!SxactIsReadOnly(reader) || t2->prepareSeqNo <= reader->SeqNo.lastCommitBeforeSnapshot)) {
+                failure = true;
+                break;
+            }
+        }
+    }
+
+    // Check Pattern 3: Reader as pivot with prepared writer
+    if (!failure && SxactIsPrepared(writer) && !SxactIsReadOnly(reader)) {
+        if (SxactHasSummaryConflictIn(reader)) {
+            failure = true;
+        } else {
+            // Check individual inbound conflicts to reader
+            dlist_iter iter;
+            dlist_foreach(iter, &reader->inConflicts) {
+                const RWConflict conflict = dlist_container(RWConflictData, inLink, iter.cur);
+                const SERIALIZABLEXACT *t0 = conflict->sxactOut;
+
+                if (!SxactIsDoomed(t0) &&
+                    (!SxactIsCommitted(t0) || t0->commitSeqNo >= writer->prepareSeqNo) &&
+                    (!SxactIsReadOnly(t0) || t0->SeqNo.lastCommitBeforeSnapshot >= writer->prepareSeqNo)) {
+                    failure = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Handle detected serialization failure
+    if (failure) {
+        if (MySerializableXact == writer) {
+            // Abort current transaction (writer)
+            LWLockRelease(SerializableXactHashLock);
+            ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                           errmsg("could not serialize access due to read/write dependencies")));
+        } else if (SxactIsPrepared(writer)) {
+            // Writer is prepared, must abort reader instead
+            LWLockRelease(SerializableXactHashLock);
+            ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                           errmsg("could not serialize access due to read/write dependencies")));
+        }
+        // Flag writer for termination
+        writer->flags |= SXACT_FLAG_DOOMED;
+    }
+}
+```

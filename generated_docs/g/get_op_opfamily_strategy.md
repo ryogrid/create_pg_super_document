@@ -43,3 +43,31 @@ This function looks up an operator in the pg_amop system catalog to determine it
 - Only searches for search operators (AMOP_SEARCH), excluding ordering operators (AMOP_ORDER)
 - Uses proper cache management with SearchSysCache3/ReleaseSysCache pair
 - The strategy number is retrieved from the amopstrategy field of the pg_amop catalog entry
+
+## Simplified Source
+
+```c
+int
+get_op_opfamily_strategy(Oid opno, Oid opfamily)
+{
+    HeapTuple tp;
+    Form_pg_amop amop_tup;
+    int result;
+
+    // Search for operator in the specified family (search operators only)
+    tp = SearchSysCache3(AMOPOPID,
+                         ObjectIdGetDatum(opno),
+                         CharGetDatum(AMOP_SEARCH),
+                         ObjectIdGetDatum(opfamily));
+
+    if (!HeapTupleIsValid(tp))
+        return 0;  // Operator not found in this family
+
+    // Extract strategy number from catalog entry
+    amop_tup = (Form_pg_amop) GETSTRUCT(tp);
+    result = amop_tup->amopstrategy;
+    ReleaseSysCache(tp);
+
+    return result;
+}
+```

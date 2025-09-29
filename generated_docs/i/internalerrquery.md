@@ -38,3 +38,27 @@ The  function manages the internal query text associated with the current error 
 - The function does not increment recursion_depth, unlike some other error functions
 - Located in src/backend/utils/error/elog.c:1482-1511
 - Part of PostgreSQL's comprehensive error handling system for providing detailed error context
+
+## Simplified Source
+
+```c
+int internalerrquery(const char *query) {
+    // Get current error data structure
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Check stack depth is valid
+    CHECK_STACK_DEPTH();
+
+    // Free existing internal query text if present
+    if (edata->internalquery) {
+        pfree(edata->internalquery);
+        edata->internalquery = NULL;
+    }
+
+    // Set new internal query text if provided
+    if (query)
+        edata->internalquery = MemoryContextStrdup(edata->assoc_context, query);
+
+    return 0;  // Return value not used
+}
+```

@@ -54,3 +54,26 @@ The function ensures that Name values are always null-terminated and fit within 
 - The result is always zero-padded to exactly  bytes
 - This is a core I/O function for the Name data type, used throughout PostgreSQL for identifier handling
 - Name values are limited to 63 bytes by default (NAMEDATALEN = 64, with 1 byte reserved for null terminator)
+
+## Simplified Source
+
+```c
+Datum namein(PG_FUNCTION_ARGS) {
+    char *s = PG_GETARG_CSTRING(0);
+    Name result;
+    int len;
+
+    // Calculate string length
+    len = strlen(s);
+
+    // Truncate if too long (multi-byte aware)
+    if (len >= NAMEDATALEN)
+        len = pg_mbcliplen(s, len, NAMEDATALEN - 1);
+
+    // Allocate zero-padded memory and copy string
+    result = (Name) palloc0(NAMEDATALEN);
+    memcpy(NameStr(*result), s, len);
+
+    PG_RETURN_NAME(result);
+}
+```

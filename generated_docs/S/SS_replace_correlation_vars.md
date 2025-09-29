@@ -43,3 +43,13 @@ A key aspect of this function is its selective approach: it doesn't recurse into
 - Handles complex nested scenarios where PHV/aggregate arguments contain further-up variables
 - SubLinks in uplevel PHV/aggregate arguments are handled by recursive  calls
 - Part of the broader subquery correlation variable resolution system in PostgreSQL's planner
+
+## Simplified Source
+
+```c
+Node *SS_replace_correlation_vars(PlannerInfo *root, Node *expr)
+{
+    // Direct delegation to the tree-walking mutator function
+    return replace_correlation_vars_mutator(expr, root);
+}
+```

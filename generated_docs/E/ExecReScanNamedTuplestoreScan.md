@@ -39,3 +39,22 @@ This function is essential for supporting operations that require multiple passe
 - Essential for supporting multiple passes over CTE data in complex query plans
 - Ensures clean state for re-execution without data corruption or stale cached results
 - Works in conjunction with the standard executor framework's rescan mechanisms
+
+## Simplified Source
+
+```c
+void ExecReScanNamedTuplestoreScan(NamedTuplestoreScanState *node) {
+    Tuplestorestate *tuplestorestate = node->relation;
+
+    // Clear cached result tuple
+    if (node->ss.ps.ps_ResultTupleSlot)
+        ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+
+    // Reset generic scan state
+    ExecScanReScan(&node->ss);
+
+    // Rewind tuple store to beginning
+    tuplestore_select_read_pointer(tuplestorestate, node->readptr);
+    tuplestore_rescan(tuplestorestate);
+}
+```

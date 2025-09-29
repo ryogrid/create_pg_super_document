@@ -40,3 +40,17 @@ The `PQfinish` function is the primary public API for completely terminating a P
 - Essential for preventing memory leaks in PostgreSQL client programs
 - Should be called for every successful PQconnectdb/PQconnectStart result
 - Often called in error handling paths and application cleanup routines
+
+## Simplified Source
+
+```c
+void PQfinish(PGconn *conn) {
+    if (conn) {
+        // Close the connection and clean up transient state
+        pqClosePGconn(conn);
+
+        // Free the connection data structure
+        freePGconn(conn);
+    }
+}
+```

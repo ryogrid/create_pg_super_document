@@ -38,3 +38,21 @@ The function includes an important optimization: partition keys are immutable af
 - The returned pointer remains valid as long as the relation is kept open due to relcache preservation
 - Safe to use the returned pointer directly without copying since partition keys are immutable
 - Uses unlikely() macro hint for the case where rd_partkey is NULL, indicating this should be rare after initial access
+
+## Simplified Source
+
+```c
+PartitionKey RelationGetPartitionKey(Relation rel) {
+    // Only partitioned tables have partition keys
+    if (rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+        return NULL;
+    }
+
+    // Build partition key if not already cached
+    if (unlikely(rel->rd_partkey == NULL)) {
+        RelationBuildPartitionKey(rel);
+    }
+
+    return rel->rd_partkey;
+}
+```

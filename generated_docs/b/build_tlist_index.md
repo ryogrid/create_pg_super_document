@@ -54,3 +54,46 @@ This optimization is particularly effective for the common case where targetlist
 - The varnullingrels field is preserved for proper null handling in outer joins
 - Designed to work with companion functions like search_indexed_tlist_for_var()
 - Provides significant performance improvement for plan reference resolution in complex queries
+
+## Simplified Source
+
+```c
+static indexed_tlist *build_tlist_index(List *tlist) {
+    // Allocate indexed structure with space for all entries
+    indexed_tlist *itlist = (indexed_tlist *)
+        palloc(offsetof(indexed_tlist, vars) +
+               list_length(tlist) * sizeof(tlist_vinfo));
+
+    // Initialize the structure
+    itlist->tlist = tlist;
+    itlist->has_ph_vars = false;
+    itlist->has_non_vars = false;
+
+    // Extract variable information from targetlist
+    tlist_vinfo *vinfo = itlist->vars;
+    ListCell *l;
+
+    foreach(l, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        if (tle->expr && IsA(tle->expr, Var)) {
+            // Store variable details for fast lookup
+            Var *var = (Var *) tle->expr;
+            vinfo->varno = var->varno;
+            vinfo->varattno = var->varattno;
+            vinfo->resno = tle->resno;
+            vinfo->varnullingrels = var->varnullingrels;
+            vinfo++;
+        }
+        else if (tle->expr && IsA(tle->expr, PlaceHolderVar)) {
+            itlist->has_ph_vars = true;
+        }
+        else {
+            itlist->has_non_vars = true;
+        }
+    }
+
+    itlist->num_vars = (vinfo - itlist->vars);
+    return itlist;
+}
+```

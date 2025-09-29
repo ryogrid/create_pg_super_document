@@ -37,3 +37,26 @@ The function uses simple character arithmetic to perform the conversion efficien
 - Serves as a building block for more complex hexadecimal string parsing operations
 - The -1 return value provides a clear indication of invalid input for error handling
 - Standard hexadecimal digit mapping: 0-9→0-9, a-f→10-15, A-F→10-15
+
+## Simplified Source
+
+```c
+static int
+hexdecode_char(char c)
+{
+    // Convert numeric digits 0-9
+    if (c >= '0' && c <= '9')
+        return c - '0';
+
+    // Convert lowercase hex letters a-f
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 10;
+
+    // Convert uppercase hex letters A-F
+    if (c >= 'A' && c <= 'F')
+        return c - 'A' + 10;
+
+    // Invalid character
+    return -1;
+}
+```

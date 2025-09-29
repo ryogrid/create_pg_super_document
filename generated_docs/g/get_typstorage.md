@@ -46,3 +46,25 @@ This function performs a system catalog lookup to retrieve the storage strategy 
 - Part of the lsyscache.c module which provides cached access to system catalog information
 - This information is crucial for PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system
 - Used by the storage layer to determine appropriate storage and compression strategies for large values
+
+## Simplified Source
+
+```c
+char get_typstorage(Oid typid) {
+    // Look up the type in the system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract the type tuple and get storage strategy
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        char result = typtup->typstorage;
+
+        // Release cache entry and return storage type
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Type not found, return default plain storage
+    return TYPSTORAGE_PLAIN;
+}
+```

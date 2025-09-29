@@ -33,3 +33,16 @@ ExecEndSampleScan is the cleanup function for sample scan executor nodes in Post
 - Only closes the table scan descriptor if one was actually opened (ss_currentScanDesc is not NULL)
 - Ensures proper resource deallocation to prevent memory leaks and resource exhaustion
 - Called automatically by the executor infrastructure when a query completes or is aborted
+
+## Simplified Source
+```c
+void ExecEndSampleScan(SampleScanState *node) {
+    // Notify sampling method that scan is complete
+    if (node->tsmroutine->EndSampleScan)
+        node->tsmroutine->EndSampleScan(node);
+
+    // Close the table scan descriptor if it was opened
+    if (node->ss.ss_currentScanDesc)
+        table_endscan(node->ss.ss_currentScanDesc);
+}
+```

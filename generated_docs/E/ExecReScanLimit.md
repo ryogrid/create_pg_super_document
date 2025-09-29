@@ -37,3 +37,20 @@ The function ensures proper ordering by recomputing limits before rescanning the
 - The conditional rescanning logic (checking chgParam == NULL) is an optimization - if the child node has changed parameters, it will be automatically rescanned on the first ExecProcNode call
 - This function is part of PostgreSQL's executor node interface, specifically handling the LIMIT clause in SQL queries
 - The recompute_limits() call handles both LIMIT and OFFSET expressions, validates non-negative values, and resets the position tracking and state machine to LIMIT_RESCAN state
+
+## Simplified Source
+
+```c
+void ExecReScanLimit(LimitState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Step 1: Recompute limit/offset values and reset state machine
+    // Must do this before rescanning child node in case it's a Sort node
+    recompute_limits(node);
+
+    // Step 2: Rescan child node if no parameter changes
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

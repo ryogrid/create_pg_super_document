@@ -39,3 +39,41 @@ The RecursiveUnion node is essential for implementing SQL's WITH RECURSIVE funct
 - The wtParam (working table parameter) identifies the recursive reference in the recursive term
 - Essential component of PostgreSQL's implementation of SQL standard recursive CTEs
 - Handles distinctness requirements through the distinctList parameter to eliminate duplicates when needed
+
+## Simplified Source
+
+```c
+static RecursiveUnion *
+create_recursiveunion_plan(PlannerInfo *root, RecursiveUnionPath *best_path)
+{
+    RecursiveUnion *plan;
+    Plan *leftplan;
+    Plan *rightplan;
+    List *tlist;
+    long numGroups;
+
+    // Create plans for both recursive and non-recursive parts
+    // Both plans must produce identical target lists
+    leftplan = create_plan_recurse(root, best_path->leftpath, CP_EXACT_TLIST);
+    rightplan = create_plan_recurse(root, best_path->rightpath, CP_EXACT_TLIST);
+
+    // Build target list for the union operation
+    tlist = build_path_tlist(root, &best_path->path);
+
+    // Convert cardinality estimate to safe long value
+    numGroups = clamp_cardinality_to_long(best_path->numGroups);
+
+    // Create the RecursiveUnion plan node
+    plan = make_recursive_union(tlist,
+                                leftplan,
+                                rightplan,
+                                best_path->wtParam,
+                                best_path->distinctList,
+                                numGroups);
+
+    // Copy cost and other path information
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

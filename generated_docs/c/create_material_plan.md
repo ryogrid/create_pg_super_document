@@ -43,3 +43,26 @@ The Material node reads all tuples from its child plan on first execution and st
 - Commonly inserted by the optimizer for inner sides of nested loop joins and hash joins
 - Essential for plans that need mark/restore capability or multiple scans of the same data
 - The CP_SMALL_TLIST flag ensures minimal memory overhead by requesting only necessary columns from the child plan
+
+## Simplified Source
+
+```c
+static Material *
+create_material_plan(PlannerInfo *root, MaterialPath *best_path, int flags)
+{
+    Material *plan;
+    Plan *subplan;
+
+    // Request smaller tlist to minimize memory usage in materialized tuples
+    // Material doesn't project, so tlist requirements pass through
+    subplan = create_plan_recurse(root, best_path->subpath,
+                                  flags | CP_SMALL_TLIST);
+
+    // Create Material plan node
+    plan = make_material(subplan);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

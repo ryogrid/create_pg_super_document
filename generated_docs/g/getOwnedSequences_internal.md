@@ -53,3 +53,61 @@ If a `deptype` filter is specified, only sequences with that exact dependency ty
 - Uses the DependReferenceIndexId index for efficient scanning by referenced object
 - The distinction between AUTO and INTERNAL dependencies reflects different types of sequence ownership (e.g., SERIAL vs IDENTITY columns)
 - This function is the foundation for sequence ownership tracking in PostgreSQL's dependency system
+
+## Simplified Source
+
+```c
+static List *
+getOwnedSequences_internal(Oid relid, AttrNumber attnum, char deptype) {
+    List *result = NIL;
+    Relation depRel;
+    ScanKeyData key[3];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_depend table for scanning
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys for dependency lookup
+    ScanKeyInit(&key[0], Anum_pg_depend_refclassid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_refobjid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+
+    // Add column-specific key if attnum specified
+    if (attnum)
+        ScanKeyInit(&key[2], Anum_pg_depend_refobjsubid,
+                    BTEqualStrategyNumber, F_INT4EQ,
+                    Int32GetDatum(attnum));
+
+    // Begin scan using appropriate number of keys
+    scan = systable_beginscan(depRel, DependReferenceIndexId, true,
+                             NULL, attnum ? 3 : 2, key);
+
+    // Process each dependency record
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_depend deprec = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Check if this is a sequence owned by the table/column
+        if (deprec->classid == RelationRelationId &&
+            deprec->objsubid == 0 &&                    // Whole sequence
+            deprec->refobjsubid != 0 &&                 // Specific column
+            (deprec->deptype == DEPENDENCY_AUTO ||
+             deprec->deptype == DEPENDENCY_INTERNAL) &&
+            get_rel_relkind(deprec->objid) == RELKIND_SEQUENCE) {
+
+            // Add to results if matches dependency type filter
+            if (!deptype || deprec->deptype == deptype)
+                result = lappend_oid(result, deprec->objid);
+        }
+    }
+
+    // Clean up
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+
+    return result;
+}
+```

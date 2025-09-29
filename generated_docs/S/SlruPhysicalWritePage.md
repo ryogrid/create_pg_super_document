@@ -58,3 +58,111 @@ The function implements PostgreSQL's durability guarantees while providing optim
 - Updates statistics counters for monitoring SLRU write activity
 - Handles disk space exhaustion by setting errno to ENOSPC when write doesn't set errno
 - Critical component of PostgreSQL's transaction durability infrastructure
+
+## Simplified Source
+
+```c
+static bool SlruPhysicalWritePage(SlruCtl ctl, int64 pageno, int slotno, SlruWriteAll fdata) {
+    SlruShared shared = ctl->shared;
+    int64 segno = pageno / SLRU_PAGES_PER_SEGMENT;
+    int rpageno = pageno % SLRU_PAGES_PER_SEGMENT;
+    off_t offset = rpageno * BLCKSZ;
+    char path[MAXPGPATH];
+    int fd = -1;
+
+    // Update statistics
+    pgstat_count_slru_page_written(shared->slru_stats_idx);
+
+    // Enforce WAL-before-data rule - find maximum LSN and flush WAL
+    if (shared->group_lsn != NULL) {
+        XLogRecPtr max_lsn = InvalidXLogRecPtr;
+        int lsnindex = slotno * shared->lsn_groups_per_page;
+
+        // Find maximum LSN across all groups for this page
+        for (int i = 0; i < shared->lsn_groups_per_page; i++) {
+            if (max_lsn < shared->group_lsn[lsnindex + i])
+                max_lsn = shared->group_lsn[lsnindex + i];
+        }
+
+        // Flush WAL up to max LSN before writing data
+        if (!XLogRecPtrIsInvalid(max_lsn)) {
+            START_CRIT_SECTION();
+            XLogFlush(max_lsn);
+            END_CRIT_SECTION();
+        }
+    }
+
+    // Check if file is already open during batch operation
+    if (fdata) {
+        for (int i = 0; i < fdata->num_files; i++) {
+            if (fdata->segno[i] == segno) {
+                fd = fdata->fd[i];
+                break;
+            }
+        }
+    }
+
+    // Open file if not already open
+    if (fd < 0) {
+        SlruFileName(ctl, path, segno);
+        fd = OpenTransientFile(path, O_RDWR | O_CREAT | PG_BINARY);
+        if (fd < 0) {
+            slru_errcause = SLRU_OPEN_FAILED;
+            slru_errno = errno;
+            return false;
+        }
+
+        // Cache fd for batch operations if possible
+        if (fdata && fdata->num_files < MAX_WRITEALL_BUFFERS) {
+            fdata->fd[fdata->num_files] = fd;
+            fdata->segno[fdata->num_files] = segno;
+            fdata->num_files++;
+        }
+    }
+
+    // Write the page data
+    errno = 0;
+    pgstat_report_wait_start(WAIT_EVENT_SLRU_WRITE);
+    if (pg_pwrite(fd, shared->page_buffer[slotno], BLCKSZ, offset) != BLCKSZ) {
+        pgstat_report_wait_end();
+        if (errno == 0)
+            errno = ENOSPC;
+        slru_errcause = SLRU_WRITE_FAILED;
+        slru_errno = errno;
+        if (!fdata)
+            CloseTransientFile(fd);
+        return false;
+    }
+    pgstat_report_wait_end();
+
+    // Queue sync request or sync immediately if queue full
+    if (ctl->sync_handler != SYNC_HANDLER_NONE) {
+        FileTag tag;
+        INIT_SLRUFILETAG(tag, ctl->sync_handler, segno);
+
+        if (!RegisterSyncRequest(&tag, SYNC_REQUEST, false)) {
+            // Sync queue full, do immediate sync
+            pgstat_report_wait_start(WAIT_EVENT_SLRU_SYNC);
+            if (pg_fsync(fd) != 0) {
+                pgstat_report_wait_end();
+                slru_errcause = SLRU_FSYNC_FAILED;
+                slru_errno = errno;
+                CloseTransientFile(fd);
+                return false;
+            }
+            pgstat_report_wait_end();
+        }
+    }
+
+    // Close file if not part of batch operation
+    if (!fdata) {
+        if (CloseTransientFile(fd) != 0) {
+            slru_errcause = SLRU_CLOSE_FAILED;
+            slru_errno = errno;
+            return false;
+        }
+    }
+
+    return true;
+}
+```

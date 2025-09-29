@@ -33,3 +33,54 @@ The key difference from RelationIsVisible is the optional error handling - if th
 
 ## Notes and Other Information
 This is a static function that implements the core visibility logic. It carefully handles namespace precedence by iterating through the activeSearchPath and checking for name conflicts. The function properly manages system cache lookups and releases. Relations in the system namespace are treated specially as they are always considered visible.
+
+## Simplified Source
+
+```c
+static bool RelationIsVisibleExt(Oid relid, bool *is_missing) {
+    HeapTuple reltup;
+    Form_pg_class relform;
+    bool visible;
+
+    // Look up relation in system cache
+    reltup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(reltup)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+    }
+
+    relform = (Form_pg_class) GETSTRUCT(reltup);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    Oid relnamespace = relform->relnamespace;
+    if (relnamespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, relnamespace)) {
+        visible = false;
+    } else {
+        // Check if this relation would be found first in search path
+        char *relname = NameStr(relform->relname);
+
+        visible = false;
+        foreach(l, activeSearchPath) {
+            Oid namespaceId = lfirst_oid(l);
+
+            if (namespaceId == relnamespace) {
+                // Found our relation first - it's visible
+                visible = true;
+                break;
+            }
+            if (OidIsValid(get_relname_relid(relname, namespaceId))) {
+                // Found another relation with same name first - not visible
+                break;
+            }
+        }
+    }
+
+    ReleaseSysCache(reltup);
+    return visible;
+}
+```

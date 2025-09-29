@@ -58,3 +58,58 @@ Once found, it extracts the operator OIDs from the  array field, then looks up t
 - Strategy number lookup should not fail since operators are validated at index creation time
 - Uses  when scanning the constraint catalog
 - The returned arrays are allocated in the caller's memory context and should be freed when no longer needed
+
+## Simplified Source
+
+```c
+void RelationGetExclusionInfo(Relation indexRelation,
+                             Oid **operators,
+                             Oid **procs,
+                             uint16 **strategies) {
+    int indnkeyatts = IndexRelationGetNumberOfKeyAttributes(indexRelation);
+
+    // Allocate result arrays in caller's context
+    *operators = (Oid *) palloc(sizeof(Oid) * indnkeyatts);
+    *procs = (Oid *) palloc(sizeof(Oid) * indnkeyatts);
+    *strategies = (uint16 *) palloc(sizeof(uint16) * indnkeyatts);
+
+    // Return cached data if available
+    if (indexRelation->rd_exclstrats != NULL) {
+        memcpy(*operators, indexRelation->rd_exclops, sizeof(Oid) * indnkeyatts);
+        memcpy(*procs, indexRelation->rd_exclprocs, sizeof(Oid) * indnkeyatts);
+        memcpy(*strategies, indexRelation->rd_exclstrats, sizeof(uint16) * indnkeyatts);
+        return;
+    }
+
+    // Search pg_constraint for the exclusion constraint
+    setup_constraint_scan_key(indexRelation);
+    conrel = table_open(ConstraintRelationId, AccessShareLock);
+    conscan = systable_beginscan(conrel, ConstraintRelidTypidNameIndexId, true, NULL, 1, skey);
+
+    // Find the matching exclusion constraint
+    while ((htup = systable_getnext(conscan)) != NULL) {
+        Form_pg_constraint conform = (Form_pg_constraint) GETSTRUCT(htup);
+
+        if (conform->contype == CONSTRAINT_EXCLUSION &&
+            conform->conindid == RelationGetRelid(indexRelation)) {
+
+            // Extract operator OIDs from conexclop array
+            extract_operator_oids_from_constraint(htup, *operators, indnkeyatts);
+            break;
+        }
+    }
+
+    systable_endscan(conscan);
+    table_close(conrel, AccessShareLock);
+
+    // Look up function OIDs and strategy numbers for each operator
+    for (int i = 0; i < indnkeyatts; i++) {
+        (*procs)[i] = get_opcode((*operators)[i]);
+        (*strategies)[i] = get_op_opfamily_strategy((*operators)[i],
+                                                   indexRelation->rd_opfamily[i]);
+    }
+
+    // Cache the results in the relation's context
+    cache_exclusion_info_in_relation(indexRelation, *operators, *procs, *strategies, indnkeyatts);
+}
+```

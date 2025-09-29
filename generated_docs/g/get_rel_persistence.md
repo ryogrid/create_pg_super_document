@@ -45,3 +45,23 @@ The function performs a system cache lookup to efficiently retrieve this informa
 - Uses PostgreSQL's system cache for efficient lookup
 - The persistence attribute is crucial for determining relation behavior during crash recovery and logging
 - Part of the low-level system cache API (lsyscache.c) that provides convenient access to catalog information
+
+## Simplified Source
+
+```c
+char get_rel_persistence(Oid relid) {
+    // Look up the relation in pg_class catalog
+    HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Extract persistence attribute ('p', 't', or 'u')
+    Form_pg_class relTuple = (Form_pg_class) GETSTRUCT(tuple);
+    char persistence = relTuple->relpersistence;
+
+    // Cleanup and return result
+    ReleaseSysCache(tuple);
+    return persistence;
+}
+```

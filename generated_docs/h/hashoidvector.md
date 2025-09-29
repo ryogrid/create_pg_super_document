@@ -32,3 +32,14 @@ This function generates a hash value for an oidvector by hashing its entire arra
 - Hashes the entire values array as a contiguous block of memory
 - Commonly used in system catalog operations where oidvectors need to be indexed or cached
 - Located in src/backend/access/hash/hashfunc.c:232-239
+
+## Simplified Source
+
+```c
+Datum hashoidvector(PG_FUNCTION_ARGS) {
+    oidvector *key = (oidvector *) PG_GETARG_POINTER(0);
+
+    // Hash the entire OID array as binary data
+    return hash_any((unsigned char *) key->values, key->dim1 * sizeof(Oid));
+}
+```

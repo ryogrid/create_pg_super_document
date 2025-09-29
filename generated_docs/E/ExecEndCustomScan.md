@@ -28,3 +28,16 @@ ExecEndCustomScan is the cleanup function for custom scan nodes that is called w
 - The custom scan provider is responsible for implementing proper resource cleanup
 - The function assumes the custom scan provider has properly implemented the EndCustomScan method
 - Part of the standard executor node lifecycle along with ExecInitCustomScan and ExecCustomScan
+
+## Simplified Source
+
+```c
+void ExecEndCustomScan(CustomScanState *node)
+{
+    // Ensure the custom scan provider implemented the cleanup method
+    Assert(node->methods->EndCustomScan != NULL);
+
+    // Delegate cleanup to the custom scan provider
+    node->methods->EndCustomScan(node);
+}
+```

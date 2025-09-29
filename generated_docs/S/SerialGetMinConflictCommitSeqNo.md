@@ -43,3 +43,38 @@ The function returns 0 (InvalidSerCommitSeqNo) if the transaction doesn't exist 
 - Proper lock management is critical - the function acquires and releases SLRU bank locks as needed
 - Returns 0 for transactions outside the valid serial control range or those without conflicts
 - Part of the broader serializable isolation conflict detection mechanism
+
+## Simplified Source
+
+```c
+static SerCommitSeqNo
+SerialGetMinConflictCommitSeqNo(TransactionId xid)
+{
+    TransactionId headXid, tailXid;
+    SerCommitSeqNo val;
+    int slotno;
+
+    Assert(TransactionIdIsValid(xid));
+
+    // Get current range of tracked transactions
+    LWLockAcquire(SerialControlLock, LW_SHARED);
+    headXid = serialControl->headXid;
+    tailXid = serialControl->tailXid;
+    LWLockRelease(SerialControlLock);
+
+    // Return 0 if no transactions being tracked
+    if (!TransactionIdIsValid(headXid))
+        return 0;
+
+    // Check if transaction is in tracked range
+    if (TransactionIdPrecedes(xid, tailXid) || TransactionIdFollows(xid, headXid))
+        return 0;
+
+    // Read the commit sequence number from SLRU
+    slotno = SimpleLruReadPage_ReadOnly(SerialSlruCtl, SerialPage(xid), xid);
+    val = SerialValue(slotno, xid);
+    LWLockRelease(SimpleLruGetBankLock(SerialSlruCtl, SerialPage(xid)));
+
+    return val;
+}
+```

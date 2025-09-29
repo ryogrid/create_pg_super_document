@@ -41,3 +41,30 @@ The function charges a bookkeeping overhead of 2x cpu_operator_cost per tuple, w
 - Bookkeeping overhead (2x cpu_operator_cost) is higher than rescan cost to prefer materializing smaller relations
 - Assumes spilling costs are evenly distributed during execution, though this may not be perfectly accurate
 - [Material](../M/Material.md) nodes have lower overhead than most plan nodes since they don't perform qual-checking or projection
+
+## Simplified Source
+
+```c
+void cost_material(Path *path, Cost input_startup_cost, Cost input_total_cost, double tuples, int width) {
+    Cost startup_cost = input_startup_cost;
+    Cost run_cost = input_total_cost - input_startup_cost;
+    double nbytes = relation_byte_size(tuples, width);
+    long work_mem_bytes = work_mem * 1024L;
+
+    path->rows = tuples;
+
+    // Add bookkeeping overhead: 2x cpu_operator_cost per tuple
+    // (Higher than rescan cost to prefer materializing smaller relations)
+    run_cost += 2 * cpu_operator_cost * tuples;
+
+    // If data exceeds work_mem, add disk I/O costs for spilling
+    if (nbytes > work_mem_bytes) {
+        double npages = ceil(nbytes / BLCKSZ);
+        run_cost += seq_page_cost * npages;
+    }
+
+    // Set final path costs
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

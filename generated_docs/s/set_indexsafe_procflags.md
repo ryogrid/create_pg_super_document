@@ -46,3 +46,26 @@ The function acquires the ProcArrayLock in exclusive mode to safely update both 
 - Only safe to use with simple indexes that don't execute expressions accessing other relations
 - Caller is responsible for ensuring the index meets the safety criteria (non-expressional and non-partial)
 - Part of PostgreSQL's concurrent index building infrastructure designed to improve performance and reliability
+
+## Simplified Source
+
+```c
+static inline void set_indexsafe_procflags(void)
+{
+    // Ensure no transaction IDs are set yet (safety check)
+    Assert(MyProc->xid == InvalidTransactionId &&
+           MyProc->xmin == InvalidTransactionId);
+
+    // Acquire exclusive lock on process array
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Set the "safe index creation" flag
+    MyProc->statusFlags |= PROC_IN_SAFE_IC;
+
+    // Update shared process status array
+    ProcGlobal->statusFlags[MyProc->pgxactoff] = MyProc->statusFlags;
+
+    // Release the lock
+    LWLockRelease(ProcArrayLock);
+}
+```

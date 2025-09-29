@@ -35,3 +35,25 @@ As a cleanup function, ExecEndBitmapAnd does not return any value and focuses so
 - Ensures all child nodes are properly terminated to prevent resource leaks
 - Called during query cleanup, plan tree destruction, or error handling
 - Located in src/backend/executor/nodeBitmapAnd.c:178-200
+
+## Simplified Source
+
+```c
+void
+ExecEndBitmapAnd(BitmapAndState *node)
+{
+    PlanState **bitmapplans;
+    int nplans;
+    int i;
+
+    // Get information from the node
+    bitmapplans = node->bitmapplans;
+    nplans = node->nplans;
+
+    // Shut down each initialized subplan
+    for (i = 0; i < nplans; i++) {
+        if (bitmapplans[i])
+            ExecEndNode(bitmapplans[i]);
+    }
+}
+```

@@ -40,3 +40,28 @@ Key behaviors include:
 - Critical for query performance as it eliminates unnecessary computation at execution time
 - The planner relies on this function to flatten nested boolean expressions into the expected N-argument form
 - Function calls requiring special handling (default arguments, named parameters) are normalized for executor compatibility
+
+## Simplified Source
+
+```c
+Node *
+eval_const_expressions(PlannerInfo *root, Node *node)
+{
+    eval_const_expressions_context context;
+
+    // Set up evaluation context
+    if (root)
+        context.boundParams = root->glob->boundParams;  // Use bound parameters
+    else
+        context.boundParams = NULL;                     // No parameter binding
+
+    // Initialize context for safe expression evaluation
+    context.root = root;           // For tracking function dependencies
+    context.active_fns = NIL;      // No recursive simplification active
+    context.case_val = NULL;       // No CASE expression being examined
+    context.estimate = false;      // Only safe transformations
+
+    // Perform recursive constant expression evaluation
+    return eval_const_expressions_mutator(node, &context);
+}
+```

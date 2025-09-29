@@ -39,3 +39,30 @@ The function establishes the memory layout by setting freeptr to point immediate
 - Integrates with valgrind for memory debugging support
 - Critical for proper block lifecycle management in generation contexts
 - Block header consumes Generation_BLOCKHDRSZ bytes at the beginning of each block
+
+## Simplified Source
+
+```c
+static inline void
+GenerationBlockInit(GenerationContext *context, GenerationBlock *block,
+                    Size blksize)
+{
+    // Link block to its context
+    block->context = context;
+    block->blksize = blksize;
+
+    // Initialize chunk counters
+    block->nchunks = 0;
+    block->nfree = 0;
+
+    // Set up memory boundaries
+    // freeptr points to first allocatable byte (after header)
+    block->freeptr = ((char *) block) + Generation_BLOCKHDRSZ;
+    // endptr points to end of block
+    block->endptr = ((char *) block) + blksize;
+
+    // Mark free space as inaccessible for debugging
+    VALGRIND_MAKE_MEM_NOACCESS(block->freeptr,
+                              blksize - Generation_BLOCKHDRSZ);
+}
+```

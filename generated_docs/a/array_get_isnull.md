@@ -35,3 +35,20 @@ The function implements bit-level operations to efficiently check the null statu
 - Part of PostgreSQL's internal array support routines
 - The function is static, meaning it's only accessible within the arrayfuncs.c compilation unit
 - The bitmap format stores NULL as 0-bit and non-NULL as 1-bit, which is the standard PostgreSQL convention
+
+## Simplified Source
+
+```c
+static bool array_get_isnull(const bits8 *nullbitmap, int offset) {
+    // No null bitmap means all elements are non-NULL
+    if (nullbitmap == NULL)
+        return false;
+
+    // Check the specific bit for this element
+    // If bit is 1, element is not null; if bit is 0, element is null
+    if (nullbitmap[offset / 8] & (1 << (offset % 8)))
+        return false;  // Not null
+
+    return true;  // Is null
+}
+```

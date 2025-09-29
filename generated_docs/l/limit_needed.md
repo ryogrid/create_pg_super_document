@@ -48,3 +48,47 @@ The key distinction from preprocess_limit() is that this function requires hard 
 - Even when this function returns false, OFFSET 0 still functions as an optimization fence because other planner code checks for non-null limitOffset
 - Essential for efficient plan generation when LIMIT/OFFSET clauses are purely syntactic
 - Located in src/backend/optimizer/plan/planner.c:2658-2716
+
+## Simplified Source
+
+```c
+bool limit_needed(Query *parse)
+{
+    Node *node;
+
+    // Check LIMIT clause
+    node = parse->limitCount;
+    if (node)
+    {
+        if (IsA(node, Const))
+        {
+            // NULL indicates LIMIT ALL (no limit)
+            if (!((Const *) node)->constisnull)
+                return true;  // LIMIT with actual value
+        }
+        else
+            return true;  // Non-constant LIMIT
+    }
+
+    // Check OFFSET clause
+    node = parse->limitOffset;
+    if (node)
+    {
+        if (IsA(node, Const))
+        {
+            // Treat NULL as no offset
+            if (!((Const *) node)->constisnull)
+            {
+                int64 offset = DatumGetInt64(((Const *) node)->constvalue);
+
+                if (offset != 0)
+                    return true;  // OFFSET with nonzero value
+            }
+        }
+        else
+            return true;  // Non-constant OFFSET
+    }
+
+    return false;  // No meaningful limit needed
+}
+```

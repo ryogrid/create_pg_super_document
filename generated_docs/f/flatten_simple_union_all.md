@@ -47,3 +47,59 @@ This optimization is most effective for top-level queries, as subqueries would t
 - The transformation preserves the original query semantics while enabling more efficient execution plans
 - This function is declared in src/include/optimizer/prep.h and is part of the query preparation phase
 - The optimization restructures the query tree significantly, converting from a setops-based representation to an appendrel-based one
+
+## Simplified Source
+```c
+void flatten_simple_union_all(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+    SetOperationStmt *topop;
+    Node *leftmostjtnode;
+    int leftmostRTI;
+    RangeTblEntry *leftmostRTE;
+    int childRTI;
+    RangeTblEntry *childRTE;
+    RangeTblRef *rtr;
+
+    // Get the top-level setops statement
+    topop = castNode(SetOperationStmt, parse->setOperations);
+
+    // Early exits: can't optimize recursive unions
+    if (root->hasRecursion)
+        return;
+
+    // Check if entire tree is simple UNION ALL operations
+    if (!is_simple_union_all_recurse((Node *) topop, parse, topop->colTypes))
+        return;
+
+    // Find the leftmost leaf query (what upper Vars refer to)
+    leftmostjtnode = topop->larg;
+    while (leftmostjtnode && IsA(leftmostjtnode, SetOperationStmt))
+        leftmostjtnode = ((SetOperationStmt *) leftmostjtnode)->larg;
+
+    leftmostRTI = ((RangeTblRef *) leftmostjtnode)->rtindex;
+    leftmostRTE = rt_fetch(leftmostRTI, parse->rtable);
+
+    // Create a copy for the appendrel member
+    childRTE = copyObject(leftmostRTE);
+    parse->rtable = lappend(parse->rtable, childRTE);
+    childRTI = list_length(parse->rtable);
+
+    // Update references to point to the child copy
+    ((RangeTblRef *) leftmostjtnode)->rtindex = childRTI;
+
+    // Mark original RTE as appendrel parent
+    leftmostRTE->inh = true;
+
+    // Insert appendrel reference into FROM clause
+    rtr = makeNode(RangeTblRef);
+    rtr->rtindex = leftmostRTI;
+    parse->jointree->fromlist = list_make1(rtr);
+
+    // Remove setOperations (query now looks like regular FROM)
+    parse->setOperations = NULL;
+
+    // Build AppendRelInfo and optimize leaf queries
+    pull_up_union_leaf_queries((Node *) topop, root, leftmostRTI, parse, 0);
+}
+```

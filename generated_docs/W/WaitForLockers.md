@@ -38,3 +38,18 @@ The function works by obtaining the current list of lock holders that conflict w
 - Progress reporting is optional and used by operations that want to provide feedback about waiting status
 - The function does not acquire locks itself, only waits for conflicting lock holders to complete
 - Located in src/backend/storage/lmgr/lmgr.c:981-999
+
+## Simplified Source
+
+```c
+void WaitForLockers(LOCKTAG heaplocktag, LOCKMODE lockmode, bool progress) {
+    // Create single-item list with the lock tag
+    List *l = list_make1(&heaplocktag);
+
+    // Wait for conflicting lockers using multi-tag function
+    WaitForLockersMultiple(l, lockmode, progress);
+
+    // Clean up temporary list
+    list_free(l);
+}
+```

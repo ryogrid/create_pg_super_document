@@ -42,3 +42,87 @@ This function creates and initializes a SQLFunctionParseInfo structure that cont
 - If call_expr is NULL and polymorphic arguments exist, the function will raise an error
 - The function allocates memory for the parse info structure and copies argument type information from the procedure definition
 - Argument names are extracted from the pg_proc entry if available, with proper validation of array bounds
+
+## Simplified Source
+
+```c
+SQLFunctionParseInfoPtr prepare_sql_fn_parse_info(HeapTuple procedureTuple,
+                                                  Node *call_expr,
+                                                  Oid inputCollation)
+{
+    SQLFunctionParseInfoPtr pinfo;
+    Form_pg_proc procedureStruct = (Form_pg_proc) GETSTRUCT(procedureTuple);
+    int nargs;
+
+    // Step 1: Initialize parse info structure
+    pinfo = (SQLFunctionParseInfoPtr) palloc0(sizeof(SQLFunctionParseInfo));
+
+    // Copy function name for argument qualification
+    pinfo->fname = pstrdup(NameStr(procedureStruct->proname));
+
+    // Save input collation
+    pinfo->collation = inputCollation;
+
+    // Step 2: Process argument types
+    pinfo->nargs = nargs = procedureStruct->pronargs;
+
+    if (nargs > 0) {
+        Oid *argOidVect;
+
+        // Copy argument types from pg_proc
+        argOidVect = (Oid *) palloc(nargs * sizeof(Oid));
+        memcpy(argOidVect, procedureStruct->proargtypes.values, nargs * sizeof(Oid));
+
+        // Resolve polymorphic types using call expression
+        for (int argnum = 0; argnum < nargs; argnum++) {
+            Oid argtype = argOidVect[argnum];
+
+            if (IsPolymorphicType(argtype)) {
+                // Get actual type from call expression
+                argtype = get_call_expr_argtype(call_expr, argnum);
+
+                if (argtype == InvalidOid) {
+                    ereport(ERROR,
+                           "could not determine actual type of argument declared %s",
+                           format_type_be(argOidVect[argnum]));
+                }
+
+                argOidVect[argnum] = argtype;
+            }
+        }
+
+        pinfo->argtypes = argOidVect;
+    }
+
+    // Step 3: Extract argument names if available
+    if (nargs > 0) {
+        Datum proargnames, proargmodes;
+        int n_arg_names;
+        bool isNull;
+
+        // Get argument names from pg_proc
+        proargnames = SysCacheGetAttr(PROCNAMEARGSNSP, procedureTuple,
+                                     Anum_pg_proc_proargnames, &isNull);
+        if (isNull)
+            proargnames = PointerGetDatum(NULL);
+
+        // Get argument modes from pg_proc
+        proargmodes = SysCacheGetAttr(PROCNAMEARGSNSP, procedureTuple,
+                                     Anum_pg_proc_proargmodes, &isNull);
+        if (isNull)
+            proargmodes = PointerGetDatum(NULL);
+
+        // Extract input argument names
+        n_arg_names = get_func_input_arg_names(proargnames, proargmodes, &pinfo->argnames);
+
+        // Validate we have enough names for all arguments
+        if (n_arg_names < nargs) {
+            pinfo->argnames = NULL;
+        }
+    } else {
+        pinfo->argnames = NULL;
+    }
+
+    return pinfo;
+}
+```

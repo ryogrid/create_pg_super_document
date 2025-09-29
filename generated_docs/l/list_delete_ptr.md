@@ -38,3 +38,23 @@ This is more efficient than `list_delete()` when you want to remove a specific o
 - Removes only the first matching pointer, not all matches
 - Returns the original list unchanged if no matching pointer is found
 - Commonly used in resource cleanup and object reference management
+
+## Simplified Source
+
+```c
+List *list_delete_ptr(List *list, void *datum) {
+    ListCell *cell;
+
+    Assert(IsPointerList(list));
+    check_list_invariants(list);
+
+    // Search for matching pointer
+    foreach(cell, list) {
+        if (lfirst(cell) == datum)
+            return list_delete_cell(list, cell);
+    }
+
+    // No match found - return original list
+    return list;
+}
+```

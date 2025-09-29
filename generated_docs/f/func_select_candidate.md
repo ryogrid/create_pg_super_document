@@ -47,3 +47,154 @@ The function handles domain types by reducing them to base types, ensuring consi
 - Preserves exact-match semantics while allowing appropriate coercions
 - Critical component in PostgreSQL's polymorphic function resolution system
 - Enforces FUNC_MAX_ARGS limit for safety against array overruns
+
+## Simplified Source
+
+```c
+FuncCandidateList func_select_candidate(int nargs,
+                                        Oid *input_typeids,
+                                        FuncCandidateList candidates) {
+    FuncCandidateList current_candidate, last_candidate;
+    Oid input_base_typeids[FUNC_MAX_ARGS];
+    int ncandidates, nbestMatch, nmatch, nunknowns;
+
+    // Validate argument count
+    if (nargs > FUNC_MAX_ARGS) {
+        ereport(ERROR, /* too many arguments */);
+    }
+
+    // Reduce domain types to base types, count unknowns
+    nunknowns = 0;
+    for (int i = 0; i < nargs; i++) {
+        if (input_typeids[i] != UNKNOWNOID) {
+            input_base_typeids[i] = getBaseType(input_typeids[i]);
+        } else {
+            input_base_typeids[i] = UNKNOWNOID;
+            nunknowns++;
+        }
+    }
+
+    // Phase 1: Keep candidates with most exact type matches
+    ncandidates = 0;
+    nbestMatch = 0;
+    last_candidate = NULL;
+
+    for (current_candidate = candidates; current_candidate != NULL;
+         current_candidate = current_candidate->next) {
+
+        // Count exact matches
+        nmatch = 0;
+        for (int i = 0; i < nargs; i++) {
+            if (input_base_typeids[i] != UNKNOWNOID &&
+                current_candidate->args[i] == input_base_typeids[i]) {
+                nmatch++;
+            }
+        }
+
+        // Keep best candidates
+        if (nmatch > nbestMatch || last_candidate == NULL) {
+            nbestMatch = nmatch;
+            candidates = current_candidate;
+            last_candidate = current_candidate;
+            ncandidates = 1;
+        } else if (nmatch == nbestMatch) {
+            last_candidate->next = current_candidate;
+            last_candidate = current_candidate;
+            ncandidates++;
+        }
+    }
+
+    if (last_candidate) last_candidate->next = NULL;
+    if (ncandidates == 1) return candidates;
+
+    // Phase 2: Consider preferred types in same category
+    TYPCATEGORY slot_category[FUNC_MAX_ARGS];
+    for (int i = 0; i < nargs; i++) {
+        slot_category[i] = TypeCategory(input_base_typeids[i]);
+    }
+
+    ncandidates = 0;
+    nbestMatch = 0;
+    last_candidate = NULL;
+
+    for (current_candidate = candidates; current_candidate != NULL;
+         current_candidate = current_candidate->next) {
+
+        nmatch = 0;
+        for (int i = 0; i < nargs; i++) {
+            if (input_base_typeids[i] != UNKNOWNOID) {
+                if (current_candidate->args[i] == input_base_typeids[i] ||
+                    IsPreferredType(slot_category[i], current_candidate->args[i])) {
+                    nmatch++;
+                }
+            }
+        }
+
+        // Keep best matches
+        if (nmatch > nbestMatch || last_candidate == NULL) {
+            nbestMatch = nmatch;
+            candidates = current_candidate;
+            last_candidate = current_candidate;
+            ncandidates = 1;
+        } else if (nmatch == nbestMatch) {
+            last_candidate->next = current_candidate;
+            last_candidate = current_candidate;
+            ncandidates++;
+        }
+    }
+
+    if (last_candidate) last_candidate->next = NULL;
+    if (ncandidates == 1) return candidates;
+
+    // Phase 3: Handle unknown types by category resolution
+    if (nunknowns > 0) {
+        // Try to resolve unknown types based on type categories
+        // Prefer STRING category, then consistent categories
+        // [Complex unknown resolution logic simplified...]
+
+        // If successful resolution, filter candidates accordingly
+    }
+
+    // Phase 4: Last resort - assume unknowns match known types
+    if (nunknowns < nargs) {
+        Oid known_type = UNKNOWNOID;
+
+        // Find if all known types are the same
+        for (int i = 0; i < nargs; i++) {
+            if (input_base_typeids[i] != UNKNOWNOID) {
+                if (known_type == UNKNOWNOID) {
+                    known_type = input_base_typeids[i];
+                } else if (known_type != input_base_typeids[i]) {
+                    known_type = UNKNOWNOID;
+                    break;
+                }
+            }
+        }
+
+        if (known_type != UNKNOWNOID) {
+            // Apply same type to all arguments and test
+            for (int i = 0; i < nargs; i++) {
+                input_base_typeids[i] = known_type;
+            }
+
+            // Find unique match with coercion
+            ncandidates = 0;
+            for (current_candidate = candidates; current_candidate != NULL;
+                 current_candidate = current_candidate->next) {
+                if (can_coerce_type(nargs, input_base_typeids,
+                                   current_candidate->args, COERCION_IMPLICIT)) {
+                    if (++ncandidates > 1) break;
+                    last_candidate = current_candidate;
+                }
+            }
+
+            if (ncandidates == 1) {
+                last_candidate->next = NULL;
+                return last_candidate;
+            }
+        }
+    }
+
+    return NULL; // No unique best candidate found
+}
+```

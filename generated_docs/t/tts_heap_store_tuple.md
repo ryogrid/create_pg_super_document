@@ -35,3 +35,30 @@ This function is responsible for storing a HeapTuple into a HeapTupleTableSlot. 
 - Sets the slot's TID to the tuple's self-identifier for tuple identification
 - Part of the tuple table slot abstraction layer in PostgreSQL's executor
 - Located in src/backend/executor/execTuples.c:486-507
+
+## Simplified Source
+
+```c
+static void tts_heap_store_tuple(TupleTableSlot *slot, HeapTuple tuple, bool shouldFree)
+{
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Clear any existing slot content
+    tts_heap_clear(slot);
+
+    // Initialize slot with new tuple
+    slot->tts_nvalid = 0;              // No columns extracted yet
+    hslot->tuple = tuple;              // Store the tuple
+    hslot->off = 0;                    // Reset column offset
+
+    // Clear empty flag and conditionally clear shouldfree flag
+    slot->tts_flags &= ~(TTS_FLAG_EMPTY | TTS_FLAG_SHOULDFREE);
+
+    // Set tuple identifier
+    slot->tts_tid = tuple->t_self;
+
+    // Set memory ownership flag if needed
+    if (shouldFree)
+        slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+}
+```

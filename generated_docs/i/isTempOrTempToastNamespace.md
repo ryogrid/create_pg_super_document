@@ -42,3 +42,17 @@ The function first validates that myTempNamespace is valid (which is a prerequis
 - This design reflects the dependency relationship where temporary TOAST namespaces are created only after temporary table namespaces
 - Commonly used in access control, relation management, and special handling code where temporary objects need different treatment regardless of their specific type
 - The function is session-specific and will not identify temporary namespaces from other PostgreSQL sessions
+
+## Simplified Source
+
+```c
+bool isTempOrTempToastNamespace(Oid namespaceId) {
+    // Check if we have a valid temporary namespace and if the given OID
+    // matches either our temp namespace or temp toast namespace
+    if (OidIsValid(myTempNamespace) &&
+        (myTempNamespace == namespaceId || myTempToastNamespace == namespaceId))
+        return true;
+
+    return false;
+}
+```

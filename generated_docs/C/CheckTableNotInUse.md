@@ -45,3 +45,30 @@ The function is designed to "err on the side of paranoia" to prevent data corrup
 - This safety mechanism is particularly important for operations like ALTER COLUMN TYPE that require table rewrites
 - The function helps prevent "stomping on our own foot" scenarios where a backend could interfere with its own ongoing operations
 - Part of PostgreSQL's broader strategy to ensure DDL operation safety and prevent data corruption during concurrent access
+
+## Simplified Source
+
+```c
+void CheckTableNotInUse(Relation rel, const char *stmt) {
+    // Calculate expected reference count (nailed relations have +1)
+    int expected_refcnt = rel->rd_isnailed ? 2 : 1;
+
+    // Check if relation has more references than expected (active use)
+    if (rel->rd_refcnt != expected_refcnt) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_IN_USE),
+                 errmsg("cannot %s \"%s\" because it is being used by active queries in this session",
+                        stmt, RelationGetRelationName(rel))));
+    }
+
+    // For non-index relations, check for pending trigger events
+    if (rel->rd_rel->relkind != RELKIND_INDEX &&
+        rel->rd_rel->relkind != RELKIND_PARTITIONED_INDEX &&
+        AfterTriggerPendingOnRel(RelationGetRelid(rel))) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_IN_USE),
+                 errmsg("cannot %s \"%s\" because it has pending trigger events",
+                        stmt, RelationGetRelationName(rel))));
+    }
+}
+```

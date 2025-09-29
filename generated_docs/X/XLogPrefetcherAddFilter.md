@@ -45,3 +45,30 @@ When a filter already exists for a relation, the function extends the filter's l
 - The filter queue is ordered by insertion, with newer filters at the head
 - Critical for preventing data corruption during crash recovery scenarios
 - Inline function for performance in the hot path of WAL prefetching
+
+## Simplified Source
+```c
+static inline void XLogPrefetcherAddFilter(XLogPrefetcher *prefetcher,
+                                         RelFileLocator rlocator,
+                                         BlockNumber blockno,
+                                         XLogRecPtr lsn) {
+    XLogPrefetcherFilter *filter;
+    bool found;
+
+    // Look up or create filter entry for this relation
+    filter = hash_search(prefetcher->filter_table, &rlocator, HASH_ENTER, &found);
+
+    if (!found) {
+        // New filter: prevent prefetching blocks >= blockno until LSN replayed
+        filter->filter_until_replayed = lsn;
+        filter->filter_from_block = blockno;
+        dlist_push_head(&prefetcher->filter_queue, &filter->link);
+    } else {
+        // Existing filter: extend lifetime and use most restrictive block number
+        filter->filter_until_replayed = lsn;
+        dlist_delete(&filter->link);
+        dlist_push_head(&prefetcher->filter_queue, &filter->link);
+        filter->filter_from_block = Min(filter->filter_from_block, blockno);
+    }
+}
+```

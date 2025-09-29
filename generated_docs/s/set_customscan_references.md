@@ -47,3 +47,44 @@ Additionally, this function recursively processes any child plan nodes within th
 - Custom expression lists (custom_exprs) are properly adjusted along with standard plan elements
 - The custom_relids set is offset to maintain proper relation references
 - Similar structure to set_foreignscan_references but includes child plan processing capability
+
+## Simplified Source
+
+```c
+static void
+set_customscan_references(PlannerInfo *root, CustomScan *cscan, int rtoffset) {
+    // Adjust scan relation ID if valid
+    if (cscan->scan.scanrelid > 0) {
+        cscan->scan.scanrelid += rtoffset;
+    }
+
+    if (cscan->custom_scan_tlist != NIL || cscan->scan.scanrelid == 0) {
+        // Custom scan tuple handling: build index and use fix_upper_expr
+        indexed_tlist *itlist = build_tlist_index(cscan->custom_scan_tlist);
+
+        // Fix target list, quals, and custom expressions to reference custom tuple
+        cscan->scan.plan.targetlist = fix_upper_expr(root, cscan->scan.plan.targetlist,
+                                                     itlist, INDEX_VAR, rtoffset);
+        cscan->scan.plan.qual = fix_upper_expr(root, cscan->scan.plan.qual,
+                                              itlist, INDEX_VAR, rtoffset);
+        cscan->custom_exprs = fix_upper_expr(root, cscan->custom_exprs,
+                                           itlist, INDEX_VAR, rtoffset);
+
+        pfree(itlist);
+        cscan->custom_scan_tlist = fix_scan_list(root, cscan->custom_scan_tlist, rtoffset);
+    } else {
+        // Standard scan handling: use fix_scan_list
+        cscan->scan.plan.targetlist = fix_scan_list(root, cscan->scan.plan.targetlist, rtoffset);
+        cscan->scan.plan.qual = fix_scan_list(root, cscan->scan.plan.qual, rtoffset);
+        cscan->custom_exprs = fix_scan_list(root, cscan->custom_exprs, rtoffset);
+    }
+
+    // Process child plans recursively
+    foreach(lc, cscan->custom_plans) {
+        lfirst(lc) = set_plan_refs(root, (Plan *) lfirst(lc), rtoffset);
+    }
+
+    // Adjust relation ID sets
+    cscan->custom_relids = offset_relid_set(cscan->custom_relids, rtoffset);
+}
+```

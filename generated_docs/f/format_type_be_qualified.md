@@ -42,3 +42,12 @@ Like other backend functions, it will fail for invalid type OIDs rather than ret
 - Critical for generating unambiguous object descriptions and DDL statements
 - Commonly used in dependency tracking and object identity operations
 - Ensures type names remain valid when moved between different schema contexts
+
+## Simplified Source
+
+```c
+char *format_type_be_qualified(Oid type_oid) {
+    // Force qualification for all type names except SQL keyword types
+    return format_type_extended(type_oid, -1, FORMAT_TYPE_FORCE_QUALIFY);
+}
+```

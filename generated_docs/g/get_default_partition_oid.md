@@ -36,3 +36,31 @@ The function is a simpler alternative to get_default_oid_from_partdesc() when yo
 - The function suggests using get_default_oid_from_partdesc() where possible for efficiency, particularly when working with partition descriptors
 - Uses the PARTRELID system cache for fast lookup of pg_partitioned_table entries
 - Properly manages system cache resources by releasing the tuple after use
+
+## Simplified Source
+
+```c
+Oid
+get_default_partition_oid(Oid parentId)
+{
+    HeapTuple tuple;
+    Oid defaultPartId = InvalidOid;
+
+    // Look up the partitioned table in the system cache
+    tuple = SearchSysCache1(PARTRELID, ObjectIdGetDatum(parentId));
+
+    if (HeapTupleIsValid(tuple))
+    {
+        Form_pg_partitioned_table part_table_form;
+
+        // Extract the partdefid field which contains the default partition OID
+        part_table_form = (Form_pg_partitioned_table) GETSTRUCT(tuple);
+        defaultPartId = part_table_form->partdefid;
+
+        // Release the cache entry
+        ReleaseSysCache(tuple);
+    }
+
+    return defaultPartId;
+}
+```

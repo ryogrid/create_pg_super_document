@@ -37,3 +37,23 @@ This function is part of the standard executor cleanup protocol and ensures that
 - The function is designed to be safe to call even if some subplans failed during initialization
 - No return value as cleanup operations are expected to always succeed
 - The function follows the standard PostgreSQL executor cleanup pattern of recursively terminating child nodes
+
+## Simplified Source
+
+```c
+void
+ExecEndAppend(AppendState *node)
+{
+    PlanState **appendplans;
+    int nplans;
+    int i;
+
+    // Get information about the subplans
+    appendplans = node->appendplans;
+    nplans = node->as_nplans;
+
+    // Shut down each subplan
+    for (i = 0; i < nplans; i++)
+        ExecEndNode(appendplans[i]);
+}
+```

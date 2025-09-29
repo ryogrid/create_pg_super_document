@@ -49,3 +49,20 @@ Unlike regular index build scans, this function doesn't return a tuple count as 
 - Critical for ensuring data consistency in concurrent index builds
 - Only called during the validation phase of concurrent index creation
 - The ValidateIndexState parameter maintains state across the validation process
+
+## Simplified Source
+
+```c
+static inline void table_index_validate_scan(Relation table_rel,
+                                             Relation index_rel,
+                                             struct IndexInfo *index_info,
+                                             Snapshot snapshot,
+                                             struct ValidateIndexState *state) {
+    // Delegate to the table access method's validation scan implementation
+    table_rel->rd_tableam->index_validate_scan(table_rel,
+                                               index_rel,
+                                               index_info,
+                                               snapshot,
+                                               state);
+}
+```

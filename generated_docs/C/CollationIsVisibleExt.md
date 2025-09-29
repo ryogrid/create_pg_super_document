@@ -38,3 +38,43 @@ The function includes graceful error handling - when is_missing is provided, it 
 - System catalog collations (PG_CATALOG_NAMESPACE) are always considered to be in the path
 - The final visibility check uses CollationGetCollid to ensure the same resolution logic is applied consistently
 - Handles both error-throwing and graceful error handling modes via the is_missing parameter
+
+## Simplified Source
+
+```c
+static bool CollationIsVisibleExt(Oid collid, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_collation coll_form;
+    Oid namespace_oid;
+    bool visible;
+
+    // Look up collation in system cache
+    tuple = SearchSysCache1(COLLOID, ObjectIdGetDatum(collid));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing collation gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for collation %u", collid);
+    }
+
+    coll_form = (Form_pg_collation) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace_oid = coll_form->collnamespace;
+    if (namespace_oid != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace_oid)) {
+        visible = false;
+    } else {
+        // Use full resolution to check visibility
+        // This handles encoding compatibility and name conflicts
+        char *coll_name = NameStr(coll_form->collname);
+        visible = (CollationGetCollid(coll_name) == collid);
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

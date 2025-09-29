@@ -49,3 +49,31 @@ The function is widely used throughout PostgreSQL's executor, optimizer, and uti
 - The combination of typlen and typbyval determines the complete strategy for handling a type's values
 - Used extensively in executor nodes, optimization, and serialization contexts
 - Prefer this function over separate calls when both values are needed
+
+## Simplified Source
+
+```c
+void get_typlenbyval(Oid typid, int16 *typlen, bool *typbyval)
+{
+    HeapTuple tp;
+    Form_pg_type typtup;
+
+    // Look up the type in the system cache
+    tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    // Ensure the type exists
+    if (!HeapTupleIsValid(tp)) {
+        elog(ERROR, "cache lookup failed for type %u", typid);
+    }
+
+    // Extract type information from the catalog tuple
+    typtup = (Form_pg_type) GETSTRUCT(tp);
+
+    // Return both pieces of information
+    *typlen = typtup->typlen;       // Storage length (-1 for variable)
+    *typbyval = typtup->typbyval;   // Pass-by-value flag
+
+    // Clean up cache reference
+    ReleaseSysCache(tp);
+}
+```

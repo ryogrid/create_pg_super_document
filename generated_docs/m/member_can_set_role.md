@@ -45,3 +45,25 @@ The function is used in several contexts:
 - Forms the basis for PostgreSQL's role-switching security model
 - Complementary to has_privs_of_role() which handles privilege inheritance separately
 - Essential for object ownership validation and session security controls
+
+## Simplified Source
+
+```c
+bool
+member_can_set_role(Oid member, Oid role)
+{
+    // Same role can always set to itself
+    if (member == role)
+        return true;
+
+    // Superusers can set to any role
+    if (superuser_arg(member))
+        return true;
+
+    // Check if member has SET ROLE privileges through role chain
+    // Get all roles accessible via SET ROLE and check if target is among them
+    return list_member_oid(roles_is_member_of(member, ROLERECURSE_SETROLE,
+                                            InvalidOid, NULL),
+                         role);
+}
+```

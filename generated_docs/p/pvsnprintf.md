@@ -58,3 +58,47 @@ The function is designed to be used in retry loops where the caller can realloca
 - **Thread Safety**: Callers must preserve errno when looping, especially for format strings containing '%m'
 - **Usage Context**: Not recommended for use inside libpq due to its error handling behavior
 - **Format String Support**: Supports all standard printf format specifiers plus PostgreSQL-specific extensions
+
+## Simplified Source
+
+```c
+size_t
+pvsnprintf(char *buf, size_t len, const char *fmt, va_list args)
+{
+    int nprinted;
+
+    // Attempt to format the string
+    nprinted = vsnprintf(buf, len, fmt, args);
+
+    // Check for vsnprintf failure
+    if (unlikely(nprinted < 0)) {
+#ifndef FRONTEND
+        elog(ERROR, "vsnprintf failed: %m with format string \"%s\"", fmt);
+#else
+        fprintf(stderr, "vsnprintf failed: %m with format string \"%s\"\n", fmt);
+        exit(EXIT_FAILURE);
+#endif
+    }
+
+    // Check if output fit in buffer
+    if ((size_t) nprinted < len) {
+        // Success: return number of characters written (excluding null terminator)
+        return (size_t) nprinted;
+    }
+
+    // Buffer too small: check for size overflow
+    if (unlikely((size_t) nprinted > MaxAllocSize - 1)) {
+#ifndef FRONTEND
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("out of memory")));
+#else
+        fprintf(stderr, _("out of memory\n"));
+        exit(EXIT_FAILURE);
+#endif
+    }
+
+    // Return estimated buffer size needed (including space for null terminator)
+    return nprinted + 1;
+}
+```

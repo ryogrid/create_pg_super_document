@@ -63,3 +63,127 @@ The function supports both required freezing (to advance relation horizons) and 
 - Updates caller-provided statistics for pgstat reporting
 - Does not update FSM - caller's responsibility to manage free space map
 - Critical sections protect against errors during page modifications
+
+## Simplified Source
+```c
+void
+heap_page_prune_and_freeze(Relation relation, Buffer buffer,
+                           GlobalVisState *vistest, int options,
+                           struct VacuumCutoffs *cutoffs,
+                           PruneFreezeResult *presult,
+                           PruneReason reason, OffsetNumber *off_loc,
+                           TransactionId *new_relfrozen_xid,
+                           MultiXactId *new_relmin_mxid)
+{
+    Page page = BufferGetPage(buffer);
+    PruneState prstate;
+    bool do_freeze, do_prune, do_hint;
+
+    // Initialize pruning state and options
+    prstate.vistest = vistest;
+    prstate.freeze = (options & HEAP_PAGE_PRUNE_FREEZE) != 0;
+    prstate.mark_unused_now = (options & HEAP_PAGE_PRUNE_MARK_UNUSED_NOW) != 0;
+    prstate.cutoffs = cutoffs;
+
+    // Initialize counters and arrays
+    prstate.nredirected = prstate.ndead = prstate.nunused = prstate.nfrozen = 0;
+    prstate.nroot_items = prstate.nheaponly_items = 0;
+
+    // Phase 1: Scan all tuples and determine their visibility status
+    OffsetNumber maxoff = PageGetMaxOffsetNumber(page);
+    for (OffsetNumber offnum = maxoff; offnum >= FirstOffsetNumber; offnum--) {
+        ItemId itemid = PageGetItemId(page, offnum);
+
+        // Skip unused and dead items
+        if (!ItemIdIsUsed(itemid) || ItemIdIsDead(itemid)) {
+            // Record unchanged or mark for cleanup
+            continue;
+        }
+
+        if (ItemIdIsRedirected(itemid)) {
+            // Root of HOT chain
+            prstate.root_items[prstate.nroot_items++] = offnum;
+            continue;
+        }
+
+        // Get tuple visibility status
+        HeapTupleHeader htup = (HeapTupleHeader) PageGetItem(page, itemid);
+        prstate.htsv[offnum] = heap_prune_satisfies_vacuum(&prstate, tuple, buffer);
+
+        // Classify as root or heap-only item
+        if (!HeapTupleHeaderIsHeapOnly(htup))
+            prstate.root_items[prstate.nroot_items++] = offnum;
+        else
+            prstate.heaponly_items[prstate.nheaponly_items++] = offnum;
+    }
+
+    // Phase 2: Process HOT chains
+    for (int i = prstate.nroot_items - 1; i >= 0; i--) {
+        OffsetNumber offnum = prstate.root_items[i];
+        if (!prstate.processed[offnum]) {
+            heap_prune_chain(page, blockno, maxoff, offnum, &prstate);
+        }
+    }
+
+    // Phase 3: Process orphaned heap-only tuples
+    for (int i = prstate.nheaponly_items - 1; i >= 0; i--) {
+        OffsetNumber offnum = prstate.heaponly_items[i];
+        if (!prstate.processed[offnum] &&
+            prstate.htsv[offnum] == HEAPTUPLE_DEAD) {
+            // Remove dead heap-only tuples not in chains
+            heap_prune_record_unused(&prstate, offnum, true);
+        }
+    }
+
+    // Determine what operations to perform
+    do_prune = (prstate.nredirected > 0 || prstate.ndead > 0 || prstate.nunused > 0);
+    do_freeze = prstate.freeze && (prstate.pagefrz.freeze_required ||
+                                  should_freeze_opportunistically(&prstate));
+    do_hint = (page_prune_xid_changed(&prstate) || PageIsFull(page));
+
+    // Phase 4: Apply changes within critical section
+    START_CRIT_SECTION();
+
+    if (do_hint) {
+        // Update page metadata
+        ((PageHeader) page)->pd_prune_xid = prstate.new_prune_xid;
+        PageClearFull(page);
+    }
+
+    if (do_prune) {
+        // Execute planned pruning operations
+        heap_page_prune_execute(buffer, false, prstate.redirected, prstate.nredirected,
+                               prstate.nowdead, prstate.ndead,
+                               prstate.nowunused, prstate.nunused);
+    }
+
+    if (do_freeze) {
+        // Apply freeze plans
+        heap_freeze_prepared_tuples(buffer, prstate.frozen, prstate.nfrozen);
+    }
+
+    if (do_prune || do_freeze) {
+        MarkBufferDirty(buffer);
+
+        // Generate WAL record for replication
+        if (RelationNeedsWAL(relation)) {
+            log_heap_prune_and_freeze(relation, buffer, conflict_xid,
+                                     true, reason, /* freeze/prune details */);
+        }
+    }
+
+    END_CRIT_SECTION();
+
+    // Copy results back to caller
+    presult->ndeleted = prstate.ndeleted;
+    presult->nfrozen = prstate.nfrozen;
+    presult->all_visible = determine_all_visible(&prstate);
+    presult->all_frozen = determine_all_frozen(&prstate);
+
+    // Update relation-level XIDs if freezing occurred
+    if (prstate.freeze && presult->nfrozen > 0) {
+        *new_relfrozen_xid = prstate.pagefrz.FreezePageRelfrozenXid;
+        *new_relmin_mxid = prstate.pagefrz.FreezePageRelminMxid;
+    }
+}
+```

@@ -43,3 +43,38 @@ LookupExplicitNamespace provides a secure way to look up a namespace by name wit
 - This is the preferred function for most namespace lookups due to its security checks
 - Widely used throughout PostgreSQL for secure namespace resolution
 - Located in src/backend/catalog/namespace.c:3385-3427
+
+## Simplified Source
+
+```c
+Oid
+LookupExplicitNamespace(const char *nspname, bool missing_ok)
+{
+    Oid namespaceId;
+    AclResult aclresult;
+
+    // Handle special "pg_temp" alias
+    if (strcmp(nspname, "pg_temp") == 0) {
+        if (OidIsValid(myTempNamespace))
+            return myTempNamespace;
+        // Don't initialize temp namespace - just fall through
+    }
+
+    // Look up the namespace by name
+    namespaceId = get_namespace_oid(nspname, missing_ok);
+    if (missing_ok && !OidIsValid(namespaceId))
+        return InvalidOid;
+
+    // Check user has USAGE permission on this namespace
+    aclresult = object_aclcheck(NamespaceRelationId, namespaceId,
+                               GetUserId(), ACL_USAGE);
+    if (aclresult != ACLCHECK_OK) {
+        aclcheck_error(aclresult, OBJECT_SCHEMA, nspname);
+    }
+
+    // Invoke search hook for extensions/auditing
+    InvokeNamespaceSearchHook(namespaceId, true);
+
+    return namespaceId;
+}
+```

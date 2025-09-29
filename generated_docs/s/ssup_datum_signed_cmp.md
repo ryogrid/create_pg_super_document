@@ -41,3 +41,22 @@ The function is designed for data types that can be represented as or converted 
 - Handles negative values correctly due to signed comparison semantics
 - Part of PostgreSQL's SortSupport framework for optimizing sort operations
 - Commonly used for bigint, timestamp, and other int64-based data types
+
+## Simplified Source
+
+```c
+int ssup_datum_signed_cmp(Datum x, Datum y, SortSupport ssup)
+{
+    // Extract int64 values from Datum wrappers
+    int64 xx = DatumGetInt64(x);
+    int64 yy = DatumGetInt64(y);
+
+    // Perform three-way comparison
+    if (xx < yy)
+        return -1;
+    else if (xx > yy)
+        return 1;
+    else
+        return 0;
+}
+```

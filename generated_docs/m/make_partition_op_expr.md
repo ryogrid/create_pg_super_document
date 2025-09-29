@@ -53,3 +53,70 @@ This function constructs appropriate expression nodes for partition constraint o
 - [Hash](../H/Hash.md) partitioning support is explicitly disabled with Assert(false)
 - Applies proper collation settings from the partition key metadata
 - Returns NULL only in error cases or unsupported scenarios
+
+## Simplified Source
+
+```c
+static Expr *make_partition_op_expr(PartitionKey key, int keynum, uint16 strategy, Expr *arg1, Expr *arg2) {
+    Oid operoid;
+    bool need_relabel = false;
+    Expr *result = NULL;
+
+    // Get the appropriate operator for this partition column
+    operoid = get_partition_operator(key, keynum, strategy, &need_relabel);
+
+    // Apply type coercion to non-Const operand if needed
+    if (!IsA(arg1, Const) && (need_relabel || key->partcollation[keynum] != key->parttypcoll[keynum])) {
+        arg1 = (Expr *) makeRelabelType(arg1, key->partopcintype[keynum], -1,
+                                       key->partcollation[keynum], COERCE_EXPLICIT_CAST);
+    }
+
+    // Build expression based on partitioning strategy
+    switch (key->strategy) {
+        case PARTITION_STRATEGY_LIST: {
+            List *elems = (List *) arg2;
+            int nelems = list_length(elems);
+
+            if (nelems > 1 && !type_is_array(key->parttypid[keynum])) {
+                // Multiple values: create "column = ANY(ARRAY[val1, val2, ...])"
+                ArrayExpr *arrexpr = makeNode(ArrayExpr);
+                arrexpr->array_typeid = get_array_type(key->parttypid[keynum]);
+                arrexpr->elements = elems;
+                // Set other array properties...
+
+                ScalarArrayOpExpr *saopexpr = makeNode(ScalarArrayOpExpr);
+                saopexpr->opno = operoid;
+                saopexpr->useOr = true;
+                saopexpr->args = list_make2(arg1, arrexpr);
+                // Set other scalar array op properties...
+
+                result = (Expr *) saopexpr;
+            } else {
+                // Single value or array type: create OR'd equality expressions
+                List *elemops = NIL;
+                foreach(lc, elems) {
+                    Expr *elem = lfirst(lc);
+                    Expr *elemop = make_opclause(operoid, BOOLOID, false, arg1, elem,
+                                               InvalidOid, key->partcollation[keynum]);
+                    elemops = lappend(elemops, elemop);
+                }
+                result = (nelems > 1) ? makeBoolExpr(OR_EXPR, elemops, -1) : linitial(elemops);
+            }
+            break;
+        }
+
+        case PARTITION_STRATEGY_RANGE:
+            // Simple comparison operation
+            result = make_opclause(operoid, BOOLOID, false, arg1, arg2,
+                                 InvalidOid, key->partcollation[keynum]);
+            break;
+
+        case PARTITION_STRATEGY_HASH:
+            // Not supported
+            Assert(false);
+            break;
+    }
+
+    return result;
+}
+```

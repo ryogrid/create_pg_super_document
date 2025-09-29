@@ -41,3 +41,21 @@ The function is designed to be non-destructive, returning either the original se
 - Uses PostgreSQL's bitmap set (bms) infrastructure for efficient set operations
 - The function creates a modifiable copy only when changes are actually needed, optimizing for the common case where no modification is required
 - Primarily used for updating nulling relations sets in Var and PlaceHolderVar nodes during range table index changes
+
+## Simplified Source
+
+```c
+static Relids adjust_relid_set(Relids relids, int oldrelid, int newrelid) {
+    // Check if old relation ID is in the set (skip special varnos)
+    if (!IS_SPECIAL_VARNO(oldrelid) && bms_is_member(oldrelid, relids)) {
+        // Create modifiable copy of the set
+        relids = bms_copy(relids);
+
+        // Replace: remove old ID and add new ID
+        relids = bms_del_member(relids, oldrelid);
+        relids = bms_add_member(relids, newrelid);
+    }
+
+    return relids;
+}
+```

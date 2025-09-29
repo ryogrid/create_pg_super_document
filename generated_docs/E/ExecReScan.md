@@ -48,3 +48,66 @@ The function supports a comprehensive set of PostgreSQL plan node types, from ba
 - The comprehensive switch statement covers all supported PostgreSQL plan node types, with an error case for unrecognized node types
 - Memory management is handled by freeing the chgParam bitmapset after processing
 - This function is critical for implementing features like nested loops, subqueries, and other constructs that require multiple passes over the same data
+
+## Simplified Source
+
+```c
+void
+ExecReScan(PlanState *node)
+{
+    // Update timing stats if collecting performance data
+    if (node->instrument)
+        InstrEndLoop(node->instrument);
+
+    // Handle parameter changes - propagate to child plans
+    if (node->chgParam != NULL) {
+        // Process InitPlans first
+        foreach(l, node->initPlan) {
+            SubPlanState *sstate = (SubPlanState *) lfirst(l);
+            PlanState  *splan = sstate->planstate;
+
+            if (splan->plan->extParam != NULL)
+                UpdateChangedParamSet(splan, node->chgParam);
+            if (splan->chgParam != NULL)
+                ExecReScanSetParamPlan(sstate, node);
+        }
+
+        // Process SubPlans
+        foreach(l, node->subPlan) {
+            // Similar parameter propagation logic
+        }
+
+        // Update child nodes
+        if (outerPlanState(node) != NULL)
+            UpdateChangedParamSet(outerPlanState(node), node->chgParam);
+        if (innerPlanState(node) != NULL)
+            UpdateChangedParamSet(innerPlanState(node), node->chgParam);
+    }
+
+    // Reset expression contexts
+    if (node->ps_ExprContext)
+        ReScanExprContext(node->ps_ExprContext);
+
+    // Dispatch to node-type-specific rescan function
+    switch (nodeTag(node)) {
+        case T_SeqScanState:
+            ExecReScanSeqScan((SeqScanState *) node);
+            break;
+        case T_IndexScanState:
+            ExecReScanIndexScan((IndexScanState *) node);
+            break;
+        case T_HashJoinState:
+            ExecReScanHashJoin((HashJoinState *) node);
+            break;
+        // ... many other node types
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+    }
+
+    // Clean up parameter change tracking
+    if (node->chgParam != NULL) {
+        bms_free(node->chgParam);
+        node->chgParam = NULL;
+    }
+}
+```

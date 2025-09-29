@@ -57,3 +57,56 @@ This function is essential for maintaining MVCC (Multi-Version Concurrency Contr
 - Asserts that tuples are only in the main fork and validates block number consistency
 - The function handles the complex case where logical decoding needs to reconstruct command ID information that would normally be available through combo CIDs
 - Critical for maintaining transactional consistency in logical replication scenarios
+
+## Simplified Source
+
+```c
+bool
+ResolveCminCmaxDuringDecoding(HTAB *tuplecid_data,
+                              Snapshot snapshot,
+                              HeapTuple htup, Buffer buffer,
+                              CommandId *cmin, CommandId *cmax)
+{
+    ReorderBufferTupleCidKey key;
+    ReorderBufferTupleCidEnt *ent;
+    ForkNumber forkno;
+    BlockNumber blockno;
+    bool updated_mapping = false;
+
+    // Return false if no CID data available (streaming case)
+    if (tuplecid_data == NULL)
+        return false;
+
+    // Build lookup key from tuple location
+    memset(&key, 0, sizeof(key));
+
+    Assert(!BufferIsLocal(buffer));
+
+    BufferGetTag(buffer, &key.rlocator, &forkno, &blockno);
+    Assert(forkno == MAIN_FORKNUM);
+    Assert(blockno == ItemPointerGetBlockNumber(&htup->t_self));
+
+    ItemPointerCopy(&htup->t_self, &key.tid);
+
+restart:
+    // Search for tuple CID mapping
+    ent = (ReorderBufferTupleCidEnt *) hash_search(tuplecid_data, &key, HASH_FIND, NULL);
+
+    // If not found and haven't updated mappings yet, try updating
+    if (ent == NULL && !updated_mapping) {
+        UpdateLogicalMappings(tuplecid_data, htup->t_tableOid, snapshot);
+        updated_mapping = true;
+        goto restart;
+    } else if (ent == NULL) {
+        return false;
+    }
+
+    // Return the found command IDs
+    if (cmin)
+        *cmin = ent->cmin;
+    if (cmax)
+        *cmax = ent->cmax;
+
+    return true;
+}
+```

@@ -42,3 +42,26 @@ This function takes no parameters.
 - Memory tracking is automatic and transparent to the user - this function handles cleanup of memory allocated by ECPG on the user's behalf
 - Used in conjunction with ECPG's automatic memory management to prevent memory leaks in embedded SQL applications
 - The function gracefully handles the case where no auto-allocated memory exists (am == NULL)
+
+## Simplified Source
+
+```c
+void ECPGfree_auto_mem(void) {
+    struct auto_mem *am = get_auto_allocs();
+
+    // Free all automatically allocated memory for this thread
+    if (am) {
+        do {
+            struct auto_mem *current = am;
+            am = am->next;
+
+            // Free the user data and the tracking node
+            ecpg_free(current->pointer);
+            ecpg_free(current);
+        } while (am);
+
+        // Reset the auto-allocation list
+        set_auto_allocs(NULL);
+    }
+}
+```

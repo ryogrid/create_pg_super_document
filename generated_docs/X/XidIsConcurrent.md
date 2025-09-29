@@ -41,3 +41,29 @@ This concurrency detection is crucial for the serializable snapshot isolation im
 - Uses efficient binary search (pg_lfind32) to check if an XID is in the snapshot's active transaction array
 - This function is part of the infrastructure that enables PostgreSQL's serializable snapshot isolation level to detect dangerous structures (rw-conflicts) that could lead to serialization anomalies
 - Located at src/backend/storage/lmgr/predicate.c:3962
+
+## Simplified Source
+
+```c
+static bool
+XidIsConcurrent(TransactionId xid)
+{
+    Snapshot snap;
+
+    Assert(TransactionIdIsValid(xid));
+    Assert(!TransactionIdEquals(xid, GetTopTransactionIdIfAny()));
+
+    snap = GetTransactionSnapshot();
+
+    // Transaction committed before our snapshot
+    if (TransactionIdPrecedes(xid, snap->xmin))
+        return false;
+
+    // Transaction started after our snapshot
+    if (TransactionIdFollowsOrEquals(xid, snap->xmax))
+        return true;
+
+    // Check if transaction is in our active list
+    return pg_lfind32(xid, snap->xip, snap->xcnt);
+}
+```

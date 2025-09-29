@@ -48,3 +48,50 @@ The function applies worker offset adjustments for leader tapesets, enabling pro
 - Applies worker offsets for parallel processing scenarios
 - Maintains proper resource management by releasing blocks when not frozen
 - Critical for tape read performance as it minimizes individual block read calls
+
+## Simplified Source
+
+```c
+static bool ltsReadFillBuffer(LogicalTape *lt) {
+    // Reset buffer state
+    lt->pos = 0;
+    lt->nbytes = 0;
+
+    // Read blocks until buffer full or EOF
+    do {
+        char *thisbuf = lt->buffer + lt->nbytes;
+        int64 datablocknum = lt->nextBlockNumber;
+
+        // Check for EOF
+        if (datablocknum == -1L)
+            break;
+
+        // Apply worker offset for parallel processing
+        datablocknum += lt->offsetBlockNumber;
+
+        // Read current block
+        ltsReadBlock(lt->tapeSet, datablocknum, thisbuf);
+
+        // Release block if tape not frozen
+        if (!lt->frozen)
+            ltsReleaseBlock(lt->tapeSet, datablocknum);
+
+        lt->curBlockNumber = lt->nextBlockNumber;
+
+        // Update buffer byte count
+        lt->nbytes += TapeBlockGetNBytes(thisbuf);
+
+        // Check if this is the last block
+        if (TapeBlockIsLast(thisbuf)) {
+            lt->nextBlockNumber = -1L; // Mark EOF
+            break;
+        } else {
+            // Get next block from trailer
+            lt->nextBlockNumber = TapeBlockGetTrailer(thisbuf)->next;
+        }
+
+    } while (lt->buffer_size - lt->nbytes > BLCKSZ); // Continue if space available
+
+    return (lt->nbytes > 0); // Return true if any data read
+}
+```

@@ -57,3 +57,30 @@ The function first searches the ATTNAME cache using SearchSysCache2 with the pro
 - Callers must call ReleaseSysCache() on the returned tuple if it's not NULL
 - Widely used in DDL operations, query planning, and attribute resolution where dropped attributes should be ignored
 - The function simplifies code by avoiding the need for callers to manually check the attisdropped flag
+
+## Simplified Source
+
+```c
+HeapTuple
+SearchSysCacheAttName(Oid relid, const char *attname)
+{
+    HeapTuple tuple;
+
+    // Search for attribute by relation OID and name
+    tuple = SearchSysCache2(ATTNAME,
+                            ObjectIdGetDatum(relid),
+                            CStringGetDatum(attname));
+
+    if (!HeapTupleIsValid(tuple))
+        return NULL;
+
+    // Check if attribute is marked as dropped
+    if (((Form_pg_attribute) GETSTRUCT(tuple))->attisdropped)
+    {
+        ReleaseSysCache(tuple);
+        return NULL;
+    }
+
+    return tuple;
+}
+```

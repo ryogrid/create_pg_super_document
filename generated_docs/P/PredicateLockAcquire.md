@@ -44,3 +44,48 @@ The function first checks if the lock already exists or is covered by a coarser 
 - Automatically cleans up redundant finer-granularity locks except for tuple-level locks
 - The function is idempotent - calling it multiple times with the same target has no additional effect
 - Critical for preventing serialization anomalies in SERIALIZABLE isolation level transactions
+
+## Simplified Source
+
+```c
+static void
+PredicateLockAcquire(const PREDICATELOCKTARGETTAG *targettag)
+{
+    uint32 targettaghash;
+    bool found;
+    LOCALPREDICATELOCK *locallock;
+
+    // Check if we already have this lock or a covering coarser lock
+    if (PredicateLockExists(targettag))
+        return;
+
+    if (CoarserLockCovers(targettag))
+        return;
+
+    // Calculate hash for both local and shared lock tables
+    targettaghash = PredicateLockTargetTagHashCode(targettag);
+
+    // Add entry to local lock table
+    locallock = hash_search_with_hash_value(LocalPredicateLockHash,
+                                           targettag, targettaghash,
+                                           HASH_ENTER, &found);
+    locallock->held = true;
+    if (!found)
+        locallock->childLocks = 0;
+
+    // Create the actual predicate lock
+    CreatePredicateLock(targettag, targettaghash, MySerializableXact);
+
+    // Try to promote to coarser granularity or clean up finer locks
+    if (CheckAndPromotePredicateLockRequest(targettag))
+    {
+        // Lock was promoted - promotion logic handles cleanup
+    }
+    else
+    {
+        // Clean up any finer-granularity child locks (except tuples)
+        if (GET_PREDICATELOCKTARGETTAG_TYPE(*targettag) != PREDLOCKTAG_TUPLE)
+            DeleteChildTargetLocks(targettag);
+    }
+}
+```

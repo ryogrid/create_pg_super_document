@@ -37,3 +37,16 @@ This function takes no parameters.
 - The temporary toast namespace follows the naming pattern "pg_toast_temp_[procnumber]"
 - Ensures that toast tables for temporary relations are properly isolated within the backend's temporary namespace
 - Returns the OID directly without any additional validation beyond the assertion
+
+## Simplified Source
+
+```c
+Oid GetTempToastNamespace(void)
+{
+    // Ensure temporary toast namespace is initialized
+    Assert(OidIsValid(myTempToastNamespace));
+
+    // Return the temporary toast namespace OID
+    return myTempToastNamespace;
+}
+```

@@ -49,3 +49,50 @@ The function is essential for partition definition processing, ensuring that par
 - Optimizes the common case where the input is already a constant by skipping expensive evaluation steps
 - Critical for PostgreSQL's declarative partitioning system, ensuring partition bounds are valid and efficiently comparable
 - The function preserves the original expression's parse location for accurate error reporting in later processing stages
+
+## Simplified Source
+
+```c
+static Const *transformPartitionBoundValue(ParseState *pstate, Node *val,
+                                          const char *colName, Oid colType, int32 colTypmod,
+                                          Oid partCollation) {
+    Node *value;
+
+    // Transform the raw expression
+    value = transformExpr(pstate, val, EXPR_KIND_PARTITION_BOUND);
+
+    // Validate no variables, subqueries, etc. are present
+    Assert(!contain_var_clause(value));
+
+    // Coerce to target column type
+    value = coerce_to_target_type(pstate, value, exprType(value),
+                                 colType, colTypmod, COERCION_ASSIGNMENT,
+                                 COERCE_IMPLICIT_CAST, -1);
+
+    if (value == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("specified value cannot be cast to type %s for column \"%s\"",
+                             format_type_be(colType), colName),
+                       parser_errposition(pstate, exprLocation(val))));
+    }
+
+    // Evaluate expression to constant if needed
+    if (!IsA(value, Const)) {
+        assign_expr_collations(pstate, value);
+        value = (Node *) expression_planner((Expr *) value);
+        value = (Node *) evaluate_expr((Expr *) value, colType, colTypmod, partCollation);
+
+        if (!IsA(value, Const)) {
+            elog(ERROR, "could not evaluate partition bound expression");
+        }
+    } else {
+        // For existing constants, just set the right collation
+        ((Const *) value)->constcollid = partCollation;
+    }
+
+    // Preserve original location for error reporting
+    ((Const *) value)->location = exprLocation(val);
+
+    return (Const *) value;
+}
+```

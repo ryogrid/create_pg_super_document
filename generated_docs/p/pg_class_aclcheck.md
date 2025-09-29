@@ -43,3 +43,12 @@ The `pg_class_aclcheck` function is an exported routine that verifies whether a 
 - Returns ACLCHECK_OK for success, ACLCHECK_NO_PRIV for insufficient privileges
 - Located in src/backend/catalog/aclchk.c lines 4096-4105
 - This wrapper function simplifies calls when missing relation detection is not required
+
+## Simplified Source
+
+```c
+AclResult pg_class_aclcheck(Oid table_oid, Oid roleid, AclMode mode) {
+    // Delegate to extended version with NULL for missing relation handling
+    return pg_class_aclcheck_ext(table_oid, roleid, mode, NULL);
+}
+```

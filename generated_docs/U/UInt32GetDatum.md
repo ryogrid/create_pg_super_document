@@ -37,3 +37,14 @@ UInt32GetDatum is a static inline function that provides type-safe conversion fr
 - Used extensively in contexts requiring unsigned integer return values, such as hash computations and lock status reporting
 - Critical for functions that need to return uint32 values as Datum results in PostgreSQL's function call interface
 - Part of PostgreSQL's type system infrastructure that enables uniform handling of different data types
+
+## Simplified Source
+
+```c
+static inline Datum
+UInt32GetDatum(uint32 X)
+{
+    // Direct cast from 32-bit unsigned integer to Datum
+    return (Datum) X;
+}
+```

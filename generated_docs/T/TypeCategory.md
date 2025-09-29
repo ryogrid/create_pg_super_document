@@ -56,3 +56,22 @@ Type categories help PostgreSQL determine which types can be implicitly converte
   - TYPCATEGORY_UNKNOWN ('X') - Unknown type
   - TYPCATEGORY_INTERNAL ('Z') - Internal types
 - Critical for PostgreSQL's operator and function resolution algorithms
+
+## Simplified Source
+
+```c
+TYPCATEGORY
+TypeCategory(Oid type)
+{
+    char typcategory;
+    bool typispreferred;
+
+    // Get category and preferred flag from system catalog
+    get_type_category_preferred(type, &typcategory, &typispreferred);
+
+    // Ensure we always return a valid category
+    Assert(typcategory != TYPCATEGORY_INVALID);
+
+    return (TYPCATEGORY) typcategory;
+}
+```

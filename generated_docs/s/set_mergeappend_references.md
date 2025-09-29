@@ -50,3 +50,37 @@ The optimization criteria are identical to Append nodes: there must be exactly o
 - Partition pruning information (part_prune_info) is handled identically to Append nodes
 - Both initial and execution-time pruning steps are adjusted with proper range table offsets
 - The function asserts that MergeAppend nodes have no left or right subtrees
+
+## Simplified Source
+
+```c
+static Plan *
+set_mergeappend_references(PlannerInfo *root, MergeAppend *mplan, int rtoffset) {
+    // Process all child plans recursively
+    foreach(l, mplan->mergeplans) {
+        lfirst(l) = set_plan_refs(root, (Plan *) lfirst(l), rtoffset);
+    }
+
+    // Optimization: eliminate single-child MergeAppend if parallel awareness matches
+    if (list_length(mplan->mergeplans) == 1) {
+        Plan *child = (Plan *) linitial(mplan->mergeplans);
+        if (child->parallel_aware == mplan->plan.parallel_aware) {
+            return clean_up_removed_plan_level((Plan *) mplan, child);
+        }
+    }
+
+    // Adjust references for remaining MergeAppend node
+    set_dummy_tlist_references((Plan *) mplan, rtoffset);
+    mplan->apprelids = offset_relid_set(mplan->apprelids, rtoffset);
+
+    // Update partition pruning information if present
+    if (mplan->part_prune_info) {
+        foreach(l, mplan->part_prune_info->prune_infos) {
+            // Adjust pruning steps with proper offsets
+            fix_pruning_steps_with_offsets(l, rtoffset);
+        }
+    }
+
+    return (Plan *) mplan;
+}
+```

@@ -46,3 +46,20 @@ After acquiring the lock, the function calls AcceptInvalidationMessages() to ens
 - Always calls AcceptInvalidationMessages() after lock acquisition to maintain cache consistency
 - Commonly used for DDL operations on catalog objects like enums, publications, and schemas
 - Located in src/backend/storage/lmgr/lmgr.c:1000-1023
+
+## Simplified Source
+
+```c
+void LockDatabaseObject(Oid classid, Oid objid, uint16 objsubid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Build lock tag for the database object
+    SET_LOCKTAG_OBJECT(tag, MyDatabaseId, classid, objid, objsubid);
+
+    // Acquire the lock
+    LockAcquire(&tag, lockmode, false, false);
+
+    // Ensure system caches are updated after waiting for lock
+    AcceptInvalidationMessages();
+}
+```

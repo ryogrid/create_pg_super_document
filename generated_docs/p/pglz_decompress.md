@@ -47,3 +47,65 @@ Match tag format uses 2 bytes for offset ≤ 4095 and length ≤ 17, with an opt
 - Includes comprehensive corruption detection including offset validation
 - Essential component of PostgreSQL's TOAST decompression and WAL recovery systems
 - Optimized for both safety (corruption detection) and performance (efficient copying)
+
+## Simplified Source
+
+```c
+int32 pglz_decompress(const char *source, int32 slen, char *dest,
+                     int32 rawsize, bool check_complete) {
+    const unsigned char *sp = (const unsigned char *) source;
+    const unsigned char *srcend = sp + slen;
+    unsigned char *dp = (unsigned char *) dest;
+    unsigned char *destend = dp + rawsize;
+
+    // Process compressed data in 8-item blocks controlled by control bytes
+    while (sp < srcend && dp < destend) {
+        unsigned char ctrl = *sp++;
+
+        // Process up to 8 items per control byte
+        for (int ctrlc = 0; ctrlc < 8 && sp < srcend && dp < destend; ctrlc++) {
+            if (ctrl & 1) {
+                // Match tag: decode length and offset for back-reference
+                int32 len = (sp[0] & 0x0f) + 3;
+                int32 off = ((sp[0] & 0xf0) << 4) | sp[1];
+                sp += 2;
+
+                // Handle extended length encoding
+                if (len == 18) {
+                    len += *sp++;
+                }
+
+                // Validate offset to detect corruption
+                if (sp > srcend || off == 0 || off > (dp - (unsigned char *) dest)) {
+                    return -1;
+                }
+
+                // Limit copy to available space
+                len = Min(len, destend - dp);
+
+                // Handle overlapping copy for pattern expansion
+                while (off < len) {
+                    memcpy(dp, dp - off, off);
+                    len -= off;
+                    dp += off;
+                    off += off;  // Double offset for efficiency
+                }
+                memcpy(dp, dp - off, len);
+                dp += len;
+            } else {
+                // Literal byte: copy directly
+                *dp++ = *sp++;
+            }
+
+            ctrl >>= 1;  // Advance to next control bit
+        }
+    }
+
+    // Verify complete decompression if requested
+    if (check_complete && (dp != destend || sp != srcend)) {
+        return -1;
+    }
+
+    return (char *) dp - dest;
+}
+```

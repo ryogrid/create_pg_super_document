@@ -44,3 +44,24 @@ The function performs a system cache lookup to efficiently retrieve the collatio
 - Collation names are not unique across different schemas, so this function should primarily be used for error messages and diagnostics
 - The function explicitly warns in comments that collation names are not unique, making it unsuitable for identification purposes
 - Part of PostgreSQL's internationalization infrastructure supporting locale-specific text operations
+
+## Simplified Source
+
+```c
+char *get_collation_name(Oid colloid)
+{
+    // Look up collation in system cache
+    HeapTuple tp = SearchSysCache1(COLLOID, ObjectIdGetDatum(colloid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract collation name and make a copy
+        Form_pg_collation colltup = (Form_pg_collation) GETSTRUCT(tp);
+        char *result = pstrdup(NameStr(colltup->collname));
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Collation not found
+    return NULL;
+}
+```

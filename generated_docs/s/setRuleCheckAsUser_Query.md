@@ -38,3 +38,36 @@ This function is responsible for updating permission checking behavior within Po
 - Part of PostgreSQL's security model for rule-based query rewriting
 - Only processes RTE_SUBQUERY type range table entries, ignoring other RTE types
 - The function is static, limiting its scope to the rewriteDefine.c file
+
+## Simplified Source
+
+```c
+static void setRuleCheckAsUser_Query(Query *qry, Oid userid) {
+    ListCell *l;
+
+    // Set checkAsUser in all RTEPermissionInfos
+    foreach(l, qry->rteperminfos) {
+        RTEPermissionInfo *perminfo = lfirst_node(RTEPermissionInfo, l);
+        perminfo->checkAsUser = userid;
+    }
+
+    // Process subqueries in range table entries
+    foreach(l, qry->rtable) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(l);
+
+        if (rte->rtekind == RTE_SUBQUERY)
+            setRuleCheckAsUser_Query(rte->subquery, userid);
+    }
+
+    // Process Common Table Expressions (WITH clauses)
+    foreach(l, qry->cteList) {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(l);
+        setRuleCheckAsUser_Query(castNode(Query, cte->ctequery), userid);
+    }
+
+    // Process sublinks within the query tree
+    if (qry->hasSubLinks)
+        query_tree_walker(qry, setRuleCheckAsUser_walker, (void *) &userid,
+                         QTW_IGNORE_RC_SUBQUERIES);
+}
+```

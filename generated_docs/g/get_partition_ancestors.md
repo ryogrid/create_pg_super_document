@@ -43,3 +43,23 @@ The function assumes that each relation in the hierarchy has precisely one paren
 - Should only be called when it is known that the relation is a partition
 - Located at src/backend/catalog/partition.c:134-152
 - Memory for the returned list is allocated in the current memory context
+
+## Simplified Source
+
+```c
+List *get_partition_ancestors(Oid relid) {
+    List *result = NIL;
+    Relation inhRel;
+
+    // Open the inheritance catalog table
+    inhRel = table_open(InheritsRelationId, AccessShareLock);
+
+    // Delegate to worker function to build ancestor list
+    get_partition_ancestors_worker(inhRel, relid, &result);
+
+    // Close the catalog table
+    table_close(inhRel, AccessShareLock);
+
+    return result;
+}
+```

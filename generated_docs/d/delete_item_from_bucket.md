@@ -40,3 +40,30 @@ This function searches through a hash bucket's linked list to find and remove a 
 - Efficiently handles linked list manipulation using pointer-to-pointer technique
 - Properly deallocates memory by freeing the deleted item
 - Useful when you have a direct reference to the item to be deleted
+
+## Simplified Source
+
+```c
+static bool delete_item_from_bucket(dshash_table *hash_table,
+                                    dshash_table_item *item,
+                                    dsa_pointer *bucket_head) {
+    // Walk through the bucket chain looking for the specific item
+    while (DsaPointerIsValid(*bucket_head)) {
+        dshash_table_item *bucket_item = dsa_get_address(hash_table->area, *bucket_head);
+
+        // Check if this is the item we're looking for (pointer comparison)
+        if (bucket_item == item) {
+            // Remove item from chain and free its memory
+            dsa_pointer next = item->next;
+            dsa_free(hash_table->area, *bucket_head);
+            *bucket_head = next;
+            return true;
+        }
+
+        // Move to next item in chain
+        bucket_head = &bucket_item->next;
+    }
+
+    return false; // Item not found
+}
+```

@@ -33,3 +33,27 @@ This function serves as the primary interface for obtaining the next block numbe
 - The Valgrind integration helps detect uninitialized memory access in callback functions
 - InvalidBlockNumber is used as a sentinel value to indicate no buffered block is available
 - The callback function is responsible for determining which block should be read next based on the stream's access pattern
+
+## Simplified Source
+
+```c
+static inline BlockNumber
+read_stream_get_block(ReadStream *stream, void *per_buffer_data)
+{
+    BlockNumber blocknum;
+
+    // Check if we have a buffered block from unget operation
+    blocknum = stream->buffered_blocknum;
+    if (blocknum != InvalidBlockNumber) {
+        stream->buffered_blocknum = InvalidBlockNumber;
+    } else {
+        // Mark per-buffer data as undefined for memory debugging
+        VALGRIND_MAKE_MEM_UNDEFINED(per_buffer_data, stream->per_buffer_data_size);
+
+        // Ask callback for next block to read
+        blocknum = stream->callback(stream, stream->callback_private_data, per_buffer_data);
+    }
+
+    return blocknum;
+}
+```

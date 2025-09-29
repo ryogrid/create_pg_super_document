@@ -51,3 +51,51 @@ The function handles several critical tasks: validates the connection object, ma
 - Blocks COPY BOTH operations as they are incompatible with synchronous execution
 - Clears connection error state only when no commands are queued in pipeline mode
 - Essential for maintaining connection state consistency across all synchronous libpq operations
+
+## Simplified Source
+
+```c
+static bool PQexecStart(PGconn *conn) {
+    PGresult *result;
+
+    // Basic connection validation
+    if (!conn)
+        return false;
+
+    // Clear error state if no commands queued
+    if (conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Prevent synchronous commands in pipeline mode
+    if (conn->pipelineStatus != PQ_PIPELINE_OFF) {
+        libpq_append_conn_error(conn, "synchronous command execution functions are not allowed in pipeline mode");
+        return false;
+    }
+
+    // Clean up any pending results from previous operations
+    while ((result = PQgetResult(conn)) != NULL) {
+        ExecStatusType resultStatus = result->resultStatus;
+        PQclear(result);
+
+        // Handle COPY operations specially
+        if (resultStatus == PGRES_COPY_IN) {
+            // Terminate COPY IN operation
+            if (PQputCopyEnd(conn, libpq_gettext("COPY terminated by new PQexec")) < 0)
+                return false;
+        } else if (resultStatus == PGRES_COPY_OUT) {
+            // Switch to busy state, discard remaining data
+            conn->asyncStatus = PGASYNC_BUSY;
+        } else if (resultStatus == PGRES_COPY_BOTH) {
+            // COPY BOTH not allowed with PQexec
+            libpq_append_conn_error(conn, "PQexec not allowed during COPY BOTH");
+            return false;
+        }
+
+        // Check for connection loss
+        if (conn->status == CONNECTION_BAD)
+            return false;
+    }
+
+    return true;
+}
+```

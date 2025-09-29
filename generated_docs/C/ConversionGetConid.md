@@ -35,3 +35,31 @@ Conversions in PostgreSQL are used to transform text between different character
 - Uses the CONNAMENSP system cache for efficient catalog lookups
 - Part of PostgreSQL's general object resolution framework for encoding conversions
 - The comment notes this is essentially the same implementation pattern as RelnameGetRelid
+
+## Simplified Source
+
+```c
+Oid ConversionGetConid(const char *conname) {
+    // Ensure search path is up to date
+    recomputeNamespacePath();
+
+    // Search through each namespace in the active search path
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        // Skip temporary namespace
+        if (namespaceId == myTempNamespace)
+            continue;
+
+        // Look up conversion by name and namespace
+        Oid conid = GetSysCacheOid2(CONNAMENSP, Anum_pg_conversion_oid,
+                                   PointerGetDatum(conname),
+                                   ObjectIdGetDatum(namespaceId));
+        if (OidIsValid(conid))
+            return conid;
+    }
+
+    // Not found in any namespace
+    return InvalidOid;
+}
+```

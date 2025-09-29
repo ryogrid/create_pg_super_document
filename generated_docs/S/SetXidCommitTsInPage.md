@@ -45,3 +45,33 @@ The function is designed to be called by TransactionTreeSetCommitTsData as part 
 - The function assumes all provided transaction IDs belong to the specified page
 - Critical for maintaining ACID properties when recording commit timestamps
 - Location: src/backend/access/transam/commit_ts.c:222-248
+
+## Simplified Source
+
+```c
+static void
+SetXidCommitTsInPage(TransactionId xid, int nsubxids, TransactionId *subxids,
+                     TimestampTz ts, RepOriginId nodeid, int64 pageno)
+{
+    // Get page-specific lock and acquire exclusively
+    LWLock *lock = SimpleLruGetBankLock(CommitTsCtl, pageno);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Ensure page is loaded into memory
+    int slotno = SimpleLruReadPage(CommitTsCtl, pageno, true, xid);
+
+    // Set commit timestamp for main transaction
+    TransactionIdSetCommitTs(xid, ts, nodeid, slotno);
+
+    // Set commit timestamp for all subtransactions
+    for (int i = 0; i < nsubxids; i++) {
+        TransactionIdSetCommitTs(subxids[i], ts, nodeid, slotno);
+    }
+
+    // Mark page as dirty for persistence
+    CommitTsCtl->shared->page_dirty[slotno] = true;
+
+    // Release lock
+    LWLockRelease(lock);
+}
+```

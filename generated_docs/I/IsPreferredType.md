@@ -44,6 +44,26 @@ The function can operate in two modes:
 - Preferred type information is stored in the pg_type system catalog
 - Examples of preferred types include:
   - int4 and float8 in numeric category
-  - [text](../t/text.md) in string category  
+  - [text](../t/text.md) in string category
   - timestamptz in datetime category
 - The preferred type mechanism helps ensure predictable behavior in ambiguous type resolution scenarios
+
+## Simplified Source
+
+```c
+bool
+IsPreferredType(TYPCATEGORY category, Oid type)
+{
+    char typcategory;
+    bool typispreferred;
+
+    // Get type's category and preferred flag
+    get_type_category_preferred(type, &typcategory, &typispreferred);
+
+    // Check if type is preferred in the specified category
+    if (category == typcategory || category == TYPCATEGORY_INVALID)
+        return typispreferred;
+    else
+        return false;
+}
+```

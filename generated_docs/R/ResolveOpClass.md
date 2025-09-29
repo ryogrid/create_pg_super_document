@@ -46,3 +46,66 @@ The function also performs binary compatibility checks to ensure the data type c
 - Returns appropriate error messages when operator classes don't exist or are incompatible
 - Critical component in both index creation and table partitioning operations
 - Uses PostgreSQL's system cache for efficient operator class lookups
+
+## Simplified Source
+
+```c
+Oid
+ResolveOpClass(const List *opclass, Oid attrType,
+               const char *accessMethodName, Oid accessMethodId)
+{
+    char *schemaname;
+    char *opcname;
+    HeapTuple tuple;
+    Form_pg_opclass opform;
+    Oid opClassId, opInputType;
+
+    // No operator class specified - find default
+    if (opclass == NIL)
+    {
+        opClassId = GetDefaultOpClass(attrType, accessMethodId);
+        if (!OidIsValid(opClassId))
+            ereport(ERROR, "No default operator class for data type %s with access method \"%s\"",
+                    format_type_be(attrType), accessMethodName);
+        return opClassId;
+    }
+
+    // Parse the qualified operator class name
+    DeconstructQualifiedName(opclass, &schemaname, &opcname);
+
+    if (schemaname)
+    {
+        // Schema-qualified lookup
+        Oid namespaceId = LookupExplicitNamespace(schemaname, false);
+        tuple = SearchSysCache3(CLAAMNAMENSP,
+                                ObjectIdGetDatum(accessMethodId),
+                                PointerGetDatum(opcname),
+                                ObjectIdGetDatum(namespaceId));
+    }
+    else
+    {
+        // Search path lookup
+        opClassId = OpclassnameGetOpcid(accessMethodId, opcname);
+        if (!OidIsValid(opClassId))
+            ereport(ERROR, "Operator class \"%s\" does not exist for access method \"%s\"",
+                    opcname, accessMethodName);
+        tuple = SearchSysCache1(CLAOID, ObjectIdGetDatum(opClassId));
+    }
+
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "Operator class \"%s\" does not exist for access method \"%s\"",
+                NameListToString(opclass), accessMethodName);
+
+    // Verify data type compatibility
+    opform = (Form_pg_opclass) GETSTRUCT(tuple);
+    opClassId = opform->oid;
+    opInputType = opform->opcintype;
+
+    if (!IsBinaryCoercible(attrType, opInputType))
+        ereport(ERROR, "Operator class \"%s\" does not accept data type %s",
+                NameListToString(opclass), format_type_be(attrType));
+
+    ReleaseSysCache(tuple);
+    return opClassId;
+}
+```

@@ -44,3 +44,64 @@ StartReadBuffersImpl is the heart of PostgreSQL's asynchronous buffer reading me
 - All buffers in the range are pinned regardless of whether they need I/O, ensuring consistent buffer management
 - The function is marked always_inline for performance optimization in the critical I/O path
 - The design simulates asynchronous I/O behavior while maintaining simplicity in the current implementation
+
+## Simplified Source
+```c
+static bool
+StartReadBuffersImpl(ReadBuffersOperation *operation,
+                     Buffer *buffers,
+                     BlockNumber blockNum,
+                     int *nblocks,
+                     int flags)
+{
+    int actual_nblocks = *nblocks;
+    int io_buffers_len = 0;
+
+    // Pin buffers for each requested block
+    for (int i = 0; i < actual_nblocks; ++i) {
+        bool found;
+
+        // Pin buffer and check if already in memory
+        buffers[i] = PinBufferForBlock(operation->rel,
+                                       operation->smgr,
+                                       operation->smgr_persistence,
+                                       operation->forknum,
+                                       blockNum + i,
+                                       operation->strategy,
+                                       &found);
+
+        if (found) {
+            // Buffer hit - terminate to avoid fragmented I/O
+            actual_nblocks = i + 1;
+            break;
+        } else {
+            // Buffer miss - extend readable range
+            io_buffers_len++;
+        }
+    }
+
+    *nblocks = actual_nblocks;
+
+    // All blocks were in memory - no I/O needed
+    if (io_buffers_len == 0)
+        return false;
+
+    // Prepare I/O operation
+    operation->buffers = buffers;
+    operation->blocknum = blockNum;
+    operation->flags = flags;
+    operation->nblocks = actual_nblocks;
+    operation->io_buffers_len = io_buffers_len;
+
+    // Issue prefetch advice if requested
+    if (flags & READ_BUFFERS_ISSUE_ADVICE) {
+        smgrprefetch(operation->smgr,
+                     operation->forknum,
+                     blockNum,
+                     operation->io_buffers_len);
+    }
+
+    // I/O needed - caller should call WaitReadBuffers
+    return true;
+}
+```

@@ -37,3 +37,19 @@ The function first applies `expression_planner()` to normalize the expression, t
 - The function assumes that `expression_planner()` will not modify its input (read-only processing)
 - Critical for index creation and constraint validation where accurate volatility assessment is essential
 - Part of the public interface (non-static function) for mutability testing across PostgreSQL subsystems
+
+## Simplified Source
+
+```c
+bool
+contain_mutable_functions_after_planning(Expr *expr)
+{
+    // Run expression through planner to handle:
+    // 1. Insert function default arguments (e.g., "default now()")
+    // 2. Inline functions to reveal true volatility
+    expr = expression_planner(expr);
+
+    // Now check for mutable functions in the planned expression
+    return contain_mutable_functions((Node *) expr);
+}
+```

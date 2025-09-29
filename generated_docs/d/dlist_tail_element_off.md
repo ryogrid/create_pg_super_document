@@ -26,7 +26,7 @@ This is an internal utility function that performs pointer arithmetic to calcula
   - [dlist_node](dlist_node.md) (accessed via head->head.prev)
 - Called from (representative examples):
   - [dlist_tail_node](dlist_tail_node.md) (src/include/lib/ilist.h:584)
-  - dlist_tail_element (src/include/lib/ilist.h:614) 
+  - dlist_tail_element (src/include/lib/ilist.h:614)
   - [dclist_tail_node](dclist_tail_node.md) (src/include/lib/ilist.h:924)
 
 ## Notes and Other Information
@@ -35,3 +35,17 @@ This is an internal utility function that performs pointer arithmetic to calcula
 - Performs pointer arithmetic: `(char *) head->head.prev - off`
 - Part of the intrusive list implementation where nodes are embedded in data structures
 - The function is static inline for performance optimization
+
+## Simplified Source
+
+```c
+static inline void *
+dlist_tail_element_off(dlist_head *head, size_t off)
+{
+    // Ensure list is not empty
+    Assert(!dlist_is_empty(head));
+
+    // Calculate address of containing structure
+    return (char *) head->head.prev - off;
+}
+```

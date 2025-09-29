@@ -37,3 +37,18 @@ The changes made by this function are not subject to transaction rollback becaus
 - Changes are applied directly to `pgstat_info->counts.delta_dead_tuples` rather than transaction-level counters
 - This function is typically called during cleanup operations like heap pruning where physical tuple removal has occurred
 - The dead tuple count is important for vacuum and autovacuum decision-making processes
+
+## Simplified Source
+```c
+void
+pgstat_update_heap_dead_tuples(Relation rel, int delta)
+{
+    // Only update statistics for relations we should track
+    if (pgstat_should_count_relation(rel)) {
+        PgStat_TableStatus *pgstat_info = rel->pgstat_info;
+
+        // Decrease dead tuple count by delta (nontransactional operation)
+        pgstat_info->counts.delta_dead_tuples -= delta;
+    }
+}
+```

@@ -38,3 +38,17 @@ This function is essential for vectorized comparison and arithmetic operations w
 - Used primarily in specialized SIMD search and comparison operations where 32-bit integer processing is required
 - Part of PostgreSQL's performance optimization infrastructure for operations on larger integer data types
 - Enables efficient vectorized operations such as equality testing, hash comparisons, and numerical computations on arrays of 32-bit integers
+
+## Simplified Source
+
+```c
+static inline Vector32 vector32_broadcast(const uint32 c) {
+#ifdef USE_SSE2
+    // SSE2 (x86/x64): Replicate 32-bit value across all 4 lanes
+    return _mm_set1_epi32(c);
+#elif defined(USE_NEON)
+    // NEON (ARM): Duplicate 32-bit value across all 4 lanes
+    return vdupq_n_u32(c);
+#endif
+}
+```

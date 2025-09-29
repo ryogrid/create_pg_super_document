@@ -38,3 +38,41 @@ This is a critical component of range partition constraint generation, as it enf
 - Essential for maintaining PostgreSQLs range partitioning semantics
 - The generated constraints are typically ANDed with other range partition constraints
 - Error checking ensures the correct number of partition key expressions
+
+## Simplified Source
+
+```c
+static List *get_range_nulltest(PartitionKey key) {
+    List *result = NIL;
+    ListCell *partexprs_item = list_head(key->partexprs);
+
+    // Create IS NOT NULL test for each partition key column
+    for (int i = 0; i < key->partnatts; i++) {
+        Expr *keyCol;
+
+        // Build expression for this partition key column
+        if (key->partattrs[i] != 0) {
+            // Simple attribute reference
+            keyCol = (Expr *) makeVar(1, key->partattrs[i], key->parttypid[i],
+                                     key->parttypmod[i], key->parttypcoll[i], 0);
+        } else {
+            // Expression-based partition key
+            if (partexprs_item == NULL)
+                elog(ERROR, "wrong number of partition key expressions");
+            keyCol = copyObject(lfirst(partexprs_item));
+            partexprs_item = lnext(key->partexprs, partexprs_item);
+        }
+
+        // Create IS NOT NULL test
+        NullTest *nulltest = makeNode(NullTest);
+        nulltest->arg = keyCol;
+        nulltest->nulltesttype = IS_NOT_NULL;
+        nulltest->argisrow = false;
+        nulltest->location = -1;
+
+        result = lappend(result, nulltest);
+    }
+
+    return result;
+}
+```

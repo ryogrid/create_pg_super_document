@@ -33,3 +33,18 @@ This function implements the rescan functionality for sequential table scans in 
 - It handles the case where the scan descriptor might be NULL (no active scan)
 - The function delegates common rescan operations to ExecScanReScan after handling table-specific rescan logic
 - Located in src/backend/executor/nodeSeqscan.c at lines 212-237
+
+## Simplified Source
+
+```c
+void ExecReScanSeqScan(SeqScanState *node) {
+    TableScanDesc scan = node->ss.ss_currentScanDesc;
+
+    // Reset table scan position if scan is active
+    if (scan != NULL)
+        table_rescan(scan, NULL);
+
+    // Handle common rescan operations
+    ExecScanReScan((ScanState *) node);
+}
+```

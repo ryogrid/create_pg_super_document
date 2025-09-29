@@ -50,3 +50,33 @@ The function performs a complete dependency analysis by:
 - The rtable parameter enables proper resolution of table references in the expression context
 - Memory management is handled internally through object_addresses allocation/deallocation
 - Critical for maintaining referential integrity in PostgreSQL's dependency system
+
+## Simplified Source
+
+```c
+void recordDependencyOnExpr(const ObjectAddress *depender,
+                           Node *expr, List *rtable,
+                           DependencyType behavior) {
+    find_expr_references_context context;
+
+    // Initialize context for collecting object references
+    context.addrs = new_object_addresses();
+
+    // Set up range table for variable interpretation
+    context.rtables = list_make1(rtable);
+
+    // Walk expression tree to find all referenced objects
+    find_expr_references_walker(expr, &context);
+
+    // Remove duplicate dependencies
+    eliminate_duplicate_dependencies(context.addrs);
+
+    // Record all dependencies at once
+    recordMultipleDependencies(depender,
+                              context.addrs->refs, context.addrs->numrefs,
+                              behavior);
+
+    // Clean up allocated memory
+    free_object_addresses(context.addrs);
+}
+```

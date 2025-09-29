@@ -73,3 +73,148 @@ This function is the core mechanism for creating constraint entries in PostgreSQ
 - Establishes AUTO dependencies to owning relations/domains and NORMAL dependencies to referenced objects
 - Does not validate constraint data - validation is handled elsewhere
 - Thread-safe as it uses proper catalog locking mechanisms
+
+## Simplified Source
+
+```c
+Oid CreateConstraintEntry(const char *constraintName,
+                         Oid constraintNamespace, char constraintType,
+                         bool isDeferrable, bool isDeferred, bool isValidated,
+                         Oid parentConstrId, Oid relId, const int16 *constraintKey,
+                         int constraintNKeys, int constraintNTotalKeys,
+                         Oid domainId, Oid indexRelId, Oid foreignRelId,
+                         const int16 *foreignKey, const Oid *pfEqOp,
+                         const Oid *ppEqOp, const Oid *ffEqOp, int foreignNKeys,
+                         char foreignUpdateType, char foreignDeleteType,
+                         const int16 *fkDeleteSetCols, int numFkDeleteSetCols,
+                         char foreignMatchType, const Oid *exclOp,
+                         Node *conExpr, const char *conBin,
+                         bool conIsLocal, int conInhCount, bool conNoInherit,
+                         bool is_internal)
+{
+    Relation conDesc;
+    Oid conOid;
+    HeapTuple tup;
+    bool nulls[Natts_pg_constraint];
+    Datum values[Natts_pg_constraint];
+    NameData cname;
+
+    // Open constraint catalog
+    conDesc = table_open(ConstraintRelationId, RowExclusiveLock);
+
+    // Copy constraint name
+    namestrcpy(&cname, constraintName);
+
+    // Convert C arrays to PostgreSQL arrays
+    ArrayType *conkeyArray = NULL;
+    if (constraintNKeys > 0) {
+        Datum *conkey = palloc(constraintNKeys * sizeof(Datum));
+        for (int i = 0; i < constraintNKeys; i++)
+            conkey[i] = Int16GetDatum(constraintKey[i]);
+        conkeyArray = construct_array_builtin(conkey, constraintNKeys, INT2OID);
+    }
+
+    // Handle foreign key arrays
+    ArrayType *confkeyArray = NULL, *conpfeqopArray = NULL;
+    ArrayType *conppeqopArray = NULL, *conffeqopArray = NULL;
+    ArrayType *confdelsetcolsArray = NULL;
+
+    if (foreignNKeys > 0) {
+        Datum *fkdatums = palloc(Max(foreignNKeys, numFkDeleteSetCols) * sizeof(Datum));
+
+        // Foreign key columns
+        for (int i = 0; i < foreignNKeys; i++)
+            fkdatums[i] = Int16GetDatum(foreignKey[i]);
+        confkeyArray = construct_array_builtin(fkdatums, foreignNKeys, INT2OID);
+
+        // Equality operators
+        for (int i = 0; i < foreignNKeys; i++)
+            fkdatums[i] = ObjectIdGetDatum(pfEqOp[i]);
+        conpfeqopArray = construct_array_builtin(fkdatums, foreignNKeys, OIDOID);
+
+        // Similar for ppEqOp and ffEqOp arrays...
+        // Delete SET columns if any
+        if (numFkDeleteSetCols > 0) {
+            for (int i = 0; i < numFkDeleteSetCols; i++)
+                fkdatums[i] = Int16GetDatum(fkDeleteSetCols[i]);
+            confdelsetcolsArray = construct_array_builtin(fkdatums, numFkDeleteSetCols, INT2OID);
+        }
+    }
+
+    // Handle exclusion operators
+    ArrayType *conexclopArray = NULL;
+    if (exclOp != NULL) {
+        Datum *opdatums = palloc(constraintNKeys * sizeof(Datum));
+        for (int i = 0; i < constraintNKeys; i++)
+            opdatums[i] = ObjectIdGetDatum(exclOp[i]);
+        conexclopArray = construct_array_builtin(opdatums, constraintNKeys, OIDOID);
+    }
+
+    // Initialize values array
+    for (int i = 0; i < Natts_pg_constraint; i++) {
+        nulls[i] = false;
+        values[i] = (Datum) NULL;
+    }
+
+    // Get new OID and populate basic fields
+    conOid = GetNewOidWithIndex(conDesc, ConstraintOidIndexId, Anum_pg_constraint_oid);
+    values[Anum_pg_constraint_oid - 1] = ObjectIdGetDatum(conOid);
+    values[Anum_pg_constraint_conname - 1] = NameGetDatum(&cname);
+    values[Anum_pg_constraint_connamespace - 1] = ObjectIdGetDatum(constraintNamespace);
+    values[Anum_pg_constraint_contype - 1] = CharGetDatum(constraintType);
+    values[Anum_pg_constraint_condeferrable - 1] = BoolGetDatum(isDeferrable);
+    values[Anum_pg_constraint_condeferred - 1] = BoolGetDatum(isDeferred);
+    values[Anum_pg_constraint_convalidated - 1] = BoolGetDatum(isValidated);
+    values[Anum_pg_constraint_conrelid - 1] = ObjectIdGetDatum(relId);
+    values[Anum_pg_constraint_contypid - 1] = ObjectIdGetDatum(domainId);
+    values[Anum_pg_constraint_conindid - 1] = ObjectIdGetDatum(indexRelId);
+    values[Anum_pg_constraint_conparentid - 1] = ObjectIdGetDatum(parentConstrId);
+    values[Anum_pg_constraint_confrelid - 1] = ObjectIdGetDatum(foreignRelId);
+
+    // Set array fields (with proper null handling)
+    if (conkeyArray)
+        values[Anum_pg_constraint_conkey - 1] = PointerGetDatum(conkeyArray);
+    else
+        nulls[Anum_pg_constraint_conkey - 1] = true;
+
+    // Similar for other arrays...
+
+    // Create and insert tuple
+    tup = heap_form_tuple(RelationGetDescr(conDesc), values, nulls);
+    CatalogTupleInsert(conDesc, tup);
+
+    table_close(conDesc, RowExclusiveLock);
+
+    // Record dependencies
+    ObjectAddress conobject;
+    ObjectAddressSet(conobject, ConstraintRelationId, conOid);
+
+    // Auto dependencies (to owning relation/domain)
+    ObjectAddresses *addrs_auto = new_object_addresses();
+    if (OidIsValid(relId)) {
+        ObjectAddress relobject;
+        ObjectAddressSet(relobject, RelationRelationId, relId);
+        add_exact_object_address(&relobject, addrs_auto);
+    }
+    record_object_address_dependencies(&conobject, addrs_auto, DEPENDENCY_AUTO);
+
+    // Normal dependencies (to referenced objects)
+    ObjectAddresses *addrs_normal = new_object_addresses();
+    if (OidIsValid(foreignRelId)) {
+        ObjectAddress relobject;
+        ObjectAddressSet(relobject, RelationRelationId, foreignRelId);
+        add_exact_object_address(&relobject, addrs_normal);
+    }
+    record_object_address_dependencies(&conobject, addrs_normal, DEPENDENCY_NORMAL);
+
+    // Record expression dependencies if CHECK constraint
+    if (conExpr != NULL)
+        recordDependencyOnSingleRelExpr(&conobject, conExpr, relId,
+                                       DEPENDENCY_NORMAL, DEPENDENCY_NORMAL, false);
+
+    // Post-creation hook
+    InvokeObjectPostCreateHookArg(ConstraintRelationId, conOid, 0, is_internal);
+
+    return conOid;
+}
+```

@@ -43,3 +43,43 @@ The function is typically used in partitioned table scenarios where you need to 
 - Properly cleans up allocated memory by freeing the index list
 - Located at src/backend/catalog/partition.c:176-221
 - Includes error handling for failed cache lookups
+
+## Simplified Source
+
+```c
+Oid index_get_partition(Relation partition, Oid indexId) {
+    List *idxlist = RelationGetIndexList(partition);
+    ListCell *l;
+
+    // Iterate through all indexes on the partition
+    foreach(l, idxlist) {
+        Oid partIdx = lfirst_oid(l);
+        HeapTuple tup;
+        Form_pg_class classForm;
+        bool ispartition;
+
+        // Look up index information in system cache
+        tup = SearchSysCache1(RELOID, ObjectIdGetDatum(partIdx));
+        if (!HeapTupleIsValid(tup))
+            elog(ERROR, "cache lookup failed for relation %u", partIdx);
+
+        // Check if this index is a partition
+        classForm = (Form_pg_class) GETSTRUCT(tup);
+        ispartition = classForm->relispartition;
+        ReleaseSysCache(tup);
+
+        if (!ispartition)
+            continue;
+
+        // Check if this index's parent matches the target index
+        if (get_partition_parent(partIdx, false) == indexId) {
+            list_free(idxlist);
+            return partIdx;
+        }
+    }
+
+    // No matching partition index found
+    list_free(idxlist);
+    return InvalidOid;
+}
+```

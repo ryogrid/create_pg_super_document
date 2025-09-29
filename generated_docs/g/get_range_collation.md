@@ -36,3 +36,27 @@ The get_range_collation function retrieves the collation OID associated with a P
 - Used primarily during table creation and type checking to ensure collation consistency
 - Critical for range types based on text, varchar, char, and other collatable data types
 - Enables proper sorting and comparison behavior for ranges containing textual data
+
+## Simplified Source
+
+```c
+Oid get_range_collation(Oid rangeOid) {
+    HeapTuple tp;
+
+    // Look up the range type in system cache
+    tp = SearchSysCache1(RANGETYPE, ObjectIdGetDatum(rangeOid));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_range rngtup = (Form_pg_range) GETSTRUCT(tp);
+        Oid result;
+
+        // Extract collation from range tuple
+        result = rngtup->rngcollation;
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Range type not found
+    return InvalidOid;
+}
+```

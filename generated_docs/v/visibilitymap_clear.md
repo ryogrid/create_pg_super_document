@@ -44,3 +44,44 @@ The function includes safety assertions to prevent invalid bit combinations, spe
 - Performs exclusive locking during the operation to ensure consistency
 - Includes debug tracing when TRACE_VISIBILITYMAP is defined
 - Critical for maintaining heap-visibility map consistency during write operations
+
+## Simplified Source
+
+```c
+bool visibilitymap_clear(Relation rel, BlockNumber heapBlk, Buffer vmbuf, uint8 flags)
+{
+    BlockNumber mapBlock = HEAPBLK_TO_MAPBLOCK(heapBlk);
+    int mapByte = HEAPBLK_TO_MAPBYTE(heapBlk);
+    int mapOffset = HEAPBLK_TO_OFFSET(heapBlk);
+    uint8 mask = flags << mapOffset;
+    char *map;
+    bool cleared = false;
+
+    // Validate input flags
+    Assert(flags & VISIBILITYMAP_VALID_BITS);
+    Assert(flags != VISIBILITYMAP_ALL_VISIBLE);
+
+    // Verify correct buffer was passed
+    if (!BufferIsValid(vmbuf) || BufferGetBlockNumber(vmbuf) != mapBlock)
+        elog(ERROR, "wrong buffer passed to visibilitymap_clear");
+
+    // Lock buffer exclusively and get visibility map contents
+    LockBuffer(vmbuf, BUFFER_LOCK_EXCLUSIVE);
+    map = PageGetContents(BufferGetPage(vmbuf));
+
+    // Clear the specified bits if they are currently set
+    if (map[mapByte] & mask)
+    {
+        map[mapByte] &= ~mask;
+
+        // Mark buffer dirty since we modified it
+        MarkBufferDirty(vmbuf);
+        cleared = true;
+    }
+
+    // Release buffer lock
+    LockBuffer(vmbuf, BUFFER_LOCK_UNLOCK);
+
+    return cleared;
+}
+```

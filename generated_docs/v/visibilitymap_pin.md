@@ -40,3 +40,23 @@ The function optimizes performance by reusing existing pinned buffers when possi
 - Optimizes for repeated operations on the same map page by reusing buffers
 - Should not be called while holding locks on heap pages due to potential I/O
 - The returned buffer remains pinned until explicitly released or reused
+
+## Simplified Source
+```c
+void visibilitymap_pin(Relation rel, BlockNumber heapBlk, Buffer *vmbuf) {
+    // Calculate which map block contains the bit for this heap block
+    BlockNumber mapBlock = HEAPBLK_TO_MAPBLOCK(heapBlk);
+
+    // Try to reuse existing buffer if it's the right page
+    if (BufferIsValid(*vmbuf)) {
+        if (BufferGetBlockNumber(*vmbuf) == mapBlock)
+            return; // Already have the right page pinned
+
+        // Release old buffer since we need a different page
+        ReleaseBuffer(*vmbuf);
+    }
+
+    // Read and pin the required map page (extends file if needed)
+    *vmbuf = vm_readbuf(rel, mapBlock, true);
+}
+```

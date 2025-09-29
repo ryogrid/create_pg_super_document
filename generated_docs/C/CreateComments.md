@@ -46,3 +46,67 @@ The function treats empty strings as NULL comments, effectively deleting any exi
 - Empty strings are normalized to NULL for consistent behavior
 - Acquires RowExclusiveLock on pg_description to prevent concurrent modifications
 - Memory management includes proper cleanup of temporary heap tuples
+
+## Simplified Source
+
+```c
+void CreateComments(Oid oid, Oid classoid, int32 subid, const char *comment) {
+    // Normalize empty strings to NULL
+    if (comment != NULL && strlen(comment) == 0)
+        comment = NULL;
+
+    // Prepare tuple data for insert/update operations
+    Datum values[Natts_pg_description];
+    bool nulls[Natts_pg_description];
+    bool replaces[Natts_pg_description];
+
+    if (comment != NULL) {
+        // Set up values for new/updated comment
+        for (int i = 0; i < Natts_pg_description; i++) {
+            nulls[i] = false;
+            replaces[i] = true;
+        }
+        values[Anum_pg_description_objoid - 1] = ObjectIdGetDatum(oid);
+        values[Anum_pg_description_classoid - 1] = ObjectIdGetDatum(classoid);
+        values[Anum_pg_description_objsubid - 1] = Int32GetDatum(subid);
+        values[Anum_pg_description_description - 1] = CStringGetTextDatum(comment);
+    }
+
+    // Search for existing comment using composite key
+    ScanKeyData skey[3];
+    ScanKeyInit(&skey[0], Anum_pg_description_objoid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(oid));
+    ScanKeyInit(&skey[1], Anum_pg_description_classoid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classoid));
+    ScanKeyInit(&skey[2], Anum_pg_description_objsubid, BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(subid));
+
+    Relation description = table_open(DescriptionRelationId, RowExclusiveLock);
+    SysScanDesc scan = systable_beginscan(description, DescriptionObjIndexId, true, NULL, 3, skey);
+
+    HeapTuple oldtuple;
+    HeapTuple newtuple = NULL;
+
+    // Process existing tuple if found
+    if ((oldtuple = systable_getnext(scan)) != NULL) {
+        if (comment == NULL) {
+            // Delete existing comment
+            CatalogTupleDelete(description, &oldtuple->t_self);
+        } else {
+            // Update existing comment
+            newtuple = heap_modify_tuple(oldtuple, RelationGetDescr(description), values, nulls, replaces);
+            CatalogTupleUpdate(description, &oldtuple->t_self, newtuple);
+        }
+    }
+
+    systable_endscan(scan);
+
+    // Insert new comment if no existing tuple was found
+    if (newtuple == NULL && comment != NULL) {
+        newtuple = heap_form_tuple(RelationGetDescr(description), values, nulls);
+        CatalogTupleInsert(description, newtuple);
+    }
+
+    // Cleanup
+    if (newtuple != NULL)
+        heap_freetuple(newtuple);
+    table_close(description, NoLock);
+}
+```

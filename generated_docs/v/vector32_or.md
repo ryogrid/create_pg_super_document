@@ -38,3 +38,18 @@ This function is part of PostgreSQL's portable SIMD abstraction layer for high-p
 - Part of the portable SIMD interface in src/include/port/simd.h
 - Used primarily for 32-bit element operations in search and comparison functions
 - More specialized than vector8_or as it only supports SIMD-capable platforms
+
+## Simplified Source
+
+```c
+static inline Vector32
+vector32_or(const Vector32 v1, const Vector32 v2)
+{
+    // Perform bitwise OR operation on two Vector32 inputs
+#ifdef USE_SSE2
+    return _mm_or_si128(v1, v2);
+#elif defined(USE_NEON)
+    return vorrq_u32(v1, v2);
+#endif
+}
+```

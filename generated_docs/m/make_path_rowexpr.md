@@ -40,3 +40,44 @@ The resulting RowExpr has a record type (RECORDOID) and uses implicit coercion f
 - The function assumes all specified column names exist in the CTE's column list
 - Row expressions created by this function are used to construct the path tracking mechanisms for recursive CTE traversal in both breadth-first and depth-first search scenarios
 - The location field is set to -1 indicating no specific source location for the constructed node
+
+## Simplified Source
+
+```c
+static RowExpr *
+make_path_rowexpr(const CommonTableExpr *cte, const List *col_list)
+{
+    // Create row expression for specified columns
+    RowExpr *rowexpr = makeNode(RowExpr);
+    rowexpr->row_typeid = RECORDOID;
+    rowexpr->row_format = COERCE_IMPLICIT_CAST;
+    rowexpr->location = -1;
+
+    // For each column name in the list
+    foreach(lc, col_list)
+    {
+        char *colname = strVal(lfirst(lc));
+
+        // Find matching column in CTE definition
+        for (int i = 0; i < list_length(cte->ctecolnames); i++)
+        {
+            char *cte_colname = strVal(list_nth(cte->ctecolnames, i));
+
+            if (strcmp(colname, cte_colname) == 0)
+            {
+                // Create variable reference for this column
+                Var *var = makeVar(1, i + 1,
+                                  list_nth_oid(cte->ctecoltypes, i),
+                                  list_nth_int(cte->ctecoltypmods, i),
+                                  list_nth_oid(cte->ctecolcollations, i),
+                                  0);
+                rowexpr->args = lappend(rowexpr->args, var);
+                rowexpr->colnames = lappend(rowexpr->colnames, makeString(colname));
+                break;
+            }
+        }
+    }
+
+    return rowexpr;
+}
+```

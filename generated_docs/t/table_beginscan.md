@@ -54,3 +54,19 @@ The function delegates the actual scan initialization to the table's access meth
 - The function combines multiple scan option flags to optimize sequential scanning
 - It provides a uniform interface that works across different table access methods
 - The returned TableScanDesc should be used with other table scan functions and eventually closed with table_endscan
+
+## Simplified Source
+
+```c
+static inline TableScanDesc table_beginscan(Relation rel, Snapshot snapshot,
+                                           int nkeys, struct ScanKeyData *key) {
+    // Set standard flags for sequential scanning
+    uint32 flags = SO_TYPE_SEQSCAN |        // Sequential scan type
+                   SO_ALLOW_STRAT |          // Allow strategy optimization
+                   SO_ALLOW_SYNC |           // Allow synchronized scanning
+                   SO_ALLOW_PAGEMODE;        // Allow page-at-a-time reading
+
+    // Delegate to table access method's scan_begin function
+    return rel->rd_tableam->scan_begin(rel, snapshot, nkeys, key, NULL, flags);
+}
+```

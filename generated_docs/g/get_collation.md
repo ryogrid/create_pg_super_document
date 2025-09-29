@@ -34,3 +34,36 @@ This function retrieves the fully qualified name (schema.name) of a collation gi
 - Part of the utility command parsing infrastructure for DDL statement generation
 - Helps avoid redundant collation specifications when the default would suffice
 - Essential for maintaining collation semantics when copying table structures
+
+## Simplified Source
+
+```c
+static List *get_collation(Oid collation, Oid actual_datatype)
+{
+    // Return NIL for invalid collation
+    if (!OidIsValid(collation))
+        return NIL;
+
+    // Return NIL if this is the default collation for the data type
+    if (collation == get_typcollation(actual_datatype))
+        return NIL;
+
+    // Look up the collation in system cache
+    HeapTuple ht_coll = SearchSysCache1(COLLOID, ObjectIdGetDatum(collation));
+    if (!HeapTupleIsValid(ht_coll))
+        elog(ERROR, "cache lookup failed for collation %u", collation);
+
+    // Extract collation record
+    Form_pg_collation coll_rec = (Form_pg_collation) GETSTRUCT(ht_coll);
+
+    // Get schema and collation names
+    char *nsp_name = get_namespace_name(coll_rec->collnamespace);
+    char *coll_name = pstrdup(NameStr(coll_rec->collname));
+
+    // Build qualified name list: schema.name
+    List *result = list_make2(makeString(nsp_name), makeString(coll_name));
+
+    ReleaseSysCache(ht_coll);
+    return result;
+}
+```

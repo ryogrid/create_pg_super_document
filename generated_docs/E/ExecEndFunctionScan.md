@@ -41,3 +41,23 @@ The function follows PostgreSQL's standard cleanup pattern where each node type 
 - Complements ExecReScanFunctionScan which resets tuplestores for reuse
 - Part of PostgreSQL's standard three-phase executor lifecycle (Init, Execute, End)
 - Does not free the FunctionScanState itself - that's handled by the parent context cleanup
+
+## Simplified Source
+
+```c
+void ExecEndFunctionScan(FunctionScanState *node)
+{
+    // Release tuplestores for each function
+    for (int i = 0; i < node->nfuncs; i++)
+    {
+        FunctionScanPerFuncState *fs = &node->funcstates[i];
+
+        // Clean up tuplestore if it exists
+        if (fs->tstore != NULL)
+        {
+            tuplestore_end(node->funcstates[i].tstore);
+            fs->tstore = NULL;
+        }
+    }
+}
+```

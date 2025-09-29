@@ -43,3 +43,26 @@ The function implements an optimization where child plans are only rescanned whe
 - Part of the standard executor node interface along with Init, Execute, and End functions
 - Critical for correct behavior in parameterized and correlated query scenarios
 - Must preserve the node's configuration while resetting execution state
+
+## Simplified Source
+
+```c
+void ExecReScanMergeJoin(MergeJoinState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+    PlanState *innerPlan = innerPlanState(node);
+
+    // Clear marked tuple and reset join state
+    ExecClearTuple(node->mj_MarkedTupleSlot);
+    node->mj_JoinState = EXEC_MJ_INITIALIZE_OUTER;
+    node->mj_MatchedOuter = false;
+    node->mj_MatchedInner = false;
+    node->mj_OuterTupleSlot = NULL;
+    node->mj_InnerTupleSlot = NULL;
+
+    // Rescan child plans if no parameters changed
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+    if (innerPlan->chgParam == NULL)
+        ExecReScan(innerPlan);
+}
+```

@@ -41,3 +41,25 @@ This function is part of PostgreSQL's type system infrastructure and is frequent
 - For fixed-length types, returns the actual byte size (e.g., 4 for int4, 8 for int8)
 - The function uses the system cache for performance, avoiding direct catalog table access
 - This is a fundamental building block for PostgreSQL's type system and is used extensively in query execution, type coercion, and storage management
+
+## Simplified Source
+
+```c
+int16 get_typlen(Oid typid) {
+    // Look up the type in the system catalog cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract type structure and get length field
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        int16 result = typtup->typlen;
+
+        // Clean up cache reference and return length
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Type not found, return 0
+        return 0;
+    }
+}
+```

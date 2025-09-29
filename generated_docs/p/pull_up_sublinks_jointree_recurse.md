@@ -59,3 +59,91 @@ The function ensures that pulled-up SubLinks are placed correctly in the join tr
 - Relies on subsequent optimization steps to flatten and rearrange the resulting join structure
 - Critical component of subquery decorrelation and semijoin optimization
 - Works in close coordination with pull_up_sublinks_qual_recurse for actual SubLink transformation
+
+## Simplified Source
+
+```c
+static Node *
+pull_up_sublinks_jointree_recurse(PlannerInfo *root, Node *jtnode, Relids *relids)
+{
+    check_stack_depth();  // Prevent stack overflow
+
+    if (jtnode == NULL) {
+        *relids = NULL;
+    }
+    else if (IsA(jtnode, RangeTblRef)) {
+        // Base relation - return relid, no modification needed
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+        *relids = bms_make_singleton(varno);
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        // FROM expression - process children and qualifications
+        FromExpr *f = (FromExpr *) jtnode;
+        List *newfromlist = NIL;
+        Relids frelids = NULL;
+
+        // Process each child recursively
+        foreach(l, f->fromlist) {
+            Node *newchild;
+            Relids childrelids;
+
+            newchild = pull_up_sublinks_jointree_recurse(root, lfirst(l), &childrelids);
+            newfromlist = lappend(newfromlist, newchild);
+            frelids = bms_join(frelids, childrelids);
+        }
+
+        // Build new FromExpr and process qualifications
+        FromExpr *newf = makeFromExpr(newfromlist, NULL);
+        Node *jtlink = (Node *) newf;
+
+        newf->quals = pull_up_sublinks_qual_recurse(root, f->quals,
+                                                   &jtlink, frelids,
+                                                   NULL, NULL);
+
+        *relids = frelids;
+        jtnode = jtlink;
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        // Join expression - handle based on join type
+        JoinExpr *j = (JoinExpr *) palloc(sizeof(JoinExpr));
+        memcpy(j, jtnode, sizeof(JoinExpr));
+        Node *jtlink = (Node *) j;
+        Relids leftrelids, rightrelids;
+
+        // Process left and right arguments
+        j->larg = pull_up_sublinks_jointree_recurse(root, j->larg, &leftrelids);
+        j->rarg = pull_up_sublinks_jointree_recurse(root, j->rarg, &rightrelids);
+
+        // Process qualifications based on join type
+        switch (j->jointype) {
+            case JOIN_INNER:
+                j->quals = pull_up_sublinks_qual_recurse(root, j->quals, &jtlink,
+                                                        bms_union(leftrelids, rightrelids),
+                                                        NULL, NULL);
+                break;
+            case JOIN_LEFT:
+                j->quals = pull_up_sublinks_qual_recurse(root, j->quals, &j->rarg,
+                                                        rightrelids, NULL, NULL);
+                break;
+            case JOIN_RIGHT:
+                j->quals = pull_up_sublinks_qual_recurse(root, j->quals, &j->larg,
+                                                        leftrelids, NULL, NULL);
+                break;
+            case JOIN_FULL:
+                // Cannot pull up SubLinks in full joins
+                break;
+            default:
+                elog(ERROR, "unrecognized join type: %d", (int) j->jointype);
+        }
+
+        *relids = bms_join(leftrelids, rightrelids);
+        if (j->rtindex)
+            *relids = bms_add_member(*relids, j->rtindex);
+        jtnode = jtlink;
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+
+    return jtnode;
+}
+```

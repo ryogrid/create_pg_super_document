@@ -39,8 +39,28 @@ Due to its linear search nature, this function has O(n) time complexity and shou
 ## Notes and Other Information
 - Only works with pointer lists, not integer or OID lists
 - Uses deep equality comparison via , not simple pointer comparison
-- Has O(n) time complexity - avoid for performance-critical operations on long lists  
+- Has O(n) time complexity - avoid for performance-critical operations on long lists
 - The datum parameter should be a PostgreSQL Node structure for proper equality testing
 - Commonly used as a building block for other list operations like unique append and set operations
 - Essential for implementing set-like operations and duplicate detection in PostgreSQL's list-based data structures
 - Widely used throughout query parsing, optimization, and catalog operations where membership testing is needed
+
+## Simplified Source
+
+```c
+bool list_member(const List *list, const void *datum) {
+    const ListCell *cell;
+
+    // Validate list type and consistency
+    Assert(IsPointerList(list));
+    check_list_invariants(list);
+
+    // Linear search through the list
+    foreach(cell, list) {
+        if (equal(lfirst(cell), datum))
+            return true;
+    }
+
+    return false;
+}
+```

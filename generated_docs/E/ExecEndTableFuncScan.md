@@ -33,3 +33,15 @@ This cleanup is essential because table function scans cache all their results i
 - Only deallocates tuplestore resources - other memory contexts are handled elsewhere
 - The function safely handles cases where no tuplestore was created (e.g., if execution never began)
 - Essential for preventing memory leaks in long-running queries or repeated table function calls
+
+## Simplified Source
+
+```c
+void ExecEndTableFuncScan(TableFuncScanState *node) {
+    // Release tuplestore resources if allocated
+    if (node->tupstore != NULL) {
+        tuplestore_end(node->tupstore);
+        node->tupstore = NULL;
+    }
+}
+```

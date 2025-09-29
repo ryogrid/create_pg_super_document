@@ -51,3 +51,45 @@ The function maintains the null bitmap position and bitmask as it traverses, eff
 - Part of PostgreSQL's internal array support routines
 - The function is static, meaning it's only accessible within the arrayfuncs.c compilation unit
 - Critical for efficient array operations that need to locate specific elements or ranges
+
+## Simplified Source
+```c
+static char *
+array_seek(char *ptr, int offset, bits8 *nullbitmap, int nitems,
+           int typlen, bool typbyval, char typalign)
+{
+    // Fast path: fixed-size elements with no NULLs
+    if (typlen > 0 && !nullbitmap)
+        return ptr + nitems * aligned_element_size(typlen, typalign);
+
+    // Handle elements with NULL values
+    if (nullbitmap) {
+        nullbitmap += offset / 8;
+        int bitmask = 1 << (offset % 8);
+
+        for (int i = 0; i < nitems; i++) {
+            if (*nullbitmap & bitmask) {
+                // Non-NULL element: advance pointer with alignment
+                ptr = advance_pointer_by_element(ptr, typlen);
+                ptr = align_pointer(ptr, typalign);
+            }
+
+            // Move to next bit in bitmap
+            bitmask <<= 1;
+            if (bitmask == 0x100) {
+                nullbitmap++;
+                bitmask = 1;
+            }
+        }
+    }
+    else {
+        // No NULLs: advance through all elements
+        for (int i = 0; i < nitems; i++) {
+            ptr = advance_pointer_by_element(ptr, typlen);
+            ptr = align_pointer(ptr, typalign);
+        }
+    }
+
+    return ptr;
+}
+```

@@ -35,3 +35,20 @@ The function includes an assertion to ensure the reference count is positive bef
 - This function is critical for preventing memory leaks by ensuring relations are properly cleaned up when no longer referenced
 - Must be called exactly once for each corresponding RelationIncrementReferenceCount call
 - When the reference count reaches zero, the relation becomes eligible for cleanup by the cache management system
+
+## Simplified Source
+
+```c
+void RelationDecrementReferenceCount(Relation rel) {
+    // Ensure reference count is positive before decrementing
+    Assert(rel->rd_refcnt > 0);
+
+    // Decrement the relation's reference count
+    rel->rd_refcnt -= 1;
+
+    // Remove from resource owner tracking (except during bootstrap)
+    if (!IsBootstrapProcessingMode()) {
+        ResourceOwnerForgetRelationRef(CurrentResourceOwner, rel);
+    }
+}
+```

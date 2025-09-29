@@ -50,3 +50,49 @@ The function handles the special requirements of the EXCLUDED relation:
 - The whole-row variable enables "EXCLUDED.*" syntax in ON CONFLICT DO UPDATE
 - Maintains correspondence with actual table structure including dropped columns
 - Used primarily for EXPLAIN plan generation and reference resolution
+
+## Simplified Source
+
+```c
+List *
+BuildOnConflictExcludedTargetlist(Relation targetrel, Index exclRelIndex)
+{
+    List       *result = NIL;
+    int         attno;
+    Var        *var;
+    TargetEntry *te;
+
+    // Create target entries for all columns (including dropped ones)
+    for (attno = 0; attno < RelationGetNumberOfAttributes(targetrel); attno++)
+    {
+        Form_pg_attribute attr = TupleDescAttr(targetrel->rd_att, attno);
+        char       *name;
+
+        if (attr->attisdropped)
+        {
+            // Use NULL constant for dropped columns
+            var = (Var *) makeNullConst(INT4OID, -1, InvalidOid);
+            name = NULL;
+        }
+        else
+        {
+            // Create Var reference for active columns
+            var = makeVar(exclRelIndex, attno + 1,
+                         attr->atttypid, attr->atttypmod,
+                         attr->attcollation, 0);
+            name = pstrdup(NameStr(attr->attname));
+        }
+
+        te = makeTargetEntry((Expr *) var, attno + 1, name, false);
+        result = lappend(result, te);
+    }
+
+    // Add whole-row variable for "EXCLUDED.*" support
+    var = makeVar(exclRelIndex, InvalidAttrNumber,
+                 targetrel->rd_rel->reltype, -1, InvalidOid, 0);
+    te = makeTargetEntry((Expr *) var, InvalidAttrNumber, NULL, true);
+    result = lappend(result, te);
+
+    return result;
+}
+```

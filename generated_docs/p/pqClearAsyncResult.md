@@ -45,3 +45,20 @@ This function is essential for proper state management during asynchronous query
 - **Memory safety**: Properly nullifies pointers after freeing to prevent dangling references
 - **Asynchronous operations**: Specifically designed to support libpq's asynchronous query processing capabilities
 - **Pipeline support**: Used in pipeline mode to maintain clean state between operations
+
+## Simplified Source
+
+```c
+void
+pqClearAsyncResult(PGconn *conn)
+{
+    // Clear current result
+    PQclear(conn->result);
+    conn->result = NULL;
+    conn->error_result = false;
+
+    // Clear saved result
+    PQclear(conn->saved_result);
+    conn->saved_result = NULL;
+}
+```

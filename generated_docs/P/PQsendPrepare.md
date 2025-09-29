@@ -54,3 +54,81 @@ The function constructs and sends a Parse message containing the statement name,
 - Enforces parameter limits to prevent resource exhaustion (PQ_QUERY_PARAM_MAX_LIMIT)
 - Prepared statements persist for the duration of the database session unless explicitly deallocated
 - Provides foundation for high-performance applications that execute the same queries repeatedly with different parameters
+
+## Simplified Source
+
+```c
+int PQsendPrepare(PGconn *conn, const char *stmtName, const char *query,
+                  int nParams, const Oid *paramTypes) {
+    PGcmdQueueEntry *entry = NULL;
+
+    // Start query send process
+    if (!PQsendQueryStart(conn, true))
+        return 0;
+
+    // Validate arguments
+    if (!stmtName) {
+        libpq_append_conn_error(conn, "statement name is a null pointer");
+        return 0;
+    }
+    if (!query) {
+        libpq_append_conn_error(conn, "command string is a null pointer");
+        return 0;
+    }
+    if (nParams < 0 || nParams > PQ_QUERY_PARAM_MAX_LIMIT) {
+        libpq_append_conn_error(conn, "number of parameters must be between 0 and %d",
+                                PQ_QUERY_PARAM_MAX_LIMIT);
+        return 0;
+    }
+
+    // Allocate command queue entry
+    entry = pqAllocCmdQueueEntry(conn);
+    if (entry == NULL)
+        return 0;
+
+    // Construct Parse message
+    if (pqPutMsgStart(PqMsg_Parse, conn) < 0 ||
+        pqPuts(stmtName, conn) < 0 ||
+        pqPuts(query, conn) < 0)
+        goto sendFailed;
+
+    // Add parameter types if specified
+    if (nParams > 0 && paramTypes) {
+        if (pqPutInt(nParams, 2, conn) < 0)
+            goto sendFailed;
+        for (int i = 0; i < nParams; i++) {
+            if (pqPutInt(paramTypes[i], 4, conn) < 0)
+                goto sendFailed;
+        }
+    } else {
+        if (pqPutInt(0, 2, conn) < 0)
+            goto sendFailed;
+    }
+
+    if (pqPutMsgEnd(conn) < 0)
+        goto sendFailed;
+
+    // Add Sync message unless in pipeline mode
+    if (conn->pipelineStatus == PQ_PIPELINE_OFF) {
+        if (pqPutMsgStart(PqMsg_Sync, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            goto sendFailed;
+    }
+
+    // Set up command queue entry
+    entry->queryclass = PGQUERY_PREPARE;
+    entry->query = strdup(query);
+
+    // Flush the data
+    if (pqPipelineFlush(conn) < 0)
+        goto sendFailed;
+
+    // Add to command queue
+    pqAppendCmdQueueEntry(conn, entry);
+    return 1;
+
+sendFailed:
+    pqRecycleCmdQueueEntry(conn, entry);
+    return 0;
+}
+```

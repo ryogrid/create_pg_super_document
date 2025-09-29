@@ -29,3 +29,12 @@ This function serves as a specialized hash function for PostgreSQL's `char` data
 - Uses MurmurHash32 for consistent and fast hash generation
 - Designed specifically for char data types in internal cache operations
 - Static function scope limits its usage to the catcache.c compilation unit
+
+## Simplified Source
+
+```c
+static uint32 charhashfast(Datum datum) {
+    // Extract character and hash using MurmurHash32
+    return murmurhash32((int32) DatumGetChar(datum));
+}
+```

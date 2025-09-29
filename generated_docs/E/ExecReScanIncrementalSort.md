@@ -43,3 +43,40 @@ The approach of resetting rather than deallocating tuplesort states avoids the o
 - The outer child node is only rescanned if its parameters haven't changed (chgParam == NULL)
 - Even with EXEC_FLAG_REWIND, incremental sort must perform a complete reset rather than efficient rewinding
 - The narrow case where efficient rewind might be possible (single batch in full sort) is not currently optimized
+
+## Simplified Source
+
+```c
+void ExecReScanIncrementalSort(IncrementalSortState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Step 1: Clear all cached tuple slots
+    ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+
+    if (node->group_pivot != NULL) {
+        ExecClearTuple(node->group_pivot);
+    }
+    if (node->transfer_tuple != NULL) {
+        ExecClearTuple(node->transfer_tuple);
+    }
+
+    // Step 2: Reset execution state variables
+    node->outerNodeDone = false;
+    node->n_fullsort_remaining = 0;
+    node->bound_Done = 0;
+    node->execution_status = INCSORT_LOADFULLSORT;
+
+    // Step 3: Reset sort states (avoid deallocating to save setup cost)
+    if (node->fullsort_state != NULL) {
+        tuplesort_reset(node->fullsort_state);
+    }
+    if (node->prefixsort_state != NULL) {
+        tuplesort_reset(node->prefixsort_state);
+    }
+
+    // Step 4: Rescan outer plan if no parameter changes
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

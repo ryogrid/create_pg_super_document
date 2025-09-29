@@ -29,3 +29,12 @@ This function serves as a simple wrapper around OperatorIsVisibleExt to check op
 - This is a convenience wrapper that passes NULL as the second parameter to OperatorIsVisibleExt
 - Used primarily in system functions that format operator information for display
 - Critical for PostgreSQL's schema-based namespace management system
+
+## Simplified Source
+
+```c
+bool OperatorIsVisible(Oid oprid) {
+    // Simple wrapper that delegates to the extended version
+    return OperatorIsVisibleExt(oprid, NULL);
+}
+```

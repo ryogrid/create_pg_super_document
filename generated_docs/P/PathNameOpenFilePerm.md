@@ -34,3 +34,58 @@ PathNameOpenFilePerm is the primary function for opening files within PostgreSQL
 
 ## Notes and Other Information
 This function is central to PostgreSQL's file management architecture, located in src/backend/storage/file/fd.c. It implements a virtual file descriptor system that allows PostgreSQL to manage more files than the kernel limit permits by caching and reusing kernel FDs. The function ensures proper error handling and cleanup, including freeing allocated memory on failure. All descriptors are implicitly marked O_CLOEXEC for security. The saved flags are adjusted (removing O_CREAT, O_TRUNC, O_EXCL) to allow safe re-opening of the file later.
+
+## Simplified Source
+
+```c
+File
+PathNameOpenFilePerm(const char *fileName, int fileFlags, mode_t fileMode)
+{
+    char *fnamecopy;
+    File file;
+    Vfd *vfdP;
+
+    // Step 1: Create a copy of the filename
+    fnamecopy = strdup(fileName);
+    if (fnamecopy == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("out of memory")));
+
+    // Step 2: Allocate a VFD entry
+    file = AllocateVfd();
+    vfdP = &VfdCache[file];
+
+    // Step 3: Close excess kernel FDs to stay within limits
+    ReleaseLruFiles();
+
+    // Step 4: Add O_CLOEXEC for security (prevent inheritance by child processes)
+    fileFlags |= O_CLOEXEC;
+
+    // Step 5: Open the actual file
+    vfdP->fd = BasicOpenFilePerm(fileName, fileFlags, fileMode);
+
+    // Step 6: Handle open failure
+    if (vfdP->fd < 0) {
+        int save_errno = errno;
+        FreeVfd(file);
+        free(fnamecopy);
+        errno = save_errno;
+        return -1;
+    }
+
+    // Step 7: Initialize VFD entry
+    ++nfile;
+    vfdP->fileName = fnamecopy;
+    vfdP->fileFlags = fileFlags & ~(O_CREAT | O_TRUNC | O_EXCL);  // Safe for reopening
+    vfdP->fileMode = fileMode;
+    vfdP->fileSize = 0;
+    vfdP->fdstate = 0x0;
+    vfdP->resowner = NULL;
+
+    // Step 8: Insert into VFD cache
+    Insert(file);
+
+    return file;
+}
+```

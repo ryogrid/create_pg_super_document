@@ -43,3 +43,29 @@ This validation prevents crashes that could occur when trying to detoast (decomp
 - The special case for pg_replication_origin is a deliberate exception for backward compatibility on older branches
 - The assertion helps catch programming errors where heap modification operations are attempted without proper snapshot context
 - TOAST access requires snapshots because it may need to read data that should be consistent with the current transaction's view
+
+## Simplified Source
+
+```c
+static inline void
+AssertHasSnapshotForToast(Relation rel)
+{
+#ifdef USE_ASSERT_CHECKING
+    // Skip validation in bootstrap mode
+    if (!IsNormalProcessingMode())
+        return;
+
+    // No validation needed if relation has no TOAST table
+    if (!OidIsValid(rel->rd_rel->reltoastrelid))
+        return;
+
+    // Special exception for replication origin table (compatibility)
+    if (RelationGetRelid(rel) == ReplicationOriginRelationId)
+        return;
+
+    // Core assertion: ensure we have a valid snapshot for TOAST access
+    Assert(HaveRegisteredOrActiveSnapshot());
+
+#endif
+}
+```

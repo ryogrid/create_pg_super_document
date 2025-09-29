@@ -42,3 +42,47 @@ This function performs a bitwise union operation on two Bitmapsets, creating a n
 - Extensively used in PostgreSQL's query optimizer for combining relation sets and join conditions
 - The result is a newly allocated Bitmapset that must be freed by the caller using bms_free()
 - Critical for join planning, constraint processing, and relation management operations
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_union(const Bitmapset *a, const Bitmapset *b)
+{
+    Bitmapset  *result;
+    const Bitmapset *other;
+    int         otherlen;
+    int         i;
+
+    Assert(bms_is_valid_set(a));
+    Assert(bms_is_valid_set(b));
+
+    // Handle NULL inputs
+    if (a == NULL)
+        return bms_copy(b);
+    if (b == NULL)
+        return bms_copy(a);
+
+    // Copy the longer set as the result base
+    if (a->nwords <= b->nwords)
+    {
+        result = bms_copy(b);
+        other = a;
+    }
+    else
+    {
+        result = bms_copy(a);
+        other = b;
+    }
+
+    // OR the shorter set into the result
+    otherlen = other->nwords;
+    i = 0;
+    do
+    {
+        result->words[i] |= other->words[i];
+    } while (++i < otherlen);
+
+    return result;
+}
+```

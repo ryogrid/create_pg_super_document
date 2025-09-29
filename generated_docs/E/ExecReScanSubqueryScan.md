@@ -31,3 +31,21 @@ The function is responsible for managing the coordination between the outer scan
 - Optimization: If the subplan's chgParam is NULL (no parameters changed), ExecReScan is called immediately; otherwise, the subplan will be automatically re-scanned on the first ExecProcNode call
 - This is part of PostgreSQL's executor node interface, specifically for handling subquery scans within larger query plans
 - The function is declared in src/include/executor/nodeSubqueryscan.h and implemented in src/backend/executor/nodeSubqueryscan.c:183-201
+
+## Simplified Source
+
+```c
+void ExecReScanSubqueryScan(SubqueryScanState *node) {
+    // Rescan the base scan state
+    ExecScanReScan(&node->ss);
+
+    // Propagate parameter changes to subplan if any
+    if (node->ss.ps.chgParam != NULL)
+        UpdateChangedParamSet(node->subplan, node->ss.ps.chgParam);
+
+    // Rescan subplan if no parameters changed
+    // (if parameters changed, subplan will be rescanned automatically)
+    if (node->subplan->chgParam == NULL)
+        ExecReScan(node->subplan);
+}
+```

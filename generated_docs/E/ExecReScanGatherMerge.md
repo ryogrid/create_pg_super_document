@@ -41,3 +41,32 @@ The function handles the complexity of parallel execution rescans by ensuring th
 - Ensures proper ordering: shared state reset (ReInitializeDSM) should happen before local state reset (ReScan)
 - The chgParam mechanism prevents child nodes from making incorrect optimizations based on assumptions about unchanging rowsets
 - Memory management is critical - all unused tuples must be freed to prevent leaks across multiple rescans
+
+## Simplified Source
+
+```c
+void ExecReScanGatherMerge(GatherMergeState *node) {
+    GatherMerge *gm = (GatherMerge *) node->ps.plan;
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Step 1: Clean shutdown of existing parallel workers
+    ExecShutdownGatherMergeWorkers(node);
+
+    // Step 2: Free cached tuples to prevent memory leaks
+    gather_merge_clear_tuples(node);
+
+    // Step 3: Reset initialization flags for fresh start
+    node->initialized = false;
+    node->gm_initialized = false;
+
+    // Step 4: Handle parameter changes for child plan optimization
+    if (gm->rescan_param >= 0) {
+        outerPlan->chgParam = bms_add_member(outerPlan->chgParam, gm->rescan_param);
+    }
+
+    // Step 5: Rescan child plan if no parameter changes detected
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

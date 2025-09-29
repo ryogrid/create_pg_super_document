@@ -43,3 +43,53 @@ The 'Ext' suffix indicates this is the extended version that provides optional g
 - Critical component of PostgreSQL's SQL function visibility system and regproc type operations
 - Used by both internal PostgreSQL code and SQL-callable functions like pg_function_is_visible()
 - The function correctly handles function overloading by checking both name and argument signatures
+
+## Simplified Source
+
+```c
+static bool FunctionIsVisibleExt(Oid funcid, bool *is_missing) {
+    HeapTuple proctup;
+    Form_pg_proc procform;
+    bool visible;
+
+    // Look up function in system cache
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+    }
+
+    procform = (Form_pg_proc) GETSTRUCT(proctup);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    Oid pronamespace = procform->pronamespace;
+    if (pronamespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, pronamespace)) {
+        visible = false;
+    } else {
+        // Check if this function would be found by name resolution
+        char *proname = NameStr(procform->proname);
+        int nargs = procform->pronargs;
+
+        visible = false;
+        FuncCandidateList clist = FuncnameGetCandidates(
+            list_make1(makeString(proname)), nargs, NIL, false, false, false, false);
+
+        // Search through candidates for exact match
+        for (; clist; clist = clist->next) {
+            if (memcmp(clist->args, procform->proargtypes.values,
+                      nargs * sizeof(Oid)) == 0) {
+                visible = (clist->oid == funcid);
+                break;
+            }
+        }
+    }
+
+    ReleaseSysCache(proctup);
+    return visible;
+}
+```

@@ -44,3 +44,87 @@ The optimization works by using index scans to directly fetch the minimum or max
 - Creates PARAM_EXEC slots for each aggregate even if the optimization isn't ultimately used
 - [MinMaxAggPath](../M/MinMaxAggPath.md) nodes are currently never parallel-safe
 - The optimization is most effective for queries like  where  has suitable indexes
+
+## Simplified Source
+
+```c
+void preprocess_minmax_aggregates(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+    List *aggs_list;
+    RelOptInfo *grouped_rel;
+
+    // Early exit if no aggregates present
+    if (!parse->hasAggs)
+        return;
+
+    // Reject complex query structures that prevent optimization
+    if (parse->groupClause ||
+        list_length(parse->groupingSets) > 1 ||
+        parse->hasWindowFuncs ||
+        parse->cteList)
+        return;
+
+    // Ensure query references exactly one table
+    FromExpr *jtnode = parse->jointree;
+    while (IsA(jtnode, FromExpr)) {
+        if (list_length(jtnode->fromlist) != 1)
+            return;
+        jtnode = linitial(jtnode->fromlist);
+    }
+
+    if (!IsA(jtnode, RangeTblRef))
+        return;
+
+    RangeTblRef *rtr = (RangeTblRef *) jtnode;
+    RangeTblEntry *rte = planner_rt_fetch(rtr->rtindex, root);
+
+    // Only handle regular relations or flattened UNION ALL
+    if (!(rte->rtekind == RTE_RELATION ||
+          (rte->rtekind == RTE_SUBQUERY && rte->inh)))
+        return;
+
+    // Verify all aggregates are MIN/MAX functions
+    aggs_list = NIL;
+    if (!can_minmax_aggs(root, &aggs_list))
+        return;
+
+    // Build index paths for each aggregate
+    foreach(lc, aggs_list) {
+        MinMaxAggInfo *mminfo = (MinMaxAggInfo *) lfirst(lc);
+        Oid eqop;
+        bool reverse;
+
+        // Get equality operator for ordering
+        eqop = get_equality_op_for_ordering_op(mminfo->aggsortop, &reverse);
+        if (!OidIsValid(eqop))
+            elog(ERROR, "could not find equality operator");
+
+        // Try to build index path (both NULLS FIRST and NULLS LAST)
+        if (build_minmax_path(root, mminfo, eqop, mminfo->aggsortop, reverse))
+            continue;
+        if (build_minmax_path(root, mminfo, eqop, mminfo->aggsortop, !reverse))
+            continue;
+
+        // If no index path found, optimization fails
+        return;
+    }
+
+    // Create output parameters for each aggregate
+    foreach(lc, aggs_list) {
+        MinMaxAggInfo *mminfo = (MinMaxAggInfo *) lfirst(lc);
+        mminfo->param = SS_make_initplan_output_param(root,
+                                                     exprType((Node *) mminfo->target),
+                                                     -1,
+                                                     exprCollation((Node *) mminfo->target));
+    }
+
+    // Create and add MinMaxAggPath to compete with standard aggregation
+    grouped_rel = fetch_upper_rel(root, UPPERREL_GROUP_AGG, NULL);
+    add_path(grouped_rel, (Path *)
+        create_minmaxagg_path(root, grouped_rel,
+                             create_pathtarget(root, root->processed_tlist),
+                             aggs_list,
+                             (List *) parse->havingQual));
+}
+```

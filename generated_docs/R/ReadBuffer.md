@@ -39,3 +39,12 @@ The function directly delegates to ReadBufferExtended with predetermined paramet
 - Returns pinned buffer that must be released by caller
 - Suitable for standard data access patterns where special modes are not required
 - Part of the layered buffer management API design for ease of use
+
+## Simplified Source
+
+```c
+Buffer ReadBuffer(Relation reln, BlockNumber blockNum) {
+    // Simple wrapper that calls ReadBufferExtended with default parameters
+    return ReadBufferExtended(reln, MAIN_FORKNUM, blockNum, RBM_NORMAL, NULL);
+}
+```

@@ -45,3 +45,28 @@ The function ensures that the returned Datum has proper header information set, 
 - Memory for the copied tuple is allocated using `palloc`
 - The function sets proper composite-type Datum headers that may be missing from disk-based tuples
 - Used extensively in the executor and SPI layers for type conversion operations
+
+## Simplified Source
+
+```c
+Datum heap_copy_tuple_as_datum(HeapTuple tuple, TupleDesc tupleDesc) {
+    HeapTupleHeader td;
+
+    // Handle tuples with external TOAST pointers
+    if (HeapTupleHasExternal(tuple))
+        return toast_flatten_tuple_to_datum(tuple->t_data,
+                                           tuple->t_len,
+                                           tupleDesc);
+
+    // Fast path: copy tuple and set composite-Datum headers
+    td = (HeapTupleHeader) palloc(tuple->t_len);
+    memcpy((char *) td, (char *) tuple->t_data, tuple->t_len);
+
+    // Set proper composite-type Datum headers
+    HeapTupleHeaderSetDatumLength(td, tuple->t_len);
+    HeapTupleHeaderSetTypeId(td, tupleDesc->tdtypeid);
+    HeapTupleHeaderSetTypMod(td, tupleDesc->tdtypmod);
+
+    return PointerGetDatum(td);
+}
+```

@@ -38,3 +38,33 @@ The function is specifically exposed for JIT compiled tuple deforming and should
 - When no missing values array exists, the function efficiently uses memset for bulk operations
 - The missing values array is accessed through the tuple descriptor's constraint information
 - Attribute numbering follows PostgreSQL's 0-based indexing for internal operations
+
+## Simplified Source
+
+```c
+void
+slot_getmissingattrs(TupleTableSlot *slot, int startAttNum, int lastAttNum)
+{
+    AttrMissing *attrmiss = NULL;
+
+    // Get missing values array from tuple descriptor constraints
+    if (slot->tts_tupleDescriptor->constr)
+        attrmiss = slot->tts_tupleDescriptor->constr->missing;
+
+    if (!attrmiss) {
+        // No missing values array - fill everything with NULLs efficiently
+        memset(slot->tts_values + startAttNum, 0,
+               (lastAttNum - startAttNum) * sizeof(Datum));
+        memset(slot->tts_isnull + startAttNum, 1,
+               (lastAttNum - startAttNum) * sizeof(bool));
+    } else {
+        // Process each attribute individually using missing values array
+        int missattnum;
+
+        for (missattnum = startAttNum; missattnum < lastAttNum; missattnum++) {
+            slot->tts_values[missattnum] = attrmiss[missattnum].am_value;
+            slot->tts_isnull[missattnum] = !attrmiss[missattnum].am_present;
+        }
+    }
+}
+```

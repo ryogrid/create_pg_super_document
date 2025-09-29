@@ -40,3 +40,30 @@ This function performs a system cache lookup to retrieve the attribute number fr
 - Essential for translating user-specified column names to internal attribute numbers
 - Commonly used in DDL operations, column privilege checks, and query parsing
 - Does not distinguish between non-existent and dropped columns - both return InvalidAttrNumber
+
+## Simplified Source
+
+```c
+AttrNumber get_attnum(Oid relid, const char *attname) {
+    HeapTuple tp;
+
+    // Look up attribute by name in system cache
+    tp = SearchSysCacheAttName(relid, attname);
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract attribute structure from tuple
+        Form_pg_attribute att_tup = (Form_pg_attribute) GETSTRUCT(tp);
+        AttrNumber result;
+
+        // Get the attribute number
+        result = att_tup->attnum;
+
+        // Release cache entry
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Attribute not found or dropped
+        return InvalidAttrNumber;
+    }
+}
+```

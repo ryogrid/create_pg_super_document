@@ -61,3 +61,103 @@ When a matching entry is found, the password field is extracted, de-escaped (rem
 - On Windows, relies on directory-level protection rather than file-level permission checks
 - Comments and empty lines in the password file are ignored
 - The function stops at the first matching entry found in the file
+
+## Simplified Source
+
+```c
+static char *
+passwordFromFile(const char *hostname, const char *port, const char *dbname,
+                 const char *username, const char *pgpassfile)
+{
+    FILE *fp;
+    struct stat stat_buf;
+    PQExpBufferData buf;
+
+    // Validate required parameters
+    if (!dbname || !dbname[0] || !username || !username[0])
+        return NULL;
+
+    // Normalize hostname and port
+    if (!hostname || !hostname[0])
+        hostname = DefaultHost;
+    else if (is_unixsock_path(hostname) && strcmp(hostname, DEFAULT_PGSOCKET_DIR) == 0)
+        hostname = DefaultHost;
+
+    if (!port || !port[0])
+        port = DEF_PGPORT_STR;
+
+    // Security checks
+    if (stat(pgpassfile, &stat_buf) != 0)
+        return NULL;
+
+#ifndef WIN32
+    if (!S_ISREG(stat_buf.st_mode) || (stat_buf.st_mode & (S_IRWXG | S_IRWXO))) {
+        // File security warnings omitted
+        return NULL;
+    }
+#endif
+
+    fp = fopen(pgpassfile, "r");
+    if (!fp)
+        return NULL;
+
+    initPQExpBuffer(&buf);
+
+    // Read file line by line
+    while (!feof(fp) && !ferror(fp)) {
+        // Read line into buffer
+        if (!enlargePQExpBuffer(&buf, 128))
+            break;
+
+        if (fgets(buf.data + buf.len, buf.maxlen - buf.len, fp) == NULL)
+            break;
+
+        buf.len += strlen(buf.data + buf.len);
+
+        // Process complete lines
+        if (!(buf.len > 0 && buf.data[buf.len - 1] == '\n') && !feof(fp))
+            continue;
+
+        // Skip comments
+        if (buf.data[0] != '#') {
+            char *t = buf.data;
+            int len = pg_strip_crlf(t);
+
+            // Match all fields: hostname:port:dbname:username:password
+            if (len > 0 &&
+                (t = pwdfMatchesString(t, hostname)) != NULL &&
+                (t = pwdfMatchesString(t, port)) != NULL &&
+                (t = pwdfMatchesString(t, dbname)) != NULL &&
+                (t = pwdfMatchesString(t, username)) != NULL) {
+
+                // Found match - extract and de-escape password
+                char *ret = strdup(t);
+                fclose(fp);
+                explicit_bzero(buf.data, buf.maxlen);
+                termPQExpBuffer(&buf);
+
+                if (ret) {
+                    // De-escape password (remove backslash escapes)
+                    char *p1, *p2;
+                    for (p1 = p2 = ret; *p1 != ':' && *p1 != '\0'; ++p1, ++p2) {
+                        if (*p1 == '\\' && p1[1] != '\0')
+                            ++p1;
+                        *p2 = *p1;
+                    }
+                    *p2 = '\0';
+                }
+
+                return ret;
+            }
+        }
+
+        buf.len = 0;  // Reset for next line
+    }
+
+    // Cleanup
+    fclose(fp);
+    explicit_bzero(buf.data, buf.maxlen);
+    termPQExpBuffer(&buf);
+    return NULL;
+}
+```

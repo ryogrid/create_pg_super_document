@@ -47,3 +47,87 @@ The `pg_attribute_aclcheck_all_ext` function is an extended version of column-le
 - Handles missing relations gracefully when is_missing parameter is provided
 - Returns ACLCHECK_NO_PRIV if no non-dropped columns exist
 - Located in src/backend/catalog/aclchk.c lines 3978-4095
+
+## Simplified Source
+
+```c
+AclResult pg_attribute_aclcheck_all_ext(Oid table_oid, Oid roleid,
+                                        AclMode mode, AclMaskHow how,
+                                        bool *is_missing) {
+    AclResult result;
+    HeapTuple classTuple;
+    Form_pg_class classForm;
+    Oid ownerId;
+    AttrNumber nattrs;
+    AttrNumber curr_att;
+
+    // Look up table to get owner and number of attributes
+    classTuple = SearchSysCache1(RELOID, ObjectIdGetDatum(table_oid));
+    if (!HeapTupleIsValid(classTuple)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return ACLCHECK_NO_PRIV;
+        } else
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_TABLE),
+                           errmsg("relation with OID %u does not exist", table_oid)));
+    }
+
+    classForm = (Form_pg_class) GETSTRUCT(classTuple);
+    ownerId = classForm->relowner;
+    nattrs = classForm->relnatts;
+    ReleaseSysCache(classTuple);
+
+    // Initialize result for case of no non-dropped columns
+    result = ACLCHECK_NO_PRIV;
+
+    // Check privileges on each non-dropped column
+    for (curr_att = 1; curr_att <= nattrs; curr_att++) {
+        HeapTuple attTuple;
+        Datum aclDatum;
+        bool isNull;
+        Acl *acl;
+        AclMode attmask;
+
+        // Look up column metadata
+        attTuple = SearchSysCache2(ATTNUM, ObjectIdGetDatum(table_oid),
+                                   Int16GetDatum(curr_att));
+
+        if (!HeapTupleIsValid(attTuple))
+            continue;
+
+        // Skip dropped columns
+        if (((Form_pg_attribute) GETSTRUCT(attTuple))->attisdropped) {
+            ReleaseSysCache(attTuple);
+            continue;
+        }
+
+        // Get column ACL
+        aclDatum = SysCacheGetAttr(ATTNUM, attTuple, Anum_pg_attribute_attacl, &isNull);
+
+        // Check privileges (default ACL grants no privileges)
+        if (isNull)
+            attmask = 0;
+        else {
+            acl = DatumGetAclP(aclDatum);
+            attmask = aclmask(acl, roleid, ownerId, mode, ACLMASK_ANY);
+            if ((Pointer) acl != DatumGetPointer(aclDatum))
+                pfree(acl);
+        }
+
+        ReleaseSysCache(attTuple);
+
+        // Apply checking logic based on how parameter
+        if (attmask != 0) {
+            result = ACLCHECK_OK;
+            if (how == ACLMASK_ANY)
+                break;  // Success on any column with privileges
+        } else {
+            result = ACLCHECK_NO_PRIV;
+            if (how == ACLMASK_ALL)
+                break;  // Failure on any column without privileges
+        }
+    }
+
+    return result;
+}
+```

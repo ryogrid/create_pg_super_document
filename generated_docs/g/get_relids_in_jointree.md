@@ -53,3 +53,58 @@ This selective inclusion is particularly important during subquery flattening wh
 - Setting  to true is only appropriate for special purposes during subquery flattening
 - The function uses PostgreSQL's bitmap set (bms) operations for efficient set manipulation
 - Returns NULL if the input node is NULL, otherwise returns a Relids bitmap set
+
+## Simplified Source
+
+```c
+Relids
+get_relids_in_jointree(Node *jtnode, bool include_outer_joins,
+                       bool include_inner_joins)
+{
+    Relids result = NULL;
+
+    if (jtnode == NULL)
+        return result;
+
+    if (IsA(jtnode, RangeTblRef)) {
+        // Base relation - always include
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+        result = bms_make_singleton(varno);
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        // FROM clause expression - process all children
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *l;
+
+        foreach(l, f->fromlist) {
+            result = bms_join(result,
+                             get_relids_in_jointree(lfirst(l),
+                                                   include_outer_joins,
+                                                   include_inner_joins));
+        }
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        // Join expression - process left and right args
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        result = get_relids_in_jointree(j->larg, include_outer_joins, include_inner_joins);
+        result = bms_join(result,
+                         get_relids_in_jointree(j->rarg, include_outer_joins, include_inner_joins));
+
+        // Conditionally include the join's own rtindex
+        if (j->rtindex) {
+            if (j->jointype == JOIN_INNER) {
+                if (include_inner_joins)
+                    result = bms_add_member(result, j->rtindex);
+            } else {
+                if (include_outer_joins)
+                    result = bms_add_member(result, j->rtindex);
+            }
+        }
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+
+    return result;
+}
+```

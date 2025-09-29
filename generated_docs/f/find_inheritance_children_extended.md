@@ -56,3 +56,105 @@ The function ensures consistent ordering by sorting child OIDs and implements pr
 - When detached_xmin conflicts occur, tracks the newer transaction ID using TransactionIdFollows
 - The detached partition handling is specifically designed for partition management operations where transaction isolation levels matter
 - Located in src/backend/catalog/pg_inherits.c:82-254
+
+## Simplified Source
+
+```c
+List *
+find_inheritance_children_extended(Oid parentrelId, bool omit_detached,
+                                   LOCKMODE lockmode, bool *detached_exist,
+                                   TransactionId *detached_xmin)
+{
+    List *list = NIL;
+    Relation relation;
+    SysScanDesc scan;
+    ScanKeyData key[1];
+    HeapTuple inheritsTuple;
+    Oid *oidarr;
+    int maxoids, numoids, i;
+
+    // Optimization: skip scan if parent has no subclasses
+    if (!has_subclass(parentrelId))
+        return NIL;
+
+    // Initialize working array for child OIDs
+    maxoids = 32;
+    oidarr = (Oid *) palloc(maxoids * sizeof(Oid));
+    numoids = 0;
+
+    // Scan pg_inherits for direct children
+    relation = table_open(InheritsRelationId, AccessShareLock);
+    ScanKeyInit(&key[0], Anum_pg_inherits_inhparent,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(parentrelId));
+    scan = systable_beginscan(relation, InheritsParentIndexId, true,
+                             NULL, 1, key);
+
+    while ((inheritsTuple = systable_getnext(scan)) != NULL)
+    {
+        Form_pg_inherits inhform = (Form_pg_inherits) GETSTRUCT(inheritsTuple);
+
+        // Handle detached partitions
+        if (inhform->inhdetachpending)
+        {
+            if (detached_exist)
+                *detached_exist = true;
+
+            // Check if we should omit this detached partition
+            if (omit_detached && ActiveSnapshotSet())
+            {
+                TransactionId xmin = HeapTupleHeaderGetXmin(inheritsTuple->t_data);
+                Snapshot snap = GetActiveSnapshot();
+
+                if (!XidInMVCCSnapshot(xmin, snap))
+                {
+                    // Track detached xmin for caller
+                    if (detached_xmin)
+                        *detached_xmin = xmin;
+                    continue; // Skip this partition
+                }
+            }
+        }
+
+        // Add child to array, expanding if needed
+        Oid inhrelid = inhform->inhrelid;
+        if (numoids >= maxoids)
+        {
+            maxoids *= 2;
+            oidarr = (Oid *) repalloc(oidarr, maxoids * sizeof(Oid));
+        }
+        oidarr[numoids++] = inhrelid;
+    }
+
+    systable_endscan(scan);
+    table_close(relation, AccessShareLock);
+
+    // Sort children by OID for consistent lock ordering
+    if (numoids > 1)
+        qsort(oidarr, numoids, sizeof(Oid), oid_cmp);
+
+    // Acquire locks and build result list
+    for (i = 0; i < numoids; i++)
+    {
+        Oid inhrelid = oidarr[i];
+
+        if (lockmode != NoLock)
+        {
+            // Lock child relation
+            LockRelationOid(inhrelid, lockmode);
+
+            // Double-check relation still exists after locking
+            if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(inhrelid)))
+            {
+                UnlockRelationOid(inhrelid, lockmode);
+                continue;
+            }
+        }
+
+        list = lappend_oid(list, inhrelid);
+    }
+
+    pfree(oidarr);
+    return list;
+}
+```

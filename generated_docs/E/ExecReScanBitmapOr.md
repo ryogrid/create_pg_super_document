@@ -37,3 +37,24 @@ This approach avoids unnecessary rescan operations while ensuring that all relev
 - Essential for correct execution in nested loop joins where outer parameters change
 - The function references the already processed symbol UpdateChangedParamSet for parameter management
 - Does not return a value as it performs state updates rather than data processing
+
+## Simplified Source
+
+```c
+void ExecReScanBitmapOr(BitmapOrState *node) {
+    // Rescan all bitmap subplans
+    for (int i = 0; i < node->nplans; i++) {
+        PlanState *subnode = node->bitmapplans[i];
+
+        // Propagate parameter changes to subplan
+        if (node->ps.chgParam != NULL) {
+            UpdateChangedParamSet(subnode, node->ps.chgParam);
+        }
+
+        // Rescan subplan if it has no pending parameter changes
+        if (subnode->chgParam == NULL) {
+            ExecReScan(subnode);
+        }
+    }
+}
+```

@@ -40,3 +40,17 @@ The function relies on transformExpr() having already rejected inappropriate con
 - The function assumes transformExpr() has already validated expression structure
 - Critical for maintaining MVCC consistency when using partial indexes
 - Located in src/backend/commands/indexcmds.c:1792-1818
+
+## Simplified Source
+
+```c
+static void CheckPredicate(Expr *predicate) {
+    // Check for mutable functions in the predicate
+    // Mutable functions could cause inconsistent index behavior
+    if (contain_mutable_functions_after_planning(predicate)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("functions in index predicate must be marked IMMUTABLE")));
+    }
+}
+```

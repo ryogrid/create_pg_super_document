@@ -42,3 +42,24 @@ The tablespace array may contain `InvalidOid` entries, which indicate that the c
 - Random starting point selection minimizes conflicts between concurrent backends using the same tablespace list
 - Circular advancement through the list ensures even distribution of large temporary files
 - InvalidOid entries in the array are handled gracefully by falling back to the default tablespace
+
+## Simplified Source
+
+```c
+void
+SetTempTablespaces(Oid *tableSpaces, int numSpaces)
+{
+    Assert(numSpaces >= 0);
+
+    // Step 1: Store the tablespace array and count globally
+    tempTableSpaces = tableSpaces;
+    numTempTableSpaces = numSpaces;
+
+    // Step 2: Select random starting point for load distribution
+    if (numSpaces > 1)
+        nextTempTableSpace = pg_prng_uint64_range(&pg_global_prng_state,
+                                                  0, numSpaces - 1);
+    else
+        nextTempTableSpace = 0;
+}
+```

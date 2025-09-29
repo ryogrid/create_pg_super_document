@@ -50,3 +50,36 @@ The function handles both regular table inheritance and table partitioning scena
 - The seqNumber parameter maintains inheritance ordering which is important for multiple inheritance scenarios
 - Dependencies ensure proper cascade behavior when parent relations are dropped
 - Parent relation metadata update (relhassubclass) enables query planner optimizations for inheritance hierarchies
+
+## Simplified Source
+
+```c
+static void StoreCatalogInheritance1(Oid relationId, Oid parentOid,
+                                     int32 seqNumber, Relation inhRelation,
+                                     bool child_is_partition) {
+    ObjectAddress childobject, parentobject;
+
+    // Store the inheritance record in pg_inherits
+    StoreSingleInheritance(relationId, parentOid, seqNumber);
+
+    // Set up object addresses for dependency tracking
+    parentobject.classId = RelationRelationId;
+    parentobject.objectId = parentOid;
+    parentobject.objectSubId = 0;
+
+    childobject.classId = RelationRelationId;
+    childobject.objectId = relationId;
+    childobject.objectSubId = 0;
+
+    // Record dependency relationship
+    recordDependencyOn(&childobject, &parentobject,
+                       child_dependency_type(child_is_partition));
+
+    // Invoke post-creation hook for inheritance
+    InvokeObjectPostAlterHookArg(InheritsRelationId, relationId, 0,
+                                 parentOid, false);
+
+    // Mark parent as having subclasses
+    SetRelationHasSubclass(parentOid, true);
+}
+```

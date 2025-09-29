@@ -52,3 +52,89 @@ The function implements a dominance-based pruning algorithm similar to , but sim
 - The function uses CHECK_FOR_INTERRUPTS() to allow query cancellation during potentially long operations
 - Paths determined to be dominated are immediately freed with pfree() to prevent memory leaks
 - The parallel safety requirement is enforced through assertions on both the new path and the parent relation
+
+## Simplified Source
+
+```c
+void
+add_partial_path(RelOptInfo *parent_rel, Path *new_path)
+{
+    bool accept_new = true;
+    int insert_at = 0;
+    ListCell *p1;
+
+    // Safety checks for parallel execution
+    CHECK_FOR_INTERRUPTS();
+    Assert(new_path->parallel_safe);
+    Assert(parent_rel->consider_parallel);
+
+    // Compare new path against all existing partial paths
+    foreach(p1, parent_rel->partial_pathlist)
+    {
+        Path *old_path = (Path *) lfirst(p1);
+        bool remove_old = false;
+
+        // Compare pathkeys to determine path quality
+        PathKeysComparison keyscmp = compare_pathkeys(new_path->pathkeys, old_path->pathkeys);
+
+        if (keyscmp != PATHKEYS_DIFFERENT)
+        {
+            // Decide which path to keep based on cost and pathkeys
+            if (new_path->total_cost > old_path->total_cost * STD_FUZZ_FACTOR)
+            {
+                // New path is significantly more expensive
+                if (keyscmp != PATHKEYS_BETTER1)
+                    accept_new = false;
+            }
+            else if (old_path->total_cost > new_path->total_cost * STD_FUZZ_FACTOR)
+            {
+                // Old path is significantly more expensive
+                if (keyscmp != PATHKEYS_BETTER2)
+                    remove_old = true;
+            }
+            else if (keyscmp == PATHKEYS_BETTER1)
+            {
+                // Similar costs, new path has better ordering
+                remove_old = true;
+            }
+            else if (keyscmp == PATHKEYS_BETTER2)
+            {
+                // Similar costs, old path has better ordering
+                accept_new = false;
+            }
+            else if (old_path->total_cost > new_path->total_cost * 1.0000000001)
+            {
+                // Same pathkeys, old path slightly more expensive
+                remove_old = true;
+            }
+            else
+            {
+                // Essentially equivalent paths, keep the old one
+                accept_new = false;
+            }
+        }
+
+        // Remove dominated old path or track insertion position
+        if (remove_old)
+        {
+            parent_rel->partial_pathlist = foreach_delete_current(parent_rel->partial_pathlist, p1);
+            pfree(old_path);
+        }
+        else
+        {
+            // Maintain cost-ordered list
+            if (new_path->total_cost >= old_path->total_cost)
+                insert_at = foreach_current_index(p1) + 1;
+        }
+
+        if (!accept_new)
+            break;
+    }
+
+    // Add new path or free it if rejected
+    if (accept_new)
+        parent_rel->partial_pathlist = list_insert_nth(parent_rel->partial_pathlist, insert_at, new_path);
+    else
+        pfree(new_path);
+}
+```

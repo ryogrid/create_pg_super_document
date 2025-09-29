@@ -36,3 +36,13 @@ For ASCII characters (code < 0x80), the function uses a pre-computed lookup tabl
 - Used internally by regex engine and text processing functions
 - Follows Unicode standard for alphabetic character classification
 - Performance optimized with ASCII fast-path and binary search for Unicode ranges
+
+## Simplified Source
+
+```c
+bool
+pg_u_isalpha(pg_wchar code) {
+    // Check if character has Unicode alphabetic property
+    return pg_u_prop_alphabetic(code);
+}
+```

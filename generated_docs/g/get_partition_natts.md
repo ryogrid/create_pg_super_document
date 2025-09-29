@@ -35,3 +35,13 @@ This function serves as an accessor method to encapsulate access to the Partitio
 - Used extensively in partition processing to iterate over partition columns
 - Essential for validating partition bounds and building partition descriptions
 - Located at src/include/utils/partcache.h:64-68
+
+## Simplified Source
+```c
+static inline int
+get_partition_natts(PartitionKey key)
+{
+    // Simple accessor: return number of partition attributes
+    return key->partnatts;
+}
+```

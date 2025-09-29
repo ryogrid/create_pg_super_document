@@ -38,3 +38,74 @@ This function is the core of the ReadStream's read-ahead mechanism. It repeatedl
 - The suppress_advice parameter is only applied to the first read operation in the sequence
 - Includes logic to unget blocks when I/O limits are reached mid-operation
 - Prioritizes building full io_combine_limit sized reads when possible for maximum I/O efficiency
+
+## Simplified Source
+
+```c
+static void
+read_stream_look_ahead(ReadStream *stream, bool suppress_advice)
+{
+    // Main loop: build read requests while respecting limits
+    while (stream->ios_in_progress < stream->max_ios &&
+           stream->pinned_buffers + stream->pending_read_nblocks < stream->distance)
+    {
+        BlockNumber blocknum;
+        int16 buffer_index;
+        void *per_buffer_data;
+
+        // Start pending read if we've hit combine limit
+        if (stream->pending_read_nblocks == stream->io_combine_limit) {
+            read_stream_start_pending_read(stream, suppress_advice);
+            suppress_advice = false;
+            continue;
+        }
+
+        // Calculate buffer index with wrap-around
+        buffer_index = stream->next_buffer_index + stream->pending_read_nblocks;
+        if (buffer_index >= stream->queue_size)
+            buffer_index -= stream->queue_size;
+
+        // Get next block from callback
+        per_buffer_data = get_per_buffer_data(stream, buffer_index);
+        blocknum = read_stream_get_block(stream, per_buffer_data);
+
+        if (blocknum == InvalidBlockNumber) {
+            // End of stream
+            stream->distance = 0;
+            break;
+        }
+
+        // Try to merge with pending read if consecutive
+        if (stream->pending_read_nblocks > 0 &&
+            stream->pending_read_blocknum + stream->pending_read_nblocks == blocknum) {
+            stream->pending_read_nblocks++;
+            continue;
+        }
+
+        // Start existing pending read before building new one
+        while (stream->pending_read_nblocks > 0) {
+            read_stream_start_pending_read(stream, suppress_advice);
+            suppress_advice = false;
+            if (stream->ios_in_progress == stream->max_ios) {
+                // Hit I/O limit - defer this block
+                read_stream_unget_block(stream, blocknum);
+                return;
+            }
+        }
+
+        // Start new pending read
+        stream->pending_read_blocknum = blocknum;
+        stream->pending_read_nblocks = 1;
+    }
+
+    // Start pending read if conditions are met
+    if (stream->pending_read_nblocks > 0 &&
+        (stream->pending_read_nblocks == stream->io_combine_limit ||
+         (stream->pending_read_nblocks == stream->distance &&
+          stream->pinned_buffers == 0) ||
+         stream->distance == 0) &&
+        stream->ios_in_progress < stream->max_ios) {
+        read_stream_start_pending_read(stream, suppress_advice);
+    }
+}
+```

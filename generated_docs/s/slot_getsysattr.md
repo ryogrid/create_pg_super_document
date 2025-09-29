@@ -42,3 +42,27 @@ For other system attributes, the function delegates to the slot type's specific 
 - The tableoid system attribute identifies which table a tuple came from
 - The ctid system attribute contains the tuple's physical location (ItemPointer)
 - Both directly handled attributes are never null
+
+## Simplified Source
+
+```c
+static inline Datum slot_getsysattr(TupleTableSlot *slot, int attnum, bool *isnull)
+{
+    Assert(attnum < 0);  // System attributes have negative numbers
+
+    // Handle common system attributes directly from slot cache
+    if (attnum == TableOidAttributeNumber)
+    {
+        *isnull = false;
+        return ObjectIdGetDatum(slot->tts_tableOid);
+    }
+    else if (attnum == SelfItemPointerAttributeNumber)
+    {
+        *isnull = false;
+        return PointerGetDatum(&slot->tts_tid);
+    }
+
+    // Delegate other system attributes to slot-specific implementation
+    return slot->tts_ops->getsysattr(slot, attnum, isnull);
+}
+```

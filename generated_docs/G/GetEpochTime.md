@@ -32,3 +32,28 @@ The GetEpochTime function initializes a pg_tm structure with the date and time c
 
 ## Notes and Other Information
 This function serves as a reference point for timestamp calculations throughout PostgreSQL. The epoch time is fundamental to Unix-based time systems and provides a consistent baseline for temporal computations. The function handles the conversion from the system's time representation to PostgreSQL's internal time structure format, ensuring proper field adjustments for year and month values. Error handling is included to detect failures in the pg_gmtime conversion, which would indicate a serious system-level issue.
+
+## Simplified Source
+```c
+void GetEpochTime(struct pg_tm *tm) {
+    struct pg_tm *t0;
+    pg_time_t epoch = 0;  // Unix epoch (Jan 1, 1970, 00:00:00 UTC)
+
+    // Convert epoch time to broken-down time structure
+    t0 = pg_gmtime(&epoch);
+    if (t0 == NULL)
+        elog(ERROR, "could not convert epoch to timestamp: %m");
+
+    // Copy time components from system structure
+    tm->tm_year = t0->tm_year;
+    tm->tm_mon = t0->tm_mon;
+    tm->tm_mday = t0->tm_mday;
+    tm->tm_hour = t0->tm_hour;
+    tm->tm_min = t0->tm_min;
+    tm->tm_sec = t0->tm_sec;
+
+    // Adjust for PostgreSQL conventions
+    tm->tm_year += 1900;  // tm_year is years since 1900
+    tm->tm_mon++;         // Convert 0-based to 1-based month
+}
+```

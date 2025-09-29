@@ -57,3 +57,82 @@ The function operates within a critical section and must be careful about resour
 
 ## Notes and Other Information
 This function is called within a critical section, so it must be efficient and avoid operations that could fail. The function destructively sorts the frozen tuples array through heap_log_freeze_plan. The unified record format allows for efficient WAL logging when multiple operations occur on the same page, which is common during vacuum operations. Different prune reasons result in different WAL record subtypes but use the same underlying record structure.
+
+## Simplified Source
+
+```c
+void log_heap_prune_and_freeze(Relation relation, Buffer buffer,
+                               TransactionId conflict_xid, bool cleanup_lock,
+                               PruneReason reason, HeapTupleFreeze *frozen, int nfrozen,
+                               OffsetNumber *redirected, int nredirected,
+                               OffsetNumber *dead, int ndead,
+                               OffsetNumber *unused, int nunused)
+{
+    xl_heap_prune xlrec;
+    XLogRecPtr recptr;
+    uint8 info;
+
+    xlrec.flags = 0;
+
+    // Begin WAL record construction
+    XLogBeginInsert();
+    XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+
+    // Register freeze operations if present
+    if (nfrozen > 0) {
+        xlrec.flags |= XLHP_HAS_FREEZE_PLANS;
+        // Register deduplicated freeze plans
+        int nplans = heap_log_freeze_plan(frozen, nfrozen, plans, frz_offsets);
+        XLogRegisterBufData(0, (char *) &freeze_plans, sizeof(freeze_plans));
+        XLogRegisterBufData(0, (char *) plans, sizeof(xlhp_freeze_plan) * nplans);
+    }
+
+    // Register redirect operations if present
+    if (nredirected > 0) {
+        xlrec.flags |= XLHP_HAS_REDIRECTIONS;
+        XLogRegisterBufData(0, (char *) redirected, sizeof(OffsetNumber[2]) * nredirected);
+    }
+
+    // Register dead items if present
+    if (ndead > 0) {
+        xlrec.flags |= XLHP_HAS_DEAD_ITEMS;
+        XLogRegisterBufData(0, (char *) dead, sizeof(OffsetNumber) * ndead);
+    }
+
+    // Register unused items if present
+    if (nunused > 0) {
+        xlrec.flags |= XLHP_HAS_NOW_UNUSED_ITEMS;
+        XLogRegisterBufData(0, (char *) unused, sizeof(OffsetNumber) * nunused);
+    }
+
+    // Set special flags for catalog relations and conflicts
+    if (RelationIsAccessibleInLogicalDecoding(relation))
+        xlrec.flags |= XLHP_IS_CATALOG_REL;
+    if (TransactionIdIsValid(conflict_xid))
+        xlrec.flags |= XLHP_HAS_CONFLICT_HORIZON;
+    if (cleanup_lock)
+        xlrec.flags |= XLHP_CLEANUP_LOCK;
+
+    // Register main record data
+    XLogRegisterData((char *) &xlrec, SizeOfHeapPrune);
+    if (TransactionIdIsValid(conflict_xid))
+        XLogRegisterData((char *) &conflict_xid, sizeof(TransactionId));
+
+    // Determine WAL record subtype based on prune reason
+    switch (reason) {
+        case PRUNE_ON_ACCESS:
+            info = XLOG_HEAP2_PRUNE_ON_ACCESS;
+            break;
+        case PRUNE_VACUUM_SCAN:
+            info = XLOG_HEAP2_PRUNE_VACUUM_SCAN;
+            break;
+        case PRUNE_VACUUM_CLEANUP:
+            info = XLOG_HEAP2_PRUNE_VACUUM_CLEANUP;
+            break;
+    }
+
+    // Write the WAL record and update page LSN
+    recptr = XLogInsert(RM_HEAP2_ID, info);
+    PageSetLSN(BufferGetPage(buffer), recptr);
+}
+```

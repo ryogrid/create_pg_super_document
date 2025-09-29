@@ -32,3 +32,13 @@ This function provides direct access to the tail (last) node of a doubly-linked 
 - Returns the actual node pointer, not the containing structure
 - Part of PostgreSQL's counted doubly-linked list implementation
 - The zero offset parameter to dlist_tail_element_off indicates we want the node itself rather than a containing structure
+
+## Simplified Source
+
+```c
+static inline dlist_node *dclist_tail_node(dclist_head *head) {
+    Assert(head->count > 0); // List must not be empty
+
+    return (dlist_node *) dlist_tail_element_off(&head->dlist, 0);
+}
+```

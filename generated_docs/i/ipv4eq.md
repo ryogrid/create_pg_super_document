@@ -33,3 +33,14 @@ This function is used within PostgreSQL's Host-Based Authentication (HBA) system
 - Uses direct integer comparison since sin_addr.s_addr is a 32-bit value
 - Part of the HBA hostname resolution and matching subsystem
 - Simple helper function with no error checking or validation
+
+## Simplified Source
+
+```c
+static bool
+ipv4eq(struct sockaddr_in *a, struct sockaddr_in *b)
+{
+    // Compare the 32-bit IPv4 addresses directly
+    return (a->sin_addr.s_addr == b->sin_addr.s_addr);
+}
+```

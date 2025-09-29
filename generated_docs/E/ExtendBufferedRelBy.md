@@ -51,3 +51,31 @@ The function can work with either a Relation object (bmr.rel) or directly with a
 - Automatically handles storage manager setup when working with Relation objects
 - Part of the buffered relation extension API designed for efficient bulk operations
 - Returns the starting block number of the extension
+
+## Simplified Source
+
+```c
+BlockNumber ExtendBufferedRelBy(BufferManagerRelation bmr,
+                                ForkNumber fork,
+                                BufferAccessStrategy strategy,
+                                uint32 flags,
+                                uint32 extend_by,
+                                Buffer *buffers,
+                                uint32 *extended_by) {
+    // Validate input parameters
+    Assert((bmr.rel != NULL) != (bmr.smgr != NULL));
+    Assert(bmr.smgr == NULL || bmr.relpersistence != 0);
+    Assert(extend_by > 0);
+
+    // Set up storage manager if not already provided
+    if (bmr.smgr == NULL) {
+        bmr.smgr = RelationGetSmgr(bmr.rel);
+        bmr.relpersistence = bmr.rel->rd_rel->relpersistence;
+    }
+
+    // Delegate to common extension implementation
+    return ExtendBufferedRelCommon(bmr, fork, strategy, flags,
+                                   extend_by, InvalidBlockNumber,
+                                   buffers, extended_by);
+}
+```

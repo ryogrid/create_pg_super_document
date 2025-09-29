@@ -42,3 +42,16 @@ The returned LWLock pointer is used by buffer management operations to acquire e
 - The partition lock must be held when modifying or searching the buffer mapping table
 - Essential component of PostgreSQL's scalable buffer management architecture
 - Enables fine-grained locking that reduces contention compared to a single global lock
+
+## Simplified Source
+
+```c
+static inline LWLock *
+BufMappingPartitionLock(uint32 hashcode)
+{
+    // Calculate the partition number from hash code
+    // Get the corresponding lock from the main lock array
+    return &MainLWLockArray[BUFFER_MAPPING_LWLOCK_OFFSET +
+                           BufTableHashPartition(hashcode)].lock;
+}
+```

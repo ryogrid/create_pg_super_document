@@ -41,3 +41,28 @@ The function creates the child plan without constraining its target list since t
 - Multiple set-returning functions in the same target list are handled by producing the Cartesian product of their results
 - Non-set-returning expressions in the target list are replicated for each row produced by the set-returning functions
 - This plan type is essential for queries like "SELECT generate_series(1,3), generate_series(1,2)" which must coordinate multiple SRFs
+
+## Simplified Source
+
+```c
+static ProjectSet *
+create_project_set_plan(PlannerInfo *root, ProjectSetPath *best_path)
+{
+    ProjectSet *plan;
+    Plan *subplan;
+    List *tlist;
+
+    // Since we intend to project, we don't need to constrain child tlist
+    subplan = create_plan_recurse(root, best_path->subpath, 0);
+
+    // Build target list containing set-returning functions
+    tlist = build_path_tlist(root, &best_path->path);
+
+    // Create ProjectSet plan node
+    plan = make_project_set(tlist, subplan);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

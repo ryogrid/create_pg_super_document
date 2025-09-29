@@ -34,3 +34,23 @@ This function tracks tuple insertion operations for statistical purposes by incr
 - Supports batch insertion counting by accepting a count parameter rather than assuming single tuple operations
 - The counter is used for tracking insert activity for autovacuum scheduling and statistics reporting
 - Statistics are later aggregated and reported through the PostgreSQL statistics system
+
+## Simplified Source
+
+```c
+void
+pgstat_count_heap_insert(Relation rel, PgStat_Counter n)
+{
+    // Only count statistics for relations that should be tracked
+    if (pgstat_should_count_relation(rel))
+    {
+        PgStat_TableStatus *pgstat_info = rel->pgstat_info;
+
+        // Ensure transaction-level statistics structure exists
+        ensure_tabstat_xact_level(pgstat_info);
+
+        // Increment the tuple insertion counter
+        pgstat_info->trans->tuples_inserted += n;
+    }
+}
+```

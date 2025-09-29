@@ -40,3 +40,14 @@ The function works in conjunction with other GUC error reporting macros (GUC_che
 - Works alongside other GUC_check_* macros that are implemented as direct variable assignments
 - The stored error code is retrieved and used when the actual error is reported during GUC processing
 - Commonly used in transaction state, encoding, authorization, and replication parameter validation
+
+## Simplified Source
+
+```c
+void
+GUC_check_errcode(int sqlerrcode)
+{
+    // Store the custom error code for later use when reporting validation failures
+    GUC_check_errcode_value = sqlerrcode;
+}
+```

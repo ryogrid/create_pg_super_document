@@ -43,3 +43,21 @@ The function can accumulate statistics across multiple calls by accepting and re
 - Essential for VACUUM performance as it avoids the overhead of individual tuple deletions
 - Different index types (B-tree, GiST, GIN, etc.) can optimize bulk deletion based on their internal structure
 - The statistics accumulation feature allows tracking deletion progress across multiple passes over large indexes
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *index_bulk_delete(IndexVacuumInfo *info,
+                                         IndexBulkDeleteResult *istat,
+                                         IndexBulkDeleteCallback callback,
+                                         void *callback_state) {
+    Relation indexRelation = info->index;
+
+    // Validate the relation and ensure bulk delete method is available
+    RELATION_CHECKS;
+    CHECK_REL_PROCEDURE(ambulkdelete);
+
+    // Delegate to the access method's bulk delete implementation
+    return indexRelation->rd_indam->ambulkdelete(info, istat, callback, callback_state);
+}
+```

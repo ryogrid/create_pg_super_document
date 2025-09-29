@@ -39,3 +39,19 @@ This is a low-level utility function in PostgreSQL's dynamic shared hash table i
 - The function includes an assertion to verify that the item pointer and item address are consistent
 - Uses head insertion strategy for O(1) insertion time
 - The function assumes the item has already been allocated and initialized
+
+## Simplified Source
+
+```c
+static void insert_item_into_bucket(dshash_table *hash_table,
+                                  dsa_pointer item_pointer,
+                                  dshash_table_item *item,
+                                  dsa_pointer *bucket) {
+    // Verify item consistency
+    Assert(item == dsa_get_address(hash_table->area, item_pointer));
+
+    // Insert at head of bucket chain
+    item->next = *bucket;
+    *bucket = item_pointer;
+}
+```

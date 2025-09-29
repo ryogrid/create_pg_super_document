@@ -48,3 +48,18 @@ This approach ensures optimal performance by avoiding redundant dependency recor
 - Commonly used when creating complex database objects that may have multiple dependencies (tables, indexes, functions, types, etc.)
 - The behavior parameter controls how the dependencies are treated during CASCADE operations
 - Part of PostgreSQL's comprehensive dependency management system that ensures referential integrity across database objects
+
+## Simplified Source
+
+```c
+void record_object_address_dependencies(const ObjectAddress *depender,
+                                       ObjectAddresses *referenced,
+                                       DependencyType behavior) {
+    // Remove duplicate entries from referenced objects
+    eliminate_duplicate_dependencies(referenced);
+
+    // Record all dependencies in batch
+    recordMultipleDependencies(depender, referenced->refs,
+                              referenced->numrefs, behavior);
+}
+```

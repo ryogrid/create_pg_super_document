@@ -43,3 +43,36 @@ The Group node implementation assumes that input data is already sorted by the g
 - The function relies on three extraction functions to properly set up grouping metadata: columns, operators, and collations
 - [Group](../G/Group.md) operations assume pre-sorted input data - the planner ensures this by including appropriate Sort nodes when necessary
 - The qualification clauses (HAVING clauses) are processed and ordered for optimal execution performance
+
+## Simplified Source
+
+```c
+static Group *
+create_group_plan(PlannerInfo *root, GroupPath *best_path)
+{
+    // Create subplan with grouping columns available
+    Plan *subplan = create_plan_recurse(root, best_path->subpath, CP_LABEL_TLIST);
+
+    // Build target list for the Group operation
+    List *tlist = build_path_tlist(root, &best_path->path);
+
+    // Process qualification clauses (HAVING clauses)
+    List *quals = order_qual_clauses(root, best_path->qual);
+
+    // Create the Group plan node
+    Group *plan = make_group(
+        tlist,
+        quals,
+        list_length(best_path->groupClause),
+        extract_grouping_cols(best_path->groupClause, subplan->targetlist),
+        extract_grouping_ops(best_path->groupClause),
+        extract_grouping_collations(best_path->groupClause, subplan->targetlist),
+        subplan
+    );
+
+    // Copy generic path information
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

@@ -39,3 +39,28 @@ For suffix matching, the function calculates the lengths of both strings and ens
 - Efficient implementation that avoids unnecessary string operations
 - Does not support wildcards or regular expressions (only exact and suffix matching)
 - Assumes both input strings are null-terminated C strings
+
+## Simplified Source
+
+```c
+static bool
+hostname_match(const char *pattern, const char *actual_hostname)
+{
+    // Check for suffix match (pattern starts with '.')
+    if (pattern[0] == '.') {
+        size_t pattern_len = strlen(pattern);
+        size_t hostname_len = strlen(actual_hostname);
+
+        // Hostname must be longer than pattern for suffix match
+        if (hostname_len < pattern_len)
+            return false;
+
+        // Compare pattern with hostname suffix (case-insensitive)
+        return (pg_strcasecmp(pattern, actual_hostname + (hostname_len - pattern_len)) == 0);
+    }
+    else {
+        // Exact match (case-insensitive)
+        return (pg_strcasecmp(pattern, actual_hostname) == 0);
+    }
+}
+```

@@ -48,3 +48,67 @@ The function updates buffer usage statistics (shared_blks_hit or local_blks_hit)
 - Buffer validation is critical since buffer contents can change between observation and access
 - Resource ownership tracking ensures proper cleanup on transaction abort
 - Different locking strategies for local vs shared buffers reflect their different concurrency models
+
+## Simplified Source
+
+```c
+bool ReadRecentBuffer(RelFileLocator rlocator, ForkNumber forkNum, BlockNumber blockNum,
+                     Buffer recent_buffer) {
+    BufferDesc *bufHdr;
+    BufferTag tag;
+    uint32 buf_state;
+    bool have_private_ref;
+
+    Assert(BufferIsValid(recent_buffer));
+
+    // Prepare for potential buffer pinning
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+    ReservePrivateRefCountEntry();
+    InitBufferTag(&tag, &rlocator, forkNum, blockNum);
+
+    if (BufferIsLocal(recent_buffer)) {
+        // Handle local buffer case
+        int b = -recent_buffer - 1;
+        bufHdr = GetLocalBufferDescriptor(b);
+        buf_state = pg_atomic_read_u32(&bufHdr->state);
+
+        // Check if still valid and contains expected block
+        if ((buf_state & BM_VALID) && BufferTagsEqual(&tag, &bufHdr->tag)) {
+            PinLocalBuffer(bufHdr, true);
+            pgBufferUsage.local_blks_hit++;
+            return true;
+        }
+    } else {
+        // Handle shared buffer case
+        bufHdr = GetBufferDescriptor(recent_buffer - 1);
+        have_private_ref = GetPrivateRefCount(recent_buffer) > 0;
+
+        // Choose locking strategy based on existing pin status
+        if (have_private_ref) {
+            buf_state = pg_atomic_read_u32(&bufHdr->state);  // Already pinned, safe to read
+        } else {
+            buf_state = LockBufHdr(bufHdr);  // Need to lock for first access
+        }
+
+        // Validate buffer still contains expected block
+        if ((buf_state & BM_VALID) && BufferTagsEqual(&tag, &bufHdr->tag)) {
+            // Pin buffer using appropriate method
+            if (have_private_ref) {
+                PinBuffer(bufHdr, NULL);  // Bump existing pin count
+            } else {
+                PinBuffer_Locked(bufHdr);  // Pin for first time
+            }
+
+            pgBufferUsage.shared_blks_hit++;
+            return true;
+        }
+
+        // Release lock if we acquired it
+        if (!have_private_ref) {
+            UnlockBufHdr(bufHdr, buf_state);
+        }
+    }
+
+    return false;  // Buffer no longer contains expected block
+}
+```

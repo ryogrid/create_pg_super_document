@@ -61,3 +61,64 @@ The caller is responsible for providing element type information (length, alignm
 - Memory allocation uses palloc() for the elements array and palloc0() for the nulls array (zero-initialized)
 - This function is performance-critical and used extensively throughout PostgreSQL for array processing operations
 - The design assumes the caller has already validated the array and type information, focusing on efficient extraction rather than extensive error checking
+
+## Simplified Source
+
+```c
+void deconstruct_array(ArrayType *array,
+                       Oid elmtype,
+                       int elmlen, bool elmbyval, char elmalign,
+                       Datum **elemsp, bool **nullsp, int *nelemsp) {
+    Datum *elems;
+    bool *nulls;
+    int nelems;
+    char *p;
+    bits8 *bitmap;
+    int bitmask;
+
+    Assert(ARR_ELEMTYPE(array) == elmtype);
+
+    // Calculate total number of elements and allocate output arrays
+    nelems = ArrayGetNItems(ARR_NDIM(array), ARR_DIMS(array));
+    *elemsp = elems = (Datum *) palloc(nelems * sizeof(Datum));
+
+    if (nullsp)
+        *nullsp = nulls = (bool *) palloc0(nelems * sizeof(bool));
+    else
+        nulls = NULL;
+
+    *nelemsp = nelems;
+
+    // Initialize pointers for data extraction
+    p = ARR_DATA_PTR(array);
+    bitmap = ARR_NULLBITMAP(array);
+    bitmask = 1;
+
+    // Extract each element from the array
+    for (int i = 0; i < nelems; i++) {
+        // Check if this element is null using the null bitmap
+        if (bitmap && (*bitmap & bitmask) == 0) {
+            // Element is null
+            elems[i] = (Datum) 0;
+            if (nulls)
+                nulls[i] = true;
+            else
+                ereport(ERROR, "null array element not allowed in this context");
+        } else {
+            // Extract non-null element value
+            elems[i] = fetch_att(p, elmbyval, elmlen);
+            p = att_addlength_pointer(p, elmlen, p);
+            p = (char *) att_align_nominal(p, elmalign);
+        }
+
+        // Advance bitmap pointer if we're tracking nulls
+        if (bitmap) {
+            bitmask <<= 1;
+            if (bitmask == 0x100) {
+                bitmap++;
+                bitmask = 1;
+            }
+        }
+    }
+}
+```

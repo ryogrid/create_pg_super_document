@@ -47,3 +47,31 @@ This function takes no parameters and returns:
 - The function uses AccessShareLock when accessing the pg_type catalog to prevent conflicts
 - After using the binary upgrade OID, it resets  to InvalidOid to prevent reuse
 - The allocated OID is used later in the type creation process to establish the relationship between a type and its array type
+
+## Simplified Source
+
+```c
+Oid
+AssignTypeArrayOid(void) {
+    Oid type_array_oid;
+
+    // Check if we're in binary upgrade mode
+    if (IsBinaryUpgrade) {
+        // Use pre-assigned OID for consistency during pg_upgrade
+        if (!OidIsValid(binary_upgrade_next_array_pg_type_oid))
+            ereport(ERROR, "pg_type array OID value not set when in binary upgrade mode");
+
+        type_array_oid = binary_upgrade_next_array_pg_type_oid;
+        binary_upgrade_next_array_pg_type_oid = InvalidOid;
+    } else {
+        // Generate new unique OID during normal operation
+        Relation pg_type = table_open(TypeRelationId, AccessShareLock);
+
+        type_array_oid = GetNewOidWithIndex(pg_type, TypeOidIndexId, Anum_pg_type_oid);
+
+        table_close(pg_type, AccessShareLock);
+    }
+
+    return type_array_oid;
+}
+```

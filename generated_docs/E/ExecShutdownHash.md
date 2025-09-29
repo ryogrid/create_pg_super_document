@@ -42,3 +42,20 @@ After ensuring storage is available, the function calls ExecHashAccumInstrumenta
 - This function is part of PostgreSQL's execution node shutdown sequence and is essential for accurate EXPLAIN ANALYZE output
 - The use of palloc0_object ensures the allocated HashInstrumentation structure is zero-initialized
 - The timing difference between ExecShutdownHash() and ExecEndHash() is critical for parallel query instrumentation data collection
+
+## Simplified Source
+
+```c
+void ExecShutdownHash(HashState *node) {
+    // Ensure instrumentation storage exists if EXPLAIN is enabled
+    if (node->ps.instrument && !node->hinstrument) {
+        // Allocate local storage for instrumentation data
+        node->hinstrument = palloc0_object(HashInstrumentation);
+    }
+
+    // Collect final hash table statistics
+    if (node->hinstrument && node->hashtable) {
+        ExecHashAccumInstrumentation(node->hinstrument, node->hashtable);
+    }
+}
+```

@@ -48,3 +48,30 @@ The function handles the case-insensitive nature of timezone abbreviations by no
 - Uses a fixed-size buffer (TZ_STRLEN_MAX + 1) for the uppercase abbreviation conversion
 - Returns boolean success/failure rather than throwing errors, allowing callers to implement fallback strategies
 - Located in src/backend/utils/adt/datetime.c:1821-1863
+
+## Simplified Source
+
+```c
+static bool
+DetermineTimeZoneAbbrevOffsetInternal(pg_time_t t, const char *abbr, pg_tz *tzp,
+                                      int *offset, int *isdst)
+{
+    char upabbr[TZ_STRLEN_MAX + 1];
+    unsigned char *p;
+    long int gmtoff;
+
+    // Convert abbreviation to uppercase for case-insensitive matching
+    strlcpy(upabbr, abbr, sizeof(upabbr));
+    for (p = (unsigned char *)upabbr; *p; p++)
+        *p = pg_toupper(*p);
+
+    // Look up abbreviation's meaning at this time in this timezone
+    if (pg_interpret_timezone_abbrev(upabbr, &t, &gmtoff, isdst, tzp)) {
+        // Convert sign to match DetermineTimeZoneOffset() convention
+        *offset = (int)-gmtoff;
+        return true;
+    }
+
+    return false;  // Abbreviation not found
+}
+```

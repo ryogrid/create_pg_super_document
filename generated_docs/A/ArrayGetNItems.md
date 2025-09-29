@@ -27,7 +27,7 @@ The function is widely used throughout PostgreSQL's array handling code for memo
   - [ArrayGetNItemsSafe](ArrayGetNItemsSafe.md)
 - Called from (representative examples):
   - [ExecEvalArrayExpr](../E/ExecEvalArrayExpr.md)
-  - [ExecEvalScalarArrayOp](../E/ExecEvalScalarArrayOp.md)  
+  - [ExecEvalScalarArrayOp](../E/ExecEvalScalarArrayOp.md)
   - [array_cat](../a/array_cat.md)
   - [array_out](../a/array_out.md)
   - [array_recv](../a/array_recv.md)
@@ -42,3 +42,12 @@ The function is widely used throughout PostgreSQL's array handling code for memo
 - Essential for array size validation and memory allocation calculations
 - Used extensively throughout PostgreSQL's array manipulation functions
 - Overflow checking works on machines with int64 arithmetic (nearly all modern platforms)
+
+## Simplified Source
+```c
+int ArrayGetNItems(int ndim, const int *dims) {
+    // Delegate to ArrayGetNItemsSafe with NULL error context
+    // This means overflow errors will be thrown as exceptions
+    return ArrayGetNItemsSafe(ndim, dims, NULL);
+}
+```

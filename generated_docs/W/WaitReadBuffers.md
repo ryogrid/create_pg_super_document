@@ -71,3 +71,102 @@ The function implements a sophisticated algorithm that:
 - The function is central to PostgreSQL's buffer management performance, especially for sequential scans
 - Handles the complex interaction between buffer management, storage management, and statistics collection
 - Critical for maintaining data integrity through page validation while optimizing I/O performance
+
+## Simplified Source
+
+```c
+void WaitReadBuffers(ReadBuffersOperation *operation) {
+    // Setup basic operation parameters
+    int nblocks = operation->io_buffers_len;
+    if (nblocks == 0) return;  // Nothing to read
+
+    Buffer *buffers = &operation->buffers[0];
+    BlockNumber blocknum = operation->blocknum;
+    ForkNumber forknum = operation->forknum;
+
+    // Determine I/O context based on relation persistence
+    char persistence = operation->rel ? operation->rel->rd_rel->relpersistence : RELPERSISTENCE_PERMANENT;
+    IOContext io_context = (persistence == RELPERSISTENCE_TEMP) ? IOCONTEXT_NORMAL : IOContextForStrategy(operation->strategy);
+    IOObject io_object = (persistence == RELPERSISTENCE_TEMP) ? IOOBJECT_TEMP_RELATION : IOOBJECT_RELATION;
+
+    // Update buffer usage statistics
+    if (persistence == RELPERSISTENCE_TEMP)
+        pgBufferUsage.local_blks_read += nblocks;
+    else
+        pgBufferUsage.shared_blks_read += nblocks;
+
+    // Process each buffer that needs I/O
+    for (int i = 0; i < nblocks; ++i) {
+        Buffer io_buffers[MAX_IO_COMBINE_LIMIT];
+        void *io_pages[MAX_IO_COMBINE_LIMIT];
+        int io_buffers_len;
+        BlockNumber io_first_block;
+
+        // Skip if another backend already completed this I/O
+        if (!WaitReadBuffersCanStartIO(buffers[i], false)) {
+            TRACE_POSTGRESQL_BUFFER_READ_DONE(forknum, blocknum + i, ...);
+            continue;
+        }
+
+        // Setup first buffer for I/O
+        io_buffers[0] = buffers[i];
+        io_pages[0] = BufferGetBlock(buffers[i]);
+        io_first_block = blocknum + i;
+        io_buffers_len = 1;
+
+        // Combine consecutive blocks into single I/O operation
+        while ((i + 1) < nblocks && WaitReadBuffersCanStartIO(buffers[i + 1], true)) {
+            io_buffers[io_buffers_len] = buffers[++i];
+            io_pages[io_buffers_len++] = BufferGetBlock(buffers[i]);
+        }
+
+        // Perform the actual I/O with timing
+        instr_time io_start = pgstat_prepare_io_time(track_io_timing);
+        smgrreadv(operation->smgr, forknum, io_first_block, io_pages, io_buffers_len);
+        pgstat_count_io_op_time(io_object, io_context, IOOP_READ, io_start, io_buffers_len);
+
+        // Validate and finalize each buffer
+        for (int j = 0; j < io_buffers_len; ++j) {
+            BufferDesc *bufHdr;
+            Block bufBlock;
+
+            // Get buffer descriptor and block data
+            if (persistence == RELPERSISTENCE_TEMP) {
+                bufHdr = GetLocalBufferDescriptor(-io_buffers[j] - 1);
+                bufBlock = LocalBufHdrGetBlock(bufHdr);
+            } else {
+                bufHdr = GetBufferDescriptor(io_buffers[j] - 1);
+                bufBlock = BufHdrGetBlock(bufHdr);
+            }
+
+            // Validate page and handle corruption
+            if (!PageIsVerifiedExtended((Page) bufBlock, io_first_block + j, PIV_LOG_WARNING | PIV_REPORT_STAT)) {
+                if ((operation->flags & READ_BUFFERS_ZERO_ON_ERROR) || zero_damaged_pages) {
+                    ereport(WARNING, (errcode(ERRCODE_DATA_CORRUPTED),
+                           errmsg("invalid page in block %u of relation %s; zeroing out page", ...)));
+                    memset(bufBlock, 0, BLCKSZ);
+                } else {
+                    ereport(ERROR, (errcode(ERRCODE_DATA_CORRUPTED),
+                           errmsg("invalid page in block %u of relation %s", ...)));
+                }
+            }
+
+            // Set buffer as valid and terminate I/O
+            if (persistence == RELPERSISTENCE_TEMP) {
+                uint32 buf_state = pg_atomic_read_u32(&bufHdr->state);
+                buf_state |= BM_VALID;
+                pg_atomic_unlocked_write_u32(&bufHdr->state, buf_state);
+            } else {
+                TerminateBufferIO(bufHdr, false, BM_VALID, true);
+            }
+
+            TRACE_POSTGRESQL_BUFFER_READ_DONE(forknum, io_first_block + j, ...);
+        }
+
+        // Update vacuum cost accounting
+        VacuumPageMiss += io_buffers_len;
+        if (VacuumCostActive)
+            VacuumCostBalance += VacuumCostPageMiss * io_buffers_len;
+    }
+}
+```

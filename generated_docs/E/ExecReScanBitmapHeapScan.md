@@ -44,3 +44,56 @@ The function also handles the coordination with the outer plan (typically a bitm
 - The function checks if outer plan parameters have changed (chgParam) to avoid unnecessary rescans of the outer plan
 - Part of the standard executor node interface for rescan operations
 - Critical for memory management and proper resource cleanup in bitmap heap scans
+
+## Simplified Source
+
+```c
+void ExecReScanBitmapHeapScan(BitmapHeapScanState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Release current table scan descriptor
+    if (node->ss.ss_currentScanDesc) {
+        table_rescan(node->ss.ss_currentScanDesc, NULL);
+    }
+
+    // Release all bitmap iterators
+    if (node->tbmiterator) {
+        tbm_end_iterate(node->tbmiterator);
+    }
+    if (node->prefetch_iterator) {
+        tbm_end_iterate(node->prefetch_iterator);
+    }
+    if (node->shared_tbmiterator) {
+        tbm_end_shared_iterate(node->shared_tbmiterator);
+    }
+    if (node->shared_prefetch_iterator) {
+        tbm_end_shared_iterate(node->shared_prefetch_iterator);
+    }
+
+    // Release bitmap memory and buffers
+    if (node->tbm) {
+        tbm_free(node->tbm);
+    }
+    if (node->pvmbuffer != InvalidBuffer) {
+        ReleaseBuffer(node->pvmbuffer);
+    }
+
+    // Reset all state variables
+    node->tbm = NULL;
+    node->tbmiterator = NULL;
+    node->tbmres = NULL;
+    node->prefetch_iterator = NULL;
+    node->initialized = false;
+    node->shared_tbmiterator = NULL;
+    node->shared_prefetch_iterator = NULL;
+    node->pvmbuffer = InvalidBuffer;
+
+    // Reset scan state
+    ExecScanReScan(&node->ss);
+
+    // Rescan outer plan if no parameter changes pending
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

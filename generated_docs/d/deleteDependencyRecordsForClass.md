@@ -52,3 +52,52 @@ Each matching record is deleted from the catalog, and the function returns a cou
 - Uses DependDependerIndexId for efficient scanning based on depender classId and objectId
 - Returns the actual count of deleted records, which can be useful for validation or logging purposes
 - This is commonly used in scenarios involving parent-child relationships where specific dependency types need to be severed
+
+## Simplified Source
+
+```c
+long
+deleteDependencyRecordsForClass(Oid classId, Oid objectId,
+                                Oid refclassId, char deptype)
+{
+    long count = 0;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_depend catalog with exclusive lock
+    depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Set up scan keys for depender object (classId, objectId)
+    ScanKeyInit(&key[0], Anum_pg_depend_classid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(objectId));
+
+    // Start index scan using depender index
+    scan = systable_beginscan(depRel, DependDependerIndexId, true,
+                              NULL, 2, key);
+
+    // Scan all dependency records for this depender
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_depend depform = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Check if dependee class and dependency type match criteria
+        if (depform->refclassid == refclassId && depform->deptype == deptype)
+        {
+            // Delete matching dependency record
+            CatalogTupleDelete(depRel, &tup->t_self);
+            count++;
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, RowExclusiveLock);
+
+    return count;
+}
+```

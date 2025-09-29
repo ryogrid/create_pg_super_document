@@ -61,3 +61,145 @@ The function provides flexibility in output by allowing callers to request only 
 - The ordinality column for functions with ORDINALITY is handled as a special case (INT8OID type)
 - Critical for query rewriting, planning, and execution phases where column information needs to be materialized
 - Part of PostgreSQL's namespace resolution system that translates abstract relation references into concrete column lists
+
+## Simplified Source
+
+```c
+void expandRTE(RangeTblEntry *rte, int rtindex, int sublevels_up,
+               int location, bool include_dropped,
+               List **colnames, List **colvars) {
+
+    // Initialize output lists
+    if (colnames) *colnames = NIL;
+    if (colvars) *colvars = NIL;
+
+    switch (rte->rtekind) {
+        case RTE_RELATION:
+            // Regular table - delegate to expandRelation
+            expandRelation(rte->relid, rte->eref, rtindex, sublevels_up,
+                          location, include_dropped, colnames, colvars);
+            break;
+
+        case RTE_SUBQUERY:
+            // Subquery - process target list entries
+            varattno = 0;
+            foreach(item, rte->subquery->targetList) {
+                TargetEntry *te = (TargetEntry *) lfirst(item);
+                if (te->resjunk) continue;
+
+                varattno++;
+
+                // Add column name if requested
+                if (colnames) {
+                    char *label = get_column_alias(rte->eref, varattno);
+                    *colnames = lappend(*colnames, makeString(pstrdup(label)));
+                }
+
+                // Add variable if requested
+                if (colvars) {
+                    Var *varnode = makeVar(rtindex, varattno,
+                                         exprType(te->expr),
+                                         exprTypmod(te->expr),
+                                         exprCollation(te->expr),
+                                         sublevels_up);
+                    varnode->location = location;
+                    *colvars = lappend(*colvars, varnode);
+                }
+            }
+            break;
+
+        case RTE_FUNCTION:
+            // Function call - handle different return types
+            foreach(func_item, rte->functions) {
+                RangeTblFunction *rtfunc = (RangeTblFunction *) lfirst(func_item);
+
+                // Determine function return type
+                TypeFuncClass functype = get_expr_result_type(rtfunc->funcexpr,
+                                                            &rettype, &tupdesc);
+
+                if (functype == TYPEFUNC_COMPOSITE) {
+                    // Composite type - expand tuple descriptor
+                    expandTupleDesc(tupdesc, rte->eref, rtfunc->funccolcount,
+                                   rtindex, sublevels_up, location,
+                                   include_dropped, colnames, colvars);
+                } else if (functype == TYPEFUNC_SCALAR) {
+                    // Scalar type - single column
+                    add_scalar_column(rtindex, rettype, rtfunc->funcexpr,
+                                     sublevels_up, location, colnames, colvars);
+                } else if (functype == TYPEFUNC_RECORD) {
+                    // Record type - use column definitions
+                    add_record_columns(rte, rtfunc, rtindex, sublevels_up,
+                                      location, colnames, colvars);
+                }
+            }
+
+            // Handle ordinality column if present
+            if (rte->funcordinality) {
+                add_ordinality_column(rte, rtindex, sublevels_up,
+                                    location, colnames, colvars);
+            }
+            break;
+
+        case RTE_JOIN:
+            // Join - process join alias variables
+            varattno = 0;
+            forboth(name_item, rte->eref->colnames,
+                   var_item, rte->joinaliasvars) {
+                Node *aliasvar = (Node *) lfirst(var_item);
+                varattno++;
+
+                // Handle dropped columns
+                if (aliasvar == NULL) {
+                    if (include_dropped) {
+                        add_dropped_column(colnames, colvars);
+                    }
+                    continue;
+                }
+
+                // Add column name and variable
+                if (colnames) {
+                    char *label = strVal(lfirst(name_item));
+                    *colnames = lappend(*colnames, makeString(pstrdup(label)));
+                }
+
+                if (colvars) {
+                    Var *varnode = create_join_var(aliasvar, rtindex, varattno,
+                                                  sublevels_up, location);
+                    *colvars = lappend(*colvars, varnode);
+                }
+            }
+            break;
+
+        case RTE_TABLEFUNC:
+        case RTE_VALUES:
+        case RTE_CTE:
+        case RTE_NAMEDTUPLESTORE:
+            // Special table types - use stored column information
+            varattno = 0;
+            forthree(type_item, rte->coltypes,
+                    mod_item, rte->coltypmods,
+                    coll_item, rte->colcollations) {
+                Oid coltype = lfirst_oid(type_item);
+                varattno++;
+
+                if (OidIsValid(coltype)) {
+                    // Valid column
+                    add_typed_column(rte, rtindex, varattno, coltype,
+                                   lfirst_int(mod_item), lfirst_oid(coll_item),
+                                   sublevels_up, location, colnames, colvars);
+                } else if (include_dropped) {
+                    // Dropped column
+                    add_dropped_column(colnames, colvars);
+                }
+            }
+            break;
+
+        case RTE_RESULT:
+            // Result RTE exposes no columns
+            break;
+
+        default:
+            elog(ERROR, "unrecognized RTE kind: %d", (int) rte->rtekind);
+    }
+}
+```

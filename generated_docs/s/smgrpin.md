@@ -30,3 +30,18 @@ The `smgrpin` function implements a reference counting mechanism to control the 
 - Pinned relations must be explicitly unpinned using smgrunpin to allow cleanup
 - The pinning mechanism allows relation objects to survive transaction boundaries
 - Multiple pins on the same relation are supported (pincount can exceed 1)
+
+## Simplified Source
+
+```c
+void
+smgrpin(SMgrRelation reln)
+{
+    // Remove from unpinned list if this is the first pin
+    if (reln->pincount == 0)
+        dlist_delete(&reln->node);
+
+    // Increment reference count to prevent cleanup
+    reln->pincount++;
+}
+```

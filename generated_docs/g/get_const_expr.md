@@ -40,3 +40,91 @@ This function generates string representations of constant values from Const nod
 
 ## Notes and Other Information
 The function implements careful synchronization with PostgreSQL's parser (especially make_const) to ensure that the generated constants will be interpreted with the correct types during re-parsing. Special handling exists for negative integers to avoid operator precedence issues, and for numeric values that might look like floats versus integers. The showtype parameter provides fine-grained control over type decoration, with -1 typically used when the caller will provide type information separately. Collation handling is coordinated with the showtype flag to avoid malformed output where collation clauses might conflict with type casting syntax.
+
+## Simplified Source
+
+```c
+static void get_const_expr(Const *constval, deparse_context *context, int showtype) {
+    StringInfo buf = context->buf;
+    bool needlabel = false;
+
+    // Handle NULL constants
+    if (constval->constisnull) {
+        appendStringInfoString(buf, "NULL");
+        if (showtype >= 0) {
+            appendStringInfo(buf, "::%s",
+                            format_type_with_typemod(constval->consttype, constval->consttypmod));
+            get_const_collation(constval, context);
+        }
+        return;
+    }
+
+    // Get the string representation of the constant value
+    Oid typoutput;
+    bool typIsVarlena;
+    getTypeOutputInfo(constval->consttype, &typoutput, &typIsVarlena);
+    char *extval = OidOutputFunctionCall(typoutput, constval->constvalue);
+
+    // Format based on type
+    switch (constval->consttype) {
+        case INT4OID:
+            // Print integers without quotes unless negative (to avoid parsing issues)
+            if (extval[0] != '-') {
+                appendStringInfoString(buf, extval);
+            } else {
+                appendStringInfo(buf, "'%s'", extval);
+                needlabel = true;  // Negative integers need type cast
+            }
+            break;
+
+        case NUMERICOID:
+            // Print numeric as unquoted if it looks like a float
+            if (isdigit((unsigned char) extval[0]) &&
+                strcspn(extval, "eE.") != strlen(extval)) {
+                appendStringInfoString(buf, extval);
+            } else {
+                appendStringInfo(buf, "'%s'", extval);
+                needlabel = true;
+            }
+            break;
+
+        case BOOLOID:
+            // Convert 't'/'f' to 'true'/'false'
+            appendStringInfoString(buf, (strcmp(extval, "t") == 0) ? "true" : "false");
+            break;
+
+        default:
+            // Quote all other types
+            simple_quote_literal(buf, extval);
+            break;
+    }
+
+    pfree(extval);
+
+    if (showtype < 0)
+        return;
+
+    // Determine if type label is needed based on parser behavior
+    switch (constval->consttype) {
+        case BOOLOID:
+        case UNKNOWNOID:
+            needlabel = false;  // These types don't need labels
+            break;
+        case NUMERICOID:
+            needlabel |= (constval->consttypmod >= 0);  // Show typmod if present
+            break;
+        default:
+            needlabel = true;
+            break;
+    }
+
+    // Add type decoration if needed
+    if (needlabel || showtype > 0) {
+        appendStringInfo(buf, "::%s",
+                        format_type_with_typemod(constval->consttype, constval->consttypmod));
+    }
+
+    // Add collation if non-default
+    get_const_collation(constval, context);
+}
+```

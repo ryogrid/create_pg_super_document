@@ -40,3 +40,13 @@ The function returns the PostgreSQL system catalog OID that uniquely identifies 
 - Used for type safety and proper operator selection in partition operations
 - Essential for validating partition bound values against column types
 - Located at src/include/utils/partcache.h:85-89
+
+## Simplified Source
+```c
+static inline Oid
+get_partition_col_typid(PartitionKey key, int col)
+{
+    // Simple accessor: return type OID for specified partition column
+    return key->parttypid[col];
+}
+```

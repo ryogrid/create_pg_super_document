@@ -39,3 +39,14 @@ This function calculates the total storage space needed for a relation by multip
 - The function accounts for PostgreSQL's memory alignment requirements using MAXALIGN
 - The calculation includes the heap tuple header overhead in addition to the actual data width
 - Used extensively throughout the query optimizer for memory usage estimates in various operations like sorting, hashing, and aggregation
+
+## Simplified Source
+
+```c
+static double
+relation_byte_size(double tuples, int width)
+{
+    // Calculate total storage size including alignment and headers
+    return tuples * (MAXALIGN(width) + MAXALIGN(SizeofHeapTupleHeader));
+}
+```

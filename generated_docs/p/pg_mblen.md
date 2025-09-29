@@ -37,3 +37,12 @@ The function delegates to the appropriate encoding-specific implementation throu
 - Essential for implementing multibyte-aware string operations in PostgreSQL
 - Used extensively throughout the codebase for text processing, formatting, and search operations
 - Part of PostgreSQL's multibyte character support infrastructure
+
+## Simplified Source
+
+```c
+int pg_mblen(const char *mbstr) {
+    // Get byte length of first multibyte character using encoding-specific function
+    return pg_wchar_table[DatabaseEncoding->encoding].mblen((const unsigned char *) mbstr);
+}
+```

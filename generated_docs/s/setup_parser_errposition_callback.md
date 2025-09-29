@@ -45,3 +45,22 @@ This mechanism is part of PostgreSQL's comprehensive error reporting system that
 - Enables precise error reporting even when errors occur in functions outside the parser subsystem
 - Part of PostgreSQL's error context stack mechanism for comprehensive error location tracking
 - Location: src/backend/parser/parse_node.c:140-155
+
+## Simplified Source
+
+```c
+void setup_parser_errposition_callback(ParseCallbackState *pcbstate,
+                                       ParseState *pstate, int location) {
+    // Set up parser state and location for error reporting
+    pcbstate->pstate = pstate;
+    pcbstate->location = location;
+
+    // Configure error callback function
+    pcbstate->errcallback.callback = pcb_error_callback;
+    pcbstate->errcallback.arg = (void *) pcbstate;
+
+    // Push onto error context stack
+    pcbstate->errcallback.previous = error_context_stack;
+    error_context_stack = &pcbstate->errcallback;
+}
+```

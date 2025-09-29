@@ -36,3 +36,39 @@ This static function serves as a wrapper that validates and sanitizes network in
 - Generates a full mask (all bits set) when the provided mask is invalid
 - Uses INADDR_ANY for IPv4 and IN6_IS_ADDR_UNSPECIFIED macro for IPv6 validation
 - Acts as a safety layer to ensure callback functions receive consistent, valid data
+
+## Simplified Source
+
+```c
+static void
+run_ifaddr_callback(PgIfAddrCallback callback, void *cb_data,
+                    struct sockaddr *addr, struct sockaddr *mask)
+{
+    // Skip if no address provided
+    if (!addr)
+        return;
+
+    // Validate mask matches address family and is not empty
+    if (mask && mask->sa_family != addr->sa_family)
+        mask = NULL;  // Family mismatch
+
+    if (mask && addr->sa_family == AF_INET &&
+        ((struct sockaddr_in *) mask)->sin_addr.s_addr == INADDR_ANY)
+        mask = NULL;  // IPv4 empty mask
+
+    if (mask && addr->sa_family == AF_INET6 &&
+        IN6_IS_ADDR_UNSPECIFIED(&((struct sockaddr_in6 *) mask)->sin6_addr))
+        mask = NULL;  // IPv6 empty mask
+
+    // Generate full mask if needed
+    if (!mask)
+    {
+        struct sockaddr_storage fullmask;
+        pg_sockaddr_cidr_mask(&fullmask, NULL, addr->sa_family);
+        mask = (struct sockaddr *) &fullmask;
+    }
+
+    // Call the callback with validated parameters
+    (*callback) (addr, mask, cb_data);
+}
+```

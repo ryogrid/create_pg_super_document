@@ -38,3 +38,17 @@ The  function is an exported routine that verifies whether a specified user (rol
 - The extended version provides better error reporting by distinguishing between permission denied and non-existent attributes
 - Returns ACLCHECK_OK if any of the requested privileges are granted, ACLCHECK_NO_PRIV otherwise
 - Located in src/backend/catalog/aclchk.c lines 3937-3966
+
+## Simplified Source
+
+```c
+AclResult pg_attribute_aclcheck_ext(Oid table_oid, AttrNumber attnum,
+                                    Oid roleid, AclMode mode, bool *is_missing) {
+    // Check if user has requested privileges on the column
+    if (pg_attribute_aclmask_ext(table_oid, attnum, roleid, mode,
+                                 ACLMASK_ANY, is_missing) != 0)
+        return ACLCHECK_OK;
+    else
+        return ACLCHECK_NO_PRIV;
+}
+```

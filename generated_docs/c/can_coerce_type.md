@@ -59,3 +59,64 @@ The function performs polymorphic type consistency checking when generic types a
 - Supports both single and multi-argument type checking scenarios
 - Contains provisions for record array coercion (currently disabled with NOT_USED)
 - Located in src/backend/parser/parse_coerce.c:556-675
+
+## Simplified Source
+
+```c
+bool
+can_coerce_type(int nargs, const Oid *input_typeids, const Oid *target_typeids,
+                CoercionContext ccontext)
+{
+    bool have_generics = false;
+
+    // Check each input-target type pair
+    for (int i = 0; i < nargs; i++) {
+        Oid inputTypeId = input_typeids[i];
+        Oid targetTypeId = target_typeids[i];
+
+        // Same type always works
+        if (inputTypeId == targetTypeId)
+            continue;
+
+        // ANY accepts everything
+        if (targetTypeId == ANYOID)
+            continue;
+
+        // Handle polymorphic types (need consistency check later)
+        if (IsPolymorphicType(targetTypeId)) {
+            have_generics = true;
+            continue;
+        }
+
+        // Unknown constants can convert to anything
+        if (inputTypeId == UNKNOWNOID)
+            continue;
+
+        // Check for explicit cast pathway
+        CoercionPathType pathtype = find_coercion_pathway(targetTypeId, inputTypeId, ccontext, &funcId);
+        if (pathtype != COERCION_PATH_NONE)
+            continue;
+
+        // Special cases for record types
+        if ((inputTypeId == RECORDOID && ISCOMPLEX(targetTypeId)) ||
+            (targetTypeId == RECORDOID && ISCOMPLEX(inputTypeId)))
+            continue;
+
+        // Check inheritance relationships
+        if (typeInheritsFrom(inputTypeId, targetTypeId) ||
+            typeIsOfTypedTable(inputTypeId, targetTypeId))
+            continue;
+
+        // No coercion possible for this pair
+        return false;
+    }
+
+    // Final check for polymorphic type consistency
+    if (have_generics) {
+        if (!check_generic_type_consistency(input_typeids, target_typeids, nargs))
+            return false;
+    }
+
+    return true;
+}
+```

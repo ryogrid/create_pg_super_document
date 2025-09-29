@@ -54,3 +54,48 @@ The resulting IndexInfo structure is designed to be long-lived and reused across
 - The ii_Concurrent flag is explicitly set to false, indicating this is for normal (non-concurrent) operations
 - Access method summarizing capability is copied from the index access method structure
 - Used extensively throughout the system for any operation that needs to work with index metadata efficiently
+
+## Simplified Source
+
+```c
+IndexInfo *BuildIndexInfo(Relation index)
+{
+    IndexInfo *ii;
+    Form_pg_index indexStruct = index->rd_index;
+    int i;
+    int numAtts;
+
+    // Validate number of attributes
+    numAtts = indexStruct->indnatts;
+    if (numAtts < 1 || numAtts > INDEX_MAX_KEYS)
+        elog(ERROR, "invalid indnatts %d for index %u",
+             numAtts, RelationGetRelid(index));
+
+    // Create IndexInfo with all metadata from catalog
+    ii = makeIndexInfo(indexStruct->indnatts,
+                       indexStruct->indnkeyatts,
+                       index->rd_rel->relam,
+                       RelationGetIndexExpressions(index),
+                       RelationGetIndexPredicate(index),
+                       indexStruct->indisunique,
+                       indexStruct->indnullsnotdistinct,
+                       indexStruct->indisready,
+                       false,  // ii_Concurrent = false
+                       index->rd_indam->amsummarizing);
+
+    // Copy attribute numbers from catalog
+    for (i = 0; i < numAtts; i++)
+        ii->ii_IndexAttrNumbers[i] = indexStruct->indkey.values[i];
+
+    // Handle exclusion constraint information if needed
+    if (indexStruct->indisexclusion)
+    {
+        RelationGetExclusionInfo(index,
+                                 &ii->ii_ExclusionOps,
+                                 &ii->ii_ExclusionProcs,
+                                 &ii->ii_ExclusionStrats);
+    }
+
+    return ii;
+}
+```

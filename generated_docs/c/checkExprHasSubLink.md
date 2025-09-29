@@ -37,3 +37,18 @@ This function traverses an expression tree or Query node to determine whether it
 - Primarily used in query rewriting and optimization contexts to detect the presence of subqueries
 - Part of the rewrite manipulation infrastructure for analyzing query structure
 - The selective traversal behavior is crucial for distinguishing between SubLinks that are part of expressions versus those that are structural elements of the query
+
+## Simplified Source
+
+```c
+bool
+checkExprHasSubLink(Node *node)
+{
+    // Traverse expression tree checking for SubLink nodes
+    // Ignore subqueries in range table and CTE list
+    return query_or_expression_tree_walker(node,
+                                          checkExprHasSubLink_walker,
+                                          NULL,
+                                          QTW_IGNORE_RC_SUBQUERIES);
+}
+```

@@ -55,3 +55,61 @@ The function updates the pg_type catalog entry and recursively handles the renam
 - Avoids double-renaming array types when the array type was already handled during conflict resolution
 - Invokes post-alter hooks to notify other system components of the change
 - Critical for maintaining consistency between base types and their corresponding array types during rename operations
+
+## Simplified Source
+
+```c
+void
+RenameTypeInternal(Oid typeOid, const char *newTypeName, Oid typeNamespace)
+{
+    Relation pg_type_desc;
+    HeapTuple tuple;
+    Form_pg_type typ;
+    Oid arrayOid, oldTypeOid;
+
+    // Open pg_type catalog for update
+    pg_type_desc = table_open(TypeRelationId, RowExclusiveLock);
+
+    // Get the type tuple to rename
+    tuple = SearchSysCacheCopy1(TYPEOID, ObjectIdGetDatum(typeOid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for type %u", typeOid);
+    typ = (Form_pg_type) GETSTRUCT(tuple);
+
+    Assert(typeNamespace == typ->typnamespace);
+    arrayOid = typ->typarray;
+
+    // Check for name conflicts
+    oldTypeOid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                                CStringGetDatum(newTypeName),
+                                ObjectIdGetDatum(typeNamespace));
+
+    // Handle conflicts by moving array types out of the way if possible
+    if (OidIsValid(oldTypeOid)) {
+        if (get_typisdefined(oldTypeOid) &&
+            moveArrayTypeName(oldTypeOid, newTypeName, typeNamespace)) {
+            // Successfully resolved conflict
+        } else {
+            ereport(ERROR,
+                   (errcode(ERRCODE_DUPLICATE_OBJECT),
+                    errmsg("type \"%s\" already exists", newTypeName)));
+        }
+    }
+
+    // Perform the actual rename
+    namestrcpy(&(typ->typname), newTypeName);
+    CatalogTupleUpdate(pg_type_desc, &tuple->t_self, tuple);
+    InvokeObjectPostAlterHook(TypeRelationId, typeOid, 0);
+
+    // Clean up
+    heap_freetuple(tuple);
+    table_close(pg_type_desc, RowExclusiveLock);
+
+    // Recursively rename associated array type if needed
+    if (OidIsValid(arrayOid) && arrayOid != oldTypeOid) {
+        char *arrname = makeArrayTypeName(newTypeName, typeNamespace);
+        RenameTypeInternal(arrayOid, arrname, typeNamespace);
+        pfree(arrname);
+    }
+}
+```

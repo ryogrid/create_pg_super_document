@@ -47,3 +47,66 @@ The `array_get_element_expanded` function is a static helper function that handl
 - Safe to return pass-by-reference values as the expanded array structure maintains data stability
 - Part of PostgreSQL's expanded object infrastructure for performance optimization
 - Located in `src/backend/utils/adt/arrayfuncs.c` at lines 1921-2029
+
+## Simplified Source
+
+```c
+static Datum array_get_element_expanded(Datum arraydatum,
+                                       int nSubscripts, int *indx,
+                                       int arraytyplen,
+                                       int elmlen, bool elmbyval, char elmalign,
+                                       bool *isNull) {
+    ExpandedArrayHeader *eah;
+    int i, ndim, *dim, *lb, offset;
+    Datum *dvalues;
+    bool *dnulls;
+
+    // Extract expanded array header
+    eah = (ExpandedArrayHeader *) DatumGetEOHP(arraydatum);
+    Assert(eah->ea_magic == EA_MAGIC);
+
+    // Verify type consistency
+    Assert(arraytyplen == -1);
+    Assert(elmlen == eah->typlen);
+    Assert(elmbyval == eah->typbyval);
+    Assert(elmalign == eah->typalign);
+
+    // Get array dimensions and bounds
+    ndim = eah->ndims;
+    dim = eah->dims;
+    lb = eah->lbound;
+
+    // Validate subscripts
+    if (ndim != nSubscripts || ndim <= 0 || ndim > MAXDIM) {
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Check bounds for each dimension
+    for (i = 0; i < ndim; i++) {
+        if (indx[i] < lb[i] || indx[i] >= (dim[i] + lb[i])) {
+            *isNull = true;
+            return (Datum) 0;
+        }
+    }
+
+    // Calculate linear offset from subscripts
+    offset = ArrayGetOffset(nSubscripts, dim, lb, indx);
+
+    // Ensure array is deconstructed
+    deconstruct_expanded_array(eah);
+
+    dvalues = eah->dvalues;
+    dnulls = eah->dnulls;
+
+    // Check for NULL element
+    if (dnulls && dnulls[offset]) {
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Return the element value
+    *isNull = false;
+    return dvalues[offset];
+}
+```

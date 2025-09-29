@@ -48,3 +48,35 @@ This validation is essential because PostgreSQL does not trust XLOG record conte
 - The CRC calculation specifically excludes the xl_crc field itself to avoid circular dependency
 - Critical for data integrity - PostgreSQL will not trust record contents without successful CRC validation
 - Returns boolean indicating whether CRC validation passed or failed
+
+## Simplified Source
+
+```c
+static bool ValidXLogRecord(XLogReaderState *state, XLogRecord *record, XLogRecPtr recptr) {
+    pg_crc32c crc;
+
+    Assert(record->xl_tot_len >= SizeOfXLogRecord);
+
+    // Calculate CRC for the record
+    INIT_CRC32C(crc);
+
+    // Include record data (excluding header)
+    COMP_CRC32C(crc, ((char *) record) + SizeOfXLogRecord,
+                record->xl_tot_len - SizeOfXLogRecord);
+
+    // Include record header (excluding CRC field itself)
+    COMP_CRC32C(crc, (char *) record, offsetof(XLogRecord, xl_crc));
+
+    FIN_CRC32C(crc);
+
+    // Compare calculated CRC with stored CRC
+    if (!EQ_CRC32C(record->xl_crc, crc)) {
+        report_invalid_record(state,
+                             "incorrect resource manager data checksum in record at %X/%X",
+                             LSN_FORMAT_ARGS(recptr));
+        return false;
+    }
+
+    return true;
+}
+```

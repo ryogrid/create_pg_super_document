@@ -32,3 +32,17 @@ The returned parameter ID can be used by execution nodes to coordinate special r
 
 ## Notes and Other Information
 This function is primarily used in parallel query execution and recursive query processing. The special parameters created by this function enable coordination between different execution nodes without the overhead of full parameter value management. The InvalidOid type marker clearly distinguishes these signaling parameters from data-carrying parameters.
+
+## Simplified Source
+
+```c
+int assign_special_exec_param(PlannerInfo *root) {
+    // Use current length as the new parameter ID
+    int paramId = list_length(root->glob->paramExecTypes);
+
+    // Reserve a slot with InvalidOid (no actual data type)
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes, InvalidOid);
+
+    return paramId;
+}
+```

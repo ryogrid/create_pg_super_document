@@ -33,3 +33,23 @@ This function serves as a sanity check routine for the connection parameters  an
 - Uses case-insensitive comparison for version strings
 - Returns true for valid versions, false otherwise
 - Static function scope limited to fe-connect.c
+
+## Simplified Source
+
+```c
+static bool sslVerifyProtocolVersion(const char *version) {
+    // Empty or NULL version is valid (parameter ignored)
+    if (!version || strlen(version) == 0)
+        return true;
+
+    // Check for supported TLS versions
+    if (pg_strcasecmp(version, "TLSv1") == 0 ||
+        pg_strcasecmp(version, "TLSv1.1") == 0 ||
+        pg_strcasecmp(version, "TLSv1.2") == 0 ||
+        pg_strcasecmp(version, "TLSv1.3") == 0)
+        return true;
+
+    // Invalid version
+    return false;
+}
+```

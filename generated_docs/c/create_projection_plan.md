@@ -53,3 +53,62 @@ The function includes cost estimation logic and handles the case where the actua
 - The parallel_aware flag of the subplan is preserved even when other plan properties are updated
 - Cost estimates may be slightly wrong if the Result node decision differs from path creation, but the function uses the estimates from the actual implementation
 - Sortgroupref labeling is applied when CP_LABEL_TLIST flag is set, ensuring proper GROUP BY and ORDER BY reference handling
+
+## Simplified Source
+
+```c
+static Plan *
+create_projection_plan(PlannerInfo *root, ProjectionPath *best_path, int flags)
+{
+    Plan *plan;
+    Plan *subplan;
+    List *tlist;
+    bool needs_result_node = false;
+
+    // Determine projection strategy based on requirements and capabilities
+    if (use_physical_tlist(root, &best_path->path, flags))
+    {
+        // Caller doesn't need exact tlist, use subplan's natural output
+        subplan = create_plan_recurse(root, best_path->subpath, 0);
+        tlist = subplan->targetlist;
+        if (flags & CP_LABEL_TLIST)
+            apply_pathtarget_labeling_to_tlist(tlist, best_path->path.pathtarget);
+    }
+    else if (is_projection_capable_path(best_path->subpath))
+    {
+        // Push projection down to projection-capable subplan
+        subplan = create_plan_recurse(root, best_path->subpath, CP_IGNORE_TLIST);
+        Assert(is_projection_capable_plan(subplan));
+        tlist = build_path_tlist(root, &best_path->path);
+    }
+    else
+    {
+        // Check if we need a separate Result node
+        subplan = create_plan_recurse(root, best_path->subpath, 0);
+        tlist = build_path_tlist(root, &best_path->path);
+        needs_result_node = !tlist_same_exprs(tlist, subplan->targetlist);
+    }
+
+    if (!needs_result_node)
+    {
+        // Assign tlist directly to subplan
+        plan = subplan;
+        plan->targetlist = tlist;
+
+        // Update cost estimates with actual values used
+        plan->startup_cost = best_path->path.startup_cost;
+        plan->total_cost = best_path->path.total_cost;
+        plan->plan_rows = best_path->path.rows;
+        plan->plan_width = best_path->path.pathtarget->width;
+        plan->parallel_safe = best_path->path.parallel_safe;
+    }
+    else
+    {
+        // Create Result node for projection
+        plan = (Plan *) make_result(tlist, NULL, subplan);
+        copy_generic_path_info(plan, (Path *) best_path);
+    }
+
+    return plan;
+}
+```

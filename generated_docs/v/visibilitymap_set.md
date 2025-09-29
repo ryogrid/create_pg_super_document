@@ -42,7 +42,7 @@ The function performs critical section protection during bit manipulation and ha
   - [lazy_scan_prune](../l/lazy_scan_prune.md) (sets visibility bits during vacuum operations)
   - [heap_xlog_visible](../h/heap_xlog_visible.md) (sets bits during WAL replay)
 
-## Notes and Other Information  
+## Notes and Other Information
 - Must be called with buffers previously pinned via visibilitymap_pin
 - Requires heap page to have PD_ALL_VISIBLE bit set before calling (except in recovery)
 - Handles both normal operation (generates WAL) and recovery mode (replays existing WAL)
@@ -50,3 +50,64 @@ The function performs critical section protection during bit manipulation and ha
 - Special handling for data checksums: updates heap page LSN only when hint bits are protected
 - Validates that all_frozen bit is never set without all_visible bit
 - No-op if the requested bits are already set
+
+## Simplified Source
+
+```c
+void
+visibilitymap_set(Relation rel, BlockNumber heapBlk, Buffer heapBuf,
+                  XLogRecPtr recptr, Buffer vmBuf, TransactionId cutoff_xid,
+                  uint8 flags)
+{
+    // Convert heap block to visibility map coordinates
+    BlockNumber mapBlock = HEAPBLK_TO_MAPBLOCK(heapBlk);
+    uint32 mapByte = HEAPBLK_TO_MAPBYTE(heapBlk);
+    uint8 mapOffset = HEAPBLK_TO_OFFSET(heapBlk);
+
+    // Validate input parameters
+    Assert(InRecovery || XLogRecPtrIsInvalid(recptr));
+    Assert(InRecovery || PageIsAllVisible(BufferGetPage(heapBuf)));
+    Assert((flags & VISIBILITYMAP_VALID_BITS) == flags);
+    Assert(flags != VISIBILITYMAP_ALL_FROZEN);  // Can't set frozen without visible
+
+    // Validate correct buffers are provided
+    if (BufferIsValid(heapBuf) && BufferGetBlockNumber(heapBuf) != heapBlk)
+        elog(ERROR, "wrong heap buffer passed to visibilitymap_set");
+    if (!BufferIsValid(vmBuf) || BufferGetBlockNumber(vmBuf) != mapBlock)
+        elog(ERROR, "wrong VM buffer passed to visibilitymap_set");
+
+    // Access visibility map page and lock it
+    Page page = BufferGetPage(vmBuf);
+    uint8 *map = (uint8 *) PageGetContents(page);
+    LockBuffer(vmBuf, BUFFER_LOCK_EXCLUSIVE);
+
+    // Check if bits need to be set (avoid redundant work)
+    if (flags != (map[mapByte] >> mapOffset & VISIBILITYMAP_VALID_BITS)) {
+        START_CRIT_SECTION();
+
+        // Set the visibility bits
+        map[mapByte] |= (flags << mapOffset);
+        MarkBufferDirty(vmBuf);
+
+        // Handle WAL logging if needed
+        if (RelationNeedsWAL(rel)) {
+            if (XLogRecPtrIsInvalid(recptr)) {
+                // Normal operation: generate new WAL record
+                recptr = log_heap_visible(rel, heapBuf, vmBuf, cutoff_xid, flags);
+
+                // Update heap page LSN if checksums/hints need protection
+                if (XLogHintBitIsNeeded()) {
+                    Page heapPage = BufferGetPage(heapBuf);
+                    PageSetLSN(heapPage, recptr);
+                }
+            }
+            // Update visibility map page LSN
+            PageSetLSN(page, recptr);
+        }
+
+        END_CRIT_SECTION();
+    }
+
+    LockBuffer(vmBuf, BUFFER_LOCK_UNLOCK);
+}
+```

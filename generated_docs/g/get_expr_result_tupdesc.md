@@ -53,3 +53,38 @@ The function includes the same warning as `get_expr_result_type` about being cau
 - Widely used in parser and utility functions that need to work with composite expression structures
 - Located in src/backend/utils/fmgr/funcapi.c at lines 551-588
 - Part of PostgreSQL's function manager API for composite type introspection
+
+## Simplified Source
+
+```c
+TupleDesc get_expr_result_tupdesc(Node *expr, bool noError) {
+    TupleDesc tupleDesc;
+    TypeFuncClass functypclass;
+
+    // Get function type classification and tuple descriptor
+    functypclass = get_expr_result_type(expr, NULL, &tupleDesc);
+
+    // Return tuple descriptor if expression is composite
+    if (functypclass == TYPEFUNC_COMPOSITE ||
+        functypclass == TYPEFUNC_COMPOSITE_DOMAIN)
+        return tupleDesc;
+
+    // Handle non-composite types
+    if (!noError) {
+        Oid exprTypeId = exprType(expr);
+
+        if (exprTypeId != RECORDOID) {
+            // Non-RECORD type that isn't composite
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("type %s is not composite",
+                                  format_type_be(exprTypeId))));
+        } else {
+            // Unregistered RECORD type
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("record type has not been registered")));
+        }
+    }
+
+    return NULL;
+}
+```

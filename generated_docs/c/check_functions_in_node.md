@@ -57,3 +57,65 @@ Important: This function does NOT recurse into sub-expressions; it only examines
 - Sets operator function IDs if not already set before checking
 - For CoerceViaIO, checks both source type's output function and target type's input function
 - Essential for analyzing function properties like volatility, mutability, and parallel safety across expression trees
+
+## Simplified Source
+
+```c
+bool check_functions_in_node(Node *node, check_function_callback checker, void *context) {
+    // Apply checker to function OID based on node type
+    switch (nodeTag(node)) {
+        case T_Aggref:
+            // Check aggregate function
+            return checker(((Aggref *) node)->aggfnoid, context);
+
+        case T_WindowFunc:
+            // Check window function
+            return checker(((WindowFunc *) node)->winfnoid, context);
+
+        case T_FuncExpr:
+            // Check regular function
+            return checker(((FuncExpr *) node)->funcid, context);
+
+        case T_OpExpr:
+        case T_DistinctExpr:
+        case T_NullIfExpr:
+            // Check operator function (ensure opfuncid is set)
+            OpExpr *expr = (OpExpr *) node;
+            set_opfuncid(expr);
+            return checker(expr->opfuncid, context);
+
+        case T_ScalarArrayOpExpr:
+            // Check scalar array operator function
+            ScalarArrayOpExpr *sa_expr = (ScalarArrayOpExpr *) node;
+            set_sa_opfuncid(sa_expr);
+            return checker(sa_expr->opfuncid, context);
+
+        case T_CoerceViaIO:
+            // Check both input and output functions for type conversion
+            CoerceViaIO *coerce_expr = (CoerceViaIO *) node;
+            Oid input_func, output_func, param;
+            bool is_varlena;
+
+            getTypeInputInfo(coerce_expr->resulttype, &input_func, &param);
+            if (checker(input_func, context))
+                return true;
+
+            getTypeOutputInfo(exprType((Node *) coerce_expr->arg), &output_func, &is_varlena);
+            return checker(output_func, context);
+
+        case T_RowCompareExpr:
+            // Check all comparison operators in row comparison
+            RowCompareExpr *row_expr = (RowCompareExpr *) node;
+            ListCell *op_cell;
+
+            foreach(op_cell, row_expr->opnos) {
+                Oid op_func = get_opcode(lfirst_oid(op_cell));
+                if (checker(op_func, context))
+                    return true;
+            }
+            break;
+    }
+
+    return false;
+}
+```

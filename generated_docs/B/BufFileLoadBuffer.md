@@ -47,3 +47,54 @@ The function assumes that on entry, the buffer is clean (not dirty), and both po
 - Read errors are converted to PostgreSQL ERROR reports with appropriate file context
 - The buffer size is fixed at compile time (sizeof(file->buffer.data))
 - Used exclusively by the BufFile read path to maintain buffer state
+
+## Simplified Source
+
+```c
+static void
+BufFileLoadBuffer(BufFile *file)
+{
+    instr_time io_start, io_time;
+
+    // Advance to next file if current file size limit reached
+    if (file->curOffset >= MAX_PHYSICAL_FILESIZE &&
+        file->curFile + 1 < file->numFiles) {
+        file->curFile++;
+        file->curOffset = 0;
+    }
+
+    File thisfile = file->files[file->curFile];
+
+    // Start I/O timing if enabled
+    if (track_io_timing)
+        INSTR_TIME_SET_CURRENT(io_start);
+    else
+        INSTR_TIME_SET_ZERO(io_start);
+
+    // Read data into buffer
+    file->nbytes = FileRead(thisfile,
+                           file->buffer.data,
+                           sizeof(file->buffer.data),
+                           file->curOffset,
+                           WAIT_EVENT_BUFFILE_READ);
+
+    // Handle read error
+    if (file->nbytes < 0) {
+        file->nbytes = 0;
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not read file \"%s\": %m",
+                        FilePathName(thisfile))));
+    }
+
+    // Record I/O timing statistics
+    if (track_io_timing) {
+        INSTR_TIME_SET_CURRENT(io_time);
+        INSTR_TIME_ACCUM_DIFF(pgBufferUsage.temp_blk_read_time, io_time, io_start);
+    }
+
+    // Update buffer usage statistics
+    if (file->nbytes > 0)
+        pgBufferUsage.temp_blks_read++;
+}
+```

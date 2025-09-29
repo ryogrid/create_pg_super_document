@@ -43,3 +43,20 @@ This function is optimized for integer comparison and should only be used with l
 - Part of PostgreSQL's generic List API located in src/backend/nodes/list.c
 - Commonly used throughout the system for checking membership in collections of attribute numbers, column identifiers, and other integer values
 - Type-safe alternative to generic list membership functions when working with integers
+
+## Simplified Source
+
+```c
+bool list_member_int(const List *list, int datum) {
+    // Check if integer value exists in integer list
+    const ListCell *cell;
+
+    // Iterate through all list cells
+    foreach(cell, list) {
+        if (lfirst_int(cell) == datum)
+            return true;
+    }
+
+    return false;
+}
+```

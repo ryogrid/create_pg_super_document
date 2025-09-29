@@ -34,3 +34,12 @@ The function ensures that the same hash code will always map to the same partiti
 - Used in conjunction with BufMappingPartitionLock to determine the appropriate lock for buffer operations
 - The partitioning reduces contention on the shared buffer mapping hashtable
 - Essential for maintaining high concurrency in buffer access patterns
+
+## Simplified Source
+
+```c
+static inline uint32 BufTableHashPartition(uint32 hashcode) {
+    // Map hash code to partition number for load distribution
+    return hashcode % NUM_BUFFER_PARTITIONS;
+}
+```

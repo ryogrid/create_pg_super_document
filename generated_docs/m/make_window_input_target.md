@@ -50,3 +50,73 @@ The algorithm collects sortgroupref numbers from window PARTITION/ORDER BY claus
 - Uses PVC_INCLUDE_AGGREGATES flag to ensure Aggrefs are placed in the Agg node's tlist
 - Uses PVC_RECURSE_WINDOWFUNCS to make sure WindowFunc input expressions are available
 - The comment notes some redundant cost calculation occurs at the end
+
+## Simplified Source
+
+```c
+static PathTarget *
+make_window_input_target(PlannerInfo *root,
+                         PathTarget *final_target,
+                         List *activeWindows)
+{
+    PathTarget *input_target;
+    Bitmapset  *sgrefs;
+    List       *flattenable_cols;
+    List       *flattenable_vars;
+
+    Assert(root->parse->hasWindowFuncs);
+
+    // Collect sortgroupref numbers from window PARTITION/ORDER BY clauses
+    sgrefs = NULL;
+    foreach(lc, activeWindows) {
+        WindowClause *wc = lfirst_node(WindowClause, lc);
+
+        // Add PARTITION BY clause references
+        foreach(lc2, wc->partitionClause) {
+            SortGroupClause *sortcl = lfirst_node(SortGroupClause, lc2);
+            sgrefs = bms_add_member(sgrefs, sortcl->tleSortGroupRef);
+        }
+
+        // Add ORDER BY clause references
+        foreach(lc2, wc->orderClause) {
+            SortGroupClause *sortcl = lfirst_node(SortGroupClause, lc2);
+            sgrefs = bms_add_member(sgrefs, sortcl->tleSortGroupRef);
+        }
+    }
+
+    // Add GROUP BY clause references
+    foreach(lc, root->processed_groupClause) {
+        SortGroupClause *grpcl = lfirst_node(SortGroupClause, lc);
+        sgrefs = bms_add_member(sgrefs, grpcl->tleSortGroupRef);
+    }
+
+    // Build target with non-flattenable items
+    input_target = create_empty_pathtarget();
+    flattenable_cols = NIL;
+
+    int i = 0;
+    foreach(lc, final_target->exprs) {
+        Expr *expr = (Expr *) lfirst(lc);
+        Index sgref = get_pathtarget_sortgroupref(final_target, i);
+
+        // Keep window/GROUP BY clauses intact - don't flatten
+        if (sgref != 0 && bms_is_member(sgref, sgrefs)) {
+            add_column_to_pathtarget(input_target, expr, sgref);
+        } else {
+            // Mark for flattening
+            flattenable_cols = lappend(flattenable_cols, expr);
+        }
+        i++;
+    }
+
+    // Extract Vars and Aggrefs from flattenable columns
+    // Include aggregates but recurse into WindowFuncs
+    flattenable_vars = pull_var_clause(flattenable_cols,
+                                       PVC_INCLUDE_AGGREGATES |
+                                       PVC_RECURSE_WINDOWFUNCS |
+                                       PVC_INCLUDE_PLACEHOLDERS);
+    add_new_columns_to_pathtarget(input_target, flattenable_vars);
+
+    return set_pathtarget_cost_width(root, input_target);
+}
+```

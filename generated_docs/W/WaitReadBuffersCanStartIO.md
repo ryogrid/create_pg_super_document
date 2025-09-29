@@ -41,3 +41,20 @@ The function is designed to be lightweight and inline, providing efficient buffe
 - For local buffers, it directly checks the atomic state without complex locking
 - For shared buffers, it delegates to StartBufferIO which handles proper synchronization and locking
 - The nowait parameter is only relevant for shared buffers and is passed through to StartBufferIO
+
+## Simplified Source
+```c
+static inline bool
+WaitReadBuffersCanStartIO(Buffer buffer, bool nowait)
+{
+    if (BufferIsLocal(buffer)) {
+        // Local buffer: check if data is already valid
+        BufferDesc *bufHdr = GetLocalBufferDescriptor(-buffer - 1);
+        return (pg_atomic_read_u32(&bufHdr->state) & BM_VALID) == 0;
+    }
+    else {
+        // Shared buffer: use proper I/O coordination
+        return StartBufferIO(GetBufferDescriptor(buffer - 1), true, nowait);
+    }
+}
+```

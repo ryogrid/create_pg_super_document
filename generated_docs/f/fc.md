@@ -51,3 +51,17 @@ The `fc` function is a test function that takes a constant string pointer parame
 - Part of the ECPG test infrastructure for validating embedded SQL functionality
 - The function name 'fc' appears to be referenced extensively in backend parser code, though this may be coincidental symbol name matching with different contexts
 - Uses const-correctness for the string parameter, indicating it doesn't modify the input string
+
+## Simplified Source
+
+```c
+static int
+fc(const char *x)
+{
+    // Print input string for debugging/testing
+    printf("in fc (%s)\n", x);
+
+    // Return first character as integer
+    return *x;
+}
+```

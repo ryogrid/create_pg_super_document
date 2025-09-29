@@ -33,3 +33,18 @@ This function grabs a session-level lock on the target relation specified by its
 - The session lock ensures relcache entry consistency across transactions
 - Uses LockAcquire with session=true and dontWait=false parameters
 - Located in src/backend/storage/lmgr/lmgr.c:387-399
+
+## Simplified Source
+
+```c
+void LockRelationIdForSession(LockRelId *relid, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create a relation lock tag from database and relation IDs
+    SET_LOCKTAG_RELATION(tag, relid->dbId, relid->relId);
+
+    // Acquire session-level lock (persists across transactions)
+    LockAcquire(&tag, lockmode, true, false);
+}
+```

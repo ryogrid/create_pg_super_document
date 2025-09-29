@@ -48,3 +48,50 @@ This function takes no parameters and operates on global state variables.
 - The activePathGeneration counter helps other subsystems detect when cached namespace-related data needs refreshing
 - Performance optimization: avoids unnecessary recomputation when path and user haven't changed
 - Critical for maintaining consistency between different namespace-related operations throughout a session
+
+## Simplified Source
+
+```c
+static void
+recomputeNamespacePath(void)
+{
+    Oid roleid = GetUserId();
+
+    // Skip if path is already valid for current user
+    if (baseSearchPathValid && namespaceUser == roleid)
+        return;
+
+    // Get cached search path data for current user
+    const SearchPathCacheEntry *entry = cachedNamespacePath(namespace_search_path, roleid);
+
+    // Check if path actually changed
+    bool pathChanged = !(baseCreationNamespace == entry->firstNS &&
+                         baseTempCreationPending == entry->temp_missing &&
+                         equal(entry->finalPath, baseSearchPath));
+
+    if (pathChanged)
+    {
+        // Update base search path in permanent memory context
+        MemoryContext oldcxt = MemoryContextSwitchTo(TopMemoryContext);
+        List *newpath = list_copy(entry->finalPath);
+        MemoryContextSwitchTo(oldcxt);
+
+        // Replace old path with new one
+        list_free(baseSearchPath);
+        baseSearchPath = newpath;
+        baseCreationNamespace = entry->firstNS;
+        baseTempCreationPending = entry->temp_missing;
+    }
+
+    // Mark path as valid and activate it
+    baseSearchPathValid = true;
+    namespaceUser = roleid;
+    activeSearchPath = baseSearchPath;
+    activeCreationNamespace = baseCreationNamespace;
+    activeTempCreationPending = baseTempCreationPending;
+
+    // Increment generation counter if path changed
+    if (pathChanged)
+        activePathGeneration++;
+}
+```

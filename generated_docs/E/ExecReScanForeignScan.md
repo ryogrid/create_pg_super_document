@@ -29,3 +29,29 @@ This function performs a rescan operation on a foreign table by calling the fore
 - Outer plans are only rescanned if they exist and their chgParam is NULL
 - The actual foreign table rescan is delegated to the foreign data wrapper's ReScanForeignScan routine
 - Located in src/backend/executor/nodeForeignscan.c:323-355
+
+## Simplified Source
+
+```c
+void ExecReScanForeignScan(ForeignScanState *node) {
+    ForeignScan *plan = (ForeignScan *) node->ss.ps.plan;
+    EState *estate = node->ss.ps.state;
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Skip direct modifications during EvalPlanQual processing
+    if (estate->es_epq_active != NULL && plan->operation != CMD_SELECT) {
+        return;
+    }
+
+    // Delegate to foreign data wrapper's rescan routine
+    node->fdwroutine->ReScanForeignScan(node);
+
+    // Rescan outer plan if it exists and has no pending parameter changes
+    if (outerPlan != NULL && outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+
+    // Reset scan state
+    ExecScanReScan(&node->ss);
+}
+```

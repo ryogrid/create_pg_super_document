@@ -47,3 +47,24 @@ The function applies proper alignment (QUEUEALIGN) to ensure efficient memory ac
 - Data copying includes both channel name and payload plus 2 bytes for null terminators
 - The transaction ID is captured to enable proper cleanup of undelivered notifications
 - Part of the serialization process for PostgreSQL's LISTEN/NOTIFY messaging system
+
+## Simplified Source
+
+```c
+static void asyncQueueNotificationToEntry(Notification *n, AsyncQueueEntry *qe) {
+    // Calculate total entry length including channel, payload and alignment
+    size_t channellen = n->channel_len;
+    size_t payloadlen = n->payload_len;
+    int entryLength = AsyncQueueEntryEmptySize + payloadlen + channellen;
+    entryLength = QUEUEALIGN(entryLength);
+
+    // Fill queue entry metadata
+    qe->length = entryLength;
+    qe->dboid = MyDatabaseId;
+    qe->xid = GetCurrentTransactionId();
+    qe->srcPid = MyProcPid;
+
+    // Copy channel name and payload data (includes 2 null terminators)
+    memcpy(qe->data, n->data, channellen + payloadlen + 2);
+}
+```

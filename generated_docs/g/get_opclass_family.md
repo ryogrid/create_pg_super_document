@@ -42,3 +42,28 @@ Operator families are a key concept in PostgreSQL's indexing infrastructure, all
 - Critical for index creation and optimization operations
 - Operator families enable cross-type comparisons and indexing strategies
 - Used extensively in type cache management and replication infrastructure
+
+## Simplified Source
+
+```c
+Oid
+get_opclass_family(Oid opclass)
+{
+    HeapTuple tp;
+    Form_pg_opclass cla_tup;
+    Oid result;
+
+    // Look up operator class in system cache
+    tp = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclass));
+
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for opclass %u", opclass);
+
+    // Extract operator family OID from catalog entry
+    cla_tup = (Form_pg_opclass) GETSTRUCT(tp);
+    result = cla_tup->opcfamily;
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

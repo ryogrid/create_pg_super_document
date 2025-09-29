@@ -36,3 +36,14 @@ The function performs a simple validation: it converts the heap block number to 
 - Does not perform any I/O or buffer management operations
 - Safe to call with InvalidBuffer (will return false)
 - Typically used before calling visibilitymap_pin to avoid redundant operations
+
+## Simplified Source
+```c
+bool visibilitymap_pin_ok(BlockNumber heapBlk, Buffer vmbuf) {
+    // Convert heap block to map block number
+    BlockNumber mapBlock = HEAPBLK_TO_MAPBLOCK(heapBlk);
+
+    // Check if buffer is valid and contains the correct map page
+    return BufferIsValid(vmbuf) && BufferGetBlockNumber(vmbuf) == mapBlock;
+}
+```

@@ -54,3 +54,58 @@ The function ensures that all variable references use the correct varno values (
 - The function includes detailed comments explaining the logical ordering of operations and why certain expressions are processed before others
 - Memory management includes proper cleanup of temporary indexed target lists
 - Located in src/backend/optimizer/plan/setrefs.c:2282-2430
+
+## Simplified Source
+
+```c
+static void
+set_join_references(PlannerInfo *root, Join *join, int rtoffset) {
+    Plan *outer_plan = join->plan.lefttree;
+    Plan *inner_plan = join->plan.righttree;
+
+    // Build indexed target lists for efficient lookups
+    indexed_tlist *outer_itlist = build_tlist_index(outer_plan->targetlist);
+    indexed_tlist *inner_itlist = build_tlist_index(inner_plan->targetlist);
+
+    // Process join qualifications first (logically below the join)
+    join->joinqual = fix_join_expr(root, join->joinqual,
+                                  outer_itlist, inner_itlist,
+                                  (Index) 0, rtoffset, NRM_EQUAL);
+
+    // Handle join-type-specific processing
+    if (IsA(join, NestLoop)) {
+        // Process NestLoop parameters
+        NestLoop *nl = (NestLoop *) join;
+        foreach(lc, nl->nestParams) {
+            NestLoopParam *nlp = (NestLoopParam *) lfirst(lc);
+            nlp->paramval = (Var *) fix_upper_expr(root, (Node *) nlp->paramval,
+                                                   outer_itlist, OUTER_VAR, rtoffset, NRM_SUBSET);
+        }
+    } else if (IsA(join, MergeJoin)) {
+        // Process merge clauses
+        MergeJoin *mj = (MergeJoin *) join;
+        mj->mergeclauses = fix_join_expr(root, mj->mergeclauses,
+                                        outer_itlist, inner_itlist,
+                                        (Index) 0, rtoffset, NRM_EQUAL);
+    } else if (IsA(join, HashJoin)) {
+        // Process hash clauses and hash keys
+        HashJoin *hj = (HashJoin *) join;
+        hj->hashclauses = fix_join_expr(root, hj->hashclauses,
+                                       outer_itlist, inner_itlist,
+                                       (Index) 0, rtoffset, NRM_EQUAL);
+        hj->hashkeys = (List *) fix_upper_expr(root, (Node *) hj->hashkeys,
+                                              outer_itlist, OUTER_VAR, rtoffset, NRM_EQUAL);
+    }
+
+    // Process upper-level expressions (targetlist and qual)
+    join->plan.targetlist = fix_join_expr(root, join->plan.targetlist,
+                                         outer_itlist, inner_itlist, (Index) 0, rtoffset,
+                                         (join->jointype == JOIN_INNER ? NRM_EQUAL : NRM_SUPERSET));
+    join->plan.qual = fix_join_expr(root, join->plan.qual,
+                                   outer_itlist, inner_itlist, (Index) 0, rtoffset,
+                                   (join->jointype == JOIN_INNER ? NRM_EQUAL : NRM_SUPERSET));
+
+    pfree(outer_itlist);
+    pfree(inner_itlist);
+}
+```

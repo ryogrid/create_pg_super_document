@@ -50,3 +50,16 @@ This optimization avoids creating redundant expression nodes and helps maintain 
 - Essential for converting between implicit list-based AND semantics and explicit expression trees
 - The function maintains the logical equivalence while optimizing the representation
 - Part of the broader family of boolean expression construction utilities in PostgreSQL
+
+## Simplified Source
+
+```c
+Expr *make_ands_explicit(List *andclauses) {
+    if (andclauses == NIL)
+        return (Expr *) makeBoolConst(true, false);
+    else if (list_length(andclauses) == 1)
+        return (Expr *) linitial(andclauses);
+    else
+        return make_andclause(andclauses);
+}
+```

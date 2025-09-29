@@ -76,3 +76,139 @@ The function handles various dependency types (NORMAL, AUTO, INTERNAL, EXTENSION
 - The sorting of dependent objects ensures predictable deletion order for consistent behavior
 - Early exit mechanisms optimize performance by avoiding duplicate work on already-processed objects
 - The pendingObjects parameter enables batch deletion optimizations in performMultipleDeletions
+
+## Simplified Source
+
+```c
+static void findDependentObjects(const ObjectAddress *object, int objflags, int flags,
+                                ObjectAddressStack *stack, ObjectAddresses *targetObjects,
+                                const ObjectAddresses *pendingObjects, Relation *depRel) {
+
+    // 1. Check for cycles and early exits
+    if (stack_address_present_add_flags(object, objflags, stack))
+        return;  // Already being processed
+
+    if (object_address_present_add_flags(object, objflags, targetObjects))
+        return;  // Already in target list
+
+    if (IsPinnedObject(object->classId, object->objectId))
+        ereport(ERROR, "cannot drop system object");
+
+    // 2. Check if this object is owned by another object
+    ObjectAddress owningObject = {0};
+    ObjectAddress partitionObject = {0};
+
+    // Scan dependencies from this object
+    SysScanDesc scan = systable_beginscan(*depRel, DependDependerIndexId, true,
+                                         NULL, nkeys, key);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_depend foundDep = (Form_pg_depend) GETSTRUCT(tup);
+        ObjectAddress otherObject = {foundDep->refclassid, foundDep->refobjid, foundDep->refobjsubid};
+
+        switch (foundDep->deptype) {
+            case DEPENDENCY_INTERNAL:
+            case DEPENDENCY_EXTENSION:
+                // This object is owned by another - redirect deletion there
+                if (stack == NULL) {
+                    owningObject = otherObject;
+                    break;
+                }
+                if (stack_address_present_add_flags(&otherObject, 0, stack))
+                    break;
+
+                // Transfer deletion to owning object
+                ReleaseDeletionLock(object);
+                AcquireDeletionLock(&otherObject, 0);
+                systable_endscan(scan);
+                findDependentObjects(&otherObject, DEPFLAG_REVERSE, flags,
+                                   stack, targetObjects, pendingObjects, depRel);
+                return;
+
+            case DEPENDENCY_PARTITION_PRI:
+            case DEPENDENCY_PARTITION_SEC:
+                objflags |= DEPFLAG_IS_PART;
+                partitionObject = otherObject;
+                break;
+        }
+    }
+    systable_endscan(scan);
+
+    // Error if we found an owning object at top level
+    if (OidIsValid(owningObject.classId)) {
+        ereport(ERROR, "cannot drop %s because %s requires it",
+                getObjectDescription(object, false),
+                getObjectDescription(&owningObject, false));
+    }
+
+    // 3. Find objects that depend on this object
+    ObjectAddressAndFlags *dependentObjects;
+    int numDependentObjects = 0;
+    int maxDependentObjects = 128;
+    dependentObjects = palloc(maxDependentObjects * sizeof(ObjectAddressAndFlags));
+
+    // Scan for objects that reference this object
+    scan = systable_beginscan(*depRel, DependReferenceIndexId, true, NULL, nkeys, key);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_depend foundDep = (Form_pg_depend) GETSTRUCT(tup);
+        ObjectAddress otherObject = {foundDep->classid, foundDep->objid, foundDep->objsubid};
+
+        // Skip self-references
+        if (otherObject.classId == object->classId &&
+            otherObject.objectId == object->objectId && object->objectSubId == 0)
+            continue;
+
+        // Lock dependent object
+        AcquireDeletionLock(&otherObject, 0);
+
+        // Determine flags based on dependency type
+        int subflags;
+        switch (foundDep->deptype) {
+            case DEPENDENCY_NORMAL: subflags = DEPFLAG_NORMAL; break;
+            case DEPENDENCY_AUTO: subflags = DEPFLAG_AUTO; break;
+            case DEPENDENCY_INTERNAL: subflags = DEPFLAG_INTERNAL; break;
+            case DEPENDENCY_PARTITION_PRI:
+            case DEPENDENCY_PARTITION_SEC: subflags = DEPFLAG_PARTITION; break;
+            case DEPENDENCY_EXTENSION: subflags = DEPFLAG_EXTENSION; break;
+        }
+
+        // Add to dependent objects list
+        if (numDependentObjects >= maxDependentObjects) {
+            maxDependentObjects *= 2;
+            dependentObjects = repalloc(dependentObjects,
+                                      maxDependentObjects * sizeof(ObjectAddressAndFlags));
+        }
+        dependentObjects[numDependentObjects].obj = otherObject;
+        dependentObjects[numDependentObjects].subflags = subflags;
+        numDependentObjects++;
+    }
+    systable_endscan(scan);
+
+    // Sort dependent objects for consistent order
+    if (numDependentObjects > 1)
+        qsort(dependentObjects, numDependentObjects,
+              sizeof(ObjectAddressAndFlags), object_address_comparator);
+
+    // 4. Recursively process dependent objects
+    ObjectAddressStack mystack = {object, objflags, stack};
+    for (int i = 0; i < numDependentObjects; i++) {
+        findDependentObjects(&dependentObjects[i].obj, dependentObjects[i].subflags,
+                           flags, &mystack, targetObjects, pendingObjects, depRel);
+    }
+
+    pfree(dependentObjects);
+
+    // 5. Finally add this object to the target list
+    ObjectAddressExtra extra;
+    extra.flags = mystack.flags;
+    if (extra.flags & DEPFLAG_IS_PART)
+        extra.dependee = partitionObject;
+    else if (stack)
+        extra.dependee = *stack->object;
+    else
+        memset(&extra.dependee, 0, sizeof(extra.dependee));
+
+    add_exact_object_address_extra(object, &extra, targetObjects);
+}
+```

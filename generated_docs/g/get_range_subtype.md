@@ -38,3 +38,27 @@ The get_range_subtype function retrieves the subtype (element type) of a Postgre
 - The subtype information is stored in the rngsubtype field of the pg_range system catalog
 - Critical for proper handling of polymorphic functions that work with range types
 - Enables the type system to understand the relationship between range types and their element types
+
+## Simplified Source
+
+```c
+Oid get_range_subtype(Oid rangeOid) {
+    HeapTuple tp;
+
+    // Look up the range type in system cache
+    tp = SearchSysCache1(RANGETYPE, ObjectIdGetDatum(rangeOid));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_range rngtup = (Form_pg_range) GETSTRUCT(tp);
+        Oid result;
+
+        // Extract subtype from range tuple
+        result = rngtup->rngsubtype;
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // Range type not found
+    return InvalidOid;
+}
+```

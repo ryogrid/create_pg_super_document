@@ -39,3 +39,18 @@ This function is designed to be safe to call multiple times and in error conditi
 - This function is part of the PostgreSQL executor's resource management system and must be robust against failures
 - Called during both normal query completion and error recovery scenarios
 - The cleanup is designed to be idempotent - multiple calls are safe and will not cause issues
+
+## Simplified Source
+
+```c
+void ExecShutdownGatherMerge(GatherMergeState *node) {
+    // First, shutdown all parallel workers
+    ExecShutdownGatherMergeWorkers(node);
+
+    // Then destroy the parallel context if it exists
+    if (node->pei != NULL) {
+        ExecParallelCleanup(node->pei);
+        node->pei = NULL;
+    }
+}
+```

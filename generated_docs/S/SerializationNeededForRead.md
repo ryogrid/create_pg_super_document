@@ -45,3 +45,32 @@ The function has important side effects: when a transaction becomes RO-safe (mea
 - Part of the SSI implementation's multi-layered optimization strategy
 - The RO-safe optimization significantly reduces lock overhead for read-only transactions in serializable mode
 - Works in conjunction with write-side serialization checking to prevent serialization anomalies
+
+## Simplified Source
+
+```c
+static inline bool
+SerializationNeededForRead(Relation relation, Snapshot snapshot)
+{
+    // Quick exit: not in serializable transaction
+    if (MySerializableXact == InvalidSerializableXact)
+        return false;
+
+    // Skip special snapshots (CLUSTER, REINDEX, etc.)
+    if (!IsMVCCSnapshot(snapshot))
+        return false;
+
+    // Optimization: if transaction became read-only safe, clean up
+    if (SxactIsROSafe(MySerializableXact))
+    {
+        ReleasePredicateLocks(false, true);
+        return false;
+    }
+
+    // Check if this relation needs predicate locking
+    if (!PredicateLockingNeededForRelation(relation))
+        return false;
+
+    return true;  // predicate locking is needed
+}
+```

@@ -34,3 +34,17 @@ This approach ensures efficient handling of nested scenarios where the same hash
 - Does not directly manipulate the hash table itself - that's handled by the hash join node
 - Essential for proper nested loop join functionality where inner hash joins are rescanned
 - The rescan behavior is conditional based on parameter change detection (chgParam field)
+
+## Simplified Source
+
+```c
+void ExecReScanHash(HashState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Only rescan outer plan if no parameter changes detected
+    // If parameters changed, rescan will happen automatically on next ExecProcNode call
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

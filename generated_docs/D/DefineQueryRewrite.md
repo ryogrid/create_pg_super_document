@@ -57,3 +57,94 @@ DefineQueryRewrite implements the comprehensive logic for creating rewrite rules
 - For non-SELECT rules, validates RETURNING list constraints and prevents multiple RETURNING lists
 - Updates the relation's relhasrules flag in pg_class to trigger cache invalidation across all backends
 - Returns an ObjectAddress for the created rule to support dependency tracking and object management
+
+## Simplified Source
+
+```c
+ObjectAddress DefineQueryRewrite(const char *rulename, Oid event_relid, Node *event_qual,
+                                CmdType event_type, bool is_instead, bool replace, List *action) {
+    Relation event_relation;
+    Oid ruleId = InvalidOid;
+    ObjectAddress address;
+
+    // Lock the target relation exclusively
+    event_relation = table_open(event_relid, AccessExclusiveLock);
+
+    // Validate relation type (table, view, materialized view, partitioned table)
+    if (!(event_relation->rd_rel->relkind == RELKIND_RELATION ||
+          event_relation->rd_rel->relkind == RELKIND_MATVIEW ||
+          event_relation->rd_rel->relkind == RELKIND_VIEW ||
+          event_relation->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)) {
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("relation cannot have rules")));
+    }
+
+    // Check permissions
+    if (!object_ownercheck(RelationRelationId, event_relid, GetUserId())) {
+        aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(event_relation->rd_rel->relkind),
+                      RelationGetRelationName(event_relation));
+    }
+
+    // Validate no rule actions modify OLD or NEW (not supported)
+    foreach(l, action) {
+        query = lfirst_node(Query, l);
+        if (query->resultRelation == PRS2_OLD_VARNO ||
+            query->resultRelation == PRS2_NEW_VARNO) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("rule actions on OLD/NEW are not implemented")));
+        }
+    }
+
+    if (event_type == CMD_SELECT) {
+        // SELECT rules must be on views and follow strict constraints
+        if (!(event_relation->rd_rel->relkind == RELKIND_VIEW ||
+              event_relation->rd_rel->relkind == RELKIND_MATVIEW)) {
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("relation cannot have ON SELECT rules")));
+        }
+
+        // Must have exactly one INSTEAD SELECT action
+        if (action == NIL || list_length(action) > 1 || !is_instead) {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("rules on SELECT must have action INSTEAD SELECT")));
+        }
+
+        // Validate target list matches relation structure
+        query = linitial_node(Query, action);
+        checkRuleResultList(query->targetList, RelationGetDescr(event_relation), true,
+                           event_relation->rd_rel->relkind != RELKIND_MATVIEW);
+
+        // Rule must be named "_RETURN" for SELECT rules
+        if (strcmp(rulename, ViewSelectRuleName) != 0) {
+            rulename = pstrdup(ViewSelectRuleName);
+        }
+    } else {
+        // Non-SELECT rules: validate RETURNING lists
+        bool haveReturning = false;
+        foreach(l, action) {
+            query = lfirst_node(Query, l);
+            if (query->returningList) {
+                if (haveReturning) {
+                    ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                                   errmsg("cannot have multiple RETURNING lists")));
+                }
+                haveReturning = true;
+                checkRuleResultList(query->returningList, RelationGetDescr(event_relation),
+                                   false, false);
+            }
+        }
+    }
+
+    // Install the rule if it's valid
+    if (action != NIL || is_instead) {
+        ruleId = InsertRule(rulename, event_type, event_relid, is_instead,
+                           event_qual, action, replace);
+        SetRelationRuleStatus(event_relid, true);
+    }
+
+    ObjectAddressSet(address, RewriteRelationId, ruleId);
+    table_close(event_relation, NoLock);
+
+    return address;
+}
+```

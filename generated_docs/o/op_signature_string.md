@@ -42,3 +42,27 @@ The function handles both unary and binary operators by checking the validity of
 - The function always includes the second argument type, making it suitable for both unary and binary operators
 - Commonly used in error message construction throughout the PostgreSQL parser
 - The resulting string format makes operator signatures easily readable for users and developers
+
+## Simplified Source
+
+```c
+const char *op_signature_string(List *op, Oid arg1, Oid arg2) {
+    StringInfoData argbuf;
+
+    // Initialize string buffer
+    initStringInfo(&argbuf);
+
+    // Add first argument type if valid (for binary operators)
+    if (OidIsValid(arg1)) {
+        appendStringInfo(&argbuf, "%s ", format_type_be(arg1));
+    }
+
+    // Add operator name
+    appendStringInfoString(&argbuf, NameListToString(op));
+
+    // Add second argument type
+    appendStringInfo(&argbuf, " %s", format_type_be(arg2));
+
+    return argbuf.data; // Return formatted string
+}
+```

@@ -50,3 +50,26 @@ The function maintains a one-to-one correspondence between input expressions and
 - Does not perform any optimization or deduplication - each input expression gets its own ExprState
 - Widely used utility function throughout the executor for any scenario requiring multiple expression compilation
 - The resulting ExprStates share the same parent PlanState but are otherwise independent
+
+## Simplified Source
+
+```c
+List *
+ExecInitExprList(List *nodes, PlanState *parent)
+{
+    List *result = NIL;
+    ListCell *lc;
+
+    // Iterate through each expression in the input list
+    foreach(lc, nodes)
+    {
+        Expr *expr = lfirst(lc);
+
+        // Compile each expression and add to result list
+        ExprState *expr_state = ExecInitExpr(expr, parent);
+        result = lappend(result, expr_state);
+    }
+
+    return result;
+}
+```

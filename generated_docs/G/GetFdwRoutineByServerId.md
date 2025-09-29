@@ -47,3 +47,44 @@ The function includes comprehensive error handling for missing servers, missing 
 - Throws ERROR if server lookup fails or if FDW has no handler configured
 - Uses system cache for performance optimization
 - Essential for initializing foreign scans and other FDW operations
+
+## Simplified Source
+
+```c
+FdwRoutine *GetFdwRoutineByServerId(Oid serverid) {
+    HeapTuple tp;
+    Form_pg_foreign_data_wrapper fdwform;
+    Form_pg_foreign_server serverform;
+    Oid fdwid;
+    Oid fdwhandler;
+
+    // Look up foreign server to get FDW ID
+    tp = SearchSysCache1(FOREIGNSERVEROID, ObjectIdGetDatum(serverid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for foreign server %u", serverid);
+
+    serverform = (Form_pg_foreign_server) GETSTRUCT(tp);
+    fdwid = serverform->srvfdw;
+    ReleaseSysCache(tp);
+
+    // Look up FDW to get handler function ID
+    tp = SearchSysCache1(FOREIGNDATAWRAPPEROID, ObjectIdGetDatum(fdwid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for foreign-data wrapper %u", fdwid);
+
+    fdwform = (Form_pg_foreign_data_wrapper) GETSTRUCT(tp);
+    fdwhandler = fdwform->fdwhandler;
+
+    // Check that FDW has a handler function
+    if (!OidIsValid(fdwhandler))
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("foreign-data wrapper \"%s\" has no handler",
+                        NameStr(fdwform->fdwname))));
+
+    ReleaseSysCache(tp);
+
+    // Call the handler function to get FdwRoutine structure
+    return GetFdwRoutine(fdwhandler);
+}
+```

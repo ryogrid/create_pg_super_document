@@ -49,3 +49,79 @@ For hot standby scenarios, the function includes additional logic to handle reco
 - Includes comprehensive recovery conflict handling for hot standby scenarios
 - The protocol prevents the ABA problem where items might be reused between observation and deletion
 - Process title is updated to show "waiting" status during pin count waits
+
+## Simplified Source
+
+```c
+void LockBufferForCleanup(Buffer buffer) {
+    BufferDesc *bufHdr;
+    TimestampTz waitStart = 0;
+    bool waiting = false;
+    bool logged_recovery_conflict = false;
+
+    Assert(BufferIsPinned(buffer));
+    CheckBufferIsPinnedOnce(buffer);
+
+    // Local buffers don't need waiting for other backends
+    if (BufferIsLocal(buffer))
+        return;
+
+    bufHdr = GetBufferDescriptor(buffer - 1);
+
+    for (;;) {
+        // Try to acquire exclusive lock
+        LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+        uint32 buf_state = LockBufHdr(bufHdr);
+
+        // Check if we're the only one with a pin (refcount == 1)
+        if (BUF_STATE_GET_REFCOUNT(buf_state) == 1) {
+            // Success - we have exclusive access
+            UnlockBufHdr(bufHdr, buf_state);
+
+            // Log recovery conflict resolution if needed
+            if (logged_recovery_conflict)
+                LogRecoveryConflict(PROCSIG_RECOVERY_CONFLICT_BUFFERPIN,
+                                    waitStart, GetCurrentTimestamp(), NULL, false);
+
+            // Reset display suffix if we were waiting
+            if (waiting)
+                set_ps_display_remove_suffix();
+
+            return;
+        }
+
+        // Mark ourselves as waiting for pin count to drop
+        bufHdr->wait_backend_pgprocno = MyProcNumber;
+        PinCountWaitBuf = bufHdr;
+        buf_state |= BM_PIN_COUNT_WAITER;
+        UnlockBufHdr(bufHdr, buf_state);
+        LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+
+        // Handle hot standby recovery conflicts or wait for signal
+        if (InHotStandby) {
+            if (!waiting) {
+                set_ps_display_suffix("waiting");
+                waiting = true;
+            }
+
+            // Set up recovery conflict tracking
+            if (log_recovery_conflict_waits && waitStart == 0)
+                waitStart = GetCurrentTimestamp();
+
+            SetStartupBufferPinWaitBufId(buffer - 1);
+            ResolveRecoveryConflictWithBufferPin();
+            SetStartupBufferPinWaitBufId(-1);
+        } else {
+            ProcWaitForSignal(WAIT_EVENT_BUFFER_PIN);
+        }
+
+        // Clean up wait state and try again
+        buf_state = LockBufHdr(bufHdr);
+        if ((buf_state & BM_PIN_COUNT_WAITER) != 0 &&
+            bufHdr->wait_backend_pgprocno == MyProcNumber)
+            buf_state &= ~BM_PIN_COUNT_WAITER;
+        UnlockBufHdr(bufHdr, buf_state);
+        PinCountWaitBuf = NULL;
+    }
+}
+```

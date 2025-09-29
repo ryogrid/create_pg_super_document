@@ -18,7 +18,7 @@ The function is designed for maximum performance and is typically used when the 
 
 ## Parameters / Member Variables
 - `x`: First Datum value to compare (treated as unsigned integer)
-- `y`: Second Datum value to compare (treated as unsigned integer) 
+- `y`: Second Datum value to compare (treated as unsigned integer)
 - `ssup`: SortSupport context (unused in this implementation but required by interface)
 
 ## Dependencies
@@ -42,3 +42,18 @@ The function is designed for maximum performance and is typically used when the 
 - Provides significant performance benefits over type-specific comparison functions
 - Commonly used for fixed-size binary data types that can be safely compared as unsigned integers
 - Part of PostgreSQL's SortSupport framework for optimizing sort operations
+
+## Simplified Source
+
+```c
+int ssup_datum_unsigned_cmp(Datum x, Datum y, SortSupport ssup)
+{
+    // Treat Datum values as unsigned integers and compare directly
+    if (x < y)
+        return -1;
+    else if (x > y)
+        return 1;
+    else
+        return 0;
+}
+```

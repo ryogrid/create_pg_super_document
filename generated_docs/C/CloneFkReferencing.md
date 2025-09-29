@@ -55,3 +55,119 @@ The function includes an optimization to avoid duplicate constraints by first tr
 - Requires careful locking of referenced relations, especially when they are partitioned tables
 - The wqueue parameter enables deferred constraint validation during ATTACH PARTITION operations
 - Part of PostgreSQL's comprehensive partition-wise foreign key constraint management system
+
+## Simplified Source
+
+```c
+static void
+CloneFkReferencing(List **wqueue, Relation parentRel, Relation partRel)
+{
+    AttrMap *attmap;
+    List *partFKs;
+    List *clone = NIL;
+    ListCell *cell;
+    Relation trigrel;
+
+    // Build list of FK constraints to clone from parent
+    foreach(cell, RelationGetFKeyList(parentRel))
+    {
+        ForeignKeyCacheInfo *fk = lfirst(cell);
+
+        // Prevent circular references: parent can't reference partition
+        if (fk->confrelid == RelationGetRelid(partRel))
+            ereport(ERROR, "cannot attach partition referenced by FK");
+
+        clone = lappend_oid(clone, fk->conoid);
+    }
+
+    if (clone == NIL)
+        return;
+
+    // Foreign tables cannot have FK constraints
+    if (partRel->rd_rel->relkind == RELKIND_FOREIGN_TABLE)
+        ereport(ERROR, "FK constraints not supported on foreign tables");
+
+    // Open trigger catalog for manipulation
+    trigrel = table_open(TriggerRelationId, RowExclusiveLock);
+
+    // Build attribute mapping between parent and partition
+    attmap = build_attrmap_by_name(RelationGetDescr(partRel),
+                                   RelationGetDescr(parentRel), false);
+
+    partFKs = copyObject(RelationGetFKeyList(partRel));
+
+    // Process each FK constraint to clone
+    foreach(cell, clone)
+    {
+        Oid parentConstrOid = lfirst_oid(cell);
+        HeapTuple tuple;
+        Form_pg_constraint constrForm;
+        Relation pkrel;
+        bool attached = false;
+
+        // Get constraint details from catalog
+        tuple = SearchSysCache1(CONSTROID, ObjectIdGetDatum(parentConstrOid));
+        constrForm = (Form_pg_constraint) GETSTRUCT(tuple);
+
+        // Skip if parent constraint is also being cloned
+        if (list_member_oid(clone, constrForm->conparentid))
+        {
+            ReleaseSysCache(tuple);
+            continue;
+        }
+
+        // Lock referenced table and all its partitions
+        pkrel = table_open(constrForm->confrelid, ShareRowExclusiveLock);
+        if (pkrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+            find_all_inheritors(RelationGetRelid(pkrel), ShareRowExclusiveLock, NULL);
+
+        // Extract constraint components and map column numbers
+        int numfks;
+        AttrNumber conkey[INDEX_MAX_KEYS];
+        AttrNumber mapped_conkey[INDEX_MAX_KEYS];
+        AttrNumber confkey[INDEX_MAX_KEYS];
+        // ... other constraint details extracted
+
+        DeconstructFkConstraintRow(tuple, &numfks, conkey, confkey, /*...*/);
+
+        // Map parent column numbers to partition column numbers
+        for (int i = 0; i < numfks; i++)
+            mapped_conkey[i] = attmap->attnums[conkey[i] - 1];
+
+        // Try to attach existing compatible FK constraint
+        foreach(lc, partFKs)
+        {
+            ForeignKeyCacheInfo *fk = lfirst_node(ForeignKeyCacheInfo, lc);
+
+            if (tryAttachPartitionForeignKey(fk, RelationGetRelid(partRel),
+                                           parentConstrOid, numfks, mapped_conkey,
+                                           confkey, /*...*/, trigrel))
+            {
+                attached = true;
+                break;
+            }
+        }
+
+        if (attached)
+        {
+            ReleaseSysCache(tuple);
+            table_close(pkrel, NoLock);
+            continue;
+        }
+
+        // Create new FK constraint since no existing one could be attached
+        Constraint *fkconstraint = makeNode(Constraint);
+        fkconstraint->contype = CONSTRAINT_FOREIGN;
+        // ... set up constraint properties from parent constraint
+
+        // Create constraint entry and triggers
+        ObjectAddress address = addFkConstraint(/*...*/);
+        addFkRecurseReferencing(wqueue, fkconstraint, partRel, pkrel, /*...*/);
+
+        ReleaseSysCache(tuple);
+        table_close(pkrel, NoLock);
+    }
+
+    table_close(trigrel, RowExclusiveLock);
+}
+```

@@ -40,3 +40,38 @@ The function searches using a three-part key consisting of the role ID, namespac
 - The returned ACL is a copy (via DatumGetAclPCopy), so the caller owns the memory
 - Object type encoding follows pg_default_acl standards: 'r'=relations, 'S'=sequences, 'f'=functions, 'T'=types
 - Part of PostgreSQL's default privilege infrastructure that allows setting permissions for future objects
+
+## Simplified Source
+
+```c
+static Acl *
+get_default_acl_internal(Oid roleId, Oid nsp_oid, char objtype)
+{
+    Acl *result = NULL;
+    HeapTuple tuple;
+
+    // Search system catalog for default ACL entry using 3-key lookup
+    tuple = SearchSysCache3(DEFACLROLENSPOBJ,
+                           ObjectIdGetDatum(roleId),
+                           ObjectIdGetDatum(nsp_oid),
+                           CharGetDatum(objtype));
+
+    if (HeapTupleIsValid(tuple)) {
+        Datum aclDatum;
+        bool isNull;
+
+        // Extract ACL data from the tuple
+        aclDatum = SysCacheGetAttr(DEFACLROLENSPOBJ, tuple,
+                                  Anum_pg_default_acl_defaclacl,
+                                  &isNull);
+
+        // Copy ACL data if it exists
+        if (!isNull)
+            result = DatumGetAclPCopy(aclDatum);
+
+        ReleaseSysCache(tuple);
+    }
+
+    return result;  // Returns NULL if no entry found
+}
+```

@@ -42,3 +42,22 @@ This function ensures that no memory leaks occur and that all resources are prop
 - Critical for preventing memory leaks in long-running queries or repeated recursive operations
 - Follows PostgreSQL's memory management best practices for executor nodes
 - Must be called to properly terminate recursive UNION query execution
+
+## Simplified Source
+```c
+void ExecEndRecursiveUnion(RecursiveUnionState *node) {
+    // Release tuple stores used for recursive iteration data
+    tuplestore_end(node->working_table);
+    tuplestore_end(node->intermediate_table);
+
+    // Free memory contexts if they were allocated
+    if (node->tempContext)
+        MemoryContextDelete(node->tempContext);
+    if (node->tableContext)
+        MemoryContextDelete(node->tableContext);
+
+    // Cleanup child plan nodes
+    ExecEndNode(outerPlanState(node));  // Non-recursive branch
+    ExecEndNode(innerPlanState(node));  // Recursive branch
+}
+```

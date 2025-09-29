@@ -41,3 +41,20 @@ This encompasses all characters that would typically appear in printed text, inc
 - Printable characters = graphical characters + blank characters - control characters
 - Provides platform-independent Unicode character classification for PostgreSQL text processing
 - Essential for text validation and display operations within PostgreSQL
+
+## Simplified Source
+
+```c
+bool
+pg_u_isprint(pg_wchar code) {
+    pg_unicode_category category = unicode_category(code);
+
+    // Exclude control characters
+    if (category == PG_U_CONTROL) {
+        return false;
+    }
+
+    // Include graphical characters and blank characters
+    return pg_u_isgraph(code) || pg_u_isblank(code);
+}
+```

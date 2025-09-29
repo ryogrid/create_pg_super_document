@@ -41,3 +41,20 @@ The function is designed to be called before updating the relcache entry when cr
 - The function must be called before updating relcache entries to maintain proper ordering
 - The freezeXid and minmulti output parameters are critical for maintaining MVCC consistency in the new storage
 - Part of the DDL-related functionality in the table access method framework
+
+## Simplified Source
+
+```c
+static inline void
+table_relation_set_new_filelocator(Relation rel,
+                                   const RelFileLocator *newrlocator,
+                                   char persistence,
+                                   TransactionId *freezeXid,
+                                   MultiXactId *minmulti)
+{
+    // Delegate to table access method implementation
+    rel->rd_tableam->relation_set_new_filelocator(rel, newrlocator,
+                                                   persistence, freezeXid,
+                                                   minmulti);
+}
+```

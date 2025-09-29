@@ -40,3 +40,24 @@ This is a critical memory management function that prevents memory leaks when bi
 - Used in both normal execution completion and error cleanup paths
 - The function does not handle DSA (Dynamic Shared Area) cleanup - that's handled separately by tbm_free_shared_area
 - Called from various executor nodes including bitmap AND, OR, and heap scan operations
+
+## Simplified Source
+
+```c
+void tbm_free(TIDBitmap *tbm) {
+    // Clean up hash table if it exists
+    if (tbm->pagetable)
+        pagetable_destroy(tbm->pagetable);
+
+    // Clean up shared page arrays if they exist
+    if (tbm->spages)
+        pfree(tbm->spages);
+
+    // Clean up shared chunk arrays if they exist
+    if (tbm->schunks)
+        pfree(tbm->schunks);
+
+    // Free the bitmap structure itself
+    pfree(tbm);
+}
+```

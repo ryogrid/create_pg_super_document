@@ -42,3 +42,45 @@ The function scans through all constraints on the given relation and checks if a
 - Uses AccessShareLock on pg_constraint for consistent reads
 - The function is designed to find the single constraint that owns an index, as each constraint-backed index corresponds to exactly one constraint
 - Complementary to get_constraint_index which performs the reverse lookup (finding an index for a given constraint)
+
+## Simplified Source
+
+```c
+Oid get_relation_idx_constraint_oid(Oid relationId, Oid indexId) {
+    // Open pg_constraint catalog for scanning
+    Relation pg_constraint = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Set up scan key to find constraints for the specified relation
+    ScanKeyData key;
+    ScanKeyInit(&key, Anum_pg_constraint_conrelid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relationId));
+
+    // Begin scan using the relation ID index
+    SysScanDesc scan = systable_beginscan(pg_constraint, ConstraintRelidTypidNameIndexId, true, NULL, 1, &key);
+
+    Oid constraintId = InvalidOid;
+    HeapTuple tuple;
+
+    // Search through constraints on this relation
+    while ((tuple = systable_getnext(scan)) != NULL) {
+        Form_pg_constraint constraintForm = (Form_pg_constraint) GETSTRUCT(tuple);
+
+        // Only consider index-backed constraint types
+        if (constraintForm->contype != CONSTRAINT_PRIMARY &&
+            constraintForm->contype != CONSTRAINT_UNIQUE &&
+            constraintForm->contype != CONSTRAINT_EXCLUSION)
+            continue;
+
+        // Check if this constraint uses the specified index
+        if (constraintForm->conindid == indexId) {
+            constraintId = constraintForm->oid;
+            break;
+        }
+    }
+
+    // Cleanup
+    systable_endscan(scan);
+    table_close(pg_constraint, AccessShareLock);
+
+    return constraintId;
+}
+```

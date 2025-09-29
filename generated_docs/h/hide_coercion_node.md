@@ -43,3 +43,27 @@ The function handles multiple node types that contain CoercionForm fields and se
 - The function only changes display behavior, not the semantic meaning of coercion operations
 - Used internally when building complex coercion chains where intermediate steps should be hidden from user view
 - Calling this function on a node without a CoercionForm field will result in a runtime error
+
+## Simplified Source
+
+```c
+static void hide_coercion_node(Node *node) {
+    // Mark different coercion node types as implicit for display
+    if (IsA(node, FuncExpr))
+        ((FuncExpr *) node)->funcformat = COERCE_IMPLICIT_CAST;
+    else if (IsA(node, RelabelType))
+        ((RelabelType *) node)->relabelformat = COERCE_IMPLICIT_CAST;
+    else if (IsA(node, CoerceViaIO))
+        ((CoerceViaIO *) node)->coerceformat = COERCE_IMPLICIT_CAST;
+    else if (IsA(node, ArrayCoerceExpr))
+        ((ArrayCoerceExpr *) node)->coerceformat = COERCE_IMPLICIT_CAST;
+    else if (IsA(node, ConvertRowtypeExpr))
+        ((ConvertRowtypeExpr *) node)->convertformat = COERCE_IMPLICIT_CAST;
+    else if (IsA(node, RowExpr))
+        ((RowExpr *) node)->row_format = COERCE_IMPLICIT_CAST;
+    else if (IsA(node, CoerceToDomain))
+        ((CoerceToDomain *) node)->coercionformat = COERCE_IMPLICIT_CAST;
+    else
+        elog(ERROR, "unsupported node type: %d", (int) nodeTag(node));
+}
+```

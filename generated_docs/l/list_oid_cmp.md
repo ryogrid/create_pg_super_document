@@ -37,3 +37,16 @@ The  function serves as a comparison function specifically designed for use with
 - The function is commonly used in catalog operations where lists of object identifiers need to be sorted
 - Widely used throughout PostgreSQL's catalog system for maintaining sorted lists of database object identifiers
 - Located in src/backend/nodes/list.c:1703-1709
+
+## Simplified Source
+
+```c
+int list_oid_cmp(const ListCell *p1, const ListCell *p2) {
+    // Extract OID values from list cells
+    Oid v1 = lfirst_oid(p1);
+    Oid v2 = lfirst_oid(p2);
+
+    // Compare using 32-bit unsigned integer comparison
+    return pg_cmp_u32(v1, v2);
+}
+```

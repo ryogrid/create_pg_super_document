@@ -37,3 +37,20 @@ The lock is held until the transaction commits or aborts, at which point it is a
 - Part of PostgreSQL's sophisticated concurrency control mechanism that enables MVCC
 - The function uses 'false, false' parameters for LockAcquire, meaning it will block if the lock cannot be immediately acquired and won't report the lock to the user
 - This is one of the core primitives that enables PostgreSQL's ability to have multiple concurrent transactions while maintaining data consistency
+
+## Simplified Source
+
+```c
+void
+XactLockTableInsert(TransactionId xid)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for this transaction ID
+    SET_LOCKTAG_TRANSACTION(tag, xid);
+
+    // Acquire exclusive lock to indicate transaction is running
+    // Other transactions can wait on this lock until transaction completes
+    (void) LockAcquire(&tag, ExclusiveLock, false, false);
+}
+```

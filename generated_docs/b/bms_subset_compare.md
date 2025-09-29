@@ -33,3 +33,56 @@ This function performs a comprehensive comparison between two bitmap sets and re
 
 ## Notes and Other Information
 The function uses a state-based approach where it starts assuming equality and updates the relationship as differences are discovered. The early termination logic ensures that as soon as it's determined that neither set is a subset of the other, the function returns BMS_DIFFERENT immediately. This function is particularly valuable in the query optimizer where comparing sets of relation IDs or other identifiers is common, and knowing the exact relationship helps make better optimization decisions.
+
+## Simplified Source
+
+```c
+BMS_Comparison bms_subset_compare(const Bitmapset *a, const Bitmapset *b)
+{
+    // Handle NULL cases (empty sets)
+    if (a == NULL)
+        return (b == NULL) ? BMS_EQUAL : BMS_SUBSET1;
+    if (b == NULL)
+        return BMS_SUBSET2;
+
+    // Compare common words and track relationship
+    BMS_Comparison result = BMS_EQUAL;
+    int shortlen = Min(a->nwords, b->nwords);
+
+    for (int i = 0; i < shortlen; i++)
+    {
+        bitmapword aword = a->words[i];
+        bitmapword bword = b->words[i];
+
+        // Check if a has bits not in b
+        if ((aword & ~bword) != 0)
+        {
+            if (result == BMS_SUBSET1)
+                return BMS_DIFFERENT;  // Neither is subset of other
+            result = BMS_SUBSET2;      // b is subset of a
+        }
+
+        // Check if b has bits not in a
+        if ((bword & ~aword) != 0)
+        {
+            if (result == BMS_SUBSET2)
+                return BMS_DIFFERENT;  // Neither is subset of other
+            result = BMS_SUBSET1;      // a is subset of b
+        }
+    }
+
+    // Handle different word lengths
+    if (a->nwords > b->nwords)
+    {
+        // a has extra words, so a is not subset of b
+        return (result == BMS_SUBSET1) ? BMS_DIFFERENT : BMS_SUBSET2;
+    }
+    else if (a->nwords < b->nwords)
+    {
+        // b has extra words, so b is not subset of a
+        return (result == BMS_SUBSET2) ? BMS_DIFFERENT : BMS_SUBSET1;
+    }
+
+    return result;
+}
+```

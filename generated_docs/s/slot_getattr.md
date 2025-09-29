@@ -49,3 +49,20 @@ The function first ensures that the requested attribute is materialized by calli
 - Returns a Datum which may need type-specific casting depending on the attribute's data type
 - The `isnull` parameter is an output parameter and must not be NULL
 - Part of PostgreSQL's lazy evaluation system - attributes are only computed when accessed
+
+## Simplified Source
+
+```c
+static inline Datum slot_getattr(TupleTableSlot *slot, int attnum, bool *isnull) {
+    // Ensure attribute number is valid (1-based)
+    Assert(attnum > 0);
+
+    // Materialize attributes up to the requested one if needed
+    if (attnum > slot->tts_nvalid)
+        slot_getsomeattrs(slot, attnum);
+
+    // Set null status and return attribute value
+    *isnull = slot->tts_isnull[attnum - 1];
+    return slot->tts_values[attnum - 1];
+}
+```

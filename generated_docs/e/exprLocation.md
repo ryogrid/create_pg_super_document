@@ -59,3 +59,79 @@ The function handles over 50 different node types, from simple literals to compl
 - Special handling for different expression types based on their structure and semantics
 - Critical for PostgreSQL's error reporting system, providing user-friendly error locations
 - Located in src/backend/nodes/nodeFuncs.c:1380-1809
+
+## Simplified Source
+```c
+int
+exprLocation(const Node *expr)
+{
+    int loc;
+
+    if (expr == NULL)
+        return -1;
+
+    // Main switch on node type to find leftmost location
+    switch (nodeTag(expr))
+    {
+        // Simple cases: return stored location directly
+        case T_RangeVar:
+        case T_Var:
+        case T_Const:
+        case T_Param:
+            loc = ((const RangeVar *) expr)->location;
+            break;
+
+        // Function calls: consider both function name and leftmost argument
+        case T_FuncExpr:
+        {
+            const FuncExpr *fexpr = (const FuncExpr *) expr;
+            loc = leftmostLoc(fexpr->location,
+                              exprLocation((Node *) fexpr->args));
+        }
+            break;
+
+        // Operators: consider both operator and leftmost argument
+        case T_OpExpr:
+        case T_DistinctExpr:
+        case T_NullIfExpr:
+        {
+            const OpExpr *opexpr = (const OpExpr *) expr;
+            loc = leftmostLoc(opexpr->location,
+                              exprLocation((Node *) opexpr->args));
+        }
+            break;
+
+        // Boolean expressions: handle NOT/AND/OR operators
+        case T_BoolExpr:
+        {
+            const BoolExpr *bexpr = (const BoolExpr *) expr;
+            loc = leftmostLoc(bexpr->location,
+                              exprLocation((Node *) bexpr->args));
+        }
+            break;
+
+        // Lists: find first member with valid location
+        case T_List:
+        {
+            ListCell *lc;
+            loc = -1;
+            foreach(lc, (const List *) expr)
+            {
+                loc = exprLocation((Node *) lfirst(lc));
+                if (loc >= 0)
+                    break;
+            }
+        }
+            break;
+
+        // Many other cases handle various expression types...
+        // (simplified for readability - actual function handles 50+ types)
+
+        default:
+            loc = -1;
+            break;
+    }
+
+    return loc;
+}
+```

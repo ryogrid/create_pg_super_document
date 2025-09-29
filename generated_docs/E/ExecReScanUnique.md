@@ -30,3 +30,19 @@ ExecReScanUnique handles the rescan operation for UNIQUE plan nodes, which is ne
 - Essential for correctness in nested loop joins and other scenarios requiring multiple scans
 - Part of the standard executor rescan protocol used throughout the executor system
 - The chgParam check is a performance optimization to avoid unnecessary rescans
+
+## Simplified Source
+
+```c
+void ExecReScanUnique(UniqueState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+
+    // Clear result tuple so first input tuple is returned
+    ExecClearTuple(node->ps.ps_ResultTupleSlot);
+
+    // Rescan outer plan if no parameter changes
+    // (if parameters changed, plan will be rescanned automatically)
+    if (outerPlan->chgParam == NULL)
+        ExecReScan(outerPlan);
+}
+```

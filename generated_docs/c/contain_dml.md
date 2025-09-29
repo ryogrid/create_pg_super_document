@@ -35,3 +35,12 @@ The actual traversal logic is delegated to the `contain_dml_walker` function, fo
 - Follows PostgreSQL's standard pattern of wrapper function + walker function for tree traversal
 - Returns true if any DML or locking operations are found, false if only plain SELECT operations exist
 - Critical for maintaining proper execution semantics when optimizing query plans
+
+## Simplified Source
+
+```c
+static bool contain_dml(Node *node) {
+    // Check for DML operations using tree walker
+    return contain_dml_walker(node, NULL);
+}
+```

@@ -45,3 +45,32 @@ The function optimizes performance by choosing between two processing paths: if 
 - The decision logic checks multiple conditions (rtoffset, multiexpr_params, placeholders, minmax aggregates, and alternative subplans) to determine the processing path
 - This function is part of the broader set_plan_references mechanism that ensures all expression references are correctly adjusted after query planning
 - Located in src/backend/optimizer/plan/setrefs.c:2160-2194
+
+## Simplified Source
+
+```c
+static Node *fix_scan_expr(PlannerInfo *root, Node *node, int rtoffset, double num_exec) {
+    // Set up context for expression processing
+    fix_scan_expr_context context;
+    context.root = root;
+    context.rtoffset = rtoffset;
+    context.num_exec = num_exec;
+
+    // Check if any transformations are needed
+    if (rtoffset != 0 ||
+        root->multiexpr_params != NIL ||
+        root->glob->lastPHId != 0 ||
+        root->minmax_aggs != NIL ||
+        root->hasAlternativeSubPlans) {
+
+        // Copy-and-modify the expression tree
+        return fix_scan_expr_mutator(node, &context);
+    }
+    else {
+        // No transformations needed - modify in-place for performance
+        // Only fills in unset opfuncid fields, which is harmless
+        fix_scan_expr_walker(node, &context);
+        return node;
+    }
+}
+```

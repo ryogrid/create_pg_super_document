@@ -35,3 +35,32 @@ When inserting, the function compares the current process's waitLSN with existin
 
 ## Notes and Other Information
 The function assumes that MyProc->waitLSN has been set before insertion and that the caller holds the appropriate SyncRepLock. The reverse iteration strategy optimizes for the common case where processes arrive in LSN order, making insertion at the tail most frequent. The function maintains the critical invariant that each queue remains sorted by LSN, which is essential for WAL senders to efficiently process replication confirmations in order.
+
+## Simplified Source
+
+```c
+static void
+SyncRepQueueInsert(int mode)
+{
+    dlist_head *queue;
+    dlist_iter iter;
+
+    // Validate mode and get appropriate queue
+    Assert(mode >= 0 && mode < NUM_SYNC_REP_WAIT_MODE);
+    queue = &WalSndCtl->SyncRepQueue[mode];
+
+    // Search backwards from tail to find insertion point
+    dlist_reverse_foreach(iter, queue) {
+        PGPROC *proc = dlist_container(PGPROC, syncRepLinks, iter.cur);
+
+        // Insert after first process with smaller LSN
+        if (proc->waitLSN < MyProc->waitLSN) {
+            dlist_insert_after(&proc->syncRepLinks, &MyProc->syncRepLinks);
+            return;
+        }
+    }
+
+    // Empty queue or smallest LSN - insert at head
+    dlist_push_head(queue, &MyProc->syncRepLinks);
+}
+```

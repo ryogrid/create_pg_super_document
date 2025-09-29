@@ -56,3 +56,78 @@ ExecBuildProjectionInfo creates a ProjectionInfo node that efficiently evaluates
 - **Memory management**: The function embeds ExprState into ProjectionInfo to reduce memory allocation overhead
 - **Safety checks**: Input descriptor validation helps catch schema changes that could cause runtime errors
 - **Read-only enforcement**: Variable-length projected columns are made read-only to prevent modification issues when referenced multiple times in upper plan nodes
+
+## Simplified Source
+
+```c
+ProjectionInfo *
+ExecBuildProjectionInfo(List *targetList,
+                        ExprContext *econtext,
+                        TupleTableSlot *slot,
+                        PlanState *parent,
+                        TupleDesc inputDesc)
+{
+    // Create and initialize ProjectionInfo with embedded ExprState
+    ProjectionInfo *projInfo = makeNode(ProjectionInfo);
+    ExprState *state = &projInfo->pi_state;
+    ExprEvalStep step = {0};
+
+    // Set basic properties
+    projInfo->pi_exprContext = econtext;
+    state->type = T_ExprState;
+    state->expr = (Expr *) targetList;
+    state->parent = parent;
+    state->resultslot = slot;
+
+    // Add any setup steps needed for expression evaluation
+    ExecCreateExprSetupSteps(state, (Node *) targetList);
+
+    // Process each target entry in the projection list
+    foreach(lc, targetList)
+    {
+        TargetEntry *tle = lfirst_node(TargetEntry, lc);
+        bool use_fast_path = false;
+
+        // Check if this is a simple variable that can use fast path
+        if (is_simple_var_reference(tle->expr))
+        {
+            Var *variable = (Var *) tle->expr;
+            AttrNumber attnum = variable->varattno;
+
+            // Validate safety if input descriptor provided
+            if (is_safe_var_reference(variable, inputDesc, attnum))
+            {
+                use_fast_path = true;
+
+                // Choose appropriate fast-path opcode based on variable source
+                step.opcode = get_assign_var_opcode(variable->varno);
+                step.d.assign_var.attnum = attnum - 1;
+                step.d.assign_var.resultnum = tle->resno - 1;
+                ExprEvalPushStep(state, &step);
+            }
+        }
+
+        if (!use_fast_path)
+        {
+            // Compile complex expression normally
+            ExecInitExprRec(tle->expr, state, &state->resvalue, &state->resnull);
+
+            // Choose assignment opcode based on data type characteristics
+            if (is_variable_length_type(tle->expr))
+                step.opcode = EEOP_ASSIGN_TMP_MAKE_RO;  // Make read-only for safety
+            else
+                step.opcode = EEOP_ASSIGN_TMP;
+
+            step.d.assign_tmp.resultnum = tle->resno - 1;
+            ExprEvalPushStep(state, &step);
+        }
+    }
+
+    // Add completion step and finalize
+    step.opcode = EEOP_DONE;
+    ExprEvalPushStep(state, &step);
+    ExecReadyExpr(state);
+
+    return projInfo;
+}
+```

@@ -62,3 +62,115 @@ The function handles special cases like:
 - Supports day-of-year parsing (e.g., 2023.365 for the 365th day of 2023)
 - The logic prioritizes unambiguous interpretations and follows configured date ordering preferences
 - Critical for supporting PostgreSQL's flexible date input format compatibility
+
+## Simplified Source
+
+```c
+static int
+DecodeNumber(int flen, char *str, bool haveTextMonth, int fmask,
+             int *tmask, struct pg_tm *tm, fsec_t *fsec, bool *is2digits)
+{
+    int val;
+    char *cp;
+    int dterr;
+
+    *tmask = 0;
+
+    // Parse the numeric string
+    val = strtoint(str, &cp, 10);
+    if (errno == ERANGE) return DTERR_FIELD_OVERFLOW;
+    if (cp == str) return DTERR_BAD_FORMAT;
+
+    // Handle decimal point (fractional seconds or complex date formats)
+    if (*cp == '.') {
+        if (cp - str > 2) {
+            // Multi-digit number with decimal: delegate to DecodeNumberField
+            dterr = DecodeNumberField(flen, str, (fmask | DTK_DATE_M),
+                                    tmask, tm, fsec, is2digits);
+            return dterr < 0 ? dterr : 0;
+        }
+        // Parse fractional seconds
+        dterr = ParseFractionalSecond(cp, fsec);
+        if (dterr) return dterr;
+    }
+    else if (*cp != '\0') {
+        return DTERR_BAD_FORMAT;
+    }
+
+    // Special case: day of year (3 digits when only year is known)
+    if (flen == 3 && (fmask & DTK_DATE_M) == DTK_M(YEAR) && val >= 1 && val <= 366) {
+        *tmask = (DTK_M(DOY) | DTK_M(MONTH) | DTK_M(DAY));
+        tm->tm_yday = val;
+        return 0;
+    }
+
+    // Determine field type based on what we've parsed so far
+    switch (fmask & DTK_DATE_M) {
+        case 0:
+            // First field: decide based on length and DateOrder
+            if (flen >= 3 || DateOrder == DATEORDER_YMD) {
+                *tmask = DTK_M(YEAR);
+                tm->tm_year = val;
+            } else if (DateOrder == DATEORDER_DMY) {
+                *tmask = DTK_M(DAY);
+                tm->tm_mday = val;
+            } else {
+                *tmask = DTK_M(MONTH);
+                tm->tm_mon = val;
+            }
+            break;
+
+        case DTK_M(YEAR):
+            // Second field after year: must be month
+            *tmask = DTK_M(MONTH);
+            tm->tm_mon = val;
+            break;
+
+        case DTK_M(MONTH):
+            // After month: could be day or year depending on text month presence
+            if (haveTextMonth) {
+                *tmask = (flen >= 3 || DateOrder == DATEORDER_YMD) ?
+                         DTK_M(YEAR) : DTK_M(DAY);
+            } else {
+                *tmask = DTK_M(DAY);
+            }
+            // Set appropriate tm field
+            if (*tmask == DTK_M(YEAR)) tm->tm_year = val;
+            else tm->tm_mday = val;
+            break;
+
+        case DTK_M(YEAR) | DTK_M(MONTH):
+            // After year and month: must be day
+            *tmask = DTK_M(DAY);
+            tm->tm_mday = val;
+            break;
+
+        case DTK_M(DAY):
+            // After day: must be month
+            *tmask = DTK_M(MONTH);
+            tm->tm_mon = val;
+            break;
+
+        case DTK_M(MONTH) | DTK_M(DAY):
+            // After month and day: must be year
+            *tmask = DTK_M(YEAR);
+            tm->tm_year = val;
+            break;
+
+        case DTK_M(YEAR) | DTK_M(MONTH) | DTK_M(DAY):
+            // All date fields present: this must be time
+            dterr = DecodeNumberField(flen, str, fmask, tmask, tm, fsec, is2digits);
+            return dterr < 0 ? dterr : 0;
+
+        default:
+            return DTERR_BAD_FORMAT;
+    }
+
+    // Mark 2-digit years for later adjustment
+    if (*tmask == DTK_M(YEAR)) {
+        *is2digits = (flen <= 2);
+    }
+
+    return 0;
+}
+```

@@ -49,3 +49,48 @@ The function ensures that all expressions within the ForeignScan node properly r
 - All FDW-specific expression lists (fdw_exprs, fdw_recheck_quals) are properly adjusted
 - [Relation](../R/Relation.md) ID sets (fs_relids, fs_base_relids) are offset to maintain proper relation references
 - The resultRelation field is also adjusted if it represents a valid relation
+
+## Simplified Source
+
+```c
+static void
+set_foreignscan_references(PlannerInfo *root, ForeignScan *fscan, int rtoffset) {
+    // Adjust scan relation ID if valid
+    if (fscan->scan.scanrelid > 0) {
+        fscan->scan.scanrelid += rtoffset;
+    }
+
+    if (fscan->fdw_scan_tlist != NIL || fscan->scan.scanrelid == 0) {
+        // Custom scan tuple handling: build index and use fix_upper_expr
+        indexed_tlist *itlist = build_tlist_index(fscan->fdw_scan_tlist);
+
+        // Fix target list, quals, and FDW expressions to reference foreign scan tuple
+        fscan->scan.plan.targetlist = fix_upper_expr(root, fscan->scan.plan.targetlist,
+                                                     itlist, INDEX_VAR, rtoffset);
+        fscan->scan.plan.qual = fix_upper_expr(root, fscan->scan.plan.qual,
+                                              itlist, INDEX_VAR, rtoffset);
+        fscan->fdw_exprs = fix_upper_expr(root, fscan->fdw_exprs,
+                                         itlist, INDEX_VAR, rtoffset);
+        fscan->fdw_recheck_quals = fix_upper_expr(root, fscan->fdw_recheck_quals,
+                                                 itlist, INDEX_VAR, rtoffset);
+
+        pfree(itlist);
+        fscan->fdw_scan_tlist = fix_scan_list(root, fscan->fdw_scan_tlist, rtoffset);
+    } else {
+        // Standard scan handling: use fix_scan_list
+        fscan->scan.plan.targetlist = fix_scan_list(root, fscan->scan.plan.targetlist, rtoffset);
+        fscan->scan.plan.qual = fix_scan_list(root, fscan->scan.plan.qual, rtoffset);
+        fscan->fdw_exprs = fix_scan_list(root, fscan->fdw_exprs, rtoffset);
+        fscan->fdw_recheck_quals = fix_scan_list(root, fscan->fdw_recheck_quals, rtoffset);
+    }
+
+    // Adjust relation ID sets
+    fscan->fs_relids = offset_relid_set(fscan->fs_relids, rtoffset);
+    fscan->fs_base_relids = offset_relid_set(fscan->fs_base_relids, rtoffset);
+
+    // Adjust result relation if valid
+    if (fscan->resultRelation > 0) {
+        fscan->resultRelation += rtoffset;
+    }
+}
+```

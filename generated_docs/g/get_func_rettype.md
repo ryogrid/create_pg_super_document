@@ -38,3 +38,25 @@ This function retrieves the return type OID for a specified function by performi
 - Heavily used throughout the system for type checking and validation
 - The return type OID can be used to look up detailed type information via other catalog functions
 - Critical for function signature validation and type system enforcement
+
+## Simplified Source
+
+```c
+Oid get_func_rettype(Oid funcid)
+{
+    HeapTuple tp;
+    Oid result;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract return type from pg_proc tuple
+    result = ((Form_pg_proc) GETSTRUCT(tp))->prorettype;
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

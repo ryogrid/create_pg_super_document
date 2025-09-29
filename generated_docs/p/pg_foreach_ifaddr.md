@@ -42,3 +42,70 @@ The implementation handles various Unix variants that may return different amoun
 - Only processes interfaces where both SIOCGIFADDR and SIOCGIFNETMASK ioctl calls succeed
 - This is the ioctl-based implementation; PostgreSQL may have alternative implementations for different platforms
 - The function is part of PostgreSQL's network interface abstraction layer used for host-based authentication and network configuration
+
+## Simplified Source
+
+```c
+int
+pg_foreach_ifaddr(PgIfAddrCallback callback, void *cb_data)
+{
+    struct ifconf ifc;
+    struct ifreq *ifr, *end, addr, mask;
+    char *buffer = NULL;
+    size_t n_buffer = 1024;
+    pgsocket sock;
+
+    // Create socket for ioctl operations
+    sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock == PGINVALID_SOCKET)
+        return -1;
+
+    // Grow buffer until we get all interface data
+    while (n_buffer < 1024 * 100) {
+        n_buffer += 1024;
+        buffer = realloc(buffer, n_buffer);
+        if (!buffer) {
+            close(sock);
+            errno = ENOMEM;
+            return -1;
+        }
+
+        // Get interface configuration
+        memset(&ifc, 0, sizeof(ifc));
+        ifc.ifc_buf = buffer;
+        ifc.ifc_len = n_buffer;
+
+        if (ioctl(sock, SIOCGIFCONF, &ifc) < 0) {
+            if (errno == EINVAL)  // Buffer too small, try again
+                continue;
+            free(buffer);
+            close(sock);
+            return -1;
+        }
+
+        // Check if buffer was large enough (with generous margin)
+        if (ifc.ifc_len < n_buffer - 1024)
+            break;
+    }
+
+    // Process each network interface
+    end = (struct ifreq *) (buffer + ifc.ifc_len);
+    for (ifr = ifc.ifc_req; ifr < end;) {
+        memcpy(&addr, ifr, sizeof(addr));
+        memcpy(&mask, ifr, sizeof(mask));
+
+        // Get interface address and netmask, call callback if successful
+        if (ioctl(sock, SIOCGIFADDR, &addr, sizeof(addr)) == 0 &&
+            ioctl(sock, SIOCGIFNETMASK, &mask, sizeof(mask)) == 0) {
+            run_ifaddr_callback(callback, cb_data,
+                              &addr.ifr_addr, &mask.ifr_addr);
+        }
+
+        ifr = (struct ifreq *) ((char *) ifr + _SIZEOF_ADDR_IFREQ(*ifr));
+    }
+
+    free(buffer);
+    close(sock);
+    return 0;
+}
+```

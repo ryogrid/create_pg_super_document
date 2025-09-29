@@ -43,3 +43,29 @@ The function operates on the high colormap structure, which is used for efficien
 - The function uses error checking () after critical operations to ensure compilation integrity
 - Performance optimization: only creates new arcs when the subcolor actually changes
 - Part of the PostgreSQL regular expression engine's color mapping system for efficient pattern matching
+
+## Simplified Source
+
+```c
+static void
+subcoloronerow(struct vars *v, int rownum, struct state *lp, struct state *rp, color *lastsubcolor) {
+    struct colormap *cm = v->cm;
+    color *pco;
+    int i;
+
+    // Get pointer to start of this row in high colormap
+    pco = &cm->hicolormap[rownum * cm->hiarraycols];
+
+    // Process each entry in the row
+    for (i = 0; i < cm->hiarraycols; pco++, i++) {
+        // Get subcolor for this entry
+        color sco = subcolorhi(cm, pco);
+
+        // Create arc only if subcolor changed (optimization)
+        if (sco != *lastsubcolor) {
+            newarc(v->nfa, PLAIN, sco, lp, rp);
+            *lastsubcolor = sco;
+        }
+    }
+}
+```

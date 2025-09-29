@@ -44,3 +44,24 @@ Unlike some other similar functions, this function will throw an ERROR if the in
 - Invalid indexes are typically the result of failed or incomplete index builds
 - The function assumes callers have already validated the index OID exists
 - Essential for REINDEX and CREATE INDEX operations
+
+## Simplified Source
+
+```c
+bool get_index_isvalid(Oid index_oid) {
+    // Look up the index in pg_index catalog
+    HeapTuple tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(index_oid));
+
+    // Ensure the index exists
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for index %u", index_oid);
+
+    // Extract the validity flag from the tuple
+    Form_pg_index indexForm = (Form_pg_index) GETSTRUCT(tuple);
+    bool isValid = indexForm->indisvalid;
+
+    // Cleanup and return result
+    ReleaseSysCache(tuple);
+    return isValid;
+}
+```

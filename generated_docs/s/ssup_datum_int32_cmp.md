@@ -42,3 +42,22 @@ The function is designed for data types that can be represented as or converted 
 - Part of PostgreSQL's SortSupport framework for optimizing sort operations
 - Commonly used for integer, date, and other int32-based data types
 - More memory-efficient than int64 variant for data that fits in 32 bits
+
+## Simplified Source
+
+```c
+int ssup_datum_int32_cmp(Datum x, Datum y, SortSupport ssup)
+{
+    // Extract int32 values from Datum wrappers
+    int32 xx = DatumGetInt32(x);
+    int32 yy = DatumGetInt32(y);
+
+    // Perform three-way comparison
+    if (xx < yy)
+        return -1;
+    else if (xx > yy)
+        return 1;
+    else
+        return 0;
+}
+```

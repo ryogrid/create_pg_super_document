@@ -58,3 +58,57 @@ The caller must have already verified that the view is auto-updatable using view
 - The non_updatable_col output provides the column name for user-friendly error messages
 - Uses bitmapsets for efficient storage and manipulation of column sets
 - Does not check whether the underlying base relation columns are updatable - only validates view-level constraints
+
+## Simplified Source
+
+```c
+static const char *
+view_cols_are_auto_updatable(Query *viewquery,
+                             Bitmapset *required_cols,
+                             Bitmapset **updatable_cols,
+                             char **non_updatable_col)
+{
+    RangeTblRef *rtr;
+    AttrNumber col;
+    ListCell *cell;
+
+    // Get the single base relation (already validated as auto-updatable)
+    rtr = linitial_node(RangeTblRef, viewquery->jointree->fromlist);
+
+    // Initialize optional output parameters
+    if (updatable_cols != NULL)
+        *updatable_cols = NULL;
+    if (non_updatable_col != NULL)
+        *non_updatable_col = NULL;
+
+    // Test each column in the view target list
+    col = -FirstLowInvalidHeapAttributeNumber;
+    foreach(cell, viewquery->targetList)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(cell);
+        const char *col_update_detail;
+
+        col++;
+
+        // Check if this column is updatable
+        col_update_detail = view_col_is_auto_updatable(rtr, tle);
+
+        if (col_update_detail == NULL)
+        {
+            // Column is updatable - add to output set if requested
+            if (updatable_cols != NULL)
+                *updatable_cols = bms_add_member(*updatable_cols, col);
+        }
+        else if (bms_is_member(col, required_cols))
+        {
+            // Required column is not updatable - return error
+            if (non_updatable_col != NULL)
+                *non_updatable_col = tle->resname;
+            return col_update_detail;
+        }
+    }
+
+    // All required columns are updatable
+    return NULL;
+}
+```

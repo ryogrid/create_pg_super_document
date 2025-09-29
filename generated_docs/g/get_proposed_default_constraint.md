@@ -44,3 +44,25 @@ This is particularly important when adding new partitions, as it allows the syst
 - The canonicalize_qual() call with true parameter ensures the result is in canonical form
 - The result represents the constraint that would need to be satisfied by all rows in the default partition after the new partition is added
 - This is essential for validating that existing default partition data remains consistent when new partitions are added
+
+## Simplified Source
+
+```c
+List *get_proposed_default_constraint(List *new_part_constraints) {
+    // Convert constraint list to explicit AND expression
+    Expr *defPartConstraint = make_ands_explicit(new_part_constraints);
+
+    // Create negation of the constraint (NOT expression)
+    defPartConstraint = makeBoolExpr(NOT_EXPR,
+                                    list_make1(defPartConstraint),
+                                    -1);
+
+    // Simplify and canonicalize the negated expression
+    defPartConstraint = (Expr *) eval_const_expressions(NULL,
+                                                        (Node *) defPartConstraint);
+    defPartConstraint = canonicalize_qual(defPartConstraint, true);
+
+    // Convert back to implicit AND list format
+    return make_ands_implicit(defPartConstraint);
+}
+```

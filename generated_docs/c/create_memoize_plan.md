@@ -48,3 +48,57 @@ The Memoize node maintains a hash table where keys are parameter value combinati
 - [Hash](../H/Hash.md) operators from the MemoizePath determine how parameter values are hashed for cache lookup
 - Memory usage is bounded by work_mem settings and the estimated number of cache entries
 - Particularly beneficial for nested loops with expensive inner relations or complex parameter-dependent computations
+
+## Simplified Source
+
+```c
+static Memoize *
+create_memoize_plan(PlannerInfo *root, MemoizePath *best_path, int flags)
+{
+    Memoize *plan;
+    Bitmapset *keyparamids;
+    Plan *subplan;
+    Oid *operators;
+    Oid *collations;
+    List *param_exprs = NIL;
+    ListCell *lc, *lc2;
+    int nkeys, i;
+
+    // Create subplan with small tlist to minimize cache memory usage
+    subplan = create_plan_recurse(root, best_path->subpath,
+                                  flags | CP_SMALL_TLIST);
+
+    // Process parameter expressions for current context
+    param_exprs = (List *) replace_nestloop_params(root, (Node *) best_path->param_exprs);
+
+    // Allocate arrays for hash operators and collations
+    nkeys = list_length(param_exprs);
+    Assert(nkeys > 0);
+    operators = palloc(nkeys * sizeof(Oid));
+    collations = palloc(nkeys * sizeof(Oid));
+
+    // Extract operators and collations for each cache key parameter
+    i = 0;
+    forboth(lc, param_exprs, lc2, best_path->hash_operators)
+    {
+        Expr *param_expr = (Expr *) lfirst(lc);
+        Oid opno = lfirst_oid(lc2);
+
+        operators[i] = opno;
+        collations[i] = exprCollation((Node *) param_expr);
+        i++;
+    }
+
+    // Extract parameter IDs for cache key identification
+    keyparamids = pull_paramids((Expr *) param_exprs);
+
+    // Create Memoize plan with cache configuration
+    plan = make_memoize(subplan, operators, collations, param_exprs,
+                        best_path->singlerow, best_path->binary_mode,
+                        best_path->est_entries, keyparamids);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

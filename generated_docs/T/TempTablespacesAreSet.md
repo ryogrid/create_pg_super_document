@@ -38,3 +38,15 @@ This function takes no parameters.
 - Very lightweight operation with minimal computational overhead
 - Essential for proper coordination between file descriptor and tablespace management systems
 - The function enables conditional logic in tablespace preparation and selection routines
+
+## Simplified Source
+
+```c
+bool
+TempTablespacesAreSet(void)
+{
+    // Check if temp tablespaces have been configured
+    // (numTempTableSpaces is -1 when unset, >= 0 when configured)
+    return (numTempTableSpaces >= 0);
+}
+```

@@ -40,3 +40,27 @@ The function follows a standard pattern in PostgreSQL's plan reference fixing: b
 - Acts as a convenient wrapper that handles the index management around the core fix_windowagg_condition_expr functionality
 - Part of the broader plan tree reference fixing process that ensures proper variable resolution after plan construction
 - Critical for window aggregate operations where conditions need to reference computed window function results
+
+## Simplified Source
+
+```c
+static List *
+set_windowagg_runcondition_references(PlannerInfo *root,
+                                      List *runcondition,
+                                      Plan *plan)
+{
+    List *newlist;
+    indexed_tlist *itlist;
+
+    // Build index of target list for efficient lookups
+    itlist = build_tlist_index(plan->targetlist);
+
+    // Convert WindowFunc references to Var references
+    newlist = fix_windowagg_condition_expr(root, runcondition, itlist);
+
+    // Clean up temporary index
+    pfree(itlist);
+
+    return newlist;
+}
+```

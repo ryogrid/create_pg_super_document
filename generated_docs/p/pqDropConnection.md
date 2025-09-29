@@ -42,3 +42,48 @@ The function always flushes the output buffer since there's no hope of sending t
 - Maintains connection object structure for potential reuse, unlike full connection destruction
 - Critical for implementing connection retry logic and handling network failures gracefully
 - Used extensively in libpq's connection management and error recovery mechanisms
+
+## Simplified Source
+
+```c
+void
+pqDropConnection(PGconn *conn, bool flushInput)
+{
+    // Close SSL/secure connection
+    pqsecure_close(conn);
+
+    // Close the socket
+    if (conn->sock != PGINVALID_SOCKET)
+        closesocket(conn->sock);
+    conn->sock = PGINVALID_SOCKET;
+
+    // Optionally clear input buffer
+    if (flushInput)
+        conn->inStart = conn->inCursor = conn->inEnd = 0;
+
+    // Always clear output buffer
+    conn->outCount = 0;
+
+    // Free pending command queue
+    pqFreeCommandQueue(conn->cmd_queue_head);
+    conn->cmd_queue_head = conn->cmd_queue_tail = NULL;
+    pqFreeCommandQueue(conn->cmd_queue_recycle);
+    conn->cmd_queue_recycle = NULL;
+
+    // Clean up authentication state (GSS, SSPI, SASL)
+#ifdef ENABLE_GSS
+    // GSS cleanup code...
+    if (conn->gcred != GSS_C_NO_CREDENTIAL)
+        gss_release_cred(&min_s, &conn->gcred);
+    // Additional GSS cleanup
+#endif
+#ifdef ENABLE_SSPI
+    // SSPI cleanup code...
+#endif
+    if (conn->sasl_state)
+    {
+        conn->sasl->free(conn->sasl_state);
+        conn->sasl_state = NULL;
+    }
+}
+```

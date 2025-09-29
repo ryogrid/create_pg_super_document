@@ -59,3 +59,102 @@ The function analyzes each column to determine if it contains SRFs, volatile fun
 - Uses PVC_INCLUDE_AGGREGATES, PVC_INCLUDE_WINDOWFUNCS, and PVC_INCLUDE_PLACEHOLDERS flags
 - Comments note some redundant cost calculation occurs
 - The function handles the case where an explicit Sort might not be used in the final plan
+
+## Simplified Source
+
+```c
+static PathTarget *
+make_sort_input_target(PlannerInfo *root,
+                       PathTarget *final_target,
+                       bool *have_postponed_srfs)
+{
+    Query      *parse = root->parse;
+    PathTarget *input_target;
+    int         ncols;
+    bool       *col_is_srf;
+    bool       *postpone_col;
+    bool        have_srf = false;
+    bool        have_volatile = false;
+    bool        have_expensive = false;
+    bool        have_srf_sortcols = false;
+    bool        postpone_srfs;
+
+    // Must have ORDER BY clause
+    Assert(parse->sortClause);
+    *have_postponed_srfs = false;
+
+    // Analyze each column in final target
+    ncols = list_length(final_target->exprs);
+    col_is_srf = palloc0(ncols * sizeof(bool));
+    postpone_col = palloc0(ncols * sizeof(bool));
+
+    int i = 0;
+    foreach(lc, final_target->exprs) {
+        Expr *expr = (Expr *) lfirst(lc);
+
+        // Skip columns needed for sorting/grouping
+        if (get_pathtarget_sortgroupref(final_target, i) == 0) {
+            // Check for SRFs
+            if (parse->hasTargetSRFs && expression_returns_set(expr)) {
+                col_is_srf[i] = true;
+                have_srf = true;
+            }
+            // Check for volatile functions - always postpone
+            else if (contain_volatile_functions(expr)) {
+                postpone_col[i] = true;
+                have_volatile = true;
+            }
+            // Check for expensive functions
+            else {
+                QualCost cost;
+                cost_qual_eval_node(&cost, expr, root);
+                if (cost.per_tuple > 10 * cpu_operator_cost) {
+                    postpone_col[i] = true;
+                    have_expensive = true;
+                }
+            }
+        } else {
+            // Check if sort columns contain SRFs
+            if (!have_srf_sortcols && parse->hasTargetSRFs &&
+                expression_returns_set(expr))
+                have_srf_sortcols = true;
+        }
+        i++;
+    }
+
+    // Can postpone SRFs only if none are in sort columns
+    postpone_srfs = (have_srf && !have_srf_sortcols);
+
+    // If no postponement needed, return original target
+    if (!(postpone_srfs || have_volatile ||
+          (have_expensive && (parse->limitCount || root->tuple_fraction > 0))))
+        return final_target;
+
+    *have_postponed_srfs = postpone_srfs;
+
+    // Build sort input target with non-postponable columns
+    input_target = create_empty_pathtarget();
+    List *postponable_cols = NIL;
+
+    i = 0;
+    foreach(lc, final_target->exprs) {
+        Expr *expr = (Expr *) lfirst(lc);
+
+        if (postpone_col[i] || (postpone_srfs && col_is_srf[i]))
+            postponable_cols = lappend(postponable_cols, expr);
+        else
+            add_column_to_pathtarget(input_target, expr,
+                                   get_pathtarget_sortgroupref(final_target, i));
+        i++;
+    }
+
+    // Add required variables from postponed columns
+    List *postponable_vars = pull_var_clause(postponable_cols,
+                                            PVC_INCLUDE_AGGREGATES |
+                                            PVC_INCLUDE_WINDOWFUNCS |
+                                            PVC_INCLUDE_PLACEHOLDERS);
+    add_new_columns_to_pathtarget(input_target, postponable_vars);
+
+    return set_pathtarget_cost_width(root, input_target);
+}
+```

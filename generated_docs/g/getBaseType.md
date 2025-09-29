@@ -44,3 +44,16 @@ This function provides a convenient interface for resolving PostgreSQL domain ty
 - Domain types inherit most properties from their base types, so this function enables treating domains transparently in many contexts
 - Returns the input type OID unchanged for built-in types, user-defined base types, and composite types
 - Critical for generic type resolution in polymorphic functions and operators
+
+## Simplified Source
+
+```c
+Oid
+getBaseType(Oid typid)
+{
+    int32 typmod = -1;
+
+    // Delegate to full function with dummy typmod parameter
+    return getBaseTypeAndTypmod(typid, &typmod);
+}
+```

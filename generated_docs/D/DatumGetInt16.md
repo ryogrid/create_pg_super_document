@@ -35,3 +35,12 @@ The function is declared as static inline, meaning it will be inlined by the com
 - Part of the family of DatumGet* conversion functions in PostgreSQL
 - Extensively used throughout the codebase for int16 data type operations
 - Commonly used in btree operations, catalog cache operations, and function argument processing
+
+## Simplified Source
+
+```c
+static inline int16 DatumGetInt16(Datum X) {
+    // Simple cast from Datum to 16-bit signed integer
+    return (int16) X;
+}
+```

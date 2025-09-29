@@ -42,3 +42,65 @@ RelationCreateStorage is responsible for creating the underlying disk file stora
 - Temporary relations use process-specific numbering and do not require WAL logging
 - When register_delete is true, a PendingRelDelete entry is created in TopMemoryContext to track cleanup on abort
 - Only creates the MAIN_FORKNUM initially; other forks (FSM, VM, init) are created on-demand
+
+## Simplified Source
+
+```c
+SMgrRelation
+RelationCreateStorage(RelFileLocator rlocator, char relpersistence,
+                     bool register_delete)
+{
+    SMgrRelation srel;
+    ProcNumber procNumber;
+    bool needs_wal;
+
+    Assert(!IsInParallelMode());
+
+    // Determine WAL logging and process numbering based on persistence
+    switch (relpersistence) {
+        case RELPERSISTENCE_TEMP:
+            procNumber = ProcNumberForTempRelations();
+            needs_wal = false;
+            break;
+        case RELPERSISTENCE_UNLOGGED:
+            procNumber = INVALID_PROC_NUMBER;
+            needs_wal = false;
+            break;
+        case RELPERSISTENCE_PERMANENT:
+            procNumber = INVALID_PROC_NUMBER;
+            needs_wal = true;
+            break;
+        default:
+            elog(ERROR, "invalid relpersistence: %c", relpersistence);
+    }
+
+    // Create the storage manager relation and main fork
+    srel = smgropen(rlocator, procNumber);
+    smgrcreate(srel, MAIN_FORKNUM, false);
+
+    // Log creation for permanent relations
+    if (needs_wal)
+        log_smgrcreate(&srel->smgr_rlocator.locator, MAIN_FORKNUM);
+
+    // Register for deletion on abort if requested
+    if (register_delete) {
+        PendingRelDelete *pending;
+
+        pending = (PendingRelDelete *)
+            MemoryContextAlloc(TopMemoryContext, sizeof(PendingRelDelete));
+        pending->rlocator = rlocator;
+        pending->procNumber = procNumber;
+        pending->atCommit = false;  // delete on abort
+        pending->nestLevel = GetCurrentTransactionNestLevel();
+        pending->next = pendingDeletes;
+        pendingDeletes = pending;
+    }
+
+    // Add to pending sync queue if permanent relation and WAL not needed
+    if (relpersistence == RELPERSISTENCE_PERMANENT && !XLogIsNeeded()) {
+        AddPendingSync(&rlocator);
+    }
+
+    return srel;
+}
+```

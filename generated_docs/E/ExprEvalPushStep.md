@@ -41,3 +41,28 @@ ExprEvalPushStep is a utility function responsible for appending evaluation step
 - Called extensively during expression compilation - typically multiple times per expression node
 - The deep copy approach ensures step data persistence regardless of the source step's lifetime
 - Critical for building the execution sequence that drives PostgreSQL's expression evaluation engine
+
+## Simplified Source
+
+```c
+void
+ExprEvalPushStep(ExprState *es, const ExprEvalStep *s)
+{
+    // Initialize steps array if needed
+    if (es->steps_alloc == 0)
+    {
+        es->steps_alloc = 16; // Start with 16 steps
+        es->steps = palloc(sizeof(ExprEvalStep) * es->steps_alloc);
+    }
+    // Expand array if full
+    else if (es->steps_alloc == es->steps_len)
+    {
+        es->steps_alloc *= 2; // Double the allocation
+        es->steps = repalloc(es->steps,
+                            sizeof(ExprEvalStep) * es->steps_alloc);
+    }
+
+    // Copy the step and increment count
+    memcpy(&es->steps[es->steps_len++], s, sizeof(ExprEvalStep));
+}
+```

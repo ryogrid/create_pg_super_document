@@ -44,3 +44,57 @@ The function handles several critical aspects:
 - The function uses UpdateChangedParamSet (one of the processed symbols) to propagate parameter changes efficiently
 - Parameter change detection uses bitmap overlap operations for efficiency
 - The rescan operation prepares the node for potential re-pruning of partitions if parameters affecting pruning have changed
+
+## Simplified Source
+
+```c
+void ExecReScanAppend(AppendState *node) {
+    // Reset partition pruning state if parameters changed
+    if (node->as_prune_state &&
+        bms_overlap(node->ps.chgParam, node->as_prune_state->execparamids)) {
+        node->as_valid_subplans_identified = false;
+        bms_free(node->as_valid_subplans);
+        node->as_valid_subplans = NULL;
+        bms_free(node->as_valid_asyncplans);
+        node->as_valid_asyncplans = NULL;
+    }
+
+    // Rescan all subplans, propagating parameter changes
+    for (int i = 0; i < node->as_nplans; i++) {
+        PlanState *subnode = node->appendplans[i];
+
+        // Propagate parameter changes to subplan
+        if (node->ps.chgParam != NULL) {
+            UpdateChangedParamSet(subnode, node->ps.chgParam);
+        }
+
+        // Rescan subplan if it has no pending parameter changes
+        if (subnode->chgParam == NULL) {
+            ExecReScan(subnode);
+        }
+    }
+
+    // Reset asynchronous execution state
+    if (node->as_nasyncplans > 0) {
+        // Reset all async request states
+        int i = -1;
+        while ((i = bms_next_member(node->as_asyncplans, i)) >= 0) {
+            AsyncRequest *areq = node->as_asyncrequests[i];
+            areq->callback_pending = false;
+            areq->request_complete = false;
+            areq->result = NULL;
+        }
+
+        // Clear async counters and request bitmap
+        node->as_nasyncresults = 0;
+        node->as_nasyncremain = 0;
+        bms_free(node->as_needrequest);
+        node->as_needrequest = NULL;
+    }
+
+    // Reset execution state to beginning
+    node->as_whichplan = INVALID_SUBPLAN_INDEX;
+    node->as_syncdone = false;
+    node->as_begun = false;
+}
+```

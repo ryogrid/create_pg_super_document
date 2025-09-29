@@ -40,3 +40,49 @@ The allocarc function implements a sophisticated memory allocation strategy for 
 - The freelist mechanism helps reduce memory fragmentation
 - Arc batches grow exponentially to balance allocation overhead with memory efficiency
 - Returns NULL on allocation failure, with appropriate error codes set via NERR
+
+## Simplified Source
+
+```c
+static struct arc *allocarc(struct nfa *nfa) {
+    struct arc *a;
+
+    // Try to reuse freed arc from freelist
+    if (nfa->freearcs != NULL) {
+        a = nfa->freearcs;
+        nfa->freearcs = a->freechain;
+        return a;
+    }
+
+    // Use remaining space in current batch
+    if (nfa->lastab != NULL && nfa->lastabused < nfa->lastab->narcs) {
+        return &nfa->lastab->a[nfa->lastabused++];
+    }
+
+    // Allocate new batch if space limit not exceeded
+    if (nfa->v->spaceused >= REG_MAX_COMPILE_SPACE) {
+        NERR(REG_ETOOBIG);
+        return NULL;
+    }
+
+    // Calculate batch size (double previous, up to max)
+    size_t narcs = (nfa->lastab != NULL) ? nfa->lastab->narcs * 2 : FIRSTABSIZE;
+    if (narcs > MAXABSIZE) narcs = MAXABSIZE;
+
+    // Allocate new batch
+    struct arcbatch *newAb = MALLOC(ARCBATCHSIZE(narcs));
+    if (newAb == NULL) {
+        NERR(REG_ESPACE);
+        return NULL;
+    }
+
+    // Link new batch and return first arc
+    nfa->v->spaceused += ARCBATCHSIZE(narcs);
+    newAb->narcs = narcs;
+    newAb->next = nfa->lastab;
+    nfa->lastab = newAb;
+    nfa->lastabused = 1;
+
+    return &newAb->a[0];
+}
+```

@@ -40,3 +40,59 @@ This approach optimizes rescans by avoiding unnecessary recomputation when funct
 - The ordinality counter reset ensures proper row numbering for functions that include ordinal positions in their output
 - Parameter change detection uses bitmapset operations to efficiently determine if function-specific parameters have been modified
 - Tuplestores are PostgreSQL's mechanism for storing intermediate results from set-returning functions
+
+## Simplified Source
+
+```c
+void ExecReScanFunctionScan(FunctionScanState *node) {
+    FunctionScan *scan = (FunctionScan *) node->ss.ps.plan;
+    Bitmapset *chgparam = node->ss.ps.chgParam;
+
+    // Clear result tuple slot
+    if (node->ss.ps.ps_ResultTupleSlot) {
+        ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+    }
+
+    // Clear all function tuple slots
+    for (int i = 0; i < node->nfuncs; i++) {
+        FunctionScanPerFuncState *fs = &node->funcstates[i];
+        if (fs->func_slot) {
+            ExecClearTuple(fs->func_slot);
+        }
+    }
+
+    // Reset scan state
+    ExecScanReScan(&node->ss);
+
+    // Check if any function parameters changed
+    if (chgparam) {
+        ListCell *lc;
+        int i = 0;
+
+        // For each function, check if its parameters changed
+        foreach(lc, scan->functions) {
+            RangeTblFunction *rtfunc = (RangeTblFunction *) lfirst(lc);
+
+            // If function parameters changed, drop tuplestore to force recomputation
+            if (bms_overlap(chgparam, rtfunc->funcparams)) {
+                if (node->funcstates[i].tstore != NULL) {
+                    tuplestore_end(node->funcstates[i].tstore);
+                    node->funcstates[i].tstore = NULL;
+                }
+                node->funcstates[i].rowcount = -1;
+            }
+            i++;
+        }
+    }
+
+    // Reset ordinality counter
+    node->ordinal = 0;
+
+    // Rewind remaining tuplestores that don't need recomputation
+    for (int i = 0; i < node->nfuncs; i++) {
+        if (node->funcstates[i].tstore != NULL) {
+            tuplestore_rescan(node->funcstates[i].tstore);
+        }
+    }
+}
+```

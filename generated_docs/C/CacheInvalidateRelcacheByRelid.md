@@ -43,3 +43,26 @@ Despite being less efficient, this function is often the most convenient to use 
 - Commonly used in DDL operations where relation OIDs are the primary available identifier
 - The syscache lookup uses RELOID cache for efficient access to pg_class tuples by OID
 - Should be avoided in performance-critical paths if a Relation structure or pg_class tuple is already available
+
+## Simplified Source
+
+```c
+void CacheInvalidateRelcacheByRelid(Oid relid) {
+    HeapTuple tup;
+
+    // Prepare invalidation state
+    PrepareInvalidationState();
+
+    // Look up the relation tuple by OID
+    tup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Delegate to tuple-based invalidation
+    CacheInvalidateRelcacheByTuple(tup);
+
+    // Release the system cache entry
+    ReleaseSysCache(tup);
+}
+```

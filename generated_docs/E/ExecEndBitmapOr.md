@@ -35,3 +35,21 @@ As a cleanup function, it does not return any value and focuses solely on resour
 - Must be called to prevent resource leaks when tearing down query execution trees
 - Follows the standard PostgreSQL pattern of recursive cleanup through the execution tree
 - The function is void and returns nothing, as documented in the source comments
+
+## Simplified Source
+
+```c
+void ExecEndBitmapOr(BitmapOrState *node)
+{
+    // Get child plan information
+    PlanState **bitmapplans = node->bitmapplans;
+    int nplans = node->nplans;
+
+    // Shut down each initialized child subplan
+    for (int i = 0; i < nplans; i++)
+    {
+        if (bitmapplans[i])
+            ExecEndNode(bitmapplans[i]);
+    }
+}
+```

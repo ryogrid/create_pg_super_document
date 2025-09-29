@@ -41,3 +41,17 @@ This ensures that the resulting list contains only unique OID values, which is c
 - Widely used in PostgreSQL's catalog operations, constraint management, and publication/subscription systems
 - Essential for maintaining unique collections of database object references
 - Part of the generic List API optimized for OID operations
+
+## Simplified Source
+
+```c
+List *
+list_append_unique_oid(List *list, Oid datum)
+{
+    // Check if OID already exists in the list
+    if (list_member_oid(list, datum))
+        return list;  // Return unchanged list if duplicate
+    else
+        return lappend_oid(list, datum);  // Append if unique
+}
+```

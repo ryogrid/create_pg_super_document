@@ -37,3 +37,27 @@ The function uses a simple but effective strategy: rather than trying to determi
 - Includes error checking for hash table corruption detection
 - Essential for maintaining cache consistency when operators or casts are modified
 - Comment acknowledges that more targeted invalidation could be implemented but is complex
+
+## Simplified Source
+
+```c
+static void
+InvalidateOprCacheCallBack(Datum arg, int cacheid, uint32 hashvalue)
+{
+    HASH_SEQ_STATUS status;
+    OprCacheEntry *hentry;
+
+    Assert(OprCacheHash != NULL);
+
+    // Flush all cache entries (simple but effective approach)
+    hash_seq_init(&status, OprCacheHash);
+
+    while ((hentry = (OprCacheEntry *) hash_seq_search(&status)) != NULL) {
+        if (hash_search(OprCacheHash,
+                       &hentry->key,
+                       HASH_REMOVE, NULL) == NULL) {
+            elog(ERROR, "hash table corrupted");
+        }
+    }
+}
+```

@@ -38,3 +38,62 @@ TSConfigIsVisibleExt performs the core logic for determining text search configu
 - Skips temporary namespace during visibility checks
 - The function carefully handles the search path order to determine which configuration would be found first
 - Located in src/backend/catalog/namespace.c:3222-3300
+
+## Simplified Source
+
+```c
+static bool TSConfigIsVisibleExt(Oid cfgid, bool *is_missing) {
+    HeapTuple tuple;
+    Form_pg_ts_config form;
+    Oid namespace;
+    bool visible;
+
+    // Look up the configuration in the system cache
+    tuple = SearchSysCache1(TSCONFIGOID, ObjectIdGetDatum(cfgid));
+    if (!HeapTupleIsValid(tuple)) {
+        // Handle missing configuration gracefully if requested
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return false;
+        }
+        elog(ERROR, "cache lookup failed for text search configuration %u", cfgid);
+    }
+
+    form = (Form_pg_ts_config) GETSTRUCT(tuple);
+    recomputeNamespacePath();
+
+    // Quick check: if namespace not in search path, not visible
+    namespace = form->cfgnamespace;
+    if (namespace != PG_CATALOG_NAMESPACE &&
+        !list_member_oid(activeSearchPath, namespace)) {
+        visible = false;
+    } else {
+        // Check for name conflicts in earlier namespaces
+        char *name = NameStr(form->cfgname);
+        visible = false;
+
+        // Search through path to see if we find this config first
+        foreach(ListCell *l, activeSearchPath) {
+            Oid namespaceId = lfirst_oid(l);
+
+            if (namespaceId == myTempNamespace)
+                continue;  // Skip temp namespace
+
+            if (namespaceId == namespace) {
+                visible = true;  // Found our config first
+                break;
+            }
+
+            // Check if another config with same name exists here
+            if (SearchSysCacheExists2(TSCONFIGNAMENSP,
+                                    PointerGetDatum(name),
+                                    ObjectIdGetDatum(namespaceId))) {
+                break;  // Found conflicting config earlier in path
+            }
+        }
+    }
+
+    ReleaseSysCache(tuple);
+    return visible;
+}
+```

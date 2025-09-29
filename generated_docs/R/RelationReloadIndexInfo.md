@@ -50,3 +50,88 @@ Key design considerations:
 - The function preserves expensive-to-rebuild information like support function lookup data
 - AM (Access Method) cached data is cleared to ensure consistency after reload
 - Includes assertion checks to ensure it's only called on appropriate index types in invalid state
+
+## Simplified Source
+
+```c
+static void
+RelationReloadIndexInfo(Relation relation)
+{
+    bool indexOK;
+    HeapTuple pg_class_tuple;
+    Form_pg_class relp;
+
+    // Verify this is an invalidated index
+    Assert((relation->rd_rel->relkind == RELKIND_INDEX ||
+            relation->rd_rel->relkind == RELKIND_PARTITIONED_INDEX) &&
+           !relation->rd_isvalid &&
+           relation->rd_droppedSubid == InvalidSubTransactionId);
+
+    // Clean up storage and cached data
+    RelationCloseSmgr(relation);
+    if (relation->rd_amcache)
+        pfree(relation->rd_amcache);
+    relation->rd_amcache = NULL;
+
+    // Special case: shared indexes during startup
+    if (relation->rd_rel->relisshared && !criticalRelcachesBuilt)
+    {
+        relation->rd_isvalid = true;
+        return;
+    }
+
+    // Read and update pg_class information
+    indexOK = (RelationGetRelid(relation) != ClassOidIndexId);
+    pg_class_tuple = ScanPgRelation(RelationGetRelid(relation), indexOK, false);
+    if (!HeapTupleIsValid(pg_class_tuple))
+        elog(ERROR, "could not find pg_class tuple for index %u",
+             RelationGetRelid(relation));
+
+    relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
+    memcpy(relation->rd_rel, relp, CLASS_TUPLE_SIZE);
+
+    // Reload options and recalculate physical address
+    if (relation->rd_options)
+        pfree(relation->rd_options);
+    RelationParseRelOptions(relation, pg_class_tuple);
+    heap_freetuple(pg_class_tuple);
+    RelationInitPhysicalAddr(relation);
+
+    // Update pg_index boolean fields for non-system indexes
+    if (!IsSystemRelation(relation))
+    {
+        HeapTuple tuple;
+        Form_pg_index index;
+
+        tuple = SearchSysCache1(INDEXRELID,
+                               ObjectIdGetDatum(RelationGetRelid(relation)));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for index %u",
+                 RelationGetRelid(relation));
+
+        index = (Form_pg_index) GETSTRUCT(tuple);
+
+        // Copy all boolean fields from pg_index
+        relation->rd_index->indisunique = index->indisunique;
+        relation->rd_index->indnullsnotdistinct = index->indnullsnotdistinct;
+        relation->rd_index->indisprimary = index->indisprimary;
+        relation->rd_index->indisexclusion = index->indisexclusion;
+        relation->rd_index->indimmediate = index->indimmediate;
+        relation->rd_index->indisclustered = index->indisclustered;
+        relation->rd_index->indisvalid = index->indisvalid;
+        relation->rd_index->indcheckxmin = index->indcheckxmin;
+        relation->rd_index->indisready = index->indisready;
+        relation->rd_index->indislive = index->indislive;
+        relation->rd_index->indisreplident = index->indisreplident;
+
+        // Copy xmin for indcheckxmin handling
+        HeapTupleHeaderSetXmin(relation->rd_indextuple->t_data,
+                              HeapTupleHeaderGetXmin(tuple->t_data));
+
+        ReleaseSysCache(tuple);
+    }
+
+    // Mark as valid
+    relation->rd_isvalid = true;
+}
+```

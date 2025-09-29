@@ -38,3 +38,23 @@ The insertion process involves four pointer updates:
 - The function maintains the doubly-linked nature of the list by updating both forward and backward pointers
 - Used in PostgreSQL's logical replication system for managing transaction snapshots and in doubly-linked circular lists
 - Complementary to dlist_insert_after, providing insertion flexibility depending on the desired position relative to an existing node
+
+## Simplified Source
+
+```c
+static inline void
+dlist_insert_before(dlist_node *before, dlist_node *node)
+{
+    // Link new node to previous node in chain
+    node->prev = before->prev;
+
+    // Link new node to the 'before' node
+    node->next = before;
+
+    // Update 'before' node to point back to new node
+    before->prev = node;
+
+    // Update previous node to point forward to new node
+    node->prev->next = node;
+}
+```

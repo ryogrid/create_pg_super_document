@@ -47,3 +47,82 @@ For parameterized paths, the function uses a sophisticated comparison that consi
 
 ## Notes and Other Information
 This function is typically called after all paths for a relation have been constructed and added via add_path(). It ensures that the optimizer has easy access to the most cost-effective execution options without having to search through the entire pathlist repeatedly. The function handles both unparameterized and parameterized paths, with parameterized paths requiring outer relation values to execute.
+
+## Simplified Source
+
+```c
+void set_cheapest(RelOptInfo *parent_rel) {
+    Path *cheapest_startup_path = NULL;
+    Path *cheapest_total_path = NULL;
+    Path *best_param_path = NULL;
+    List *parameterized_paths = NIL;
+
+    // Error if no paths available
+    if (parent_rel->pathlist == NIL)
+        elog(ERROR, "could not devise a query plan for the given query");
+
+    // Examine each path in the pathlist
+    foreach(p, parent_rel->pathlist) {
+        Path *path = (Path *) lfirst(p);
+
+        if (path->param_info) {
+            // Handle parameterized path
+            parameterized_paths = lappend(parameterized_paths, path);
+
+            // Skip further parameterized analysis if we have unparameterized cheapest
+            if (cheapest_total_path)
+                continue;
+
+            // Track best parameterized path (least parameterized with lowest cost)
+            if (best_param_path == NULL) {
+                best_param_path = path;
+            } else {
+                // Compare parameterization levels and costs
+                switch (bms_subset_compare(PATH_REQ_OUTER(path),
+                                         PATH_REQ_OUTER(best_param_path))) {
+                    case BMS_EQUAL:
+                        if (compare_path_costs(path, best_param_path, TOTAL_COST) < 0)
+                            best_param_path = path;
+                        break;
+                    case BMS_SUBSET1:
+                        best_param_path = path; // Less parameterized
+                        break;
+                    // Keep existing path for BMS_SUBSET2 and BMS_DIFFERENT
+                }
+            }
+        } else {
+            // Handle unparameterized path
+            if (cheapest_total_path == NULL) {
+                cheapest_startup_path = cheapest_total_path = path;
+                continue;
+            }
+
+            // Compare startup costs, preferring better pathkeys on ties
+            int cmp = compare_path_costs(cheapest_startup_path, path, STARTUP_COST);
+            if (cmp > 0 || (cmp == 0 &&
+                compare_pathkeys(cheapest_startup_path->pathkeys, path->pathkeys) == PATHKEYS_BETTER2))
+                cheapest_startup_path = path;
+
+            // Compare total costs, preferring better pathkeys on ties
+            cmp = compare_path_costs(cheapest_total_path, path, TOTAL_COST);
+            if (cmp > 0 || (cmp == 0 &&
+                compare_pathkeys(cheapest_total_path->pathkeys, path->pathkeys) == PATHKEYS_BETTER2))
+                cheapest_total_path = path;
+        }
+    }
+
+    // Include cheapest unparameterized path in parameterized list
+    if (cheapest_total_path)
+        parameterized_paths = lcons(cheapest_total_path, parameterized_paths);
+
+    // Use best parameterized path as fallback if no unparameterized path
+    if (cheapest_total_path == NULL)
+        cheapest_total_path = best_param_path;
+
+    // Set the relation's cheapest path fields
+    parent_rel->cheapest_startup_path = cheapest_startup_path;
+    parent_rel->cheapest_total_path = cheapest_total_path;
+    parent_rel->cheapest_unique_path = NULL; // Computed only if needed
+    parent_rel->cheapest_parameterized_paths = parameterized_paths;
+}
+```

@@ -67,3 +67,146 @@ The function maintains state about successfully reduced joins in state2, disting
 - [Complex](../C/Complex.md) constraint propagation logic ensures that optimizations are applied safely without changing query semantics
 - The function handles the intricate interactions between different join types and their nullability semantics
 - Proper handling of SEMI/ANTI joins that may be introduced by sublink pullup
+
+## Simplified Source
+
+```c
+static void reduce_outer_joins_pass2(Node *jtnode,
+                                    reduce_outer_joins_pass1_state *state1,
+                                    reduce_outer_joins_pass2_state *state2,
+                                    PlannerInfo *root,
+                                    Relids nonnullable_rels,
+                                    List *forced_null_vars)
+{
+    // Basic validation - should never reach empty or base nodes
+    if (jtnode == NULL || IsA(jtnode, RangeTblRef))
+        elog(ERROR, "invalid node type for outer join reduction");
+
+    if (IsA(jtnode, FromExpr))
+    {
+        FromExpr *f = (FromExpr *) jtnode;
+
+        // Analyze quals to find additional constraints
+        Relids pass_nonnullable_rels = find_nonnullable_rels(f->quals);
+        pass_nonnullable_rels = bms_add_members(pass_nonnullable_rels, nonnullable_rels);
+
+        List *pass_forced_null_vars = find_forced_null_vars(f->quals);
+        pass_forced_null_vars = mbms_add_members(pass_forced_null_vars, forced_null_vars);
+
+        // Recurse into child nodes that contain outer joins
+        ListCell *l, *s;
+        forboth(l, f->fromlist, s, state1->sub_states)
+        {
+            reduce_outer_joins_pass1_state *sub_state = lfirst(s);
+            if (sub_state->contains_outer)
+                reduce_outer_joins_pass2(lfirst(l), sub_state, state2, root,
+                                       pass_nonnullable_rels, pass_forced_null_vars);
+        }
+
+        bms_free(pass_nonnullable_rels);
+    }
+    else if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+        JoinType jointype = j->jointype;
+        reduce_outer_joins_pass1_state *left_state = linitial(state1->sub_states);
+        reduce_outer_joins_pass1_state *right_state = lsecond(state1->sub_states);
+
+        // Apply join type reduction based on nullability constraints
+        switch (jointype)
+        {
+            case JOIN_LEFT:
+                // Convert to INNER if right side has non-null constraints
+                if (bms_overlap(nonnullable_rels, right_state->relids))
+                    jointype = JOIN_INNER;
+                break;
+
+            case JOIN_RIGHT:
+                // Convert to INNER if left side has non-null constraints
+                if (bms_overlap(nonnullable_rels, left_state->relids))
+                    jointype = JOIN_INNER;
+                break;
+
+            case JOIN_FULL:
+                // Convert to LEFT/RIGHT/INNER based on constraints
+                if (bms_overlap(nonnullable_rels, left_state->relids))
+                {
+                    if (bms_overlap(nonnullable_rels, right_state->relids))
+                        jointype = JOIN_INNER;
+                    else
+                    {
+                        jointype = JOIN_LEFT;
+                        report_reduced_full_join(state2, j->rtindex, right_state->relids);
+                    }
+                }
+                else if (bms_overlap(nonnullable_rels, right_state->relids))
+                {
+                    jointype = JOIN_RIGHT;
+                    report_reduced_full_join(state2, j->rtindex, left_state->relids);
+                }
+                break;
+        }
+
+        // Convert RIGHT joins to LEFT joins by swapping arguments
+        if (jointype == JOIN_RIGHT)
+        {
+            Node *tmp = j->larg;
+            j->larg = j->rarg;
+            j->rarg = tmp;
+            jointype = JOIN_LEFT;
+            // Swap state pointers too
+            right_state = linitial(state1->sub_states);
+            left_state = lsecond(state1->sub_states);
+        }
+
+        // Check for LEFT to ANTI join conversion
+        if (jointype == JOIN_LEFT)
+        {
+            List *nonnullable_vars = find_nonnullable_vars(j->quals);
+            Bitmapset *overlap = mbms_overlap_sets(nonnullable_vars, forced_null_vars);
+            if (bms_overlap(overlap, right_state->relids))
+                jointype = JOIN_ANTI;
+        }
+
+        // Update join type in both JoinExpr and RTE
+        if (j->rtindex && jointype != j->jointype)
+        {
+            RangeTblEntry *rte = rt_fetch(j->rtindex, root->parse->rtable);
+            rte->jointype = jointype;
+            if (jointype == JOIN_INNER)
+                state2->inner_reduced = bms_add_member(state2->inner_reduced, j->rtindex);
+        }
+        j->jointype = jointype;
+
+        // Recursively process children with appropriate constraint propagation
+        if (left_state->contains_outer || right_state->contains_outer)
+        {
+            Relids local_constraints = find_nonnullable_rels(j->quals);
+            List *local_forced_null = find_forced_null_vars(j->quals);
+
+            // Merge constraints appropriately based on join type
+            if (jointype == JOIN_INNER || jointype == JOIN_SEMI)
+            {
+                local_constraints = bms_add_members(local_constraints, nonnullable_rels);
+                local_forced_null = mbms_add_members(local_forced_null, forced_null_vars);
+            }
+
+            // Recurse with appropriate constraints
+            if (left_state->contains_outer)
+                reduce_outer_joins_pass2(j->larg, left_state, state2, root,
+                                       (jointype == JOIN_INNER || jointype == JOIN_SEMI) ?
+                                       local_constraints : nonnullable_rels,
+                                       (jointype == JOIN_INNER || jointype == JOIN_SEMI) ?
+                                       local_forced_null : forced_null_vars);
+
+            if (right_state->contains_outer)
+                reduce_outer_joins_pass2(j->rarg, right_state, state2, root,
+                                       local_constraints, local_forced_null);
+
+            bms_free(local_constraints);
+        }
+    }
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+}
+```

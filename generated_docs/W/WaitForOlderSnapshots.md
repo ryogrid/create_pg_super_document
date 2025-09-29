@@ -50,3 +50,73 @@ The function also implements dynamic rechecking - if a transaction goes idle or 
 - Dynamically adjusts the wait list as transactions complete or become idle
 - Critical for the correctness of CREATE INDEX CONCURRENTLY operations
 - Located in src/backend/commands/indexcmds.c:433-539
+
+## Simplified Source
+
+```c
+void WaitForOlderSnapshots(TransactionId limitXmin, bool progress) {
+    int n_old_snapshots;
+    VirtualTransactionId *old_snapshots;
+
+    // Get list of transactions with snapshots older than limitXmin
+    // Exclude autovacuum, vacuum, and safe concurrent index processes
+    old_snapshots = GetCurrentVirtualXIDs(limitXmin, true, false,
+                                         PROC_IS_AUTOVACUUM | PROC_IN_VACUUM | PROC_IN_SAFE_IC,
+                                         &n_old_snapshots);
+
+    // Report total number of snapshots to wait for
+    if (progress)
+        pgstat_progress_update_param(PROGRESS_WAITFOR_TOTAL, n_old_snapshots);
+
+    // Wait for each old snapshot transaction
+    for (int i = 0; i < n_old_snapshots; i++) {
+        if (!VirtualTransactionIdIsValid(old_snapshots[i]))
+            continue;  // Skip invalid transactions
+
+        // Recheck if transactions are still active (optimization)
+        if (i > 0) {
+            VirtualTransactionId *newer_snapshots;
+            int n_newer_snapshots;
+
+            // Get updated list of active transactions
+            newer_snapshots = GetCurrentVirtualXIDs(limitXmin, true, false,
+                                                   PROC_IS_AUTOVACUUM | PROC_IN_VACUUM | PROC_IN_SAFE_IC,
+                                                   &n_newer_snapshots);
+
+            // Mark completed transactions as invalid
+            for (int j = i; j < n_old_snapshots; j++) {
+                if (!VirtualTransactionIdIsValid(old_snapshots[j]))
+                    continue;
+
+                bool still_active = false;
+                for (int k = 0; k < n_newer_snapshots; k++) {
+                    if (VirtualTransactionIdEquals(old_snapshots[j], newer_snapshots[k])) {
+                        still_active = true;
+                        break;
+                    }
+                }
+                if (!still_active)
+                    SetInvalidVirtualTransactionId(old_snapshots[j]);
+            }
+            pfree(newer_snapshots);
+        }
+
+        // Wait for this transaction if still valid
+        if (VirtualTransactionIdIsValid(old_snapshots[i])) {
+            // Report which process we're waiting for
+            if (progress) {
+                PGPROC *holder = ProcNumberGetProc(old_snapshots[i].procNumber);
+                if (holder)
+                    pgstat_progress_update_param(PROGRESS_WAITFOR_CURRENT_PID, holder->pid);
+            }
+
+            // Actually wait for the transaction
+            VirtualXactLock(old_snapshots[i], true);
+        }
+
+        // Update progress counter
+        if (progress)
+            pgstat_progress_update_param(PROGRESS_WAITFOR_DONE, i + 1);
+    }
+}
+```

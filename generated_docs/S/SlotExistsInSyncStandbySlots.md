@@ -32,3 +32,30 @@ This function performs a linear search through the configured synchronized stand
 - The code includes a comment noting that linear search is acceptable for expected small list sizes, but caching could be added if needed
 - Slot names are stored in a packed format where each name is null-terminated and stored contiguously
 - This function is used by the WAL sender process to determine if physical replication slots should wake up logical WAL senders
+
+## Simplified Source
+
+```c
+bool
+SlotExistsInSyncStandbySlots(const char *slot_name)
+{
+    const char *standby_slot_name;
+
+    // Check if synchronized standby slots are configured
+    if (synchronized_standby_slots_config == NULL)
+        return false;
+
+    // Linear search through configured slot names
+    standby_slot_name = synchronized_standby_slots_config->slot_names;
+    for (int i = 0; i < synchronized_standby_slots_config->nslotnames; i++) {
+        // Check if current slot name matches
+        if (strcmp(standby_slot_name, slot_name) == 0)
+            return true;
+
+        // Move to next slot name (null-terminated strings)
+        standby_slot_name += strlen(standby_slot_name) + 1;
+    }
+
+    return false;
+}
+```

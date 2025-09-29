@@ -35,3 +35,31 @@ This function ensures that the SSL protocol range specified by minimum and maxim
 - Uses string comparison to ensure min ≤ max for TLSv1.1 through TLSv1.3
 - Static function scope limited to fe-connect.c
 - Includes assertion to verify inputs are pre-validated
+
+## Simplified Source
+
+```c
+static bool
+sslVerifyProtocolRange(const char *min, const char *max)
+{
+    Assert(sslVerifyProtocolVersion(min) && sslVerifyProtocolVersion(max));
+
+    // Range is valid if at least one bound is unset
+    if (min == NULL || max == NULL || strlen(min) == 0 || strlen(max) == 0)
+        return true;
+
+    // If min is TLSv1 (lowest), any max is valid
+    if (pg_strcasecmp(min, "TLSv1") == 0)
+        return true;
+
+    // Max cannot be TLSv1 if min is higher
+    if (pg_strcasecmp(max, "TLSv1") == 0)
+        return false;
+
+    // For TLSv1.1-1.3, ensure min <= max
+    if (pg_strcasecmp(min, max) > 0)
+        return false;
+
+    return true;
+}
+```

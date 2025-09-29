@@ -40,3 +40,33 @@ This design integrates runtime key evaluation directly into the rescan process, 
 - Runtime keys are marked as ready after evaluation to avoid redundant recalculation
 - The function handles both parameterized and non-parameterized rescans efficiently
 - Part of PostgreSQL's executor node interface, called by the generic executor framework
+
+## Simplified Source
+
+```c
+void ExecReScanIndexOnlyScan(IndexOnlyScanState *node) {
+    // Step 1: Recalculate runtime scan keys if present
+    if (node->ioss_NumRuntimeKeys != 0) {
+        ExprContext *econtext = node->ioss_RuntimeContext;
+
+        // Reset context to prevent memory leaks
+        ResetExprContext(econtext);
+
+        // Evaluate all runtime key expressions
+        ExecIndexEvalRuntimeKeys(econtext,
+                                node->ioss_RuntimeKeys,
+                                node->ioss_NumRuntimeKeys);
+    }
+    node->ioss_RuntimeKeysReady = true;
+
+    // Step 2: Restart the index scan with updated keys
+    if (node->ioss_ScanDesc) {
+        index_rescan(node->ioss_ScanDesc,
+                    node->ioss_ScanKeys, node->ioss_NumScanKeys,
+                    node->ioss_OrderByKeys, node->ioss_NumOrderByKeys);
+    }
+
+    // Step 3: Complete the scan framework rescan
+    ExecScanReScan(&node->ss);
+}
+```

@@ -51,3 +51,49 @@ The function initializes all standard fields of the memory context header, estab
 - The function establishes bidirectional parent-child links for efficient context tree traversal
 - Context names must be statically allocated strings to avoid memory management complications
 - Integration with Valgrind mempool tracking aids in debugging memory-related issues
+
+## Simplified Source
+
+```c
+void
+MemoryContextCreate(MemoryContext node,
+                    NodeTag tag,
+                    MemoryContextMethodID method_id,
+                    MemoryContext parent,
+                    const char *name)
+{
+    // Must not create contexts in critical sections
+    Assert(CritSectionCount == 0);
+
+    // Initialize all standard header fields
+    node->type = tag;
+    node->isReset = true;
+    node->methods = &mcxt_methods[method_id];
+    node->parent = parent;
+    node->firstchild = NULL;
+    node->mem_allocated = 0;
+    node->prevchild = NULL;
+    node->name = name;
+    node->ident = NULL;
+    node->reset_cbs = NULL;
+
+    // Link into context tree structure
+    if (parent) {
+        // Insert as first child of parent
+        node->nextchild = parent->firstchild;
+        if (parent->firstchild != NULL)
+            parent->firstchild->prevchild = node;
+        parent->firstchild = node;
+
+        // Inherit critical section permission from parent
+        node->allowInCritSection = parent->allowInCritSection;
+    } else {
+        // Top-level context
+        node->nextchild = NULL;
+        node->allowInCritSection = false;
+    }
+
+    // Register with Valgrind for memory debugging
+    VALGRIND_CREATE_MEMPOOL(node, 0, false);
+}
+```

@@ -37,3 +37,21 @@ The levelsup counter is initialized to -1 because the walker function will incre
 - Static function scope restricts access to the subselect.c compilation unit
 - The function modifies the query tree in-place, performing destructive updates to convert CTE references to subqueries
 - CTE inlining is typically applied when the CTE is referenced only once or when cost analysis suggests inlining would be beneficial
+
+## Simplified Source
+
+```c
+static void
+inline_cte(PlannerInfo *root, CommonTableExpr *cte)
+{
+    struct inline_cte_walker_context context;
+
+    // Setup context for tree walking
+    context.ctename = cte->ctename;
+    context.levelsup = -1;  // Will be incremented to 0 in walker
+    context.ctequery = castNode(Query, cte->ctequery);
+
+    // Walk the entire query tree to replace CTE references
+    (void) inline_cte_walker((Node *) root->parse, &context);
+}
+```

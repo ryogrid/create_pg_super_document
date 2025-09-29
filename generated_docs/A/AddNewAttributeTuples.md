@@ -47,3 +47,54 @@ The function intelligently handles different relation types, skipping system att
 - The function establishes DEPENDENCY_NORMAL relationships between attributes and their types/collations for proper cascade behavior
 - Dependencies on pinned system types (for system attributes) are not recorded since they cannot be dropped
 - The function handles both RowExclusiveLock acquisition and proper cleanup of catalog resources
+
+## Simplified Source
+
+```c
+static void
+AddNewAttributeTuples(Oid new_rel_oid,
+                      TupleDesc tupdesc,
+                      char relkind) {
+    Relation rel;
+    CatalogIndexState indstate;
+    int natts = tupdesc->natts;
+    ObjectAddress myself, referenced;
+
+    // Open pg_attribute catalog and its indexes
+    rel = table_open(AttributeRelationId, RowExclusiveLock);
+    indstate = CatalogOpenIndexes(rel);
+
+    // Insert user-defined attribute tuples
+    InsertPgAttributeTuples(rel, tupdesc, new_rel_oid, NULL, indstate);
+
+    // Add dependencies on data types and collations for each attribute
+    for (int i = 0; i < natts; i++) {
+        // Record dependency on attribute's data type
+        ObjectAddressSubSet(myself, RelationRelationId, new_rel_oid, i + 1);
+        ObjectAddressSet(referenced, TypeRelationId, tupdesc->attrs[i].atttypid);
+        recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+        // Record dependency on collation (skip default collation as it's pinned)
+        if (OidIsValid(tupdesc->attrs[i].attcollation) &&
+            tupdesc->attrs[i].attcollation != DEFAULT_COLLATION_OID) {
+            ObjectAddressSet(referenced, CollationRelationId,
+                           tupdesc->attrs[i].attcollation);
+            recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+        }
+    }
+
+    // Add system attributes for tables (skip for views and composite types)
+    if (relkind != RELKIND_VIEW && relkind != RELKIND_COMPOSITE_TYPE) {
+        TupleDesc td;
+
+        // Create system attributes tuple descriptor
+        td = CreateTupleDesc(lengthof(SysAtt), (FormData_pg_attribute **) &SysAtt);
+        InsertPgAttributeTuples(rel, td, new_rel_oid, NULL, indstate);
+        FreeTupleDesc(td);
+    }
+
+    // Clean up catalog resources
+    CatalogCloseIndexes(indstate);
+    table_close(rel, RowExclusiveLock);
+}
+```

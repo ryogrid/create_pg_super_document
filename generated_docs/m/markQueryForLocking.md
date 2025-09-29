@@ -54,3 +54,55 @@ The function ensures that locking semantics are consistently applied across comp
 - Recursive nature handles arbitrarily nested subqueries and complex join structures
 - Permission requirements are updated to ensure proper access control for locked relations
 - The pushedDown parameter tracks whether locking originated from higher query levels
+
+## Simplified Source
+
+```c
+static void markQueryForLocking(Query *qry, Node *jtnode,
+                               LockClauseStrength strength, LockWaitPolicy waitPolicy,
+                               bool pushedDown) {
+    if (jtnode == NULL)
+        return;
+
+    if (IsA(jtnode, RangeTblRef)) {
+        // Handle range table reference
+        int rti = ((RangeTblRef *) jtnode)->rtindex;
+        RangeTblEntry *rte = rt_fetch(rti, qry->rtable);
+
+        if (rte->rtekind == RTE_RELATION) {
+            // Base relation: apply locking and update permissions
+            applyLockingClause(qry, rti, strength, waitPolicy, pushedDown);
+
+            RTEPermissionInfo *perminfo = getRTEPermissionInfo(qry->rteperminfos, rte);
+            perminfo->requiredPerms |= ACL_SELECT_FOR_UPDATE;
+
+        } else if (rte->rtekind == RTE_SUBQUERY) {
+            // Subquery: apply locking and propagate to subquery relations
+            applyLockingClause(qry, rti, strength, waitPolicy, pushedDown);
+
+            // Recursively mark subquery relations
+            markQueryForLocking(rte->subquery, (Node *) rte->subquery->jointree,
+                              strength, waitPolicy, true);
+        }
+        // Other RTE types (functions, values, etc.) are unaffected
+
+    } else if (IsA(jtnode, FromExpr)) {
+        // FROM clause: process all items in the from list
+        FromExpr *f = (FromExpr *) jtnode;
+
+        foreach(l, f->fromlist) {
+            markQueryForLocking(qry, lfirst(l), strength, waitPolicy, pushedDown);
+        }
+
+    } else if (IsA(jtnode, JoinExpr)) {
+        // JOIN expression: process both left and right sides
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        markQueryForLocking(qry, j->larg, strength, waitPolicy, pushedDown);
+        markQueryForLocking(qry, j->rarg, strength, waitPolicy, pushedDown);
+
+    } else {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+    }
+}
+```

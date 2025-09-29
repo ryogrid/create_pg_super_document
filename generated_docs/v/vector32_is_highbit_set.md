@@ -35,3 +35,19 @@ The function maintains consistent behavior across platforms while working with t
 - Enables high bit detection for larger vector operations while reusing existing optimized code
 - Part of PostgreSQLs SIMD abstraction layer for consistent cross-platform vector operations
 - Essential for extending ASCII validation and character processing to larger data chunks
+
+## Simplified Source
+
+```c
+static inline bool
+vector32_is_highbit_set(const Vector32 v)
+{
+    // Check if any high bit is set in the 32-bit vector
+    // Delegates to vector8_is_highbit_set with platform-specific handling
+#if defined(USE_NEON)
+    return vector8_is_highbit_set((Vector8) v);
+#else
+    return vector8_is_highbit_set(v);
+#endif
+}
+```

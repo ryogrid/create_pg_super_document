@@ -38,3 +38,40 @@ The  function is responsible for creating an Agg plan node from an AggPath struc
 - The function extracts grouping information including columns, operators, and collations from the AggPath
 - Uses CP_LABEL_TLIST flag when creating the subplan to ensure proper target list labeling
 - The created plan includes information about aggregation strategy, split mode, number of groups, and transition space requirements
+
+## Simplified Source
+
+```c
+static Agg *
+create_agg_plan(PlannerInfo *root, AggPath *best_path)
+{
+    // Create the subplan recursively
+    Plan *subplan = create_plan_recurse(root, best_path->subpath, CP_LABEL_TLIST);
+
+    // Build target list for aggregation
+    List *tlist = build_path_tlist(root, &best_path->path);
+
+    // Process qualification clauses
+    List *quals = order_qual_clauses(root, best_path->qual);
+
+    // Create the aggregation plan node
+    Agg *plan = make_agg(
+        tlist, quals,
+        best_path->aggstrategy,
+        best_path->aggsplit,
+        list_length(best_path->groupClause),
+        extract_grouping_cols(best_path->groupClause, subplan->targetlist),
+        extract_grouping_ops(best_path->groupClause),
+        extract_grouping_collations(best_path->groupClause, subplan->targetlist),
+        NIL, NIL,
+        best_path->numGroups,
+        best_path->transitionSpace,
+        subplan
+    );
+
+    // Copy generic path information to plan
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    return plan;
+}
+```

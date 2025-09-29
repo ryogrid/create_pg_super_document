@@ -40,3 +40,23 @@ The time_overflows function performs comprehensive validation of time-of-day com
 - Allows edge cases like 24:00:00 (midnight) and leap seconds (60 seconds)
 - Essential for input validation in PostgreSQL's date/time parsing functions
 - Part of the date/time validation infrastructure in src/backend/utils/adt/date.c
+
+## Simplified Source
+```c
+bool time_overflows(int hour, int min, int sec, fsec_t fsec) {
+    // Check individual field ranges
+    if (hour < 0 || hour > HOURS_PER_DAY ||
+        min < 0 || min >= MINS_PER_HOUR ||
+        sec < 0 || sec > SECS_PER_MINUTE ||
+        fsec < 0 || fsec > USECS_PER_SEC)
+        return true;
+
+    // Check that total time doesn't exceed 24:00:00
+    // Convert everything to microseconds and compare with USECS_PER_DAY
+    if ((((((hour * MINS_PER_HOUR + min) * SECS_PER_MINUTE)
+           + sec) * USECS_PER_SEC) + fsec) > USECS_PER_DAY)
+        return true;
+
+    return false; // All components are valid
+}
+```

@@ -38,3 +38,20 @@ The function implements the same efficient two-tier approach:
 - Covers both ASCII whitespace (space, tab, newline, etc.) and Unicode whitespace characters
 - Essential for proper text parsing, tokenization, and formatting operations
 - Follows Unicode Standard definition of White_Space property rather than just ASCII space characters
+
+## Simplified Source
+
+```c
+bool
+pg_u_prop_white_space(pg_wchar code)
+{
+    // Fast path for ASCII characters using bitmask lookup
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_WHITE_SPACE;
+
+    // For non-ASCII characters, search the white space ranges table
+    return range_search(unicode_white_space,
+                        lengthof(unicode_white_space),
+                        code);
+}
+```

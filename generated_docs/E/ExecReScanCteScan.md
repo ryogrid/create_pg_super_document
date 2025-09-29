@@ -36,3 +36,30 @@ This dual approach allows multiple CTE scan nodes to efficiently share the same 
 - The function handles both scenarios: when the underlying CTE needs rescanning and when it can reuse existing tuplestore data
 - Parameter changes (chgParam) are used as the key indicator for determining whether a full rescan is needed
 - The tuplestore clear operation implicitly resets all read pointers, making it safe for multiple concurrent CTE scan nodes
+
+## Simplified Source
+
+```c
+void ExecReScanCteScan(CteScanState *node) {
+    TuplestoreState *tuplestorestate = node->leader->cte_table;
+
+    // Clear result tuple slot if exists
+    if (node->ss.ps.ps_ResultTupleSlot) {
+        ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+    }
+
+    // Reset scan state
+    ExecScanReScan(&node->ss);
+
+    // Check if underlying CTE needs rescanning
+    if (node->leader->cteplanstate->chgParam != NULL) {
+        // Clear tuplestore and reset EOF flag for fresh scan
+        tuplestore_clear(tuplestorestate);
+        node->leader->eof_cte = false;
+    } else {
+        // Just rewind read pointer to reuse existing data
+        tuplestore_select_read_pointer(tuplestorestate, node->readptr);
+        tuplestore_rescan(tuplestorestate);
+    }
+}
+```

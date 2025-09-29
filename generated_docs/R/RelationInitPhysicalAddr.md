@@ -46,3 +46,67 @@ The function includes special handling for logical decoding scenarios where hist
 - Special logic for logical decoding ensures current file nodes are used even with historic snapshots
 - Parallel worker support includes proper rd_firstRelfilelocatorSubid setup for WAL decisions
 - Critical for establishing the connection between logical relation identifiers and physical storage files
+
+## Simplified Source
+
+```c
+static void
+RelationInitPhysicalAddr(Relation relation)
+{
+    RelFileNumber oldnumber = relation->rd_locator.relNumber;
+
+    // Skip relations that never have storage
+    if (!RELKIND_HAS_STORAGE(relation->rd_rel->relkind))
+        return;
+
+    // Set tablespace OID
+    if (relation->rd_rel->reltablespace)
+        relation->rd_locator.spcOid = relation->rd_rel->reltablespace;
+    else
+        relation->rd_locator.spcOid = MyDatabaseTableSpace;
+
+    // Set database OID (global tablespace relations are shared)
+    if (relation->rd_locator.spcOid == GLOBALTABLESPACE_OID)
+        relation->rd_locator.dbOid = InvalidOid;
+    else
+        relation->rd_locator.dbOid = MyDatabaseId;
+
+    if (relation->rd_rel->relfilenode) {
+        // Handle logical decoding with historic snapshots
+        if (HistoricSnapshotActive() &&
+            RelationIsAccessibleInLogicalDecoding(relation) &&
+            IsTransactionState()) {
+
+            // Get current pg_class tuple to ensure current filenode
+            HeapTuple phys_tuple = ScanPgRelation(RelationGetRelid(relation),
+                                                 RelationGetRelid(relation) != ClassOidIndexId,
+                                                 true);
+            if (!HeapTupleIsValid(phys_tuple))
+                elog(ERROR, "could not find pg_class entry for %u", RelationGetRelid(relation));
+
+            Form_pg_class physrel = (Form_pg_class) GETSTRUCT(phys_tuple);
+            relation->rd_rel->reltablespace = physrel->reltablespace;
+            relation->rd_rel->relfilenode = physrel->relfilenode;
+            heap_freetuple(phys_tuple);
+        }
+
+        relation->rd_locator.relNumber = relation->rd_rel->relfilenode;
+    } else {
+        // Use relation mapper for system catalogs
+        relation->rd_locator.relNumber =
+            RelationMapOidToFilenumber(relation->rd_id, relation->rd_rel->relisshared);
+
+        if (!RelFileNumberIsValid(relation->rd_locator.relNumber))
+            elog(ERROR, "could not find relation mapping for relation \"%s\", OID %u",
+                 RelationGetRelationName(relation), relation->rd_id);
+    }
+
+    // Handle parallel worker WAL logging setup
+    if (IsParallelWorker() && oldnumber != relation->rd_locator.relNumber) {
+        if (RelFileLocatorSkippingWAL(relation->rd_locator))
+            relation->rd_firstRelfilelocatorSubid = TopSubTransactionId;
+        else
+            relation->rd_firstRelfilelocatorSubid = InvalidSubTransactionId;
+    }
+}
+```

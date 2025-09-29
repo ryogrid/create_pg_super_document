@@ -30,3 +30,12 @@ The  function performs a straightforward subtraction to calculate the difference
 - The comment indicates this function previously handled wraparound logic, suggesting the queue page numbering system has evolved over time
 - The use of int64 provides a very large range of page numbers, effectively eliminating wraparound concerns in practical scenarios
 - This is a utility function used within the LISTEN/NOTIFY asynchronous messaging system
+
+## Simplified Source
+
+```c
+static inline int64 asyncQueuePageDiff(int64 p, int64 q) {
+    // Simple arithmetic difference between queue page numbers
+    return p - q;
+}
+```

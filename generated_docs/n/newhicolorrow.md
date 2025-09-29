@@ -36,3 +36,47 @@ The  function is part of PostgreSQL's regex color management system. It creates 
 - Includes overflow protection by checking against INT_MAX before allocation
 - Updates color reference counts (nuchrs) for all colors in the cloned row to maintain proper reference tracking
 - Part of the regex engine's color compression optimization system
+
+## Simplified Source
+
+```c
+static int
+newhicolorrow(struct colormap *cm, int oldrow) {
+    int newrow = cm->hiarrayrows;
+    color *newrowptr;
+    int i;
+
+    // Expand array if needed (double size when full)
+    if (newrow >= cm->maxarrayrows) {
+        // Check for overflow before allocation
+        if (cm->maxarrayrows >= INT_MAX / (cm->hiarraycols * 2)) {
+            CERR(REG_ESPACE);
+            return 0;
+        }
+
+        // Reallocate with double the capacity
+        color *newarray = (color *) REALLOC(cm->hicolormap,
+                                           cm->maxarrayrows * 2 * cm->hiarraycols * sizeof(color));
+        if (newarray == NULL) {
+            CERR(REG_ESPACE);
+            return 0;
+        }
+
+        cm->hicolormap = newarray;
+        cm->maxarrayrows *= 2;
+    }
+    cm->hiarrayrows++;
+
+    // Copy data from old row to new row
+    newrowptr = &cm->hicolormap[newrow * cm->hiarraycols];
+    memcpy(newrowptr, &cm->hicolormap[oldrow * cm->hiarraycols],
+           cm->hiarraycols * sizeof(color));
+
+    // Update reference counts for all colors in new row
+    for (i = 0; i < cm->hiarraycols; i++) {
+        cm->cd[newrowptr[i]].nuchrs++;
+    }
+
+    return newrow;
+}
+```

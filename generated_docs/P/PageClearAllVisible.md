@@ -42,3 +42,14 @@ The function uses a bitwise AND operation with the complement of PD_ALL_VISIBLE 
 - The function uses bitwise operations to efficiently clear only the target flag bit
 - Often triggers subsequent visibility map updates to clear the corresponding visibility map bit
 - Essential for correctness of index-only scans and vacuum optimizations
+
+## Simplified Source
+
+```c
+static inline void
+PageClearAllVisible(Page page)
+{
+    // Clear the PD_ALL_VISIBLE flag using bitwise AND with complement
+    ((PageHeader) page)->pd_flags &= ~PD_ALL_VISIBLE;
+}
+```

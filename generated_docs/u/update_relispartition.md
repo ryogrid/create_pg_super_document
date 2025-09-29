@@ -48,3 +48,35 @@ This function is specifically designed as a subroutine for IndexSetParentIndex a
 - Properly manages tuple locks with InplaceUpdateTupleLock to ensure consistency during the update
 - The function will throw an ERROR if the specified relation doesn't exist in the catalog
 - Memory management is handled correctly by freeing the heap tuple after the update is complete
+
+## Simplified Source
+
+```c
+static void
+update_relispartition(Oid relationId, bool newval)
+{
+    // Open pg_class for updating
+    Relation classRel = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Get locked copy of the tuple
+    HeapTuple tup = SearchSysCacheLockedCopy1(RELOID,
+                                              ObjectIdGetDatum(relationId));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for relation %u", relationId);
+
+    // Verify the value is actually changing
+    Assert(((Form_pg_class) GETSTRUCT(tup))->relispartition != newval);
+
+    // Update the relispartition field
+    ItemPointerData otid = tup->t_self;
+    ((Form_pg_class) GETSTRUCT(tup))->relispartition = newval;
+
+    // Commit the update
+    CatalogTupleUpdate(classRel, &otid, tup);
+    UnlockTuple(classRel, &otid, InplaceUpdateTupleLock);
+
+    // Clean up
+    heap_freetuple(tup);
+    table_close(classRel, RowExclusiveLock);
+}
+```

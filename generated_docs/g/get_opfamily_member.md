@@ -49,3 +49,27 @@ This function performs a reverse lookup in the pg_amop catalog to find the speci
 - Data type OIDs must exactly match - the function does not perform type coercion
 - Heavily used in index operations, join planning, and constraint enforcement
 - The function only searches search operators (AMOP_SEARCH), not ordering operators
+
+## Simplified Source
+
+```c
+Oid get_opfamily_member(Oid opfamily, Oid lefttype, Oid righttype, int16 strategy) {
+    // Look up operator in pg_amop catalog using composite key
+    HeapTuple tuple = SearchSysCache4(AMOPSTRATEGY,
+                                    ObjectIdGetDatum(opfamily),
+                                    ObjectIdGetDatum(lefttype),
+                                    ObjectIdGetDatum(righttype),
+                                    Int16GetDatum(strategy));
+
+    if (!HeapTupleIsValid(tuple))
+        return InvalidOid;
+
+    // Extract the operator OID from the tuple
+    Form_pg_amop amopTuple = (Form_pg_amop) GETSTRUCT(tuple);
+    Oid operatorOid = amopTuple->amopopr;
+
+    // Cleanup and return result
+    ReleaseSysCache(tuple);
+    return operatorOid;
+}
+```

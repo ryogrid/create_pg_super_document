@@ -44,3 +44,69 @@ The makeWholeRowVar function is a sophisticated constructor that creates Var nod
 - Supports view expansion and set-returning function contexts in subqueries
 - Returns RECORD type for joins, table functions, VALUES, CTEs, and other complex RTE types
 - Critical for implementing PostgreSQL's whole-row reference semantics (e.g., "SELECT table_name" vs "SELECT table_name.*")
+
+## Simplified Source
+
+```c
+Var *makeWholeRowVar(RangeTblEntry *rte, int varno, Index varlevelsup, bool allowScalar) {
+    Var *result;
+    Oid toid;
+
+    switch (rte->rtekind) {
+        case RTE_RELATION:
+            // Relations have named composite types
+            toid = get_rel_type_id(rte->relid);
+            if (!OidIsValid(toid))
+                ereport(ERROR, "relation does not have a composite type");
+
+            result = makeVar(varno, InvalidAttrNumber, toid, -1, InvalidOid, varlevelsup);
+            break;
+
+        case RTE_SUBQUERY:
+            // Determine subquery row type
+            if (OidIsValid(rte->relid))
+                // Subquery expanded from view
+                toid = get_rel_type_id(rte->relid);
+            else if (rte->functions)
+                // Subquery expanded from set-returning function
+                toid = exprType(((RangeTblFunction *) linitial(rte->functions))->funcexpr);
+            else
+                // Normal subquery
+                toid = RECORDOID;
+
+            result = makeVar(varno, InvalidAttrNumber, toid, -1, InvalidOid, varlevelsup);
+            break;
+
+        case RTE_FUNCTION:
+            // Handle function RTEs
+            if (rte->funcordinality || list_length(rte->functions) != 1) {
+                // Multiple functions or ordinality -> RECORD
+                toid = RECORDOID;
+                result = makeVar(varno, InvalidAttrNumber, toid, -1, InvalidOid, varlevelsup);
+            } else {
+                // Single function
+                Node *fexpr = ((RangeTblFunction *) linitial(rte->functions))->funcexpr;
+                toid = exprType(fexpr);
+
+                if (type_is_rowtype(toid)) {
+                    // Function returns composite type
+                    result = makeVar(varno, InvalidAttrNumber, toid, -1, InvalidOid, varlevelsup);
+                } else if (allowScalar) {
+                    // Return scalar function result directly
+                    result = makeVar(varno, 1, toid, -1, exprCollation(fexpr), varlevelsup);
+                } else {
+                    // Wrap scalar in composite
+                    result = makeVar(varno, InvalidAttrNumber, RECORDOID, -1, InvalidOid, varlevelsup);
+                }
+            }
+            break;
+
+        default:
+            // JOINs, VALUES, CTEs, etc. -> RECORD type
+            result = makeVar(varno, InvalidAttrNumber, RECORDOID, -1, InvalidOid, varlevelsup);
+            break;
+    }
+
+    return result;
+}
+```

@@ -18,7 +18,7 @@ index_register(Oid heap,
 This function implements a deferred index construction mechanism during PostgreSQL bootstrap. Rather than building indexes immediately when they are defined, it records the index specifications in a linked list (ILHead) for later construction. This two-phase approach is necessary because:
 
 1. Indexes themselves have catalog entries that must be included in system catalog indexes
-2. All catalog entries must exist before indexes can be properly constructed  
+2. All catalog entries must exist before indexes can be properly constructed
 3. Building indexes immediately would create circular dependencies
 
 The function creates a deep copy of the IndexInfo structure and stores it in a special no-garbage-collection memory context to ensure the index definitions persist until the actual index construction phase. The deferred indexes are built just before bootstrap completion when all catalog entries are finalized.
@@ -50,3 +50,39 @@ The function creates a deep copy of the IndexInfo structure and stores it in a s
 - Critical for resolving circular dependencies in system catalog index creation
 - The two-phase approach ensures all catalog entries exist before index construction
 - Index expressions and predicates are copied but expression states are reset to NIL/NULL
+
+## Simplified Source
+
+```c
+void
+index_register(Oid heap, Oid ind, const IndexInfo *indexInfo)
+{
+    // Create persistent memory context if needed
+    if (nogc == NULL)
+        nogc = AllocSetContextCreate(NULL, "BootstrapNoGC",
+                                   ALLOCSET_DEFAULT_SIZES);
+
+    MemoryContext oldcxt = MemoryContextSwitchTo(nogc);
+
+    // Create new index list entry
+    IndexList *newind = palloc(sizeof(IndexList));
+    newind->il_heap = heap;
+    newind->il_ind = ind;
+
+    // Deep copy the IndexInfo structure
+    newind->il_info = palloc(sizeof(IndexInfo));
+    memcpy(newind->il_info, indexInfo, sizeof(IndexInfo));
+
+    // Copy expressions and predicates, reset state fields
+    newind->il_info->ii_Expressions = copyObject(indexInfo->ii_Expressions);
+    newind->il_info->ii_ExpressionsState = NIL;
+    newind->il_info->ii_Predicate = copyObject(indexInfo->ii_Predicate);
+    newind->il_info->ii_PredicateState = NULL;
+
+    // Add to global list
+    newind->il_next = ILHead;
+    ILHead = newind;
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

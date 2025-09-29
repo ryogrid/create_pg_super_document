@@ -43,3 +43,32 @@ The function uses fsm_set_and_search for the combined update and search operatio
 - Falls back to general search if local search fails
 - Part of PostgreSQL's Free Space Map public API
 - Located in src/backend/storage/freespace/freespace.c:154-193
+
+## Simplified Source
+
+```c
+BlockNumber RecordAndGetPageWithFreeSpace(Relation rel, BlockNumber oldPage,
+                                         Size oldSpaceAvail, Size spaceNeeded) {
+    // Convert space amounts to FSM categories
+    int old_cat = fsm_space_avail_to_cat(oldSpaceAvail);
+    int search_cat = fsm_space_needed_to_cat(spaceNeeded);
+
+    // Get FSM location for the old page
+    FSMAddress addr = fsm_get_location(oldPage, &slot);
+
+    // Try to update old page info and search for new page in same FSM area
+    int search_slot = fsm_set_and_search(rel, addr, slot, old_cat, search_cat);
+
+    // If found a suitable nearby block, validate and return it
+    if (search_slot != -1) {
+        BlockNumber blknum = fsm_get_heap_blk(addr, search_slot);
+
+        // Ensure the block actually exists in the relation
+        if (fsm_does_block_exist(rel, blknum))
+            return blknum;
+    }
+
+    // No suitable nearby block found - do general search
+    return fsm_search(rel, search_cat);
+}
+```

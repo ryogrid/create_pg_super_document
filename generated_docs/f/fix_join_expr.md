@@ -62,3 +62,30 @@ The function supports four different scenarios:
 - Part of PostgreSQL's plan tree reference fixing mechanism during query optimization
 - The transformation ensures that variable references correctly point to the appropriate target list entries
 - Located in src/backend/optimizer/plan/setrefs.c at lines 3033-3054
+
+## Simplified Source
+
+```c
+static List *fix_join_expr(PlannerInfo *root,
+                          List *clauses,
+                          indexed_tlist *outer_itlist,
+                          indexed_tlist *inner_itlist,
+                          Index acceptable_rel,
+                          int rtoffset,
+                          NullingRelsMatch nrm_match,
+                          double num_exec) {
+    // Set up context for variable reference transformation
+    fix_join_expr_context context;
+
+    context.root = root;
+    context.outer_itlist = outer_itlist;
+    context.inner_itlist = inner_itlist;
+    context.acceptable_rel = acceptable_rel;
+    context.rtoffset = rtoffset;
+    context.nrm_match = nrm_match;
+    context.num_exec = num_exec;
+
+    // Transform clauses using the mutator function
+    return (List *) fix_join_expr_mutator((Node *) clauses, &context);
+}
+```

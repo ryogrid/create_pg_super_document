@@ -38,3 +38,20 @@ This function sets the cursor position in the current error data structure, indi
 - Widely used throughout the parser, executor, and SPI systems for precise error reporting
 - Essential for providing user-friendly error messages that point to the exact location of syntax or semantic errors
 - The position information is used by client applications to highlight the problematic part of SQL statements
+
+## Simplified Source
+
+```c
+int errposition(int cursorpos) {
+    // Get current error data structure
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Check stack depth is valid
+    CHECK_STACK_DEPTH();
+
+    // Set the cursor position for error reporting
+    edata->cursorpos = cursorpos;
+
+    return 0;  // Return value not used
+}
+```

@@ -39,3 +39,24 @@ Unlike ExecInitQual's optimized short-circuit evaluation that immediately fails 
 - Must evaluate all subexpressions rather than short-circuiting on NULL to properly distinguish between NULL (pass) and FALSE (fail) results
 - Less commonly used than ExecInitQual since CHECK constraints are evaluated less frequently than WHERE conditions
 - The resulting ExprState should be used with ExecCheck, which understands the CHECK constraint semantics
+
+## Simplified Source
+
+```c
+ExprState *
+ExecInitCheck(List *qual, PlanState *parent)
+{
+    // Short-circuit for empty constraint list - always passes
+    if (qual == NIL)
+        return NULL;
+
+    // Convert implicit-AND list to explicit AND expression
+    // This ensures proper NULL handling for CHECK constraints
+    // (NULL results are treated as TRUE, meaning constraint passes)
+    Expr *explicit_and = make_ands_explicit(qual);
+
+    // Compile using standard expression compilation
+    // The explicit AND will handle NULL vs FALSE distinction correctly
+    return ExecInitExpr(explicit_and, parent);
+}
+```

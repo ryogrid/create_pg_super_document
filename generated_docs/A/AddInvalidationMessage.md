@@ -45,3 +45,37 @@ The function handles two scenarios for memory management:
 - The function uses an initial array size of 32 messages and doubles the size on expansion
 - The function assumes thread-safe operation within PostgreSQL's single-threaded backend model
 - Part of PostgreSQL's cache invalidation subsystem that ensures cache consistency across transactions
+
+## Simplified Source
+
+```c
+static void
+AddInvalidationMessage(InvalidationMsgsGroup *group, int subgroup,
+                       const SharedInvalidationMessage *msg)
+{
+    InvalMessageArray *ima = &InvalMessageArrays[subgroup];
+    int nextindex = group->nextmsg[subgroup];
+
+    // Check if we need more space in the message array
+    if (nextindex >= ima->maxmsgs) {
+        if (ima->msgs == NULL) {
+            // Initial allocation: create array with 32 slots
+            int reqsize = 32;
+            ima->msgs = (SharedInvalidationMessage *)
+                MemoryContextAlloc(TopTransactionContext,
+                                 reqsize * sizeof(SharedInvalidationMessage));
+            ima->maxmsgs = reqsize;
+        } else {
+            // Array is full: double the size
+            int reqsize = 2 * ima->maxmsgs;
+            ima->msgs = (SharedInvalidationMessage *)
+                repalloc(ima->msgs, reqsize * sizeof(SharedInvalidationMessage));
+            ima->maxmsgs = reqsize;
+        }
+    }
+
+    // Add the message to the array and increment counter
+    ima->msgs[nextindex] = *msg;
+    group->nextmsg[subgroup]++;
+}
+```

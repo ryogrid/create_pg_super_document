@@ -14,7 +14,7 @@ This function determines if a tuple header represents only a lock operation rath
 
 The function follows a systematic checking process:
 1. First checks for invalid or explicitly lock-only XMAX values
-2. For non-MultiXact cases, uses infomask bits to determine lock vs update status  
+2. For non-MultiXact cases, uses infomask bits to determine lock vs update status
 3. For MultiXact cases, extracts the updating XID and checks its transaction status
 4. Returns true only if there is no committed update, meaning the tuple is only locked
 
@@ -48,3 +48,39 @@ The function follows the same visibility rules established elsewhere in the heap
 - The function returns true if the updating transaction has aborted or crashed, meaning only the lock remains
 - It includes an assertion to ensure that non-LOCKED_ONLY tuples have valid XMAX values
 - The logic follows PostgreSQL's MVCC visibility rules for determining tuple lock status
+
+## Simplified Source
+
+```c
+bool
+HeapTupleHeaderIsOnlyLocked(HeapTupleHeader tuple)
+{
+    // Quick checks: no valid xmax means no update
+    if (tuple->t_infomask & HEAP_XMAX_INVALID)
+        return true;
+
+    if (tuple->t_infomask & HEAP_XMAX_LOCK_ONLY)
+        return true;
+
+    if (!TransactionIdIsValid(HeapTupleHeaderGetRawXmax(tuple)))
+        return true;
+
+    // For non-MultiXact cases, must be an update if not LOCK_ONLY
+    if (!(tuple->t_infomask & HEAP_XMAX_IS_MULTI))
+        return false;
+
+    // For MultiXact: check if updating transaction committed
+    TransactionId xmax = HeapTupleGetUpdateXid(tuple);
+
+    // Check transaction status
+    if (TransactionIdIsCurrentTransactionId(xmax))
+        return false;  // Current transaction updated it
+    if (TransactionIdIsInProgress(xmax))
+        return false;  // Update transaction still running
+    if (TransactionIdDidCommit(xmax))
+        return false;  // Update transaction committed
+
+    // Update transaction aborted or crashed - only lock remains
+    return true;
+}
+```

@@ -45,3 +45,37 @@ The algorithm compares each standby's positions and retains the smallest valid L
 - Handles invalid LSN positions gracefully by checking validity before comparison
 - Function implements the "wait for all" semantics of priority-based sync replication
 - Function location: src/backend/replication/syncrep.c:660-692
+
+## Simplified Source
+
+```c
+static void
+SyncRepGetOldestSyncRecPtr(XLogRecPtr *writePtr,
+                           XLogRecPtr *flushPtr,
+                           XLogRecPtr *applyPtr,
+                           SyncRepStandbyData *sync_standbys,
+                           int num_standbys)
+{
+    int i;
+
+    // Find the oldest (minimum) LSN position among all sync standbys
+    // Assumes output parameters are initialized to InvalidXLogRecPtr
+    for (i = 0; i < num_standbys; i++) {
+        XLogRecPtr write = sync_standbys[i].write;
+        XLogRecPtr flush = sync_standbys[i].flush;
+        XLogRecPtr apply = sync_standbys[i].apply;
+
+        // Update oldest write position
+        if (XLogRecPtrIsInvalid(*writePtr) || *writePtr > write)
+            *writePtr = write;
+
+        // Update oldest flush position
+        if (XLogRecPtrIsInvalid(*flushPtr) || *flushPtr > flush)
+            *flushPtr = flush;
+
+        // Update oldest apply position
+        if (XLogRecPtrIsInvalid(*applyPtr) || *applyPtr > apply)
+            *applyPtr = apply;
+    }
+}
+```

@@ -34,3 +34,31 @@ This function provides a stateful iterator for parsing comma-separated lists. It
 - Assumes well-formed comma-separated input without leading/trailing whitespace handling
 - Used in conjunction with count_comma_separated_elems for complete list processing
 - Location: src/interfaces/libpq/fe-connect.c:1058-1092
+
+## Simplified Source
+
+```c
+static char *
+parse_comma_separated_list(char **startptr, bool *more)
+{
+    char *s = *startptr;
+    char *e = s;
+
+    // Find end of current element (comma or end of string)
+    while (*e != '\0' && *e != ',')
+        ++e;
+
+    *more = (*e == ',');
+    int len = e - s;
+
+    // Allocate and copy element
+    char *p = (char *) malloc(sizeof(char) * (len + 1));
+    if (p) {
+        memcpy(p, s, len);
+        p[len] = '\0';
+    }
+
+    *startptr = e + 1;
+    return p;
+}
+```

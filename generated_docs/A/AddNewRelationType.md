@@ -49,3 +49,51 @@ Key characteristics of the created type include: variable-length internal storag
 - The type is created with maximum alignment (TYPALIGN_DOUBLE) to ensure compatibility with all possible attribute types
 - TYPSTORAGE_EXTENDED enables full TOAST support for large composite values
 - The function returns an ObjectAddress that can be used for dependency tracking and other catalog operations
+
+## Simplified Source
+
+```c
+static ObjectAddress
+AddNewRelationType(const char *typeName,
+                   Oid typeNamespace,
+                   Oid new_rel_oid,
+                   char new_rel_kind,
+                   Oid ownerid,
+                   Oid new_row_type,
+                   Oid new_array_type) {
+
+    // Create composite type for the relation using TypeCreate
+    return TypeCreate(new_row_type,           // Optional predetermined OID
+                     typeName,               // Type name
+                     typeNamespace,          // Type namespace
+                     new_rel_oid,           // Relation OID
+                     new_rel_kind,          // Relation kind
+                     ownerid,               // Owner's ID
+                     -1,                    // Internal size (varlena)
+                     TYPTYPE_COMPOSITE,     // Type category (composite)
+                     TYPCATEGORY_COMPOSITE, // Type category
+                     false,                 // Not preferred type
+                     DEFAULT_TYPDELIM,      // Default array delimiter
+                     F_RECORD_IN,           // Input procedure
+                     F_RECORD_OUT,          // Output procedure
+                     F_RECORD_RECV,         // Receive procedure
+                     F_RECORD_SEND,         // Send procedure
+                     InvalidOid,            // No typmod input
+                     InvalidOid,            // No typmod output
+                     InvalidOid,            // Default analyze procedure
+                     InvalidOid,            // No subscript procedure
+                     InvalidOid,            // No array element type
+                     false,                 // Not an array type
+                     new_array_type,        // Array type if any
+                     InvalidOid,            // No domain base type
+                     NULL,                  // No default value
+                     NULL,                  // No default binary representation
+                     false,                 // Passed by reference
+                     TYPALIGN_DOUBLE,       // Maximum alignment
+                     TYPSTORAGE_EXTENDED,   // Full TOAST capability
+                     -1,                    // No typmod
+                     0,                     // No array dimensions
+                     false,                 // Type NOT NULL
+                     InvalidOid);           // No collation for rowtypes
+}
+```

@@ -38,3 +38,16 @@ The function serves as an atomic operation that combines copying and freeing, en
 - The recommended usage pattern is to call this function just before returning the resulting set
 - Provides a clean way to combine copy and free operations in a single atomic step
 - Used extensively in functions that modify sets and need to return fresh copies while freeing originals
+
+## Simplified Source
+
+```c
+static Bitmapset *
+bms_copy_and_free(Bitmapset *a)
+{
+    // Create copy and free original atomically
+    Bitmapset *copy = bms_copy(a);
+    bms_free(a);
+    return copy;
+}
+```

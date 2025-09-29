@@ -31,3 +31,12 @@ ExecEndSubqueryScan is the cleanup function for subquery scan operations in Post
 - Primary responsibility is ensuring proper shutdown of the underlying subplan execution
 - Part of PostgreSQL's executor cleanup framework that ensures proper resource deallocation across all node types
 - Located at src/backend/executor/nodeSubqueryscan.c:168-182
+
+## Simplified Source
+
+```c
+void ExecEndSubqueryScan(SubqueryScanState *node) {
+    // Clean up the subquery execution
+    ExecEndNode(node->subplan);
+}
+```

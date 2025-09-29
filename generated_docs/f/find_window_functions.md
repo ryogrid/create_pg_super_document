@@ -34,3 +34,22 @@ This function performs a comprehensive search through an expression tree to loca
 - The actual traversal and collection work is delegated to 
 - This is part of the window function processing infrastructure in the PostgreSQL query planner
 - Essential for organizing window functions before creating window execution plans
+
+## Simplified Source
+
+```c
+WindowFuncLists *find_window_functions(Node *clause, Index maxWinRef)
+{
+    WindowFuncLists *lists = palloc(sizeof(WindowFuncLists));
+
+    // Initialize the structure
+    lists->numWindowFuncs = 0;
+    lists->maxWinRef = maxWinRef;
+    lists->windowFuncs = (List **) palloc0((maxWinRef + 1) * sizeof(List *));
+
+    // Walk the expression tree to find and organize window functions
+    (void) find_window_functions_walker(clause, lists);
+
+    return lists;
+}
+```

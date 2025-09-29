@@ -51,3 +51,49 @@ The function handles cases where EPQ wasn't actually started but tuple tables ma
 - After cleanup, the EPQState is marked as idle with all key pointers set to NULL
 - The function preserves resources shared with the parent query while cleaning up EPQ-specific allocations
 - Used extensively in logical replication worker processes and executor nodes that support EPQ
+
+## Simplified Source
+
+```c
+void EvalPlanQualEnd(EPQState *epqstate) {
+    EState *estate = epqstate->recheckestate;
+    Index rtsize = epqstate->parentestate->es_range_table_size;
+
+    // Clean up tuple table if it exists
+    if (epqstate->tuple_table != NIL) {
+        memset(epqstate->relsubs_slot, 0, rtsize * sizeof(TupleTableSlot *));
+        ExecResetTupleTable(epqstate->tuple_table, true);
+        epqstate->tuple_table = NIL;
+    }
+
+    // If EPQ wasn't started, nothing more to do
+    if (estate == NULL)
+        return;
+
+    // Switch to EPQ context and clean up execution nodes
+    MemoryContext oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // End main plan and all subplans
+    ExecEndNode(epqstate->recheckplanstate);
+    foreach(l, estate->es_subplanstates) {
+        PlanState *subplanstate = (PlanState *) lfirst(l);
+        ExecEndNode(subplanstate);
+    }
+
+    // Clean up tuple table and close result relations
+    ExecResetTupleTable(estate->es_tupleTable, false);
+    ExecCloseResultRelations(estate);
+
+    // Restore context and free executor state
+    MemoryContextSwitchTo(oldcontext);
+    FreeExecutorState(estate);
+
+    // Mark EPQState as idle
+    epqstate->origslot = NULL;
+    epqstate->recheckestate = NULL;
+    epqstate->recheckplanstate = NULL;
+    epqstate->relsubs_rowmark = NULL;
+    epqstate->relsubs_done = NULL;
+    epqstate->relsubs_blocked = NULL;
+}
+```

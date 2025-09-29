@@ -41,3 +41,19 @@ The function is designed as a pass-through operation, returning the same tuple d
 - The function serves as a bridge between dynamically created tuple descriptors and PostgreSQL's type management system
 - Returns the input tuple descriptor unchanged except for potential type registration side effects
 - Widely used across various PostgreSQL subsystems that deal with composite return types
+
+## Simplified Source
+
+```c
+TupleDesc BlessTupleDesc(TupleDesc tupdesc)
+{
+    // Check if this is an unregistered RECORD type
+    if (tupdesc->tdtypeid == RECORDOID && tupdesc->tdtypmod < 0) {
+        // Register the type in the type cache system
+        assign_record_type_typmod(tupdesc);
+    }
+
+    // Return the same descriptor (now potentially blessed)
+    return tupdesc;
+}
+```

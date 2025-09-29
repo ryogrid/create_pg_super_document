@@ -45,3 +45,59 @@ The function operates in multiple phases: first building a list of relation OIDs
 - Performance optimization: fast path returns early if no relations have triggers
 - Uses two-phase scanning: bulk check first, then detailed analysis for error reporting
 - The function assumes caller already holds appropriate locks on the relations
+
+## Simplified Source
+
+```c
+void heap_truncate_check_FKs(List *relations, bool tempTables) {
+    List *oids = NIL;
+
+    // Build list of relation OIDs that can have foreign keys
+    foreach(cell, relations) {
+        Relation rel = lfirst(cell);
+
+        // Include relations with triggers or partitioned tables
+        if (rel->rd_rel->relhastriggers ||
+            rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+            oids = lappend_oid(oids, RelationGetRelid(rel));
+        }
+    }
+
+    // Fast path: no triggers means no foreign keys
+    if (oids == NIL)
+        return;
+
+    // Check for foreign key dependencies
+    List *dependents = heap_truncate_find_FKs(oids);
+    if (dependents == NIL)
+        return;
+
+    // Find specific constraint violations to report
+    foreach(cell, oids) {
+        Oid relid = lfirst_oid(cell);
+        dependents = heap_truncate_find_FKs(list_make1_oid(relid));
+
+        foreach(cell2, dependents) {
+            Oid relid2 = lfirst_oid(cell2);
+
+            // Error if external table references this relation
+            if (!list_member_oid(oids, relid2)) {
+                char *relname = get_rel_name(relid);
+                char *relname2 = get_rel_name(relid2);
+
+                if (tempTables) {
+                    ereport(ERROR,
+                        (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                         errmsg("unsupported ON COMMIT and foreign key combination")));
+                } else {
+                    ereport(ERROR,
+                        (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                         errmsg("cannot truncate a table referenced in a foreign key constraint"),
+                         errdetail("Table \"%s\" references \"%s\".", relname2, relname),
+                         errhint("Truncate table \"%s\" at the same time, or use TRUNCATE ... CASCADE.", relname2)));
+                }
+            }
+        }
+    }
+}
+```

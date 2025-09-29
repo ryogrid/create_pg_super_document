@@ -50,3 +50,35 @@ This design ensures that the MergeAppend node can be efficiently reused within t
 - Critical for correctness in nested loop joins where the inner side (containing the MergeAppend) must be rescanned for each outer tuple
 - Memory management is handled efficiently - the heap structure is reused rather than deallocated and recreated
 - Parameter change detection uses bitmapset operations for efficient comparison of parameter sets
+
+## Simplified Source
+
+```c
+void ExecReScanMergeAppend(MergeAppendState *node) {
+    int i;
+
+    // Clear valid subplans if pruning parameters changed
+    if (node->ms_prune_state &&
+        bms_overlap(node->ps.chgParam, node->ms_prune_state->execparamids)) {
+        bms_free(node->ms_valid_subplans);
+        node->ms_valid_subplans = NULL;
+    }
+
+    // Rescan all subplans
+    for (i = 0; i < node->ms_nplans; i++) {
+        PlanState *subnode = node->mergeplans[i];
+
+        // Propagate parameter changes to subplan
+        if (node->ps.chgParam != NULL)
+            UpdateChangedParamSet(subnode, node->ps.chgParam);
+
+        // Rescan subplan if no parameters changed
+        if (subnode->chgParam == NULL)
+            ExecReScan(subnode);
+    }
+
+    // Reset merge state
+    binaryheap_reset(node->ms_heap);
+    node->ms_initialized = false;
+}
+```

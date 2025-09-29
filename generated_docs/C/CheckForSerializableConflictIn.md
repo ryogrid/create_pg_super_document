@@ -57,3 +57,49 @@ The function performs early exit optimizations:
 - Sets MyXactDidWrite=true to track that the current transaction has performed writes
 - Will throw ERRCODE_T_R_SERIALIZATION_FAILURE error if transaction is doomed
 - Located in src/backend/storage/lmgr/predicate.c:4326-4408
+
+## Simplified Source
+
+```c
+void CheckForSerializableConflictIn(Relation relation, ItemPointer tid, BlockNumber blkno)
+{
+    PREDICATELOCKTARGETTAG targettag;
+
+    // Early exit if serialization not needed
+    if (!SerializationNeededForWrite(relation))
+        return;
+
+    // Abort if transaction already doomed
+    if (SxactIsDoomed(MySerializableXact))
+        ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                        errmsg("could not serialize access due to read/write dependencies among transactions")));
+
+    // Mark that this transaction performed a write
+    MyXactDidWrite = true;
+
+    // Check for conflicts at multiple granularity levels (finest to coarsest)
+
+    // 1. Tuple-level check
+    if (tid != NULL)
+    {
+        SET_PREDICATELOCKTARGETTAG_TUPLE(targettag, relation->rd_locator.dbOid,
+                                         relation->rd_id,
+                                         ItemPointerGetBlockNumber(tid),
+                                         ItemPointerGetOffsetNumber(tid));
+        CheckTargetForConflictsIn(&targettag);
+    }
+
+    // 2. Page-level check
+    if (blkno != InvalidBlockNumber)
+    {
+        SET_PREDICATELOCKTARGETTAG_PAGE(targettag, relation->rd_locator.dbOid,
+                                        relation->rd_id, blkno);
+        CheckTargetForConflictsIn(&targettag);
+    }
+
+    // 3. Relation-level check (always performed)
+    SET_PREDICATELOCKTARGETTAG_RELATION(targettag, relation->rd_locator.dbOid,
+                                        relation->rd_id);
+    CheckTargetForConflictsIn(&targettag);
+}
+```

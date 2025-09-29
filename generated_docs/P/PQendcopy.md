@@ -34,3 +34,16 @@ The function returns 0 on success and 1 on failure. It includes a basic null poi
 - Part of the legacy COPY protocol API in libpq
 - Located in src/interfaces/libpq/fe-exec.c:2949-2979
 - Used in various PostgreSQL components including replication, pgbench, and ECPG
+
+## Simplified Source
+
+```c
+int PQendcopy(PGconn *conn) {
+    // Basic null check for connection
+    if (!conn)
+        return 0;
+
+    // Delegate to internal copy end function
+    return pqEndcopy3(conn);
+}
+```

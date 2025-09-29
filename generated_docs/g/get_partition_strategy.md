@@ -34,3 +34,13 @@ The function serves as an accessor method to encapsulate access to the Partition
 - The function returns the strategy field directly from the PartitionKey structure
 - Used primarily during partition bound validation and constraint processing
 - Located at src/include/utils/partcache.h:55-62
+
+## Simplified Source
+```c
+static inline int
+get_partition_strategy(PartitionKey key)
+{
+    // Simple accessor: return partitioning strategy
+    return key->strategy;
+}
+```

@@ -41,3 +41,105 @@ This function processes a list of parsed and rewritten query trees for a SQL fun
 - Implements lazy evaluation for final SELECT statements when conditions allow
 - Marks the last canSetTag query as setting the function result
 - Returns NIL if no queries provided, otherwise returns list of execution state chains
+
+## Simplified Source
+
+```c
+static List *init_execution_state(List *queryTree_list,
+                                  SQLFunctionCachePtr fcache,
+                                  bool lazyEvalOK)
+{
+    List *eslist = NIL;
+    execution_state *lasttages = NULL;
+
+    // Process each query sublist
+    foreach(lc1, queryTree_list) {
+        List *qtlist = lfirst_node(List, lc1);
+        execution_state *firstes = NULL;
+        execution_state *preves = NULL;
+
+        // Process each query in the sublist
+        foreach(lc2, qtlist) {
+            Query *queryTree = lfirst_node(Query, lc2);
+            PlannedStmt *stmt;
+            execution_state *newes;
+
+            // Step 1: Plan the query
+            if (queryTree->commandType == CMD_UTILITY) {
+                // Utility commands don't need planning
+                stmt = makeNode(PlannedStmt);
+                stmt->commandType = CMD_UTILITY;
+                stmt->canSetTag = queryTree->canSetTag;
+                stmt->utilityStmt = queryTree->utilityStmt;
+                // Copy other metadata
+            } else {
+                // Plan regular queries
+                stmt = pg_plan_query(queryTree, fcache->src, CURSOR_OPT_PARALLEL_OK, NULL);
+            }
+
+            // Step 2: Validate command for function context
+            if (stmt->commandType == CMD_UTILITY) {
+                // Reject client COPY commands
+                if (IsA(stmt->utilityStmt, CopyStmt) &&
+                    ((CopyStmt *) stmt->utilityStmt)->filename == NULL) {
+                    ereport(ERROR, "cannot COPY to/from client in an SQL function");
+                }
+
+                // Reject transaction commands
+                if (IsA(stmt->utilityStmt, TransactionStmt)) {
+                    ereport(ERROR, "%s is not allowed in an SQL function",
+                           CreateCommandName(stmt->utilityStmt));
+                }
+            }
+
+            // Check readonly function constraints
+            if (fcache->readonly_func && !CommandIsReadOnly(stmt)) {
+                ereport(ERROR, "%s is not allowed in a non-volatile function",
+                       CreateCommandName((Node *) stmt));
+            }
+
+            // Step 3: Create execution state record
+            newes = (execution_state *) palloc(sizeof(execution_state));
+
+            // Link into chain
+            if (preves) {
+                preves->next = newes;
+            } else {
+                firstes = newes;
+            }
+
+            // Initialize execution state
+            newes->next = NULL;
+            newes->status = F_EXEC_START;
+            newes->setsResult = false;
+            newes->lazyEval = false;
+            newes->stmt = stmt;
+            newes->qd = NULL;
+
+            // Track last statement that can set result
+            if (queryTree->canSetTag) {
+                lasttages = newes;
+            }
+
+            preves = newes;
+        }
+
+        // Add this query chain to the result list
+        eslist = lappend(eslist, firstes);
+    }
+
+    // Step 4: Configure result-setting and lazy evaluation
+    if (lasttages && fcache->junkFilter) {
+        lasttages->setsResult = true;
+
+        // Enable lazy evaluation for final SELECT if possible
+        if (lazyEvalOK &&
+            lasttages->stmt->commandType == CMD_SELECT &&
+            !lasttages->stmt->hasModifyingCTE) {
+            fcache->lazyEval = lasttages->lazyEval = true;
+        }
+    }
+
+    return eslist;
+}
+```

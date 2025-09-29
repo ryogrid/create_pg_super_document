@@ -49,3 +49,58 @@ The function initializes all fields of the IndexInfo structure, including runtim
 - Sets up memory context tracking for proper cleanup
 - Essential for all index-related operations in PostgreSQL's execution engine
 - The structure supports advanced index features like exclusion constraints, speculative inserts, and parallel index building
+
+## Simplified Source
+
+```c
+IndexInfo *
+makeIndexInfo(int numattrs, int numkeyattrs, Oid amoid, List *expressions,
+              List *predicates, bool unique, bool nulls_not_distinct,
+              bool isready, bool concurrent, bool summarizing)
+{
+    IndexInfo *n = makeNode(IndexInfo);
+
+    // Set basic index properties
+    n->ii_NumIndexAttrs = numattrs;
+    n->ii_NumIndexKeyAttrs = numkeyattrs;
+    Assert(n->ii_NumIndexKeyAttrs != 0);
+    Assert(n->ii_NumIndexKeyAttrs <= n->ii_NumIndexAttrs);
+
+    // Set index characteristics
+    n->ii_Unique = unique;
+    n->ii_NullsNotDistinct = nulls_not_distinct;
+    n->ii_ReadyForInserts = isready;
+    n->ii_Concurrent = concurrent;
+    n->ii_Summarizing = summarizing;
+
+    // Summarizing indexes cannot contain non-key attributes
+    Assert(!summarizing || (numkeyattrs == numattrs));
+
+    // Set expressions and predicates
+    n->ii_Expressions = expressions;
+    n->ii_ExpressionsState = NIL;
+    n->ii_Predicate = predicates;
+    n->ii_PredicateState = NULL;
+
+    // Initialize arrays to NULL (will be filled later if needed)
+    n->ii_ExclusionOps = NULL;
+    n->ii_ExclusionProcs = NULL;
+    n->ii_ExclusionStrats = NULL;
+    n->ii_UniqueOps = NULL;
+    n->ii_UniqueProcs = NULL;
+    n->ii_UniqueStrats = NULL;
+
+    // Initialize runtime state fields
+    n->ii_CheckedUnchanged = false;
+    n->ii_IndexUnchanged = false;
+    n->ii_BrokenHotChain = false;
+    n->ii_ParallelWorkers = 0;
+
+    // Set access method info
+    n->ii_Am = amoid;
+    n->ii_AmCache = NULL;
+    n->ii_Context = CurrentMemoryContext;
+
+    return n;
+}
+```

@@ -44,3 +44,80 @@ The function handles the special 'ALL' command type ('*') which applies to all o
 - Extension hooks allow third-party code to provide additional policies beyond those stored in the system catalogs
 - Built-in restrictive policies are always processed before hook-provided restrictive policies
 - The function respects the policy's role list and only includes policies where the specified user has the appropriate role membership
+
+## Simplified Source
+
+```c
+static void get_policies_for_relation(Relation relation, CmdType cmd, Oid user_id,
+                                      List **permissive_policies,
+                                      List **restrictive_policies) {
+    *permissive_policies = NIL;
+    *restrictive_policies = NIL;
+
+    // Process built-in policies stored in relation descriptor
+    foreach(item, relation->rd_rsdesc->policies) {
+        RowSecurityPolicy *policy = (RowSecurityPolicy *) lfirst(item);
+        bool cmd_matches = false;
+
+        // Check if policy applies to this command type
+        if (policy->polcmd == '*') {
+            // ALL policies apply to all commands
+            cmd_matches = true;
+        } else {
+            switch (cmd) {
+                case CMD_SELECT:
+                    cmd_matches = (policy->polcmd == ACL_SELECT_CHR);
+                    break;
+                case CMD_INSERT:
+                    cmd_matches = (policy->polcmd == ACL_INSERT_CHR);
+                    break;
+                case CMD_UPDATE:
+                    cmd_matches = (policy->polcmd == ACL_UPDATE_CHR);
+                    break;
+                case CMD_DELETE:
+                    cmd_matches = (policy->polcmd == ACL_DELETE_CHR);
+                    break;
+                case CMD_MERGE:
+                    // MERGE derives policies from other commands
+                    break;
+                default:
+                    elog(ERROR, "unrecognized policy command type %d", (int) cmd);
+            }
+        }
+
+        // Add policy if it applies to command and user role
+        if (cmd_matches && check_role_for_policy(policy->roles, user_id)) {
+            if (policy->permissive)
+                *permissive_policies = lappend(*permissive_policies, policy);
+            else
+                *restrictive_policies = lappend(*restrictive_policies, policy);
+        }
+    }
+
+    // Sort restrictive policies by name for deterministic order
+    sort_policies_by_name(*restrictive_policies);
+
+    // Add extension-provided restrictive policies
+    if (row_security_policy_hook_restrictive) {
+        List *hook_policies = (*row_security_policy_hook_restrictive)(cmd, relation);
+        sort_policies_by_name(hook_policies);
+
+        foreach(item, hook_policies) {
+            RowSecurityPolicy *policy = (RowSecurityPolicy *) lfirst(item);
+            if (check_role_for_policy(policy->roles, user_id))
+                *restrictive_policies = lappend(*restrictive_policies, policy);
+        }
+    }
+
+    // Add extension-provided permissive policies
+    if (row_security_policy_hook_permissive) {
+        List *hook_policies = (*row_security_policy_hook_permissive)(cmd, relation);
+
+        foreach(item, hook_policies) {
+            RowSecurityPolicy *policy = (RowSecurityPolicy *) lfirst(item);
+            if (check_role_for_policy(policy->roles, user_id))
+                *permissive_policies = lappend(*permissive_policies, policy);
+        }
+    }
+}
+```

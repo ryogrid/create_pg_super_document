@@ -74,3 +74,85 @@ Key responsibilities include:
 - [Constraint](../C/Constraint.md) names are automatically modified if conflicts exist, ensuring uniqueness within the relation
 - The function handles both top-level constraints and partition-specific constraints differently regarding inheritance properties
 - [Command](../C/Command.md) counter increment ensures constraint visibility for subsequent operations in the same transaction
+
+## Simplified Source
+
+```c
+static ObjectAddress addFkConstraint(addFkConstraintSides fkside,
+                                    char *constraintname, Constraint *fkconstraint,
+                                    Relation rel, Relation pkrel, Oid indexOid, Oid parentConstr,
+                                    int numfks, int16 *pkattnum, int16 *fkattnum,
+                                    Oid *pfeqoperators, Oid *ppeqoperators, Oid *ffeqoperators,
+                                    int numfkdelsetcols, int16 *fkdelsetcols, bool is_internal) {
+    ObjectAddress address;
+    Oid constraintOid;
+    char *conname;
+    bool conislocal, connoinherit;
+    int coninhcount;
+
+    // Verify referenced relation is a table
+    if (pkrel->rd_rel->relkind != RELKIND_RELATION &&
+        pkrel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+        ereport(ERROR, "referenced relation is not a table");
+    }
+
+    // Choose unique constraint name if needed
+    if (ConstraintNameIsUsed(CONSTRAINT_RELATION, RelationGetRelid(rel), constraintname)) {
+        conname = ChooseConstraintName(RelationGetRelationName(rel),
+                                      ChooseForeignKeyConstraintNameAddition(fkconstraint->fk_attrs),
+                                      "fkey", RelationGetNamespace(rel), NIL);
+    } else {
+        conname = constraintname;
+    }
+
+    // Set constraint name if not already set
+    if (fkconstraint->conname == NULL)
+        fkconstraint->conname = pstrdup(conname);
+
+    // Set inheritance properties
+    if (OidIsValid(parentConstr)) {
+        // This is a child constraint
+        conislocal = false;
+        coninhcount = 1;
+        connoinherit = false;
+    } else {
+        // This is a top-level constraint
+        conislocal = true;
+        coninhcount = 0;
+        connoinherit = (rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE);
+    }
+
+    // Create the constraint entry in pg_constraint
+    constraintOid = CreateConstraintEntry(conname, RelationGetNamespace(rel),
+                                         CONSTRAINT_FOREIGN, fkconstraint->deferrable,
+                                         fkconstraint->initdeferred, fkconstraint->initially_valid,
+                                         parentConstr, RelationGetRelid(rel), fkattnum, numfks,
+                                         numfks, InvalidOid, indexOid, RelationGetRelid(pkrel),
+                                         pkattnum, pfeqoperators, ppeqoperators, ffeqoperators,
+                                         numfks, fkconstraint->fk_upd_action, fkconstraint->fk_del_action,
+                                         fkdelsetcols, numfkdelsetcols, fkconstraint->fk_matchtype,
+                                         NULL, NULL, NULL, conislocal, coninhcount, connoinherit,
+                                         is_internal);
+
+    ObjectAddressSet(address, ConstraintRelationId, constraintOid);
+
+    // Set up dependency relationships for partitioned constraints
+    if (OidIsValid(parentConstr)) {
+        ObjectAddress referenced;
+        ObjectAddressSet(referenced, ConstraintRelationId, parentConstr);
+
+        if (fkside == addFkReferencedSide) {
+            recordDependencyOn(&address, &referenced, DEPENDENCY_INTERNAL);
+        } else {
+            recordDependencyOn(&address, &referenced, DEPENDENCY_PARTITION_PRI);
+            ObjectAddressSet(referenced, RelationRelationId, RelationGetRelid(rel));
+            recordDependencyOn(&address, &referenced, DEPENDENCY_PARTITION_SEC);
+        }
+    }
+
+    // Make constraint visible for subsequent operations
+    CommandCounterIncrement();
+
+    return address;
+}
+```

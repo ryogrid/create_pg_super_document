@@ -52,3 +52,68 @@ The function is designed as a shared utility between timestamp and interval pars
 - Performs comprehensive range validation for minutes (0-59), seconds (0-60 for leap seconds), and microseconds (0-999999)
 - The function is static, indicating it's an internal utility shared between related parsing functions
 - Field reinterpretation logic allows the same parsing code to handle both absolute times and interval components
+
+## Simplified Source
+
+```c
+static int
+DecodeTimeCommon(char *str, int fmask, int range,
+                 int *tmask, struct pg_itm *itm)
+{
+    char *cp;
+    fsec_t fsec = 0;
+
+    *tmask = DTK_TIME_M;
+
+    // Parse hours
+    errno = 0;
+    itm->tm_hour = strtoi64(str, &cp, 10);
+    if (errno == ERANGE || *cp != ':')
+        return DTERR_FIELD_OVERFLOW;
+
+    // Parse minutes
+    errno = 0;
+    itm->tm_min = strtoint(cp + 1, &cp, 10);
+    if (errno == ERANGE)
+        return DTERR_FIELD_OVERFLOW;
+
+    // Handle different time formats
+    if (*cp == '\0') {
+        // HH:MM format
+        itm->tm_sec = 0;
+        // Special handling for MINUTE TO SECOND intervals
+        if (range == (INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND))) {
+            itm->tm_sec = itm->tm_min;
+            itm->tm_min = (int)itm->tm_hour;
+            itm->tm_hour = 0;
+        }
+    } else if (*cp == '.') {
+        // MM:SS.sss format (fractional seconds)
+        if (ParseFractionalSecond(cp, &fsec))
+            return DTERR_BAD_FORMAT;
+        itm->tm_sec = itm->tm_min;
+        itm->tm_min = (int)itm->tm_hour;
+        itm->tm_hour = 0;
+    } else if (*cp == ':') {
+        // HH:MM:SS[.sss] format
+        errno = 0;
+        itm->tm_sec = strtoint(cp + 1, &cp, 10);
+        if (errno == ERANGE)
+            return DTERR_FIELD_OVERFLOW;
+        if (*cp == '.' && ParseFractionalSecond(cp, &fsec))
+            return DTERR_BAD_FORMAT;
+    } else {
+        return DTERR_BAD_FORMAT;
+    }
+
+    // Validate parsed values
+    if (itm->tm_hour < 0 ||
+        itm->tm_min < 0 || itm->tm_min > MINS_PER_HOUR - 1 ||
+        itm->tm_sec < 0 || itm->tm_sec > SECS_PER_MINUTE ||
+        fsec < 0 || fsec > USECS_PER_SEC)
+        return DTERR_FIELD_OVERFLOW;
+
+    itm->tm_usec = (int)fsec;
+    return 0;
+}
+```

@@ -46,3 +46,56 @@ The function also handles startup cost accounting based on correlation and mater
 - The logic should align with tuple_fraction estimates used in make_subplan() for consistency
 - [Hash](../H/Hash.md) table probing cost estimation is conservative and could potentially be refined
 - For materialized uncorrelated subplans, startup cost is only charged once rather than per execution
+
+## Simplified Source
+
+```c
+void
+cost_subplan(PlannerInfo *root, SubPlan *subplan, Plan *plan)
+{
+    QualCost sp_cost;
+
+    // Calculate cost of evaluating test expression
+    cost_qual_eval(&sp_cost, make_ands_implicit((Expr *) subplan->testexpr), root);
+
+    if (subplan->useHashTable)
+    {
+        // Hash table strategy: one-time execution cost
+        sp_cost.startup += plan->total_cost + cpu_operator_cost * plan->plan_rows;
+        // Per-tuple cost is just hash table probing
+    }
+    else
+    {
+        // Rescanning strategy: cost depends on sublink type
+        Cost plan_run_cost = plan->total_cost - plan->startup_cost;
+
+        if (subplan->subLinkType == EXISTS_SUBLINK)
+        {
+            // EXISTS: only need first tuple
+            sp_cost.per_tuple += plan_run_cost / clamp_row_est(plan->plan_rows);
+        }
+        else if (subplan->subLinkType == ALL_SUBLINK ||
+                 subplan->subLinkType == ANY_SUBLINK)
+        {
+            // ALL/ANY: assume 50% of tuples examined
+            sp_cost.per_tuple += 0.50 * plan_run_cost;
+            sp_cost.per_tuple += 0.50 * plan->plan_rows * cpu_operator_cost;
+        }
+        else
+        {
+            // Other sublinks: assume all tuples needed
+            sp_cost.per_tuple += plan_run_cost;
+        }
+
+        // Handle startup cost based on correlation and materialization
+        if (subplan->parParam == NIL && ExecMaterializesOutput(nodeTag(plan)))
+            sp_cost.startup += plan->startup_cost;  // One-time cost
+        else
+            sp_cost.per_tuple += plan->startup_cost;  // Per-execution cost
+    }
+
+    // Store calculated costs
+    subplan->startup_cost = sp_cost.startup;
+    subplan->per_call_cost = sp_cost.per_tuple;
+}
+```

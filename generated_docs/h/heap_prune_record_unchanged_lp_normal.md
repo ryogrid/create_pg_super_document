@@ -44,3 +44,69 @@ The function must maintain consistency with ANALYZE's acquire_sample_rows() func
 - Integrates with PostgreSQL's visibility map and freeze mechanisms
 - The function assumes VACUUM cannot run inside a transaction block, simplifying some visibility logic
 - Contains extensive comments explaining the relationship with ANALYZE's tuple counting methodology
+
+## Simplified Source
+
+```c
+static void heap_prune_record_unchanged_lp_normal(Page page, PruneState *prstate, OffsetNumber offnum)
+{
+    HeapTupleHeader htup;
+
+    // Mark as processed and indicate page has tuples
+    prstate->processed[offnum] = true;
+    prstate->hastup = true;
+
+    htup = (HeapTupleHeader) PageGetItem(page, PageGetItemId(page, offnum));
+
+    // Handle tuple based on its visibility status
+    switch (prstate->htsv[offnum]) {
+        case HEAPTUPLE_LIVE:
+            prstate->live_tuples++;
+
+            // Check if tuple is visible to all transactions (for visibility map)
+            if (prstate->all_visible && prstate->cutoffs) {
+                TransactionId xmin = HeapTupleHeaderGetXmin(htup);
+
+                if (!HeapTupleHeaderXminCommitted(htup) ||
+                    !TransactionIdPrecedes(xmin, prstate->cutoffs->OldestXmin)) {
+                    prstate->all_visible = false;
+                } else {
+                    // Track newest xmin for visibility cutoff
+                    if (TransactionIdFollows(xmin, prstate->visibility_cutoff_xid))
+                        prstate->visibility_cutoff_xid = xmin;
+                }
+            }
+            break;
+
+        case HEAPTUPLE_RECENTLY_DEAD:
+            prstate->recently_dead_tuples++;
+            prstate->all_visible = false;
+            // Mark page as needing future pruning
+            heap_prune_record_prunable(prstate, HeapTupleHeaderGetUpdateXid(htup));
+            break;
+
+        case HEAPTUPLE_INSERT_IN_PROGRESS:
+            prstate->all_visible = false;
+            break;
+
+        case HEAPTUPLE_DELETE_IN_PROGRESS:
+            prstate->live_tuples++;
+            prstate->all_visible = false;
+            heap_prune_record_prunable(prstate, HeapTupleHeaderGetUpdateXid(htup));
+            break;
+    }
+
+    // Consider freezing the tuple if freeze mode is enabled
+    if (prstate->freeze) {
+        bool totally_frozen;
+
+        if (heap_prepare_freeze_tuple(htup, prstate->cutoffs, &prstate->pagefrz,
+                                     &prstate->frozen[prstate->nfrozen], &totally_frozen)) {
+            prstate->frozen[prstate->nfrozen++].offset = offnum;
+        }
+
+        if (!totally_frozen)
+            prstate->all_frozen = false;
+    }
+}
+```

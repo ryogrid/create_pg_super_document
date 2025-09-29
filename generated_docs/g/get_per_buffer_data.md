@@ -30,3 +30,15 @@ This is a utility function that calculates the memory address of per-buffer data
 - This is a static inline function for performance, as it's a simple pointer calculation used frequently
 - The function assumes that buffer_index is valid and within the bounds of allocated buffers
 - The per_buffer_data is allocated as a contiguous block, with each buffer's data stored sequentially
+
+## Simplified Source
+
+```c
+static inline void *
+get_per_buffer_data(ReadStream *stream, int16 buffer_index)
+{
+    // Calculate offset into per-buffer data array
+    return (char *) stream->per_buffer_data +
+           stream->per_buffer_data_size * buffer_index;
+}
+```

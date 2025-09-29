@@ -58,3 +58,34 @@ This function serves as the main entry point for building relation options struc
 - The validate parameter is crucial for distinguishing between fresh user input (which needs validation) and catalog-stored values (which are pre-validated)
 - This function is used by virtually all PostgreSQL access methods and relation types for option parsing
 - The returned structure is dynamically allocated and becomes the caller's responsibility to manage
+
+## Simplified Source
+
+```c
+void *build_reloptions(Datum reloptions, bool validate,
+                       relopt_kind kind, Size relopt_struct_size,
+                       const relopt_parse_elt *relopt_elems,
+                       int num_relopt_elems) {
+    int numoptions;
+    relopt_value *options;
+    void *rdopts;
+
+    // Parse options specific to given relation option kind
+    options = parseRelOptions(reloptions, validate, kind, &numoptions);
+
+    // Return NULL if no options found
+    if (numoptions == 0) {
+        return NULL;
+    }
+
+    // Allocate and fill the structure
+    rdopts = allocateReloptStruct(relopt_struct_size, options, numoptions);
+    fillRelOptions(rdopts, relopt_struct_size, options, numoptions,
+                   validate, relopt_elems, num_relopt_elems);
+
+    // Clean up temporary options array
+    pfree(options);
+
+    return rdopts;
+}
+```

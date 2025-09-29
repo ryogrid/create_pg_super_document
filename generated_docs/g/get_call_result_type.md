@@ -47,3 +47,20 @@ The function is designed to be called sparingly in set-returning functions due t
 - The function handles both scalar and composite return types through its output parameters
 - Located in src/backend/utils/fmgr/funcapi.c at lines 276-298
 - Part of PostgreSQL's function manager API for type introspection
+
+## Simplified Source
+
+```c
+TypeFuncClass get_call_result_type(FunctionCallInfo fcinfo,
+                                  Oid *resultTypeId,
+                                  TupleDesc *resultTupleDesc)
+{
+    // Extract function information from the call context
+    // and delegate to the internal implementation
+    return internal_get_result_type(fcinfo->flinfo->fn_oid,        // Function OID
+                                   fcinfo->flinfo->fn_expr,       // Function expression
+                                   (ReturnSetInfo *) fcinfo->resultinfo,  // Result context
+                                   resultTypeId,                   // Output: type OID
+                                   resultTupleDesc);              // Output: tuple descriptor
+}
+```

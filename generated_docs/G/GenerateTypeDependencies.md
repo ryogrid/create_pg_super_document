@@ -66,3 +66,136 @@ When rebuilding dependencies (for ALTER TYPE operations or shell type completion
 - Supports extension membership recording while preserving existing extension relationships during rebuild
 - Does not handle multirange-to-range dependencies (handled by RangeCreate instead)
 - Critical for maintaining referential integrity in PostgreSQL's type system
+
+## Simplified Source
+
+```c
+void
+GenerateTypeDependencies(HeapTuple typeTuple, Relation typeCatalog,
+                        Node *defaultExpr, void *typacl, char relationKind,
+                        bool isImplicitArray, bool isDependentType,
+                        bool makeExtensionDep, bool rebuild)
+{
+    Form_pg_type typeForm = (Form_pg_type) GETSTRUCT(typeTuple);
+    Oid typeObjectId = typeForm->oid;
+    ObjectAddress myself, referenced;
+    ObjectAddresses *addrs_normal;
+
+    // Extract default expression and ACL if not provided
+    if (defaultExpr == NULL)
+    {
+        Datum datum;
+        bool isNull;
+        datum = heap_getattr(typeTuple, Anum_pg_type_typdefaultbin,
+                            RelationGetDescr(typeCatalog), &isNull);
+        if (!isNull)
+            defaultExpr = stringToNode(TextDatumGetCString(datum));
+    }
+
+    if (typacl == NULL)
+    {
+        Datum datum;
+        bool isNull;
+        datum = heap_getattr(typeTuple, Anum_pg_type_typacl,
+                            RelationGetDescr(typeCatalog), &isNull);
+        if (!isNull)
+            typacl = DatumGetAclPCopy(datum);
+    }
+
+    // Remove existing dependencies if rebuilding
+    if (rebuild)
+    {
+        deleteDependencyRecordsFor(TypeRelationId, typeObjectId, true);
+        deleteSharedDependencyRecordsFor(TypeRelationId, typeObjectId, 0);
+    }
+
+    ObjectAddressSet(myself, TypeRelationId, typeObjectId);
+    addrs_normal = new_object_addresses();
+
+    // Create namespace dependency for non-dependent types or multiranges
+    if (!isDependentType || typeForm->typtype == TYPTYPE_MULTIRANGE)
+    {
+        ObjectAddressSet(referenced, NamespaceRelationId, typeForm->typnamespace);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    // Create owner and ACL dependencies for non-dependent types
+    if (!isDependentType)
+    {
+        recordDependencyOnOwner(TypeRelationId, typeObjectId, typeForm->typowner);
+        recordDependencyOnNewAcl(TypeRelationId, typeObjectId, 0,
+                                typeForm->typowner, typacl);
+    }
+
+    // Create extension dependency if requested
+    if (makeExtensionDep)
+        recordDependencyOnCurrentExtension(&myself, rebuild);
+
+    // Add dependencies on I/O and support functions
+    if (OidIsValid(typeForm->typinput))
+    {
+        ObjectAddressSet(referenced, ProcedureRelationId, typeForm->typinput);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    if (OidIsValid(typeForm->typoutput))
+    {
+        ObjectAddressSet(referenced, ProcedureRelationId, typeForm->typoutput);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    // Add dependencies on other support functions
+    if (OidIsValid(typeForm->typreceive))
+    {
+        ObjectAddressSet(referenced, ProcedureRelationId, typeForm->typreceive);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    if (OidIsValid(typeForm->typsend))
+    {
+        ObjectAddressSet(referenced, ProcedureRelationId, typeForm->typsend);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    // Add dependency on base type for domains
+    if (OidIsValid(typeForm->typbasetype))
+    {
+        ObjectAddressSet(referenced, TypeRelationId, typeForm->typbasetype);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    // Add dependency on collation (skip default collation)
+    if (OidIsValid(typeForm->typcollation) &&
+        typeForm->typcollation != DEFAULT_COLLATION_OID)
+    {
+        ObjectAddressSet(referenced, CollationRelationId, typeForm->typcollation);
+        add_exact_object_address(&referenced, addrs_normal);
+    }
+
+    // Record all normal dependencies in bulk
+    record_object_address_dependencies(&myself, addrs_normal, DEPENDENCY_NORMAL);
+    free_object_addresses(addrs_normal);
+
+    // Record dependency on default expression
+    if (defaultExpr)
+        recordDependencyOnExpr(&myself, defaultExpr, NIL, DEPENDENCY_NORMAL);
+
+    // Handle relation rowtype dependencies
+    if (OidIsValid(typeForm->typrelid))
+    {
+        ObjectAddressSet(referenced, RelationRelationId, typeForm->typrelid);
+        if (relationKind != RELKIND_COMPOSITE_TYPE)
+            recordDependencyOn(&myself, &referenced, DEPENDENCY_INTERNAL);
+        else
+            recordDependencyOn(&referenced, &myself, DEPENDENCY_INTERNAL);
+    }
+
+    // Handle array type dependencies
+    if (OidIsValid(typeForm->typelem))
+    {
+        ObjectAddressSet(referenced, TypeRelationId, typeForm->typelem);
+        recordDependencyOn(&myself, &referenced,
+                          isImplicitArray ? DEPENDENCY_INTERNAL : DEPENDENCY_NORMAL);
+    }
+}
+```

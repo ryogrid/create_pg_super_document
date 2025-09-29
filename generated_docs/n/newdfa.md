@@ -45,3 +45,74 @@ The `newdfa` function allocates and initializes a new DFA structure for regex ex
 - Initializes backref tracking (backno=-1 initially, may be set by caller)
 - Critical infrastructure component for all DFA-based regex execution in PostgreSQL
 - Returns initialized DFA pointer on success, NULL with error set on failure
+
+## Simplified Source
+
+```c
+static struct dfa *newdfa(struct vars *v, struct cnfa *cnfa,
+                          struct colormap *cm, struct smalldfa *sml) {
+    struct dfa *d;
+    size_t nss = cnfa->nstates * 2;
+    int wordsper = (cnfa->nstates + UBITS - 1) / UBITS;
+    bool ismalloced = false;
+
+    // Use small DFA optimization for small state/color counts
+    if (nss <= FEWSTATES && cnfa->ncolors <= FEWCOLORS) {
+        if (sml == NULL) {
+            sml = MALLOC(sizeof(struct smalldfa));
+            if (sml == NULL) {
+                ERR(REG_ESPACE);
+                return NULL;
+            }
+            ismalloced = true;
+        }
+        d = &sml->dfa;
+        d->ssets = sml->ssets;
+        d->statesarea = sml->statesarea;
+        d->work = &d->statesarea[nss];
+        d->outsarea = sml->outsarea;
+        d->incarea = sml->incarea;
+        d->ismalloced = ismalloced;
+        d->arraysmalloced = false;
+    } else {
+        // Allocate full DFA structure for larger automata
+        d = MALLOC(sizeof(struct dfa));
+        if (d == NULL) {
+            ERR(REG_ESPACE);
+            return NULL;
+        }
+
+        d->ssets = MALLOC(nss * sizeof(struct sset));
+        d->statesarea = MALLOC((nss + WORK) * wordsper * sizeof(unsigned));
+        d->work = &d->statesarea[nss * wordsper];
+        d->outsarea = MALLOC(nss * cnfa->ncolors * sizeof(struct sset *));
+        d->incarea = MALLOC(nss * cnfa->ncolors * sizeof(struct arcp));
+
+        d->ismalloced = true;
+        d->arraysmalloced = true;
+
+        if (d->ssets == NULL || d->statesarea == NULL ||
+            d->outsarea == NULL || d->incarea == NULL) {
+            freedfa(d);
+            ERR(REG_ESPACE);
+            return NULL;
+        }
+    }
+
+    // Initialize DFA fields
+    d->nssets = (v->eflags & REG_SMALL) ? 7 : nss;
+    d->nssused = 0;
+    d->nstates = cnfa->nstates;
+    d->ncolors = cnfa->ncolors;
+    d->wordsper = wordsper;
+    d->cnfa = cnfa;
+    d->cm = cm;
+    d->lastpost = NULL;
+    d->lastnopr = NULL;
+    d->search = d->ssets;
+    d->backno = -1;
+    d->backmin = d->backmax = 0;
+
+    return d;
+}
+```

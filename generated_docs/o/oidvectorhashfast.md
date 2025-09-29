@@ -31,3 +31,12 @@ The  function is a simple wrapper around the standard  function that provides a 
 - The function serves as an optimization layer for catalog cache hash operations
 - It specifically handles oidvector data types, which are commonly used in PostgreSQL's system catalogs
 - The 'fast' suffix indicates this is an optimized version designed for frequent catalog cache operations
+
+## Simplified Source
+
+```c
+static uint32 oidvectorhashfast(Datum datum) {
+    // Fast oidvector hash: call standard hashoidvector function directly
+    return DatumGetInt32(DirectFunctionCall1(hashoidvector, datum));
+}
+```

@@ -32,3 +32,28 @@ ExecReScanTableFuncScan is responsible for rescanning a TableFuncScan execution 
 - Handles parameter change optimization by selectively clearing cached data
 - Maintains tuple store state for efficient rescanning when parameters are unchanged
 - Essential for proper execution of table functions with changing parameters
+
+## Simplified Source
+
+```c
+void ExecReScanTableFuncScan(TableFuncScanState *node) {
+    Bitmapset *chgparam = node->ss.ps.chgParam;
+
+    // Clear result tuple and rescan base scan state
+    if (node->ss.ps.ps_ResultTupleSlot)
+        ExecClearTuple(node->ss.ps.ps_ResultTupleSlot);
+    ExecScanReScan(&node->ss);
+
+    // If parameters changed, invalidate cached data
+    if (chgparam) {
+        if (node->tupstore != NULL) {
+            tuplestore_end(node->tupstore);
+            node->tupstore = NULL;
+        }
+    }
+
+    // If tupstore still exists, just reset to beginning
+    if (node->tupstore != NULL)
+        tuplestore_rescan(node->tupstore);
+}
+```

@@ -35,3 +35,27 @@ This static function calculates the maximum time the standby server should wait 
 - Returns 0 (past time) when configured to wait indefinitely, allowing immediate conflict resolution
 - Central to PostgreSQL's hot standby conflict resolution mechanism
 - The cutoff time is calculated as: last_wal_receipt_time + appropriate_delay_setting
+
+## Simplified Source
+
+```c
+static TimestampTz GetStandbyLimitTime(void) {
+    TimestampTz rtime;
+    bool fromStream;
+
+    // Get the time when WAL data was last received and its source
+    GetXLogReceiptTime(&rtime, &fromStream);
+
+    if (fromStream) {
+        // Using streaming replication - check streaming delay setting
+        if (max_standby_streaming_delay < 0)
+            return 0;  // Wait forever
+        return TimestampTzPlusMilliseconds(rtime, max_standby_streaming_delay);
+    } else {
+        // Using archive recovery - check archive delay setting
+        if (max_standby_archive_delay < 0)
+            return 0;  // Wait forever
+        return TimestampTzPlusMilliseconds(rtime, max_standby_archive_delay);
+    }
+}
+```

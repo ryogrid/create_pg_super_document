@@ -54,3 +54,70 @@ For all other node types, the function delegates to expression_tree_walker for s
 - Critical for identifying all external parameter dependencies in expression trees
 - Part of PostgreSQL's parameter finalization subsystem in subselect processing
 - Located in src/backend/optimizer/plan/subselect.c (static function)
+
+## Simplified Source
+
+```c
+static bool
+finalize_primnode(Node *node, finalize_primnode_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Handle PARAM_EXEC parameters
+    if (IsA(node, Param))
+    {
+        if (((Param *) node)->paramkind == PARAM_EXEC)
+        {
+            int paramid = ((Param *) node)->paramid;
+            context->paramids = bms_add_member(context->paramids, paramid);
+        }
+        return false;
+    }
+
+    // Handle aggregate functions that may become parameters
+    else if (IsA(node, Aggref))
+    {
+        Aggref *aggref = (Aggref *) node;
+
+        // Check if this aggregate will be replaced by a parameter
+        Param *aggparam = find_minmax_agg_replacement_param(context->root, aggref);
+        if (aggparam != NULL)
+            context->paramids = bms_add_member(context->paramids, aggparam->paramid);
+
+        // Continue to examine aggregate arguments
+    }
+
+    // Handle subplan nodes
+    else if (IsA(node, SubPlan))
+    {
+        SubPlan *subplan = (SubPlan *) node;
+        Plan *plan = planner_subplan_get_plan(context->root, subplan);
+
+        // Process test expression
+        finalize_primnode(subplan->testexpr, context);
+
+        // Remove subplan output parameters from our set
+        foreach(lc, subplan->paramIds)
+        {
+            context->paramids = bms_del_member(context->paramids, lfirst_int(lc));
+        }
+
+        // Process subplan arguments
+        finalize_primnode((Node *) subplan->args, context);
+
+        // Add external parameters needed by subplan
+        Bitmapset *subparamids = bms_copy(plan->extParam);
+        foreach(lc, subplan->parParam)
+        {
+            subparamids = bms_del_member(subparamids, lfirst_int(lc));
+        }
+        context->paramids = bms_join(context->paramids, subparamids);
+
+        return false;
+    }
+
+    // Continue tree traversal for other node types
+    return expression_tree_walker(node, finalize_primnode, context);
+}
+```

@@ -65,3 +65,146 @@ The function supports various index creation modes including concurrent creation
 - Can skip index building phase for deferred construction (ALTER TABLE scenarios)
 - Properly handles inheritance relationships for partitioned tables
 - Located at src/backend/catalog/index.c:724-1297
+
+## Simplified Source
+
+```c
+Oid
+index_create(Relation heapRelation, const char *indexRelationName,
+             Oid indexRelationId, Oid parentIndexRelid, Oid parentConstraintId,
+             RelFileNumber relFileNumber, IndexInfo *indexInfo,
+             const List *indexColNames, Oid accessMethodId, Oid tableSpaceId,
+             const Oid *collationIds, const Oid *opclassIds,
+             const Datum *opclassOptions, const int16 *coloptions,
+             const NullableDatum *stattargets, Datum reloptions,
+             bits16 flags, bits16 constr_flags, bool allow_system_table_mods,
+             bool is_internal, Oid *constraintId)
+{
+    Oid heapRelationId = RelationGetRelid(heapRelation);
+    Relation pg_class;
+    Relation indexRelation;
+    TupleDesc indexTupDesc;
+    bool isprimary = (flags & INDEX_CREATE_IS_PRIMARY) != 0;
+    bool concurrent = (flags & INDEX_CREATE_CONCURRENT) != 0;
+    bool partitioned = (flags & INDEX_CREATE_PARTITIONED) != 0;
+    char relkind = partitioned ? RELKIND_PARTITIONED_INDEX : RELKIND_INDEX;
+
+    // Basic parameter validation
+    if (indexInfo->ii_NumIndexAttrs < 1)
+        elog(ERROR, "must index at least one column");
+
+    // Check system table modification permissions
+    if (!allow_system_table_mods && IsSystemRelation(heapRelation))
+        ereport(ERROR, "user-defined indexes on system catalog tables are not supported");
+
+    // Validate collation compatibility with operator classes
+    for (int i = 0; i < indexInfo->ii_NumIndexKeyAttrs; i++)
+    {
+        if (collationIds[i] &&
+            (opclassIds[i] == TEXT_BTREE_PATTERN_OPS_OID ||
+             opclassIds[i] == VARCHAR_BTREE_PATTERN_OPS_OID ||
+             opclassIds[i] == BPCHAR_BTREE_PATTERN_OPS_OID) &&
+            !get_collation_isdeterministic(collationIds[i]))
+        {
+            ereport(ERROR, "nondeterministic collations not supported for pattern ops");
+        }
+    }
+
+    // Check for duplicate index name
+    if (get_relname_relid(indexRelationName, RelationGetNamespace(heapRelation)))
+    {
+        if (flags & INDEX_CREATE_IF_NOT_EXISTS)
+        {
+            ereport(NOTICE, "relation \"%s\" already exists, skipping", indexRelationName);
+            return InvalidOid;
+        }
+        ereport(ERROR, "relation \"%s\" already exists", indexRelationName);
+    }
+
+    // Build index tuple descriptor
+    indexTupDesc = ConstructTupleDescriptor(heapRelation, indexInfo, indexColNames,
+                                          accessMethodId, collationIds, opclassIds);
+
+    // Generate OID if not provided
+    if (!OidIsValid(indexRelationId))
+    {
+        indexRelationId = GetNewRelFileNumber(tableSpaceId, pg_class,
+                                            heapRelation->rd_rel->relpersistence);
+    }
+
+    // Create the physical index relation
+    indexRelation = heap_create(indexRelationName,
+                               RelationGetNamespace(heapRelation),
+                               tableSpaceId, indexRelationId, relFileNumber,
+                               accessMethodId, indexTupDesc, relkind,
+                               heapRelation->rd_rel->relpersistence,
+                               heapRelation->rd_rel->relisshared,
+                               RelationIsMapped(heapRelation),
+                               allow_system_table_mods,
+                               &relfrozenxid, &relminmxid, create_storage);
+
+    // Lock the new index relation
+    LockRelation(indexRelation, AccessExclusiveLock);
+
+    // Update pg_class entry
+    indexRelation->rd_rel->relowner = heapRelation->rd_rel->relowner;
+    indexRelation->rd_rel->relam = accessMethodId;
+    indexRelation->rd_rel->relispartition = OidIsValid(parentIndexRelid);
+
+    InsertPgClassTuple(pg_class, indexRelation, indexRelationId, (Datum) 0, reloptions);
+
+    // Initialize attribute information
+    InitializeAttributeOids(indexRelation, indexInfo->ii_NumIndexAttrs, indexRelationId);
+    AppendAttributeTuples(indexRelation, opclassOptions, stattargets);
+
+    // Update pg_index catalog
+    UpdateIndexRelation(indexRelationId, heapRelationId, parentIndexRelid,
+                       indexInfo, collationIds, opclassIds, coloptions,
+                       isprimary, (indexInfo->ii_ExclusionOps != NULL),
+                       (constr_flags & INDEX_CONSTR_CREATE_DEFERRABLE) == 0,
+                       !concurrent, !concurrent);
+
+    // Invalidate relcache for heap relation
+    CacheInvalidateRelcache(heapRelation);
+
+    // Handle inheritance for partitioned indexes
+    if (OidIsValid(parentIndexRelid))
+    {
+        StoreSingleInheritance(indexRelationId, parentIndexRelid, 1);
+        SetRelationHasSubclass(parentIndexRelid, true);
+    }
+
+    // Create constraint if requested
+    if ((flags & INDEX_CREATE_ADD_CONSTRAINT) != 0)
+    {
+        char constraintType = isprimary ? CONSTRAINT_PRIMARY :
+                             (indexInfo->ii_Unique ? CONSTRAINT_UNIQUE : CONSTRAINT_EXCLUSION);
+
+        ObjectAddress localaddr = index_constraint_create(heapRelation, indexRelationId,
+                                                         parentConstraintId, indexInfo,
+                                                         indexRelationName, constraintType,
+                                                         constr_flags, allow_system_table_mods,
+                                                         is_internal);
+        if (constraintId)
+            *constraintId = localaddr.objectId;
+    }
+
+    // Record dependencies (simplified)
+    record_index_dependencies(indexRelationId, heapRelationId, indexInfo,
+                             collationIds, opclassIds, parentIndexRelid);
+
+    // Advance command counter
+    CommandCounterIncrement();
+
+    // Build the index data unless skipped
+    if (!IsBootstrapProcessingMode() && !(flags & INDEX_CREATE_SKIP_BUILD))
+    {
+        index_build(heapRelation, indexRelation, indexInfo, false, true);
+    }
+
+    // Close index relation (keep lock)
+    index_close(indexRelation, NoLock);
+
+    return indexRelationId;
+}
+```

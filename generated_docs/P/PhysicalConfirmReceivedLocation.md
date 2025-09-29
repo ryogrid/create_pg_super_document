@@ -36,3 +36,32 @@ The design philosophy emphasizes performance over immediate durability - the slo
 - Slot persistence is deliberately deferred for performance reasons - the checkpointer handles WAL segment retention based on restart_lsn
 - The restart_lsn update triggers a chain of maintenance operations that affect WAL retention and logical replication coordination
 - Located in src/backend/replication/walsender.c:2369-2405
+
+## Simplified Source
+
+```c
+static void PhysicalConfirmReceivedLocation(XLogRecPtr lsn) {
+    bool changed = false;
+    ReplicationSlot *slot = MyReplicationSlot;
+
+    Assert(lsn != InvalidXLogRecPtr);
+
+    // Update restart_lsn if it has changed
+    SpinLockAcquire(&slot->mutex);
+    if (slot->data.restart_lsn != lsn) {
+        changed = true;
+        slot->data.restart_lsn = lsn;
+    }
+    SpinLockRelease(&slot->mutex);
+
+    // Trigger maintenance operations if slot changed
+    if (changed) {
+        ReplicationSlotMarkDirty();
+        ReplicationSlotsComputeRequiredLSN();
+        PhysicalWakeupLogicalWalSnd();
+    }
+
+    // Note: Slot is deliberately not saved to disk immediately
+    // for performance reasons - checkpointer handles WAL retention
+}
+```

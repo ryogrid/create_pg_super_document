@@ -52,3 +52,44 @@ The function includes stack overflow protection since it can recurse deeply on c
 - The recursive nature allows handling of arbitrarily complex UNION ALL trees
 - Part of PostgreSQL's subquery flattening optimization infrastructure
 - Located in src/backend/optimizer/prep/prepjointree.c:2100-2142
+
+## Simplified Source
+
+```c
+static bool
+is_simple_union_all_recurse(Node *setOp, Query *setOpQuery, List *colTypes)
+{
+    // Prevent stack overflow in deep recursion
+    check_stack_depth();
+
+    if (IsA(setOp, RangeTblRef))
+    {
+        // Leaf node: check if subquery matches expected column types
+        RangeTblRef *rtr = (RangeTblRef *) setOp;
+        RangeTblEntry *rte = rt_fetch(rtr->rtindex, setOpQuery->rtable);
+        Query *subquery = rte->subquery;
+
+        Assert(subquery != NULL);
+
+        // Verify datatypes match (typmods and collations ignored)
+        return tlist_same_datatypes(subquery->targetList, colTypes, true);
+    }
+    else if (IsA(setOp, SetOperationStmt))
+    {
+        SetOperationStmt *op = (SetOperationStmt *) setOp;
+
+        // Must be UNION ALL operation
+        if (op->op != SETOP_UNION || !op->all)
+            return false;
+
+        // Recursively check both subtrees
+        return is_simple_union_all_recurse(op->larg, setOpQuery, colTypes) &&
+               is_simple_union_all_recurse(op->rarg, setOpQuery, colTypes);
+    }
+    else
+    {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(setOp));
+        return false;  // Keep compiler quiet
+    }
+}
+```

@@ -44,3 +44,73 @@ The function implements a two-phase protocol for xmin updates: first writing the
 - Includes injection point support for testing segment transitions
 - Critical for preventing premature catalog cleanup by maintaining accurate xmin tracking
 - The two-phase xmin update protocol ensures crash consistency between disk and memory state
+
+## Simplified Source
+
+```c
+void LogicalConfirmReceivedLocation(XLogRecPtr lsn) {
+    Assert(lsn != InvalidXLogRecPtr);
+
+    // Check if we have pending candidates to apply
+    if (MyReplicationSlot->candidate_xmin_lsn != InvalidXLogRecPtr ||
+        MyReplicationSlot->candidate_restart_valid != InvalidXLogRecPtr) {
+
+        bool updated_xmin = false;
+        bool updated_restart = false;
+
+        SpinLockAcquire(&MyReplicationSlot->mutex);
+
+        // Never move confirmed_flush backwards to prevent data duplication
+        if (lsn > MyReplicationSlot->data.confirmed_flush)
+            MyReplicationSlot->data.confirmed_flush = lsn;
+
+        // Apply pending catalog_xmin if LSN threshold reached
+        if (MyReplicationSlot->candidate_xmin_lsn != InvalidXLogRecPtr &&
+            MyReplicationSlot->candidate_xmin_lsn <= lsn) {
+
+            if (TransactionIdIsValid(MyReplicationSlot->candidate_catalog_xmin) &&
+                MyReplicationSlot->data.catalog_xmin != MyReplicationSlot->candidate_catalog_xmin) {
+
+                MyReplicationSlot->data.catalog_xmin = MyReplicationSlot->candidate_catalog_xmin;
+                MyReplicationSlot->candidate_catalog_xmin = InvalidTransactionId;
+                MyReplicationSlot->candidate_xmin_lsn = InvalidXLogRecPtr;
+                updated_xmin = true;
+            }
+        }
+
+        // Apply pending restart_lsn if LSN threshold reached
+        if (MyReplicationSlot->candidate_restart_valid != InvalidXLogRecPtr &&
+            MyReplicationSlot->candidate_restart_valid <= lsn) {
+
+            MyReplicationSlot->data.restart_lsn = MyReplicationSlot->candidate_restart_lsn;
+            MyReplicationSlot->candidate_restart_lsn = InvalidXLogRecPtr;
+            MyReplicationSlot->candidate_restart_valid = InvalidXLogRecPtr;
+            updated_restart = true;
+        }
+
+        SpinLockRelease(&MyReplicationSlot->mutex);
+
+        // Save changes to disk first
+        if (updated_xmin || updated_restart) {
+            ReplicationSlotMarkDirty();
+            ReplicationSlotSave();
+        }
+
+        // Update effective catalog_xmin in memory after disk write
+        if (updated_xmin) {
+            SpinLockAcquire(&MyReplicationSlot->mutex);
+            MyReplicationSlot->effective_catalog_xmin = MyReplicationSlot->data.catalog_xmin;
+            SpinLockRelease(&MyReplicationSlot->mutex);
+
+            ReplicationSlotsComputeRequiredXmin(false);
+            ReplicationSlotsComputeRequiredLSN();
+        }
+    } else {
+        // Simple case: only update confirmed_flush
+        SpinLockAcquire(&MyReplicationSlot->mutex);
+        if (lsn > MyReplicationSlot->data.confirmed_flush)
+            MyReplicationSlot->data.confirmed_flush = lsn;
+        SpinLockRelease(&MyReplicationSlot->mutex);
+    }
+}
+```

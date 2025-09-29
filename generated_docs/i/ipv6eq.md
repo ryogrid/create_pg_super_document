@@ -36,3 +36,19 @@ This function is used within PostgreSQL's Host-Based Authentication (HBA) system
 - Part of the HBA hostname resolution and matching subsystem
 - Early termination on first byte mismatch for efficiency
 - Counterpart to the simpler  function for IPv4 addresses
+
+## Simplified Source
+
+```c
+static bool
+ipv6eq(struct sockaddr_in6 *a, struct sockaddr_in6 *b)
+{
+    // Compare all 16 bytes of the IPv6 address
+    for (int i = 0; i < 16; i++) {
+        if (a->sin6_addr.s6_addr[i] != b->sin6_addr.s6_addr[i])
+            return false;
+    }
+
+    return true;
+}
+```

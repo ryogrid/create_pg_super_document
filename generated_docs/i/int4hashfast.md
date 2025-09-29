@@ -33,3 +33,12 @@ The function is used specifically by the catalog cache system to efficiently has
 - Uses MurmurHash32 algorithm which provides good hash distribution and performance
 - The function bypasses the normal PostgreSQL function call overhead for better performance in cache operations
 - Returns a 32-bit hash value for use in hash table indexing
+
+## Simplified Source
+
+```c
+static uint32 int4hashfast(Datum datum) {
+    // Fast hash: extract int32 from Datum and compute MurmurHash
+    return murmurhash32((int32) DatumGetInt32(datum));
+}
+```

@@ -36,3 +36,14 @@ The function is designed to be fast and simple, performing only the minimal stat
 - Lightweight operation that only touches the minimal state needed for cache invalidation
 - Subsequent read operations will be forced to fetch fresh data from the WAL source
 - Used when switching between different WAL sources or when corruption is detected
+
+## Simplified Source
+
+```c
+static void XLogReaderInvalReadState(XLogReaderState *state) {
+    // Reset cached read state to force fresh reads
+    state->seg.ws_segno = 0;
+    state->segoff = 0;
+    state->readLen = 0;
+}
+```

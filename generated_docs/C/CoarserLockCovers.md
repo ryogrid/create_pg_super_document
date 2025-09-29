@@ -37,3 +37,28 @@ Like PredicateLockExists, this function may return false negatives due to the lo
 - Essential for optimizing the predicate locking system by avoiding unnecessary fine-grained locks
 - Traverses the complete lock hierarchy from the target up to relation level
 - Part of PostgreSQL's serializable snapshot isolation optimization
+
+## Simplified Source
+
+```c
+static bool
+CoarserLockCovers(const PREDICATELOCKTARGETTAG *newtargettag)
+{
+    PREDICATELOCKTARGETTAG current_tag, parent_tag;
+
+    current_tag = *newtargettag;
+
+    // Walk up the lock hierarchy checking for existing locks
+    while (GetParentPredicateLockTag(&current_tag, &parent_tag))
+    {
+        current_tag = parent_tag;
+
+        // If we find a lock at this coarser level, we're covered
+        if (PredicateLockExists(&current_tag))
+            return true;
+    }
+
+    // No coarser lock found - not covered
+    return false;
+}
+```

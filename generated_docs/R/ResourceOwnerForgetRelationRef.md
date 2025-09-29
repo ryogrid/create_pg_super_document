@@ -37,3 +37,14 @@ This function is the counterpart to ResourceOwnerRememberRelationRef() and is ty
 - Essential for maintaining accurate resource tracking and preventing false alarms during cleanup
 - Uses the same relref_resowner_desc descriptor as its remember counterpart
 - Used internally by the relation cache management system to maintain clean resource tracking
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerForgetRelationRef(ResourceOwner owner, Relation rel)
+{
+    // Remove relation reference from resource owner tracking
+    ResourceOwnerForget(owner, PointerGetDatum(rel), &relref_resowner_desc);
+}
+```

@@ -31,3 +31,12 @@ This function performs optimized equality comparison between two PostgreSQL `int
 - Static function scope restricts usage to catcache.c compilation unit
 - Complements `int2hashfast` for complete int2-based hash table operations
 - No overflow concerns due to direct 16-bit integer comparison
+
+## Simplified Source
+
+```c
+static bool int2eqfast(Datum a, Datum b) {
+    // Direct 16-bit integer comparison for fast equality check
+    return DatumGetInt16(a) == DatumGetInt16(b);
+}
+```

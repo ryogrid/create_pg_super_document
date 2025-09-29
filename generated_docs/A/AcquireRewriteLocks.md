@@ -53,3 +53,75 @@ A key secondary function is fixing up JOIN RTE references to dropped columns by 
 - The function recursively calls itself for subqueries and CTEs
 - Performance optimization: replaced the O(N^2) recursive approach from PostgreSQL 8.0 with direct null pointer replacement for dropped columns in JOINs
 - All acquired locks are held until end of transaction to protect against schema changes during query execution
+
+## Simplified Source
+
+```c
+void AcquireRewriteLocks(Query *parsetree, bool forExecute, bool forUpdatePushedDown) {
+    acquireLocksOnSubLinks_context context;
+    context.for_execute = forExecute;
+
+    int rt_index = 0;
+
+    // Process each Range Table Entry
+    foreach(l, parsetree->rtable) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(l);
+        ++rt_index;
+
+        switch (rte->rtekind) {
+            case RTE_RELATION:
+                // Determine appropriate lock mode
+                LOCKMODE lockmode;
+                if (!forExecute)
+                    lockmode = AccessShareLock;
+                else if (forUpdatePushedDown) {
+                    if (rte->rellockmode == AccessShareLock)
+                        rte->rellockmode = RowShareLock;
+                    lockmode = rte->rellockmode;
+                }
+                else
+                    lockmode = rte->rellockmode;
+
+                // Open relation with lock and update RTE info
+                rel = table_open(rte->relid, lockmode);
+                rte->relkind = rel->rd_rel->relkind;
+                table_close(rel, NoLock);
+                break;
+
+            case RTE_JOIN:
+                // Fix dropped columns in join alias vars
+                newaliasvars = NIL;
+                foreach(ll, rte->joinaliasvars) {
+                    Var *aliasitem = (Var *) lfirst(ll);
+                    Var *aliasvar = (Var *) strip_implicit_coercions((Node *) aliasitem);
+
+                    // Check if column was dropped and replace with NULL
+                    if (aliasvar && IsA(aliasvar, Var)) {
+                        RangeTblEntry *inputrte = rt_fetch(aliasvar->varno, parsetree->rtable);
+                        if (get_rte_attribute_is_dropped(inputrte, aliasvar->varattno))
+                            aliasitem = NULL;
+                    }
+                    newaliasvars = lappend(newaliasvars, aliasitem);
+                }
+                rte->joinaliasvars = newaliasvars;
+                break;
+
+            case RTE_SUBQUERY:
+                // Recursively process subquery
+                AcquireRewriteLocks(rte->subquery, forExecute,
+                    forUpdatePushedDown || get_parse_rowmark(parsetree, rt_index) != NULL);
+                break;
+        }
+    }
+
+    // Process Common Table Expressions (WITH clauses)
+    foreach(l, parsetree->cteList) {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(l);
+        AcquireRewriteLocks((Query *) cte->ctequery, forExecute, false);
+    }
+
+    // Process sublinks if present
+    if (parsetree->hasSubLinks)
+        query_tree_walker(parsetree, acquireLocksOnSubLinks, &context, QTW_IGNORE_RC_SUBQUERIES);
+}
+```

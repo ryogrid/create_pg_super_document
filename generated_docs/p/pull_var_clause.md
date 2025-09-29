@@ -67,3 +67,26 @@ Important constraints:
 - Critical restriction: must only be called after sublink reduction, as it does not handle subqueries
 - Widely used throughout the optimizer for extracting variable references from expressions
 - The context structure contains: `varlist` (output list, initialized to NIL) and `flags` (copy of input flags)
+
+## Simplified Source
+
+```c
+List *pull_var_clause(Node *node, int flags) {
+    pull_var_clause_context context;
+
+    // Validate that conflicting flags aren't specified
+    Assert((flags & (PVC_INCLUDE_AGGREGATES | PVC_RECURSE_AGGREGATES))
+           != (PVC_INCLUDE_AGGREGATES | PVC_RECURSE_AGGREGATES));
+    Assert((flags & (PVC_INCLUDE_WINDOWFUNCS | PVC_RECURSE_WINDOWFUNCS))
+           != (PVC_INCLUDE_WINDOWFUNCS | PVC_RECURSE_WINDOWFUNCS));
+    Assert((flags & (PVC_INCLUDE_PLACEHOLDERS | PVC_RECURSE_PLACEHOLDERS))
+           != (PVC_INCLUDE_PLACEHOLDERS | PVC_RECURSE_PLACEHOLDERS));
+
+    // Initialize context and walk the expression tree
+    context.varlist = NIL;
+    context.flags = flags;
+
+    pull_var_clause_walker(node, &context);
+    return context.varlist;
+}
+```

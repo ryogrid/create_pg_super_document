@@ -49,3 +49,23 @@ The function uses a selective increment approach, only modifying sublevel counte
 - Commonly used with delta_sublevels_up values of 1 (for pullup operations) or -1 (for pushdown operations)
 - Critical for operations like subquery pullup, EXISTS-to-ANY conversion, and lateral reference adjustment
 - The function preserves the original tree structure while only modifying sublevel reference counters
+
+## Simplified Source
+
+```c
+void
+IncrementVarSublevelsUp(Node *node, int delta_sublevels_up, int min_sublevels_up)
+{
+    // Set up context for tree walker
+    IncrementVarSublevelsUp_context context;
+    context.delta_sublevels_up = delta_sublevels_up;
+    context.min_sublevels_up = min_sublevels_up;
+
+    // Traverse tree and increment sublevel counters
+    // Handles both Query nodes and bare expression trees
+    query_or_expression_tree_walker(node,
+                                   IncrementVarSublevelsUp_walker,
+                                   (void *) &context,
+                                   QTW_EXAMINE_RTES_BEFORE);
+}
+```

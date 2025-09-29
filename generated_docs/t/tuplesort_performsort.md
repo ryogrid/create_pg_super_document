@@ -62,3 +62,55 @@ The function also initializes scan state variables (`current`, `eof_reached`, `m
 - Critical transition point between tuple accumulation phase and result retrieval phase
 - The function ensures proper state transitions: `TSS_SORTEDINMEM`, `TSS_SORTEDONTAPE`, or `TSS_FINALMERGE`
 - Parallel processing coordination allows for efficient utilization of multiple CPU cores in large sort operations
+
+## Simplified Source
+
+```c
+void tuplesort_performsort(Tuplesortstate *state) {
+    MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+
+    // Handle different sort states
+    switch (state->status) {
+        case TSS_INITIAL:
+            // All tuples fit in memory or need parallel processing
+            if (SERIAL(state)) {
+                // Simple in-memory quicksort
+                tuplesort_sort_memtuples(state);
+                state->status = TSS_SORTEDINMEM;
+            } else if (WORKER(state)) {
+                // Parallel worker: dump to tape without merging
+                inittapes(state, false);
+                dumptuples(state, true);
+                worker_nomergeruns(state);
+                state->status = TSS_SORTEDONTAPE;
+            } else {
+                // Parallel leader: take over worker tapes and merge
+                leader_takeover_tapes(state);
+                mergeruns(state);
+            }
+            // Reset scan position for reading
+            state->current = 0;
+            state->eof_reached = false;
+            break;
+
+        case TSS_BOUNDED:
+            // Limited result set using heap - convert to sorted array
+            sort_bounded_heap(state);
+            state->current = 0;
+            state->eof_reached = false;
+            break;
+
+        case TSS_BUILDRUNS:
+            // External sort: flush remaining tuples and merge runs
+            dumptuples(state, true);
+            mergeruns(state);
+            state->eof_reached = false;
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

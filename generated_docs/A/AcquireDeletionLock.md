@@ -47,3 +47,26 @@ AcquireDeletionLock provides object-type-aware locking for deletion operations. 
 - Always locks the whole object (subId=0) rather than sub-objects for simplicity
 - Critical for ensuring proper concurrency control during deletion operations
 - Part of the public API for dependency management and object deletion
+
+## Simplified Source
+
+```c
+void AcquireDeletionLock(const ObjectAddress *object, int flags) {
+    if (object->classId == RelationRelationId) {
+        // Special handling for relations
+        if (flags & PERFORM_DELETION_CONCURRENTLY) {
+            // Concurrent index drop - use weaker lock initially
+            LockRelationOid(object->objectId, ShareUpdateExclusiveLock);
+        } else {
+            // Standard relation deletion - use exclusive lock
+            LockRelationOid(object->objectId, AccessExclusiveLock);
+        }
+    } else if (object->classId == AuthMemRelationId) {
+        // Shared authentication objects
+        LockSharedObject(object->classId, object->objectId, 0, AccessExclusiveLock);
+    } else {
+        // Standard database objects
+        LockDatabaseObject(object->classId, object->objectId, 0, AccessExclusiveLock);
+    }
+}
+```

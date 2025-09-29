@@ -47,3 +47,47 @@ The sorting approach ensures that windows with identical partitioning and orderi
 - Static function scope indicates internal use within the planner module
 - Memory management includes proper allocation and deallocation of the temporary actives array
 - The uniqueOrder field in WindowClauseSortData contains the combined, deduplicated sorting specification used for comparison
+
+## Simplified Source
+
+```c
+static List *select_active_windows(PlannerInfo *root, WindowFuncLists *wflists)
+{
+    List *windowClause = root->parse->windowClause;
+    List *result = NIL;
+    ListCell *lc;
+    int nActive = 0;
+    WindowClauseSortData *actives = palloc(sizeof(WindowClauseSortData) *
+                                          list_length(windowClause));
+
+    // Build array of active windows (those with associated WindowFuncs)
+    foreach(lc, windowClause) {
+        WindowClause *wc = lfirst_node(WindowClause, lc);
+
+        // Skip windows with no related WindowFuncs
+        if (wflists->windowFuncs[wc->winref] == NIL)
+            continue;
+
+        actives[nActive].wc = wc;
+
+        // Create unique ordering: partition keys + order keys with duplicates removed
+        // This removes orderClause entries that also appear in partitionClause
+        actives[nActive].uniqueOrder =
+            list_concat_unique(list_copy(wc->partitionClause),
+                              wc->orderClause);
+        nActive++;
+    }
+
+    // Sort active windows by partitioning/ordering clauses
+    // This groups windows with compatible sorting requirements and
+    // ensures SQL standard compliance for order-equivalent windows
+    qsort(actives, nActive, sizeof(WindowClauseSortData), common_prefix_cmp);
+
+    // Build result list from sorted active windows
+    for (int i = 0; i < nActive; i++)
+        result = lappend(result, actives[i].wc);
+
+    pfree(actives);
+    return result;
+}
+```

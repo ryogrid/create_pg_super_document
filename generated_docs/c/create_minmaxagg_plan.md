@@ -37,3 +37,57 @@ The `create_minmaxagg_plan` function implements an optimization for queries cont
 - Stores the mmaggregates list in root->minmax_aggs for later use by setrefs.c to replace Agg node references with InitPlan parameters
 - The optimization is most effective with ordered index scans where MIN/MAX can be satisfied by reading the first/last row
 - Results in significant performance improvements for queries like "SELECT MIN(id) FROM table" when an index exists on the column
+
+## Simplified Source
+
+```c
+static Result *
+create_minmaxagg_plan(PlannerInfo *root, MinMaxAggPath *best_path)
+{
+    Result *plan;
+    List *tlist;
+    ListCell *lc;
+
+    // Create InitPlan for each aggregate's subquery
+    foreach(lc, best_path->mmaggregates)
+    {
+        MinMaxAggInfo *mminfo = (MinMaxAggInfo *) lfirst(lc);
+        PlannerInfo *subroot = mminfo->subroot;
+        Query *subparse = subroot->parse;
+        Plan *subplan;
+
+        // Generate plan for subquery and attach LIMIT node
+        // Use create_plan (not create_plan_recurse) for different planner context
+        subplan = create_plan(subroot, mminfo->path);
+
+        subplan = (Plan *) make_limit(subplan,
+                                     subparse->limitOffset,
+                                     subparse->limitCount,
+                                     subparse->limitOption,
+                                     0, NULL, NULL, NULL);
+
+        // Apply correct cost/width data to Limit node
+        subplan->startup_cost = mminfo->path->startup_cost;
+        subplan->total_cost = mminfo->pathcost;
+        subplan->plan_rows = 1;
+        subplan->plan_width = mminfo->path->pathtarget->width;
+        subplan->parallel_aware = false;
+        subplan->parallel_safe = mminfo->path->parallel_safe;
+
+        // Convert plan into InitPlan in outer query
+        SS_make_initplan_from_plan(root, subroot, subplan, mminfo->param);
+    }
+
+    // Generate output plan - basically just a Result node
+    tlist = build_path_tlist(root, &best_path->path);
+    plan = make_result(tlist, (Node *) best_path->quals, NULL);
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    // Save mmaggregates list for setrefs.c to replace Agg references with InitPlan params
+    Assert(root->minmax_aggs == NIL);
+    root->minmax_aggs = best_path->mmaggregates;
+
+    return plan;
+}
+```

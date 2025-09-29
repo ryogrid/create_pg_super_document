@@ -35,3 +35,31 @@ ExecPrepareExprList is a utility function that iterates through a list of expres
 - Returns NIL if the input list is empty or NULL
 - Maintains the same ordering of expressions as provided in the input list
 - Used extensively throughout the executor for preparing expression lists in various contexts including index formation, parameter evaluation, and partition key handling
+
+## Simplified Source
+
+```c
+List *ExecPrepareExprList(List *nodes, EState *estate)
+{
+    List *result = NIL;
+    MemoryContext oldcontext;
+    ListCell *lc;
+
+    // Switch to query memory context for list allocation
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Process each expression in the list
+    foreach(lc, nodes)
+    {
+        Expr *e = (Expr *) lfirst(lc);
+
+        // Prepare each expression and add to result list
+        result = lappend(result, ExecPrepareExpr(e, estate));
+    }
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return result;
+}
+```

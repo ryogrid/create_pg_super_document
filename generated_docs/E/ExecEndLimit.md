@@ -33,3 +33,12 @@ The function is minimal because Limit nodes have minimal resource requirements b
 - No explicit cleanup of tuple slots or expression contexts is needed as they are managed by the memory context system
 - The function ensures that child plans are properly terminated before the parent Limit node is destroyed
 - This function is called during query completion or when execution is aborted
+
+## Simplified Source
+
+```c
+void ExecEndLimit(LimitState *node) {
+    // Recursively shut down the child plan
+    ExecEndNode(outerPlanState(node));
+}
+```

@@ -48,3 +48,58 @@ The function includes comprehensive error handling, with the ability to return N
 - The returned IndexAmRoutine must be freed by the caller using pfree()
 - Validates that the access method is specifically for indexes, not other types of access methods like table access methods
 - Part of the public API for accessing index access method functionality programmatically
+
+## Simplified Source
+
+```c
+IndexAmRoutine *
+GetIndexAmRoutineByAmId(Oid amoid, bool noerror)
+{
+    HeapTuple tuple;
+    Form_pg_am amform;
+    regproc amhandler;
+
+    // Look up access method in system catalog
+    tuple = SearchSysCache1(AMOID, ObjectIdGetDatum(amoid));
+    if (!HeapTupleIsValid(tuple))
+    {
+        if (noerror)
+            return NULL;
+        elog(ERROR, "cache lookup failed for access method %u", amoid);
+    }
+    amform = (Form_pg_am) GETSTRUCT(tuple);
+
+    // Verify it's an index access method
+    if (amform->amtype != AMTYPE_INDEX)
+    {
+        if (noerror)
+        {
+            ReleaseSysCache(tuple);
+            return NULL;
+        }
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("access method \"%s\" is not of type %s",
+                               NameStr(amform->amname), "INDEX")));
+    }
+
+    amhandler = amform->amhandler;
+
+    // Verify handler function exists
+    if (!RegProcedureIsValid(amhandler))
+    {
+        if (noerror)
+        {
+            ReleaseSysCache(tuple);
+            return NULL;
+        }
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("index access method \"%s\" does not have a handler",
+                               NameStr(amform->amname))));
+    }
+
+    ReleaseSysCache(tuple);
+
+    // Call handler function to get API struct
+    return GetIndexAmRoutine(amhandler);
+}
+```

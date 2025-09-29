@@ -44,3 +44,31 @@ The function ensures proper memory context management by switching to the EState
 - **Memory management**: Automatically handles memory context switching to ensure proper allocation
 - **Common use cases**: Used for default value expressions, check constraints, domain constraints, and replication filters
 - **Planning overhead**: Incurs planning cost for each expression, so should not be used for expressions already processed during regular query planning
+
+## Simplified Source
+
+```c
+ExprState *
+ExecPrepareExpr(Expr *node, EState *estate)
+{
+    ExprState *result;
+    MemoryContext oldcontext;
+
+    // Switch to per-query context for persistent allocation
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Apply planning transformations to the expression
+    // This performs optimizations like constant folding, function inlining,
+    // type coercion, etc. that normally happen during query planning
+    node = expression_planner(node);
+
+    // Compile the planned expression into executable form
+    // No parent PlanState since this is standalone execution
+    result = ExecInitExpr(node, NULL);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    return result;
+}
+```

@@ -45,3 +45,69 @@ The walker uses `check_functions_in_node` with `contain_mutable_functions_checke
 - Handles PostgreSQL-specific expression types like JSON operations and SQL value functions
 - Part of the broader volatility analysis framework used throughout the query optimizer
 - The function is marked static, indicating it's an internal implementation detail of clauses.c
+
+## Simplified Source
+
+```c
+static bool contain_mutable_functions_walker(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    // Check for mutable functions in current node
+    if (check_functions_in_node(node, contain_mutable_functions_checker, context))
+        return true;
+
+    // Handle JSON constructor expressions
+    if (IsA(node, JsonConstructorExpr)) {
+        const JsonConstructorExpr *ctor = (JsonConstructorExpr *) node;
+        ListCell *lc;
+        bool is_jsonb;
+
+        is_jsonb = ctor->returning->format->format_type == JS_FORMAT_JSONB;
+
+        // Check if JSON/JSONB conversions are immutable
+        foreach(lc, ctor->args) {
+            Oid typid = exprType(lfirst(lc));
+
+            if (is_jsonb ? !to_jsonb_is_immutable(typid) : !to_json_is_immutable(typid))
+                return true;
+        }
+    }
+
+    // Handle JSON path expressions
+    if (IsA(node, JsonExpr)) {
+        JsonExpr *jexpr = castNode(JsonExpr, node);
+        Const *cnst;
+
+        if (!IsA(jexpr->path_spec, Const))
+            return true;
+
+        cnst = castNode(Const, jexpr->path_spec);
+        Assert(cnst->consttype == JSONPATHOID);
+
+        if (cnst->constisnull)
+            return false;
+
+        if (jspIsMutable(DatumGetJsonPathP(cnst->constvalue),
+                        jexpr->passing_names, jexpr->passing_values))
+            return true;
+    }
+
+    // SQL value functions are stable/mutable
+    if (IsA(node, SQLValueFunction))
+        return true;
+
+    // Sequence operations are volatile
+    if (IsA(node, NextValueExpr))
+        return true;
+
+    // Recurse into child nodes
+    if (IsA(node, Query)) {
+        return query_tree_walker((Query *) node,
+                                contain_mutable_functions_walker,
+                                context, 0);
+    }
+
+    return expression_tree_walker(node, contain_mutable_functions_walker, context);
+}
+```

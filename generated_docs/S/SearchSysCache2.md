@@ -47,3 +47,19 @@ This function is extensively used throughout PostgreSQL for accessing commonly-n
 - Must call ReleaseSysCache() when finished with the returned tuple
 - Part of the performance-critical path for query processing and DDL operations
 - One of the most frequently used cache search functions in PostgreSQL codebase
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCache2(int cacheId, Datum key1, Datum key2) {
+    // Validate cache ID is within valid range and cache exists
+    Assert(cacheId >= 0 && cacheId < SysCacheSize &&
+           PointerIsValid(SysCache[cacheId]));
+
+    // Ensure this cache is configured for exactly 2 keys
+    Assert(SysCache[cacheId]->cc_nkeys == 2);
+
+    // Delegate to the general catalog cache search function
+    return SearchCatCache2(SysCache[cacheId], key1, key2);
+}
+```

@@ -45,3 +45,16 @@ When an error occurs during query execution, PostgreSQL stores detailed diagnost
 - Thread-safe as it only reads from the result structure
 - Commonly used in conjunction with PQresultStatus to provide comprehensive error reporting
 - The function is located at src/interfaces/libpq/fe-exec.c:3427-3434
+
+## Simplified Source
+
+```c
+char *PQresultErrorMessage(const PGresult *res) {
+    // Return empty string if no result or error message
+    if (!res || !res->errMsg)
+        return "";
+
+    // Return the error message
+    return res->errMsg;
+}
+```

@@ -54,3 +54,105 @@ The inlining process involves parsing the function body, analyzing and rewriting
 - Records dependencies and row-level security requirements from the inlined query
 - Returns NULL if inlining is not possible or safe, allowing fallback to regular function execution
 - The inlined query replaces the original function call, potentially enabling further optimizations by the planner
+
+## Simplified Source
+
+```c
+Query *
+inline_set_returning_function(PlannerInfo *root, RangeTblEntry *rte)
+{
+    // Basic validation - must be RTE_FUNCTION with single FuncExpr
+    Assert(rte->rtekind == RTE_FUNCTION);
+    check_stack_depth();  // Prevent infinite recursion
+
+    if (rte->funcordinality || list_length(rte->functions) != 1)
+        return NULL;
+
+    FuncExpr *fexpr = (FuncExpr *) ((RangeTblFunction *) linitial(rte->functions))->funcexpr;
+    if (!IsA(fexpr, FuncExpr) || !fexpr->funcretset)
+        return NULL;
+
+    // Safety checks - reject volatile functions or subplans in arguments
+    if (contain_volatile_functions((Node *) fexpr->args) ||
+        contain_subplans((Node *) fexpr->args))
+        return NULL;
+
+    // Permission and hook checks
+    if (object_aclcheck(ProcedureRelationId, fexpr->funcid, GetUserId(), ACL_EXECUTE) != ACLCHECK_OK ||
+        FmgrHookIsNeeded(fexpr->funcid))
+        return NULL;
+
+    // Validate function properties from pg_proc
+    HeapTuple func_tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(fexpr->funcid));
+    Form_pg_proc funcform = (Form_pg_proc) GETSTRUCT(func_tuple);
+
+    // Must be SQL function, not strict, not volatile, returns set
+    if (funcform->prolang != SQLlanguageId ||
+        funcform->proisstrict ||
+        funcform->provolatile == PROVOLATILE_VOLATILE ||
+        !funcform->proretset)
+    {
+        ReleaseSysCache(func_tuple);
+        return NULL;
+    }
+
+    // Create temporary memory context for parsing
+    MemoryContext mycxt = AllocSetContextCreate(CurrentMemoryContext,
+                                               "inline_set_returning_function",
+                                               ALLOCSET_DEFAULT_SIZES);
+    MemoryContext oldcxt = MemoryContextSwitchTo(mycxt);
+
+    Query *querytree = NULL;
+
+    // Parse function body (handle both prosqlbody and prosrc)
+    if (/* has prosqlbody */) {
+        // Use pre-parsed query tree
+        querytree = /* process prosqlbody */;
+    } else {
+        // Parse prosrc text
+        char *src = /* get function source */;
+        List *raw_parsetree_list = pg_parse_query(src);
+
+        if (list_length(raw_parsetree_list) != 1)
+            goto fail;
+
+        List *querytree_list = pg_analyze_and_rewrite_withcb(/* parse and analyze */);
+        if (list_length(querytree_list) != 1)
+            goto fail;
+
+        querytree = linitial(querytree_list);
+    }
+
+    // Validate result - must be SELECT query
+    if (!IsA(querytree, Query) || querytree->commandType != CMD_SELECT)
+        goto fail;
+
+    // Validate return type compatibility
+    if (!check_sql_fn_retval(/* validate return type */))
+        goto fail;
+
+    // Substitute actual parameters into the query
+    querytree = substitute_actual_srf_parameters(querytree,
+                                                funcform->pronargs,
+                                                fexpr->args);
+
+    // Copy result and cleanup
+    MemoryContextSwitchTo(oldcxt);
+    querytree = copyObject(querytree);
+    MemoryContextDelete(mycxt);
+    ReleaseSysCache(func_tuple);
+
+    // Record plan dependencies
+    record_plan_function_dependency(root, fexpr->funcid);
+    if (querytree->hasRowSecurity)
+        root->glob->dependsOnRole = true;
+
+    return querytree;
+
+fail:
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(mycxt);
+    ReleaseSysCache(func_tuple);
+    return NULL;
+}
+```

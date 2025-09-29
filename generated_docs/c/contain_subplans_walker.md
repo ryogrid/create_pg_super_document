@@ -44,3 +44,23 @@ When any of these node types is encountered, the function immediately returns tr
 - Returns true immediately upon finding any subplan-related node (short-circuit evaluation)
 - Uses recursive self-calls through  for complete tree coverage
 - Part of the subplan detection infrastructure used during query planning
+
+## Simplified Source
+
+```c
+static bool
+contain_subplans_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check for subplan-related nodes
+    if (IsA(node, SubPlan) ||
+        IsA(node, AlternativeSubPlan) ||
+        IsA(node, SubLink))
+        return true;  // Found subplan, abort traversal
+
+    // Continue recursive search
+    return expression_tree_walker(node, contain_subplans_walker, context);
+}
+```

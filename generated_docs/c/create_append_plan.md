@@ -50,3 +50,109 @@ The `create_append_plan` function builds an Append execution plan that concatena
 - May inject a projection plan to remove sort columns added during planning if exact or small tlist is required
 - The nasyncplans counter tracks how many subplans can execute asynchronously
 - Uses extensive assertion checking to validate sort key consistency across subplans
+
+## Simplified Source
+
+```c
+static Plan *
+create_append_plan(PlannerInfo *root, AppendPath *best_path, int flags)
+{
+    // Build target list for the append operation
+    List *tlist = build_path_tlist(root, &best_path->path);
+    int orig_tlist_length = list_length(tlist);
+    bool tlist_was_changed = false;
+
+    // Handle empty subpaths - generate dummy plan
+    if (best_path->subpaths == NIL)
+    {
+        Plan *plan = (Plan *) make_result(tlist,
+                                         (Node *) list_make1(makeBoolConst(false, false)),
+                                         NULL);
+        copy_generic_path_info(plan, (Path *) best_path);
+        return plan;
+    }
+
+    // Create the Append plan node
+    Append *plan = makeNode(Append);
+    plan->plan.targetlist = tlist;
+    plan->plan.qual = NIL;
+    plan->apprelids = best_path->path.parent->relids;
+
+    // Handle sorting requirements
+    int nodenumsortkeys = 0;
+    AttrNumber *nodeSortColIdx = NULL;
+    List *pathkeys = best_path->path.pathkeys;
+
+    if (pathkeys != NIL)
+    {
+        // Prepare sort information for the Append node
+        prepare_sort_from_pathkeys((Plan *) plan, pathkeys,
+                                 best_path->path.parent->relids, NULL, true,
+                                 &nodenumsortkeys, &nodeSortColIdx, ...);
+        tlist_was_changed = (orig_tlist_length != list_length(plan->plan.targetlist));
+    }
+
+    // Build subplans
+    List *subplans = NIL;
+    int nasyncplans = 0;
+    bool consider_async = (enable_async_append && pathkeys == NIL &&
+                          !best_path->path.parallel_safe);
+
+    foreach(subpaths, best_path->subpaths)
+    {
+        Path *subpath = (Path *) lfirst(subpaths);
+
+        // Create subplan with exact target list
+        Plan *subplan = create_plan_recurse(root, subpath, CP_EXACT_TLIST);
+
+        // Add Sort node if needed for ordered Append
+        if (pathkeys != NIL && !pathkeys_contained_in(pathkeys, subpath->pathkeys))
+        {
+            Sort *sort = make_sort(subplan, ...);
+            label_sort_with_costsize(root, sort, best_path->limit_tuples);
+            subplan = (Plan *) sort;
+        }
+
+        // Check for async execution capability
+        if (consider_async && mark_async_capable_plan(subplan, subpath))
+            ++nasyncplans;
+
+        subplans = lappend(subplans, subplan);
+    }
+
+    // Set up partition pruning if enabled
+    PartitionPruneInfo *partpruneinfo = NULL;
+    if (enable_partition_pruning)
+    {
+        List *prunequal = extract_actual_clauses(rel->baserestrictinfo, false);
+        // Add parameter clauses if present
+        if (best_path->path.param_info)
+        {
+            List *prmquals = extract_actual_clauses(
+                best_path->path.param_info->ppi_clauses, false);
+            prunequal = list_concat(prunequal, prmquals);
+        }
+
+        if (prunequal != NIL)
+            partpruneinfo = make_partition_pruneinfo(root, rel,
+                                                   best_path->subpaths, prunequal);
+    }
+
+    // Finalize the Append plan
+    plan->appendplans = subplans;
+    plan->nasyncplans = nasyncplans;
+    plan->first_partial_plan = best_path->first_partial_path;
+    plan->part_prune_info = partpruneinfo;
+
+    copy_generic_path_info(&plan->plan, (Path *) best_path);
+
+    // Inject projection if tlist was modified and exact/small tlist required
+    if (tlist_was_changed && (flags & (CP_EXACT_TLIST | CP_SMALL_TLIST)))
+    {
+        tlist = list_copy_head(plan->plan.targetlist, orig_tlist_length);
+        return inject_projection_plan((Plan *) plan, tlist, plan->plan.parallel_safe);
+    }
+
+    return (Plan *) plan;
+}
+```

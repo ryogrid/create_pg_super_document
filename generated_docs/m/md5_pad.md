@@ -35,3 +35,47 @@ The function calculates the gap remaining in the current 64-byte buffer and fill
 - Big-endian systems require manual byte swapping for the length field to maintain MD5 specification compliance
 - May call md5_calc twice if padding spans across buffer boundaries
 - Critical for ensuring MD5 algorithm correctness - improper padding would produce incorrect hash values
+
+## Simplified Source
+
+```c
+static void
+md5_pad(pg_md5_ctx *ctx)
+{
+    unsigned int gap;
+
+    // Calculate space remaining in current 64-byte buffer
+    gap = MD5_BUFLEN - ctx->md5_i;
+
+    if (gap > 8)
+    {
+        // Enough space for padding + 8-byte length field
+        memmove(ctx->md5_buf + ctx->md5_i, md5_paddat, gap - sizeof(ctx->md5_n));
+    }
+    else
+    {
+        // Not enough space - need two blocks
+        memmove(ctx->md5_buf + ctx->md5_i, md5_paddat, gap);
+        md5_calc(ctx->md5_buf, ctx);  // Process current block
+        memmove(ctx->md5_buf, md5_paddat + gap, MD5_BUFLEN - sizeof(ctx->md5_n));
+    }
+
+    // Append 8-byte message length in little-endian format
+#ifndef WORDS_BIGENDIAN
+    memmove(&ctx->md5_buf[56], &ctx->md5_n8[0], 8);
+#else
+    // Big-endian: manually reverse byte order
+    ctx->md5_buf[56] = ctx->md5_n8[7];
+    ctx->md5_buf[57] = ctx->md5_n8[6];
+    ctx->md5_buf[58] = ctx->md5_n8[5];
+    ctx->md5_buf[59] = ctx->md5_n8[4];
+    ctx->md5_buf[60] = ctx->md5_n8[3];
+    ctx->md5_buf[61] = ctx->md5_n8[2];
+    ctx->md5_buf[62] = ctx->md5_n8[1];
+    ctx->md5_buf[63] = ctx->md5_n8[0];
+#endif
+
+    // Process final padded block
+    md5_calc(ctx->md5_buf, ctx);
+}
+```

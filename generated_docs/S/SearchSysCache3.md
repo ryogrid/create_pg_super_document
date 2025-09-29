@@ -38,3 +38,20 @@ SearchSysCache3 provides a convenient wrapper around the lower-level SearchCatCa
 - It specifically validates that the cache is configured for exactly 3 keys before proceeding
 - Returns a HeapTuple if found, or NULL if no matching tuple exists in the cache
 - The returned tuple should be released using ReleaseSysCache when no longer needed
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCache3(int cacheId,
+                         Datum key1, Datum key2, Datum key3) {
+    // Validate cache ID and ensure cache exists
+    Assert(cacheId >= 0 && cacheId < SysCacheSize &&
+           PointerIsValid(SysCache[cacheId]));
+
+    // Ensure this cache is configured for exactly 3 keys
+    Assert(SysCache[cacheId]->cc_nkeys == 3);
+
+    // Delegate to catalog cache search
+    return SearchCatCache3(SysCache[cacheId], key1, key2, key3);
+}
+```

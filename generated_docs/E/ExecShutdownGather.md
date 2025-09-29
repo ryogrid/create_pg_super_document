@@ -25,3 +25,18 @@ ExecShutdownGather is the primary shutdown function for Gather executor nodes in
 
 ## Notes and Other Information
 This is a public function exposed via nodeGather.h and is part of the executor node interface. It provides the standard shutdown mechanism for Gather nodes and is typically called during query cleanup or when the executor needs to shut down parallel operations. The function safely handles cases where no parallel context was established by checking for null pointers before cleanup.
+
+## Simplified Source
+
+```c
+void ExecShutdownGather(GatherState *node) {
+    // First, shutdown all parallel workers
+    ExecShutdownGatherWorkers(node);
+
+    // Then destroy the parallel context if it exists
+    if (node->pei != NULL) {
+        ExecParallelCleanup(node->pei);
+        node->pei = NULL;
+    }
+}
+```

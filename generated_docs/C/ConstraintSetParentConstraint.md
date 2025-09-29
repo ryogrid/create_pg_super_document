@@ -55,3 +55,52 @@ The function ensures proper constraint inheritance semantics by maintaining depe
 - Critical component of PostgreSQL's table partitioning constraint inheritance mechanism
 - Maintains constraint inheritance counts (coninhcount) for proper inheritance tracking
 - Ensures constraints properly reflect their local vs inherited status through conislocal flag
+
+## Simplified Source
+
+```c
+void ConstraintSetParentConstraint(Oid childConstrId, Oid parentConstrId, Oid childTableId) {
+    // Open constraint catalog and get child constraint tuple
+    Relation constrRel = table_open(ConstraintRelationId, RowExclusiveLock);
+    HeapTuple tuple = SearchSysCache1(CONSTROID, ObjectIdGetDatum(childConstrId));
+    HeapTuple newtuple = heap_copytuple(tuple);
+    Form_pg_constraint constraintForm = (Form_pg_constraint) GETSTRUCT(newtuple);
+
+    if (OidIsValid(parentConstrId)) {
+        // Setting parent relationship: mark as inherited
+        constraintForm->conislocal = false;
+        constraintForm->coninhcount++;
+        constraintForm->conparentid = parentConstrId;
+
+        // Update catalog tuple
+        CatalogTupleUpdate(constrRel, &tuple->t_self, newtuple);
+
+        // Create dependency relationships to prevent orphaning
+        ObjectAddress child, parent, childTable;
+        ObjectAddressSet(child, ConstraintRelationId, childConstrId);
+        ObjectAddressSet(parent, ConstraintRelationId, parentConstrId);
+        ObjectAddressSet(childTable, RelationRelationId, childTableId);
+
+        recordDependencyOn(&child, &parent, DEPENDENCY_PARTITION_PRI);
+        recordDependencyOn(&child, &childTable, DEPENDENCY_PARTITION_SEC);
+    } else {
+        // Removing parent relationship: make constraint local again
+        constraintForm->coninhcount--;
+        constraintForm->conislocal = true;
+        constraintForm->conparentid = InvalidOid;
+
+        // Update catalog
+        CatalogTupleUpdate(constrRel, &tuple->t_self, newtuple);
+
+        // Remove dependency records
+        deleteDependencyRecordsForClass(ConstraintRelationId, childConstrId,
+                                      ConstraintRelationId, DEPENDENCY_PARTITION_PRI);
+        deleteDependencyRecordsForClass(ConstraintRelationId, childConstrId,
+                                      RelationRelationId, DEPENDENCY_PARTITION_SEC);
+    }
+
+    // Cleanup
+    ReleaseSysCache(tuple);
+    table_close(constrRel, RowExclusiveLock);
+}
+```

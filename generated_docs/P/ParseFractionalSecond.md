@@ -34,3 +34,21 @@ This function is essential for handling sub-second precision in PostgreSQL's tim
 - Converts fractional seconds to microseconds by multiplying by 1,000,000 and rounding
 - fsec_t is PostgreSQL's internal type for storing fractional seconds as integer microseconds
 - Uses proper rounding (rint) to handle floating-point precision issues when converting to integer microseconds
+
+## Simplified Source
+```c
+static int ParseFractionalSecond(char *cp, fsec_t *fsec) {
+    // Parse the fractional part as a double
+    double frac;
+    int dterr = ParseFraction(cp, &frac);
+
+    if (dterr) {
+        return dterr;  // Return any parsing error
+    }
+
+    // Convert fraction to microseconds with proper rounding
+    *fsec = rint(frac * 1000000);
+
+    return 0;  // Success
+}
+```

@@ -37,3 +37,15 @@ The function follows the Unicode standard's definition of blank characters, whic
 - Located in src/common/unicode_category.c:255-261
 - Designed to provide consistent Unicode character classification across different platforms and locales
 - Does not include vertical whitespace characters like newlines in the blank character classification
+
+## Simplified Source
+
+```c
+bool
+pg_u_isblank(pg_wchar code)
+{
+    // Check for tab character OR Unicode space separator
+    return code == PG_U_CHARACTER_TAB ||
+           unicode_category(code) == PG_U_SPACE_SEPARATOR;
+}
+```

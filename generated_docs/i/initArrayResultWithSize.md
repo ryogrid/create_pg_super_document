@@ -45,3 +45,35 @@ The function allocates arrays for both element values (Datum) and null flags (bo
 - Type information is cached in the state structure for efficient element handling
 - The initial size can be tuned based on expected number of elements to optimize memory usage
 - Arrays will be automatically resized if more elements are added than the initial size
+
+## Simplified Source
+
+```c
+ArrayBuildState *initArrayResultWithSize(Oid element_type, MemoryContext rcontext,
+                                         bool subcontext, int initsize) {
+    ArrayBuildState *astate;
+    MemoryContext arr_context = rcontext;
+
+    // Create temporary context if requested
+    if (subcontext)
+        arr_context = AllocSetContextCreate(rcontext, "accumArrayResult",
+                                           ALLOCSET_DEFAULT_SIZES);
+
+    // Allocate and initialize the build state structure
+    astate = (ArrayBuildState *) MemoryContextAlloc(arr_context, sizeof(ArrayBuildState));
+    astate->mcontext = arr_context;
+    astate->private_cxt = subcontext;
+    astate->alen = initsize;
+
+    // Allocate initial arrays for values and null flags
+    astate->dvalues = (Datum *) MemoryContextAlloc(arr_context, astate->alen * sizeof(Datum));
+    astate->dnulls = (bool *) MemoryContextAlloc(arr_context, astate->alen * sizeof(bool));
+
+    // Initialize counters and type information
+    astate->nelems = 0;
+    astate->element_type = element_type;
+    get_typlenbyvalalign(element_type, &astate->typlen, &astate->typbyval, &astate->typalign);
+
+    return astate;
+}
+```

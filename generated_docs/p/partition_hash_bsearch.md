@@ -36,3 +36,36 @@ This function implements a binary search algorithm specifically designed for has
 - Leverages partition_hbound_cmp for proper lexicographic comparison (modulus first, then remainder)
 - Critical for validating new hash partition bounds during DDL operations
 - Ensures hash partition bounds maintain proper ordering and don't conflict with existing partitions
+
+## Simplified Source
+```c
+int partition_hash_bsearch(PartitionBoundInfo boundinfo,
+                          int modulus, int remainder)
+{
+    int lo = -1;
+    int hi = boundinfo->ndatums - 1;
+
+    // Binary search through hash partition bounds
+    while (lo < hi) {
+        int mid = (lo + hi + 1) / 2;
+
+        // Extract modulus and remainder from current bound
+        int bound_modulus = DatumGetInt32(boundinfo->datums[mid][0]);
+        int bound_remainder = DatumGetInt32(boundinfo->datums[mid][1]);
+
+        // Compare current bound with target (modulus, remainder) pair
+        int cmpval = partition_hbound_cmp(bound_modulus, bound_remainder,
+                                         modulus, remainder);
+
+        if (cmpval <= 0) {
+            lo = mid;
+            if (cmpval == 0)
+                break;  // Found exact match
+        } else {
+            hi = mid - 1;
+        }
+    }
+
+    return lo;  // Index of greatest bound <= target, or -1 if none found
+}
+```

@@ -38,3 +38,26 @@ This function performs a system catalog lookup to extract key information about 
 - The function safely handles invalid operator class OIDs by checking tuple validity
 - Output parameters are only modified when the function returns true
 - Essential for index access method implementations that need to understand operator class relationships
+
+## Simplified Source
+
+```c
+bool get_opclass_opfamily_and_input_type(Oid opclass, Oid *opfamily, Oid *opcintype) {
+    // Look up the operator class in pg_opclass catalog
+    HeapTuple tuple = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclass));
+
+    if (!HeapTupleIsValid(tuple))
+        return false;
+
+    // Extract operator class information
+    Form_pg_opclass opcTuple = (Form_pg_opclass) GETSTRUCT(tuple);
+
+    // Return the operator family and input type through output parameters
+    *opfamily = opcTuple->opcfamily;
+    *opcintype = opcTuple->opcintype;
+
+    // Cleanup and return success
+    ReleaseSysCache(tuple);
+    return true;
+}
+```

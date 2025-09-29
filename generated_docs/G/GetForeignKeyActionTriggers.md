@@ -54,3 +54,61 @@ The function ensures that exactly one delete trigger and one update trigger are 
 - In assert-enabled builds, continues scanning to detect duplicate triggers
 - Part of PostgreSQL's referential integrity enforcement system
 - These trigger OIDs are typically used as parent triggers when creating similar triggers on partitions
+
+## Simplified Source
+
+```c
+static void GetForeignKeyActionTriggers(Relation trigrel, Oid conoid, Oid confrelid, Oid conrelid,
+                                       Oid *deleteTriggerOid, Oid *updateTriggerOid) {
+    ScanKeyData key;
+    SysScanDesc scan;
+    HeapTuple trigtup;
+
+    // Initialize output parameters
+    *deleteTriggerOid = *updateTriggerOid = InvalidOid;
+
+    // Set up scan to find triggers for this constraint
+    ScanKeyInit(&key, Anum_pg_trigger_tgconstraint, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(conoid));
+
+    scan = systable_beginscan(trigrel, TriggerConstraintIndexId, true, NULL, 1, &key);
+
+    // Scan through all triggers for this constraint
+    while ((trigtup = systable_getnext(scan)) != NULL) {
+        Form_pg_trigger trgform = (Form_pg_trigger) GETSTRUCT(trigtup);
+
+        // Filter for triggers on the correct relations
+        if (trgform->tgconstrrelid != conrelid)
+            continue;
+        if (trgform->tgrelid != confrelid)
+            continue;
+
+        // Only look at action triggers on the PK side
+        if (RI_FKey_trigger_type(trgform->tgfoid) != RI_TRIGGER_PK)
+            continue;
+
+        // Identify DELETE or UPDATE triggers
+        if (TRIGGER_FOR_DELETE(trgform->tgtype)) {
+            Assert(*deleteTriggerOid == InvalidOid);
+            *deleteTriggerOid = trgform->oid;
+        } else if (TRIGGER_FOR_UPDATE(trgform->tgtype)) {
+            Assert(*updateTriggerOid == InvalidOid);
+            *updateTriggerOid = trgform->oid;
+        }
+
+        // Early exit if both triggers found (unless in assert build)
+        #ifndef USE_ASSERT_CHECKING
+        if (OidIsValid(*deleteTriggerOid) && OidIsValid(*updateTriggerOid))
+            break;
+        #endif
+    }
+
+    // Verify both triggers were found
+    if (!OidIsValid(*deleteTriggerOid))
+        elog(ERROR, "could not find ON DELETE action trigger of foreign key constraint %u", conoid);
+    if (!OidIsValid(*updateTriggerOid))
+        elog(ERROR, "could not find ON UPDATE action trigger of foreign key constraint %u", conoid);
+
+    systable_endscan(scan);
+}
+```

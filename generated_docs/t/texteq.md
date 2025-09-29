@@ -43,3 +43,50 @@ texteq(PG_FUNCTION_ARGS)
 - Provides significant performance improvement for C locale comparisons
 - Part of btree indexing infrastructure, marked as leakproof for security
 - Implements proper memory management to prevent leaks in index operations
+
+## Simplified Source
+
+```c
+Datum texteq(PG_FUNCTION_ARGS) {
+    Oid collid = PG_GET_COLLATION();
+    bool result;
+
+    // Check collation properties for optimization
+    check_collation_set(collid);
+
+    // Fast path: C locale or deterministic collation
+    if (lc_collate_is_c(collid) || pg_locale_deterministic(pg_newlocale_from_collation(collid))) {
+        Datum arg1 = PG_GETARG_DATUM(0);
+        Datum arg2 = PG_GETARG_DATUM(1);
+
+        // Quick length check - if lengths differ, strings are not equal
+        Size len1 = toast_raw_datum_size(arg1);
+        Size len2 = toast_raw_datum_size(arg2);
+
+        if (len1 != len2) {
+            result = false;
+        } else {
+            // Same length - compare actual content bytewise
+            text *targ1 = DatumGetTextPP(arg1);
+            text *targ2 = DatumGetTextPP(arg2);
+
+            result = (memcmp(VARDATA_ANY(targ1), VARDATA_ANY(targ2), len1 - VARHDRSZ) == 0);
+
+            // Clean up memory for toasted values
+            PG_FREE_IF_COPY(targ1, 0);
+            PG_FREE_IF_COPY(targ2, 1);
+        }
+    } else {
+        // Slow path: locale-aware comparison
+        text *arg1 = PG_GETARG_TEXT_PP(0);
+        text *arg2 = PG_GETARG_TEXT_PP(1);
+
+        result = (text_cmp(arg1, arg2, collid) == 0);
+
+        PG_FREE_IF_COPY(arg1, 0);
+        PG_FREE_IF_COPY(arg2, 1);
+    }
+
+    PG_RETURN_BOOL(result);
+}
+```
