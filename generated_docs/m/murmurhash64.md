@@ -31,3 +31,22 @@ The function performs three XOR-shift operations (each shifting by 33 bits) inte
 - Uses 33-bit right shifts, which is optimal for 64-bit hash mixing (approximately half the word size)
 - Less frequently used than `murmurhash32` in the PostgreSQL codebase, primarily employed for hashing 64-bit values such as pointers or large integer identifiers
 - Provides the same quality hash distribution as the 32-bit version but for 64-bit input space
+
+## Simplified Source
+
+```c
+static inline uint64
+murmurhash64(uint64 data)
+{
+    uint64 h = data;
+
+    // Apply 64-bit bit mixing with XOR shifts and magic constants
+    h ^= h >> 33;                    // Right shift by 33 and XOR
+    h *= 0xff51afd7ed558ccd;         // Multiply by first 64-bit magic constant
+    h ^= h >> 33;                    // Right shift by 33 and XOR
+    h *= 0xc4ceb9fe1a85ec53;         // Multiply by second 64-bit magic constant
+    h ^= h >> 33;                    // Final right shift by 33 and XOR
+
+    return h;
+}
+```

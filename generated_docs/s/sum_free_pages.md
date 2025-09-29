@@ -45,3 +45,49 @@ This function is essential for maintaining data structure integrity and is used 
 - Provides comprehensive verification by checking all data structures that hold free pages
 - The B-tree page counting includes internal structure pages, not just the managed free pages
 - Performance is O(n) where n is the total number of free page spans and B-tree nodes
+
+## Simplified Source
+
+```c
+static Size
+sum_free_pages(FreePageManager *fpm)
+{
+    char *base = fpm_segment_base(fpm);
+    Size sum = 0;
+
+    // Count pages in all freelists
+    for (int list = 0; list < FPM_NUM_FREELISTS; ++list)
+    {
+        if (!relptr_is_null(fpm->freelist[list]))
+        {
+            FreePageSpanLeader *candidate =
+                relptr_access(base, fpm->freelist[list]);
+
+            // Walk the linked list of spans in this freelist
+            do
+            {
+                sum += candidate->npages;
+                candidate = relptr_access(base, candidate->next);
+            } while (candidate != NULL);
+        }
+    }
+
+    // Count btree internal pages (if btree exists)
+    if (fpm->btree_depth > 0)
+    {
+        FreePageBtree *root = relptr_access(base, fpm->btree_root);
+        sum_free_pages_recurse(fpm, root, &sum);
+    }
+
+    // Count pages in the recycle list
+    for (FreePageSpanLeader *recycle = relptr_access(base, fpm->btree_recycle);
+         recycle != NULL;
+         recycle = relptr_access(base, recycle->next))
+    {
+        Assert(recycle->npages == 1);  // Recycle entries are always single pages
+        ++sum;
+    }
+
+    return sum;
+}
+```

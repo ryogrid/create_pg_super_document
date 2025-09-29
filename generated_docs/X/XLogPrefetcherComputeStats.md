@@ -38,3 +38,42 @@ After updating the statistics, the function schedules the next statistics update
 - Statistics updates are throttled using XLOGPREFETCHER_STATS_DISTANCE to avoid excessive overhead
 - The computed statistics are immediately visible through PostgreSQL's statistics views, providing real-time monitoring capabilities
 - Essential for monitoring WAL recovery performance and diagnosing prefetch effectiveness
+
+## Simplified Source
+
+```c
+// Simplified version of XLogPrefetcherComputeStats
+void XLogPrefetcherComputeStats(XLogPrefetcher *prefetcher) {
+    uint32 io_depth;
+    uint32 completed;
+    int64 wal_distance;
+
+    // Calculate WAL distance: how far ahead of replay we are
+    if (prefetcher->reader->decode_queue_tail) {
+        wal_distance = prefetcher->reader->decode_queue_tail->lsn -
+                      prefetcher->reader->decode_queue_head->lsn;
+    } else {
+        wal_distance = 0;
+    }
+
+    // Get current I/O statistics from streaming read queue
+    io_depth = lrq_inflight(prefetcher->streaming_read);    // Pending I/Os
+    completed = lrq_completed(prefetcher->streaming_read);  // Completed I/Os
+
+    // Update shared memory statistics visible in pg_stat_recovery_prefetch
+    SharedStats->io_depth = io_depth;
+    SharedStats->block_distance = io_depth + completed;  // Total prefetch activity
+    SharedStats->wal_distance = wal_distance;
+
+    // Schedule next statistics update
+    prefetcher->next_stats_shm_lsn =
+        prefetcher->reader->ReadRecPtr + XLOGPREFETCHER_STATS_DISTANCE;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Clarified the purpose of each statistic being computed
+- Made variable usage more explicit with inline comments
+- Simplified the overall structure while preserving all essential logic
+- Maintained the exact algorithm and data flow of the original function

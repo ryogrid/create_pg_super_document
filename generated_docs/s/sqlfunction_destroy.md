@@ -36,3 +36,18 @@ Unlike the startup and shutdown callbacks which are no-ops, this destroy functio
 - Part of the standard DestReceiver lifecycle: create → startup → receive (multiple) → shutdown → destroy
 - Located in src/backend/executor/functions.c with other SQL function execution infrastructure
 - Static function scope indicates it's only used within the functions.c module
+
+## Simplified Source
+
+```c
+// Simplified version of sqlfunction_destroy
+static void sqlfunction_destroy(DestReceiver *self) {
+    // Core logic: Free the destination receiver memory
+    pfree(self);
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple with just one operation
+- No simplification needed - the original is minimal and clear
+- Essential functionality preserved: memory deallocation of DestReceiver object

@@ -34,3 +34,17 @@ This function provides a safe way to access resource manager data from the RmgrT
 
 ## Notes and Other Information
 The function uses the `unlikely` macro around the validation check, indicating that invalid resource manager IDs are expected to be rare in normal operation. This optimization hint helps the compiler generate more efficient code by predicting that the validation will usually succeed. The function is widely used throughout WAL processing, recovery, and logical decoding operations where resource manager information is needed.
+
+## Simplified Source
+
+```c
+static inline RmgrData
+GetRmgr(RmgrId rmid)
+{
+    // Check if resource manager ID is valid (rare failure case)
+    if (unlikely(!RmgrIdExists(rmid)))
+        RmgrNotFound(rmid);
+
+    return RmgrTable[rmid];
+}
+```

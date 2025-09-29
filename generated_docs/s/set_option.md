@@ -57,3 +57,96 @@ The function expects arguments to start with "-" (which it skips) and uses the g
 - The function handles both short options and options with embedded values
 - Special handling for ps.case_indent as a float value that cannot be table-driven
 - Comprehensive error checking with descriptive error messages for debugging
+
+## Simplified Source
+
+```c
+// Simplified version of set_option
+void set_option(char *arg) {
+    struct pro *p;
+    const char *param_start;
+
+    // Skip the leading "-" character
+    arg++;
+
+    // Find matching parameter in configuration table
+    for (p = pro; p->p_name; p++) {
+        if (*p->p_name == *arg && (param_start = eqin(p->p_name, arg)) != NULL) {
+            goto found;
+        }
+    }
+
+    // Parameter not found - exit with error
+    errx(1, "%s: unknown parameter \"%s\"", option_source, arg - 1);
+
+found:
+    // Process parameter based on its type
+    switch (p->p_type) {
+        case PRO_SPECIAL:
+            // Handle special parameter types
+            switch (p->p_special) {
+                case IGN:
+                    // Ignore this parameter
+                    break;
+
+                case CLI:
+                    // Set case indentation value
+                    if (*param_start == 0) goto need_param;
+                    ps.case_indent = atof(param_start);
+                    break;
+
+                case STDIN:
+                    // Configure standard input/output
+                    if (input == NULL) input = stdin;
+                    if (output == NULL) output = stdout;
+                    break;
+
+                case KEY:
+                    // Add custom type name
+                    if (*param_start == 0) goto need_param;
+                    add_typename(param_start);
+                    break;
+
+                case KEY_FILE:
+                    // Load type definitions from file
+                    if (*param_start == 0) goto need_param;
+                    add_typedefs_from_file(param_start);
+                    break;
+
+                case VERSION:
+                    // Display version and exit
+                    printf("pg_bsd_indent %s (based on FreeBSD indent)\n", INDENT_VERSION);
+                    exit(0);
+
+                default:
+                    errx(1, "set_option: internal error: p_special %d", p->p_special);
+            }
+            break;
+
+        case PRO_BOOL:
+            // Set boolean parameter value
+            *p->p_obj = (p->p_special != OFF);
+            break;
+
+        case PRO_INT:
+            // Set integer parameter value
+            if (!isdigit((unsigned char)*param_start)) {
+need_param:
+                errx(1, "%s: \"%s\" requires a parameter", option_source, p->p_name);
+            }
+            *p->p_obj = atoi(param_start);
+            break;
+
+        default:
+            errx(1, "set_option: internal error: p_type %d", p->p_type);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major logic section
+- Clarified the parameter matching and lookup process
+- Simplified boolean parameter logic into a single line
+- Made the special parameter handling more readable with better spacing
+- Preserved all essential functionality and error handling
+- Maintained the original goto-based flow control for parameter validation

@@ -34,3 +34,20 @@ The function serves as the successful completion counterpart to BeginStrongLockA
 - Part of the strong lock acquisition cleanup mechanism
 - Should be called only when the strong lock acquisition has completed successfully
 - The counterpart function AbortStrongLockAcquire handles the error cleanup case
+
+## Simplified Source
+
+```c
+// Simplified version of FinishStrongLockAcquire
+static void FinishStrongLockAcquire(void) {
+    // Clear the global strong lock tracking variable
+    // Indicates that strong lock acquisition has completed successfully
+    StrongLockInProgress = NULL;
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only one line of actual logic
+- Added explanatory comments to clarify the purpose
+- No error handling or complex logic to simplify
+- The function's sole purpose is to reset the global tracking variable

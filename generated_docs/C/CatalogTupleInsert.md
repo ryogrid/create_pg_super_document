@@ -48,3 +48,29 @@ While convenient for single-tuple operations, this function has moderate overhea
 - Essential for maintaining system catalog integrity throughout PostgreSQL's DDL operations
 - Used extensively throughout PostgreSQL for creating database objects like tables, functions, types, etc.
 - Ensures ACID properties for system catalog modifications
+
+## Simplified Source
+
+```c
+/*
+ * CatalogTupleInsert - do heap and indexing work for a new catalog tuple
+ *
+ * Insert the tuple data in "tup" into the specified catalog relation.
+ * This is a convenience routine for inserting a single tuple in a system
+ * catalog; it inserts a new heap tuple, keeping indexes current.
+ */
+void
+CatalogTupleInsert(Relation heapRel, HeapTuple tup)
+{
+    CatalogIndexState indstate;
+
+    CatalogTupleCheckConstraints(heapRel, tup);
+
+    indstate = CatalogOpenIndexes(heapRel);
+
+    simple_heap_insert(heapRel, tup);
+
+    CatalogIndexInsert(indstate, tup, TU_All);
+    CatalogCloseIndexes(indstate);
+}
+```

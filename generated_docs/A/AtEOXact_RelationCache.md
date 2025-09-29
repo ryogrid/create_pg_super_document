@@ -63,3 +63,60 @@ The function must be called before processing invalidation messages because duri
 - The function handles both successful transaction commits and transaction aborts
 - Tuple descriptors are managed separately through the EOXactTupleDescArray mechanism
 - The in_progress_list_len should only be non-zero during transaction abort scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_RelationCache
+void AtEOXact_RelationCache(bool isCommit) {
+    HASH_SEQ_STATUS status;
+    RelIdCacheEnt *idhentry;
+    int i;
+
+    // Clear in-progress list (relevant for aborted RelationBuildDesc)
+    in_progress_list_len = 0;
+
+    // Clean up relations - use optimized list or full scan if overflowed
+    if (eoxact_list_overflowed) {
+        // Scan entire relation cache
+        hash_seq_init(&status, RelationIdCache);
+        while ((idhentry = hash_seq_search(&status)) != NULL) {
+            AtEOXact_cleanup(idhentry->reldesc, isCommit);
+        }
+    } else {
+        // Process only relations in the eoxact list
+        for (i = 0; i < eoxact_list_len; i++) {
+            idhentry = hash_search(RelationIdCache, &eoxact_list[i],
+                                   HASH_FIND, NULL);
+            if (idhentry != NULL) {
+                AtEOXact_cleanup(idhentry->reldesc, isCommit);
+            }
+        }
+    }
+
+    // Free tuple descriptors scheduled for cleanup
+    if (EOXactTupleDescArrayLen > 0) {
+        for (i = 0; i < NextEOXactTupleDescNum; i++) {
+            FreeTupleDesc(EOXactTupleDescArray[i]);
+        }
+        pfree(EOXactTupleDescArray);
+        EOXactTupleDescArray = NULL;
+    }
+
+    // Reset transaction-specific state
+    eoxact_list_len = 0;
+    eoxact_list_overflowed = false;
+    NextEOXactTupleDescNum = 0;
+    EOXactTupleDescArrayLen = 0;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining implementation rationale
+- Simplified variable declarations by grouping related types
+- Consolidated assertions into inline comments
+- Streamlined the conditional logic flow for better readability
+- Abstracted complex hash table operations with descriptive comments
+- Removed platform-specific details while preserving core algorithm
+- Maintained all essential cleanup operations and state resets
+```

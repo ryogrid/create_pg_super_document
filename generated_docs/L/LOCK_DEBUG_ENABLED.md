@@ -42,3 +42,30 @@ This selective debugging mechanism allows PostgreSQL developers to focus on spec
 - Trace_lock_oidmin defaults to FirstNormalObjectId to exclude system catalog debugging by default
 - The function uses short-circuit evaluation - if the first condition is false, the second condition is still evaluated
 - This is part of PostgreSQL's debugging infrastructure and has no impact on production builds unless LOCK_DEBUG is enabled
+
+## Simplified Source
+
+```c
+// Simplified version of LOCK_DEBUG_ENABLED
+inline static bool
+LOCK_DEBUG_ENABLED(const LOCKTAG *tag)
+{
+    // Check if general tracing is enabled for this lock method and OID range
+    bool general_trace = (LockMethods[tag->locktag_lockmethodid]->trace_flag &&
+                         tag->locktag_field2 >= Trace_lock_oidmin);
+
+    // Check if specific table tracing is enabled for this exact table
+    bool specific_trace = (Trace_lock_table &&
+                          tag->locktag_field2 == Trace_lock_table);
+
+    // Enable debugging if either condition is met
+    return general_trace || specific_trace;
+}
+```
+
+Key simplifications made:
+- Split the complex boolean expression into two clear intermediate variables
+- Added descriptive comments explaining each tracing condition
+- Maintained the original logic flow and return behavior
+- Preserved the inline static function signature
+- Made the OR logic more explicit and readable

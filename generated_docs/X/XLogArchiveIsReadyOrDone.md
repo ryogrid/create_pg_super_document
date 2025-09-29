@@ -34,3 +34,41 @@ This function is specifically designed for use during recovery operations where 
 - Similar to XLogArchiveIsBusy but with inverted logic - returns true for any archival status
 - Used in recovery cleanup to identify files that are part of the archival process
 - Does not create status files, only checks for existing ones
+
+## Simplified Source
+
+```c
+// Simplified version of XLogArchiveIsReadyOrDone
+bool XLogArchiveIsReadyOrDone(const char *xlog) {
+    char archiveStatusPath[MAXPGPATH];
+
+    // Check if archiver is done with this file
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    if (file_exists(archiveStatusPath)) {
+        return true;
+    }
+
+    // Check if archiver is currently processing this file
+    StatusFilePath(archiveStatusPath, xlog, ".ready");
+    if (file_exists(archiveStatusPath)) {
+        return true;
+    }
+
+    // Double-check for .done file to handle race conditions
+    StatusFilePath(archiveStatusPath, xlog, ".done");
+    if (file_exists(archiveStatusPath)) {
+        return true;
+    }
+
+    // File has no archival status
+    return false;
+}
+```
+
+Key simplifications made:
+- Abstracted `stat()` system calls into conceptual `file_exists()` checks
+- Removed detailed struct stat usage for clarity
+- Added descriptive comments explaining the purpose of each check
+- Simplified the race condition handling explanation
+- Maintained the essential three-step checking logic
+- Preserved the function's core purpose of detecting archival status

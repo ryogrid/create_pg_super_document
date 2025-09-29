@@ -34,3 +34,33 @@ This function serves as the main tuple processing callback for COPY TO operation
 - The function integrates with PostgreSQL's progress reporting system to provide real-time feedback on COPY operation status
 - Always returns true, indicating that COPY operations don't implement early termination at the tuple level
 - Part of the executor's destination receiver framework that allows pluggable output destinations
+
+## Simplified Source
+
+```c
+// Simplified version of copy_dest_receive
+static bool
+copy_dest_receive(TupleTableSlot *slot, DestReceiver *self)
+{
+    // Extract COPY state from destination receiver
+    DR_copy *myState = (DR_copy *) self;
+    CopyToState cstate = myState->cstate;
+
+    // Core logic: Format and send the tuple data
+    CopyOneRowTo(cstate, slot);
+
+    // Track progress: Increment processed tuple count
+    pgstat_progress_update_param(PROGRESS_COPY_TUPLES_PROCESSED,
+                                ++myState->processed);
+
+    // Always return true to continue processing
+    return true;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Preserved all essential functionality - no logic was removed
+- Enhanced readability through better comment structure
+- Maintained the exact same algorithm flow
+- Function is already quite simple and focused, so minimal changes were needed

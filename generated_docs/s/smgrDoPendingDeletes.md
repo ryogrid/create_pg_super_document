@@ -39,3 +39,69 @@ For each applicable deletion, it opens the relation using the storage manager, c
 - Entries are unlinked from the pending list before processing to avoid retry attempts on failure
 - Can handle relations that have no physical storage without error
 - The atCommit flag in PendingRelDelete determines whether deletion occurs at commit or abort
+
+## Simplified Source
+
+```c
+// Simplified version of smgrDoPendingDeletes
+void smgrDoPendingDeletes(bool isCommit) {
+    int nestLevel = GetCurrentTransactionNestLevel();
+    PendingRelDelete *pending, *prev = NULL, *next;
+    int nrels = 0, maxrels = 0;
+    SMgrRelation *srels = NULL;
+
+    // Walk through pending deletion list
+    for (pending = pendingDeletes; pending != NULL; pending = next) {
+        next = pending->next;
+
+        if (pending->nestLevel < nestLevel) {
+            // Keep outer-level entries for later processing
+            prev = pending;
+        } else {
+            // Remove from list first (unlink before processing)
+            if (prev)
+                prev->next = next;
+            else
+                pendingDeletes = next;
+
+            // Process deletion if it matches commit/abort condition
+            if (pending->atCommit == isCommit) {
+                SMgrRelation srel = smgropen(pending->rlocator, pending->procNumber);
+
+                // Grow relations array as needed
+                if (maxrels == 0) {
+                    maxrels = 8;
+                    srels = palloc(sizeof(SMgrRelation) * maxrels);
+                } else if (maxrels <= nrels) {
+                    maxrels *= 2;
+                    srels = repalloc(srels, sizeof(SMgrRelation) * maxrels);
+                }
+
+                srels[nrels++] = srel;
+            }
+
+            // Free the processed list entry
+            pfree(pending);
+        }
+    }
+
+    // Batch delete all collected relations
+    if (nrels > 0) {
+        smgrdounlinkall(srels, nrels, false);
+
+        // Close all opened relations
+        for (int i = 0; i < nrels; i++)
+            smgrclose(srels[i]);
+
+        pfree(srels);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for better readability
+- Added descriptive comments explaining each major section
+- Simplified array growth logic while preserving the doubling strategy
+- Made the list traversal and unlinking logic clearer
+- Emphasized the batch processing approach in comments
+- Preserved all essential logic including transaction nesting and commit/abort handling

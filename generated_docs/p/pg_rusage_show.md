@@ -49,3 +49,57 @@ The output format shows CPU usage broken down into user time (time spent in user
 - Commonly used in PostgreSQL's verbose logging and performance analysis features
 - The static buffer approach reflects PostgreSQL's single-threaded backend design
 - Used extensively throughout PostgreSQL for operation timing in maintenance commands and sort operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_rusage_show
+const char *
+pg_rusage_show(const PGRUsage *ru0)
+{
+    static char result[100];
+    PGRUsage current_usage;
+
+    // Get current resource usage snapshot
+    pg_rusage_init(&current_usage);
+
+    // Handle microsecond underflow by borrowing from seconds
+    // For wall-clock time
+    if (current_usage.tv.tv_usec < ru0->tv.tv_usec) {
+        current_usage.tv.tv_sec--;
+        current_usage.tv.tv_usec += 1000000;
+    }
+
+    // For system CPU time
+    if (current_usage.ru.ru_stime.tv_usec < ru0->ru.ru_stime.tv_usec) {
+        current_usage.ru.ru_stime.tv_sec--;
+        current_usage.ru.ru_stime.tv_usec += 1000000;
+    }
+
+    // For user CPU time
+    if (current_usage.ru.ru_utime.tv_usec < ru0->ru.ru_utime.tv_usec) {
+        current_usage.ru.ru_utime.tv_sec--;
+        current_usage.ru.ru_utime.tv_usec += 1000000;
+    }
+
+    // Format timing differences into readable string
+    snprintf(result, sizeof(result),
+             "CPU: user: %d.%02d s, system: %d.%02d s, elapsed: %d.%02d s",
+             (int)(current_usage.ru.ru_utime.tv_sec - ru0->ru.ru_utime.tv_sec),
+             (int)(current_usage.ru.ru_utime.tv_usec - ru0->ru.ru_utime.tv_usec) / 10000,
+             (int)(current_usage.ru.ru_stime.tv_sec - ru0->ru.ru_stime.tv_sec),
+             (int)(current_usage.ru.ru_stime.tv_usec - ru0->ru.ru_stime.tv_usec) / 10000,
+             (int)(current_usage.tv.tv_sec - ru0->tv.tv_sec),
+             (int)(current_usage.tv.tv_usec - ru0->tv.tv_usec) / 10000);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Renamed `ru1` to `current_usage` for better readability
+- Added descriptive comments for each major logic section
+- Grouped similar microsecond underflow handling logic
+- Removed internationalization macro `_()` for simplicity
+- Maintained the exact same algorithmic logic and precision
+- Preserved all essential timing calculations and borrowing arithmetic

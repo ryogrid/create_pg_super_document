@@ -57,3 +57,114 @@ The function handles special XLOG records (checkpoints, end-of-recovery) differe
 - The function coordinates with the WAL prefetcher to optimize I/O performance
 - Backup page consistency checks are optional and controlled by the XLR_CHECK_CONSISTENCY flag
 - Timeline switches trigger cleanup of potentially invalid future WAL segments
+
+## Simplified Source
+
+```c
+// Simplified version of ApplyWalRecord
+static void
+ApplyWalRecord(XLogReaderState *xlogreader, XLogRecord *record, TimeLineID *replayTLI)
+{
+    ErrorContextCallback errcallback;
+    bool switchedTLI = false;
+
+    // Setup error traceback support
+    errcallback.callback = rm_redo_error_callback;
+    errcallback.arg = xlogreader;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Advance transaction ID beyond this record's XID
+    AdvanceNextFullTransactionIdPastXid(record->xl_xid);
+
+    // Handle timeline switches for checkpoint and end-of-recovery records
+    if (record->xl_rmid == RM_XLOG_ID) {
+        TimeLineID newReplayTLI = *replayTLI;
+        TimeLineID prevReplayTLI = *replayTLI;
+        uint8 info = record->xl_info & ~XLR_INFO_MASK;
+
+        if (info == XLOG_CHECKPOINT_SHUTDOWN) {
+            CheckPoint checkPoint;
+            memcpy(&checkPoint, XLogRecGetData(xlogreader), sizeof(CheckPoint));
+            newReplayTLI = checkPoint.ThisTimeLineID;
+            prevReplayTLI = checkPoint.PrevTimeLineID;
+        }
+        else if (info == XLOG_END_OF_RECOVERY) {
+            xl_end_of_recovery xlrec;
+            memcpy(&xlrec, XLogRecGetData(xlogreader), sizeof(xl_end_of_recovery));
+            newReplayTLI = xlrec.ThisTimeLineID;
+            prevReplayTLI = xlrec.PrevTimeLineID;
+        }
+
+        // Switch timeline if needed
+        if (newReplayTLI != *replayTLI) {
+            checkTimeLineSwitch(xlogreader->EndRecPtr, newReplayTLI, prevReplayTLI, *replayTLI);
+            *replayTLI = newReplayTLI;
+            switchedTLI = true;
+        }
+    }
+
+    // Update shared replay progress tracking
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    XLogRecoveryCtl->replayEndRecPtr = xlogreader->EndRecPtr;
+    XLogRecoveryCtl->replayEndTLI = *replayTLI;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Record transaction IDs for Hot Standby mode
+    if (standbyState >= STANDBY_INITIALIZED && TransactionIdIsValid(record->xl_xid)) {
+        RecordKnownAssignedTransactionIds(record->xl_xid);
+    }
+
+    // Handle special XLOG records directly
+    if (record->xl_rmid == RM_XLOG_ID) {
+        xlogrecovery_redo(xlogreader, *replayTLI);
+    }
+
+    // Apply the WAL record using appropriate resource manager
+    GetRmgr(record->xl_rmid).rm_redo(xlogreader);
+
+    // Verify backup page consistency if enabled
+    if ((record->xl_info & XLR_CHECK_CONSISTENCY) != 0) {
+        verifyBackupPageConsistency(xlogreader);
+    }
+
+    // Restore error context
+    error_context_stack = errcallback.previous;
+
+    // Update final replay tracking
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    XLogRecoveryCtl->lastReplayedReadRecPtr = xlogreader->ReadRecPtr;
+    XLogRecoveryCtl->lastReplayedEndRecPtr = xlogreader->EndRecPtr;
+    XLogRecoveryCtl->lastReplayedTLI = *replayTLI;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Wake up walsenders for cascading replication
+    if (AllowCascadeReplication()) {
+        WalSndWakeup(switchedTLI, true);
+    }
+
+    // Force WAL receiver reply if requested
+    if (doRequestWalReceiverReply) {
+        doRequestWalReceiverReply = false;
+        WalRcvForceReply();
+    }
+
+    // Check if recovery is now consistent
+    CheckRecoveryConsistency();
+
+    // Clean up old timeline files if we switched
+    if (switchedTLI) {
+        RemoveNonParentXlogFiles(xlogreader->EndRecPtr, *replayTLI);
+        XLogPrefetchReconfigure();
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Simplified variable declarations and initialization
+- Consolidated spin lock operations with clear comments
+- Reduced verbose timeline switch logic to essential steps
+- Abstracted complex conditional checks into clear flow
+- Shortened lengthy comment blocks while preserving key information
+- Maintained all critical functionality and error handling paths

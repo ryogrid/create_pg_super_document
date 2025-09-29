@@ -50,3 +50,79 @@ The function ensures that collators are opened consistently across different ICU
 - Returns a UCollator pointer that must be closed with ucol_close()
 - Essential for PostgreSQL's ICU collation support across different ICU library versions
 - Part of the ICU collation infrastructure that ensures consistent behavior
+
+## Simplified Source
+
+```c
+// Simplified version of pg_ucol_open
+static UCollator *
+pg_ucol_open(const char *loc_str)
+{
+    UCollator  *collator;
+    UErrorCode status;
+    const char *orig_str = loc_str;
+    char       *fixed_str = NULL;
+
+    // Never allow opening default collator (NULL parameter)
+    if (loc_str == NULL)
+        elog(ERROR, "opening default collator is not supported");
+
+    // For ICU < 55: Convert "und" to "root" locale
+    if (U_ICU_VERSION_MAJOR_NUM < 55)
+    {
+        char lang[ULOC_LANG_CAPACITY];
+
+        // Extract language component from locale string
+        status = U_ZERO_ERROR;
+        uloc_getLanguage(loc_str, lang, ULOC_LANG_CAPACITY, &status);
+        if (U_FAILURE(status))
+            ereport(ERROR, (errmsg("could not get language from locale \"%s\": %s",
+                                   loc_str, u_errorName(status))));
+
+        // Replace "und" with "root" for older ICU versions
+        if (strcmp(lang, "und") == 0)
+        {
+            const char *remainder = loc_str + strlen("und");
+            fixed_str = palloc(strlen("root") + strlen(remainder) + 1);
+            strcpy(fixed_str, "root");
+            strcat(fixed_str, remainder);
+            loc_str = fixed_str;
+        }
+    }
+
+    // Open the ICU collator
+    status = U_ZERO_ERROR;
+    collator = ucol_open(loc_str, &status);
+    if (U_FAILURE(status))
+        ereport(ERROR, (errmsg("could not open collator for locale \"%s\": %s",
+                               orig_str, u_errorName(status))));
+
+    // For ICU < 54: Manually set collation attributes
+    if (U_ICU_VERSION_MAJOR_NUM < 54)
+    {
+        status = U_ZERO_ERROR;
+        icu_set_collation_attributes(collator, loc_str, &status);
+
+        if (U_FAILURE(status))
+        {
+            ucol_close(collator);
+            ereport(ERROR, (errmsg("could not open collator for locale \"%s\": %s",
+                                   orig_str, u_errorName(status))));
+        }
+    }
+
+    // Clean up temporary string allocation
+    if (fixed_str != NULL)
+        pfree(fixed_str);
+
+    return collator;
+}
+```
+
+Key simplifications made:
+- Removed detailed warning status checks where they weren't critical
+- Simplified comment structure for better readability
+- Consolidated error handling patterns while preserving essential checks
+- Maintained all core logic paths including version-specific workarounds
+- Preserved memory management and cleanup operations
+- Kept original variable names for consistency with actual implementation

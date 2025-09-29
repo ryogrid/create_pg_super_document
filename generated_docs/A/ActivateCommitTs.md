@@ -56,3 +56,67 @@ This function takes no parameters.
 - The function is idempotent - calling it multiple times when already active is safe
 - Critical for maintaining consistency between primary and standby servers in replication scenarios
 - Includes detailed comments explaining potential issues with enable/disable/re-enable scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of ActivateCommitTs
+static void
+ActivateCommitTs(void)
+{
+    TransactionId xid;
+    int64 pageno;
+
+    // Skip activation during bootstrap mode
+    if (IsBootstrapProcessingMode())
+        return;
+
+    // Check if already active - early return if so
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+    if (commitTsShared->commitTsActive) {
+        LWLockRelease(CommitTsLock);
+        return;
+    }
+    LWLockRelease(CommitTsLock);
+
+    // Calculate current page number from next transaction ID
+    xid = XidFromFullTransactionId(TransamVariables->nextXid);
+    pageno = TransactionIdToCTsPage(xid);
+
+    // Initialize latest page number in shared memory
+    pg_atomic_write_u64(&CommitTsCtl->shared->latest_page_number, pageno);
+
+    // Set up transaction ID boundaries for commit timestamp tracking
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+    if (TransamVariables->oldestCommitTsXid == InvalidTransactionId) {
+        TransamVariables->oldestCommitTsXid =
+            TransamVariables->newestCommitTsXid = ReadNextTransactionId();
+    }
+    LWLockRelease(CommitTsLock);
+
+    // Create the current SLRU segment file if needed
+    if (!SimpleLruDoesPhysicalPageExist(CommitTsCtl, pageno)) {
+        LWLock *lock = SimpleLruGetBankLock(CommitTsCtl, pageno);
+        int slotno;
+
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+        slotno = ZeroCommitTsPage(pageno, false);
+        SimpleLruWritePage(CommitTsCtl, slotno);
+        LWLockRelease(lock);
+    }
+
+    // Mark subsystem as active in shared memory
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+    commitTsShared->commitTsActive = true;
+    LWLockRelease(CommitTsLock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining edge cases and XXX concerns
+- Simplified variable declarations and formatting
+- Removed Assert statement for cleaner flow
+- Consolidated lock operations with clearer grouping
+- Streamlined conditional logic while preserving essential checks
+- Maintained all critical functionality and error handling
+- Preserved the core algorithm: check activation status, initialize page tracking, set boundaries, create segments, activate

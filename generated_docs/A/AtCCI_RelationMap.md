@@ -43,3 +43,29 @@ This function takes no parameters.
 - The pending/active distinction allows relation mapping updates to behave similarly to regular catalog updates in terms of when they become visible
 - The function operates on static global variables that maintain the current state of relation mappings
 - No error handling is present as the merge_map_updates function handles the actual work and any potential issues
+
+## Simplified Source
+
+```c
+// Simplified version of AtCCI_RelationMap
+void AtCCI_RelationMap(void) {
+    // Process pending shared catalog mapping updates
+    if (pending_shared_updates.num_mappings != 0) {
+        merge_map_updates(&active_shared_updates, &pending_shared_updates, true);
+        pending_shared_updates.num_mappings = 0;  // Clear pending count
+    }
+
+    // Process pending local catalog mapping updates
+    if (pending_local_updates.num_mappings != 0) {
+        merge_map_updates(&active_local_updates, &pending_local_updates, true);
+        pending_local_updates.num_mappings = 0;   // Clear pending count
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each section
+- Clarified that one section handles shared catalogs, the other handles local catalogs
+- Added inline comments explaining the reset of num_mappings counters
+- The function is already quite simple, so minimal changes were needed to preserve the essential logic
+- No complex conditions or error handling to simplify - the function has a straightforward control flow

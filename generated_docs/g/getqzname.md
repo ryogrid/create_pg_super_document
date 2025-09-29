@@ -32,3 +32,26 @@ This static function extends the functionality of  by allowing parsing of timezo
 - Complements  by handling delimited timezone abbreviations rather than stopping at predefined separator characters
 - Part of the timezone string parsing infrastructure for handling more complex timezone specifications
 - The delimiter parameter allows flexibility in parsing different timezone string formats
+
+## Simplified Source
+
+```c
+// Simplified version of getqzname
+static const char *
+getqzname(const char *strp, const int delim)
+{
+    // Scan forward until we find the delimiter or end of string
+    while (*strp != '\0' && *strp != delim) {
+        strp++;
+    }
+
+    // Return pointer to delimiter (or null terminator if not found)
+    return strp;
+}
+```
+
+Key simplifications made:
+- Removed temporary variable `c` for direct character comparison
+- Added explanatory comments for the core scanning logic
+- Simplified the while loop condition for better readability
+- Made the return purpose explicit with comments

@@ -50,3 +50,72 @@ The "deferrable" aspect allows the transaction to wait (potentially indefinitely
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - The returned snapshot requires no further serialization conflict checking
 - Located in src/backend/storage/lmgr/predicate.c:1548-1617
+
+## Simplified Source
+
+```c
+// Simplified version of GetSafeSnapshot
+static Snapshot
+GetSafeSnapshot(Snapshot origSnapshot)
+{
+    Snapshot snapshot;
+
+    // Ensure we're in a READ ONLY DEFERRABLE transaction
+    Assert(XactReadOnly && XactDeferrable);
+
+    while (true)
+    {
+        // Get a serializable transaction snapshot
+        snapshot = GetSerializableTransactionSnapshotInt(origSnapshot, NULL, InvalidPid);
+
+        // If no concurrent read/write transactions, snapshot is immediately safe
+        if (MySerializableXact == InvalidSerializableXact)
+            return snapshot;
+
+        // Wait for potentially conflicting concurrent transactions to finish
+        LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+        MySerializableXact->flags |= SXACT_FLAG_DEFERRABLE_WAITING;
+
+        // Wait until no unsafe conflicts remain or we're marked as unsafe
+        while (!(dlist_is_empty(&MySerializableXact->possibleUnsafeConflicts) ||
+                 SxactIsROUnsafe(MySerializableXact)))
+        {
+            LWLockRelease(SerializableXactHashLock);
+            ProcWaitForSignal(WAIT_EVENT_SAFE_SNAPSHOT);
+            LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+        }
+
+        MySerializableXact->flags &= ~SXACT_FLAG_DEFERRABLE_WAITING;
+
+        // Check if snapshot is now safe
+        if (!SxactIsROUnsafe(MySerializableXact))
+        {
+            LWLockRelease(SerializableXactHashLock);
+            break; // Success - we have a safe snapshot
+        }
+
+        LWLockRelease(SerializableXactHashLock);
+
+        // Snapshot became unsafe, retry with a new one
+        ereport(DEBUG2, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                        errmsg_internal("deferrable snapshot was unsafe; trying a new one")));
+        ReleasePredicateLocks(false, false);
+    }
+
+    // We now have a safe snapshot - no further checks needed
+    Assert(SxactIsROSafe(MySerializableXact));
+    ReleasePredicateLocks(false, true);
+
+    return snapshot;
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic flow and error handling
+- Added descriptive comments explaining each major step
+- Maintained the retry loop structure which is core to the algorithm
+- Kept all critical assertions and safety checks
+- Preserved the waiting mechanism for concurrent transaction completion
+- Maintained proper lock acquisition/release patterns
+- Kept debug logging for troubleshooting unsafe snapshot retries

@@ -42,3 +42,45 @@ The function ensures proper resource cleanup regardless of transaction outcome w
 - Uses a global `cookies` array to track open large object file descriptors
 - Memory context deletion ensures no permanent memory leaks from large object operations
 - Part of PostgreSQL's two-phase cleanup system where both this function and `close_lo_relation` participate in end-of-transaction processing
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_LargeObject
+void AtEOXact_LargeObject(bool isCommit) {
+    // Skip cleanup if no large object operations occurred
+    if (!lo_cleanup_needed)
+        return;
+
+    // On commit: explicitly close all open LO file descriptors
+    // On abort: skip this since resource owner will clean up automatically
+    if (isCommit) {
+        for (int i = 0; i < cookies_size; i++) {
+            if (cookies[i] != NULL)
+                closeLOfd(i);
+        }
+    }
+
+    // Clear the file descriptor tracking array
+    cookies = NULL;
+    cookies_size = 0;
+
+    // Release large object memory context to prevent leaks
+    if (fscxt)
+        MemoryContextDelete(fscxt);
+    fscxt = NULL;
+
+    // Let inventory API do additional cleanup
+    close_lo_relation(isCommit);
+
+    // Mark cleanup as complete
+    lo_cleanup_needed = false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about memory context lifecycle
+- Simplified variable declarations (moved loop variable inline)
+- Added high-level comments explaining the logic flow
+- Consolidated the main cleanup steps into clear sections
+- Preserved all essential functionality and error handling

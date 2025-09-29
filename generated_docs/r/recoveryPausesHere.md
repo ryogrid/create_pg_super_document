@@ -44,3 +44,47 @@ During the pause loop, it periodically checks for interrupts and standby trigger
 - Provides user-friendly log messages with hints about using pg_wal_replay_resume() to continue
 - The pause mechanism is essential for point-in-time recovery scenarios where administrators need to inspect database state before proceeding
 - Location: src/backend/access/transam/xlogrecovery.c:2925-2981
+
+## Simplified Source
+
+```c
+// Simplified version of recoveryPausesHere
+static void recoveryPausesHere(bool endOfRecovery) {
+    // Safety checks: only pause when users can connect and promotion isn't triggered
+    if (!LocalHotStandbyActive || LocalPromoteIsTriggered)
+        return;
+
+    // Log appropriate message based on recovery state
+    if (endOfRecovery)
+        ereport(LOG, (errmsg("pausing at the end of recovery"),
+                     errhint("Execute pg_wal_replay_resume() to promote.")));
+    else
+        ereport(LOG, (errmsg("recovery has paused"),
+                     errhint("Execute pg_wal_replay_resume() to continue.")));
+
+    // Main pause loop: wait until recovery is resumed
+    while (GetRecoveryPauseState() != RECOVERY_NOT_PAUSED) {
+        // Handle interrupts and check for standby promotion
+        HandleStartupProcInterrupts();
+        if (CheckForStandbyTrigger())
+            return;
+
+        // Confirm we're still in paused state
+        ConfirmRecoveryPaused();
+
+        // Sleep with timeout to periodically check conditions
+        ConditionVariableTimedSleep(&XLogRecoveryCtl->recoveryNotPausedCV, 1000,
+                                   WAIT_EVENT_RECOVERY_PAUSE);
+    }
+
+    // Clean up condition variable state
+    ConditionVariableCancelSleep();
+}
+```
+
+Key simplifications made:
+- Combined multiple conditional exits into a single early return
+- Added descriptive comments for each major logic section
+- Preserved the essential pause/resume mechanism and safety checks
+- Maintained the condition variable timeout pattern for efficient waiting
+- Kept critical error handling and interrupt processing

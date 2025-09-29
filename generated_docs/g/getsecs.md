@@ -42,3 +42,42 @@ The total seconds are calculated and stored in the provided output parameter. If
 - The extended hour range (0-167) supports quasi-Posix timezone rules that may specify times beyond 24 hours
 - Returns NULL on any parsing error, making error handling straightforward for callers
 - The function advances through the string character by character, making it suitable for sequential parsing of timezone specifications
+
+## Simplified Source
+
+```c
+static const char *getsecs(const char *strp, int32 *const secsp)
+{
+    int num;
+
+    // Parse hours (0 to 167 for quasi-Posix rules like "M10.4.6/26")
+    strp = getnum(strp, &num, 0, HOURSPERDAY * DAYSPERWEEK - 1);
+    if (strp == NULL)
+        return NULL;
+
+    *secsp = num * (int32) SECSPERHOUR;
+
+    // Parse optional minutes
+    if (*strp == ':') {
+        ++strp;
+        strp = getnum(strp, &num, 0, MINSPERHOUR - 1);
+        if (strp == NULL)
+            return NULL;
+
+        *secsp += num * SECSPERMIN;
+
+        // Parse optional seconds
+        if (*strp == ':') {
+            ++strp;
+            // Allow up to 60 seconds for leap seconds
+            strp = getnum(strp, &num, 0, SECSPERMIN);
+            if (strp == NULL)
+                return NULL;
+
+            *secsp += num;
+        }
+    }
+
+    return strp;
+}
+```

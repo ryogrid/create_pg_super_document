@@ -37,3 +37,40 @@ The function handles two types of subtransaction IDs for each OnCommitItem: crea
 - During subcommit, ownership is transferred to the parent subtransaction for both creating and deleting operations
 - The deleting_subid handling differs between commit and abort cases to maintain proper cleanup semantics
 - Memory management ensures that removed OnCommitItem structures are properly freed
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_on_commit_actions
+void AtEOSubXact_on_commit_actions(bool isCommit, SubTransactionId mySubid,
+                                   SubTransactionId parentSubid) {
+    ListCell *cur_item;
+
+    // Iterate through all on-commit items to handle subtransaction cleanup
+    foreach(cur_item, on_commits) {
+        OnCommitItem *oc = (OnCommitItem *) lfirst(cur_item);
+
+        // During abort: remove entries created in this subtransaction
+        if (!isCommit && oc->creating_subid == mySubid) {
+            on_commits = foreach_delete_current(on_commits, cur_item);
+            pfree(oc);
+        }
+        else {
+            // During commit: transfer ownership to parent subtransaction
+            if (oc->creating_subid == mySubid)
+                oc->creating_subid = parentSubid;
+
+            if (oc->deleting_subid == mySubid)
+                oc->deleting_subid = isCommit ? parentSubid : InvalidSubTransactionId;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the core logic flow: iterate through on_commits list and handle each item
+- Kept essential branching logic for commit vs abort behavior
+- Maintained the ownership transfer mechanism for subtransaction IDs
+- Removed detailed comments while keeping high-level explanatory comments
+- Preserved all critical function calls and memory management operations
+- Maintained the correct handling of both creating_subid and deleting_subid fields

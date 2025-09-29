@@ -29,3 +29,22 @@ This function takes no parameters.
 - It's specifically called during subtransaction abort processing to ensure proper resource owner restoration
 - The function assumes that CurrentTransactionState is valid and properly initialized
 - Part of a coordinated set of AtSubAbort_* functions that handle different aspects of subtransaction cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_ResourceOwner
+static void AtSubAbort_ResourceOwner(void) {
+    // Get current transaction state
+    TransactionState s = CurrentTransactionState;
+
+    // Restore resource owner to main transaction's owner
+    CurrentResourceOwner = s->curTransactionOwner;
+}
+```
+
+Key simplifications made:
+- Function is already very simple, minimal changes needed
+- Added descriptive comments explaining the two main steps
+- Preserved the essential logic flow: get transaction state and restore resource owner
+- Maintained the static function signature and return type

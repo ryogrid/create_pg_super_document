@@ -28,3 +28,33 @@ This function serves as the receive callback for a DestReceiver that handles wri
 - Skips index maintenance since transient relations are newly created and have no indexes
 - Uses bulk insert state and frozen/FSM-skipping options configured in transientrel_startup for optimal performance
 - Part of the materialized view refresh infrastructure where transient relations serve as temporary storage
+
+## Simplified Source
+
+```c
+// Simplified version of transientrel_receive
+static bool
+transientrel_receive(TupleTableSlot *slot, DestReceiver *self)
+{
+    DR_transientrel *myState = (DR_transientrel *) self;
+
+    // Insert tuple into transient relation using bulk insert state
+    // Note: slot type doesn't need to match exactly - table_tuple_insert handles conversion
+    table_tuple_insert(myState->transientrel,
+                       slot,
+                       myState->output_cid,
+                       myState->ti_options,
+                       myState->bistate);
+
+    // No index maintenance needed - newly created relation has no indexes
+
+    return true;  // Signal successful tuple processing
+}
+```
+
+Key simplifications made:
+- Preserved the core tuple insertion logic with table_tuple_insert
+- Kept essential parameters and state access
+- Simplified the detailed comment about slot type compatibility into a concise note
+- Maintained the important observation about index maintenance
+- Removed verbose explanatory comments while preserving functional understanding

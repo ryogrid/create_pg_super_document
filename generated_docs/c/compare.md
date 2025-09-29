@@ -37,3 +37,26 @@ This comparison logic ensures that when used with qsort, chromosomes are sorted 
 - The comment in sort_pool suggests this function can be modified to change sorting behavior
 - Essential for maintaining sorted populations in genetic algorithm operations
 - Part of a broader pattern in PostgreSQL where many comparison functions follow this same interface for various data types
+
+## Simplified Source
+
+```c
+// Simplified version of compare
+static int compare(const void *arg1, const void *arg2) {
+    const Chromosome *chromo1 = (const Chromosome *) arg1;
+    const Chromosome *chromo2 = (const Chromosome *) arg2;
+
+    // Compare fitness values (worth)
+    if (chromo1->worth == chromo2->worth)
+        return 0;
+    else if (chromo1->worth > chromo2->worth)
+        return 1;
+    else
+        return -1;
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already very clean and straightforward
+- Added brief comment explaining the comparison purpose
+- Function implements standard qsort comparison pattern for chromosome fitness values

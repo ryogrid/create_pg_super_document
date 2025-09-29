@@ -53,3 +53,66 @@ The function handles both commit and abort scenarios, with additional validation
 - Handles exported snapshots by removing their files from the filesystem
 - Ensures all global snapshot tracking variables are properly reset
 - Works in conjunction with ProcArrayEndTransaction() for xmin management
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Snapshot
+void AtEOXact_Snapshot(bool isCommit, bool resetXmin) {
+    // Clean up transaction snapshot
+    if (FirstXactSnapshot != NULL) {
+        // Remove from registered snapshots list
+        pairingheap_remove(&RegisteredSnapshots, &FirstXactSnapshot->ph_node);
+    }
+    FirstXactSnapshot = NULL;
+
+    // Clean up exported snapshots
+    if (exportedSnapshots != NIL) {
+        foreach(lc, exportedSnapshots) {
+            ExportedSnapshot *esnap = (ExportedSnapshot *) lfirst(lc);
+
+            // Remove snapshot file from filesystem
+            if (unlink(esnap->snapfile))
+                elog(WARNING, "could not unlink file \"%s\"", esnap->snapfile);
+
+            // Remove from registered snapshots
+            pairingheap_remove(&RegisteredSnapshots, &esnap->snapshot->ph_node);
+        }
+        exportedSnapshots = NIL;
+    }
+
+    // Invalidate catalog snapshot
+    InvalidateCatalogSnapshot();
+
+    // On commit, check for leftover snapshots (debugging)
+    if (isCommit) {
+        if (!pairingheap_is_empty(&RegisteredSnapshots))
+            elog(WARNING, "registered snapshots seem to remain after cleanup");
+
+        // Check for unpopped active snapshots
+        for (ActiveSnapshotElt *active = ActiveSnapshot; active != NULL; active = active->as_next)
+            elog(WARNING, "snapshot %p still active", active);
+    }
+
+    // Reset all global snapshot state
+    ActiveSnapshot = NULL;
+    OldestActiveSnapshot = NULL;
+    pairingheap_reset(&RegisteredSnapshots);
+    CurrentSnapshot = NULL;
+    SecondarySnapshot = NULL;
+    FirstSnapshotSet = false;
+
+    // Reset xmin if requested
+    if (resetXmin)
+        SnapshotResetXmin();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining memory management rationale
+- Simplified variable declarations and moved them closer to usage
+- Condensed error handling to focus on core actions
+- Reduced verbose condition checking while preserving essential logic
+- Streamlined the exported snapshots cleanup loop structure
+- Consolidated state reset operations into a clear sequence
+- Removed assert statements and detailed error context for clarity

@@ -42,3 +42,64 @@ This function takes no parameters and operates on global recovery configuration 
 - Automatically changes RECOVERY_TARGET_ACTION_PAUSE to RECOVERY_TARGET_ACTION_SHUTDOWN when hot standby is disabled
 - Timeline 1 is special-cased as it doesn't require a history file
 - The function modifies global variables like recoveryTargetAction, recoveryTargetTime, and recoveryTargetTLI based on validation results
+
+## Simplified Source
+
+```c
+// Simplified version of validateRecoveryParameters
+static void validateRecoveryParameters(void) {
+    // Exit early if archive recovery is not requested
+    if (!ArchiveRecoveryRequested)
+        return;
+
+    // Validate compulsory parameters based on standby mode
+    if (StandbyModeRequested) {
+        // In standby mode: warn if both primary_conninfo and restore_command are missing
+        if (no_primary_connection_info && no_restore_command) {
+            ereport(WARNING, "specify either primary_conninfo or restore_command");
+        }
+    } else {
+        // In archive recovery mode: restore_command is mandatory
+        if (no_restore_command) {
+            ereport(FATAL, "must specify restore_command when standby mode is not enabled");
+        }
+    }
+
+    // Override inconsistent recovery target action settings
+    if (recovery_target_is_pause && hot_standby_disabled) {
+        recoveryTargetAction = RECOVERY_TARGET_ACTION_SHUTDOWN;
+    }
+
+    // Parse recovery target time if specified
+    if (recoveryTarget == RECOVERY_TARGET_TIME) {
+        recoveryTargetTime = parse_timestamp_string(recovery_target_time_string);
+    }
+
+    // Validate and set recovery target timeline
+    if (recoveryTargetTimeLineGoal == RECOVERY_TARGET_TIMELINE_NUMERIC) {
+        TimeLineID target_timeline = recoveryTargetTLIRequested;
+
+        // Verify timeline exists (timeline 1 is always valid)
+        if (target_timeline != 1 && !existsTimeLineHistory(target_timeline)) {
+            ereport(FATAL, "recovery target timeline %u does not exist", target_timeline);
+        }
+        recoveryTargetTLI = target_timeline;
+
+    } else if (recoveryTargetTimeLineGoal == RECOVERY_TARGET_TIMELINE_LATEST) {
+        // Find the newest available timeline
+        recoveryTargetTLI = findNewestTimeLine(recoveryTargetTLI);
+
+    } else {
+        // Use timeline from control file (default case)
+        // recoveryTargetTLI already set from ControlFile
+    }
+}
+```
+
+Key simplifications made:
+- Simplified complex string comparison conditions into readable boolean expressions
+- Abstracted detailed DirectFunctionCall3 timestamp parsing into conceptual parse_timestamp_string()
+- Removed verbose error message formatting for clarity
+- Consolidated parameter validation logic into clear conditional blocks
+- Added descriptive comments explaining the purpose of each validation step
+- Simplified timeline validation logic while preserving the core algorithm

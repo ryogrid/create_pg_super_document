@@ -29,3 +29,18 @@ This function serves as the shutdown callback for the COPY destination receiver 
 - The no-op implementation indicates that COPY operations don't require any special shutdown procedures beyond what's handled in the destroy callback
 - Part of PostgreSQL's destination receiver framework that separates shutdown (end of normal processing) from destroy (cleanup of resources)
 - Actual resource cleanup for COPY operations occurs in copy_dest_destroy, not in this shutdown callback
+
+## Simplified Source
+
+```c
+// Simplified version of copy_dest_shutdown
+static void copy_dest_shutdown(DestReceiver *self) {
+    // No-op: COPY destination receivers handle cleanup in destroy callback
+    // This function satisfies the DestReceiver interface requirement
+}
+```
+
+Key simplifications made:
+- Added explanatory comment explaining why this is a no-op function
+- Clarified that cleanup occurs in the destroy callback instead
+- Maintained the function signature exactly as required by DestReceiver interface

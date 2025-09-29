@@ -35,3 +35,21 @@ This function is particularly important for comparing unsigned values like OIDs 
 - This function is declared as `static inline` for maximum performance in hot code paths
 - Extensively used for comparing PostgreSQL's internal unsigned identifiers like OIDs and XIDs
 - Part of a family of comparison functions for different integer types, providing consistent comparison semantics
+
+## Simplified Source
+
+```c
+// Simplified version of pg_cmp_u32
+static inline int
+pg_cmp_u32(uint32 a, uint32 b)
+{
+    // Branchless three-way comparison: returns -1, 0, or 1
+    // Uses arithmetic properties: (a > b) evaluates to 0 or 1, same for (a < b)
+    return (a > b) - (a < b);
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple and efficient
+- Added explanatory comments for the branchless algorithm
+- No complex logic to simplify - this is a minimal, optimized implementation

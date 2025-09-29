@@ -44,3 +44,52 @@ This mechanism allows PostgreSQL to transition from recovery mode to normal oper
 - Timeline information is captured atomically under WAL insertion locks
 - More lightweight alternative to full checkpoint for ending recovery
 - Essential for proper point-in-time recovery and timeline switching functionality
+
+## Simplified Source
+
+```c
+// Simplified version of CreateEndOfRecoveryRecord
+static void
+CreateEndOfRecoveryRecord(void)
+{
+    xl_end_of_recovery xlrec;
+    XLogRecPtr recptr;
+
+    // Sanity check: ensure we're actually in recovery
+    if (!RecoveryInProgress())
+        elog(ERROR, "can only be used to end recovery");
+
+    // Prepare end-of-recovery record with current state
+    xlrec.end_time = GetCurrentTimestamp();
+    xlrec.wal_level = wal_level;
+
+    // Capture timeline information atomically
+    WALInsertLockAcquireExclusive();
+    xlrec.ThisTimeLineID = XLogCtl->InsertTimeLineID;
+    xlrec.PrevTimeLineID = XLogCtl->PrevTimeLineID;
+    WALInsertLockRelease();
+
+    // Write the end-of-recovery WAL record
+    START_CRIT_SECTION();
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, sizeof(xl_end_of_recovery));
+    recptr = XLogInsert(RM_XLOG_ID, XLOG_END_OF_RECOVERY);
+    XLogFlush(recptr);
+
+    // Update control file for future crash recovery
+    LWLockAcquire(ControlFileLock, LW_EXCLUSIVE);
+    ControlFile->minRecoveryPoint = recptr;
+    ControlFile->minRecoveryPointTLI = xlrec.ThisTimeLineID;
+    UpdateControlFile();
+    LWLockRelease(ControlFileLock);
+    END_CRIT_SECTION();
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the major phases
+- Preserved all essential logic and error checking
+- Maintained the critical section structure for atomicity
+- Kept the timeline information capture under WAL locks
+- Simplified variable declarations while preserving functionality
+- Added explanatory comments for each major operation group

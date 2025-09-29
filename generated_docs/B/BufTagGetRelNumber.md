@@ -31,3 +31,12 @@ BufTagGetRelNumber is a simple inline accessor function that retrieves the relat
 - The function is read-only (const parameter) and has no side effects
 - Part of the buffer tag utility functions that provide abstracted access to BufferTag fields
 - Used primarily in buffer management and synchronization operations
+
+## Simplified Source
+
+```c
+static inline RelFileNumber BufTagGetRelNumber(const BufferTag *tag)
+{
+    return tag->relNumber;
+}
+```

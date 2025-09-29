@@ -42,3 +42,40 @@ This approach ensures that relation cache initialization files are removed from 
 - Error handling is delegated to unlink_initfile, which logs errors appropriately
 - The function handles both the default tablespace ("base") and non-default tablespaces uniformly
 - Directory scanning uses ReadDirExtended with LOG level error handling for robustness
+
+## Simplified Source
+
+```c
+// Simplified version of RelationCacheInitFileRemoveInDir
+static void RelationCacheInitFileRemoveInDir(const char *tblspcpath) {
+    DIR *dir;
+    struct dirent *de;
+    char initfilename[MAXPGPATH * 2];
+
+    // Open the tablespace directory
+    dir = AllocateDir(tblspcpath);
+
+    // Scan for database directories (numeric names = database OIDs)
+    while ((de = ReadDirExtended(dir, tblspcpath, LOG)) != NULL) {
+        // Check if directory name is purely numeric (database OID)
+        if (strspn(de->d_name, "0123456789") == strlen(de->d_name)) {
+            // Build path to init file: tblspcpath/dboid/RELCACHE_INIT_FILENAME
+            snprintf(initfilename, sizeof(initfilename), "%s/%s/%s",
+                     tblspcpath, de->d_name, RELCACHE_INIT_FILENAME);
+
+            // Remove the init file from this database directory
+            unlink_initfile(initfilename, LOG);
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(dir);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major step
+- Clarified the purpose of strspn check (validating numeric directory names)
+- Explained the path construction logic
+- Maintained the original algorithm structure and error handling approach
+- Preserved all essential functionality while improving readability

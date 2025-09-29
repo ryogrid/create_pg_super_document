@@ -31,3 +31,21 @@ This function serves as the cleanup callback for the COPY destination receiver i
 - Part of PostgreSQL's memory management and cleanup framework for destination receivers
 - Uses pfree rather than standard free() as part of PostgreSQL's palloc/pfree memory management system
 - The separation of concerns means that CopyToState cleanup happens in the main COPY workflow, while this function handles only the receiver wrapper cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of copy_dest_destroy
+static void
+copy_dest_destroy(DestReceiver *self)
+{
+    // Release the destination receiver memory
+    pfree(self);
+}
+```
+
+Key simplifications made:
+- Function is already minimal - only performs memory cleanup
+- No error handling needed as pfree handles null pointers safely
+- Single responsibility: free the DestReceiver structure
+- Uses PostgreSQL's memory management (pfree vs standard free)

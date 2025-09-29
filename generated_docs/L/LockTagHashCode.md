@@ -44,3 +44,19 @@ This function is essential for the lock manager's performance as it enables effi
 - Uses the same hash function as the LockMethodLockHash table to ensure consistency
 - The hash distribution affects lock contention and performance in multi-backend scenarios
 - Return type is uint32, providing a 32-bit hash space for good distribution across partitions
+
+## Simplified Source
+
+```c
+// Simplified version of LockTagHashCode
+uint32 LockTagHashCode(const LOCKTAG *locktag) {
+    // Compute hash value using the lock method hash table
+    // This ensures consistent hashing with the main lock table
+    return get_hash_value(LockMethodLockHash, (const void *) locktag);
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal and clear
+- Original function is a simple one-line wrapper around get_hash_value()
+- Added explanatory comment about the hash table consistency requirement

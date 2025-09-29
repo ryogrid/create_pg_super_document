@@ -43,4 +43,26 @@ The function calculates which bank a given page belongs to using a modulo operat
 - The banking system helps reduce lock contention in high-concurrency scenarios
 - Used extensively throughout PostgreSQL's transaction management subsystems including CLOG, commit timestamps, multixact, and subtransactions
 - The returned lock must be held in appropriate mode (shared or exclusive) depending on the operation being performed on the SLRU page
-- Bank number calculation uses simple modulo arithmetic: 
+- Bank number calculation uses simple modulo arithmetic: pageno % nbanks
+
+## Simplified Source
+
+```c
+// Simplified version of SimpleLruGetBankLock
+// Returns the appropriate bank lock for an SLRU page
+static inline LWLock *
+SimpleLruGetBankLock(SlruCtl ctl, int64 pageno)
+{
+    // Calculate which bank this page belongs to using modulo operation
+    int bankno = pageno % ctl->nbanks;
+
+    // Return the lock for this specific bank
+    return &(ctl->shared->bank_locks[bankno].lock);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Clarified the purpose of the modulo operation
+- Made the bank selection logic more explicit
+- The function is already quite simple, so minimal changes were needed to preserve its essential algorithm

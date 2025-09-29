@@ -44,3 +44,38 @@ The function ensures proper cleanup and state management for temporary namespace
 - The operation of resetting MyProc->tempNamespaceId is assumed to be atomic
 - Search path caches are invalidated on abort to ensure they are rebuilt with correct state
 - The function handles the critical task of preventing namespace state leakage between transaction levels
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_Namespace
+void AtEOSubXact_Namespace(bool isCommit, SubTransactionId mySubid,
+                          SubTransactionId parentSubid) {
+    // Check if this subtransaction created the temp namespace
+    if (myTempNamespaceSubID == mySubid) {
+        if (isCommit) {
+            // On commit: transfer namespace ownership to parent
+            myTempNamespaceSubID = parentSubid;
+        } else {
+            // On abort: clean up all temp namespace state
+            myTempNamespaceSubID = InvalidSubTransactionId;
+            myTempNamespace = InvalidOid;
+            myTempToastNamespace = InvalidOid;
+
+            // Invalidate search path caches for rebuild
+            baseSearchPathValid = false;
+            searchPathCacheValid = false;
+
+            // Reset process-level temp namespace flag
+            MyProc->tempNamespaceId = InvalidOid;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about concurrency and visibility for clarity
+- Consolidated namespace cleanup into logical groups
+- Added brief descriptive comments for main logic branches
+- Preserved all essential state management operations
+- Maintained the core commit vs abort logic flow

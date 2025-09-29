@@ -48,3 +48,38 @@ This function takes no parameters.
 - All SLRU files are removed to prevent gaps in the file sequence when the feature is later re-enabled
 - The function resets both shared memory state and transaction variables to ensure no stale data remains
 - No process should be consulting the commit timestamp SLRU when this function is called, as the feature has just been deactivated
+
+## Simplified Source
+
+```c
+// Simplified version of DeactivateCommitTs
+static void
+DeactivateCommitTs(void)
+{
+    // Acquire exclusive lock for safe cleanup
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+
+    // Reset shared memory state to prevent invalid data
+    commitTsShared->commitTsActive = false;
+    commitTsShared->xidLastCommit = InvalidTransactionId;
+    TIMESTAMP_NOBEGIN(commitTsShared->dataLastCommit.time);
+    commitTsShared->dataLastCommit.nodeid = InvalidRepOriginId;
+
+    // Clear transaction tracking variables
+    TransamVariables->oldestCommitTsXid = InvalidTransactionId;
+    TransamVariables->newestCommitTsXid = InvalidTransactionId;
+
+    // Remove all commit timestamp files to maintain consistency
+    (void) SlruScanDirectory(CommitTsCtl, SlruScanDirCbDeleteAll, NULL);
+
+    // Release the lock
+    LWLockRelease(CommitTsLock);
+}
+```
+
+Key simplifications made:
+- Condensed detailed comments into brief descriptions of each major step
+- Preserved all essential function calls and state changes
+- Maintained the critical locking mechanism for thread safety
+- Kept the complete cleanup logic while making it more readable
+- Removed verbose explanatory comments while preserving core functionality

@@ -45,3 +45,37 @@ Key behaviors:
 - The iovec array parameter becomes read-only after the first iteration since modifications are made to the local copy
 - Error handling follows POSIX conventions: returns -1 on error with errno set appropriately
 - This function is part of PostgreSQL's cross-platform file I/O abstraction layer
+
+## Simplified Source
+
+```c
+ssize_t pg_pwritev_with_retry(int fd, const struct iovec *iov, int iovcnt, off_t offset)
+{
+    struct iovec iov_copy[PG_IOV_MAX];
+    ssize_t sum = 0;
+    ssize_t part;
+
+    // Validate iovec count doesn't exceed our buffer
+    if (iovcnt > PG_IOV_MAX) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    do {
+        // Write as much as possible
+        part = pg_pwritev(fd, iov, iovcnt, offset);
+        if (part < 0)
+            return -1;
+
+        // Track progress
+        sum += part;
+        offset += part;
+
+        // Calculate what's left to write, using our modifiable copy
+        iovcnt = compute_remaining_iovec(iov_copy, iov, iovcnt, part);
+        iov = iov_copy;
+    } while (iovcnt > 0);
+
+    return sum;  // Total bytes written
+}
+```

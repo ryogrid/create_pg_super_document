@@ -39,3 +39,21 @@ The function is part of PostgreSQL's function manager (fmgr) system, which handl
 - The function ensures the result is not toasted, providing a guarantee that the underlying FunctionCall1 does not strictly provide
 - It is primarily used in contexts where data needs to be serialized for transmission or storage in binary format
 - The function is located in src/backend/utils/fmgr/fmgr.c at lines 1744-1753
+
+## Simplified Source
+
+```c
+// Simplified version of SendFunctionCall
+bytea *
+SendFunctionCall(FmgrInfo *flinfo, Datum val)
+{
+    // Call the binary output function and ensure result is not toasted
+    return DatumGetByteaP(FunctionCall1(flinfo, val));
+}
+```
+
+Key simplifications made:
+- Function is already very simple - it's essentially a one-line wrapper
+- Added comment explaining the core purpose: calling binary output function with guaranteed non-toasted result
+- The original function comment and logic are preserved since they're already minimal
+- No complex error handling or branching to simplify - this is a straightforward wrapper function

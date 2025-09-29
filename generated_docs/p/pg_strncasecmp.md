@@ -41,3 +41,46 @@ The function decrements the counter  with each character comparison. If characte
 - Extensively used for parsing configuration values, SQL literals, and command-line options
 - Critical for input validation where string length is limited or known in advance
 - Provides safe string comparison for potentially unterminated character arrays
+
+## Simplified Source
+
+```c
+// Simplified version of pg_strncasecmp
+int pg_strncasecmp(const char *s1, const char *s2, size_t n) {
+    // Compare characters up to n bytes limit
+    while (n-- > 0) {
+        unsigned char ch1 = (unsigned char) *s1++;
+        unsigned char ch2 = (unsigned char) *s2++;
+
+        // If characters differ, normalize case and compare
+        if (ch1 != ch2) {
+            // Convert ASCII uppercase to lowercase
+            if (ch1 >= 'A' && ch1 <= 'Z')
+                ch1 += 'a' - 'A';
+            else if (IS_HIGHBIT_SET(ch1) && isupper(ch1))
+                ch1 = tolower(ch1);
+
+            if (ch2 >= 'A' && ch2 <= 'Z')
+                ch2 += 'a' - 'A';
+            else if (IS_HIGHBIT_SET(ch2) && isupper(ch2))
+                ch2 = tolower(ch2);
+
+            // Return difference if still not equal after case conversion
+            if (ch1 != ch2)
+                return (int) ch1 - (int) ch2;
+        }
+
+        // Stop if we hit null terminator
+        if (ch1 == 0)
+            break;
+    }
+    return 0; // Strings are equal
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for main logic blocks
+- Clarified the two-stage case conversion process (ASCII first, then locale-specific)
+- Explained the early termination on null character
+- Made the return logic more explicit with comments
+- Preserved all essential logic while improving readability

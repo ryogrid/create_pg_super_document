@@ -42,3 +42,40 @@ The function creates a new BIO instance using the custom PostgreSQL BIO method, 
 - Essential for integrating PostgreSQL's connection management with SSL/TLS
 - Enables PostgreSQL to handle non-blocking I/O and connection state properly during SSL operations
 - Part of the backend SSL implementation for secure database server connections
+
+## Simplified Source
+
+```c
+// Simplified version of my_SSL_set_fd
+static int my_SSL_set_fd(Port *port, int fd) {
+    // Get PostgreSQL's custom BIO method for socket operations
+    BIO_METHOD *bio_method = my_BIO_s_socket();
+    if (bio_method == NULL) {
+        SSLerr(SSL_F_SSL_SET_FD, ERR_R_BUF_LIB);
+        return 0;
+    }
+
+    // Create new BIO instance with custom method
+    BIO *bio = BIO_new(bio_method);
+    if (bio == NULL) {
+        SSLerr(SSL_F_SSL_SET_FD, ERR_R_BUF_LIB);
+        return 0;
+    }
+
+    // Associate port context and file descriptor with BIO
+    BIO_set_app_data(bio, port);
+    BIO_set_fd(bio, fd, BIO_NOCLOSE);
+
+    // Attach BIO to SSL connection for both read and write
+    SSL_set_bio(port->ssl, bio, bio);
+
+    return 1;  // Success
+}
+```
+
+Key simplifications made:
+- Removed goto-based error handling for clearer control flow
+- Added descriptive comments explaining each major step
+- Simplified variable declarations for readability
+- Made error handling more straightforward with early returns
+- Preserved all essential functionality while improving clarity

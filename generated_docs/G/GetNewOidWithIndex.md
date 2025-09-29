@@ -50,3 +50,70 @@ This function generates a unique OID for use in system catalogs by repeatedly ca
 - Assumes catalogs have relatively small numbers of entries (much less than 2^32)
 - The race condition risk is minimal due to the large OID space and typical usage patterns
 - Special protection against OID generation for pg_type during pg_upgrade operations
+
+## Simplified Source
+
+```c
+Oid GetNewOidWithIndex(Relation relation, Oid indexId, AttrNumber oidcolumn)
+{
+    Oid newOid;
+    SysScanDesc scan;
+    ScanKeyData key;
+    bool collides;
+    uint64 retries = 0;
+    uint64 retries_before_log = GETNEWOID_LOG_THRESHOLD;
+
+    // Only system relations are supported
+    Assert(IsSystemRelation(relation));
+
+    // In bootstrap mode, we don't have any indexes to use
+    if (IsBootstrapProcessingMode())
+        return GetNewObjectId();
+
+    // Never generate pg_type OID during pg_upgrade to avoid collisions
+    Assert(!IsBinaryUpgrade || RelationGetRelid(relation) != TypeRelationId);
+
+    // Generate new OIDs until we find one not in the table
+    do {
+        CHECK_FOR_INTERRUPTS();
+
+        newOid = GetNewObjectId();
+
+        // Set up scan key for the OID column
+        ScanKeyInit(&key, oidcolumn, BTEqualStrategyNumber, F_OIDEQ,
+                   ObjectIdGetDatum(newOid));
+
+        // Scan using SnapshotAny to see uncommitted rows
+        scan = systable_beginscan(relation, indexId, true, SnapshotAny, 1, &key);
+        collides = HeapTupleIsValid(systable_getnext(scan));
+        systable_endscan(scan);
+
+        // Log progress if we're retrying many times
+        if (retries >= retries_before_log) {
+            ereport(LOG, (errmsg("still searching for an unused OID in relation \"%s\"",
+                                RelationGetRelationName(relation)),
+                         errdetail_plural("OID candidates have been checked %llu time...",
+                                        "OID candidates have been checked %llu times...",
+                                        retries, (unsigned long long) retries)));
+
+            // Exponential backoff for logging
+            if (retries_before_log * 2 <= GETNEWOID_LOG_MAX_INTERVAL)
+                retries_before_log *= 2;
+            else
+                retries_before_log += GETNEWOID_LOG_MAX_INTERVAL;
+        }
+
+        retries++;
+    } while (collides);
+
+    // Log completion if we had to retry
+    if (retries > GETNEWOID_LOG_THRESHOLD) {
+        ereport(LOG, (errmsg_plural("new OID has been assigned in relation \"%s\" after %llu retry",
+                                   "new OID has been assigned in relation \"%s\" after %llu retries",
+                                   retries, RelationGetRelationName(relation),
+                                   (unsigned long long) retries)));
+    }
+
+    return newOid;
+}
+```

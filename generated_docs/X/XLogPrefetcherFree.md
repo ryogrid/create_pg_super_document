@@ -32,3 +32,25 @@ This cleanup function is the counterpart to XLogPrefetcherAllocate and ensures n
 - The function safely handles cases where streaming_read might be NULL (lazy allocation means it may never have been created)
 - Part of the resource management pair with XLogPrefetcherAllocate, ensuring proper lifecycle management of prefetcher instances
 - Called during WAL recovery shutdown to prevent resource leaks in long-running recovery processes
+
+## Simplified Source
+
+```c
+// Simplified version of XLogPrefetcherFree
+void XLogPrefetcherFree(XLogPrefetcher *prefetcher) {
+    // Step 1: Free the streaming read queue
+    lrq_free(prefetcher->streaming_read);
+
+    // Step 2: Destroy the filter hash table
+    hash_destroy(prefetcher->filter_table);
+
+    // Step 3: Free the main prefetcher structure
+    pfree(prefetcher);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each cleanup step
+- Original code was already quite simple, so minimal changes were needed
+- Preserved the critical cleanup order: streaming_read → filter_table → prefetcher
+- Maintained the essential resource deallocation logic

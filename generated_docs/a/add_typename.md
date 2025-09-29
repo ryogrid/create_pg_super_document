@@ -35,3 +35,46 @@ This function manages the dynamic typenames array by adding new type names while
 - Program terminates with error if memory allocation fails
 - Essential for supporting custom type recognition in code formatting
 - Works with both command-line specified types and types loaded from files
+
+## Simplified Source
+
+```c
+void add_typename(const char *key)
+{
+    // Expand array if needed (double size when full)
+    if (typename_top + 1 >= typename_count) {
+        typenames = realloc(typenames, sizeof(typenames[0]) * (typename_count *= 2));
+        if (!typenames)
+            err(1, NULL);
+    }
+
+    // Handle first entry
+    if (typename_top == -1) {
+        typenames[++typename_top] = strdup(key);
+    }
+    // Optimization: append if key >= last element (sorted input)
+    else if (strcmp(key, typenames[typename_top]) >= 0) {
+        if (strcmp(key, typenames[typename_top]) == 0)
+            return; // Duplicate, ignore
+        typenames[++typename_top] = strdup(key);
+    }
+    // Find insertion point for unsorted input
+    else {
+        int pos;
+        for (pos = 0; strcmp(key, typenames[pos]) > 0; pos++)
+            ; // Find correct position
+
+        if (strcmp(key, typenames[pos]) == 0)
+            return; // Duplicate, ignore
+
+        // Shift elements right to make room
+        memmove(&typenames[pos + 1], &typenames[pos],
+                sizeof(typenames[0]) * (++typename_top - pos));
+        typenames[pos] = strdup(key);
+    }
+
+    // Check strdup success
+    if (!typenames[typename_top])
+        err(1, NULL);
+}
+```

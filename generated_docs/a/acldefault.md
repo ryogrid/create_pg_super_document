@@ -48,3 +48,116 @@ The resulting ACL contains at most two entries: one for public access (if any) a
 - The ACL_ID_PUBLIC constant represents privileges granted to all users
 - Owner privileges are marked as self-granted but grant options come from the system
 - Used extensively throughout PostgreSQL's permission checking and pg_dump functionality
+
+## Simplified Source
+
+```c
+Acl *
+acldefault(ObjectType objtype, Oid ownerId)
+{
+    AclMode world_default;  // Privileges for public
+    AclMode owner_default;  // Privileges for owner
+    int nacl;              // Number of ACL entries needed
+    Acl *acl;
+    AclItem *aip;
+
+    // Set default privileges based on object type
+    switch (objtype)
+    {
+        case OBJECT_COLUMN:
+            // Columns have no extra privileges by default
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_NO_RIGHTS;
+            break;
+        case OBJECT_TABLE:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_RELATION;
+            break;
+        case OBJECT_SEQUENCE:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_SEQUENCE;
+            break;
+        case OBJECT_DATABASE:
+            // Grant some rights by default for backwards compatibility
+            world_default = ACL_CREATE_TEMP | ACL_CONNECT;
+            owner_default = ACL_ALL_RIGHTS_DATABASE;
+            break;
+        case OBJECT_FUNCTION:
+            // Grant EXECUTE by default
+            world_default = ACL_EXECUTE;
+            owner_default = ACL_ALL_RIGHTS_FUNCTION;
+            break;
+        case OBJECT_LANGUAGE:
+            // Grant USAGE by default
+            world_default = ACL_USAGE;
+            owner_default = ACL_ALL_RIGHTS_LANGUAGE;
+            break;
+        case OBJECT_LARGEOBJECT:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_LARGEOBJECT;
+            break;
+        case OBJECT_SCHEMA:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_SCHEMA;
+            break;
+        case OBJECT_TABLESPACE:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_TABLESPACE;
+            break;
+        case OBJECT_FDW:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_FDW;
+            break;
+        case OBJECT_FOREIGN_SERVER:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_FOREIGN_SERVER;
+            break;
+        case OBJECT_DOMAIN:
+        case OBJECT_TYPE:
+            world_default = ACL_USAGE;
+            owner_default = ACL_ALL_RIGHTS_TYPE;
+            break;
+        case OBJECT_PARAMETER_ACL:
+            world_default = ACL_NO_RIGHTS;
+            owner_default = ACL_ALL_RIGHTS_PARAMETER_ACL;
+            break;
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) objtype);
+            world_default = ACL_NO_RIGHTS;  // Keep compiler quiet
+            owner_default = ACL_NO_RIGHTS;
+            break;
+    }
+
+    // Count how many ACL entries we need
+    nacl = 0;
+    if (world_default != ACL_NO_RIGHTS)
+        nacl++;
+    if (owner_default != ACL_NO_RIGHTS)
+        nacl++;
+
+    // Allocate and populate the ACL
+    acl = allocacl(nacl);
+    aip = ACL_DAT(acl);
+
+    // Add public privileges if any
+    if (world_default != ACL_NO_RIGHTS)
+    {
+        aip->ai_grantee = ACL_ID_PUBLIC;
+        aip->ai_grantor = ownerId;
+        ACLITEM_SET_PRIVS_GOPTIONS(*aip, world_default, ACL_NO_RIGHTS);
+        aip++;
+    }
+
+    // Add owner privileges if any
+    // Note: Owner shows all ordinary privileges but no grant options
+    // Grant options come "from the system", ordinary privileges are self-granted
+    if (owner_default != ACL_NO_RIGHTS)
+    {
+        aip->ai_grantee = ownerId;
+        aip->ai_grantor = ownerId;
+        ACLITEM_SET_PRIVS_GOPTIONS(*aip, owner_default, ACL_NO_RIGHTS);
+    }
+
+    return acl;
+}
+```

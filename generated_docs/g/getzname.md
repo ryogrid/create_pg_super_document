@@ -30,3 +30,33 @@ This static function parses timezone strings by scanning forward from a given po
 - Used during timezone rule parsing to extract timezone abbreviation names from POSIX timezone strings
 - Part of the timezone string parsing infrastructure in PostgreSQL's timezone system
 - The function advances the pointer until it finds a delimiter or terminator character
+
+## Simplified Source
+
+```c
+// Simplified version of getzname
+static const char *
+getzname(const char *strp)
+{
+    char c;
+
+    // Scan forward while character is valid for timezone abbreviation
+    // Stop at: digits, comma, hyphen, plus, or null terminator
+    while ((c = *strp) != '\0' &&
+           !is_digit(c) &&
+           c != ',' &&
+           c != '-' &&
+           c != '+')
+    {
+        ++strp;  // Advance to next character
+    }
+
+    return strp;  // Return pointer to first invalid character
+}
+```
+
+Key simplifications made:
+- Reformatted the while condition for better readability across multiple lines
+- Added descriptive comments explaining the scanning logic
+- Added comment explaining what characters terminate the scan
+- Preserved the exact original logic with improved formatting

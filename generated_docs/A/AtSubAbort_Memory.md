@@ -35,3 +35,24 @@ This function takes no parameters and operates on global memory context variable
 - Does not include the fallback mechanism present in AtAbort_Memory, indicating greater confidence in context availability during subtransaction operations
 - Essential component of PostgreSQL's nested transaction error recovery system
 - The memory context switch remains active for the duration of the subtransaction abort cleanup process
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_Memory
+static void
+AtSubAbort_Memory(void)
+{
+    // Verify abort context is available (critical safety check)
+    Assert(TransactionAbortContext != NULL);
+
+    // Switch to reserved memory context for safe cleanup operations
+    MemoryContextSwitchTo(TransactionAbortContext);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Preserved the essential assertion for safety verification
+- Maintained the core memory context switching logic
+- Function is already quite minimal - no significant code reduction needed

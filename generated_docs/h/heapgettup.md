@@ -60,3 +60,100 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 - Buffer locking (BUFFER_LOCK_SHARE) is used during page access and released before returning
 - Tuple data is set in scan->rs_ctup, with t_data set to NULL when no more tuples exist
 - The function handles both continuing existing scans and initializing new scans within the same code path
+
+## Simplified Source
+
+```c
+// Simplified version of heapgettup - fetch next heap tuple
+static void
+heapgettup(HeapScanDesc scan, ScanDirection dir, int nkeys, ScanKey key)
+{
+    HeapTuple tuple = &(scan->rs_ctup);
+    Page page;
+    OffsetNumber lineoff;
+    int linesleft;
+
+    // If scan already initialized, continue from current position
+    if (scan->rs_inited) {
+        LockBuffer(scan->rs_cbuf, BUFFER_LOCK_SHARE);
+        page = heapgettup_continue_page(scan, dir, &linesleft, &lineoff);
+        goto scan_page;
+    }
+
+    // Main scan loop - advance through pages until we find a qualifying tuple
+    while (true) {
+        // Get next buffer/page to scan
+        heap_fetch_next_buffer(scan, dir);
+
+        // Check if we've run out of pages
+        if (!BufferIsValid(scan->rs_cbuf))
+            break;
+
+        // Lock page and start scanning from beginning
+        LockBuffer(scan->rs_cbuf, BUFFER_LOCK_SHARE);
+        page = heapgettup_start_page(scan, dir, &linesleft, &lineoff);
+
+scan_page:
+        // Scan all tuples on current page
+        for (; linesleft > 0; linesleft--, lineoff += dir) {
+            ItemId lpp = PageGetItemId(page, lineoff);
+
+            // Skip invalid line pointers
+            if (!ItemIdIsNormal(lpp))
+                continue;
+
+            // Set up tuple data from page item
+            tuple->t_data = (HeapTupleHeader) PageGetItem(page, lpp);
+            tuple->t_len = ItemIdGetLength(lpp);
+            ItemPointerSet(&(tuple->t_self), scan->rs_cblock, lineoff);
+
+            // Check if tuple is visible to our snapshot
+            bool visible = HeapTupleSatisfiesVisibility(tuple,
+                                                       scan->rs_base.rs_snapshot,
+                                                       scan->rs_cbuf);
+
+            // Handle serializable isolation conflicts
+            HeapCheckForSerializableConflictOut(visible, scan->rs_base.rs_rd,
+                                              tuple, scan->rs_cbuf,
+                                              scan->rs_base.rs_snapshot);
+
+            // Skip invisible tuples
+            if (!visible)
+                continue;
+
+            // Apply scan key filters if provided
+            if (key != NULL &&
+                !HeapKeyTest(tuple, RelationGetDescr(scan->rs_base.rs_rd), nkeys, key))
+                continue;
+
+            // Found qualifying tuple - unlock and return
+            LockBuffer(scan->rs_cbuf, BUFFER_LOCK_UNLOCK);
+            scan->rs_coffset = lineoff;
+            return;
+        }
+
+        // Finished page, unlock and continue to next
+        LockBuffer(scan->rs_cbuf, BUFFER_LOCK_UNLOCK);
+    }
+
+    // End of scan - clean up and reset state
+    if (BufferIsValid(scan->rs_cbuf))
+        ReleaseBuffer(scan->rs_cbuf);
+
+    scan->rs_cbuf = InvalidBuffer;
+    scan->rs_cblock = InvalidBlockNumber;
+    scan->rs_prefetch_block = InvalidBlockNumber;
+    tuple->t_data = NULL;
+    scan->rs_inited = false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major section
+- Simplified variable declarations and removed some intermediate assignments
+- Clarified the two-phase logic: continue existing scan vs. start new scan
+- Used more descriptive goto label name (`scan_page` instead of `continue_page`)
+- Consolidated buffer validity and cleanup logic
+- Added inline comments for complex operations like visibility checking
+- Removed detailed assertions and focused on core algorithm flow
+- Maintained all essential logic while improving readability

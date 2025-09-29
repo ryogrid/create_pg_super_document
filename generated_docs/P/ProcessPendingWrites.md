@@ -45,3 +45,65 @@ This function takes no parameters.
 - Critical for preventing deadlocks when the client is not consuming data quickly enough
 - Maintains connection health through active keepalive and timeout management
 - Ensures proper latch management for integration with the main WAL sender event loop
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessPendingWrites
+static void ProcessPendingWrites(void)
+{
+    // Main loop: continue until all pending writes are sent
+    for (;;)
+    {
+        // Process any incoming messages from the client
+        ProcessRepliesIfAny();
+
+        // Check if connection has timed out and terminate if so
+        WalSndCheckTimeOut();
+
+        // Send keepalive message if needed to maintain connection
+        WalSndKeepaliveIfNecessary();
+
+        // Exit loop if no more data pending to send
+        if (!pq_is_send_pending())
+            break;
+
+        // Calculate how long to wait for socket to become writable
+        long sleeptime = WalSndComputeSleeptime(GetCurrentTimestamp());
+
+        // Wait for socket events (writable/readable) or timeout
+        WalSndWait(WL_SOCKET_WRITEABLE | WL_SOCKET_READABLE, sleeptime,
+                   WAIT_EVENT_WAL_SENDER_WRITE_DATA);
+
+        // Reset latch state after waking up
+        ResetLatch(MyLatch);
+
+        // Check for interrupts (signals, shutdown requests)
+        CHECK_FOR_INTERRUPTS();
+
+        // Handle configuration reload if requested
+        if (ConfigReloadPending)
+        {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+            SyncRepInitConfig();
+        }
+
+        // Attempt to flush any pending output data
+        if (pq_flush_if_writable() != 0)
+            WalSndShutdown();  // Shutdown on flush failure
+    }
+
+    // Reactivate latch so main WAL sender loop can continue
+    SetLatch(MyLatch);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Consolidated the main loop logic flow for clarity
+- Simplified variable declarations (removed intermediate variables where clear)
+- Made the exit condition more prominent with early break
+- Clarified the purpose of latch management at start and end
+- Emphasized the core responsibility: waiting for pending writes to complete
+- Maintained all essential functionality while improving readability

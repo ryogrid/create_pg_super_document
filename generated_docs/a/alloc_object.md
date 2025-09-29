@@ -51,3 +51,56 @@ The function maintains efficient allocation patterns by preferring to allocate f
 - The function can recursively call ensure_active_superblock, which may in turn call alloc_object for different size classes (safe due to lock ordering)
 - Maintains span metadata including nallocatable, ninitialized, and firstfree counters
 - Essential component of PostgreSQL's shared memory object allocation infrastructure
+
+## Simplified Source
+
+```c
+static inline dsa_pointer alloc_object(dsa_area *area, int size_class)
+{
+    dsa_area_pool *pool = &area->control->pools[size_class];
+    dsa_area_span *span;
+    dsa_pointer block;
+    dsa_pointer result;
+    char *object;
+    size_t size;
+
+    // Acquire exclusive lock for this size class
+    Assert(!LWLockHeldByMe(DSA_SCLASS_LOCK(area, size_class)));
+    LWLockAcquire(DSA_SCLASS_LOCK(area, size_class), LW_EXCLUSIVE);
+
+    // Ensure we have an active superblock to allocate from
+    if (!DsaPointerIsValid(pool->spans[1]) &&
+        !ensure_active_superblock(area, pool, size_class)) {
+        result = InvalidDsaPointer;
+    } else {
+        // Get the active span (should be in fullness class 1)
+        Assert(DsaPointerIsValid(pool->spans[1]));
+        span = (dsa_area_span *) dsa_get_address(area, pool->spans[1]);
+        Assert(span->nallocatable > 0);
+
+        block = span->start;
+        size = dsa_size_classes[size_class];
+
+        // Try to reuse a freed object first
+        if (span->firstfree != DSA_SPAN_NOTHING_FREE) {
+            result = block + span->firstfree * size;
+            object = dsa_get_address(area, result);
+            span->firstfree = NextFreeObjectIndex(object);
+        } else {
+            // Initialize a new object
+            result = block + span->ninitialized * size;
+            ++span->ninitialized;
+        }
+
+        // Update availability count
+        --span->nallocatable;
+
+        // Move span to full class if it's now completely full
+        if (span->nallocatable == 0)
+            transfer_first_span(area, pool, 1, DSA_FULLNESS_CLASSES - 1);
+    }
+
+    LWLockRelease(DSA_SCLASS_LOCK(area, size_class));
+    return result;
+}
+```

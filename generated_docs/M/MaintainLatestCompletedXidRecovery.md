@@ -41,3 +41,35 @@ The key difference from the regular version is that during recovery, the latestC
 - Must be called while holding ProcArrayLock for consistency
 - Essential for maintaining correct transaction visibility during crash recovery
 - Part of PostgreSQL's recovery infrastructure for rebuilding transaction state from WAL
+
+## Simplified Source
+
+```c
+// Simplified version of MaintainLatestCompletedXidRecovery
+static void
+MaintainLatestCompletedXidRecovery(TransactionId latestXid)
+{
+    FullTransactionId current_latest = TransamVariables->latestCompletedXid;
+    FullTransactionId reference_xid;
+
+    // Get reference transaction ID for comparison
+    // Safe to access nextXid during recovery without additional locking
+    reference_xid = TransamVariables->nextXid;
+
+    // Update latestCompletedXid if new transaction is more recent
+    // Handle case where current value might be uninitialized during recovery
+    if (!FullTransactionIdIsValid(current_latest) ||
+        TransactionIdPrecedes(XidFromFullTransactionId(current_latest), latestXid))
+    {
+        // Convert relative XID to full transaction ID and update global state
+        TransamVariables->latestCompletedXid = FullXidRelativeTo(reference_xid, latestXid);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (keeping essential logic checks)
+- Used more descriptive variable names (current_latest, reference_xid)
+- Added explanatory comments for the main logic steps
+- Simplified the conditional check structure for better readability
+- Abstracted the core purpose: updating global transaction state during recovery

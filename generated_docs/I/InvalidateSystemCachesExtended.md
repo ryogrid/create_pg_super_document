@@ -47,3 +47,38 @@ This function is typically used during major system events like cache poisoning 
 - Comprehensive invalidation ensures no stale cache entries remain after execution
 - Part of PostgreSQL's robust cache consistency infrastructure
 - Used in scenarios where selective invalidation is insufficient or when cache corruption is suspected
+
+## Simplified Source
+
+```c
+// Simplified version of InvalidateSystemCachesExtended
+void InvalidateSystemCachesExtended(bool debug_discard) {
+    // Step 1: Invalidate catalog snapshot to ensure fresh metadata views
+    InvalidateCatalogSnapshot();
+
+    // Step 2: Reset all catalog caches with debug discard option
+    ResetCatalogCachesExt(debug_discard);
+
+    // Step 3: Invalidate relation caches (also handles storage manager and relation mapping)
+    RelationCacheInvalidate(debug_discard);
+
+    // Step 4: Execute all registered system cache invalidation callbacks
+    for (int i = 0; i < syscache_callback_count; i++) {
+        struct SYSCACHECALLBACK *callback = syscache_callback_list + i;
+        callback->function(callback->arg, callback->id, 0);
+    }
+
+    // Step 5: Execute all registered relation cache invalidation callbacks
+    for (int i = 0; i < relcache_callback_count; i++) {
+        struct RELCACHECALLBACK *callback = relcache_callback_list + i;
+        callback->function(callback->arg, InvalidOid);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each phase of invalidation
+- Used more descriptive variable names (`callback` instead of `ccitem`)
+- Consolidated callback loop logic for clarity
+- Emphasized the sequential nature of the invalidation process
+- Removed unnecessary variable declarations while preserving logic flow

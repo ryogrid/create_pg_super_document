@@ -40,3 +40,36 @@ This function takes no parameters.
 - Resets the abort context for reuse rather than deleting it, as it's needed for future transactions
 - Part of the transaction cleanup process that runs after commit or abort processing is complete
 - The memory context switching ensures that any subsequent allocations don't accidentally use deleted contexts
+
+## Simplified Source
+
+```c
+// Simplified version of AtCleanup_Memory
+static void AtCleanup_Memory(void) {
+    // Ensure we're in a top-level transaction (no parent)
+    Assert(CurrentTransactionState->parent == NULL);
+
+    // Switch to top-level memory context for future allocations
+    MemoryContextSwitchTo(TopMemoryContext);
+
+    // Reset the abort context for reuse (don't delete it)
+    if (TransactionAbortContext != NULL)
+        MemoryContextReset(TransactionAbortContext);
+
+    // Delete entire transaction memory hierarchy
+    if (TopTransactionContext != NULL)
+        MemoryContextDelete(TopTransactionContext);
+
+    // Clear all transaction context pointers to prevent dangling references
+    TopTransactionContext = NULL;
+    CurTransactionContext = NULL;
+    CurrentTransactionState->curTransactionContext = NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved the original logic flow and structure
+- Maintained all essential memory management operations
+- Kept the assertion for debugging purposes
+- No complex simplifications needed as the original code is already clean and straightforward

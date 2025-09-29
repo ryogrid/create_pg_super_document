@@ -38,3 +38,26 @@ This function is called during transaction abort processing to clean up notifica
 - Critical for preventing notification queue corruption during transaction rollbacks
 - Works in conjunction with other transaction lifecycle functions (AtCommit_Notify, PreCommit_Notify)
 - Ensures that aborted transactions leave no notification-related artifacts behind
+
+## Simplified Source
+
+```c
+// Simplified version of AtAbort_Notify
+void AtAbort_Notify(void) {
+    // Handle orphaned listener registration case
+    // If we registered as a listener but have no channels (due to rollback),
+    // we need to deregister to prevent queue corruption
+    if (amRegisteredListener && listenChannels == NIL) {
+        asyncQueueUnregister();
+    }
+
+    // Clean up all pending notification actions and outbound notifications
+    ClearPendingActionsAndNotifies();
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the orphaned listener scenario
+- Simplified the complex comment into clear, action-oriented descriptions
+- Preserved the essential two-step logic: handle edge case, then clean up
+- Maintained the original function signature and core functionality

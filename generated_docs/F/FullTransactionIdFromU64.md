@@ -36,3 +36,24 @@ This inline function provides a simple wrapper to create a FullTransactionId fro
 - Commonly used in serialization/deserialization contexts
 - Used when reading transaction IDs from WAL records, snapshots, or other storage formats
 - Complementary to FullTransactionIdFromEpochAndXid which constructs from separate epoch and xid components
+
+## Simplified Source
+
+```c
+// Simplified version of FullTransactionIdFromU64
+static inline FullTransactionId
+FullTransactionIdFromU64(uint64 value)
+{
+    FullTransactionId result;
+
+    // Direct assignment of the 64-bit value to the structure
+    result.value = value;
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment for the core operation
+- This function is already very simple, requiring minimal simplification
+- The essential logic is a direct value assignment wrapper

@@ -40,3 +40,28 @@ The returned value is converted from the internal byte position format to the st
 - Critical for WAL management and replication slot positioning
 - Part of the core WAL infrastructure providing position information
 - File location: src/backend/access/transam/xlog.c:9451-9466
+
+## Simplified Source
+
+```c
+// Simplified version of GetXLogInsertRecPtr
+XLogRecPtr GetXLogInsertRecPtr(void) {
+    // Get reference to WAL insertion control structure
+    XLogCtlInsert *Insert = &XLogCtl->Insert;
+    uint64 current_bytepos;
+
+    // Thread-safe read of current insertion byte position
+    SpinLockAcquire(&Insert->insertpos_lck);
+    current_bytepos = Insert->CurrBytePos;
+    SpinLockRelease(&Insert->insertpos_lck);
+
+    // Convert internal byte position to standard WAL record pointer format
+    return XLogBytePosToRecPtr(current_bytepos);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Preserved the essential spinlock synchronization mechanism
+- Maintained the core algorithm: acquire lock → read position → release lock → convert format
+- No simplification of logic was needed as the function is already concise and focused

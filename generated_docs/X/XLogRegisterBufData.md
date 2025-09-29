@@ -43,3 +43,47 @@ The function validates that the specified block_id corresponds to an active regi
 - Data will be available during replay via XLogRecGetBlockData()
 - Commonly used for storing operation-specific details about buffer modifications
 - The data pointer must remain valid until XLogInsert() is called
+
+## Simplified Source
+
+```c
+// Simplified version of XLogRegisterBufData
+void XLogRegisterBufData(uint8 block_id, char *data, uint32 len)
+{
+    registered_buffer *regbuf;
+    XLogRecData *rdata;
+
+    // Ensure WAL insertion has been initiated
+    Assert(begininsert_called);
+
+    // Find the registered buffer for this block_id
+    regbuf = &registered_buffers[block_id];
+    if (!regbuf->in_use)
+        elog(ERROR, "no block with id %d registered with WAL insertion", block_id);
+
+    // Check resource limits
+    if (num_rdatas >= max_rdatas)
+        ereport(ERROR, (errmsg_internal("too much WAL data")));
+
+    // Check data size limits (max 65535 bytes per block)
+    if (regbuf->rdata_len + len > UINT16_MAX || len > UINT16_MAX)
+        ereport(ERROR, (errmsg_internal("too much WAL data for block %u", block_id)));
+
+    // Create new data segment
+    rdata = &rdatas[num_rdatas++];
+    rdata->data = data;
+    rdata->len = len;
+
+    // Append to buffer's data chain
+    regbuf->rdata_tail->next = rdata;
+    regbuf->rdata_tail = rdata;
+    regbuf->rdata_len += len;
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for clarity
+- Consolidated error checking logic
+- Simplified comments to focus on main operations
+- Abstracted complex error detail construction
+- Maintained essential validation and data chaining logic

@@ -39,3 +39,38 @@ This cleanup is essential before performing segment index lookups to avoid acces
 - Uses `unlikely()` hint for branch prediction optimization on the counter comparison
 - Clears all mapping fields (segment, header, mapped_address) when detaching freed segments
 - Critical for maintaining memory safety in multi-process DSA usage scenarios
+
+## Simplified Source
+
+```c
+static void
+check_for_freed_segments_locked(dsa_area *area)
+{
+    size_t freed_segment_counter;
+    int i;
+
+    // Verify we hold the area lock
+    Assert(LWLockHeldByMe(DSA_AREA_LOCK(area)));
+
+    // Check if any segments were freed by other processes
+    freed_segment_counter = area->control->freed_segment_counter;
+    if (unlikely(area->freed_segment_counter != freed_segment_counter))
+    {
+        // Scan all segments and detach any that were freed
+        for (i = 0; i <= area->high_segment_index; ++i)
+        {
+            if (area->segment_maps[i].header != NULL &&
+                area->segment_maps[i].header->freed)
+            {
+                // Clean up the freed segment mapping
+                dsm_detach(area->segment_maps[i].segment);
+                area->segment_maps[i].segment = NULL;
+                area->segment_maps[i].header = NULL;
+                area->segment_maps[i].mapped_address = NULL;
+            }
+        }
+        // Update our local counter to match
+        area->freed_segment_counter = freed_segment_counter;
+    }
+}
+```

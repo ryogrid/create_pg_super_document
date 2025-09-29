@@ -41,3 +41,35 @@ The function is typically invoked in two scenarios: when recovery completes succ
 - Includes DEBUG2 logging for troubleshooting lock release operations
 - The function safely handles empty hash tables and continues until all entries are processed
 - Located in src/backend/storage/ipc/standby.c:1105-1125
+
+## Simplified Source
+
+```c
+// Simplified version of StandbyReleaseAllLocks
+void StandbyReleaseAllLocks(void) {
+    HASH_SEQ_STATUS status;
+    RecoveryLockXidEntry *entry;
+
+    // Log the lock release operation for debugging
+    elog(DEBUG2, "release all standby locks");
+
+    // Initialize sequential scan of the recovery lock hash table
+    hash_seq_init(&status, RecoveryLockXidHash);
+
+    // Process each entry: release locks and remove from hash table
+    while ((entry = hash_seq_search(&status))) {
+        // Release all locks held by this transaction
+        StandbyReleaseXidEntryLocks(entry);
+
+        // Remove the entry from the hash table
+        hash_search(RecoveryLockXidHash, entry, HASH_REMOVE, NULL);
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Clarified the purpose of the sequential hash table scan
+- Documented the two-step process: lock release followed by hash table cleanup
+- Maintained the original logic flow without modification
+- Preserved all essential functionality including debug logging

@@ -41,3 +41,23 @@ The function is part of PostgreSQL's miscellaneous public routines for  manipula
 - Essential for preventing buffer overflows when working with PostgreSQL  data
 - Located in  at lines 233-246
 - Part of the miscellaneous public routines section for  data type utilities
+
+## Simplified Source
+
+```c
+// Simplified version of namestrcpy
+void namestrcpy(Name name, const char *str)
+{
+    // Core logic: Copy string with bounds checking
+    strncpy(NameStr(*name), str, NAMEDATALEN);
+
+    // Ensure null termination (safety measure)
+    NameStr(*name)[NAMEDATALEN - 1] = '\0';
+}
+```
+
+Key simplifications made:
+- Removed non-essential comment about zero-padding
+- Preserved the essential algorithm: bounded copy followed by explicit null termination
+- Maintained the core safety mechanism that prevents buffer overflows
+- Kept the function signature exactly as in the original

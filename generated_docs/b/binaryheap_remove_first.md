@@ -42,3 +42,33 @@ The function performs the following steps:
 - This is a destructive operation that modifies the heap structure
 - The returned node should be handled appropriately by the caller
 - Used extensively throughout PostgreSQL for priority queue operations in query execution, archiving, replication, and buffer management
+
+## Simplified Source
+
+```c
+bh_node_type binaryheap_remove_first(binaryheap *heap)
+{
+    bh_node_type result;
+
+    // Verify heap is valid and not empty
+    Assert(!binaryheap_empty(heap) && heap->bh_has_heap_property);
+
+    // Save the root node to return
+    result = heap->bh_nodes[0];
+
+    // Special case: if heap has only one element
+    if (heap->bh_size == 1)
+    {
+        heap->bh_size--;
+        return result;
+    }
+
+    // Move last node to root and decrease size
+    heap->bh_nodes[0] = heap->bh_nodes[--heap->bh_size];
+
+    // Restore heap property by sifting down from root
+    sift_down(heap, 0);
+
+    return result;
+}
+```

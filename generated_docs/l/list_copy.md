@@ -42,3 +42,35 @@ This function is widely used throughout PostgreSQL for creating working copies o
 - The copied list maintains the same type (T_List, T_IntList, T_OidList) as the original
 - Memory allocation for the new list is handled by the  function
 - Used extensively throughout the query planner, parser, and various PostgreSQL subsystems for creating working copies of lists
+
+## Simplified Source
+
+```c
+// Simplified version of list_copy
+List *
+list_copy(const List *oldlist)
+{
+    // Handle null input case
+    if (oldlist == NIL)
+        return NIL;
+
+    // Create new list with same type and length
+    List *newlist = new_list(oldlist->type, oldlist->length);
+
+    // Copy all element pointers (shallow copy)
+    memcpy(newlist->elements, oldlist->elements,
+           newlist->length * sizeof(ListCell));
+
+    // Validate the new list structure
+    check_list_invariants(newlist);
+
+    return newlist;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Clarified variable declarations inline for readability
+- Emphasized that this is a shallow copy operation
+- Preserved all essential logic and error handling
+- Maintained the original function structure and flow

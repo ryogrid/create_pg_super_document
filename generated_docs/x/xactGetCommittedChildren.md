@@ -36,3 +36,32 @@ xactGetCommittedChildren provides access to the committed child transactions of 
 - Used extensively in WAL logging to ensure all child transactions are properly recorded
 - Essential for two-phase commit protocol to track all participating sub-transactions
 - The child XIDs array contains only committed child transactions, not aborted ones
+
+## Simplified Source
+
+```c
+int xactGetCommittedChildren(TransactionId **ptr)
+{
+    TransactionState s = CurrentTransactionState;
+
+    if (s->nChildXids == 0)
+        *ptr = NULL;
+    else
+        *ptr = s->childXids;
+
+    return s->nChildXids;
+}
+```
+
+**Simplified Logic:**
+1. Get the current transaction state
+2. Check if there are any child transactions
+3. If no children: set output pointer to NULL
+4. If children exist: set output pointer to the child XIDs array
+5. Return the count of child transactions
+
+**Key Points:**
+- Simple getter function for committed child transaction IDs
+- Returns both count and array pointer via parameters
+- Memory is managed in TopTransactionContext (caller should not free)
+- NULL returned when no child transactions exist

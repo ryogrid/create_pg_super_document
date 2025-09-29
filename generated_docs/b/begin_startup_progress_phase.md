@@ -44,3 +44,25 @@ This function takes no parameters.
 - Called at various points during recovery: WAL recovery, data directory sync, and unlogged relation reset
 - The comment in source describes it as "A thin wrapper to first disable and then enable the startup progress timeout"
 - Located in startup.c:343-358
+
+## Simplified Source
+
+```c
+// Simplified version of begin_startup_progress_phase
+void begin_startup_progress_phase(void) {
+    // Check if startup progress logging is enabled
+    if (log_startup_progress_interval == 0)
+        return;
+
+    // Reset the progress timeout: disable current, then enable fresh one
+    disable_startup_progress_timeout();
+    enable_startup_progress_timeout();
+}
+```
+
+Key simplifications made:
+- Maintained the essential logic flow: feature check, disable, then enable
+- Preserved the early return optimization for disabled feature
+- Added descriptive comments explaining the purpose of each step
+- Kept the function minimal as it's already a simple wrapper
+- Maintained the original function signature and return type

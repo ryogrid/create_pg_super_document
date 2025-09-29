@@ -39,3 +39,25 @@ The function performs a simple assignment operation, copying the current transac
 - The GUC system's automatic reset behavior necessitates this explicit save/restore mechanism
 - Located in src/backend/access/transam/xact.c:3072-3079
 - Works in conjunction with RestoreTransactionCharacteristics to maintain transaction state continuity
+
+## Simplified Source
+
+```c
+// Simplified version of SaveTransactionCharacteristics
+void SaveTransactionCharacteristics(SavedTransactionCharacteristics *s) {
+    // Save current transaction isolation level
+    s->save_XactIsoLevel = XactIsoLevel;
+
+    // Save current read-only transaction status
+    s->save_XactReadOnly = XactReadOnly;
+
+    // Save current deferrable transaction status
+    s->save_XactDeferrable = XactDeferrable;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each assignment operation
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential functionality of saving transaction characteristics
+- Maintained the straightforward assignment-based approach

@@ -47,3 +47,35 @@ Both error conditions result in ERROR-level reports that terminate the current o
 - [Path](../P/Path.md) construction uses the timeline ID and segment size from the XLogReaderState context
 - This callback is specifically designed for local WAL file access, as opposed to streaming or archive recovery
 - The opened file remains in the XLogReaderState until closed by wal_segment_close
+
+## Simplified Source
+
+```c
+void wal_segment_open(XLogReaderState *state, XLogSegNo nextSegNo,
+                     TimeLineID *tli_p)
+{
+    TimeLineID tli = *tli_p;
+    char path[MAXPGPATH];
+
+    // Construct the WAL file path
+    XLogFilePath(path, tli, nextSegNo, state->segcxt.ws_segsize);
+
+    // Open the WAL file for reading in binary mode
+    state->seg.ws_file = BasicOpenFile(path, O_RDONLY | PG_BINARY);
+
+    // If successful, we're done
+    if (state->seg.ws_file >= 0)
+        return;
+
+    // Handle errors based on errno
+    if (errno == ENOENT)
+        ereport(ERROR,
+            (errcode_for_file_access(),
+             errmsg("requested WAL segment %s has already been removed",
+                    path)));
+    else
+        ereport(ERROR,
+            (errcode_for_file_access(),
+             errmsg("could not open file \"%s\": %m", path)));
+}
+```

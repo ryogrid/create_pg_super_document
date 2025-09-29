@@ -46,3 +46,63 @@ This function takes no parameters.
 - Critical for preventing resource leaks and maintaining system stability during transaction failures
 - Cleanup hooks are called before any resource deallocation to ensure proper state cleanup
 - Part of PostgreSQL's robust error recovery and transaction abort mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of AtAbort_Portals
+void AtAbort_Portals(void) {
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Mark active portals as failed during FATAL errors
+        if (portal->status == PORTAL_ACTIVE && shmem_exit_inprogress) {
+            MarkPortalFailed(portal);
+        }
+
+        // Skip portals from previous transactions - leave them alone
+        if (portal->createSubid == InvalidSubTransactionId) {
+            continue;
+        }
+
+        // Skip auto-held cursors - they should survive
+        if (portal->autoHeld) {
+            continue;
+        }
+
+        // Mark READY portals as failed - they may reference failed transaction objects
+        if (portal->status == PORTAL_READY) {
+            MarkPortalFailed(portal);
+        }
+
+        // Execute cleanup hook if present
+        if (portal->cleanup != NULL) {
+            portal->cleanup(portal);
+            portal->cleanup = NULL;
+        }
+
+        // Release cached plan and clear resource owner
+        PortalReleaseCachedPlan(portal);
+        portal->resowner = NULL;
+
+        // Clean up subsidiary memory contexts for non-active portals
+        if (portal->status != PORTAL_ACTIVE) {
+            MemoryContextDeleteChildren(portal->portalContext);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated similar logic paths
+- Simplified variable declarations and made control flow more explicit
+- Abstracted low-level portal state management into clear logical steps
+- Used descriptive comments to explain the purpose of each major section
+- Maintained essential error handling while removing implementation details
+- Preserved the core algorithm: iterate portals, handle special cases, cleanup resources

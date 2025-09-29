@@ -52,3 +52,113 @@ Key behaviors:
 - Supports recovery from failures during transaction start before AtStart_GUC is called
 - Central to PostgreSQL's ability to make configuration changes transactional and rollback-safe
 - Works in conjunction with push_old_value, NewGUCNestLevel, and AtStart_GUC to provide complete GUC transaction support
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_GUC
+void AtEOXact_GUC(bool isCommit, int nestLevel) {
+    slist_mutable_iter iter;
+
+    // Validate nesting level is reasonable
+    Assert(nestLevel > 0 &&
+           (nestLevel <= GUCNestLevel ||
+            (nestLevel == GUCNestLevel + 1 && !isCommit)));
+
+    // Process each GUC that has a non-empty stack
+    slist_foreach_modify(iter, &guc_stack_list) {
+        struct config_generic *gconf = slist_container(struct config_generic,
+                                                     stack_link, iter.cur);
+        GucStack *stack;
+
+        // Pop stack entries at or above the target nest level
+        while ((stack = gconf->stack) != NULL &&
+               stack->nest_level >= nestLevel) {
+            GucStack *prev = stack->prev;
+            bool restorePrior = false;
+            bool restoreMasked = false;
+            bool changed = false;
+
+            // Determine what value to restore based on commit/abort and stack state
+            if (!isCommit) {
+                // Always restore prior value on abort
+                restorePrior = true;
+            } else if (stack->state == GUC_SAVE) {
+                restorePrior = true;
+            } else if (stack->nest_level == 1) {
+                // Main transaction commit - handle SET/SET LOCAL differently
+                if (stack->state == GUC_SET_LOCAL)
+                    restoreMasked = true;
+                else if (stack->state == GUC_SET)
+                    discard_stack_value(gconf, &stack->prior);
+                else // GUC_LOCAL
+                    restorePrior = true;
+            } else if (prev == NULL || prev->nest_level < stack->nest_level - 1) {
+                // Decrement nesting level instead of popping
+                stack->nest_level--;
+                continue;
+            } else {
+                // Merge stack entry into previous level
+                merge_stack_entries(stack, prev);
+            }
+
+            // Restore the determined value
+            if (restorePrior || restoreMasked) {
+                config_var_value newvalue;
+                GucSource newsource;
+                GucContext newscontext;
+                Oid newsrole;
+
+                if (restoreMasked) {
+                    newvalue = stack->masked;
+                    newsource = PGC_S_SESSION;
+                    newscontext = stack->masked_scontext;
+                    newsrole = stack->masked_srole;
+                } else {
+                    newvalue = stack->prior;
+                    newsource = stack->source;
+                    newscontext = stack->scontext;
+                    newsrole = stack->srole;
+                }
+
+                // Apply the new value based on GUC type
+                changed = apply_guc_value(gconf, newvalue);
+
+                // Clean up stacked extra values
+                set_extra_field(gconf, &(stack->prior.extra), NULL);
+                set_extra_field(gconf, &(stack->masked.extra), NULL);
+
+                // Update source information
+                set_guc_source(gconf, newsource);
+                gconf->scontext = newscontext;
+                gconf->srole = newsrole;
+            }
+
+            // Pop the stack entry
+            gconf->stack = prev;
+            if (prev == NULL)
+                slist_delete_current(&iter);
+            pfree(stack);
+
+            // Mark for reporting if value changed
+            if (changed && (gconf->flags & GUC_REPORT) &&
+                !(gconf->status & GUC_NEEDS_REPORT)) {
+                gconf->status |= GUC_NEEDS_REPORT;
+                slist_push_head(&guc_report_list, &gconf->report_link);
+            }
+        }
+    }
+
+    // Update global nesting level
+    GUCNestLevel = nestLevel - 1;
+}
+```
+
+Key simplifications made:
+- Consolidated the complex stack merging logic into a conceptual `merge_stack_entries()` function
+- Abstracted the type-specific value restoration into `apply_guc_value()` function
+- Removed detailed switch statements for each GUC type (bool, int, real, string, enum)
+- Simplified the nested conditional logic for determining restore behavior
+- Kept the essential algorithm flow: iterate stacks → determine restore action → apply value → clean up
+- Preserved memory management and reporting logic at a high level
+- Maintained the core transactional semantics while reducing implementation details

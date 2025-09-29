@@ -48,3 +48,49 @@ The function helps maintain a clean and meaningful pg_stat_io view by excluding 
 - Autovacuum launcher is excluded from vacuum context, and autovacuum processes are excluded from bulk write context
 - Designed to make pg_stat_io view more user-friendly by excluding irrelevant combinations
 - Located in src/backend/utils/activity/pgstat_io.c:359-423
+
+## Simplified Source
+
+```c
+// Check if IO statistics should be tracked for given backend/object/context combination
+bool pgstat_tracks_io_object(BackendType bktype, IOObject io_object, IOContext io_context)
+{
+    bool no_temp_rel;
+
+    // Some BackendTypes should never track IO statistics
+    if (!pgstat_tracks_io_bktype(bktype))
+        return false;
+
+    // Temporary relations only work in NORMAL context
+    if (io_context != IOCONTEXT_NORMAL && io_object == IOOBJECT_TEMP_RELATION)
+        return false;
+
+    // Define which backend types cannot work with temporary relations
+    no_temp_rel = bktype == B_AUTOVAC_LAUNCHER || bktype == B_BG_WRITER ||
+                  bktype == B_CHECKPOINTER || bktype == B_AUTOVAC_WORKER ||
+                  bktype == B_STANDALONE_BACKEND || bktype == B_STARTUP;
+
+    // Exclude backends that can't use temp relations in normal context
+    if (no_temp_rel && io_context == IOCONTEXT_NORMAL &&
+        io_object == IOOBJECT_TEMP_RELATION)
+        return false;
+
+    // Checkpointer and BG writer don't do bulk reads/writes or vacuum
+    if ((bktype == B_CHECKPOINTER || bktype == B_BG_WRITER) &&
+        (io_context == IOCONTEXT_BULKREAD ||
+         io_context == IOCONTEXT_BULKWRITE ||
+         io_context == IOCONTEXT_VACUUM))
+        return false;
+
+    // Autovac launcher doesn't do vacuum IO
+    if (bktype == B_AUTOVAC_LAUNCHER && io_context == IOCONTEXT_VACUUM)
+        return false;
+
+    // Autovac processes don't do bulk writes
+    if ((bktype == B_AUTOVAC_WORKER || bktype == B_AUTOVAC_LAUNCHER) &&
+        io_context == IOCONTEXT_BULKWRITE)
+        return false;
+
+    return true;
+}
+```

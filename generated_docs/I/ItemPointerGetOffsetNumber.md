@@ -39,3 +39,24 @@ This function provides the same safety-performance balance as its block number c
 - Returns an OffsetNumber type representing the tuple position within a page
 - The Assert provides early detection of invalid pointer usage during development
 - OffsetNumber values start from 1 for valid tuples, with 0 typically indicating invalid or special cases
+
+## Simplified Source
+
+```c
+// Simplified version of ItemPointerGetOffsetNumber
+static inline OffsetNumber
+ItemPointerGetOffsetNumber(const ItemPointerData *pointer)
+{
+    // Verify pointer is valid (compiled out in production)
+    Assert(ItemPointerIsValid(pointer));
+
+    // Extract offset number using unchecked version
+    return ItemPointerGetOffsetNumberNoCheck(pointer);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two main operations
+- Clarified that Assert is compiled out in production builds
+- Maintained the simple structure since the original is already quite minimal
+- Preserved the essential safety-then-extract pattern

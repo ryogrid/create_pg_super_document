@@ -45,3 +45,44 @@ This function takes no parameters and returns:
 - The specific NT functions being loaded are: , , and 
 - Error handling converts Windows error codes to DOS error codes using 
 - This functionality is critical for advanced file I/O operations on Windows, particularly for implementing reliable data synchronization
+
+## Simplified Source
+
+```c
+int initialize_ntdll(void)
+{
+    HMODULE module;
+
+    // Return if already initialized
+    if (initialized)
+        return 0;
+
+    // Load ntdll.dll library
+    if (!(module = LoadLibraryEx("ntdll.dll", NULL, 0)))
+    {
+        _dosmaperr(GetLastError());
+        return -1;
+    }
+
+    // Load each required function from the library
+    for (int i = 0; i < lengthof(routines); ++i)
+    {
+        pg_funcptr_t address;
+
+        // Get function address by name
+        address = (pg_funcptr_t) GetProcAddress(module, routines[i].name);
+        if (!address)
+        {
+            _dosmaperr(GetLastError());
+            FreeLibrary(module);
+            return -1;
+        }
+
+        // Store function pointer
+        *(pg_funcptr_t *) routines[i].address = address;
+    }
+
+    initialized = true;
+    return 0;
+}
+```

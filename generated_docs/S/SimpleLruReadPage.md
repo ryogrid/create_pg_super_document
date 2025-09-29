@@ -63,3 +63,76 @@ Key operations performed:
 - Proper lock ordering prevents deadlocks during I/O operations
 - LSN values are zeroed for newly read pages to ensure WAL consistency
 - Statistics distinguish between cache hits and disk reads for performance monitoring
+
+## Simplified Source
+
+```c
+// Simplified version of SimpleLruReadPage
+int SimpleLruReadPage(SlruCtl ctl, int64 pageno, bool write_ok, TransactionId xid) {
+    SlruShared shared = ctl->shared;
+    LWLock *banklock = SimpleLruGetBankLock(ctl, pageno);
+
+    // Main loop: retry if we need to wait for I/O
+    for (;;) {
+        int slotno;
+        bool read_ok;
+
+        // Step 1: Find page in memory or select victim slot
+        slotno = SlruSelectLRUPage(ctl, pageno);
+
+        // Step 2: Check if page is already in memory
+        if (shared->page_status[slotno] != SLRU_PAGE_EMPTY &&
+            shared->page_number[slotno] == pageno) {
+
+            // Handle concurrent I/O - wait if page is being read/written
+            if (shared->page_status[slotno] == SLRU_PAGE_READ_IN_PROGRESS ||
+                (shared->page_status[slotno] == SLRU_PAGE_WRITE_IN_PROGRESS && !write_ok)) {
+                SimpleLruWaitIO(ctl, slotno);
+                continue;  // Retry from beginning
+            }
+
+            // Page is ready - update LRU info and return
+            SlruRecentlyUsed(shared, slotno);
+            pgstat_count_slru_page_hit(shared->slru_stats_idx);
+            return slotno;
+        }
+
+        // Step 3: Page not in memory - prepare for disk read
+        shared->page_number[slotno] = pageno;
+        shared->page_status[slotno] = SLRU_PAGE_READ_IN_PROGRESS;
+        shared->page_dirty[slotno] = false;
+
+        // Step 4: Acquire buffer lock and release bank lock for I/O
+        LWLockAcquire(&shared->buffer_locks[slotno].lock, LW_EXCLUSIVE);
+        LWLockRelease(banklock);
+
+        // Step 5: Read page from disk
+        read_ok = SlruPhysicalReadPage(ctl, pageno, slotno);
+        SimpleLruZeroLSNs(ctl, slotno);
+
+        // Step 6: Re-acquire bank lock and update page status
+        LWLockAcquire(banklock, LW_EXCLUSIVE);
+        shared->page_status[slotno] = read_ok ? SLRU_PAGE_VALID : SLRU_PAGE_EMPTY;
+        LWLockRelease(&shared->buffer_locks[slotno].lock);
+
+        // Step 7: Handle read errors
+        if (!read_ok) {
+            SlruReportIOError(ctl, pageno, xid);
+        }
+
+        // Step 8: Update LRU info and stats, then return
+        SlruRecentlyUsed(shared, slotno);
+        pgstat_count_slru_page_read(shared->slru_stats_idx);
+        return slotno;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity while keeping essential logic flow
+- Simplified complex nested conditions into clearer step-by-step operations
+- Added descriptive comments explaining each major phase
+- Consolidated error handling into a single location
+- Used more descriptive variable names (read_ok instead of ok)
+- Structured the code to show the main algorithm phases clearly
+- Removed low-level memory operation details while preserving core functionality

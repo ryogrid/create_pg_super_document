@@ -43,3 +43,40 @@ This function creates and initializes an index scan descriptor for scanning an i
 - The returned IndexScanDesc must be properly closed with index_endscan when scan is complete
 - Sets up both index scanning and heap tuple fetching mechanisms
 - Located in src/backend/access/index/indexam.c:256-286
+
+## Simplified Source
+
+```c
+// Simplified version of index_beginscan
+IndexScanDesc
+index_beginscan(Relation heapRelation,
+                Relation indexRelation,
+                Snapshot snapshot,
+                int nkeys, int norderbys)
+{
+    IndexScanDesc scan;
+
+    // Validate snapshot parameter
+    Assert(snapshot != InvalidSnapshot);
+
+    // Initialize the index scan descriptor with internal helper
+    scan = index_beginscan_internal(indexRelation, nkeys, norderbys,
+                                   snapshot, NULL, false);
+
+    // Set up heap relation and snapshot in scan descriptor
+    scan->heapRelation = heapRelation;
+    scan->xs_snapshot = snapshot;
+
+    // Prepare heap tuple fetching mechanism for index matches
+    scan->xs_heapfetch = table_index_fetch_begin(heapRelation);
+
+    return scan;
+}
+```
+
+Key simplifications made:
+- Preserved the essential initialization flow and parameter assignments
+- Kept the critical snapshot validation assertion
+- Maintained the core three-step process: internal scan setup, parameter assignment, and heap fetch preparation
+- Added descriptive comments for each major step
+- Preserved all function parameters and return type for interface clarity

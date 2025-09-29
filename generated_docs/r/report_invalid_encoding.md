@@ -49,3 +49,35 @@ The function uses pg_encoding_mblen_or_incomplete to determine how many bytes co
 - The len parameter represents remaining string length, not the length of the invalid character
 - Widely used throughout PostgreSQL's encoding conversion system for consistent error reporting
 - Provides both the encoding name and specific byte values in error messages for debugging
+
+## Simplified Source
+
+```c
+void
+report_invalid_encoding(int encoding, const char *mbstr, int len)
+{
+    int l = pg_encoding_mblen_or_incomplete(encoding, mbstr, len);
+    char buf[8 * 5 + 1];  // Buffer for hex representation (8 bytes * "0x00 " + null)
+    char *p = buf;
+    int j, jlimit;
+
+    // Determine how many bytes to display (up to 8 bytes max)
+    jlimit = Min(l, len);
+    jlimit = Min(jlimit, 8);  // Prevent buffer overrun
+
+    // Format bytes as hex values
+    for (j = 0; j < jlimit; j++)
+    {
+        p += sprintf(p, "0x%02x", (unsigned char) mbstr[j]);
+        if (j < jlimit - 1)
+            p += sprintf(p, " ");  // Add space between bytes
+    }
+
+    // Report the error with encoding name and hex bytes
+    ereport(ERROR,
+            (errcode(ERRCODE_CHARACTER_NOT_IN_REPERTOIRE),
+             errmsg("invalid byte sequence for encoding \"%s\": %s",
+                    pg_enc2name_tbl[encoding].name,
+                    buf)));
+}
+```

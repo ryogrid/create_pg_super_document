@@ -47,3 +47,60 @@ This two-pass approach ensures optimal amortized performance for pairing heap op
 - The two-pass strategy is essential for the theoretical guarantees of pairing heaps
 - Uses the existing sibling linked list structure to avoid additional memory allocation
 - The function preserves the heap property by delegating actual comparisons to the `merge` function
+
+## Simplified Source
+
+```c
+// Simplified version of merge_children
+static pairingheap_node *
+merge_children(pairingheap *heap, pairingheap_node *children)
+{
+    pairingheap_node *curr, *next;
+    pairingheap_node *pairs = NULL;
+    pairingheap_node *newroot;
+
+    // Handle simple cases: 0 or 1 children
+    if (children == NULL || children->next_sibling == NULL)
+        return children;
+
+    // First pass: merge adjacent pairs left-to-right
+    next = children;
+    while (next != NULL) {
+        curr = next;
+
+        if (curr->next_sibling == NULL) {
+            // Handle odd number of children - add last one to pairs
+            curr->next_sibling = pairs;
+            pairs = curr;
+            break;
+        }
+
+        // Move to next pair
+        next = curr->next_sibling->next_sibling;
+
+        // Merge current pair and add to pairs list
+        curr = merge(heap, curr, curr->next_sibling);
+        curr->next_sibling = pairs;
+        pairs = curr;
+    }
+
+    // Second pass: merge all pairs into single heap
+    newroot = pairs;
+    next = pairs->next_sibling;
+    while (next) {
+        curr = next;
+        next = curr->next_sibling;
+        newroot = merge(heap, newroot, curr);
+    }
+
+    return newroot;
+}
+```
+
+Key simplifications made:
+- Simplified variable initialization and declarations
+- Clarified the two-pass algorithm with descriptive comments
+- Removed unnecessary intermediate assignments for readability
+- Made the loop structure more explicit and easier to follow
+- Preserved all essential logic and edge case handling
+- Maintained the core pairing heap merge algorithm intact

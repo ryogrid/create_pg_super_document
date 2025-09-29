@@ -41,3 +41,44 @@ This function takes no parameters but uses several local variables:
 - Documents a known implementation defect that affects just one page in an extremely rare scenario
 - The defect's consequence would be mild: a new transaction failing in SimpleLruReadPage()
 - Contains disabled assertion (under #if 0) that demonstrates the known defect
+
+## Simplified Source
+
+```c
+// Simplified version of SerialPagePrecedesLogicallyUnitTests
+static void SerialPagePrecedesLogicallyUnitTests(void) {
+    int per_page = SERIAL_ENTRIESPERPAGE;
+    int offset = per_page / 2;
+    int64 newestPage, oldestPage, headPage, targetPage;
+    TransactionId newestXact, oldestXact;
+
+    // Setup test scenario with extreme XID wraparound conditions
+    newestPage = 2 * SLRU_PAGES_PER_SEGMENT - 1;
+    newestXact = newestPage * per_page + offset;
+    oldestXact = newestXact + 1 - (1U << 31);  // ~2B XIDs ago
+    oldestPage = oldestXact / per_page;
+
+    // Test Case 1: Head page is newest, target is oldest
+    // Should return false to prevent zeroing pages with valid entries
+    headPage = newestPage;
+    targetPage = oldestPage;
+    Assert(!SerialPagePrecedesLogically(headPage, targetPage));
+
+    // Test Case 2: Head page is oldest, target is newest
+    // Should return true to allow creating new target page
+    headPage = oldestPage;
+    targetPage = newestPage;
+    Assert(SerialPagePrecedesLogically(headPage, targetPage - 1));
+
+    // Note: The following assertion is disabled due to known implementation defect
+    // Assert(SerialPagePrecedesLogically(headPage, targetPage));
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining the business logic scenarios
+- Consolidated XID calculation into fewer steps
+- Simplified variable naming and removed intermediate assertions
+- Condensed the two test scenarios into clear, focused test cases
+- Preserved the essential wraparound logic and critical assertions
+- Maintained the disabled assertion with explanatory comment

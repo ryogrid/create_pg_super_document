@@ -36,3 +36,36 @@ AtEOXact_PgStat is a critical function in PostgreSQL's statistics subsystem that
 - The function ensures that any existing statistics snapshot is cleared after transaction completion
 - It handles both commit and abort scenarios, with different processing logic for each case
 - The function validates that it's being called at the correct nesting level (nest_level == 1) for top-level transactions
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_PgStat
+void AtEOXact_PgStat(bool isCommit, bool parallel) {
+    // Handle database-level statistics cleanup
+    AtEOXact_PgStat_Database(isCommit, parallel);
+
+    // Process transactional statistics if present
+    PgStat_SubXactStatus *xact_state = pgStatXactStack;
+    if (xact_state != NULL) {
+        // Validate we're at top-level transaction
+        Assert(xact_state->nest_level == 1);
+        Assert(xact_state->prev == NULL);
+
+        // Clean up relation and dropped object statistics
+        AtEOXact_PgStat_Relations(xact_state, isCommit);
+        AtEOXact_PgStat_DroppedStats(xact_state, isCommit);
+    }
+
+    // Clear transaction stack and statistics snapshot
+    pgStatXactStack = NULL;
+    pgstat_clear_snapshot();
+}
+```
+
+Key simplifications made:
+- Consolidated variable declaration with usage for clarity
+- Added descriptive comments explaining each major step
+- Preserved all essential logic flow and function calls
+- Maintained the assertion checks as they're critical for correctness
+- Simplified the structure while keeping the same functional behavior

@@ -40,3 +40,27 @@ This function is particularly important during transaction abort and error recov
 - Primarily used during transaction and subtransaction abort processing
 - Does not affect the timeout registration or handler functions, only reschedules pending alarms
 - Critical for maintaining timeout functionality across PostgreSQL error handling and recovery mechanisms
+
+## Simplified Source
+
+```c
+// Simplified version of reschedule_timeouts
+void reschedule_timeouts(void) {
+    // Safety check: Allow calls before initialization
+    if (!all_timeouts_initialized)
+        return;
+
+    // Disable alarms temporarily for atomic operation
+    disable_alarm();
+
+    // Reschedule alarm if any timeouts are still active
+    if (num_active_timeouts > 0)
+        schedule_alarm(GetCurrentTimestamp());
+}
+```
+
+Key simplifications made:
+- Preserved essential logic flow and safety checks
+- Simplified comments to focus on core functionality
+- Maintained all critical operations: initialization check, alarm disabling, and conditional rescheduling
+- Removed detailed comment blocks while keeping algorithmic clarity

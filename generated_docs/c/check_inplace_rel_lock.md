@@ -51,3 +51,48 @@ This is a debug-time validation mechanism that helps developers ensure proper lo
 - Helps ensure the complex locking protocols required for safe catalog inplace updates are properly followed
 - Used in conjunction with inplace update operations that bypass normal MVCC versioning for performance reasons
 - Essential for preventing corruption in system catalogs during concurrent operations
+
+## Simplified Source
+
+```c
+// Simplified version of check_inplace_rel_lock
+static void
+check_inplace_rel_lock(HeapTuple oldtup)
+{
+    // Extract relation info from pg_class tuple
+    Form_pg_class classForm = (Form_pg_class) GETSTRUCT(oldtup);
+    Oid relid = classForm->oid;
+    Oid dbid;
+    LOCKTAG tag;
+
+    // Determine database ID (shared relations use InvalidOid)
+    if (IsSharedRelation(relid))
+        dbid = InvalidOid;
+    else
+        dbid = MyDatabaseId;
+
+    // Handle index relations specially - check lock on underlying table
+    if (classForm->relkind == RELKIND_INDEX) {
+        Relation irel = index_open(relid, AccessShareLock);
+        SET_LOCKTAG_RELATION(tag, dbid, irel->rd_index->indrelid);
+        index_close(irel, AccessShareLock);
+    }
+    else {
+        // For regular relations, check lock on the relation itself
+        SET_LOCKTAG_RELATION(tag, dbid, relid);
+    }
+
+    // Verify ShareUpdateExclusiveLock is held
+    if (!LockHeldByMe(&tag, ShareUpdateExclusiveLock, true)) {
+        elog(WARNING, "missing lock for relation \"%s\" (OID %u, relkind %c)",
+             NameStr(classForm->relname), relid, classForm->relkind);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed tuple location tracking from warning message for clarity
+- Simplified comments to focus on core logic steps
+- Maintained essential branching logic for shared relations and indexes
+- Preserved all critical lock validation functionality
+- Condensed variable declarations and assignments where appropriate

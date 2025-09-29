@@ -47,3 +47,45 @@ Error handling is minimal since this is only an optimization hint - failures are
 - The optimization is most beneficial for large files and bulk operations like database initialization or backup restoration
 - Errors in the hint operation are ignored because the hint is optional for correctness
 - Used as a callback function passed to walkdir() for directory tree traversal
+
+## Simplified Source
+
+```c
+// Simplified version of pre_sync_fname (backend version)
+static void pre_sync_fname(const char *fname, bool isdir, int elevel) {
+    int fd;
+
+    // Skip directories - they can't be flushed
+    if (isdir)
+        return;
+
+    // Report progress during data directory sync
+    ereport_startup_progress("syncing data directory (pre-fsync), current path: %s", fname);
+
+    // Open file for reading
+    fd = OpenTransientFile(fname, O_RDONLY | PG_BINARY);
+    if (fd < 0) {
+        // Ignore permission errors, report others
+        if (errno == EACCES)
+            return;
+        ereport(elevel, "could not open file \"%s\"", fname);
+        return;
+    }
+
+    // Hint to OS: flush dirty pages to storage buffers
+    // This is just an optimization hint - errors are ignored
+    pg_flush_data(fd, 0, 0);
+
+    // Close the file
+    if (CloseTransientFile(fd) != 0)
+        ereport(elevel, "could not close file \"%s\"", fname);
+}
+```
+
+Key simplifications made:
+- Removed detailed error code formatting (errcode_for_file_access(), errmsg())
+- Simplified progress reporting message format
+- Added clear comments explaining the purpose of each major step
+- Highlighted that pg_flush_data() is an optimization hint that ignores errors
+- Consolidated error handling logic while preserving essential checks
+- Maintained the core logic flow: skip directories → report progress → open file → flush data → close file

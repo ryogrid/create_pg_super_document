@@ -44,3 +44,47 @@ The function follows the same safety principles as disable_timeout() but applies
 - Particularly useful in lock management and process sleeping scenarios where multiple coordinated timeouts need to be canceled together
 - The batch approach is especially beneficial during error cleanup or process termination when multiple timeouts may need to be cleared
 - Part of PostgreSQL's advanced timeout management system designed for high-performance concurrent operations
+
+## Simplified Source
+
+```c
+// Simplified version of disable_timeouts
+void disable_timeouts(const DisableTimeoutParams *timeouts, int count) {
+    // Safety check: ensure timeout system is initialized
+    Assert(all_timeouts_initialized);
+
+    // Disable interrupts to prevent race conditions during batch operation
+    disable_alarm();
+
+    // Process each timeout in the batch
+    for (int i = 0; i < count; i++) {
+        TimeoutId id = timeouts[i].id;
+
+        // Verify timeout is properly configured
+        Assert(all_timeouts[id].timeout_handler != NULL);
+
+        // Remove from active queue if currently active
+        if (all_timeouts[id].active) {
+            remove_timeout_index(find_active_timeout(id));
+        }
+
+        // Clear indicator unless caller wants to preserve it
+        if (!timeouts[i].keep_indicator) {
+            all_timeouts[id].indicator = false;
+        }
+    }
+
+    // Re-enable alarms if any timeouts still remain active
+    if (num_active_timeouts > 0) {
+        schedule_alarm(GetCurrentTimestamp());
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated them into clear step descriptions
+- Simplified variable declarations (moved loop variable inline)
+- Added high-level comments explaining the purpose of each major step
+- Preserved all essential logic including safety checks and batch processing
+- Maintained the core algorithm: disable interrupts → process timeouts → reschedule if needed
+- Kept assertion checks as they're critical for debugging timeout system issues

@@ -49,3 +49,46 @@ The function uses OpenSSL's  helper function to find a mutually supported protoc
 - The callback includes validation of all input parameters using Assert macros
 - Contains a comment noting the const/non-const mismatch in OpenSSL's helper function signature
 - This functionality is only available when PostgreSQL is compiled with OpenSSL support and when ALPN is enabled
+
+## Simplified Source
+
+```c
+// Simplified version of alpn_cb
+static int
+alpn_cb(SSL *ssl,
+        const unsigned char **out,
+        unsigned char *outlen,
+        const unsigned char *in,
+        unsigned int inlen,
+        void *userdata)
+{
+    int retval;
+
+    // Validate all input parameters
+    Assert(userdata != NULL);
+    Assert(out != NULL && outlen != NULL && in != NULL);
+
+    // Use OpenSSL helper to negotiate protocol from client's list
+    retval = SSL_select_next_proto((unsigned char **) out, outlen,
+                                   alpn_protos, sizeof(alpn_protos),
+                                   in, inlen);
+
+    // Validate negotiation result
+    if (*out == NULL || *outlen > sizeof(alpn_protos) || *outlen <= 0)
+        return SSL_TLSEXT_ERR_NOACK;
+
+    // Return appropriate result based on negotiation outcome
+    if (retval == OPENSSL_NPN_NEGOTIATED)
+        return SSL_TLSEXT_ERR_OK;
+    else
+        return SSL_TLSEXT_ERR_ALERT_FATAL;  // Send "no_application_protocol" alert
+}
+```
+
+Key simplifications made:
+- Combined multiple individual Assert statements into logical groups
+- Added descriptive comments for each major logic section
+- Removed verbose commentary about OpenSSL API inconsistencies
+- Simplified the final conditional logic for better readability
+- Maintained all essential validation and error handling logic
+- Preserved the core ALPN negotiation algorithm and return codes

@@ -44,3 +44,36 @@ This function takes no parameters and operates on global MultiXact state.
 - Critical for proper functioning after upgrades from PostgreSQL 9.2 and earlier
 - The function is safe to call multiple times as it only acts when pages are missing
 - Does not write XLOG records since this is a recovery/upgrade scenario
+
+## Simplified Source
+
+```c
+// Simplified version of MaybeExtendOffsetSlru
+static void MaybeExtendOffsetSlru(void) {
+    // Calculate which page is needed for the next MultiXact ID
+    int64 pageno = MultiXactIdToOffsetPage(MultiXactState->nextMXact);
+
+    // Get the bank lock for this page to ensure exclusive access
+    LWLock *lock = SimpleLruGetBankLock(MultiXactOffsetCtl, pageno);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Check if the physical page exists on disk
+    if (!SimpleLruDoesPhysicalPageExist(MultiXactOffsetCtl, pageno)) {
+        // Page doesn't exist - create it
+        // Zero out a new page and write it to disk
+        int slotno = ZeroMultiXactOffsetPage(pageno, false);
+        SimpleLruWritePage(MultiXactOffsetCtl, slotno);
+    }
+
+    // Release the exclusive lock
+    LWLockRelease(lock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining binary upgrade background
+- Simplified variable declarations and consolidated logic flow
+- Added inline comments explaining each major step
+- Preserved essential algorithm: calculate page → lock → check existence → create if missing → unlock
+- Maintained all critical function calls and error handling logic
+- Focused on the core page creation workflow rather than upgrade context

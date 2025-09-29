@@ -41,3 +41,34 @@ The algorithm includes several important safety measures:
 - Returns values in range 1-65535 (never zero) by using modulo 65535 plus 1
 - Used throughout PostgreSQL for page integrity verification and corruption detection
 - Critical for data reliability in storage systems and backup/restore operations
+
+## Simplified Source
+
+```c
+// Compute checksum for a PostgreSQL page
+uint16 pg_checksum_page(char *page, BlockNumber blkno)
+{
+    PGChecksummablePage *cpage = (PGChecksummablePage *) page;
+    uint16 save_checksum;
+    uint32 checksum;
+
+    // Ensure page is properly initialized
+    Assert(!PageIsNew((Page) page));
+
+    // Temporarily zero the checksum field to avoid interference
+    save_checksum = cpage->phdr.pd_checksum;
+    cpage->phdr.pd_checksum = 0;
+
+    // Calculate the actual checksum
+    checksum = pg_checksum_block(cpage);
+
+    // Restore original checksum (this function doesn't update it)
+    cpage->phdr.pd_checksum = save_checksum;
+
+    // Mix in block number to detect transposed pages
+    checksum ^= blkno;
+
+    // Reduce to 16-bit value with offset to avoid zero checksums
+    return (uint16) ((checksum % 65535) + 1);
+}
+```

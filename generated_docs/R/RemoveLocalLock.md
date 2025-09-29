@@ -45,3 +45,51 @@ The function is designed to be called as a final cleanup step when a LOCALLOCK i
 - The function uses spinlocks when updating shared fast-path lock counters
 - Error handling includes a warning if the local lock hash table appears corrupted
 - The function assumes the caller has already handled any necessary unlocking of the actual lock object
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveLocalLock
+static void RemoveLocalLock(LOCALLOCK *locallock)
+{
+    // Step 1: Clean up all resource owners
+    for (int i = locallock->numLockOwners - 1; i >= 0; i--) {
+        if (locallock->lockOwners[i].owner != NULL) {
+            ResourceOwnerForgetLock(locallock->lockOwners[i].owner, locallock);
+        }
+    }
+
+    // Step 2: Free lock owners array and reset count
+    locallock->numLockOwners = 0;
+    if (locallock->lockOwners != NULL) {
+        pfree(locallock->lockOwners);
+        locallock->lockOwners = NULL;
+    }
+
+    // Step 3: Handle fast-path strong lock cleanup if needed
+    if (locallock->holdsStrongLockCount) {
+        uint32 partition = FastPathStrongLockHashPartition(locallock->hashcode);
+
+        SpinLockAcquire(&FastPathStrongRelationLocks->mutex);
+        FastPathStrongRelationLocks->count[partition]--;
+        locallock->holdsStrongLockCount = false;
+        SpinLockRelease(&FastPathStrongRelationLocks->mutex);
+    }
+
+    // Step 4: Remove from local lock hash table
+    if (!hash_search(LockMethodLocalHash, &(locallock->tag), HASH_REMOVE, NULL)) {
+        elog(WARNING, "locallock table corrupted");
+    }
+
+    // Step 5: Update lock status tracking
+    CheckAndSetLockHeld(locallock, false);
+}
+```
+
+Key simplifications made:
+- Simplified loop variable declaration to modern C style
+- Added descriptive comments for each major cleanup step
+- Consolidated the fast-path logic flow for better readability
+- Retained all essential error checking and resource cleanup
+- Preserved the exact order of operations which is critical for correctness
+- Kept all memory management and synchronization primitives intact

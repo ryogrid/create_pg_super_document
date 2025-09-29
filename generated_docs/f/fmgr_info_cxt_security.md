@@ -50,3 +50,100 @@ The function handles multiple function languages (INTERNAL, C, SQL, and procedur
 - The fn_oid field is set last to ensure struct validity in case of errors
 - Part of PostgreSQL's Function Manager (fmgr) subsystem responsible for function call dispatch
 - Manages memory allocation through the specified memory context for long-term function info storage
+
+## Simplified Source
+
+```c
+// Simplified version of fmgr_info_cxt_security
+static void fmgr_info_cxt_security(Oid functionId, FmgrInfo *finfo, MemoryContext mcxt, bool ignore_security) {
+    const FmgrBuiltin *fbp;
+    HeapTuple procedureTuple;
+    Form_pg_proc procedureStruct;
+
+    // Initialize FmgrInfo struct (fn_oid set last for validity)
+    finfo->fn_oid = InvalidOid;
+    finfo->fn_extra = NULL;
+    finfo->fn_mcxt = mcxt;
+    finfo->fn_expr = NULL;
+
+    // Fast path: Check if this is a builtin function
+    if ((fbp = fmgr_isbuiltin(functionId)) != NULL) {
+        // Use builtin function metadata directly
+        finfo->fn_nargs = fbp->nargs;
+        finfo->fn_strict = fbp->strict;
+        finfo->fn_retset = fbp->retset;
+        finfo->fn_stats = TRACK_FUNC_ALL;  // Never track builtins
+        finfo->fn_addr = fbp->func;
+        finfo->fn_oid = functionId;
+        return;
+    }
+
+    // Lookup function in pg_proc catalog
+    procedureTuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(functionId));
+    if (!HeapTupleIsValid(procedureTuple))
+        elog(ERROR, "cache lookup failed for function %u", functionId);
+    procedureStruct = (Form_pg_proc) GETSTRUCT(procedureTuple);
+
+    // Copy basic function properties
+    finfo->fn_nargs = procedureStruct->pronargs;
+    finfo->fn_strict = procedureStruct->proisstrict;
+    finfo->fn_retset = procedureStruct->proretset;
+
+    // Check if security features are needed (SECURITY DEFINER, hooks, etc.)
+    if (!ignore_security &&
+        (procedureStruct->prosecdef ||
+         !heap_attisnull(procedureTuple, Anum_pg_proc_proconfig, NULL) ||
+         FmgrHookIsNeeded(functionId))) {
+        // Use security definer wrapper
+        finfo->fn_addr = fmgr_security_definer;
+        finfo->fn_stats = TRACK_FUNC_ALL;
+        finfo->fn_oid = functionId;
+        ReleaseSysCache(procedureTuple);
+        return;
+    }
+
+    // Set up function based on language
+    switch (procedureStruct->prolang) {
+        case INTERNALlanguageId:
+            // Handle aliased builtin functions
+            prosrc = get_function_source(procedureTuple);
+            fbp = fmgr_lookupByName(prosrc);
+            if (fbp == NULL)
+                ereport(ERROR, "internal function not found in lookup table");
+            finfo->fn_addr = fbp->func;
+            finfo->fn_stats = TRACK_FUNC_ALL;
+            break;
+
+        case ClanguageId:
+            // C language function
+            fmgr_info_C_lang(functionId, finfo, procedureTuple);
+            finfo->fn_stats = TRACK_FUNC_PL;
+            break;
+
+        case SQLlanguageId:
+            // SQL language function
+            finfo->fn_addr = fmgr_sql;
+            finfo->fn_stats = TRACK_FUNC_PL;
+            break;
+
+        default:
+            // Procedural language function
+            fmgr_info_other_lang(functionId, finfo, procedureTuple);
+            finfo->fn_stats = TRACK_FUNC_OFF;
+            break;
+    }
+
+    // Finalize setup
+    finfo->fn_oid = functionId;
+    ReleaseSysCache(procedureTuple);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated initialization code
+- Simplified error handling to focus on main logic flow
+- Abstracted prosrc extraction into conceptual `get_function_source()` call
+- Condensed security check conditions into single readable block
+- Removed memory cleanup details (pfree calls) for clarity
+- Focused on the core algorithm: builtin check → catalog lookup → security check → language-specific setup
+- Preserved essential control flow and all major code paths

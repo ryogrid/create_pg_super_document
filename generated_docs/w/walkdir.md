@@ -48,3 +48,68 @@ The function is critical for implementing file synchronization operations like f
 - This ensures proper fsync ordering where file entries are synced before directory entries
 - The action function's return value is currently ignored in the common version
 - Error handling is more lenient compared to the backend version - errors are logged but traversal continues
+
+## Simplified Source
+
+```c
+// Simplified version of walkdir (backend version from fd.c)
+static void
+walkdir(const char *path,
+        void (*action)(const char *fname, bool isdir, int elevel),
+        bool process_symlinks,
+        int elevel)
+{
+    DIR *dir;
+    struct dirent *de;
+
+    // Open the directory
+    dir = AllocateDir(path);
+
+    // Process each directory entry
+    while ((de = ReadDirExtended(dir, path, elevel)) != NULL)
+    {
+        char subpath[MAXPGPATH * 2];
+
+        // Allow interruption for long operations
+        CHECK_FOR_INTERRUPTS();
+
+        // Skip current and parent directory entries
+        if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+            continue;
+
+        // Build full path to the entry
+        snprintf(subpath, sizeof(subpath), "%s/%s", path, de->d_name);
+
+        // Handle different file types
+        switch (get_dirent_type(subpath, de, process_symlinks, elevel))
+        {
+            case PGFILETYPE_REG:
+                // Process regular file
+                (*action)(subpath, false, elevel);
+                break;
+            case PGFILETYPE_DIR:
+                // Recursively process directory (symlinks disabled in subdirs)
+                walkdir(subpath, action, false, elevel);
+                break;
+            default:
+                // Ignore symlinks, unknown types, and errors
+                break;
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(dir);
+
+    // Process the directory itself after its contents (post-order)
+    if (dir)
+        (*action)(path, true, elevel);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Simplified variable declarations and formatting
+- Added explanatory comments for main logic steps
+- Consolidated the switch statement logic
+- Emphasized the post-order directory processing pattern
+- Abstracted low-level memory and interrupt handling details

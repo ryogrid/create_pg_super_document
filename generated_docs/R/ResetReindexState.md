@@ -33,3 +33,32 @@ ResetReindexState is a public function called during transaction abort scenarios
 - Handles both transaction and subtransaction abort scenarios
 - The function assumes reindexing is not re-entrant, so it only needs to track one level of nesting
 - Resets all global reindexing state variables when cleanup is triggered
+
+## Simplified Source
+
+```c
+// Simplified version of ResetReindexState
+void ResetReindexState(int nestLevel) {
+    // Check if current reindex operation should be reset
+    // Only reset if the abort level encompasses the reindex level
+    if (reindexingNestLevel >= nestLevel) {
+        // Clear currently reindexed object identifiers
+        currentlyReindexedHeap = InvalidOid;
+        currentlyReindexedIndex = InvalidOid;
+
+        // Clear pending index list (memory freed automatically with transaction context)
+        pendingReindexedIndexes = NIL;
+
+        // Reset nesting level to indicate no active reindex
+        reindexingNestLevel = 0;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about re-entrancy and subtransaction handling
+- Simplified the condition explanation to focus on core logic
+- Condensed the memory management comment to essential information
+- Added clear step-by-step comments for each state reset operation
+- Maintained the essential abort-level checking logic
+- Preserved all critical state reset operations

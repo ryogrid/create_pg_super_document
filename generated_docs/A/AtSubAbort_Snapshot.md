@@ -44,3 +44,43 @@ The function ensures that aborted subtransactions do not leave dangling snapshot
 - Always calls SnapshotResetXmin() at the end to optimize xmin for garbage collection
 - Critical for preventing memory leaks during subtransaction rollback scenarios
 - Handles the case where ActiveSnapshot becomes NULL by also clearing OldestActiveSnapshot
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_Snapshot
+void AtSubAbort_Snapshot(int level) {
+    // Clean up all active snapshots at or above the aborting level
+    while (ActiveSnapshot && ActiveSnapshot->as_level >= level) {
+        ActiveSnapshotElt *next = ActiveSnapshot->as_next;
+
+        // Decrement reference count for this snapshot
+        ActiveSnapshot->as_snap->active_count--;
+
+        // Free snapshot if no longer referenced anywhere
+        if (ActiveSnapshot->as_snap->active_count == 0 &&
+            ActiveSnapshot->as_snap->regd_count == 0) {
+            FreeSnapshot(ActiveSnapshot->as_snap);
+        }
+
+        // Free the stack element and move to next
+        pfree(ActiveSnapshot);
+        ActiveSnapshot = next;
+
+        // Clear oldest pointer if stack becomes empty
+        if (ActiveSnapshot == NULL) {
+            OldestActiveSnapshot = NULL;
+        }
+    }
+
+    // Reset transaction's minimum snapshot ID for garbage collection
+    SnapshotResetXmin();
+}
+```
+
+Key simplifications made:
+- Removed detailed comments for brevity while preserving core logic
+- Consolidated variable declarations with assignments where possible
+- Simplified the conditional logic flow for better readability
+- Maintained all essential operations: reference counting, memory cleanup, and stack management
+- Preserved the critical SnapshotResetXmin() call at the end

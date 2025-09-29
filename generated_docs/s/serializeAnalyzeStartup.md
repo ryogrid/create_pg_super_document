@@ -38,3 +38,46 @@ This function serves as the startup routine for the serialize analyze destinatio
 - The function sets the wire protocol format (0 for text, 1 for binary) based on the serialization type
 - Performance metrics are tracked using INSTR_TIME facilities for timing analysis
 - The output buffer follows the same reuse pattern as printtup.c for efficiency
+
+## Simplified Source
+
+```c
+// Simplified version of serializeAnalyzeStartup
+static void serializeAnalyzeStartup(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    SerializeDestReceiver *receiver = (SerializeDestReceiver *) self;
+
+    // Set the serialization format based on explain options
+    switch (receiver->es->serialize) {
+        case EXPLAIN_SERIALIZE_TEXT:
+            receiver->format = 0;  // text format
+            break;
+        case EXPLAIN_SERIALIZE_BINARY:
+            receiver->format = 1;  // binary format
+            break;
+        case EXPLAIN_SERIALIZE_NONE:
+            // Should not happen in normal operation
+            Assert(false);
+            break;
+    }
+
+    // Create temporary memory context for row processing
+    receiver->tmpcontext = AllocSetContextCreate(CurrentMemoryContext,
+                                               "SerializeTupleReceive",
+                                               ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize reusable output buffer
+    initStringInfo(&receiver->buf);
+
+    // Reset performance metrics
+    memset(&receiver->metrics, 0, sizeof(SerializeMetrics));
+    INSTR_TIME_SET_ZERO(receiver->metrics.timeSpent);
+}
+```
+
+Key simplifications made:
+- Preserved the core logic flow of format selection, memory setup, and initialization
+- Kept essential switch statement for serialization format handling
+- Maintained critical memory context creation and buffer initialization
+- Preserved performance metrics reset functionality
+- Added clarifying comments for each major section
+- Simplified variable naming in comments for clarity

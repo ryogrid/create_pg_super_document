@@ -37,3 +37,23 @@ The function only operates when statistics tracking is enabled (pgstat_track_cou
 - Part of PostgreSQL's database-level performance monitoring system
 - Temporary files are often created during large sorts, hashes, and other operations that exceed work_mem
 - These statistics help administrators monitor memory pressure and tune work_mem settings
+
+## Simplified Source
+
+```c
+void pgstat_report_tempfile(size_t filesize)
+{
+    PgStat_StatDBEntry *dbent;
+
+    // Only track if statistics collection is enabled
+    if (!pgstat_track_counts)
+        return;
+
+    // Get pending stats entry for current database
+    dbent = pgstat_prep_database_pending(MyDatabaseId);
+
+    // Update temp file statistics
+    dbent->temp_bytes += filesize;
+    dbent->temp_files++;
+}
+```

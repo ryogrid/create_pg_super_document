@@ -37,3 +37,45 @@ The function iterates through the string character by character, accumulating th
 - For single-byte encodings, it delegates to the more efficient cliplen function
 - The function stops when either the limit is reached or the end of string is encountered
 - Returns the actual number of bytes that can be safely taken without breaking character boundaries
+
+## Simplified Source
+
+```c
+int pg_encoding_mbcliplen(int encoding, const char *mbstr, int len, int limit)
+{
+    mblen_converter mblen_fn;
+    int clen = 0;
+    int l;
+
+    // Optimization for single-byte encodings
+    if (pg_encoding_max_length(encoding) == 1)
+        return cliplen(mbstr, len, limit);
+
+    // Get the length function for this encoding
+    mblen_fn = pg_wchar_table[encoding].mblen;
+
+    // Process each character, respecting multi-byte boundaries
+    while (len > 0 && *mbstr)
+    {
+        // Get length of current character
+        l = (*mblen_fn)((const unsigned char *) mbstr);
+
+        // Stop if adding this character would exceed limit
+        if ((clen + l) > limit)
+            break;
+
+        // Add character length to cumulative length
+        clen += l;
+
+        // Stop if we've reached exact limit
+        if (clen == limit)
+            break;
+
+        // Move to next character
+        len -= l;
+        mbstr += l;
+    }
+
+    return clen;
+}
+```

@@ -32,3 +32,13 @@ The function operates by calling get_slru_entry() to retrieve the statistics ent
 - Flush operations are typically more expensive than single page writes, so tracking them separately provides valuable performance insights
 - The statistics help database administrators understand SLRU cache behavior and identify potential I/O bottlenecks
 - Part of the PostgreSQL statistics collector subsystem for comprehensive buffer cache monitoring
+
+## Simplified Source
+
+```c
+void pgstat_count_slru_flush(int slru_idx)
+{
+    // Get the statistics entry for this SLRU and increment flush counter
+    get_slru_entry(slru_idx)->flush += 1;
+}
+```

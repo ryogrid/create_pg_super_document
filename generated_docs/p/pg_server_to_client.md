@@ -38,3 +38,20 @@ The function is part of PostgreSQL's character encoding conversion system that e
 - Counterpart to `pg_client_to_server` for bidirectional encoding conversion
 - Heavily used in the message formatting and protocol output system
 - Located in src/backend/utils/mb/mbutils.c:738-748
+
+## Simplified Source
+
+```c
+// Simplified version of pg_server_to_client
+char *pg_server_to_client(const char *s, int len) {
+    // Convert server encoding to client encoding using the current client's encoding
+    // This is a convenience wrapper around the more general pg_server_to_any function
+    return pg_server_to_any(s, len, ClientEncoding->encoding);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments describing the function's purpose
+- Highlighted that this is a convenience wrapper function
+- Made the delegation to pg_server_to_any explicit and clear
+- Function is already quite simple, so minimal changes were needed

@@ -34,3 +34,17 @@ CharGetDatum provides the complement to DatumGetChar, converting C char values t
 - Essential for SQL function implementations that return char values
 - Part of the fundamental datum conversion system enabling type-safe character value handling
 - Used heavily in catalog tuple creation and system metadata management
+
+## Simplified Source
+
+```c
+/*
+ * CharGetDatum
+ *     Returns datum representation for a character.
+ */
+static inline Datum
+CharGetDatum(char X)
+{
+    return (Datum) X;
+}
+```

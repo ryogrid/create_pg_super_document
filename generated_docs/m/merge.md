@@ -40,3 +40,41 @@ This is a core primitive operation used by other pairing heap functions like `pa
 - Handles NULL inputs gracefully by returning the non-NULL node
 - The merged structure maintains the leftmost-child representation used by pairing heaps
 - Critical for maintaining O(log n) amortized performance in pairing heap operations
+
+## Simplified Source
+
+```c
+// Simplified version of merge - merges two pairing heap subtrees
+static pairingheap_node *
+merge(pairingheap *heap, pairingheap_node *a, pairingheap_node *b)
+{
+    // Handle NULL cases - return the non-NULL node
+    if (a == NULL) return b;
+    if (b == NULL) return a;
+
+    // Ensure 'a' has the larger value (max-heap property)
+    if (heap->ph_compare(a, b, heap->ph_arg) < 0) {
+        // Swap nodes so 'a' becomes the larger one
+        pairingheap_node *tmp = a;
+        a = b;
+        b = tmp;
+    }
+
+    // Make 'b' the leftmost child of 'a'
+    b->prev_or_parent = a;
+    b->next_sibling = a->first_child;
+    if (a->first_child) {
+        a->first_child->prev_or_parent = b;
+    }
+    a->first_child = b;
+
+    return a;  // Return the root of merged subtree
+}
+```
+
+Key simplifications made:
+- Simplified variable swapping logic with clearer inline initialization
+- Added descriptive comments explaining each major step
+- Clarified the max-heap behavior in comments
+- Condensed the child linking logic while preserving correctness
+- Made the NULL handling more explicit and readable

@@ -32,3 +32,24 @@ FetchPreparedStatementTargetList retrieves the target list from a prepared state
 - Only meaningful for prepared statements that return tuples
 - The implementation prioritizes correctness and safety over performance efficiency
 - Part of PostgreSQL's prepared statement introspection system for query analysis
+
+## Simplified Source
+
+```c
+// Simplified version of FetchPreparedStatementTargetList
+List *
+FetchPreparedStatementTargetList(PreparedStatement *stmt)
+{
+    // Get the target list from the prepared statement's cached plan
+    List *target_list = CachedPlanGetTargetList(stmt->plansource, NULL);
+
+    // Return a copy in caller's context to prevent plan invalidation issues
+    return copyObject(target_list);
+}
+```
+
+Key simplifications made:
+- Simplified variable names for clarity (tlist → target_list)
+- Added descriptive comments explaining the two main steps
+- Preserved the essential logic: get target list and copy it safely
+- Maintained the simple structure as the original function is already quite concise

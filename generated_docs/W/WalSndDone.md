@@ -47,3 +47,48 @@ This careful verification prevents data loss during shutdown by ensuring the cli
 - Returns control to caller if more data needs to be sent, allowing the main loop to continue processing
 - Ensures proper protocol termination by flushing pending data before process exit
 - The function name reflects its role as the final step in WAL sender lifecycle management
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndDone
+static void
+WalSndDone(WalSndSendDataCallback send_data)
+{
+    XLogRecPtr replicatedPtr;
+
+    // Step 1: Send any remaining data to ensure we're caught up
+    send_data();
+
+    // Step 2: Determine how far the client has replicated
+    // Use flush location if available, otherwise use write location
+    replicatedPtr = XLogRecPtrIsInvalid(MyWalSnd->flush) ?
+        MyWalSnd->write : MyWalSnd->flush;
+
+    // Step 3: Check if we can safely shutdown
+    if (WalSndCaughtUp && sentPtr == replicatedPtr && !pq_is_send_pending()) {
+        // All data replicated and no pending sends - safe to shutdown
+        QueryCompletion qc;
+
+        // Inform client that streaming is complete
+        SetQueryCompletion(&qc, CMDTAG_COPY, 0);
+        EndCommand(&qc, DestRemote, false);
+        pq_flush();
+
+        // Exit cleanly
+        proc_exit(0);
+    }
+
+    // Step 4: Not ready to shutdown - send keepalive to maintain connection
+    if (!waiting_for_ping_response) {
+        WalSndKeepalive(true, InvalidXLogRecPtr);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated them into step-by-step logic flow
+- Simplified variable declarations and expressions for clarity
+- Added descriptive comments explaining the main phases of shutdown checking
+- Preserved all essential logic: data sending, replication position checking, shutdown conditions, and keepalive mechanism
+- Maintained the core algorithm while making the flow more readable

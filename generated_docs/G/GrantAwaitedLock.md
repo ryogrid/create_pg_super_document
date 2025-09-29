@@ -36,3 +36,19 @@ The function simply calls GrantLockLocal with the global variables awaitedLock a
 - The global variables awaitedLock and awaitedOwner must be properly set before calling this function
 - Used specifically in scenarios where a process was waiting on a lock but needs to handle late-arriving grants
 - Part of the lock wait and timeout handling mechanism in PostgreSQL's lock manager
+
+## Simplified Source
+
+```c
+// Simplified version of GrantAwaitedLock
+void GrantAwaitedLock(void) {
+    // Grant the lock that we were waiting for to the local process
+    // Uses global variables awaitedLock and awaitedOwner set during lock wait
+    GrantLockLocal(awaitedLock, awaitedOwner);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the single function call
+- Clarified the purpose and context of the global variables used
+- Maintained the complete original logic as the function is already very simple

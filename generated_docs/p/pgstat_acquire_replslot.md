@@ -31,3 +31,22 @@ This function is called when a replication slot is acquired (activated for use).
 - Works in conjunction with pgstat_drop_replslot() for proper lifecycle management
 - The create=true parameter ensures an entry is created if it doesn't exist
 - Part of the replication slot statistics infrastructure for monitoring slot usage
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_acquire_replslot
+void pgstat_acquire_replslot(ReplicationSlot *slot) {
+    // Ensure stats entry exists for this replication slot
+    // This guarantees later pgstat_report_replslot() calls will work
+    pgstat_get_entry_ref(PGSTAT_KIND_REPLSLOT, InvalidOid,
+                         ReplicationSlotIndex(slot), true, NULL);
+}
+```
+
+Key simplifications made:
+- Preserved the core logic: ensuring a statistics entry exists for the slot
+- Maintained the essential function call to pgstat_get_entry_ref with correct parameters
+- Added clear comment explaining the purpose and guarantee provided
+- Removed detailed crash recovery explanation from code (kept in documentation above)
+- Function is already quite simple, so minimal changes were needed

@@ -35,3 +35,21 @@ None - this is a void function with no parameters
 - Part of the transaction abort cleanup protocol
 - The CheckXidAlive variable is declared in src/backend/access/transam/xact.c
 - The bsysscan variable is also declared in src/backend/access/transam/xact.c and used by the index scanning subsystem
+
+## Simplified Source
+
+```c
+// Simplified version of ResetLogicalStreamingState
+void ResetLogicalStreamingState(void) {
+    // Clear transaction ID tracking for logical replication
+    CheckXidAlive = InvalidTransactionId;
+
+    // Reset bootstrap system scan flag
+    bsysscan = false;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each state reset
+- Maintained the complete original logic as the function is already minimal
+- Emphasized the two-step cleanup process: transaction tracking and scan state reset

@@ -34,3 +34,25 @@ When PostgreSQL is compiled with SSL support, it returns the value of the global
 - The actual CA loading occurs during SSL initialization via ssl_ca_file and ssl_ca_dir configuration parameters
 - Used by authentication code to determine available authentication methods
 - Always returns false when PostgreSQL is built without SSL support
+
+## Simplified Source
+
+```c
+// Simplified version of secure_loaded_verify_locations
+bool secure_loaded_verify_locations(void) {
+    // Check if SSL support is compiled in
+    #ifdef USE_SSL
+        // Return whether CA certificates have been loaded
+        return ssl_loaded_verify_locations;
+    #else
+        // No SSL support - certificate verification not available
+        return false;
+    #endif
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the conditional compilation logic
+- Clarified the purpose of the global variable check
+- Maintained the exact same logic flow as the original function
+- No actual simplification needed as the function is already very concise

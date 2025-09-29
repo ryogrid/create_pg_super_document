@@ -33,3 +33,18 @@ The function follows the standard DestReceiver shutdown callback signature but d
 - Complements sqlfunction_startup as both startup and shutdown are no-ops for this receiver type
 - Located in src/backend/executor/functions.c with other SQL function execution infrastructure
 - Static function scope indicates it's only used within the functions.c module
+
+## Simplified Source
+
+```c
+// Simplified version of sqlfunction_shutdown
+static void sqlfunction_shutdown(DestReceiver *self) {
+    // No-op: This function intentionally does nothing
+    // SQL function destination receivers don't require shutdown cleanup
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal
+- Added explanatory comment about the intentional no-op behavior
+- Clarified that SQL function destination receivers don't need shutdown cleanup

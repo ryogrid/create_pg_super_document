@@ -38,3 +38,32 @@ The function internally calls attach_internal() with the provided memory locatio
 - Providing the optional 'segment' parameter enables automatic cleanup when the containing DSM segment detaches
 - This function is typically used for DSA areas that need to persist in specific memory locations, such as shared memory segments
 - The function returns a dsa_area pointer that can be used for subsequent DSA operations
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_attach_in_place
+dsa_area *
+dsa_attach_in_place(void *place, dsm_segment *segment)
+{
+    dsa_area *area;
+
+    // Attach to the DSA using the provided memory location
+    area = attach_internal(place, NULL, DSA_HANDLE_INVALID);
+
+    // Set up automatic cleanup if a DSM segment was provided
+    if (segment != NULL) {
+        on_dsm_detach(segment, &dsa_on_dsm_detach_release_in_place,
+                      PointerGetDatum(place));
+    }
+
+    return area;
+}
+```
+
+Key simplifications made:
+- Preserved the core logic: attaching via attach_internal() and setting up cleanup
+- Added clear comments explaining each major step
+- Maintained the essential conditional logic for DSM segment cleanup
+- Removed detailed documentation comments (preserved in main documentation)
+- Function is already quite simple, so minimal changes were needed

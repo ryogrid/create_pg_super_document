@@ -39,3 +39,28 @@ This logging is essential for Hot Standby operation, as AccessExclusive locks ca
 - The function is part of the Hot Standby infrastructure that enables read-only queries on standby servers
 - Uses the bulk logging function LogAccessExclusiveLocks() even for single locks to maintain consistency
 - Located in src/backend/storage/ipc/standby.c:1423-1439
+
+## Simplified Source
+
+```c
+// Simplified version of LogAccessExclusiveLock
+void LogAccessExclusiveLock(Oid dbOid, Oid relOid) {
+    // Create WAL record for standby conflict resolution
+    xl_standby_lock xlrec;
+    xlrec.xid = GetCurrentTransactionId();
+    xlrec.dbOid = dbOid;
+    xlrec.relOid = relOid;
+
+    // Log the lock to WAL for hot standby processing
+    LogAccessExclusiveLocks(1, &xlrec);
+
+    // Mark transaction as having acquired AccessExclusive locks
+    MyXactFlags |= XACT_FLAGS_ACQUIREDACCESSEXCLUSIVELOCK;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each logical step
+- Grouped related operations (setting up WAL record fields) together
+- Clarified the purpose of flag setting for transaction tracking
+- Maintained the exact logic flow since the original function is already quite simple

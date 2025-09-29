@@ -50,3 +50,61 @@ The function maintains a registered_buffers array where each entry contains comp
 - Prevents duplicate registration of the same physical page with different block_ids
 - Each registered buffer can have associated data chains for additional WAL data
 - Essential component of PostgreSQL's WAL logging infrastructure used throughout the system
+
+## Simplified Source
+
+```c
+// Simplified version of XLogRegisterBuffer
+void XLogRegisterBuffer(uint8 block_id, Buffer buffer, uint8 flags) {
+    registered_buffer *regbuf;
+
+    // Validate flag combinations and ensure function was called properly
+    Assert(!((flags & REGBUF_FORCE_IMAGE) && (flags & REGBUF_NO_IMAGE)));
+    Assert(begininsert_called);
+
+    // Verify buffer is properly locked and dirty (unless NO_CHANGE flag set)
+    if (!(flags & REGBUF_NO_CHANGE)) {
+        Assert(BufferIsExclusiveLocked(buffer) && BufferIsDirty(buffer));
+    }
+
+    // Expand registered buffer array if needed
+    if (block_id >= max_registered_block_id) {
+        if (block_id >= max_registered_buffers) {
+            elog(ERROR, "too many registered buffers");
+        }
+        max_registered_block_id = block_id + 1;
+    }
+
+    // Get buffer slot and extract buffer metadata
+    regbuf = &registered_buffers[block_id];
+    BufferGetTag(buffer, &regbuf->rlocator, &regbuf->forkno, &regbuf->block);
+    regbuf->page = BufferGetPage(buffer);
+    regbuf->flags = flags;
+
+    // Initialize data chain for additional buffer data
+    regbuf->rdata_tail = (XLogRecData *) &regbuf->rdata_head;
+    regbuf->rdata_len = 0;
+
+    // Verify no duplicate registration of same page with different block_id
+    for (int i = 0; i < max_registered_block_id; i++) {
+        registered_buffer *existing = &registered_buffers[i];
+        if (i == block_id || !existing->in_use) continue;
+
+        Assert(!RelFileLocatorEquals(existing->rlocator, regbuf->rlocator) ||
+               existing->forkno != regbuf->forkno ||
+               existing->block != regbuf->block);
+    }
+
+    // Mark buffer as registered and ready for WAL inclusion
+    regbuf->in_use = true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comment blocks for cleaner flow
+- Consolidated assertion checks with descriptive comments
+- Simplified variable names (regbuf_old → existing)
+- Abstracted complex loop logic with clearer comments
+- Removed conditional compilation directives for readability
+- Combined related operations into logical groups
+- Added high-level comments explaining each major step

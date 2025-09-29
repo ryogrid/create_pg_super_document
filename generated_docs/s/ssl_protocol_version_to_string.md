@@ -38,3 +38,36 @@ The function handles all supported TLS protocol versions and provides a fallback
 - Part of the comprehensive TLS configuration and status reporting system
 - Complements ssl_protocol_version_to_openssl() for complete protocol version handling
 - Essential for administrators to understand which TLS protocols are being negotiated and used
+
+## Simplified Source
+
+```c
+// Simplified version of ssl_protocol_version_to_string
+static const char *
+ssl_protocol_version_to_string(int v)
+{
+    // Map PostgreSQL TLS version constants to readable strings
+    switch (v)
+    {
+        case PG_TLS_ANY:
+            return "any";
+        case PG_TLS1_VERSION:
+            return "TLSv1";
+        case PG_TLS1_1_VERSION:
+            return "TLSv1.1";
+        case PG_TLS1_2_VERSION:
+            return "TLSv1.2";
+        case PG_TLS1_3_VERSION:
+            return "TLSv1.3";
+    }
+
+    // Fallback for unrecognized versions
+    return "(unrecognized)";
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the main logic flow
+- Preserved the complete switch statement as it's already clean and essential
+- Maintained all TLS version mappings since they're all core functionality
+- No significant simplification needed - the original function is already well-structured and concise

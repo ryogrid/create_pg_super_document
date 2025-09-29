@@ -33,3 +33,25 @@ This function is responsible for marking a top-level transaction and all its ass
 - The function operates on transaction trees, ensuring that both the parent transaction and all its subtransactions are consistently marked as aborted
 - The non-atomic behavior is acceptable because external observers treat uncommitted transactions uniformly regardless of their internal abort state
 - This is a critical function in PostgreSQL's transaction management system, particularly during transaction abort and recovery operations
+
+## Simplified Source
+
+```c
+void TransactionIdAbortTree(TransactionId xid, int nxids, TransactionId *xids)
+{
+    TransactionIdSetTreeStatus(xid, nxids, xids,
+                               TRANSACTION_STATUS_ABORTED, InvalidXLogRecPtr);
+}
+```
+
+**Simplified Logic:**
+1. Call `TransactionIdSetTreeStatus` with abort status for the entire transaction tree
+2. Mark the top-level transaction (`xid`) as aborted
+3. Mark all subtransactions in the `xids` array as aborted
+4. Use `TRANSACTION_STATUS_ABORTED` status and invalid LSN
+
+**Key Points:**
+- Simple wrapper function that delegates to `TransactionIdSetTreeStatus`
+- Handles entire transaction trees atomically
+- Non-atomic behavior is acceptable since observers treat uncommitted transactions uniformly
+- Critical for transaction abort and recovery operations

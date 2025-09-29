@@ -45,3 +45,69 @@ The function uses GetCurrentTransactionNestLevel() to verify it's operating at t
 - Memory cleanup relies on CurTransactionContext destruction rather than explicit freeing
 - Messages passed to parent are placed in PriorCmdInvalidMsgs since they've already been locally processed
 - The function maintains proper invalidation stack discipline by popping completed transaction levels
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_Inval
+void AtEOSubXact_Inval(bool isCommit) {
+    int my_level;
+    TransInvalidationInfo *myInfo = transInvalInfo;
+
+    // Quick exit if no invalidation messages exist
+    if (myInfo == NULL)
+        return;
+
+    // Verify we're processing the correct transaction level
+    my_level = GetCurrentTransactionNestLevel();
+    if (myInfo->my_level != my_level) {
+        // Messages aren't for this level - bail out
+        return;
+    }
+
+    if (isCommit) {
+        // Process any remaining current command messages
+        CommandEndInvalidationMessages();
+
+        // Optimization: adjust level instead of creating parent entry
+        if (myInfo->parent == NULL || myInfo->parent->my_level < my_level - 1) {
+            myInfo->my_level--;
+            return;
+        }
+
+        // Pass invalidation messages up to parent transaction
+        AppendInvalidationMessages(&myInfo->parent->PriorCmdInvalidMsgs,
+                                 &myInfo->PriorCmdInvalidMsgs);
+
+        // Update parent's message indexes
+        SetGroupToFollow(&myInfo->parent->CurrentCmdInvalidMsgs,
+                        &myInfo->parent->PriorCmdInvalidMsgs);
+
+        // Propagate relcache invalidation flag to parent
+        if (myInfo->RelcacheInitFileInval)
+            myInfo->parent->RelcacheInitFileInval = true;
+
+        // Pop transaction stack and cleanup
+        transInvalInfo = myInfo->parent;
+        pfree(myInfo);
+    }
+    else {
+        // Abort case: process messages locally only
+        ProcessInvalidationMessages(&myInfo->PriorCmdInvalidMsgs,
+                                  LocalExecuteInvalidationMessage);
+
+        // Pop transaction stack and cleanup
+        transInvalInfo = myInfo->parent;
+        pfree(myInfo);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining implementation rationale
+- Simplified variable declarations to essential ones only
+- Consolidated assertion checks into the main logic flow
+- Abstracted complex invalidation message handling with descriptive comments
+- Removed defensive programming comments about memory management
+- Streamlined the commit/abort branching logic for clarity
+- Maintained all essential algorithm steps and data structure operations

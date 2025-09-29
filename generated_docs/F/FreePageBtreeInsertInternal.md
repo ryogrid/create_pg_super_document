@@ -38,3 +38,23 @@ This function performs insertion of a new key-child pair into an internal node o
 - Validates that the insertion index is within valid bounds
 - Uses relative pointers (relptr_store) for child references to support shared memory segments
 - Increments the nused counter to reflect the new entry
+
+## Simplified Source
+
+```c
+static void FreePageBtreeInsertInternal(char *base, FreePageBtree *btp, Size index,
+                                       Size first_page, FreePageBtree *child)
+{
+    // Shift existing entries to the right to make space
+    memmove(&btp->u.internal_key[index + 1],
+            &btp->u.internal_key[index],
+            sizeof(FreePageBtreeInternalKey) * (btp->hdr.nused - index));
+
+    // Insert the new key-child pair
+    btp->u.internal_key[index].first_page = first_page;
+    relptr_store(base, btp->u.internal_key[index].child, child);
+
+    // Update the count of used entries
+    ++btp->hdr.nused;
+}
+```

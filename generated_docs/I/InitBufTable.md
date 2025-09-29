@@ -33,3 +33,28 @@ InitBufTable creates and initializes the shared buffer lookup hashtable (SharedB
 
 ## Notes and Other Information
 The function assumes no locking is needed during initialization since it runs during system startup before concurrent access begins. The hashtable is configured with partitioning (NUM_BUFFER_PARTITIONS) to reduce lock contention in multi-process environments. The HASH_ELEM, HASH_BLOBS, and HASH_PARTITION flags specify that the table uses fixed-size elements, treats keys as binary data, and supports partitioned locking respectively.
+
+## Simplified Source
+
+```c
+// Simplified version of InitBufTable
+void InitBufTable(int size) {
+    HASHCTL info;
+
+    // Configure hash table parameters
+    info.keysize = sizeof(BufferTag);        // Key: buffer identifier
+    info.entrysize = sizeof(BufferLookupEnt); // Value: buffer lookup entry
+    info.num_partitions = NUM_BUFFER_PARTITIONS; // Enable partitioning for concurrency
+
+    // Create shared memory hash table for buffer lookup
+    SharedBufHash = ShmemInitHash("Shared Buffer Lookup Table",
+                                  size, size, &info,
+                                  HASH_ELEM | HASH_BLOBS | HASH_PARTITION);
+}
+```
+
+Key simplifications made:
+- Removed the comment about "assume no locking is needed yet" as it's covered in the description
+- Added inline comments explaining the purpose of each configuration parameter
+- Condensed the ShmemInitHash call formatting for better readability
+- Maintained all essential logic and parameters unchanged

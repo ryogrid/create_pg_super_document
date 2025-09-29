@@ -35,3 +35,20 @@ This function takes no parameters.
 - The immediate execution approach is more efficient than deferring deletions to top-level transaction abort
 - Handles both relations created within the subtransaction (which should be deleted) and relations marked for deletion (which should be preserved)
 - The function ensures that aborted subtransactions don't leave behind temporary relations or incorrect deletion schedules
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_smgr
+void AtSubAbort_smgr(void) {
+    // Immediately execute pending deletions for aborting subtransaction
+    // Safe to delete immediately since subtransaction will not commit
+    smgrDoPendingDeletes(false);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only one line of core logic
+- Added clarifying comments explaining the immediate deletion safety
+- The 'false' parameter indicates abort scenario processing
+- Core logic: delegate to smgrDoPendingDeletes for actual deletion work

@@ -35,3 +35,16 @@ The function delegates to ResourceOwnerForget with the buffer converted to a Dat
 - It's part of PostgreSQL's resource management system that ensures proper cleanup of resources when transactions or operations complete
 - The forget_owner parameter in TerminateBufferIO controls whether this function is called, allowing for cases where the resource owner itself is being released
 - This function helps prevent resource leaks by ensuring buffer I/O resources are properly released from resource owner tracking
+
+## Simplified Source
+
+```c
+// Remove buffer I/O resource from resource owner tracking
+static inline void
+ResourceOwnerForgetBufferIO(ResourceOwner owner, Buffer buffer)
+{
+    // Delegate to generic resource forgetting function
+    // Convert buffer to Datum and use buffer I/O descriptor
+    ResourceOwnerForget(owner, Int32GetDatum(buffer), &buffer_io_resowner_desc);
+}
+```

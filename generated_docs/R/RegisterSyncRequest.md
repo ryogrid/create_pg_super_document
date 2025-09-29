@@ -48,3 +48,35 @@ The function includes sophisticated error handling and retry logic to ensure cri
 - The 10ms retry interval represents a balance between responsiveness and system load when the checkpointer queue is congested
 - The function always returns true for local operations (standalone/startup processes) since local sync state management cannot fail in the same way as inter-process communication
 - Location: src/backend/storage/sync/sync.c:580-619
+
+## Simplified Source
+
+```c
+bool
+RegisterSyncRequest(const FileTag *ftag, SyncRequestType type, bool retryOnError)
+{
+    bool ret;
+
+    // Handle local sync requests (standalone backend or startup process)
+    if (pendingOps != NULL) {
+        RememberSyncRequest(ftag, type);
+        return true;
+    }
+
+    // Forward to checkpointer process with retry logic
+    for (;;) {
+        // Try to queue the sync request to checkpointer
+        ret = ForwardSyncRequest(ftag, type);
+
+        // Break if successful or if retry not requested on failure
+        if (ret || (!ret && !retryOnError))
+            break;
+
+        // Sleep briefly before retrying (10ms)
+        WaitLatch(NULL, WL_EXIT_ON_PM_DEATH | WL_TIMEOUT, 10,
+                  WAIT_EVENT_REGISTER_SYNC_REQUEST);
+    }
+
+    return ret;
+}
+```

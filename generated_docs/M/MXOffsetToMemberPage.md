@@ -40,3 +40,21 @@ This is part of the two-level MultiXact storage system: the offsets SLRU stores 
 - Essential for locating individual transaction members within the MultiXact storage system
 - The offset parameter represents a position in the global members space, not a MultiXact ID
 - Used in conjunction with the offset-to-entry function to provide complete addressing within members pages
+
+## Simplified Source
+
+```c
+// Simplified version of MXOffsetToMemberPage
+static inline int64
+MXOffsetToMemberPage(MultiXactOffset offset)
+{
+    // Calculate which page contains this member offset by dividing
+    // the offset by the number of members that fit per page
+    return offset / MULTIXACT_MEMBERS_PER_PAGE;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the core logic
+- This function is already very simple - it's just integer division to map offsets to page numbers
+- The logic remains identical as there's no complex error handling or multi-step processing to simplify

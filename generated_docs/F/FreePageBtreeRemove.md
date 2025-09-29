@@ -39,3 +39,34 @@ This function removes an entry from a btree leaf page and maintains btree integr
 - Always attempts consolidation after removal to maintain btree balance
 - Decrements nused counter before physical key removal to maintain consistency
 - Consolidation may merge pages or redistribute keys with siblings
+
+## Simplified Source
+
+```c
+static void
+FreePageBtreeRemove(FreePageManager *fpm, FreePageBtree *btp, Size index)
+{
+    Assert(btp->hdr.magic == FREE_PAGE_LEAF_MAGIC);
+    Assert(index < btp->hdr.nused);
+
+    // If removing last item, remove entire page
+    if (btp->hdr.nused == 1)
+    {
+        FreePageBtreeRemovePage(fpm, btp);
+        return;
+    }
+
+    // Remove the key by shifting remaining keys left
+    --btp->hdr.nused;
+    if (index < btp->hdr.nused)
+        memmove(&btp->u.leaf_key[index], &btp->u.leaf_key[index + 1],
+                sizeof(FreePageBtreeLeafKey) * (btp->hdr.nused - index));
+
+    // If first key removed, update ancestor keys
+    if (index == 0)
+        FreePageBtreeAdjustAncestorKeys(fpm, btp);
+
+    // Try to consolidate with siblings
+    FreePageBtreeConsolidate(fpm, btp);
+}
+```

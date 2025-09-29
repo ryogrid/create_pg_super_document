@@ -57,3 +57,71 @@ The function operates differently based on the commit/abort status:
 - Assumes that subtransactions include all events from child subtransactions
 - Memory cleanup is carefully managed to avoid double-free errors
 - [Query](../Q/Query.md)-level storage cleanup is performed only during abort scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of AfterTriggerEndSubXact
+void AfterTriggerEndSubXact(bool isCommit) {
+    int my_level = GetCurrentTransactionNestLevel();
+    SetConstraintState state;
+
+    if (isCommit) {
+        // Commit path: Clean up saved state since changes are preserved
+        state = afterTriggers.trans_stack[my_level].state;
+        if (state != NULL) {
+            pfree(state);
+        }
+        afterTriggers.trans_stack[my_level].state = NULL;
+    } else {
+        // Abort path: Restore everything to pre-subtransaction state
+
+        // Safety check - ensure trans_stack level exists
+        if (my_level >= afterTriggers.maxtransdepth) {
+            return;
+        }
+
+        // Restore query depth and free query storage
+        int target_depth = afterTriggers.trans_stack[my_level].query_depth;
+        while (afterTriggers.query_depth > target_depth) {
+            if (afterTriggers.query_depth < afterTriggers.maxquerydepth) {
+                AfterTriggerFreeQuery(&afterTriggers.query_stack[afterTriggers.query_depth]);
+            }
+            afterTriggers.query_depth--;
+        }
+
+        // Restore global event list to pre-subtransaction state
+        afterTriggerRestoreEventList(&afterTriggers.events,
+                                   &afterTriggers.trans_stack[my_level].events);
+
+        // Restore constraint state if it was saved
+        state = afterTriggers.trans_stack[my_level].state;
+        if (state != NULL) {
+            pfree(afterTriggers.state);
+            afterTriggers.state = state;
+        }
+        afterTriggers.trans_stack[my_level].state = NULL;
+
+        // Unmark trigger events processed during this subtransaction
+        CommandId subxact_firing_id = afterTriggers.trans_stack[my_level].firing_counter;
+        for_each_event_chunk(event, chunk, afterTriggers.events) {
+            AfterTriggerShared evtshared = GetTriggerSharedData(event);
+
+            if (event->ate_flags & (AFTER_TRIGGER_DONE | AFTER_TRIGGER_IN_PROGRESS)) {
+                if (evtshared->ats_firing_id >= subxact_firing_id) {
+                    // Unmark events from this subtransaction
+                    event->ate_flags &= ~(AFTER_TRIGGER_DONE | AFTER_TRIGGER_IN_PROGRESS);
+                }
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and kept essential logic flow clear
+- Consolidated variable declarations and simplified control flow
+- Abstracted complex memory operations with high-level comments
+- Preserved core commit vs abort logic distinction
+- Maintained safety checks and error handling for critical paths
+- Simplified the event unmarking loop while preserving the algorithm

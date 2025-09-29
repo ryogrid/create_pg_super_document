@@ -59,3 +59,46 @@ The function must be called before processing invalidation messages, similar to 
 - Unlike AtEOXact_RelationCache, this function deliberately does not reset the eoxact_list since more cleanup may be needed later
 - The function handles both subtransaction commit and abort cases with appropriate subtransaction ID management
 - Subtransactions don't commit during RelationBuildDesc(), which is why the assertion checks that in_progress_list_len is only non-zero during abort
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_RelationCache
+void AtEOSubXact_RelationCache(bool isCommit, SubTransactionId mySubid,
+                               SubTransactionId parentSubid) {
+    // Clear in-progress list (relevant during abort scenarios)
+    Assert(in_progress_list_len == 0 || !isCommit);
+    in_progress_list_len = 0;
+
+    // Choose efficient scanning strategy
+    if (eoxact_list_overflowed) {
+        // Scan entire cache if list overflowed
+        HASH_SEQ_STATUS status;
+        RelIdCacheEnt *entry;
+
+        hash_seq_init(&status, RelationIdCache);
+        while ((entry = hash_seq_search(&status)) != NULL) {
+            AtEOSubXact_cleanup(entry->reldesc, isCommit, mySubid, parentSubid);
+        }
+    } else {
+        // Process only relations in eoxact_list for efficiency
+        for (int i = 0; i < eoxact_list_len; i++) {
+            RelIdCacheEnt *entry = hash_search(RelationIdCache, &eoxact_list[i],
+                                             HASH_FIND, NULL);
+            if (entry != NULL) {
+                AtEOSubXact_cleanup(entry->reldesc, isCommit, mySubid, parentSubid);
+            }
+        }
+    }
+
+    // Don't reset eoxact_list - more cleanup needed later
+}
+```
+
+Key simplifications made:
+- Removed detailed comments preserving only essential explanations
+- Simplified variable declarations and moved them closer to usage
+- Consolidated hash table scanning logic with clearer flow
+- Added high-level comments explaining the two-phase cleanup strategy
+- Abstracted complex hash operations with descriptive comments
+- Preserved the essential optimization logic and subtransaction handling

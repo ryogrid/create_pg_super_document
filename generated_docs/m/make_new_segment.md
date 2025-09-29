@@ -56,3 +56,127 @@ The  function creates a new segment to expand the available memory in a dynamic 
 - Initializes segment header with magic number for validation
 - Links the new segment into the appropriate bin in the segment management system
 - Part of PostgreSQL's sophisticated shared memory allocation infrastructure
+
+## Simplified Source
+
+```c
+static dsa_segment_map *
+make_new_segment(dsa_area *area, size_t requested_pages)
+{
+    dsa_segment_index new_index;
+    size_t metadata_bytes, total_size, total_pages, usable_pages;
+    dsa_segment_map *segment_map;
+    dsm_segment *segment;
+    ResourceOwner oldowner;
+
+    Assert(LWLockHeldByMe(DSA_AREA_LOCK(area)));
+
+    // Find first available segment slot
+    for (new_index = 1; new_index < DSA_MAX_SEGMENTS; ++new_index) {
+        if (area->control->segment_handles[new_index] == DSM_HANDLE_INVALID)
+            break;
+    }
+    if (new_index == DSA_MAX_SEGMENTS)
+        return NULL;  // No slots available
+
+    // Check if total size limit already exceeded
+    if (area->control->total_segment_size >= area->control->max_total_segment_size)
+        return NULL;
+
+    // Calculate segment size using geometric growth
+    total_size = area->control->init_segment_size *
+        ((size_t) 1 << (new_index / DSA_NUM_SEGMENTS_AT_EACH_SIZE));
+    total_size = Min(total_size, area->control->max_segment_size);
+    total_size = Min(total_size,
+                     area->control->max_total_segment_size -
+                     area->control->total_segment_size);
+
+    total_pages = total_size / FPM_PAGE_SIZE;
+
+    // Calculate metadata overhead
+    metadata_bytes = MAXALIGN(sizeof(dsa_segment_header)) +
+                     MAXALIGN(sizeof(FreePageManager)) +
+                     sizeof(dsa_pointer) * total_pages;
+
+    // Round up to page boundary
+    if (metadata_bytes % FPM_PAGE_SIZE != 0)
+        metadata_bytes += FPM_PAGE_SIZE - (metadata_bytes % FPM_PAGE_SIZE);
+
+    if (total_size <= metadata_bytes)
+        return NULL;
+
+    usable_pages = (total_size - metadata_bytes) / FPM_PAGE_SIZE;
+
+    // If geometric size insufficient, calculate exact size needed
+    if (requested_pages > usable_pages) {
+        usable_pages = requested_pages;
+        metadata_bytes = MAXALIGN(sizeof(dsa_segment_header)) +
+                         MAXALIGN(sizeof(FreePageManager)) +
+                         usable_pages * sizeof(dsa_pointer);
+
+        if (metadata_bytes % FPM_PAGE_SIZE != 0)
+            metadata_bytes += FPM_PAGE_SIZE - (metadata_bytes % FPM_PAGE_SIZE);
+
+        total_size = metadata_bytes + usable_pages * FPM_PAGE_SIZE;
+
+        // Check size limits
+        if (total_size > DSA_MAX_SEGMENT_SIZE ||
+            total_size > area->control->max_total_segment_size -
+                         area->control->total_segment_size)
+            return NULL;
+    }
+
+    // Create the DSM segment
+    oldowner = CurrentResourceOwner;
+    CurrentResourceOwner = area->resowner;
+    segment = dsm_create(total_size, 0);
+    CurrentResourceOwner = oldowner;
+
+    if (segment == NULL)
+        return NULL;
+
+    dsm_pin_segment(segment);
+
+    // Update control structures
+    area->control->segment_handles[new_index] = dsm_segment_handle(segment);
+    if (area->control->high_segment_index < new_index)
+        area->control->high_segment_index = new_index;
+    if (area->high_segment_index < new_index)
+        area->high_segment_index = new_index;
+    area->control->total_segment_size += total_size;
+
+    // Initialize segment map
+    segment_map = &area->segment_maps[new_index];
+    segment_map->segment = segment;
+    segment_map->mapped_address = dsm_segment_address(segment);
+    segment_map->header = (dsa_segment_header *) segment_map->mapped_address;
+    segment_map->fpm = (FreePageManager *)
+        (segment_map->mapped_address + MAXALIGN(sizeof(dsa_segment_header)));
+    segment_map->pagemap = (dsa_pointer *)
+        (segment_map->mapped_address + MAXALIGN(sizeof(dsa_segment_header)) +
+         MAXALIGN(sizeof(FreePageManager)));
+
+    // Initialize free page manager
+    FreePageManagerInitialize(segment_map->fpm, segment_map->mapped_address);
+    FreePageManagerPut(segment_map->fpm, metadata_bytes / FPM_PAGE_SIZE, usable_pages);
+
+    // Initialize segment header and link into bin list
+    segment_map->header->magic = DSA_SEGMENT_HEADER_MAGIC ^
+                                 area->control->handle ^ new_index;
+    segment_map->header->usable_pages = usable_pages;
+    segment_map->header->size = total_size;
+    segment_map->header->bin = contiguous_pages_to_segment_bin(usable_pages);
+    segment_map->header->prev = DSA_SEGMENT_INDEX_NONE;
+    segment_map->header->next = area->control->segment_bins[segment_map->header->bin];
+    segment_map->header->freed = false;
+
+    area->control->segment_bins[segment_map->header->bin] = new_index;
+
+    if (segment_map->header->next != DSA_SEGMENT_INDEX_NONE) {
+        dsa_segment_map *next = get_segment_by_index(area, segment_map->header->next);
+        next->header->prev = new_index;
+    }
+
+    return segment_map;
+}
+```

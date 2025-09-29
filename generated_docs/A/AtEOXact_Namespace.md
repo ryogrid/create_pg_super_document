@@ -51,3 +51,40 @@ The function only operates when a temporary namespace was created in the current
 - The atomic nature of MyProc->tempNamespaceId assignment ensures consistency in concurrent scenarios
 - Only registers the cleanup callback once per session to avoid duplicate registrations
 - Ensures proper cleanup even when transactions abort before temp table operations complete
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Namespace
+void AtEOXact_Namespace(bool isCommit, bool parallel) {
+    // Only process if we have a temp namespace and not in parallel mode
+    if (myTempNamespaceSubID != InvalidSubTransactionId && !parallel) {
+
+        if (isCommit) {
+            // Register cleanup callback for backend shutdown
+            before_shmem_exit(RemoveTempRelationsCallback, 0);
+        } else {
+            // Transaction abort: reset all temp namespace state
+            myTempNamespace = InvalidOid;
+            myTempToastNamespace = InvalidOid;
+
+            // Invalidate search path caches
+            baseSearchPathValid = false;
+            searchPathCacheValid = false;
+
+            // Clear temp namespace flag in process descriptor
+            MyProc->tempNamespaceId = InvalidOid;
+        }
+
+        // Reset subtransaction tracking
+        myTempNamespaceSubID = InvalidSubTransactionId;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining concurrent access behavior
+- Consolidated the abort case logic into clear sequential steps
+- Simplified the main conditional check explanation
+- Preserved the essential two-path logic (commit vs abort)
+- Maintained all critical state management operations

@@ -30,3 +30,27 @@ This function efficiently computes the ceiling of the base-2 logarithm for 32-bi
 - Commonly used in hash table implementations to determine the number of bits needed for indexing
 - Much more efficient than using floating-point logarithm functions
 - Examples: ceil(log2(8)) = 3, ceil(log2(9)) = 4, ceil(log2(16)) = 4, ceil(log2(17)) = 5
+
+## Simplified Source
+
+```c
+// Simplified version of pg_ceil_log2_32
+static inline uint32
+pg_ceil_log2_32(uint32 num)
+{
+    // Handle edge case: numbers less than 2
+    if (num < 2)
+        return 0;
+
+    // Find ceiling of log2 using bit position trick
+    // For non-powers of 2: subtract 1, find leftmost bit, add 1
+    // This gives the ceiling effect we need
+    return pg_leftmost_one_pos32(num - 1) + 1;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core algorithm
+- Clarified the bit manipulation trick used for ceiling calculation
+- Preserved the essential two-step logic: edge case handling and bit position calculation
+- Maintained the original concise implementation as it was already quite readable

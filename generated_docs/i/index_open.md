@@ -39,3 +39,28 @@ The function will raise an error if the index does not exist or if the relation 
 - The function ensures type safety by validating that the opened relation is actually an index
 - Error handling is built-in: the function will raise an error rather than return NULL if the index doesn't exist
 - Located in src/backend/access/index/indexam.c:133-151
+
+## Simplified Source
+
+```c
+// Simplified version of index_open
+Relation
+index_open(Oid relationId, LOCKMODE lockmode)
+{
+    Relation r;
+
+    // Open the relation with specified lock mode
+    r = relation_open(relationId, lockmode);
+
+    // Validate that this relation is actually an index
+    validate_relation_kind(r);
+
+    return r;
+}
+```
+
+Key simplifications made:
+- Preserved the complete original logic (function was already quite simple)
+- Added inline comments to clarify the two main steps
+- Maintained the original structure as it represents the essential algorithm
+- No complex error handling or memory operations to simplify in this case

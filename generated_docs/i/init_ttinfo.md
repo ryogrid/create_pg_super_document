@@ -34,3 +34,25 @@ This function is part of the timezone parsing and management system, specificall
 - The function always initializes  and  to false, which are flags indicating whether the transition time is in standard time or universal time
 - Used primarily during timezone rule parsing to create transition type records
 - The function provides a clean initialization pattern for ttinfo structures, ensuring all fields are properly set
+
+## Simplified Source
+
+```c
+// Simplified version of init_ttinfo
+static void init_ttinfo(struct ttinfo *s, int32 utoff, bool isdst, int desigidx) {
+    // Set the primary timezone transition properties
+    s->tt_utoff = utoff;        // UTC offset in seconds
+    s->tt_isdst = isdst;        // Daylight saving time flag
+    s->tt_desigidx = desigidx;  // Index to timezone abbreviation
+
+    // Initialize time standard flags to default values
+    s->tt_ttisstd = false;      // Not standard time initially
+    s->tt_ttisut = false;       // Not universal time initially
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each field assignment
+- Clarified the purpose of each structure member
+- Maintained the original simple logic as it was already quite clear
+- Added context comments to explain the initialization pattern

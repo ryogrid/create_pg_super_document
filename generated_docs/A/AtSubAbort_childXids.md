@@ -34,3 +34,30 @@ This function takes no parameters.
 - The function deliberately does not prune unreportedXids array for performance reasons
 - Memory cleanup is essential to prevent leaks since abort paths may not follow normal cleanup procedures
 - Works in conjunction with other AtSubAbort_* functions during subtransaction cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_childXids
+static void AtSubAbort_childXids(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Clean up child XID array to prevent memory leaks
+    if (s->childXids != NULL)
+        pfree(s->childXids);
+
+    // Reset all child XID tracking variables
+    s->childXids = NULL;
+    s->nChildXids = 0;
+    s->maxChildXids = 0;
+
+    // Note: unreportedXids array is deliberately not pruned for performance
+}
+```
+
+Key simplifications made:
+- Condensed comments to focus on essential purpose
+- Removed detailed memory context explanation from comments
+- Simplified the multi-line comment about unreportedXids to a single note
+- Preserved all essential logic and operations
+- Maintained the core functionality: memory cleanup and variable reset

@@ -31,3 +31,36 @@ This function performs the cleanup phase for a serialize analyze destination rec
 - Each deallocation is protected by a null check to ensure safe cleanup even if some resources were never allocated
 - This is the complement to serializeAnalyzeStartup and should be called when the destination receiver is no longer needed
 - The function is part of the DestReceiver lifecycle management pattern used throughout PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of serializeAnalyzeShutdown
+static void serializeAnalyzeShutdown(DestReceiver *self) {
+    SerializeDestReceiver *receiver = (SerializeDestReceiver *) self;
+
+    // Free format info array
+    if (receiver->finfos) {
+        pfree(receiver->finfos);
+        receiver->finfos = NULL;
+    }
+
+    // Free output buffer
+    if (receiver->buf.data) {
+        pfree(receiver->buf.data);
+        receiver->buf.data = NULL;
+    }
+
+    // Delete temporary memory context
+    if (receiver->tmpcontext) {
+        MemoryContextDelete(receiver->tmpcontext);
+        receiver->tmpcontext = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the exact logic flow as this function is already quite clean and minimal
+- Added comments to clarify the purpose of each cleanup step
+- Maintained the safe null-checking pattern before each deallocation
+- No major simplifications needed as the original code is straightforward resource cleanup

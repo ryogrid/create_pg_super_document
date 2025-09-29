@@ -31,3 +31,29 @@ FetchPreparedStatementResultDesc extracts and returns the result tuple descripto
 - No plan revalidation is performed since result descriptors for prepared statements are immutable
 - Returns NULL for statements that do not produce result tuples
 - Part of PostgreSQL's prepared statement result introspection system
+
+## Simplified Source
+
+```c
+// Simplified version of FetchPreparedStatementResultDesc
+TupleDesc
+FetchPreparedStatementResultDesc(PreparedStatement *stmt)
+{
+    // Assert that prepared statement has fixed result descriptor
+    Assert(stmt->plansource->fixed_result);
+
+    // If statement produces result tuples, return a copy of the descriptor
+    if (stmt->plansource->resultDesc)
+        return CreateTupleDescCopy(stmt->plansource->resultDesc);
+
+    // Otherwise, statement doesn't return tuples (e.g., INSERT/UPDATE/DELETE)
+    return NULL;
+}
+```
+
+Key simplifications made:
+- Preserved the core assertion check for fixed result descriptors
+- Maintained the essential logic flow: check for result descriptor existence
+- Kept the memory management aspect (CreateTupleDescCopy for current context)
+- Added clear comments explaining each logical step
+- Removed detailed comment block but preserved essential functionality

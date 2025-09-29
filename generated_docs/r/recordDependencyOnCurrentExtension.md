@@ -50,3 +50,50 @@ This function manages the relationship between database objects and PostgreSQL e
 - Creates DEPENDENCY_EXTENSION type dependency when recording the relationship
 - Part of PostgreSQL's extension security model to maintain proper object ownership
 - Used by virtually all object creation functions that support extension membership
+
+## Simplified Source
+
+```c
+void recordDependencyOnCurrentExtension(const ObjectAddress *object, bool isReplace)
+{
+    // Only whole objects can be extension members
+    Assert(object->objectSubId == 0);
+
+    if (creating_extension) {
+        ObjectAddress extension;
+
+        // Only need to check for existing membership if isReplace
+        if (isReplace) {
+            Oid oldext;
+
+            // Check if object is already a member of an extension
+            oldext = getExtensionOfObject(object->classId, object->objectId);
+            if (OidIsValid(oldext)) {
+                // If already a member of this extension, nothing to do
+                if (oldext == CurrentExtensionObject)
+                    return;
+                // Already a member of some other extension, so reject
+                ereport(ERROR,
+                        (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                         errmsg("%s is already a member of extension \"%s\"",
+                                getObjectDescription(object, false),
+                                get_extension_name(oldext))));
+            }
+            // It's a free-standing object, so reject
+            ereport(ERROR,
+                    (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                     errmsg("%s is not a member of extension \"%s\"",
+                            getObjectDescription(object, false),
+                            get_extension_name(CurrentExtensionObject)),
+                     errdetail("An extension is not allowed to replace an object that it does not own.")));
+        }
+
+        // OK, record it as a member of CurrentExtensionObject
+        extension.classId = ExtensionRelationId;
+        extension.objectId = CurrentExtensionObject;
+        extension.objectSubId = 0;
+
+        recordDependencyOn(object, &extension, DEPENDENCY_EXTENSION);
+    }
+}
+```

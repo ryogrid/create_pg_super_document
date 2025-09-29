@@ -34,3 +34,41 @@ The base sleep time is set to 10 seconds, but this is adjusted based on timeout 
 - Implements half-timeout keepalive logic: sends keepalives when half the timeout period has elapsed without response
 - Uses `waiting_for_ping_response` flag to determine appropriate wake-up timing
 - Critical for maintaining responsive replication connections and preventing unnecessary disconnections
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndComputeSleeptime
+static long WalSndComputeSleeptime(TimestampTz now) {
+    // Default sleep time: 10 seconds
+    long sleeptime = 10000;
+
+    // Only adjust sleep time if timeout is configured and we have received replies
+    if (wal_sender_timeout > 0 && last_reply_timestamp > 0) {
+        TimestampTz wakeup_time;
+
+        // Calculate when we must wake up (at timeout deadline)
+        wakeup_time = TimestampTzPlusMilliseconds(last_reply_timestamp,
+                                                  wal_sender_timeout);
+
+        // If no ping is pending, wake up earlier to send keepalive
+        // (at half the timeout interval)
+        if (!waiting_for_ping_response) {
+            wakeup_time = TimestampTzPlusMilliseconds(last_reply_timestamp,
+                                                      wal_sender_timeout / 2);
+        }
+
+        // Convert absolute wakeup time to relative sleep duration
+        sleeptime = TimestampDifferenceMilliseconds(now, wakeup_time);
+    }
+
+    return sleeptime;
+}
+```
+
+Key simplifications made:
+- Preserved the core timeout calculation logic
+- Simplified comments to explain the two-tier timeout strategy (half-timeout for keepalives, full-timeout for disconnection)
+- Maintained the essential conditional logic for timeout management
+- Kept variable names and structure for clarity
+- Removed detailed comment blocks while preserving algorithmic understanding

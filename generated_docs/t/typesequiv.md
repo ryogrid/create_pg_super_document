@@ -36,3 +36,29 @@ This static function compares two timezone type entries identified by indices  a
   - Timezone designation strings must match exactly
 - Used internally during timezone data loading to optimize storage by identifying duplicate type definitions
 - Part of PostgreSQL's timezone handling optimization system
+
+## Simplified Source
+
+```c
+static bool
+typesequiv(const struct state *sp, int a, int b)
+{
+    // Validate inputs
+    if (sp == NULL ||
+        a < 0 || a >= sp->typecnt ||
+        b < 0 || b >= sp->typecnt)
+        return false;
+
+    // Get pointers to the two timezone type structures
+    const struct ttinfo *ap = &sp->ttis[a];
+    const struct ttinfo *bp = &sp->ttis[b];
+
+    // Compare all fields for equivalence
+    return (ap->tt_utoff == bp->tt_utoff &&           // UTC offset
+            ap->tt_isdst == bp->tt_isdst &&           // DST flag
+            ap->tt_ttisstd == bp->tt_ttisstd &&       // Standard time flag
+            ap->tt_ttisut == bp->tt_ttisut &&         // UTC time flag
+            strcmp(&sp->chars[ap->tt_desigidx],       // Timezone name
+                   &sp->chars[bp->tt_desigidx]) == 0);
+}
+```

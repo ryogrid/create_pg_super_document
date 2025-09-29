@@ -37,3 +37,56 @@ HandleParallelApplyMessage is responsible for parsing and handling messages rece
 - NoticeResponse (N) and NotifyResponse (A) are currently ignored as they are not needed for logical replication workers
 - Unknown message types result in an ERROR being thrown
 - The function restores the error context stack that was in effect in LogicalRepApplyLoop() for proper error handling hierarchy
+
+## Simplified Source
+
+```c
+// Simplified version of HandleParallelApplyMessage
+static void HandleParallelApplyMessage(StringInfo msg)
+{
+    char msgtype = pq_getmsgbyte(msg);
+
+    switch (msgtype)
+    {
+        case 'E':  // ErrorResponse
+        {
+            ErrorData edata;
+
+            // Parse the error message from worker
+            pq_parse_errornotice(msg, &edata);
+
+            // Add context to show this error came from parallel worker
+            if (edata.context)
+                edata.context = psprintf("%s\n%s", edata.context,
+                                       "logical replication parallel apply worker");
+            else
+                edata.context = pstrdup("logical replication parallel apply worker");
+
+            // Restore original error context stack
+            error_context_stack = apply_error_context_stack;
+
+            // Re-report the error with proper context
+            ereport(ERROR,
+                    (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                     errmsg("logical replication parallel apply worker exited due to error"),
+                     errcontext("%s", edata.context)));
+        }
+
+        // Notice and notify messages are ignored
+        case 'N':  // NoticeResponse
+        case 'A':  // NotifyResponse
+            break;
+
+        default:
+            elog(ERROR, "unrecognized message type from parallel worker: %c", msgtype);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated into brief inline comments
+- Simplified variable declarations by combining with initialization where possible
+- Condensed the error message construction logic for clarity
+- Streamlined the switch statement formatting
+- Removed verbose error message details while preserving core functionality
+- Maintained all essential logic: message parsing, error context handling, and proper error propagation

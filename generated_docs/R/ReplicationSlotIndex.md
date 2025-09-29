@@ -35,3 +35,23 @@ ReplicationSlotIndex computes and returns the zero-based index of a given Replic
 - The returned index can be used as a key for arrays or hash tables storing per-slot data
 - Assumes the slot pointer is valid and within the allocated replication slots array
 - Simple pointer arithmetic operation with O(1) time complexity
+
+## Simplified Source
+
+```c
+// Simplified version of ReplicationSlotIndex
+int ReplicationSlotIndex(ReplicationSlot *slot) {
+    // Validate that slot pointer is within the valid array bounds
+    Assert(slot >= ReplicationSlotCtl->replication_slots &&
+           slot < ReplicationSlotCtl->replication_slots + max_replication_slots);
+
+    // Calculate array index using pointer arithmetic
+    return slot - ReplicationSlotCtl->replication_slots;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for the two main operations
+- Preserved the essential assertion and pointer arithmetic logic
+- Function is already quite simple, so minimal changes were needed
+- Maintained the core functionality of computing array index from pointer offset

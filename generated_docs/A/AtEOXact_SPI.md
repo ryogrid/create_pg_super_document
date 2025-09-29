@@ -43,3 +43,50 @@ During a commit, if any SPI connections are found that need cleanup, a WARNING i
 - Memory contexts are automatically freed by the transaction system
 - The function stops when it encounters an internal_xact connection, preserving SPI connections created by SPI_commit/SPI_rollback operations
 - Located in src/backend/executor/spi.c:428-481
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_SPI
+void AtEOXact_SPI(bool isCommit) {
+    bool found = false;
+
+    // Pop SPI stack entries until we find an internal transaction marker
+    while (_SPI_connected >= 0) {
+        _SPI_connection *connection = &(_SPI_stack[_SPI_connected]);
+
+        // Stop at internal transaction markers (from SPI_commit/SPI_rollback)
+        if (connection->internal_xact)
+            break;
+
+        found = true;
+
+        // Restore outer global SPI state variables
+        SPI_processed = connection->outer_processed;
+        SPI_tuptable = connection->outer_tuptable;
+        SPI_result = connection->outer_result;
+
+        // Move to previous stack level
+        _SPI_connected--;
+        if (_SPI_connected < 0)
+            _SPI_current = NULL;
+        else
+            _SPI_current = &(_SPI_stack[_SPI_connected]);
+    }
+
+    // Warn if SPI connections were left open during commit
+    if (found && isCommit) {
+        ereport(WARNING,
+                (errcode(ERRCODE_WARNING),
+                 errmsg("transaction left non-empty SPI stack"),
+                 errhint("Check for missing \"SPI_finish\" calls.")));
+    }
+}
+```
+
+Key simplifications made:
+- Streamlined the main loop logic for better readability
+- Consolidated comments to focus on core functionality
+- Preserved essential error handling and warning logic
+- Maintained the critical stack unwinding algorithm
+- Removed redundant comments while keeping essential documentation

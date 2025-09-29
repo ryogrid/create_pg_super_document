@@ -37,3 +37,22 @@ This function provides a simple interface for calling PostgreSQL's datatype outp
 - Essential component of PostgreSQL's type system for data export and display
 - Used in COPY operations, tuple printing, array/record serialization, and procedural language interfaces
 - Part of the core function manager (fmgr) infrastructure for type I/O operations
+
+## Simplified Source
+
+```c
+// Simplified version of OutputFunctionCall
+char *
+OutputFunctionCall(FmgrInfo *flinfo, Datum val)
+{
+    // Convert internal Datum to external string representation
+    // using the previously looked-up output function
+    return DatumGetCString(FunctionCall1(flinfo, val));
+}
+```
+
+Key simplifications made:
+- Function is already very simple - minimal wrapper around FunctionCall1
+- Added explanatory comment about the core purpose
+- No error handling to remove as the function assumes valid inputs
+- Original comments preserved as they provide essential context

@@ -39,3 +39,22 @@ This function takes no parameters and operates on global state variables:
 - Simpler than SnapBuildClearExportedSnapshot as it assumes transaction abort is already in progress
 - Ensures that subsequent operations don't think an export is still active after an abort
 - Part of PostgreSQL's transaction abort cleanup chain
+
+## Simplified Source
+
+```c
+// Simplified version of SnapBuildResetExportedSnapshotState
+void SnapBuildResetExportedSnapshotState(void) {
+    // Clear the saved resource owner reference
+    SavedResourceOwnerDuringExport = NULL;
+
+    // Mark that no export is currently in progress
+    ExportInProgress = false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each state reset operation
+- Maintained the essential two-step cleanup logic: resource owner reset and export flag reset
+- No actual simplification needed as the original function is already minimal and focused
+- Function represents the core cleanup pattern: nullify saved state and reset active flags

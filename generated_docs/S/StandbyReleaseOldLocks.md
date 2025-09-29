@@ -42,3 +42,38 @@ The function iterates through all entries in the RecoveryLockXidHash and applies
 - The function ensures that only non-running, non-prepared, old transactions have their locks released
 - Critical for maintaining proper lock state during long-running recovery operations
 - Located in src/backend/storage/ipc/standby.c:1126-1158
+
+## Simplified Source
+
+```c
+// Simplified version of StandbyReleaseOldLocks
+void StandbyReleaseOldLocks(TransactionId oldxid) {
+    HASH_SEQ_STATUS status;
+    RecoveryLockXidEntry *entry;
+
+    // Iterate through all recovery lock entries
+    hash_seq_init(&status, RecoveryLockXidHash);
+    while ((entry = hash_seq_search(&status))) {
+        // Skip prepared transactions - they need to stay locked
+        if (StandbyTransactionIdIsPrepared(entry->xid))
+            continue;
+
+        // Skip transactions that are not older than the threshold
+        if (!TransactionIdPrecedes(entry->xid, oldxid))
+            continue;
+
+        // Release all locks held by this old, non-prepared transaction
+        StandbyReleaseXidEntryLocks(entry);
+
+        // Remove the entry from the hash table
+        hash_search(RecoveryLockXidHash, entry, HASH_REMOVE, NULL);
+    }
+}
+```
+
+Key simplifications made:
+- Removed Assert statement for clarity
+- Added explanatory comments for each major logic step
+- Simplified the iteration logic description
+- Condensed the two filter conditions with clear explanations
+- Combined lock release and hash removal as final cleanup step

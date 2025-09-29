@@ -61,3 +61,96 @@ The function handles five main message types:
 - The original error context stack from ParallelContext creation is preserved for proper error reporting
 - Progress reporting only supports incremental updates currently but is designed for extensibility
 - Proper cleanup occurs when workers terminate by detaching message queue handles
+
+## Simplified Source
+
+```c
+// Simplified version of HandleParallelMessage
+static void
+HandleParallelMessage(ParallelContext *pcxt, int worker_index, StringInfo msg)
+{
+    char msgtype;
+
+    // Track worker attachment status
+    if (pcxt->known_attached_workers != NULL &&
+        !pcxt->known_attached_workers[worker_index]) {
+        pcxt->known_attached_workers[worker_index] = true;
+        pcxt->nknown_attached_workers++;
+    }
+
+    // Extract message type and dispatch
+    msgtype = pq_getmsgbyte(msg);
+
+    switch (msgtype) {
+        case PqMsg_ErrorResponse:
+        case PqMsg_NoticeResponse:
+            {
+                ErrorData edata;
+
+                // Parse error/notice from worker
+                pq_parse_errornotice(msg, &edata);
+
+                // Cap error level to prevent main process termination
+                edata.elevel = Min(edata.elevel, ERROR);
+
+                // Add parallel worker context for clarity
+                if (debug_parallel_query != DEBUG_PARALLEL_REGRESS) {
+                    if (edata.context)
+                        edata.context = psprintf("%s\n%s", edata.context, "parallel worker");
+                    else
+                        edata.context = pstrdup("parallel worker");
+                }
+
+                // Use original error context and re-throw
+                ErrorContextCallback *saved_context = error_context_stack;
+                error_context_stack = pcxt->error_context_stack;
+                ThrowErrorData(&edata);
+                error_context_stack = saved_context;
+
+                break;
+            }
+
+        case PqMsg_NotificationResponse:
+            {
+                // Forward NOTIFY from worker to frontend
+                int32 pid = pq_getmsgint(msg, 4);
+                const char *channel = pq_getmsgrawstring(msg);
+                const char *payload = pq_getmsgrawstring(msg);
+                pq_endmessage(msg);
+
+                NotifyMyFrontEnd(channel, payload, pid);
+                break;
+            }
+
+        case PqMsg_Progress:
+            {
+                // Handle incremental progress updates
+                int index = pq_getmsgint(msg, 4);
+                int64 increment = pq_getmsgint64(msg);
+                pq_getmsgend(msg);
+
+                pgstat_progress_incr_param(index, increment);
+                break;
+            }
+
+        case PqMsg_Terminate:
+            {
+                // Clean up worker's error message queue
+                shm_mq_detach(pcxt->worker[worker_index].error_mqh);
+                pcxt->worker[worker_index].error_mqh = NULL;
+                break;
+            }
+
+        default:
+            elog(ERROR, "unrecognized message type from parallel worker: %c", msgtype);
+    }
+}
+```
+
+Key simplifications made:
+- Renamed parameter `i` to `worker_index` for clarity
+- Added descriptive comments for each major logic block
+- Consolidated error context handling into a cleaner flow
+- Simplified variable declarations and removed unnecessary braces
+- Focused on the core message dispatching logic
+- Preserved all essential functionality while improving readability

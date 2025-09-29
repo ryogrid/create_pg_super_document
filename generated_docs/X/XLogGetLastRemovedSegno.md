@@ -38,3 +38,25 @@ The function is designed with the understanding that the returned value may beco
 - Critical for replication slot management and WAL availability determination
 - Commonly used in conjunction with other WAL segment tracking functions
 - The result represents a point-in-time snapshot that may not reflect current system state by the time the caller processes it
+
+## Simplified Source
+
+```c
+// Simplified version of XLogGetLastRemovedSegno
+XLogSegNo XLogGetLastRemovedSegno(void) {
+    XLogSegNo lastRemovedSegNo;
+
+    // Thread-safe read of last removed segment number
+    SpinLockAcquire(&XLogCtl->info_lck);
+    lastRemovedSegNo = XLogCtl->lastRemovedSegNo;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    return lastRemovedSegNo;
+}
+```
+
+Key simplifications made:
+- Function is already very simple and minimal
+- Added brief comment explaining the thread-safe read operation
+- No significant simplification needed as the original is already concise
+- Preserved the essential spin lock protection for shared data access

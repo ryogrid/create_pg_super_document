@@ -39,3 +39,31 @@ This internal function traverses the linked list of registered subtransaction ca
 - Called at critical subtransaction lifecycle points: start, commit, and abort
 - Each callback receives the same event information, allowing modules to react appropriately to subtransaction state changes
 - The iteration pattern (capturing next pointer before callback) is a common defensive programming technique for callback systems
+
+## Simplified Source
+
+```c
+// Simplified version of CallSubXactCallbacks
+static void CallSubXactCallbacks(SubXactEvent event,
+                               SubTransactionId mySubid,
+                               SubTransactionId parentSubid) {
+    SubXactCallbackItem *current_callback;
+    SubXactCallbackItem *next_callback;
+
+    // Iterate through all registered subtransaction callbacks
+    for (current_callback = SubXact_callbacks; current_callback; current_callback = next_callback) {
+        // Save next pointer before callback (allows safe self-unregistration)
+        next_callback = current_callback->next;
+
+        // Invoke the callback with event details
+        current_callback->callback(event, mySubid, parentSubid, current_callback->arg);
+    }
+}
+```
+
+Key simplifications made:
+- Renamed variables from `item`/`next` to more descriptive `current_callback`/`next_callback`
+- Added explanatory comments for the core logic steps
+- Clarified the defensive programming pattern of saving the next pointer
+- Maintained the essential callback iteration and invocation logic
+- Preserved the function signature and return type

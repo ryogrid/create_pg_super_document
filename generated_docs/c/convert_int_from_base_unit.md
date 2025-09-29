@@ -44,3 +44,46 @@ For example, with memory units: 1024 KB converts to 1 MB, but 1025 KB remains as
 - Always sets a valid unit (Assert ensures *unit != NULL)
 - Handles both memory and time units through the same interface
 - Part of PostgreSQL's bidirectional unit conversion system for configuration display
+
+## Simplified Source
+
+```c
+// Simplified version of convert_int_from_base_unit
+static void convert_int_from_base_unit(int64 base_value, int base_unit,
+                                       int64 *value, const char **unit) {
+    const unit_conversion *table;
+    int i;
+
+    *unit = NULL;
+
+    // Select appropriate conversion table based on unit type
+    if (base_unit & GUC_UNIT_MEMORY)
+        table = memory_unit_conversion_table;
+    else
+        table = time_unit_conversion_table;
+
+    // Find the largest unit that divides evenly into the base value
+    for (i = 0; *table[i].unit; i++) {
+        if (base_unit == table[i].base_unit) {
+            // Check if this unit conversion results in a whole number
+            if (table[i].multiplier <= 1.0 ||
+                base_value % (int64) table[i].multiplier == 0) {
+                // Convert to the human-friendly unit
+                *value = (int64) rint(base_value / table[i].multiplier);
+                *unit = table[i].unit;
+                break;
+            }
+        }
+    }
+
+    Assert(*unit != NULL);
+}
+```
+
+Key simplifications made:
+- Preserved the core algorithm logic for unit selection
+- Kept the essential modulo check for exact division
+- Maintained the table lookup structure
+- Simplified comments to focus on main functionality
+- Retained all critical parameters and return logic
+- Kept Assert for validation but simplified error handling context

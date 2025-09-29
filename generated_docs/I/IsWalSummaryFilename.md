@@ -33,3 +33,15 @@ This validation ensures that only properly formatted WAL summary filenames are p
 - The function expects filenames to have exactly 40 hexadecimal characters, which corresponds to PostgreSQL's internal representation of WAL positions
 - The hexadecimal validation uses uppercase letters (A-F), consistent with PostgreSQL's WAL naming conventions
 - Returns true for valid WAL summary filenames, false otherwise
+
+## Simplified Source
+
+```c
+static bool IsWalSummaryFilename(char *filename)
+{
+    // Check if first 40 chars are hex digits (0-9, A-F)
+    // and remainder is exactly ".summary"
+    return strspn(filename, "0123456789ABCDEF") == 40 &&
+           strcmp(filename + 40, ".summary") == 0;
+}
+```

@@ -36,3 +36,36 @@ This function performs cleanup when a backend process is shutting down, detachin
 - Sets pgStatLocal.dsa to NULL after cleanup to indicate detached state
 - Part of the backend shutdown sequence for proper resource cleanup
 - Prevents leaving dangling references to shared statistics structures
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_detach_shmem
+void pgstat_detach_shmem(void) {
+    // Ensure we have a DSA to detach from
+    Assert(pgStatLocal.dsa);
+
+    // Release all references to shared statistics entries
+    pgstat_release_all_entry_refs(false);
+
+    // Detach from shared hash table and clear reference
+    dshash_detach(pgStatLocal.shared_hash);
+    pgStatLocal.shared_hash = NULL;
+
+    // Detach from dynamic shared area
+    dsa_detach(pgStatLocal.dsa);
+
+    // Manually release DSA reference (dsa_detach doesn't decrement count)
+    dsa_release_in_place(pgStatLocal.shmem->raw_dsa_area);
+
+    // Clear DSA reference to indicate detached state
+    pgStatLocal.dsa = NULL;
+}
+```
+
+Key simplifications made:
+- Consolidated comment explaining manual DSA release into single line
+- Added descriptive comments for each major cleanup step
+- Preserved essential cleanup sequence and null assignments
+- Maintained assertion for safety check
+- Kept all function calls as they represent core cleanup operations

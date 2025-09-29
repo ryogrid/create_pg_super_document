@@ -43,3 +43,27 @@ This approach allows callers to attempt file removal without worrying about whet
 - Uses PostgreSQL's standard error reporting mechanism with proper error codes
 - The error level parameter allows callers to control how aggressively errors are reported
 - Typically called with LOG level, meaning errors are logged but don't abort the operation
+
+## Simplified Source
+
+```c
+// Simplified version of unlink_initfile
+static void unlink_initfile(const char *initfilename, int elevel) {
+    // Attempt to remove the cache file
+    if (unlink(initfilename) < 0) {
+        // Only report errors other than "file not found"
+        // Missing files are expected and not an error condition
+        if (errno != ENOENT) {
+            ereport(elevel,
+                   (errcode_for_file_access(),
+                    errmsg("could not remove cache file \"%s\": %m", initfilename)));
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the main logic flow
+- Clarified that ENOENT (file not found) is an expected, non-error condition
+- Preserved the essential error handling logic without modification
+- Made the file removal purpose explicit in comments

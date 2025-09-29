@@ -39,3 +39,20 @@ The comment in the source code indicates that if buffer pins remain and assertio
 - If buffer pins are detected at this stage, it indicates a serious bug in the temporary relation cleanup logic
 - This function complements the shared buffer exit cleanup performed by AtProcExit_Buffers
 - Process exit buffer cleanup is more comprehensive than transaction end cleanup, as it's the final opportunity to detect and report resource leaks
+
+## Simplified Source
+
+```c
+// Simplified version of AtProcExit_LocalBuffers
+void AtProcExit_LocalBuffers(void) {
+    // Verify no local buffer pins remain during backend exit
+    // This prevents buffer leaks and catches programming errors
+    CheckForLocalBufferLeaks();
+}
+```
+
+Key simplifications made:
+- Added explanatory comments to clarify the function's purpose
+- Removed the detailed multi-line comment for brevity while preserving the core meaning
+- Emphasized that this is a safety check for buffer management consistency
+- Maintained the essential logic: calling CheckForLocalBufferLeaks() to detect any remaining buffer pins

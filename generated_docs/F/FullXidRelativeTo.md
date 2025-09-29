@@ -44,3 +44,31 @@ Safety is ensured through careful usage constraints: the function can only be us
 - Static inline function for performance in frequently called code paths
 - Essential component of PostgreSQL's transaction ID management system
 - The conversion preserves transaction ordering relationships across epoch boundaries
+
+## Simplified Source
+
+```c
+// Simplified version of FullXidRelativeTo
+static inline FullTransactionId
+FullXidRelativeTo(FullTransactionId rel, TransactionId xid)
+{
+    // Extract 32-bit portion from reference full transaction ID
+    TransactionId rel_xid = XidFromFullTransactionId(rel);
+
+    // Validate both transaction IDs are valid
+    Assert(TransactionIdIsValid(xid));
+    Assert(TransactionIdIsValid(rel_xid));
+
+    // Calculate signed difference and add to full reference value
+    // This preserves epoch information while handling wraparound
+    return FullTransactionIdFromU64(U64FromFullTransactionId(rel)
+                                    + (int32) (xid - rel_xid));
+}
+```
+
+Key simplifications made:
+- Removed detailed safety comment block (preserved in overview)
+- Simplified assertion comment to focus on validation purpose
+- Removed AssertTransactionIdInAllowableRange call for clarity
+- Added inline comments explaining the core conversion logic
+- Maintained the essential wraparound-safe arithmetic operation

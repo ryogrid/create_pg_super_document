@@ -41,3 +41,39 @@ The function first checks if there's actually a strong lock acquisition in progr
 - Critical for maintaining consistency of the fast-path lock count array
 - Used in error cleanup paths to ensure proper resource management
 - Must undo exactly what BeginStrongLockAcquire set up
+
+## Simplified Source
+
+```c
+// Simplified version of AbortStrongLockAcquire
+void AbortStrongLockAcquire(void) {
+    LOCALLOCK *locallock = StrongLockInProgress;
+
+    // Early return if no strong lock acquisition is in progress
+    if (locallock == NULL)
+        return;
+
+    // Calculate which hash partition this lock belongs to
+    uint32 fasthashcode = FastPathStrongLockHashPartition(locallock->hashcode);
+
+    // Acquire spinlock to safely modify shared state
+    SpinLockAcquire(&FastPathStrongRelationLocks->mutex);
+
+    // Decrement the count for this hash partition
+    FastPathStrongRelationLocks->count[fasthashcode]--;
+
+    // Clear the strong lock flags and global state
+    locallock->holdsStrongLockCount = false;
+    StrongLockInProgress = NULL;
+
+    // Release the spinlock
+    SpinLockRelease(&FastPathStrongRelationLocks->mutex);
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity (kept essential null check)
+- Added descriptive comments for each major step
+- Simplified variable declarations by moving them closer to usage
+- Consolidated the core logic into clear sequential steps
+- Abstracted the hash partition calculation with a descriptive comment

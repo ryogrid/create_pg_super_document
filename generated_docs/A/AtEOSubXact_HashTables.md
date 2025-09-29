@@ -36,3 +36,34 @@ The cleanup technique uses array compaction by moving the last element to fill g
 - The function uses a backward iteration strategy to make array compaction efficient during cleanup
 - Related to hash table sequential scanning infrastructure (`hash_seq_search`, `HASH_SEQ_STATUS`)
 - Proper cleanup prevents resource leaks that could accumulate over many subtransactions
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_HashTables
+void AtEOSubXact_HashTables(bool isCommit, int nestDepth) {
+    // Search backward through all scan entries for efficient cleanup
+    for (int i = num_seq_scans - 1; i >= 0; i--) {
+        // Check if scan was started at this subtransaction level or deeper
+        if (seq_scan_level[i] >= nestDepth) {
+            // Log warning for leaked scans on commit (indicates programming error)
+            if (isCommit) {
+                elog(WARNING, "leaked hash_seq_search scan for hash table %p",
+                     seq_scan_tables[i]);
+            }
+
+            // Remove scan by moving last entry to current position
+            seq_scan_tables[i] = seq_scan_tables[num_seq_scans - 1];
+            seq_scan_level[i] = seq_scan_level[num_seq_scans - 1];
+            num_seq_scans--;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Combined variable declaration with loop initialization for clarity
+- Added descriptive comments explaining the backward search strategy
+- Clarified the purpose of the warning (leak detection on commit)
+- Explained the array compaction technique used for efficient removal
+- Maintained all essential logic while improving readability

@@ -43,3 +43,97 @@ The parsed tablespace information is returned as a list of tablespaceinfo struct
 - Each line must be properly terminated or parsing fails with FATAL error
 - The parsing is intentionally crude but sufficient for the fixed format produced by backup tools
 - Memory for tablespaceinfo structs is allocated in the current memory context
+
+## Simplified Source
+
+```c
+// Simplified version of read_tablespace_map
+static bool
+read_tablespace_map(List **tablespaces)
+{
+    tablespaceinfo *tablespace_entry;
+    FILE *map_file;
+    char line_buffer[MAXPGPATH];
+    int ch, buffer_pos, space_pos;
+    bool was_backslash = false;
+
+    // Step 1: Try to open the tablespace_map file
+    map_file = AllocateFile(TABLESPACE_MAP, "r");
+    if (!map_file) {
+        if (errno != ENOENT)
+            ereport(FATAL, (errmsg("could not read file \"%s\"", TABLESPACE_MAP)));
+        return false;  // File doesn't exist - normal case
+    }
+
+    // Step 2: Parse file character by character
+    buffer_pos = 0;
+    while ((ch = fgetc(map_file)) != EOF) {
+
+        // Handle line endings - process complete line
+        if (!was_backslash && (ch == '\n' || ch == '\r')) {
+            if (buffer_pos == 0)
+                continue;  // Skip empty lines
+
+            // Step 3: Parse OID and path from line
+            line_buffer[buffer_pos] = '\0';
+
+            // Find space separator between OID and path
+            space_pos = 0;
+            while (line_buffer[space_pos] && line_buffer[space_pos] != ' ')
+                space_pos++;
+
+            // Validate line format (must have OID space path)
+            if (space_pos < 1 || space_pos >= buffer_pos - 1)
+                ereport(FATAL, (errmsg("invalid data in file \"%s\"", TABLESPACE_MAP)));
+
+            line_buffer[space_pos++] = '\0';  // Split OID and path
+
+            // Step 4: Create tablespace entry
+            tablespace_entry = palloc0(sizeof(tablespaceinfo));
+
+            // Convert OID string to number
+            char *endptr;
+            tablespace_entry->oid = strtoul(line_buffer, &endptr, 10);
+            if (*endptr != '\0' || errno == EINVAL || errno == ERANGE)
+                ereport(FATAL, (errmsg("invalid data in file \"%s\"", TABLESPACE_MAP)));
+
+            // Copy path string
+            tablespace_entry->path = pstrdup(line_buffer + space_pos);
+
+            // Add to output list
+            *tablespaces = lappend(*tablespaces, tablespace_entry);
+
+            buffer_pos = 0;
+            continue;
+        }
+
+        // Handle backslash escaping
+        if (!was_backslash && ch == '\\') {
+            was_backslash = true;
+        } else {
+            // Add character to buffer
+            if (buffer_pos < sizeof(line_buffer) - 1)
+                line_buffer[buffer_pos++] = ch;
+            was_backslash = false;
+        }
+    }
+
+    // Step 5: Validate file ending and cleanup
+    if (buffer_pos != 0 || was_backslash)
+        ereport(FATAL, (errmsg("invalid data in file \"%s\"", TABLESPACE_MAP)));
+
+    if (ferror(map_file) || FreeFile(map_file))
+        ereport(FATAL, (errmsg("could not read file \"%s\"", TABLESPACE_MAP)));
+
+    return true;  // Successfully parsed tablespace_map
+}
+```
+
+Key simplifications made:
+- Added descriptive variable names (map_file instead of lfp, buffer_pos instead of i)
+- Organized logic into clear steps with comments
+- Simplified complex nested conditions into clearer flow
+- Removed some of the intermediate variables (n) by combining operations
+- Added step-by-step comments explaining the main algorithm phases
+- Consolidated error handling patterns while keeping essential checks
+- Maintained the exact same functional behavior and error conditions

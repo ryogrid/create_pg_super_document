@@ -49,3 +49,74 @@ Each invalidation type checks database IDs to ensure only relevant cache entries
 - InvalidOid database ID indicates shared catalogs that affect all databases
 - The function includes callback mechanisms for both syscache and relcache invalidations
 - Fatal error is triggered for unrecognized message IDs to ensure system integrity
+
+## Simplified Source
+
+```c
+// Simplified version of LocalExecuteInvalidationMessage
+void LocalExecuteInvalidationMessage(SharedInvalidationMessage *msg) {
+    // Handle system cache invalidation (positive IDs)
+    if (msg->id >= 0) {
+        if (msg->cc.dbId == MyDatabaseId || msg->cc.dbId == InvalidOid) {
+            InvalidateCatalogSnapshot();
+            SysCacheInvalidate(msg->cc.id, msg->cc.hashValue);
+            CallSyscacheCallbacks(msg->cc.id, msg->cc.hashValue);
+        }
+    }
+    // Handle catalog cache flush
+    else if (msg->id == SHAREDINVALCATALOG_ID) {
+        if (msg->cat.dbId == MyDatabaseId || msg->cat.dbId == InvalidOid) {
+            InvalidateCatalogSnapshot();
+            CatalogCacheFlushCatalog(msg->cat.catId);
+        }
+    }
+    // Handle relation cache invalidation
+    else if (msg->id == SHAREDINVALRELCACHE_ID) {
+        if (msg->rc.dbId == MyDatabaseId || msg->rc.dbId == InvalidOid) {
+            // Invalidate all relations or specific relation
+            if (msg->rc.relId == InvalidOid)
+                RelationCacheInvalidate(false);
+            else
+                RelationCacheInvalidateEntry(msg->rc.relId);
+
+            // Execute relation cache callbacks
+            for (int i = 0; i < relcache_callback_count; i++) {
+                struct RELCACHECALLBACK *ccitem = relcache_callback_list + i;
+                ccitem->function(ccitem->arg, msg->rc.relId);
+            }
+        }
+    }
+    // Handle storage manager invalidation
+    else if (msg->id == SHAREDINVALSMGR_ID) {
+        // Build file locator and release storage manager entry
+        RelFileLocatorBackend rlocator;
+        rlocator.locator = msg->sm.rlocator;
+        rlocator.backend = (msg->sm.backend_hi << 16) | (int) msg->sm.backend_lo;
+        smgrreleaserellocator(rlocator);
+    }
+    // Handle relation mapping invalidation
+    else if (msg->id == SHAREDINVALRELMAP_ID) {
+        if (msg->rm.dbId == InvalidOid)
+            RelationMapInvalidate(true);  // Shared catalogs
+        else if (msg->rm.dbId == MyDatabaseId)
+            RelationMapInvalidate(false); // Local database
+    }
+    // Handle snapshot invalidation
+    else if (msg->id == SHAREDINVALSNAPSHOT_ID) {
+        if (msg->sn.dbId == InvalidOid || msg->sn.dbId == MyDatabaseId)
+            InvalidateCatalogSnapshot();
+    }
+    // Unknown message type
+    else {
+        elog(FATAL, "unrecognized SI message ID: %d", msg->id);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated database ID checks into more readable conditions
+- Added descriptive comments for each invalidation type
+- Simplified variable declarations by moving them closer to usage
+- Streamlined the storage manager backend reconstruction logic
+- Combined similar snapshot invalidation conditions
+- Maintained all essential logic while improving readability

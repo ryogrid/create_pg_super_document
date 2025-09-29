@@ -30,3 +30,28 @@ This function serves as a locale name normalizer that converts Windows-style loc
 - Returns a pointer to a static buffer, so the result should be used immediately or copied
 - Special handling for "c" and "posix" locale names ensures consistent behavior across platforms
 - Part of PostgreSQL's locale management system for proper internationalization support
+
+## Simplified Source
+
+```c
+// Simplified version of IsoLocaleName
+static char *IsoLocaleName(const char *winlocname) {
+    static char iso_lc_messages[LOCALE_NAME_MAX_LENGTH];
+
+    // Handle special cases: "c" and "posix" both map to "C"
+    if (pg_strcasecmp("c", winlocname) == 0 ||
+        pg_strcasecmp("posix", winlocname) == 0) {
+        strcpy(iso_lc_messages, "C");
+        return iso_lc_messages;
+    }
+
+    // For all other locale names, delegate to ISO conversion function
+    return get_iso_localename(winlocname);
+}
+```
+
+Key simplifications made:
+- Preserved all original logic as the function is already quite simple
+- Added clarifying comments to explain the two main code paths
+- Consolidated the conditional check formatting for better readability
+- Function is already minimal so no major simplifications were needed

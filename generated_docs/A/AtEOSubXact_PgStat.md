@@ -35,3 +35,37 @@ AtEOSubXact_PgStat manages the completion of subtransactions in PostgreSQL's sta
 - The subtransaction state is immediately delinked from the stack to simplify reuse cases
 - Unlike top-level transactions, subtransactions merge their statistics into the parent rather than finalizing them
 - The function handles both commit and abort scenarios, with the specific processing logic delegated to specialized relation and dropped stats handlers
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_PgStat
+void AtEOSubXact_PgStat(bool isCommit, int nestDepth) {
+    PgStat_SubXactStatus *xact_state;
+
+    // Get the current transaction state from the stack
+    xact_state = pgStatXactStack;
+
+    // Check if we have a valid state at the expected nesting level
+    if (xact_state != NULL && xact_state->nest_level >= nestDepth) {
+        // Remove this subtransaction state from the stack
+        pgStatXactStack = xact_state->prev;
+
+        // Process relation statistics for this subtransaction
+        AtEOSubXact_PgStat_Relations(xact_state, isCommit, nestDepth);
+
+        // Process dropped statistics for this subtransaction
+        AtEOSubXact_PgStat_DroppedStats(xact_state, isCommit, nestDepth);
+
+        // Free the subtransaction state memory
+        pfree(xact_state);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Clarified the stack management operation with better variable naming context
+- Simplified the conditional check explanation
+- Maintained the essential algorithm flow: check state, unlink from stack, process statistics, cleanup memory
+- Preserved the delegation pattern to specialized handlers for relations and dropped stats

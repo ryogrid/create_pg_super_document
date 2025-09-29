@@ -33,3 +33,38 @@ This function implements a rollback mechanism for after-trigger event lists by r
 - Shared data records are intentionally preserved for potential reuse
 - Part of PostgreSQL's transaction safety mechanisms for deferred triggers
 - The function maintains the integrity of the event list structure during restoration
+
+## Simplified Source
+
+```c
+static void afterTriggerRestoreEventList(AfterTriggerEventList *events,
+                                        const AfterTriggerEventList *old_events)
+{
+    AfterTriggerEventChunk *chunk;
+    AfterTriggerEventChunk *next_chunk;
+
+    if (old_events->tail == NULL)
+    {
+        // Restoring to completely empty state - free everything
+        afterTriggerFreeEventList(events);
+    }
+    else
+    {
+        // Restore to the old state
+        *events = *old_events;
+
+        // Free any chunks that came after the checkpoint
+        for (chunk = events->tail->next; chunk != NULL; chunk = next_chunk)
+        {
+            next_chunk = chunk->next;
+            pfree(chunk);
+        }
+
+        // Clean up the tail chunk to proper length
+        events->tail->next = NULL;
+        events->tail->freeptr = events->tailfree;
+
+        // Note: We don't remove shared data records as they might still be useful
+    }
+}
+```

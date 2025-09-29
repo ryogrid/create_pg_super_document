@@ -49,3 +49,123 @@ The function includes sophisticated race condition handling, particularly for im
 - Handles memory management by potentially calling SummarizeOldestCommittedSxact() to free old transaction structures
 - Critical for PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - Uses extensive locking (SerializableXactHashLock) to prevent race conditions during initialization
+
+## Simplified Source
+
+```c
+// Simplified version of GetSerializableTransactionSnapshotInt
+static Snapshot
+GetSerializableTransactionSnapshotInt(Snapshot snapshot,
+                                     VirtualTransactionId *sourcevxid,
+                                     int sourcepid)
+{
+    PGPROC *proc;
+    VirtualTransactionId vxid;
+    SERIALIZABLEXACT *sxact, *othersxact;
+
+    // Basic validation - must be serializable transaction, not in parallel mode
+    Assert(MySerializableXact == InvalidSerializableXact);
+    Assert(!RecoveryInProgress());
+
+    if (IsInParallelMode())
+        elog(ERROR, "cannot establish serializable snapshot during parallel operation");
+
+    proc = MyProc;
+    GET_VXID_FROM_PGPROC(vxid, *proc);
+
+    // Create serializable transaction structure, retry if memory full
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+    do {
+        sxact = CreatePredXact();
+        if (!sxact) {
+            // Free old committed transactions and retry
+            LWLockRelease(SerializableXactHashLock);
+            SummarizeOldestCommittedSxact();
+            LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+        }
+    } while (!sxact);
+
+    // Get snapshot data or validate imported snapshot
+    if (!sourcevxid) {
+        snapshot = GetSnapshotData(snapshot);
+    } else if (!ProcArrayInstallImportedXmin(snapshot->xmin, sourcevxid)) {
+        // Source transaction no longer running
+        ReleasePredXact(sxact);
+        LWLockRelease(SerializableXactHashLock);
+        ereport(ERROR, "could not import the requested snapshot");
+    }
+
+    // Read-only optimization: if no writable transactions, skip tracking
+    if (XactReadOnly && PredXact->WritableSxactCount == 0) {
+        ReleasePredXact(sxact);
+        LWLockRelease(SerializableXactHashLock);
+        return snapshot;
+    }
+
+    // Initialize serializable transaction structure
+    sxact->vxid = vxid;
+    sxact->SeqNo.lastCommitBeforeSnapshot = PredXact->LastSxactCommitSeqNo;
+    sxact->topXid = GetTopTransactionIdIfAny();
+    sxact->xmin = snapshot->xmin;
+    sxact->pid = MyProcPid;
+    sxact->pgprocno = MyProcNumber;
+
+    // Initialize conflict tracking lists
+    dlist_init(&(sxact->outConflicts));
+    dlist_init(&(sxact->inConflicts));
+    dlist_init(&(sxact->possibleUnsafeConflicts));
+    dlist_init(&sxact->predicateLocks);
+
+    if (XactReadOnly) {
+        sxact->flags |= SXACT_FLAG_READ_ONLY;
+
+        // Register all concurrent read-write transactions as potential conflicts
+        dlist_foreach(iter, &PredXact->activeList) {
+            othersxact = dlist_container(SERIALIZABLEXACT, xactLink, iter.cur);
+            if (!SxactIsCommitted(othersxact) && !SxactIsDoomed(othersxact) &&
+                !SxactIsReadOnly(othersxact)) {
+                SetPossibleUnsafeConflict(sxact, othersxact);
+            }
+        }
+
+        // Another optimization: if no unsafe conflicts, skip tracking
+        if (dlist_is_empty(&sxact->possibleUnsafeConflicts)) {
+            ReleasePredXact(sxact);
+            LWLockRelease(SerializableXactHashLock);
+            return snapshot;
+        }
+    } else {
+        // Increment count of writable transactions
+        ++(PredXact->WritableSxactCount);
+    }
+
+    // Update global xmin tracking
+    if (!TransactionIdIsValid(PredXact->SxactGlobalXmin)) {
+        PredXact->SxactGlobalXmin = snapshot->xmin;
+        PredXact->SxactGlobalXminCount = 1;
+        SerialSetActiveSerXmin(snapshot->xmin);
+    } else if (TransactionIdEquals(snapshot->xmin, PredXact->SxactGlobalXmin)) {
+        PredXact->SxactGlobalXminCount++;
+    }
+
+    // Set global state and release lock
+    MySerializableXact = sxact;
+    MyXactDidWrite = false;
+    LWLockRelease(SerializableXactHashLock);
+
+    // Initialize local predicate lock hash
+    CreateLocalPredicateLockHash();
+
+    return snapshot;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Consolidated memory management retry logic into simpler form
+- Simplified complex conditional structures
+- Abstracted low-level list operations with clear comments
+- Removed test-specific code (#ifdef TEST_SUMMARIZE_SERIAL)
+- Streamlined global xmin management logic
+- Added high-level comments explaining each major section
+- Preserved all essential algorithm steps and optimizations

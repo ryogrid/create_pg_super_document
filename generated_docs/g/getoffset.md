@@ -39,3 +39,40 @@ If no explicit sign is provided, the offset is treated as positive. The function
 - The offset is stored in seconds, making it easy to perform timezone calculations
 - Both '+' and '-' signs are explicitly supported, with no sign defaulting to positive
 - The function is used in both timezone rule parsing (getrule) and general timezone parsing (tzparse)
+
+## Simplified Source
+
+```c
+// Simplified version of getoffset
+static const char *
+getoffset(const char *strp, int32 *const offsetp)
+{
+    bool neg = false;
+
+    // Check for leading sign (+/-)
+    if (*strp == '-') {
+        neg = true;
+        strp++;
+    }
+    else if (*strp == '+') {
+        strp++;
+    }
+
+    // Parse the time portion (hh:mm:ss format)
+    strp = getsecs(strp, offsetp);
+    if (strp == NULL)
+        return NULL;  // parsing failed
+
+    // Apply negative sign if needed
+    if (neg)
+        *offsetp = -*offsetp;
+
+    return strp;  // return pointer to next character
+}
+```
+
+Key simplifications made:
+- Preserved the complete original logic as it was already quite simple
+- Added explanatory comments for each major step
+- Clarified the purpose of each conditional block
+- Maintained the exact algorithm flow since the function is concise and clear

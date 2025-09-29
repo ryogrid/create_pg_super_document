@@ -51,3 +51,64 @@ Owner privileges are handled specially - owners implicitly have all grant option
 - Optimizes by checking direct grants first, then indirect grants only for remaining privileges
 - Usage patterns include checking for any privileges (), all privileges (), or determining exact privileges held
 - Critical for PostgreSQL's security model, used throughout the system for access control decisions
+
+## Simplified Source
+
+```c
+AclMode aclmask(const Acl *acl, Oid roleid, Oid ownerId, AclMode mask, AclMaskHow how)
+{
+    AclMode result = 0;
+    AclItem *aidat;
+    int i, num;
+
+    // Validate inputs
+    if (acl == NULL)
+        elog(ERROR, "null ACL");
+    check_acl(acl);
+
+    // Quick exit for empty mask
+    if (mask == 0)
+        return 0;
+
+    // Owner implicitly has all grant options
+    if ((mask & ACLITEM_ALL_GOPTION_BITS) && has_privs_of_role(roleid, ownerId)) {
+        result = mask & ACLITEM_ALL_GOPTION_BITS;
+        if ((how == ACLMASK_ALL) ? (result == mask) : (result != 0))
+            return result;
+    }
+
+    num = ACL_NUM(acl);
+    aidat = ACL_DAT(acl);
+
+    // Check direct privileges (granted to roleid or PUBLIC)
+    for (i = 0; i < num; i++) {
+        AclItem *aidata = &aidat[i];
+
+        if (aidata->ai_grantee == ACL_ID_PUBLIC || aidata->ai_grantee == roleid) {
+            result |= aidata->ai_privs & mask;
+            if ((how == ACLMASK_ALL) ? (result == mask) : (result != 0))
+                return result;
+        }
+    }
+
+    // Check indirect privileges (through role membership)
+    AclMode remaining = mask & ~result;
+    for (i = 0; i < num; i++) {
+        AclItem *aidata = &aidat[i];
+
+        // Skip entries already checked
+        if (aidata->ai_grantee == ACL_ID_PUBLIC || aidata->ai_grantee == roleid)
+            continue;
+
+        // Check if this entry grants remaining privileges and roleid inherits from grantee
+        if ((aidata->ai_privs & remaining) && has_privs_of_role(roleid, aidata->ai_grantee)) {
+            result |= aidata->ai_privs & mask;
+            if ((how == ACLMASK_ALL) ? (result == mask) : (result != 0))
+                return result;
+            remaining = mask & ~result;
+        }
+    }
+
+    return result;
+}
+```

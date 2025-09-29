@@ -36,3 +36,19 @@ The documentation notes recommend using GetWALInsertionTimeLine() instead wherev
 - Detects recovery completion earlier than SharedRecoveryState updates
 - Should be used only when recovery state is uncertain
 - Located in src/backend/access/transam/xlog.c:6515-6534
+
+## Simplified Source
+
+```c
+TimeLineID GetWALInsertionTimeLineIfSet(void)
+{
+    TimeLineID insertTLI;
+
+    // Safely read the insertion timeline ID with spinlock protection
+    SpinLockAcquire(&XLogCtl->info_lck);
+    insertTLI = XLogCtl->InsertTimeLineID;
+    SpinLockRelease(&XLogCtl->info_lck);
+
+    return insertTLI;  // Returns 0 if not set (still in recovery)
+}
+```

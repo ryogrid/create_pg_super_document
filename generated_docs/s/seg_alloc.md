@@ -36,3 +36,36 @@ The seg_alloc function allocates memory for a new hash table segment and initial
 - Initializes all allocated memory to zero using MemSet
 - Used during both initial hash table creation and dynamic expansion
 - Part of the PostgreSQL dynamic hash table segment management system
+
+## Simplified Source
+
+```c
+// Simplified version of seg_alloc
+static HASHSEGMENT
+seg_alloc(HTAB *hashp)
+{
+    HASHSEGMENT segp;
+
+    // Set memory context for allocation
+    CurrentDynaHashCxt = hashp->hcxt;
+
+    // Allocate memory for segment (array of hash buckets)
+    segp = (HASHSEGMENT) hashp->alloc(sizeof(HASHBUCKET) * hashp->ssize);
+
+    // Check allocation success
+    if (!segp)
+        return NULL;
+
+    // Initialize all buckets to zero
+    MemSet(segp, 0, sizeof(HASHBUCKET) * hashp->ssize);
+
+    return segp;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Preserved the essential allocation and initialization logic
+- Maintained error handling for allocation failure
+- Kept the memory context setting for proper resource management
+- No significant simplification needed as the original function is already quite clean and concise

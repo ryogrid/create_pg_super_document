@@ -31,3 +31,27 @@ This function serves as the destruction callback for TQueueDestReceiver objects,
 - Part of the DestReceiver destruction lifecycle in PostgreSQL's executor framework
 - Prevents memory leaks and ensures proper shared memory queue reference counting
 - Typically called after shutdown but provides additional safety for queue detachment
+
+## Simplified Source
+
+```c
+// Simplified version of tqueueDestroyReceiver
+static void
+tqueueDestroyReceiver(DestReceiver *self)
+{
+    TQueueDestReceiver *tqueue = (TQueueDestReceiver *) self;
+
+    // Defensive cleanup: detach from shared memory queue if still attached
+    if (tqueue->queue != NULL)
+        shm_mq_detach(tqueue->queue);
+
+    // Free the receiver memory
+    pfree(self);
+}
+```
+
+Key simplifications made:
+- Preserved original structure as function is already quite simple and clean
+- Added descriptive comments to clarify the defensive programming approach
+- Maintained the essential two-step cleanup: queue detachment and memory deallocation
+- Function demonstrates good defensive programming with null check before detachment

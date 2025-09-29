@@ -37,3 +37,23 @@ This function performs insertion of a new free page span into a leaf node of the
 - Leaf entries store actual free page span information (first_page, npages) rather than pointers
 - Increments the nused counter to reflect the new entry
 - Does not require base address parameter since leaf nodes store data directly, not relative pointers
+
+## Simplified Source
+
+```c
+static void FreePageBtreeInsertLeaf(FreePageBtree *btp, Size index, Size first_page,
+                                   Size npages)
+{
+    // Shift existing entries to the right to make space
+    memmove(&btp->u.leaf_key[index + 1],
+            &btp->u.leaf_key[index],
+            sizeof(FreePageBtreeLeafKey) * (btp->hdr.nused - index));
+
+    // Insert the new free page span
+    btp->u.leaf_key[index].first_page = first_page;
+    btp->u.leaf_key[index].npages = npages;
+
+    // Update the count of used entries
+    ++btp->hdr.nused;
+}
+```

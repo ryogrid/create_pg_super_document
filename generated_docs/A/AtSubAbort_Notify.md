@@ -35,3 +35,35 @@ This function takes no parameters and operates on global state variables.
 - Safe for reentrant calls during error recovery scenarios
 - Part of PostgreSQL's subtransaction management system for asynchronous notifications
 - Located in src/backend/commands/async.c:1761-1803
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_Notify
+void AtSubAbort_Notify(void) {
+    int my_level = GetCurrentTransactionNestLevel();
+
+    // Clean up pending actions from current and deeper subtransaction levels
+    while (pendingActions != NULL &&
+           pendingActions->nestingLevel >= my_level) {
+        ActionList *child = pendingActions;
+        pendingActions = pendingActions->upper;  // Move to parent level
+        pfree(child);                            // Free this level's container
+    }
+
+    // Clean up pending notifications from current and deeper subtransaction levels
+    while (pendingNotifies != NULL &&
+           pendingNotifies->nestingLevel >= my_level) {
+        NotificationList *child = pendingNotifies;
+        pendingNotifies = pendingNotifies->upper; // Move to parent level
+        pfree(child);                             // Free this level's container
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated the two while loops with clearer variable names (`child` instead of longer descriptive names)
+- Added inline comments explaining the core operations
+- Removed detailed comment blocks, keeping essential logic clear
+- Simplified the stack unwinding concept into "move to parent level" comments
+- Maintained the essential algorithm: check nesting level, unlink from stack, free container

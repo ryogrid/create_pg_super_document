@@ -33,3 +33,35 @@ This function is called when a new replication slot is created to set up its sta
 - Handles the case where statistics might exist from a previously dropped slot with the same index
 - Part of PostgreSQL's statistics infrastructure for monitoring replication slot usage
 - The function clears any existing statistics to ensure a clean state for the new slot
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_create_replslot
+void pgstat_create_replslot(ReplicationSlot *slot) {
+    PgStat_EntryRef *entry_ref;
+    PgStatShared_ReplSlot *shared_stats;
+
+    // Verify we hold the required lock
+    Assert(LWLockHeldByMeInMode(ReplicationSlotAllocationLock, LW_EXCLUSIVE));
+
+    // Get or create stats entry for this replication slot
+    entry_ref = pgstat_get_entry_ref_locked(PGSTAT_KIND_REPLSLOT, InvalidOid,
+                                          ReplicationSlotIndex(slot), false);
+    shared_stats = (PgStatShared_ReplSlot *) entry_ref->shared_stats;
+
+    // Clear any existing statistics (handles reused slot indexes)
+    memset(&shared_stats->stats, 0, sizeof(shared_stats->stats));
+
+    // Release the stats entry lock
+    pgstat_unlock_entry(entry_ref);
+}
+```
+
+Key simplifications made:
+- Renamed `shstatent` to `shared_stats` for clarity
+- Added descriptive comments for each major step
+- Simplified variable names while preserving original logic
+- Condensed the function structure for better readability
+- Maintained all essential operations and assertions
+- Preserved the critical lock management and statistics initialization

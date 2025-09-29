@@ -50,3 +50,50 @@ Key responsibilities:
 - The function optimizes handling of empty transactions by avoiding unnecessary ReorderBufferProcessXid calls when resource managers can handle records more efficiently
 - The rm_decode function pointer may be NULL for some resource managers, in which case only XID processing is performed
 - This function is central to the logical replication system and is called for every WAL record during decoding operations
+
+## Simplified Source
+
+```c
+// Simplified version of LogicalDecodingProcessRecord
+void LogicalDecodingProcessRecord(LogicalDecodingContext *ctx, XLogReaderState *record)
+{
+    XLogRecordBuffer buf;
+    TransactionId txid;
+    RmgrData rmgr;
+
+    // Set up record buffer with pointers and record data
+    buf.origptr = ctx->reader->ReadRecPtr;
+    buf.endptr = ctx->reader->EndRecPtr;
+    buf.record = record;
+
+    // Extract top-level transaction ID from the record
+    txid = XLogRecGetTopXid(record);
+
+    // Assign subtransaction to top-level transaction if valid txid
+    if (TransactionIdIsValid(txid)) {
+        ReorderBufferAssignChild(ctx->reorder,
+                                txid,
+                                XLogRecGetXid(record),
+                                buf.origptr);
+    }
+
+    // Get the resource manager for this record type
+    rmgr = GetRmgr(XLogRecGetRmid(record));
+
+    // Delegate to resource manager's decode function if available
+    if (rmgr.rm_decode != NULL) {
+        rmgr.rm_decode(ctx, &buf);
+    } else {
+        // If no specific decoder, just process the transaction ID
+        ReorderBufferProcessXid(ctx->reorder, XLogRecGetXid(record), buf.origptr);
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the core algorithm flow while removing extensive comments
+- Maintained all essential function calls and logic branches
+- Simplified variable declarations and assignments for clarity
+- Added concise inline comments explaining each major step
+- Removed detailed explanatory comments to focus on the actual code logic
+- Kept the complete control flow including conditional processing

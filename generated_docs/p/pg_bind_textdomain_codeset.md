@@ -41,3 +41,45 @@ The function handles the SQL_ASCII encoding specially and includes fallback logi
 - Handles SQL_ASCII specially as it's not a real encoding from gettext's perspective
 - Includes fallback to PG_SQL_ASCII if encoding detection fails
 - The function is critical for ensuring consistent message encoding across different platforms
+
+## Simplified Source
+
+```c
+// Simplified version of pg_bind_textdomain_codeset
+int pg_bind_textdomain_codeset(const char *domainname) {
+    bool elog_ok = (CurrentMemoryContext != NULL);
+    int encoding = GetDatabaseEncoding();
+    int new_msgenc;
+
+#ifndef WIN32
+    // On Unix-like systems: for C/POSIX locales, use database encoding
+    const char *ctype = setlocale(LC_CTYPE, NULL);
+    if (pg_strcasecmp(ctype, "C") == 0 || pg_strcasecmp(ctype, "POSIX") == 0)
+#endif
+        // Try to bind to database encoding (if not SQL_ASCII)
+        if (encoding != PG_SQL_ASCII &&
+            raw_pg_bind_textdomain_codeset(domainname, encoding))
+            return encoding;
+
+    // Fallback: get encoding from locale
+    new_msgenc = pg_get_encoding_from_locale(NULL, elog_ok);
+    if (new_msgenc < 0)
+        new_msgenc = PG_SQL_ASCII;
+
+#ifdef WIN32
+    // On Windows: force explicit binding (gettext defaults to ANSI code page)
+    if (!raw_pg_bind_textdomain_codeset(domainname, new_msgenc))
+        return GetMessageEncoding();  // Keep old encoding on failure
+#endif
+
+    return new_msgenc;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated platform-specific logic into clear conditional blocks
+- Simplified variable declarations and flow
+- Maintained the core algorithm: try database encoding first, fallback to locale encoding
+- Preserved the Windows-specific binding requirement and error handling
+- Kept the essential encoding detection and fallback logic

@@ -41,3 +41,28 @@ The function ensures that LSN values only advance forward (never backward) by ch
 - LSN values are only updated if the new values are greater than current values
 - Critical for maintaining replication progress tracking during transaction commits and aborts
 - Primarily used in transaction management code to update progress after transaction completion
+
+## Simplified Source
+
+```c
+void replorigin_session_advance(XLogRecPtr remote_commit, XLogRecPtr local_commit)
+{
+    // Ensure we have a valid replication origin session
+    Assert(session_replication_state != NULL);
+    Assert(session_replication_state->roident != InvalidRepOriginId);
+
+    // Acquire exclusive lock on the session state
+    LWLockAcquire(&session_replication_state->lock, LW_EXCLUSIVE);
+
+    // Update local LSN only if advancing forward
+    if (session_replication_state->local_lsn < local_commit)
+        session_replication_state->local_lsn = local_commit;
+
+    // Update remote LSN only if advancing forward
+    if (session_replication_state->remote_lsn < remote_commit)
+        session_replication_state->remote_lsn = remote_commit;
+
+    // Release the lock
+    LWLockRelease(&session_replication_state->lock);
+}
+```

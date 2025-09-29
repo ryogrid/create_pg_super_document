@@ -45,3 +45,37 @@ The backward search optimization takes advantage of the common pattern where rec
 - The function will raise an ERROR if the specified lock is not found in the cache, indicating a programming error
 - The search is linear O(n) but limited to at most MAX_RESOWNER_LOCKS (15) iterations
 - Each successful removal decrements nlocks, maintaining the cache size invariant
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetLock
+void ResourceOwnerForgetLock(ResourceOwner owner, LOCALLOCK *locallock) {
+    // Skip processing if cache has overflowed
+    if (owner->nlocks > MAX_RESOWNER_LOCKS) {
+        return;  // Not tracking locks anymore
+    }
+
+    // Search backwards through lock cache for the target lock
+    for (int i = owner->nlocks - 1; i >= 0; i--) {
+        if (locallock == owner->locks[i]) {
+            // Remove lock using swap-with-last technique
+            owner->locks[i] = owner->locks[owner->nlocks - 1];
+            owner->nlocks--;
+            return;
+        }
+    }
+
+    // Lock not found - this is a programming error
+    elog(ERROR, "lock reference %p is not owned by resource owner %s",
+         locallock, owner->name);
+}
+```
+
+Key simplifications made:
+- Removed overflow assertion (kept the essential overflow check)
+- Added descriptive comments explaining each logical step
+- Clarified the swap-with-last-element removal technique
+- Made the backwards search optimization reasoning explicit
+- Simplified variable declaration (moved into for loop)
+- Preserved all essential logic and error handling

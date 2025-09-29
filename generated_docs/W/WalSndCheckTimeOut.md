@@ -36,3 +36,36 @@ The function includes sophisticated timing logic to handle edge cases where serv
 - Default configuration has clients send messages every 10 seconds (`standby_message_timeout = wal_sender_timeout/6`)
 - Timeout expiration could be optimized by recognizing expiration at `wal_sender_timeout/2` after keepalive transmission
 - Critical for maintaining replication connection health and preventing resource leaks from disconnected clients
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndCheckTimeOut
+static void WalSndCheckTimeOut(void) {
+    TimestampTz timeout;
+
+    // Skip timeout check if no client communication has been established
+    if (last_reply_timestamp <= 0)
+        return;
+
+    // Calculate when the timeout should expire based on last client reply
+    timeout = TimestampTzPlusMilliseconds(last_reply_timestamp, wal_sender_timeout);
+
+    // Check if we've exceeded the timeout period
+    if (wal_sender_timeout > 0 && last_processing >= timeout) {
+        // Log timeout error (communication problem suspected)
+        ereport(COMMERROR,
+                (errmsg("terminating walsender process due to replication timeout")));
+
+        // Gracefully shutdown the WAL sender process
+        WalSndShutdown();
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comment block explaining timing edge cases for clarity
+- Simplified variable declarations and logic flow
+- Condensed timeout calculation logic into clear steps
+- Preserved essential error handling and shutdown mechanism
+- Maintained the core algorithm: check timestamp → calculate timeout → shutdown if exceeded

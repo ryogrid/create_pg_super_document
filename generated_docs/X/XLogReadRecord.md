@@ -57,3 +57,40 @@ This function is the standard blocking interface used throughout PostgreSQL for 
 - Used extensively throughout PostgreSQL for WAL reading in recovery, replication, logical decoding, and utility operations
 - The returned record pointer remains valid until the next call to XLogReadRecord() or XLogNextRecord()
 - Automatically manages read-ahead operations to ensure optimal performance
+
+## Simplified Source
+
+```c
+// Simplified version of XLogReadRecord
+XLogRecord *XLogReadRecord(XLogReaderState *state, char **errormsg) {
+    // Step 1: Clean up previous record to maintain accurate queue state
+    XLogReleasePreviousRecord(state);
+
+    // Step 2: Ensure data is available by reading ahead if queue is empty
+    if (!XLogReaderHasQueuedRecordOrError(state)) {
+        XLogReadAhead(state, false /* blocking mode */);
+    }
+
+    // Step 3: Get the next available record from the queue
+    DecodedXLogRecord *decoded = XLogNextRecord(state, errormsg);
+
+    // Step 4: Return record header if successful, NULL if failed
+    if (decoded) {
+        // Assert that state is consistent
+        Assert(state->record == decoded);
+
+        // Return pointer to record header (legacy compatibility)
+        return &decoded->header;
+    }
+
+    return NULL; // Error or end of log
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and focused on core algorithm steps
+- Simplified the control flow into clear sequential steps
+- Maintained essential error handling and assertions
+- Preserved the blocking read-ahead behavior which is the key feature
+- Kept the header pointer return for compatibility with existing code
+- Added step-by-step comments to clarify the algorithm

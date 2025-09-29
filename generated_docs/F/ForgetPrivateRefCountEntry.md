@@ -38,3 +38,33 @@ For entries stored in the hash table (overflow entries), the function removes th
 - The different handling strategies optimize for the common case of array-based storage
 - Essential for preventing memory leaks in the private reference counting system
 - Part of the buffer unpinning process that ensures proper resource cleanup
+
+## Simplified Source
+
+```c
+static void
+ForgetPrivateRefCountEntry(PrivateRefCountEntry *ref)
+{
+    Assert(ref->refcount == 0);
+
+    // Check if this is an array entry (fast path)
+    if (ref >= &PrivateRefCountArray[0] &&
+        ref < &PrivateRefCountArray[REFCOUNT_ARRAY_ENTRIES])
+    {
+        // Mark buffer as invalid and reserve for future use
+        ref->buffer = InvalidBuffer;
+        ReservedRefCountEntry = ref;
+    }
+    else
+    {
+        // Hash table entry - remove completely
+        bool found;
+        Buffer buffer = ref->buffer;
+
+        hash_search(PrivateRefCountHash, &buffer, HASH_REMOVE, &found);
+        Assert(found);
+        Assert(PrivateRefCountOverflowed > 0);
+        PrivateRefCountOverflowed--;
+    }
+}
+```

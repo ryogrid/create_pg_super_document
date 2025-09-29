@@ -42,3 +42,40 @@ This function allows restarting an active index scan with new search parameters 
 - More efficient than ending and restarting scans when only search parameters change
 - Commonly used in nested loop joins and parameter changes during query execution
 - Located in src/backend/access/index/indexam.c:352-377
+
+## Simplified Source
+
+```c
+// Simplified version of index_rescan
+void index_rescan(IndexScanDesc scan,
+                  ScanKey keys, int nkeys,
+                  ScanKey orderbys, int norderbys)
+{
+    // Validate scan descriptor and check that amrescan procedure exists
+    SCAN_CHECKS;
+    CHECK_SCAN_PROCEDURE(amrescan);
+
+    // Verify key counts match original scan setup
+    Assert(nkeys == scan->numberOfKeys);
+    Assert(norderbys == scan->numberOfOrderBys);
+
+    // Release any heap tuple fetch resources from previous scans
+    if (scan->xs_heapfetch)
+        table_index_fetch_reset(scan->xs_heapfetch);
+
+    // Reset scan state flags for safety
+    scan->kill_prior_tuple = false;
+    scan->xs_heap_continue = false;
+
+    // Delegate to access method-specific rescan implementation
+    scan->indexRelation->rd_indam->amrescan(scan, keys, nkeys,
+                                            orderbys, norderbys);
+}
+```
+
+Key simplifications made:
+- Condensed multi-line comments into single-line explanations
+- Preserved all essential validation and state management logic
+- Maintained the core flow: validate → reset resources → reset flags → delegate to AM
+- Kept all function parameters and return type unchanged
+- Simplified formatting while preserving readability

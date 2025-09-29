@@ -38,3 +38,20 @@ The function implements a two-part check: first testing if the relation is a cat
 - Designed for use cases where the relation doesn't need to be opened
 - Commonly used in callback functions and catalog scanning operations
 - The function is located in src/backend/catalog/catalog.c:85-102
+
+## Simplified Source
+
+```c
+// Simplified version of IsSystemClass
+bool IsSystemClass(Oid relid, Form_pg_class reltuple) {
+    // Check if relation is a catalog relation (faster check first)
+    // or if it's a toast table - both are considered system relations
+    return (IsCatalogRelationOid(relid) || IsToastClass(reltuple));
+}
+```
+
+Key simplifications made:
+- Preserved the core logic: two-condition OR check for system relation identification
+- Maintained the performance optimization (IsCatalogRelationOid checked first)
+- Added explanatory comments for the logical flow
+- Function is already quite simple, so minimal simplification was needed

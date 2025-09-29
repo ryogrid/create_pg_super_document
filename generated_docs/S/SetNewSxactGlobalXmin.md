@@ -50,3 +50,52 @@ This function takes no parameters but operates on global predicate locking state
 - The function handles PostgreSQL's wrap-around transaction ID arithmetic correctly through TransactionIdPrecedes
 - Essential for maintaining consistency in MVCC by ensuring proper visibility rules for concurrent serializable transactions
 - The count of transactions with the same xmin helps optimize certain serialization conflict detection algorithms
+
+## Simplified Source
+
+```c
+// Simplified version of SetNewSxactGlobalXmin
+static void SetNewSxactGlobalXmin(void) {
+    dlist_iter iter;
+
+    // Ensure we have the required lock
+    Assert(LWLockHeldByMe(SerializableXactHashLock));
+
+    // Reset global xmin tracking
+    PredXact->SxactGlobalXmin = InvalidTransactionId;
+    PredXact->SxactGlobalXminCount = 0;
+
+    // Walk through all active serializable transactions
+    dlist_foreach(iter, &PredXact->activeList) {
+        SERIALIZABLEXACT *sxact = dlist_container(SERIALIZABLEXACT, xactLink, iter.cur);
+
+        // Skip transactions that are no longer active
+        if (SxactIsRolledBack(sxact) || SxactIsCommitted(sxact) || sxact == OldCommittedSxact) {
+            continue;
+        }
+
+        // Process active transaction's xmin
+        Assert(sxact->xmin != InvalidTransactionId);
+
+        if (!TransactionIdIsValid(PredXact->SxactGlobalXmin) ||
+            TransactionIdPrecedes(sxact->xmin, PredXact->SxactGlobalXmin)) {
+            // Found a new minimum xmin
+            PredXact->SxactGlobalXmin = sxact->xmin;
+            PredXact->SxactGlobalXminCount = 1;
+        } else if (TransactionIdEquals(sxact->xmin, PredXact->SxactGlobalXmin)) {
+            // Another transaction has the same minimum xmin
+            PredXact->SxactGlobalXminCount++;
+        }
+    }
+
+    // Update the serial scheduling system with new global xmin
+    SerialSetActiveSerXmin(PredXact->SxactGlobalXmin);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major section
+- Restructured the main loop logic with clearer early continue for inactive transactions
+- Made the xmin comparison logic more readable with better variable spacing
+- Preserved all essential functionality including proper transaction state checks
+- Maintained the exact same algorithm flow and correctness

@@ -36,3 +36,20 @@ The function works in tandem with MultiXactIdToOffsetPage to provide complete ad
 - Used together with MultiXactIdToOffsetPage to fully address offset entries in the SLRU buffer
 - Essential for precise location of MultiXact offset data within SLRU pages
 - The modulo operation ensures the result always falls within valid page entry bounds
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactIdToOffsetEntry
+static inline int
+MultiXactIdToOffsetEntry(MultiXactId multi)
+{
+    // Calculate entry index within SLRU page using modulo operation
+    return multi % MULTIXACT_OFFSETS_PER_PAGE;
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple with only one line of logic
+- Added descriptive comment explaining the modulo operation's purpose
+- No error handling or complex logic to simplify - this is a pure mathematical calculation

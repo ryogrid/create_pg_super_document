@@ -41,3 +41,25 @@ This functionality is typically triggered by the command-line option `-U filenam
 - Empty lines or lines containing only whitespace will result in empty strings being passed to `add_typename()`, which may be handled by that function
 - The function is specifically designed for pg_bsd_indent's command-line interface and integrates with the broader argument processing system
 - Related to the `-T` option which adds individual type names, while `-U` processes entire files of type names
+
+## Simplified Source
+
+```c
+void add_typedefs_from_file(const char *filename)
+{
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        fprintf(stderr, "indent: cannot open file %s\n", filename);
+        exit(1);
+    }
+
+    char line[BUFSIZ];
+    while (fgets(line, BUFSIZ, file) != NULL) {
+        // Remove trailing whitespace
+        line[strcspn(line, " \t\n\r")] = '\0';
+        add_typename(line);
+    }
+
+    fclose(file);
+}
+```

@@ -35,3 +35,33 @@ The search algorithm is identical to the internal page version but operates on l
 - Returns index that may exceed nused when target is larger than all existing keys
 - Essential for precise positioning within leaf pages during insertions, deletions, and lookups
 - The returned index directly corresponds to positions in the leaf_key array for data manipulation operations
+
+## Simplified Source
+
+```c
+static Size
+FreePageBtreeSearchLeaf(FreePageBtree *btp, Size first_page)
+{
+    Size low = 0;
+    Size high = btp->hdr.nused;
+
+    Assert(btp->hdr.magic == FREE_PAGE_LEAF_MAGIC);
+    Assert(high > 0 && high <= FPM_ITEMS_PER_LEAF_PAGE);
+
+    // Binary search for the target page
+    while (low < high)
+    {
+        Size mid = (low + high) / 2;
+        Size val = btp->u.leaf_key[mid].first_page;
+
+        if (first_page == val)
+            return mid;
+        else if (first_page < val)
+            high = mid;
+        else
+            low = mid + 1;
+    }
+
+    return low;
+}
+```

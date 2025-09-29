@@ -40,3 +40,23 @@ The function is typically used for reporting application logic errors rather tha
 - Unlike `err`, this function does not append system error descriptions
 - Widely used throughout the pg_bsd_indent tool for reporting various application errors
 - Follows the BSD convention where 'errx' indicates 'error without errno'
+
+## Simplified Source
+
+```c
+void errx(int exit_code, const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    // Print formatted error message if provided
+    if (format != NULL)
+        vfprintf(stderr, format, args);
+
+    // Always print newline
+    fprintf(stderr, "\n");
+
+    va_end(args);
+    exit(exit_code);
+}
+```

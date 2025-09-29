@@ -39,3 +39,43 @@ The function handles the edge case where the passed page is the rightmost page i
 - During descent phase, always follows the leftmost child path (index 0) to reach the leftmost page of the right subtree
 - Essential for B-tree operations requiring adjacent page access like consolidation and splitting
 - The returned sibling is guaranteed to be at the same tree level as the input page
+
+## Simplified Source
+
+```c
+static FreePageBtree *FreePageBtreeFindRightSibling(char *base, FreePageBtree *btp)
+{
+    FreePageBtree *p = btp;
+    int levels = 0;
+
+    // Move up until we can move right
+    for (;;) {
+        Size first_page = FreePageBtreeFirstKey(p);
+        p = relptr_access(base, p->hdr.parent);
+
+        if (p == NULL)
+            return NULL;  // Rightmost page in tree
+
+        // Find our position in parent
+        Size index = FreePageBtreeSearchInternal(p, first_page);
+
+        // If we're not the rightmost child, we can move right
+        if (index < p->hdr.nused - 1) {
+            // Move to the right sibling subtree
+            p = relptr_access(base, p->u.internal_key[index + 1].child);
+            break;
+        }
+
+        // We're the rightmost child, keep going up
+        levels++;
+    }
+
+    // Descend down the leftmost path to reach the same level
+    while (levels > 0) {
+        p = relptr_access(base, p->u.internal_key[0].child);
+        levels--;
+    }
+
+    return p;
+}
+```

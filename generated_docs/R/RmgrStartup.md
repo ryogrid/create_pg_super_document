@@ -33,3 +33,27 @@ This function takes no parameters.
 - This is part of the resource manager infrastructure that allows extensions to register custom WAL resource managers
 - The startup routines are called in resource manager ID order
 - Resource managers can use their startup routine to initialize data structures or perform other setup tasks needed before WAL processing begins
+
+## Simplified Source
+
+```c
+// Simplified version of RmgrStartup
+void RmgrStartup(void) {
+    // Iterate through all possible resource manager IDs
+    for (int rmid = 0; rmid <= RM_MAX_ID; rmid++) {
+        // Skip if this resource manager ID is not registered
+        if (!RmgrIdExists(rmid))
+            continue;
+
+        // Call the startup routine if one is defined for this resource manager
+        if (RmgrTable[rmid].rm_startup != NULL)
+            RmgrTable[rmid].rm_startup();
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step of the iteration
+- Clarified the purpose of the existence check and startup routine call
+- The original code was already quite clean and readable, so minimal changes were needed
+- Preserved the exact logic flow while enhancing readability through comments

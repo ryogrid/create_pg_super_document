@@ -34,3 +34,42 @@ AtEOXact_LogicalRepWorkers is called at the end of a transaction (EOXact = End o
 - This mechanism ensures that subscription changes only take effect when the transaction successfully commits
 - Workers are found and awakened for each subscription ID that was modified during the transaction
 - The function is part of PostgreSQL's logical replication infrastructure for maintaining consistency between publisher and subscriber databases
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_LogicalRepWorkers
+void AtEOXact_LogicalRepWorkers(bool isCommit) {
+    // Only wake up workers if transaction is committing and there are subscriptions to process
+    if (isCommit && on_commit_wakeup_workers_subids != NIL) {
+        // Acquire shared lock to safely access worker information
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+        // Iterate through each subscription that needs worker wakeup
+        foreach(lc, on_commit_wakeup_workers_subids) {
+            Oid subid = lfirst_oid(lc);
+
+            // Find all workers for this subscription
+            List *workers = logicalrep_workers_find(subid, true);
+
+            // Wake up each worker for this subscription
+            foreach(lc2, workers) {
+                LogicalRepWorker *worker = (LogicalRepWorker *) lfirst(lc2);
+                logicalrep_worker_wakeup_ptr(worker);
+            }
+        }
+
+        LWLockRelease(LogicalRepWorkerLock);
+    }
+
+    // Clear the wakeup list (reclaimed automatically during xact cleanup)
+    on_commit_wakeup_workers_subids = NIL;
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining the purpose of each major code block
+- Preserved the essential locking mechanism and worker iteration logic
+- Maintained the commit-only conditional logic that ensures workers are only awakened on successful commits
+- Kept the core algorithm of finding workers by subscription ID and waking them up
+- Simplified variable declarations within the nested loops for clarity

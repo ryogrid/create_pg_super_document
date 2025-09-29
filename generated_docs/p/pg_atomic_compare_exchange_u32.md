@@ -45,3 +45,22 @@ The function is implemented as a wrapper around `pg_atomic_compare_exchange_u32_
 - This is the fundamental building block for lock-free programming in PostgreSQL
 - Commonly used in retry loops where the caller checks the returned value and retries if the operation failed
 - Essential for implementing atomic updates to reference counts, flags, and other shared state
+
+## Simplified Source
+
+```c
+// Atomic compare-and-swap operation for 32-bit unsigned integers
+// Compare *ptr with *expected, and if equal, store newval in *ptr
+// Always stores current value of *ptr in *expected
+// Returns true if exchange occurred, false otherwise
+static inline bool pg_atomic_compare_exchange_u32(volatile pg_atomic_uint32 *ptr,
+                                                  uint32 *expected, uint32 newval)
+{
+    // Ensure proper alignment for atomic operations
+    AssertPointerAlignment(ptr, 4);
+    AssertPointerAlignment(expected, 4);
+
+    // Delegate to platform-specific implementation
+    return pg_atomic_compare_exchange_u32_impl(ptr, expected, newval);
+}
+```

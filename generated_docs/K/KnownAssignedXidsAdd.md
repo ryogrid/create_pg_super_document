@@ -41,3 +41,74 @@ This static function adds a range of transaction IDs from from_xid to to_xid (in
 - May trigger array compression if insufficient space is available
 - Throws ERROR if the array cannot accommodate the new XIDs even after compression
 - Part of PostgreSQL's Hot Standby system for tracking active transactions during recovery
+
+## Simplified Source
+
+```c
+// Simplified version of KnownAssignedXidsAdd
+static void KnownAssignedXidsAdd(TransactionId from_xid, TransactionId to_xid,
+                                bool exclusive_lock)
+{
+    ProcArrayStruct *pArray = procArray;
+    TransactionId next_xid;
+    int head, nxids, i;
+
+    // Calculate number of XIDs to add (handle wraparound case)
+    if (to_xid >= from_xid) {
+        nxids = to_xid - from_xid + 1;
+    } else {
+        // Handle XID wraparound by counting manually
+        nxids = 1;
+        next_xid = from_xid;
+        while (TransactionIdPrecedes(next_xid, to_xid)) {
+            nxids++;
+            TransactionIdAdvance(next_xid);
+        }
+    }
+
+    // Get current array positions
+    head = pArray->headKnownAssignedXids;
+
+    // Verify sequential insertion order
+    if (head > pArray->tailKnownAssignedXids &&
+        TransactionIdFollowsOrEquals(KnownAssignedXids[head - 1], from_xid)) {
+        elog(ERROR, "out-of-order XID insertion in KnownAssignedXids");
+    }
+
+    // Compress array if insufficient space
+    if (head + nxids > pArray->maxKnownAssignedXids) {
+        KnownAssignedXidsCompress(KAX_NO_SPACE, exclusive_lock);
+        head = pArray->headKnownAssignedXids;
+
+        if (head + nxids > pArray->maxKnownAssignedXids) {
+            elog(ERROR, "too many KnownAssignedXids");
+        }
+    }
+
+    // Insert XIDs into the array
+    next_xid = from_xid;
+    for (i = 0; i < nxids; i++) {
+        KnownAssignedXids[head] = next_xid;
+        KnownAssignedXidsValid[head] = true;
+        TransactionIdAdvance(next_xid);
+        head++;
+    }
+
+    // Update counts and head pointer with memory barrier
+    pArray->numKnownAssignedXids += nxids;
+
+    if (!exclusive_lock) {
+        pg_write_barrier();  // Ensure array updates are visible
+    }
+
+    pArray->headKnownAssignedXids = head;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and assertions for clarity
+- Consolidated variable declarations
+- Simplified error handling flow
+- Removed detailed boundary checks and validations
+- Focused on core algorithm: calculate range, check space, compress if needed, insert XIDs
+- Maintained essential logic for XID wraparound handling and memory barriers

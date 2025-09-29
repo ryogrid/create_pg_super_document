@@ -52,3 +52,81 @@ MarkAsPreparingGuts is an internal helper function that performs the low-level i
 - Sets MyLockedGxact to track ownership of the GlobalTransaction entry
 - The subxid data is not populated here and must be filled later by GXactLoadSubxactData
 - Clones the virtual transaction ID from the current process when available
+
+## Simplified Source
+
+```c
+// Simplified version of MarkAsPreparingGuts
+static void
+MarkAsPreparingGuts(GlobalTransaction gxact, TransactionId xid, const char *gid,
+                    TimestampTz prepared_at, Oid owner, Oid databaseid)
+{
+    PGPROC *proc;
+    int i;
+
+    Assert(LWLockHeldByMeInMode(TwoPhaseStateLock, LW_EXCLUSIVE));
+    Assert(gxact != NULL);
+
+    // Get the PGPROC entry associated with this global transaction
+    proc = GetPGProcByNumber(gxact->pgprocno);
+
+    // Initialize the PGPROC entry to a clean state
+    MemSet(proc, 0, sizeof(PGPROC));
+    dlist_node_init(&proc->links);
+    proc->waitStatus = PROC_WAIT_STATUS_OK;
+
+    // Set up virtual transaction ID for lock conflict detection
+    if (LocalTransactionIdIsValid(MyProc->vxid.lxid)) {
+        // Normal case: clone current process's VXID
+        proc->vxid.lxid = MyProc->vxid.lxid;
+        proc->vxid.procNumber = MyProcNumber;
+    } else {
+        // Recovery case: use transaction ID directly
+        proc->vxid.lxid = xid;
+        proc->vxid.procNumber = INVALID_PROC_NUMBER;
+    }
+
+    // Set core transaction and process identification
+    proc->xid = xid;
+    proc->databaseId = databaseid;
+    proc->roleId = owner;
+    proc->pid = 0;  // No real process for prepared transactions
+    proc->isBackgroundWorker = true;
+
+    // Initialize lock-related fields
+    proc->lwWaiting = LW_WS_NOT_WAITING;
+    proc->waitLock = NULL;
+    proc->waitProcLock = NULL;
+    pg_atomic_init_u64(&proc->waitStart, 0);
+
+    // Initialize per-partition lock lists
+    for (i = 0; i < NUM_LOCK_PARTITIONS; i++) {
+        dlist_init(&proc->myProcLocks[i]);
+    }
+
+    // Initialize subtransaction tracking (filled later)
+    proc->subxidStatus.overflowed = false;
+    proc->subxidStatus.count = 0;
+
+    // Initialize the GlobalTransaction structure
+    gxact->prepared_at = prepared_at;
+    gxact->xid = xid;
+    gxact->owner = owner;
+    gxact->locking_backend = MyProcNumber;
+    gxact->valid = false;
+    gxact->inredo = false;
+    strcpy(gxact->gid, gid);
+
+    // Remember we own this GlobalTransaction entry
+    MyLockedGxact = gxact;
+}
+```
+
+Key simplifications made:
+- Removed detailed field-by-field initialization comments for brevity
+- Consolidated related field assignments into logical groups
+- Added high-level comments explaining the purpose of each section
+- Simplified variable initialization patterns
+- Removed platform-specific assertions for clarity
+- Grouped related operations (VXID setup, lock initialization, etc.)
+- Maintained all essential logic while improving readability

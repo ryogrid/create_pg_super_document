@@ -33,3 +33,15 @@ This function takes a PageXLogRecPtr structure (which contains separate 32-bit x
 - The function performs a simple bit manipulation to reconstruct a 64-bit WAL pointer from its 32-bit components
 - WAL pointers are used throughout PostgreSQL to track the location of log records for crash recovery and replication
 - The PageXLogRecPtr structure format allows for compatibility with systems that may need to store WAL pointers in a split format
+
+## Simplified Source
+
+```c
+static inline XLogRecPtr
+PageXLogRecPtrGet(PageXLogRecPtr val)
+{
+    // Combine 32-bit high and low components into 64-bit WAL pointer
+    // xlogid goes to upper 32 bits, xrecoff to lower 32 bits
+    return (uint64) val.xlogid << 32 | val.xrecoff;
+}
+```

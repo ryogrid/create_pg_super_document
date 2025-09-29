@@ -44,3 +44,36 @@ The function is designed to be used internally by other PostgreSQL memory alloca
 - The MCXT_ALLOC_NO_OOM flag allows callers to handle allocation failures gracefully
 - Zero-initialization is performed using PostgreSQL's MemSet macro rather than calloc() to maintain consistent behavior
 - Located in src/common/fe_memutils.c:23-46
+
+## Simplified Source
+
+```c
+static inline void *
+pg_malloc_internal(size_t size, int flags)
+{
+    void *tmp;
+
+    // Avoid unportable behavior of malloc(0)
+    if (size == 0)
+        size = 1;
+
+    // Attempt memory allocation
+    tmp = malloc(size);
+    if (tmp == NULL)
+    {
+        // Handle out-of-memory condition
+        if ((flags & MCXT_ALLOC_NO_OOM) == 0)
+        {
+            fprintf(stderr, _("out of memory\n"));
+            exit(EXIT_FAILURE);
+        }
+        return NULL;
+    }
+
+    // Zero-initialize if requested
+    if ((flags & MCXT_ALLOC_ZERO) != 0)
+        MemSet(tmp, 0, size);
+
+    return tmp;
+}
+```

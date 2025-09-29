@@ -37,3 +37,50 @@ The fast-path mechanism is designed to optimize common locking scenarios where b
 - Maintains FastPathLocalUseCount to track the number of fast-path slots in use
 - The function includes assertions to ensure lock modes are not duplicated in the same slot
 - Fast-path locking is specifically optimized for relation locks and does not handle all lock types
+
+## Simplified Source
+
+```c
+// Simplified version of FastPathGrantRelationLock
+static bool
+FastPathGrantRelationLock(Oid relid, LOCKMODE lockmode)
+{
+    uint32 slot_index;
+    uint32 unused_slot = FP_LOCK_SLOTS_PER_BACKEND;
+
+    // Scan existing fast-path slots for this relation
+    for (slot_index = 0; slot_index < FP_LOCK_SLOTS_PER_BACKEND; slot_index++)
+    {
+        if (FAST_PATH_GET_BITS(MyProc, slot_index) == 0)
+        {
+            // Remember first empty slot
+            unused_slot = slot_index;
+        }
+        else if (MyProc->fpRelId[slot_index] == relid)
+        {
+            // Found existing entry for this relation - add lock mode
+            FAST_PATH_SET_LOCKMODE(MyProc, slot_index, lockmode);
+            return true;
+        }
+    }
+
+    // No existing entry found - try to use an empty slot
+    if (unused_slot < FP_LOCK_SLOTS_PER_BACKEND)
+    {
+        MyProc->fpRelId[unused_slot] = relid;
+        FAST_PATH_SET_LOCKMODE(MyProc, unused_slot, lockmode);
+        ++FastPathLocalUseCount;
+        return true;
+    }
+
+    // No space available - fall back to standard locking
+    return false;
+}
+```
+
+Key simplifications made:
+- Renamed loop variable from 'f' to more descriptive 'slot_index'
+- Added clear comments explaining each major step
+- Grouped related operations together logically
+- Removed assertion check for brevity while preserving core logic
+- Added descriptive comments for the three main cases: empty slot detection, existing entry found, and new entry creation

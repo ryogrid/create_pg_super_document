@@ -51,3 +51,51 @@ The atomic rename operation ensures that the slot either exists completely or no
 - [Path](../P/Path.md) format follows: "pg_replslot/[slot_name]" and "pg_replslot/[slot_name].tmp"
 - Error reporting uses ERROR level, which will abort the current transaction
 - Implements crash-safe slot creation through atomic filesystem operations
+
+## Simplified Source
+
+```c
+// Simplified version of CreateSlotOnDisk
+static void
+CreateSlotOnDisk(ReplicationSlot *slot)
+{
+    char tmppath[MAXPGPATH];
+    char path[MAXPGPATH];
+    struct stat st;
+
+    // Step 1: Construct paths for temporary and final directories
+    sprintf(path, "pg_replslot/%s", NameStr(slot->data.name));
+    sprintf(tmppath, "pg_replslot/%s.tmp", NameStr(slot->data.name));
+
+    // Step 2: Clean up any leftover temporary directory from previous failures
+    if (stat(tmppath, &st) == 0 && S_ISDIR(st.st_mode))
+        rmtree(tmppath, true);
+
+    // Step 3: Create temporary directory and ensure it's synced to disk
+    if (MakePGDirectory(tmppath) < 0)
+        ereport(ERROR, (errmsg("could not create directory \"%s\"", tmppath)));
+    fsync_fname(tmppath, true);
+
+    // Step 4: Write slot state to temporary directory
+    slot->dirty = true;  // Mark that we need to write the state
+    SaveSlotToPath(slot, tmppath, ERROR);
+
+    // Step 5: Atomically move temporary directory to final location
+    if (rename(tmppath, path) != 0)
+        ereport(ERROR, (errmsg("could not rename \"%s\" to \"%s\"", tmppath, path)));
+
+    // Step 6: Ensure final directory and parent are synced (critical section)
+    START_CRIT_SECTION();
+    fsync_fname(path, true);
+    fsync_fname("pg_replslot", true);
+    END_CRIT_SECTION();
+}
+```
+
+Key simplifications made:
+- Removed detailed error code specifications for clarity
+- Simplified error messages while preserving essential information
+- Added step-by-step comments explaining the atomic creation process
+- Consolidated filesystem operations into logical groups
+- Removed verbose comments about locking (preserved essential logic)
+- Maintained the critical crash-safety mechanisms (temp directory, atomic rename, fsync operations)

@@ -41,3 +41,20 @@ This operation is more efficient than removing the first element and then insert
 - Commonly used in scenarios where the priority queue needs frequent updates to the top element
 - Extensively used in PostgreSQL for query execution merge operations, replication buffering, and buffer management
 - Only requires sifting if the heap has more than one element
+
+## Simplified Source
+
+```c
+void binaryheap_replace_first(binaryheap *heap, bh_node_type d)
+{
+    // Verify heap is not empty and has valid heap property
+    Assert(!binaryheap_empty(heap) && heap->bh_has_heap_property);
+
+    // Replace the root element with the new value
+    heap->bh_nodes[0] = d;
+
+    // Restore heap property if heap has more than one element
+    if (heap->bh_size > 1)
+        sift_down(heap, 0);
+}
+```

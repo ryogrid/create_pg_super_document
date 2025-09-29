@@ -49,3 +49,57 @@ The search algorithm examines each segment in a bin, checks its largest contiguo
 - Returns NULL if no suitable segment is found, indicating that a new segment may need to be created
 - The search strategy balances efficiency with accuracy by starting from the most promising bins
 - Part of the dynamic shared area's sophisticated memory management system
+
+## Simplified Source
+
+```c
+static dsa_segment_map *get_best_segment(dsa_area *area, size_t npages)
+{
+    size_t bin;
+
+    Assert(LWLockHeldByMe(DSA_AREA_LOCK(area)));
+    check_for_freed_segments_locked(area);
+
+    // Start from the bin that might have enough contiguous pages
+    for (bin = contiguous_pages_to_segment_bin(npages);
+         bin < DSA_NUM_SEGMENT_BINS;
+         ++bin) {
+
+        // Minimum contiguous pages for this bin
+        size_t threshold = (size_t) 1 << (bin - 1);
+        dsa_segment_index segment_index;
+
+        // Search this bin for a suitable segment
+        segment_index = area->control->segment_bins[bin];
+        while (segment_index != DSA_SEGMENT_INDEX_NONE) {
+            dsa_segment_map *segment_map;
+            dsa_segment_index next_segment_index;
+            size_t contiguous_pages;
+
+            segment_map = get_segment_by_index(area, segment_index);
+            next_segment_index = segment_map->header->next;
+            contiguous_pages = fpm_largest(segment_map->fpm);
+
+            // Skip if not enough for request but still valid for this bin
+            if (contiguous_pages >= threshold && contiguous_pages < npages) {
+                segment_index = next_segment_index;
+                continue;
+            }
+
+            // Re-bin segment if it no longer fits this bin
+            if (contiguous_pages < threshold) {
+                rebin_segment(area, segment_map);
+                // Continue to check if it still satisfies our request
+            }
+
+            // Found a suitable segment
+            if (contiguous_pages >= npages)
+                return segment_map;
+
+            segment_index = next_segment_index;
+        }
+    }
+
+    return NULL;  // No suitable segment found
+}
+```

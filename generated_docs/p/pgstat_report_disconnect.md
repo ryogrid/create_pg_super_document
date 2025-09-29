@@ -45,3 +45,41 @@ Like other connection statistics functions, this only operates for normal backen
 - These statistics help administrators monitor connection stability and identify potential issues
 - Uses pending statistics approach for efficient batch updates
 - Part of PostgreSQL's database-level session monitoring and health tracking system
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_disconnect
+void pgstat_report_disconnect(Oid dboid) {
+    // Skip reporting if connection statistics are disabled
+    if (!pgstat_should_report_connstat())
+        return;
+
+    // Get database statistics entry for current database
+    PgStat_StatDBEntry *dbentry = pgstat_prep_database_pending(MyDatabaseId);
+
+    // Update counters based on how the session ended
+    switch (pgStatSessionEndCause) {
+        case DISCONNECT_NOT_YET:
+        case DISCONNECT_NORMAL:
+            // Normal disconnections - no statistics collected
+            break;
+        case DISCONNECT_CLIENT_EOF:
+            dbentry->sessions_abandoned++;
+            break;
+        case DISCONNECT_FATAL:
+            dbentry->sessions_fatal++;
+            break;
+        case DISCONNECT_KILLED:
+            dbentry->sessions_killed++;
+            break;
+    }
+}
+```
+
+Key simplifications made:
+- Condensed variable declaration and assignment into single line
+- Added descriptive comments explaining each major step
+- Preserved the exact logic flow and switch statement structure
+- Maintained all essential functionality while improving readability
+- Clarified that dboid parameter is unused (function uses MyDatabaseId instead)

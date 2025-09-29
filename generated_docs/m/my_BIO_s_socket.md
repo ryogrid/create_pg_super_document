@@ -49,3 +49,63 @@ The custom BIO method replaces the default socket read and write operations with
 - Essential for integrating PostgreSQL's connection management with OpenSSL's SSL/TLS layer
 - Returns NULL on any failure during BIO method creation or configuration
 - Part of PostgreSQL's custom SSL implementation for secure database connections
+
+## Simplified Source
+
+```c
+static BIO_METHOD *my_BIO_s_socket(void)
+{
+    // Singleton pattern - create BIO method only once
+    if (!my_bio_methods)
+    {
+        BIO_METHOD *biom = (BIO_METHOD *) BIO_s_socket();
+
+#ifdef HAVE_BIO_METH_NEW
+        // Modern OpenSSL API (1.1.0+)
+        int my_bio_index;
+
+        // Get a new BIO type index
+        my_bio_index = BIO_get_new_index();
+        if (my_bio_index == -1)
+            return NULL;
+
+        // Set BIO type flags
+        my_bio_index |= (BIO_TYPE_DESCRIPTOR | BIO_TYPE_SOURCE_SINK);
+
+        // Create new BIO method with PostgreSQL identifier
+        my_bio_methods = BIO_meth_new(my_bio_index, "PostgreSQL backend socket");
+        if (!my_bio_methods)
+            return NULL;
+
+        // Set up custom read/write operations and inherit standard operations
+        if (!BIO_meth_set_write(my_bio_methods, my_sock_write) ||
+            !BIO_meth_set_read(my_bio_methods, my_sock_read) ||
+            !BIO_meth_set_gets(my_bio_methods, BIO_meth_get_gets(biom)) ||
+            !BIO_meth_set_puts(my_bio_methods, BIO_meth_get_puts(biom)) ||
+            !BIO_meth_set_ctrl(my_bio_methods, BIO_meth_get_ctrl(biom)) ||
+            !BIO_meth_set_create(my_bio_methods, BIO_meth_get_create(biom)) ||
+            !BIO_meth_set_destroy(my_bio_methods, BIO_meth_get_destroy(biom)) ||
+            !BIO_meth_set_callback_ctrl(my_bio_methods, BIO_meth_get_callback_ctrl(biom)))
+        {
+            // Clean up on failure
+            BIO_meth_free(my_bio_methods);
+            my_bio_methods = NULL;
+            return NULL;
+        }
+
+#else
+        // Legacy OpenSSL API (pre-1.1.0)
+        my_bio_methods = malloc(sizeof(BIO_METHOD));
+        if (!my_bio_methods)
+            return NULL;
+
+        // Copy standard socket BIO method and override read/write functions
+        memcpy(my_bio_methods, biom, sizeof(BIO_METHOD));
+        my_bio_methods->bread = my_sock_read;
+        my_bio_methods->bwrite = my_sock_write;
+#endif
+    }
+
+    return my_bio_methods;
+}
+```

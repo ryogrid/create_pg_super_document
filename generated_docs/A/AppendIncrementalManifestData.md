@@ -44,3 +44,37 @@ The function implements a streaming parser approach where:
 - The incremental parsing mechanism ensures that JSON parsing can proceed without requiring the entire manifest to be buffered in memory
 - Memory context switching ensures proper memory management within the incremental backup subsystem
 - The MIN_CHUNK retention strategy prevents JSON parsing boundary issues by always keeping some data available for the next parsing cycle
+
+## Simplified Source
+
+```c
+// Simplified version of AppendIncrementalManifestData
+void AppendIncrementalManifestData(IncrementalBackupInfo *ib, const char *data, int len) {
+    // Switch to incremental backup memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(ib->mcxt);
+
+    // Check if buffer is getting too large and needs incremental parsing
+    if (ib->buf.len > MIN_CHUNK && ib->buf.len + len > MAX_CHUNK) {
+        // Parse most of the buffer, keeping MIN_CHUNK for continuity
+        json_parse_manifest_incremental_chunk(ib->inc_state, ib->buf.data,
+                                             ib->buf.len - MIN_CHUNK, false);
+
+        // Shift remaining data to beginning of buffer
+        memmove(ib->buf.data, ib->buf.data + (ib->buf.len - MIN_CHUNK), MIN_CHUNK + 1);
+        ib->buf.len = MIN_CHUNK;
+    }
+
+    // Append new data to buffer
+    appendBinaryStringInfo(&ib->buf, data, len);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated into clear step descriptions
+- Simplified variable declarations by combining declaration and assignment
+- Made the buffer size logic more readable with clear comments
+- Abstracted the memmove operation with a descriptive comment
+- Maintained all essential functionality while improving readability

@@ -56,3 +56,94 @@ This function takes no parameters and operates on global WAL sender state variab
 - The timestamp tracking (last_reply_timestamp, waiting_for_ping_response) is crucial for keepalive and timeout mechanisms
 - The non-blocking design ensures that the WAL sender can continue streaming even when no client replies are pending
 - Protocol violations are treated as fatal errors, reflecting the critical nature of maintaining proper replication protocol adherence
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessRepliesIfAny
+static void ProcessRepliesIfAny(void)
+{
+    unsigned char message_type;
+    int max_message_length;
+    bool received_reply = false;
+
+    // Update processing timestamp
+    last_processing = GetCurrentTimestamp();
+
+    // Process all available messages without blocking
+    while (!streamingDoneReceiving) {
+        // Try to read a message type byte
+        pq_startmsgread();
+        int result = pq_getbyte_if_available(&message_type);
+
+        if (result < 0) {
+            // Connection error - terminate
+            ereport(COMMERROR, "unexpected EOF on standby connection");
+            proc_exit(0);
+        }
+        if (result == 0) {
+            // No data available - exit loop
+            pq_endmsgread();
+            break;
+        }
+
+        // Set message size limits based on type
+        switch (message_type) {
+            case PqMsg_CopyData:
+                max_message_length = PQ_LARGE_MESSAGE_LIMIT;
+                break;
+            case PqMsg_CopyDone:
+            case PqMsg_Terminate:
+                max_message_length = PQ_SMALL_MESSAGE_LIMIT;
+                break;
+            default:
+                ereport(FATAL, "invalid standby message type");
+        }
+
+        // Read the complete message
+        resetStringInfo(&reply_message);
+        if (pq_getmessage(&reply_message, max_message_length)) {
+            ereport(COMMERROR, "unexpected EOF on standby connection");
+            proc_exit(0);
+        }
+
+        // Process message based on type
+        switch (message_type) {
+            case PqMsg_CopyData:
+                // Handle standby reply message
+                ProcessStandbyMessage();
+                received_reply = true;
+                break;
+
+            case PqMsg_CopyDone:
+                // Standby wants to finish streaming
+                if (!streamingDoneSending) {
+                    pq_putmessage_noblock('c', NULL, 0);
+                    streamingDoneSending = true;
+                }
+                streamingDoneReceiving = true;
+                received_reply = true;
+                break;
+
+            case PqMsg_Terminate:
+                // Standby is closing connection
+                proc_exit(0);
+        }
+    }
+
+    // Update reply timestamp if we received any messages
+    if (received_reply) {
+        last_reply_timestamp = last_processing;
+        waiting_for_ping_response = false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error code specifications for clarity
+- Simplified variable names (firstchar → message_type, r → result, received → received_reply)
+- Consolidated error handling into simpler patterns
+- Added descriptive comments explaining each major step
+- Removed Assert statements and compiler quieting code
+- Simplified the message processing flow with clearer logic structure
+- Abstracted away low-level protocol details while preserving essential algorithm

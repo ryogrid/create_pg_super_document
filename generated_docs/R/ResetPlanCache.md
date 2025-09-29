@@ -45,3 +45,45 @@ None - this function takes no parameters.
 - More aggressive than targeted invalidation callbacks - invalidates everything that can be safely invalidated
 - Essential for commands like DISCARD PLANS that explicitly request cache clearing
 - Used when system-wide changes (like replication role changes) require complete cache invalidation
+
+## Simplified Source
+
+```c
+// Simplified version of ResetPlanCache
+void ResetPlanCache(void) {
+    dlist_iter iter;
+
+    // Phase 1: Invalidate cached plan sources
+    dlist_foreach(iter, &saved_plan_list) {
+        CachedPlanSource *plansource = dlist_container(CachedPlanSource, node, iter.cur);
+
+        // Skip plans that are already invalid
+        if (!plansource->is_valid)
+            continue;
+
+        // Skip transaction control statements (COMMIT, ROLLBACK, etc.)
+        // These must remain valid even during cache resets for safety
+        if (!StmtPlanRequiresRevalidation(plansource))
+            continue;
+
+        // Mark plan source and its generic plan as invalid
+        plansource->is_valid = false;
+        if (plansource->gplan)
+            plansource->gplan->is_valid = false;
+    }
+
+    // Phase 2: Invalidate all cached expressions
+    dlist_foreach(iter, &cached_expression_list) {
+        CachedExpression *expr = dlist_container(CachedExpression, node, iter.cur);
+        expr->is_valid = false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed Assert() calls for cleaner focus on core logic
+- Added explanatory comments for each major phase
+- Simplified variable names (cexpr -> expr)
+- Consolidated the two-phase operation structure with clear comments
+- Emphasized the safety logic for transaction control statements
+- Removed magic number references from the simplified version

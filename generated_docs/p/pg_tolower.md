@@ -42,3 +42,28 @@ Similar to , the function includes a note that the approach has limitations for 
 - Uses locale-aware functions for extended character sets
 - Limited effectiveness with multibyte character encodings
 - Widely used in text processing, parsing, and case-insensitive operations throughout PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of pg_tolower
+unsigned char pg_tolower(unsigned char ch) {
+    // Fast path: Convert ASCII uppercase letters (A-Z) to lowercase
+    if (ch >= 'A' && ch <= 'Z') {
+        ch += 'a' - 'A';  // Add offset to get lowercase equivalent
+    }
+    // Extended characters: Use locale-aware conversion for high-bit characters
+    else if (IS_HIGHBIT_SET(ch) && isupper(ch)) {
+        ch = tolower(ch);  // Use standard library for locale-specific conversion
+    }
+
+    return ch;  // Return converted character (or original if not uppercase)
+}
+```
+
+Key simplifications made:
+- Preserved the dual-path logic for ASCII vs extended character handling
+- Added clear comments explaining the fast ASCII path and extended character path
+- Maintained the core algorithm: direct arithmetic for ASCII, library functions for extended chars
+- Kept the safe design that works with any input character
+- Simplified variable naming and flow while preserving exact functionality

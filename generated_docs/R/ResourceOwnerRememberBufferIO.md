@@ -40,3 +40,14 @@ This mechanism is crucial for ensuring that ongoing I/O operations are properly 
 - The resource owner will handle cleanup of tracked I/O operations during transaction abort or error recovery
 - Ensures that incomplete I/O operations are properly terminated and resources are released during cleanup
 - Critical for preventing I/O deadlocks and ensuring data consistency in error scenarios
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberBufferIO(ResourceOwner owner, Buffer buffer)
+{
+    // Register buffer I/O operation with resource owner for tracking
+    ResourceOwnerRemember(owner, Int32GetDatum(buffer), &buffer_io_resowner_desc);
+}
+```

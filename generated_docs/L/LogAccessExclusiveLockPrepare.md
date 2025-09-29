@@ -35,3 +35,22 @@ This function takes no parameters.
 - Essential for proper lock release tracking on standby servers during recovery
 - The function call to GetCurrentTransactionId() is cast to void since the return value is not needed
 - Located in src/backend/storage/ipc/standby.c:1440-1461
+
+## Simplified Source
+
+```c
+// Simplified version of LogAccessExclusiveLockPrepare
+void LogAccessExclusiveLockPrepare(void) {
+    // Ensure transaction has an ID assigned for proper lock release tracking
+    // This prevents two issues:
+    // 1. Transaction completion records won't be optimized away
+    // 2. Avoids race condition with InvalidTransactionId in shared memory
+    GetCurrentTransactionId();
+}
+```
+
+Key simplifications made:
+- Condensed the detailed comment into essential points
+- Removed the void cast since it's not functionally important
+- Preserved the core purpose: ensuring transaction ID assignment
+- Maintained the essential logic flow (single function call)

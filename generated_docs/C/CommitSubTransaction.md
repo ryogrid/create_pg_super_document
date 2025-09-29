@@ -73,3 +73,94 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - Only the subtransaction XID lock is actually released; other locks are transferred to the parent resource owner
 - The function restores the upper transaction's read-only state to handle cases where parent and child have different read-only settings
 - Located in src/backend/access/transam/xact.c:5048-5161
+
+## Simplified Source
+
+```c
+// Simplified version of CommitSubTransaction
+static void
+CommitSubTransaction(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    // Validate subtransaction is in progress
+    if (s->state != TRANS_INPROGRESS) {
+        elog(WARNING, "CommitSubTransaction while in %s state",
+             TransStateAsString(s->state));
+    }
+
+    // Pre-commit processing: callbacks and parallel cleanup
+    CallSubXactCallbacks(SUBXACT_EVENT_PRE_COMMIT_SUB, s->subTransactionId,
+                         s->parent->subTransactionId);
+    AtEOSubXact_Parallel(true, s->subTransactionId);
+
+    // Change state to committed
+    s->state = TRANS_COMMIT;
+    CommandCounterIncrement();  // Make subtransaction commands visible
+
+    // Post-commit cleanup for various subsystems
+    if (FullTransactionIdIsValid(s->fullTransactionId)) {
+        AtSubCommit_childXids();
+    }
+
+    // Clean up triggers, portals, large objects, notifications
+    AfterTriggerEndSubXact(true);
+    AtSubCommit_Portals(s->subTransactionId, s->parent->subTransactionId,
+                        s->parent->nestingLevel, s->parent->curTransactionOwner);
+    AtEOSubXact_LargeObject(true, s->subTransactionId, s->parent->subTransactionId);
+    AtSubCommit_Notify();
+
+    // Post-commit callbacks
+    CallSubXactCallbacks(SUBXACT_EVENT_COMMIT_SUB, s->subTransactionId,
+                         s->parent->subTransactionId);
+
+    // Release resources in stages
+    ResourceOwnerRelease(s->curTransactionOwner, RESOURCE_RELEASE_BEFORE_LOCKS, true, false);
+    AtEOSubXact_RelationCache(true, s->subTransactionId, s->parent->subTransactionId);
+    AtEOSubXact_Inval(true);
+    AtSubCommit_smgr();
+
+    // Release subtransaction XID lock
+    if (FullTransactionIdIsValid(s->fullTransactionId)) {
+        XactLockTableDelete(XidFromFullTransactionId(s->fullTransactionId));
+    }
+
+    // Transfer remaining locks to parent and finish resource cleanup
+    ResourceOwnerRelease(s->curTransactionOwner, RESOURCE_RELEASE_LOCKS, true, false);
+    ResourceOwnerRelease(s->curTransactionOwner, RESOURCE_RELEASE_AFTER_LOCKS, true, false);
+
+    // Clean up remaining subsystems
+    AtEOXact_GUC(true, s->gucNestLevel);
+    AtEOSubXact_SPI(true, s->subTransactionId);
+    AtEOSubXact_on_commit_actions(true, s->subTransactionId, s->parent->subTransactionId);
+    AtEOSubXact_Namespace(true, s->subTransactionId, s->parent->subTransactionId);
+    AtEOSubXact_Files(true, s->subTransactionId, s->parent->subTransactionId);
+    AtEOSubXact_HashTables(true, s->nestingLevel);
+    AtEOSubXact_PgStat(true, s->nestingLevel);
+    AtSubCommit_Snapshot(s->nestingLevel);
+
+    // Restore parent transaction state
+    XactReadOnly = s->prevXactReadOnly;
+    CurrentResourceOwner = s->parent->curTransactionOwner;
+    CurTransactionResourceOwner = s->parent->curTransactionOwner;
+
+    // Clean up subtransaction memory and state
+    ResourceOwnerDelete(s->curTransactionOwner);
+    s->curTransactionOwner = NULL;
+    AtSubCommit_Memory();
+    s->state = TRANS_DEFAULT;
+
+    // Remove subtransaction from stack
+    PopTransaction();
+}
+```
+
+Key simplifications made:
+- Removed debugging output (ShowTransactionState)
+- Simplified parallel mode level checking (removed detailed warning)
+- Consolidated resource release calls with explanatory comments
+- Removed detailed comments about version history (8.4 changes)
+- Grouped related cleanup operations together
+- Added high-level comments explaining each major phase
+- Preserved all essential logic flow and function calls
+- Maintained proper error handling for state validation

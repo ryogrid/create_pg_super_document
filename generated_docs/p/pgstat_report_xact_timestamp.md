@@ -35,3 +35,34 @@ When called with a zero timestamp, it indicates there is no active transaction. 
 - Part of PostgreSQL's backend activity monitoring system
 - Critical for transaction duration tracking and deadlock detection
 - The st_changecount protocol ensures readers can detect when the status is being updated
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_report_xact_timestamp
+void pgstat_report_xact_timestamp(TimestampTz tstamp) {
+    // Get reference to this backend's status entry
+    volatile PgBackendStatus *beentry = MyBEEntry;
+
+    // Only proceed if activity tracking is enabled and backend entry exists
+    if (!pgstat_track_activities || !beentry)
+        return;
+
+    // Atomically update transaction start timestamp
+    // Begin atomic write operation
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+
+    // Set the transaction start timestamp (zero means no active transaction)
+    beentry->st_xact_start_timestamp = tstamp;
+
+    // End atomic write operation
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Simplified the volatile pointer explanation to focus on core purpose
+- Clarified the atomic write protocol with inline comments
+- Emphasized the zero timestamp meaning (no active transaction)
+- Removed detailed technical commentary about compiler optimizations

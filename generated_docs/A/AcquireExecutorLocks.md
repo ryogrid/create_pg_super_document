@@ -39,3 +39,54 @@ This function is responsible for managing locks on relations that are referenced
 - The function doesn't actually open relations, so it won't fail if a relation has been dropped
 - Lock acquisition is transient and non-conflicting in case of dropped relations
 - This is a static function within the plan cache module, indicating it's an internal implementation detail
+
+## Simplified Source
+
+```c
+// Simplified version of AcquireExecutorLocks
+static void
+AcquireExecutorLocks(List *stmt_list, bool acquire)
+{
+    ListCell *lc1;
+
+    // Process each planned statement in the list
+    foreach(lc1, stmt_list)
+    {
+        PlannedStmt *plannedstmt = lfirst_node(PlannedStmt, lc1);
+
+        // Handle utility statements with embedded queries
+        if (plannedstmt->commandType == CMD_UTILITY)
+        {
+            Query *query = UtilityContainsQuery(plannedstmt->utilityStmt);
+            if (query)
+                ScanQueryForLocks(query, acquire);
+            continue;
+        }
+
+        // Process each relation in the range table
+        ListCell *lc2;
+        foreach(lc2, plannedstmt->rtable)
+        {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc2);
+
+            // Only lock relations and subqueries with valid OIDs
+            if (rte->rtekind == RTE_RELATION ||
+                (rte->rtekind == RTE_SUBQUERY && OidIsValid(rte->relid)))
+            {
+                // Acquire or release the appropriate lock
+                if (acquire)
+                    LockRelationOid(rte->relid, rte->rellockmode);
+                else
+                    UnlockRelationOid(rte->relid, rte->rellockmode);
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about rule rewriting and lock behavior
+- Consolidated the RTE type checking condition for better readability
+- Simplified the nested foreach loop structure
+- Added brief explanatory comments for major logic sections
+- Maintained the essential lock acquisition/release logic flow

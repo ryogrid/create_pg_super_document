@@ -44,3 +44,15 @@ This function provides a simple interface for recording a dependency relationshi
 - Does not perform any validation or additional processing beyond creating the dependency record
 - The dependency type determines how PostgreSQL handles the dependency during object deletion operations
 - Part of PostgreSQL's object dependency tracking infrastructure used throughout the system for maintaining referential integrity
+
+## Simplified Source
+
+```c
+void recordDependencyOn(const ObjectAddress *depender,
+                       const ObjectAddress *referenced,
+                       DependencyType behavior)
+{
+    // Simply delegate to recordMultipleDependencies with count = 1
+    recordMultipleDependencies(depender, referenced, 1, behavior);
+}
+```

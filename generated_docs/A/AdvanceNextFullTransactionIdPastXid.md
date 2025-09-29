@@ -45,3 +45,43 @@ The function includes safety optimizations: it performs an early return if the t
 - Uses exclusive lock only when actually modifying the shared counter
 - Essential for maintaining transaction ID consistency across database restarts
 - Critical for proper WAL replay and prepared transaction processing
+
+## Simplified Source
+
+```c
+// Simplified version of AdvanceNextFullTransactionIdPastXid
+void AdvanceNextFullTransactionIdPastXid(TransactionId xid) {
+    FullTransactionId newNextFullXid;
+    TransactionId next_xid;
+    uint32 epoch;
+
+    // Safety check: only startup process can call this
+    Assert(AmStartupProcess() || !IsUnderPostmaster);
+
+    // Fast return if XID is not high enough to advance the counter
+    next_xid = XidFromFullTransactionId(TransamVariables->nextXid);
+    if (!TransactionIdFollowsOrEquals(xid, next_xid))
+        return;
+
+    // Compute the next FullTransactionId after the given XID
+    // Handle epoch wraparound when XID wraps around
+    TransactionIdAdvance(xid);
+    epoch = EpochFromFullTransactionId(TransamVariables->nextXid);
+    if (unlikely(xid < next_xid))
+        ++epoch;
+    newNextFullXid = FullTransactionIdFromEpochAndXid(epoch, xid);
+
+    // Update the global transaction counter with proper locking
+    LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+    TransamVariables->nextXid = newNextFullXid;
+    LWLockRelease(XidGenLock);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic and error handling
+- Simplified complex comments to focus on core functionality
+- Maintained original variable names for clarity
+- Kept epoch wraparound detection logic intact
+- Preserved locking mechanism for thread safety
+- Retained fast-path optimization for performance

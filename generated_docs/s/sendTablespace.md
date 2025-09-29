@@ -37,3 +37,47 @@ This function processes auxiliary tablespace directories during PostgreSQL base 
 - Gracefully handles tablespace removal during backup by checking for ENOENT errors
 - Returns the total size of data processed/sent
 - Part of PostgreSQL's base backup infrastructure located in src/backend/backup/basebackup.c:1134-1186
+
+## Simplified Source
+
+```c
+// Simplified version of sendTablespace
+static int64
+sendTablespace(bbsink *sink, char *path, Oid spcoid, bool sizeonly,
+               backup_manifest_info *manifest, IncrementalBackupInfo *ib)
+{
+    int64 size;
+    char pathbuf[MAXPGPATH];
+    struct stat statbuf;
+
+    // Step 1: Build path to tablespace version directory
+    snprintf(pathbuf, sizeof(pathbuf), "%s/%s", path, TABLESPACE_VERSION_DIRECTORY);
+
+    // Step 2: Check if tablespace directory exists
+    if (lstat(pathbuf, &statbuf) != 0) {
+        if (errno != ENOENT) {
+            // Report error for actual file system problems
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not stat file or directory \"%s\": %m", pathbuf)));
+        }
+        // Tablespace was removed during backup - not an error
+        return 0;
+    }
+
+    // Step 3: Write directory header to tar stream with correct permissions
+    size = _tarWriteHeader(sink, TABLESPACE_VERSION_DIRECTORY, NULL, &statbuf, sizeonly);
+
+    // Step 4: Recursively send all files in the tablespace directory
+    size += sendDir(sink, pathbuf, strlen(path), sizeonly, NIL, true, manifest, spcoid, ib);
+
+    return size;
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Added step-by-step comments explaining the main logic flow
+- Simplified variable declarations to focus on essential ones
+- Maintained all core functionality while improving readability
+- Preserved error handling for critical file system operations
+- Kept the graceful handling of tablespace removal during backup

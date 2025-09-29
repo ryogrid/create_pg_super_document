@@ -51,3 +51,46 @@ The function is particularly important for distinguishing between transactions t
 - The function's behavior for old subtransactions differs from TransactionIdDidCommit - it assumes abort rather than non-commit
 - Used less frequently than TransactionIdDidCommit due to the ambiguity around crash vs explicit abort
 - Critical for lock conflict detection and tuple update operations
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdDidAbort
+bool TransactionIdDidAbort(TransactionId transactionId) {
+    // Get transaction status from commit log
+    XidStatus xidstatus = TransactionLogFetch(transactionId);
+
+    // Direct abort check - if explicitly marked aborted, return true
+    if (xidstatus == TRANSACTION_STATUS_ABORTED)
+        return true;
+
+    // Handle subtransactions that were subcommitted
+    if (xidstatus == TRANSACTION_STATUS_SUB_COMMITTED) {
+        // If transaction is too old, assume parent crashed (aborted)
+        if (TransactionIdPrecedes(transactionId, TransactionXmin))
+            return true;
+
+        // Get parent transaction and recursively check its abort status
+        TransactionId parentXid = SubTransGetParent(transactionId);
+        if (!TransactionIdIsValid(parentXid)) {
+            // Missing parent info - assume abort
+            elog(WARNING, "no pg_subtrans entry for subcommitted XID %u", transactionId);
+            return true;
+        }
+
+        // Recursively check if parent aborted
+        return TransactionIdDidAbort(parentXid);
+    }
+
+    // Transaction is not aborted
+    return false;
+}
+```
+
+Key simplifications made:
+- Streamlined conditional logic flow for better readability
+- Added descriptive comments explaining each major step
+- Preserved the recursive parent checking logic for subtransactions
+- Maintained all critical error handling and edge cases
+- Simplified variable declarations and return paths
+- Kept the essential crash assumption logic for old transactions

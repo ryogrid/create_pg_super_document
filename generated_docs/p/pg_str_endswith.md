@@ -34,3 +34,30 @@ The function uses pointer arithmetic to position at the correct starting point i
 - The function is located in src/common/string.c, making it available across different PostgreSQL components
 - Commonly used for file extension checking and string pattern matching throughout the PostgreSQL codebase
 - The implementation is straightforward and efficient, avoiding memory allocation or complex string manipulation
+
+## Simplified Source
+
+```c
+// Simplified version of pg_str_endswith
+bool pg_str_endswith(const char *str, const char *end) {
+    // Get lengths of both strings
+    size_t str_len = strlen(str);
+    size_t end_len = strlen(end);
+
+    // Quick check: suffix can't be longer than main string
+    if (end_len > str_len)
+        return false;
+
+    // Move to the position where suffix should start in main string
+    str += str_len - end_len;
+
+    // Compare the end portion with the suffix
+    return strcmp(str, end) == 0;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (`str_len`, `end_len` instead of `slen`, `elen`)
+- Added clear comments explaining each logical step
+- Maintained the exact same algorithm and logic flow
+- Preserved all essential functionality including the early exit optimization

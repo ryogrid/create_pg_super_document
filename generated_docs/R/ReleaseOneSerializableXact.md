@@ -60,3 +60,126 @@ The function supports three modes:
 - When summarizing, duplicate predicate locks on the same target are consolidated by keeping the latest commitSeqNo
 - Error handling includes out-of-memory conditions when creating summary predicate locks
 - Located at src/backend/storage/lmgr/predicate.c:3825
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseOneSerializableXact
+static void
+ReleaseOneSerializableXact(SERIALIZABLEXACT *sxact, bool partial, bool summarize)
+{
+    SERIALIZABLEXIDTAG sxidtag;
+    dlist_mutable_iter iter;
+
+    // Validate transaction state and lock requirements
+    Assert(sxact != NULL);
+    Assert(SxactIsRolledBack(sxact) || SxactIsCommitted(sxact));
+    Assert(LWLockHeldByMe(SerializableFinishedListLock));
+
+    // Phase 1: Release all predicate locks held by this transaction
+    LWLockAcquire(SerializablePredicateListLock, LW_SHARED);
+    if (IsInParallelMode())
+        LWLockAcquire(&sxact->perXactPredicateListLock, LW_EXCLUSIVE);
+
+    dlist_foreach_modify(iter, &sxact->predicateLocks)
+    {
+        PREDICATELOCK *predlock = dlist_container(PREDICATELOCK, xactLink, iter.cur);
+        PREDICATELOCKTARGET *target = predlock->tag.myTarget;
+
+        // Get partition lock for this predicate lock target
+        uint32 targettaghash = PredicateLockTargetTagHashCode(&target->tag);
+        LWLock *partitionLock = PredicateLockHashPartitionLock(targettaghash);
+
+        LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+
+        // Remove from target's lock list and hash table
+        dlist_delete(&predlock->targetLink);
+        hash_search_with_hash_value(PredicateLockHash, &predlock->tag,
+                                   targettaghash, HASH_REMOVE, NULL);
+
+        if (summarize) {
+            // Transfer lock to OldCommittedSxact for summarization
+            TransferLockToSummaryTransaction(predlock, target, sxact->commitSeqNo);
+        } else {
+            // Clean up target if no longer referenced
+            RemoveTargetIfNoLongerUsed(target, targettaghash);
+        }
+
+        LWLockRelease(partitionLock);
+    }
+
+    // Clear the predicate locks list
+    dlist_init(&sxact->predicateLocks);
+
+    if (IsInParallelMode())
+        LWLockRelease(&sxact->perXactPredicateListLock);
+    LWLockRelease(SerializablePredicateListLock);
+
+    // Phase 2: Release read-write conflicts
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+    // Release outgoing conflicts (unless partial cleanup)
+    if (!partial) {
+        dlist_foreach_modify(iter, &sxact->outConflicts) {
+            RWConflict conflict = dlist_container(RWConflictData, outLink, iter.cur);
+            if (summarize)
+                conflict->sxactIn->flags |= SXACT_FLAG_SUMMARY_CONFLICT_IN;
+            ReleaseRWConflict(conflict);
+        }
+    }
+
+    // Release incoming conflicts
+    dlist_foreach_modify(iter, &sxact->inConflicts) {
+        RWConflict conflict = dlist_container(RWConflictData, inLink, iter.cur);
+        if (summarize)
+            conflict->sxactOut->flags |= SXACT_FLAG_SUMMARY_CONFLICT_OUT;
+        ReleaseRWConflict(conflict);
+    }
+
+    // Phase 3: Final cleanup (unless partial)
+    if (!partial) {
+        // Remove transaction ID from hash table
+        sxidtag.xid = sxact->topXid;
+        if (sxidtag.xid != InvalidTransactionId)
+            hash_search(SerializableXidHash, &sxidtag, HASH_REMOVE, NULL);
+
+        // Release the transaction structure itself
+        ReleasePredXact(sxact);
+    }
+
+    LWLockRelease(SerializableXactHashLock);
+}
+
+// Helper function representing the summarization logic
+static void
+TransferLockToSummaryTransaction(PREDICATELOCK *predlock, PREDICATELOCKTARGET *target,
+                                uint64 commitSeqNo)
+{
+    // Create or find existing lock in OldCommittedSxact
+    predlock->tag.myXact = OldCommittedSxact;
+    PREDICATELOCK *summaryLock = hash_search_with_hash_value(PredicateLockHash,
+                                                           &predlock->tag,
+                                                           targettaghash,
+                                                           HASH_ENTER_NULL, &found);
+
+    if (found) {
+        // Update with latest commit sequence number
+        if (summaryLock->commitSeqNo < commitSeqNo)
+            summaryLock->commitSeqNo = commitSeqNo;
+    } else {
+        // Add new summary lock
+        dlist_push_tail(&target->predicateLocks, &summaryLock->targetLink);
+        dlist_push_tail(&OldCommittedSxact->predicateLocks, &summaryLock->xactLink);
+        summaryLock->commitSeqNo = commitSeqNo;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and memory allocation checks for clarity
+- Abstracted the complex predicate lock transfer logic into a helper function concept
+- Simplified hash table operations by removing detailed hash code calculations
+- Consolidated similar conflict handling patterns
+- Added high-level comments explaining the three main phases
+- Removed platform-specific parallel processing details while preserving the logic flow
+- Simplified variable declarations and complex nested operations

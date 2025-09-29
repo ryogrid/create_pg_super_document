@@ -35,3 +35,67 @@ This static function manages the cleanup of statistics entry references in Postg
 
 ## Notes and Other Information
 The function implements careful synchronization to handle concurrent access to shared entries. The generation checking prevents race conditions when entries are reused. Only dropped entries can reach a zero reference count, which is enforced by assertions.
+
+## Simplified Source
+
+```c
+static void
+pgstat_release_entry_ref(PgStat_HashKey key, PgStat_EntryRef *entry_ref,
+                        bool discard_pending)
+{
+    // Handle pending statistics data
+    if (entry_ref && entry_ref->pending)
+    {
+        if (discard_pending)
+            pgstat_delete_pending_entry(entry_ref);
+        else
+            elog(ERROR, "releasing ref with pending data");
+    }
+
+    // Handle shared statistics reference
+    if (entry_ref && entry_ref->shared_stats)
+    {
+        Assert(entry_ref->shared_stats->magic == 0xdeadbeef);
+        Assert(entry_ref->pending == NULL);
+
+        // Decrement reference count atomically
+        if (pg_atomic_fetch_sub_u32(&entry_ref->shared_entry->refcount, 1) == 1)
+        {
+            // We're the last reference - try to drop the shared entry
+            PgStatShared_HashEntry *shent;
+
+            Assert(entry_ref->shared_entry->dropped);
+
+            // Find and lock the shared entry
+            shent = dshash_find(pgStatLocal.shared_hash,
+                               &entry_ref->shared_entry->key,
+                               true);
+            if (!shent)
+                elog(ERROR, "could not find just referenced shared stats entry");
+
+            // Check if entry was reinitialized (generation check)
+            if (pg_atomic_read_u32(&entry_ref->shared_entry->generation) ==
+                entry_ref->generation)
+            {
+                // Same generation - safe to free
+                Assert(pg_atomic_read_u32(&entry_ref->shared_entry->refcount) == 0);
+                Assert(entry_ref->shared_entry == shent);
+                pgstat_free_entry(shent, NULL);
+            }
+            else
+            {
+                // Entry was reinitialized - just release lock
+                dshash_release_lock(pgStatLocal.shared_hash, shent);
+            }
+        }
+    }
+
+    // Remove local reference from hash table
+    if (!pgstat_entry_ref_hash_delete(pgStatEntryRefHash, key))
+        elog(ERROR, "entry ref vanished before deletion");
+
+    // Free local memory
+    if (entry_ref)
+        pfree(entry_ref);
+}
+```

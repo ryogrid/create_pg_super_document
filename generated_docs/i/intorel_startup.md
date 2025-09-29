@@ -36,3 +36,90 @@ This function serves as the startup callback for DR_intorel destination receiver
 
 ## Notes and Other Information
 The function supports both CREATE TABLE AS and CREATE MATERIALIZED VIEW by checking the viewQuery field of the IntoClause. It validates that collations can be resolved for collatable types and ensures RLS policies are not enabled (not yet supported for these operations). The function sets up bulk insertion state only when data will actually be inserted (skipData is false). An assertion ensures the target relation's block number is invalid, indicating no prior writes to the relation.
+
+## Simplified Source
+
+```c
+// Simplified version of intorel_startup
+static void intorel_startup(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    DR_intorel *myState = (DR_intorel *) self;
+    IntoClause *into = myState->into;
+    bool is_matview = (into->viewQuery != NULL);
+    List *attrList = NIL;
+    ObjectAddress intoRelationAddr;
+    Relation intoRelationDesc;
+
+    // Build column definitions from tuple descriptor
+    ListCell *lc = list_head(into->colNames);
+    for (int attnum = 0; attnum < typeinfo->natts; attnum++) {
+        Form_pg_attribute attribute = TupleDescAttr(typeinfo, attnum);
+        char *colname;
+
+        // Use provided column name or default from attribute
+        if (lc) {
+            colname = strVal(lfirst(lc));
+            lc = lnext(into->colNames, lc);
+        } else {
+            colname = NameStr(attribute->attname);
+        }
+
+        // Create column definition
+        ColumnDef *col = makeColumnDef(colname,
+                                     attribute->atttypid,
+                                     attribute->atttypmod,
+                                     attribute->attcollation);
+
+        // Validate collation for collatable types
+        if (!OidIsValid(col->collOid) && type_is_collatable(col->typeName->typeOid)) {
+            ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                          errmsg("no collation derived for column \"%s\"", col->colname)));
+        }
+
+        attrList = lappend(attrList, col);
+    }
+
+    // Check for excess column names
+    if (lc != NULL) {
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("too many column names were specified")));
+    }
+
+    // Create the target table
+    intoRelationAddr = create_ctas_internal(attrList, into);
+
+    // Open the target table with exclusive lock
+    intoRelationDesc = table_open(intoRelationAddr.objectId, AccessExclusiveLock);
+
+    // Ensure RLS is not enabled (not supported)
+    if (check_enable_rls(intoRelationAddr.objectId, InvalidOid, false) == RLS_ENABLED) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("policies not yet implemented for this command")));
+    }
+
+    // Mark materialized view as populated if data will be inserted
+    if (is_matview && !into->skipData) {
+        SetMatViewPopulatedState(intoRelationDesc, true);
+    }
+
+    // Initialize state for bulk insertion
+    myState->rel = intoRelationDesc;
+    myState->reladdr = intoRelationAddr;
+    myState->output_cid = GetCurrentCommandId(true);
+    myState->ti_options = TABLE_INSERT_SKIP_FSM;
+
+    // Set up bulk insert state only if data will be inserted
+    if (!into->skipData) {
+        myState->bistate = GetBulkInsertState();
+    } else {
+        myState->bistate = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting for brevity
+- Consolidated variable declarations
+- Simplified comments to focus on main logic flow
+- Removed assertion and detailed RLS error message content
+- Streamlined the column building loop structure
+- Abstracted away complex error reporting details while preserving error conditions

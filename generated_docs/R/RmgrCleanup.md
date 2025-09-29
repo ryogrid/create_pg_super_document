@@ -30,3 +30,28 @@ This function takes no parameters.
 - This is part of the resource manager infrastructure that allows extensions to register custom WAL resource managers
 - The cleanup routines are called in resource manager ID order
 - Resource managers can use their cleanup routine to free resources, close files, or perform other teardown tasks after WAL processing is complete
+
+## Simplified Source
+
+```c
+// Simplified version of RmgrCleanup
+void RmgrCleanup(void) {
+    // Iterate through all possible resource manager IDs
+    for (int rmid = 0; rmid <= RM_MAX_ID; rmid++) {
+        // Skip non-existent resource managers
+        if (!RmgrIdExists(rmid))
+            continue;
+
+        // Call cleanup routine if one exists
+        if (RmgrTable[rmid].rm_cleanup != NULL)
+            RmgrTable[rmid].rm_cleanup();
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- The original code was already quite simple and readable
+- No significant logic changes needed as the function is straightforward
+- Preserved the essential algorithm: iterate through all resource managers and call their cleanup routines
+```

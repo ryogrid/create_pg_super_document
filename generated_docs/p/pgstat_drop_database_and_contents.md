@@ -39,3 +39,46 @@ The function handles cases where statistics entries cannot be immediately freed 
 - Implements garbage collection signaling for entries that cannot be immediately freed
 - Part of PostgreSQL's statistics collection infrastructure
 - Location: src/backend/utils/activity/pgstat_shmem.c:866-926
+
+## Simplified Source
+
+```c
+static void
+pgstat_drop_database_and_contents(Oid dboid)
+{
+    dshash_seq_status hstat;
+    PgStatShared_HashEntry *p;
+    uint64 not_freed_count = 0;
+
+    Assert(OidIsValid(dboid));
+    Assert(pgStatLocal.shared_hash != NULL);
+
+    // Release local references first to avoid cleanup delays
+    pgstat_release_db_entry_refs(dboid);
+
+    // Iterate through shared hash table with exclusive lock
+    dshash_seq_init(&hstat, pgStatLocal.shared_hash, true);
+    while ((p = dshash_seq_next(&hstat)) != NULL)
+    {
+        // Skip already dropped entries
+        if (p->dropped)
+            continue;
+
+        // Skip entries not belonging to this database
+        if (p->key.dboid != dboid)
+            continue;
+
+        // Try to drop the entry
+        if (!pgstat_drop_entry_internal(p, &hstat))
+        {
+            // Count entries that couldn't be freed immediately
+            not_freed_count++;
+        }
+    }
+    dshash_seq_term(&hstat);
+
+    // If some entries couldn't be freed, request garbage collection
+    if (not_freed_count > 0)
+        pgstat_request_entry_refs_gc();
+}
+```

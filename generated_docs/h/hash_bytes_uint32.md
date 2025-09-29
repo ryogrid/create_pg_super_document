@@ -38,3 +38,29 @@ This optimization is particularly valuable for hash tables that use 32-bit keys,
 - Particularly useful for hash tables with 32-bit integer keys (OIDs, counters, etc.)
 - Part of PostgreSQL's optimized hash function family for common data types
 - Maintains the same hash quality and avalanche properties despite the simplified implementation
+
+## Simplified Source
+
+```c
+// Simplified version of hash_bytes_uint32
+uint32 hash_bytes_uint32(uint32 k) {
+    uint32 a, b, c;
+
+    // Initialize hash state with magic constant and size info
+    a = b = c = 0x9e3779b9 + sizeof(uint32) + 3923095;
+
+    // Add the input value to the hash state
+    a += k;
+
+    // Apply final mixing to produce the hash result
+    final(a, b, c);
+
+    return c;
+}
+```
+
+Key simplifications made:
+- Preserved the essential hash initialization and mixing algorithm
+- Added descriptive comments explaining each core step
+- Maintained the exact logic flow without any complex preprocessing
+- Kept the critical `final()` mixing function call that ensures hash quality

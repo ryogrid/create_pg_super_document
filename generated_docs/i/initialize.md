@@ -51,3 +51,53 @@ The function performs several key operations:
 - The "maybe untrue, but harmless" comment refers to the lastseen assignment being conservative
 - Part of the critical path for regex matching performance in PostgreSQL
 - Handles both fresh initialization and reinitialization scenarios
+
+## Simplified Source
+```c
+static struct sset *initialize(struct vars *v, struct dfa *d, chr *start)
+{
+    struct sset *ss;
+    int i;
+
+    // Check if previous starter state is still usable
+    if (d->nssused > 0 && (d->ssets[0].flags & STARTER))
+        ss = &d->ssets[0];
+    else {
+        // No existing starter, create new one
+        ss = getvacant(v, d, start, start);
+        if (ss == NULL)
+            return NULL;
+
+        // Initialize state bitvector to all zeros
+        for (i = 0; i < d->wordsper; i++)
+            ss->states[i] = 0;
+
+        // Set the pre-state as initial active state
+        BSET(ss->states, d->cnfa->pre);
+
+        // Compute hash and set flags
+        ss->hash = HASH(ss->states, d->wordsper);
+        ss->flags = STARTER | LOCKED | NOPROGRESS;
+    }
+
+    // Reset last-seen tracking for all state sets
+    for (i = 0; i < d->nssused; i++)
+        d->ssets[i].lastseen = NULL;
+
+    // Set current state as starting position
+    ss->lastseen = start;
+
+    // Reset DFA tracking pointers
+    d->lastpost = NULL;
+    d->lastnopr = NULL;
+
+    return ss;
+}
+```
+
+This function initializes DFA execution by:
+1. Attempting to reuse an existing starter state set for efficiency
+2. Creating and configuring a new starter state if needed
+3. Setting the pre-state as the initial active state
+4. Resetting tracking information for clean execution start
+5. Returning the ready-to-use initial state set

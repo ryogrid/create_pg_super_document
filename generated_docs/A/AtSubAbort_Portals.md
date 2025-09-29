@@ -61,3 +61,69 @@ The function ensures that no portal remains in an inconsistent state that could 
 - The function handles both portals created in the current subtransaction and those merely used in it
 - Memory context cleanup is performed to release executor state and other subsidiary data
 - The function is defined in src/backend/utils/mmgr/portalmem.c:979-1091
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubAbort_Portals
+void AtSubAbort_Portals(SubTransactionId mySubid,
+                       SubTransactionId parentSubid,
+                       ResourceOwner myXactOwner,
+                       ResourceOwner parentXactOwner)
+{
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Check if portal was created in this subtransaction
+        if (portal->createSubid != mySubid) {
+            // Portal from another subtransaction - handle if used here
+            if (portal->activeSubid == mySubid) {
+                // Transfer ownership back to parent
+                portal->activeSubid = parentSubid;
+
+                // Force ACTIVE portals to FAILED state for safety
+                if (portal->status == PORTAL_ACTIVE)
+                    MarkPortalFailed(portal);
+
+                // Reattach resource owner for failed portals
+                if (portal->status == PORTAL_FAILED && portal->resowner) {
+                    ResourceOwnerNewParent(portal->resowner, myXactOwner);
+                    portal->resowner = NULL;
+                }
+            }
+            continue;
+        }
+
+        // Portal was created in this subtransaction - force to FAILED state
+        if (portal->status == PORTAL_READY || portal->status == PORTAL_ACTIVE)
+            MarkPortalFailed(portal);
+
+        // Perform cleanup operations
+        if (portal->cleanup) {
+            portal->cleanup(portal);
+            portal->cleanup = NULL;
+        }
+
+        // Release cached plan and clear resource owner
+        PortalReleaseCachedPlan(portal);
+        portal->resowner = NULL;
+
+        // Clean up subsidiary memory contexts
+        MemoryContextDeleteChildren(portal->portalContext);
+    }
+}
+```
+
+Key simplifications made:
+- Removed extensive comments explaining edge cases and theory
+- Consolidated the two main logic branches (portals from other subtransactions vs. current subtransaction)
+- Simplified conditional checks while preserving essential logic flow
+- Abstracted detailed resource management into high-level operations
+- Maintained all critical safety checks and state transitions
+- Preserved the core algorithm: iterate, categorize, handle appropriately, clean up

@@ -39,3 +39,22 @@ The function bypasses normal validation checks and is specifically intended for 
 - Part of PostgreSQL's user context switching mechanism for privilege escalation/de-escalation
 - Should not throw errors as it's used during error recovery paths
 - Works in conjunction with GetUserIdAndSecContext for save/restore operations
+
+## Simplified Source
+
+```c
+// Simplified version of SetUserIdAndSecContext
+void SetUserIdAndSecContext(Oid userid, int sec_context) {
+    // Set the current effective user ID for database operations
+    CurrentUserId = userid;
+
+    // Set security restriction context flags
+    SecurityRestrictionContext = sec_context;
+}
+```
+
+Key simplifications made:
+- Function is already very simple - only sets two global variables
+- Added descriptive comments explaining the purpose of each assignment
+- No error handling or validation to remove since none exists in original
+- Core functionality preserved: direct assignment to global state variables

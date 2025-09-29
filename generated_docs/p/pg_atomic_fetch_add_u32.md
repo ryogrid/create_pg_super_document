@@ -43,3 +43,20 @@ The function is implemented as a wrapper around `pg_atomic_fetch_add_u32_impl`, 
 - Commonly used for implementing atomic counters, reference counts, and statistics collection
 - Overflow behavior follows standard C arithmetic (wraps around for unsigned integers)
 - This is a fundamental building block for lock-free algorithms that need to track counts or perform atomic arithmetic operations
+
+## Simplified Source
+
+```c
+/*
+ * pg_atomic_fetch_add_u32 - atomically add to variable
+ *
+ * Returns the value of ptr before the arithmetic operation.
+ * Full barrier semantics.
+ */
+static inline uint32
+pg_atomic_fetch_add_u32(volatile pg_atomic_uint32 *ptr, int32 add_)
+{
+    AssertPointerAlignment(ptr, 4);
+    return pg_atomic_fetch_add_u32_impl(ptr, add_);
+}
+```

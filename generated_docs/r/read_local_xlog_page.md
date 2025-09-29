@@ -44,3 +44,21 @@ The function passes the 'wait' parameter as true to read_local_xlog_page_guts, m
 - Return value follows XLogReaderRoutine page_read callback conventions
 - The TODO comment indicates potential future optimization with better notification infrastructure
 - Primarily used in logical replication and two-phase commit recovery scenarios
+
+## Simplified Source
+```c
+int read_local_xlog_page(XLogReaderState *state, XLogRecPtr targetPagePtr,
+                        int reqLen, XLogRecPtr targetRecPtr, char *cur_page)
+{
+    // Simple wrapper around read_local_xlog_page_guts with wait=true
+    return read_local_xlog_page_guts(state, targetPagePtr, reqLen,
+                                    targetRecPtr, cur_page, true);
+}
+```
+
+This function is a straightforward wrapper that:
+1. Takes standard XLogReaderRoutine page_read callback parameters
+2. Delegates to read_local_xlog_page_guts with wait=true
+3. Returns the result directly
+
+The wait=true parameter means it will block until the requested WAL data becomes available, making it suitable for background workers that need reliable WAL access.

@@ -34,3 +34,20 @@ This function initializes or reinitializes a singly-linked list by setting the h
 - Part of PostgreSQL's intrusive singly-linked list implementation
 - Should be used when initializing a new list or when existing contents have already been properly cleaned up
 - Commonly used during system initialization and setup phases
+
+## Simplified Source
+
+```c
+// Simplified version of slist_init
+static inline void
+slist_init(slist_head *head)
+{
+    // Initialize the list to empty state by clearing the head pointer
+    head->head.next = NULL;
+}
+```
+
+Key simplifications made:
+- Function is already very simple with minimal code
+- Added clarifying comment about the initialization purpose
+- No simplification needed as the original is already concise and clear

@@ -35,3 +35,25 @@ The message encoding affects how PostgreSQL formats and sends messages to client
 - Unlike SetDatabaseEncoding, this accepts any valid encoding (not just backend encodings)
 - Critical for ensuring proper character encoding in error messages and client responses
 - Called during locale setup to ensure message encoding matches the locale settings
+
+## Simplified Source
+
+```c
+// Simplified version of SetMessageEncoding
+void SetMessageEncoding(int encoding) {
+    // Validate encoding is within valid range
+    Assert(PG_VALID_ENCODING(encoding));
+
+    // Set global message encoding pointer to the encoding table entry
+    MessageEncoding = &pg_enc2name_tbl[encoding];
+
+    // Verify the table entry matches the requested encoding
+    Assert(MessageEncoding->encoding == encoding);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Preserved all original logic as the function is already very concise
+- Maintained validation assertions since they're critical for correctness
+- No major simplifications were needed due to the function's minimal complexity

@@ -38,3 +38,33 @@ The function is optimized for btree traversal operations where precise positioni
 - Includes assertion checks to verify the page is actually an internal page type
 - Critical for btree navigation and maintaining proper key ordering during insertions and deletions
 - The returned index can be used directly for child page selection in btree descent operations
+
+## Simplified Source
+
+```c
+static Size
+FreePageBtreeSearchInternal(FreePageBtree *btp, Size first_page)
+{
+    Size low = 0;
+    Size high = btp->hdr.nused;
+
+    Assert(btp->hdr.magic == FREE_PAGE_INTERNAL_MAGIC);
+    Assert(high > 0 && high <= FPM_ITEMS_PER_INTERNAL_PAGE);
+
+    // Binary search for the target page
+    while (low < high)
+    {
+        Size mid = (low + high) / 2;
+        Size val = btp->u.internal_key[mid].first_page;
+
+        if (first_page == val)
+            return mid;
+        else if (first_page < val)
+            high = mid;
+        else
+            low = mid + 1;
+    }
+
+    return low;
+}
+```

@@ -32,3 +32,37 @@ This static function serves as a generic processor for two-phase commit records 
 - Callback functions may be NULL for resource managers that don't require post-commit/abort processing
 - Uses MAXALIGN for proper memory alignment when advancing through the buffer
 - The callback mechanism allows modular handling of different resource manager cleanup tasks
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessRecords
+static void ProcessRecords(char *bufptr, TransactionId xid, const TwoPhaseCallback callbacks[]) {
+    // Loop through all 2PC records in the buffer
+    for (;;) {
+        TwoPhaseRecordOnDisk *record = (TwoPhaseRecordOnDisk *) bufptr;
+
+        // Check if we've reached the end marker
+        if (record->rmid == TWOPHASE_RM_END_ID)
+            break;
+
+        // Move past the record header
+        bufptr += MAXALIGN(sizeof(TwoPhaseRecordOnDisk));
+
+        // Call the appropriate callback if one exists for this resource manager
+        if (callbacks[record->rmid] != NULL) {
+            callbacks[record->rmid](xid, record->info, (void *) bufptr, record->len);
+        }
+
+        // Move past the record data to the next record
+        bufptr += MAXALIGN(record->len);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Removed the Assert statement for clarity (keeping essential logic flow)
+- Maintained the core loop structure and callback mechanism
+- Preserved memory alignment operations as they're essential for correctness
+- Simplified variable declarations while keeping the same functionality

@@ -42,3 +42,40 @@ This function takes no parameters but operates on several global variables:
 - Initiates connection shutdown if output flushing fails
 - Critical for detecting and handling disconnected or unresponsive standby servers
 - Located in src/backend/replication/walsender.c at lines 4099-4136
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndKeepaliveIfNecessary
+static void WalSndKeepaliveIfNecessary(void) {
+    // Skip keepalive if timeouts are disabled or no previous communication
+    if (wal_sender_timeout <= 0 || last_reply_timestamp <= 0)
+        return;
+
+    // Skip if already waiting for a ping response
+    if (waiting_for_ping_response)
+        return;
+
+    // Calculate when to send keepalive (half timeout period)
+    TimestampTz ping_time = TimestampTzPlusMilliseconds(last_reply_timestamp,
+                                                        wal_sender_timeout / 2);
+
+    // Send keepalive if enough time has elapsed
+    if (last_processing >= ping_time) {
+        // Send keepalive requesting immediate reply
+        WalSndKeepalive(true, InvalidXLogRecPtr);
+
+        // Flush output and shutdown on failure
+        if (pq_flush_if_writable() != 0)
+            WalSndShutdown();
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations with usage for clarity
+- Simplified conditional logic structure
+- Added descriptive comments explaining each major step
+- Removed detailed multi-line comment blocks while preserving essential information
+- Made the timeout calculation more readable with inline parameters
+- Streamlined the final conditional block for better readability

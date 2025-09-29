@@ -32,3 +32,25 @@ This function searches through the global sequential scan tracking arrays to det
 - Essential for maintaining hash table integrity during structural modifications
 - Works in conjunction with the register/deregister functions to provide complete sequential scan lifecycle management
 - The function is crucial for preventing race conditions and data corruption during concurrent access patterns
+
+## Simplified Source
+
+```c
+// Simplified version of has_seq_scans
+static bool has_seq_scans(HTAB *hashp) {
+    // Search through all active sequential scans
+    for (int i = 0; i < num_seq_scans; i++) {
+        // Check if this scan belongs to our hash table
+        if (seq_scan_tables[i] == hashp) {
+            return true;  // Found an active scan
+        }
+    }
+    return false;  // No active scans found
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Used inline variable declaration for clearer scope
+- Maintained the essential linear search algorithm
+- Preserved the exact logic flow and return behavior

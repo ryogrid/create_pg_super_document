@@ -38,3 +38,67 @@ readRecoverySignalFile is a static function that scans for PostgreSQL recovery s
 - Handles signal file precedence: standby.signal overrides recovery.signal
 - Performs fsync on signal files to ensure durability
 - Located in src/backend/access/transam/xlogrecovery.c:1027-1108
+
+## Simplified Source
+
+```c
+// Simplified version of readRecoverySignalFile
+static void readRecoverySignalFile(void) {
+    struct stat stat_buf;
+
+    // Skip processing during bootstrap mode
+    if (IsBootstrapProcessingMode())
+        return;
+
+    // Check for deprecated recovery.conf and fail if found
+    if (stat(RECOVERY_COMMAND_FILE, &stat_buf) == 0)
+        ereport(FATAL, (errmsg("recovery.conf is no longer supported")));
+
+    // Clean up any leftover recovery.done file
+    unlink(RECOVERY_COMMAND_DONE);
+
+    // Check for standby signal file (takes precedence)
+    if (stat(STANDBY_SIGNAL_FILE, &stat_buf) == 0) {
+        // Fsync the signal file for durability
+        int fd = BasicOpenFilePerm(STANDBY_SIGNAL_FILE, O_RDWR | PG_BINARY, S_IRUSR | S_IWUSR);
+        if (fd >= 0) {
+            pg_fsync(fd);
+            close(fd);
+        }
+        standby_signal_file_found = true;
+    }
+    // Otherwise check for recovery signal file
+    else if (stat(RECOVERY_SIGNAL_FILE, &stat_buf) == 0) {
+        // Fsync the signal file for durability
+        int fd = BasicOpenFilePerm(RECOVERY_SIGNAL_FILE, O_RDWR | PG_BINARY, S_IRUSR | S_IWUSR);
+        if (fd >= 0) {
+            pg_fsync(fd);
+            close(fd);
+        }
+        recovery_signal_file_found = true;
+    }
+
+    // Set recovery mode based on which signal file was found
+    if (standby_signal_file_found) {
+        StandbyModeRequested = true;
+        ArchiveRecoveryRequested = true;
+    } else if (recovery_signal_file_found) {
+        StandbyModeRequested = false;
+        ArchiveRecoveryRequested = true;
+    } else {
+        return; // No recovery needed
+    }
+
+    // Prevent standby mode in single-user servers
+    if (StandbyModeRequested && !IsUnderPostmaster)
+        ereport(FATAL, (errmsg("standby mode requires multi-process server")));
+}
+```
+
+Key simplifications made:
+- Consolidated duplicate file handling logic for signal files
+- Simplified error messages for clarity
+- Removed detailed error codes and file access specifics
+- Combined similar conditional branches
+- Added descriptive comments explaining the logic flow
+- Streamlined the recovery mode setting logic

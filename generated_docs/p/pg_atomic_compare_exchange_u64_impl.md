@@ -37,3 +37,39 @@ This function provides a fallback implementation for atomic compare-and-swap ope
 - Implements strong compare-and-swap semantics (no spurious failures)
 - Located in src/backend/port/atomics.c:200-227
 - Part of PostgreSQL's portable atomic operations infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_compare_exchange_u64_impl
+bool pg_atomic_compare_exchange_u64_impl(volatile pg_atomic_uint64 *ptr,
+                                         uint64 *expected, uint64 newval) {
+    bool match_found;
+
+    // Acquire spinlock for atomic operation
+    SpinLockAcquire((slock_t *) &ptr->sema);
+
+    // Compare current value with expected value
+    match_found = (ptr->value == *expected);
+
+    // Always update expected with actual current value
+    *expected = ptr->value;
+
+    // If values matched, store the new value
+    if (match_found) {
+        ptr->value = newval;
+    }
+
+    // Release spinlock
+    SpinLockRelease((slock_t *) &ptr->sema);
+
+    return match_found;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining implementation rationale
+- Used more descriptive variable name (`match_found` instead of `ret`)
+- Simplified the compare-and-swap logic flow with clearer variable naming
+- Consolidated the core algorithm into clear, sequential steps
+- Maintained the essential spinlock-based atomicity mechanism

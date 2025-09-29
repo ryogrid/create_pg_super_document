@@ -37,3 +37,33 @@ This function serves as the startup callback for a DestReceiver that handles wri
 - Sets TABLE_INSERT_FROZEN flag to insert frozen tuples, eliminating the need for subsequent vacuum operations
 - Includes an assertion check to ensure the relation hasn't been written to previously, maintaining the assumption of a clean transient relation
 - The output_cid is obtained with 'true' parameter to GetCurrentCommandId, indicating it should be used for command tracking
+
+## Simplified Source
+
+```c
+// Simplified version of transientrel_startup
+static void
+transientrel_startup(DestReceiver *self, int operation, TupleDesc typeinfo)
+{
+    DR_transientrel *myState = (DR_transientrel *) self;
+
+    // Open the transient relation (no lock needed for temp relations)
+    Relation transientrel = table_open(myState->transientoid, NoLock);
+
+    // Initialize state for bulk insert operations
+    myState->transientrel = transientrel;
+    myState->output_cid = GetCurrentCommandId(true);
+    myState->ti_options = TABLE_INSERT_SKIP_FSM | TABLE_INSERT_FROZEN;
+    myState->bistate = GetBulkInsertState();
+
+    // Verify relation is clean (no previous writes)
+    Assert(RelationGetTargetBlock(transientrel) == InvalidBlockNumber);
+}
+```
+
+Key simplifications made:
+- Combined variable declaration and assignment for `transientrel`
+- Added inline comments explaining each logical step
+- Maintained all essential functionality while improving readability
+- Preserved the assertion check as it represents important invariant validation
+- Kept the performance optimization flags (SKIP_FSM, FROZEN) as they are core to the function's purpose

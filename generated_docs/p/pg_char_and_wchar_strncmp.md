@@ -37,3 +37,38 @@ The function returns:
 - Located in src/backend/utils/mb/wstrncmp.c as part of the multibyte character support utilities
 - Essential for regex operations that need to compare between different character string representations
 - The type conversion ensures compatibility between ASCII/single-byte and wide character string operations
+
+## Simplified Source
+
+```c
+// Simplified version of pg_char_and_wchar_strncmp
+int pg_char_and_wchar_strncmp(const char *s1, const pg_wchar *s2, size_t n) {
+    // Handle empty comparison case
+    if (n == 0)
+        return 0;
+
+    // Compare characters one by one up to n characters
+    do {
+        // Convert char to wide char and compare
+        pg_wchar char1 = (pg_wchar)((unsigned char)*s1);
+        pg_wchar char2 = *s2++;
+
+        if (char1 != char2)
+            return (char1 - char2);  // Return difference if not equal
+
+        // Stop if we hit null terminator
+        if (*s1++ == 0)
+            break;
+
+    } while (--n != 0);
+
+    return 0;  // Strings are equal up to n characters
+}
+```
+
+Key simplifications made:
+- Extracted the complex type casting into clearer variable assignments
+- Added descriptive comments explaining each major step
+- Simplified the return calculation by using temporary variables
+- Made the loop logic more readable with clear variable names
+- Preserved the core algorithm: character-by-character comparison with type conversion

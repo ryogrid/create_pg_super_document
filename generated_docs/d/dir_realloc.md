@@ -39,3 +39,47 @@ The dir_realloc function is responsible for expanding the hash table's directory
 - Zeros out the newly allocated directory entries to ensure clean state
 - Will refuse to reallocate if max_dsize is not NO_MAX_DSIZE
 - Part of the PostgreSQL dynamic hash table directory management system
+
+## Simplified Source
+
+```c
+static bool
+dir_realloc(HTAB *hashp)
+{
+    HASHSEGMENT *old_dir, *new_dir;
+    long new_dsize, old_dirsize, new_dirsize;
+
+    // Check if reallocation is allowed
+    if (hashp->hctl->max_dsize != NO_MAX_DSIZE)
+        return false;
+
+    // Calculate new sizes (double the directory size)
+    new_dsize = hashp->hctl->dsize << 1;
+    old_dirsize = hashp->hctl->dsize * sizeof(HASHSEGMENT);
+    new_dirsize = new_dsize * sizeof(HASHSEGMENT);
+
+    // Allocate new directory
+    old_dir = hashp->dir;
+    CurrentDynaHashCxt = hashp->hcxt;
+    new_dir = (HASHSEGMENT *) hashp->alloc((Size) new_dirsize);
+
+    if (new_dir != NULL)
+    {
+        // Copy old data and zero new entries
+        memcpy(new_dir, old_dir, old_dirsize);
+        MemSet(((char *) new_dir) + old_dirsize, 0, new_dirsize - old_dirsize);
+
+        // Update hash table
+        hashp->dir = new_dir;
+        hashp->hctl->dsize = new_dsize;
+
+        // Free old directory (assumes palloc allocator)
+        Assert(hashp->alloc == DynaHashAlloc);
+        pfree(old_dir);
+
+        return true;
+    }
+
+    return false;
+}
+```

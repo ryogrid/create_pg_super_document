@@ -51,3 +51,50 @@ The timing of this function during commit is critical - it must be called as lat
 - Parallel workers have special handling since they receive mapping updates from the leader process but don't generate their own
 - The function assumes that all pending updates have been properly activated via CommandCounterIncrement before commit
 - Map file updates are protected by RelationMappingLock and include WAL logging for crash recovery
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_RelationMap
+void AtEOXact_RelationMap(bool isCommit, bool isParallelWorker) {
+    if (isCommit && !isParallelWorker) {
+        // During commit: persist active mapping changes to disk
+
+        // Verify no pending updates exist (should all be activated)
+        Assert(pending_shared_updates.num_mappings == 0);
+        Assert(pending_local_updates.num_mappings == 0);
+
+        // Write shared catalog mappings to file if any exist
+        if (active_shared_updates.num_mappings != 0) {
+            perform_relmap_update(true, &active_shared_updates);
+            active_shared_updates.num_mappings = 0;
+        }
+
+        // Write local database mappings to file if any exist
+        if (active_local_updates.num_mappings != 0) {
+            perform_relmap_update(false, &active_local_updates);
+            active_local_updates.num_mappings = 0;
+        }
+    } else {
+        // During abort or parallel worker: discard all mapping changes
+
+        // Parallel workers shouldn't have pending updates
+        Assert(!isParallelWorker || pending_shared_updates.num_mappings == 0);
+        Assert(!isParallelWorker || pending_local_updates.num_mappings == 0);
+
+        // Reset all mapping update counters to discard changes
+        active_shared_updates.num_mappings = 0;
+        active_local_updates.num_mappings = 0;
+        pending_shared_updates.num_mappings = 0;
+        pending_local_updates.num_mappings = 0;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the main logic branches
+- Clarified the purpose of each assertion check
+- Grouped related operations with explanatory comments
+- Simplified conditional logic flow with clear if/else structure
+- Used more descriptive inline comments for each major operation
+- Maintained all essential logic while improving readability

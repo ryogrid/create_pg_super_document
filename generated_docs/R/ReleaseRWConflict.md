@@ -37,3 +37,25 @@ This function cleans up a read-write conflict record by removing it from both th
 - Essential for proper cleanup during transaction completion or conflict resolution
 - Part of PostgreSQL's resource management for serializable transactions
 - Located in src/backend/storage/lmgr/predicate.c:691-698
+
+## Simplified Source
+
+```c
+// Simplified version of ReleaseRWConflict
+static void
+ReleaseRWConflict(RWConflict conflict)
+{
+    // Remove conflict from both transaction link lists
+    dlist_delete(&conflict->inLink);   // Remove from incoming transaction list
+    dlist_delete(&conflict->outLink);  // Remove from outgoing transaction list
+
+    // Return conflict record to available pool for reuse
+    dlist_push_tail(&RWConflictPool->availableList, &conflict->outLink);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each operation
+- Clarified the purpose of each dlist operation (inLink vs outLink removal)
+- Made the resource recycling pattern explicit with comments
+- Preserved the complete original logic as the function is already quite simple

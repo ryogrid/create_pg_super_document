@@ -41,3 +41,34 @@ The function uses a secondary snapshot storage area (SecondarySnapshot/Secondary
 - Often used in constraint validation and referential integrity checks
 - Bypasses transaction-snapshot mode restrictions when current data visibility is essential
 - The returned snapshot reflects the database state at the moment of the call
+
+## Simplified Source
+
+```c
+// Simplified version of GetLatestSnapshot
+Snapshot GetLatestSnapshot(void) {
+    // Safety check: Cannot run during parallel operations
+    if (IsInParallelMode())
+        elog(ERROR, "cannot update SecondarySnapshot during a parallel operation");
+
+    // Verify not in logical decoding mode
+    Assert(!HistoricSnapshotActive());
+
+    // If this is the first snapshot call in transaction, initialize normally
+    if (!FirstSnapshotSet)
+        return GetTransactionSnapshot();
+
+    // Get fresh snapshot data into secondary storage
+    SecondarySnapshot = GetSnapshotData(&SecondarySnapshotData);
+
+    return SecondarySnapshot;
+}
+```
+
+Key simplifications made:
+- Simplified comments to focus on core functionality
+- Retained all essential logic flow and safety checks
+- Preserved parallel operation prohibition for consistency
+- Maintained the delegation to GetTransactionSnapshot for first calls
+- Kept the secondary snapshot mechanism intact
+- Streamlined variable names and structure for clarity

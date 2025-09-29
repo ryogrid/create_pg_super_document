@@ -45,3 +45,25 @@ The function ensures type safety by asserting that all source arcs are PLAIN typ
 - Used specifically for lookahead/lookbehind assertion processing
 - Part of the regex compilation system for handling advanced regex features
 - Located in src/backend/regex/regc_nfa.c:1256-1280
+
+## Simplified Source
+
+```c
+// Copy outgoing arcs from 'old' state to new 'from->to' state pair
+// Convert PLAIN arcs to AHEAD/BEHIND type
+static void cloneouts(struct nfa *nfa, struct state *old,
+                     struct state *from, struct state *to, int type)
+{
+    struct arc *a;
+
+    // Safety checks
+    assert(old != from);
+    assert(type == AHEAD || type == BEHIND);
+
+    // Clone each outgoing arc from 'old' state
+    for (a = old->outs; a != NULL; a = a->outchain) {
+        assert(a->type == PLAIN);  // Only convert PLAIN arcs
+        newarc(nfa, type, a->co, from, to);  // Create new arc with modified type
+    }
+}
+```

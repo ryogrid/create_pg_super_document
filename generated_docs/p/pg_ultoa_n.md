@@ -43,3 +43,55 @@ Key optimization techniques:
 - Returns string length, eliminating need for separate strlen() call
 - Used as a building block for other string conversion functions in PostgreSQL
 - The algorithm processes digits right-to-left for efficiency
+
+## Simplified Source
+
+```c
+int pg_ultoa_n(uint32 value, char *a)
+{
+    int olength, i = 0;
+
+    // Handle zero case
+    if (value == 0) {
+        *a = '0';
+        return 1;
+    }
+
+    olength = decimalLength32(value);  // Pre-compute string length
+
+    // Process 4 digits at a time for efficiency
+    while (value >= 10000) {
+        const uint32 c = value - 10000 * (value / 10000);
+        const uint32 c0 = (c % 100) << 1;    // Last 2 digits * 2 (for table lookup)
+        const uint32 c1 = (c / 100) << 1;    // Next 2 digits * 2 (for table lookup)
+
+        char *pos = a + olength - i;
+        value /= 10000;
+
+        // Copy digit pairs from lookup table
+        memcpy(pos - 2, DIGIT_TABLE + c0, 2);
+        memcpy(pos - 4, DIGIT_TABLE + c1, 2);
+        i += 4;
+    }
+
+    // Process remaining 2 digits
+    if (value >= 100) {
+        const uint32 c = (value % 100) << 1;
+        char *pos = a + olength - i;
+        value /= 100;
+        memcpy(pos - 2, DIGIT_TABLE + c, 2);
+        i += 2;
+    }
+
+    // Process final 1-2 digits
+    if (value >= 10) {
+        const uint32 c = value << 1;
+        char *pos = a + olength - i;
+        memcpy(pos - 2, DIGIT_TABLE + c, 2);
+    } else {
+        *a = (char)('0' + value);
+    }
+
+    return olength;
+}
+```

@@ -50,3 +50,39 @@ This function takes no parameters.
 - Ensures prompt handling of configuration changes, shutdown requests, and system events
 - Emergency bailout mechanism provides automatic cleanup when postmaster fails
 - Static counter for postmaster polling helps reduce system call overhead on some platforms
+
+## Simplified Source
+
+```c
+// Simplified version of HandleStartupProcInterrupts
+void HandleStartupProcInterrupts(void) {
+    // Process configuration reload signal
+    if (got_SIGHUP) {
+        got_SIGHUP = false;
+        StartupRereadConfig();
+    }
+
+    // Handle shutdown request
+    if (shutdown_requested)
+        proc_exit(1);
+
+    // Emergency bailout if postmaster has died
+    if (IsUnderPostmaster && !PostmasterIsAlive())
+        exit(1);
+
+    // Process barrier events
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+
+    // Handle memory context logging
+    if (LogMemoryContextPending)
+        ProcessLogMemoryContextInterrupt();
+}
+```
+
+Key simplifications made:
+- Removed rate limiting logic for clearer flow (POSTMASTER_POLL_RATE_LIMIT)
+- Removed static counter and polling optimization for readability
+- Consolidated postmaster health check into simple condition
+- Maintained all core interrupt handling paths
+- Preserved essential signal processing and emergency bailout logic

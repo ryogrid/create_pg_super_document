@@ -47,3 +47,48 @@ The function handles both intermediate chunks (where JSON parsing may be incompl
 - Parse errors trigger the context error callback with detailed error information
 - Checksum verification is only performed on the final chunk
 - Critical component of PostgreSQL's streaming backup manifest processing
+
+## Simplified Source
+
+```c
+// Simplified version of json_parse_manifest_incremental_chunk
+void json_parse_manifest_incremental_chunk(JsonManifestParseIncrementalState *incstate,
+                                          const char *chunk, size_t size, bool is_last)
+{
+    JsonManifestParseState *parse = incstate->sem.semstate;
+    JsonManifestParseContext *context = parse->context;
+
+    // Parse the JSON chunk incrementally
+    JsonParseErrorType result = pg_parse_json_incremental(&(incstate->lex), &(incstate->sem),
+                                                         chunk, size, is_last);
+
+    // Check if parsing result matches expectation
+    JsonParseErrorType expected = is_last ? JSON_SUCCESS : JSON_INCOMPLETE;
+    if (result != expected) {
+        json_manifest_parse_failure(context, json_errdetail(result, &(incstate->lex)));
+    }
+
+    // Verify final state for last chunk
+    if (is_last && parse->state != JM_EXPECT_EOF) {
+        json_manifest_parse_failure(context, "manifest ended unexpectedly");
+    }
+
+    // Update checksum for non-final chunks, verify for final chunk
+    if (!is_last) {
+        // Update running hash with chunk data
+        if (pg_cryptohash_update(incstate->manifest_ctx, (const uint8 *) chunk, size) < 0) {
+            context->error_cb(context, "could not update checksum of manifest");
+        }
+    } else {
+        // Verify the complete manifest checksum
+        verify_manifest_checksum(parse, chunk, size, incstate->manifest_ctx);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for better readability
+- Added descriptive comments explaining each major step
+- Clarified the conditional logic flow between intermediate and final chunks
+- Simplified error handling flow while preserving essential checks
+- Made the checksum update vs verification logic more explicit

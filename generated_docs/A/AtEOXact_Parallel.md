@@ -43,3 +43,33 @@ This function serves as a safety net to prevent parallel context leaks that coul
 - It's called for both successful commits and transaction aborts
 - Parallel contexts that survive to transaction end typically indicate application logic errors
 - The function ensures system stability by preventing unbounded accumulation of parallel resources
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Parallel
+void AtEOXact_Parallel(bool isCommit) {
+    // Clean up all remaining parallel contexts at transaction end
+    while (!dlist_is_empty(&pcxt_list)) {
+        ParallelContext *pcxt;
+
+        // Get the first context from the global list
+        pcxt = dlist_head_element(ParallelContext, node, &pcxt_list);
+
+        // Warn about resource leaks on commit
+        if (isCommit) {
+            elog(WARNING, "leaked parallel context");
+        }
+
+        // Destroy the context (removes from list automatically)
+        DestroyParallelContext(pcxt);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Clarified the purpose of the isCommit parameter check
+- Explained that DestroyParallelContext removes the context from the list
+- Maintained the essential cleanup loop logic
+- Preserved the warning mechanism for leak detection

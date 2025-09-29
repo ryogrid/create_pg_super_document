@@ -48,3 +48,50 @@ The output format shows each valid transaction ID with its array index position,
 - Uses StringInfo for efficient string building when formatting the output
 - Part of PostgreSQL's Hot Standby debugging infrastructure
 - Provides valuable insights into the state of known assigned transactions during recovery operations
+
+## Simplified Source
+
+```c
+// Simplified version of KnownAssignedXidsDisplay
+static void
+KnownAssignedXidsDisplay(int trace_level)
+{
+    ProcArrayStruct *pArray = procArray;
+    StringInfoData buf;
+    int head, tail, i;
+    int nxids = 0;
+
+    // Get array boundaries
+    tail = pArray->tailKnownAssignedXids;
+    head = pArray->headKnownAssignedXids;
+
+    // Initialize string buffer for output
+    initStringInfo(&buf);
+
+    // Iterate through valid XIDs and format them
+    for (i = tail; i < head; i++) {
+        if (KnownAssignedXidsValid[i]) {
+            nxids++;
+            appendStringInfo(&buf, "[%d]=%u ", i, KnownAssignedXids[i]);
+        }
+    }
+
+    // Log the debug information
+    elog(trace_level, "%d KnownAssignedXids (num=%d tail=%d head=%d) %s",
+         nxids,
+         pArray->numKnownAssignedXids,
+         pArray->tailKnownAssignedXids,
+         pArray->headKnownAssignedXids,
+         buf.data);
+
+    // Clean up allocated string buffer
+    pfree(buf.data);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic flow and functionality
+- Added descriptive comments for each major step
+- Maintained original variable names as they are already clear
+- Kept all core operations as they are necessary for the function's purpose
+- No significant simplification was needed as the original function is already quite straightforward and well-written

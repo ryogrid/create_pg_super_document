@@ -44,3 +44,38 @@ This approach is efficient because the freelist organization naturally groups sp
 - The two-phase algorithm provides optimal performance for different data distribution patterns
 - Results are used to maintain the contiguous_pages field in the FreePageManager
 - Essential for allocation decisions and space management optimization
+
+## Simplified Source
+
+```c
+static Size FreePageManagerLargestContiguous(FreePageManager *fpm)
+{
+    char *base = fpm_segment_base(fpm);
+    Size largest = 0;
+
+    // Check the largest freelist (for spans >= FPM_NUM_FREELISTS)
+    if (!relptr_is_null(fpm->freelist[FPM_NUM_FREELISTS - 1])) {
+        FreePageSpanLeader *candidate =
+            relptr_access(base, fpm->freelist[FPM_NUM_FREELISTS - 1]);
+
+        // Find maximum span size in the large span list
+        do {
+            if (candidate->npages > largest)
+                largest = candidate->npages;
+            candidate = relptr_access(base, candidate->next);
+        } while (candidate != NULL);
+    } else {
+        // Search downward through smaller freelists
+        Size f = FPM_NUM_FREELISTS - 1;
+        do {
+            f--;
+            if (!relptr_is_null(fpm->freelist[f])) {
+                largest = f + 1;  // Freelist index + 1 = span size
+                break;
+            }
+        } while (f > 0);
+    }
+
+    return largest;
+}
+```

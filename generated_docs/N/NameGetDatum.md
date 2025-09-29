@@ -40,3 +40,14 @@ The NameData type is a fixed-length structure containing a character array, typi
 - This function is extensively used in system catalog operations
 - The conversion extracts the string content without copying the data structure itself
 - Used primarily for storing identifiers in system catalogs and processing DDL operations
+
+## Simplified Source
+
+```c
+static inline Datum NameGetDatum(const NameData *X)
+{
+    // Convert NameData structure to Datum by extracting string and
+    // converting to C string datum
+    return CStringGetDatum(NameStr(*X));
+}
+```

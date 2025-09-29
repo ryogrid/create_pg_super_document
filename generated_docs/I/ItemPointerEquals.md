@@ -38,3 +38,25 @@ The function uses accessor macros to extract and compare the block and offset co
 - The function is critical for maintaining tuple identity during MVCC operations
 - Used heavily in heap operations, index operations, and caching mechanisms
 - Performance is optimized by using inline accessor macros rather than function calls
+
+## Simplified Source
+
+```c
+// Simplified version of ItemPointerEquals
+bool ItemPointerEquals(ItemPointer pointer1, ItemPointer pointer2) {
+    // Compare block numbers and offset numbers of both pointers
+    if (ItemPointerGetBlockNumber(pointer1) == ItemPointerGetBlockNumber(pointer2) &&
+        ItemPointerGetOffsetNumber(pointer1) == ItemPointerGetOffsetNumber(pointer2)) {
+        return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comment block for brevity
+- Simplified the if-else structure to a single conditional return
+- Kept the essential logic: comparing both block numbers and offset numbers
+- Preserved the use of accessor macros for proper encapsulation
+- Maintained the boolean return type and parameter structure

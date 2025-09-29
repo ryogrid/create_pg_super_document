@@ -32,3 +32,19 @@ Unlike the standard isblank() which typically only checks for space and tab, thi
 - The inclusion of carriage return ('\r') as a blank character helps with cross-platform compatibility when parsing configuration files that may have different line endings
 - Returns true if the character is space, tab, or carriage return; false otherwise
 - Used primarily in authentication and configuration file parsing contexts
+
+## Simplified Source
+
+```c
+// Simplified version of pg_isblank
+bool pg_isblank(const char c) {
+    // Check if character is a whitespace character
+    // Includes space, tab, and carriage return for cross-platform compatibility
+    return c == ' ' || c == '\t' || c == '\r';
+}
+```
+
+Key simplifications made:
+- Function is already very simple - no simplifications needed
+- Added descriptive comments explaining the purpose and rationale
+- The original logic is preserved as it's already minimal and clear

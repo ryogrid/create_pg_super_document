@@ -39,3 +39,27 @@ This arrangement ensures that the tablespace with the least checkpoint progress 
 - The comparator enables efficient O(log n) heap operations for tablespace progress tracking
 - Critical for maintaining balanced I/O load across multiple tablespaces during checkpoints
 - Progress values represent the completion percentage or similar metric for each tablespace
+
+## Simplified Source
+
+```c
+static int
+ts_ckpt_progress_comparator(Datum a, Datum b, void *arg)
+{
+    // Cast Datum arguments to CkptTsStatus pointers
+    CkptTsStatus *sa = (CkptTsStatus *) a;
+    CkptTsStatus *sb = (CkptTsStatus *) b;
+
+    // Min-heap comparison logic (inverted for min-heap behavior):
+    // - Return 1 when a < b (lower progress goes to heap top)
+    // - Return 0 when a == b (equal progress)
+    // - Return -1 when a > b (higher progress sinks in heap)
+
+    if (sa->progress < sb->progress)
+        return 1;
+    else if (sa->progress == sb->progress)
+        return 0;
+    else
+        return -1;
+}
+```

@@ -41,3 +41,26 @@ The function requires an active client connection (MyProcPort must not be NULL) 
 - Does not directly call system socket functions but instead sets a flag that influences subsequent I/O operations
 - Raises a CONNECTION_DOES_NOT_EXIST error if called without an active client connection
 - The actual socket behavior change is implemented by other I/O functions that check the MyProcPort->noblock flag
+
+## Simplified Source
+
+```c
+// Simplified version of socket_set_nonblocking
+static void
+socket_set_nonblocking(bool nonblocking)
+{
+    // Verify active client connection exists
+    if (MyProcPort == NULL)
+        ereport(ERROR, (errcode(ERRCODE_CONNECTION_DOES_NOT_EXIST),
+                       errmsg("there is no client connection")));
+
+    // Set the non-blocking flag on current connection
+    MyProcPort->noblock = nonblocking;
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already very simple and clear
+- Preserved essential error checking for connection validity
+- Maintained single responsibility: setting the noblock flag
+- Function logic is straightforward: validate connection then set flag

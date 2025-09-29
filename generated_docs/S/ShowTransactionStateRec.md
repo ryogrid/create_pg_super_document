@@ -42,3 +42,51 @@ ShowTransactionStateRec is a recursive subroutine used internally by ShowTransac
 - Child transaction XIDs are displayed in a comma-separated format when present
 - The output includes comprehensive transaction metadata: nesting level, name, block state, transaction state, XID, sub-transaction ID, and command ID
 - Memory allocated for the StringInfo buffer is properly freed after use
+
+## Simplified Source
+
+```c
+static void ShowTransactionStateRec(const char *str, TransactionState s)
+{
+    StringInfoData buf;
+
+    // Recursively show parent transaction state first
+    if (s->parent)
+    {
+        // Prevent stack overflow by checking depth
+        if (stack_is_too_deep())
+            ereport(DEBUG5,
+                    (errmsg_internal("%s(%d): parent omitted to avoid stack overflow",
+                                     str, s->nestingLevel)));
+        else
+            ShowTransactionStateRec(str, s->parent);
+    }
+
+    // Build child XIDs string if any exist
+    initStringInfo(&buf);
+    if (s->nChildXids > 0)
+    {
+        int i;
+
+        appendStringInfo(&buf, ", children: %u", s->childXids[0]);
+        for (i = 1; i < s->nChildXids; i++)
+            appendStringInfo(&buf, " %u", s->childXids[i]);
+    }
+
+    // Log detailed transaction state information
+    ereport(DEBUG5,
+            (errmsg_internal("%s(%d) name: %s; blockState: %s; state: %s, xid/subid/cid: %u/%u/%u%s%s",
+                             str, s->nestingLevel,
+                             PointerIsValid(s->name) ? s->name : "unnamed",
+                             BlockStateAsString(s->blockState),
+                             TransStateAsString(s->state),
+                             (unsigned int) XidFromFullTransactionId(s->fullTransactionId),
+                             (unsigned int) s->subTransactionId,
+                             (unsigned int) currentCommandId,
+                             currentCommandIdUsed ? " (used)" : "",
+                             buf.data)));
+
+    // Clean up allocated string buffer
+    pfree(buf.data);
+}
+```

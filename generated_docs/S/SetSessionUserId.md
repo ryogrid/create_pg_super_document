@@ -34,3 +34,27 @@ The function includes assertions to ensure it's only called in appropriate conte
 - Security assertions ensure the function is only called when SecurityRestrictionContext == 0
 - The session user ID is distinct from the authenticated user ID and current user ID in PostgreSQL's role system
 - This function is part of PostgreSQL's multi-layered user identity system that supports role switching via SET ROLE
+
+## Simplified Source
+
+```c
+// Simplified version of SetSessionUserId
+static void
+SetSessionUserId(Oid userid, bool is_superuser)
+{
+    // Validate that we're in an unrestricted security context
+    Assert(SecurityRestrictionContext == 0);
+
+    // Ensure the user ID is valid
+    Assert(OidIsValid(userid));
+
+    // Set the session user identity
+    SessionUserId = userid;
+    SessionUserIsSuperuser = is_superuser;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Preserved all original logic as the function is already quite simple
+- Enhanced readability with clear variable purpose descriptions

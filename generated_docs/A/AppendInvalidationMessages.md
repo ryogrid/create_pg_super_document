@@ -38,3 +38,20 @@ This function is typically used when consolidating invalidation messages from di
 - After the operation, the source group is reset to follow the destination group, preventing dangling references
 - Part of PostgreSQL's invalidation message management system for maintaining cache coherency
 - Used primarily during transaction state transitions to consolidate messages across different scopes
+
+## Simplified Source
+
+```c
+static void
+AppendInvalidationMessages(InvalidationMsgsGroup *dest,
+                          InvalidationMsgsGroup *src)
+{
+    // Append catalog cache messages from src to dest
+    AppendInvalidationMessageSubGroup(dest, src, CatCacheMsgs);
+
+    // Append relation cache messages from src to dest
+    AppendInvalidationMessageSubGroup(dest, src, RelCacheMsgs);
+
+    // Source group is now empty and ready for reuse
+}
+```

@@ -29,3 +29,30 @@ This function serves as the shutdown callback for a DestReceiver that handles wr
 - Closes the relation with NoLock, preserving the lock acquired during startup until transaction commit
 - Sets the transientrel pointer to NULL to prevent accidental reuse after shutdown
 - Part of the cleanup sequence in materialized view refresh operations where the transient relation served as temporary storage
+
+## Simplified Source
+
+```c
+// Simplified version of transientrel_shutdown
+static void
+transientrel_shutdown(DestReceiver *self)
+{
+    DR_transientrel *myState = (DR_transientrel *) self;
+
+    // Step 1: Free bulk insert state resources
+    FreeBulkInsertState(myState->bistate);
+
+    // Step 2: Finalize bulk insert operation
+    table_finish_bulk_insert(myState->transientrel, myState->ti_options);
+
+    // Step 3: Close transient relation, keeping lock until commit
+    table_close(myState->transientrel, NoLock);
+    myState->transientrel = NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved original logic flow with no modifications needed
+- Function is already quite concise and well-structured
+- No complex error handling or platform-specific code to remove

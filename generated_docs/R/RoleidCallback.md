@@ -39,3 +39,20 @@ The function is declared as `static` since it is only used internally within the
 - The callback is registered only once per backend process, the first time `superuser_arg` is called
 - The function parameters follow the standard signature for PostgreSQL syscache callbacks
 - Located in `src/backend/utils/misc/superuser.c:103-107`
+
+## Simplified Source
+
+```c
+// Simplified version of RoleidCallback
+static void RoleidCallback(Datum arg, int cacheid, uint32 hashvalue) {
+    // Core logic: Invalidate cached superuser status when role data changes
+    last_roleid = InvalidOid;
+}
+```
+
+Key simplifications made:
+- Preserved the essential cache invalidation logic
+- Removed unused parameters (arg, cacheid, hashvalue are not used in the implementation)
+- Maintained the static function signature required for syscache callbacks
+- Kept the single critical operation: setting last_roleid to InvalidOid
+- Added explanatory comment describing the core purpose

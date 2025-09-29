@@ -42,3 +42,37 @@ The shouldFree parameter indicates whether the caller is responsible for freeing
 - This abstraction allows different slot types to provide HeapTuple representations in their most efficient manner
 - Used extensively throughout the PostgreSQL executor and storage system for converting slot data to HeapTuple format
 - Part of PostgreSQL's tuple slot abstraction that provides uniform access regardless of underlying tuple storage format
+
+## Simplified Source
+
+```c
+// Simplified version of ExecFetchSlotHeapTuple
+HeapTuple ExecFetchSlotHeapTuple(TupleTableSlot *slot, bool materialize, bool *shouldFree) {
+    // Validate input parameters
+    Assert(slot != NULL);
+    Assert(!TTS_EMPTY(slot));
+
+    // Materialize the tuple if requested (makes content independent from storage)
+    if (materialize) {
+        slot->tts_ops->materialize(slot);
+    }
+
+    // Check if slot can directly provide a HeapTuple
+    if (slot->tts_ops->get_heap_tuple == NULL) {
+        // No direct access - must copy the tuple
+        if (shouldFree) *shouldFree = true;
+        return slot->tts_ops->copy_heap_tuple(slot);
+    } else {
+        // Direct access available - return reference to existing tuple
+        if (shouldFree) *shouldFree = false;
+        return slot->tts_ops->get_heap_tuple(slot);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about modification behavior and memory context details
+- Consolidated the main logic into clear conditional branches
+- Simplified variable assignment patterns
+- Added high-level comments explaining the purpose of each major section
+- Maintained the essential algorithm: validate → materialize → choose between copy or direct access

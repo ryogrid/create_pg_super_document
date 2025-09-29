@@ -46,3 +46,82 @@ The removal process maintains consistency in the global process array while ensu
 - Updates global transaction completion count to notify other processes
 - Memory barriers ensure proper visibility of changes to other backends
 - Function can be called multiple times for the same subtransaction during error recovery
+
+## Simplified Source
+
+```c
+void XidCacheRemoveRunningXids(TransactionId xid,
+                               int nxids, const TransactionId *xids,
+                               TransactionId latestXid)
+{
+    int i, j;
+    XidCacheStatus *mysubxidstat;
+
+    Assert(TransactionIdIsValid(xid));
+
+    // Acquire exclusive lock on process array
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    mysubxidstat = &ProcGlobal->subxidStates[MyProc->pgxactoff];
+
+    // Remove XIDs from the xids[] array (scan backwards for efficiency)
+    for (i = nxids - 1; i >= 0; i--)
+    {
+        TransactionId anxid = xids[i];
+
+        for (j = MyProc->subxidStatus.count - 1; j >= 0; j--)
+        {
+            if (TransactionIdEquals(MyProc->subxids.xids[j], anxid))
+            {
+                // Replace found XID with last XID in array
+                MyProc->subxids.xids[j] = MyProc->subxids.xids[MyProc->subxidStatus.count - 1];
+                pg_write_barrier();
+                mysubxidstat->count--;
+                MyProc->subxidStatus.count--;
+                break;
+            }
+        }
+
+        // Warn if XID not found (unless cache overflowed)
+        if (j < 0 && !MyProc->subxidStatus.overflowed)
+            elog(WARNING, "did not find subXID %u in MyProc", anxid);
+    }
+
+    // Remove the main XID
+    for (j = MyProc->subxidStatus.count - 1; j >= 0; j--)
+    {
+        if (TransactionIdEquals(MyProc->subxids.xids[j], xid))
+        {
+            MyProc->subxids.xids[j] = MyProc->subxids.xids[MyProc->subxidStatus.count - 1];
+            pg_write_barrier();
+            mysubxidstat->count--;
+            MyProc->subxidStatus.count--;
+            break;
+        }
+    }
+
+    if (j < 0 && !MyProc->subxidStatus.overflowed)
+        elog(WARNING, "did not find subXID %u in MyProc", xid);
+
+    // Update global transaction completion tracking
+    MaintainLatestCompletedXid(latestXid);
+    TransamVariables->xactCompletionCount++;
+
+    LWLockRelease(ProcArrayLock);
+}
+```
+
+**Simplified Logic:**
+1. Acquire exclusive lock on the process array
+2. For each XID in the input array, search and remove from subtransaction cache
+3. Remove the main XID from the cache
+4. Use "swap with last element" technique for efficient array removal
+5. Update global completion tracking with the latest XID
+6. Release the process array lock
+
+**Key Points:**
+- Scans backwards through arrays for O(N) performance instead of O(N²)
+- Uses exclusive locking to ensure atomic cache modifications
+- Handles cache overflow scenarios gracefully with warnings
+- Updates global transaction completion counters
+- Uses memory barriers for proper visibility across backends

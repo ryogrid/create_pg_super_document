@@ -43,3 +43,37 @@ The function uses CreateTemplateTupleDesc() to allocate the descriptor and Tuple
 - For specific variables, the column name uses the canonical form to ensure consistency
 - All columns are defined as TEXT type with unlimited length (-1) and no type modifier (0)
 - Located in src/backend/utils/misc/guc_funcs.c:394-427
+
+## Simplified Source
+
+```c
+// Simplified version of GetPGVariableResultDesc
+TupleDesc GetPGVariableResultDesc(const char *name) {
+    TupleDesc tupdesc;
+
+    // Check if requesting all variables
+    if (guc_name_compare(name, "all") == 0) {
+        // Create 3-column descriptor for SHOW ALL
+        tupdesc = CreateTemplateTupleDesc(3);
+        TupleDescInitEntry(tupdesc, 1, "name", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 2, "setting", TEXTOID, -1, 0);
+        TupleDescInitEntry(tupdesc, 3, "description", TEXTOID, -1, 0);
+    } else {
+        // Create 1-column descriptor for specific variable
+        const char *varname;
+        GetConfigOptionByName(name, &varname, false);
+
+        tupdesc = CreateTemplateTupleDesc(1);
+        TupleDescInitEntry(tupdesc, 1, varname, TEXTOID, -1, 0);
+    }
+
+    return tupdesc;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments that repeat the obvious code structure
+- Simplified variable declarations and eliminated unnecessary casting
+- Condensed the logic flow while preserving all essential functionality
+- Used cleaner formatting for better readability
+- Maintained all core operations: comparison, tuple descriptor creation, and column initialization

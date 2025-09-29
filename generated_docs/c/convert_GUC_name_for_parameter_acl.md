@@ -27,3 +27,33 @@ Dependencies
 
 Notes and Other Information
 - Returns a pallocd string that must be freed by the caller
+
+## Simplified Source
+
+```c
+char *convert_GUC_name_for_parameter_acl(const char *name)
+{
+    char *result;
+
+    // Map obsolete GUC names to current names
+    for (int i = 0; map_old_guc_names[i] != NULL; i += 2) {
+        if (guc_name_compare(name, map_old_guc_names[i]) == 0) {
+            name = map_old_guc_names[i + 1];
+            break;
+        }
+    }
+
+    // Create a copy and convert to lowercase for case-insensitive storage
+    result = pstrdup(name);
+    for (char *ptr = result; *ptr != '\0'; ptr++) {
+        char ch = *ptr;
+
+        if (ch >= 'A' && ch <= 'Z') {
+            ch += 'a' - 'A';  // Convert uppercase to lowercase
+            *ptr = ch;
+        }
+    }
+
+    return result;
+}
+```

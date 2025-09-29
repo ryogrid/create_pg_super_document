@@ -36,3 +36,16 @@ This function provides constant-time access to the root element of the binary he
 - Commonly used in priority queue implementations to peek at the next item to be processed
 - The root element is always at index 0 due to the binary heap's array representation
 - Used extensively in PostgreSQL's merge operations, buffer management, and replication systems where priority-based processing is required
+
+## Simplified Source
+
+```c
+bh_node_type binaryheap_first(binaryheap *heap)
+{
+    // Verify heap is not empty and has valid heap property
+    Assert(!binaryheap_empty(heap) && heap->bh_has_heap_property);
+
+    // Return the root element (always at index 0)
+    return heap->bh_nodes[0];
+}
+```

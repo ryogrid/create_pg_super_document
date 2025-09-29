@@ -30,3 +30,19 @@ SlruCorrectSegmentFilenameLength is an internal validation function used by Slru
 - Legacy support includes 5-character names added by commit 638cf09e76d and 6-character names added by commit 73c986adde5
 - There is an ongoing plan to migrate all SLRUs to 64-bit page numbers, which may eventually deprecate support for shorter names
 - Static inline function for performance optimization during directory scanning
+
+## Simplified Source
+
+```c
+static inline bool
+SlruCorrectSegmentFilenameLength(SlruCtl ctl, size_t len)
+{
+    // Check if using modern long segment names (15 chars for 64-bit pages)
+    if (ctl->long_segment_names)
+        return (len == 15);
+
+    // Legacy mode: support 4, 5, or 6 character filenames
+    // (backward compatibility for older SLRU formats)
+    return (len == 4 || len == 5 || len == 6);
+}
+```

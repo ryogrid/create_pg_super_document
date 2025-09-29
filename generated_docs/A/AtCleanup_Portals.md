@@ -42,3 +42,49 @@ This function takes no parameters.
 - Uses Assert() statements to verify expected portal states during cleanup
 - Critical for preventing portal leaks and ensuring clean system state after transaction failures
 - Part of PostgreSQL's comprehensive error recovery and resource management system
+
+## Simplified Source
+
+```c
+// Simplified version of AtCleanup_Portals
+void AtCleanup_Portals(void) {
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Skip active portals (from multi-transaction commands)
+        if (portal->status == PORTAL_ACTIVE)
+            continue;
+
+        // Skip portals from previous transactions or auto-held ones
+        if (portal->createSubid == InvalidSubTransactionId || portal->autoHeld)
+            continue;
+
+        // Force unpin if still pinned (owner was interrupted by abort)
+        if (portal->portalPinned)
+            portal->portalPinned = false;
+
+        // Skip cleanup hooks to avoid running user code during cleanup
+        if (portal->cleanup != NULL) {
+            elog(WARNING, "skipping cleanup for portal \"%s\"", portal->name);
+            portal->cleanup = NULL;
+        }
+
+        // Drop the portal
+        PortalDrop(portal, false);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated to essential logic flow
+- Simplified conditional checks while preserving safety logic
+- Abstracted PointerIsValid() to simple NULL check for clarity
+- Maintained all critical safety mechanisms (active portal checks, pinning logic)
+- Preserved warning mechanism for skipped cleanup hooks
+- Kept the essential hash table iteration pattern intact

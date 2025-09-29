@@ -41,3 +41,29 @@ The calculation involves:
 - The function is part of the MultiXact storage layout management system
 - It works in conjunction with other offset calculation functions to navigate the complex MultiXact page structure
 - The flag word contains important metadata about the member group's state and properties
+
+## Simplified Source
+
+```c
+// Simplified version of MXOffsetToFlagsOffset
+static inline int
+MXOffsetToFlagsOffset(MultiXactOffset offset)
+{
+    // Calculate which member group this offset belongs to
+    MultiXactOffset group = offset / MULTIXACT_MEMBERS_PER_MEMBERGROUP;
+
+    // Find the group's position within the current page
+    int grouponpg = group % MULTIXACT_MEMBERGROUPS_PER_PAGE;
+
+    // Calculate byte offset for the flag word of this group
+    int byteoff = grouponpg * MULTIXACT_MEMBERGROUP_SIZE;
+
+    return byteoff;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each calculation step
+- Preserved the exact original logic as it was already quite clean and simple
+- Enhanced variable name clarity through comments rather than renaming (to maintain accuracy)
+- No major simplifications needed as the original function was already straightforward

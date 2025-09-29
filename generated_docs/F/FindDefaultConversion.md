@@ -36,3 +36,45 @@ FindDefaultConversion locates the default conversion procedure for a specific so
 - Only considers conversions marked as default (condefault=true)
 - Properly releases the system cache list to prevent memory leaks
 - Critical for PostgreSQL's automatic character set conversion functionality
+
+## Simplified Source
+
+```c
+// Simplified version of FindDefaultConversion
+Oid FindDefaultConversion(Oid name_space, int32 for_encoding, int32 to_encoding) {
+    CatCList *catlist;
+    HeapTuple tuple;
+    Form_pg_conversion body;
+    Oid proc = InvalidOid;
+    int i;
+
+    // Search system catalog for conversions matching namespace and encoding pair
+    catlist = SearchSysCacheList3(CONDEFAULT,
+                                  ObjectIdGetDatum(name_space),
+                                  Int32GetDatum(for_encoding),
+                                  Int32GetDatum(to_encoding));
+
+    // Iterate through matching conversions to find the default one
+    for (i = 0; i < catlist->n_members; i++) {
+        tuple = &catlist->members[i]->tuple;
+        body = (Form_pg_conversion) GETSTRUCT(tuple);
+
+        // Check if this conversion is marked as default
+        if (body->condefault) {
+            proc = body->conproc;  // Get procedure OID
+            break;
+        }
+    }
+
+    // Clean up cache list and return result
+    ReleaseSysCacheList(catlist);
+    return proc;  // Returns InvalidOid if no default conversion found
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Preserved all essential logic and control flow
+- Maintained original variable names for clarity
+- No significant code reduction needed as function is already quite clean
+- Enhanced readability with strategic comment placement

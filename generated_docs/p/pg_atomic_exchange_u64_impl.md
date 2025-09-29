@@ -34,3 +34,14 @@ This is a GCC-specific implementation of atomic exchange operation for 64-bit un
 - This implementation is used when native 64-bit atomic operations are supported by the processor
 - The exchange operation is fundamental for implementing other atomic operations like atomic writes with memory barriers
 - Provides lock-free atomic operations which are essential for high-performance concurrent programming
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_exchange_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 newval)
+{
+    // Atomically exchange value using GCC builtin with sequential consistency
+    return __atomic_exchange_n(&ptr->value, newval, __ATOMIC_SEQ_CST);
+}
+```

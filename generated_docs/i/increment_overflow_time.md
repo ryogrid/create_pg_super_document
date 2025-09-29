@@ -37,3 +37,45 @@ This is particularly important for timezone calculations where time adjustments 
 - Handles both signed and unsigned pg_time_t types through conditional logic
 - Critical for preventing time overflow in timezone rule calculations
 - The function is static and used internally within the timezone subsystem
+
+## Simplified Source
+
+```c
+// Simplified version of increment_overflow_time
+static bool
+increment_overflow_time(pg_time_t *tp, int32 j)
+{
+    // Check if adding j to *tp would cause overflow
+    // For negative j: ensure minimum bound won't be exceeded
+    // For positive j: ensure maximum bound won't be exceeded
+    bool would_overflow;
+
+    if (j < 0) {
+        // Adding negative value - check lower bound
+        if (TYPE_SIGNED(pg_time_t)) {
+            would_overflow = (TIME_T_MIN - j > *tp);
+        } else {
+            would_overflow = (-1 - j >= *tp);
+        }
+    } else {
+        // Adding positive value - check upper bound
+        would_overflow = (*tp > TIME_T_MAX - j);
+    }
+
+    if (would_overflow) {
+        return true;  // Overflow detected
+    }
+
+    // Safe to perform the addition
+    *tp += j;
+    return false;  // No overflow
+}
+```
+
+Key simplifications made:
+- Extracted the complex nested conditional into a clearer if-else structure
+- Added explanatory comments for the overflow detection logic
+- Used descriptive variable name `would_overflow` for clarity
+- Separated the overflow check from the actual increment operation
+- Made the signed/unsigned type handling more explicit
+- Preserved the essential overflow detection algorithm while improving readability

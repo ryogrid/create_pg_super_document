@@ -36,3 +36,25 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - The `>= 0` comparison in the modulo arithmetic correctly handles both following and equal transaction IDs
 - Essential for maintaining transaction ID wraparound safety and ensuring proper transaction ordering
 - Like all transaction ID comparison functions, assumes the compared IDs are within the valid comparison range (not more than 2^31 transactions apart)
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdFollowsOrEquals
+bool TransactionIdFollowsOrEquals(TransactionId id1, TransactionId id2) {
+    // Handle special transaction IDs (invalid, bootstrap, frozen) with simple comparison
+    if (!TransactionIdIsNormal(id1) || !TransactionIdIsNormal(id2)) {
+        return (id1 >= id2);
+    }
+
+    // For normal XIDs, use modulo arithmetic to handle wraparound
+    int32 diff = (int32)(id1 - id2);
+    return (diff >= 0);  // True if id1 follows or equals id2
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two main logic paths
+- Clarified that special transaction IDs use simple unsigned comparison
+- Explained that normal XIDs require wraparound-safe modulo arithmetic
+- Made the return condition logic more explicit with inline comment

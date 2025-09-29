@@ -46,3 +46,39 @@ TransStateAsString is a debugging support function that provides string represen
 - The returned strings directly correspond to the enumeration constant names without the TRANS_ prefix
 - Complementary to BlockStateAsString but focuses on transaction states rather than block states
 - Extensively used throughout transaction management functions for state validation and error reporting
+
+## Simplified Source
+
+```c
+// Simplified version of TransStateAsString
+static const char *
+TransStateAsString(TransState state)
+{
+    // Convert transaction state enum to readable string for debugging
+    switch (state)
+    {
+        case TRANS_DEFAULT:
+            return "DEFAULT";        // Initial/default transaction state
+        case TRANS_START:
+            return "START";          // Transaction has been started
+        case TRANS_INPROGRESS:
+            return "INPROGRESS";     // Transaction is actively running
+        case TRANS_COMMIT:
+            return "COMMIT";         // Transaction is being committed
+        case TRANS_ABORT:
+            return "ABORT";          // Transaction is being aborted
+        case TRANS_PREPARE:
+            return "PREPARE";        // Two-phase commit preparation
+    }
+
+    // Fallback for unknown states
+    return "UNRECOGNIZED";
+}
+```
+
+Key simplifications made:
+- Added inline comments explaining each transaction state
+- Added high-level comment describing the function's purpose
+- Function is already quite simple, so minimal changes were needed
+- Preserved all original logic and return values
+- Enhanced readability with explanatory comments for each state

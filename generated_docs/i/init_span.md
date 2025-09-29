@@ -57,3 +57,50 @@ The function handles special cases for different span types: block-of-spans (whi
 - Sets up doubly-linked list pointers for efficient span list management
 - Critical for establishing the foundation of fine-grained memory allocation within DSA segments
 - The nallocatable field calculation varies by size class to optimize memory utilization
+
+## Simplified Source
+
+```c
+static void
+init_span(dsa_area *area, dsa_pointer span_pointer, dsa_area_pool *pool,
+          dsa_pointer start, size_t npages, uint16 size_class)
+{
+    dsa_area_span *span = dsa_get_address(area, span_pointer);
+    size_t obsize = dsa_size_classes[size_class];
+
+    // Must hold per-pool lock when manipulating span lists
+    Assert(LWLockHeldByMe(DSA_SCLASS_LOCK(area, size_class)));
+
+    // Link span into front of fullness class 1 list
+    if (DsaPointerIsValid(pool->spans[1])) {
+        dsa_area_span *head = (dsa_area_span *) dsa_get_address(area, pool->spans[1]);
+        head->prevspan = span_pointer;
+    }
+
+    // Initialize span linkage
+    span->pool = DsaAreaPoolToDsaPointer(area, pool);
+    span->nextspan = pool->spans[1];
+    span->prevspan = InvalidDsaPointer;
+    pool->spans[1] = span_pointer;
+
+    // Set basic span properties
+    span->start = start;
+    span->npages = npages;
+    span->size_class = size_class;
+    span->ninitialized = 0;
+
+    // Calculate allocatable objects based on size class
+    if (size_class == DSA_SCLASS_BLOCK_OF_SPANS) {
+        // Block-of-spans: reserve one slot for descriptor
+        span->ninitialized = 1;
+        span->nallocatable = FPM_PAGE_SIZE / obsize - 1;
+    } else if (size_class != DSA_SCLASS_SPAN_LARGE) {
+        // Regular spans: use superblock size
+        span->nallocatable = DSA_SUPERBLOCK_SIZE / obsize;
+    }
+
+    span->firstfree = DSA_SPAN_NOTHING_FREE;
+    span->nmax = span->nallocatable;
+    span->fclass = 1;  // Place in fullness class 1
+}
+```

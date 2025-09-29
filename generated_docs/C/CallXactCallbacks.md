@@ -37,3 +37,29 @@ The function is responsible for propagating transaction events to all registered
 - Each callback receives both the event type and its registered argument pointer
 - Multiple calls may occur during a single transaction for different event types
 - Critical for allowing extensions to participate in transaction lifecycle management
+
+## Simplified Source
+
+```c
+// Simplified version of CallXactCallbacks
+static void CallXactCallbacks(XactEvent event) {
+    XactCallbackItem *item;
+    XactCallbackItem *next;
+
+    // Iterate through all registered transaction callbacks
+    for (item = Xact_callbacks; item; item = next) {
+        // Cache next pointer before callback execution
+        // (callbacks may unregister themselves)
+        next = item->next;
+
+        // Execute the callback with the event and its argument
+        item->callback(event, item->arg);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic
+- Clarified the purpose of caching the next pointer
+- Maintained the essential algorithm structure
+- Preserved the safety mechanism for self-unregistering callbacks

@@ -48,3 +48,44 @@ This function ensures that no portal data structures remain after a subtransacti
 - User-defined cleanup hooks are skipped with a warning to avoid potential crashes during error recovery
 - The function ensures complete cleanup by calling PortalDrop with the 'false' parameter for each affected portal
 - The function is defined in src/backend/utils/mmgr/portalmem.c:1092-1130
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubCleanup_Portals
+void AtSubCleanup_Portals(SubTransactionId mySubid) {
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Skip portals not created in this subtransaction
+        if (portal->createSubid != mySubid)
+            continue;
+
+        // Force unpin any pinned portals - owner was interrupted by abort
+        if (portal->portalPinned)
+            portal->portalPinned = false;
+
+        // Skip cleanup hooks for safety - avoid user code during abort
+        if (portal->cleanup != NULL) {
+            elog(WARNING, "skipping cleanup for portal \"%s\"", portal->name);
+            portal->cleanup = NULL;
+        }
+
+        // Drop the portal completely
+        PortalDrop(portal, false);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated pointer validity checks with direct NULL comparisons
+- Simplified conditional structure for better readability
+- Preserved all critical functionality: hash iteration, subtransaction filtering, forced unpinning, cleanup hook skipping, and portal dropping
+- Maintained exact same algorithm behavior in more concise form

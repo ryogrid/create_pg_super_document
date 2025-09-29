@@ -40,3 +40,49 @@ This function provides a more specific check than WalRcvRunning() by determining
 - Returns true for streaming, starting, and restarting states
 - Includes the same startup timeout logic as WalRcvRunning() to handle failed startups
 - Used primarily during recovery operations to determine if WAL data is being received
+
+## Simplified Source
+
+```c
+// Simplified version of WalRcvStreaming
+bool WalRcvStreaming(void) {
+    WalRcvData *walrcv = WalRcv;
+    WalRcvState state;
+    pg_time_t startTime;
+
+    // Get current state and start time under mutex protection
+    SpinLockAcquire(&walrcv->mutex);
+    state = walrcv->walRcvState;
+    startTime = walrcv->startTime;
+    SpinLockRelease(&walrcv->mutex);
+
+    // Handle startup timeout - if walreceiver takes too long to start, mark it as stopped
+    if (state == WALRCV_STARTING) {
+        pg_time_t now = time(NULL);
+
+        if ((now - startTime) > WALRCV_STARTUP_TIMEOUT) {
+            // Timeout exceeded - attempt to stop the walreceiver
+            SpinLockAcquire(&walrcv->mutex);
+            if (walrcv->walRcvState == WALRCV_STARTING) {
+                state = walrcv->walRcvState = WALRCV_STOPPED;
+                SpinLockRelease(&walrcv->mutex);
+                ConditionVariableBroadcast(&walrcv->walRcvStoppedCV);
+            } else {
+                SpinLockRelease(&walrcv->mutex);
+            }
+        }
+    }
+
+    // Return true if walreceiver is in any active streaming state
+    return (state == WALRCV_STREAMING ||
+            state == WALRCV_STARTING ||
+            state == WALRCV_RESTARTING);
+}
+```
+
+Key simplifications made:
+- Consolidated timeout handling logic into clearer flow
+- Simplified the double-check pattern for state changes
+- Added descriptive comments for each major logic section
+- Maintained essential mutex protection and timeout logic
+- Preserved the core state checking functionality

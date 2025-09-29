@@ -33,3 +33,29 @@ This function provides a comparison mechanism for sorting transaction IDs that t
 - Returns -1 if xid1 precedes xid2, 1 if xid2 precedes xid1, and 0 if they are equal
 - Primarily used in recovery and process array management contexts
 - Located in src/backend/utils/adt/xid.c:156-173
+
+## Simplified Source
+
+```c
+// Simplified version of xidLogicalComparator
+int xidLogicalComparator(const void *arg1, const void *arg2) {
+    // Extract transaction IDs from void pointers
+    TransactionId xid1 = *(const TransactionId *) arg1;
+    TransactionId xid2 = *(const TransactionId *) arg2;
+
+    // Core logic: Compare XIDs using wraparound-aware comparison
+    if (TransactionIdPrecedes(xid1, xid2))
+        return -1;  // xid1 comes before xid2
+
+    if (TransactionIdPrecedes(xid2, xid1))
+        return 1;   // xid2 comes before xid1
+
+    return 0;       // XIDs are equal
+}
+```
+
+Key simplifications made:
+- Removed Assert() calls for code clarity (original validates both XIDs are normal)
+- Added inline comments explaining the comparison logic
+- Simplified the conditional structure while preserving the three-way comparison
+- Maintained the essential wraparound-aware comparison using TransactionIdPrecedes

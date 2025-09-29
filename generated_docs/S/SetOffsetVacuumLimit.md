@@ -42,3 +42,81 @@ The function acquires locks to prevent concurrent truncation and reads shared me
 - Handles edge cases where oldest multixact data might be missing due to historical bugs
 - Logs diagnostic information about member offsets and wraparound protection status
 - Function is located at src/backend/access/transam/multixact.c:2705-2831
+
+## Simplified Source
+
+```c
+// Simplified version of SetOffsetVacuumLimit
+static bool SetOffsetVacuumLimit(bool is_startup) {
+    MultiXactId oldestMultiXactId, nextMXact;
+    MultiXactOffset oldestOffset = 0;
+    MultiXactOffset nextOffset;
+    bool oldestOffsetKnown = false;
+    MultiXactOffset offsetStopLimit = 0;
+
+    // Prevent concurrent truncation during analysis
+    LWLockAcquire(MultiXactTruncationLock, LW_SHARED);
+
+    // Read current state from shared memory
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+    oldestMultiXactId = MultiXactState->oldestMultiXactId;
+    nextMXact = MultiXactState->nextMXact;
+    nextOffset = MultiXactState->nextOffset;
+    // ... read other shared state variables
+    LWLockRelease(MultiXactGenLock);
+
+    // Determine oldest multixact offset
+    if (oldestMultiXactId == nextMXact) {
+        // No existing multixacts - use next offset
+        oldestOffset = nextOffset;
+        oldestOffsetKnown = true;
+    } else {
+        // Find where oldest multixact's data is stored
+        oldestOffsetKnown = find_multixact_start(oldestMultiXactId, &oldestOffset);
+
+        if (oldestOffsetKnown) {
+            // Log successful offset discovery
+        } else {
+            // Log warning about missing multixact data
+        }
+    }
+
+    LWLockRelease(MultiXactTruncationLock);
+
+    // Calculate wraparound protection limits if offset is known
+    if (oldestOffsetKnown) {
+        // Move back to segment boundary
+        offsetStopLimit = oldestOffset - (oldestOffset % SEGMENT_SIZE);
+        // Leave safety buffer of one segment
+        offsetStopLimit -= SEGMENT_SIZE;
+
+        // Log protection status changes
+    } else if (previous_offset_was_known) {
+        // Fall back to previous known values rather than emergency vacuum
+        oldestOffset = prevOldestOffset;
+        oldestOffsetKnown = true;
+        offsetStopLimit = prevOffsetStopLimit;
+    }
+
+    // Update shared state with computed values
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+    MultiXactState->oldestOffset = oldestOffset;
+    MultiXactState->oldestOffsetKnown = oldestOffsetKnown;
+    MultiXactState->offsetStopLimit = offsetStopLimit;
+    LWLockRelease(MultiXactGenLock);
+
+    // Return true if emergency autovacuum is needed
+    return !oldestOffsetKnown ||
+           (nextOffset - oldestOffset > SAFE_THRESHOLD);
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations and removed compiler placation comments
+- Abstracted segment size calculations into SEGMENT_SIZE constant references
+- Simplified logging calls to high-level comments about their purpose
+- Removed detailed error message text while preserving the logging structure
+- Consolidated the fallback logic for missing offset data
+- Simplified threshold constant names for readability
+- Preserved the essential locking protocol and state management logic
+- Maintained the core algorithm for determining emergency vacuum necessity

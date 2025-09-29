@@ -46,3 +46,39 @@ A notable aspect is that allocation can paradoxically create opportunities for l
 - Debug builds include extensive consistency checking via FPM_EXTRA_ASSERTS
 - The function maintains both free page counts and largest contiguous range tracking
 - Cleanup operations during allocation help maintain optimal data structure organization
+
+## Simplified Source
+
+```c
+bool
+FreePageManagerGet(FreePageManager *fpm, Size npages, Size *first_page)
+{
+    bool result;
+    Size contiguous_pages;
+
+    // Attempt to allocate the requested pages
+    result = FreePageManagerGetInternal(fpm, npages, first_page);
+
+    // Cleanup B-tree after allocation
+    // Note: Allocation can actually create larger contiguous ranges
+    // by enabling cleanup operations that merge separated ranges
+    contiguous_pages = FreePageBtreeCleanup(fpm);
+    if (fpm->contiguous_pages < contiguous_pages)
+        fpm->contiguous_pages = contiguous_pages;
+
+    // Update largest contiguous range if needed
+    FreePageManagerUpdateLargest(fpm);
+
+#ifdef FPM_EXTRA_ASSERTS
+    // Debug: Update free page count and verify consistency
+    if (result) {
+        Assert(fpm->free_pages >= npages);
+        fpm->free_pages -= npages;
+    }
+    Assert(fpm->free_pages == sum_free_pages(fpm));
+    Assert(fpm->contiguous_pages == FreePageManagerLargestContiguous(fpm));
+#endif
+
+    return result;
+}
+```

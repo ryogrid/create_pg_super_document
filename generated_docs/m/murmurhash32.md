@@ -37,3 +37,22 @@ The algorithm uses two magic constants (0x85ebca6b and 0xc2b2ae35) that are spec
 - The magic constants used (0x85ebca6b and 0xc2b2ae35) are part of the MurmurHash specification and provide good bit mixing properties
 - Widely used throughout PostgreSQL for fast hashing of integer values in hash tables, catalogs, and other data structures requiring quick hash computations
 - The algorithm provides good hash distribution while being computationally lightweight
+
+## Simplified Source
+
+```c
+static inline uint32
+murmurhash32(uint32 data)
+{
+    uint32 h = data;
+
+    // Apply bit mixing with XOR shifts and magic constants
+    h ^= h >> 16;           // Right shift and XOR
+    h *= 0x85ebca6b;        // Multiply by first magic constant
+    h ^= h >> 13;           // Right shift and XOR
+    h *= 0xc2b2ae35;        // Multiply by second magic constant
+    h ^= h >> 16;           // Final right shift and XOR
+
+    return h;
+}
+```

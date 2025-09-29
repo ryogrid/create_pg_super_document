@@ -47,3 +47,80 @@ The function tracks the largest contiguous range created during cleanup and retu
 
 ## Notes and Other Information
 This is an internal static function that implements an important optimization for the free page management system. The cleanup is designed to be conservative and non-disruptive - it only performs operations that are clearly beneficial. The function's logic includes special handling for the case where B-tree pages themselves can be merged into the free space they manage, creating larger contiguous ranges. The returned value helps callers understand the effectiveness of the cleanup operation.
+
+## Simplified Source
+
+```c
+static Size FreePageBtreeCleanup(FreePageManager *fpm)
+{
+    char *base = fpm_segment_base(fpm);
+    Size max_contiguous_pages = 0;
+
+    // Phase 1: Attempt to shrink btree depth
+    while (!relptr_is_null(fpm->btree_root)) {
+        FreePageBtree *root = relptr_access(base, fpm->btree_root);
+
+        // If root has only one key, reduce depth
+        if (root->hdr.nused == 1) {
+            fpm->btree_depth--;
+
+            if (root->hdr.magic == FREE_PAGE_LEAF_MAGIC) {
+                // Convert leaf to singleton
+                relptr_store(base, fpm->btree_root, NULL);
+                fpm->singleton_first_page = root->u.leaf_key[0].first_page;
+                fpm->singleton_npages = root->u.leaf_key[0].npages;
+            } else {
+                // Promote child to root
+                relptr_copy(fpm->btree_root, root->u.internal_key[0].child);
+                FreePageBtree *newroot = relptr_access(base, fpm->btree_root);
+                relptr_store(base, newroot->hdr.parent, NULL);
+            }
+            FreePageBtreeRecycle(fpm, fmp_pointer_to_page(base, root));
+        }
+        // Special case: merge two adjacent ranges including root page
+        else if (root->hdr.nused == 2 && root->hdr.magic == FREE_PAGE_LEAF_MAGIC) {
+            Size end_first = root->u.leaf_key[0].first_page + root->u.leaf_key[0].npages;
+            Size start_second = root->u.leaf_key[1].first_page;
+
+            // Check if ranges are adjacent and include root page
+            if (end_first + 1 == start_second &&
+                end_first == fmp_pointer_to_page(base, root)) {
+                // Merge ranges and include root page
+                FreePagePopSpanLeader(fpm, root->u.leaf_key[0].first_page);
+                FreePagePopSpanLeader(fpm, root->u.leaf_key[1].first_page);
+
+                fpm->singleton_first_page = root->u.leaf_key[0].first_page;
+                fpm->singleton_npages = root->u.leaf_key[0].npages +
+                                      root->u.leaf_key[1].npages + 1;
+                fpm->btree_depth = 0;
+                relptr_store(base, fpm->btree_root, NULL);
+
+                FreePagePushSpanLeader(fpm, fpm->singleton_first_page,
+                                     fpm->singleton_npages);
+                max_contiguous_pages = fpm->singleton_npages;
+            }
+            break;
+        } else {
+            break;  // Nothing more to do
+        }
+    }
+
+    // Phase 2: Reclaim recycled btree pages
+    while (fpm->btree_recycle_count > 0) {
+        FreePageBtree *btp = FreePageBtreeGetRecycled(fpm);
+        Size first_page = fmp_pointer_to_page(base, btp);
+
+        Size contiguous_pages = FreePageManagerPutInternal(fpm, first_page, 1, true);
+        if (contiguous_pages == 0) {
+            // Put it back if we can't reclaim without splits
+            FreePageBtreeRecycle(fpm, first_page);
+            break;
+        } else {
+            if (contiguous_pages > max_contiguous_pages)
+                max_contiguous_pages = contiguous_pages;
+        }
+    }
+
+    return max_contiguous_pages;
+}
+```

@@ -41,3 +41,20 @@ This function is used by PostgreSQL's table access method infrastructure to obta
 - Used by PostgreSQL's pluggable table access method architecture to provide heap-specific implementations
 - The function has no side effects and can be called safely from any context
 - Part of the heap access method's public interface for integration with the table access method framework
+
+## Simplified Source
+
+```c
+// Simplified version of GetHeapamTableAmRoutine
+const TableAmRoutine *
+GetHeapamTableAmRoutine(void)
+{
+    // Return pointer to the static heap access method function table
+    return &heapam_methods;
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal
+- Added explanatory comment for the single return statement
+- This is a simple accessor function with no complex logic to simplify

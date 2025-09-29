@@ -33,3 +33,27 @@ The operation maintains the integrity of the doubly-linked list structure that o
 
 ## Notes and Other Information
 This is a pure list manipulation function that does not involve any locking - callers must ensure appropriate synchronization. The function assumes the span is currently linked into a list and does not perform validation of the list structure. It's typically called as part of span lifecycle management when spans are moved between fullness classes or destroyed entirely.
+
+## Simplified Source
+
+```c
+static void
+unlink_span(dsa_area *area, dsa_area_span *span)
+{
+    // Update next span's back pointer
+    if (DsaPointerIsValid(span->nextspan)) {
+        dsa_area_span *next = dsa_get_address(area, span->nextspan);
+        next->prevspan = span->prevspan;
+    }
+
+    // Update previous span's forward pointer OR pool head
+    if (DsaPointerIsValid(span->prevspan)) {
+        dsa_area_span *prev = dsa_get_address(area, span->prevspan);
+        prev->nextspan = span->nextspan;
+    } else {
+        // This span was the head of the list, update pool's spans array
+        dsa_area_pool *pool = dsa_get_address(area, span->pool);
+        pool->spans[span->fclass] = span->nextspan;
+    }
+}
+```

@@ -48,3 +48,32 @@ The function sets the table OID in the slot to match the relation being scanned 
 - Part of PostgreSQL's table access method (TAM) abstraction layer
 - The function delegates to the specific table access method's implementation
 - Used extensively throughout PostgreSQL for tuple retrieval in various scan contexts
+
+## Simplified Source
+
+```c
+// Simplified version of table_scan_getnextslot
+static inline bool
+table_scan_getnextslot(TableScanDesc sscan, ScanDirection direction, TupleTableSlot *slot)
+{
+    // Set the table OID in the slot for proper tuple identification
+    slot->tts_tableOid = RelationGetRelid(sscan->rs_rd);
+
+    // Validate scan direction (forward or backward only)
+    Assert(direction == ForwardScanDirection || direction == BackwardScanDirection);
+
+    // Safety check: prevent calls during logical decoding operations
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected table_scan_getnextslot call during logical decoding");
+
+    // Delegate to the table access method's implementation
+    return sscan->rs_rd->rd_tableam->scan_getnextslot(sscan, direction, slot);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved all essential safety checks and assertions
+- Maintained the delegation to table access method implementation
+- Kept the inline function structure and return behavior
+- No significant code removal needed as the original is already quite concise

@@ -49,3 +49,75 @@ The delay calculation is based on the difference between the WAL record's timest
 - Uses WaitLatch with timeout for efficient waiting and proper signal handling
 - The delay can be dynamically recalculated during the wait if recovery_min_apply_delay changes
 - Location: src/backend/access/transam/xlogrecovery.c:2982-3069
+
+## Simplified Source
+
+```c
+// Simplified version of recoveryApplyDelay
+static bool recoveryApplyDelay(XLogReaderState *record) {
+    uint8 xact_info;
+    TimestampTz xtime;
+    TimestampTz delayUntil;
+    long msecs;
+
+    // Early exits - no delay needed
+    if (recovery_min_apply_delay <= 0)
+        return false;
+    if (!reachedConsistency)
+        return false;
+    if (!ArchiveRecoveryRequested)
+        return false;
+
+    // Only delay COMMIT records, not other transaction types
+    if (XLogRecGetRmid(record) != RM_XACT_ID)
+        return false;
+
+    xact_info = XLogRecGetInfo(record) & XLOG_XACT_OPMASK;
+    if (xact_info != XLOG_XACT_COMMIT && xact_info != XLOG_XACT_COMMIT_PREPARED)
+        return false;
+
+    // Get record timestamp and calculate delay target
+    if (!getRecordTimestamp(record, &xtime))
+        return false;
+
+    delayUntil = TimestampTzPlusMilliseconds(xtime, recovery_min_apply_delay);
+
+    // Check if delay period has already passed
+    msecs = TimestampDifferenceMilliseconds(GetCurrentTimestamp(), delayUntil);
+    if (msecs <= 0)
+        return false;
+
+    // Wait loop with interrupt handling
+    while (true) {
+        ResetLatch(&XLogRecoveryCtl->recoveryWakeupLatch);
+
+        // Handle interrupts (may change recovery_min_apply_delay)
+        HandleStartupProcInterrupts();
+
+        // Check for standby promotion trigger
+        if (CheckForStandbyTrigger())
+            break;
+
+        // Recalculate delay in case configuration changed
+        delayUntil = TimestampTzPlusMilliseconds(xtime, recovery_min_apply_delay);
+        msecs = TimestampDifferenceMilliseconds(GetCurrentTimestamp(), delayUntil);
+
+        if (msecs <= 0)
+            break;
+
+        // Wait for the calculated delay period
+        WaitLatch(&XLogRecoveryCtl->recoveryWakeupLatch,
+                  WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                  msecs, WAIT_EVENT_RECOVERY_APPLY_DELAY);
+    }
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining time synchronization concerns
+- Simplified variable declarations and early exit conditions
+- Condensed the main wait loop logic for better readability
+- Removed debug logging statement for clarity
+- Consolidated similar conditional checks
+- Maintained essential algorithm: delay COMMIT records based on configured minimum apply delay

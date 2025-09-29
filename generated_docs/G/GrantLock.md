@@ -46,3 +46,37 @@ The function is designed to be called after conflict checking has determined tha
 - The function assumes conflict checking has already been performed and the lock can be safely granted
 - Wait mask clearing is conditional - only occurs when all requests for a given mode have been satisfied
 - Used in both normal lock acquisition and recovery scenarios (e.g., two-phase commit recovery)
+
+## Simplified Source
+
+```c
+// Simplified version of GrantLock
+void GrantLock(LOCK *lock, PROCLOCK *proclock, LOCKMODE lockmode) {
+    // Update global lock counters
+    lock->nGranted++;
+    lock->granted[lockmode]++;
+
+    // Mark this lock mode as granted in the bitmask
+    lock->grantMask |= LOCKBIT_ON(lockmode);
+
+    // If all requests for this mode are now granted, clear the wait bit
+    if (lock->granted[lockmode] == lock->requested[lockmode]) {
+        lock->waitMask &= LOCKBIT_OFF(lockmode);
+    }
+
+    // Update the process's held lock mask
+    proclock->holdMask |= LOCKBIT_ON(lockmode);
+
+    // Debug output and consistency checks
+    LOCK_PRINT("GrantLock", lock, lockmode);
+    Assert((lock->nGranted > 0) && (lock->granted[lockmode] > 0));
+    Assert(lock->nGranted <= lock->nRequested);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic and data structure updates
+- Added clear comments explaining each major step
+- Maintained original assertion checks for data consistency
+- Kept the conditional wait mask clearing logic intact
+- Simplified variable names in comments for better readability

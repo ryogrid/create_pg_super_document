@@ -41,3 +41,38 @@ This function provides critical security validation for CREATE IF NOT EXISTS ope
 - Throws detailed error with security explanation if object is not extension member
 - Part of PostgreSQL's extension security model to ensure safe conditional object creation
 - Similar logic to recordDependencyOnCurrentExtension but with different error messaging
+
+## Simplified Source
+
+```c
+/*
+ * Check that an object is a member of the current extension during
+ * CREATE IF NOT EXISTS operations. This prevents security vulnerabilities
+ * where hostile users could substitute objects with arbitrary properties.
+ */
+void
+checkMembershipInCurrentExtension(const ObjectAddress *object)
+{
+    /* Only whole objects can be extension members */
+    Assert(object->objectSubId == 0);
+
+    if (creating_extension)
+    {
+        Oid oldext;
+
+        oldext = getExtensionOfObject(object->classId, object->objectId);
+
+        /* If already a member of this extension, OK */
+        if (oldext == CurrentExtensionObject)
+            return;
+
+        /* Else complain */
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("%s is not a member of extension \"%s\"",
+                        getObjectDescription(object, false),
+                        get_extension_name(CurrentExtensionObject)),
+                 errdetail("An extension may only use CREATE ... IF NOT EXISTS to skip object creation if the conflicting object is one that it already owns.")));
+    }
+}
+```

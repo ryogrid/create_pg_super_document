@@ -44,3 +44,33 @@ The function ensures proper cleanup during both successful subtransaction commit
 - Contexts are processed in reverse creation order (LIFO) due to list structure
 - The function is called for both commit and abort scenarios but behaves differently
 - Proper parallel context management is crucial for avoiding resource leaks in complex transaction scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_Parallel
+void AtEOSubXact_Parallel(bool isCommit, SubTransactionId mySubId) {
+    // Walk through the parallel context list and clean up contexts from this subtransaction
+    while (!dlist_is_empty(&pcxt_list)) {
+        ParallelContext *pcxt = dlist_head_element(ParallelContext, node, &pcxt_list);
+
+        // Stop when we reach contexts from other subtransactions
+        if (pcxt->subid != mySubId)
+            break;
+
+        // Warn about resource leaks during commit
+        if (isCommit)
+            elog(WARNING, "leaked parallel context");
+
+        // Clean up the parallel context
+        DestroyParallelContext(pcxt);
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated the main loop logic with clearer comments
+- Simplified variable declarations for readability
+- Added explanatory comments for each major step
+- Preserved the essential algorithm: iterate through contexts, check subtransaction ID, warn on commit leaks, and destroy contexts
+- Maintained the LIFO processing order and early termination logic

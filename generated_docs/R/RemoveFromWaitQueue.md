@@ -54,3 +54,47 @@ The function includes numerous assertions to verify the process is actually wait
 - May trigger cleanup that wakes other waiting processes via CleanUpLock
 - Located in src/backend/storage/lmgr/lock.c at lines 1908-1963
 - Critical for deadlock resolution and conditional lock failure handling
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveFromWaitQueue
+void RemoveFromWaitQueue(PGPROC *proc, uint32 hashcode) {
+    LOCK *waitLock = proc->waitLock;
+    PROCLOCK *proclock = proc->waitProcLock;
+    LOCKMODE lockmode = proc->waitLockMode;
+    LOCKMETHODID lockmethodid = LOCK_LOCKMETHOD(*waitLock);
+
+    // Verify process is actually waiting (assertions simplified)
+    Assert(proc->waitStatus == PROC_WAIT_STATUS_WAITING);
+    Assert(waitLock && proc->links.next != NULL);
+
+    // Remove process from lock's wait queue
+    dclist_delete_from_thoroughly(&waitLock->waitProcs, &proc->links);
+
+    // Decrement lock request counters
+    waitLock->nRequested--;
+    waitLock->requested[lockmode]--;
+
+    // Clear wait mask bit if no other processes waiting for this mode
+    if (waitLock->granted[lockmode] == waitLock->requested[lockmode]) {
+        waitLock->waitMask &= LOCKBIT_OFF(lockmode);
+    }
+
+    // Clear process wait state and mark as error
+    proc->waitLock = NULL;
+    proc->waitProcLock = NULL;
+    proc->waitStatus = PROC_WAIT_STATUS_ERROR;
+
+    // Clean up proclock and potentially wake other waiters
+    CleanUpLock(waitLock, proclock, LockMethods[lockmethodid], hashcode, true);
+}
+```
+
+Key simplifications made:
+- Combined multiple assertions into simplified verification comments
+- Removed detailed assertion checks for brevity while keeping essential ones
+- Consolidated variable declarations at the top
+- Added clear comments explaining each logical step
+- Simplified the wait mask clearing logic explanation
+- Maintained the essential algorithm flow and all critical operations

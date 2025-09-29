@@ -40,3 +40,31 @@ The `binaryheap_allocate` function creates a new binary heap with the given capa
 - The heap is initialized in a valid empty state with heap property maintained
 - Memory is allocated using PostgreSQL's palloc function which handles out-of-memory conditions
 - The heap capacity is fixed at allocation time and cannot be changed later
+
+## Simplified Source
+
+```c
+binaryheap *
+binaryheap_allocate(int capacity, binaryheap_comparator compare, void *arg)
+{
+    int sz;
+    binaryheap *heap;
+
+    // Calculate total memory needed: struct + array of nodes
+    sz = offsetof(binaryheap, bh_nodes) + sizeof(bh_node_type) * capacity;
+
+    // Allocate memory for the heap structure
+    heap = (binaryheap *) palloc(sz);
+
+    // Initialize heap structure fields
+    heap->bh_space = capacity;      // Maximum capacity
+    heap->bh_compare = compare;     // Comparison function
+    heap->bh_arg = arg;            // User argument for comparator
+
+    // Initialize heap state
+    heap->bh_size = 0;             // Start empty
+    heap->bh_has_heap_property = true;  // Valid empty heap
+
+    return heap;
+}
+```

@@ -35,3 +35,15 @@ The  function is a storage manager interface that triggers kernel writeback for 
 - Writeback operations are hints to the kernel and may not result in immediate disk writes
 - The function is typically used in buffer management scenarios to optimize memory usage and I/O patterns
 - Located in src/backend/storage/smgr/smgr.c:643-654
+
+## Simplified Source
+
+```c
+void
+smgrwriteback(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+              BlockNumber nblocks)
+{
+    // Delegate to the appropriate storage manager implementation
+    smgrsw[reln->smgr_which].smgr_writeback(reln, forknum, blocknum, nblocks);
+}
+```

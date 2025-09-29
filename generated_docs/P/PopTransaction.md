@@ -53,3 +53,47 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - The function is designed to be safe to call multiple times or in error conditions, with appropriate state validation
 - This is the final step in subtransaction lifecycle management, completing the transaction stack unwinding
 - Located in src/backend/access/transam/xact.c:5416-5449
+
+## Simplified Source
+
+```c
+// Simplified version of PopTransaction
+static void PopTransaction(void) {
+    TransactionState current_state = CurrentTransactionState;
+
+    // Validate current state is ready for popping
+    if (current_state->state != TRANS_DEFAULT) {
+        elog(WARNING, "PopTransaction while in %s state",
+             TransStateAsString(current_state->state));
+    }
+
+    // Ensure we have a parent to pop back to
+    if (current_state->parent == NULL) {
+        elog(FATAL, "PopTransaction with no parent");
+    }
+
+    // Restore parent as current transaction
+    CurrentTransactionState = current_state->parent;
+
+    // Restore parent's memory context
+    CurTransactionContext = current_state->parent->curTransactionContext;
+    MemoryContextSwitchTo(CurTransactionContext);
+
+    // Restore parent's resource ownership
+    CurTransactionResourceOwner = current_state->parent->curTransactionOwner;
+    CurrentResourceOwner = current_state->parent->curTransactionOwner;
+
+    // Clean up the subtransaction state
+    if (current_state->name) {
+        pfree(current_state->name);
+    }
+    pfree(current_state);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name `current_state` instead of `s`
+- Added explanatory comments for each major operation
+- Grouped related operations (context restoration, resource owner restoration)
+- Preserved all essential validation and cleanup logic
+- Maintained original error handling as it's critical for transaction integrity

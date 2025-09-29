@@ -82,3 +82,155 @@ This function takes no parameters but operates on global transaction state, part
 - The function uses HOLD_INTERRUPTS/RESUME_INTERRUPTS to prevent cancellation during critical cleanup phases
 - Error handling switches to transaction abort path if errors occur during most of the commit process
 - File location: src/backend/access/transam/xact.c:2178-2459
+
+## Simplified Source
+
+```c
+// Simplified version of CommitTransaction
+static void
+CommitTransaction(void)
+{
+    TransactionState s = CurrentTransactionState;
+    TransactionId latestXid;
+    bool is_parallel_worker;
+
+    is_parallel_worker = (s->blockState == TBLOCK_PARALLEL_INPROGRESS);
+
+    // Enforce parallel mode restrictions for parallel workers
+    if (is_parallel_worker)
+        EnterParallelMode();
+
+    // Validate transaction state
+    if (s->state != TRANS_INPROGRESS)
+        elog(WARNING, "CommitTransaction while in %s state",
+             TransStateAsString(s->state));
+
+    // Phase 1: Pre-commit processing with user-defined code
+    // Loop until all deferred triggers and portals are processed
+    for (;;) {
+        AfterTriggerFireDeferred();
+        if (!PreCommit_Portals(false))
+            break;
+    }
+
+    // Phase 2: Pre-commit callbacks and cleanup
+    CallXactCallbacks(is_parallel_worker ? XACT_EVENT_PARALLEL_PRE_COMMIT
+                                         : XACT_EVENT_PRE_COMMIT);
+
+    // Clean up parallel operations and validate parallel mode level
+    AtEOXact_Parallel(true);
+
+    // Shut down trigger manager and handle ON COMMIT actions
+    AfterTriggerEndXact(true);
+    PreCommit_on_commit_actions();
+
+    // Synchronize files and handle large objects
+    smgrDoPendingSyncs(true, is_parallel_worker);
+    AtEOXact_LargeObject(true);
+
+    // Handle notifications and serialization
+    PreCommit_Notify();
+    if (!is_parallel_worker)
+        PreCommit_CheckForSerializationFailure();
+
+    // Phase 3: Critical commit section (no interrupts)
+    HOLD_INTERRUPTS();
+
+    // Update relation map and set transaction state to committing
+    AtEOXact_RelationMap(true, is_parallel_worker);
+    s->state = TRANS_COMMIT;
+    s->parallelModeLevel = 0;
+
+    // Disable transaction timeout
+    if (TransactionTimeout > 0)
+        disable_timeout(TRANSACTION_TIMEOUT, false);
+
+    // Phase 4: Durability - record transaction commit
+    if (!is_parallel_worker) {
+        // Mark XIDs as committed in pg_xact (durability point)
+        latestXid = RecordTransactionCommit();
+    } else {
+        // Parallel workers don't mark XID - leader handles this
+        latestXid = InvalidTransactionId;
+        ParallelWorkerReportLastRecEnd(XactLastRecEnd);
+    }
+
+    // Signal end of transaction to other processes
+    ProcArrayEndTransaction(MyProc, latestXid);
+
+    // Phase 5: Post-commit cleanup (ordered resource release)
+    CallXactCallbacks(is_parallel_worker ? XACT_EVENT_PARALLEL_COMMIT
+                                         : XACT_EVENT_COMMIT);
+
+    // Release resources in order: visible resources, locks, local resources
+    CurrentResourceOwner = NULL;
+    ResourceOwnerRelease(TopTransactionResourceOwner,
+                        RESOURCE_RELEASE_BEFORE_LOCKS, true, true);
+
+    // Clean up buffers, relation cache, and invalidation
+    AtEOXact_Buffers(true);
+    AtEOXact_RelationCache(true);
+    AtEOXact_Inval(true);
+    AtEOXact_MultiXact();
+
+    // Release locks and remaining resources
+    ResourceOwnerRelease(TopTransactionResourceOwner,
+                        RESOURCE_RELEASE_LOCKS, true, true);
+    ResourceOwnerRelease(TopTransactionResourceOwner,
+                        RESOURCE_RELEASE_AFTER_LOCKS, true, true);
+
+    // Delete files and send notifications
+    smgrDoPendingDeletes(true);
+    AtCommit_Notify();
+
+    // Phase 6: Backend-internal cleanup
+    AtEOXact_GUC(true, 1);
+    AtEOXact_SPI(true);
+    AtEOXact_Enum();
+    AtEOXact_on_commit_actions(true);
+    AtEOXact_Namespace(true, is_parallel_worker);
+    AtEOXact_SMgr();
+    AtEOXact_Files(true);
+    AtEOXact_ComboCid();
+    AtEOXact_HashTables(true);
+    AtEOXact_PgStat(true, is_parallel_worker);
+    AtEOXact_Snapshot(true, false);
+    AtEOXact_ApplyLauncher(true);
+    AtEOXact_LogicalRepWorkers(true);
+
+    // Final cleanup and state reset
+    ResourceOwnerDelete(TopTransactionResourceOwner);
+    s->curTransactionOwner = NULL;
+    CurTransactionResourceOwner = NULL;
+    TopTransactionResourceOwner = NULL;
+
+    AtCommit_Memory();
+
+    // Reset transaction identifiers and state
+    s->fullTransactionId = InvalidFullTransactionId;
+    s->subTransactionId = InvalidSubTransactionId;
+    s->nestingLevel = 0;
+    s->gucNestLevel = 0;
+    s->childXids = NULL;
+    s->nChildXids = 0;
+    s->maxChildXids = 0;
+
+    XactTopFullTransactionId = InvalidFullTransactionId;
+    nParallelCurrentXids = 0;
+
+    // Transaction complete - return to default state
+    s->state = TRANS_DEFAULT;
+
+    RESUME_INTERRUPTS();
+}
+```
+
+Key simplifications made:
+- Organized code into clear phases with descriptive comments
+- Removed detailed error handling warnings for parallel mode level validation
+- Consolidated similar AtEOXact_* cleanup calls with brief explanatory comments
+- Abstracted complex conditional logic into simpler flow descriptions
+- Simplified variable initialization and state management
+- Removed tracing calls and detailed debugging output
+- Grouped related operations together for better understanding of the commit sequence
+- Emphasized the critical ordering of resource release operations

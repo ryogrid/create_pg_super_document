@@ -45,3 +45,73 @@ The `dfa_backref` function provides an optimized path for matching backreference
 - Performs actual string content comparison only after validating repetition bounds
 - Essential optimization for backref performance in PostgreSQL regex engine
 - Returns match endpoint for valid matches, NULL for invalid or impossible matches
+
+## Simplified Source
+```c
+static chr *dfa_backref(struct vars *v, struct dfa *d,
+                       chr *start, chr *min, chr *max, bool shortest)
+{
+    int n = d->backno;
+    int backmin = d->backmin;
+    int backmax = d->backmax;
+    size_t numreps, minreps, maxreps;
+    size_t brlen;
+    chr *brstring;
+    chr *p;
+
+    // Get the backreferenced string
+    if (v->pmatch[n].rm_so == -1)
+        return NULL;
+    brstring = v->start + v->pmatch[n].rm_so;
+    brlen = v->pmatch[n].rm_eo - v->pmatch[n].rm_so;
+
+    // Special case: zero-length backreference
+    if (brlen == 0) {
+        if (min == start && backmin <= backmax)
+            return start;
+        return NULL;
+    }
+
+    // Calculate min/max repetitions based on position constraints
+    if (min <= start)
+        minreps = 0;
+    else
+        minreps = (min - start - 1) / brlen + 1;
+    maxreps = (max - start) / brlen;
+
+    // Apply backref bounds
+    if (minreps < backmin)
+        minreps = backmin;
+    if (backmax != DUPINF && maxreps > backmax)
+        maxreps = backmax;
+    if (maxreps < minreps)
+        return NULL;
+
+    // Quick exit for zero-repetitions in shortest mode
+    if (shortest && minreps == 0)
+        return start;
+
+    // Compare actual string contents
+    p = start;
+    numreps = 0;
+    while (numreps < maxreps) {
+        if ((*v->g->compare)(brstring, p, brlen) != 0)
+            break;
+        p += brlen;
+        numreps++;
+        if (shortest && numreps >= minreps)
+            break;
+    }
+
+    if (numreps >= minreps)
+        return p;
+    return NULL;
+}
+```
+
+This function optimizes backreference matching by:
+1. Extracting the previously matched backreference string
+2. Calculating valid repetition ranges based on position and length constraints
+3. Directly comparing string content instead of running full NFA
+4. Supporting both shortest and longest match preferences
+5. Handling edge cases like zero-length backreferences

@@ -39,3 +39,50 @@ The paramlist_param_ref function is a parameter reference hook that gets called 
 - Sets paramtypmod to -1 (default type modifier)
 - Uses 1-based parameter numbering (, , etc.) but converts to 0-based array indexing
 - The function is located in src/backend/nodes/params.c at lines 131-166
+
+## Simplified Source
+
+```c
+// Simplified version of paramlist_param_ref
+static Node *
+paramlist_param_ref(ParseState *pstate, ParamRef *pref)
+{
+    ParamListInfo paramLI = (ParamListInfo) pstate->p_ref_hook_state;
+    int paramno = pref->number;
+    ParamExternData *prm;
+    ParamExternData prmdata;
+    Param *param;
+
+    // Validate parameter number is within valid range
+    if (paramno <= 0 || paramno > paramLI->numParams)
+        return NULL;
+
+    // Fetch parameter data (may use dynamic hook if available)
+    if (paramLI->paramFetch != NULL)
+        prm = paramLI->paramFetch(paramLI, paramno, false, &prmdata);
+    else
+        prm = &paramLI->params[paramno - 1];  // Convert to 0-based indexing
+
+    // Ensure parameter has valid type
+    if (!OidIsValid(prm->ptype))
+        return NULL;
+
+    // Create and populate Param node with type information
+    param = makeNode(Param);
+    param->paramkind = PARAM_EXTERN;
+    param->paramid = paramno;
+    param->paramtype = prm->ptype;
+    param->paramtypmod = -1;  // Default type modifier
+    param->paramcollid = get_typcollation(param->paramtype);
+    param->location = pref->location;
+
+    return (Node *) param;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Clarified the 1-based to 0-based indexing conversion
+- Made the validation logic flow more explicit
+- Added inline comments for important constants and operations
+- Preserved all essential logic while improving readability

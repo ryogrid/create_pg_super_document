@@ -41,3 +41,24 @@ The function includes a safety check to ensure count is positive before proceedi
 - Includes a guard condition to prevent operation when count <= 0
 - Extensively used in EXPLAIN command output formatting and error logging systems
 - The function is performance-optimized for bulk space operations using memset rather than loops
+
+## Simplified Source
+
+```c
+void
+appendStringInfoSpaces(StringInfo str, int count)
+{
+    if (count > 0)
+    {
+        // Ensure buffer has enough space
+        enlargeStringInfo(str, count);
+
+        // Fill with spaces efficiently using memset
+        memset(&str->data[str->len], ' ', count);
+
+        // Update length and maintain null termination
+        str->len += count;
+        str->data[str->len] = '\0';
+    }
+}
+```

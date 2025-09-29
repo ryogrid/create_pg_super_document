@@ -47,3 +47,87 @@ The function parses various fields from the backup_label file:
 - Detects and rejects incremental backups which require pg_combinebackup tool
 - Timeline consistency is verified between WAL segment and timeline fields
 - Handles optional fields gracefully for backward compatibility
+
+## Simplified Source
+
+```c
+// Simplified version of read_backup_label
+static bool
+read_backup_label(XLogRecPtr *checkPointLoc, TimeLineID *backupLabelTLI,
+                  bool *backupEndRequired, bool *backupFromStandby)
+{
+    FILE *lfp;
+    char backuptype[20];
+    char backupfrom[20];
+    uint32 hi, lo;
+    TimeLineID tli_from_walseg, tli_from_file;
+
+    // Initialize output parameters
+    *checkPointLoc = InvalidXLogRecPtr;
+    *backupLabelTLI = 0;
+    *backupEndRequired = false;
+    *backupFromStandby = false;
+
+    // Try to open backup_label file
+    lfp = AllocateFile(BACKUP_LABEL_FILE, "r");
+    if (!lfp) {
+        if (errno != ENOENT)
+            ereport(FATAL, (errmsg("could not read backup_label file")));
+        return false;  // No backup_label file found - normal case
+    }
+
+    // Parse START WAL LOCATION line
+    if (fscanf(lfp, "START WAL LOCATION: %X/%X (file %*s)%*c", &hi, &lo, &tli_from_walseg) < 3)
+        ereport(FATAL, (errmsg("invalid backup_label format")));
+    RedoStartLSN = ((uint64) hi) << 32 | lo;
+    RedoStartTLI = tli_from_walseg;
+
+    // Parse CHECKPOINT LOCATION line
+    if (fscanf(lfp, "CHECKPOINT LOCATION: %X/%X%*c", &hi, &lo) < 2)
+        ereport(FATAL, (errmsg("invalid backup_label format")));
+    *checkPointLoc = ((uint64) hi) << 32 | lo;
+    *backupLabelTLI = tli_from_walseg;
+
+    // Check backup method - determines if we need to wait for backup end
+    if (fscanf(lfp, "BACKUP METHOD: %19s", backuptype) == 1) {
+        if (strcmp(backuptype, "streamed") == 0)
+            *backupEndRequired = true;
+    }
+
+    // Check backup source - primary vs standby
+    if (fscanf(lfp, "BACKUP FROM: %19s", backupfrom) == 1) {
+        if (strcmp(backupfrom, "standby") == 0)
+            *backupFromStandby = true;
+    }
+
+    // Parse optional fields (START TIME, LABEL for debugging)
+    fscanf(lfp, "START TIME: %*[^\n]");
+    fscanf(lfp, "LABEL: %*[^\n]");
+
+    // Verify timeline consistency if START TIMELINE present
+    if (fscanf(lfp, "START TIMELINE: %u", &tli_from_file) == 1) {
+        if (tli_from_walseg != tli_from_file)
+            ereport(FATAL, (errmsg("timeline mismatch in backup_label")));
+    }
+
+    // Reject incremental backups
+    if (fscanf(lfp, "INCREMENTAL FROM LSN: %X/%X", &hi, &lo) > 0)
+        ereport(FATAL, (errmsg("incremental backup not supported for direct recovery")));
+
+    // Clean up and return success
+    if (ferror(lfp) || FreeFile(lfp))
+        ereport(FATAL, (errmsg("error reading backup_label file")));
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed variable declarations and combined related ones
+- Simplified error messages to be more concise while preserving meaning
+- Used `%*s` and `%*c` format specifiers to skip unneeded parsed values
+- Consolidated file parsing error handling
+- Removed detailed debugging reports (kept essential error cases)
+- Simplified format string parsing by focusing on core required fields
+- Abstracted complex error code details into simpler messages
+- Maintained all essential logic flow and functionality

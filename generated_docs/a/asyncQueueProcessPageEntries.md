@@ -43,3 +43,69 @@ The function advances through queue entries until it reaches the stop position, 
 - Filters notifications by database OID to only process relevant messages
 - Handles transaction aborts/crashes by ignoring their notifications
 - Must advance current position before processing to handle potential failures gracefully
+
+## Simplified Source
+
+```c
+// Simplified version of asyncQueueProcessPageEntries
+static bool asyncQueueProcessPageEntries(volatile QueuePosition *current,
+                                       QueuePosition stop,
+                                       char *page_buffer,
+                                       Snapshot snapshot)
+{
+    bool reachedStop = false;
+    bool reachedEndOfPage;
+    AsyncQueueEntry *qe;
+
+    do {
+        QueuePosition thisentry = *current;
+
+        // Check if we've reached the target stop position
+        if (QUEUE_POS_EQUAL(thisentry, stop))
+            break;
+
+        // Get queue entry from page buffer
+        qe = (AsyncQueueEntry *) (page_buffer + QUEUE_POS_OFFSET(thisentry));
+
+        // Advance position past this message before processing
+        reachedEndOfPage = asyncQueueAdvance(current, qe->length);
+
+        // Only process messages for our database
+        if (qe->dboid == MyDatabaseId) {
+
+            // Check transaction visibility using MVCC snapshot
+            if (XidInMVCCSnapshot(qe->xid, snapshot)) {
+                // Transaction still in progress - stop processing and backtrack
+                *current = thisentry;
+                reachedStop = true;
+                break;
+            }
+            else if (TransactionIdDidCommit(qe->xid)) {
+                // Transaction committed - deliver notification if we're listening
+                char *channel = qe->data;
+
+                if (IsListeningOn(channel)) {
+                    char *payload = qe->data + strlen(channel) + 1;
+                    NotifyMyFrontEnd(channel, payload, qe->srcPid);
+                }
+            }
+            // Ignore notifications from aborted/crashed transactions
+        }
+
+    } while (!reachedEndOfPage);
+
+    // Final check if we reached the stop position
+    if (QUEUE_POS_EQUAL(*current, stop))
+        reachedStop = true;
+
+    return reachedStop;
+}
+```
+
+Key simplifications made:
+- Removed extensive comments while preserving essential logic flow
+- Consolidated transaction state checking into clear if-else structure
+- Simplified variable declarations and initialization
+- Removed detailed error handling explanations (kept the core logic)
+- Streamlined the main processing loop for better readability
+- Preserved all critical functionality: position advancement, MVCC visibility checks, notification delivery

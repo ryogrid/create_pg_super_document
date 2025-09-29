@@ -49,3 +49,95 @@ The function uses efficient bitmask operations and iterates through the list of 
 - Uses efficient bitwise operations for initial conflict detection before falling back to detailed analysis
 - Includes extensive debugging output via PROCLOCK_PRINT macros
 - The complexity of this function reflects PostgreSQL's sophisticated approach to concurrent access control
+
+## Simplified Source
+
+```c
+// Simplified version of LockCheckConflicts
+bool LockCheckConflicts(LockMethod lockMethodTable,
+                       LOCKMODE lockmode,
+                       LOCK *lock,
+                       PROCLOCK *proclock) {
+    int numLockModes = lockMethodTable->numLockModes;
+    int conflictMask = lockMethodTable->conflictTab[lockmode];
+    LOCKMASK myLocks = proclock->holdMask;
+
+    // Step 1: Quick global conflict check
+    // If no locks conflict with our request, we're done
+    if (!(conflictMask & lock->grantMask)) {
+        return false;  // No conflict
+    }
+
+    // Step 2: Calculate conflicts after removing our own locks
+    int conflictsRemaining[MAX_LOCKMODES];
+    int totalConflictsRemaining = 0;
+
+    for (int i = 1; i <= numLockModes; i++) {
+        if ((conflictMask & LOCKBIT_ON(i)) == 0) {
+            conflictsRemaining[i] = 0;
+            continue;
+        }
+        // Count granted locks of this mode
+        conflictsRemaining[i] = lock->granted[i];
+        // Subtract our own locks (they don't conflict with us)
+        if (myLocks & LOCKBIT_ON(i)) {
+            conflictsRemaining[i]--;
+        }
+        totalConflictsRemaining += conflictsRemaining[i];
+    }
+
+    // Step 3: If no conflicts after removing our locks, we're good
+    if (totalConflictsRemaining == 0) {
+        return false;  // No conflict
+    }
+
+    // Step 4: Handle lock groups - group members usually don't conflict
+    // Exception: relation extension locks always conflict
+    if (LOCK_LOCKTAG(*lock) == LOCKTAG_RELATION_EXTEND) {
+        return true;  // Always conflicts for relation extension
+    }
+
+    // If not using lock groups, it's a definite conflict
+    if (proclock->groupLeader == MyProc && MyProc->lockGroupLeader == NULL) {
+        return true;  // Conflict - no group sharing
+    }
+
+    // Step 5: Subtract locks held by our lock group members
+    dlist_iter proclock_iter;
+    dlist_foreach(proclock_iter, &lock->procLocks) {
+        PROCLOCK *otherproclock = dlist_container(PROCLOCK, lockLink, proclock_iter.cur);
+
+        // Check if this is a different process in our same lock group
+        if (proclock != otherproclock &&
+            proclock->groupLeader == otherproclock->groupLeader &&
+            (otherproclock->holdMask & conflictMask) != 0) {
+
+            // Subtract group member's conflicting locks
+            int intersectMask = otherproclock->holdMask & conflictMask;
+            for (int i = 1; i <= numLockModes; i++) {
+                if ((intersectMask & LOCKBIT_ON(i)) != 0) {
+                    conflictsRemaining[i]--;
+                    totalConflictsRemaining--;
+                }
+            }
+
+            // If all conflicts resolved by group sharing, no conflict
+            if (totalConflictsRemaining == 0) {
+                return false;
+            }
+        }
+    }
+
+    // Step 6: Real conflict remains after all exclusions
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed debug PROCLOCK_PRINT statements for clarity
+- Simplified variable declarations and moved them closer to use
+- Added step-by-step comments explaining the algorithm flow
+- Removed detailed error checking (PANIC conditions) to focus on main logic
+- Consolidated the lock group iteration logic into clearer sections
+- Used more descriptive comments to explain complex bitwise operations
+- Maintained all essential algorithm steps and correctness

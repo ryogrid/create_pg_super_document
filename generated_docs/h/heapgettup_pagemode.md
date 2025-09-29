@@ -59,3 +59,78 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 - More efficient than regular heapgettup when many tuples on a page are not visible
 - Still performs scan key filtering even though visibility is pre-determined
 - [Scan](../S/Scan.md) state reset behavior is identical to regular heapgettup when reaching scan end
+
+## Simplified Source
+
+```c
+// Simplified version of heapgettup_pagemode
+static void heapgettup_pagemode(HeapScanDesc scan, ScanDirection dir, int nkeys, ScanKey key) {
+    HeapTuple tuple = &(scan->rs_ctup);
+    Page page;
+    int lineindex, linesleft;
+
+    // Continue from previously returned page/tuple if scan is already initialized
+    if (scan->rs_inited) {
+        page = BufferGetPage(scan->rs_cbuf);
+        lineindex = scan->rs_cindex + dir;
+        linesleft = ScanDirectionIsForward(dir) ?
+                   (scan->rs_ntuples - lineindex) : scan->rs_cindex;
+        goto continue_page;
+    }
+
+    // Main scan loop: advance through pages until we find qualifying tuple
+    while (true) {
+        // Get next buffer in scan direction
+        heap_fetch_next_buffer(scan, dir);
+
+        // Check if we've run out of blocks to scan
+        if (!BufferIsValid(scan->rs_cbuf))
+            break;
+
+        // Prepare page for scanning - prune and determine visible tuples
+        heap_prepare_pagescan((TableScanDesc) scan);
+        page = BufferGetPage(scan->rs_cbuf);
+        linesleft = scan->rs_ntuples;
+        lineindex = ScanDirectionIsForward(dir) ? 0 : linesleft - 1;
+
+continue_page:
+        // Iterate through visible tuples on current page
+        for (; linesleft > 0; linesleft--, lineindex += dir) {
+            OffsetNumber lineoff = scan->rs_vistuples[lineindex];
+            ItemId lpp = PageGetItemId(page, lineoff);
+
+            // Set up tuple from page data
+            tuple->t_data = (HeapTupleHeader) PageGetItem(page, lpp);
+            tuple->t_len = ItemIdGetLength(lpp);
+            ItemPointerSet(&(tuple->t_self), scan->rs_cblock, lineoff);
+
+            // Apply scan key filters if provided
+            if (key != NULL &&
+                !HeapKeyTest(tuple, RelationGetDescr(scan->rs_base.rs_rd), nkeys, key))
+                continue;
+
+            // Found qualifying tuple - update scan position and return
+            scan->rs_cindex = lineindex;
+            return;
+        }
+    }
+
+    // End of scan cleanup
+    if (BufferIsValid(scan->rs_cbuf))
+        ReleaseBuffer(scan->rs_cbuf);
+    scan->rs_cbuf = InvalidBuffer;
+    scan->rs_cblock = InvalidBlockNumber;
+    scan->rs_prefetch_block = InvalidBlockNumber;
+    tuple->t_data = NULL;
+    scan->rs_inited = false;
+}
+```
+
+Key simplifications made:
+- Condensed variable declarations and initialization
+- Simplified conditional logic for scan direction handling
+- Reduced detailed comments to focus on core algorithm steps
+- Consolidated tuple setup operations into logical groups
+- Streamlined end-of-scan cleanup sequence
+- Preserved essential error checking and buffer management
+- Maintained the critical goto label for page continuation logic

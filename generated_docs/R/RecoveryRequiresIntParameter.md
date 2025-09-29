@@ -44,3 +44,66 @@ The function implements a graceful degradation strategy - in hot standby mode, i
 - Error messages include specific parameter names and values to aid in troubleshooting
 - The 1000ms timeout in ConditionVariableTimedSleep allows periodic status checks while paused
 - This is part of PostgreSQL's robust parameter consistency enforcement between primary and standby servers
+
+## Simplified Source
+
+```c
+// Simplified version of RecoveryRequiresIntParameter
+void RecoveryRequiresIntParameter(const char *param_name, int currValue, int minValue) {
+    // Check if current parameter value meets minimum requirement
+    if (currValue < minValue) {
+
+        // If hot standby is active, try to pause gracefully first
+        if (HotStandbyActiveInReplay()) {
+            bool warned_for_promote = false;
+
+            // Issue warning about insufficient parameter settings
+            ereport(WARNING,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("hot standby not possible due to insufficient parameter settings"),
+                 errdetail("%s = %d is lower than primary server value %d",
+                          param_name, currValue, minValue)));
+
+            // Pause recovery to allow configuration fix
+            SetRecoveryPause(true);
+            ereport(LOG, (errmsg("recovery has paused")));
+
+            // Wait loop: check for recovery unpause or promotion trigger
+            while (GetRecoveryPauseState() != RECOVERY_NOT_PAUSED) {
+                HandleStartupProcInterrupts();
+
+                // Handle promotion trigger with additional warning
+                if (CheckForStandbyTrigger() && !warned_for_promote) {
+                    ereport(WARNING,
+                        (errmsg("promotion not possible due to insufficient parameter settings")));
+                    warned_for_promote = true;
+                }
+
+                ConfirmRecoveryPaused();
+
+                // Sleep with timeout to periodically recheck conditions
+                ConditionVariableTimedSleep(&XLogRecoveryCtl->recoveryNotPausedCV, 1000,
+                                          WAIT_EVENT_RECOVERY_PAUSE);
+            }
+            ConditionVariableCancelSleep();
+        }
+
+        // Final action: abort recovery with fatal error
+        ereport(FATAL,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("recovery aborted due to insufficient parameter settings"),
+                 errdetail("%s = %d is lower than primary server value %d",
+                          param_name, currValue, minValue)));
+    }
+    // If currValue >= minValue, function returns normally (no action needed)
+}
+```
+
+Key simplifications made:
+- Condensed repetitive error message formatting into simpler versions
+- Unified similar error detail messages to reduce duplication
+- Added high-level comments explaining the two-phase approach (pause then abort)
+- Simplified the promotion trigger warning logic flow
+- Made the normal return case explicit with a comment
+- Removed detailed parameter descriptions from error messages for clarity
+- Maintained the essential control flow: check → warn/pause → wait loop → abort

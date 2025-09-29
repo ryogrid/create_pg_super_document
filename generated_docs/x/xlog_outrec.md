@@ -46,3 +46,27 @@ This function is typically used in conjunction with  to provide comprehensive WA
 - Transaction ID linking helps correlate WAL records with specific database transactions
 - Data length information is useful for understanding record size and potential performance implications
 - The function works in conjunction with the broader WAL analysis infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of xlog_outrec
+static void xlog_outrec(StringInfo buf, XLogReaderState *record) {
+    // Extract and format previous LSN and transaction ID
+    appendStringInfo(buf, "prev %X/%X; xid %u",
+                     LSN_FORMAT_ARGS(XLogRecGetPrev(record)),
+                     XLogRecGetXid(record));
+
+    // Add data length information
+    appendStringInfo(buf, "; len %u", XLogRecGetDataLen(record));
+
+    // Include detailed block information
+    xlog_block_info(buf, record);
+}
+```
+
+Key simplifications made:
+- Combined related information extraction into logical groups with comments
+- Maintained the original structure since the function is already quite concise
+- Added descriptive comments explaining the purpose of each operation
+- Preserved all essential functionality as the function is straightforward

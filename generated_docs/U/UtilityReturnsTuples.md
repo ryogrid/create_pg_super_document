@@ -44,3 +44,46 @@ The function examines specific utility statement types:
 - For FETCH statements, MOVE operations are explicitly excluded as they don't return data
 - Error handling is deliberately minimal - the function returns false rather than raising errors for invalid portals or prepared statements
 - Part of the query processing infrastructure that helps optimize execution strategies based on output requirements
+
+## Simplified Source
+
+```c
+// Simplified version of UtilityReturnsTuples
+bool UtilityReturnsTuples(Node *parsetree) {
+    // Check statement type and determine if it returns tuples
+    switch (nodeTag(parsetree)) {
+        case T_CallStmt:
+            // Function calls return tuples if result type is RECORD
+            return (((CallStmt *) parsetree)->funcexpr->funcresulttype == RECORDOID);
+
+        case T_FetchStmt:
+            // FETCH returns tuples if not a MOVE and portal is valid
+            if (((FetchStmt *) parsetree)->ismove)
+                return false;
+            Portal portal = GetPortalByName(((FetchStmt *) parsetree)->portalname);
+            return (PortalIsValid(portal) && portal->tupDesc);
+
+        case T_ExecuteStmt:
+            // EXECUTE returns tuples if prepared statement has result descriptor
+            PreparedStatement *entry = FetchPreparedStatement(((ExecuteStmt *) parsetree)->name, false);
+            return (entry && entry->plansource->resultDesc);
+
+        case T_ExplainStmt:
+        case T_VariableShowStmt:
+            // EXPLAIN and SHOW always return tabular output
+            return true;
+
+        default:
+            // All other utility statements don't return tuples
+            return false;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Consolidated variable declarations with usage
+- Added descriptive comments for each case
+- Simplified conditional logic in FETCH case
+- Combined similar cases (EXPLAIN and SHOW) with shared comment
+- Removed redundant null checks that weren't in critical path

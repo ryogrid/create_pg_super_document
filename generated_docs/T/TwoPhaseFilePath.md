@@ -37,3 +37,19 @@ The function uses snprintf to safely format the path string and returns the numb
 - The resulting filename uniquely identifies prepared transactions even across epoch boundaries
 - Critical for persistent storage and recovery of prepared transaction state
 - File paths are used for storing prepared transaction state to disk for crash recovery
+
+## Simplified Source
+
+```c
+static inline int TwoPhaseFilePath(char *path, TransactionId xid)
+{
+    // Convert 32-bit XID to full transaction ID to handle epoch wraparound
+    FullTransactionId fxid = AdjustToFullTransactionId(xid);
+
+    // Create path: TWOPHASE_DIR/EEEEEEEEXXXXXXXX
+    // E = epoch (8 hex digits), X = XID (8 hex digits)
+    return snprintf(path, MAXPGPATH, TWOPHASE_DIR "/%08X%08X",
+                    EpochFromFullTransactionId(fxid),
+                    XidFromFullTransactionId(fxid));
+}
+```

@@ -41,3 +41,45 @@ The function first increments the total lock count, then searches through existi
 - It maintains the invariant that locallock->numLockOwners < locallock->maxLockOwners
 - The function handles both NULL and non-NULL ResourceOwner values appropriately
 - [CheckAndSetLockHeld](../C/CheckAndSetLockHeld.md) is called to update lock status for specific lock types that require tracking
+
+## Simplified Source
+
+```c
+// Simplified version of GrantLockLocal
+static void GrantLockLocal(LOCALLOCK *locallock, ResourceOwner owner) {
+    LOCALLOCKOWNER *lockOwners = locallock->lockOwners;
+    int i;
+
+    // Increment total lock count for this backend
+    locallock->nLocks++;
+
+    // Find existing owner or add new one
+    for (i = 0; i < locallock->numLockOwners; i++) {
+        if (lockOwners[i].owner == owner) {
+            // Found existing owner, increment their count
+            lockOwners[i].nLocks++;
+            return;
+        }
+    }
+
+    // Owner not found, add as new entry
+    lockOwners[i].owner = owner;
+    lockOwners[i].nLocks = 1;
+    locallock->numLockOwners++;
+
+    // Register lock with resource owner for cleanup
+    if (owner != NULL) {
+        ResourceOwnerRememberLock(owner, locallock);
+    }
+
+    // Mark lock as held for tracking purposes
+    CheckAndSetLockHeld(locallock, true);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical section
+- Simplified variable declarations for clarity
+- Made the two-phase logic (search then add) more explicit
+- Condensed the owner search loop with clearer comments
+- Emphasized the core purpose: increment counts and track ownership

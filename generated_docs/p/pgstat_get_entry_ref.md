@@ -37,3 +37,96 @@ This function manages access to PostgreSQL's shared statistics entries through a
 
 ## Notes and Other Information
 The function implements a garbage collection check for dropped entries that couldn't be deleted due to outstanding references. The local cache optimization significantly reduces contention on the shared hash table. Entry reinitialization handles legitimate cases where old stats entries are reused before being fully dropped.
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_get_entry_ref
+PgStat_EntryRef *
+pgstat_get_entry_ref(PgStat_Kind kind, Oid dboid, Oid objoid, bool create,
+                     bool *created_entry)
+{
+    PgStat_HashKey key;
+    PgStatShared_HashEntry *shhashent;
+    PgStat_EntryRef *entry_ref;
+
+    // Build lookup key
+    memset(&key, 0, sizeof(key));
+    key.kind = kind;
+    key.dboid = dboid;
+    key.objoid = objoid;
+
+    // Initialize memory context and shared references
+    pgstat_setup_memcxt();
+    pgstat_setup_shared_refs();
+
+    if (created_entry != NULL)
+        *created_entry = false;
+
+    // Garbage collect dropped entries if needed
+    if (pgstat_need_entry_refs_gc())
+        pgstat_gc_entry_refs();
+
+    // Check local cache first to avoid locks
+    if (pgstat_get_entry_ref_cached(key, &entry_ref))
+        return entry_ref;
+
+    // Look up entry in shared hash table
+    shhashent = dshash_find(pgStatLocal.shared_hash, &key, false);
+
+    // Create entry if requested and not found
+    if (create && !shhashent) {
+        bool found;
+        shhashent = dshash_find_or_insert(pgStatLocal.shared_hash, &key, &found);
+
+        if (!found) {
+            // Initialize new entry
+            pgstat_init_entry(kind, shhashent);
+            pgstat_acquire_entry_ref(entry_ref, shhashent, shheader);
+
+            if (created_entry != NULL)
+                *created_entry = true;
+
+            return entry_ref;
+        }
+    }
+
+    // Handle case where entry not found and not creating
+    if (!shhashent) {
+        pgstat_release_entry_ref(key, entry_ref, false);
+        return NULL;
+    }
+
+    // Handle existing entry
+    if (shhashent->dropped && create) {
+        // Reinitialize dropped entry for reuse
+        pgstat_reinit_entry(kind, shhashent);
+        pgstat_acquire_entry_ref(entry_ref, shhashent, shheader);
+
+        if (created_entry != NULL)
+            *created_entry = true;
+
+        return entry_ref;
+    }
+    else if (shhashent->dropped) {
+        // Entry is dropped and we're not creating
+        dshash_release_lock(pgStatLocal.shared_hash, shhashent);
+        pgstat_release_entry_ref(key, entry_ref, false);
+        return NULL;
+    }
+    else {
+        // Use existing active entry
+        pgstat_acquire_entry_ref(entry_ref, shhashent, shheader);
+        return entry_ref;
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and assertions for clarity
+- Consolidated variable declarations at the top
+- Simplified the control flow logic for better readability
+- Removed platform-specific optimizations and error handling details
+- Added high-level comments explaining each major step
+- Abstracted complex shared memory operations into descriptive function calls
+- Maintained the essential algorithm: cache check → hash lookup → create/reuse logic

@@ -43,3 +43,25 @@ The function is a critical part of the executor lifecycle: ExecutorStart → Exe
 - Separate from ExecutorEnd to distinguish between measured cleanup (ExecutorFinish) and unmeasured resource deallocation (ExecutorEnd)
 - Located at src/backend/executor/execMain.c:400-408
 - Part of the standard executor lifecycle sequence that ensures proper query execution and cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ExecutorFinish
+void ExecutorFinish(QueryDesc *queryDesc) {
+    // Check if a custom hook is installed for extensions
+    if (ExecutorFinish_hook) {
+        // Call the custom hook function
+        (*ExecutorFinish_hook)(queryDesc);
+    } else {
+        // Use the standard PostgreSQL cleanup implementation
+        standard_ExecutorFinish(queryDesc);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments to explain the hook mechanism
+- Simplified the conditional logic for better readability
+- Removed detailed comment block for conciseness while preserving essential information
+- Function is already quite simple - main logic is the hook/standard implementation pattern

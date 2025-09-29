@@ -38,4 +38,19 @@ The function is part of PostgreSQL's statistics garbage collection mechanism, wh
 - The actual garbage collection is performed elsewhere in response to this request counter
 - This design allows for asynchronous garbage collection, avoiding blocking operations during statistics updates
 - The use of atomic operations ensures the request counter remains consistent across multiple concurrent processes
-- Located in 
+- Located in src/backend/utils/activity/pgstat_shmem.c
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_request_entry_refs_gc
+void pgstat_request_entry_refs_gc(void) {
+    // Signal garbage collection is needed by incrementing shared memory counter
+    pg_atomic_fetch_add_u64(&pgStatLocal.shmem->gc_request_count, 1);
+}
+```
+
+Key simplifications made:
+- Added descriptive comment explaining the purpose of the atomic increment
+- Function is already very simple, so minimal simplification was needed
+- The core logic is preserved: atomically increment the GC request counter

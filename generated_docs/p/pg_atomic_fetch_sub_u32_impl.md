@@ -36,3 +36,18 @@ The function is marked as `static inline` to encourage compiler optimization thr
 - The function is typically not called directly but through higher-level atomic operation wrappers
 - Provides full memory barrier semantics as per GCC sync builtin behavior
 - Requires underlying hardware support for atomic operations on 32-bit values
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_sub_u32_impl
+static inline uint32 pg_atomic_fetch_sub_u32_impl(volatile pg_atomic_uint32 *ptr, int32 sub_) {
+    // Atomically subtract sub_ from the value at ptr and return the original value
+    return __sync_fetch_and_sub(&ptr->value, sub_);
+}
+```
+
+Key simplifications made:
+- This function is already very simple - it's a thin wrapper around GCC's builtin
+- Added explanatory comment describing the atomic operation
+- The original implementation is minimal and doesn't require significant simplification

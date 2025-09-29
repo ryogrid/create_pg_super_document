@@ -53,3 +53,38 @@ The function performs several important steps:
 - Uses locale-aware character classification and respects case-insensitive matching flags
 - The circular arcs pattern allows for efficient character matching during regex execution
 - Color splitting may occur during arc construction to maintain proper color organization
+
+## Simplified Source
+
+```c
+static void
+wordchrs(struct vars *v)
+{
+    struct state *cstate;
+    struct cvec *cv;
+
+    // Skip if already cached
+    if (v->wordchrs != NULL)
+        return;
+
+    // Create dummy state to hold cache arcs
+    cstate = newstate(v->nfa);
+    NOERR();
+
+    // Get character vector for \w characters (word chars)
+    NOTE(REG_ULOCALE);
+    cv = cclasscvec(v, CC_WORD, (v->cflags & REG_ICASE));
+    NOERR();
+
+    // Build arcs representing word characters
+    subcolorcvec(v, cv, cstate, cstate);
+    NOERR();
+
+    // Close any new subcolors to make cache self-contained
+    okcolors(v->nfa, v->cm);
+    NOERR();
+
+    // Cache the result for future use
+    v->wordchrs = cstate;
+}
+```

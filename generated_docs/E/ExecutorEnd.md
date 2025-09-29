@@ -38,3 +38,26 @@ The function is a critical part of the executor lifecycle and must be called for
 - Plugins using the hook should normally call standard_ExecutorEnd() to maintain standard behavior
 - Used extensively throughout the PostgreSQL codebase for various query execution contexts
 - Essential for proper resource cleanup and executor state management
+
+## Simplified Source
+
+```c
+// Simplified version of ExecutorEnd
+void ExecutorEnd(QueryDesc *queryDesc)
+{
+    // Check if a plugin has installed a custom hook
+    if (ExecutorEnd_hook) {
+        // Call the custom hook function
+        (*ExecutorEnd_hook)(queryDesc);
+    } else {
+        // Use the standard PostgreSQL implementation
+        standard_ExecutorEnd(queryDesc);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the hook pattern
+- Clarified the conditional logic flow
+- Preserved the essential plugin extensibility mechanism
+- Function is already minimal - no major simplifications needed

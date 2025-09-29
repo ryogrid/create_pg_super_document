@@ -42,3 +42,37 @@ The function includes an assertion to ensure it's not called on an empty heap, a
 - This is the primary way to extract the minimum element from a pairing heap
 - The function maintains heap integrity by properly restructuring after removal
 - Used extensively in PostgreSQL's indexing and scanning operations where priority queues are needed
+
+## Simplified Source
+
+```c
+// Simplified version of pairingheap_remove_first
+pairingheap_node *
+pairingheap_remove_first(pairingheap *heap)
+{
+    pairingheap_node *root_to_remove;
+    pairingheap_node *children;
+
+    // Step 1: Save the root node to return
+    root_to_remove = heap->ph_root;
+    children = root_to_remove->first_child;
+
+    // Step 2: Merge all children to form new heap
+    heap->ph_root = merge_children(heap, children);
+
+    // Step 3: Initialize new root if it exists
+    if (heap->ph_root) {
+        heap->ph_root->prev_or_parent = NULL;
+        heap->ph_root->next_sibling = NULL;
+    }
+
+    return root_to_remove;
+}
+```
+
+Key simplifications made:
+- Removed Assert() check for clarity (assumption: caller ensures non-empty heap)
+- Used more descriptive variable name `root_to_remove` instead of `result`
+- Added step-by-step comments explaining the algorithm
+- Simplified the logic flow with clear sequential steps
+- Maintained all essential functionality while improving readability

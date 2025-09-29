@@ -36,3 +36,25 @@ The function only creates the space - it does not initialize the data in the new
 - The caller must initialize the data in list->elements[list->length-1] after calling this function
 - This function automatically increments the list's length counter
 - Tail insertion is the preferred method for building lists incrementally due to its superior performance characteristics
+
+## Simplified Source
+
+```c
+// Simplified version of new_tail_cell
+static void new_tail_cell(List *list) {
+    // Expand list capacity if we've reached the limit
+    if (list->length >= list->max_length)
+        enlarge_list(list, list->length + 1);
+
+    // Add one more slot at the end
+    list->length++;
+
+    // Note: Caller must initialize the new cell's data
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential information
+- Kept the core logic flow: capacity check, enlarge if needed, increment length
+- Added clarifying comment about caller responsibility
+- Maintained the function's essential algorithm and purpose

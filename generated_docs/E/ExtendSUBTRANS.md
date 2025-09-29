@@ -43,3 +43,38 @@ This function is called while holding XidGenLock, so it's optimized for speed. E
 - Uses bank locking for efficient concurrent access
 - No I/O required unless shared memory needs to be freed
 - Critical for maintaining SUBTRANS page availability during high transaction throughput
+
+## Simplified Source
+
+```c
+// Simplified version of ExtendSUBTRANS
+void ExtendSUBTRANS(TransactionId newestXact) {
+    // Only extend when we're at the first XID of a new page
+    // Special case: after wraparound, first XID of page 0 is FirstNormalTransactionId
+    if (TransactionIdToEntry(newestXact) != 0 &&
+        !TransactionIdEquals(newestXact, FirstNormalTransactionId)) {
+        return; // No work needed
+    }
+
+    // Calculate which page needs extension
+    int64 pageno = TransactionIdToPage(newestXact);
+
+    // Get exclusive lock for this page's bank
+    LWLock *lock = SimpleLruGetBankLock(SubTransCtl, pageno);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Initialize the new page to zero
+    ZeroSUBTRANSPage(pageno);
+
+    // Release the lock
+    LWLockRelease(lock);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the main logic flow
+- Simplified variable declarations for clarity
+- Made the early return condition more readable with clear comments
+- Emphasized the page-based nature of SUBTRANS extension
+- Removed detailed implementation comments while preserving essential algorithm
+- Consolidated the core steps: check if work needed, get page number, lock, zero page, unlock

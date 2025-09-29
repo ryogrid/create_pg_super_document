@@ -42,3 +42,26 @@ This function takes no parameters.
 - Extensions should typically call LWLockRegisterTranche() after getting a new ID to provide a descriptive name
 - The function provides no mechanism to deallocate or reuse tranche IDs
 - Used extensively by PostgreSQL's test infrastructure for creating isolated lock tranches during testing
+
+## Simplified Source
+
+```c
+// Simplified version of LWLockNewTrancheId
+int LWLockNewTrancheId(void) {
+    // Access the shared counter located before MainLWLockArray
+    int *LWLockCounter = (int *) ((char *) MainLWLockArray - sizeof(int));
+
+    // Atomically increment and return the counter value
+    SpinLockAcquire(ShmemLock);
+    int result = (*LWLockCounter)++;
+    SpinLockRelease(ShmemLock);
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Combined variable declaration with usage for clarity
+- Added descriptive comments explaining each logical step
+- Preserved the essential spinlock-protected counter increment logic
+- Maintained the exact same functionality in a more readable format

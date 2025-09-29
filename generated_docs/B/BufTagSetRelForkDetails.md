@@ -33,3 +33,24 @@ BufTagSetRelForkDetails is an inline utility function that simultaneously sets b
 - Part of the buffer tag utility functions that abstract BufferTag field manipulation
 - Used during buffer tag initialization and modification operations
 - Does not set other BufferTag fields like RelFileLocator or block number
+
+## Simplified Source
+
+```c
+// Simplified version of BufTagSetRelForkDetails
+static inline void
+BufTagSetRelForkDetails(BufferTag *tag, RelFileNumber relnumber, ForkNumber forknum)
+{
+    // Set the relation identifier for this buffer tag
+    tag->relNumber = relnumber;
+
+    // Set the fork type (main data, FSM, visibility map, etc.)
+    tag->forkNum = forknum;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each assignment
+- Function is already very simple with minimal logic
+- No error handling or complex operations to simplify
+- Preserved the exact functionality as it's a straightforward setter function

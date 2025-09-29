@@ -39,3 +39,59 @@ The function uses a message context (`msg_ctx`) to iterate through multiple erro
 - Handles buffer overflow gracefully by truncating and logging a COMMERROR message
 - The function is designed to be called twice by `pg_GSS_error`: once for general GSS errors and once for mechanism-specific errors
 - Memory management is handled properly with `gss_release_buffer` calls to prevent leaks
+
+## Simplified Source
+
+```c
+// Simplified version of pg_GSS_error_int
+static void
+pg_GSS_error_int(char *s, size_t len, OM_uint32 stat, int type)
+{
+    gss_buffer_desc gmsg;
+    size_t i = 0;
+    OM_uint32 msg_ctx = 0;
+
+    // Loop through all available error messages for this status code
+    do
+    {
+        // Get next error message from GSS-API
+        if (gss_display_status(&lmin_s, stat, type, GSS_C_NO_OID,
+                               &msg_ctx, &gmsg) != GSS_S_COMPLETE)
+            break;
+
+        // Add space separator between multiple messages
+        if (i > 0 && i < len) {
+            s[i] = ' ';
+            i++;
+        }
+
+        // Copy error message to output buffer (with bounds checking)
+        if (i < len) {
+            size_t copy_len = Min(len - i, gmsg.length);
+            memcpy(s + i, gmsg.value, copy_len);
+        }
+        i += gmsg.length;
+
+        // Clean up GSS buffer
+        gss_release_buffer(&lmin_s, &gmsg);
+    }
+    while (msg_ctx); // Continue if more messages available
+
+    // Null-terminate the result string
+    if (i < len) {
+        s[i] = '\0';
+    } else {
+        // Handle buffer overflow case
+        elog(COMMERROR, "incomplete GSS error report");
+        s[len - 1] = '\0';
+    }
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major logic block
+- Clarified the loop condition and message context usage
+- Made bounds checking logic more explicit with intermediate variable
+- Grouped related operations together (separator logic, copying logic, cleanup)
+- Preserved all essential error handling and memory management
+- Maintained the exact same functional behavior

@@ -37,3 +37,22 @@ This cleanup ensures that the next transaction starts with a clean slate regardi
 - Essential for preventing memory leaks and ensuring proper isolation between transactions
 - The 'AtEOXact' prefix follows PostgreSQL's naming convention for end-of-transaction callback functions
 - Simple but critical function that ensures enum subsystem state doesn't leak between transactions
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Enum
+void AtEOXact_Enum(void)
+{
+    // Reset pointers to uncommitted enum tracking tables
+    // Memory cleanup handled automatically by transaction context destruction
+    uncommitted_enum_types = NULL;
+    uncommitted_enum_values = NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Emphasized that memory cleanup is automatic via context system
+- Preserved the essential logic: resetting global pointers to NULL
+- Maintained the function's critical role in transaction cleanup

@@ -33,3 +33,13 @@ The `binaryheap_free` function releases all memory associated with a binary heap
 - After calling this function, the heap pointer becomes invalid and should not be used
 - Part of the standard allocation/deallocation pattern in PostgreSQL memory management
 - Uses pfree which is PostgreSQL's counterpart to the standard C library's free() function
+
+## Simplified Source
+
+```c
+void binaryheap_free(binaryheap *heap)
+{
+    // Deallocate all memory associated with the heap
+    pfree(heap);
+}
+```

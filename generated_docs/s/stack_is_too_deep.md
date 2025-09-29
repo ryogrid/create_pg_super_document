@@ -44,3 +44,35 @@ This function takes no parameters and returns a boolean indicating whether the s
 - Used both directly and indirectly through check_stack_depth() throughout the PostgreSQL codebase
 - The max_stack_depth_bytes value is derived from the max_stack_depth configuration parameter
 - Critical component of PostgreSQL's stack overflow prevention system
+
+## Simplified Source
+
+```c
+// Simplified version of stack_is_too_deep
+bool stack_is_too_deep(void) {
+    char stack_top_loc;
+    long stack_depth;
+
+    // Calculate distance from stack base to current position
+    stack_depth = (long)(stack_base_ptr - &stack_top_loc);
+
+    // Handle both upward and downward growing stacks
+    if (stack_depth < 0) {
+        stack_depth = -stack_depth;
+    }
+
+    // Check if stack exceeds limit (only when stack base is initialized)
+    if (stack_depth > max_stack_depth_bytes && stack_base_ptr != NULL) {
+        return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Preserved core stack depth calculation logic
+- Maintained platform-independent stack growth handling
+- Kept essential safety check for stack_base_ptr
+- Simplified comments to focus on main algorithm steps
+- Removed detailed comment explanations while preserving functionality

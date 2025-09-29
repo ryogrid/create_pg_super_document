@@ -53,3 +53,94 @@ The function includes special handling for concurrent insertions, waiting for th
 - Includes protection against corrupted LSNs from damaged data pages
 - The CommitDelay parameter can significantly impact both latency and throughput
 - Wakes up WAL senders after releasing locks to minimize replication lag
+
+## Simplified Source
+
+```c
+// Simplified version of XLogFlush
+void XLogFlush(XLogRecPtr record) {
+    XLogRecPtr WriteRqstPtr;
+    XLogwrtRqst WriteRqst;
+    TimeLineID insertTLI = XLogCtl->InsertTimeLineID;
+
+    // During recovery, update minimum recovery point instead of flushing
+    if (!XLogInsertAllowed()) {
+        UpdateMinRecoveryPoint(record, false);
+        return;
+    }
+
+    // Quick exit if already flushed to the requested position
+    if (record <= LogwrtResult.Flush)
+        return;
+
+    START_CRIT_SECTION();
+
+    // Initialize write request to target position
+    WriteRqstPtr = record;
+
+    // Main flush loop with group commit optimization
+    for (;;) {
+        XLogRecPtr insertpos;
+
+        // Check if someone else already flushed our data
+        RefreshXLogWriteResult(LogwrtResult);
+        if (record <= LogwrtResult.Flush)
+            break;
+
+        // Wait for pending insertions and get current insert position
+        SpinLockAcquire(&XLogCtl->info_lck);
+        if (WriteRqstPtr < XLogCtl->LogwrtRqst.Write)
+            WriteRqstPtr = XLogCtl->LogwrtRqst.Write;
+        SpinLockRelease(&XLogCtl->info_lck);
+        insertpos = WaitXLogInsertionsToFinish(WriteRqstPtr);
+
+        // Try to acquire write lock, wait if busy (group commit optimization)
+        if (!LWLockAcquireOrWait(WALWriteLock, LW_EXCLUSIVE)) {
+            continue; // Lock was busy, retry after someone else may have flushed
+        }
+
+        // Recheck if flush is still needed after acquiring lock
+        RefreshXLogWriteResult(LogwrtResult);
+        if (record <= LogwrtResult.Flush) {
+            LWLockRelease(WALWriteLock);
+            break;
+        }
+
+        // Optional delay for group commit batching
+        if (CommitDelay > 0 && enableFsync &&
+            MinimumActiveBackends(CommitSiblings)) {
+            pg_usleep(CommitDelay);
+            // Allow more insertions to complete during delay
+            insertpos = WaitXLogInsertionsToFinish(insertpos);
+        }
+
+        // Perform the actual write and flush operation
+        WriteRqst.Write = insertpos;
+        WriteRqst.Flush = insertpos;
+        XLogWrite(WriteRqst, insertTLI, false);
+
+        LWLockRelease(WALWriteLock);
+        break; // Flush completed successfully
+    }
+
+    END_CRIT_SECTION();
+
+    // Wake up WAL senders after releasing locks
+    WalSndWakeupProcessRequests(true, !RecoveryInProgress());
+
+    // Verify flush completed successfully
+    if (LogwrtResult.Flush < record) {
+        elog(ERROR, "xlog flush request %X/%X not satisfied --- flushed only to %X/%X",
+             LSN_FORMAT_ARGS(record), LSN_FORMAT_ARGS(LogwrtResult.Flush));
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and debug logging code
+- Simplified variable declarations and initialization
+- Consolidated error handling into essential checks only
+- Removed platform-specific debugging sections
+- Streamlined the main loop logic while preserving group commit behavior
+- Abstracted complex lock acquisition patterns into clearer flow
+- Maintained all critical functionality: recovery handling, group commit optimization, and error detection

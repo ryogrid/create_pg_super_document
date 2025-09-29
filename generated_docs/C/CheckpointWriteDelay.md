@@ -49,3 +49,55 @@ The function only operates when executed by the checkpointer process itself, all
 - Processes configuration reloads and other administrative tasks during write delays
 - Includes barrier event processing to maintain process synchronization
 - Part of PostgreSQL's I/O smoothing mechanism to reduce checkpoint impact on performance
+
+## Simplified Source
+
+```c
+void CheckpointWriteDelay(int flags, double progress)
+{
+    static int absorb_counter = WRITES_PER_ABSORB;
+
+    // Only execute in checkpointer process
+    if (!AmCheckpointerProcess())
+        return;
+
+    // Check if we should delay writes (not immediate mode, not shutting down, on schedule)
+    if (!(flags & CHECKPOINT_IMMEDIATE) &&
+        !ShutdownRequestPending &&
+        !ImmediateCheckpointRequested() &&
+        IsCheckpointOnSchedule(progress))
+    {
+        // Handle configuration reload if pending
+        if (ConfigReloadPending) {
+            ConfigReloadPending = false;
+            ProcessConfigFile(PGC_SIGHUP);
+            UpdateSharedMemoryConfig();
+        }
+
+        // Absorb pending fsync requests
+        AbsorbSyncRequests();
+        absorb_counter = WRITES_PER_ABSORB;
+
+        // Check for archive timeout
+        CheckArchiveTimeout();
+
+        // Report statistics
+        pgstat_report_checkpointer();
+
+        // Sleep for 100ms to throttle write rate
+        WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH | WL_TIMEOUT,
+                  100, WAIT_EVENT_CHECKPOINT_WRITE_DELAY);
+        ResetLatch(MyLatch);
+    }
+    else if (--absorb_counter <= 0) {
+        // Even when not sleeping, periodically absorb fsync requests
+        // to prevent queue overflow
+        AbsorbSyncRequests();
+        absorb_counter = WRITES_PER_ABSORB;
+    }
+
+    // Handle barrier events if pending
+    if (ProcSignalBarrierPending)
+        ProcessProcSignalBarrier();
+}
+```

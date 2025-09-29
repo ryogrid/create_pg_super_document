@@ -37,3 +37,24 @@ MultiXact offsets are used to locate member information in the MultiXact member 
 - Critical for MultiXact member page management and cleanup operations
 - Used by MultiXactMemberPagePrecedes to determine page precedence based on offset ranges
 - Part of the internal infrastructure for managing MultiXact member storage
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactOffsetPrecedes
+static bool
+MultiXactOffsetPrecedes(MultiXactOffset offset1, MultiXactOffset offset2)
+{
+    // Calculate signed difference to handle wrap-around arithmetic
+    int32 diff = (int32) (offset1 - offset2);
+
+    // Return true if offset1 is earlier than offset2
+    return (diff < 0);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the wrap-around arithmetic logic
+- Clarified the purpose of the signed difference calculation
+- Made the return condition more explicit with a comment
+- The original function is already quite simple, so minimal changes were needed

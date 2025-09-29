@@ -43,3 +43,37 @@ The function uses exclusive locking on TwoPhaseStateLock to ensure atomic update
 - Part of PostgreSQL's robust error recovery mechanism for distributed transactions
 - The function acknowledges that in some cases (post-WAL, pre-completion aborts), the in-memory state might be inconsistent, but it's too late to fully recover
 - Thread-safe through proper use of LWLockAcquire/LWLockRelease around shared memory modifications
+
+## Simplified Source
+
+```c
+// Simplified version of AtAbort_Twophase
+void AtAbort_Twophase(void) {
+    // Early return if no locked transaction to clean up
+    if (MyLockedGxact == NULL)
+        return;
+
+    // Acquire exclusive lock on two-phase state
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+
+    // Decide what to do with the locked transaction entry
+    if (!MyLockedGxact->valid) {
+        // Transaction not in valid prepared state - remove it completely
+        RemoveGXact(MyLockedGxact);
+    } else {
+        // Transaction is valid - just unlock it for other processes
+        MyLockedGxact->locking_backend = INVALID_PROC_NUMBER;
+    }
+
+    // Release the lock and clear our reference
+    LWLockRelease(TwoPhaseStateLock);
+    MyLockedGxact = NULL;
+}
+```
+
+Key simplifications made:
+- Removed extensive comments explaining different abort scenarios for clarity
+- Simplified the core logic to two main cases: invalid (remove) vs valid (unlock)
+- Abstracted the complex WAL record timing considerations into high-level descriptions
+- Preserved the essential locking protocol and cleanup logic
+- Maintained the critical early return check and final cleanup

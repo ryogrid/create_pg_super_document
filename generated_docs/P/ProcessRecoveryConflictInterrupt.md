@@ -65,3 +65,87 @@ The function considers transaction boundaries, subtransaction state, and protoco
 - Subtransactions generally cannot safely recover from most conflict types, leading to FATAL errors
 - The decision between ERROR and FATAL is crucial for maintaining system stability and data consistency
 - Each conflict type has specific conditions that determine the appropriate response level
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessRecoveryConflictInterrupt
+static void ProcessRecoveryConflictInterrupt(ProcSignalReason reason)
+{
+    switch (reason)
+    {
+        case PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK:
+            // Check if we're actually waiting for a lock that could deadlock
+            if (!IsWaitingForLock())
+                return;
+            // Fall through to check buffer pins
+
+        case PROCSIG_RECOVERY_CONFLICT_BUFFERPIN:
+            // Check if we're actually blocking recovery with buffer pins
+            if (!HoldingBufferPinThatDelaysRecovery()) {
+                // For deadlock case, enable deadlock detection if needed
+                if (reason == PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK &&
+                    GetStartupBufferPinWaitBufId() < 0)
+                    CheckDeadLockAlert();
+                return;
+            }
+
+            // Mark conflict as pending and fall through to handle it
+            MyProc->recoveryConflictPending = true;
+
+        case PROCSIG_RECOVERY_CONFLICT_LOCK:
+        case PROCSIG_RECOVERY_CONFLICT_TABLESPACE:
+        case PROCSIG_RECOVERY_CONFLICT_SNAPSHOT:
+            // These conflicts only matter if we're in a transaction
+            if (!IsTransactionOrTransactionBlock())
+                return;
+
+        case PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT:
+            // Try to resolve with ERROR if possible, otherwise use FATAL
+            if (reason == PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT || !IsSubTransaction()) {
+                // Skip if transaction already aborted
+                if (IsAbortedTransactionBlockState())
+                    return;
+
+                // Can only throw ERROR if not reading from client
+                if (!DoingCommandRead) {
+                    // Defer if in critical section to avoid protocol issues
+                    if (QueryCancelHoldoffCount != 0) {
+                        RecoveryConflictPendingReasons[reason] = true;
+                        RecoveryConflictPending = true;
+                        InterruptPending = true;
+                        return;
+                    }
+
+                    // Throw ERROR to cancel current statement
+                    LockErrorCleanup();
+                    pgstat_report_recovery_conflict(reason);
+                    ereport(ERROR, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                            errmsg("canceling statement due to conflict with recovery")));
+                    break;
+                }
+            }
+            // Fall through to terminate session
+
+        case PROCSIG_RECOVERY_CONFLICT_DATABASE:
+            // Terminate the entire session with FATAL error
+            pgstat_report_recovery_conflict(reason);
+            ereport(FATAL, (errcode(reason == PROCSIG_RECOVERY_CONFLICT_DATABASE ?
+                            ERRCODE_DATABASE_DROPPED : ERRCODE_T_R_SERIALIZATION_FAILURE),
+                    errmsg("terminating connection due to conflict with recovery")));
+            break;
+
+        default:
+            elog(FATAL, "unrecognized conflict mode: %d", (int) reason);
+    }
+}
+```
+
+Key simplifications made:
+- Condensed extensive comments into brief inline explanations
+- Removed detailed error message construction (kept essential parts)
+- Simplified complex conditional logic while preserving decision flow
+- Consolidated similar conflict types into grouped cases
+- Abstracted low-level protocol details into high-level comments
+- Maintained the essential three-tier resolution strategy (return/ERROR/FATAL)
+- Preserved critical state checks and fallthrough logic

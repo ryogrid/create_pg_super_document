@@ -51,3 +51,103 @@ Key behaviors include:
 - The transition from crash recovery to archive recovery is handled transparently when ArchiveRecoveryRequested is true
 - In standby mode, the function will retry indefinitely until a valid record is found or a standby trigger occurs
 - Incomplete records are tracked via abortedRecPtr and missingContrecPtr for later overwrite record generation
+
+## Simplified Source
+
+```c
+// Simplified version of ReadRecord
+static XLogRecord *
+ReadRecord(XLogPrefetcher *xlogprefetcher, int emode,
+           bool fetching_ckpt, TimeLineID replayTLI)
+{
+    XLogRecord *record;
+    XLogReaderState *xlogreader = XLogPrefetcherGetReader(xlogprefetcher);
+    XLogPageReadPrivate *private = (XLogPageReadPrivate *) xlogreader->private_data;
+
+    // Setup parameters for XLogPageRead
+    private->fetching_ckpt = fetching_ckpt;
+    private->emode = emode;
+    private->randAccess = (xlogreader->ReadRecPtr == InvalidXLogRecPtr);
+    private->replayTLI = replayTLI;
+    lastSourceFailed = false;
+
+    for (;;)
+    {
+        char *errormsg;
+
+        // Core logic step 1: Attempt to read next WAL record
+        record = XLogPrefetcherReadRecord(xlogprefetcher, &errormsg);
+
+        if (record == NULL)
+        {
+            // Core logic step 2: Handle incomplete records for later cleanup
+            if (!ArchiveRecoveryRequested &&
+                !XLogRecPtrIsInvalid(xlogreader->abortedRecPtr))
+            {
+                abortedRecPtr = xlogreader->abortedRecPtr;
+                missingContrecPtr = xlogreader->missingContrecPtr;
+            }
+
+            // Close file and report error if present
+            if (readFile >= 0) {
+                close(readFile);
+                readFile = -1;
+            }
+            if (errormsg)
+                ereport(emode_for_corrupt_record(emode, xlogreader->EndRecPtr),
+                        (errmsg_internal("%s", errormsg)));
+        }
+        // Core logic step 3: Validate timeline consistency
+        else if (!tliInHistory(xlogreader->latestPageTLI, expectedTLEs))
+        {
+            // Report timeline mismatch error
+            ereport(emode_for_corrupt_record(emode, xlogreader->EndRecPtr),
+                    (errmsg("unexpected timeline ID %u in WAL segment...",
+                            xlogreader->latestPageTLI)));
+            record = NULL;
+        }
+
+        // Core logic step 4: Return valid record or handle recovery transitions
+        if (record)
+        {
+            return record;  // Success - got a valid record
+        }
+        else
+        {
+            lastSourceFailed = true;
+
+            // Core logic step 5: Transition from crash to archive recovery if needed
+            if (!InArchiveRecovery && ArchiveRecoveryRequested && !fetching_ckpt)
+            {
+                InArchiveRecovery = true;
+                if (StandbyModeRequested)
+                    EnableStandbyMode();
+
+                SwitchIntoArchiveRecovery(xlogreader->EndRecPtr, replayTLI);
+                minRecoveryPoint = xlogreader->EndRecPtr;
+                minRecoveryPointTLI = replayTLI;
+                CheckRecoveryConsistency();
+
+                // Reset state for archive retry
+                lastSourceFailed = false;
+                currentSource = XLOG_FROM_ANY;
+                continue;
+            }
+
+            // Core logic step 6: Retry in standby mode or give up
+            if (StandbyMode && !CheckForStandbyTrigger())
+                continue;  // Retry indefinitely in standby mode
+            else
+                return NULL;  // Give up in non-standby mode
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling and file name generation for timeline mismatches
+- Consolidated complex conditional logic into clearer flow
+- Abstracted low-level memory and file operations with comments
+- Simplified variable declarations and eliminated temporary variables
+- Removed detailed comments explaining recovery scenarios, keeping only essential logic markers
+- Condensed similar error reporting patterns into representative examples

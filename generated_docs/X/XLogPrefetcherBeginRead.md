@@ -43,3 +43,28 @@ This function is essential for maintaining consistency between the prefetcher's 
 - The  tracking prevents readahead until the first record is consumed
 - Must be called whenever repositioning the WAL reader to maintain consistency
 - Used extensively throughout the WAL recovery process for initialization and repositioning
+
+## Simplified Source
+
+```c
+// Simplified version of XLogPrefetcherBeginRead
+void XLogPrefetcherBeginRead(XLogPrefetcher *prefetcher, XLogRecPtr recPtr) {
+    // Reset prefetcher state to invalidate in-flight I/O operations
+    prefetcher->reconfigure_count--;
+
+    // Track begin position to prevent premature readahead
+    prefetcher->begin_ptr = recPtr;
+
+    // Clear any readahead restrictions
+    prefetcher->no_readahead_until = 0;
+
+    // Initialize the underlying WAL reader at the specified position
+    XLogBeginRead(prefetcher->reader, recPtr);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Preserved all essential logic steps without modification
+- Maintained the original function structure and flow
+- No significant code reduction needed as the original function is already quite concise

@@ -42,3 +42,21 @@ This function is commonly used at the beginning of performance-critical operatio
 - Resource usage includes CPU time (user and system), memory usage, and I/O statistics as provided by the underlying OS
 - Wall-clock time is measured separately to distinguish between CPU time and real elapsed time
 - Commonly used pattern: call  before an operation, then  after to report performance metrics
+
+## Simplified Source
+
+```c
+// Simplified version of pg_rusage_init
+void pg_rusage_init(PGRUsage *ru0) {
+    // Capture current process resource usage (CPU time, memory, I/O stats)
+    getrusage(RUSAGE_SELF, &ru0->ru);
+
+    // Capture current wall-clock time
+    gettimeofday(&ru0->tv, NULL);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two main operations
+- The function is already quite simple, so minimal changes were needed
+- Preserved the essential functionality: capturing resource usage and wall time

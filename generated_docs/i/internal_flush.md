@@ -38,3 +38,12 @@ The function operates on PostgreSQL's global send buffer state variables (, , an
 - Part of PostgreSQL's layered communication architecture
 - Provides abstraction layer between high-level flush operations and low-level buffer management
 - Critical component for maintaining message transmission reliability in client-server communication
+
+## Simplified Source
+
+```c
+static inline int internal_flush(void)
+{
+    return internal_flush_buffer(PqSendBuffer, &PqSendStart, &PqSendPointer);
+}
+```

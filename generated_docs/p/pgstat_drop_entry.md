@@ -47,3 +47,49 @@ The `pgstat_drop_entry` function removes a statistics entry identified by its ki
 - Handles both local reference cleanup and shared memory cleanup
 - Part of PostgreSQL's transactional statistics system
 - Location: src/backend/utils/activity/pgstat_shmem.c:927-970
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_drop_entry
+bool pgstat_drop_entry(PgStat_Kind kind, Oid dboid, Oid objoid) {
+    PgStat_HashKey key;
+    PgStatShared_HashEntry *shent;
+    bool freed = true;
+
+    // Build hash key for the statistics entry
+    memset(&key, 0, sizeof(key));
+    key.kind = kind;
+    key.dboid = dboid;
+    key.objoid = objoid;
+
+    // Clean up local reference if it exists
+    if (pgStatEntryRefHash) {
+        PgStat_EntryRefHashEntry *local_ref =
+            pgstat_entry_ref_hash_lookup(pgStatEntryRefHash, key);
+        if (local_ref) {
+            pgstat_release_entry_ref(local_ref->key, local_ref->entry_ref, true);
+        }
+    }
+
+    // Find and drop the shared entry
+    shent = dshash_find(pgStatLocal.shared_hash, &key, true);
+    if (shent) {
+        freed = pgstat_drop_entry_internal(shent, NULL);
+
+        // Special case: dropping database also drops all contained stats
+        if (key.kind == PGSTAT_KIND_DATABASE) {
+            pgstat_drop_database_and_contents(key.dboid);
+        }
+    }
+
+    return freed;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and function header documentation for brevity
+- Simplified variable names (lohashent → local_ref)
+- Added inline comments to explain each logical step
+- Preserved all essential logic including local cleanup, shared entry removal, and database cascade deletion
+- Maintained the two-phase cleanup approach (local references first, then shared memory)

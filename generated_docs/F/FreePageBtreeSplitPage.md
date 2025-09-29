@@ -41,3 +41,44 @@ The splitting operation is essential for maintaining btree properties while acco
 - Returns the new sibling page that caller must integrate into the btree structure
 - Relies on the caller to have ensured recycled page availability before invocation
 - Critical component of btree growth and rebalancing during high insertion load
+
+## Simplified Source
+
+```c
+static FreePageBtree *
+FreePageBtreeSplitPage(FreePageManager *fpm, FreePageBtree *btp)
+{
+    // Get a recycled page for the new sibling
+    FreePageBtree *newsibling = FreePageBtreeGetRecycled(fpm);
+
+    // Set up new page header
+    newsibling->hdr.magic = btp->hdr.magic;
+    newsibling->hdr.nused = btp->hdr.nused / 2;
+    relptr_copy(newsibling->hdr.parent, btp->hdr.parent);
+
+    // Adjust original page's key count
+    btp->hdr.nused -= newsibling->hdr.nused;
+
+    // Move half the keys to the new page
+    if (btp->hdr.magic == FREE_PAGE_LEAF_MAGIC)
+    {
+        // Copy leaf keys
+        memcpy(&newsibling->u.leaf_key,
+               &btp->u.leaf_key[btp->hdr.nused],
+               sizeof(FreePageBtreeLeafKey) * newsibling->hdr.nused);
+    }
+    else
+    {
+        // Copy internal keys
+        Assert(btp->hdr.magic == FREE_PAGE_INTERNAL_MAGIC);
+        memcpy(&newsibling->u.internal_key,
+               &btp->u.internal_key[btp->hdr.nused],
+               sizeof(FreePageBtreeInternalKey) * newsibling->hdr.nused);
+
+        // Update parent pointers for moved children
+        FreePageBtreeUpdateParentPointers(fpm_segment_base(fpm), newsibling);
+    }
+
+    return newsibling;
+}
+```

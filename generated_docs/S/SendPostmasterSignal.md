@@ -47,3 +47,26 @@ This two-step approach (shared memory flag + signal) allows multiple types of si
 - The postmaster must have a SIGUSR1 handler that checks the PMSignalFlags array
 - No-op when called from standalone backend (not running under postmaster)
 - Part of PostgreSQL's inter-process communication infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of SendPostmasterSignal
+void SendPostmasterSignal(PMSignalReason reason) {
+    // Skip if running as standalone backend (no postmaster to signal)
+    if (!IsUnderPostmaster)
+        return;
+
+    // Set the specific signal flag in shared memory
+    PMSignalState->PMSignalFlags[reason] = true;
+
+    // Wake up the postmaster to check the flag
+    kill(PostmasterPid, SIGUSR1);
+}
+```
+
+Key simplifications made:
+- Preserved the exact original logic as it was already quite simple
+- Added clarifying comments for each major step
+- This function is already well-optimized with minimal complexity
+- The original 14-line implementation represents the essential algorithm clearly

@@ -43,3 +43,22 @@ The function is fundamental to MultiXact management operations, including vacuum
 - There's a comment suggesting potential special handling for InvalidMultiXactId might be needed, but current implementation treats it normally
 - This is a public function (not static) used extensively throughout the PostgreSQL codebase
 - Critical for vacuum operations, tuple freezing, and MultiXact cleanup procedures
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactIdPrecedes
+bool MultiXactIdPrecedes(MultiXactId multi1, MultiXactId multi2) {
+    // Calculate signed difference to handle wrap-around
+    int32 diff = (int32) (multi1 - multi2);
+
+    // Return true if multi1 comes before multi2
+    return (diff < 0);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core algorithm
+- Preserved the essential wrap-around handling logic using signed arithmetic
+- Maintained the simple but critical comparison operation
+- Removed XXX comment about InvalidMultiXactId handling as it's not implemented

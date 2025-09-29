@@ -47,3 +47,32 @@ This function takes no parameters.
 - Automatically called during transaction abort to ensure progress tracking is properly cleaned up
 - Part of PostgreSQL's statistics collection system that enables monitoring of long-running operations
 - The function is location: src/backend/utils/activity/backend_progress.c:151-165
+
+## Simplified Source
+
+```c
+// Simplified version of pgstat_progress_end_command
+void pgstat_progress_end_command(void) {
+    volatile PgBackendStatus *beentry = MyBEEntry;
+
+    // Early exit if tracking is disabled or no backend entry
+    if (!beentry || !pgstat_track_activities)
+        return;
+
+    // Early exit if no progress command is currently active
+    if (beentry->st_progress_command == PROGRESS_COMMAND_INVALID)
+        return;
+
+    // Atomically clear progress tracking fields
+    PGSTAT_BEGIN_WRITE_ACTIVITY(beentry);
+    beentry->st_progress_command = PROGRESS_COMMAND_INVALID;
+    beentry->st_progress_command_target = InvalidOid;
+    PGSTAT_END_WRITE_ACTIVITY(beentry);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved all original logic and control flow
+- Made the three main phases explicit: validation checks, active command check, and atomic cleanup
+- No simplification of logic was needed as the function is already quite concise and focused

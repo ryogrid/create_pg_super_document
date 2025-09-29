@@ -48,3 +48,39 @@ During index operations, the function carefully manages locking to avoid deadloc
 - The touch_index mechanism helps ensure relcache consistency during startup
 - Part of the two-phase initialization system for catalog caches
 - Essential for avoiding race conditions between cache initialization and relcache setup
+
+## Simplified Source
+
+```c
+// Simplified version of InitCatCachePhase2
+void InitCatCachePhase2(CatCache *cache, bool touch_index) {
+    // Initialize cache if not already done
+    if (cache->cc_tupdesc == NULL) {
+        CatalogCacheInitializeCache(cache);
+    }
+
+    // Optionally touch the index to ensure relcache entries exist
+    if (touch_index && cache->id != AMOID && cache->id != AMNAME) {
+        // Lock catalog relation first to avoid deadlocks
+        LockRelationOid(cache->cc_reloid, AccessShareLock);
+
+        // Open and validate the index
+        Relation index = index_open(cache->cc_indexoid, AccessShareLock);
+
+        // Ensure index is unique and immediate (validation check)
+        Assert(index->rd_index->indisunique && index->rd_index->indimmediate);
+
+        // Clean up: close index and unlock relation
+        index_close(index, AccessShareLock);
+        UnlockRelationOid(cache->cc_reloid, AccessShareLock);
+    }
+}
+```
+
+Key simplifications made:
+- Condensed comments to focus on essential logic flow
+- Simplified variable declarations and reduced verbosity
+- Consolidated the locking/unlocking operations description
+- Removed detailed implementation comments while preserving core algorithm
+- Maintained the special case handling for pg_am catalogs (AMOID/AMNAME)
+- Preserved the critical lock ordering to prevent deadlocks

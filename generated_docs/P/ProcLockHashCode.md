@@ -36,3 +36,31 @@ The function applies the same XOR operation with the left-shifted PGPROC address
 - Used extensively throughout the lock manager when LOCK hash codes are already available
 - Critical for maintaining consistent hash partitioning between LOCK and PROCLOCK tables
 - The inline nature reduces function call overhead during frequent lock operations
+
+## Simplified Source
+
+```c
+// Simplified version of ProcLockHashCode
+static inline uint32
+ProcLockHashCode(const PROCLOCKTAG *proclocktag, uint32 hashcode)
+{
+    // Start with the provided lock hash code
+    uint32 lockhash = hashcode;
+
+    // Get the process pointer as a Datum for hashing
+    Datum procptr = PointerGetDatum(proclocktag->myProc);
+
+    // XOR with shifted process pointer to create unique hash
+    // The shift preserves lock partition alignment
+    lockhash ^= ((uint32) procptr) << LOG2_NUM_LOCK_PARTITIONS;
+
+    return lockhash;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Simplified variable flow for clarity
+- Explained the purpose of the XOR operation and bit shifting
+- Maintained the essential hash computation algorithm
+- Preserved the critical performance optimization aspect

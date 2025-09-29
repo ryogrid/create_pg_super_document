@@ -37,3 +37,18 @@ The function provides diagnostic information by including the hash table name in
 - FATAL level terminates only the current backend for local table corruption
 - Includes hash table name (tabname) in error message for debugging purposes
 - Critical for maintaining PostgreSQL data integrity by preventing continued operation with corrupted hash structures
+
+## Simplified Source
+
+```c
+static void
+hash_corrupted(HTAB *hashp)
+{
+    // For shared hash tables, force system-wide restart
+    if (hashp->isshared)
+        elog(PANIC, "hash table \"%s\" corrupted", hashp->tabname);
+    else
+        // For local hash tables, terminate only this backend
+        elog(FATAL, "hash table \"%s\" corrupted", hashp->tabname);
+}
+```

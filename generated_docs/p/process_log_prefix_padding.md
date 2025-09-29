@@ -34,3 +34,40 @@ This static helper function processes padding specifications within PostgreSQL's
 - Used as part of PostgreSQL's flexible log line prefix formatting system
 - Critical for proper alignment and spacing of log entries based on user configuration
 - Does not allocate memory - operates entirely on input parameters and local variables
+
+## Simplified Source
+
+```c
+static const char *
+process_log_prefix_padding(const char *p, int *ppadding)
+{
+    int paddingsign = 1;
+    int padding = 0;
+
+    // Check for minus sign (left alignment)
+    if (*p == '-')
+    {
+        p++;
+
+        // Invalid if string ends with just '-'
+        if (*p == '\0')
+            return NULL;
+
+        paddingsign = -1;  // Left alignment
+    }
+
+    // Parse numeric digits
+    while (*p >= '0' && *p <= '9')
+        padding = padding * 10 + (*p++ - '0');
+
+    // Invalid if string ends with just the number
+    if (*p == '\0')
+        return NULL;
+
+    // Apply sign and store result
+    padding *= paddingsign;
+    *ppadding = padding;
+
+    return p;  // Return next position in format string
+}
+```

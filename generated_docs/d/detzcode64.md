@@ -33,3 +33,35 @@ Like its 32-bit counterpart, this function includes careful handling of the sign
 - Essential for parsing newer timezone file formats that require 64-bit timestamp precision
 - Includes the same overflow protection as `detzcode` but adapted for 64-bit arithmetic
 - The function is used less frequently than `detzcode` but is critical for handling timezone data with dates beyond the 32-bit time_t range
+
+## Simplified Source
+
+```c
+static int64
+detzcode64(const char *const codep)
+{
+    uint64 result;
+    int64 one = 1;
+    int64 halfmaxval = one << (64 - 2);  // 2^62
+    int64 maxval = halfmaxval - 1 + halfmaxval;  // Max positive value
+    int64 minval = -TWOS_COMPLEMENT(int64) - maxval;  // Min negative value
+
+    // Read first byte (with sign bit masked)
+    result = codep[0] & 0x7f;
+
+    // Read remaining 7 bytes to build the number
+    for (int i = 1; i < 8; ++i)
+        result = (result << 8) | (codep[i] & 0xff);
+
+    // Handle negative numbers (sign bit set in first byte)
+    if (codep[0] & 0x80)
+    {
+        // Perform two's-complement negation safely
+        // Special handling for edge case to avoid overflow
+        result -= !TWOS_COMPLEMENT(int64) && result != 0;
+        result += minval;
+    }
+
+    return result;
+}
+```

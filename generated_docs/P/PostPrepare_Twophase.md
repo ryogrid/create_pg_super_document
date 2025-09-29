@@ -40,3 +40,28 @@ This is a critical synchronization point in the two-phase commit protocol, ensur
 - The MyLockedGxact is set to NULL to indicate the current process no longer holds any global transaction lock
 - Part of the normal two-phase commit flow, complementing the abort handling in AtAbort_Twophase
 - Ensures proper resource management and prevents deadlocks in distributed transaction scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of PostPrepare_Twophase
+void PostPrepare_Twophase(void) {
+    // Step 1: Acquire exclusive lock on two-phase state
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+
+    // Step 2: Clear the locking backend - transaction no longer owned by this process
+    MyLockedGxact->locking_backend = INVALID_PROC_NUMBER;
+
+    // Step 3: Release the lock
+    LWLockRelease(TwoPhaseStateLock);
+
+    // Step 4: Clear local reference to global transaction
+    MyLockedGxact = NULL;
+}
+```
+
+Key simplifications made:
+- Added step-by-step comments explaining the logical flow
+- Preserved all essential operations (no simplification needed as function is already minimal)
+- Enhanced readability with descriptive comments for each operation
+- Maintained the exact sequence of operations critical for two-phase commit protocol

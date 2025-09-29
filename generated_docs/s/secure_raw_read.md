@@ -40,3 +40,38 @@ When no buffered data is available, the function performs a direct recv() call o
 - Does not perform any error handling or retry logic - that responsibility lies with calling functions like secure_read
 - The raw buffer mechanism allows for efficient handling of partially-consumed protocol messages
 - This function is the ultimate fallback for all PostgreSQL socket read operations when no encryption layer is active
+
+## Simplified Source
+
+```c
+// Simplified version of secure_raw_read
+ssize_t secure_raw_read(Port *port, void *ptr, size_t len) {
+    // Step 1: Check for buffered data first
+    if (port->raw_buf_remaining > 0) {
+        // Use buffered data - consume up to requested length
+        if (len > port->raw_buf_remaining)
+            len = port->raw_buf_remaining;
+
+        // Copy buffered data to output buffer
+        memcpy(ptr, port->raw_buf + port->raw_buf_consumed, len);
+
+        // Update buffer tracking
+        port->raw_buf_consumed += len;
+        port->raw_buf_remaining -= len;
+
+        return len;
+    }
+
+    // Step 2: No buffered data - read directly from socket
+    ssize_t bytes_read = recv(port->sock, ptr, len, 0);
+
+    return bytes_read;
+}
+```
+
+Key simplifications made:
+- Removed Windows-specific pgwin32_noblock flag manipulation for clarity
+- Consolidated buffer management logic with clearer variable names
+- Removed Assert statement and focused on core algorithm
+- Added descriptive comments for each major step
+- Simplified the flow to show the two main paths: buffered vs direct socket read

@@ -36,3 +36,42 @@ SearchNamedReplicationSlot performs a linear search through the max_replication_
 - The need_lock parameter provides flexibility for different calling contexts where locks may already be held
 - Only searches slots that are marked as in_use, ignoring freed slots
 - Thread-safe when used with appropriate locking (either via need_lock=true or caller-managed locks)
+
+## Simplified Source
+
+```c
+// Simplified version of SearchNamedReplicationSlot
+ReplicationSlot *
+SearchNamedReplicationSlot(const char *name, bool need_lock)
+{
+    ReplicationSlot *found_slot = NULL;
+
+    // Acquire lock if requested by caller
+    if (need_lock)
+        LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Linear search through all replication slots
+    for (int i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+        // Check if slot is active and name matches
+        if (slot->in_use && strcmp(name, NameStr(slot->data.name)) == 0) {
+            found_slot = slot;
+            break;  // Found it, stop searching
+        }
+    }
+
+    // Release lock if we acquired it
+    if (need_lock)
+        LWLockRelease(ReplicationSlotControlLock);
+
+    return found_slot;  // NULL if not found
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (`found_slot` instead of `slot`)
+- Added clear comments explaining each major step
+- Simplified the loop variable declaration to modern C style
+- Made the logic flow more explicit with comments
+- Clarified the return behavior in comments

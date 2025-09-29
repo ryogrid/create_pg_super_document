@@ -51,3 +51,91 @@ The function includes sophisticated memory management, automatically cleaning up
 - Handles lock group leadership for parallel query coordination
 - Critical for ensuring proper lock accounting and preventing race conditions in concurrent environments
 - Must be called with appropriate partition lock held to ensure thread safety
+
+## Simplified Source
+
+```c
+// Simplified version of SetupLockInTable
+static PROCLOCK *
+SetupLockInTable(LockMethod lockMethodTable, PGPROC *proc,
+                 const LOCKTAG *locktag, uint32 hashcode, LOCKMODE lockmode)
+{
+    LOCK       *lock;
+    PROCLOCK   *proclock;
+    PROCLOCKTAG proclocktag;
+    uint32      proclock_hashcode;
+    bool        found;
+
+    // Step 1: Find or create the LOCK object for this resource
+    lock = hash_search_with_hash_value(LockMethodLockHash, locktag, hashcode,
+                                       HASH_ENTER_NULL, &found);
+    if (!lock)
+        return NULL;  // Out of shared memory
+
+    // Step 2: Initialize new LOCK if just created
+    if (!found) {
+        lock->grantMask = 0;
+        lock->waitMask = 0;
+        dlist_init(&lock->procLocks);
+        dclist_init(&lock->waitProcs);
+        lock->nRequested = 0;
+        lock->nGranted = 0;
+        // Clear request/grant counters for all lock modes
+        MemSet(lock->requested, 0, sizeof(int) * MAX_LOCKMODES);
+        MemSet(lock->granted, 0, sizeof(int) * MAX_LOCKMODES);
+    }
+
+    // Step 3: Create hash key for PROCLOCK (process-lock association)
+    proclocktag.myLock = lock;
+    proclocktag.myProc = proc;
+    proclock_hashcode = ProcLockHashCode(&proclocktag, hashcode);
+
+    // Step 4: Find or create the PROCLOCK object
+    proclock = hash_search_with_hash_value(LockMethodProcLockHash, &proclocktag,
+                                           proclock_hashcode, HASH_ENTER_NULL, &found);
+    if (!proclock) {
+        // Clean up unused LOCK if no other requestors
+        if (lock->nRequested == 0) {
+            hash_search_with_hash_value(LockMethodLockHash, &(lock->tag),
+                                        hashcode, HASH_REMOVE, NULL);
+        }
+        return NULL;
+    }
+
+    // Step 5: Initialize new PROCLOCK if just created
+    if (!found) {
+        uint32 partition = LockHashPartition(hashcode);
+
+        // Set group leader for parallel query support
+        proclock->groupLeader = proc->lockGroupLeader ?
+                               proc->lockGroupLeader : proc;
+        proclock->holdMask = 0;
+        proclock->releaseMask = 0;
+
+        // Link into both lock's process list and process's lock list
+        dlist_push_tail(&lock->procLocks, &proclock->lockLink);
+        dlist_push_tail(&proc->myProcLocks[partition], &proclock->procLink);
+    }
+
+    // Step 6: Update request counters
+    lock->nRequested++;
+    lock->requested[lockmode]++;
+
+    // Step 7: Verify we don't already hold this exact lock mode
+    if (proclock->holdMask & LOCKBIT_ON(lockmode)) {
+        elog(ERROR, "lock %s on object is already held",
+             lockMethodTable->lockModeNames[lockmode]);
+    }
+
+    return proclock;
+}
+```
+
+Key simplifications made:
+- Removed detailed debug printing and assertions for clarity
+- Consolidated error handling into essential checks only
+- Removed optional deadlock risk detection code (CHECK_DEADLOCK_RISK)
+- Simplified memory initialization operations with high-level comments
+- Abstracted complex hash table operations with descriptive comments
+- Condensed lock tag field references in error messages
+- Focused on the core algorithm: find/create LOCK → find/create PROCLOCK → link structures

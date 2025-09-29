@@ -50,3 +50,29 @@ This is a convenience function that abstracts the two-step process of determinin
 - The created slot uses the relation's tuple descriptor, making it suitable for storing tuples that match the relation's schema
 - This is part of the table access method abstraction, allowing different storage engines to provide their own slot implementations
 - The function is widely used throughout PostgreSQL for creating slots in various contexts including COPY operations, index operations, and executor initialization
+
+## Simplified Source
+
+```c
+// Simplified version of table_slot_create
+TupleTableSlot *
+table_slot_create(Relation relation, List **reglist) {
+    // Get the appropriate slot operations for this relation type
+    const TupleTableSlotOps *tts_cb = table_slot_callbacks(relation);
+
+    // Create a new slot with the relation's tuple descriptor and operations
+    TupleTableSlot *slot = MakeSingleTupleTableSlot(RelationGetDescr(relation), tts_cb);
+
+    // Optionally register the slot for resource cleanup
+    if (reglist)
+        *reglist = lappend(*reglist, slot);
+
+    return slot;
+}
+```
+
+Key simplifications made:
+- Combined variable declaration and assignment for clarity
+- Added descriptive comments explaining each step
+- Maintained the exact same logic flow as the original
+- No actual simplification needed as the function is already quite straightforward

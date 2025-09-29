@@ -47,3 +47,44 @@ The function encapsulates the typical index-to-heap scanning pattern, making it 
 - Returns false when no more matching tuples exist, indicating end of scan
 - This is the most commonly used interface for index scanning when full tuples are needed
 - Location: src/backend/access/index/indexam.c:673-717
+
+## Simplified Source
+
+```c
+// Simplified version of index_getnext_slot
+bool index_getnext_slot(IndexScanDesc scan, ScanDirection direction, TupleTableSlot *slot)
+{
+    for (;;)
+    {
+        // Check if we need to get a new TID from the index
+        if (!scan->xs_heap_continue)
+        {
+            // Get the next matching TID from the index
+            ItemPointer tid = index_getnext_tid(scan, direction);
+
+            // No more index entries - scan is complete
+            if (tid == NULL)
+                break;
+        }
+
+        // Fetch the heap tuple for the current TID
+        // If tuple is visible and satisfies conditions, return it
+        if (index_fetch_heap(scan, slot))
+            return true;
+
+        // Tuple not visible or doesn't satisfy conditions
+        // Loop back to get next TID from index
+    }
+
+    // No more tuples found
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed Assert statements for clarity
+- Simplified comments to focus on core logic flow
+- Combined variable declaration and assignment for tid
+- Abstracted the ItemPointer validation details
+- Emphasized the main loop pattern of TID retrieval → heap fetch → visibility check
+- Focused on the essential algorithm: iterate through index entries and fetch corresponding heap tuples until a visible one is found

@@ -34,3 +34,44 @@ For entries that survive the cleanup, the function resets both creating_subid an
 - The function handles both successful commits and transaction aborts with different cleanup logic
 - Preserved entries have their subtransaction IDs reset to prepare them for future use
 - Memory management is handled by freeing removed OnCommitItem structures with pfree
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_on_commit_actions
+void AtEOXact_on_commit_actions(bool isCommit) {
+    ListCell *cur_item;
+
+    // Iterate through all ON COMMIT items in the global list
+    foreach(cur_item, on_commits) {
+        OnCommitItem *oc = (OnCommitItem *) lfirst(cur_item);
+
+        // Determine if this item should be removed based on transaction outcome
+        bool should_remove;
+        if (isCommit) {
+            // On commit: remove items that were marked for deletion
+            should_remove = (oc->deleting_subid != InvalidSubTransactionId);
+        } else {
+            // On abort: remove items that were created during this transaction
+            should_remove = (oc->creating_subid != InvalidSubTransactionId);
+        }
+
+        if (should_remove) {
+            // Remove the item from the list and free its memory
+            on_commits = foreach_delete_current(on_commits, cur_item);
+            pfree(oc);
+        } else {
+            // Keep the item but reset its transaction state
+            oc->creating_subid = InvalidSubTransactionId;
+            oc->deleting_subid = InvalidSubTransactionId;
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Extracted the conditional logic into a clearer `should_remove` variable
+- Added explanatory comments for each major step
+- Separated the commit vs abort logic for better readability
+- Made the two-phase cleanup logic more explicit
+- Preserved the essential algorithm while improving code clarity

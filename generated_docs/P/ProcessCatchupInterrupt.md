@@ -46,3 +46,38 @@ The function includes extensive comments explaining why the transaction wrapper 
 - Debug logging at DEBUG4 level helps trace catchup processing in different contexts
 - Part of PostgreSQL's shared invalidation system that maintains cache consistency across backends
 - The function is designed to be safe to call from various execution contexts within the backend
+
+## Simplified Source
+
+```c
+void ProcessCatchupInterrupt(void)
+{
+    // Process all pending catchup interrupts
+    while (catchupInterruptPending)
+    {
+        // Different handling based on whether we're in a transaction
+        if (IsTransactionOrTransactionBlock())
+        {
+            // Inside transaction: directly process invalidation messages
+            elog(DEBUG4, "ProcessCatchupEvent inside transaction");
+            AcceptInvalidationMessages();
+        }
+        else
+        {
+            // Outside transaction: create minimal transaction for processing
+            MemoryContext oldcontext = CurrentMemoryContext;
+
+            elog(DEBUG4, "ProcessCatchupEvent outside transaction");
+
+            // Start and immediately commit transaction
+            // AcceptInvalidationMessages() is called automatically during StartTransactionCommand
+            StartTransactionCommand();
+            CommitTransactionCommand();
+
+            // Restore caller's memory context (must not be transaction-local)
+            Assert(MemoryContextIsValid(oldcontext));
+            MemoryContextSwitchTo(oldcontext);
+        }
+    }
+}
+```

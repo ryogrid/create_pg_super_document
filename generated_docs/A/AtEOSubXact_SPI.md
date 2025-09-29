@@ -50,3 +50,80 @@ The function uses subtransaction IDs to determine which resources belong to the 
 - Includes optimization to avoid O(N²) operations when cleaning up tuple tables
 - Critical for preventing memory leaks in subtransaction scenarios
 - Located in src/backend/executor/spi.c:482-580
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_SPI
+void AtEOSubXact_SPI(bool isCommit, SubTransactionId mySubid) {
+    bool found = false;
+
+    // Step 1: Clean up SPI connections from current subtransaction
+    while (_SPI_connected >= 0) {
+        _SPI_connection *connection = &(_SPI_stack[_SPI_connected]);
+
+        // Stop if this connection is from a different subtransaction
+        if (connection->connectSubid != mySubid || connection->internal_xact)
+            break;
+
+        found = true;
+
+        // Clean up memory contexts for this connection
+        if (connection->execCxt) {
+            MemoryContextDelete(connection->execCxt);
+            connection->execCxt = NULL;
+        }
+        if (connection->procCxt) {
+            MemoryContextDelete(connection->procCxt);
+            connection->procCxt = NULL;
+        }
+
+        // Restore global SPI state from outer connection
+        SPI_processed = connection->outer_processed;
+        SPI_tuptable = connection->outer_tuptable;
+        SPI_result = connection->outer_result;
+
+        // Pop this connection from the stack
+        _SPI_connected--;
+        _SPI_current = (_SPI_connected < 0) ? NULL : &(_SPI_stack[_SPI_connected]);
+    }
+
+    // Step 2: Warn if unclosed connections found during commit
+    if (found && isCommit) {
+        ereport(WARNING, "subtransaction left non-empty SPI stack");
+    }
+
+    // Step 3: Additional cleanup during abort for surrounding context
+    if (_SPI_current && !isCommit) {
+        // Reset executor state if started within this subtransaction
+        if (_SPI_current->execSubid >= mySubid) {
+            _SPI_current->execSubid = InvalidSubTransactionId;
+            MemoryContextReset(_SPI_current->execCxt);
+        }
+
+        // Clean up tuple tables created within this subtransaction
+        slist_mutable_iter siter;
+        slist_foreach_modify(siter, &_SPI_current->tuptables) {
+            SPITupleTable *tuptable = slist_container(SPITupleTable, next, siter.cur);
+
+            if (tuptable->subid >= mySubid) {
+                // Remove and free the tuple table
+                slist_delete_current(&siter);
+                if (tuptable == _SPI_current->tuptable)
+                    _SPI_current->tuptable = NULL;
+                if (tuptable == SPI_tuptable)
+                    SPI_tuptable = NULL;
+                MemoryContextDelete(tuptable->tuptabcxt);
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error code and hint message from ereport for brevity
+- Added clear step-by-step comments to explain the three main phases
+- Simplified complex conditional logic into clearer flow
+- Consolidated memory context cleanup into a single block
+- Removed detailed comments about O(N²) optimization while preserving the logic
+- Used more descriptive variable organization and flow control

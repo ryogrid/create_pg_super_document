@@ -39,3 +39,28 @@ The function always returns true, indicating successful processing of the tuple.
 - The tuplestore accumulates all result tuples which can later be read back by the calling function
 - Part of the DestReceiver callback interface specifically designed for SQL function execution
 - Located in src/backend/executor/functions.c along with other SQL function execution infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of sqlfunction_receive
+static bool
+sqlfunction_receive(TupleTableSlot *slot, DestReceiver *self)
+{
+    DR_sqlfunction *myState = (DR_sqlfunction *) self;
+
+    // Filter out junk attributes (system columns, temporary attrs)
+    slot = ExecFilterJunk(myState->filter, slot);
+
+    // Store the cleaned tuple in the tuplestore for later retrieval
+    tuplestore_puttupleslot(myState->tstore, slot);
+
+    return true;  // Always succeeds - continue processing
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each operation
+- Clarified that filtering removes junk attributes specifically
+- Explained the return value semantics
+- Original code was already quite clean and minimal, so few changes were needed

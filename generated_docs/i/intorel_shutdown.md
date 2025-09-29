@@ -26,3 +26,31 @@ This function serves as the shutdown callback for DR_intorel destination receive
 
 ## Notes and Other Information
 The function sets the relation pointer to NULL after closing to prevent accidental reuse. The lock acquired during intorel_startup is retained until transaction commit, following PostgreSQL's standard locking protocol for DDL operations. This ensures that the newly created relation remains protected from concurrent access until the creating transaction commits. The bulk insertion state cleanup is essential for releasing memory and finalizing any buffered writes to storage.
+
+## Simplified Source
+
+```c
+// Simplified version of intorel_shutdown
+static void
+intorel_shutdown(DestReceiver *self)
+{
+    DR_intorel *myState = (DR_intorel *) self;
+    IntoClause *into = myState->into;
+
+    // Finalize bulk insert operations if data was actually inserted
+    if (!into->skipData) {
+        FreeBulkInsertState(myState->bistate);
+        table_finish_bulk_insert(myState->rel, myState->ti_options);
+    }
+
+    // Close relation but keep lock until transaction commit
+    table_close(myState->rel, NoLock);
+    myState->rel = NULL;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two main operations
+- Preserved the essential logic flow and conditional check
+- Maintained the original structure as the function is already quite concise
+- No complex error handling or platform-specific code to remove

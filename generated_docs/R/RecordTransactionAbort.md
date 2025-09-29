@@ -48,3 +48,94 @@ After recording the abort, it marks the transaction tree as aborted in clog and,
 - For subtransactions, immediately cleans up the running XID cache for performance
 - Includes comprehensive error checking to prevent aborting already-committed transactions
 - Manages cleanup of temporary data structures allocated during the abort process
+
+## Simplified Source
+
+```c
+// Simplified version of RecordTransactionAbort
+static TransactionId
+RecordTransactionAbort(bool isSubXact)
+{
+    TransactionId xid = GetCurrentTransactionIdIfAny();
+    TransactionId latestXid;
+    int nrels, nchildren, ndroppedstats;
+    RelFileLocator *rels;
+    TransactionId *children;
+    xl_xact_stats_item *droppedstats;
+    TimestampTz xact_time;
+    bool replorigin;
+
+    // Early exit if no XID assigned - nothing to abort
+    if (!TransactionIdIsValid(xid)) {
+        if (!isSubXact)
+            XactLastRecEnd = 0;
+        return InvalidTransactionId;
+    }
+
+    // Safety check: ensure transaction wasn't already committed
+    if (TransactionIdDidCommit(xid))
+        elog(PANIC, "cannot abort transaction %u, it was already committed", xid);
+
+    // Check if we're in replication mode
+    replorigin = (replorigin_session_origin != InvalidRepOriginId &&
+                  replorigin_session_origin != DoNotReplicateId);
+
+    // Collect abort-related data
+    nrels = smgrGetPendingDeletes(false, &rels);
+    nchildren = xactGetCommittedChildren(&children);
+    ndroppedstats = pgstat_get_transactional_drops(false, &droppedstats);
+
+    START_CRIT_SECTION();
+
+    // Set appropriate timestamp for abort record
+    if (isSubXact)
+        xact_time = GetCurrentTimestamp();
+    else
+        xact_time = GetCurrentTransactionStopTimestamp();
+
+    // Write the abort record to WAL
+    XactLogAbortRecord(xact_time, nchildren, children, nrels, rels,
+                       ndroppedstats, droppedstats, MyXactFlags,
+                       InvalidTransactionId, NULL);
+
+    // Advance replication origin if needed
+    if (replorigin)
+        replorigin_session_advance(replorigin_session_origin_lsn, XactLastRecEnd);
+
+    // Set async abort LSN for WAL writer
+    if (!isSubXact)
+        XLogSetAsyncXactLSN(XactLastRecEnd);
+
+    // Mark transaction and children as aborted in commit log
+    TransactionIdAbortTree(xid, nchildren, children);
+
+    END_CRIT_SECTION();
+
+    // Calculate latest XID in the transaction tree
+    latestXid = TransactionIdLatest(xid, nchildren, children);
+
+    // For subtransactions, clean up running XID cache immediately
+    if (isSubXact)
+        XidCacheRemoveRunningXids(xid, nchildren, children, latestXid);
+
+    // Reset transaction state for main transactions
+    if (!isSubXact)
+        XactLastRecEnd = 0;
+
+    // Clean up allocated memory
+    if (rels)
+        pfree(rels);
+    if (ndroppedstats)
+        pfree(droppedstats);
+
+    return latestXid;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated variable declarations
+- Simplified replication origin check logic
+- Streamlined critical section operations with clearer flow
+- Combined related cleanup operations
+- Abstracted complex condition checks into simpler boolean expressions
+- Maintained all essential functionality while improving readability

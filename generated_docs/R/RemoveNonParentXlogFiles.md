@@ -56,3 +56,58 @@ This cleanup is essential because leftover pre-allocated or recycled WAL segment
 - Timeline comparison uses string comparison of the first 8 characters (timeline portion) and segment portion separately
 - The cleanup prevents garbage WAL data from contaminating the archive
 - File path: src/backend/access/transam/xlog.c:3917-3985
+
+## Simplified Source
+
+```c
+// Simplified version of RemoveNonParentXlogFiles
+void RemoveNonParentXlogFiles(XLogRecPtr switchpoint, TimeLineID newTLI)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+    char switchseg[MAXFNAMELEN];
+    XLogSegNo endLogSegNo;
+    XLogSegNo switchLogSegNo;
+    XLogSegNo recycleSegNo;
+
+    // Calculate segment boundaries for cleanup
+    XLByteToPrevSeg(switchpoint, switchLogSegNo, wal_segment_size);
+    XLByteToSeg(switchpoint, endLogSegNo, wal_segment_size);
+    recycleSegNo = endLogSegNo + 10;  // Recycle 10 future segments
+
+    // Create filename of last segment to keep on new timeline
+    XLogFileName(switchseg, newTLI, switchLogSegNo, wal_segment_size);
+
+    elog(DEBUG2, "attempting to remove WAL segments newer than log file %s", switchseg);
+
+    // Scan WAL directory for cleanup candidates
+    xldir = AllocateDir(XLOGDIR);
+
+    while ((xlde = ReadDir(xldir, XLOGDIR)) != NULL)
+    {
+        // Skip non-WAL files
+        if (!IsXLogFileName(xlde->d_name))
+            continue;
+
+        // Remove files from older timelines with segment numbers >= switch segment
+        // Timeline comparison: first 8 chars = timeline, rest = segment number
+        if (strncmp(xlde->d_name, switchseg, 8) < 0 &&
+            strcmp(xlde->d_name + 8, switchseg + 8) > 0)
+        {
+            // Only remove if not already marked ready for archiving
+            if (!XLogArchiveIsReady(xlde->d_name))
+                RemoveXlogFile(xlde, recycleSegNo, &endLogSegNo, newTLI);
+        }
+    }
+
+    FreeDir(xldir);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic explanation
+- Simplified variable declarations into a cleaner block
+- Added concise inline comments for major logic steps
+- Preserved the core algorithm: calculate boundaries, scan directory, filter and remove files
+- Maintained the conservative approach of not removing files already marked for archiving
+- Kept the string comparison logic with explanatory comment about timeline vs segment portions

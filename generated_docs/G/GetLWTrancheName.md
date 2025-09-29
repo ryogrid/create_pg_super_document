@@ -40,3 +40,34 @@ This function is primarily used for debugging, logging, and diagnostic purposes 
 - The function gracefully handles unregistered extension tranches by returning a generic "extension" name rather than failing
 - Built-in tranche names are stored in a static array, while extension tranche names are dynamically allocated
 - The function performs bounds checking to prevent array access violations when looking up extension tranche names
+
+## Simplified Source
+
+```c
+// Simplified version of GetLWTrancheName
+static const char *
+GetLWTrancheName(uint16 trancheId)
+{
+    // Check if this is a built-in tranche
+    if (trancheId < LWTRANCHE_FIRST_USER_DEFINED) {
+        return BuiltinTrancheNames[trancheId];
+    }
+
+    // Handle extension tranche - adjust ID to array index
+    trancheId -= LWTRANCHE_FIRST_USER_DEFINED;
+
+    // Check bounds and registration status
+    if (trancheId >= LWLockTrancheNamesAllocated ||
+        LWLockTrancheNames[trancheId] == NULL) {
+        return "extension";  // Fallback for unregistered tranches
+    }
+
+    return LWLockTrancheNames[trancheId];
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical section
+- Clarified the purpose of tranche ID adjustment
+- Made the bounds checking logic more readable
+- Highlighted the fallback behavior for unregistered extension tranches

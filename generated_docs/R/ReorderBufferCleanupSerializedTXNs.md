@@ -42,3 +42,54 @@ The function first checks if the slot directory exists and is indeed a directory
 - Critical for preventing accumulation of orphaned spill files after crashes or abnormal termination
 - Uses ReadDirExtended with INFO level logging for better error handling during directory scanning
 - [Path](../P/Path.md) construction uses pg_replslot/[slotname]/xid* pattern for file identification
+
+## Simplified Source
+
+```c
+// Simplified version of ReorderBufferCleanupSerializedTXNs
+static void ReorderBufferCleanupSerializedTXNs(const char *slotname)
+{
+    DIR *spill_dir;
+    struct dirent *spill_de;
+    char path[MAXPGPATH * 2 + 12];
+
+    // Build path to replication slot directory
+    sprintf(path, "pg_replslot/%s", slotname);
+
+    // Skip if path is not a directory
+    if (!directory_exists(path))
+        return;
+
+    // Open slot directory for reading
+    spill_dir = AllocateDir(path);
+
+    // Scan directory for transaction spill files
+    while ((spill_de = ReadDirExtended(spill_dir, path, INFO)) != NULL)
+    {
+        // Look for files starting with "xid" (transaction files)
+        if (strncmp(spill_de->d_name, "xid", 3) == 0)
+        {
+            // Build full path to spill file
+            snprintf(path, sizeof(path), "pg_replslot/%s/%s",
+                    slotname, spill_de->d_name);
+
+            // Remove the spill file
+            if (unlink(path) != 0)
+                ereport(ERROR,
+                       (errcode_for_file_access(),
+                        errmsg("could not remove file \"%s\": %m", path)));
+        }
+    }
+
+    // Clean up directory handle
+    FreeDir(spill_dir);
+}
+```
+
+Key simplifications made:
+- Abstracted `lstat()` and `S_ISDIR()` check into conceptual `directory_exists()` function
+- Simplified error message to focus on core issue
+- Added descriptive comments for each major step
+- Maintained all essential logic including error handling
+- Preserved the file naming pattern check ("xid" prefix)
+- Kept the critical unlink error reporting for robustness

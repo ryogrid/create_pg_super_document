@@ -49,3 +49,45 @@ The function includes comprehensive safety checks, including verification that l
 - If references remain, the entry stays in the hash table but marked as dropped for eventual cleanup
 - Critical component of PostgreSQL's cooperative statistics entry lifecycle management
 - Supports both direct hash deletion and iteration-safe deletion patterns
+
+## Simplified Source
+
+```c
+static bool
+pgstat_drop_entry_internal(PgStatShared_HashEntry *shent,
+                           dshash_seq_status *hstat)
+{
+    Assert(shent->body != InvalidDsaPointer);
+
+    // Verify local references have been released
+    if (pgStatEntryRefHash)
+        Assert(!pgstat_entry_ref_hash_lookup(pgStatEntryRefHash, shent->key));
+
+    // Check for double-deletion attempts
+    if (shent->dropped)
+        elog(ERROR,
+             "trying to drop stats entry already dropped: kind=%s dboid=%u objoid=%u refcount=%u generation=%u",
+             pgstat_get_kind_info(shent->key.kind)->name,
+             shent->key.dboid, shent->key.objoid,
+             pg_atomic_read_u32(&shent->refcount),
+             pg_atomic_read_u32(&shent->generation));
+
+    // Mark entry as dropped to signal other backends
+    shent->dropped = true;
+
+    // Decrement reference count and check if we can free immediately
+    if (pg_atomic_sub_fetch_u32(&shent->refcount, 1) == 0)
+    {
+        // No more references - safe to free the entry
+        pgstat_free_entry(shent, hstat);
+        return true;
+    }
+    else
+    {
+        // Other backends still hold references - just release lock
+        if (!hstat)
+            dshash_release_lock(pgStatLocal.shared_hash, shent);
+        return false;
+    }
+}
+```

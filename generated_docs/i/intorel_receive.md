@@ -25,3 +25,29 @@ This function serves as the tuple receiving callback for DR_intorel destination 
 
 ## Notes and Other Information
 The function always returns true, indicating successful processing. Since the target relation is newly created, there are no indexes to maintain during insertion. The function uses the bulk insertion state, command ID, and table insertion options that were set up during intorel_startup. The design prioritizes simplicity and compatibility over optimal performance, accepting that slot type mismatches may cause slight inefficiencies rather than performing expensive type conversions.
+
+## Simplified Source
+
+```c
+// Simplified version of intorel_receive
+static bool intorel_receive(TupleTableSlot *slot, DestReceiver *self) {
+    DR_intorel *myState = (DR_intorel *) self;
+
+    // Skip insertion if WITH NO DATA was specified
+    if (!myState->into->skipData) {
+        // Insert tuple into target relation using table AM interface
+        table_tuple_insert(myState->rel, slot, myState->output_cid,
+                          myState->ti_options, myState->bistate);
+    }
+
+    // Always return success (no indexes to maintain on new relation)
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about slot type compatibility and performance trade-offs
+- Condensed the table_tuple_insert call to fewer lines for readability
+- Simplified the conditional logic explanation
+- Removed the extensive comment block about AM data access limitations
+- Preserved the core algorithm: check skipData flag, insert if needed, return success

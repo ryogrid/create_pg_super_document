@@ -33,3 +33,38 @@ This function manages locks required during the planning phase of query executio
 - For utility statements, only those containing embedded queries are processed
 - The function serves as a higher-level wrapper around ScanQueryForLocks for query lists
 - This is a static function within the plan cache module, used internally for plan cache management
+
+## Simplified Source
+
+```c
+// Simplified version of AcquirePlannerLocks
+static void AcquirePlannerLocks(List *stmt_list, bool acquire) {
+    ListCell *lc;
+
+    // Iterate through each query in the statement list
+    foreach(lc, stmt_list) {
+        Query *query = lfirst_node(Query, lc);
+
+        // Handle utility statements specially
+        if (query->commandType == CMD_UTILITY) {
+            // Check if utility statement contains an embedded query
+            query = UtilityContainsQuery(query->utilityStmt);
+            if (query) {
+                // Process the embedded query for locks
+                ScanQueryForLocks(query, acquire);
+            }
+            continue;
+        }
+
+        // Process regular queries for lock acquisition/release
+        ScanQueryForLocks(query, acquire);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the main logic flow
+- Preserved the essential algorithm structure: iterate through queries and delegate to ScanQueryForLocks
+- Maintained the special handling for utility statements with embedded queries
+- Kept the core conditional logic for different query types
+- Removed the detailed comment block to focus on the actual implementation

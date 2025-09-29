@@ -42,3 +42,26 @@ The function is implemented as a wrapper around `pg_atomic_fetch_and_u32_impl`, 
 - The operation follows standard bitwise AND semantics: result bit is 1 only if both operand bits are 1
 - Often used in conjunction with other atomic operations to implement complex state management
 - Essential for implementing atomic bit manipulation in concurrent data structures
+
+## Simplified Source
+
+```c
+// Simplified version of pg_atomic_fetch_and_u32
+static inline uint32
+pg_atomic_fetch_and_u32(volatile pg_atomic_uint32 *ptr, uint32 and_)
+{
+    // Ensure pointer is properly aligned for atomic operations
+    AssertPointerAlignment(ptr, 4);
+
+    // Delegate to platform-specific implementation
+    // Atomically: old_value = *ptr; *ptr = *ptr & and_; return old_value;
+    return pg_atomic_fetch_and_u32_impl(ptr, and_);
+}
+```
+
+Key simplifications made:
+- Preserved the essential wrapper function structure
+- Kept the alignment assertion as it's critical for correctness
+- Added inline comment explaining the atomic operation semantics
+- Maintained the delegation to platform-specific implementation
+- Function is already quite simple, so minimal simplification was needed

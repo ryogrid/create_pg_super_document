@@ -35,3 +35,19 @@ This function implements the classic bottom-up heap construction algorithm, also
 - After completion, the heap is ready for standard heap operations like binaryheap_first(), binaryheap_add(), and binaryheap_remove_first()
 - The bh_has_heap_property flag is set to true upon successful completion, enabling debug checks in other heap operations
 - This is a fundamental operation used throughout PostgreSQL for efficiently initializing priority queues in various subsystems
+
+## Simplified Source
+
+```c
+void binaryheap_build(binaryheap *heap)
+{
+    int i;
+
+    // Start from the last non-leaf node and work backwards to root
+    for (i = parent_offset(heap->bh_size - 1); i >= 0; i--)
+        sift_down(heap, i);
+
+    // Mark heap as having valid heap property
+    heap->bh_has_heap_property = true;
+}
+```

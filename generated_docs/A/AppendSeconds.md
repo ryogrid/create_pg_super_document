@@ -40,3 +40,52 @@ The function strips any sign from the input values and handles fractional second
 - Fractional seconds are processed to avoid trailing zeros in the output
 - Located in src/backend/utils/adt/datetime.c:448-510
 - Used extensively in time/interval formatting operations throughout PostgreSQL
+
+## Simplified Source
+
+```c
+static char *AppendSeconds(char *cp, int sec, fsec_t fsec, int precision, bool fillzeros)
+{
+    Assert(precision >= 0);
+
+    // Append seconds (with optional zero-padding)
+    if (fillzeros)
+        cp = pg_ultostr_zeropad(cp, abs(sec), 2);
+    else
+        cp = pg_ultostr(cp, abs(sec));
+
+    // Handle fractional seconds if present
+    if (fsec != 0) {
+        int32 value = abs(fsec);
+        char *end = &cp[precision + 1];
+        bool gotnonzero = false;
+
+        *cp++ = '.';
+
+        // Build fractional part, skipping trailing zeros
+        while (precision--) {
+            int32 oldval = value;
+            int32 remainder;
+
+            value /= 10;
+            remainder = oldval - value * 10;
+
+            if (remainder)
+                gotnonzero = true;
+
+            if (gotnonzero)
+                cp[precision] = '0' + remainder;
+            else
+                end = &cp[precision];
+        }
+
+        // Handle overflow case
+        if (value)
+            return pg_ultostr(cp, abs(fsec));
+
+        return end;
+    }
+    else
+        return cp;
+}
+```

@@ -33,3 +33,35 @@ The function carefully handles the sign extension and ensures that the minimum r
 - Used extensively in timezone file parsing to decode transition times, UTC offsets, and other numeric data
 - The big-endian format requirement comes from the timezone file format specification
 - Includes protection against overflow when negating the minimum representable value
+
+## Simplified Source
+
+```c
+static int32
+detzcode(const char *const codep)
+{
+    int32 result;
+    int32 one = 1;
+    int32 halfmaxval = one << (32 - 2);  // 2^30
+    int32 maxval = halfmaxval - 1 + halfmaxval;  // Max positive value
+    int32 minval = -1 - maxval;  // Min negative value
+
+    // Read first byte (with sign bit masked)
+    result = codep[0] & 0x7f;
+
+    // Read remaining 3 bytes to build the number
+    for (int i = 1; i < 4; ++i)
+        result = (result << 8) | (codep[i] & 0xff);
+
+    // Handle negative numbers (sign bit set in first byte)
+    if (codep[0] & 0x80)
+    {
+        // Perform two's-complement negation safely
+        // Special handling for edge case to avoid overflow
+        result -= !TWOS_COMPLEMENT(int32) && result != 0;
+        result += minval;
+    }
+
+    return result;
+}
+```

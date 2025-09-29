@@ -52,3 +52,49 @@ The function is critical for MVCC (Multi-Version Concurrency Control) implementa
 - Critical for determining tuple visibility in MVCC snapshots
 - Warning messages indicate potential inconsistencies in pg_subtrans after database startup
 - Performance-critical function as it's called frequently during tuple visibility checks
+
+## Simplified Source
+
+```c
+// Simplified version of TransactionIdDidCommit
+bool TransactionIdDidCommit(TransactionId transactionId) {
+    XidStatus xidstatus;
+
+    // Step 1: Get transaction status from commit log
+    xidstatus = TransactionLogFetch(transactionId);
+
+    // Step 2: Check if directly committed
+    if (xidstatus == TRANSACTION_STATUS_COMMITTED)
+        return true;
+
+    // Step 3: Handle subtransaction case
+    if (xidstatus == TRANSACTION_STATUS_SUB_COMMITTED) {
+        TransactionId parentXid;
+
+        // Check if transaction is too old to have parent info
+        if (TransactionIdPrecedes(transactionId, TransactionXmin))
+            return false;
+
+        // Get parent transaction ID
+        parentXid = SubTransGetParent(transactionId);
+        if (!TransactionIdIsValid(parentXid)) {
+            elog(WARNING, "no pg_subtrans entry for subcommitted XID %u", transactionId);
+            return false;
+        }
+
+        // Recursively check parent's commit status
+        return TransactionIdDidCommit(parentXid);
+    }
+
+    // Step 4: Not committed (aborted or in progress)
+    return false;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated the main algorithm into clear numbered steps
+- Simplified variable declarations and error handling structure
+- Maintained all critical functionality including recursive parent checking
+- Preserved warning for missing subtransaction entries
+- Kept the essential MVCC logic for transaction status determination

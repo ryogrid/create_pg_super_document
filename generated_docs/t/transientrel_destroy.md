@@ -26,3 +26,18 @@ This function serves as the destroy callback for a DestReceiver that handles wri
 - Called as the final step in DestReceiver lifecycle after shutdown operations
 - Part of the standard DestReceiver interface pattern where destroy callbacks handle object deallocation
 - Ensures clean memory management for transient relation DestReceiver objects used in materialized view refresh operations
+
+## Simplified Source
+
+```c
+// Simplified version of transientrel_destroy
+static void transientrel_destroy(DestReceiver *self) {
+    // Core logic: Deallocate the DestReceiver object
+    pfree(self);
+}
+```
+
+Key simplifications made:
+- No simplifications needed - function is already minimal
+- Original function consists of only a single pfree() call
+- Added explanatory comment to clarify the purpose

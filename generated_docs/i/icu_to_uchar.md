@@ -47,3 +47,33 @@ The function handles all the complexity of ICU string conversion, including prop
 - This function is the primary entry point for database-to-ICU string conversion
 - Essential for ICU-based text processing operations like collation, case conversion, and normalization
 - The function gracefully handles strings that don't need to be null-terminated in the source
+
+## Simplified Source
+
+```c
+// Simplified version of icu_to_uchar
+int32_t icu_to_uchar(UChar **buff_uchar, const char *buff, size_t nbytes) {
+    int32_t len_uchar;
+
+    // Ensure ICU converter is initialized and ready
+    init_icu_converter();
+
+    // Calculate how many UChars we need for the conversion
+    len_uchar = uchar_length(icu_converter, buff, nbytes);
+
+    // Allocate memory for the result string (including null terminator)
+    *buff_uchar = palloc((len_uchar + 1) * sizeof(UChar));
+
+    // Perform the actual conversion from database encoding to UChar
+    len_uchar = uchar_convert(icu_converter, *buff_uchar, len_uchar + 1, buff, nbytes);
+
+    return len_uchar;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Kept the essential three-step process: initialize, calculate size, allocate and convert
+- Preserved the core algorithm flow without removing any functional logic
+- Maintained the original variable names as they are already clear
+- No simplification needed for control flow as the function is already straightforward

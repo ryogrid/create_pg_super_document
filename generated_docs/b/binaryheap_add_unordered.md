@@ -37,3 +37,27 @@ This function provides an O(1) method to add elements to a binary heap when the 
 - This is specifically designed for bulk initialization scenarios where multiple elements need to be added before using the heap
 - The bh_has_heap_property flag serves as a debugging aid to catch improper usage of the heap while it's in an invalid state
 - Used extensively throughout PostgreSQL for efficient initialization of priority queues in various subsystems
+
+## Simplified Source
+
+```c
+void
+binaryheap_add_unordered(binaryheap *heap, bh_node_type d)
+{
+    // Check if heap has capacity for one more element
+    if (heap->bh_size >= heap->bh_space) {
+#ifdef FRONTEND
+        pg_fatal("out of binary heap slots");
+#else
+        elog(ERROR, "out of binary heap slots");
+#endif
+    }
+
+    // Mark heap as no longer maintaining heap property
+    heap->bh_has_heap_property = false;
+
+    // Add element to end of array and increment size
+    heap->bh_nodes[heap->bh_size] = d;
+    heap->bh_size++;
+}
+```

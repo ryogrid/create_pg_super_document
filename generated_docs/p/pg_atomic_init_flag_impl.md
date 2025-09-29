@@ -36,3 +36,27 @@ pg_atomic_init_flag_impl is a fallback implementation for initializing atomic fl
 - Sets the initial flag value to false after initializing synchronization mechanism
 - Defined in src/backend/port/atomics.c under conditional compilation (PG_HAVE_ATOMIC_FLAG_SIMULATION)
 - The pg_atomic_flag structure contains either a single int or int[4] sema field (platform-dependent) and a volatile bool value
+
+## Simplified Source
+
+```c
+void
+pg_atomic_init_flag_impl(volatile pg_atomic_flag *ptr)
+{
+    // Compile-time check: ensure semaphore field is large enough for slock_t
+    StaticAssertDecl(sizeof(ptr->sema) >= sizeof(slock_t),
+                     "size mismatch of atomic_flag vs slock_t");
+
+#ifndef HAVE_SPINLOCKS
+    // On platforms without spinlocks, use semaphore-based emulation
+    // Use separate semaphore set to avoid conflicts with other spinlocks
+    s_init_lock_sema((slock_t *) &ptr->sema, true);
+#else
+    // On platforms with spinlocks, use standard spinlock initialization
+    SpinLockInit((slock_t *) &ptr->sema);
+#endif
+
+    // Initialize flag value to false
+    ptr->value = false;
+}
+```

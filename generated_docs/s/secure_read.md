@@ -44,3 +44,68 @@ A key feature is its blocking behavior management: when a read would block (EWOU
 - The function respects the port->noblock setting, only entering wait states when blocking mode is enabled
 - Error handling preserves errno values from underlying read operations
 - Integration with PostgreSQL's interrupt handling system ensures query cancellation and other signals are processed promptly
+
+## Simplified Source
+
+```c
+// Simplified version of secure_read
+ssize_t secure_read(Port *port, void *ptr, size_t len)
+{
+    ssize_t n;
+    int waitfor;
+
+    // Handle any pending client interrupts
+    ProcessClientReadInterrupt(false);
+
+retry:
+    // Choose appropriate read method based on connection security
+    if (port->ssl_in_use) {
+        // SSL/TLS encrypted connection
+        n = be_tls_read(port, ptr, len, &waitfor);
+    } else if (port->gss && port->gss->enc) {
+        // GSS-API encrypted connection
+        n = be_gssapi_read(port, ptr, len);
+        waitfor = WL_SOCKET_READABLE;
+    } else {
+        // Plain socket connection
+        n = secure_raw_read(port, ptr, len);
+        waitfor = WL_SOCKET_READABLE;
+    }
+
+    // Handle blocking operations when socket would block
+    if (n < 0 && !port->noblock && (errno == EWOULDBLOCK || errno == EAGAIN)) {
+        WaitEvent event;
+
+        // Wait for socket to become readable
+        ModifyWaitEvent(FeBeWaitSet, FeBeWaitSetSocketPos, waitfor, NULL);
+        WaitEventSetWait(FeBeWaitSet, -1, &event, 1, WAIT_EVENT_CLIENT_READ);
+
+        // Check for postmaster death - terminate if detected
+        if (event.events & WL_POSTMASTER_DEATH) {
+            ereport(FATAL, (errcode(ERRCODE_ADMIN_SHUTDOWN),
+                           errmsg("terminating connection due to unexpected postmaster exit")));
+        }
+
+        // Handle client interrupts during wait
+        if (event.events & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            ProcessClientReadInterrupt(true);
+        }
+
+        goto retry;
+    }
+
+    // Process any interrupts that occurred during read
+    ProcessClientReadInterrupt(false);
+
+    return n;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining postmaster death handling rationale
+- Simplified conditional compilation directives (#ifdef blocks) into clear logic flow
+- Consolidated error handling into essential checks only
+- Added brief explanatory comments for each major logic section
+- Preserved the retry mechanism and core security protocol selection
+- Maintained essential interrupt processing and wait event handling

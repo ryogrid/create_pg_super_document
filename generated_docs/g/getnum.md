@@ -35,3 +35,37 @@ This static function parses numeric values from timezone strings while performin
 - The parsed number is stored in the location pointed to by  only if validation succeeds
 - Used extensively in timezone rule parsing for extracting hours, minutes, seconds, and day numbers
 - Part of the timezone string parsing infrastructure that ensures numeric components are within valid ranges
+
+## Simplified Source
+
+```c
+static const char *getnum(const char *strp, int *const nump, const int min, const int max)
+{
+    char c;
+    int num;
+
+    // Check for null pointer or non-digit start
+    if (strp == NULL || !is_digit(c = *strp))
+        return NULL;
+
+    num = 0;
+    do {
+        // Convert digit and add to number
+        num = num * 10 + (c - '0');
+
+        // Early overflow check during parsing
+        if (num > max)
+            return NULL;  // Value too large
+
+        c = *++strp;
+    } while (is_digit(c));
+
+    // Check minimum bound after parsing complete number
+    if (num < min)
+        return NULL;  // Value too small
+
+    // Store result and return pointer to next character
+    *nump = num;
+    return strp;
+}
+```

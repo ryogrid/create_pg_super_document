@@ -80,3 +80,66 @@ PrepareRedoAdd is a critical function in PostgreSQL's two-phase commit recovery 
 
 ## Notes and Other Information
 The function requires exclusive access to TwoPhaseStateLock and can only be called during recovery. It performs careful duplicate detection by checking for existing files when processing WAL records, preventing corruption during crash recovery scenarios. The function allocates global transaction structures from the free list and properly initializes all necessary fields including prepare timestamps, LSN positions, and state flags. Error handling distinguishes between consistency-reached and pre-consistency states. Location: src/backend/access/transam/twophase.c:2470-2571
+
+## Simplified Source
+
+```c
+// Simplified version of PrepareRedoAdd
+void PrepareRedoAdd(char *buf, XLogRecPtr start_lsn,
+                   XLogRecPtr end_lsn, RepOriginId origin_id)
+{
+    TwoPhaseFileHeader *hdr = (TwoPhaseFileHeader *) buf;
+    char *bufptr = buf + MAXALIGN(sizeof(TwoPhaseFileHeader));
+    const char *gid = (const char *) bufptr;
+    GlobalTransaction gxact;
+
+    // Core logic step 1: Check for duplicate 2PC data on disk
+    if (!XLogRecPtrIsInvalid(start_lsn)) {
+        char path[MAXPGPATH];
+        TwoPhaseFilePath(path, hdr->xid);
+
+        // Skip if file already exists on disk to avoid duplicates
+        if (access(path, F_OK) == 0) {
+            ereport(reachedConsistency ? ERROR : WARNING,
+                    (errmsg("transaction %u already restored from disk", hdr->xid)));
+            return;
+        }
+    }
+
+    // Core logic step 2: Allocate new global transaction entry
+    if (TwoPhaseState->freeGXacts == NULL) {
+        ereport(ERROR, (errmsg("maximum prepared transactions reached")));
+    }
+    gxact = TwoPhaseState->freeGXacts;
+    TwoPhaseState->freeGXacts = gxact->next;
+
+    // Core logic step 3: Initialize transaction state
+    gxact->prepared_at = hdr->prepared_at;
+    gxact->prepare_start_lsn = start_lsn;
+    gxact->prepare_end_lsn = end_lsn;
+    gxact->xid = hdr->xid;
+    gxact->owner = hdr->owner;
+    gxact->valid = false;
+    gxact->ondisk = XLogRecPtrIsInvalid(start_lsn);
+    gxact->inredo = true;  // Mark as added during redo
+    strcpy(gxact->gid, gid);
+
+    // Core logic step 4: Add to active transaction array
+    TwoPhaseState->prepXacts[TwoPhaseState->numPrepXacts++] = gxact;
+
+    // Core logic step 5: Handle replication origin advancement
+    if (origin_id != InvalidRepOriginId) {
+        replorigin_advance(origin_id, hdr->origin_lsn, end_lsn, false, false);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed assertion checks for clarity
+- Consolidated error handling into essential checks only
+- Simplified file access error handling (removed errno checking)
+- Abstracted complex error message formatting
+- Removed debug logging statement
+- Streamlined variable initialization
+- Added clear step-by-step comments explaining the core algorithm
+- Maintained all essential functionality while reducing code by ~40%

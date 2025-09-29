@@ -47,3 +47,17 @@ This function is used in timezone processing to detect when timezone transitions
 - Used to optimize timezone data storage by identifying repeating patterns in timezone transitions
 - The 400-year cycle matches the Gregorian calendar's leap year pattern repetition
 - Returns false immediately if the time type cannot safely represent the repeat interval
+
+## Simplified Source
+
+```c
+static bool differ_by_repeat(const pg_time_t t1, const pg_time_t t0)
+{
+    // Check if time type has enough bits to safely represent repeat interval
+    if (TYPE_BIT(pg_time_t) - TYPE_SIGNED(pg_time_t) < SECSPERREPEAT_BITS)
+        return 0;
+
+    // Return true if timestamps differ by exactly one repeat cycle (~400 years)
+    return t1 - t0 == SECSPERREPEAT;
+}
+```

@@ -42,3 +42,27 @@ This function takes no parameters but operates on global backend-local variables
 - The function is safe to call multiple times or when no serializable transaction is active
 - Particularly important in parallel query scenarios where workers need to clean up their local state independently
 - The LocalPredicateLockHash destruction is crucial for reclaiming memory used for tracking local predicate locks
+
+## Simplified Source
+
+```c
+// Simplified version of ReleasePredicateLocksLocal
+static void ReleasePredicateLocksLocal(void) {
+    // Reset serializable transaction reference
+    MySerializableXact = InvalidSerializableXact;
+
+    // Clear write tracking flag
+    MyXactDidWrite = false;
+
+    // Clean up local predicate lock hash table
+    if (LocalPredicateLockHash != NULL) {
+        hash_destroy(LocalPredicateLockHash);
+        LocalPredicateLockHash = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each cleanup step
+- No simplification of logic needed - function is already straightforward
+- Preserved all essential functionality as the function is minimal and clear

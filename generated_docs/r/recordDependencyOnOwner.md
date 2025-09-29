@@ -42,3 +42,25 @@ This function simplifies the process of recording ownership relationships in Pos
 - The owner is always referenced through AuthIdRelationId (pg_authid catalog)
 - This function is essential for PostgreSQL's object ownership and privilege system
 - Located in src/backend/catalog/pg_shdepend.c:168-205
+
+## Simplified Source
+
+```c
+void recordDependencyOnOwner(Oid classId, Oid objectId, Oid owner)
+{
+    ObjectAddress myself, referenced;
+
+    // Set up the dependent object address
+    myself.classId = classId;
+    myself.objectId = objectId;
+    myself.objectSubId = 0;
+
+    // Set up the owner object address (always from pg_authid)
+    referenced.classId = AuthIdRelationId;
+    referenced.objectId = owner;
+    referenced.objectSubId = 0;
+
+    // Record the ownership dependency
+    recordSharedDependencyOn(&myself, &referenced, SHARED_DEPENDENCY_OWNER);
+}
+```

@@ -40,3 +40,40 @@ The bucket pointers and size information are initially set to safe defaults (NUL
 - The handle parameter is essentially a dsa_pointer to the control structure
 - Parameters must exactly match those used when the hash table was originally created
 - This is used when multiple processes need to access the same shared hash table instance
+
+## Simplified Source
+
+```c
+// Simplified version of dshash_attach
+dshash_table *
+dshash_attach(dsa_area *area, const dshash_parameters *params,
+              dshash_table_handle handle, void *arg)
+{
+    dshash_table *hash_table;
+
+    // Allocate local hash table object
+    hash_table = palloc(sizeof(dshash_table));
+
+    // Set up the local hash table structure
+    hash_table->area = area;
+    hash_table->params = *params;
+    hash_table->arg = arg;
+    hash_table->control = dsa_get_address(area, handle);
+
+    // Validate the control structure
+    Assert(hash_table->control->magic == DSHASH_MAGIC);
+
+    // Initialize bucket pointers (will be set later during first access)
+    hash_table->buckets = NULL;
+    hash_table->size_log2 = 0;
+
+    return hash_table;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic flow
+- Consolidated variable initialization into logical groups
+- Simplified the control pointer assignment (handle is directly the dsa_pointer)
+- Maintained all essential functionality including validation and initialization
+- Preserved the lazy initialization pattern for buckets and size_log2

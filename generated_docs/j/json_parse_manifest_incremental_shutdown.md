@@ -35,3 +35,26 @@ This is the complementary cleanup function to json_parse_manifest_incremental_in
 - Failure to call this function will result in memory leaks
 - Should be called in error paths as well as successful completion paths
 - Part of PostgreSQL's backup manifest processing cleanup infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of json_parse_manifest_incremental_shutdown
+void json_parse_manifest_incremental_shutdown(JsonManifestParseIncrementalState *incstate) {
+    // Step 1: Free semantic state memory
+    pfree(incstate->sem.semstate);
+
+    // Step 2: Clean up JSON lexer context
+    freeJsonLexContext(&(incstate->lex));
+
+    // Step 3: Free the main state structure
+    // Note: manifest_ctx already freed by caller
+    pfree(incstate);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each cleanup step
+- Preserved original function signature and logic flow
+- Highlighted the assumption about manifest_ctx being pre-freed
+- Maintained all essential cleanup operations in correct order

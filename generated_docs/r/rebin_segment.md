@@ -42,3 +42,38 @@ The rebinning process involves unlinking the segment from its current bin, updat
 - Uses DSA_SEGMENT_INDEX_NONE constant for null segment references
 - Critical for maintaining DSA allocation performance by keeping segments properly organized by available space
 - The segment is always placed at the front of its new bin for insertion efficiency
+
+## Simplified Source
+
+```c
+static void
+rebin_segment(dsa_area *area, dsa_segment_map *segment_map)
+{
+    size_t new_bin;
+    dsa_segment_index segment_index;
+
+    // Determine which bin this segment should be in based on largest free space
+    new_bin = contiguous_pages_to_segment_bin(fmp_largest(segment_map->fpm));
+
+    // If already in correct bin, nothing to do
+    if (segment_map->header->bin == new_bin)
+        return;
+
+    // Remove segment from its current bin
+    unlink_segment(area, segment_map);
+
+    // Add segment to front of new bin's linked list
+    segment_index = get_segment_index(area, segment_map);
+    segment_map->header->prev = DSA_SEGMENT_INDEX_NONE;
+    segment_map->header->next = area->control->segment_bins[new_bin];
+    segment_map->header->bin = new_bin;
+    area->control->segment_bins[new_bin] = segment_index;
+
+    // Update next segment's prev pointer if it exists
+    if (segment_map->header->next != DSA_SEGMENT_INDEX_NONE) {
+        dsa_segment_map *next;
+        next = get_segment_by_index(area, segment_map->header->next);
+        next->header->prev = segment_index;
+    }
+}
+```

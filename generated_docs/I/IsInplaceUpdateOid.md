@@ -32,3 +32,21 @@ In-place updates are used for these critical system tables to avoid the overhead
 - Extensions may perform in-place updates on other heap tables, but concurrent SQL UPDATE operations may overwrite those modifications
 - The executor assumes that in-place updated relations are not partitions or partitioned tables and have no triggers
 - Located in src/backend/catalog/catalog.c at lines 162-174
+
+## Simplified Source
+
+```c
+// Simplified version of IsInplaceUpdateOid
+bool IsInplaceUpdateOid(Oid relid) {
+    // Check if this is one of the two system tables that use in-place updates:
+    // - pg_class (RelationRelationId): stores relation metadata
+    // - pg_database (DatabaseRelationId): stores database information
+    return (relid == RelationRelationId ||
+            relid == DatabaseRelationId);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the two specific relation IDs being checked
+- Clarified that only pg_class and pg_database tables use in-place updates
+- The function is already quite simple, so the main enhancement is better documentation of purpose

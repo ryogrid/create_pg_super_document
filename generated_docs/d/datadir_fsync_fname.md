@@ -45,3 +45,23 @@ Key characteristics:
 - Error tolerance is critical for production environments where some files may have restricted access
 - Called multiple times by SyncDataDirectory: once for the main data directory, once for pg_wal (if symlinked), and once for tablespaces
 - Part of the startup sequence that ensures any pending writes from previous sessions reach disk before new operations begin
+
+## Simplified Source
+
+```c
+// Simplified version of datadir_fsync_fname
+static void datadir_fsync_fname(const char *fname, bool isdir, int elevel) {
+    // Report progress with current file path and elapsed time
+    ereport_startup_progress("syncing data directory (fsync), elapsed time: %ld.%02d s, current path: %s", fname);
+
+    // Perform fsync with error tolerance for unreadable files
+    // The 'true' parameter enables silent ignoring of access errors
+    fsync_fname_ext(fname, isdir, true, elevel);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the two main operations
+- Clarified the purpose of the 'true' parameter in fsync_fname_ext call
+- Simplified the multi-line comment into a concise inline comment
+- Maintained the essential logic flow: progress reporting followed by fsync operation

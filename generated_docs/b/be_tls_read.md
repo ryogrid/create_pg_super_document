@@ -57,3 +57,77 @@ The function properly manages OpenSSL's per-thread error queue and provides comp
 - The waitfor parameter is only set for WANT_READ/WANT_WRITE conditions where the caller needs to wait
 - This function is designed to integrate with PostgreSQL's non-blocking I/O infrastructure
 - The function follows OpenSSL best practices for error queue management to ensure reliable operation
+
+## Simplified Source
+
+```c
+ssize_t be_tls_read(Port *port, void *ptr, size_t len, int *waitfor)
+{
+    ssize_t n;
+    int err;
+    unsigned long ecode;
+
+    // Clear OpenSSL error state and attempt to read
+    errno = 0;
+    ERR_clear_error();
+    n = SSL_read(port->ssl, ptr, len);
+    err = SSL_get_error(port->ssl, n);
+    ecode = (err != SSL_ERROR_NONE || n < 0) ? ERR_get_error() : 0;
+
+    // Handle different SSL error conditions
+    switch (err)
+    {
+        case SSL_ERROR_NONE:
+            // Successful read - return number of bytes read
+            break;
+
+        case SSL_ERROR_WANT_READ:
+            // SSL needs more input data - tell caller to wait for socket readable
+            *waitfor = WL_SOCKET_READABLE;
+            errno = EWOULDBLOCK;
+            n = -1;
+            break;
+
+        case SSL_ERROR_WANT_WRITE:
+            // SSL needs to write data first - tell caller to wait for socket writable
+            *waitfor = WL_SOCKET_WRITEABLE;
+            errno = EWOULDBLOCK;
+            n = -1;
+            break;
+
+        case SSL_ERROR_SYSCALL:
+            // System call error - check if errno is meaningful
+            if (n != -1 || errno == 0)
+            {
+                errno = ECONNRESET;
+                n = -1;
+            }
+            break;
+
+        case SSL_ERROR_SSL:
+            // SSL protocol error - report and set connection reset
+            ereport(COMMERROR,
+                    (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                     errmsg("SSL error: %s", SSLerrmessage(ecode))));
+            errno = ECONNRESET;
+            n = -1;
+            break;
+
+        case SSL_ERROR_ZERO_RETURN:
+            // Clean connection shutdown by peer
+            n = 0;
+            break;
+
+        default:
+            // Unrecognized SSL error
+            ereport(COMMERROR,
+                    (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                     errmsg("unrecognized SSL error code: %d", err)));
+            errno = ECONNRESET;
+            n = -1;
+            break;
+    }
+
+    return n;
+}
+```

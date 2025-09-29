@@ -33,3 +33,38 @@ This function performs a complete cleanup of the KnownAssignedXids tracking stru
 - Resets lastOverflowedXid for consistency with ExpireOldKnownAssignedTransactionIds behavior
 - Uses exclusive locking on ProcArrayLock to ensure atomic updates to all related state
 - Part of PostgreSQL's Hot Standby recovery infrastructure for managing transaction visibility on standby servers
+
+## Simplified Source
+
+```c
+// Simplified version of ExpireAllKnownAssignedTransactionIds
+void ExpireAllKnownAssignedTransactionIds(void) {
+    FullTransactionId latestXid;
+
+    // Acquire exclusive lock for atomic updates
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Remove all known assigned transaction IDs
+    KnownAssignedXidsRemovePreceding(InvalidTransactionId);
+
+    // Reset latestCompletedXid to nextXid - 1
+    latestXid = TransamVariables->nextXid;
+    FullTransactionIdRetreat(&latestXid);
+    TransamVariables->latestCompletedXid = latestXid;
+
+    // Mark all in-progress transactions as effectively aborted
+    TransamVariables->xactCompletionCount++;
+
+    // Reset overflow tracking for consistency
+    procArray->lastOverflowedXid = InvalidTransactionId;
+
+    LWLockRelease(ProcArrayLock);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining implementation rationale
+- Consolidated variable operations into clear logical steps
+- Simplified the Assert() validation check for brevity
+- Added high-level comments describing each major operation
+- Maintained the essential algorithm: lock acquisition, state cleanup, counter updates, and lock release

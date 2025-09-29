@@ -37,3 +37,53 @@ The callback handles multiple SSL event types including handshake start/completi
 - The function handles 8 different SSL event types: handshake start/done, accept loop/exit, connect loop/exit, and read/write alerts
 - Alert messages include hexadecimal codes for detailed SSL protocol diagnostics
 - This callback provides essential debugging information for SSL/TLS connection troubleshooting in PostgreSQL
+
+## Simplified Source
+
+```c
+// Simplified version of info_cb
+static void
+info_cb(const SSL *ssl, int type, int args)
+{
+    // Get human-readable SSL state description
+    const char *desc = SSL_state_string_long(ssl);
+
+    // Log different SSL events for debugging
+    switch (type) {
+        case SSL_CB_HANDSHAKE_START:
+        case SSL_CB_HANDSHAKE_DONE:
+            // Log handshake events
+            ereport(DEBUG4, (errmsg_internal("SSL: handshake %s: \"%s\"",
+                type == SSL_CB_HANDSHAKE_START ? "start" : "done", desc)));
+            break;
+
+        case SSL_CB_ACCEPT_LOOP:
+        case SSL_CB_ACCEPT_EXIT:
+            // Log server accept events (with exit code if applicable)
+            ereport(DEBUG4, (errmsg_internal("SSL: accept %s: \"%s\"",
+                type == SSL_CB_ACCEPT_LOOP ? "loop" : "exit", desc)));
+            break;
+
+        case SSL_CB_CONNECT_LOOP:
+        case SSL_CB_CONNECT_EXIT:
+            // Log client connect events (with exit code if applicable)
+            ereport(DEBUG4, (errmsg_internal("SSL: connect %s: \"%s\"",
+                type == SSL_CB_CONNECT_LOOP ? "loop" : "exit", desc)));
+            break;
+
+        case SSL_CB_READ_ALERT:
+        case SSL_CB_WRITE_ALERT:
+            // Log SSL alerts with protocol codes
+            ereport(DEBUG4, (errmsg_internal("SSL: %s alert (0x%04x): \"%s\"",
+                type == SSL_CB_READ_ALERT ? "read" : "write", args, desc)));
+            break;
+    }
+}
+```
+
+Key simplifications made:
+- Consolidated similar switch cases to reduce repetition
+- Added inline comments explaining the purpose of each event group
+- Simplified conditional logic within ereport calls
+- Combined handshake, accept, connect, and alert cases into logical groups
+- Preserved all essential functionality while improving readability

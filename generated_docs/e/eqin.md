@@ -38,3 +38,19 @@ This function is particularly useful for parsing command-line options where you 
 - This is a static function, meaning it's only accessible within the args.c compilation unit
 - The function handles the case where s1 is longer than s2 correctly by returning NULL when s2 is exhausted first
 - Commonly used pattern in option parsing where you want to match option prefixes and extract values
+
+## Simplified Source
+
+```c
+static const char *eqin(const char *prefix, const char *target)
+{
+    // Compare each character of prefix against target
+    while (*prefix) {
+        if (*prefix++ != *target++)
+            return NULL; // Mismatch found
+    }
+
+    // All characters matched, return remainder of target
+    return target;
+}
+```

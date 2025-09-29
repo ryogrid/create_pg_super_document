@@ -39,3 +39,25 @@ The function unconditionally waits (blocking mode) and returns the count of rema
 
 ## Notes and Other Information
 This is a static helper function that provides the standard blocking wait interface for multixact synchronization. Unlike ConditionalMultiXactIdWait, this function will always block until conflicting transactions complete. It's commonly used in heap access methods when the caller can afford to wait and doesn't need to handle the case where locks are unavailable immediately. The function's return is void because it always succeeds in the blocking mode.
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactIdWait
+static void
+MultiXactIdWait(MultiXactId multi, MultiXactStatus status, uint16 infomask,
+                Relation rel, ItemPointer ctid, XLTW_Oper oper,
+                int *remaining)
+{
+    // Sleep on a MultiXactId - blocking wrapper around Do_MultiXactIdWait
+    // Always waits (nowait=false) until conflicting transactions complete
+    (void) Do_MultiXactIdWait(multi, status, infomask, false,
+                              rel, ctid, oper, remaining);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the blocking behavior
+- Clarified that this is a simple wrapper around Do_MultiXactIdWait
+- Emphasized the key parameter (nowait=false) that differentiates this from conditional waiting
+- Maintained the complete function signature as it's already minimal and clear

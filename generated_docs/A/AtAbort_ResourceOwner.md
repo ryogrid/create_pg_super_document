@@ -36,3 +36,22 @@ This function takes no parameters and operates on global resource owner variable
 - Part of PostgreSQL's comprehensive resource management system that ensures proper cleanup of acquired resources
 - Critical for preventing resource leaks during transaction abort scenarios
 - Works in conjunction with PostgreSQL's resource owner hierarchy to maintain system stability
+
+## Simplified Source
+
+```c
+// Simplified version of AtAbort_ResourceOwner
+static void
+AtAbort_ResourceOwner(void)
+{
+    // Reset current resource owner to top-level transaction owner
+    // This ensures valid resource context during abort cleanup
+    CurrentResourceOwner = TopTransactionResourceOwner;
+}
+```
+
+Key simplifications made:
+- Preserved the core logic: resetting CurrentResourceOwner to TopTransactionResourceOwner
+- Added clarifying comments about the purpose of the resource owner reset
+- Maintained the simple assignment operation as it's already minimal
+- Function is inherently simple with just one assignment statement

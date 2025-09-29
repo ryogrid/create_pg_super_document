@@ -36,3 +36,43 @@ This function takes no parameters and has no return value. It operates on the gl
 
 ## Notes and Other Information
 The function includes a detailed comment explaining why it's separate from PushTransaction: it must be called outside of Portal execution context to avoid memory context and resource owner interference. The function includes validation with a WARNING if called from an unexpected transaction state, though this should not occur in normal operation. The initialization order is carefully designed with resource management setup first, followed by subsystem initialization, state transition, and finally callback invocation. This function works in conjunction with the related AtSubStart_Memory and AtSubStart_ResourceOwner functions mentioned in the processed symbol summaries.
+
+## Simplified Source
+
+```c
+// Simplified version of StartSubTransaction
+static void StartSubTransaction(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Validate current transaction state
+    if (s->state != TRANS_DEFAULT)
+        elog(WARNING, "StartSubTransaction while in %s state",
+             TransStateAsString(s->state));
+
+    // Begin subtransaction startup
+    s->state = TRANS_START;
+
+    // Initialize core subsystems for subtransaction
+    AtSubStart_Memory();           // Set up memory management
+    AtSubStart_ResourceOwner();    // Set up resource ownership
+    AfterTriggerBeginSubXact();    // Initialize trigger handling
+
+    // Mark subtransaction as active
+    s->state = TRANS_INPROGRESS;
+
+    // Notify registered callbacks about subtransaction start
+    CallSubXactCallbacks(SUBXACT_EVENT_START_SUB, s->subTransactionId,
+                         s->parent->subTransactionId);
+
+    // Debug output (development builds)
+    ShowTransactionState("StartSubTransaction");
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each initialization step
+- Preserved the essential state transition logic (DEFAULT → START → INPROGRESS)
+- Maintained the critical subsystem initialization order
+- Kept the state validation warning for debugging
+- Simplified callback invocation with clearer parameter meaning
+- Retained the debug output call but marked it as development-only

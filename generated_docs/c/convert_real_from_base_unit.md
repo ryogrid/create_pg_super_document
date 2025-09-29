@@ -40,3 +40,50 @@ The conversion tables are determined by the base_unit parameter - memory units u
 - The function always ensures *unit is set to a valid value (asserts this condition)
 - Designed specifically for PostgreSQL's GUC (Grand Unified Configuration) system
 - Part of the internal configuration display mechanism, not exposed to user code
+
+## Simplified Source
+
+```c
+// Simplified version of convert_real_from_base_unit
+static void
+convert_real_from_base_unit(double base_value, int base_unit,
+                           double *value, const char **unit)
+{
+    const unit_conversion *table;
+    int i;
+
+    *unit = NULL;
+
+    // Select appropriate conversion table based on unit type
+    if (base_unit & GUC_UNIT_MEMORY)
+        table = memory_unit_conversion_table;
+    else
+        table = time_unit_conversion_table;
+
+    // Find best unit conversion that produces a clean display value
+    for (i = 0; table[i].unit; i++)
+    {
+        if (base_unit == table[i].base_unit)
+        {
+            // Convert base value to target unit
+            *value = base_value / table[i].multiplier;
+            *unit = table[i].unit;
+
+            // Accept conversion if it produces near-integer value
+            // (within 1e-8 tolerance to handle floating-point errors)
+            if (*value > 0 &&
+                fabs((rint(*value) / *value) - 1.0) <= 1e-8)
+                break;
+        }
+    }
+
+    Assert(*unit != NULL);
+}
+```
+
+Key simplifications made:
+- Condensed the detailed comment about floating-point precision into a concise explanation
+- Simplified the tolerance check comment while preserving the technical detail
+- Maintained the core algorithm structure and logic flow
+- Preserved all essential error handling and assertions
+- Clarified the two-phase process: table selection and unit conversion

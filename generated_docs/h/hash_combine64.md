@@ -29,3 +29,17 @@ The algorithm follows the same design principles as `hash_combine()` but operate
 
 ## Notes and Other Information
 This function is primarily used in specialized contexts within PostgreSQL, particularly in partitioning logic where hash values need to be combined for partition selection, and in resource management where composite hash keys are needed. The algorithm has been tested to produce good bit mixing properties, ensuring that the combined hash maintains the statistical qualities expected of a good hash function. The magic constant and shift values are carefully chosen to maximize avalanche effects and minimize bias in the output distribution.
+
+## Simplified Source
+
+```c
+// Combine two 64-bit hash values into one with good bit mixing
+static inline uint64 hash_combine64(uint64 a, uint64 b)
+{
+    // Use magic constant and bit shifts for optimal mixing
+    // 0x49a0f4dd15e5a8e3 is a carefully chosen 64-bit random constant
+    // Left shift by 54 and right shift by 7 provide avalanche effects
+    a ^= b + UINT64CONST(0x49a0f4dd15e5a8e3) + (a << 54) + (a >> 7);
+    return a;
+}
+```

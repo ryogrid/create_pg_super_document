@@ -38,3 +38,31 @@ When dsa_pin_mapping is called, it sets the area's resource owner to NULL and ca
 - The function iterates through all segment slots up to high_segment_index and pins non-NULL segments
 - After pinning, the area is no longer subject to automatic cleanup by the resource owner system
 - Used extensively in PostgreSQL subsystems that require persistent shared memory areas like session management, replication, and statistics collection
+
+## Simplified Source
+
+```c
+// Simplified version of dsa_pin_mapping
+void dsa_pin_mapping(dsa_area *area) {
+    int i;
+
+    // Only proceed if area has a resource owner
+    if (area->resowner != NULL) {
+        // Remove from resource owner control - makes it persistent
+        area->resowner = NULL;
+
+        // Pin all currently mapped segments in the area
+        for (i = 0; i <= area->high_segment_index; ++i) {
+            if (area->segment_maps[i].segment != NULL) {
+                dsm_pin_mapping(area->segment_maps[i].segment);
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the original logic structure as it's already quite clean and readable
+- Added explanatory comments to clarify the purpose of each step
+- Maintained the essential algorithm: check resource owner, clear it, then pin all mapped segments
+- No major simplifications needed as the original function is already concise and straightforward

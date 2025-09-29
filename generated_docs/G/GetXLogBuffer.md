@@ -51,3 +51,77 @@ The function handles special cases for page headers (both short and long formats
 - Critical for WAL record insertion performance and correctness
 - Handles both short and long WAL page headers appropriately
 - The function may block if buffer initialization or eviction is required
+
+## Simplified Source
+
+```c
+// Simplified version of GetXLogBuffer
+static char *
+GetXLogBuffer(XLogRecPtr ptr, TimeLineID tli)
+{
+    int idx;
+    XLogRecPtr endptr;
+    static uint64 cachedPage = 0;
+    static char *cachedPos = NULL;
+    XLogRecPtr expectedEndPtr;
+
+    // Fast path: check if we need the same page as last time
+    if (ptr / XLOG_BLCKSZ == cachedPage) {
+        return cachedPos + ptr % XLOG_BLCKSZ;
+    }
+
+    // Calculate which buffer slot this page should be in
+    idx = XLogRecPtrToBufIdx(ptr);
+
+    // Calculate what the buffer's end pointer should be for this page
+    expectedEndPtr = ptr + (XLOG_BLCKSZ - ptr % XLOG_BLCKSZ);
+
+    // Check if the correct page is already loaded in the buffer
+    endptr = pg_atomic_read_u64(&XLogCtl->xlblocks[idx]);
+
+    if (expectedEndPtr != endptr) {
+        // Page not loaded - need to initialize it
+        XLogRecPtr initializedUpto;
+
+        // Handle special case for page headers to avoid premature flushing
+        if (ptr % XLOG_BLCKSZ == SizeOfXLogShortPHD &&
+            XLogSegmentOffset(ptr, wal_segment_size) > XLOG_BLCKSZ) {
+            initializedUpto = ptr - SizeOfXLogShortPHD;
+        } else if (ptr % XLOG_BLCKSZ == SizeOfXLogLongPHD &&
+                   XLogSegmentOffset(ptr, wal_segment_size) < XLOG_BLCKSZ) {
+            initializedUpto = ptr - SizeOfXLogLongPHD;
+        } else {
+            initializedUpto = ptr;
+        }
+
+        // Update insertion progress before potentially blocking
+        WALInsertLockUpdateInsertingAt(initializedUpto);
+
+        // Initialize the buffer for this page
+        AdvanceXLInsertBuffer(ptr, tli, false);
+
+        // Verify the page was properly initialized
+        endptr = pg_atomic_read_u64(&XLogCtl->xlblocks[idx]);
+        if (expectedEndPtr != endptr) {
+            elog(PANIC, "could not find WAL buffer for %X/%X", LSN_FORMAT_ARGS(ptr));
+        }
+    } else {
+        // Page already loaded - ensure memory ordering
+        pg_memory_barrier();
+    }
+
+    // Update cache and return pointer to the requested position
+    cachedPage = ptr / XLOG_BLCKSZ;
+    cachedPos = XLogCtl->pages + idx * (Size) XLOG_BLCKSZ;
+
+    return cachedPos + ptr % XLOG_BLCKSZ;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertions for clarity while keeping essential error checking
+- Simplified comments to focus on core functionality
+- Consolidated the page header handling logic into clearer conditional blocks
+- Abstracted the complex memory management details
+- Preserved the essential algorithm: fast path caching, buffer calculation, page initialization, and pointer return
+- Maintained all critical operations: atomic reads, memory barriers, insertion progress updates

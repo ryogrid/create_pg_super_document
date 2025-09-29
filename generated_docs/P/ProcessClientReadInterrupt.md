@@ -34,3 +34,45 @@ When DoingCommandRead is true, the function performs comprehensive interrupt pro
 - Critical for maintaining system responsiveness during client I/O operations
 - Handles different interrupt types based on the current state of command processing
 - Part of PostgreSQL's sophisticated interrupt handling mechanism that ensures safe and timely processing of system events during network operations
+
+## Simplified Source
+
+```c
+// Simplified version of ProcessClientReadInterrupt
+void ProcessClientReadInterrupt(bool blocked) {
+    int save_errno = errno;  // Preserve errno across function call
+
+    if (DoingCommandRead) {
+        // Handle interrupts during active command reading
+        CHECK_FOR_INTERRUPTS();  // Process general interrupts
+
+        // Process pending shared invalidation messages
+        if (catchupInterruptPending)
+            ProcessCatchupInterrupt();
+
+        // Process pending notification messages
+        if (notifyInterruptPending)
+            ProcessNotifyInterrupt(true);
+    }
+    else if (ProcDiePending) {
+        // Handle process termination requests
+        if (blocked) {
+            // Safe to die if no data available - process interrupts now
+            CHECK_FOR_INTERRUPTS();
+        } else {
+            // Ensure latch is set so we can die later if needed
+            SetLatch(MyLatch);
+        }
+    }
+
+    errno = save_errno;  // Restore original errno
+}
+```
+
+Key simplifications made:
+- Preserved the core logic flow with two main branches (DoingCommandRead vs ProcDiePending)
+- Simplified complex comments into concise explanations
+- Maintained the essential interrupt processing steps
+- Kept the critical errno preservation pattern
+- Removed verbose explanatory comments while preserving functional understanding
+- Streamlined the blocked/unblocked logic in the ProcDiePending branch

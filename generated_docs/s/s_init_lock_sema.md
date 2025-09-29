@@ -38,3 +38,36 @@ This function initializes a spinlock in the semaphore-based emulation system by 
 - Nested atomic operations use indices (1 + NUM_SPINLOCK_SEMAPHORES) to (NUM_SPINLOCK_SEMAPHORES + NUM_ATOMICS_SEMAPHORES)
 - The assigned index is validated using s_check_valid() before assignment
 - Part of the spinlock emulation infrastructure that provides safe concurrency primitives on systems without hardware spinlock support
+
+## Simplified Source
+
+```c
+void
+s_init_lock_sema(volatile slock_t *lock, bool nested)
+{
+    static uint32 counter = 0;
+    uint32 offset;
+    uint32 sema_total;
+    uint32 idx;
+
+    // Choose semaphore pool based on whether this is for nested atomics
+    if (nested) {
+        // Use separate pool for atomic operations to allow nesting
+        offset = 1 + NUM_SPINLOCK_SEMAPHORES;
+        sema_total = NUM_ATOMICS_SEMAPHORES;
+    } else {
+        // Use regular spinlock pool
+        offset = 1;
+        sema_total = NUM_SPINLOCK_SEMAPHORES;
+    }
+
+    // Round-robin assignment to distribute contention
+    idx = (counter++ % sema_total) + offset;
+
+    // Validate the assigned index
+    s_check_valid(idx);
+
+    // Assign the semaphore index to the lock
+    *lock = idx;
+}
+```

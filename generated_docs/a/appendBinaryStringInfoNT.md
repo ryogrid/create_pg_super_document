@@ -38,3 +38,28 @@ The function follows the same basic pattern as appendBinaryStringInfo - it valid
 - The lack of null termination makes the buffer unsuitable for C string functions after this operation
 - Primarily used in PostgreSQL's client-server communication protocol functions
 - Should be used carefully as subsequent string operations may fail without proper null termination
+
+## Simplified Source
+
+```c
+// Simplified version of appendBinaryStringInfoNT
+void appendBinaryStringInfoNT(StringInfo str, const void *data, int datalen) {
+    // Validate input parameter
+    Assert(str != NULL);
+
+    // Ensure buffer has enough space for new data
+    enlargeStringInfo(str, datalen);
+
+    // Copy binary data to buffer and update length
+    memcpy(str->data + str->len, data, datalen);
+    str->len += datalen;
+
+    // Note: No null termination added (that's the "NT" - No Termination)
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Clarified the "NT" meaning in the final comment
+- Preserved the essential three-step algorithm: validate, resize, copy
+- Maintained all core functionality while improving readability

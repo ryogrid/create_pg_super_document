@@ -48,3 +48,44 @@ The key innovation is that WAL senders prepare to sleep on condition variables b
 - Always calls ConditionVariableCancelSleep() to clean up, even after timeout or socket events
 - Future improvement noted: integrate condition variables directly into WaitEventSetWait()
 - Critical for efficient resource usage in high-throughput replication scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndWait
+static void WalSndWait(uint32 socket_events, long timeout, uint32 wait_event) {
+    WaitEvent event;
+
+    // Configure socket events to monitor (read/write readiness)
+    ModifyWaitEvent(FeBeWaitSet, FeBeWaitSetSocketPos, socket_events, NULL);
+
+    // Prepare to sleep on appropriate condition variable based on wait type
+    // This enables efficient batch wakeups without scanning all walsender slots
+    if (wait_event == WAIT_EVENT_WAIT_FOR_STANDBY_CONFIRMATION) {
+        ConditionVariablePrepareToSleep(&WalSndCtl->wal_confirm_rcv_cv);
+    } else if (MyWalSnd->kind == REPLICATION_KIND_PHYSICAL) {
+        ConditionVariablePrepareToSleep(&WalSndCtl->wal_flush_cv);
+    } else if (MyWalSnd->kind == REPLICATION_KIND_LOGICAL) {
+        ConditionVariablePrepareToSleep(&WalSndCtl->wal_replay_cv);
+    }
+
+    // Wait for socket events or timeout
+    // Exit immediately if postmaster dies
+    if (WaitEventSetWait(FeBeWaitSet, timeout, &event, 1, wait_event) == 1 &&
+        (event.events & WL_POSTMASTER_DEATH)) {
+        ConditionVariableCancelSleep();
+        proc_exit(1);
+    }
+
+    // Clean up condition variable preparation
+    ConditionVariableCancelSleep();
+}
+```
+
+Key simplifications made:
+- Removed extensive comments about implementation details and future improvements
+- Condensed the condition variable selection logic into clear if-else structure
+- Simplified variable declarations and combined related operations
+- Maintained all essential logic: socket event configuration, condition variable preparation, waiting, postmaster death handling, and cleanup
+- Preserved the hybrid approach of using both condition variables and socket event waiting
+- Kept critical error handling (postmaster death) while removing verbose explanations

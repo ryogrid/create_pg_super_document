@@ -40,3 +40,22 @@ The function is particularly useful for code that needs aligned memory but doesn
 - May not work with all memory context types (e.g., Slab contexts)
 - For alignments less than or equal to `MAXIMUM_ALIGNOF`, the underlying implementation delegates to standard allocation functions
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1510-1519
+
+## Simplified Source
+
+```c
+// Simplified version of palloc_aligned
+void *
+palloc_aligned(Size size, Size alignto, int flags)
+{
+    // Delegate to the main memory context allocation function
+    // using the current memory context
+    return MemoryContextAllocAligned(CurrentMemoryContext, size, alignto, flags);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - it's a one-line wrapper
+- No simplification was needed as the function just delegates to MemoryContextAllocAligned
+- The core logic is: use current memory context to allocate aligned memory
+- All the complexity is handled by the underlying MemoryContextAllocAligned function

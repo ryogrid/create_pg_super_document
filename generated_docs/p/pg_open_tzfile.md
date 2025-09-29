@@ -45,3 +45,27 @@ The function optionally returns the canonical name of the timezone through the c
 - [Path](../P/Path.md) construction is done using basic string operations with overflow protection
 - The function is primarily used during database initialization when setting up timezone handling
 - The canonname parameter provides compatibility with the backend version but serves a reduced purpose in this context
+
+## Simplified Source
+
+```c
+int pg_open_tzfile(const char *name, char *canonname)
+{
+    char fullname[MAXPGPATH];
+
+    // Store canonical name if requested (just copy input in this simplified version)
+    if (canonname)
+        strlcpy(canonname, name, TZ_STRLEN_MAX + 1);
+
+    // Build full path: TZDIR + "/" + name
+    strlcpy(fullname, pg_TZDIR(), sizeof(fullname));
+    if (strlen(fullname) + 1 + strlen(name) >= MAXPGPATH)
+        return -1;  // Path too long
+
+    strcat(fullname, "/");
+    strcat(fullname, name);
+
+    // Open timezone file in read-only binary mode
+    return open(fullname, O_RDONLY | PG_BINARY, 0);
+}
+```

@@ -49,3 +49,54 @@ The function is critical for snapshot creation and transaction visibility determ
 - Uses memory barriers for safe concurrent access to shared data structures
 - Part of PostgreSQL's Hot Standby recovery mechanism for managing transaction visibility on standby servers
 - The function may miss newly-added transaction IDs during iteration, but these would be >= xmax and thus irrelevant
+
+## Simplified Source
+
+```c
+// Simplified version of KnownAssignedXidsGetAndSetXmin
+static int
+KnownAssignedXidsGetAndSetXmin(TransactionId *xarray, TransactionId *xmin,
+                               TransactionId xmax)
+{
+    int count = 0;
+    int head, tail;
+
+    // Capture array boundaries for consistent iteration
+    tail = procArray->tailKnownAssignedXids;
+    head = procArray->headKnownAssignedXids;
+
+    // Memory barrier to sync with concurrent additions
+    pg_read_barrier();
+
+    // Iterate through known assigned XIDs array
+    for (int i = tail; i < head; i++) {
+        // Skip gaps in the array
+        if (!KnownAssignedXidsValid[i])
+            continue;
+
+        TransactionId knownXid = KnownAssignedXids[i];
+
+        // Update xmin with first (lowest) valid XID if needed
+        if (count == 0 && TransactionIdPrecedes(knownXid, *xmin))
+            *xmin = knownXid;
+
+        // Stop if we've reached XIDs >= xmax (array is sorted)
+        if (TransactionIdIsValid(xmax) &&
+            TransactionIdFollowsOrEquals(knownXid, xmax))
+            break;
+
+        // Add valid XID to output array
+        xarray[count++] = knownXid;
+    }
+
+    return count;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations for clarity
+- Simplified loop structure and removed redundant comments
+- Streamlined conditional logic flow
+- Made the xmin update logic more explicit
+- Reduced verbose commenting while preserving essential algorithm understanding
+- Maintained all critical functionality: array iteration, xmin updating, filtering, and output population

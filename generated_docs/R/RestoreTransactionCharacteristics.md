@@ -42,3 +42,25 @@ This restoration is necessary because PostgreSQL's GUC system automatically rese
 - Multiple calls within CommitTransactionCommandInternal suggest different code paths for transaction handling
 - Located in src/backend/access/transam/xact.c:3080-3092
 - Essential for maintaining transaction isolation and consistency across chained transactions
+
+## Simplified Source
+
+```c
+// Simplified version of RestoreTransactionCharacteristics
+void RestoreTransactionCharacteristics(const SavedTransactionCharacteristics *s) {
+    // Restore transaction isolation level
+    XactIsoLevel = s->save_XactIsoLevel;
+
+    // Restore read-only transaction status
+    XactReadOnly = s->save_XactReadOnly;
+
+    // Restore deferrable transaction status
+    XactDeferrable = s->save_XactDeferrable;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each assignment operation
+- Function is already very simple with straightforward assignments
+- No complex logic to simplify - core functionality preserved
+- Clear variable mapping from saved values to global transaction state

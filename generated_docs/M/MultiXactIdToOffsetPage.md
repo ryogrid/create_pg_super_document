@@ -40,3 +40,21 @@ The function is part of PostgreSQL's MultiXact system, which tracks multiple tra
 - The calculation is straightforward integer division, mapping MultiXact IDs to page boundaries
 - Essential for SLRU buffer management in the MultiXact subsystem
 - Works in conjunction with MultiXactIdToOffsetEntry to fully locate offset data within pages
+
+## Simplified Source
+
+```c
+// Simplified version of MultiXactIdToOffsetPage
+static inline int64
+MultiXactIdToOffsetPage(MultiXactId multi)
+{
+    // Calculate which SLRU page contains this MultiXact's offset data
+    // Each page holds MULTIXACT_OFFSETS_PER_PAGE entries
+    return multi / MULTIXACT_OFFSETS_PER_PAGE;
+}
+```
+
+Key simplifications made:
+- Added explanatory comment describing the core purpose
+- Clarified that this maps MultiXact IDs to SLRU page numbers
+- Function is already very simple - only added contextual comments for clarity

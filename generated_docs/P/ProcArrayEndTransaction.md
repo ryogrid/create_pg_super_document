@@ -54,3 +54,51 @@ The function ensures that transaction visibility changes are atomic with respect
 - Caller must provide latestXid because PGPROC's subxid information might be incomplete
 - Clears various transaction-related fields including vxid.lxid, xmin, and recovery conflict flags
 - The optimization strategy balances between immediate processing and batched group processing
+
+## Simplified Source
+
+```c
+// Simplified version of ProcArrayEndTransaction
+void ProcArrayEndTransaction(PGPROC *proc, TransactionId latestXid) {
+    if (TransactionIdIsValid(latestXid)) {
+        // Transaction has XID - need synchronized clearing
+        Assert(TransactionIdIsValid(proc->xid));
+
+        // Try fast path: acquire lock immediately
+        if (LWLockConditionalAcquire(ProcArrayLock, LW_EXCLUSIVE)) {
+            // Clear XID directly
+            ProcArrayEndTransactionInternal(proc, latestXid);
+            LWLockRelease(ProcArrayLock);
+        } else {
+            // Use group clearing for better performance under contention
+            ProcArrayGroupClearXid(proc, latestXid);
+        }
+    } else {
+        // Read-only transaction - no XID to clear
+        Assert(!TransactionIdIsValid(proc->xid));
+        Assert(proc->subxidStatus.count == 0);
+
+        // Clear transaction fields without locking
+        proc->vxid.lxid = InvalidLocalTransactionId;
+        proc->xmin = InvalidTransactionId;
+        proc->delayChkptFlags = 0;
+        proc->recoveryConflictPending = false;
+
+        // Handle vacuum status flags (requires locking)
+        if (proc->statusFlags & PROC_VACUUM_STATE_MASK) {
+            LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+            proc->statusFlags &= ~PROC_VACUUM_STATE_MASK;
+            ProcGlobal->statusFlags[proc->pgxactoff] = proc->statusFlags;
+            LWLockRelease(ProcArrayLock);
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Removed verbose comments and documentation within code
+- Consolidated assertion checks for clarity
+- Simplified conditional logic flow
+- Added high-level descriptive comments for main branches
+- Abstracted complex locking details into clear action descriptions
+- Maintained essential algorithm structure and correctness

@@ -49,3 +49,30 @@ The function uses spinlock protection when checking the buffer state to ensure c
 - Uses WAIT_EVENT_BUFFER_IO as the wait event type for monitoring and debugging
 - The spinlock acquisition during state checking ensures memory ordering and correctness
 - Part of PostgreSQL's buffer I/O handling infrastructure
+
+## Simplified Source
+
+```c
+static void
+WaitIO(BufferDesc *buf)
+{
+    ConditionVariable *cv = BufferDescriptorGetIOCV(buf);
+
+    ConditionVariablePrepareToSleep(cv);
+    for (;;)
+    {
+        uint32 buf_state;
+
+        // Check if I/O is still in progress (using spinlock for safety)
+        buf_state = LockBufHdr(buf);
+        UnlockBufHdr(buf, buf_state);
+
+        if (!(buf_state & BM_IO_IN_PROGRESS))
+            break;
+
+        // Sleep until I/O completion is signaled
+        ConditionVariableSleep(cv, WAIT_EVENT_BUFFER_IO);
+    }
+    ConditionVariableCancelSleep();
+}
+```

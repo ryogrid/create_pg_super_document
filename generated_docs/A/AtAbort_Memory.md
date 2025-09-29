@@ -37,3 +37,22 @@ This function takes no parameters and operates on global memory context variable
 - This memory context switch remains in effect for the duration of the abort cleanup process
 - Part of PostgreSQL's robust error recovery mechanism that maintains system stability even under adverse conditions
 - The TransactionAbortContext is pre-allocated with sufficient space to handle typical abort operations
+
+## Simplified Source
+
+```c
+// Simplified version of AtAbort_Memory
+static void AtAbort_Memory(void) {
+    // Switch to abort context for reliable memory access during cleanup
+    if (TransactionAbortContext != NULL)
+        MemoryContextSwitchTo(TransactionAbortContext);
+    else
+        MemoryContextSwitchTo(TopMemoryContext);  // Fallback if abort context unavailable
+}
+```
+
+Key simplifications made:
+- Condensed comments to focus on core purpose
+- Preserved essential logic flow without modification
+- Maintained fallback mechanism for reliability
+- Removed verbose explanatory comments while keeping essential ones

@@ -42,3 +42,49 @@ This comprehensive invalidation ensures that no stale cache entries remain when 
 - [Relation](../R/Relation.md) descriptors with positive reference counts are automatically rebuilt after invalidation
 - The function is heavily used in logical replication contexts where cache consistency is critical
 - Performance impact is significant but necessary for correctness when message loss occurs
+
+## Simplified Source
+
+```c
+// Simplified version of InvalidateSystemCaches
+void InvalidateSystemCaches(void) {
+    // Delegate to extended version with debug_discard = false
+    InvalidateSystemCachesExtended(false);
+}
+
+// Core implementation (InvalidateSystemCachesExtended)
+void InvalidateSystemCachesExtended(bool debug_discard) {
+    // Step 1: Invalidate catalog snapshot
+    InvalidateCatalogSnapshot();
+
+    // Step 2: Reset all catalog caches
+    ResetCatalogCachesExt(debug_discard);
+
+    // Step 3: Invalidate relation cache (includes smgr and relmap caches)
+    RelationCacheInvalidate(debug_discard);
+
+    // Step 4: Execute all registered syscache callbacks
+    for (int i = 0; i < syscache_callback_count; i++) {
+        syscache_callback_list[i].function(
+            syscache_callback_list[i].arg,
+            syscache_callback_list[i].id,
+            0
+        );
+    }
+
+    // Step 5: Execute all registered relcache callbacks
+    for (int i = 0; i < relcache_callback_count; i++) {
+        relcache_callback_list[i].function(
+            relcache_callback_list[i].arg,
+            InvalidOid
+        );
+    }
+}
+```
+
+Key simplifications made:
+- Combined both functions to show complete invalidation flow
+- Simplified callback loop structure for clarity
+- Added step-by-step comments explaining the invalidation sequence
+- Removed complex struct pointer arithmetic, using array notation instead
+- Focused on the logical flow rather than low-level implementation details

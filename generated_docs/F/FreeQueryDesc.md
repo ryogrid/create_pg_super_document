@@ -32,3 +32,26 @@ FreeQueryDesc is the destructor function for QueryDesc structures created by Cre
 
 ## Notes and Other Information
 The function must only be called when the QueryDesc is not actively being used for query execution (estate must be NULL). This is enforced by an assertion check. The snapshots are unregistered rather than simply freed because PostgreSQL uses reference counting for snapshot management. Calling this function on an active QueryDesc will trigger an assertion failure in debug builds.
+
+## Simplified Source
+
+```c
+// Simplified version of FreeQueryDesc
+void FreeQueryDesc(QueryDesc *qdesc) {
+    // Safety check: ensure query is not actively executing
+    Assert(qdesc->estate == NULL);
+
+    // Cleanup: unregister snapshots to maintain proper reference counting
+    UnregisterSnapshot(qdesc->snapshot);
+    UnregisterSnapshot(qdesc->crosscheck_snapshot);
+
+    // Free the QueryDesc structure itself
+    pfree(qdesc);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the purpose of each step
+- Preserved the essential cleanup logic: assertion check, snapshot unregistration, and memory deallocation
+- Maintained the exact function signature and control flow
+- Simplified the original comments to be more descriptive of functionality

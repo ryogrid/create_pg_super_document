@@ -36,3 +36,32 @@ The function iterates through all allocated file descriptors and processes those
 - The function uses a careful iteration pattern (i--) after calling FreeDesc because freeing a descriptor can shift the array contents
 - File descriptors are tracked with their creating subtransaction ID to enable proper cleanup
 - This is part of PostgreSQL's transactional file management system that ensures proper resource cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_Files
+void AtEOSubXact_Files(bool isCommit, SubTransactionId mySubid, SubTransactionId parentSubid) {
+    // Iterate through all allocated file descriptors
+    for (int i = 0; i < numAllocatedDescs; i++) {
+        // Check if this descriptor was created in the current subtransaction
+        if (allocatedDescs[i].create_subid == mySubid) {
+            if (isCommit) {
+                // On commit: reassign file to parent subtransaction
+                allocatedDescs[i].create_subid = parentSubid;
+            } else {
+                // On abort: close and free the file descriptor
+                FreeDesc(&allocatedDescs[i]);
+                i--; // Adjust index since array is compacted after freeing
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Simplified variable declaration from `Index i` to `int i` for clarity
+- Added descriptive comments explaining the core logic flow
+- Preserved the essential algorithm: iterate, check ownership, then commit or abort
+- Maintained the critical `i--` pattern for safe array iteration during deletion
+- Removed detailed comment about "ugly" recheck pattern, replaced with clear explanation

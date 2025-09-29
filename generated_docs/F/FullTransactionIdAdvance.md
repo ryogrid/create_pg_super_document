@@ -40,3 +40,30 @@ This function is the counterpart to FullTransactionIdRetreat and handles the sam
 - Used primarily during transaction ID assignment and snapshot creation
 - The function ensures that advanced transaction IDs remain valid and usable in the PostgreSQL transaction system
 - Comment references FullTransactionIdAdvance() itself, indicating shared logic with retreat function
+
+## Simplified Source
+
+```c
+// Simplified version of FullTransactionIdAdvance
+static inline void
+FullTransactionIdAdvance(FullTransactionId *dest)
+{
+    // Step 1: Increment the transaction ID
+    dest->value++;
+
+    // Step 2: Check if we're still in normal 64-bit transaction range
+    if (FullTransactionIdPrecedes(*dest, FirstNormalFullTransactionId))
+        return;
+
+    // Step 3: Skip over special 32-bit transaction IDs
+    while (XidFromFullTransactionId(*dest) < FirstNormalTransactionId)
+        dest->value++;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each logical step
+- Preserved the exact algorithm and control flow
+- Clarified the two-phase checking process (64-bit range, then 32-bit special values)
+- Maintained the inline function signature for performance
+- No actual simplification of code was needed as the original is already quite clean and minimal

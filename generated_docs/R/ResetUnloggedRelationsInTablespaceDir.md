@@ -46,3 +46,51 @@ The function includes robust error handling, particularly for the case where a t
 - Provides detailed progress reporting showing current database path being processed
 - The function distinguishes between cleanup and init operations in progress messages
 - Located in src/backend/storage/file/reinit.c:106-160
+
+## Simplified Source
+
+```c
+// Simplified version of ResetUnloggedRelationsInTablespaceDir
+static void ResetUnloggedRelationsInTablespaceDir(const char *tsdirname, int op) {
+    DIR *ts_dir;
+    struct dirent *de;
+    char dbspace_path[MAXPGPATH * 2];
+
+    // Open tablespace directory
+    ts_dir = AllocateDir(tsdirname);
+
+    // Handle missing tablespace gracefully (from incomplete DROP TABLESPACE)
+    if (ts_dir == NULL && errno == ENOENT) {
+        ereport(LOG, (errmsg("could not open directory \"%s\": %m", tsdirname)));
+        return;
+    }
+
+    // Process each database directory in the tablespace
+    while ((de = ReadDir(ts_dir, tsdirname)) != NULL) {
+        // Skip non-numeric directories (only process database OID directories)
+        if (strspn(de->d_name, "0123456789") != strlen(de->d_name))
+            continue;
+
+        // Build path to database directory
+        snprintf(dbspace_path, sizeof(dbspace_path), "%s/%s", tsdirname, de->d_name);
+
+        // Report progress based on operation type
+        if (op & UNLOGGED_RELATION_INIT)
+            report_startup_progress("resetting unlogged relations (init), current path: %s", dbspace_path);
+        else if (op & UNLOGGED_RELATION_CLEANUP)
+            report_startup_progress("resetting unlogged relations (cleanup), current path: %s", dbspace_path);
+
+        // Delegate database-specific processing
+        ResetUnloggedRelationsInDbspaceDir(dbspace_path, op);
+    }
+
+    FreeDir(ts_dir);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling comments for clarity
+- Simplified progress reporting messages by removing elapsed time parameters
+- Condensed directory validation logic explanation
+- Abstracted complex error reporting into simpler form
+- Maintained essential algorithm: open directory → validate entries → process databases → cleanup

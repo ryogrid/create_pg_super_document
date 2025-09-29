@@ -35,3 +35,27 @@ This function takes no parameters and operates on global state.
 - The function relies on the global variable CheckXidAlive which tracks transaction IDs that need to be monitored for concurrent abort scenarios
 - The error thrown uses ERRCODE_TRANSACTION_ROLLBACK to indicate the specific type of transaction failure
 - This mechanism is part of PostgreSQL's concurrency control system for maintaining catalog consistency during system table scans
+
+## Simplified Source
+
+```c
+// Simplified version of HandleConcurrentAbort
+static inline void HandleConcurrentAbort() {
+    // Check if monitored transaction is valid and no longer active
+    if (TransactionIdIsValid(CheckXidAlive) &&
+        !TransactionIdIsInProgress(CheckXidAlive) &&
+        !TransactionIdDidCommit(CheckXidAlive)) {
+
+        // Transaction was aborted - report error to prevent catalog inconsistency
+        ereport(ERROR,
+                (errcode(ERRCODE_TRANSACTION_ROLLBACK),
+                 errmsg("transaction aborted during system catalog scan")));
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the core logic flow
+- Simplified conditional logic presentation while preserving exact functionality
+- Clarified the purpose: detecting aborted transactions during catalog scans
+- Maintained original error handling as it's critical for correctness

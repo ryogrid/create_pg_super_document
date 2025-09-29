@@ -41,3 +41,22 @@ This static inline function provides access to the pending SLRU statistics for a
 - The postmaster exclusion prevents double-counting of statistics in child processes
 - Sets the  flag to indicate that statistics need to be flushed
 - Central access point for all SLRU statistics counting functions
+
+## Simplified Source
+
+```c
+static inline PgStat_SLRUStats *
+get_slru_entry(int slru_idx)
+{
+    pgstat_assert_is_up();
+
+    // Postmaster should never register SLRU stats (prevents fork duplication)
+    Assert(IsUnderPostmaster || !IsPostmasterEnvironment);
+
+    Assert((slru_idx >= 0) && (slru_idx < SLRU_NUM_ELEMENTS));
+
+    have_slrustats = true;
+
+    return &pending_SLRUStats[slru_idx];
+}
+```

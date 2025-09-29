@@ -46,3 +46,42 @@ All operations include null-pointer checks to ensure safe cleanup even if some r
 - OpenSSL objects (SSL connection and X509 certificate) are freed using their respective OpenSSL cleanup functions
 - This function should be called whenever a connection is being terminated to prevent memory leaks
 - The function handles partial cleanup scenarios gracefully - if some resources were never allocated, they are simply skipped
+
+## Simplified Source
+
+```c
+// Simplified version of be_tls_close
+void be_tls_close(Port *port) {
+    // Step 1: Clean shutdown and free SSL connection
+    if (port->ssl) {
+        SSL_shutdown(port->ssl);  // Send close_notify to peer
+        SSL_free(port->ssl);      // Free SSL object
+        port->ssl = NULL;
+        port->ssl_in_use = false;
+    }
+
+    // Step 2: Free client certificate if present
+    if (port->peer) {
+        X509_free(port->peer);
+        port->peer = NULL;
+    }
+
+    // Step 3: Free extracted certificate data
+    if (port->peer_cn) {
+        pfree(port->peer_cn);     // Free Common Name
+        port->peer_cn = NULL;
+    }
+
+    if (port->peer_dn) {
+        pfree(port->peer_dn);     // Free Distinguished Name
+        port->peer_dn = NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each cleanup phase
+- Grouped related operations logically
+- Clarified the purpose of SSL_shutdown() call
+- Made the sequential cleanup pattern more obvious
+- Added inline comments explaining memory management differences (OpenSSL vs PostgreSQL)

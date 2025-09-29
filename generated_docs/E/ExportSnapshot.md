@@ -47,3 +47,110 @@ The exported snapshot file contains critical transaction information including v
 - The returned token is the basename of the created file, used for importing the snapshot
 - Snapshots are stored in TopTransactionContext and registered to maintain xmin visibility
 - No fsync is performed as the snapshot file does not need to survive system crashes
+
+## Simplified Source
+
+```c
+// Simplified version of ExportSnapshot
+char *ExportSnapshot(Snapshot snapshot) {
+    TransactionId topXid;
+    TransactionId *children;
+    ExportedSnapshot *exportedSnap;
+    int numChildren;
+    StringInfoData buffer;
+    FILE *file;
+    char filePath[MAXPGPATH];
+    char tempPath[MAXPGPATH];
+
+    // Get current transaction ID
+    topXid = GetTopTransactionIdIfAny();
+
+    // Validate not in subtransaction
+    if (IsSubTransaction()) {
+        ereport(ERROR, "cannot export a snapshot from a subtransaction");
+    }
+
+    // Get committed child transaction IDs
+    numChildren = xactGetCommittedChildren(&children);
+
+    // Generate unique snapshot file path
+    snprintf(filePath, sizeof(filePath), SNAPSHOT_EXPORT_DIR "/%08X-%08X-%d",
+             MyProc->vxid.procNumber, MyProc->vxid.lxid,
+             list_length(exportedSnapshots) + 1);
+
+    // Copy snapshot and register it in transaction context
+    snapshot = CopySnapshot(snapshot);
+    exportedSnap = palloc(sizeof(ExportedSnapshot));
+    exportedSnap->snapfile = pstrdup(filePath);
+    exportedSnap->snapshot = snapshot;
+    exportedSnapshots = lappend(exportedSnapshots, exportedSnap);
+
+    // Register snapshot to maintain xmin visibility
+    snapshot->regd_count++;
+    pairingheap_add(&RegisteredSnapshots, &snapshot->ph_node);
+
+    // Build snapshot text representation
+    initStringInfo(&buffer);
+
+    // Add transaction metadata
+    appendStringInfo(&buffer, "vxid:%d/%u\\n", MyProc->vxid.procNumber, MyProc->vxid.lxid);
+    appendStringInfo(&buffer, "pid:%d\\n", MyProcPid);
+    appendStringInfo(&buffer, "dbid:%u\\n", MyDatabaseId);
+    appendStringInfo(&buffer, "iso:%d\\n", XactIsoLevel);
+    appendStringInfo(&buffer, "ro:%d\\n", XactReadOnly);
+
+    // Add snapshot bounds
+    appendStringInfo(&buffer, "xmin:%u\\n", snapshot->xmin);
+    appendStringInfo(&buffer, "xmax:%u\\n", snapshot->xmax);
+
+    // Add active transaction IDs including our own if valid
+    int shouldAddTopXid = (TransactionIdIsValid(topXid) &&
+                          TransactionIdPrecedes(topXid, snapshot->xmax)) ? 1 : 0;
+    appendStringInfo(&buffer, "xcnt:%d\\n", snapshot->xcnt + shouldAddTopXid);
+
+    for (int i = 0; i < snapshot->xcnt; i++) {
+        appendStringInfo(&buffer, "xip:%u\\n", snapshot->xip[i]);
+    }
+    if (shouldAddTopXid) {
+        appendStringInfo(&buffer, "xip:%u\\n", topXid);
+    }
+
+    // Add subtransaction data with overflow handling
+    if (snapshot->suboverflowed ||
+        snapshot->subxcnt + numChildren > GetMaxSnapshotSubxidCount()) {
+        appendStringInfoString(&buffer, "sof:1\\n");
+    } else {
+        appendStringInfoString(&buffer, "sof:0\\n");
+        appendStringInfo(&buffer, "sxcnt:%d\\n", snapshot->subxcnt + numChildren);
+
+        for (int i = 0; i < snapshot->subxcnt; i++) {
+            appendStringInfo(&buffer, "sxp:%u\\n", snapshot->subxip[i]);
+        }
+        for (int i = 0; i < numChildren; i++) {
+            appendStringInfo(&buffer, "sxp:%u\\n", children[i]);
+        }
+    }
+
+    appendStringInfo(&buffer, "rec:%u\\n", snapshot->takenDuringRecovery);
+
+    // Write to temporary file, then atomically rename
+    snprintf(tempPath, sizeof(tempPath), "%s.tmp", filePath);
+    file = AllocateFile(tempPath, PG_BINARY_W);
+
+    fwrite(buffer.data, buffer.len, 1, file);
+    FreeFile(file);
+    rename(tempPath, filePath);
+
+    // Return filename token for importing
+    return pstrdup(filePath + strlen(SNAPSHOT_EXPORT_DIR) + 1);
+}
+```
+
+Key simplifications made:
+- Removed detailed error handling blocks and consolidated into basic checks
+- Simplified variable naming for clarity (e.g., `nchildren` → `numChildren`)
+- Reduced complex memory context switching to essential operations
+- Consolidated file I/O operations and removed detailed error reporting
+- Streamlined conditional logic for transaction ID handling
+- Abstracted detailed buffer operations while preserving the serialization format
+- Removed extensive comments and focused on core algorithm flow

@@ -41,3 +41,85 @@ SlruReportIOError is a static internal function that handles error reporting aft
 - For fsync failures, it uses `data_sync_elevel(ERROR)` which may adjust the error level based on configuration
 - The function is designed to be called after cleaning up shared-memory state following an I/O failure
 - File path construction uses segment-based naming convention where each segment contains SLRU_PAGES_PER_SEGMENT pages
+
+## Simplified Source
+
+```c
+static void SlruReportIOError(SlruCtl ctl, int64 pageno, TransactionId xid)
+{
+    // Calculate segment number and page offset
+    int64 segno = pageno / SLRU_PAGES_PER_SEGMENT;
+    int rpageno = pageno % SLRU_PAGES_PER_SEGMENT;
+    int offset = rpageno * BLCKSZ;
+    char path[MAXPGPATH];
+
+    // Build file path and set errno from global state
+    SlruFileName(ctl, path, segno);
+    errno = slru_errno;
+
+    // Report specific error based on the failure type
+    switch (slru_errcause) {
+        case SLRU_OPEN_FAILED:
+            ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not access status of transaction %u", xid),
+                 errdetail("Could not open file \"%s\": %m.", path)));
+            break;
+
+        case SLRU_SEEK_FAILED:
+            ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not access status of transaction %u", xid),
+                 errdetail("Could not seek in file \"%s\" to offset %d: %m.",
+                           path, offset)));
+            break;
+
+        case SLRU_READ_FAILED:
+            if (errno)
+                ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not access status of transaction %u", xid),
+                     errdetail("Could not read from file \"%s\" at offset %d: %m.",
+                               path, offset)));
+            else
+                ereport(ERROR,
+                    (errmsg("could not access status of transaction %u", xid),
+                     errdetail("Could not read from file \"%s\" at offset %d: read too few bytes.",
+                               path, offset)));
+            break;
+
+        case SLRU_WRITE_FAILED:
+            if (errno)
+                ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not access status of transaction %u", xid),
+                     errdetail("Could not write to file \"%s\" at offset %d: %m.",
+                               path, offset)));
+            else
+                ereport(ERROR,
+                    (errmsg("could not access status of transaction %u", xid),
+                     errdetail("Could not write to file \"%s\" at offset %d: wrote too few bytes.",
+                               path, offset)));
+            break;
+
+        case SLRU_FSYNC_FAILED:
+            ereport(data_sync_elevel(ERROR),
+                (errcode_for_file_access(),
+                 errmsg("could not access status of transaction %u", xid),
+                 errdetail("Could not fsync file \"%s\": %m.", path)));
+            break;
+
+        case SLRU_CLOSE_FAILED:
+            ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not access status of transaction %u", xid),
+                 errdetail("Could not close file \"%s\": %m.", path)));
+            break;
+
+        default:
+            elog(ERROR, "unrecognized SimpleLru error cause: %d",
+                 (int) slru_errcause);
+            break;
+    }
+}
+```

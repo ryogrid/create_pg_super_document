@@ -37,3 +37,28 @@ This function is called at the end of every top-level transaction, regardless of
 - Essential for maintaining proper MultiXact visibility and preventing resource leaks
 - Part of the transaction cleanup protocol in PostgreSQL
 - Located in src/backend/access/transam/multixact.c:1800-1827
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_MultiXact
+void AtEOXact_MultiXact(void) {
+    // Reset process-local MultiXact ID tracking variables
+    // These should only be valid during a transaction
+    OldestMemberMXactId[MyProcNumber] = InvalidMultiXactId;
+    OldestVisibleMXactId[MyProcNumber] = InvalidMultiXactId;
+
+    // Discard the local MultiXact cache
+    // Memory context cleanup is automatic since MXactContext
+    // is a child of TopTransactionContext
+    MXactContext = NULL;
+    dclist_init(&MXactCache);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Preserved all essential logic without removing any functionality
+- Made the purpose of each variable reset clear through comments
+- Explained the automatic memory cleanup mechanism
+- Maintained the function's complete behavior while improving readability

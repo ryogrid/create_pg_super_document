@@ -36,3 +36,19 @@ This static function creates a zeroed page in the SUBTRANS system for the specif
 - The actual zeroing and buffer management is handled by SimpleLruZeroPage
 - Part of the SUBTRANS subsystem for tracking subtransaction commit status
 - Located in src/backend/access/transam/subtrans.c:296-308
+
+## Simplified Source
+
+```c
+// Simplified version of ZeroSUBTRANSPage
+static int ZeroSUBTRANSPage(int64 pageno) {
+    // Delegate to generic SLRU system to zero the page
+    return SimpleLruZeroPage(SubTransCtl, pageno);
+}
+```
+
+Key simplifications made:
+- This function is already extremely simple - it's a minimal wrapper
+- Added comment explaining the delegation to SimpleLruZeroPage
+- No complex logic to simplify as the function is just a direct call
+- Preserved the essential functionality: zero a SUBTRANS page via SLRU system

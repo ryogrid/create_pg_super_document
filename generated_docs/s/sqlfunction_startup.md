@@ -34,3 +34,20 @@ The function follows the standard DestReceiver startup callback signature but de
 - The no-op nature suggests that SQL function destination receivers don't need complex startup procedures
 - Located in src/backend/executor/functions.c, which handles SQL function execution infrastructure
 - Static function scope indicates it's only used within the functions.c module
+
+## Simplified Source
+
+```c
+// Simplified version of sqlfunction_startup
+static void
+sqlfunction_startup(DestReceiver *self, int operation, TupleDesc typeinfo)
+{
+    // No-op function: No initialization required for SQL function destination receivers
+    // All necessary setup is handled during receiver creation
+}
+```
+
+Key simplifications made:
+- Function is already minimal - only added explanatory comment
+- No actual logic to simplify as this is deliberately a no-operation function
+- Clarified the purpose: SQL function destination receivers don't need startup initialization

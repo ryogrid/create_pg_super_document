@@ -62,3 +62,128 @@ The function handles both regular character transitions and complex lookahead co
 - The transitive closure loop handles LACONs that may enable further LACONs
 - Cache linking is conditionally skipped when LACONs are involved to ensure correct recomputation
 - Part of the most performance-sensitive code path in PostgreSQL's regex engine
+
+## Simplified Source
+```c
+static struct sset *miss(struct vars *v, struct dfa *d, struct sset *css,
+                        color co, chr *cp, chr *start)
+{
+    struct cnfa *cnfa = d->cnfa;
+    int i;
+    unsigned h;
+    struct carc *ca;
+    struct sset *p;
+    int ispseudocolor, ispost, noprogress, gotstate;
+    int dolacons, sawlacons;
+
+    // Check if it's actually a cache hit (optimization)
+    if (css->outs[co] != NULL) {
+        return css->outs[co];
+    }
+
+    // Check for operation cancellation
+    INTERRUPT(v->re);
+
+    // Build new stateset by following PLAIN arcs
+    for (i = 0; i < d->wordsper; i++)
+        d->work[i] = 0;
+
+    ispseudocolor = d->cm->cd[co].flags & PSEUDO;
+    ispost = 0;
+    noprogress = 1;
+    gotstate = 0;
+
+    // Follow arcs that consume the input character
+    for (i = 0; i < d->nstates; i++) {
+        if (ISBSET(css->states, i)) {
+            for (ca = cnfa->states[i]; ca->co != COLORLESS; ca++) {
+                if (ca->co == co || (ca->co == RAINBOW && !ispseudocolor)) {
+                    BSET(d->work, ca->to);
+                    gotstate = 1;
+                    if (ca->to == cnfa->post)
+                        ispost = 1;
+                    if (!(cnfa->stflags[ca->to] & CNFA_NOPROGRESS))
+                        noprogress = 0;
+                }
+            }
+        }
+    }
+
+    if (!gotstate)
+        return NULL;  // No valid transitions
+
+    // Handle LACON (Look-Ahead CONstraints) transitive closure
+    dolacons = (cnfa->flags & HASLACONS);
+    sawlacons = 0;
+    while (dolacons) {
+        dolacons = 0;
+        for (i = 0; i < d->nstates; i++) {
+            if (ISBSET(d->work, i)) {
+                for (ca = cnfa->states[i]; ca->co != COLORLESS; ca++) {
+                    if (ca->co < cnfa->ncolors)
+                        continue;  // Not a LACON arc
+                    if (ISBSET(d->work, ca->to))
+                        continue;  // Already processed
+
+                    sawlacons = 1;
+                    if (!lacon(v, cnfa, cp, ca->co)) {
+                        if (ISERR())
+                            return NULL;
+                        continue;  // LACON failed
+                    }
+                    if (ISERR())
+                        return NULL;
+
+                    BSET(d->work, ca->to);
+                    dolacons = 1;  // May enable more LACONs
+                    if (ca->to == cnfa->post)
+                        ispost = 1;
+                    if (!(cnfa->stflags[ca->to] & CNFA_NOPROGRESS))
+                        noprogress = 0;
+                }
+            }
+        }
+    }
+
+    h = HASH(d->work, d->wordsper);
+
+    // Check if this stateset already exists in cache
+    for (p = d->ssets, i = d->nssused; i > 0; p++, i--) {
+        if (HIT(h, d->work, p, d->wordsper))
+            break;
+    }
+
+    if (i == 0) {
+        // Need new cache entry
+        p = getvacant(v, d, cp, start);
+        if (p == NULL)
+            return NULL;
+
+        // Copy computed stateset
+        for (i = 0; i < d->wordsper; i++)
+            p->states[i] = d->work[i];
+        p->hash = h;
+        p->flags = (ispost) ? POSTSTATE : 0;
+        if (noprogress)
+            p->flags |= NOPROGRESS;
+    }
+
+    // Link transition unless LACONs were involved
+    if (!sawlacons) {
+        css->outs[co] = p;
+        css->inchain[co] = p->ins;
+        p->ins.ss = css;
+        p->ins.co = co;
+    }
+
+    return p;
+}
+```
+
+This function handles DFA state transitions by:
+1. Checking for false cache misses (optimization)
+2. Computing reachable states via character consumption
+3. Processing lookahead constraints (LACONs) through transitive closure
+4. Checking for existing cached statesets
+5. Creating new cache entries when needed
+6. Linking transitions (except when LACONs require recomputation)

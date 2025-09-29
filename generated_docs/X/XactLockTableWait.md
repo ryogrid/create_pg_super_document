@@ -47,3 +47,66 @@ The function also includes sophisticated error context handling, allowing it to 
 - Essential for preventing lost updates and ensuring proper MVCC semantics in concurrent environments
 - The function will block indefinitely until the target transaction completes, making it unsuitable for cases where timeouts are needed (use ConditionalXactLockTableWait instead)
 - Critical for maintaining data consistency in PostgreSQL's concurrent execution model
+
+## Simplified Source
+
+```c
+// Simplified version of XactLockTableWait
+void XactLockTableWait(TransactionId xid, Relation rel, ItemPointer ctid, XLTW_Oper oper) {
+    LOCKTAG tag;
+    XactLockTableWaitInfo info;
+    ErrorContextCallback callback;
+    bool first = true;
+
+    // Set up error context callback if operation is specified
+    if (oper != XLTW_None) {
+        info.rel = rel;
+        info.ctid = ctid;
+        info.oper = oper;
+
+        callback.callback = XactLockTableWaitErrorCb;
+        callback.arg = &info;
+        callback.previous = error_context_stack;
+        error_context_stack = &callback;
+    }
+
+    // Main waiting loop
+    for (;;) {
+        // Create lock tag for the transaction
+        SET_LOCKTAG_TRANSACTION(tag, xid);
+
+        // Try to acquire ShareLock (blocks if transaction is still running)
+        LockAcquire(&tag, ShareLock, false, false);
+
+        // Immediately release the lock
+        LockRelease(&tag, ShareLock, false);
+
+        // Check if transaction has finished
+        if (!TransactionIdIsInProgress(xid))
+            break;
+
+        // Handle subtransaction case: wait for topmost parent instead
+        // Add small delay on retry to handle race conditions
+        if (!first) {
+            CHECK_FOR_INTERRUPTS();
+            pg_usleep(1000L);
+        }
+        first = false;
+
+        // Move up to topmost transaction in hierarchy
+        xid = SubTransGetTopmostTransaction(xid);
+    }
+
+    // Restore error context stack
+    if (oper != XLTW_None)
+        error_context_stack = callback.previous;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining subtransaction behavior for cleaner flow
+- Consolidated assertions and validation checks
+- Simplified variable declarations and initialization
+- Added high-level comments explaining the main logic steps
+- Preserved essential algorithm: lock acquisition, progress checking, and subtransaction handling
+- Maintained error context setup/teardown logic which is critical for debugging

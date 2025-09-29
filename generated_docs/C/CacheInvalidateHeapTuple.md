@@ -65,3 +65,73 @@ Each catalog requires specific handling to extract the target relation OID and d
 - Foreign key constraints in pg_constraint trigger invalidation of the constrained table
 - Essential for maintaining cache consistency across all PostgreSQL backends
 - Part of the transactional invalidation system ensuring ACID properties for cached data
+
+## Simplified Source
+
+```c
+// Simplified version of CacheInvalidateHeapTuple
+void CacheInvalidateHeapTuple(Relation relation, HeapTuple tuple, HeapTuple newtuple) {
+    Oid tupleRelId;
+    Oid databaseId;
+    Oid relationId;
+
+    // Skip during bootstrap and for non-catalog relations
+    if (IsBootstrapProcessingMode() || !IsCatalogRelation(relation) || IsToastRelation(relation))
+        return;
+
+    // Prepare invalidation state for this subtransaction
+    PrepareInvalidationState();
+
+    // Handle catalog cache invalidation
+    tupleRelId = RelationGetRelid(relation);
+    if (RelationInvalidatesSnapshotsOnly(tupleRelId)) {
+        // Simple snapshot invalidation for certain system views
+        databaseId = IsSharedRelation(tupleRelId) ? InvalidOid : MyDatabaseId;
+        RegisterSnapshotInvalidation(databaseId, tupleRelId);
+    } else {
+        // Full catalog cache invalidation
+        PrepareToInvalidateCacheTuple(relation, tuple, newtuple, RegisterCatcacheInvalidation);
+    }
+
+    // Handle relation cache invalidation for specific system catalogs
+    if (tupleRelId == RelationRelationId) {
+        // pg_class: relation definitions
+        Form_pg_class classtup = (Form_pg_class) GETSTRUCT(tuple);
+        relationId = classtup->oid;
+        databaseId = classtup->relisshared ? InvalidOid : MyDatabaseId;
+    } else if (tupleRelId == AttributeRelationId) {
+        // pg_attribute: column definitions
+        Form_pg_attribute atttup = (Form_pg_attribute) GETSTRUCT(tuple);
+        relationId = atttup->attrelid;
+        databaseId = MyDatabaseId;  // Always use MyDatabaseId for attributes
+    } else if (tupleRelId == IndexRelationId) {
+        // pg_index: index definitions
+        Form_pg_index indextup = (Form_pg_index) GETSTRUCT(tuple);
+        relationId = indextup->indexrelid;
+        databaseId = MyDatabaseId;
+    } else if (tupleRelId == ConstraintRelationId) {
+        // pg_constraint: foreign key constraints only
+        Form_pg_constraint constrtup = (Form_pg_constraint) GETSTRUCT(tuple);
+        if (constrtup->contype == CONSTRAINT_FOREIGN && OidIsValid(constrtup->conrelid)) {
+            relationId = constrtup->conrelid;
+            databaseId = MyDatabaseId;
+        } else {
+            return;  // Not a foreign key constraint
+        }
+    } else {
+        return;  // Not a relation-defining catalog
+    }
+
+    // Register the relation cache invalidation
+    RegisterRelcacheInvalidation(databaseId, relationId);
+}
+```
+
+Key simplifications made:
+- Combined early exit conditions into a single if statement
+- Simplified the catalog-specific logic with clear comments for each case
+- Removed detailed comments about kluges and implementation details
+- Consolidated variable declarations at the top
+- Streamlined the control flow while preserving all essential logic
+- Maintained the core algorithm: prepare state, handle catcache invalidation, then relcache invalidation
+- Preserved all functional behavior including the foreign key constraint special case

@@ -43,3 +43,18 @@ The function uses the SLRU's PagePrecedes callback function to handle the specif
 - Critical for safe SLRU truncation to avoid deleting segments with active data
 - Handles wrap-around scenarios correctly using the PagePrecedes callback mechanism
 - The logic accounts for PostgreSQL's circular numbering system which is essential for long-running systems
+
+## Simplified Source
+
+```c
+static bool SlruMayDeleteSegment(SlruCtl ctl, int64 segpage, int64 cutoffPage)
+{
+    int64 seg_last_page = segpage + SLRU_PAGES_PER_SEGMENT - 1;
+
+    Assert(segpage % SLRU_PAGES_PER_SEGMENT == 0);
+
+    // Can delete segment only if both first and last pages are before cutoff
+    return (ctl->PagePrecedes(segpage, cutoffPage) &&
+            ctl->PagePrecedes(seg_last_page, cutoffPage));
+}
+```

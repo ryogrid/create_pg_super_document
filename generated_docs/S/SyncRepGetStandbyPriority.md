@@ -43,3 +43,49 @@ The function uses case-insensitive comparison for standby names and supports exa
 - Cascading walsenders are explicitly excluded from synchronous replication
 - Uses global variables: am_cascading_walsender, SyncRepConfig, application_name
 - Static function scope limits visibility to the syncrep.c compilation unit
+
+## Simplified Source
+
+```c
+// Simplified version of SyncRepGetStandbyPriority
+static int SyncRepGetStandbyPriority(void) {
+    const char *standby_name;
+    int priority;
+    bool found = false;
+
+    // Cascading walsenders cannot be sync standbys
+    if (am_cascading_walsender)
+        return 0;
+
+    // Check if sync replication is configured
+    if (!SyncStandbysDefined() || SyncRepConfig == NULL)
+        return 0;
+
+    // Search through configured standby names
+    standby_name = SyncRepConfig->member_names;
+    for (priority = 1; priority <= SyncRepConfig->nmembers; priority++) {
+        // Match application name or wildcard "*"
+        if (pg_strcasecmp(standby_name, application_name) == 0 ||
+            strcmp(standby_name, "*") == 0) {
+            found = true;
+            break;
+        }
+        // Move to next name in the list
+        standby_name += strlen(standby_name) + 1;
+    }
+
+    if (!found)
+        return 0;
+
+    // Return priority: position-based for PRIORITY mode, 1 for QUORUM mode
+    return (SyncRepConfig->syncrep_method == SYNC_REP_PRIORITY) ? priority : 1;
+}
+```
+
+Key simplifications made:
+- Condensed comments to focus on essential logic flow
+- Preserved the exact algorithm and control flow
+- Maintained all critical checks and conditions
+- Simplified variable declarations for clarity
+- Added inline comments explaining each major step
+- Kept the original return logic for both priority and quorum modes

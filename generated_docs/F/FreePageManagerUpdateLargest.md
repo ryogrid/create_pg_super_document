@@ -30,3 +30,27 @@ When called, it recomputes the actual largest contiguous page run by calling  an
 
 ## Notes and Other Information
 This is an internal static function that implements a lazy evaluation pattern for performance optimization. Rather than recalculating the largest contiguous block size on every page operation, the function only updates when necessary, reducing computational overhead in scenarios with frequent page management operations.
+
+## Simplified Source
+
+```c
+// Simplified version of FreePageManagerUpdateLargest
+static void
+FreePageManagerUpdateLargest(FreePageManager *fpm)
+{
+    // Only update if the cache is marked as dirty
+    if (!fpm->contiguous_pages_dirty)
+        return;
+
+    // Recompute the largest contiguous page run
+    fpm->contiguous_pages = FreePageManagerLargestContiguous(fpm);
+
+    // Mark cache as clean
+    fpm->contiguous_pages_dirty = false;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each logical step
+- Function is already quite simple and concise - no major simplifications needed
+- Preserved the lazy evaluation pattern which is the core logic

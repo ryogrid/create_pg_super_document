@@ -42,3 +42,26 @@ This is a static (internal) function primarily called by other BufFile operation
 - Uses PostgreSQL's ereport() error handling mechanism (through BufFileDumpBuffer) rather than standard C library error codes
 - The function is idempotent - calling it multiple times on a clean buffer has no effect
 - Critical for ensuring data durability in temporary file operations and spooling scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of BufFileFlush
+static void BufFileFlush(BufFile *file) {
+    // Core logic: Check if buffer has unwritten data
+    if (file->dirty) {
+        // Write dirty buffer contents to disk
+        BufFileDumpBuffer(file);
+    }
+
+    // Verify buffer is now clean
+    Assert(!file->dirty);
+}
+```
+
+Key simplifications made:
+- Preserved the essential logic flow: check dirty flag, flush if needed, assert clean state
+- Added descriptive comments explaining each step
+- Maintained the critical error handling through BufFileDumpBuffer
+- Kept the assertion for consistency verification
+- No significant simplification needed as this function is already quite simple and focused

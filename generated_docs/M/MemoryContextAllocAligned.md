@@ -51,3 +51,55 @@ The function stores alignment information in the redirection header and uses the
 - When `MEMORY_CONTEXT_CHECKING` is enabled, includes sentinel bytes and requested size tracking
 - The function performs several alignment and size validation assertions
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1408-1509
+
+## Simplified Source
+
+```c
+// Allocate memory with custom alignment requirements
+void *MemoryContextAllocAligned(MemoryContext context, Size size, Size alignto, int flags)
+{
+    MemoryChunk *alignedchunk;
+    Size alloc_size;
+    void *unaligned;
+    void *aligned;
+
+    // Validation: alignment must be reasonable and power of 2
+    Assert(alignto < (128 * 1024 * 1024));
+    Assert((alignto & (alignto - 1)) == 0);
+
+    // Use standard allocation if alignment requirements are already met
+    if (unlikely(alignto <= MAXIMUM_ALIGNOF))
+        return MemoryContextAllocExtended(context, size, flags);
+
+    // Calculate total allocation size needed for alignment + redirection header
+    alloc_size = size + PallocAlignedExtraBytes(alignto);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    alloc_size += 1;  // Space for sentinel byte
+#endif
+
+    // Allocate the actual memory (unaligned)
+    unaligned = MemoryContextAllocExtended(context, alloc_size, flags);
+
+    // Calculate the aligned pointer position
+    aligned = (void *) TYPEALIGN(alignto, (char *) unaligned + sizeof(MemoryChunk));
+
+    // Set up redirection chunk for memory management compatibility
+    alignedchunk = PointerGetMemoryChunk(aligned);
+    MemoryChunkSetHdrMask(alignedchunk, unaligned, alignto, MCTX_ALIGNED_REDIRECT_ID);
+
+    // Verify alignment is correct
+    Assert((void *) TYPEALIGN(alignto, aligned) == aligned);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    alignedchunk->requested_size = size;
+    set_sentinel(aligned, size);
+#endif
+
+    // Mark unused memory regions for Valgrind
+    VALGRIND_MAKE_MEM_NOACCESS(unaligned, (char *) alignedchunk - (char *) unaligned);
+    VALGRIND_MAKE_MEM_NOACCESS(alignedchunk, sizeof(MemoryChunk));
+
+    return aligned;
+}
+```

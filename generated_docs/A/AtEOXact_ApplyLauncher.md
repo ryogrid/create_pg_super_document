@@ -36,3 +36,23 @@ This mechanism is essential for subscription management operations that need to 
 - Part of PostgreSQL's standard transaction callback mechanism, following the "AtEOXact_" naming convention
 - Ensures that launcher wake-ups only happen for successfully committed changes, maintaining data consistency
 - Called automatically by the transaction system - not typically invoked directly by application code
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_ApplyLauncher
+void AtEOXact_ApplyLauncher(bool isCommit) {
+    // Wake up launcher only if transaction committed successfully
+    if (isCommit && on_commit_launcher_wakeup) {
+        ApplyLauncherWakeup();
+    }
+
+    // Always reset the wakeup flag for next transaction
+    on_commit_launcher_wakeup = false;
+}
+```
+
+Key simplifications made:
+- Combined the nested if conditions into a single logical condition for clarity
+- Added descriptive comments explaining the core logic flow
+- Maintained the essential transaction callback pattern: action on commit, cleanup regardless

@@ -41,3 +41,26 @@ The calculation involves:
 - The layout assumes that flag bytes come first in each group, followed immediately by the TransactionId array
 - This function is essential for both reading existing MultiXact members and writing new ones during transaction processing
 - The returned offset can be used directly with page access functions to read or write the TransactionId
+
+## Simplified Source
+
+```c
+// Simplified version of MXOffsetToMemberOffset
+static inline int
+MXOffsetToMemberOffset(MultiXactOffset offset)
+{
+    // Find position of member within its group (0 to MULTIXACT_MEMBERS_PER_MEMBERGROUP-1)
+    int member_in_group = offset % MULTIXACT_MEMBERS_PER_MEMBERGROUP;
+
+    // Calculate byte offset: start of group + flag bytes + member position * TransactionId size
+    return MXOffsetToFlagsOffset(offset) +
+           MULTIXACT_FLAGBYTES_PER_GROUP +
+           member_in_group * sizeof(TransactionId);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each calculation step
+- Clarified the member_in_group calculation purpose
+- Explained the final offset calculation components
+- Maintained original logic flow with improved readability

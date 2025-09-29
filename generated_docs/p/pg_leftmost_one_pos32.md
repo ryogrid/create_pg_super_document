@@ -43,3 +43,34 @@ The implementation uses three different strategies based on available platform f
 - The fallback implementation processes the word in 8-bit chunks for efficiency, reducing the number of lookup operations required
 - This function is heavily used throughout PostgreSQL for bit manipulation, hash table sizing, memory allocation, and query optimization
 - The inline declaration ensures minimal function call overhead for this performance-critical utility
+
+## Simplified Source
+
+```c
+static inline int pg_leftmost_one_pos32(uint32 word)
+{
+    Assert(word != 0);
+
+#ifdef HAVE__BUILTIN_CLZ
+    // Use GCC/Clang builtin for efficient bit counting
+    return 31 - __builtin_clz(word);
+
+#elif defined(_MSC_VER)
+    // Use Microsoft Visual C++ intrinsic
+    unsigned long result;
+    _BitScanReverse(&result, word);
+    return (int) result;
+
+#else
+    // Fallback: byte-wise scanning with lookup table
+    int shift = 32 - 8;  // Start from most significant byte
+
+    // Find the first non-zero byte from the left
+    while ((word >> shift) == 0)
+        shift -= 8;
+
+    // Use lookup table for the final byte position
+    return shift + pg_leftmost_one_pos[(word >> shift) & 255];
+#endif
+}
+```

@@ -41,3 +41,32 @@ This function ensures that role changes maintain consistency across all user ID 
 - Updates the is_superuser GUC with PGC_INTERNAL context and PGC_S_DYNAMIC_DEFAULT source
 - Critical for maintaining security context consistency during role switching operations
 - The synchronization of CurrentUserId with OuterUserId is essential for proper permission checking at the outer transaction level
+
+## Simplified Source
+
+```c
+// Simplified version of SetOuterUserId
+static void SetOuterUserId(Oid userid, bool is_superuser) {
+    // Validate inputs - ensure no security restrictions and valid user ID
+    Assert(SecurityRestrictionContext == 0);
+    Assert(OidIsValid(userid));
+
+    // Step 1: Set the outer user ID
+    OuterUserId = userid;
+
+    // Step 2: Synchronize effective user ID to match outer ID
+    CurrentUserId = userid;
+
+    // Step 3: Update superuser status to match the new user
+    SetConfigOption("is_superuser",
+                   is_superuser ? "on" : "off",
+                   PGC_INTERNAL, PGC_S_DYNAMIC_DEFAULT);
+}
+```
+
+Key simplifications made:
+- Preserved all essential logic steps - no functionality was removed
+- Added explanatory comments for each logical step
+- Grouped related operations with descriptive comments
+- Maintained original assertions as they are critical for security
+- Kept the exact same algorithm flow for correctness

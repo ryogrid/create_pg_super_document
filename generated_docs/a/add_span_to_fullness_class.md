@@ -37,3 +37,26 @@ This operation is typically used when a span's utilization changes (due to alloc
 
 ## Notes and Other Information
 The function assumes the span is not currently in any fullness class list and does not perform unlinking from a previous list - callers should use unlink_span() first if needed. Like unlink_span(), this function does not handle locking and relies on callers to ensure proper synchronization. The span is always added at the head of the list, making it the first candidate for future allocations in that fullness class.
+
+## Simplified Source
+
+```c
+static void
+add_span_to_fullness_class(dsa_area *area, dsa_area_span *span,
+                            dsa_pointer span_pointer, int fclass)
+{
+    dsa_area_pool *pool = dsa_get_address(area, span->pool);
+
+    // If there's already a head in this fullness class, update its back pointer
+    if (DsaPointerIsValid(pool->spans[fclass])) {
+        dsa_area_span *head = dsa_get_address(area, pool->spans[fclass]);
+        head->prevspan = span_pointer;
+    }
+
+    // Insert span at head of list
+    span->prevspan = InvalidDsaPointer;  // New head has no predecessor
+    span->nextspan = pool->spans[fclass]; // Point to old head
+    pool->spans[fclass] = span_pointer;   // Update pool to point to new head
+    span->fclass = fclass;                // Record the fullness class
+}
+```

@@ -43,3 +43,38 @@ This mechanism ensures that large objects opened in subtransactions are properly
 - On subtransaction abort, large objects are immediately closed to free resources
 - Part of PostgreSQL's nested transaction support, ensuring large object resources follow subtransaction visibility rules
 - Complements the main transaction cleanup handled by `AtEOXact_LargeObject`
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOSubXact_LargeObject
+void AtEOSubXact_LargeObject(bool isCommit, SubTransactionId mySubid,
+                            SubTransactionId parentSubid) {
+    // Skip if no large object operations occurred
+    if (fscxt == NULL)
+        return;
+
+    // Process all large object descriptors
+    for (int i = 0; i < cookies_size; i++) {
+        LargeObjectDesc *lo = cookies[i];
+
+        // Handle descriptors belonging to this subtransaction
+        if (lo != NULL && lo->subid == mySubid) {
+            if (isCommit) {
+                // On commit: transfer ownership to parent
+                lo->subid = parentSubid;
+            } else {
+                // On abort: close the descriptor
+                closeLOfd(i);
+            }
+        }
+    }
+}
+```
+
+Key simplifications made:
+- Preserved the essential control flow and logic
+- Added descriptive comments explaining each major step
+- Maintained the core algorithm for subtransaction resource management
+- Simplified variable declarations for clarity
+- Kept all critical functionality intact while making the code more readable

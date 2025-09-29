@@ -40,3 +40,33 @@ This function implements a spin-wait mechanism that blocks until a buffer header
 - Essential for buffer state synchronization in concurrent environments
 - Complements LockBufHdr() by providing a way to wait for unlock completion
 - Part of PostgreSQL low-level buffer synchronization infrastructure
+
+## Simplified Source
+
+```c
+static uint32
+WaitBufHdrUnlocked(BufferDesc *buf)
+{
+    SpinDelayStatus delayStatus;
+    uint32 buf_state;
+
+    // Initialize spin delay mechanism to avoid excessive CPU usage
+    init_local_spin_delay(&delayStatus);
+
+    // Read the current buffer state
+    buf_state = pg_atomic_read_u32(&buf->state);
+
+    // Wait until the BM_LOCKED flag is cleared
+    while (buf_state & BM_LOCKED)
+    {
+        // Use spin delay to reduce CPU consumption
+        perform_spin_delay(&delayStatus);
+        buf_state = pg_atomic_read_u32(&buf->state);
+    }
+
+    // Clean up delay mechanism
+    finish_spin_delay(&delayStatus);
+
+    return buf_state;
+}
+```

@@ -35,3 +35,22 @@ The function is designed to address a specific Windows limitation where CMD.EXE'
 - Specifically designed to work around CMD.EXE COPY command limitations with forward slashes
 - Unlike debackslash_path, no special encoding handling is needed since '/' cannot be part of multi-byte characters
 - This function is part of PostgreSQL's cross-platform compatibility utilities
+
+## Simplified Source
+
+```c
+// Convert forward slashes to backslashes in path (Windows only)
+// Needed for Windows CMD.EXE internal commands like COPY
+void make_native_path(char *filename)
+{
+#ifdef WIN32
+    char *p;
+
+    // Replace each '/' with '\\'
+    for (p = filename; *p; p++)
+        if (*p == '/')
+            *p = '\\';
+#endif
+    // On non-Windows platforms, this function does nothing
+}
+```

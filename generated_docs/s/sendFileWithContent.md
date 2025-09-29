@@ -50,3 +50,65 @@ Key operations:
 - Supports both string content (len=-1) and binary data (explicit len)
 - Properly integrates with backup manifest system for file verification
 - Essential for including dynamically generated metadata files in backups
+
+## Simplified Source
+
+```c
+// Simplified version of sendFileWithContent
+static void
+sendFileWithContent(bbsink *sink, const char *filename, const char *content,
+                   int len, backup_manifest_info *manifest)
+{
+    struct stat statbuf;
+    int bytes_done = 0;
+    pg_checksum_context checksum_ctx;
+
+    // Initialize checksum computation
+    if (pg_checksum_init(&checksum_ctx, manifest->checksum_type) < 0)
+        elog(ERROR, "could not initialize checksum of file \"%s\"", filename);
+
+    // Handle string content length
+    if (len < 0)
+        len = strlen(content);
+
+    // Set up file metadata for tar entry
+    statbuf.st_uid = geteuid();    // Use effective user ID (0 on Windows)
+    statbuf.st_gid = getegid();    // Use effective group ID (0 on Windows)
+    statbuf.st_mtime = time(NULL); // Current timestamp
+    statbuf.st_mode = pg_file_create_mode;
+    statbuf.st_size = len;
+
+    // Write tar header for the synthetic file
+    _tarWriteHeader(sink, filename, NULL, &statbuf, false);
+
+    // Update checksum with content data
+    if (pg_checksum_update(&checksum_ctx, (uint8 *) content, len) < 0)
+        elog(ERROR, "could not update checksum of file \"%s\"", filename);
+
+    // Stream content data in chunks
+    while (bytes_done < len) {
+        size_t remaining = len - bytes_done;
+        size_t chunk_size = Min(sink->bbs_buffer_length, remaining);
+
+        memcpy(sink->bbs_buffer, content, chunk_size);
+        bbsink_archive_contents(sink, chunk_size);
+
+        bytes_done += chunk_size;
+        content += chunk_size;
+    }
+
+    // Add tar padding and register in manifest
+    _tarWritePadding(sink, len);
+    AddFileToBackupManifest(manifest, InvalidOid, filename, len,
+                           (pg_time_t) statbuf.st_mtime, &checksum_ctx);
+}
+```
+
+Key simplifications made:
+- Removed platform-specific #ifdef WIN32 conditionals for clarity
+- Consolidated variable declarations and initialization
+- Added descriptive comments for each major operation
+- Simplified the chunked data streaming loop structure
+- Removed detailed error context while preserving essential error checking
+- Used more descriptive variable names (chunk_size instead of nbytes)
+- Streamlined the overall flow to highlight the core algorithm

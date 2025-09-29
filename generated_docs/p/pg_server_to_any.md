@@ -46,3 +46,37 @@ The function assumes the input string is valid in the database encoding and hand
 - It's part of PostgreSQL's comprehensive multi-byte character encoding support system
 - The function prioritizes performance through multiple optimization paths before falling back to general conversion
 - Located in src/backend/utils/mb/mbutils.c:749-782
+
+## Simplified Source
+
+```c
+char *pg_server_to_any(const char *s, int len, int encoding)
+{
+    // Handle empty strings - always valid regardless of encoding
+    if (len <= 0)
+        return unconstify(char *, s);
+
+    // No conversion needed if target encoding matches database encoding or is ASCII
+    if (encoding == DatabaseEncoding->encoding || encoding == PG_SQL_ASCII)
+        return unconstify(char *, s);
+
+    // Special case: database uses ASCII encoding
+    if (DatabaseEncoding->encoding == PG_SQL_ASCII)
+    {
+        // No conversion possible, but validate the result in target encoding
+        (void) pg_verify_mbstr(encoding, s, len, false);
+        return unconstify(char *, s);
+    }
+
+    // Fast path: use cached conversion if target is client encoding
+    if (encoding == ClientEncoding->encoding)
+        return perform_default_encoding_conversion(s, len, false);
+
+    // General case: convert from database encoding to target encoding
+    // Note: This will not work outside transactions
+    return (char *) pg_do_encoding_conversion((unsigned char *) unconstify(char *, s),
+                                              len,
+                                              DatabaseEncoding->encoding,
+                                              encoding);
+}
+```

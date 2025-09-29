@@ -37,3 +37,35 @@ RegisterSnapshotOnOwner is the core function for snapshot registration in Postgr
 - Returns InvalidSnapshot unchanged if passed InvalidSnapshot
 - Essential for MVCC consistency and proper snapshot lifecycle management
 - Located in src/backend/utils/time/snapmgr.c:807-835
+
+## Simplified Source
+
+```c
+// Simplified version of RegisterSnapshotOnOwner
+Snapshot RegisterSnapshotOnOwner(Snapshot snapshot, ResourceOwner owner) {
+    // Early validation: return invalid snapshots unchanged
+    if (snapshot == InvalidSnapshot)
+        return InvalidSnapshot;
+
+    // Create persistent copy if snapshot is static (not already copied)
+    Snapshot snap = snapshot->copied ? snapshot : CopySnapshot(snapshot);
+
+    // Register with resource owner for cleanup tracking
+    ResourceOwnerEnlarge(owner);
+    snap->regd_count++;
+    ResourceOwnerRememberSnapshot(owner, snap);
+
+    // Add to global registry if this is the first registration
+    if (snap->regd_count == 1)
+        pairingheap_add(&RegisteredSnapshots, &snap->ph_node);
+
+    return snap;
+}
+```
+
+Key simplifications made:
+- Condensed validation logic with clear early return
+- Added descriptive comments explaining each core operation
+- Simplified variable declarations for clarity
+- Preserved all essential functionality including reference counting and heap management
+- Maintained the exact algorithm flow while improving readability

@@ -34,3 +34,24 @@ This dual format allows for both verbose and compact display modes in test outpu
 - The function is widely used throughout the PostgreSQL codebase for flag display purposes
 - The conditional compilation allows for different verbosity levels in output
 - Returns a pointer to string literals, so the returned string should not be modified or freed
+
+## Simplified Source
+
+```c
+// Simplified version of flag
+char *flag(int b) {
+    // Convert boolean value to string representation
+    // Returns verbose format if LONG_FLAG is defined, compact format otherwise
+    if (b) {
+        return "yes";  // or "+" in compact mode
+    } else {
+        return "no";   // or " " in compact mode
+    }
+}
+```
+
+Key simplifications made:
+- Removed preprocessor conditional compilation for clarity
+- Expanded the ternary operator into explicit if-else structure
+- Added descriptive comments explaining the boolean conversion logic
+- Preserved the core functionality while making the logic flow more explicit

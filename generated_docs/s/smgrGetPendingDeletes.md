@@ -36,3 +36,51 @@ The function performs two passes: first counting the qualifying relations, then 
 - Memory for the returned array is allocated with palloc() and should be freed by the caller
 - Filters based on transaction nesting level to avoid processing upper-level transaction entries
 - The filtering by atCommit flag allows different handling for commit vs abort scenarios
+
+## Simplified Source
+
+```c
+int smgrGetPendingDeletes(bool forCommit, RelFileLocator **ptr)
+{
+    int nestLevel = GetCurrentTransactionNestLevel();
+    int nrels;
+    RelFileLocator *rptr;
+    PendingRelDelete *pending;
+
+    // First pass: count qualifying relations
+    nrels = 0;
+    for (pending = pendingDeletes; pending != NULL; pending = pending->next)
+    {
+        // Include if: at current nest level, matches commit/abort flag, and is non-temp
+        if (pending->nestLevel >= nestLevel &&
+            pending->atCommit == forCommit &&
+            pending->procNumber == INVALID_PROC_NUMBER)
+            nrels++;
+    }
+
+    // Return early if no relations found
+    if (nrels == 0)
+    {
+        *ptr = NULL;
+        return 0;
+    }
+
+    // Allocate memory for result array
+    rptr = (RelFileLocator *) palloc(nrels * sizeof(RelFileLocator));
+    *ptr = rptr;
+
+    // Second pass: copy qualifying relations to result array
+    for (pending = pendingDeletes; pending != NULL; pending = pending->next)
+    {
+        if (pending->nestLevel >= nestLevel &&
+            pending->atCommit == forCommit &&
+            pending->procNumber == INVALID_PROC_NUMBER)
+        {
+            *rptr = pending->rlocator;
+            rptr++;
+        }
+    }
+
+    return nrels;
+}
+```

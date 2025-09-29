@@ -39,7 +39,70 @@ The implementation guarantees that it will never throw `elog(ERROR)`, making it 
 ## Notes and Other Information
 - The function provides excellent hash distribution with avalanche properties for cryptographic-quality hashing
 - Optimized for both aligned and non-aligned memory access patterns
-- Uses endian-aware byte ordering for consistent results across different architectures  
+- Uses endian-aware byte ordering for consistent results across different architectures
 - Critical constraint: must never call `elog(ERROR)` to maintain system stability
 - The algorithm could easily be extended to return 64-bit values using both b and c final values
 - Designed for optimal performance with power-of-2 hash table sizes (no expensive modulo operations needed)
+
+## Simplified Source
+
+```c
+// Simplified version of hash_bytes
+uint32 hash_bytes(const unsigned char *k, int keylen) {
+    uint32 a, b, c, len;
+
+    // Initialize internal state with magic constants and key length
+    len = keylen;
+    a = b = c = 0x9e3779b9 + len + 3923095;
+
+    // Check if source pointer is word-aligned for optimization
+    if (((uintptr_t) k & UINT32_ALIGN_MASK) == 0) {
+        // Aligned access path: process in 12-byte chunks efficiently
+        const uint32 *ka = (const uint32 *) k;
+
+        // Process most of the key in 12-byte chunks
+        while (len >= 12) {
+            a += ka[0];
+            b += ka[1];
+            c += ka[2];
+            mix(a, b, c);  // Hash mixing function
+            ka += 3;
+            len -= 12;
+        }
+
+        // Handle remaining bytes (0-11) with endian-aware byte packing
+        k = (const unsigned char *) ka;
+        // Simplified: pack remaining bytes into a, b, c based on length
+        // (Original has detailed switch statements for each byte position)
+        pack_remaining_bytes_aligned(k, len, &a, &b, &c);
+    } else {
+        // Non-aligned access path: manual byte assembly
+        while (len >= 12) {
+            // Manually assemble 32-bit values from bytes with endian handling
+            a += assemble_word_from_bytes(k);      // k[0-3]
+            b += assemble_word_from_bytes(k + 4);  // k[4-7]
+            c += assemble_word_from_bytes(k + 8);  // k[8-11]
+            mix(a, b, c);
+            k += 12;
+            len -= 12;
+        }
+
+        // Handle remaining bytes with manual byte packing
+        pack_remaining_bytes_unaligned(k, len, &a, &b, &c);
+    }
+
+    // Final hash computation and mixing
+    final(a, b, c);
+
+    return c;  // Return final hash value
+}
+```
+
+Key simplifications made:
+- Abstracted detailed endian-specific switch statements into conceptual functions
+- Removed platform-specific conditional compilation blocks for clarity
+- Consolidated similar byte-packing logic patterns
+- Simplified variable declarations and initialization
+- Maintained the core two-path algorithm (aligned vs non-aligned)
+- Preserved essential hash mixing and finalization steps
+- Kept the critical constraint documentation (no elog calls)

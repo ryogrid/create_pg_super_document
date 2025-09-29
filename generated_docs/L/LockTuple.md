@@ -42,3 +42,31 @@ LockTuple is a PostgreSQL locking function that acquires a tuple-level lock on a
 - Used extensively in DDL operations (database alterations) and DML operations (updates, merges)
 - Extracts block and offset numbers from the ItemPointer to construct the unique tuple identifier
 - The function always passes false for both session lock and dontWait parameters to LockAcquire
+
+## Simplified Source
+
+```c
+// Simplified version of LockTuple
+void LockTuple(Relation relation, ItemPointer tid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+
+    // Create a unique lock tag for this specific tuple
+    // Combines database ID, relation ID, block number, and offset number
+    SET_LOCKTAG_TUPLE(tag,
+                      relation->rd_lockInfo.lockRelId.dbId,
+                      relation->rd_lockInfo.lockRelId.relId,
+                      ItemPointerGetBlockNumber(tid),
+                      ItemPointerGetOffsetNumber(tid));
+
+    // Acquire the lock with specified mode
+    // Uses session=false, dontWait=false for standard blocking behavior
+    LockAcquire(&tag, lockmode, false, false);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining the lock tag construction
+- Clarified the purpose of combining database, relation, block, and offset identifiers
+- Documented the LockAcquire parameters (session=false, dontWait=false)
+- Maintained the essential tuple locking algorithm without modification
+- Preserved the original function signature and core logic flow

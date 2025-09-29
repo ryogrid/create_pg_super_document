@@ -39,3 +39,20 @@ The function is crucial for maintaining database consistency during reindex oper
 - Used by the index access methods to determine index availability
 - Part of the broader reindex coordination mechanism that includes SetReindexPending and RemoveReindexPending
 - Essential for maintaining transactional consistency during complex reindex operations
+
+## Simplified Source
+
+```c
+// Simplified version of ReindexIsProcessingIndex
+bool ReindexIsProcessingIndex(Oid indexOid) {
+    // Check if index is currently being reindexed OR pending reindex
+    return indexOid == currentlyReindexedIndex ||
+           list_member_oid(pendingReindexedIndexes, indexOid);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - no simplification needed
+- The logic is straightforward: check two conditions with OR operator
+- Returns true if index is either actively being reindexed or waiting to be reindexed
+- Core functionality: Determines index availability during reindex operations

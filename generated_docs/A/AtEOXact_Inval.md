@@ -46,3 +46,51 @@ After processing, the function resets the invalidation state to empty, preparing
 - The function implements the invalidation protocol ensuring cache consistency across backends
 - Relcache init file invalidation requires careful ordering of pre- and post-processing steps
 - On commit, messages are shared with other backends; on abort, only local processing occurs
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_Inval
+void AtEOXact_Inval(bool isCommit) {
+    // Quick exit if no invalidation messages are queued
+    if (transInvalInfo == NULL)
+        return;
+
+    // Verify we're at the top transaction level
+    Assert(transInvalInfo->my_level == 1 && transInvalInfo->parent == NULL);
+
+    if (isCommit) {
+        // Handle relcache init file invalidation pre-processing
+        if (transInvalInfo->RelcacheInitFileInval)
+            RelationCacheInitFilePreInvalidate();
+
+        // Combine prior and current command invalidation messages
+        AppendInvalidationMessages(&transInvalInfo->PriorCmdInvalidMsgs,
+                                   &transInvalInfo->CurrentCmdInvalidMsgs);
+
+        // Send consolidated messages to shared invalidation queue
+        ProcessInvalidationMessagesMulti(&transInvalInfo->PriorCmdInvalidMsgs,
+                                         SendSharedInvalidMessages);
+
+        // Complete relcache init file invalidation post-processing
+        if (transInvalInfo->RelcacheInitFileInval)
+            RelationCacheInitFilePostInvalidate();
+    } else {
+        // Transaction abort: only process messages locally
+        ProcessInvalidationMessages(&transInvalInfo->PriorCmdInvalidMsgs,
+                                    LocalExecuteInvalidationMessage);
+    }
+
+    // Reset invalidation state for next transaction
+    transInvalInfo = NULL;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments preserving essential logic flow documentation
+- Eliminated injection point macro for testing (non-essential for understanding)
+- Simplified variable references while maintaining readability
+- Preserved the core commit vs abort logic branching
+- Maintained all critical function calls and their ordering
+- Kept essential assertions and null checks
+- Condensed memory management note into simple state reset

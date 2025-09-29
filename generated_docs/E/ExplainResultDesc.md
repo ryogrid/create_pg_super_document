@@ -37,3 +37,45 @@ The function iterates through all format options in the statement (not breaking 
 - Uses the last format option found, consistent with ExplainQuery's behavior
 - YAML format is treated as TEXT type since PostgreSQL lacks native YAML support
 - The tuple descriptor has typmod -1 and attndims 0 for the single column
+
+## Simplified Source
+
+```c
+// Simplified version of ExplainResultDesc
+TupleDesc
+ExplainResultDesc(ExplainStmt *stmt)
+{
+    TupleDesc tupdesc;
+    Oid result_type = TEXTOID;  // Default to TEXT format
+
+    // Scan through statement options to find format specification
+    foreach(lc, stmt->options) {
+        DefElem *opt = (DefElem *) lfirst(lc);
+
+        if (strcmp(opt->defname, "format") == 0) {
+            char *format_str = defGetString(opt);
+
+            // Determine result column type based on format
+            if (strcmp(format_str, "xml") == 0)
+                result_type = XMLOID;
+            else if (strcmp(format_str, "json") == 0)
+                result_type = JSONOID;
+            else
+                result_type = TEXTOID;  // Default for text/yaml
+        }
+    }
+
+    // Create single-column tuple descriptor for EXPLAIN output
+    tupdesc = CreateTemplateTupleDesc(1);
+    TupleDescInitEntry(tupdesc, 1, "QUERY PLAN", result_type, -1, 0);
+
+    return tupdesc;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Clarified variable purpose (result_type initialization)
+- Consolidated format checking logic with cleaner structure
+- Simplified comments to focus on core functionality
+- Maintained all essential logic while improving readability

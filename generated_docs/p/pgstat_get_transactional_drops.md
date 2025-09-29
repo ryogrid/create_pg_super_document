@@ -59,3 +59,46 @@ The returned items are used by commit/abort and 2PC PREPARE processing to build 
 - Essential for maintaining statistics consistency in replicated and crash-recovery scenarios
 - The filtering logic ensures appropriate statistics operations: drop existing objects on commit, cleanup new objects on abort
 - Part of PostgreSQL's transactional statistics system and WAL logging infrastructure
+
+## Simplified Source
+
+```c
+int pgstat_get_transactional_drops(bool isCommit, xl_xact_stats_item **items)
+{
+    PgStat_SubXactStatus *xact_state = pgStatXactStack;
+    int nitems = 0;
+    dlist_iter iter;
+
+    // Return 0 if no transaction state exists
+    if (xact_state == NULL)
+        return 0;
+
+    // Validate transaction nesting for commits
+    Assert(!isCommit || xact_state->nest_level == 1);
+    Assert(!isCommit || xact_state->prev == NULL);
+
+    // Allocate memory for result array
+    *items = palloc(dclist_count(&xact_state->pending_drops) * sizeof(xl_xact_stats_item));
+
+    // Iterate through pending drops and filter based on commit/abort
+    dclist_foreach(iter, &xact_state->pending_drops)
+    {
+        PgStat_PendingDroppedStatsItem *pending =
+            dclist_container(PgStat_PendingDroppedStatsItem, node, iter.cur);
+
+        // Filter logic:
+        // - On commit: include dropped objects (is_create = false)
+        // - On abort: include new objects being rolled back (is_create = true)
+        if (isCommit && pending->is_create)
+            continue;
+        if (!isCommit && !pending->is_create)
+            continue;
+
+        // Copy matching item to result array
+        Assert(nitems < dclist_count(&xact_state->pending_drops));
+        (*items)[nitems++] = pending->item;
+    }
+
+    return nitems;
+}
+```

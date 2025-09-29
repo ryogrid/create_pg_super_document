@@ -41,3 +41,28 @@ The function uses spinlock protection when accessing shared memory to ensure thr
 - More broadly accessible than `CheckForStandbyTrigger()` which may have usage restrictions
 - Returns true once a promotion is triggered and remains true for the lifetime of the process
 - The promotion state is persistent and cannot be "un-triggered" once set
+
+## Simplified Source
+
+```c
+// Simplified version of PromoteIsTriggered
+bool PromoteIsTriggered(void) {
+    // Quick return if promotion already detected locally
+    if (LocalPromoteIsTriggered)
+        return true;
+
+    // Thread-safe check of shared promotion state
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+    LocalPromoteIsTriggered = XLogRecoveryCtl->SharedPromoteIsTriggered;
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    return LocalPromoteIsTriggered;
+}
+```
+
+Key simplifications made:
+- Preserved the essential two-step logic: local cache check followed by shared memory check
+- Maintained the spinlock protection for thread safety
+- Kept the optimization pattern of caching the result locally
+- Simplified comments to focus on the core purpose of each step
+- Removed detailed explanatory comments from the original while preserving the algorithm

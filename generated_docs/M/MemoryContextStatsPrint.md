@@ -41,3 +41,76 @@ This static callback function handles the formatting and output of memory contex
 - Uses "..." suffix to indicate when identifiers have been truncated
 - Critical for readable memory context debugging output
 - Supports both stderr output (with indentation) and server logging (with level prefixes)
+
+## Simplified Source
+
+```c
+static void
+MemoryContextStatsPrint(MemoryContext context, void *passthru,
+                        const char *stats_string,
+                        bool print_to_stderr)
+{
+    int level = *(int *) passthru;
+    const char *name = context->name;
+    const char *ident = context->ident;
+    char truncated_ident[110];
+
+    // Special case: use hash table name for dynahash contexts
+    if (ident && strcmp(name, "dynahash") == 0)
+    {
+        name = ident;
+        ident = NULL;
+    }
+
+    truncated_ident[0] = '\0';
+
+    // Process identifier if present
+    if (ident)
+    {
+        int idlen = strlen(ident);
+        bool truncated = false;
+
+        strcpy(truncated_ident, ": ");
+        int i = strlen(truncated_ident);
+
+        // Truncate long identifiers (>100 chars) with Unicode awareness
+        if (idlen > 100)
+        {
+            idlen = pg_mbcliplen(ident, idlen, 100);
+            truncated = true;
+        }
+
+        // Copy identifier, replacing control characters with spaces
+        while (idlen-- > 0)
+        {
+            unsigned char c = *ident++;
+            if (c < ' ')
+                c = ' ';
+            truncated_ident[i++] = c;
+        }
+        truncated_ident[i] = '\0';
+
+        // Add truncation indicator if needed
+        if (truncated)
+            strcat(truncated_ident, "...");
+    }
+
+    // Output formatted stats
+    if (print_to_stderr)
+    {
+        // Print with indentation to stderr
+        for (int i = 0; i < level; i++)
+            fprintf(stderr, "  ");
+        fprintf(stderr, "%s: %s%s\n", name, stats_string, truncated_ident);
+    }
+    else
+    {
+        // Log to server log with level information
+        ereport(LOG_SERVER_ONLY,
+                (errhidestmt(true),
+                 errhidecontext(true),
+                 errmsg_internal("level: %d; %s: %s%s",
+                                level, name, stats_string, truncated_ident)));
+    }
+}
+```

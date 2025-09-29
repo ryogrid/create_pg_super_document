@@ -70,3 +70,93 @@ A key additional responsibility of this function is tracking the timestamp of th
 - Logs detailed information about recovery stopping decisions
 - Essential for implementing PostgreSQL's comprehensive point-in-time recovery system
 - Processes both regular and prepared transactions with proper parsing
+
+## Simplified Source
+
+```c
+// Simplified version of recoveryStopsAfter
+static bool recoveryStopsAfter(XLogReaderState *record) {
+    uint8 info, xact_info, rmid;
+    TimestampTz recordXtime = 0;
+
+    // Skip if not in archive recovery (crash recovery mode)
+    if (!ArchiveRecoveryRequested)
+        return false;
+
+    info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    rmid = XLogRecGetRmid(record);
+
+    // Check for named restore point target
+    if (recoveryTarget == RECOVERY_TARGET_NAME &&
+        rmid == RM_XLOG_ID && info == XLOG_RESTORE_POINT) {
+
+        xl_restore_point *restoreData = (xl_restore_point *) XLogRecGetData(record);
+
+        if (strcmp(restoreData->rp_name, recoveryTargetName) == 0) {
+            // Found target restore point - stop recovery
+            setRecoveryStopInfo(InvalidTransactionId, InvalidXLogRecPtr,
+                              record, restoreData->rp_name);
+            ereport(LOG, (errmsg("recovery stopping at restore point \"%s\"",
+                                recoveryStopName)));
+            return true;
+        }
+    }
+
+    // Check for inclusive LSN target
+    if (recoveryTarget == RECOVERY_TARGET_LSN &&
+        recoveryTargetInclusive &&
+        record->ReadRecPtr >= recoveryTargetLSN) {
+
+        setRecoveryStopInfo(InvalidTransactionId, record->ReadRecPtr, record, NULL);
+        ereport(LOG, (errmsg("recovery stopping after WAL location \"%X/%X\"",
+                            LSN_FORMAT_ARGS(recoveryStopLSN))));
+        return true;
+    }
+
+    // Only process transaction records from here
+    if (rmid != RM_XACT_ID)
+        return false;
+
+    xact_info = info & XLOG_XACT_OPMASK;
+
+    // Handle commit/abort transactions
+    if (isTransactionEndRecord(xact_info)) {
+        // Update latest transaction timestamp
+        if (getRecordTimestamp(record, &recordXtime))
+            SetLatestXTime(recordXtime);
+
+        // Extract transaction ID based on record type
+        TransactionId recordXid = extractTransactionId(record, xact_info);
+
+        // Check for inclusive XID target
+        if (recoveryTarget == RECOVERY_TARGET_XID &&
+            recoveryTargetInclusive &&
+            recordXid == recoveryTargetXid) {
+
+            setRecoveryStopInfo(recordXid, InvalidXLogRecPtr, record, NULL);
+            recoveryStopTime = recordXtime;
+
+            logTransactionStop(xact_info, recordXid);
+            return true;
+        }
+    }
+
+    // Check for immediate stop after consistency
+    if (recoveryTarget == RECOVERY_TARGET_IMMEDIATE && reachedConsistency) {
+        ereport(LOG, (errmsg("recovery stopping after reaching consistency")));
+        setRecoveryStopInfo(InvalidTransactionId, InvalidXLogRecPtr, record, NULL);
+        return true;
+    }
+
+    return false;
+}
+```
+
+Key simplifications made:
+- Consolidated recovery stop information setting into helper function concept `setRecoveryStopInfo()`
+- Extracted transaction ID parsing logic into helper concept `extractTransactionId()`
+- Simplified transaction end detection with helper concept `isTransactionEndRecord()`
+- Abstracted detailed commit/abort record parsing for clarity
+- Removed verbose error handling and detailed logging for core logic focus
+- Consolidated similar recovery target checks into clearer conditional blocks
+- Simplified variable assignments and reduced repetitive code patterns

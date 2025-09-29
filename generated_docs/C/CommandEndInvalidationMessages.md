@@ -43,3 +43,37 @@ The function includes safeguards to handle calls outside transactions, which can
 - Moves processed messages from CurrentCmdInvalidMsgs to PriorCmdInvalidMsgs for later transaction-end processing
 - Essential for maintaining cache consistency within multi-command transactions
 - Part of the PostgreSQL command counter mechanism that tracks command boundaries within transactions
+
+## Simplified Source
+
+```c
+// Simplified version of CommandEndInvalidationMessages
+void CommandEndInvalidationMessages(void) {
+    // Safety check: return early if no transaction state exists
+    // (handles bootstrap and abort-outside-transaction cases)
+    if (transInvalInfo == NULL)
+        return;
+
+    // Step 1: Process current command's invalidation messages locally
+    // This flushes our caches of entries outdated in current command
+    ProcessInvalidationMessages(&transInvalInfo->CurrentCmdInvalidMsgs,
+                               LocalExecuteInvalidationMessage);
+
+    // Step 2: Log invalidations to WAL for logical replication
+    // Only when wal_level=logical is active
+    if (XLogLogicalInfoActive())
+        LogLogicalInvalidations();
+
+    // Step 3: Move current command messages to prior commands list
+    // Accumulates invalidations until transaction commit/abort
+    AppendInvalidationMessages(&transInvalInfo->PriorCmdInvalidMsgs,
+                              &transInvalInfo->CurrentCmdInvalidMsgs);
+}
+```
+
+Key simplifications made:
+- Removed detailed comments and consolidated into step-by-step logic flow
+- Added clearer explanatory comments for each major operation
+- Simplified the transaction state check explanation
+- Clarified the purpose of each function call with inline comments
+- Maintained the exact same logic flow and function calls as the original

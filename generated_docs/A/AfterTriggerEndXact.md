@@ -38,3 +38,40 @@ The function operates by:
 - Memory cleanup is optimized - subtransaction and query state memory is left to be cleaned up by TopTransactionContext reset
 - The function prioritizes immediate cleanup of the potentially large pending-events list to free memory quickly
 - Sets query_depth to -1 as a safety measure to prevent trigger manipulation until the next transaction begins
+
+## Simplified Source
+
+```c
+// Simplified version of AfterTriggerEndXact
+void AfterTriggerEndXact(bool isCommit) {
+    // Clean up pending events context (potentially large memory usage)
+    if (afterTriggers.event_cxt) {
+        MemoryContextDelete(afterTriggers.event_cxt);
+        afterTriggers.event_cxt = NULL;
+
+        // Reset event queue pointers
+        afterTriggers.events.head = NULL;
+        afterTriggers.events.tail = NULL;
+        afterTriggers.events.tailfree = NULL;
+    }
+
+    // Clear subtransaction tracking state
+    afterTriggers.trans_stack = NULL;
+    afterTriggers.maxtransdepth = 0;
+
+    // Clear query stack and constraint state
+    afterTriggers.query_stack = NULL;
+    afterTriggers.maxquerydepth = 0;
+    afterTriggers.state = NULL;
+
+    // Disable trigger manipulation until next transaction
+    afterTriggers.query_depth = -1;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments while preserving essential logic explanation
+- Consolidated memory cleanup operations with clearer grouping
+- Maintained the critical memory context deletion and pointer reset logic
+- Preserved the safety mechanism of setting query_depth to -1
+- Kept the structure that allows safe repeated calls during error conditions

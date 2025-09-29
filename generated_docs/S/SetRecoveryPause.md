@@ -47,3 +47,37 @@ The function implements a two-phase pause mechanism where requesting a pause onl
 - The pause request is asynchronous - actual pause confirmation happens separately
 - Resume operations take precedence and immediately set the state to not paused
 - Location: src/backend/access/transam/xlogrecovery.c:3090-3109
+
+## Simplified Source
+
+```c
+// Simplified version of SetRecoveryPause
+void SetRecoveryPause(bool recoveryPause) {
+    // Acquire spinlock for atomic state updates
+    SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+
+    // Update recovery pause state based on request
+    if (!recoveryPause) {
+        // Resume: immediately set to not paused
+        XLogRecoveryCtl->recoveryPauseState = RECOVERY_NOT_PAUSED;
+    } else if (XLogRecoveryCtl->recoveryPauseState == RECOVERY_NOT_PAUSED) {
+        // Pause: only transition from not paused to pause requested
+        XLogRecoveryCtl->recoveryPauseState = RECOVERY_PAUSE_REQUESTED;
+    }
+
+    // Release spinlock
+    SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+    // Notify waiting processes when resuming recovery
+    if (!recoveryPause) {
+        ConditionVariableBroadcast(&XLogRecoveryCtl->recoveryNotPausedCV);
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each logical step
+- Clarified the two-phase logic: pause requests vs resume operations
+- Highlighted the atomic nature of state updates with spinlock protection
+- Simplified conditional logic with clear explanations
+- Emphasized the notification mechanism for resume operations

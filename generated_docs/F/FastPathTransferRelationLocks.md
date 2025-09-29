@@ -43,3 +43,70 @@ The function ensures proper concurrency control by acquiring both the partition 
 - Clears fast-path slots after successful transfer to maintain consistency
 - Critical for maintaining lock semantics when transitioning from optimized to standard locking
 - Memory fencing considerations are noted in comments regarding database ID checks
+
+## Simplified Source
+
+```c
+// Simplified version of FastPathTransferRelationLocks
+static bool FastPathTransferRelationLocks(LockMethod lockMethodTable, const LOCKTAG *locktag, uint32 hashcode) {
+    LWLock *partitionLock = LockHashPartitionLock(hashcode);
+    Oid relid = locktag->locktag_field2;
+
+    // Iterate through all active backends to find matching fast-path locks
+    for (uint32 i = 0; i < ProcGlobal->allProcCount; i++) {
+        PGPROC *proc = &ProcGlobal->allProcs[i];
+
+        LWLockAcquire(&proc->fpInfoLock, LW_EXCLUSIVE);
+
+        // Skip backends from different databases
+        if (proc->databaseId != locktag->locktag_field1) {
+            LWLockRelease(&proc->fpInfoLock);
+            continue;
+        }
+
+        // Check each fast-path slot for matching relation
+        for (uint32 slot = 0; slot < FP_LOCK_SLOTS_PER_BACKEND; slot++) {
+            // Skip empty slots or non-matching relations
+            if (relid != proc->fpRelId[slot] || FAST_PATH_GET_BITS(proc, slot) == 0) {
+                continue;
+            }
+
+            // Transfer all lock modes from this slot to shared table
+            LWLockAcquire(partitionLock, LW_EXCLUSIVE);
+            for (uint32 lockmode = FAST_PATH_LOCKNUMBER_OFFSET;
+                 lockmode < FAST_PATH_LOCKNUMBER_OFFSET + FAST_PATH_BITS_PER_SLOT;
+                 lockmode++) {
+
+                if (!FAST_PATH_CHECK_LOCKMODE(proc, slot, lockmode)) {
+                    continue;
+                }
+
+                // Create lock entry in shared table
+                PROCLOCK *proclock = SetupLockInTable(lockMethodTable, proc, locktag, hashcode, lockmode);
+                if (!proclock) {
+                    // Out of shared memory - cleanup and fail
+                    LWLockRelease(partitionLock);
+                    LWLockRelease(&proc->fpInfoLock);
+                    return false;
+                }
+
+                // Grant the lock and clear from fast-path
+                GrantLock(proclock->tag.myLock, proclock, lockmode);
+                FAST_PATH_CLEAR_LOCKMODE(proc, slot, lockmode);
+            }
+            LWLockRelease(partitionLock);
+            break; // Found the slot, no need to check remaining slots
+        }
+        LWLockRelease(&proc->fpInfoLock);
+    }
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about memory fencing considerations
+- Simplified variable declarations and loop structure
+- Condensed the nested loop logic with clearer variable names
+- Removed verbose comments while preserving essential algorithm steps
+- Streamlined error handling to focus on the critical shared memory failure case
+- Maintained the core lock transfer logic and proper lock acquisition order

@@ -60,3 +60,82 @@ The function provides robust error handling with an optional `is_missing` parame
 - Superuser bypass occurs early for performance optimization
 - The function manages system cache interactions properly with SearchSysCache1/ReleaseSysCache pairs
 - Default ACLs are generated on-the-fly when objects have no explicit ACL defined
+
+## Simplified Source
+
+```c
+// Simplified version of object_aclmask_ext
+static AclMode object_aclmask_ext(Oid classid, Oid objectid, Oid roleid,
+                                 AclMode mask, AclMaskHow how,
+                                 bool *is_missing) {
+    AclMode result;
+    HeapTuple tuple;
+    Datum aclDatum;
+    bool isNull;
+    Acl *acl;
+    Oid ownerId;
+
+    // Special cases: delegate to specialized functions
+    if (classid == NamespaceRelationId) {
+        return pg_namespace_aclmask_ext(objectid, roleid, mask, how, is_missing);
+    }
+    if (classid == TypeRelationId) {
+        return pg_type_aclmask_ext(objectid, roleid, mask, how, is_missing);
+    }
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid)) {
+        return mask;
+    }
+
+    // Get object from system cache
+    int cacheid = get_object_catcache_oid(classid);
+    tuple = SearchSysCache1(cacheid, ObjectIdGetDatum(objectid));
+
+    // Handle missing object
+    if (!HeapTupleIsValid(tuple)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return 0;  // No privileges for missing object
+        }
+        // Otherwise throw error for missing object
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("%s with OID %u does not exist",
+                              get_object_class_descr(classid), objectid)));
+    }
+
+    // Get object owner
+    ownerId = DatumGetObjectId(SysCacheGetAttrNotNull(cacheid, tuple,
+                                                     get_object_attnum_owner(classid)));
+
+    // Get object's ACL
+    aclDatum = SysCacheGetAttr(cacheid, tuple, get_object_attnum_acl(classid), &isNull);
+    if (isNull) {
+        // Build default ACL if none exists
+        acl = acldefault(get_object_type(classid, objectid), ownerId);
+    } else {
+        // Use existing ACL (detoast if necessary)
+        acl = DatumGetAclP(aclDatum);
+    }
+
+    // Check permissions using core ACL evaluation
+    result = aclmask(acl, roleid, ownerId, mask, how);
+
+    // Cleanup: free detoasted ACL if needed
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum)) {
+        pfree(acl);
+    }
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```
+
+Key simplifications made:
+- Removed non-essential assertions and debug comments
+- Consolidated variable declarations at the top
+- Added inline comments explaining each logical step
+- Simplified error handling while preserving core functionality
+- Abstracted complex memory management details
+- Maintained the essential control flow and all critical logic paths
+- Preserved all function calls and their proper sequence

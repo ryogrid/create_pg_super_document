@@ -37,3 +37,35 @@ The function's logic ensures that catalog scans always see sufficiently recent d
 - Invalidation logic prevents stale catalog data visibility
 - Must be paired with proper InvalidateCatalogSnapshot calls
 - Located in src/backend/utils/time/snapmgr.c:374-421
+
+## Simplified Source
+
+```c
+// Simplified version of GetNonHistoricCatalogSnapshot
+Snapshot GetNonHistoricCatalogSnapshot(Oid relid) {
+    // Check if cached snapshot needs refresh for relations without proper invalidation
+    if (CatalogSnapshot &&
+        !RelationInvalidatesSnapshotsOnly(relid) &&
+        !RelationHasSysCache(relid)) {
+        InvalidateCatalogSnapshot();
+    }
+
+    // Create new snapshot if none exists
+    if (CatalogSnapshot == NULL) {
+        // Get fresh snapshot data
+        CatalogSnapshot = GetSnapshotData(&CatalogSnapshotData);
+
+        // Register snapshot for xmin tracking without resource owner overhead
+        pairingheap_add(&RegisteredSnapshots, &CatalogSnapshot->ph_node);
+    }
+
+    return CatalogSnapshot;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments explaining implementation rationale
+- Condensed the invalidation condition check into a single readable block
+- Simplified the snapshot registration logic explanation
+- Preserved the essential three-step algorithm: check invalidation, create if needed, register and return
+- Maintained the core logic flow while making it more accessible

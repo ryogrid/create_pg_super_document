@@ -40,3 +40,16 @@ The smgrwritev function is a storage manager interface for performing vectorized
 - Part of the storage manager abstraction layer
 - More efficient than multiple individual smgrwrite calls for consecutive blocks
 - Critical for bulk write operations and buffer management optimization
+
+## Simplified Source
+
+```c
+void
+smgrwritev(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+           const void **buffers, BlockNumber nblocks, bool skipFsync)
+{
+    // Delegate to the storage manager implementation
+    smgrsw[reln->smgr_which].smgr_writev(reln, forknum, blocknum,
+                                         buffers, nblocks, skipFsync);
+}
+```

@@ -39,3 +39,35 @@ This function takes no parameters.
 - Deleting the subtransaction context also recursively deletes contexts from any nested child subtransactions
 - Resets the abort context for reuse rather than deleting it, maintaining consistency with other cleanup functions
 - Part of the subtransaction cleanup process that runs after commit or abort processing is complete
+
+## Simplified Source
+
+```c
+// Simplified version of AtSubCleanup_Memory
+static void AtSubCleanup_Memory(void) {
+    TransactionState s = CurrentTransactionState;
+
+    // Ensure we're dealing with a subtransaction
+    Assert(s->parent != NULL);
+
+    // Switch to parent's context to avoid operating in about-to-be-deleted context
+    MemoryContextSwitchTo(s->parent->curTransactionContext);
+    CurTransactionContext = s->parent->curTransactionContext;
+
+    // Clear the abort context for reuse
+    if (TransactionAbortContext != NULL)
+        MemoryContextReset(TransactionAbortContext);
+
+    // Delete subtransaction's memory context (and all nested child contexts)
+    if (s->curTransactionContext)
+        MemoryContextDelete(s->curTransactionContext);
+    s->curTransactionContext = NULL;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for each major operation
+- Preserved all essential logic and memory management operations
+- Maintained the critical assertion and safety checks
+- Kept the proper sequence of context switching before deletion
+- Simplified comments while preserving the technical accuracy

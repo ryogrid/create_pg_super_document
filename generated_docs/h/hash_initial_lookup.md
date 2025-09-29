@@ -43,3 +43,36 @@ The function includes corruption detection - if a required segment is found to b
 - The segment directory (hashp->dir) is indexed by segment number
 - Critical for hash table performance as it's called for every hash operation
 - Corruption detection helps maintain hash table integrity by catching NULL segments
+
+## Simplified Source
+
+```c
+// Simplified version of hash_initial_lookup
+static inline uint32
+hash_initial_lookup(HTAB *hashp, uint32 hashvalue, HASHBUCKET **bucketptr)
+{
+    // Step 1: Calculate which bucket this hash value belongs to
+    uint32 bucket = calc_bucket(hashp->hctl, hashvalue);
+
+    // Step 2: Determine which segment contains this bucket
+    long segment_num = bucket >> hashp->sshift;
+    long segment_ndx = bucket % hashp->ssize;
+
+    // Step 3: Get the segment and check for corruption
+    HASHSEGMENT segp = hashp->dir[segment_num];
+    if (segp == NULL)
+        hash_corrupted(hashp);
+
+    // Step 4: Return bucket location and number
+    *bucketptr = &segp[segment_ndx];
+    return bucket;
+}
+```
+
+Key simplifications made:
+- Added clear step-by-step comments explaining the lookup process
+- Replaced MOD macro with standard modulo operator (%) for clarity
+- Consolidated variable declarations with initialization where possible
+- Made the four-step bucket lookup process explicit and easy to follow
+- Preserved essential corruption detection logic
+- Maintained original function signature and return behavior

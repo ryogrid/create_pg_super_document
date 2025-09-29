@@ -40,3 +40,53 @@ The function is designed to be safe when interrupted by errors and called again 
 - Properly manages TupleTableSlot cleanup through ExecDropSingleTupleTableSlot
 - Part of PostgreSQL's resource management for deferred trigger execution
 - Static function only called internally within the trigger subsystem
+
+## Simplified Source
+
+```c
+static void
+AfterTriggerFreeQuery(AfterTriggersQueryData *qs)
+{
+    // Free trigger events
+    afterTriggerFreeEventList(&qs->events);
+
+    // Clean up FDW tuplestore
+    if (qs->fdw_tuplestore) {
+        tuplestore_end(qs->fdw_tuplestore);
+        qs->fdw_tuplestore = NULL;
+    }
+
+    // Release per-table storage
+    foreach(lc, qs->tables) {
+        AfterTriggersTableData *table = (AfterTriggersTableData *) lfirst(lc);
+
+        // Clean up all tuplestores for this table
+        if (table->old_upd_tuplestore) {
+            tuplestore_end(table->old_upd_tuplestore);
+            table->old_upd_tuplestore = NULL;
+        }
+        if (table->new_upd_tuplestore) {
+            tuplestore_end(table->new_upd_tuplestore);
+            table->new_upd_tuplestore = NULL;
+        }
+        if (table->old_del_tuplestore) {
+            tuplestore_end(table->old_del_tuplestore);
+            table->old_del_tuplestore = NULL;
+        }
+        if (table->new_ins_tuplestore) {
+            tuplestore_end(table->new_ins_tuplestore);
+            table->new_ins_tuplestore = NULL;
+        }
+
+        // Clean up tuple slot
+        if (table->storeslot) {
+            ExecDropSingleTupleTableSlot(table->storeslot);
+            table->storeslot = NULL;
+        }
+    }
+
+    // Free table list (safe cleanup order)
+    qs->tables = NIL;
+    list_free_deep(tables);
+}
+```

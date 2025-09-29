@@ -62,3 +62,115 @@ The function implements complex logic to handle different recovery scenarios: st
 - Logs detailed information about recovery stopping decisions
 - Critical for implementing PostgreSQL's point-in-time recovery functionality
 - Works in conjunction with `recoveryStopsAfter` for complete recovery control
+
+## Simplified Source
+
+```c
+// Simplified version of recoveryStopsBefore
+static bool recoveryStopsBefore(XLogReaderState *record) {
+    bool stopsHere = false;
+    uint8 xact_info;
+    bool isCommit;
+    TimestampTz recordXtime = 0;
+    TransactionId recordXid;
+
+    // Only operate during archive recovery, not crash recovery
+    if (!ArchiveRecoveryRequested)
+        return false;
+
+    // Stop immediately when reaching consistency if requested
+    if (recoveryTarget == RECOVERY_TARGET_IMMEDIATE && reachedConsistency) {
+        // Set recovery stop information and log
+        recoveryStopAfter = false;
+        // Clear stop parameters
+        return true;
+    }
+
+    // Stop before target LSN if specified
+    if (recoveryTarget == RECOVERY_TARGET_LSN &&
+        !recoveryTargetInclusive &&
+        record->ReadRecPtr >= recoveryTargetLSN) {
+        // Set LSN stop information and log
+        recoveryStopLSN = record->ReadRecPtr;
+        return true;
+    }
+
+    // Only process transaction commit/abort records beyond this point
+    if (XLogRecGetRmid(record) != RM_XACT_ID)
+        return false;
+
+    xact_info = XLogRecGetInfo(record) & XLOG_XACT_OPMASK;
+
+    // Parse transaction record to get XID and determine commit/abort
+    if (xact_info == XLOG_XACT_COMMIT) {
+        isCommit = true;
+        recordXid = XLogRecGetXid(record);
+    } else if (xact_info == XLOG_XACT_COMMIT_PREPARED) {
+        isCommit = true;
+        // Parse prepared commit record for XID
+        xl_xact_parsed_commit parsed;
+        ParseCommitRecord(XLogRecGetInfo(record),
+                         (xl_xact_commit *) XLogRecGetData(record),
+                         &parsed);
+        recordXid = parsed.twophase_xid;
+    } else if (xact_info == XLOG_XACT_ABORT) {
+        isCommit = false;
+        recordXid = XLogRecGetXid(record);
+    } else if (xact_info == XLOG_XACT_ABORT_PREPARED) {
+        isCommit = false;
+        // Parse prepared abort record for XID
+        xl_xact_parsed_abort parsed;
+        ParseAbortRecord(XLogRecGetInfo(record),
+                        (xl_xact_abort *) XLogRecGetData(record),
+                        &parsed);
+        recordXid = parsed.twophase_xid;
+    } else {
+        return false;
+    }
+
+    // Check XID-based stopping criteria
+    if (recoveryTarget == RECOVERY_TARGET_XID && !recoveryTargetInclusive) {
+        // Must use exact equality for XID comparison
+        stopsHere = (recordXid == recoveryTargetXid);
+    }
+
+    // Check time-based stopping criteria
+    if (getRecordTimestamp(record, &recordXtime) &&
+        recoveryTarget == RECOVERY_TARGET_TIME) {
+        // Handle inclusive vs exclusive time comparison
+        if (recoveryTargetInclusive)
+            stopsHere = (recordXtime > recoveryTargetTime);
+        else
+            stopsHere = (recordXtime >= recoveryTargetTime);
+    }
+
+    // If stopping, set recovery stop information and log the decision
+    if (stopsHere) {
+        recoveryStopAfter = false;
+        recoveryStopXid = recordXid;
+        recoveryStopTime = recordXtime;
+        recoveryStopLSN = InvalidXLogRecPtr;
+        recoveryStopName[0] = '\0';
+
+        // Log recovery stopping decision with transaction details
+        if (isCommit) {
+            ereport(LOG, (errmsg("recovery stopping before commit of transaction %u, time %s",
+                                 recoveryStopXid, timestamptz_to_str(recoveryStopTime))));
+        } else {
+            ereport(LOG, (errmsg("recovery stopping before abort of transaction %u, time %s",
+                                 recoveryStopXid, timestamptz_to_str(recoveryStopTime))));
+        }
+    }
+
+    return stopsHere;
+}
+```
+
+Key simplifications made:
+- Consolidated similar transaction record parsing branches
+- Simplified error handling and memory operations
+- Added high-level comments explaining each major section
+- Streamlined variable initialization and assignment patterns
+- Maintained all essential logic for recovery target evaluation
+- Preserved critical XID equality testing and time comparison logic
+- Kept logging functionality for debugging recovery decisions

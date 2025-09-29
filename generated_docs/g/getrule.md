@@ -44,3 +44,56 @@ After parsing the date specification, the function optionally parses a time spec
 - Week 5 in month/week/day format means "last occurrence" of the specified weekday
 - Returns NULL if the rule format is invalid or parsing fails at any point
 - The parsed rule structure contains all necessary information for calculating actual transition dates
+
+## Simplified Source
+
+```c
+// Simplified version of getrule - parses POSIX timezone rule formats
+static const char *getrule(const char *strp, struct rule *const rulep) {
+    // Parse different date specification formats
+    if (*strp == 'J') {
+        // Julian day format: J1-365 (no leap day)
+        rulep->r_type = JULIAN_DAY;
+        strp = getnum(++strp, &rulep->r_day, 1, DAYSPERNYEAR);
+    }
+    else if (*strp == 'M') {
+        // Month/week/day format: Mm.w.d (e.g., M3.2.0 = 2nd Sunday in March)
+        rulep->r_type = MONTH_NTH_DAY_OF_WEEK;
+        strp = getnum(++strp, &rulep->r_mon, 1, MONSPERYEAR);
+        if (!strp || *strp++ != '.') return NULL;
+
+        strp = getnum(strp, &rulep->r_week, 1, 5);
+        if (!strp || *strp++ != '.') return NULL;
+
+        strp = getnum(strp, &rulep->r_day, 0, DAYSPERWEEK - 1);
+    }
+    else if (is_digit(*strp)) {
+        // Day of year format: 0-365 (includes leap day)
+        rulep->r_type = DAY_OF_YEAR;
+        strp = getnum(strp, &rulep->r_day, 0, DAYSPERLYEAR - 1);
+    }
+    else {
+        return NULL;  // Invalid format
+    }
+
+    if (!strp) return NULL;
+
+    // Parse optional time specification after '/'
+    if (*strp == '/') {
+        strp = getoffset(++strp, &rulep->r_time);
+    }
+    else {
+        rulep->r_time = 2 * SECSPERHOUR;  // Default: 2:00:00 AM
+    }
+
+    return strp;
+}
+```
+
+Key simplifications made:
+- Consolidated error checking patterns for cleaner flow
+- Combined increment and assignment operations (++strp)
+- Used more descriptive comments explaining each format type
+- Simplified conditional logic while preserving all functionality
+- Maintained the three distinct parsing paths for different rule formats
+- Preserved essential error handling for malformed input

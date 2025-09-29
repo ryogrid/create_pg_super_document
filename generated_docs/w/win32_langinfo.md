@@ -43,3 +43,61 @@ The function handles special cases such as CP_ACP (no ANSI codepage available, r
 - The function prioritizes GetLocaleInfoEx() when available (Visual Studio 2010+) but falls back to manual parsing for compatibility
 - Handles the special case where CP_ACP indicates only Unicode is available for the locale
 - Part of PostgreSQL's cross-platform locale handling system, specifically addressing Windows' different approach to codepage representation
+
+## Simplified Source
+
+```c
+static char *win32_langinfo(const char *ctype)
+{
+    char *result = NULL;
+    char *codepage;
+
+#if defined(_MSC_VER)
+    // Modern approach: Use GetLocaleInfoEx for VS 2010+
+    uint32 cp;
+    WCHAR wctype[LOCALE_NAME_MAX_LENGTH];
+
+    // Convert input to wide chars
+    memset(wctype, 0, sizeof(wctype));
+    MultiByteToWideChar(CP_ACP, 0, ctype, -1, wctype, LOCALE_NAME_MAX_LENGTH);
+
+    // Try to get codepage from system
+    if (GetLocaleInfoEx(wctype,
+                        LOCALE_IDEFAULTANSICODEPAGE | LOCALE_RETURN_NUMBER,
+                        (LPWSTR) &cp, sizeof(cp) / sizeof(WCHAR)) > 0)
+    {
+        result = malloc(16);
+        if (result != NULL)
+        {
+            // Handle special case: no ANSI codepage available
+            if (cp == CP_ACP)
+                strcpy(result, "utf8");
+            else
+                sprintf(result, "CP%u", cp);
+        }
+    }
+    else
+#endif
+    {
+        // Fallback: Parse locale string manually
+        // Format: <Language>_<Country>.<CodePage>
+        codepage = strrchr(ctype, '.');
+        if (codepage != NULL)
+        {
+            codepage++;
+            size_t ln = strlen(codepage);
+            result = malloc(ln + 3);
+            if (result != NULL)
+            {
+                // Check if codepage is all digits
+                if (strspn(codepage, "0123456789") == ln)
+                    sprintf(result, "CP%s", codepage);
+                else
+                    strcpy(result, codepage);
+            }
+        }
+    }
+
+    return result;
+}
+```

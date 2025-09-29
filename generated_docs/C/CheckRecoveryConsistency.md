@@ -50,3 +50,72 @@ This function takes no parameters and operates on global recovery state variable
 - The function uses minimal locking, assuming it runs in the startup process context
 - Detailed logging is provided for backup completion and consistency achievement
 - The function coordinates with CheckTablespaceDirectory to ensure proper tablespace structure
+
+## Simplified Source
+
+```c
+// Simplified version of CheckRecoveryConsistency
+static void
+CheckRecoveryConsistency(void)
+{
+    XLogRecPtr lastReplayedEndRecPtr;
+    TimeLineID lastReplayedTLI;
+
+    // Skip consistency checks during crash recovery
+    if (XLogRecPtrIsInvalid(minRecoveryPoint))
+        return;
+
+    // Get current replay position
+    lastReplayedEndRecPtr = XLogRecoveryCtl->lastReplayedEndRecPtr;
+    lastReplayedTLI = XLogRecoveryCtl->lastReplayedTLI;
+
+    // Check if we've reached the end of base backup
+    if (!XLogRecPtrIsInvalid(backupEndPoint) &&
+        backupEndPoint <= lastReplayedEndRecPtr)
+    {
+        // Mark backup as complete and update control file
+        ReachedEndOfBackup(lastReplayedEndRecPtr, lastReplayedTLI);
+        backupStartPoint = InvalidXLogRecPtr;
+        backupEndPoint = InvalidXLogRecPtr;
+        backupEndRequired = false;
+
+        ereport(LOG, (errmsg("completed backup recovery")));
+    }
+
+    // Check if we've reached minimum recovery point for consistency
+    if (!reachedConsistency && !backupEndRequired &&
+        minRecoveryPoint <= lastReplayedEndRecPtr)
+    {
+        // Validate all pages and tablespace structure
+        XLogCheckInvalidPages();
+        CheckTablespaceDirectory();
+
+        reachedConsistency = true;
+        ereport(LOG, (errmsg("consistent recovery state reached")));
+    }
+
+    // Enable Hot Standby if all conditions are met
+    if (standbyState == STANDBY_SNAPSHOT_READY &&
+        !LocalHotStandbyActive &&
+        reachedConsistency &&
+        IsUnderPostmaster)
+    {
+        // Update shared state and signal postmaster
+        SpinLockAcquire(&XLogRecoveryCtl->info_lck);
+        XLogRecoveryCtl->SharedHotStandbyActive = true;
+        SpinLockRelease(&XLogRecoveryCtl->info_lck);
+
+        LocalHotStandbyActive = true;
+        SendPostmasterSignal(PMSIGNAL_BEGIN_HOT_STANDBY);
+    }
+}
+```
+
+Key simplifications made:
+- Removed detailed error message formatting and LSN logging details
+- Consolidated backup completion logic into essential steps
+- Simplified variable declarations and removed temporary save variables
+- Abstracted detailed logging into basic ereport calls
+- Streamlined the Hot Standby activation sequence
+- Removed verbose comments while keeping essential logic flow clear
+- Maintained all critical function calls and state transitions

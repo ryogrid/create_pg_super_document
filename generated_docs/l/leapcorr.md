@@ -37,3 +37,27 @@ This function is essential for accurate time calculations in timezones that acco
 - The function assumes leap second information is stored in chronological order
 - Used internally during timezone file loading and processing
 - The function is static and used within the timezone subsystem
+
+## Simplified Source
+
+```c
+static int64 leapcorr(struct state const *sp, pg_time_t t)
+{
+    struct lsinfo const *lp;
+    int i;
+
+    // Search backwards through leap second transitions
+    i = sp->leapcnt;
+    while (--i >= 0) {
+        lp = &sp->lsis[i];
+
+        // If timestamp is at or after this leap second transition,
+        // return the cumulative leap second correction
+        if (t >= lp->ls_trans)
+            return lp->ls_corr;
+    }
+
+    // No leap second correction applies
+    return 0;
+}
+```

@@ -33,3 +33,46 @@ The function initializes shared statistics counters to zero and sets up the pref
 - Shared statistics (wal_distance, block_distance, io_depth) are reset to zero, providing a clean state for new recovery sessions
 - The streaming_read component is allocated lazily on first actual use, optimizing memory usage when prefetching might not be needed
 - The prefetcher maintains a filter_queue using PostgreSQL's doubly-linked list implementation for efficient filter management
+
+## Simplified Source
+
+```c
+// Simplified version of XLogPrefetcherAllocate
+XLogPrefetcher *XLogPrefetcherAllocate(XLogReaderState *reader) {
+    // Set up hash table configuration for filter management
+    static HASHCTL hash_table_ctl = {
+        .keysize = sizeof(RelFileLocator),
+        .entrysize = sizeof(XLogPrefetcherFilter)
+    };
+
+    // Allocate and zero-initialize the main prefetcher structure
+    XLogPrefetcher *prefetcher = palloc0(sizeof(XLogPrefetcher));
+
+    // Associate with the WAL reader and create filter hash table
+    prefetcher->reader = reader;
+    prefetcher->filter_table = hash_create("XLogPrefetcherFilterTable", 1024,
+                                          &hash_table_ctl,
+                                          HASH_ELEM | HASH_BLOBS);
+
+    // Initialize the filter queue for managing filter lifecycle
+    dlist_init(&prefetcher->filter_queue);
+
+    // Reset shared statistics for clean state
+    SharedStats->wal_distance = 0;
+    SharedStats->block_distance = 0;
+    SharedStats->io_depth = 0;
+
+    // Set up for lazy allocation of streaming reader on first use
+    prefetcher->reconfigure_count = XLogPrefetchReconfigureCount - 1;
+
+    return prefetcher;
+}
+```
+
+Key simplifications made:
+- Consolidated variable declarations with initialization where possible
+- Added descriptive comments explaining each major setup phase
+- Removed complex formatting of function call parameters for readability
+- Simplified the static hash table control structure presentation
+- Grouped related initialization operations with explanatory comments
+- Maintained all essential functionality while improving code clarity

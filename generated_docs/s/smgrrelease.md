@@ -36,3 +36,21 @@ The  function performs a controlled release of resources associated with an SMgr
 - The target block number is also reset to InvalidBlockNumber
 - This function is typically used during cleanup operations or when file descriptors need to be freed
 - Unlike smgrdestroy, this function can be called multiple times safely on the same object
+
+## Simplified Source
+
+```c
+// Release all resources used by SMgrRelation object
+// Object remains valid after this operation
+void smgrrelease(SMgrRelation reln)
+{
+    // Close all fork files and reset cached block counts
+    for (ForkNumber forknum = 0; forknum <= MAX_FORKNUM; forknum++) {
+        smgrsw[reln->smgr_which].smgr_close(reln, forknum);
+        reln->smgr_cached_nblocks[forknum] = InvalidBlockNumber;
+    }
+
+    // Reset target block number
+    reln->smgr_targblock = InvalidBlockNumber;
+}
+```

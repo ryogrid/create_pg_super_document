@@ -40,3 +40,26 @@ The function deliberately avoids calling pfree() on the data structures because 
 - Combo CIDs are transaction-local and have no meaning outside their creating transaction
 - Called during all transaction termination scenarios (commit, prepare, abort)
 - Located in src/backend/utils/time/combocid.c:182-203
+
+## Simplified Source
+
+```c
+// Simplified version of AtEOXact_ComboCid
+void AtEOXact_ComboCid(void) {
+    // Reset combo CID hash table
+    comboHash = NULL;
+
+    // Reset combo CID array and counters
+    comboCids = NULL;
+    usedComboCids = 0;
+    sizeComboCids = 0;
+
+    // Note: No explicit pfree() needed - TopTransactionContext cleanup handles it
+}
+```
+
+Key simplifications made:
+- Removed detailed comment about pfree rationale (condensed to single note)
+- Added descriptive comments for each logical step
+- Grouped related operations (array and counters reset together)
+- Preserved essential cleanup logic while making purpose clearer

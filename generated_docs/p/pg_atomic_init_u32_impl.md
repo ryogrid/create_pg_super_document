@@ -37,3 +37,27 @@ The function includes a static assertion to ensure that the semaphore field in t
 - The semaphore-based path includes special handling for nested atomic usage
 - Part of the fallback implementation when hardware atomic operations are unavailable
 - Ensures proper initialization of both the synchronization mechanism and the value
+
+## Simplified Source
+
+```c
+void
+pg_atomic_init_u32_impl(volatile pg_atomic_uint32 *ptr, uint32 val_)
+{
+    // Compile-time check: ensure semaphore field can hold a spinlock
+    StaticAssertDecl(sizeof(ptr->sema) >= sizeof(slock_t),
+                     "size mismatch of atomic_uint32 vs slock_t");
+
+#ifndef HAVE_SPINLOCKS
+    // On platforms without spinlocks, use semaphore-based synchronization
+    // Special handling for nested atomic usage while spinlock is held
+    s_init_lock_sema((slock_t *) &ptr->sema, true);
+#else
+    // On platforms with spinlocks, use standard spinlock initialization
+    SpinLockInit((slock_t *) &ptr->sema);
+#endif
+
+    // Set the initial value
+    ptr->value = val_;
+}
+```

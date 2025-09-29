@@ -32,3 +32,20 @@ This function provides proper cleanup for Bloom filter resources and should be c
 - Simple wrapper around pfree() since bloom_create allocates filter and bitset as single memory block
 - Must be paired with bloom_create to prevent memory leaks
 - No validation is performed on the filter pointer - caller must ensure validity
+
+## Simplified Source
+
+```c
+// Simplified version of bloom_free
+void bloom_free(bloom_filter *filter) {
+    // Free the entire bloom filter structure
+    // Since filter and bitset are allocated as single block,
+    // one pfree call deallocates everything
+    pfree(filter);
+}
+```
+
+Key simplifications made:
+- Added explanatory comments about the single memory block deallocation
+- Function is already minimal - no simplification needed for logic
+- Preserved the essential memory cleanup functionality

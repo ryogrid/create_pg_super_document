@@ -39,3 +39,15 @@ This function checks if a page is newly allocated and uninitialized by examining
 - Essential for checksum validation - new/uninitialized pages may not have valid checksums
 - The function assumes that zero is an invalid value for pd_upper in initialized pages
 - Used in vacuum operations to identify pages that need initialization before use
+
+## Simplified Source
+
+```c
+// Check if a page has been initialized
+static inline bool PageIsNew(Page page)
+{
+    // Page is considered "new" (uninitialized) if pd_upper is zero
+    // pd_upper indicates the end of free space and is set during PageInit
+    return ((PageHeader) page)->pd_upper == 0;
+}
+```

@@ -37,3 +37,46 @@ The function resolves this by examining the stmt->outargs list, which contains t
 - Part of PostgreSQL's query planning infrastructure for CALL statements
 - Critical for proper result set description in tools and client libraries
 - Ensures tuple descriptor matches the actual data types that will be returned at runtime
+
+## Simplified Source
+
+```c
+// Simplified version of CallStmtResultDesc
+TupleDesc CallStmtResultDesc(CallStmt *stmt) {
+    FuncExpr *fexpr = stmt->funcexpr;
+
+    // Look up the procedure in system catalog
+    HeapTuple tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(fexpr->funcid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for procedure %u", fexpr->funcid);
+
+    // Build initial tuple descriptor from catalog entry
+    TupleDesc tupdesc = build_function_result_tupdesc_t(tuple);
+    ReleaseSysCache(tuple);
+
+    // Handle polymorphic types: replace declared types with actual resolved types
+    if (tupdesc) {
+        for (int i = 0; i < tupdesc->natts; i++) {
+            Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+            Node *outarg = (Node *) list_nth(stmt->outargs, i);
+
+            // Update attribute with actual runtime type
+            TupleDescInitEntry(tupdesc,
+                             i + 1,
+                             NameStr(att->attname),  // Keep original name
+                             exprType(outarg),       // Use resolved type
+                             -1,                     // Standard typmod
+                             0);                     // Default collation
+        }
+    }
+
+    return tupdesc;
+}
+```
+
+Key simplifications made:
+- Removed detailed assertion check for brevity (natts == list_length validation)
+- Simplified variable declarations and initialization
+- Added high-level comments explaining each major step
+- Consolidated type resolution loop with inline comments
+- Focused on the core algorithm: catalog lookup → build descriptor → resolve polymorphic types

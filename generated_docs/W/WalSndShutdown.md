@@ -40,3 +40,27 @@ This function takes no parameters.
 - The abort() call is unreachable code included only to prevent compiler warnings about the function possibly returning
 - The function performs a clean exit with status 0, indicating normal termination despite being called due to connection issues
 - This function is part of PostgreSQL's replication infrastructure and specifically handles WAL sender process lifecycle management
+
+## Simplified Source
+
+```c
+// Simplified version of WalSndShutdown
+static void WalSndShutdown(void) {
+    // Step 1: Prevent further message attempts to disconnected standby
+    if (whereToSendOutput == DestRemote) {
+        whereToSendOutput = DestNone;  // Redirect output to nowhere
+    }
+
+    // Step 2: Clean process termination
+    proc_exit(0);  // Exit with success status
+
+    // Note: abort() call removed as it's unreachable compiler-quieting code
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each step
+- Clarified the purpose of redirecting output destination
+- Removed the unreachable abort() call for clarity
+- Simplified comments to focus on core functionality
+- Made the two-step process more explicit

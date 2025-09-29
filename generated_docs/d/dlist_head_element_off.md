@@ -39,3 +39,25 @@ An assertion ensures the list is not empty before attempting to access the first
 - The offset parameter is typically calculated using the offsetof() macro
 - Part of PostgreSQL's intrusive list implementation that embeds list nodes within data structures
 - The function assumes the caller has properly calculated the offset and that the list contains elements of the expected type
+
+## Simplified Source
+
+```c
+// Simplified version of dlist_head_element_off
+static inline void *
+dlist_head_element_off(dlist_head *head, size_t off)
+{
+    // Ensure list is not empty (debug assertion)
+    Assert(!dlist_is_empty(head));
+
+    // Calculate containing structure address using pointer arithmetic
+    // Subtract offset from first node address to get structure start
+    return (char *) head->head.next - off;
+}
+```
+
+Key simplifications made:
+- Added explanatory comments for the core logic steps
+- Clarified the purpose of the assertion check
+- Explained the pointer arithmetic operation in plain terms
+- Maintained the essential algorithm: pointer arithmetic to find containing structure

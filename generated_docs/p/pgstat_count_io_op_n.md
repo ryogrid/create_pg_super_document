@@ -45,3 +45,23 @@ The function operates on the PendingIOStats global structure, which accumulates 
 - Sets have_iostats to true to indicate that IO statistics are pending
 - The MyBackendType global variable is used to determine if the operation should be tracked
 - Part of PostgreSQL's comprehensive IO monitoring system for performance analysis
+
+## Simplified Source
+
+```c
+void
+pgstat_count_io_op_n(IOObject io_object, IOContext io_context, IOOp io_op, uint32 cnt)
+{
+    // Validate enum parameters are within valid ranges
+    Assert((unsigned int) io_object < IOOBJECT_NUM_TYPES);
+    Assert((unsigned int) io_context < IOCONTEXT_NUM_TYPES);
+    Assert((unsigned int) io_op < IOOP_NUM_TYPES);
+    Assert(pgstat_tracks_io_op(MyBackendType, io_object, io_context, io_op));
+
+    // Add count to pending IO statistics
+    PendingIOStats.counts[io_object][io_context][io_op] += cnt;
+
+    // Mark that IO statistics are available
+    have_iostats = true;
+}
+```

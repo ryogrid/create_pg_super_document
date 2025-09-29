@@ -46,3 +46,35 @@ The function conditionally sets the SO_ALLOW_STRAT and SO_ALLOW_SYNC flags based
 - The allow_strat parameter controls whether alternative buffer management strategies can be employed
 - The allow_sync parameter is crucial for operations that require deterministic scanning order
 - Both strategy and sync options default to true in the basic table_beginscan function
+
+## Simplified Source
+
+```c
+// Simplified version of table_beginscan_strat
+static inline TableScanDesc
+table_beginscan_strat(Relation rel, Snapshot snapshot,
+                      int nkeys, struct ScanKeyData *key,
+                      bool allow_strat, bool allow_sync)
+{
+    // Set base flags for sequential scan with page mode
+    uint32 flags = SO_TYPE_SEQSCAN | SO_ALLOW_PAGEMODE;
+
+    // Conditionally enable buffer access strategy
+    if (allow_strat)
+        flags |= SO_ALLOW_STRAT;
+
+    // Conditionally enable synchronized scanning
+    if (allow_sync)
+        flags |= SO_ALLOW_SYNC;
+
+    // Delegate to table access method's scan_begin function
+    return rel->rd_tableam->scan_begin(rel, snapshot, nkeys, key, NULL, flags);
+}
+```
+
+Key simplifications made:
+- Added clear comments explaining each logical step
+- Preserved the essential flag-setting logic
+- Maintained the conditional flag assignment based on parameters
+- Kept the core delegation to the table access method
+- Simplified variable declarations and formatting for readability

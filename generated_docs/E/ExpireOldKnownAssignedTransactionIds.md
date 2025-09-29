@@ -34,3 +34,41 @@ This function removes old entries from the KnownAssignedXids data structure by e
 - The conditional reset of lastOverflowedXid prevents incorrect suboverflow markings in future snapshots
 - Uses exclusive locking on ProcArrayLock to ensure consistency during updates
 - Part of PostgreSQL's Hot Standby recovery mechanism for managing transaction visibility
+
+## Simplified Source
+
+```c
+// Simplified version of ExpireOldKnownAssignedTransactionIds
+void ExpireOldKnownAssignedTransactionIds(TransactionId xid) {
+    TransactionId latestXid;
+
+    // Acquire exclusive lock for consistent updates
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Update latest completed transaction ID to xid-1
+    latestXid = xid;
+    TransactionIdRetreat(latestXid);
+    MaintainLatestCompletedXidRecovery(latestXid);
+
+    // Increment transaction completion counter
+    TransamVariables->xactCompletionCount++;
+
+    // Reset overflow tracking if all potentially overflowing transactions are gone
+    if (TransactionIdPrecedes(procArray->lastOverflowedXid, xid)) {
+        procArray->lastOverflowedXid = InvalidTransactionId;
+    }
+
+    // Remove all known assigned XIDs preceding the threshold
+    KnownAssignedXidsRemovePreceding(xid);
+
+    // Release the lock
+    LWLockRelease(ProcArrayLock);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major operation
+- Preserved the essential lock acquisition and release pattern
+- Maintained the core logic flow for transaction ID management
+- Kept the conditional overflow reset logic intact
+- Simplified variable naming explanations in comments

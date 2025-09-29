@@ -43,3 +43,18 @@ If a matching HBA entry is found, the corresponding `HbaLine` structure is store
 - This function assumes that the HBA configuration has already been loaded and parsed by `load_hba()`
 - The function always succeeds in the sense that it doesn't return an error code - if no rule matches, it sets an implicit rejection rule
 - The result of this function determines which specific authentication method (password, certificate, Kerberos, etc.) will be used for the connection
+
+## Simplified Source
+
+```c
+// Simplified version of hba_getauthmethod
+void hba_getauthmethod(hbaPort *port) {
+    // Core logic: Delegate to check_hba for actual authentication method lookup
+    check_hba(port);
+}
+```
+
+Key simplifications made:
+- Function is already extremely simple - just a wrapper around check_hba()
+- No simplification needed as the function contains only one function call
+- The complexity is encapsulated in the check_hba() function which performs the actual HBA rule matching

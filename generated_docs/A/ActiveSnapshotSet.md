@@ -41,3 +41,18 @@ ActiveSnapshotSet is a simple utility function that determines whether an active
 - Helps prevent null pointer access to ActiveSnapshot
 - Used across various PostgreSQL subsystems (executor, planner, utilities)
 - Returns false when no snapshots are active, true otherwise
+
+## Simplified Source
+
+```c
+// Simplified version of ActiveSnapshotSet
+bool ActiveSnapshotSet(void) {
+    // Check if there's an active snapshot available
+    return ActiveSnapshot != NULL;
+}
+```
+
+Key simplifications made:
+- Function is already at its simplest form - no simplifications needed
+- Added explanatory comment for clarity
+- This is a straightforward null-check utility function

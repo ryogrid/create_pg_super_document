@@ -33,3 +33,19 @@ The function uses the same planref_resowner_desc descriptor as its counterpart t
 - Must be paired with a corresponding ResourceOwnerRememberPlanCacheRef call to maintain proper resource tracking
 - Typically called when explicitly releasing a cached plan or transferring ownership responsibility
 - Part of PostgreSQL's resource management system that prevents resource leaks and ensures proper cleanup
+
+## Simplified Source
+
+```c
+// Simplified version of ResourceOwnerForgetPlanCacheRef
+static inline void ResourceOwnerForgetPlanCacheRef(ResourceOwner owner, CachedPlan *plan) {
+    // Unregister the cached plan from resource owner tracking
+    // Converts plan pointer to Datum and uses plan-specific descriptor
+    ResourceOwnerForget(owner, PointerGetDatum(plan), &planref_resowner_desc);
+}
+```
+
+Key simplifications made:
+- Function is already very simple - no simplification needed beyond adding explanatory comments
+- Added comments to explain the purpose of the PointerGetDatum conversion
+- Clarified that this removes the plan from resource tracking system

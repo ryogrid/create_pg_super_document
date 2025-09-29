@@ -47,3 +47,37 @@ This function retrieves the name of a PostgreSQL relation from the system catalo
 - Should primarily be used for error messages and display purposes, not for unique identification
 - Part of the relation cache subsystem providing efficient access to relation metadata
 - Extensively used throughout the codebase for generating user-friendly error messages and logging output
+
+## Simplified Source
+
+```c
+// Simplified version of get_rel_name
+char *
+get_rel_name(Oid relid)
+{
+    HeapTuple tp;
+
+    // Look up the relation in the system cache by OID
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract relation name from the pg_class tuple
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        char *result = pstrdup(NameStr(reltup->relname));
+
+        // Clean up and return the relation name
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Relation not found
+        return NULL;
+    }
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Maintained the exact logic flow without any changes
+- Kept all essential operations (cache lookup, name extraction, cleanup)
+- Preserved the important NULL return for missing relations
+- No actual simplification was needed as the original function is already clean and concise

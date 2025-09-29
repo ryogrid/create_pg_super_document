@@ -37,3 +37,39 @@ The function includes progress reporting and error handling, logging any failure
 - Progress reporting helps administrators monitor long-running synchronization operations
 - Error conditions are logged but do not cause the function to fail fatally
 - Uses transient file descriptors to avoid exhausting the system's file descriptor pool
+
+## Simplified Source
+
+```c
+// Simplified version of do_syncfs
+static void do_syncfs(const char *path) {
+    int fd;
+
+    // Report synchronization progress to administrator
+    ereport_startup_progress("syncing data directory (syncfs), elapsed time: %ld.%02d s, current path: %s", path);
+
+    // Open file descriptor for the path
+    fd = OpenTransientFile(path, O_RDONLY);
+    if (fd < 0) {
+        // Log error but continue - non-fatal failure
+        ereport(LOG, (errcode_for_file_access(), errmsg("could not open file \"%s\": %m", path)));
+        return;
+    }
+
+    // Synchronize the entire file system containing this path
+    if (syncfs(fd) < 0) {
+        // Log synchronization failure - non-fatal
+        ereport(LOG, (errcode_for_file_access(), errmsg("could not synchronize file system for file \"%s\": %m", path)));
+    }
+
+    // Clean up file descriptor
+    CloseTransientFile(fd);
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Preserved the essential error handling logic with clearer explanations
+- Maintained the core syncfs() system call operation
+- Kept the transient file descriptor pattern for resource management
+- Simplified error message formatting while preserving error reporting intent

@@ -44,3 +44,22 @@ When debug output is enabled, it delegates to ShowTransactionStateRec to recursi
 - Optimized for performance by checking log level before doing expensive work
 - Essential for debugging complex transaction scenarios, especially those involving subtransactions
 - Provides visibility into transaction nesting and state changes during development and troubleshooting
+
+## Simplified Source
+
+```c
+// Simplified version of ShowTransactionState
+static void ShowTransactionState(const char *str) {
+    // Core logic: Only proceed if DEBUG5 messages would be printed
+    if (message_level_is_interesting(DEBUG5)) {
+        // Delegate to recursive function to display transaction hierarchy
+        ShowTransactionStateRec(str, CurrentTransactionState);
+    }
+}
+```
+
+Key simplifications made:
+- Function is already quite simple, minimal changes needed
+- Added explanatory comments for the two main logical steps
+- Preserved the performance optimization check
+- Maintained the delegation pattern to ShowTransactionStateRec

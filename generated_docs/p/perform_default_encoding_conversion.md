@@ -46,3 +46,70 @@ The function allocates memory conservatively to handle worst-case conversion exp
 - For strings over 1MB, it performs memory optimization by reallocating to the actual result size
 - The function assumes that appropriate conversion procedures have been cached by prior setup
 - Located in src/backend/utils/mb/mbutils.c:783-863
+
+## Simplified Source
+
+```c
+// Simplified version of perform_default_encoding_conversion
+static char *
+perform_default_encoding_conversion(const char *src, int len, bool is_client_to_server)
+{
+    char       *result;
+    int         src_encoding, dest_encoding;
+    FmgrInfo   *flinfo;
+
+    // Determine conversion direction and get cached conversion function
+    if (is_client_to_server) {
+        src_encoding = ClientEncoding->encoding;
+        dest_encoding = DatabaseEncoding->encoding;
+        flinfo = ToServerConvProc;
+    } else {
+        src_encoding = DatabaseEncoding->encoding;
+        dest_encoding = ClientEncoding->encoding;
+        flinfo = ToClientConvProc;
+    }
+
+    // Return unchanged if no conversion function available
+    if (flinfo == NULL)
+        return unconstify(char *, src);
+
+    // Check for potential overflow in memory allocation
+    if (len >= (MaxAllocHugeSize / MAX_CONVERSION_GROWTH))
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("String too long for encoding conversion")));
+
+    // Allocate memory for worst-case conversion expansion
+    result = MemoryContextAllocHuge(CurrentMemoryContext,
+                                   len * MAX_CONVERSION_GROWTH + 1);
+
+    // Perform the actual encoding conversion
+    FunctionCall6(flinfo,
+                  Int32GetDatum(src_encoding),
+                  Int32GetDatum(dest_encoding),
+                  CStringGetDatum(src),
+                  CStringGetDatum(result),
+                  Int32GetDatum(len),
+                  BoolGetDatum(false));
+
+    // Optimize memory usage for large strings (>1MB)
+    if (len > 1000000) {
+        Size resultlen = strlen(result);
+
+        if (resultlen >= MaxAllocSize)
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                           errmsg("Converted string too long")));
+
+        result = repalloc(result, resultlen + 1);
+    }
+
+    return result;
+}
+```
+
+Key simplifications made:
+- Simplified error messages while preserving essential checks
+- Added descriptive comments for each major logic section
+- Consolidated variable declarations for clarity
+- Preserved all core logic: direction determination, conversion function lookup, memory allocation, actual conversion, and memory optimization
+- Maintained the essential algorithm flow and safety checks
+- Removed detailed error context while keeping critical overflow protection

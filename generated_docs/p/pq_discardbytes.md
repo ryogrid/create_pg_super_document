@@ -38,3 +38,44 @@ The function operates by:
 - Returns 0 on success, EOF on failure (when  fails to receive data)
 - The function includes an assertion that  is true, ensuring it's only called during message reading
 - Essential for error handling and protocol recovery in PostgreSQL's communication layer
+
+## Simplified Source
+
+```c
+// Simplified version of pq_discardbytes
+static int
+pq_discardbytes(size_t len)
+{
+    size_t amount;
+
+    // Verify we're in message reading state
+    Assert(PqCommReadingMsg);
+
+    // Keep discarding bytes until we've thrown away the requested amount
+    while (len > 0) {
+        // Ensure buffer has data - refill if empty
+        while (PqRecvPointer >= PqRecvLength) {
+            if (pq_recvbuf())  // Failed to get more data
+                return EOF;
+        }
+
+        // Calculate how many bytes we can discard from current buffer
+        amount = PqRecvLength - PqRecvPointer;
+        if (amount > len)
+            amount = len;  // Don't discard more than requested
+
+        // Advance pointer to skip the bytes (effectively discarding them)
+        PqRecvPointer += amount;
+        len -= amount;
+    }
+
+    return 0;  // Success
+}
+```
+
+Key simplifications made:
+- Added descriptive comments explaining each major step
+- Simplified variable usage explanations
+- Clarified the buffer management logic flow
+- Maintained the essential loop structure and error handling
+- Preserved the core algorithm for byte discarding and buffer management

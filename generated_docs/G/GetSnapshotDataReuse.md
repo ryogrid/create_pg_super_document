@@ -37,3 +37,50 @@ When reuse is possible, the function updates time-sensitive fields (curcid, acti
 - Future versions may be evolved to work without holding ProcArrayLock in certain cases
 - This function is crucial for performance when snapshots are frequently requested but transaction state remains stable
 - The xactCompletionCount mechanism ensures detection of any changes that would affect snapshot validity
+
+## Simplified Source
+
+```c
+// Simplified version of GetSnapshotDataReuse
+static bool
+GetSnapshotDataReuse(Snapshot snapshot)
+{
+    uint64 currentCompletionCount;
+
+    // Must hold ProcArrayLock for safety
+    Assert(LWLockHeldByMe(ProcArrayLock));
+
+    // Cannot reuse uninitialized snapshots
+    if (snapshot->snapXactCompletionCount == 0)
+        return false;
+
+    // Check if any transactions completed since snapshot was taken
+    currentCompletionCount = TransamVariables->xactCompletionCount;
+    if (currentCompletionCount != snapshot->snapXactCompletionCount)
+        return false;
+
+    // Safe to reuse: no transactions completed, so visibility unchanged
+    // Re-establish xmin coordination with other processes
+    if (!TransactionIdIsValid(MyProc->xmin))
+        MyProc->xmin = TransactionXmin = snapshot->xmin;
+
+    RecentXmin = snapshot->xmin;
+
+    // Update time-sensitive snapshot fields
+    snapshot->curcid = GetCurrentCommandId(false);
+    snapshot->active_count = 0;
+    snapshot->regd_count = 0;
+    snapshot->copied = false;
+    snapshot->lsn = InvalidXLogRecPtr;
+    snapshot->whenTaken = 0;
+
+    return true;
+}
+```
+
+Key simplifications made:
+- Removed detailed comments about transaction theory and replaced with concise explanations
+- Simplified variable names (curXactCompletionCount → currentCompletionCount)
+- Condensed the logic flow while preserving all essential checks
+- Maintained all critical assertions and validations
+- Kept the core algorithm intact: completion count comparison and field updates
