@@ -36,3 +36,14 @@ The caller is responsible for ensuring that the str parameter is a palloc'd (Pos
 - Enables bit string values to be stored in Lists and participate in standard node operations
 - Located in src/backend/nodes/value.c as part of the core value node creation infrastructure
 - Used primarily during lexical analysis and parsing of bit string constants
+
+## Simplified Source
+
+```c
+BitString *makeBitString(char *str) {
+    BitString *v = makeNode(BitString);
+
+    v->bsval = str;
+    return v;
+}
+```

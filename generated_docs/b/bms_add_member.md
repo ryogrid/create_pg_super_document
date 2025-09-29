@@ -48,3 +48,41 @@ The function calculates which word and bit position the new member should occupy
 - Under  compile flag, performs additional copy-and-free for memory safety
 - Widely used throughout PostgreSQL for building sets of column numbers, relation IDs, and other integer collections
 - Essential function for dynamic bitmapset construction in query planning and execution
+
+## Simplified Source
+
+```c
+Bitmapset *bms_add_member(Bitmapset *a, int x) {
+    int wordnum, bitnum;
+
+    // Validate inputs
+    Assert(bms_is_valid_set(a));
+    if (x < 0)
+        elog(ERROR, "negative bitmapset member not allowed");
+
+    // Handle empty set case
+    if (a == NULL)
+        return bms_make_singleton(x);
+
+    // Calculate word and bit position
+    wordnum = WORDNUM(x);
+    bitnum = BITNUM(x);
+
+    // Expand storage if necessary
+    if (wordnum >= a->nwords) {
+        int oldnwords = a->nwords;
+
+        a = (Bitmapset *) repalloc(a, BITMAPSET_SIZE(wordnum + 1));
+        a->nwords = wordnum + 1;
+
+        // Initialize new words to zero
+        for (int i = oldnwords; i < a->nwords; i++)
+            a->words[i] = 0;
+    }
+
+    // Set the bit for the new member
+    a->words[wordnum] |= ((bitmapword) 1 << bitnum);
+
+    return a;
+}
+```

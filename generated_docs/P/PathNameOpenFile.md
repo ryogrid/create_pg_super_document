@@ -33,3 +33,14 @@ PathNameOpenFile serves as a simplified interface to PathNameOpenFilePerm by aut
 
 ## Notes and Other Information
 This function is part of PostgreSQL's file descriptor management system located in src/backend/storage/file/fd.c. It provides a cleaner API for the common case where default file permissions are acceptable, reducing code duplication throughout the PostgreSQL codebase. The return type 'File' is PostgreSQL's internal file descriptor type used for managing virtual file descriptors.
+
+## Simplified Source
+
+```c
+File
+PathNameOpenFile(const char *fileName, int fileFlags)
+{
+    // Open file with default permissions
+    return PathNameOpenFilePerm(fileName, fileFlags, pg_file_create_mode);
+}
+```

@@ -32,3 +32,25 @@ This function calculates the header size needed for an incremental backup file t
 - Header alignment to BLCKSZ is conditional - it only occurs when num_blocks_required > 0 to keep empty files small
 - The header structure consists of: magic number (4 bytes) + truncation block length (4 bytes) + block count (4 bytes) + block numbers array
 - This is part of PostgreSQL's incremental backup functionality for efficient backup operations
+
+## Simplified Source
+
+```c
+size_t
+GetIncrementalHeaderSize(unsigned num_blocks_required)
+{
+    // Validate input doesn't exceed segment size limit
+    Assert(num_blocks_required <= RELSEG_SIZE);
+
+    // Calculate base header size:
+    // 3 uint32 values + array of block numbers
+    size_t result = 3 * sizeof(uint32) + (sizeof(BlockNumber) * num_blocks_required);
+
+    // Round up to BLCKSZ boundary for files with actual block data
+    if ((num_blocks_required > 0) && (result % BLCKSZ != 0)) {
+        result += BLCKSZ - (result % BLCKSZ);
+    }
+
+    return result;
+}
+```

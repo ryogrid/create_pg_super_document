@@ -43,3 +43,54 @@ The function performs several optimization checks: it ignores requests to set a 
 - The limit block represents the shortest known relation length during the WAL range
 - Critical for maintaining consistency when relations are truncated or dropped
 - Part of the block reference table's mechanism for tracking relation size changes during WAL replay
+
+## Simplified Source
+
+```c
+void
+BlockRefTableEntrySetLimitBlock(BlockRefTableEntry *entry,
+                               BlockNumber limit_block)
+{
+    unsigned chunkno, limit_chunkno, limit_chunkoffset;
+
+    // Only process if new limit is lower than current limit
+    if (limit_block >= entry->limit_block)
+        return;
+
+    // Update the limit block value
+    entry->limit_block = limit_block;
+
+    // Calculate which chunk contains the limit block
+    limit_chunkno = limit_block / BLOCKS_PER_CHUNK;
+    limit_chunkoffset = limit_block % BLOCKS_PER_CHUNK;
+
+    // Nothing to do if limit chunk is beyond our current chunks
+    if (limit_chunkno >= entry->nchunks)
+        return;
+
+    // Clear all chunks beyond the limit chunk
+    for (chunkno = limit_chunkno + 1; chunkno < entry->nchunks; ++chunkno)
+        entry->chunk_usage[chunkno] = 0;
+
+    // Handle the limit chunk based on its storage format
+    BlockRefTableChunk limit_chunk = entry->chunk_data[limit_chunkno];
+
+    if (entry->chunk_usage[limit_chunkno] == MAX_ENTRIES_PER_CHUNK) {
+        // Bitmap format: clear bits for blocks >= limit
+        for (unsigned chunkoffset = limit_chunkoffset;
+             chunkoffset < BLOCKS_PER_CHUNK;
+             ++chunkoffset) {
+            limit_chunk[chunkoffset / BLOCKS_PER_ENTRY] &=
+                ~(1 << (chunkoffset % BLOCKS_PER_ENTRY));
+        }
+    } else {
+        // Array format: filter out offsets >= limit
+        unsigned j = 0;
+        for (unsigned i = 0; i < entry->chunk_usage[limit_chunkno]; ++i) {
+            if (limit_chunk[i] < limit_chunkoffset)
+                limit_chunk[j++] = limit_chunk[i];
+        }
+        entry->chunk_usage[limit_chunkno] = j;
+    }
+}
+```

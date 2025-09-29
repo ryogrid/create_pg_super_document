@@ -37,3 +37,29 @@ The function is commonly used in conjunction with pg_strtok to process tokens th
 - Used primarily for string tokens that may contain special characters
 - Part of PostgreSQL's Node deserialization infrastructure
 - Simple but critical utility for proper token processing
+
+## Simplified Source
+
+```c
+char *debackslash(const char *token, int length) {
+    char *result = palloc(length + 1);
+    char *ptr = result;
+
+    // Process each character in the token
+    while (length > 0) {
+        // Skip escape backslash if followed by another character
+        if (*token == '\\' && length > 1) {
+            token++;
+            length--;
+        }
+
+        // Copy the current character
+        *ptr++ = *token++;
+        length--;
+    }
+
+    // Null-terminate the result
+    *ptr = '\0';
+    return result;
+}
+```

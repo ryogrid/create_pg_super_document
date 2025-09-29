@@ -42,3 +42,23 @@ This function is used in PostgreSQL's transaction management and replication sys
 - Must use return value as function may reallocate the list structure
 - Less commonly used compared to other lappend variants, reflecting its specialized role in transaction handling
 - Critical for maintaining transaction state in logical replication and parallel processing
+
+## Simplified Source
+
+```c
+List *lappend_xid(List *list, TransactionId datum) {
+    Assert(IsXidList(list));
+
+    // Create new list if input is empty
+    if (list == NIL)
+        list = new_list(T_XidList, 1);
+    else
+        new_tail_cell(list);
+
+    // Set the new value at the end of the list
+    llast_xid(list) = datum;
+
+    check_list_invariants(list);
+    return list;
+}
+```

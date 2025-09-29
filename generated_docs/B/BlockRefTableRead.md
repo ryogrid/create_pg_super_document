@@ -44,3 +44,54 @@ The function handles partial reads by looping until the entire requested length 
 - Optimizes performance by avoiding buffer copies for large reads (>= BUFSIZE)
 - Includes robust error handling for unexpected end-of-file conditions
 - Part of the block reference table reader infrastructure for efficient data access
+
+## Simplified Source
+
+```c
+static void
+BlockRefTableRead(BlockRefTableReader *reader, void *data, int length)
+{
+    BlockRefTableBuffer *buffer = &reader->buffer;
+
+    // Loop until entire read request is satisfied
+    while (length > 0) {
+        if (buffer->cursor < buffer->used) {
+            // Use buffered data when available
+            int bytes_to_copy = Min(length, buffer->used - buffer->cursor);
+
+            memcpy(data, &buffer->data[buffer->cursor], bytes_to_copy);
+            COMP_CRC32C(buffer->crc, &buffer->data[buffer->cursor], bytes_to_copy);
+
+            buffer->cursor += bytes_to_copy;
+            data = ((char *) data) + bytes_to_copy;
+            length -= bytes_to_copy;
+        }
+        else if (length >= BUFSIZE) {
+            // Direct read for large requests (bypass buffer)
+            int bytes_read = buffer->io_callback(buffer->io_callback_arg, data, length);
+
+            if (bytes_read == 0) {
+                reader->error_callback(reader->error_callback_arg,
+                                     "file \"%s\" ends unexpectedly",
+                                     reader->error_filename);
+            }
+
+            COMP_CRC32C(buffer->crc, data, bytes_read);
+            data = ((char *) data) + bytes_read;
+            length -= bytes_read;
+        }
+        else {
+            // Refill buffer for small requests
+            buffer->used = buffer->io_callback(buffer->io_callback_arg,
+                                             buffer->data, BUFSIZE);
+            buffer->cursor = 0;
+
+            if (buffer->used == 0) {
+                reader->error_callback(reader->error_callback_arg,
+                                     "file \"%s\" ends unexpectedly",
+                                     reader->error_filename);
+            }
+        }
+    }
+}
+```

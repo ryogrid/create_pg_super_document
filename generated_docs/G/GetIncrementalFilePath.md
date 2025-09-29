@@ -48,3 +48,32 @@ The resulting path allows incremental backup files to be stored alongside the or
 - Preserves the directory structure of the original file
 - The function assumes the original path contains at least one directory separator
 - Used in conjunction with GetFileBackupMethod to determine how files should be handled during incremental backups
+
+## Simplified Source
+
+```c
+char *
+GetIncrementalFilePath(Oid dboid, Oid spcoid, RelFileNumber relfilenumber,
+                       ForkNumber forknum, unsigned segno)
+{
+    // Get the standard relation file path
+    char *path = GetRelationPath(dboid, spcoid, relfilenumber, INVALID_PROC_NUMBER, forknum);
+
+    // Find the last directory separator and split the path
+    char *lastslash = strrchr(path, '/');
+    *lastslash = '\0';  // Terminate path at directory
+
+    // Create incremental path with INCREMENTAL prefix
+    char *ipath;
+    if (segno > 0) {
+        // Include segment number for large files
+        ipath = psprintf("%s/INCREMENTAL.%s.%u", path, lastslash + 1, segno);
+    } else {
+        // Simple incremental filename
+        ipath = psprintf("%s/INCREMENTAL.%s", path, lastslash + 1);
+    }
+
+    pfree(path);
+    return ipath;
+}
+```

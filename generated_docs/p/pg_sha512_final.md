@@ -44,3 +44,29 @@ The function handles both successful completion (when digest buffer is provided)
 - The digest parameter can be NULL, allowing the function to be used solely for secure context cleanup
 - This implementation follows RFC 6234 specifications for SHA-512 hash computation
 - The function is part of PostgreSQL's internal cryptographic library and should not be called directly by user code
+
+## Simplified Source
+
+```c
+void pg_sha512_final(pg_sha512_ctx *context, uint8 *digest) {
+    // Only proceed if digest buffer is provided
+    if (digest != NULL) {
+        // Finalize the SHA-512 computation with padding
+        SHA512_Last(context);
+
+        // Convert to host byte order on little-endian systems
+        // Process all 8 words (512 bits) for full SHA-512 output
+        #ifndef WORDS_BIGENDIAN
+        for (int j = 0; j < 8; j++) {
+            REVERSE64(context->state[j], context->state[j]);
+        }
+        #endif
+
+        // Copy the full 64-byte (512-bit) digest to output buffer
+        memcpy(digest, context->state, PG_SHA512_DIGEST_LENGTH);
+    }
+
+    // Securely clear context data
+    memset(context, 0, sizeof(pg_sha512_ctx));
+}
+```

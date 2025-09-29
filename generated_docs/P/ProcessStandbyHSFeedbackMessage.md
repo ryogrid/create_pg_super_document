@@ -47,3 +47,57 @@ This function takes no parameters but processes data from the global  buffer con
 - When not using slots, stores the more restrictive of regular and catalog xmin values
 - Provides comprehensive debug logging for troubleshooting replication issues
 - Located in src/backend/replication/walsender.c:2591-2714
+
+## Simplified Source
+
+```c
+static void
+ProcessStandbyHSFeedbackMessage(void)
+{
+    TransactionId feedbackXmin, feedbackCatalogXmin;
+    uint32 feedbackEpoch, feedbackCatalogEpoch;
+    TimestampTz replyTime;
+
+    // Parse the feedback message from standby
+    replyTime = pq_getmsgint64(&reply_message);
+    feedbackXmin = pq_getmsgint(&reply_message, 4);
+    feedbackEpoch = pq_getmsgint(&reply_message, 4);
+    feedbackCatalogXmin = pq_getmsgint(&reply_message, 4);
+    feedbackCatalogEpoch = pq_getmsgint(&reply_message, 4);
+
+    // Update this WalSender's reply timestamp
+    SpinLockAcquire(&MyWalSnd->mutex);
+    MyWalSnd->replyTime = replyTime;
+    SpinLockRelease(&MyWalSnd->mutex);
+
+    // Clear xmin if feedback values are invalid (hot standby feedback disabled)
+    if (!TransactionIdIsNormal(feedbackXmin) && !TransactionIdIsNormal(feedbackCatalogXmin)) {
+        MyProc->xmin = InvalidTransactionId;
+        if (MyReplicationSlot != NULL)
+            PhysicalReplicationSlotNewXmin(feedbackXmin, feedbackCatalogXmin);
+        return;
+    }
+
+    // Validate transaction IDs are not in future or too old
+    if (TransactionIdIsNormal(feedbackXmin) &&
+        !TransactionIdInRecentPast(feedbackXmin, feedbackEpoch))
+        return;
+
+    if (TransactionIdIsNormal(feedbackCatalogXmin) &&
+        !TransactionIdInRecentPast(feedbackCatalogXmin, feedbackCatalogEpoch))
+        return;
+
+    // Update xmin to prevent cleanup conflicts on standby
+    if (MyReplicationSlot != NULL) {
+        // Use replication slot for separate regular/catalog xmin tracking
+        PhysicalReplicationSlotNewXmin(feedbackXmin, feedbackCatalogXmin);
+    } else {
+        // Use process xmin, choosing the more restrictive value
+        if (TransactionIdIsNormal(feedbackCatalogXmin) &&
+            TransactionIdPrecedes(feedbackCatalogXmin, feedbackXmin))
+            MyProc->xmin = feedbackCatalogXmin;
+        else
+            MyProc->xmin = feedbackXmin;
+    }
+}
+```
