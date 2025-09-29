@@ -306,6 +306,7 @@ Start processing the batch now. Your final output should be only the JSON array.
                         with self.lock:
                             for func_info in unprocessed_batch:
                                 self.failed.append((func_info['name'], "Invalid/No JSON output"))
+                                self.work_queue.put(func_info) # Requeue
                                 self.stats['failed'] += 1
                         continue # Move to the next batch
 
@@ -353,6 +354,7 @@ Start processing the batch now. Your final output should be only the JSON array.
                     with self.lock:
                         for func_info in unprocessed_batch:
                             self.failed.append((func_info['name'], "Timeout"))
+                            self.work_queue.put(func_info) # Requeue
                             self.stats['failed'] += 1
                 
                 except Exception as e:
