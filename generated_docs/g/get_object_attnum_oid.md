@@ -38,3 +38,15 @@ The function consults the object property metadata and returns the `attnum_oid` 
 - The attribute number follows PostgreSQL's convention where columns are numbered starting from 1
 - Used extensively in system functions that perform generic operations on catalog objects
 - Critical for maintaining consistency in object identification across different catalog table layouts
+
+## Simplified Source
+
+```c
+AttrNumber get_object_attnum_oid(Oid class_id) {
+    // Get object property data for the catalog class
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+
+    // Return the attribute number where OID is stored
+    return prop->attnum_oid;
+}
+```

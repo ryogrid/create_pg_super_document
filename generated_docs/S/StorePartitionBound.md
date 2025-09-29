@@ -57,3 +57,65 @@ The function converts the PartitionBoundSpec to a text representation for storag
 - Uses CommandCounterIncrement to make changes visible before cache invalidation
 - The bound specification is serialized using nodeToString for storage in relpartbound
 - Critical for maintaining partition descriptor consistency across the system
+
+## Simplified Source
+
+```c
+void
+StorePartitionBound(Relation rel, Relation parent, PartitionBoundSpec *bound)
+{
+    Relation classRel;
+    HeapTuple tuple, newtuple;
+    Datum new_val[Natts_pg_class];
+    bool new_null[Natts_pg_class], new_repl[Natts_pg_class];
+    Oid defaultPartOid;
+
+    // Open pg_class catalog and get relation tuple
+    classRel = table_open(RelationRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(RelationGetRelid(rel)));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", RelationGetRelid(rel));
+
+    // Verify relation is not already a partition (debug only)
+    Assert(!((Form_pg_class) GETSTRUCT(tuple))->relispartition);
+
+    // Prepare tuple modification arrays
+    memset(new_val, 0, sizeof(new_val));
+    memset(new_null, false, sizeof(new_null));
+    memset(new_repl, false, sizeof(new_repl));
+
+    // Set partition bound as text representation
+    new_val[Anum_pg_class_relpartbound - 1] = CStringGetTextDatum(nodeToString(bound));
+    new_null[Anum_pg_class_relpartbound - 1] = false;
+    new_repl[Anum_pg_class_relpartbound - 1] = true;
+
+    // Create modified tuple
+    newtuple = heap_modify_tuple(tuple, RelationGetDescr(classRel),
+                                new_val, new_null, new_repl);
+
+    // Mark as partition and reset subclass flag if needed
+    ((Form_pg_class) GETSTRUCT(newtuple))->relispartition = true;
+    if (rel->rd_rel->relkind == RELKIND_RELATION && rel->rd_rel->relhassubclass)
+        ((Form_pg_class) GETSTRUCT(newtuple))->relhassubclass = false;
+
+    // Update catalog and cleanup
+    CatalogTupleUpdate(classRel, &newtuple->t_self, newtuple);
+    heap_freetuple(newtuple);
+    table_close(classRel, RowExclusiveLock);
+
+    // Handle default partition special case
+    if (bound->is_default)
+        update_default_partition_oid(RelationGetRelid(parent),
+                                    RelationGetRelid(rel));
+
+    // Make changes visible
+    CommandCounterIncrement();
+
+    // Invalidate caches - default partition constraint depends on all bounds
+    defaultPartOid = get_default_oid_from_partdesc(RelationGetPartitionDesc(parent, true));
+    if (OidIsValid(defaultPartOid))
+        CacheInvalidateRelcacheByRelid(defaultPartOid);
+
+    CacheInvalidateRelcache(parent);
+}
+```

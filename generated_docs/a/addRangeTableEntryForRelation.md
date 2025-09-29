@@ -63,3 +63,44 @@ The function includes strict assertions to ensure lock mode validity (must be Ac
 - Strict assertion checks ensure proper locking protocol is followed
 - Default permission is ACL_SELECT; callers must modify for target tables requiring write access
 - Used extensively in DDL operations, constraint processing, and rule rewriting where relations are already open
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *addRangeTableEntryForRelation(ParseState *pstate, Relation rel,
+                                                 int lockmode, Alias *alias,
+                                                 bool inh, bool inFromCl) {
+    // Validate lock mode and that caller holds required lock
+    Assert(lockmode == AccessShareLock || lockmode == RowShareLock ||
+           lockmode == RowExclusiveLock);
+    Assert(CheckRelationLockedByMe(rel, lockmode, true));
+
+    // Create new Range Table Entry
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RELATION;
+    rte->alias = alias;
+    rte->relid = RelationGetRelid(rel);
+    rte->inh = inh;
+    rte->relkind = rel->rd_rel->relkind;
+    rte->rellockmode = lockmode;
+
+    // Build effective column names using alias or relation name
+    char *refname = alias ? alias->aliasname : RelationGetRelationName(rel);
+    rte->eref = makeAlias(refname, NIL);
+    buildRelationAliases(rel->rd_att, alias, rte->eref);
+
+    // Set default permissions and flags
+    rte->lateral = false;
+    rte->inFromCl = inFromCl;
+
+    RTEPermissionInfo *perminfo = addRTEPermissionInfo(&pstate->p_rteperminfos, rte);
+    perminfo->requiredPerms = ACL_SELECT;  // Default read access
+
+    // Add to parser state's range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Build and return namespace item
+    return buildNSItemFromTupleDesc(rte, list_length(pstate->p_rtable),
+                                   perminfo, rel->rd_att);
+}
+```

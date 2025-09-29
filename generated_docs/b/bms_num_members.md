@@ -39,3 +39,35 @@ This function efficiently counts the number of set bits across all words in a bi
 - Widely used throughout PostgreSQL for cardinality estimation and resource planning
 - Essential for query optimization decisions based on set sizes
 - Located in src/backend/nodes/bitmapset.c:751-780
+
+## Simplified Source
+
+```c
+int
+bms_num_members(const Bitmapset *a)
+{
+    int result = 0;
+    int nwords;
+    int wordnum;
+
+    // Validate input and handle NULL case
+    Assert(bms_is_valid_set(a));
+    if (a == NULL)
+        return 0;
+
+    // Count set bits in each word of the bitmapset
+    nwords = a->nwords;
+    wordnum = 0;
+    do
+    {
+        bitmapword word = a->words[wordnum];
+
+        // Skip zero words (optimization - no bits to count)
+        if (word != 0)
+            result += bmw_popcount(word);  // Count set bits in this word
+
+    } while (++wordnum < nwords);
+
+    return result;
+}
+```

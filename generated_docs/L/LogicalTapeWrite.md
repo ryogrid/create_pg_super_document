@@ -51,3 +51,60 @@ The function maintains block linking by storing next block numbers in each block
 - No error returns - uses ereport() on failure
 - Buffer size is fixed at BLCKSZ (typically 8KB)
 - Efficiently handles partial buffer fills and automatic flushing when full
+
+## Simplified Source
+
+```c
+void
+LogicalTapeWrite(LogicalTape *lt, const void *ptr, size_t size)
+{
+    LogicalTapeSet *lts = lt->tapeSet;
+    size_t nthistime;
+
+    Assert(lt->writing);
+    Assert(lt->offsetBlockNumber == 0L);
+
+    // Allocate buffer and first block on first write
+    if (lt->buffer == NULL) {
+        lt->buffer = (char *) palloc(BLCKSZ);
+        lt->buffer_size = BLCKSZ;
+    }
+
+    if (lt->curBlockNumber == -1) {
+        // Initialize first block
+        lt->curBlockNumber = ltsGetBlock(lts, lt);
+        lt->firstBlockNumber = lt->curBlockNumber;
+        TapeBlockGetTrailer(lt->buffer)->prev = -1L;
+    }
+
+    // Write data, handling block boundaries
+    while (size > 0) {
+        if (lt->pos >= (int) TapeBlockPayloadSize) {
+            // Buffer full - allocate next block and write current one
+            int64 nextBlockNumber = ltsGetBlock(lt->tapeSet, lt);
+
+            // Link blocks and write to storage
+            TapeBlockGetTrailer(lt->buffer)->next = nextBlockNumber;
+            ltsWriteBlock(lt->tapeSet, lt->curBlockNumber, lt->buffer);
+
+            // Move to next block
+            TapeBlockGetTrailer(lt->buffer)->prev = lt->curBlockNumber;
+            lt->curBlockNumber = nextBlockNumber;
+            lt->pos = 0;
+            lt->nbytes = 0;
+        }
+
+        // Copy data to buffer
+        nthistime = min(TapeBlockPayloadSize - lt->pos, size);
+        memcpy(lt->buffer + lt->pos, ptr, nthistime);
+
+        // Update counters
+        lt->dirty = true;
+        lt->pos += nthistime;
+        if (lt->nbytes < lt->pos)
+            lt->nbytes = lt->pos;
+        ptr = (const char *) ptr + nthistime;
+        size -= nthistime;
+    }
+}
+```

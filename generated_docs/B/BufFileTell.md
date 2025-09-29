@@ -35,3 +35,15 @@ BufFileTell retrieves the current position within a BufFile structure by returni
 - Used primarily by tuplestore operations and logical replication worker processes
 - Essential for implementing seek operations and position tracking in buffered file I/O
 - The returned position can be used with BufFileSeek to return to the same location later
+
+## Simplified Source
+
+```c
+void
+BufFileTell(BufFile *file, int *fileno, off_t *offset)
+{
+    // Return current file number and position within that file
+    *fileno = file->curFile;
+    *offset = file->curOffset + file->pos;
+}
+```

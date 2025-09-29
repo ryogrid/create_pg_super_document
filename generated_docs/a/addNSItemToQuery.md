@@ -51,3 +51,28 @@ The function ensures that the namespace item is marked as unconditionally visibl
 - This function is widely used throughout the parser for various SQL statement types (INSERT, MERGE, CREATE TABLE, etc.)
 - The separation of  and  allows fine-grained control over what aspects of a relation are visible in different parsing contexts
 - Part of PostgreSQL's namespace management system that ensures proper scoping and visibility of relations and their attributes during query parsing
+
+## Simplified Source
+
+```c
+void addNSItemToQuery(ParseState *pstate, ParseNamespaceItem *nsitem,
+                     bool addToJoinList, bool addToRelNameSpace, bool addToVarNameSpace) {
+    // Add to join list if requested
+    if (addToJoinList) {
+        RangeTblRef *rtr = makeNode(RangeTblRef);
+        rtr->rtindex = nsitem->p_rtindex;
+        pstate->p_joinlist = lappend(pstate->p_joinlist, rtr);
+    }
+
+    // Add to namespace list if requested
+    if (addToRelNameSpace || addToVarNameSpace) {
+        // Configure visibility flags
+        nsitem->p_rel_visible = addToRelNameSpace;
+        nsitem->p_cols_visible = addToVarNameSpace;
+        nsitem->p_lateral_only = false;  // Always unrestricted visibility
+        nsitem->p_lateral_ok = true;
+
+        pstate->p_namespace = lappend(pstate->p_namespace, nsitem);
+    }
+}
+```

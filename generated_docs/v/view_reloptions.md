@@ -24,7 +24,7 @@ The `view_reloptions` function is a specialized option parser for PostgreSQL vie
   - [build_reloptions](../b/build_reloptions.md)
   - relopt_parse_elt (structure)
   - RELOPT_TYPE_BOOL (constant)
-  - RELOPT_TYPE_ENUM (constant) 
+  - RELOPT_TYPE_ENUM (constant)
   - RELOPT_KIND_VIEW (constant)
   - [ViewOptions](../V/ViewOptions.md) (structure)
   - lengthof (macro)
@@ -40,3 +40,27 @@ The `view_reloptions` function is a specialized option parser for PostgreSQL vie
 - The security_barrier option controls whether the view acts as a security barrier for row-level security
 - The security_invoker option determines whether the view executes with the privileges of the invoker or definer
 - The check_option controls the behavior of INSERT/UPDATE operations on updatable views
+
+## Simplified Source
+
+```c
+bytea *
+view_reloptions(Datum reloptions, bool validate)
+{
+    // Define view-specific option parsing table
+    static const relopt_parse_elt tab[] = {
+        {"security_barrier", RELOPT_TYPE_BOOL,
+         offsetof(ViewOptions, security_barrier)},
+        {"security_invoker", RELOPT_TYPE_BOOL,
+         offsetof(ViewOptions, security_invoker)},
+        {"check_option", RELOPT_TYPE_ENUM,
+         offsetof(ViewOptions, check_option)}
+    };
+
+    // Parse and build view options using generic infrastructure
+    return (bytea *) build_reloptions(reloptions, validate,
+                                      RELOPT_KIND_VIEW,
+                                      sizeof(ViewOptions),
+                                      tab, lengthof(tab));
+}
+```

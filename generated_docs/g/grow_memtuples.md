@@ -55,3 +55,73 @@ Key design principles:
 - Handles both 32-bit and 64-bit system constraints
 - Used by both tuplesort and tuplestore subsystems
 - Memory calculations account for both array overhead and tuple storage needs
+
+## Simplified Source
+
+```c
+static bool
+grow_memtuples(Tuplesortstate *state)
+{
+    int newmemtupsize;
+    int memtupsize = state->memtupsize;
+    int64 memNowUsed = state->allowedMem - state->availMem;
+
+    // Don't attempt if we've already maxed out
+    if (!state->growmemtuples)
+        return false;
+
+    // Choose growth strategy based on current memory usage
+    if (memNowUsed <= state->availMem) {
+        // Using <= 50% of memory: double the size (clamped at INT_MAX)
+        if (memtupsize < INT_MAX / 2)
+            newmemtupsize = memtupsize * 2;
+        else {
+            newmemtupsize = INT_MAX;
+            state->growmemtuples = false;
+        }
+    } else {
+        // Using > 50% of memory: calculate proportional growth
+        // This will be the final growth attempt
+        double grow_ratio = (double) state->allowedMem / (double) memNowUsed;
+
+        if (memtupsize * grow_ratio < INT_MAX)
+            newmemtupsize = (int) (memtupsize * grow_ratio);
+        else
+            newmemtupsize = INT_MAX;
+
+        state->growmemtuples = false;
+    }
+
+    // Must actually grow by at least one element
+    if (newmemtupsize <= memtupsize)
+        goto noalloc;
+
+    // Clamp to system allocation limits on 32-bit systems
+    if ((Size) newmemtupsize >= MaxAllocHugeSize / sizeof(SortTuple)) {
+        newmemtupsize = (int) (MaxAllocHugeSize / sizeof(SortTuple));
+        state->growmemtuples = false;
+    }
+
+    // Ensure growth fits within available memory
+    if (state->availMem < (int64) ((newmemtupsize - memtupsize) * sizeof(SortTuple)))
+        goto noalloc;
+
+    // Perform the reallocation
+    FREEMEM(state, GetMemoryChunkSpace(state->memtuples));
+    state->memtupsize = newmemtupsize;
+    state->memtuples = (SortTuple *)
+        repalloc_huge(state->memtuples, state->memtupsize * sizeof(SortTuple));
+    USEMEM(state, GetMemoryChunkSpace(state->memtuples));
+
+    // Verify we didn't trigger out-of-memory condition
+    if (LACKMEM(state))
+        elog(ERROR, "unexpected out-of-memory situation in tuplesort");
+
+    return true;
+
+noalloc:
+    // Failed to allocate - disable future attempts
+    state->growmemtuples = false;
+    return false;
+}
+```

@@ -39,3 +39,40 @@ The queue operates as a ring buffer with head and tail pointers, and the functio
 - Maintains ring buffer integrity by properly wrapping head pointer at queue boundaries
 - Critical for maintaining optimal I/O parallelism in the WAL prefetcher system
 - The assertion ensures queue consistency by preventing head from catching tail in full queue scenarios
+
+## Simplified Source
+
+```c
+static inline void
+lrq_prefetch(LsnReadQueue *lrq)
+{
+    // Start as many IOs as possible within our limits
+    while (lrq->inflight < lrq->max_inflight &&
+           lrq->inflight + lrq->completed < lrq->size - 1)
+    {
+        // Call the next function to get the next LSN to process
+        switch (lrq->next(lrq->lrq_private, &lrq->queue[lrq->head].lsn))
+        {
+            case LRQ_NEXT_AGAIN:
+                return;     // No more work available right now
+
+            case LRQ_NEXT_IO:
+                // Start an I/O operation
+                lrq->queue[lrq->head].io = true;
+                lrq->inflight++;
+                break;
+
+            case LRQ_NEXT_NO_IO:
+                // Mark as completed without I/O
+                lrq->queue[lrq->head].io = false;
+                lrq->completed++;
+                break;
+        }
+
+        // Advance head pointer with wraparound
+        lrq->head++;
+        if (lrq->head == lrq->size)
+            lrq->head = 0;
+    }
+}
+```

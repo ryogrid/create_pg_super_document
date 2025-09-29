@@ -49,3 +49,86 @@ The function handles both LIST and RANGE partitioning strategies and properly ha
 - The function uses PostgreSQL's executor framework for efficient constraint evaluation during table scanning
 - Memory management is carefully handled with per-tuple contexts to avoid memory leaks during large table scans
 - All scanning is performed under AccessExclusiveLock to ensure data consistency during the validation process
+
+## Simplified Source
+
+```c
+void check_default_partition_contents(Relation parent, Relation default_rel,
+                                     PartitionBoundSpec *new_spec) {
+    // Generate partition constraints for the new partition
+    List *new_part_constraints;
+    if (new_spec->strategy == PARTITION_STRATEGY_LIST)
+        new_part_constraints = get_qual_for_list(parent, new_spec);
+    else
+        new_part_constraints = get_qual_for_range(parent, new_spec, false);
+
+    // Create default partition constraints (negated new partition constraints)
+    List *default_constraints = get_proposed_default_constraint(new_part_constraints);
+
+    // Map constraints to default partition's attribute numbers
+    default_constraints = map_partition_varattnos(default_constraints, 1,
+                                                 default_rel, parent);
+
+    // Optimization: check if existing constraints already guarantee no conflicts
+    if (PartConstraintImpliedByRelConstraint(default_rel, default_constraints)) {
+        // No scan needed - constraints prove no violating rows exist
+        return;
+    }
+
+    // Scan default partition and all its child partitions
+    List *all_parts;
+    if (default_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        all_parts = find_all_inheritors(RelationGetRelid(default_rel),
+                                       AccessExclusiveLock, NULL);
+    else
+        all_parts = list_make1_oid(RelationGetRelid(default_rel));
+
+    // Check each partition for constraint violations
+    ListCell *lc;
+    foreach(lc, all_parts) {
+        Oid part_relid = lfirst_oid(lc);
+        Relation part_rel = (part_relid != RelationGetRelid(default_rel)) ?
+                            table_open(part_relid, NoLock) : default_rel;
+
+        // Skip non-leaf partitions
+        if (part_rel->rd_rel->relkind != RELKIND_RELATION) {
+            if (part_rel != default_rel)
+                table_close(part_rel, NoLock);
+            continue;
+        }
+
+        // Set up constraint checking
+        EState *estate = CreateExecutorState();
+        Expr *constraint_expr = make_ands_explicit(default_constraints);
+        ExprState *constraint_state = ExecPrepareExpr(constraint_expr, estate);
+
+        // Scan table and check each row
+        ExprContext *econtext = GetPerTupleExprContext(estate);
+        Snapshot snapshot = RegisterSnapshot(GetLatestSnapshot());
+        TupleTableSlot *slot = table_slot_create(part_rel, &estate->es_tupleTable);
+        TableScanDesc scan = table_beginscan(part_rel, snapshot, 0, NULL);
+
+        while (table_scan_getnextslot(scan, ForwardScanDirection, slot)) {
+            econtext->ecxt_scantuple = slot;
+
+            // If constraint is violated, error out
+            if (!ExecCheck(constraint_state, econtext)) {
+                ereport(ERROR, (errcode(ERRCODE_CHECK_VIOLATION),
+                        errmsg("default partition contains row that would belong to new partition")));
+            }
+
+            ResetExprContext(econtext);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Cleanup
+        table_endscan(scan);
+        UnregisterSnapshot(snapshot);
+        ExecDropSingleTupleTableSlot(slot);
+        FreeExecutorState(estate);
+
+        if (part_rel != default_rel)
+            table_close(part_rel, NoLock);
+    }
+}
+```

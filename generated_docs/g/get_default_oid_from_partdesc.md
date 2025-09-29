@@ -35,3 +35,18 @@ The function is a utility for the PostgreSQL partitioning system, providing a sa
 - Performs null-safety checks on both partdesc and partdesc->boundinfo
 - Used primarily during partition management operations like creation, attachment, and detachment of partitions
 - The function assumes that if partition_bound_has_default() returns true, the default_index is valid and within bounds of the oids array
+
+## Simplified Source
+
+```c
+Oid
+get_default_oid_from_partdesc(PartitionDesc partdesc)
+{
+    // Validate input and check if default partition exists
+    if (partdesc && partdesc->boundinfo &&
+        partition_bound_has_default(partdesc->boundinfo))
+        return partdesc->oids[partdesc->boundinfo->default_index];
+
+    return InvalidOid;
+}
+```

@@ -44,3 +44,37 @@ When cached descriptors cannot be used, the function falls back to calling Relat
 - The caching strategy is snapshot-aware to ensure MVCC consistency
 - When no active snapshot is set, detached partitions are not omitted regardless of the omit_detached parameter
 - The function is marked with 'likely()' hints for performance optimization on the common cache hit path
+
+## Simplified Source
+
+```c
+PartitionDesc
+RelationGetPartitionDesc(Relation rel, bool omit_detached)
+{
+    Assert(rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE);
+
+    // Use cached complete partition descriptor if available and appropriate
+    // Can use when: including all partitions, no detached exist, or no active snapshot
+    if (likely(rel->rd_partdesc &&
+               (!rel->rd_partdesc->detached_exist || !omit_detached ||
+                !ActiveSnapshotSet()))) {
+        return rel->rd_partdesc;
+    }
+
+    // Use cached no-detached descriptor if snapshot allows it
+    if (omit_detached &&
+        rel->rd_partdesc_nodetached &&
+        ActiveSnapshotSet()) {
+
+        Snapshot activesnap = GetActiveSnapshot();
+
+        // Check if cached descriptor is still valid for current snapshot
+        if (!XidInMVCCSnapshot(rel->rd_partdesc_nodetached_xmin, activesnap)) {
+            return rel->rd_partdesc_nodetached;
+        }
+    }
+
+    // Cache miss - build fresh partition descriptor
+    return RelationBuildPartitionDesc(rel, omit_detached);
+}
+```

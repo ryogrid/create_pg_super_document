@@ -47,3 +47,21 @@ Since the query has already undergone parse analysis, the function can directly 
 - Uses the standard PostgreSQL rule system infrastructure via DefineQueryRewrite()
 - The ViewSelectRuleName is a predefined constant that provides a standard naming convention for view select rules
 - This is a relatively simple wrapper around DefineQueryRewrite() that handles the view-specific aspects of rule creation
+
+## Simplified Source
+
+```c
+static void DefineViewRules(Oid viewOid, Query *viewParse, bool replace) {
+    // Create the ON SELECT rule for the view
+    // This rule defines how SELECT queries on the view are rewritten
+    DefineQueryRewrite(pstrdup(ViewSelectRuleName),  // Rule name
+                       viewOid,                       // Target view OID
+                       NULL,                          // No qual condition
+                       CMD_SELECT,                    // SELECT event
+                       true,                          // Instead rule
+                       replace,                       // Replace if exists
+                       list_make1(viewParse));        // Query to execute
+
+    // Future: automatic ON INSERT, UPDATE, DELETE rules could be added here
+}
+```

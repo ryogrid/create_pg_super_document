@@ -40,3 +40,24 @@ The function includes a note about potential out-of-memory conditions occurring 
 - Channel names are stored in  to persist for the lifetime of the backend process
 - The comment indicates a known theoretical vulnerability to out-of-memory errors post-commit
 - This function works in conjunction with  to complete the LISTEN command processing
+
+## Simplified Source
+
+```c
+static void
+Exec_ListenCommit(const char *channel)
+{
+    // Check if already listening - avoid duplicates
+    if (IsListeningOn(channel))
+        return;
+
+    // Switch to persistent memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Add channel to global listen list
+    listenChannels = lappend(listenChannels, pstrdup(channel));
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

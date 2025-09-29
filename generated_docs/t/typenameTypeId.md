@@ -40,3 +40,25 @@ typenameTypeId combines the validation guarantees of typenameType with the conve
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:291-309. This function is the preferred choice when only the type OID is needed from a type name, as it provides the same validation as typenameType but with simpler return handling. Unlike LookupTypeNameOid, this function guarantees the type is fully defined and not just a shell type. The function properly manages system cache resources and is extensively used throughout PostgreSQL's DDL command processing.
+
+## Simplified Source
+
+```c
+Oid
+typenameTypeId(ParseState *pstate, const TypeName *typeName)
+{
+    Oid typoid;
+    Type tup;
+
+    // Get validated type tuple from system catalog
+    tup = typenameType(pstate, typeName, NULL);
+
+    // Extract OID from the type tuple
+    typoid = ((Form_pg_type) GETSTRUCT(tup))->oid;
+
+    // Release the system cache entry
+    ReleaseSysCache(tup);
+
+    return typoid;
+}
+```

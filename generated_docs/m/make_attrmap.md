@@ -34,4 +34,23 @@ The  function creates a new attribute map structure () with a specified length. 
 - Memory is allocated in the current memory context, so cleanup depends on the context lifecycle
 - Uses zero-initialization () to ensure predictable initial state
 - Serves as the basic constructor for attribute mapping structures used throughout PostgreSQL
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+AttrMap *
+make_attrmap(int maplen)
+{
+    AttrMap *res;
+
+    // Allocate main structure with zero initialization
+    res = (AttrMap *) palloc0(sizeof(AttrMap));
+    res->maplen = maplen;
+
+    // Allocate array for attribute number mappings
+    res->attnums = (AttrNumber *) palloc0(sizeof(AttrNumber) * maplen);
+
+    return res;
+}
+```

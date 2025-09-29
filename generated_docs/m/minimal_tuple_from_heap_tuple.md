@@ -38,3 +38,28 @@ The function allocates memory for the new MinimalTuple in the current memory con
 - Memory allocation is done in the current memory context, so the caller is responsible for managing the memory context appropriately
 - The conversion is a one-way operation - information lost during the conversion cannot be recovered
 - Used primarily in scenarios where space efficiency is important, such as tuple sorting and temporary storage
+
+## Simplified Source
+
+```c
+MinimalTuple
+minimal_tuple_from_heap_tuple(HeapTuple htup)
+{
+    MinimalTuple result;
+    uint32 len;
+
+    Assert(htup->t_len > MINIMAL_TUPLE_OFFSET);
+
+    // Calculate length after removing HeapTuple overhead
+    len = htup->t_len - MINIMAL_TUPLE_OFFSET;
+
+    // Allocate memory and copy data, skipping HeapTuple header
+    result = (MinimalTuple) palloc(len);
+    memcpy(result, (char *) htup->t_data + MINIMAL_TUPLE_OFFSET, len);
+
+    // Set length of the minimal tuple
+    result->t_len = len;
+
+    return result;
+}
+```

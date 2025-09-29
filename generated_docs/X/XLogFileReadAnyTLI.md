@@ -45,3 +45,70 @@ This is particularly useful during recovery when dealing with timeline switches,
 - For XLOG_FROM_ANY source, tries archival storage first, then pg_wal directory
 - Provides debug logging when segments are successfully retrieved from archive
 - Returns a file descriptor on success, or -1 with appropriate error reporting on failure
+
+## Simplified Source
+
+```c
+static int XLogFileReadAnyTLI(XLogSegNo segno, int emode, XLogSource source)
+{
+    char path[MAXPGPATH];
+    ListCell *cell;
+    int fd;
+    List *tles;
+
+    // Get timeline list - use cached or read from history
+    if (expectedTLEs)
+        tles = expectedTLEs;
+    else
+        tles = readTimeLineHistory(recoveryTargetTLI);
+
+    // Try each timeline in descending order
+    foreach(cell, tles) {
+        TimeLineHistoryEntry *hent = (TimeLineHistoryEntry *) lfirst(cell);
+        TimeLineID tli = hent->tli;
+
+        // Skip timelines that are too old
+        if (tli < curFileTLI)
+            break;
+
+        // Check if segment belongs to this timeline
+        if (hent->begin != InvalidXLogRecPtr) {
+            XLogSegNo beginseg = 0;
+            XLByteToSeg(hent->begin, beginseg, wal_segment_size);
+
+            // Skip if segment is before timeline start
+            if (segno < beginseg)
+                continue;
+        }
+
+        // Try to read from archive if requested
+        if (source == XLOG_FROM_ANY || source == XLOG_FROM_ARCHIVE) {
+            fd = XLogFileRead(segno, emode, tli, XLOG_FROM_ARCHIVE, true);
+            if (fd != -1) {
+                elog(DEBUG1, "got WAL segment from archive");
+                if (!expectedTLEs)
+                    expectedTLEs = tles;
+                return fd;
+            }
+        }
+
+        // Try to read from pg_wal if requested
+        if (source == XLOG_FROM_ANY || source == XLOG_FROM_PG_WAL) {
+            fd = XLogFileRead(segno, emode, tli, XLOG_FROM_PG_WAL, true);
+            if (fd != -1) {
+                if (!expectedTLEs)
+                    expectedTLEs = tles;
+                return fd;
+            }
+        }
+    }
+
+    // No segment found - report error for target timeline
+    XLogFilePath(path, recoveryTargetTLI, segno, wal_segment_size);
+    errno = ENOENT;
+    ereport(emode, (errcode_for_file_access(),
+                   errmsg("could not open file \"%s\": %m", path)));
+
+    return -1;
+}
+```

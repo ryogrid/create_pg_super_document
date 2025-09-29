@@ -37,3 +37,27 @@ The function performs a system cache lookup to efficiently retrieve this informa
 - For tables, relam typically points to the heap access method
 - For indexes, relam indicates the specific index access method (btree, hash, gin, gist, etc.)
 - Part of the low-level system cache API (lsyscache.c) that provides convenient access to catalog information
+
+## Simplified Source
+
+```c
+Oid
+get_rel_relam(Oid relid)
+{
+    HeapTuple tp;
+    Form_pg_class reltup;
+    Oid result;
+
+    // Look up relation in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Extract access method OID from pg_class tuple
+    reltup = (Form_pg_class) GETSTRUCT(tp);
+    result = reltup->relam;
+    ReleaseSysCache(tp);
+
+    return result;
+}
+```

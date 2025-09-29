@@ -52,3 +52,48 @@ The missing_ok parameter controls behavior when the tablespace doesn't exist - w
 - Returns InvalidOid when tablespace not found and missing_ok is true
 - Widely used throughout PostgreSQL for validating tablespace references in DDL commands
 - Essential for translating user-specified tablespace names into internal OID references
+
+## Simplified Source
+
+```c
+Oid
+get_tablespace_oid(const char *tablespacename, bool missing_ok)
+{
+    Oid result;
+    Relation rel;
+    TableScanDesc scandesc;
+    HeapTuple tuple;
+    ScanKeyData entry[1];
+
+    // Open pg_tablespace catalog for scanning
+    rel = table_open(TableSpaceRelationId, AccessShareLock);
+
+    // Set up scan key to search by tablespace name
+    ScanKeyInit(&entry[0], Anum_pg_tablespace_spcname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(tablespacename));
+
+    // Perform catalog scan
+    scandesc = table_beginscan_catalog(rel, 1, entry);
+    tuple = heap_getnext(scandesc, ForwardScanDirection);
+
+    // Extract OID if found
+    if (HeapTupleIsValid(tuple))
+        result = ((Form_pg_tablespace) GETSTRUCT(tuple))->oid;
+    else
+        result = InvalidOid;
+
+    // Cleanup
+    table_endscan(scandesc);
+    table_close(rel, AccessShareLock);
+
+    // Error handling for missing tablespace
+    if (!OidIsValid(result) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("tablespace \"%s\" does not exist",
+                        tablespacename)));
+
+    return result;
+}
+```

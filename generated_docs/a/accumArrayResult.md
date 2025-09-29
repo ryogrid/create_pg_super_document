@@ -66,3 +66,50 @@ The function ensures that pass-by-reference data is copied into the build contex
 - Always returns a valid ArrayBuildState pointer (never NULL)
 - Memory operations are performed in the build state's memory context
 - Element type consistency is enforced via assertion when astate is not NULL
+
+## Simplified Source
+
+```c
+ArrayBuildState *accumArrayResult(ArrayBuildState *astate, Datum dvalue,
+                                  bool disnull, Oid element_type,
+                                  MemoryContext rcontext) {
+    // Initialize array build state on first call
+    if (astate == NULL) {
+        astate = initArrayResult(element_type, rcontext, true);
+    }
+
+    // Switch to the build context for memory operations
+    MemoryContext oldcontext = MemoryContextSwitchTo(astate->mcontext);
+
+    // Grow arrays if needed (double the capacity)
+    if (astate->nelems >= astate->alen) {
+        astate->alen *= 2;
+        // Check for size overflow
+        if (!AllocSizeIsValid(astate->alen * sizeof(Datum))) {
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                           errmsg("array size exceeds the maximum allowed")));
+        }
+        astate->dvalues = repalloc(astate->dvalues, astate->alen * sizeof(Datum));
+        astate->dnulls = repalloc(astate->dnulls, astate->alen * sizeof(bool));
+    }
+
+    // Copy pass-by-reference values to prevent later modification
+    if (!disnull && !astate->typbyval) {
+        if (astate->typlen == -1) {
+            // Variable-length: detoast and copy
+            dvalue = PointerGetDatum(PG_DETOAST_DATUM_COPY(dvalue));
+        } else {
+            // Fixed-length: copy the data
+            dvalue = datumCopy(dvalue, astate->typbyval, astate->typlen);
+        }
+    }
+
+    // Store the element and increment count
+    astate->dvalues[astate->nelems] = dvalue;
+    astate->dnulls[astate->nelems] = disnull;
+    astate->nelems++;
+
+    MemoryContextSwitchTo(oldcontext);
+    return astate;
+}
+```

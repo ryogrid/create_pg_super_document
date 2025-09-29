@@ -56,3 +56,89 @@ The transformation process includes type checking, expression parsing, and ensur
 - Validates that modulus values for hash partitioning are positive and remainder values are less than modulus
 - For expression-based partitioning columns, uses deparse_expression to generate readable column names for error messages
 - Returns a fully transformed PartitionBoundSpec ready for use by the execution system
+
+## Simplified Source
+
+```c
+PartitionBoundSpec *
+transformPartitionBound(ParseState *pstate, Relation parent, PartitionBoundSpec *spec)
+{
+    PartitionBoundSpec *result_spec;
+    PartitionKey key = RelationGetPartitionKey(parent);
+    char strategy = get_partition_strategy(key);
+    int partnatts = get_partition_natts(key);
+    List *partexprs = get_partition_exprs(key);
+
+    // Create copy to avoid modifying input
+    result_spec = copyObject(spec);
+
+    // Handle default partition
+    if (spec->is_default) {
+        // Hash partitions cannot have default partition
+        if (strategy == PARTITION_STRATEGY_HASH)
+            ereport(ERROR, "hash-partitioned table may not have a default partition");
+
+        result_spec->strategy = strategy;
+        return result_spec;
+    }
+
+    // Handle hash partitioning
+    if (strategy == PARTITION_STRATEGY_HASH) {
+        // Validate strategy matches
+        if (spec->strategy != PARTITION_STRATEGY_HASH)
+            ereport(ERROR, "invalid bound specification for a hash partition");
+
+        // Validate modulus and remainder values
+        if (spec->modulus <= 0)
+            ereport(ERROR, "modulus must be greater than zero");
+        if (spec->remainder >= spec->modulus)
+            ereport(ERROR, "remainder must be less than modulus");
+    }
+    // Handle list partitioning
+    else if (strategy == PARTITION_STRATEGY_LIST) {
+        ListCell *cell;
+
+        // Validate strategy matches
+        if (spec->strategy != PARTITION_STRATEGY_LIST)
+            ereport(ERROR, "invalid bound specification for a list partition");
+
+        // Get column info for value transformation
+        char *colname = get_partition_column_name(key, parent, partexprs);
+        Oid coltype = get_partition_col_typid(key, 0);
+        int32 coltypmod = get_partition_col_typmod(key, 0);
+        Oid partcollation = get_partition_col_collation(key, 0);
+
+        // Transform and deduplicate list values
+        result_spec->listdatums = NIL;
+        foreach(cell, spec->listdatums) {
+            Node *expr = lfirst(cell);
+            Const *value = transformPartitionBoundValue(pstate, expr, colname,
+                                                       coltype, coltypmod, partcollation);
+
+            // Add value if not duplicate
+            if (!list_contains_const(result_spec->listdatums, value))
+                result_spec->listdatums = lappend(result_spec->listdatums, value);
+        }
+    }
+    // Handle range partitioning
+    else if (strategy == PARTITION_STRATEGY_RANGE) {
+        // Validate strategy matches
+        if (spec->strategy != PARTITION_STRATEGY_RANGE)
+            ereport(ERROR, "invalid bound specification for a range partition");
+
+        // Validate bound counts match partition key attributes
+        if (list_length(spec->lowerdatums) != partnatts ||
+            list_length(spec->upperdatums) != partnatts)
+            ereport(ERROR, "bound count must match partitioning column count");
+
+        // Transform lower and upper bounds
+        result_spec->lowerdatums = transformPartitionRangeBounds(pstate, spec->lowerdatums, parent);
+        result_spec->upperdatums = transformPartitionRangeBounds(pstate, spec->upperdatums, parent);
+    }
+    else {
+        elog(ERROR, "unexpected partition strategy: %d", (int) strategy);
+    }
+
+    return result_spec;
+}
+```

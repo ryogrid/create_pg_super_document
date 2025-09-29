@@ -35,3 +35,14 @@ get_table_am_oid is a specialized wrapper function that provides type-safe looku
 - Ensures that only table-compatible access methods are accepted
 - Used in both table creation and ALTER TABLE operations
 - Location: src/backend/commands/amcmds.c:173-182
+
+## Simplified Source
+
+```c
+Oid
+get_table_am_oid(const char *amname, bool missing_ok)
+{
+    // Delegate to generic access method lookup with table type constraint
+    return get_am_type_oid(amname, AMTYPE_TABLE, missing_ok);
+}
+```

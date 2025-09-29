@@ -52,3 +52,60 @@ The result is allocated in the current memory context and must be freed by the c
 - Includes null bitmap only when necessary (when at least one attribute is null)
 - The resulting MinimalTuple must be freed using appropriate memory management functions
 - Used primarily in query execution and tuple manipulation contexts where space efficiency is important
+
+## Simplified Source
+
+```c
+MinimalTuple
+heap_form_minimal_tuple(TupleDesc tupleDescriptor,
+                        const Datum *values,
+                        const bool *isnull)
+{
+    MinimalTuple tuple;
+    Size len, data_len;
+    int hoff;
+    bool hasnull = false;
+    int numberOfAttributes = tupleDescriptor->natts;
+    int i;
+
+    // Check attribute count limit
+    if (numberOfAttributes > MaxTupleAttributeNumber)
+        ereport(ERROR, "number of columns (%d) exceeds limit (%d)");
+
+    // Check if any attributes are null
+    for (i = 0; i < numberOfAttributes; i++) {
+        if (isnull[i]) {
+            hasnull = true;
+            break;
+        }
+    }
+
+    // Calculate space needed
+    len = SizeofMinimalTupleHeader;
+
+    // Add space for null bitmap if needed
+    if (hasnull)
+        len += BITMAPLEN(numberOfAttributes);
+
+    // Align header and calculate data size
+    hoff = len = MAXALIGN(len);
+    data_len = heap_compute_data_size(tupleDescriptor, values, isnull);
+    len += data_len;
+
+    // Allocate and initialize minimal tuple
+    tuple = (MinimalTuple) palloc0(len);
+
+    // Set tuple header fields
+    tuple->t_len = len;
+    HeapTupleHeaderSetNatts(tuple, numberOfAttributes);
+    tuple->t_hoff = hoff + MINIMAL_TUPLE_OFFSET;
+
+    // Fill in the tuple data
+    heap_fill_tuple(tupleDescriptor, values, isnull,
+                    (char *) tuple + hoff, data_len,
+                    &tuple->t_infomask,
+                    (hasnull ? tuple->t_bits : NULL));
+
+    return tuple;
+}
+```

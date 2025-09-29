@@ -35,3 +35,81 @@ BuildDescForRelation is responsible for converting a list of column definitions 
 
 ## Notes and Other Information
 BuildDescForRelation performs comprehensive validation including type permission checks and array dimension limits (PG_INT16_MAX). It rejects SETOF column types as invalid for table definitions. The function sets up various attribute properties beyond basic type information, including local/inherited flags, identity and generated column settings, and compression/storage preferences. When any column has a NOT NULL constraint, it creates a TupleConstr structure to track constraint information. The resulting TupleDesc will require its tdtypeid field to be filled in later during relation creation.
+
+## Simplified Source
+
+```c
+TupleDesc BuildDescForRelation(const List *columns) {
+    int natts = list_length(columns);
+    TupleDesc desc = CreateTemplateTupleDesc(natts);
+    bool has_not_null = false;
+    AttrNumber attnum = 0;
+
+    // Process each column definition
+    ListCell *l;
+    foreach(l, columns) {
+        ColumnDef *entry = lfirst(l);
+        attnum++;
+
+        // Get type information
+        char *attname = entry->colname;
+        Oid atttypid;
+        int32 atttypmod;
+        typenameTypeIdAndMod(NULL, entry->typeName, &atttypid, &atttypmod);
+
+        // Check type permissions
+        AclResult aclresult = object_aclcheck(TypeRelationId, atttypid, GetUserId(), ACL_USAGE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error_type(aclresult, atttypid);
+
+        // Get collation and array dimensions
+        Oid attcollation = GetColumnDefCollation(NULL, entry, atttypid);
+        int attdim = list_length(entry->typeName->arrayBounds);
+        if (attdim > PG_INT16_MAX)
+            ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                    errmsg("too many array dimensions")));
+
+        // Reject SETOF types
+        if (entry->typeName->setof)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                    errmsg("column \"%s\" cannot be declared SETOF", attname)));
+
+        // Initialize tuple descriptor entry
+        TupleDescInitEntry(desc, attnum, attname, atttypid, atttypmod, attdim);
+        Form_pg_attribute att = TupleDescAttr(desc, attnum - 1);
+
+        // Set collation and additional properties
+        TupleDescInitEntryCollation(desc, attnum, attcollation);
+        att->attnotnull = entry->is_not_null;
+        has_not_null |= entry->is_not_null;
+        att->attislocal = entry->is_local;
+        att->attinhcount = entry->inhcount;
+        att->attidentity = entry->identity;
+        att->attgenerated = entry->generated;
+        att->attcompression = GetAttributeCompression(att->atttypid, entry->compression);
+
+        // Set storage type
+        if (entry->storage)
+            att->attstorage = entry->storage;
+        else if (entry->storage_name)
+            att->attstorage = GetAttributeStorage(att->atttypid, entry->storage_name);
+    }
+
+    // Create constraint structure if needed
+    if (has_not_null) {
+        TupleConstr *constr = (TupleConstr *) palloc0(sizeof(TupleConstr));
+        constr->has_not_null = true;
+        constr->has_generated_stored = false;
+        constr->defval = NULL;
+        constr->missing = NULL;
+        constr->num_defval = 0;
+        constr->check = NULL;
+        constr->num_check = 0;
+        desc->constr = constr;
+    } else {
+        desc->constr = NULL;
+    }
+
+    return desc;
+}
+```

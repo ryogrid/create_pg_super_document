@@ -42,3 +42,43 @@ This optimization is particularly important in scenarios involving table inherit
 - The function assumes attribute numbering starts from 1 (hence the i+1 comparison)
 - This is a static function within the attmap.c module, used internally for attribute mapping optimization
 - Performance-critical function as it determines whether expensive tuple conversion can be avoided
+
+## Simplified Source
+
+```c
+static bool
+check_attrmap_match(TupleDesc indesc, TupleDesc outdesc, AttrMap *attrMap)
+{
+    int i;
+
+    // Quick check: attribute counts must match
+    if (indesc->natts != outdesc->natts)
+        return false;
+
+    // Check each attribute position
+    for (i = 0; i < attrMap->maplen; i++) {
+        Form_pg_attribute inatt = TupleDescAttr(indesc, i);
+        Form_pg_attribute outatt = TupleDescAttr(outdesc, i);
+
+        // Missing attributes always require conversion
+        if (inatt->atthasmissing)
+            return false;
+
+        // Check if attribute maps to same position (1-based numbering)
+        if (attrMap->attnums[i] == (i + 1))
+            continue;
+
+        // Special case: both attributes are dropped with compatible alignment
+        if (attrMap->attnums[i] == 0 &&
+            inatt->attisdropped &&
+            inatt->attlen == outatt->attlen &&
+            inatt->attalign == outatt->attalign)
+            continue;
+
+        // Any other mapping difference means no match
+        return false;
+    }
+
+    return true;
+}
+```

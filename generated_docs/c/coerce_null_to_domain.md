@@ -42,3 +42,41 @@ The function first determines the base type and typmod of the domain using `getB
 - The NULL constant is created with the domain's base type characteristics to prevent unnecessary length coercions
 - Domain constraint checking (including NOT NULL constraints) is deferred to runtime through the CoerceToDomain wrapper
 - Used primarily in query rewriting and optimization phases where NULL values need to be inserted for missing columns in domain-typed fields
+
+## Simplified Source
+
+```c
+Node *
+coerce_null_to_domain(Oid typid, int32 typmod, Oid collation,
+                      int typlen, bool typbyval)
+{
+    Node *result;
+    Oid baseTypeId;
+    int32 baseTypeMod = typmod;
+
+    // Get the domain's base type and typmod
+    baseTypeId = getBaseTypeAndTypmod(typid, &baseTypeMod);
+
+    // Create NULL constant with base type characteristics
+    result = (Node *) makeConst(baseTypeId,
+                               baseTypeMod,
+                               collation,
+                               typlen,
+                               (Datum) 0,
+                               true,    // isnull
+                               typbyval);
+
+    // If this is a domain type, wrap with domain coercion for constraint checking
+    if (typid != baseTypeId) {
+        result = coerce_to_domain(result,
+                                 baseTypeId, baseTypeMod,
+                                 typid,
+                                 COERCION_IMPLICIT,
+                                 COERCE_IMPLICIT_CAST,
+                                 -1,
+                                 false);
+    }
+
+    return result;
+}
+```

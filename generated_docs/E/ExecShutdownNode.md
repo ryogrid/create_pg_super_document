@@ -41,3 +41,14 @@ This function is typically called during query execution interruption or when st
 - Works in conjunction with PostgreSQL's instrumentation system to properly track resource usage during shutdown
 - The walker pattern implementation allows for extensible shutdown behavior for different node types
 - Less comprehensive than ExecEndNode but provides essential resource management for active operations
+
+## Simplified Source
+
+```c
+void
+ExecShutdownNode(PlanState *node)
+{
+    // Delegate to tree walker to recursively shutdown all nodes
+    (void) ExecShutdownNode_walker(node, NULL);
+}
+```

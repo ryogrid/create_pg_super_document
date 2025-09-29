@@ -36,3 +36,36 @@ This function stores a MinimalTuple in a MinimalTupleTableSlot by first clearing
 - Uses MINIMAL_TUPLE_OFFSET to properly align the tuple data with the expected heap tuple structure
 - The t_self and t_tableOid fields are not set since they're not accessible through this slot type
 - Memory management is controlled by the shouldFree parameter
+
+## Simplified Source
+
+```c
+static void
+tts_minimal_store_tuple(TupleTableSlot *slot, MinimalTuple mtup, bool shouldFree)
+{
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Clear existing content
+    tts_minimal_clear(slot);
+
+    Assert(!TTS_SHOULDFREE(slot));
+    Assert(TTS_EMPTY(slot));
+
+    // Mark slot as containing data
+    slot->tts_flags &= ~TTS_FLAG_EMPTY;
+    slot->tts_nvalid = 0;
+    mslot->off = 0;
+
+    // Store the minimal tuple
+    mslot->mintuple = mtup;
+
+    // Set up HeapTuple header to reference minimal tuple data
+    Assert(mslot->tuple == &mslot->minhdr);
+    mslot->minhdr.t_len = mtup->t_len + MINIMAL_TUPLE_OFFSET;
+    mslot->minhdr.t_data = (HeapTupleHeader) ((char *) mtup - MINIMAL_TUPLE_OFFSET);
+
+    // Set memory management flag if needed
+    if (shouldFree)
+        slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+}
+```

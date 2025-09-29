@@ -39,3 +39,21 @@ This function serves as the relation options parser specifically for partitioned
 - Used by DDL commands like CREATE TABLE and ALTER TABLE when dealing with partitioned tables
 - This function enforces architectural constraints at the relation option parsing level
 - The validate parameter controls whether to be strict about rejecting options or silently ignore them
+
+## Simplified Source
+
+```c
+bytea *
+partitioned_table_reloptions(Datum reloptions, bool validate)
+{
+    // Reject storage parameters for partitioned tables when validating
+    if (validate && reloptions)
+        ereport(ERROR,
+                errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("cannot specify storage parameters for a partitioned table"),
+                errhint("Specify storage parameters for its leaf partitions instead."));
+
+    // Always return NULL - partitioned tables have no relation options
+    return NULL;
+}
+```

@@ -43,3 +43,18 @@ The function uses get_element_type() to detect if the given type is an array and
 - Automatically handles both simple types and array types with the same interface
 - Part of the family of specialized aclcheck_error functions (aclcheck_error, aclcheck_error_col, aclcheck_error_type)
 - Essential for operations involving type permissions like aggregate creation, operator definition, and domain creation
+
+## Simplified Source
+
+```c
+void aclcheck_error_type(AclResult aclerr, Oid typeOid) {
+    // Get element type for arrays (returns InvalidOid for non-arrays)
+    Oid element_type = get_element_type(typeOid);
+
+    // Use element type if available, otherwise use original type
+    Oid display_type = element_type ? element_type : typeOid;
+
+    // Report error with formatted type name
+    aclcheck_error(aclerr, OBJECT_TYPE, format_type_be(display_type));
+}
+```

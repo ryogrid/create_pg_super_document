@@ -51,3 +51,85 @@ Key optimizations include batching of pending send operations to reduce shared m
 - Returns SHM_MQ_SUCCESS on complete success, SHM_MQ_WOULD_BLOCK for non-blocking partial sends, or SHM_MQ_DETACHED if queue is detached
 - Critical component of PostgreSQL's parallel processing and inter-process communication infrastructure
 - Implements proper MAXALIGN alignment for efficient memory access patterns
+
+## Simplified Source
+
+```c
+static shm_mq_result
+shm_mq_send_bytes(shm_mq_handle *mqh, Size nbytes, const void *data,
+                  bool nowait, Size *bytes_written)
+{
+    shm_mq *mq = mqh->mqh_queue;
+    Size sent = 0;
+    Size ringsize = mq->mq_ring_size;
+
+    while (sent < nbytes) {
+        uint64 rb, wb;
+        uint64 used;
+        Size available;
+
+        // Check current ring buffer usage
+        rb = pg_atomic_read_u64(&mq->mq_bytes_read);
+        wb = pg_atomic_read_u64(&mq->mq_bytes_written) + mqh->mqh_send_pending;
+        used = wb - rb;
+        available = Min(ringsize - used, nbytes - sent);
+
+        // Check if queue has been detached
+        pg_compiler_barrier();
+        if (mq->mq_detached) {
+            *bytes_written = sent;
+            return SHM_MQ_DETACHED;
+        }
+
+        if (available == 0 && !mqh->mqh_counterparty_attached) {
+            // Queue is full and receiver not yet attached - wait for receiver
+            if (nowait) {
+                if (shm_mq_counterparty_gone(mq, mqh->mqh_handle) ||
+                    shm_mq_get_receiver(mq) == NULL) {
+                    *bytes_written = sent;
+                    return SHM_MQ_WOULD_BLOCK;
+                }
+            } else if (!shm_mq_wait_internal(mq, &mq->mq_receiver, mqh->mqh_handle)) {
+                mq->mq_detached = true;
+                *bytes_written = sent;
+                return SHM_MQ_DETACHED;
+            }
+            mqh->mqh_counterparty_attached = true;
+        }
+        else if (available == 0) {
+            // Queue is full but receiver is attached - wait for space
+            shm_mq_inc_bytes_written(mq, mqh->mqh_send_pending);
+            SetLatch(&mq->mq_receiver->procLatch);
+            mqh->mqh_send_pending = 0;
+
+            if (nowait) {
+                *bytes_written = sent;
+                return SHM_MQ_WOULD_BLOCK;
+            }
+
+            // Wait for receiver to consume data
+            WaitLatch(MyLatch, WL_LATCH_SET | WL_EXIT_ON_PM_DEATH, 0,
+                     WAIT_EVENT_MESSAGE_QUEUE_SEND);
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+        }
+        else {
+            // Space available - write data to ring buffer
+            Size offset = wb % (uint64) ringsize;
+            Size sendnow = Min(available, ringsize - offset);
+
+            // Ensure proper memory ordering for ring buffer write
+            pg_memory_barrier();
+            memcpy(&mq->mq_ring[mq->mq_ring_offset + offset],
+                   (char *) data + sent, sendnow);
+            sent += sendnow;
+
+            // Track pending bytes for batched updates
+            mqh->mqh_send_pending += MAXALIGN(sendnow);
+        }
+    }
+
+    *bytes_written = sent;
+    return SHM_MQ_SUCCESS;
+}
+```

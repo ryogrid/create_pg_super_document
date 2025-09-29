@@ -43,3 +43,56 @@ The function creates a dummy ParseState to provide the necessary context for exp
 - Deep copies partition elements to avoid modifying input specification
 - Essential for proper partition constraint evaluation and partition pruning
 - Part of the table command infrastructure in src/backend/commands/tablecmds.c (lines 17988-18045)
+
+## Simplified Source
+
+```c
+static PartitionSpec *
+transformPartitionSpec(Relation rel, PartitionSpec *partspec)
+{
+    PartitionSpec *newspec;
+    ParseState *pstate;
+    ParseNamespaceItem *nsitem;
+    ListCell *l;
+
+    // Create new PartitionSpec with basic info copied
+    newspec = makeNode(PartitionSpec);
+    newspec->strategy = partspec->strategy;
+    newspec->partParams = NIL;
+    newspec->location = partspec->location;
+
+    // Validate strategy constraints - LIST requires single column
+    if (partspec->strategy == PARTITION_STRATEGY_LIST &&
+        list_length(partspec->partParams) != 1)
+        ereport(ERROR, "list partition strategy requires exactly one column");
+
+    // Create parser context for expression transformation
+    pstate = make_parsestate(NULL);
+    nsitem = addRangeTableEntryForRelation(pstate, rel, AccessShareLock,
+                                          NULL, false, true);
+    addNSItemToQuery(pstate, nsitem, true, true, true);
+
+    // Transform each partition parameter
+    foreach(l, partspec->partParams) {
+        PartitionElem *pelem = lfirst_node(PartitionElem, l);
+
+        // Transform expressions if present
+        if (pelem->expr) {
+            // Copy to avoid modifying input
+            pelem = copyObject(pelem);
+
+            // Transform expression with proper context
+            pelem->expr = transformExpr(pstate, pelem->expr,
+                                      EXPR_KIND_PARTITION_EXPRESSION);
+
+            // Assign proper collations for comparison
+            assign_expr_collations(pstate, pelem->expr);
+        }
+
+        // Add transformed element to result
+        newspec->partParams = lappend(newspec->partParams, pelem);
+    }
+
+    return newspec;
+}
+```

@@ -41,3 +41,75 @@ This function serves as an option parser for any relation type that uses the sta
 - Uses offsetof macro extensively to calculate field positions within nested structures (StdRdOptions containing AutoVacOpts)
 - Returns a bytea pointer containing the parsed and structured option data
 - This function provides the foundation for standard table option parsing used by heap tables and other relation types that follow the standard options pattern
+
+## Simplified Source
+
+```c
+bytea *
+default_reloptions(Datum reloptions, bool validate, relopt_kind kind)
+{
+    // Define parsing table for standard relation options
+    static const relopt_parse_elt tab[] = {
+        // Storage parameters
+        {"fillfactor", RELOPT_TYPE_INT, offsetof(StdRdOptions, fillfactor)},
+        {"toast_tuple_target", RELOPT_TYPE_INT, offsetof(StdRdOptions, toast_tuple_target)},
+        {"parallel_workers", RELOPT_TYPE_INT, offsetof(StdRdOptions, parallel_workers)},
+        {"user_catalog_table", RELOPT_TYPE_BOOL, offsetof(StdRdOptions, user_catalog_table)},
+
+        // Vacuum settings
+        {"vacuum_index_cleanup", RELOPT_TYPE_ENUM, offsetof(StdRdOptions, vacuum_index_cleanup)},
+        {"vacuum_truncate", RELOPT_TYPE_BOOL, offsetof(StdRdOptions, vacuum_truncate)},
+
+        // Autovacuum boolean settings
+        {"autovacuum_enabled", RELOPT_TYPE_BOOL,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, enabled)},
+
+        // Autovacuum threshold settings
+        {"autovacuum_vacuum_threshold", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, vacuum_threshold)},
+        {"autovacuum_vacuum_insert_threshold", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, vacuum_ins_threshold)},
+        {"autovacuum_analyze_threshold", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, analyze_threshold)},
+
+        // Autovacuum cost settings
+        {"autovacuum_vacuum_cost_limit", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, vacuum_cost_limit)},
+        {"autovacuum_vacuum_cost_delay", RELOPT_TYPE_REAL,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, vacuum_cost_delay)},
+
+        // Autovacuum scale factor settings
+        {"autovacuum_vacuum_scale_factor", RELOPT_TYPE_REAL,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, vacuum_scale_factor)},
+        {"autovacuum_vacuum_insert_scale_factor", RELOPT_TYPE_REAL,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, vacuum_ins_scale_factor)},
+        {"autovacuum_analyze_scale_factor", RELOPT_TYPE_REAL,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, analyze_scale_factor)},
+
+        // Autovacuum freeze age settings
+        {"autovacuum_freeze_min_age", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, freeze_min_age)},
+        {"autovacuum_freeze_max_age", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, freeze_max_age)},
+        {"autovacuum_freeze_table_age", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, freeze_table_age)},
+
+        // Autovacuum multixact settings
+        {"autovacuum_multixact_freeze_min_age", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, multixact_freeze_min_age)},
+        {"autovacuum_multixact_freeze_max_age", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, multixact_freeze_max_age)},
+        {"autovacuum_multixact_freeze_table_age", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, multixact_freeze_table_age)},
+
+        // Autovacuum logging
+        {"log_autovacuum_min_duration", RELOPT_TYPE_INT,
+         offsetof(StdRdOptions, autovacuum) + offsetof(AutoVacOpts, log_min_duration)}
+    };
+
+    // Build and return parsed options structure
+    return (bytea *) build_reloptions(reloptions, validate, kind,
+                                      sizeof(StdRdOptions),
+                                      tab, lengthof(tab));
+}
+```

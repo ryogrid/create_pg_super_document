@@ -53,3 +53,162 @@ This function creates a complete IndexStmt that recreates an existing index on a
 - Copies index options and column-specific options like collation and operator class
 - Sets transformed=true to skip transformIndexStmt processing
 - Maintains proper sort ordering and null handling options for ordered access methods
+
+## Simplified Source
+
+```c
+IndexStmt *
+generateClonedIndexStmt(RangeVar *heapRel, Relation source_idx,
+                       const AttrMap *attmap, Oid *constraintOid)
+{
+    Oid source_relid = RelationGetRelid(source_idx);
+    HeapTuple ht_idxrel, ht_idx, ht_am;
+    Form_pg_class idxrelrec;
+    Form_pg_index idxrec;
+    Form_pg_am amrec;
+    IndexStmt *index;
+    List *indexprs;
+    oidvector *indcollation, *indclass;
+
+    if (constraintOid)
+        *constraintOid = InvalidOid;
+
+    // Fetch index metadata from system catalogs
+    ht_idxrel = SearchSysCache1(RELOID, ObjectIdGetDatum(source_relid));
+    idxrelrec = (Form_pg_class) GETSTRUCT(ht_idxrel);
+
+    ht_idx = source_idx->rd_indextuple;
+    idxrec = (Form_pg_index) GETSTRUCT(ht_idx);
+
+    ht_am = SearchSysCache1(AMOID, ObjectIdGetDatum(idxrelrec->relam));
+    amrec = (Form_pg_am) GETSTRUCT(ht_am);
+
+    // Extract collation and operator class vectors
+    indcollation = get_index_collations(ht_idx);
+    indclass = get_index_opclasses(ht_idx);
+
+    // Initialize new IndexStmt structure
+    index = makeNode(IndexStmt);
+    index->relation = heapRel;
+    index->accessMethod = pstrdup(NameStr(amrec->amname));
+
+    // Copy tablespace if specified
+    if (OidIsValid(idxrelrec->reltablespace))
+        index->tableSpace = get_tablespace_name(idxrelrec->reltablespace);
+
+    // Copy index properties
+    index->unique = idxrec->indisunique;
+    index->nulls_not_distinct = idxrec->indnullsnotdistinct;
+    index->primary = idxrec->indisprimary;
+    index->transformed = true; // Skip transformIndexStmt
+
+    // Don't preserve original name - let DefineIndex choose
+    index->idxname = NULL;
+
+    // Handle constraint-related indexes (PRIMARY, UNIQUE, EXCLUSION)
+    if (index->primary || index->unique || idxrec->indisexclusion) {
+        Oid constraintId = get_index_constraint(source_relid);
+
+        if (OidIsValid(constraintId)) {
+            HeapTuple ht_constr = SearchSysCache1(CONSTROID,
+                                                 ObjectIdGetDatum(constraintId));
+            Form_pg_constraint conrec = (Form_pg_constraint) GETSTRUCT(ht_constr);
+
+            if (constraintOid)
+                *constraintOid = constraintId;
+
+            index->isconstraint = true;
+            index->deferrable = conrec->condeferrable;
+            index->initdeferred = conrec->condeferred;
+
+            // Handle exclusion constraint operators
+            if (idxrec->indisexclusion) {
+                index->excludeOpNames = extract_exclusion_operators(ht_constr);
+            }
+
+            ReleaseSysCache(ht_constr);
+        }
+    }
+
+    // Get index expressions if any
+    indexprs = get_index_expressions(ht_idx);
+
+    // Build key columns (regular indexed columns)
+    index->indexParams = NIL;
+    ListCell *indexpr_item = list_head(indexprs);
+
+    for (int keyno = 0; keyno < idxrec->indnkeyatts; keyno++) {
+        IndexElem *iparam = makeNode(IndexElem);
+        AttrNumber attnum = idxrec->indkey.values[keyno];
+
+        if (AttributeNumberIsValid(attnum)) {
+            // Simple column reference
+            char *attname = get_attname(idxrec->indrelid, attnum, false);
+            iparam->name = attname;
+            iparam->expr = NULL;
+        } else {
+            // Expression index - adjust attribute numbers using attmap
+            Node *indexkey = (Node *) lfirst(indexpr_item);
+            bool found_whole_row;
+
+            indexkey = map_variable_attnos(indexkey, 1, 0, attmap,
+                                         InvalidOid, &found_whole_row);
+
+            if (found_whole_row)
+                ereport(ERROR, ...); // Reject whole-row references
+
+            iparam->name = NULL;
+            iparam->expr = indexkey;
+            indexpr_item = lnext(indexprs, indexpr_item);
+        }
+
+        // Copy column properties
+        copy_column_properties(iparam, source_idx, keyno,
+                              indcollation, indclass);
+
+        index->indexParams = lappend(index->indexParams, iparam);
+    }
+
+    // Build included columns (non-key columns)
+    index->indexIncludingParams = NIL;
+    for (int keyno = idxrec->indnkeyatts; keyno < idxrec->indnatts; keyno++) {
+        IndexElem *iparam = makeNode(IndexElem);
+        AttrNumber attnum = idxrec->indkey.values[keyno];
+
+        if (AttributeNumberIsValid(attnum)) {
+            char *attname = get_attname(idxrec->indrelid, attnum, false);
+            iparam->name = attname;
+            iparam->expr = NULL;
+        } else {
+            ereport(ERROR, ...); // Expressions not supported in included columns
+        }
+
+        copy_column_name(iparam, source_idx, keyno);
+        index->indexIncludingParams = lappend(index->indexIncludingParams, iparam);
+    }
+
+    // Copy index options
+    copy_index_options(index, ht_idxrel);
+
+    // Handle partial index predicate
+    if (has_predicate(ht_idx)) {
+        Node *pred_tree = get_index_predicate(ht_idx);
+        bool found_whole_row;
+
+        // Adjust predicate attribute numbers using attmap
+        pred_tree = map_variable_attnos(pred_tree, 1, 0, attmap,
+                                       InvalidOid, &found_whole_row);
+
+        if (found_whole_row)
+            ereport(ERROR, ...); // Reject whole-row references
+
+        index->whereClause = pred_tree;
+    }
+
+    // Cleanup
+    ReleaseSysCache(ht_idxrel);
+    ReleaseSysCache(ht_am);
+
+    return index;
+}
+```

@@ -53,3 +53,46 @@ The use of 'IS NOT TRUE' instead of 'NOT' is crucial because it properly handles
 - Part of the conditional INSTEAD rule processing mechanism
 - Acquires locks on subqueries to ensure consistency during rule application
 - Critical for generating proper else-clause behavior in conditional rule systems
+
+## Simplified Source
+
+```c
+static Query *
+CopyAndAddInvertedQual(Query *parsetree,
+                       Node *rule_qual,
+                       int rt_index,
+                       CmdType event)
+{
+    // Create safe copy to avoid modifying cached rule data
+    Node *new_qual = copyObject(rule_qual);
+
+    // Set up context for subquery processing
+    acquireLocksOnSubLinks_context context;
+    context.for_execute = true;
+
+    // Process any subqueries in the qualification
+    (void) acquireLocksOnSubLinks(new_qual, &context);
+
+    // Transform OLD references to point to the target relation
+    ChangeVarNodes(new_qual, PRS2_OLD_VARNO, rt_index, 0);
+
+    // Transform NEW references for INSERT/UPDATE operations
+    if (event == CMD_INSERT || event == CMD_UPDATE) {
+        new_qual = ReplaceVarsFromTargetList(new_qual,
+                                             PRS2_NEW_VARNO,
+                                             0,
+                                             rt_fetch(rt_index, parsetree->rtable),
+                                             parsetree->targetList,
+                                             (event == CMD_UPDATE) ?
+                                             REPLACEVARS_CHANGE_VARNO :
+                                             REPLACEVARS_SUBSTITUTE_NULL,
+                                             rt_index,
+                                             &parsetree->hasSubLinks);
+    }
+
+    // Add the inverted qualification to the query
+    AddInvertedQual(parsetree, new_qual);
+
+    return parsetree;
+}
+```

@@ -35,3 +35,15 @@ The function is a simple accessor that delegates to  to retrieve the object prop
 - The returned index OID corresponds to a unique index on the catalog table that allows efficient object lookup
 - This is a lightweight accessor function with minimal overhead
 - The function assumes the class_id corresponds to a valid catalog class with associated object properties
+
+## Simplified Source
+
+```c
+Oid get_object_oid_index(Oid class_id) {
+    // Get object property data for the catalog class
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+
+    // Return the OID of the unique index used for object identification
+    return prop->oid_index_oid;
+}
+```

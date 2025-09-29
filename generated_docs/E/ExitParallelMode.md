@@ -39,3 +39,20 @@ This function takes no parameters.
 - Must be paired with corresponding EnterParallelMode calls to maintain proper nesting
 - The assertion checking ParallelContextActive ensures that parallel contexts are properly cleaned up before exiting the last level of parallel mode
 - Critical for maintaining the integrity of PostgreSQL's parallel execution framework
+
+## Simplified Source
+
+```c
+void
+ExitParallelMode(void)
+{
+    TransactionState s = CurrentTransactionState;
+
+    Assert(s->parallelModeLevel > 0);
+    Assert(s->parallelModeLevel > 1 || s->parallelChildXact ||
+           !ParallelContextActive());
+
+    // Decrement the parallel mode nesting level
+    --s->parallelModeLevel;
+}
+```

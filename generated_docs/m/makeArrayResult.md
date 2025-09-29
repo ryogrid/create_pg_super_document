@@ -44,3 +44,24 @@ Memory management is handled according to the private_cxt flag: if the ArrayBuil
 - Returns a Datum that represents a complete PostgreSQL array
 - This is the standard way to finalize array building in the newer scheme
 - The result array is allocated in the specified rcontext, not the build context
+
+## Simplified Source
+
+```c
+Datum makeArrayResult(ArrayBuildState *astate, MemoryContext rcontext) {
+    int ndims, dims[1], lbs[1];
+
+    // Set array dimensions: 1D if elements exist, 0D if empty
+    if (astate->nelems > 0) {
+        ndims = 1;
+        dims[0] = astate->nelems;  // Number of elements
+        lbs[0] = 1;               // Lower bound starts at 1
+    } else {
+        ndims = 0;  // Empty array
+    }
+
+    // Delegate to multi-dimensional array builder
+    return makeMdArrayResult(astate, ndims, dims, lbs, rcontext,
+                             astate->private_cxt);
+}
+```

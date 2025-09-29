@@ -45,3 +45,57 @@ The function iterates through each non-dropped column in the output descriptor, 
 - Commonly used in partitioning, table inheritance, and schema evolution scenarios
 - Search optimization assumes similar column ordering between related tables (e.g., partitioned tables)
 - Located in `src/backend/access/common/attmap.c:177-262`
+
+## Simplified Source
+
+```c
+AttrMap *build_attrmap_by_name(TupleDesc indesc, TupleDesc outdesc, bool missing_ok) {
+    int outnatts = outdesc->natts;
+    int innatts = indesc->natts;
+    AttrMap *attrMap = make_attrmap(outnatts);
+    int nextindesc = -1;  // Optimization: start search from last match
+
+    // Map each output column to corresponding input column
+    for (int i = 0; i < outnatts; i++) {
+        Form_pg_attribute outatt = TupleDescAttr(outdesc, i);
+
+        if (outatt->attisdropped)
+            continue;  // Skip dropped columns
+
+        char *attname = NameStr(outatt->attname);
+
+        // Search for matching column in input descriptor
+        for (int j = 0; j < innatts; j++) {
+            nextindesc++;
+            if (nextindesc >= innatts)
+                nextindesc = 0;  // Circular search
+
+            Form_pg_attribute inatt = TupleDescAttr(indesc, nextindesc);
+            if (inatt->attisdropped)
+                continue;
+
+            if (strcmp(attname, NameStr(inatt->attname)) == 0) {
+                // Found match - validate types match exactly
+                if (outatt->atttypid != inatt->atttypid ||
+                    outatt->atttypmod != inatt->atttypmod) {
+                    ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                            errmsg("could not convert row type"),
+                            errdetail("Attribute \"%s\" type mismatch", attname)));
+                }
+
+                attrMap->attnums[i] = inatt->attnum;
+                break;
+            }
+        }
+
+        // Check if column was found
+        if (attrMap->attnums[i] == 0 && !missing_ok) {
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("could not convert row type"),
+                    errdetail("Attribute \"%s\" does not exist in input type", attname)));
+        }
+    }
+
+    return attrMap;
+}
+```

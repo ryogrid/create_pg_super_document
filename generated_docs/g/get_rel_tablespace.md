@@ -42,3 +42,27 @@ It's important to note that InvalidOid can have two meanings: either the relatio
 - Helps PostgreSQL locate physical storage files for relations
 - Default tablespace relations have reltablespace = InvalidOid
 - Located in src/backend/utils/cache/lsyscache.c:2054-2077
+
+## Simplified Source
+
+```c
+Oid
+get_rel_tablespace(Oid relid)
+{
+    HeapTuple tp;
+
+    // Look up relation in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        Oid result;
+
+        // Extract tablespace OID from pg_class tuple
+        result = reltup->reltablespace;
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        return InvalidOid; // Relation not found
+    }
+}
+```

@@ -41,3 +41,23 @@ The function takes care of proper resource management by opening the relation wi
 - Acts as a bridge between the public API functions and the core create_toast_table implementation
 - The InvalidOid parameters passed to create_toast_table indicate that TOAST table and index OIDs should be automatically assigned
 - The NoLock parameter for table_close indicates the lock should be retained as acquired during table_open
+
+## Simplified Source
+
+```c
+static void
+CheckAndCreateToastTable(Oid relOid, Datum reloptions, LOCKMODE lockmode,
+                         bool check, Oid OIDOldToast)
+{
+    // Open the relation with specified lock mode
+    Relation rel = table_open(relOid, lockmode);
+
+    // Delegate all TOAST table creation work to create_toast_table
+    // Use InvalidOid for automatic OID assignment of TOAST table and index
+    (void) create_toast_table(rel, InvalidOid, InvalidOid, reloptions, lockmode,
+                              check, OIDOldToast);
+
+    // Close relation but retain the lock acquired during open
+    table_close(rel, NoLock);
+}
+```

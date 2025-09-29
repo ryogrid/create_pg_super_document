@@ -22,7 +22,7 @@ Historical note: Earlier versions of PostgreSQL maintained both direct and indir
 
 ## Parameters / Member Variables
 - : OID of the child relation that inherits from parent relations
-- : List of OIDs representing the direct parent relations (ancestors)  
+- : List of OIDs representing the direct parent relations (ancestors)
 - : Boolean flag indicating whether the child is a partition (vs. regular inheritance)
 
 ## Dependencies
@@ -43,3 +43,39 @@ Historical note: Earlier versions of PostgreSQL maintained both direct and indir
 - Returns early if no parent relations are provided (supers == NIL)
 - Acquires RowExclusiveLock on pg_inherits catalog during operation
 - Works for both regular table inheritance and table partitioning scenarios
+
+## Simplified Source
+
+```c
+static void
+StoreCatalogInheritance(Oid relationId, List *supers, bool child_is_partition)
+{
+    Relation relation;
+    int32 seqNumber;
+    ListCell *entry;
+
+    // Validate relation ID
+    Assert(OidIsValid(relationId));
+
+    // No work needed if no parent relations
+    if (supers == NIL)
+        return;
+
+    // Open pg_inherits catalog for writing
+    relation = table_open(InheritsRelationId, RowExclusiveLock);
+
+    // Process each direct parent relation
+    seqNumber = 1;
+    foreach(entry, supers) {
+        Oid parentOid = lfirst_oid(entry);
+
+        // Store inheritance entry with sequence number
+        StoreCatalogInheritance1(relationId, parentOid, seqNumber,
+                                relation, child_is_partition);
+        seqNumber++;
+    }
+
+    // Close catalog
+    table_close(relation, RowExclusiveLock);
+}
+```

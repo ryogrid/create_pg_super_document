@@ -48,3 +48,67 @@ The function updates various state variables to track the source of data and set
 - For archived files, the function ensures the file is properly installed in pg_wal before opening
 - Returns a valid file descriptor on success, or -1 on acceptable failures
 - Panics on unexpected failures unless `notfoundOk` is true and the error is ENOENT (file not found)
+
+## Simplified Source
+
+```c
+static int XLogFileRead(XLogSegNo segno, int emode, TimeLineID tli,
+                       XLogSource source, bool notfoundOk)
+{
+    char xlogfname[MAXFNAMELEN];
+    char path[MAXPGPATH];
+    int fd;
+
+    // Generate WAL file name from segment number and timeline
+    XLogFileName(xlogfname, tli, segno, wal_segment_size);
+
+    // Handle different WAL file sources
+    switch (source) {
+        case XLOG_FROM_ARCHIVE:
+            // Update process status for monitoring
+            set_ps_display("waiting for %s", xlogfname);
+
+            // Restore file from archive storage
+            if (!RestoreArchivedFile(path, xlogfname, "RECOVERYXLOG",
+                                   wal_segment_size, InRedo))
+                return -1;
+
+            // Move archived file to pg_wal directory
+            KeepFileRestoredFromArchive(path, xlogfname);
+            snprintf(path, MAXPGPATH, XLOGDIR "/%s", xlogfname);
+            break;
+
+        case XLOG_FROM_PG_WAL:
+        case XLOG_FROM_STREAM:
+            // Use existing file in pg_wal
+            XLogFilePath(path, tli, segno, wal_segment_size);
+            break;
+
+        default:
+            elog(ERROR, "invalid XLogFileRead source %d", source);
+    }
+
+    // Open the WAL file for reading
+    fd = BasicOpenFile(path, O_RDONLY | PG_BINARY);
+    if (fd >= 0) {
+        // Update global state variables
+        curFileTLI = tli;
+        readSource = source;
+        XLogReceiptSource = source;
+
+        // Update process status and receipt time
+        set_ps_display("recovering %s", xlogfname);
+        if (source != XLOG_FROM_STREAM)
+            XLogReceiptTime = GetCurrentTimestamp();
+
+        return fd;
+    }
+
+    // Handle file not found errors
+    if (errno != ENOENT || !notfoundOk)
+        ereport(PANIC, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", path)));
+
+    return -1;
+}
+```

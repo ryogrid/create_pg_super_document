@@ -48,3 +48,124 @@ The function maintains PostgreSQL's inheritance semantics where attributes appea
 - Performs extensive validation including column limits (MaxHeapAttributeNumber), type compatibility, and permission checks
 - The algorithm is O(n^2) in column count but optimized for typical table sizes
 - Critical for maintaining PostgreSQL's inheritance semantics and ensuring schema consistency across table hierarchies
+
+## Simplified Source
+
+```c
+static List *
+MergeAttributes(List *columns, const List *supers, char relpersistence,
+                bool is_partition, List **supconstr)
+{
+    List       *inh_columns = NIL;
+    List       *constraints = NIL;
+    bool        have_bogus_defaults = false;
+    int         child_attno;
+
+    // Check column count limits
+    if (list_length(columns) > MaxHeapAttributeNumber)
+        ereport(ERROR, "tables can have at most %d columns");
+
+    // Check for duplicate column names in explicit list
+    for (int coldefpos = 0; coldefpos < list_length(columns); coldefpos++) {
+        ColumnDef *coldef = list_nth_node(ColumnDef, columns, coldefpos);
+
+        // Check for duplicates in remaining columns
+        for (int restpos = coldefpos + 1; restpos < list_length(columns);) {
+            ColumnDef *restdef = list_nth_node(ColumnDef, columns, restpos);
+
+            if (strcmp(coldef->colname, restdef->colname) == 0) {
+                if (coldef->is_from_type) {
+                    // Merge column options from type definition
+                    merge_column_options(coldef, restdef);
+                    columns = list_delete_nth_cell(columns, restpos);
+                } else {
+                    ereport(ERROR, "column specified more than once");
+                }
+            } else {
+                restpos++;
+            }
+        }
+    }
+
+    // For partitions, save column constraints for later processing
+    if (is_partition) {
+        saved_columns = columns;
+        columns = NIL;
+    }
+
+    // Process each parent table left-to-right
+    child_attno = 0;
+    foreach(lc, supers) {
+        Oid parent = lfirst_oid(lc);
+        Relation relation = table_open(parent, NoLock);
+        TupleDesc tupleDesc = RelationGetDescr(relation);
+
+        // Validate parent table compatibility
+        validate_parent_relation(relation, is_partition, relpersistence);
+
+        // Create attribute mapping for this parent
+        AttrMap *newattmap = make_attrmap(tupleDesc->natts);
+
+        // Process each attribute from parent
+        for (AttrNumber parent_attno = 1; parent_attno <= tupleDesc->natts; parent_attno++) {
+            Form_pg_attribute attribute = TupleDescAttr(tupleDesc, parent_attno - 1);
+
+            if (attribute->attisdropped)
+                continue;
+
+            // Create new column definition from parent attribute
+            ColumnDef *newdef = makeColumnDef(attribute->attname, attribute->atttypid,
+                                            attribute->atttypmod, attribute->attcollation);
+            copy_attribute_properties(newdef, attribute, is_partition);
+
+            // Check if column already exists from previous parent
+            int exist_attno = findAttrByName(attribute->attname, inh_columns);
+            if (exist_attno > 0) {
+                // Merge with existing column definition
+                ColumnDef *mergeddef = MergeInheritedAttribute(inh_columns, exist_attno, newdef);
+                newattmap->attnums[parent_attno - 1] = exist_attno;
+            } else {
+                // Add as new inherited column
+                newdef->inhcount = 1;
+                newdef->is_local = false;
+                inh_columns = lappend(inh_columns, newdef);
+                newattmap->attnums[parent_attno - 1] = ++child_attno;
+            }
+
+            // Handle default expressions and constraints
+            if (attribute->atthasdef) {
+                process_inherited_default(attribute, newdef, newattmap, relation);
+            }
+        }
+
+        // Inherit CHECK constraints from parent
+        inherit_check_constraints(relation->rd_desc->constr, newattmap, &constraints);
+
+        free_attrmap(newattmap);
+        table_close(relation, NoLock);
+    }
+
+    // Merge explicitly declared columns with inherited columns
+    if (inh_columns != NIL) {
+        merge_explicit_columns(columns, inh_columns, is_partition);
+        columns = inh_columns;
+
+        // Check final column count
+        if (list_length(columns) > MaxHeapAttributeNumber)
+            ereport(ERROR, "tables can have at most %d columns");
+    }
+
+    // Process partition-specific column constraints
+    if (is_partition) {
+        process_partition_column_constraints(saved_columns, columns);
+    }
+
+    // Check for unresolved default value conflicts
+    if (have_bogus_defaults) {
+        validate_default_conflicts(columns);
+    }
+
+    *supconstr = constraints;
+    return columns;
+}
+```

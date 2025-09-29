@@ -48,3 +48,14 @@ The function is extensively used throughout PostgreSQL's DDL processing, rule sy
 - Ensures that type constraints are preserved when displaying or comparing schema elements
 - Essential for operations involving table inheritance, view definitions, and rule processing
 - The typemod parameter directly affects the output format (e.g., varchar(50), numeric(10,2))
+
+## Simplified Source
+
+```c
+char *
+format_type_with_typemod(Oid type_oid, int32 typemod)
+{
+    // Delegate to extended formatter with explicit typemod flag
+    return format_type_extended(type_oid, typemod, FORMAT_TYPE_TYPEMOD_GIVEN);
+}
+```

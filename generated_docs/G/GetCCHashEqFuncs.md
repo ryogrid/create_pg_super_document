@@ -44,3 +44,75 @@ The `GetCCHashEqFuncs` function serves as a central dispatcher that maps Postgre
 - Unsupported types result in a FATAL error, ensuring that catalog cache operations never proceed with invalid function pointers
 - The `fast` versions of equality and hash functions are optimized specifically for catalog cache performance
 - This function is static and only accessible within the catcache.c file
+
+## Simplified Source
+
+```c
+static void
+GetCCHashEqFuncs(Oid keytype, CCHashFN *hashfunc, RegProcedure *eqfunc, CCFastEqualFN *fasteqfunc)
+{
+    // Map PostgreSQL data types to their optimized hash and equality functions
+    switch (keytype)
+    {
+        case BOOLOID:
+        case CHAROID:
+            // Character-based types use char hash/equality functions
+            *hashfunc = charhashfast;
+            *fasteqfunc = chareqfast;
+            *eqfunc = (keytype == BOOLOID) ? F_BOOLEQ : F_CHAREQ;
+            break;
+
+        case NAMEOID:
+            // Name type has specialized functions
+            *hashfunc = namehashfast;
+            *fasteqfunc = nameeqfast;
+            *eqfunc = F_NAMEEQ;
+            break;
+
+        case INT2OID:
+        case INT4OID:
+            // Integer types use type-specific functions
+            *hashfunc = (keytype == INT2OID) ? int2hashfast : int4hashfast;
+            *fasteqfunc = (keytype == INT2OID) ? int2eqfast : int4eqfast;
+            *eqfunc = (keytype == INT2OID) ? F_INT2EQ : F_INT4EQ;
+            break;
+
+        case TEXTOID:
+            // Text type has specialized functions
+            *hashfunc = texthashfast;
+            *fasteqfunc = texteqfast;
+            *eqfunc = F_TEXTEQ;
+            break;
+
+        case OIDOID:
+        case REGPROCOID:
+        case REGPROCEDUREOID:
+        case REGOPEROID:
+        case REGOPERATOROID:
+        case REGCLASSOID:
+        case REGTYPEOID:
+        case REGCOLLATIONOID:
+        case REGCONFIGOID:
+        case REGDICTIONARYOID:
+        case REGROLEOID:
+        case REGNAMESPACEOID:
+            // All OID-related types use int4 functions with OID equality
+            *hashfunc = int4hashfast;
+            *fasteqfunc = int4eqfast;
+            *eqfunc = F_OIDEQ;
+            break;
+
+        case OIDVECTOROID:
+            // OID vector has specialized functions
+            *hashfunc = oidvectorhashfast;
+            *fasteqfunc = oidvectoreqfast;
+            *eqfunc = F_OIDVECTOREQ;
+            break;
+
+        default:
+            // Unsupported types cause fatal error
+            elog(FATAL, "type %u not supported as catcache key", keytype);
+            break;
+    }
+}
+```

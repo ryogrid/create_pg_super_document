@@ -46,3 +46,37 @@ The function includes special logic to prevent specifying the database's default
 - The function deliberately avoids caching lookups to detect dropped tablespaces
 - Silently returns InvalidOid if the configured tablespace doesn't exist, rather than throwing an error
 - Prevents partitioned tables from explicitly using the database's default tablespace to avoid confusion
+
+## Simplified Source
+
+```c
+Oid
+GetDefaultTablespace(char relpersistence, bool partitioned)
+{
+    Oid result;
+
+    // Handle temporary tables with special temp tablespace logic
+    if (relpersistence == RELPERSISTENCE_TEMP) {
+        PrepareTempTablespaces();
+        return GetNextTempTableSpace();
+    }
+
+    // Fast path: no default tablespace configured
+    if (default_tablespace == NULL || default_tablespace[0] == '\0')
+        return InvalidOid;
+
+    // Look up configured default tablespace
+    result = get_tablespace_oid(default_tablespace, true);
+
+    // Special handling for database's default tablespace
+    if (result == MyDatabaseTableSpace) {
+        if (partitioned)
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("cannot specify default tablespace for partitioned relations")));
+        result = InvalidOid;
+    }
+
+    return result;
+}
+```

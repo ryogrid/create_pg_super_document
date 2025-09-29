@@ -43,3 +43,24 @@ The in-place modification approach means the function doesn't invalidate pointer
 - More efficient than repeatedly calling list deletion functions
 - The function maintains backward compatibility with legacy cons-cell behavior
 - Used primarily in query parsing, optimization, and list manipulation contexts where precise list sizing is needed
+
+## Simplified Source
+
+```c
+List *
+list_truncate(List *list, int new_size)
+{
+    // Handle empty list case
+    if (new_size <= 0)
+        return NIL;
+
+    // Only truncate if new size is smaller than current length
+    if (new_size < list_length(list))
+        list->length = new_size;
+
+    // Note: Removed cells are not freed - they remain in memory
+    // but are beyond the list's effective boundary
+
+    return list;
+}
+```

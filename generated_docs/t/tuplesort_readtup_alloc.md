@@ -41,3 +41,25 @@ This function is crucial for performance optimization during external merge sort
 - The slab allocator uses a simple linked list of free slots for fast allocation/deallocation
 - Larger tuples that don't fit in slab slots are allocated directly from the sort's memory context
 - Used exclusively during the merge phase of external sorting when reading tuples from temporary storage
+
+## Simplified Source
+
+```c
+void *
+tuplesort_readtup_alloc(Tuplesortstate *state, Size tuplen)
+{
+    SlabSlot *buf;
+
+    Assert(state->slabFreeHead);
+
+    // Use standard allocation for large tuples or if no slab slots available
+    if (tuplen > SLAB_SLOT_SIZE || !state->slabFreeHead) {
+        return MemoryContextAlloc(state->base.sortcontext, tuplen);
+    } else {
+        // Reuse next available slab slot for small tuples
+        buf = state->slabFreeHead;
+        state->slabFreeHead = buf->nextfree;
+        return buf;
+    }
+}
+```

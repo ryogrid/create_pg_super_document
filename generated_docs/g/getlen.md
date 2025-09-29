@@ -34,3 +34,23 @@ This function is part of the tape interface routines used in PostgreSQL sorting 
 - Throws ERROR if unexpected end of tape occurs during the read operation
 - Throws ERROR if end-of-data (len == 0) is encountered when eofOK is false
 - The length value read is used by callers to determine how much additional data to read from the tape
+
+## Simplified Source
+
+```c
+static unsigned int
+getlen(LogicalTape *tape, bool eofOK)
+{
+    unsigned int len;
+
+    // Read length prefix from tape
+    if (LogicalTapeRead(tape, &len, sizeof(len)) != sizeof(len))
+        elog(ERROR, "unexpected end of tape");
+
+    // Check for end-of-data condition
+    if (len == 0 && !eofOK)
+        elog(ERROR, "unexpected end of data");
+
+    return len;
+}
+```

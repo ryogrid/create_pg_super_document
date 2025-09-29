@@ -52,3 +52,143 @@ The function also performs hint bit optimization by calling SetHintBits to cache
 - Legacy support exists for pre-9.0 database upgrades via HEAP_MOVED_OFF/HEAP_MOVED_IN handling
 - Performance is optimized through aggressive hint bit setting to avoid repeated transaction status lookups
 - The function assumes the input tuple is valid and performs assertion checks on tuple consistency
+
+## Simplified Source
+
+```c
+static bool
+HeapTupleSatisfiesSelf(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+{
+    HeapTupleHeader tuple = htup->t_data;
+
+    // Basic validation
+    Assert(ItemPointerIsValid(&htup->t_self));
+    Assert(htup->t_tableOid != InvalidOid);
+
+    // Check if inserting transaction (Xmin) is committed
+    if (!HeapTupleHeaderXminCommitted(tuple))
+    {
+        if (HeapTupleHeaderXminInvalid(tuple))
+            return false;
+
+        // Handle legacy pre-9.0 VACUUM FULL operations
+        if (tuple->t_infomask & HEAP_MOVED_OFF)
+        {
+            TransactionId xvac = HeapTupleHeaderGetXvac(tuple);
+            if (TransactionIdIsCurrentTransactionId(xvac))
+                return false;
+            // Check vacuum transaction status and set hint bits
+            if (!TransactionIdIsInProgress(xvac))
+            {
+                if (TransactionIdDidCommit(xvac))
+                    SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+                else
+                    SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, InvalidTransactionId);
+                return false;
+            }
+        }
+        else if (tuple->t_infomask & HEAP_MOVED_IN)
+        {
+            // Similar handling for MOVED_IN tuples
+            TransactionId xvac = HeapTupleHeaderGetXvac(tuple);
+            if (!TransactionIdIsCurrentTransactionId(xvac))
+            {
+                // Check and set appropriate hint bits based on vacuum transaction status
+                if (TransactionIdIsInProgress(xvac))
+                    return false;
+                if (TransactionIdDidCommit(xvac))
+                    SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, InvalidTransactionId);
+                else
+                    SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+            }
+        }
+        // Current transaction inserted this tuple
+        else if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmin(tuple)))
+        {
+            // Tuple inserted by current transaction - check if it's been deleted
+            if (tuple->t_infomask & HEAP_XMAX_INVALID)
+                return true;  // Not deleted
+
+            if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+                return true;  // Only locked, not deleted
+
+            // Handle multixact scenarios
+            if (tuple->t_infomask & HEAP_XMAX_IS_MULTI)
+            {
+                TransactionId xmax = HeapTupleGetUpdateXid(tuple);
+                return !TransactionIdIsCurrentTransactionId(xmax);
+            }
+
+            // Check if current transaction deleted it
+            if (!TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmax(tuple)))
+            {
+                SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+                return true;
+            }
+            return false;  // Current transaction deleted it
+        }
+        // Check inserting transaction status
+        else if (TransactionIdIsInProgress(HeapTupleHeaderGetRawXmin(tuple)))
+            return false;
+        else if (TransactionIdDidCommit(HeapTupleHeaderGetRawXmin(tuple)))
+            SetHintBits(tuple, buffer, HEAP_XMIN_COMMITTED, HeapTupleHeaderGetRawXmin(tuple));
+        else
+        {
+            SetHintBits(tuple, buffer, HEAP_XMIN_INVALID, InvalidTransactionId);
+            return false;
+        }
+    }
+
+    // Inserting transaction committed - check deletion status
+    if (tuple->t_infomask & HEAP_XMAX_INVALID)
+        return true;  // Not deleted
+
+    if (tuple->t_infomask & HEAP_XMAX_COMMITTED)
+    {
+        if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+            return true;  // Only locked
+        return false;  // Deleted by committed transaction
+    }
+
+    // Handle multixact deletion
+    if (tuple->t_infomask & HEAP_XMAX_IS_MULTI)
+    {
+        if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+            return true;
+
+        TransactionId xmax = HeapTupleGetUpdateXid(tuple);
+        if (TransactionIdIsCurrentTransactionId(xmax))
+            return false;  // Current transaction deleted it
+        if (TransactionIdIsInProgress(xmax))
+            return true;   // Deleting transaction still running
+        return !TransactionIdDidCommit(xmax);  // Visible if deleting transaction aborted
+    }
+
+    // Simple deletion case
+    if (TransactionIdIsCurrentTransactionId(HeapTupleHeaderGetRawXmax(tuple)))
+    {
+        if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+            return true;
+        return false;  // Current transaction deleted it
+    }
+
+    if (TransactionIdIsInProgress(HeapTupleHeaderGetRawXmax(tuple)))
+        return true;  // Deleting transaction still running
+
+    if (!TransactionIdDidCommit(HeapTupleHeaderGetRawXmax(tuple)))
+    {
+        SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+        return true;  // Deleting transaction aborted
+    }
+
+    // Deleting transaction committed
+    if (HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask))
+    {
+        SetHintBits(tuple, buffer, HEAP_XMAX_INVALID, InvalidTransactionId);
+        return true;  // Was only locked
+    }
+
+    SetHintBits(tuple, buffer, HEAP_XMAX_COMMITTED, HeapTupleHeaderGetRawXmax(tuple));
+    return false;  // Tuple was deleted
+}
+```

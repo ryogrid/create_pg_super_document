@@ -50,3 +50,57 @@ The implementation includes safeguards against excessive run creation and provid
 - Critical for enabling sorts of datasets larger than available memory
 - Part of PostgreSQL's sophisticated external sorting infrastructure
 - Handles both regular memory pressure dumps and final end-of-input dumps
+
+## Simplified Source
+
+```c
+static void
+dumptuples(Tuplesortstate *state, bool alltuples)
+{
+    int memtupwrite;
+    int i;
+
+    // Skip if we still fit in memory and this isn't the final call
+    if (state->memtupcount < state->memtupsize && !LACKMEM(state) && !alltuples)
+        return;
+
+    // Avoid creating completely empty runs (except for workers)
+    if (state->memtupcount == 0 && state->currentRun > 0)
+        return;
+
+    Assert(state->status == TSS_BUILDRUNS);
+
+    // Check run count limit
+    if (state->currentRun == INT_MAX)
+        ereport(ERROR, "cannot have more than %d runs for an external sort");
+
+    // Select new tape if not the first run
+    if (state->currentRun > 0)
+        selectnewtape(state);
+
+    state->currentRun++;
+
+    // Sort all tuples in memory using quicksort
+    tuplesort_sort_memtuples(state);
+
+    // Write all sorted tuples to tape
+    memtupwrite = state->memtupcount;
+    for (i = 0; i < memtupwrite; i++) {
+        SortTuple *stup = &state->memtuples[i];
+        WRITETUP(state, state->destTape, stup);
+    }
+
+    // Reset tuple count and memory accounting
+    state->memtupcount = 0;
+
+    // Reset tuple memory context to avoid fragmentation
+    MemoryContextReset(state->base.tuplecontext);
+
+    // Update memory accounting
+    FREEMEM(state, state->tupleMem);
+    state->tupleMem = 0;
+
+    // Mark end of this run on tape
+    markrunend(state->destTape);
+}
+```

@@ -39,3 +39,29 @@ This function performs a system catalog lookup to find the implementation functi
 - Essential for the query executor and optimizer to determine how operators are actually computed
 - Widely used throughout PostgreSQL's execution engine for operator resolution
 - Different from get_opname which returns the operator's name rather than its implementation
+
+## Simplified Source
+
+```c
+RegProcedure
+get_opcode(Oid opno)
+{
+    HeapTuple tp;
+
+    // Look up operator in system cache
+    tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+        RegProcedure result;
+
+        // Extract the function OID that implements this operator
+        result = optup->oprcode;
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return InvalidOid if operator not found
+        return (RegProcedure) InvalidOid;
+    }
+}
+```

@@ -38,3 +38,18 @@ This design allows for a uniform interface across all plan node types while enab
 - The function returns TupleTableSlot* which may be NULL when no more tuples are available
 - This function is at the heart of PostgreSQL's pull-based execution model, where upper nodes request tuples from lower nodes as needed
 - The uniform interface enables complex query plans to be executed recursively without upper nodes needing to know the specific types of their children
+
+## Simplified Source
+
+```c
+static inline TupleTableSlot *
+ExecProcNode(PlanState *node)
+{
+    // Check if node parameters changed and rescan if needed
+    if (node->chgParam != NULL)
+        ExecReScan(node);
+
+    // Delegate to node-specific execution function
+    return node->ExecProcNode(node);
+}
+```

@@ -44,3 +44,39 @@ The allocated structure includes the strategy metadata and a flexible array of B
 - Converts kilobytes to buffer count using BLCKSZ/1024 division
 - The structure uses a flexible array member for the buffer ring storage
 - Asserts ensure ring_size_kb is non-negative and resulting ring_buffers is positive
+
+## Simplified Source
+
+```c
+BufferAccessStrategy
+GetAccessStrategyWithSize(BufferAccessStrategyType btype, int ring_size_kb)
+{
+    int ring_buffers;
+    BufferAccessStrategy strategy;
+
+    Assert(ring_size_kb >= 0);
+
+    // Convert kilobytes to buffer count based on block size
+    ring_buffers = ring_size_kb / (BLCKSZ / 1024);
+
+    // Return NULL for unlimited (0) ring size
+    if (ring_buffers == 0)
+        return NULL;
+
+    // Cap ring size to 1/8th of shared_buffers to prevent cache monopolization
+    ring_buffers = Min(NBuffers / 8, ring_buffers);
+
+    Assert(ring_buffers > 0);
+
+    // Allocate strategy structure with flexible array for buffers
+    strategy = (BufferAccessStrategy)
+        palloc0(offsetof(BufferAccessStrategyData, buffers) +
+                ring_buffers * sizeof(Buffer));
+
+    // Initialize strategy fields
+    strategy->btype = btype;
+    strategy->nbuffers = ring_buffers;
+
+    return strategy;
+}
+```

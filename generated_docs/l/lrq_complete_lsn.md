@@ -38,3 +38,32 @@ The function performs queue maintenance by:
 - It distinguishes between inflight and completed operations when updating counters
 - The conditional call to lrq_prefetch ensures new prefetch operations are initiated when appropriate
 - Located in src/backend/access/transam/xlogprefetcher.c:272-293
+
+## Simplified Source
+
+```c
+static inline void
+lrq_complete_lsn(LsnReadQueue *lrq, XLogRecPtr lsn)
+{
+    // Remove completed entries from queue tail
+    // All LSNs before 'lsn' have been replayed, so their IOs are finished
+    while (lrq->tail != lrq->head &&
+           lrq->queue[lrq->tail].lsn < lsn)
+    {
+        // Update counters based on entry type
+        if (lrq->queue[lrq->tail].io)
+            lrq->inflight--;     // Was an active IO operation
+        else
+            lrq->completed--;    // Was a completed operation
+
+        // Advance tail with wraparound
+        lrq->tail++;
+        if (lrq->tail == lrq->size)
+            lrq->tail = 0;
+    }
+
+    // Trigger more prefetch operations if enabled
+    if (RecoveryPrefetchEnabled())
+        lrq_prefetch(lrq);
+}
+```

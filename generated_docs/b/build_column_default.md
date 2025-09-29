@@ -51,3 +51,57 @@ The function is critical for INSERT operations where values are not explicitly p
 - Performs type coercion to ensure compatibility with target column type
 - Errors are reported for type mismatches that cannot be resolved through coercion
 - Used extensively in data modification operations and schema changes
+
+## Simplified Source
+
+```c
+Node *
+build_column_default(Relation rel, int attrno)
+{
+    TupleDesc rd_att = rel->rd_att;
+    Form_pg_attribute att_tup = TupleDescAttr(rd_att, attrno - 1);
+    Oid atttype = att_tup->atttypid;
+    int32 atttypmod = att_tup->atttypmod;
+    Node *expr = NULL;
+
+    // Handle identity columns first
+    if (att_tup->attidentity) {
+        NextValueExpr *nve = makeNode(NextValueExpr);
+        nve->seqid = getIdentitySequence(rel, attrno, false);
+        nve->typeId = att_tup->atttypid;
+        return (Node *) nve;
+    }
+
+    // Check for column-specific default
+    if (att_tup->atthasdef) {
+        expr = TupleDescGetDefault(rd_att, attrno);
+        if (expr == NULL)
+            elog(ERROR, "default expression not found for attribute %d", attrno);
+    }
+
+    // Fall back to type default for non-generated columns
+    if (expr == NULL && !att_tup->attgenerated)
+        expr = get_typdefault(atttype);
+
+    // No default available
+    if (expr == NULL)
+        return NULL;
+
+    // Coerce to target type if necessary
+    Oid exprtype = exprType(expr);
+    expr = coerce_to_target_type(NULL, expr, exprtype,
+                                 atttype, atttypmod,
+                                 COERCION_ASSIGNMENT,
+                                 COERCE_IMPLICIT_CAST, -1);
+
+    if (expr == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("column \"%s\" is of type %s but default expression is of type %s",
+                        NameStr(att_tup->attname),
+                        format_type_be(atttype),
+                        format_type_be(exprtype))));
+
+    return expr;
+}
+```

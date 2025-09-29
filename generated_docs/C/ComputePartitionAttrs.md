@@ -53,3 +53,133 @@ The function determines appropriate operator classes based on partitioning strat
 - Provides detailed error messages with location information for debugging
 - Essential for partition constraint generation and tuple routing functionality
 - Part of the table command infrastructure in src/backend/commands/tablecmds.c (lines 18046-18303)
+
+## Simplified Source
+
+```c
+static void ComputePartitionAttrs(ParseState *pstate, Relation rel, List *partParams,
+                                 AttrNumber *partattrs, List **partexprs,
+                                 Oid *partopclass, Oid *partcollation,
+                                 PartitionStrategy strategy) {
+    int attn = 0;
+    ListCell *lc;
+
+    foreach(lc, partParams) {
+        PartitionElem *pelem = lfirst_node(PartitionElem, lc);
+        Oid atttype;
+        Oid attcollation;
+
+        if (pelem->name != NULL) {
+            // Simple column reference
+            HeapTuple atttuple = SearchSysCacheAttName(RelationGetRelid(rel), pelem->name);
+            if (!HeapTupleIsValid(atttuple))
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                        errmsg("column \"%s\" named in partition key does not exist", pelem->name)));
+
+            Form_pg_attribute attform = (Form_pg_attribute) GETSTRUCT(atttuple);
+
+            // Validate column constraints
+            if (attform->attnum <= 0)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                        errmsg("cannot use system column \"%s\" in partition key", pelem->name)));
+
+            if (attform->attgenerated)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                        errmsg("cannot use generated column in partition key")));
+
+            partattrs[attn] = attform->attnum;
+            atttype = attform->atttypid;
+            attcollation = attform->attcollation;
+            ReleaseSysCache(atttuple);
+
+        } else {
+            // Expression
+            Node *expr = pelem->expr;
+            atttype = exprType(expr);
+            attcollation = exprCollation(expr);
+
+            // Validate expression constraints
+            CheckAttributeType(psprintf("%d", attn + 1), atttype, attcollation,
+                              NIL, CHKATYPE_IS_PARTKEY);
+
+            // Strip top-level COLLATE clauses
+            while (IsA(expr, CollateExpr))
+                expr = (Node *) ((CollateExpr *) expr)->arg;
+
+            if (IsA(expr, Var) && ((Var *) expr)->varattno > 0) {
+                // Simple column wrapped in parentheses
+                partattrs[attn] = ((Var *) expr)->varattno;
+            } else {
+                // Complex expression
+                partattrs[attn] = 0;
+                *partexprs = lappend(*partexprs, expr);
+
+                // Validate expression properties
+                Bitmapset *expr_attrs = NULL;
+                pull_varattnos(expr, 1, &expr_attrs);
+
+                // Check for system column references
+                for (int i = FirstLowInvalidHeapAttributeNumber; i < 0; i++) {
+                    if (bms_is_member(i - FirstLowInvalidHeapAttributeNumber, expr_attrs))
+                        ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                                errmsg("partition key expressions cannot contain system column references")));
+                }
+
+                // Check for generated columns
+                int j = -1;
+                while ((j = bms_next_member(expr_attrs, j)) >= 0) {
+                    AttrNumber attno = j + FirstLowInvalidHeapAttributeNumber;
+                    if (attno > 0 && TupleDescAttr(RelationGetDescr(rel), attno - 1)->attgenerated)
+                        ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                                errmsg("cannot use generated column in partition key")));
+                }
+
+                // Check for mutability and constants
+                expr = (Node *) expression_planner((Expr *) expr);
+                if (contain_mutable_functions(expr))
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                            errmsg("functions in partition key expression must be marked IMMUTABLE")));
+
+                if (IsA(expr, Const))
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                            errmsg("cannot use constant expression as partition key")));
+            }
+        }
+
+        // Apply collation override if specified
+        if (pelem->collation)
+            attcollation = get_collation_oid(pelem->collation, false);
+
+        // Validate collation requirements
+        if (type_is_collatable(atttype)) {
+            if (!OidIsValid(attcollation))
+                ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                        errmsg("could not determine collation for partition expression")));
+        } else {
+            if (OidIsValid(attcollation))
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                        errmsg("collations are not supported by type %s", format_type_be(atttype))));
+        }
+
+        partcollation[attn] = attcollation;
+
+        // Determine operator class based on strategy
+        Oid am_oid = (strategy == PARTITION_STRATEGY_HASH) ? HASH_AM_OID : BTREE_AM_OID;
+
+        if (!pelem->opclass) {
+            partopclass[attn] = GetDefaultOpClass(atttype, am_oid);
+            if (!OidIsValid(partopclass[attn])) {
+                char *amname = (strategy == PARTITION_STRATEGY_HASH) ? "hash" : "btree";
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                        errmsg("data type %s has no default operator class for access method \"%s\"",
+                               format_type_be(atttype), amname)));
+            }
+        } else {
+            char *amname = (am_oid == HASH_AM_OID) ? "hash" : "btree";
+            partopclass[attn] = ResolveOpClass(pelem->opclass, atttype, amname, am_oid);
+        }
+
+        attn++;
+    }
+}
+```

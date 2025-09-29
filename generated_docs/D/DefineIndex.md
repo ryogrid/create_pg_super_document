@@ -18,7 +18,7 @@ The function manages user identity and security context carefully, especially fo
 
 Key responsibilities include:
 - Validating the access method and its capabilities
-- Processing index attributes, including key columns and INCLUDE columns  
+- Processing index attributes, including key columns and INCLUDE columns
 - Handling partitioned table constraints and validation
 - Managing concurrent vs. non-concurrent build modes
 - Creating catalog entries and optionally building the index
@@ -48,7 +48,7 @@ For concurrent builds, the function implements a multi-phase process:
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
-  - [CheckPredicate](../C/CheckPredicate.md)  
+  - [CheckPredicate](../C/CheckPredicate.md)
   - [ChooseIndexName](../C/ChooseIndexName.md)
   - [ChooseIndexColumnNames](../C/ChooseIndexColumnNames.md)
   - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md)
@@ -75,3 +75,149 @@ For concurrent builds, the function implements a multi-phase process:
 - Contains special handling for obsolete RTREE access method (converts to GiST)
 - Validates that partition keys are included in unique/exclusion constraints for partitioned tables
 - Located in src/backend/commands/indexcmds.c:540-1791
+
+## Simplified Source
+
+```c
+ObjectAddress
+DefineIndex(Oid tableId, IndexStmt *stmt, Oid indexRelationId,
+           Oid parentIndexId, Oid parentConstraintId, int total_parts,
+           bool is_alter_table, bool check_rights, bool check_not_in_use,
+           bool skip_build, bool quiet)
+{
+    bool concurrent;
+    char *indexRelationName;
+    char *accessMethodName;
+    Oid accessMethodId;
+    Oid namespaceId;
+    Oid tablespaceId;
+    Relation rel;
+    IndexInfo *indexInfo;
+    ObjectAddress address;
+
+    // Setup: Configure security context and GUC settings
+    RestrictSearchPath();
+    if (stmt->reset_default_tblspc)
+        set_config_option("default_tablespace", "", ...);
+
+    // Determine build mode: Force non-concurrent for temp relations
+    concurrent = stmt->concurrent &&
+                 get_rel_persistence(tableId) != RELPERSISTENCE_TEMP;
+
+    // Progress reporting setup
+    if (!OidIsValid(parentIndexId))
+        pgstat_progress_start_command(PROGRESS_COMMAND_CREATE_INDEX, tableId);
+
+    // Validate column counts
+    int numberOfKeyAttributes = list_length(stmt->indexParams);
+    int numberOfAttributes = list_length(allIndexParams);
+    if (numberOfKeyAttributes <= 0 || numberOfAttributes > INDEX_MAX_KEYS)
+        ereport(ERROR, ...);
+
+    // Open and lock the table
+    LockMode lockmode = concurrent ? ShareUpdateExclusiveLock : ShareLock;
+    rel = table_open(tableId, lockmode);
+
+    // Security: Switch to table owner's userid
+    GetUserIdAndSecContext(&root_save_userid, &root_save_sec_context);
+    SetUserIdAndSecContext(rel->rd_rel->relowner,
+                          root_save_sec_context | SECURITY_RESTRICTED_OPERATION);
+
+    // Validate relation kind (tables, matviews, partitioned tables only)
+    switch (rel->rd_rel->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_MATVIEW:
+        case RELKIND_PARTITIONED_TABLE:
+            break;
+        default:
+            ereport(ERROR, ...);
+    }
+
+    // Handle partitioned tables
+    bool partitioned = rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE;
+    if (partitioned && stmt->concurrent)
+        ereport(ERROR, ...); // No concurrent builds on partitioned tables
+
+    // Permission checks
+    if (check_rights && !IsBootstrapProcessingMode())
+        check_namespace_and_tablespace_permissions();
+
+    // Select tablespace
+    if (stmt->tableSpace)
+        tablespaceId = get_tablespace_oid(stmt->tableSpace, false);
+    else
+        tablespaceId = GetDefaultTablespace(rel->rd_rel->relpersistence, partitioned);
+
+    // Choose index name if not specified
+    if (!stmt->idxname)
+        indexRelationName = ChooseIndexName(...);
+
+    // Validate and setup access method
+    accessMethodName = stmt->accessMethod;
+    validate_access_method_capabilities(accessMethodName, stmt);
+
+    // Process index attributes and expressions
+    indexInfo = makeIndexInfo(...);
+    ComputeIndexAttrs(indexInfo, typeIds, collationIds, opclassIds, ...);
+
+    // Special validation for PRIMARY KEY indexes
+    if (stmt->primary)
+        index_check_primary_key(rel, indexInfo, is_alter_table, stmt);
+
+    // Validate unique constraints on partitioned tables
+    if (partitioned && (stmt->unique || stmt->excludeOpNames))
+        validate_partition_key_in_unique_constraint(...);
+
+    // Create the index
+    if (!concurrent) {
+        // Standard index creation
+        indexRelationId = index_create(rel, indexRelationName, ...);
+
+        // Handle partitioned table recursion
+        if (partitioned)
+            create_indexes_on_partitions();
+
+        table_close(rel, NoLock);
+        return address;
+    }
+
+    // Concurrent index creation (multi-phase process)
+
+    // Phase 1: Create catalog entries, mark as not ready
+    indexRelationId = index_create(rel, indexRelationName, ...,
+                                  INDEX_CREATE_SKIP_BUILD);
+
+    // Get session lock and commit to make index visible
+    LockRelationIdForSession(&heaprelid, ShareUpdateExclusiveLock);
+    CommitTransactionCommand();
+    StartTransactionCommand();
+
+    // Phase 2: Wait for existing transactions, then build index
+    WaitForLockers(heaplocktag, ShareLock, true);
+    PushActiveSnapshot(GetTransactionSnapshot());
+    index_concurrently_build(tableId, indexRelationId);
+    PopActiveSnapshot();
+
+    // Phase 3: Commit and wait again for snapshot consistency
+    CommitTransactionCommand();
+    StartTransactionCommand();
+    WaitForLockers(heaplocktag, ShareLock, true);
+
+    // Phase 4: Validate index and mark as ready
+    snapshot = RegisterSnapshot(GetTransactionSnapshot());
+    validate_index(tableId, indexRelationId, snapshot);
+    UnregisterSnapshot(snapshot);
+
+    // Final phase: Wait for older snapshots and mark valid
+    CommitTransactionCommand();
+    StartTransactionCommand();
+    WaitForOlderSnapshots(limitXmin, true);
+    index_set_state_flags(indexRelationId, INDEX_CREATE_SET_VALID);
+
+    // Cleanup and release session lock
+    UnlockRelationIdForSession(&heaprelid, ShareUpdateExclusiveLock);
+    pgstat_progress_end_command();
+
+    return address;
+}
+```

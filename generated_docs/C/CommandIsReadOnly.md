@@ -31,3 +31,39 @@ The function examines the command type and specific characteristics of SELECT st
 - Conservatively returns false for all utility commands, as they require separate analysis
 - Used primarily in contexts where avoiding CommandCounterIncrement is beneficial for performance
 - Part of the query execution optimization framework in PostgreSQL
+
+## Simplified Source
+
+```c
+bool
+CommandIsReadOnly(PlannedStmt *pstmt)
+{
+    // Check command type to determine if truly read-only
+    switch (pstmt->commandType)
+    {
+        case CMD_SELECT:
+            // SELECT is read-only unless it has locking or modifying CTEs
+            if (pstmt->rowMarks != NIL)
+                return false;  // SELECT FOR UPDATE/SHARE
+            else if (pstmt->hasModifyingCTE)
+                return false;  // Data-modifying CTE
+            else
+                return true;   // Pure SELECT
+
+        case CMD_UPDATE:
+        case CMD_INSERT:
+        case CMD_DELETE:
+        case CMD_MERGE:
+            return false;      // All modification commands
+
+        case CMD_UTILITY:
+            return false;      // Utility commands treated as read/write
+
+        default:
+            // Unknown command type - log warning and treat as read/write
+            elog(WARNING, "unrecognized commandType: %d",
+                 (int) pstmt->commandType);
+            return false;
+    }
+}
+```

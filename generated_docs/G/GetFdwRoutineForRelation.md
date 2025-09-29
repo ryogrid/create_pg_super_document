@@ -46,3 +46,42 @@ The function provides memory management flexibility through the `makecopy` param
 - makecopy=true: Returns freshly palloc'd copy safe for long-term use
 - makecopy=false: Returns pointer to cached data, valid only until relcache reset
 - Essential for performance in scenarios with repeated FDW operations on same table
+
+## Simplified Source
+
+```c
+FdwRoutine *
+GetFdwRoutineForRelation(Relation relation, bool makecopy)
+{
+    FdwRoutine *fdwroutine;
+    FdwRoutine *cached_routine;
+
+    // Check if we already have cached FDW routine
+    if (relation->rd_fdwroutine == NULL)
+    {
+        // First time: lookup FDW routine from catalogs
+        fdwroutine = GetFdwRoutineByRelId(RelationGetRelid(relation));
+
+        // Cache the routine in relation cache for future use
+        cached_routine = (FdwRoutine *) MemoryContextAlloc(CacheMemoryContext,
+                                                           sizeof(FdwRoutine));
+        memcpy(cached_routine, fdwroutine, sizeof(FdwRoutine));
+        relation->rd_fdwroutine = cached_routine;
+
+        // Return the original copy
+        return fdwroutine;
+    }
+
+    // We have cached data - check if caller wants a copy
+    if (makecopy)
+    {
+        // Create fresh copy for caller
+        fdwroutine = (FdwRoutine *) palloc(sizeof(FdwRoutine));
+        memcpy(fdwroutine, relation->rd_fdwroutine, sizeof(FdwRoutine));
+        return fdwroutine;
+    }
+
+    // Return pointer to cached data (valid until relcache reset)
+    return relation->rd_fdwroutine;
+}
+```

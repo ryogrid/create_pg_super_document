@@ -46,3 +46,19 @@ The function assumes that the partition has the same column structure as the par
 - This function is typically called during partition attachment operations to ensure constraint consistency across the partition hierarchy
 - The function validates that the parent relation is indeed a partitioned table through an assertion
 - Both helper functions handle the complexity of attribute mapping, trigger creation, and dependency management for their respective constraint sides
+
+## Simplified Source
+
+```c
+static void CloneForeignKeyConstraints(List **wqueue, Relation parentRel,
+                                      Relation partitionRel) {
+    // Validate that parent is a partitioned table
+    Assert(parentRel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE);
+
+    // Clone constraints where parent is on the referencing side
+    CloneFkReferencing(wqueue, parentRel, partitionRel);
+
+    // Clone constraints where parent is on the referenced side
+    CloneFkReferenced(parentRel, partitionRel);
+}
+```

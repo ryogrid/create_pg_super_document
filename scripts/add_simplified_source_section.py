@@ -414,7 +414,7 @@ Start processing the batch now. Your final output should be only the JSON array.
             logging.info(f"Elapsed Time: {elapsed_str}")
             
             if elapsed > 0 and processed > 0:
-                rate = (self.stats['completed'] + self.stags['failed'] * 0.7) / (elapsed / 60)
+                rate = (self.stats['completed'] + self.stats['failed'] * 0.7) / (elapsed / 60)
                 logging.info(f"Processing Rate: {rate:.1f} functions/minute")
                 remaining = self.stats['total'] - processed
                 if rate > 0:
