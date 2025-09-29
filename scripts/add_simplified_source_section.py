@@ -17,9 +17,9 @@ import re
 
 # --- Configuration ---
 # Default number of parallel claude commands to run
-DEFAULT_MAX_PARALLEL_COMMANDS = 5
+DEFAULT_MAX_PARALLEL_COMMANDS = 3
 # Number of functions to process in a single claude command
-FUNCTIONS_PER_COMMAND = 3
+FUNCTIONS_PER_COMMAND = 5
 # --- End Configuration ---
 
 # Configure logging
