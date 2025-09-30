@@ -39,3 +39,27 @@ This function provides a concise statistical summary of a GEQO population at a s
 - Output format: 'generation | Best: value Worst: value Mean: value Avg: value'
 - Automatically flushes output to ensure immediate visibility
 - Mean refers to the median value (middle chromosome), while Avg is the true arithmetic average
+
+## Simplified Source
+
+```c
+void
+print_gen(FILE *fp, Pool *pool, int generation)
+{
+    int lowest;
+
+    // Get index to lowest ranking gene in population
+    // Use 2nd to last since last is buffer
+    lowest = pool->size > 1 ? pool->size - 2 : 0;
+
+    fprintf(fp,
+            "%5d | Best: %g  Worst: %g  Mean: %g  Avg: %g\n",
+            generation,
+            pool->data[0].worth,          // Best (first)
+            pool->data[lowest].worth,     // Worst (second to last)
+            pool->data[pool->size / 2].worth,  // Median (middle)
+            avg_pool(pool));              // Average (calculated)
+
+    fflush(fp);
+}
+```

@@ -53,3 +53,136 @@ The function handles partial updates efficiently by preserving unchanged attribu
 - Does not create dependencies on the PUBLIC role
 - Returns ObjectAddress of the modified policy for use by event and dependency systems
 - Completely rebuilds all dependency records rather than incrementally updating them for simplicity and correctness
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterPolicy(AlterPolicyStmt *stmt)
+{
+    Relation pg_policy_rel, target_table;
+    Oid policy_id, table_id;
+    HeapTuple policy_tuple, new_tuple;
+    ScanKeyData skey[2];
+    SysScanDesc sscan;
+
+    Datum role_oids = NULL;
+    int nitems = 0;
+    ArrayType *role_ids = NULL;
+    Node *qual = NULL, *with_check_qual = NULL;
+    List *qual_parse_rtable = NIL, *with_check_parse_rtable = NIL;
+
+    Datum values[Natts_pg_policy];
+    bool isnull[Natts_pg_policy], replaces[Natts_pg_policy];
+    ObjectAddress target, myself;
+
+    // Parse new roles if provided
+    if (stmt->roles != NULL) {
+        role_oids = policy_role_list_to_array(stmt->roles, &nitems);
+        role_ids = construct_array_builtin(role_oids, nitems, OIDOID);
+    }
+
+    // Get table ID and lock it
+    table_id = RangeVarGetRelidExtended(stmt->table, AccessExclusiveLock, 0,
+                                       RangeVarCallbackForPolicy, (void *) stmt);
+    target_table = relation_open(table_id, NoLock);
+
+    // Parse new USING clause if provided
+    if (stmt->qual) {
+        ParseState *qual_pstate = make_parsestate(NULL);
+        nsitem = addRangeTableEntryForRelation(qual_pstate, target_table,
+                                              AccessShareLock, NULL, false, false);
+        addNSItemToQuery(qual_pstate, nsitem, false, true, true);
+        qual = transformWhereClause(qual_pstate, stmt->qual, EXPR_KIND_POLICY, "POLICY");
+        assign_expr_collations(qual_pstate, qual);
+        qual_parse_rtable = qual_pstate->p_rtable;
+        free_parsestate(qual_pstate);
+    }
+
+    // Parse new WITH CHECK clause if provided
+    if (stmt->with_check) {
+        // Similar parsing process for WITH CHECK clause
+        ParseState *with_check_pstate = make_parsestate(NULL);
+        // ... parsing logic similar to qual ...
+    }
+
+    // Find the policy to update
+    pg_policy_rel = table_open(PolicyRelationId, RowExclusiveLock);
+    ScanKeyInit(&skey[0], Anum_pg_policy_polrelid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(table_id));
+    ScanKeyInit(&skey[1], Anum_pg_policy_polname, BTEqualStrategyNumber,
+                F_NAMEEQ, CStringGetDatum(stmt->policy_name));
+
+    sscan = systable_beginscan(pg_policy_rel, PolicyPolrelidPolnameIndexId,
+                              true, NULL, 2, skey);
+    policy_tuple = systable_getnext(sscan);
+
+    if (!HeapTupleIsValid(policy_tuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("policy \"%s\" for table \"%s\" does not exist",
+                             stmt->policy_name, RelationGetRelationName(target_table))));
+
+    // Validate command-specific constraints
+    polcmd = DatumGetChar(heap_getattr(policy_tuple, Anum_pg_policy_polcmd,
+                                      RelationGetDescr(pg_policy_rel), &polcmd_isnull));
+
+    if ((polcmd == ACL_SELECT_CHR || polcmd == ACL_DELETE_CHR) && stmt->with_check != NULL)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("only USING expression allowed for SELECT, DELETE")));
+
+    // Build updated tuple
+    memset(values, 0, sizeof(values));
+    memset(replaces, 0, sizeof(replaces));
+    memset(isnull, 0, sizeof(isnull));
+
+    if (role_ids != NULL) {
+        replaces[Anum_pg_policy_polroles - 1] = true;
+        values[Anum_pg_policy_polroles - 1] = PointerGetDatum(role_ids);
+    }
+
+    if (qual != NULL) {
+        replaces[Anum_pg_policy_polqual - 1] = true;
+        values[Anum_pg_policy_polqual - 1] = CStringGetTextDatum(nodeToString(qual));
+    }
+
+    if (with_check_qual != NULL) {
+        replaces[Anum_pg_policy_polwithcheck - 1] = true;
+        values[Anum_pg_policy_polwithcheck - 1] = CStringGetTextDatum(nodeToString(with_check_qual));
+    }
+
+    // Update the policy
+    new_tuple = heap_modify_tuple(policy_tuple, RelationGetDescr(pg_policy_rel),
+                                 values, isnull, replaces);
+    CatalogTupleUpdate(pg_policy_rel, &new_tuple->t_self, new_tuple);
+
+    // Rebuild all dependencies
+    policy_id = ((Form_pg_policy) GETSTRUCT(policy_tuple))->oid;
+    deleteDependencyRecordsFor(PolicyRelationId, policy_id, false);
+    deleteSharedDependencyRecordsFor(PolicyRelationId, policy_id, 0);
+
+    // Record new dependencies
+    myself.classId = PolicyRelationId;
+    myself.objectId = policy_id;
+    myself.objectSubId = 0;
+
+    recordDependencyOnExpr(&myself, qual, qual_parse_rtable, DEPENDENCY_NORMAL);
+    recordDependencyOnExpr(&myself, with_check_qual, with_check_parse_rtable, DEPENDENCY_NORMAL);
+
+    // Record role dependencies
+    for (i = 0; i < nitems; i++) {
+        target.objectId = DatumGetObjectId(role_oids[i]);
+        if (target.objectId != ACL_ID_PUBLIC)
+            recordSharedDependencyOn(&myself, &target, SHARED_DEPENDENCY_POLICY);
+    }
+
+    InvokeObjectPostAlterHook(PolicyRelationId, policy_id, 0);
+    CacheInvalidateRelcache(target_table);
+
+    // Cleanup
+    systable_endscan(sscan);
+    relation_close(target_table, NoLock);
+    table_close(pg_policy_rel, RowExclusiveLock);
+
+    return myself;
+}
+```

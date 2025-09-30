@@ -51,3 +51,40 @@ The function also maintains Foreign Data Wrapper (FDW) context by copying server
 - The function preserves FDW context, enabling push-down of grouping operations to foreign servers when possible
 - Parallel safety is determined conservatively - all components must be parallel-safe for the grouped relation to support parallel execution
 - This is a foundational function in the grouping planning process, setting up the relation that will hold various grouping execution strategies
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+make_grouping_rel(PlannerInfo *root, RelOptInfo *input_rel,
+                  PathTarget *target, bool target_parallel_safe,
+                  Node *havingQual)
+{
+    RelOptInfo *grouped_rel;
+
+    // Create upper relation based on input relation type
+    if (IS_OTHER_REL(input_rel)) {
+        grouped_rel = fetch_upper_rel(root, UPPERREL_GROUP_AGG, input_rel->relids);
+        grouped_rel->reloptkind = RELOPT_OTHER_UPPER_REL;
+    } else {
+        // Main grouping relation uses NULL relids by tradition
+        grouped_rel = fetch_upper_rel(root, UPPERREL_GROUP_AGG, NULL);
+    }
+
+    // Set the target output columns
+    grouped_rel->reltarget = target;
+
+    // Determine parallel safety: input must be parallel-safe AND target AND HAVING
+    if (input_rel->consider_parallel && target_parallel_safe &&
+        is_parallel_safe(root, (Node *) havingQual))
+        grouped_rel->consider_parallel = true;
+
+    // Copy FDW context for potential push-down operations
+    grouped_rel->serverid = input_rel->serverid;
+    grouped_rel->userid = input_rel->userid;
+    grouped_rel->useridiscurrent = input_rel->useridiscurrent;
+    grouped_rel->fdwroutine = input_rel->fdwroutine;
+
+    return grouped_rel;
+}
+```

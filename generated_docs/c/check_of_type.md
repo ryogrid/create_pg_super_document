@@ -42,3 +42,31 @@ If the type fails validation, the function raises an error with an appropriate m
 - The AccessShareLock is retained until transaction commit to prevent race conditions
 - The function is part of PostgreSQL's typed table feature implementation
 - Error messages use format_type_be() to provide user-friendly type names
+
+## Simplified Source
+
+```c
+void check_of_type(HeapTuple typetuple) {
+    Form_pg_type type_form = (Form_pg_type) GETSTRUCT(typetuple);
+    bool type_valid = false;
+
+    // Check if this is a composite type
+    if (type_form->typtype == TYPTYPE_COMPOSITE) {
+        // Open the type's relation to check its kind
+        Relation type_relation = relation_open(type_form->typrelid, AccessShareLock);
+
+        // Only composite types created with CREATE TYPE AS are allowed
+        type_valid = (type_relation->rd_rel->relkind == RELKIND_COMPOSITE_TYPE);
+
+        // Close relation but keep lock until transaction end
+        relation_close(type_relation, NoLock);
+    }
+
+    // Error if type is not suitable for typed tables
+    if (!type_valid)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("type %s is not a composite type",
+                        format_type_be(type_form->oid))));
+}
+```

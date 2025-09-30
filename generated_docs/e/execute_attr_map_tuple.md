@@ -39,3 +39,33 @@ The conversion process involves three main steps: 1) decomposing the input tuple
 - The function asserts that the attribute map length matches the output descriptor's attribute count
 - Returns a newly allocated HeapTuple that must be managed by the caller
 - Efficient for repeated conversions as workspace arrays are reused
+
+## Simplified Source
+
+```c
+HeapTuple
+execute_attr_map_tuple(HeapTuple tuple, TupleConversionMap *map)
+{
+    AttrMap *attrMap = map->attrMap;
+    Datum *invalues = map->invalues;
+    bool *inisnull = map->inisnull;
+    Datum *outvalues = map->outvalues;
+    bool *outisnull = map->outisnull;
+    int i;
+
+    // Extract all values from input tuple
+    // invalues[0] stays NULL, invalues[1] = first attribute
+    heap_deform_tuple(tuple, map->indesc, invalues + 1, inisnull + 1);
+
+    // Map input attributes to output positions
+    Assert(attrMap->maplen == map->outdesc->natts);
+    for (i = 0; i < attrMap->maplen; i++) {
+        int j = attrMap->attnums[i];
+        outvalues[i] = invalues[j];
+        outisnull[i] = inisnull[j];
+    }
+
+    // Form the new tuple
+    return heap_form_tuple(map->outdesc, outvalues, outisnull);
+}
+```

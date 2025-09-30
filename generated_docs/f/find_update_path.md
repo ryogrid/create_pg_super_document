@@ -52,3 +52,76 @@ The algorithm ensures optimal update paths while providing flexibility for diffe
 - Early termination when target found or all remaining vertices unreachable
 - Static function only used within extension.c module
 - Distance field uses INT_MAX to represent infinity/unreachable state
+
+## Simplified Source
+
+```c
+static List *find_update_path(List *evi_list,
+                             ExtensionVersionInfo *evi_start,
+                             ExtensionVersionInfo *evi_target,
+                             bool reject_indirect,
+                             bool reinitialize) {
+    Assert(evi_start != evi_target);
+    Assert(!(reject_indirect && evi_target->installable));
+
+    // Initialize all vertices if needed
+    if (reinitialize) {
+        ListCell *lc;
+        foreach(lc, evi_list) {
+            ExtensionVersionInfo *evi = (ExtensionVersionInfo *) lfirst(lc);
+            evi->distance_known = false;
+            evi->distance = INT_MAX;
+            evi->previous = NULL;
+        }
+    }
+
+    // Start Dijkstra's algorithm
+    evi_start->distance = 0;
+
+    // Process vertices in order of distance
+    ExtensionVersionInfo *evi;
+    while ((evi = get_nearest_unprocessed_vertex(evi_list)) != NULL) {
+        if (evi->distance == INT_MAX)
+            break;  // All remaining vertices unreachable
+
+        evi->distance_known = true;
+
+        if (evi == evi_target)
+            break;  // Found shortest path to target
+
+        // Update distances to reachable neighbors
+        ListCell *lc;
+        foreach(lc, evi->reachable) {
+            ExtensionVersionInfo *evi2 = (ExtensionVersionInfo *) lfirst(lc);
+
+            // Skip installable versions if requested
+            if (reject_indirect && evi2->installable)
+                continue;
+
+            int newdist = evi->distance + 1;
+
+            if (newdist < evi2->distance) {
+                // Found shorter path
+                evi2->distance = newdist;
+                evi2->previous = evi;
+            } else if (newdist == evi2->distance &&
+                      evi2->previous != NULL &&
+                      strcmp(evi->name, evi2->previous->name) < 0) {
+                // Break ties deterministically by version name
+                evi2->previous = evi;
+            }
+        }
+    }
+
+    // Check if target is reachable
+    if (!evi_target->distance_known)
+        return NIL;
+
+    // Build path by following previous pointers backward
+    List *result = NIL;
+    for (evi = evi_target; evi != evi_start; evi = evi->previous)
+        result = lcons(evi->name, result);
+
+    return result;
+}
+```

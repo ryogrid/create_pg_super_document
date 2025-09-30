@@ -48,3 +48,48 @@ After validation, it updates the pg_subscription catalog, adjusts the dependency
 - Updates both catalog and dependency system atomically within the same transaction
 - Automatically notifies background processes to handle ownership changes immediately rather than waiting for periodic checks
 - Permission model aligns with database schema ownership changes (requires CREATE on database)
+
+## Simplified Source
+
+```c
+static void AlterSubscriptionOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId) {
+    Form_pg_subscription form = (Form_pg_subscription) GETSTRUCT(tup);
+
+    // Skip if owner is already the same
+    if (form->subowner == newOwnerId)
+        return;
+
+    // Must own the subscription
+    if (!object_ownercheck(SubscriptionRelationId, form->oid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SUBSCRIPTION, NameStr(form->subname));
+
+    // Non-superusers cannot modify subscriptions with password_required=false
+    if (!form->subpasswordrequired && !superuser())
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("password_required=false is superuser-only"),
+                       errhint("Subscriptions with the password_required option set to false may only be created or modified by the superuser.")));
+
+    // Must be able to become new owner
+    check_can_set_role(GetUserId(), newOwnerId);
+
+    // Current owner must have CREATE privilege on database
+    AclResult aclresult = object_aclcheck(DatabaseRelationId, MyDatabaseId,
+                                         GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_DATABASE, get_database_name(MyDatabaseId));
+
+    // Update the catalog record
+    form->subowner = newOwnerId;
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    // Update dependency tracking
+    changeDependencyOnOwner(SubscriptionRelationId, form->oid, newOwnerId);
+
+    // Notify other subsystems
+    InvokeObjectPostAlterHook(SubscriptionRelationId, form->oid, 0);
+
+    // Wake up background processes to handle ownership change quickly
+    ApplyLauncherWakeupAtCommit();
+    LogicalRepWorkersWakeupAtCommit(form->oid);
+}
+```

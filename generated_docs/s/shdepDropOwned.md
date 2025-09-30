@@ -52,3 +52,116 @@ The function uses a two-phase approach: grants and policy modifications are hand
 - Sorting objects before deletion provides stable error reporting and may improve performance
 - Handles different shared dependency types (OWNER, ACL, POLICY, INITACL) with type-specific logic
 - Part of the role management infrastructure, typically called during DROP OWNED BY operations
+
+## Simplified Source
+
+```c
+void
+shdepDropOwned(List *roleids, DropBehavior behavior)
+{
+    Relation sdepRel;
+    ListCell *cell;
+    ObjectAddresses *deleteobjs;
+
+    deleteobjs = new_object_addresses();
+
+    // Open shared dependency catalog with exclusive lock
+    sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    // Process each role to find dependent objects
+    foreach(cell, roleids) {
+        Oid roleid = lfirst_oid(cell);
+        ScanKeyData key[2];
+        SysScanDesc scan;
+        HeapTuple tuple;
+
+        // Check if role is pinned (system-critical)
+        if (IsPinnedObject(AuthIdRelationId, roleid)) {
+            ObjectAddress obj;
+            obj.classId = AuthIdRelationId;
+            obj.objectId = roleid;
+            obj.objectSubId = 0;
+            ereport(ERROR, (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                           errmsg("cannot drop objects owned by %s because they are "
+                                  "required by the database system",
+                                  getObjectDescription(&obj, false))));
+        }
+
+        // Set up scan keys for this role
+        ScanKeyInit(&key[0], Anum_pg_shdepend_refclassid,
+                   BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(AuthIdRelationId));
+        ScanKeyInit(&key[1], Anum_pg_shdepend_refobjid,
+                   BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roleid));
+
+        scan = systable_beginscan(sdepRel, SharedDependReferenceIndexId, true, NULL, 2, key);
+
+        while ((tuple = systable_getnext(scan)) != NULL) {
+            Form_pg_shdepend sdepForm = (Form_pg_shdepend) GETSTRUCT(tuple);
+            ObjectAddress obj;
+
+            // Only process objects in current database or shared objects
+            if (sdepForm->dbid != MyDatabaseId && sdepForm->dbid != InvalidOid)
+                continue;
+
+            switch (sdepForm->deptype) {
+                case SHARED_DEPENDENCY_POLICY:
+                    // Try to remove role from policy; if unable, delete policy
+                    if (!RemoveRoleFromObjectPolicy(roleid, sdepForm->classid, sdepForm->objid)) {
+                        obj.classId = sdepForm->classid;
+                        obj.objectId = sdepForm->objid;
+                        obj.objectSubId = sdepForm->objsubid;
+
+                        AcquireDeletionLock(&obj, 0);
+                        if (systable_recheck_tuple(scan, tuple)) {
+                            add_exact_object_address(&obj, deleteobjs);
+                        } else {
+                            ReleaseDeletionLock(&obj);
+                        }
+                    }
+                    break;
+
+                case SHARED_DEPENDENCY_ACL:
+                    // Remove role from ACL (unless it's role membership)
+                    if (sdepForm->classid != AuthMemRelationId) {
+                        RemoveRoleFromObjectACL(roleid, sdepForm->classid, sdepForm->objid);
+                        break;
+                    }
+                    // Fall through for role membership
+
+                case SHARED_DEPENDENCY_OWNER:
+                    // Schedule for deletion if local object or role grant
+                    if (sdepForm->dbid == MyDatabaseId || sdepForm->classid == AuthMemRelationId) {
+                        obj.classId = sdepForm->classid;
+                        obj.objectId = sdepForm->objid;
+                        obj.objectSubId = sdepForm->objsubid;
+
+                        AcquireDeletionLock(&obj, 0);
+                        if (systable_recheck_tuple(scan, tuple)) {
+                            add_exact_object_address(&obj, deleteobjs);
+                        } else {
+                            ReleaseDeletionLock(&obj);
+                        }
+                    }
+                    break;
+
+                case SHARED_DEPENDENCY_INITACL:
+                    // Remove role from initial privileges
+                    RemoveRoleFromInitPriv(roleid, sdepForm->classid,
+                                         sdepForm->objid, sdepForm->objsubid);
+                    break;
+
+                default:
+                    elog(ERROR, "unexpected dependency type");
+            }
+        }
+        systable_endscan(scan);
+    }
+
+    // Sort objects for stable deletion order and perform batch deletion
+    sort_object_addresses(deleteobjs);
+    performMultipleDeletions(deleteobjs, behavior, 0);
+
+    table_close(sdepRel, RowExclusiveLock);
+    free_object_addresses(deleteobjs);
+}
+```

@@ -29,3 +29,19 @@ The `makeJsonBehavior` function is a constructor that creates and initializes a 
 
 ## Notes and Other Information
 This function is essential for implementing SQL/JSON standard compliance in PostgreSQL, particularly for handling the ON ERROR and ON EMPTY clauses that can be specified in JSON functions. The behavior nodes created by this function define how the system should respond to various exceptional conditions during JSON processing. The location parameter is important for providing accurate error messages that point to the correct position in the original SQL query.
+
+## Simplified Source
+
+```c
+JsonBehavior *
+makeJsonBehavior(JsonBehaviorType btype, Node *expr, int location)
+{
+    JsonBehavior *behavior = makeNode(JsonBehavior);
+
+    behavior->btype = btype;
+    behavior->expr = expr;
+    behavior->location = location;
+
+    return behavior;
+}
+```

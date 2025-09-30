@@ -55,3 +55,49 @@ The function returns  if it finds any matching PHV, allowing early termination o
 - Part of the dependency analysis infrastructure for join tree optimization
 - The assertions help catch programming errors where auxiliary planner nodes appear in unexpected contexts
 - Returns true on first match for efficiency (early termination)
+
+## Simplified Source
+
+```c
+static bool
+find_dependent_phvs_walker(Node *node, find_dependent_phvs_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check if this is a matching PlaceHolderVar
+    if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Match level and relation sets exactly
+        if (phv->phlevelsup == context->sublevels_up &&
+            bms_equal(context->relids, phv->phrels))
+            return true;  // Found dependent PHV
+
+        // Continue examining children
+    }
+
+    // Handle subqueries with proper level tracking
+    if (IsA(node, Query))
+    {
+        bool result;
+
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node,
+                                 find_dependent_phvs_walker,
+                                 (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Verify we don't encounter unexpected planner nodes
+    Assert(!IsA(node, SpecialJoinInfo));
+    Assert(!IsA(node, PlaceHolderInfo));
+    Assert(!IsA(node, MinMaxAggInfo));
+
+    // Recurse through general expression tree
+    return expression_tree_walker(node, find_dependent_phvs_walker,
+                                (void *) context);
+}
+```

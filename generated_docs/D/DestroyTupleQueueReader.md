@@ -28,3 +28,13 @@ This function performs cleanup of a TupleQueueReader by freeing the memory alloc
 - Should be called for every TupleQueueReader created with CreateTupleQueueReader to prevent memory leaks
 - The underlying queue may already be detached when this function is called, which is acceptable
 - Part of PostgreSQL's parallel execution cleanup process
+
+## Simplified Source
+
+```c
+void DestroyTupleQueueReader(TupleQueueReader *reader) {
+    // Free the reader structure memory
+    // Note: caller responsible for cleaning up underlying shm_mq
+    pfree(reader);
+}
+```

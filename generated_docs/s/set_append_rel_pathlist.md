@@ -37,3 +37,45 @@ The function handles parallel safety propagation by ensuring that if the parent 
 - Parallel safety is propagated from parent to children to ensure consistent parallel execution planning
 - The live_childrels list maintains only non-dummy children for efficient path generation
 - This function is part of the PostgreSQL query optimizer's path generation phase
+
+## Simplified Source
+
+```c
+static void set_append_rel_pathlist(PlannerInfo *root, RelOptInfo *rel,
+                                   Index rti, RangeTblEntry *rte) {
+    int parentRTindex = rti;
+    List *live_childrels = NIL;
+    ListCell *l;
+
+    // Process each child relation in the append relation
+    foreach(l, root->append_rel_list) {
+        AppendRelInfo *appinfo = (AppendRelInfo *) lfirst(l);
+
+        // Skip children that don't belong to this parent
+        if (appinfo->parent_relid != parentRTindex)
+            continue;
+
+        // Get child relation information
+        int childRTindex = appinfo->child_relid;
+        RangeTblEntry *childRTE = root->simple_rte_array[childRTindex];
+        RelOptInfo *childrel = root->simple_rel_array[childRTindex];
+
+        // Propagate parallel safety from parent to child
+        if (!rel->consider_parallel)
+            childrel->consider_parallel = false;
+
+        // Generate access paths for this child relation
+        set_rel_pathlist(root, childrel, childRTindex, childRTE);
+
+        // Skip dummy (empty) child relations
+        if (IS_DUMMY_REL(childrel))
+            continue;
+
+        // Add live child to list for path combination
+        live_childrels = lappend(live_childrels, childrel);
+    }
+
+    // Combine child paths into parent append relation paths
+    add_paths_to_append_rel(root, rel, live_childrels);
+}
+```

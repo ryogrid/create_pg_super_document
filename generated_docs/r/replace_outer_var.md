@@ -37,3 +37,29 @@ The function first validates that the Var is indeed from an outer level, then ca
 - All type-related information (type, typmod, collation) is copied from the original Var
 - The location information is preserved for error reporting purposes
 - This function is declared in optimizer/paramassign.h and is part of the public interface for parameter assignment
+
+## Simplified Source
+
+```c
+Param *replace_outer_var(PlannerInfo *root, Var *var) {
+    Param *retval;
+    int i;
+
+    // Validate that this is an outer variable reference
+    Assert(var->varlevelsup > 0 && var->varlevelsup < root->query_level);
+
+    // Find or create parameter ID for this variable
+    i = assign_param_for_var(root, var);
+
+    // Create the parameter node to replace the variable
+    retval = makeNode(Param);
+    retval->paramkind = PARAM_EXEC;
+    retval->paramid = i;
+    retval->paramtype = var->vartype;
+    retval->paramtypmod = var->vartypmod;
+    retval->paramcollid = var->varcollid;
+    retval->location = var->location;
+
+    return retval;
+}
+```

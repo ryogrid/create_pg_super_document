@@ -38,3 +38,28 @@ This function provides an OID-based alternative to the name-based foreign server
 - Uses RowExclusiveLock on the catalog to prevent concurrent modifications
 - Part of PostgreSQL's shared dependency management infrastructure
 - Primarily used during role reassignment and cleanup operations
+
+## Simplified Source
+
+```c
+void AlterForeignServerOwner_oid(Oid srvId, Oid newOwnerId)
+{
+    // Open foreign server catalog table
+    Relation rel = table_open(ForeignServerRelationId, RowExclusiveLock);
+
+    // Find server by OID
+    HeapTuple tup = SearchSysCacheCopy1(FOREIGNSERVEROID, ObjectIdGetDatum(srvId));
+
+    // Validate server exists
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("foreign server with OID %u does not exist", srvId)));
+
+    // Perform ownership change
+    AlterForeignServerOwner_internal(rel, tup, newOwnerId);
+
+    // Cleanup resources
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

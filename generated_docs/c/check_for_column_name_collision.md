@@ -44,3 +44,47 @@ The function deliberately ignores dropped columns (attisdropped) during the chec
 - System columns (attnum <= 0) always trigger an error regardless of if_not_exists flag
 - The function is static, meaning it's only used within tablecmds.c
 - Deliberately does not consider dropped columns to avoid confusion with reusing dropped column names
+
+## Simplified Source
+
+```c
+static bool
+check_for_column_name_collision(Relation rel, const char *colname, bool if_not_exists)
+{
+    // Search for existing column with the same name (ignoring dropped columns)
+    HeapTuple attTuple = SearchSysCache2(ATTNAME,
+                                         ObjectIdGetDatum(RelationGetRelid(rel)),
+                                         PointerGetDatum(colname));
+
+    // No collision found - safe to proceed
+    if (!HeapTupleIsValid(attTuple))
+        return true;
+
+    // Get attribute number to distinguish system vs user columns
+    int attnum = ((Form_pg_attribute) GETSTRUCT(attTuple))->attnum;
+    ReleaseSysCache(attTuple);
+
+    // System column collision - always error
+    if (attnum <= 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_COLUMN),
+                 errmsg("column name \"%s\" conflicts with a system column name", colname)));
+
+    // User column collision - handle based on if_not_exists flag
+    if (if_not_exists) {
+        ereport(NOTICE,
+                (errcode(ERRCODE_DUPLICATE_COLUMN),
+                 errmsg("column \"%s\" of relation \"%s\" already exists, skipping",
+                        colname, RelationGetRelationName(rel))));
+        return false;  // Signal to skip operation
+    }
+
+    // Error on collision when if_not_exists is false
+    ereport(ERROR,
+            (errcode(ERRCODE_DUPLICATE_COLUMN),
+             errmsg("column \"%s\" of relation \"%s\" already exists",
+                    colname, RelationGetRelationName(rel))));
+
+    return true;
+}
+```

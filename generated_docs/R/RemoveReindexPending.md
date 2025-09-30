@@ -33,3 +33,18 @@ RemoveReindexPending is a static function that removes a specific index from the
 - Typically called when an index transitions from "pending" to "processing" state
 - This is a static function within src/backend/catalog/index.c and is not exposed outside this module
 - The function modifies the global pendingReindexedIndexes list directly
+
+## Simplified Source
+
+```c
+static void
+RemoveReindexPending(Oid indexOid)
+{
+    // Safety check: prevent modification during parallel operations
+    if (IsInParallelMode())
+        elog(ERROR, "cannot modify reindex state during a parallel operation");
+
+    // Remove the index from the pending list
+    pendingReindexedIndexes = list_delete_oid(pendingReindexedIndexes, indexOid);
+}
+```

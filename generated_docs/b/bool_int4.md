@@ -31,3 +31,17 @@ This function implements the type conversion from PostgreSQL's boolean data type
 - The conversion is straightforward: false → 0, true → 1
 - Used for explicit casts like `SELECT true::int` or implicit casts in integer contexts
 - Particularly important for JSON operations where boolean values may need integer representation
+
+## Simplified Source
+
+```c
+Datum
+bool_int4(PG_FUNCTION_ARGS)
+{
+    // Convert boolean to integer: false -> 0, true -> 1
+    if (PG_GETARG_BOOL(0) == false)
+        PG_RETURN_INT32(0);
+    else
+        PG_RETURN_INT32(1);
+}
+```

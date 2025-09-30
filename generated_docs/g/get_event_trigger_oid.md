@@ -35,3 +35,21 @@ This function performs a catalog lookup to find the OID of an event trigger give
 - Throws ERRCODE_UNDEFINED_OBJECT error when trigger not found and missing_ok is false
 - Part of the event trigger management API in PostgreSQL
 - Commonly used by DDL commands and system functions that need to resolve event trigger names to OIDs
+
+## Simplified Source
+
+```c
+Oid get_event_trigger_oid(const char *trigname, bool missing_ok) {
+    // Look up event trigger OID in system cache
+    Oid oid = GetSysCacheOid1(EVENTTRIGGERNAME, Anum_pg_event_trigger_oid,
+                              CStringGetDatum(trigname));
+
+    // Handle missing trigger based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("event trigger \"%s\" does not exist", trigname)));
+    }
+
+    return oid;
+}
+```

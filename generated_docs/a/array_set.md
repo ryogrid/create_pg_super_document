@@ -53,4 +53,21 @@ The function converts the input ArrayType pointer to a Datum, calls  to perform 
 - Returns a new ArrayType rather than modifying the original array in place
 - Critical for PostgreSQL's configuration system (GUC arrays) and extension management
 - The function adds minimal overhead as it's essentially a type conversion wrapper
-- Located in 
+- Located in arrayfuncs.c with other array manipulation functions
+
+## Simplified Source
+
+```c
+ArrayType *
+array_set(ArrayType *array, int nSubscripts, int *indx,
+          Datum dataValue, bool isNull,
+          int arraytyplen, int elmlen, bool elmbyval, char elmalign) {
+    // Backwards compatibility wrapper for array_set_element
+    // Convert ArrayType* to Datum, call array_set_element, convert result back
+    return DatumGetArrayTypeP(array_set_element(PointerGetDatum(array),
+                                               nSubscripts, indx,
+                                               dataValue, isNull,
+                                               arraytyplen,
+                                               elmlen, elmbyval, elmalign));
+}
+``` 

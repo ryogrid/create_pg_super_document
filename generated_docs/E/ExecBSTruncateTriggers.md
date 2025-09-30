@@ -36,3 +36,53 @@ This function executes BEFORE STATEMENT TRUNCATE triggers, which fire once per T
 - Does not pass any tuple data since TRUNCATE operates at statement level
 - Uses NULL values for old/new slots in TriggerEnabled since no tuples are involved
 - Part of the TRUNCATE command execution pipeline in tablecmds.c
+
+## Simplified Source
+
+```c
+void ExecBSTruncateTriggers(EState *estate, ResultRelInfo *relinfo)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Early exit if no triggers or no BEFORE STATEMENT TRUNCATE triggers
+    if (trigdesc == NULL || !trigdesc->trig_truncate_before_statement)
+        return;
+
+    // Set up trigger event data
+    TriggerData LocTriggerData = {0};
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_TRUNCATE | TRIGGER_EVENT_BEFORE;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    // Execute each matching trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++)
+    {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip triggers that don't match BEFORE STATEMENT TRUNCATE
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype,
+                                  TRIGGER_TYPE_STATEMENT,
+                                  TRIGGER_TYPE_BEFORE,
+                                  TRIGGER_TYPE_TRUNCATE))
+            continue;
+
+        // Skip disabled triggers
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                            NULL, NULL, NULL))
+            continue;
+
+        // Execute the trigger function
+        LocTriggerData.tg_trigger = trigger;
+        HeapTuple newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                                 relinfo->ri_TrigFunctions,
+                                                 relinfo->ri_TrigInstrument,
+                                                 GetPerTupleMemoryContext(estate));
+
+        // BEFORE STATEMENT triggers cannot return values
+        if (newtuple)
+            ereport(ERROR,
+                    (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                     errmsg("BEFORE STATEMENT trigger cannot return a value")));
+    }
+}
+```

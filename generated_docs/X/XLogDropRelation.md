@@ -34,3 +34,12 @@ When a relation is dropped, any invalid page tracking for that relation becomes 
 - Called with block number 0 in forget_invalid_pages(), which typically means "forget all invalid pages for this relation/fork"
 - Essential for proper memory management during recovery operations
 - Part of the WAL replay infrastructure that maintains consistency between the primary and standby servers
+
+## Simplified Source
+
+```c
+void XLogDropRelation(RelFileLocator rlocator, ForkNumber forknum) {
+    // Clean up invalid page records for the relation being dropped
+    forget_invalid_pages(rlocator, forknum, 0);
+}
+```

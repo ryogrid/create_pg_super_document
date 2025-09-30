@@ -46,3 +46,54 @@ The validation is essential for maintaining data consistency in logical replicat
 - Critical for logical replication consistency and data integrity
 - Validates both row filter expressions and publication column lists against replica identity
 - Uses PublicationDesc structure to encapsulate publication validation state
+
+## Simplified Source
+
+```c
+void
+CheckCmdReplicaIdentity(Relation rel, CmdType cmd)
+{
+    PublicationDesc pubdesc;
+
+    // Skip partitioned tables - operations happen on leaf partitions
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        return;
+
+    // Only check UPDATE and DELETE commands
+    if (cmd != CMD_UPDATE && cmd != CMD_DELETE)
+        return;
+
+    // Build publication descriptor to check validity
+    RelationBuildPublicationDesc(rel, &pubdesc);
+
+    // Check UPDATE command validity
+    if (cmd == CMD_UPDATE) {
+        if (!pubdesc.rf_valid_for_update)
+            ereport(ERROR, /* row filter not covered by replica identity */);
+        if (!pubdesc.cols_valid_for_update)
+            ereport(ERROR, /* column list not covered by replica identity */);
+    }
+
+    // Check DELETE command validity
+    if (cmd == CMD_DELETE) {
+        if (!pubdesc.rf_valid_for_delete)
+            ereport(ERROR, /* row filter not covered by replica identity */);
+        if (!pubdesc.cols_valid_for_delete)
+            ereport(ERROR, /* column list not covered by replica identity */);
+    }
+
+    // If relation has replica identity, we're good
+    if (OidIsValid(RelationGetReplicaIndex(rel)))
+        return;
+
+    // REPLICA IDENTITY FULL is also acceptable
+    if (rel->rd_rel->relreplident == REPLICA_IDENTITY_FULL)
+        return;
+
+    // No replica identity but publishes operations - error
+    if (cmd == CMD_UPDATE && pubdesc.pubactions.pubupdate)
+        ereport(ERROR, /* no replica identity for published updates */);
+    if (cmd == CMD_DELETE && pubdesc.pubactions.pubdelete)
+        ereport(ERROR, /* no replica identity for published deletes */);
+}
+```

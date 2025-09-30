@@ -44,3 +44,88 @@ makeConfigurationDependencies establishes the complete dependency graph for a te
 - Extension dependencies are preserved during removeOld operations
 - Returns ObjectAddress of the configuration for caller convenience
 - Scans pg_ts_config_map using TSConfigMapIndexId for efficiency
+
+## Simplified Source
+
+```c
+static ObjectAddress
+makeConfigurationDependencies(HeapTuple tuple, bool removeOld,
+                             Relation mapRel)
+{
+    Form_pg_ts_config cfg = (Form_pg_ts_config) GETSTRUCT(tuple);
+    ObjectAddresses *addrs;
+    ObjectAddress myself, referenced;
+
+    // Set up the configuration object address
+    myself.classId = TSConfigRelationId;
+    myself.objectId = cfg->oid;
+    myself.objectSubId = 0;
+
+    // For ALTER case, remove old dependencies first
+    if (removeOld)
+    {
+        deleteDependencyRecordsFor(myself.classId, myself.objectId, true);
+        deleteSharedDependencyRecordsFor(myself.classId, myself.objectId, 0);
+    }
+
+    // Use ObjectAddresses list to deduplicate dependencies
+    addrs = new_object_addresses();
+
+    // Dependency on namespace
+    referenced.classId = NamespaceRelationId;
+    referenced.objectId = cfg->cfgnamespace;
+    referenced.objectSubId = 0;
+    add_exact_object_address(&referenced, addrs);
+
+    // Dependency on owner
+    recordDependencyOnOwner(myself.classId, myself.objectId, cfg->cfgowner);
+
+    // Dependency on extension
+    recordDependencyOnCurrentExtension(&myself, removeOld);
+
+    // Dependency on parser
+    referenced.classId = TSParserRelationId;
+    referenced.objectId = cfg->cfgparser;
+    referenced.objectSubId = 0;
+    add_exact_object_address(&referenced, addrs);
+
+    // Dependencies on dictionaries from configuration map
+    if (mapRel)
+    {
+        ScanKeyData skey;
+        SysScanDesc scan;
+        HeapTuple maptup;
+
+        // Ensure we see caller's changes
+        CommandCounterIncrement();
+
+        // Scan for map entries for this configuration
+        ScanKeyInit(&skey, Anum_pg_ts_config_map_mapcfg,
+                    BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(myself.objectId));
+
+        scan = systable_beginscan(mapRel, TSConfigMapIndexId, true,
+                                  NULL, 1, &skey);
+
+        while (HeapTupleIsValid((maptup = systable_getnext(scan))))
+        {
+            Form_pg_ts_config_map cfgmap = (Form_pg_ts_config_map) GETSTRUCT(maptup);
+
+            // Add dependency on each dictionary
+            referenced.classId = TSDictionaryRelationId;
+            referenced.objectId = cfgmap->mapdict;
+            referenced.objectSubId = 0;
+            add_exact_object_address(&referenced, addrs);
+        }
+
+        systable_endscan(scan);
+    }
+
+    // Record all dependencies (with duplicate elimination)
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+
+    free_object_addresses(addrs);
+
+    return myself;
+}
+```

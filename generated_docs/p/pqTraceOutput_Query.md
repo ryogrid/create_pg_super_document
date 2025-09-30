@@ -30,3 +30,15 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 - Part of the PostgreSQL frontend tracing system for debugging client-server protocol communication
 - The function advances the cursor position through the message buffer as it reads the query string
 - Output format follows tab-delimited structure for easy parsing by analysis tools
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_Query(FILE *f, const char *message, int *cursor)
+{
+    // Output message type and SQL query
+    fprintf(f, "Query\t");
+    pqTraceOutputString(f, message, cursor, false);
+}
+```

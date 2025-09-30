@@ -48,3 +48,75 @@ After core path generation, the function allows plugins to modify the pathlist v
 - Parallel execution planning is carefully managed to avoid excessive gather nodes in inheritance hierarchies
 - The function includes debug support via  compilation flag
 - [Path](../P/Path.md) generation is skipped for certain relation types (subqueries, CTEs, etc.) that are fully handled during the size estimation phase
+
+## Simplified Source
+
+```c
+static void
+set_rel_pathlist(PlannerInfo *root, RelOptInfo *rel,
+                Index rti, RangeTblEntry *rte)
+{
+    // Skip dummy relations (already proven empty)
+    if (IS_DUMMY_REL(rel))
+    {
+        // Nothing to do for dummy relations
+    }
+    else if (rte->inh)
+    {
+        // Handle inheritance/append relations
+        set_append_rel_pathlist(root, rel, rti, rte);
+    }
+    else
+    {
+        // Route to appropriate pathlist function based on relation type
+        switch (rel->rtekind)
+        {
+            case RTE_RELATION:
+                if (rte->relkind == RELKIND_FOREIGN_TABLE)
+                    set_foreign_pathlist(root, rel, rte);
+                else if (rte->tablesample != NULL)
+                    set_tablesample_rel_pathlist(root, rel, rte);
+                else
+                    set_plain_rel_pathlist(root, rel, rte);
+                break;
+
+            case RTE_FUNCTION:
+                set_function_pathlist(root, rel, rte);
+                break;
+
+            case RTE_TABLEFUNC:
+                set_tablefunc_pathlist(root, rel, rte);
+                break;
+
+            case RTE_VALUES:
+                set_values_pathlist(root, rel, rte);
+                break;
+
+            // Subqueries, CTEs, named tuplestores, and result relations
+            // are fully handled during set_rel_size phase
+            case RTE_SUBQUERY:
+            case RTE_CTE:
+            case RTE_NAMEDTUPLESTORE:
+            case RTE_RESULT:
+                break;
+
+            default:
+                elog(ERROR, "unexpected rtekind: %d", (int) rel->rtekind);
+                break;
+        }
+    }
+
+    // Allow plugins to modify the pathlist
+    if (set_rel_pathlist_hook)
+        (*set_rel_pathlist_hook) (root, rel, rti, rte);
+
+    // Generate gather paths for parallel execution
+    // Skip inheritance children and topmost relations
+    if (rel->reloptkind == RELOPT_BASEREL &&
+        !bms_equal(rel->relids, root->all_query_rels))
+        generate_useful_gather_paths(root, rel, false);
+
+    // Find the cheapest paths
+    set_cheapest(rel);
+}
+```

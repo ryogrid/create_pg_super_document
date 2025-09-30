@@ -37,7 +37,20 @@ The function explicitly disallows sublinks in standalone expressions, so no real
 ## Notes and Other Information
 - Returns results in current memory context, which can lead to memory leaks if not managed properly
 - Does not track expression dependencies, making results suitable only for current query duration
-- For longer-term caching needs, use  instead
+- For longer-term caching needs, use expression_planner_with_deps instead
 - Creates a completely new expression tree rather than modifying the input
 - Primarily used by utility commands rather than regular query execution
 - The constant simplification side-effect is beneficial for expressions evaluated multiple times
+
+## Simplified Source
+```c
+Expr *expression_planner(Expr *expr) {
+    // Convert named function calls to positional, insert defaults, simplify constants
+    Node *result = eval_const_expressions(NULL, (Node *) expr);
+
+    // Fill in missing operator function IDs
+    fix_opfuncids(result);
+
+    return (Expr *) result;
+}
+```

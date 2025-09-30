@@ -35,3 +35,21 @@ This function safely increments the reference count of a tuple descriptor that i
 - Ensures resource owner capacity is adequate before registration
 - Essential for preventing memory leaks and ensuring proper cleanup in error scenarios
 - Part of PostgreSQL's broader resource ownership and reference counting framework
+
+## Simplified Source
+
+```c
+void
+IncrTupleDescRefCount(TupleDesc tupdesc)
+{
+    // Validate that the tuple descriptor is already being reference counted
+    Assert(tupdesc->tdrefcount >= 0);
+
+    // Ensure resource owner has capacity for new reference
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Increment reference count and register with resource owner
+    tupdesc->tdrefcount++;
+    ResourceOwnerRememberTupleDesc(CurrentResourceOwner, tupdesc);
+}
+```

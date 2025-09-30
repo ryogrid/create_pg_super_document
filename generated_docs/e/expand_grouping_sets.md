@@ -54,3 +54,87 @@ This function serves as the primary entry point for expanding complex GROUPING S
 - The sorting strategy ensures consistent query plans and efficient processing
 - Deduplication is only performed when explicitly requested via groupDistinct parameter
 - Essential for PostgreSQL's advanced GROUP BY functionality including complex nested grouping operations
+
+## Simplified Source
+
+```c
+List *
+expand_grouping_sets(List *groupingSets, bool groupDistinct, int limit)
+{
+    List *expanded_groups = NIL;
+    List *result = NIL;
+    double numsets = 1;
+    ListCell *lc;
+
+    if (groupingSets == NIL)
+        return NIL;
+
+    // Phase 1: Expand each grouping set node individually
+    foreach(lc, groupingSets)
+    {
+        GroupingSet *gs = lfirst(lc);
+        List *current_result = expand_groupingset_node(gs);
+
+        numsets *= list_length(current_result);
+
+        // Check limit to prevent exponential explosion
+        if (limit >= 0 && numsets > limit)
+            return NIL;
+
+        expanded_groups = lappend(expanded_groups, current_result);
+    }
+
+    // Phase 2: Compute cartesian product
+    // Start with first expanded group
+    foreach(lc, (List *) linitial(expanded_groups))
+    {
+        result = lappend(result, list_union_int(NIL, (List *) lfirst(lc)));
+    }
+
+    // Combine with remaining groups
+    for_each_from(lc, expanded_groups, 1)
+    {
+        List *current_group = lfirst(lc);
+        List *new_result = NIL;
+        ListCell *lc2, *lc3;
+
+        foreach(lc2, result)
+        {
+            List *existing_set = lfirst(lc2);
+            foreach(lc3, current_group)
+            {
+                new_result = lappend(new_result,
+                    list_union_int(existing_set, (List *) lfirst(lc3)));
+            }
+        }
+        result = new_result;
+    }
+
+    // Phase 3: Sort and optionally deduplicate
+    if (!groupDistinct || list_length(result) < 2)
+    {
+        list_sort(result, cmp_list_len_asc);
+    }
+    else
+    {
+        // Sort individual sets, then entire result, then remove duplicates
+        ListCell *cell;
+        foreach(cell, result)
+            list_sort(lfirst(cell), list_int_cmp);
+
+        list_sort(result, cmp_list_len_contents_asc);
+
+        // Remove consecutive duplicates
+        List *prev = linitial(result);
+        for_each_from(cell, result, 1)
+        {
+            if (equal(lfirst(cell), prev))
+                result = foreach_delete_current(result, cell);
+            else
+                prev = lfirst(cell);
+        }
+    }
+
+    return result;
+}
+```

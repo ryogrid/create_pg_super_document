@@ -36,3 +36,39 @@ This function implements an optimization strategy for dependency management in P
 - The function performs a layering violation optimization by checking pinned objects directly rather than relying on recordDependencyOn to ignore the request
 - Memory allocated by get_func_signature for the argtypes array is properly freed with pfree()
 - This optimization is crucial for performance in large databases with many operator families and custom types
+
+## Simplified Source
+
+```c
+static bool
+typeDepNeeded(Oid typid, OpFamilyMember *member)
+{
+    // Pinned types don't need dependencies
+    if (IsPinnedObject(TypeRelationId, typid))
+        return false;
+
+    // Check if type appears in function/operator signature
+    if (member->is_func) {
+        // For functions, check argument types
+        Oid *argtypes;
+        int nargs;
+
+        get_func_signature(member->object, &argtypes, &nargs);
+        for (int i = 0; i < nargs; i++) {
+            if (typid == argtypes[i]) {
+                pfree(argtypes);
+                return false; // Type found in signature, no dependency needed
+            }
+        }
+        pfree(argtypes);
+    } else {
+        // For operators, check left and right operand types
+        Oid lefttype, righttype;
+        op_input_types(member->object, &lefttype, &righttype);
+        if (typid == lefttype || typid == righttype)
+            return false; // Type matches operand, no dependency needed
+    }
+
+    return true; // Explicit dependency needed
+}
+```

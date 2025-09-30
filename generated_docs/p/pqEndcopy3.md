@@ -50,3 +50,66 @@ The function performs a complete state transition from COPY mode back to PGASYNC
 - For backwards compatibility, converts error messages to notices rather than returning them as errors
 - Strips trailing newlines from error messages before converting to notices
 - Part of the libpq protocol 3 implementation for PostgreSQL client-server communication
+
+## Simplified Source
+
+```c
+int pqEndcopy3(PGconn *conn) {
+    // Check if we're in a valid COPY state
+    if (conn->asyncStatus != PGASYNC_COPY_IN &&
+        conn->asyncStatus != PGASYNC_COPY_OUT &&
+        conn->asyncStatus != PGASYNC_COPY_BOTH) {
+        libpq_append_conn_error(conn, "no COPY in progress");
+        return 1;
+    }
+
+    // Send CopyDone message for input operations
+    if (conn->asyncStatus == PGASYNC_COPY_IN ||
+        conn->asyncStatus == PGASYNC_COPY_BOTH) {
+        if (pqPutMsgStart(PqMsg_CopyDone, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            return 1;
+
+        // Send Sync for extended-query mode
+        if (conn->cmd_queue_head &&
+            conn->cmd_queue_head->queryclass != PGQUERY_SIMPLE) {
+            if (pqPutMsgStart(PqMsg_Sync, conn) < 0 ||
+                pqPutMsgEnd(conn) < 0)
+                return 1;
+        }
+    }
+
+    // Flush outgoing data
+    if (pqFlush(conn) && pqIsnonblocking(conn))
+        return 1;
+
+    // Return to busy state
+    conn->asyncStatus = PGASYNC_BUSY;
+
+    // Handle non-blocking connections
+    if (pqIsnonblocking(conn) && PQisBusy(conn))
+        return 1;
+
+    // Wait for completion response
+    PGresult *result = PQgetResult(conn);
+
+    // Check for successful completion
+    if (result && result->resultStatus == PGRES_COMMAND_OK) {
+        PQclear(result);
+        return 0;
+    }
+
+    // Handle errors by converting to notices (backwards compatibility)
+    if (conn->errorMessage.len > 0) {
+        // Strip trailing newline and send as notice
+        char svLast = conn->errorMessage.data[conn->errorMessage.len - 1];
+        if (svLast == '\n')
+            conn->errorMessage.data[conn->errorMessage.len - 1] = '\0';
+        pqInternalNotice(&conn->noticeHooks, "%s", conn->errorMessage.data);
+        conn->errorMessage.data[conn->errorMessage.len - 1] = svLast;
+    }
+
+    PQclear(result);
+    return 1;
+}
+```

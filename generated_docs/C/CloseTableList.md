@@ -38,3 +38,19 @@ This function serves as the complementary cleanup operation to OpenTableList, en
 - Essential for proper cleanup in publication operations to prevent resource leaks
 - Always paired with OpenTableList in publication management workflows
 - The list_free_deep() call ensures both the list structure and PublicationRelInfo contents are properly deallocated
+
+## Simplified Source
+
+```c
+static void CloseTableList(List *rels)
+{
+    ListCell *lc;
+
+    foreach(lc, rels) {
+        PublicationRelInfo *pub_rel = (PublicationRelInfo *) lfirst(lc);
+        table_close(pub_rel->relation, NoLock);
+    }
+
+    list_free_deep(rels);
+}
+```

@@ -48,3 +48,57 @@ The function handles both relation constraints and domain type constraints by us
 - Post-alter hooks are invoked for all processed constraints regardless of whether they were updated
 - The objsMoved parameter prevents duplicate processing when multiple objects reference the same constraints
 - Designed to work seamlessly with schema alteration operations for both tables and domain types
+
+## Simplified Source
+
+```c
+void
+AlterConstraintNamespaces(Oid ownerId, Oid oldNspId, Oid newNspId,
+                          bool isType, ObjectAddresses *objsMoved)
+{
+    Relation conRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_constraint catalog with exclusive lock
+    conRel = table_open(ConstraintRelationId, RowExclusiveLock);
+
+    // Set up scan keys based on object type
+    ScanKeyInit(&key[0], Anum_pg_constraint_conrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(isType ? InvalidOid : ownerId));
+    ScanKeyInit(&key[1], Anum_pg_constraint_contypid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(isType ? ownerId : InvalidOid));
+
+    // Scan for constraints belonging to the object
+    scan = systable_beginscan(conRel, ConstraintRelidTypidNameIndexId, true, NULL, 2, key);
+
+    while (HeapTupleIsValid((tup = systable_getnext(scan)))) {
+        Form_pg_constraint conform = (Form_pg_constraint) GETSTRUCT(tup);
+        ObjectAddress thisobj;
+
+        ObjectAddressSet(thisobj, ConstraintRelationId, conform->oid);
+
+        // Skip if already processed
+        if (object_address_present(&thisobj, objsMoved))
+            continue;
+
+        // Update namespace if needed
+        if (conform->connamespace == oldNspId && oldNspId != newNspId) {
+            tup = heap_copytuple(tup);
+            conform = (Form_pg_constraint) GETSTRUCT(tup);
+            conform->connamespace = newNspId;
+
+            // Update the catalog tuple
+            CatalogTupleUpdate(conRel, &tup->t_self, tup);
+        }
+
+        // Invoke post-alter hooks and track object
+        InvokeObjectPostAlterHook(ConstraintRelationId, thisobj.objectId, 0);
+        add_exact_object_address(&thisobj, objsMoved);
+    }
+
+    systable_endscan(scan);
+    table_close(conRel, RowExclusiveLock);
+}
+```

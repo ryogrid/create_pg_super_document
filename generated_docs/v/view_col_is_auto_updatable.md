@@ -36,3 +36,34 @@ The function is part of the view updatability analysis system and focuses solely
 - Resjunk columns (used internally by PostgreSQL) are explicitly rejected as non-updatable
 - System columns (varattno < 0) and whole-row references (varattno = 0) are not allowed in updatable views
 - The function enforces that the variable must refer to the correct range table entry (varno = rtr->rtindex) and the current query level (varlevelsup = 0)
+
+## Simplified Source
+
+```c
+static const char *
+view_col_is_auto_updatable(RangeTblRef *rtr, TargetEntry *tle)
+{
+    Var *var = (Var *) tle->expr;
+
+    // Junk columns (internal use) cannot be updated
+    if (tle->resjunk)
+        return gettext_noop("Junk view columns are not updatable.");
+
+    // Must be a simple variable reference to the base relation
+    if (!IsA(var, Var) ||
+        var->varno != rtr->rtindex ||
+        var->varlevelsup != 0)
+        return gettext_noop("View columns that are not columns of their base relation are not updatable.");
+
+    // System columns are not updatable
+    if (var->varattno < 0)
+        return gettext_noop("View columns that refer to system columns are not updatable.");
+
+    // Whole-row references are not updatable
+    if (var->varattno == 0)
+        return gettext_noop("View columns that return whole-row references are not updatable.");
+
+    // Column is updatable
+    return NULL;
+}
+```

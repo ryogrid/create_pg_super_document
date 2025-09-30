@@ -47,3 +47,51 @@ The function includes robust input validation and handles fractional values inte
 - Essential for PostgreSQL's user-friendly configuration parameter syntax
 - Handles trailing whitespace in unit strings gracefully
 - Conversion tables are searched linearly, with exact string matching required
+
+## Simplified Source
+
+```c
+static bool
+convert_to_base_unit(double value, const char *unit, int base_unit, double *base_value)
+{
+    char unitstr[MAX_UNIT_LEN + 1];
+    int unitlen;
+    const unit_conversion *table;
+    int i;
+
+    // Extract unit string, ignoring whitespace
+    unitlen = 0;
+    while (*unit != '\0' && !isspace(*unit) && unitlen < MAX_UNIT_LEN)
+        unitstr[unitlen++] = *(unit++);
+    unitstr[unitlen] = '\0';
+
+    // Skip trailing whitespace
+    while (isspace(*unit))
+        unit++;
+    if (*unit != '\0')
+        return false;  // Invalid unit format
+
+    // Select conversion table based on unit type
+    if (base_unit & GUC_UNIT_MEMORY)
+        table = memory_unit_conversion_table;
+    else
+        table = time_unit_conversion_table;
+
+    // Search for matching unit and base_unit in conversion table
+    for (i = 0; *table[i].unit; i++)
+    {
+        if (base_unit == table[i].base_unit && strcmp(unitstr, table[i].unit) == 0)
+        {
+            double converted_value = value * table[i].multiplier;
+
+            // Round fractional values to next smaller unit if available
+            if (*table[i + 1].unit && base_unit == table[i + 1].base_unit)
+                converted_value = rint(converted_value / table[i + 1].multiplier) * table[i + 1].multiplier;
+
+            *base_value = converted_value;
+            return true;
+        }
+    }
+    return false;
+}
+```

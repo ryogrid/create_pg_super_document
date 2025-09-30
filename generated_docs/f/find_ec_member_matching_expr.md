@@ -50,3 +50,45 @@ This function is commonly used in sort operation planning where the planner need
 - Child members must have relids that are a subset of the provided relids parameter to be considered
 - Constant members are automatically excluded from consideration as they're not useful for sorting operations
 - The function is essential for sort optimization, allowing the planner to reuse existing EquivalenceClass relationships
+
+## Simplified Source
+
+```c
+EquivalenceMember *
+find_ec_member_matching_expr(EquivalenceClass *ec,
+                            Expr *expr,
+                            Relids relids)
+{
+    ListCell   *lc;
+
+    // Strip RelabelType nodes from target expression
+    while (expr && IsA(expr, RelabelType))
+        expr = ((RelabelType *) expr)->arg;
+
+    // Search through all EC members
+    foreach(lc, ec->ec_members)
+    {
+        EquivalenceMember *em = (EquivalenceMember *) lfirst(lc);
+        Expr       *emexpr;
+
+        // Skip constant members (not useful for sorting)
+        if (em->em_is_const)
+            continue;
+
+        // Skip child members unless they belong to requested relations
+        if (em->em_is_child && !bms_is_subset(em->em_relids, relids))
+            continue;
+
+        // Strip RelabelType nodes from member expression
+        emexpr = em->em_expr;
+        while (emexpr && IsA(emexpr, RelabelType))
+            emexpr = ((RelabelType *) emexpr)->arg;
+
+        // Check for exact match after stripping relabels
+        if (equal(emexpr, expr))
+            return em;
+    }
+
+    return NULL;  // No matching member found
+}
+```

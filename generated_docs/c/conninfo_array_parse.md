@@ -56,3 +56,98 @@ The dbname expansion feature is particularly useful for command-line tools where
 - Used by higher-level connection functions that accept keyword/value arrays
 - The expand_dbname feature is commonly used in command-line applications to allow flexible database specification
 - Returns NULL on any error, with details stored in errorMessage buffer
+
+## Simplified Source
+
+```c
+static PQconninfoOption *
+conninfo_array_parse(const char *const *keywords, const char *const *values,
+                     PQExpBuffer errorMessage, bool use_defaults,
+                     int expand_dbname)
+{
+    PQconninfoOption *options;
+    PQconninfoOption *dbname_options = NULL;
+    int i = 0;
+
+    // Phase 1: Check if dbname value is a connection string and parse it
+    if (expand_dbname) {
+        while (keywords[i]) {
+            if (strcmp(keywords[i], "dbname") == 0 && values[i]) {
+                if (recognized_connection_string(values[i])) {
+                    dbname_options = parse_connection_string(values[i], errorMessage, false);
+                    if (dbname_options == NULL)
+                        return NULL;
+                }
+                break;
+            }
+            i++;
+        }
+    }
+
+    // Phase 2: Initialize connection options structure
+    options = conninfo_init(errorMessage);
+    if (options == NULL) {
+        PQconninfoFree(dbname_options);
+        return NULL;
+    }
+
+    // Phase 3: Process keyword/value pairs
+    i = 0;
+    while (keywords[i]) {
+        const char *pname = keywords[i];
+        const char *pvalue = values[i];
+
+        if (pvalue != NULL && pvalue[0] != '\0') {
+            // Find the option in the options array
+            PQconninfoOption *option;
+            for (option = options; option->keyword != NULL; option++) {
+                if (strcmp(option->keyword, pname) == 0)
+                    break;
+            }
+
+            // Validate keyword
+            if (option->keyword == NULL) {
+                libpq_append_error(errorMessage, "invalid connection option \"%s\"", pname);
+                goto error_cleanup;
+            }
+
+            // Special handling for dbname expansion
+            if (strcmp(pname, "dbname") == 0 && dbname_options) {
+                // Copy all parsed dbname parameters to main options
+                for (PQconninfoOption *str_option = dbname_options;
+                     str_option->keyword != NULL; str_option++) {
+                    if (str_option->val != NULL) {
+                        copy_option_value(options, str_option);
+                    }
+                }
+                PQconninfoFree(dbname_options);
+                dbname_options = NULL;
+            } else {
+                // Store regular parameter value
+                free(option->val);
+                option->val = strdup(pvalue);
+                if (!option->val) {
+                    libpq_append_error(errorMessage, "out of memory");
+                    goto error_cleanup;
+                }
+            }
+        }
+        i++;
+    }
+
+    // Phase 4: Apply defaults if requested
+    if (use_defaults) {
+        if (!conninfo_add_defaults(options, errorMessage)) {
+            PQconninfoFree(options);
+            return NULL;
+        }
+    }
+
+    return options;
+
+error_cleanup:
+    PQconninfoFree(options);
+    PQconninfoFree(dbname_options);
+    return NULL;
+}
+```

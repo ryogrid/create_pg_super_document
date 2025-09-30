@@ -53,3 +53,50 @@ The function includes several important safety checks and limitations:
 - Gracefully handles empty appendrels due to constraint exclusion by leaving width estimates at zero for `set_rel_width` to fix
 - The function assumes that all paths for the final relation have the same row count, which should be guaranteed by the planning process
 - Critical for accurate cost estimation of queries involving subqueries, views, and CTEs
+
+## Simplified Source
+
+```c
+void
+set_subquery_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    PlannerInfo *subroot = rel->subroot;
+    RelOptInfo *sub_final_rel;
+    ListCell *lc;
+
+    // Validate this is actually a subquery relation
+    Assert(rel->relid > 0);
+    Assert(planner_rt_fetch(rel->relid, root)->rtekind == RTE_SUBQUERY);
+
+    // Get row count from subquery's cheapest path
+    sub_final_rel = fetch_upper_rel(subroot, UPPERREL_FINAL, NULL);
+    rel->tuples = sub_final_rel->cheapest_total_path->rows;
+
+    // Estimate column widths from subquery's target list
+    foreach(lc, subroot->parse->targetList)
+    {
+        TargetEntry *te = lfirst_node(TargetEntry, lc);
+        Node *texpr = (Node *) te->expr;
+        int32 item_width = 0;
+
+        // Skip junk columns and out-of-range columns
+        if (te->resjunk)
+            continue;
+        if (te->resno < rel->min_attr || te->resno > rel->max_attr)
+            continue;
+
+        // For simple Vars, use subquery's width estimate
+        if (IsA(texpr, Var) && subroot->parse->setOperations == NULL)
+        {
+            Var *var = (Var *) texpr;
+            RelOptInfo *subrel = find_base_rel(subroot, var->varno);
+            item_width = subrel->attr_widths[var->varattno - subrel->min_attr];
+        }
+
+        rel->attr_widths[te->resno - rel->min_attr] = item_width;
+    }
+
+    // Complete size estimation using standard base relation logic
+    set_baserel_size_estimates(root, rel);
+}
+```

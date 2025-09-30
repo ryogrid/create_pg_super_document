@@ -36,3 +36,24 @@ The function implements a multi-level comparison strategy: first by startup cost
 - Falls back to total cost comparison and then relids comparison for deterministic sorting
 - Part of the parallel append optimization where workers should handle expensive startup work first
 - Ensures consistent, reproducible sorting results when costs are identical
+
+## Simplified Source
+
+```c
+// Simplified version of append_startup_cost_compare
+static int
+append_startup_cost_compare(const ListCell *a, const ListCell *b)
+{
+    Path *path1 = (Path *) lfirst(a);
+    Path *path2 = (Path *) lfirst(b);
+    int cmp;
+
+    // Primary comparison: startup cost (descending order)
+    cmp = compare_path_costs(path1, path2, STARTUP_COST);
+    if (cmp != 0)
+        return -cmp; // Negate for descending order
+
+    // Tie-breaker: compare relation IDs for deterministic results
+    return bms_compare(path1->parent->relids, path2->parent->relids);
+}
+```

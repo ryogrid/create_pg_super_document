@@ -38,3 +38,19 @@ This function is typically used in domain constraint checking code paths where s
 - Enables rich error messages that include schema, datatype, and constraint information
 - Commonly used when domain CHECK constraints are violated during value validation
 - Located at src/backend/utils/adt/domains.c:431-437
+
+## Simplified Source
+
+```c
+int
+errdomainconstraint(Oid datatypeOid, const char *conname)
+{
+    // Add datatype context (schema and type name)
+    errdatatype(datatypeOid);
+
+    // Add constraint name to error context
+    err_generic_string(PG_DIAG_CONSTRAINT_NAME, conname);
+
+    return 0;  // Return value doesn't matter
+}
+```

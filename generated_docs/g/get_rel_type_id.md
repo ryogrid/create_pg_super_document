@@ -41,3 +41,23 @@ It's crucial to note that not all pg_class entries have associated pg_type OIDs,
 - Tables and views typically have associated types, while indexes and sequences do not
 - Uses system cache for performance optimization
 - Located in src/backend/utils/cache/lsyscache.c:1979-2002
+
+## Simplified Source
+
+```c
+Oid get_rel_type_id(Oid relid) {
+    // Look up relation in system cache
+    HeapTuple tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract the relation tuple and get its type OID
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        Oid result = reltup->reltype;
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Relation not found
+        return InvalidOid;
+    }
+}
+```

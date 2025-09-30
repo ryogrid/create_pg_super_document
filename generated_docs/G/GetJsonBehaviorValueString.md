@@ -34,3 +34,20 @@ This static utility function provides string representations of JsonBehaviorType
 - Used when coercion errors occur in ON ERROR or ON EMPTY behavior evaluation
 - Supports debugging and user feedback for JSON expression error handling
 - The string representations match SQL/JSON standard behavior clause syntax
+
+## Simplified Source
+
+```c
+static char *
+GetJsonBehaviorValueString(JsonBehavior *behavior)
+{
+    // Array of behavior names matching JsonBehaviorType enum order
+    const char *behavior_names[] = {
+        "NULL", "ERROR", "EMPTY", "TRUE", "FALSE",
+        "UNKNOWN", "EMPTY ARRAY", "EMPTY OBJECT", "DEFAULT"
+    };
+
+    // Return duplicated string for memory safety
+    return pstrdup(behavior_names[behavior->btype]);
+}
+```

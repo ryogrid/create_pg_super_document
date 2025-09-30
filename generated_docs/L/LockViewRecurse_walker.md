@@ -50,3 +50,56 @@ LockViewRecurse_walker is a specialized tree walker that implements the deep loc
 - The function handles both tables and views recursively, with different logic for inheritance vs view expansion
 - [QTW_IGNORE_JOINALIASES](../Q/QTW_IGNORE_JOINALIASES.md) flag is used to avoid locking alias relations that don't represent real tables
 - The walker pattern allows for extensible traversal of complex query structures while maintaining consistent locking semantics
+
+## Simplified Source
+
+```c
+static bool LockViewRecurse_walker(Node *node, LockViewRecurse_context *context) {
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Query)) {
+        Query *query = (Query *) node;
+
+        foreach(rtable, query->rtable) {
+            RangeTblEntry *rte = lfirst(rtable);
+
+            // Only process tables and views
+            if (rte->relkind != RELKIND_RELATION &&
+                rte->relkind != RELKIND_PARTITIONED_TABLE &&
+                rte->relkind != RELKIND_VIEW)
+                continue;
+
+            // Skip self-referential views to avoid infinite recursion
+            if (list_member_oid(context->ancestor_views, rte->relid))
+                continue;
+
+            // Check permissions for the lock
+            AclResult aclresult = LockTableAclCheck(rte->relid, context->lockmode,
+                                                  context->check_as_user);
+            if (aclresult != ACLCHECK_OK)
+                aclcheck_error(aclresult, get_relkind_objtype(rte->relkind),
+                             get_rel_name(rte->relid));
+
+            // Acquire the lock
+            if (!context->nowait)
+                LockRelationOid(rte->relid, context->lockmode);
+            else if (!ConditionalLockRelationOid(rte->relid, context->lockmode))
+                ereport(ERROR, (errcode(ERRCODE_LOCK_NOT_AVAILABLE),
+                               errmsg("could not obtain lock on relation")));
+
+            // Recursively process views and inherited tables
+            if (rte->relkind == RELKIND_VIEW)
+                LockViewRecurse(rte->relid, context->lockmode, context->nowait,
+                              context->ancestor_views);
+            else if (rte->inh)
+                LockTableRecurse(rte->relid, context->lockmode, context->nowait);
+        }
+
+        return query_tree_walker(query, LockViewRecurse_walker, context,
+                               QTW_IGNORE_JOINALIASES);
+    }
+
+    return expression_tree_walker(node, LockViewRecurse_walker, context);
+}
+```

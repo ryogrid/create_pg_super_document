@@ -45,3 +45,58 @@ The function intentionally includes invalidated slots in the drop operation sinc
 - Only processes logical slots since physical slots are not database-specific
 - Temporarily sets MyReplicationSlot and active_pid to acquire the slot before dropping
 - The restart approach ensures consistency despite lock releases for filesystem operations
+
+## Simplified Source
+
+```c
+void ReplicationSlotsDropDBSlots(Oid dboid) {
+    int i;
+
+    if (max_replication_slots <= 0)
+        return;
+
+restart:
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *s = &ReplicationSlotCtl->replication_slots[i];
+        char *slotname;
+        int active_pid;
+
+        // Skip unused slots
+        if (!s->in_use)
+            continue;
+
+        // Only logical slots are database-specific
+        if (!SlotIsLogical(s))
+            continue;
+
+        // Skip slots for other databases
+        if (s->data.database != dboid)
+            continue;
+
+        // Acquire slot information
+        SpinLockAcquire(&s->mutex);
+        slotname = NameStr(s->data.name);
+        active_pid = s->active_pid;
+        if (active_pid == 0) {
+            // Acquire the slot for dropping
+            MyReplicationSlot = s;
+            s->active_pid = MyProcPid;
+        }
+        SpinLockRelease(&s->mutex);
+
+        // Error if slot is active in another session
+        if (active_pid) {
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_IN_USE),
+                           errmsg("replication slot \"%s\" is active for PID %d",
+                                  slotname, active_pid)));
+        }
+
+        // Drop the acquired slot and restart scan
+        LWLockRelease(ReplicationSlotControlLock);
+        ReplicationSlotDropAcquired();
+        goto restart;
+    }
+    LWLockRelease(ReplicationSlotControlLock);
+}
+```

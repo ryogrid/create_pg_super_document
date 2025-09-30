@@ -44,3 +44,35 @@ The function is specifically designed for parsing transaction IDs, which are uns
 - Provides consistent error handling for all transaction ID fields in snapshot data
 - Uses "%u" format specifier in sscanf to properly parse unsigned transaction IDs
 - Essential for reconstructing the xip array and other transaction-related fields in imported snapshots
+
+## Simplified Source
+
+```c
+static TransactionId parseXidFromText(const char *prefix, char **s, const char *filename) {
+    char *ptr = *s;
+    TransactionId val;
+
+    // Verify the line starts with expected prefix
+    if (strncmp(ptr, prefix, strlen(prefix)) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    // Skip past prefix and parse transaction ID value
+    ptr += strlen(prefix);
+    if (sscanf(ptr, "%u", &val) != 1) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    // Find end of line and advance to next line
+    ptr = strchr(ptr, '\n');
+    if (!ptr) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    *s = ptr + 1;  // Update parsing position
+    return val;
+}
+```

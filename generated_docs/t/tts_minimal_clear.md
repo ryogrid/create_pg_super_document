@@ -39,3 +39,25 @@ This function is part of the TupleTableSlotOps implementation for MinimalTupleTa
 - Resets internal offset tracking (mslot->off) and tuple pointer
 - Located in src/backend/executor/execTuples.c:525-542
 - Essential for proper resource management in the tuple table slot system
+
+## Simplified Source
+
+```c
+static void tts_minimal_clear(TupleTableSlot *slot)
+{
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Free minimal tuple if this slot owns it
+    if (TTS_SHOULDFREE(slot)) {
+        heap_free_minimal_tuple(mslot->mintuple);
+        slot->tts_flags &= ~TTS_FLAG_SHOULDFREE;
+    }
+
+    // Reset slot to empty state
+    slot->tts_nvalid = 0;
+    slot->tts_flags |= TTS_FLAG_EMPTY;
+    ItemPointerSetInvalid(&slot->tts_tid);
+    mslot->off = 0;
+    mslot->mintuple = NULL;
+}
+```

@@ -46,3 +46,50 @@ This function orchestrates the reindexing of an entire table by:
 - Progress reporting is automatically enabled for non-concurrent operations to provide user feedback
 - The function includes toast table processing (REINDEX_REL_PROCESS_TOAST) and constraint checking (REINDEX_REL_CHECK_CONSTRAINTS) for comprehensive reindexing
 - Returns the OID of the reindexed table for use by calling functions
+
+## Simplified Source
+
+```c
+static Oid ReindexTable(const ReindexStmt *stmt, const ReindexParams *params, bool isTopLevel) {
+    Oid heapOid;
+    bool result;
+    const RangeVar *relation = stmt->relation;
+
+    // Acquire appropriate lock based on concurrent option
+    heapOid = RangeVarGetRelidExtended(relation,
+                                     (params->options & REINDEXOPT_CONCURRENTLY) != 0 ?
+                                     ShareUpdateExclusiveLock : ShareLock,
+                                     0, RangeVarCallbackMaintainsTable, NULL);
+
+    // Handle different table types
+    if (get_rel_relkind(heapOid) == RELKIND_PARTITIONED_TABLE) {
+        // Delegate partitioned table reindexing to specialized function
+        ReindexPartitions(stmt, heapOid, params, isTopLevel);
+    }
+    else if ((params->options & REINDEXOPT_CONCURRENTLY) != 0 &&
+             get_rel_persistence(heapOid) != RELPERSISTENCE_TEMP) {
+        // Concurrent reindexing (not for temp tables)
+        result = ReindexRelationConcurrently(stmt, heapOid, params);
+
+        if (!result) {
+            ereport(NOTICE, "table \"%s\" has no indexes that can be reindexed concurrently",
+                   relation->relname);
+        }
+    }
+    else {
+        // Standard reindexing with toast tables and progress reporting
+        ReindexParams newparams = *params;
+        newparams.options |= REINDEXOPT_REPORT_PROGRESS;
+
+        result = reindex_relation(stmt, heapOid,
+                                REINDEX_REL_PROCESS_TOAST | REINDEX_REL_CHECK_CONSTRAINTS,
+                                &newparams);
+
+        if (!result) {
+            ereport(NOTICE, "table \"%s\" has no indexes to reindex", relation->relname);
+        }
+    }
+
+    return heapOid;
+}
+```

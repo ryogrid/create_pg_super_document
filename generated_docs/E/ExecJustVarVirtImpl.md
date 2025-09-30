@@ -37,3 +37,17 @@ The function directly accesses the pre-computed values and null indicators from 
 - Contains multiple assertions to verify the virtual slot assumptions at runtime
 - Part of PostgreSQL's tuple slot optimization system that avoids expensive tuple deforming when possible
 - Represents a key optimization in PostgreSQL's execution engine for handling projected columns efficiently
+
+## Simplified Source
+
+```c
+static Datum ExecJustVarVirtImpl(ExprState *state, TupleTableSlot *slot, bool *isnull)
+{
+    ExprEvalStep *op = &state->steps[0];
+    int attnum = op->d.var.attnum;
+
+    // Virtual slots have pre-materialized values, direct access
+    *isnull = slot->tts_isnull[attnum];
+    return slot->tts_values[attnum];
+}
+```

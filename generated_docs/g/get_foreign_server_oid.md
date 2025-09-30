@@ -45,3 +45,25 @@ Similar to its counterpart `get_foreign_data_wrapper_oid`, this function provide
 - The function is part of the foreign data wrapper infrastructure in PostgreSQL
 - Parallel in design and functionality to `get_foreign_data_wrapper_oid` but operates on servers instead of wrappers
 - Located in src/backend/foreign/foreign.c:704-740
+
+## Simplified Source
+
+```c
+Oid
+get_foreign_server_oid(const char *servername, bool missing_ok)
+{
+    Oid oid;
+
+    // Look up foreign server OID by name in system cache
+    oid = GetSysCacheOid1(FOREIGNSERVERNAME, Anum_pg_foreign_server_oid,
+                          CStringGetDatum(servername));
+
+    // Handle missing server based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("server \"%s\" does not exist", servername)));
+
+    return oid;
+}
+```

@@ -48,3 +48,33 @@ Unlike merge joins, hash joins don't require sorted input data but do require th
 - The hashjoinoperator field set by this function is used later in cost estimation and join algorithm selection
 - [Hash](../H/Hash.md) joins require hashable data types - not all data types support hash operations
 - This function complements check_mergejoinable, giving the planner multiple join algorithm options for the same clause
+
+## Simplified Source
+
+```c
+static void
+check_hashjoinable(RestrictInfo *restrictinfo)
+{
+    Expr       *clause = restrictinfo->clause;
+    Oid         opno;
+    Node       *leftarg;
+
+    // Skip pseudoconstant clauses
+    if (restrictinfo->pseudoconstant)
+        return;
+
+    // Must be a binary operator clause
+    if (!is_opclause(clause))
+        return;
+    if (list_length(((OpExpr *) clause)->args) != 2)
+        return;
+
+    opno = ((OpExpr *) clause)->opno;
+    leftarg = linitial(((OpExpr *) clause)->args);
+
+    // Check if operator is hashjoinable and contains no volatile functions
+    if (op_hashjoinable(opno, exprType(leftarg)) &&
+        !contain_volatile_functions((Node *) restrictinfo))
+        restrictinfo->hashjoinoperator = opno;
+}
+```

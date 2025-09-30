@@ -40,3 +40,44 @@ This function parses and validates the function-related options specified in CRE
 - Only recognizes "handler" and "validator" options; any other option names result in an error
 - Prevents duplicate specification of the same option type within a single statement
 - Part of PostgreSQL's Foreign Data Wrapper infrastructure for managing external data sources
+
+## Simplified Source
+
+```c
+static void
+parse_func_options(ParseState *pstate, List *func_options,
+                   bool *handler_given, Oid *fdwhandler,
+                   bool *validator_given, Oid *fdwvalidator)
+{
+    ListCell *cell;
+
+    // Initialize output parameters
+    *handler_given = false;
+    *validator_given = false;
+    *fdwhandler = InvalidOid;
+    *fdwvalidator = InvalidOid;
+
+    // Process each function option
+    foreach(cell, func_options)
+    {
+        DefElem *def = (DefElem *) lfirst(cell);
+
+        if (strcmp(def->defname, "handler") == 0)
+        {
+            if (*handler_given)
+                errorConflictingDefElem(def, pstate);
+            *handler_given = true;
+            *fdwhandler = lookup_fdw_handler_func(def);
+        }
+        else if (strcmp(def->defname, "validator") == 0)
+        {
+            if (*validator_given)
+                errorConflictingDefElem(def, pstate);
+            *validator_given = true;
+            *fdwvalidator = lookup_fdw_validator_func(def);
+        }
+        else
+            elog(ERROR, "option \"%s\" not recognized", def->defname);
+    }
+}
+```

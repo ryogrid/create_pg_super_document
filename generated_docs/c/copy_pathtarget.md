@@ -39,3 +39,25 @@ The shallow copy approach means that while the PathTarget structure itself and i
 - Useful when you need to modify PathTarget metadata without affecting the original
 - All scalar fields (like cost, width, volatility info) are copied from the source
 - The function is declared in src/include/optimizer/tlist.h
+
+## Simplified Source
+
+```c
+PathTarget *copy_pathtarget(PathTarget *src) {
+    // Create new PathTarget and copy all scalar fields
+    PathTarget *dst = makeNode(PathTarget);
+    memcpy(dst, src, sizeof(PathTarget));
+
+    // Create shallow copy of expression list
+    dst->exprs = list_copy(src->exprs);
+
+    // Copy sortgrouprefs array if present
+    if (src->sortgrouprefs) {
+        Size nbytes = list_length(src->exprs) * sizeof(Index);
+        dst->sortgrouprefs = palloc(nbytes);
+        memcpy(dst->sortgrouprefs, src->sortgrouprefs, nbytes);
+    }
+
+    return dst;
+}
+```

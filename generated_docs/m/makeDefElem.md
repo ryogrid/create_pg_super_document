@@ -38,3 +38,20 @@ The makeDefElem function constructs a DefElem node, which is used throughout Pos
 - The defaction field is set to DEFELEM_UNSPEC indicating no special action is required
 - [DefElem](../D/DefElem.md) nodes are fundamental building blocks for parsing and representing SQL statement options
 - The function is widely used across different subsystems including replication, sequences, views, and table operations
+
+## Simplified Source
+```c
+DefElem *makeDefElem(char *name, Node *arg, int location) {
+    // Allocate new DefElem node
+    DefElem *res = makeNode(DefElem);
+
+    // Initialize with basic parameters
+    res->defnamespace = NULL;        // No namespace (unqualified name)
+    res->defname = name;            // Option name
+    res->arg = arg;                 // Option value/argument
+    res->defaction = DEFELEM_UNSPEC; // No special action
+    res->location = location;       // Source location
+
+    return res;
+}
+```

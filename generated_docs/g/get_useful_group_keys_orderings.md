@@ -38,3 +38,72 @@ The function evaluates whether alternative orderings are beneficial by checking 
 
 ## Notes and Other Information
 This function is controlled by the enable_group_by_reordering GUC parameter and does not operate on queries with grouping sets, which have their own complex ordering logic. The function is essential for enabling incremental sort optimizations in GROUP BY operations, allowing the planner to take advantage of existing sort orders to minimize sorting costs. Debug builds include extensive assertion checking to validate the consistency and completeness of generated orderings.
+
+## Simplified Source
+
+```c
+List *
+get_useful_group_keys_orderings(PlannerInfo *root, Path *path) {
+    Query *parse = root->parse;
+    List *infos = NIL;
+    GroupByOrdering *info;
+
+    // Always include the original GROUP BY ordering
+    info = makeNode(GroupByOrdering);
+    info->pathkeys = root->group_pathkeys;
+    info->clauses = root->processed_groupClause;
+    infos = lappend(infos, info);
+
+    // Early exit if reordering disabled or grouping sets present
+    if (!enable_group_by_reordering || parse->groupingSets)
+        return infos;
+
+    // Try reordering GROUP BY keys to match path ordering
+    if (path->pathkeys &&
+        !pathkeys_contained_in(path->pathkeys, root->group_pathkeys)) {
+        List *pathkeys = root->group_pathkeys;
+        List *clauses = root->processed_groupClause;
+        int n;
+
+        // Attempt to reorder group keys to match path
+        n = group_keys_reorder_by_pathkeys(path->pathkeys, &pathkeys, &clauses,
+                                          root->num_groupby_pathkeys);
+
+        // Include reordered version if beneficial
+        if (n > 0 &&
+            (enable_incremental_sort || n == root->num_groupby_pathkeys) &&
+            compare_pathkeys(pathkeys, root->group_pathkeys) != PATHKEYS_EQUAL) {
+            info = makeNode(GroupByOrdering);
+            info->pathkeys = pathkeys;
+            info->clauses = clauses;
+            infos = lappend(infos, info);
+        }
+    }
+
+#ifdef USE_ASSERT_CHECKING
+    // Validate consistency of generated orderings
+    if (list_length(infos) > 1) {
+        GroupByOrdering *pinfo = linitial_node(GroupByOrdering, infos);
+        ListCell *lc;
+
+        for_each_from(lc, infos, 1) {
+            info = lfirst_node(GroupByOrdering, lc);
+            Assert(list_length(info->clauses) == list_length(pinfo->clauses));
+            Assert(list_length(info->pathkeys) == list_length(pinfo->pathkeys));
+            Assert(list_difference(info->clauses, pinfo->clauses) == NIL);
+            Assert(list_difference_ptr(info->pathkeys, pinfo->pathkeys) == NIL);
+
+            // Verify pathkey/clause correspondence
+            ListCell *lc1, *lc2;
+            forboth(lc1, info->clauses, lc2, info->pathkeys) {
+                SortGroupClause *sgc = lfirst_node(SortGroupClause, lc1);
+                PathKey *pk = lfirst_node(PathKey, lc2);
+                Assert(pk->pk_eclass->ec_sortref == sgc->tleSortGroupRef);
+            }
+        }
+    }
+#endif
+
+    return infos;
+}
+```

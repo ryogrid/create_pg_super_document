@@ -45,3 +45,47 @@ get_sort_group_operators efficiently fetches the three fundamental comparison op
 - Critical for query planning decisions involving sorting, grouping, and set operations
 - Provides helpful error messages with hints when operators are missing
 - Part of PostgreSQL's type system and query optimization infrastructure
+
+## Simplified Source
+
+```c
+void get_sort_group_operators(Oid argtype,
+                             bool needLT, bool needEQ, bool needGT,
+                             Oid *ltOpr, Oid *eqOpr, Oid *gtOpr,
+                             bool *isHashable) {
+    // Determine what to cache based on caller needs
+    int cache_flags = TYPECACHE_LT_OPR | TYPECACHE_EQ_OPR | TYPECACHE_GT_OPR;
+    if (isHashable != NULL) {
+        cache_flags |= TYPECACHE_HASH_PROC;
+    }
+
+    // Look up operators in type cache for consistency
+    TypeCacheEntry *typentry = lookup_type_cache(argtype, cache_flags);
+
+    // Extract operator OIDs and hashability
+    Oid lt_opr = typentry->lt_opr;
+    Oid eq_opr = typentry->eq_opr;
+    Oid gt_opr = typentry->gt_opr;
+    bool hashable = OidIsValid(typentry->hash_proc);
+
+    // Check for required operators and report errors
+    if ((needLT && !OidIsValid(lt_opr)) || (needGT && !OidIsValid(gt_opr))) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("could not identify an ordering operator for type %s",
+                              format_type_be(argtype)),
+                       errhint("Use an explicit ordering operator or modify the query.")));
+    }
+
+    if (needEQ && !OidIsValid(eq_opr)) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("could not identify an equality operator for type %s",
+                              format_type_be(argtype))));
+    }
+
+    // Return results to caller (if requested)
+    if (ltOpr) *ltOpr = lt_opr;
+    if (eqOpr) *eqOpr = eq_opr;
+    if (gtOpr) *gtOpr = gt_opr;
+    if (isHashable) *isHashable = hashable;
+}
+```

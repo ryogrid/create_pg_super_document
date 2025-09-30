@@ -43,3 +43,38 @@ The IncrementalSort node extends the basic Sort functionality by tracking how ma
 - Like make_sort, this function assumes the caller has prepared all sorting arrays correctly
 - The IncrementalSort algorithm can significantly improve performance when input data has natural ordering
 - Located at src/backend/optimizer/plan/createplan.c:6099-6164
+
+## Simplified Source
+
+```c
+static IncrementalSort *
+make_incrementalsort(Plan *lefttree, int numCols, int nPresortedCols,
+                     AttrNumber *sortColIdx, Oid *sortOperators,
+                     Oid *collations, bool *nullsFirst)
+{
+    IncrementalSort *node;
+    Plan       *plan;
+
+    // Create the IncrementalSort node
+    node = makeNode(IncrementalSort);
+
+    // Initialize the embedded plan structure
+    plan = &node->sort.plan;
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+
+    // Set incremental sort specific properties
+    node->nPresortedCols = nPresortedCols;
+
+    // Set sorting properties in the embedded Sort structure
+    node->sort.numCols = numCols;
+    node->sort.sortColIdx = sortColIdx;
+    node->sort.sortOperators = sortOperators;
+    node->sort.collations = collations;
+    node->sort.nullsFirst = nullsFirst;
+
+    return node;
+}
+```

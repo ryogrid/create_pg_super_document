@@ -42,3 +42,45 @@ This function generates appropriate error messages for duplicate object names wi
 - The function supports text search objects (parsers, dictionaries, templates, configurations), conversions, and statistics objects
 - Includes both object name and schema name in the error message for better user feedback
 - Part of PostgreSQL's object renaming and namespace management subsystem
+
+## Simplified Source
+
+```c
+static void report_namespace_conflict(Oid classId, const char *name, Oid nspOid)
+{
+    char *msgfmt;
+
+    Assert(OidIsValid(nspOid));
+
+    // Select appropriate error message based on object type
+    switch (classId)
+    {
+        case ConversionRelationId:
+            msgfmt = gettext_noop("conversion \"%s\" already exists in schema \"%s\"");
+            break;
+        case StatisticExtRelationId:
+            msgfmt = gettext_noop("statistics object \"%s\" already exists in schema \"%s\"");
+            break;
+        case TSParserRelationId:
+            msgfmt = gettext_noop("text search parser \"%s\" already exists in schema \"%s\"");
+            break;
+        case TSDictionaryRelationId:
+            msgfmt = gettext_noop("text search dictionary \"%s\" already exists in schema \"%s\"");
+            break;
+        case TSTemplateRelationId:
+            msgfmt = gettext_noop("text search template \"%s\" already exists in schema \"%s\"");
+            break;
+        case TSConfigRelationId:
+            msgfmt = gettext_noop("text search configuration \"%s\" already exists in schema \"%s\"");
+            break;
+        default:
+            elog(ERROR, "unsupported object class: %u", classId);
+            break;
+    }
+
+    // Report the namespace conflict error
+    ereport(ERROR,
+            (errcode(ERRCODE_DUPLICATE_OBJECT),
+             errmsg(msgfmt, name, get_namespace_name(nspOid))));
+}
+```

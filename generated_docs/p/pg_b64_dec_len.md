@@ -39,3 +39,14 @@ Note that this function returns the maximum possible decoded length, not the exa
 - Simple mathematical formula with no error conditions
 - Essential for preventing buffer overflows in decoding operations
 - Provides a safe upper bound for buffer allocation
+
+## Simplified Source
+
+```c
+int pg_b64_dec_len(int srclen)
+{
+    // Calculate max decoded length: 4 base64 chars -> 3 bytes
+    // Using bit shift for efficient division by 4
+    return (srclen * 3) >> 2;
+}
+```

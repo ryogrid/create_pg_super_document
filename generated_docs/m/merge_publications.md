@@ -40,3 +40,56 @@ The function validates that publications being added don't already exist in the 
 - Error messages include the subscription name for better user experience
 - The XXX comment indicates that preventing empty publication lists maintains consistency with SET PUBLICATION behavior
 - Part of PostgreSQL's logical replication subscription management system
+
+## Simplified Source
+
+```c
+static List *
+merge_publications(List *oldpublist, List *newpublist, bool addpub, const char *subname)
+{
+    ListCell *lc;
+
+    // Make a copy of the original list (don't modify input)
+    oldpublist = list_copy(oldpublist);
+
+    // Check for duplicates in the new publication list
+    check_duplicates_in_publist(newpublist, NULL);
+
+    // Process each publication in the new list
+    foreach(lc, newpublist) {
+        char *name = strVal(lfirst(lc));
+        ListCell *lc2;
+        bool found = false;
+
+        // Search for this publication in the existing list
+        foreach(lc2, oldpublist) {
+            char *pubname = strVal(lfirst(lc2));
+
+            if (strcmp(name, pubname) == 0) {
+                found = true;
+                if (addpub) {
+                    // Error: trying to add a publication that already exists
+                    ereport(ERROR, "publication already in subscription");
+                } else {
+                    // Remove the publication from the list
+                    oldpublist = foreach_delete_current(oldpublist, lc2);
+                }
+                break;
+            }
+        }
+
+        // Handle ADD: publication not found, so add it
+        if (addpub && !found)
+            oldpublist = lappend(oldpublist, makeString(name));
+        // Handle DROP: publication not found, that's an error
+        else if (!addpub && !found)
+            ereport(ERROR, "publication not in subscription");
+    }
+
+    // Prevent dropping all publications (leaves subscription invalid)
+    if (!oldpublist)
+        ereport(ERROR, "cannot drop all publications from subscription");
+
+    return oldpublist;
+}
+```

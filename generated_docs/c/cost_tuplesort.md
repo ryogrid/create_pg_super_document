@@ -51,3 +51,58 @@ The function assumes disk traffic is 3/4 sequential and 1/4 random accesses, and
 - Uses logarithmic merge calculations: logM(r) = log(r) / log(M) where M is merge order
 - Run cost charges cpu_operator_cost per tuple since Sort nodes have less overhead than most plan nodes
 - Critical for query planner's decision-making in choosing between different sort strategies
+
+## Simplified Source
+
+```c
+static void
+cost_tuplesort(Cost *startup_cost, Cost *run_cost,
+               double tuples, int width,
+               Cost comparison_cost, int sort_mem,
+               double limit_tuples)
+{
+    double input_bytes = relation_byte_size(tuples, width);
+    double output_bytes, output_tuples;
+    long sort_mem_bytes = sort_mem * 1024L;
+
+    // Ensure minimum tuple count for cost calculations
+    if (tuples < 2.0)
+        tuples = 2.0;
+
+    // Add default comparison cost
+    comparison_cost += 2.0 * cpu_operator_cost;
+
+    // Determine output size based on LIMIT
+    if (limit_tuples > 0 && limit_tuples < tuples) {
+        output_tuples = limit_tuples;
+        output_bytes = relation_byte_size(output_tuples, width);
+    } else {
+        output_tuples = tuples;
+        output_bytes = input_bytes;
+    }
+
+    if (output_bytes > sort_mem_bytes) {
+        // Disk-based sort: calculate merge passes and I/O costs
+        double npages = ceil(input_bytes / BLCKSZ);
+        double nruns = input_bytes / sort_mem_bytes;
+        double mergeorder = tuplesort_merge_order(sort_mem_bytes);
+        double log_runs = (nruns > mergeorder) ?
+            ceil(log(nruns) / log(mergeorder)) : 1.0;
+
+        *startup_cost = comparison_cost * tuples * LOG2(tuples);
+        *startup_cost += 2.0 * npages * log_runs *
+            (seq_page_cost * 0.75 + random_page_cost * 0.25);
+    }
+    else if (tuples > 2 * output_tuples || input_bytes > sort_mem_bytes) {
+        // Bounded heap sort for limited output
+        *startup_cost = comparison_cost * tuples * LOG2(2.0 * output_tuples);
+    }
+    else {
+        // In-memory quicksort
+        *startup_cost = comparison_cost * tuples * LOG2(tuples);
+    }
+
+    // Per-tuple processing cost
+    *run_cost = cpu_operator_cost * tuples;
+}
+```

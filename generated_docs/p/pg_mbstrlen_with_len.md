@@ -40,3 +40,25 @@ The function carefully tracks both the character count and remaining byte limit,
 - Ensures multibyte character boundaries are not broken when the limit is reached
 - Critical for safe string processing in PostgreSQL's text handling functions
 - Used extensively in SQL text functions and error reporting mechanisms
+
+## Simplified Source
+
+```c
+int pg_mbstrlen_with_len(const char *mbstr, int limit) {
+    int len = 0;
+
+    // Fast path for single-byte encodings
+    if (pg_database_encoding_max_length() == 1)
+        return limit;
+
+    // Count characters within byte limit
+    while (limit > 0 && *mbstr) {
+        int char_bytes = pg_mblen(mbstr);
+        limit -= char_bytes;
+        mbstr += char_bytes;
+        len++;
+    }
+
+    return len;
+}
+```

@@ -45,3 +45,23 @@ Like other catalog functions with "WithInfo" suffix, this function is designed f
 - The updateIndexes variable is initialized to TU_All but can be modified by simple_heap_update if needed
 - Commonly used in statistics updates, relation file swapping, and large object operations where multiple catalog modifications occur
 - More efficient than CatalogTupleUpdate for multiple update operations since it avoids repeated index state management
+
+## Simplified Source
+
+```c
+void
+CatalogTupleUpdateWithInfo(Relation heapRel, ItemPointer otid, HeapTuple tup,
+                          CatalogIndexState indstate)
+{
+    TU_UpdateIndexes updateIndexes = TU_All;
+
+    // Check catalog constraints before updating
+    CatalogTupleCheckConstraints(heapRel, tup);
+
+    // Update the heap tuple
+    simple_heap_update(heapRel, otid, tup, &updateIndexes);
+
+    // Update all associated indexes using provided index state
+    CatalogIndexInsert(indstate, tup, updateIndexes);
+}
+```

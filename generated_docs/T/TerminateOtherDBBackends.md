@@ -42,3 +42,77 @@ The function operates in several phases:
 - Uses SIGTERM signal, with process group signaling on systems with setsid()
 - Race condition exists between process identification and termination, but is considered acceptable
 - Function is atomic in permission checking - if any process cannot be terminated due to permissions, the entire operation fails
+
+## Simplified Source
+
+```c
+void TerminateOtherDBBackends(Oid databaseId) {
+    ProcArrayStruct *arrayP = procArray;
+    List *pids = NIL;
+    int nprepared = 0;
+    int i;
+
+    // Collect processes connected to target database
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+    for (i = 0; i < procArray->numProcs; i++) {
+        int pgprocno = arrayP->pgprocnos[i];
+        PGPROC *proc = &allProcs[pgprocno];
+
+        // Skip processes not using this database or current process
+        if (proc->databaseId != databaseId || proc == MyProc)
+            continue;
+
+        // Collect PIDs, count prepared transactions
+        if (proc->pid != 0)
+            pids = lappend_int(pids, proc->pid);
+        else
+            nprepared++;
+    }
+    LWLockRelease(ProcArrayLock);
+
+    // Fail if prepared transactions exist
+    if (nprepared > 0) {
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_IN_USE),
+                       errmsg("database \"%s\" is being used by prepared transactions",
+                              get_database_name(databaseId))));
+    }
+
+    // Check permissions for all processes before terminating any
+    if (pids) {
+        ListCell *lc;
+        foreach(lc, pids) {
+            int pid = lfirst_int(lc);
+            PGPROC *proc = BackendPidGetProc(pid);
+
+            if (proc != NULL) {
+                // Check superuser permission
+                if (superuser_arg(proc->roleId) && !superuser()) {
+                    ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                                   errmsg("permission denied to terminate process")));
+                }
+
+                // Check role privilege permission
+                if (!has_privs_of_role(GetUserId(), proc->roleId) &&
+                    !has_privs_of_role(GetUserId(), ROLE_PG_SIGNAL_BACKEND)) {
+                    ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                                   errmsg("permission denied to terminate process")));
+                }
+            }
+        }
+
+        // Terminate all processes
+        foreach(lc, pids) {
+            int pid = lfirst_int(lc);
+            PGPROC *proc = BackendPidGetProc(pid);
+
+            if (proc != NULL) {
+#ifdef HAVE_SETSID
+                (void) kill(-pid, SIGTERM);  // Signal process group
+#else
+                (void) kill(pid, SIGTERM);   // Signal individual process
+#endif
+            }
+        }
+    }
+}
+```

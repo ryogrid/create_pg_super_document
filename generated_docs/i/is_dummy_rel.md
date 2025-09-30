@@ -43,3 +43,31 @@ This mechanism allows the optimizer to efficiently handle cases where entire rel
 - This is part of PostgreSQL's constraint exclusion and logical optimization system
 - The function is robust against various projection wrapper combinations
 - Located in src/backend/optimizer/path/joinrels.c:1333-1381
+
+## Simplified Source
+
+```c
+bool is_dummy_rel(RelOptInfo *rel)
+{
+    Path *path;
+
+    // Empty pathlist means not dummy
+    if (rel->pathlist == NIL)
+        return false;
+
+    path = (Path *) linitial(rel->pathlist);
+
+    // Descend through projection wrappers to find base path
+    for (;;) {
+        if (IsA(path, ProjectionPath))
+            path = ((ProjectionPath *) path)->subpath;
+        else if (IsA(path, ProjectSetPath))
+            path = ((ProjectSetPath *) path)->subpath;
+        else
+            break;
+    }
+
+    // Check if underlying path is a dummy (childless) Append
+    return IS_DUMMY_APPEND(path);
+}
+```

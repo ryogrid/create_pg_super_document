@@ -45,3 +45,103 @@ The function performs atomic operations on the pg_policy system catalog and main
 - Uses RowExclusiveLock on pg_policy to prevent concurrent modifications
 - Handles race conditions gracefully (e.g., if the relation was dropped concurrently)
 - Does not create dependencies on the PUBLIC role (ACL_ID_PUBLIC) as it's implicitly available
+
+## Simplified Source
+```c
+bool
+RemoveRoleFromObjectPolicy(Oid roleid, Oid classid, Oid policy_id)
+{
+    Relation pg_policy_rel;
+    SysScanDesc sscan;
+    ScanKeyData skey[1];
+    HeapTuple tuple;
+    Oid relid;
+    ArrayType *policy_roles;
+    Datum roles_datum;
+    Oid *roles;
+    int num_roles;
+    Datum *role_oids;
+    bool keep_policy = true;
+    int i, j;
+
+    Assert(classid == PolicyRelationId);
+
+    // Open pg_policy catalog and find the target policy
+    pg_policy_rel = table_open(PolicyRelationId, RowExclusiveLock);
+
+    ScanKeyInit(&skey[0], Anum_pg_policy_oid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(policy_id));
+    sscan = systable_beginscan(pg_policy_rel, PolicyOidIndexId, true, NULL, 1, skey);
+    tuple = systable_getnext(sscan);
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "could not find tuple for policy %u", policy_id);
+
+    // Get relation ID and current roles array
+    relid = ((Form_pg_policy) GETSTRUCT(tuple))->polrelid;
+    roles_datum = heap_getattr(tuple, Anum_pg_policy_polroles, RelationGetDescr(pg_policy_rel), &attr_isnull);
+
+    policy_roles = DatumGetArrayTypePCopy(roles_datum);
+    roles = (Oid *) ARR_DATA_PTR(policy_roles);
+    num_roles = ARR_DIMS(policy_roles)[0];
+
+    // Rebuild roles array without the target role (handles duplicates)
+    role_oids = (Datum *) palloc(num_roles * sizeof(Datum));
+    for (i = 0, j = 0; i < num_roles; i++)
+    {
+        if (roles[i] != roleid)
+            role_oids[j++] = ObjectIdGetDatum(roles[i]);
+    }
+    num_roles = j;
+
+    if (num_roles > 0)
+    {
+        // Update policy with remaining roles
+        ArrayType *role_ids = construct_array_builtin(role_oids, num_roles, OIDOID);
+
+        Datum values[Natts_pg_policy] = {0};
+        bool isnull[Natts_pg_policy] = {0};
+        bool replaces[Natts_pg_policy] = {0};
+
+        replaces[Anum_pg_policy_polroles - 1] = true;
+        values[Anum_pg_policy_polroles - 1] = PointerGetDatum(role_ids);
+
+        HeapTuple new_tuple = heap_modify_tuple(tuple, RelationGetDescr(pg_policy_rel), values, isnull, replaces);
+        CatalogTupleUpdate(pg_policy_rel, &new_tuple->t_self, new_tuple);
+
+        // Update shared dependencies
+        deleteSharedDependencyRecordsFor(PolicyRelationId, policy_id, 0);
+
+        ObjectAddress myself = {PolicyRelationId, policy_id, 0};
+        ObjectAddress target = {AuthIdRelationId, 0, 0};
+
+        for (i = 0; i < num_roles; i++)
+        {
+            target.objectId = DatumGetObjectId(role_oids[i]);
+            if (target.objectId != ACL_ID_PUBLIC)
+                recordSharedDependencyOn(&myself, &target, SHARED_DEPENDENCY_POLICY);
+        }
+
+        InvokeObjectPostAlterHook(PolicyRelationId, policy_id, 0);
+        heap_freetuple(new_tuple);
+        CommandCounterIncrement();
+
+        // Invalidate relation cache if relation still exists
+        HeapTuple reltup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+        if (HeapTupleIsValid(reltup))
+        {
+            CacheInvalidateRelcacheByTuple(reltup);
+            ReleaseSysCache(reltup);
+        }
+    }
+    else
+    {
+        // No roles would remain - policy should be dropped
+        keep_policy = false;
+    }
+
+    systable_endscan(sscan);
+    table_close(pg_policy_rel, RowExclusiveLock);
+
+    return keep_policy;
+}
+```

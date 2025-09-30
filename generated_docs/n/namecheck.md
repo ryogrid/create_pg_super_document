@@ -43,3 +43,38 @@ The function defines two character sets:
 - Part of the timezone file creation and management infrastructure
 - Handles both absolute and relative path validation
 - Uses octal notation for non-printable character warnings
+
+## Simplified Source
+
+```c
+static bool namecheck(const char *name) {
+    // Define safe characters for portable filenames
+    static char const benign[] = "-/_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    static char const printable_and_not_benign[] = " !\"#$%&'()*+,.0123456789:;<=>?@[\\]^`{|}~";
+
+    const char *component = name;
+
+    // Check each character in the filename
+    for (const char *cp = name; *cp; cp++) {
+        unsigned char c = *cp;
+
+        // Warn about non-benign characters if noise is enabled
+        if (noise && !strchr(benign, c)) {
+            warning((strchr(printable_and_not_benign, c)
+                    ? _("file name '%s' contains byte '%c'")
+                    : _("file name '%s' contains byte '\\%o'")),
+                    name, c);
+        }
+
+        // Check path components at each '/' separator
+        if (c == '/') {
+            if (!componentcheck(name, component, cp))
+                return false;
+            component = cp + 1;
+        }
+    }
+
+    // Check the final component
+    return componentcheck(name, component, cp);
+}
+```

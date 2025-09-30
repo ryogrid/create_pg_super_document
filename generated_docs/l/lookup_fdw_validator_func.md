@@ -33,3 +33,21 @@ This utility function processes validator function specifications from SQL DDL c
 - Validator functions are called to validate options before storing them in catalogs
 - Static function, only used internally within foreigncmds.c module
 - Part of PostgreSQL's option validation infrastructure for FDW management
+
+## Simplified Source
+
+```c
+static Oid lookup_fdw_validator_func(DefElem *validator) {
+    // Return InvalidOid if no validator specified
+    if (validator == NULL || validator->arg == NULL)
+        return InvalidOid;
+
+    // Set up expected argument types: validators take text[], oid
+    Oid funcargtypes[2];
+    funcargtypes[0] = TEXTARRAYOID;  // options array
+    funcargtypes[1] = OIDOID;        // catalog relation OID
+
+    // Look up function by name with required signature
+    return LookupFuncName((List *) validator->arg, 2, funcargtypes, false);
+}
+```

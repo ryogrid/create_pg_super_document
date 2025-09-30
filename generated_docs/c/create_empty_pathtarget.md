@@ -41,3 +41,15 @@ The function intentionally encapsulates the simple makeNode() call to provide a 
 - The returned PathTarget has VOLATILITY_UNKNOWN status initially
 - All fields are initialized to their default values by makeNode()
 - The function is declared in src/include/optimizer/tlist.h
+
+## Simplified Source
+
+```c
+PathTarget *create_empty_pathtarget(void)
+{
+    // Create and return an empty PathTarget structure
+    return makeNode(PathTarget);
+}
+```
+
+This function creates a completely empty PathTarget structure using makeNode(PathTarget). The resulting PathTarget has no expressions, no sortgrouprefs, zero cost, zero width, and serves as a foundation for incrementally building PathTarget structures.

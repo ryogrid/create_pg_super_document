@@ -44,3 +44,41 @@ The function assumes that the ParseState's p_rtable, p_joinlist, and p_namespace
 - The function supports incremental namespace building, allowing it to work with existing range table entries
 - Namespace items are initially marked as visible only to LATERAL during processing, then made unconditionally visible at the end
 - Essential for all SQL statements that include FROM clauses (SELECT, UPDATE, DELETE, MERGE, etc.)
+
+## Simplified Source
+
+```c
+void transformFromClause(ParseState *pstate, List *frmList) {
+    ListCell *fl;
+
+    // Process each FROM clause item left-to-right (important for LATERAL)
+    foreach(fl, frmList) {
+        Node *n = lfirst(fl);
+        ParseNamespaceItem *nsitem;
+        List *namespace;
+
+        // Transform the FROM clause item
+        n = transformFromClauseItem(pstate, n, &nsitem, &namespace);
+
+        // Check for namespace conflicts
+        checkNameSpaceConflicts(pstate, pstate->p_namespace, namespace);
+
+        // Mark new namespace items as LATERAL-only initially
+        setNamespaceLateralState(namespace, true, true);
+
+        // Add to join list and namespace
+        pstate->p_joinlist = lappend(pstate->p_joinlist, n);
+        pstate->p_namespace = list_concat(pstate->p_namespace, namespace);
+    }
+
+    // Make all namespace items unconditionally visible
+    setNamespaceLateralState(pstate->p_namespace, false, true);
+}
+```
+
+**Key Points:**
+- Processes FROM clause items (tables, subqueries, functions, joins) left-to-right
+- Left-to-right order is critical for proper LATERAL reference handling
+- Each item gets transformed, checked for conflicts, and added to parsing state
+- Namespace visibility is managed: LATERAL-only during processing, then fully visible
+- Updates parser state with new join list items and namespace entries

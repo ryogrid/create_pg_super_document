@@ -35,4 +35,16 @@ This function serves as the primary entry point for converting JSON text strings
 - This function is registered as the input function for the JSONB type in PostgreSQL's type system
 - It uses the  parameter for , indicating standard (non-unique) processing
 - The function context is passed through to support memory management and error handling
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+jsonb_in(PG_FUNCTION_ARGS)
+{
+    char *json = PG_GETARG_CSTRING(0);
+
+    return jsonb_from_cstring(json, strlen(json), false, fcinfo->context);
+}
+``` 

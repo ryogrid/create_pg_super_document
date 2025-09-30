@@ -51,3 +51,103 @@ The function ensures that attribute number mappings are consistent and handles t
 - RECORD variables are explicitly not supported for row type conversion
 - The function carefully preserves all other Var fields while only modifying attribute numbers and types as needed
 - Whole-row variable detection is communicated back to the caller through the found_whole_row flag
+
+## Simplified Source
+
+```c
+static Node *
+map_variable_attnos_mutator(Node *node, map_variable_attnos_context *context)
+{
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+
+        // Check if this variable matches our target
+        if (var->varno == context->target_varno &&
+            var->varlevelsup == context->sublevels_up)
+        {
+            // Create new variable with updated attributes
+            Var *newvar = (Var *) palloc(sizeof(Var));
+            *newvar = *var;  // Copy all fields
+
+            if (var->varattno > 0)
+            {
+                // Regular column: remap attribute number
+                if (var->varattno > context->attno_map->maplen ||
+                    context->attno_map->attnums[var->varattno - 1] == 0)
+                    elog(ERROR, "unexpected varattno %d", var->varattno);
+
+                newvar->varattno = context->attno_map->attnums[var->varattno - 1];
+
+                // Update syntactic reference if needed
+                if (newvar->varnosyn == context->target_varno)
+                    newvar->varattnosyn = newvar->varattno;
+            }
+            else if (var->varattno == 0)
+            {
+                // Whole-row variable: notify caller and handle type conversion
+                *(context->found_whole_row) = true;
+
+                if (OidIsValid(context->to_rowtype) &&
+                    context->to_rowtype != var->vartype)
+                {
+                    // Convert to new row type
+                    ConvertRowtypeExpr *conversion = makeNode(ConvertRowtypeExpr);
+                    newvar->vartype = context->to_rowtype;
+
+                    conversion->arg = (Expr *) newvar;
+                    conversion->resulttype = var->vartype;
+                    conversion->convertformat = COERCE_IMPLICIT_CAST;
+                    conversion->location = -1;
+
+                    return (Node *) conversion;
+                }
+            }
+            return (Node *) newvar;
+        }
+    }
+    else if (IsA(node, ConvertRowtypeExpr))
+    {
+        ConvertRowtypeExpr *conversion = (ConvertRowtypeExpr *) node;
+        Var *var = (Var *) conversion->arg;
+
+        // Optimize nested conversions for whole-row variables
+        if (IsA(var, Var) &&
+            var->varno == context->target_varno &&
+            var->varlevelsup == context->sublevels_up &&
+            var->varattno == 0 &&
+            OidIsValid(context->to_rowtype) &&
+            context->to_rowtype != var->vartype)
+        {
+            // Create optimized conversion without stacking
+            ConvertRowtypeExpr *newnode = (ConvertRowtypeExpr *) palloc(sizeof(ConvertRowtypeExpr));
+            Var *newvar = (Var *) palloc(sizeof(Var));
+
+            *(context->found_whole_row) = true;
+            *newvar = *var;
+            newvar->vartype = context->to_rowtype;
+
+            *newnode = *conversion;
+            newnode->arg = (Expr *) newvar;
+
+            return (Node *) newnode;
+        }
+    }
+    else if (IsA(node, Query))
+    {
+        // Handle subqueries with proper sublevel tracking
+        context->sublevels_up++;
+        Query *newnode = query_tree_mutator((Query *) node,
+                                          map_variable_attnos_mutator,
+                                          context, 0);
+        context->sublevels_up--;
+        return (Node *) newnode;
+    }
+
+    // Recursively process other node types
+    return expression_tree_mutator(node, map_variable_attnos_mutator, context);
+}
+```

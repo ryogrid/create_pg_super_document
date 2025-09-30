@@ -37,3 +37,22 @@ This function serves as the main entry point for assigning collation information
 
 ## Notes and Other Information
 This function should be applied to each Query after completion of parse analysis for expressions. It deliberately ignores range tables and CTE subqueries during traversal, assuming they have been properly processed during their creation phase. The function is defined in src/backend/parser/parse_collate.c at lines 101-125.
+
+## Simplified Source
+
+```c
+void assign_query_collations(ParseState *pstate, Query *query) {
+    // Walk the query tree to assign collations to all expressions
+    query_tree_walker(query,
+                      assign_query_collations_walker,
+                      (void *) pstate,
+                      QTW_IGNORE_RANGE_TABLE | QTW_IGNORE_CTE_SUBQUERIES);
+}
+```
+
+**Key Points:**
+- Simple wrapper that delegates to tree walking mechanism
+- Assigns collation information to all expressions in a parsed Query
+- Ignores range tables and CTE subqueries (already processed when built)
+- Uses specialized walker function for actual collation assignment logic
+- Called after parse analysis completion for each Query

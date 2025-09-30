@@ -38,3 +38,12 @@ This inline function provides a convenient way to extract a Jsonb pointer from a
 - Used extensively throughout the JSONB subsystem for type conversion from Datum to Jsonb pointer
 - Part of the convenience macro family alongside DatumGetJsonbPCopy and JsonbPGetDatum
 - The macro is used by PG_GETARG_JSONB_P for extracting function arguments
+
+## Simplified Source
+
+```c
+static inline Jsonb *DatumGetJsonbP(Datum d) {
+    // Convert Datum to Jsonb pointer, handling TOAST decompression
+    return (Jsonb *) PG_DETOAST_DATUM(d);
+}
+```

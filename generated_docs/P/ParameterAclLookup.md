@@ -34,3 +34,32 @@ This function searches for a configuration parameter's ACL entry in the pg_param
 - Part of PostgreSQL's Row Level Security (RLS) and parameter access control infrastructure
 - Returns InvalidOid when the ACL entry is not found and missing_ok is true
 - Error reporting follows PostgreSQL's standard error handling patterns with appropriate error codes
+
+## Simplified Source
+
+```c
+Oid
+ParameterAclLookup(const char *parameter, bool missing_ok)
+{
+    Oid oid;
+    char *parname;
+
+    // Convert parameter name to standardized form
+    parname = convert_GUC_name_for_parameter_acl(parameter);
+
+    // Look up ACL entry by parameter name
+    oid = GetSysCacheOid1(PARAMETERACLNAME, Anum_pg_parameter_acl_oid,
+                          PointerGetDatum(cstring_to_text(parname)));
+
+    // Handle missing ACL entry based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("parameter ACL \"%s\" does not exist", parameter)));
+
+    // Clean up converted name
+    pfree(parname);
+
+    return oid;
+}
+```

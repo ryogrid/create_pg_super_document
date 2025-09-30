@@ -41,3 +41,17 @@ The function acts as a format-agnostic interface that simplifies connection stri
 - Essential abstraction layer that simplifies connection string parsing throughout libpq
 - All error handling is delegated to the appropriate specialized parser function
 - The returned array must be freed by the caller when no longer needed
+
+## Simplified Source
+```c
+static PQconninfoOption *parse_connection_string(const char *connstr,
+                                                  PQExpBuffer errorMessage,
+                                                  bool use_defaults) {
+    // Check if string is URI format
+    if (uri_prefix_length(connstr) != 0)
+        return conninfo_uri_parse(connstr, errorMessage, use_defaults);
+
+    // Parse as traditional keyword=value format
+    return conninfo_parse(connstr, errorMessage, use_defaults);
+}
+```

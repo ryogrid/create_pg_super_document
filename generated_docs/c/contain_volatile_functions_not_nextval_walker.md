@@ -46,3 +46,27 @@ The function follows the standard PostgreSQL tree walker pattern, returning true
 - Designed specifically for COPY operation requirements where nextval() has different semantics
 - Returns true on first volatile function found (short-circuit evaluation)
 - Part of the infrastructure supporting parallel-safe analysis for bulk operations
+
+## Simplified Source
+
+```c
+static bool contain_volatile_functions_not_nextval_walker(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    // Check for volatile functions in current node (excluding nextval)
+    if (check_functions_in_node(node, contain_volatile_functions_not_nextval_checker, context))
+        return true;
+
+    // Recurse into subselects and expressions
+    if (IsA(node, Query)) {
+        return query_tree_walker((Query *) node,
+                                contain_volatile_functions_not_nextval_walker,
+                                context, 0);
+    }
+
+    return expression_tree_walker(node,
+                                 contain_volatile_functions_not_nextval_walker,
+                                 context);
+}
+```

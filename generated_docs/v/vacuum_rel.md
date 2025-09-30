@@ -70,3 +70,150 @@ The function implements various safety checks and early exit conditions for unsu
 - The function must be called outside of any existing transaction context
 - Parameter modification is done on a copy to avoid affecting TOAST table processing
 - Security context is properly restored even if operations fail or are interrupted
+
+## Simplified Source
+
+```c
+static bool vacuum_rel(Oid relid, RangeVar *relation, VacuumParams *params,
+                      BufferAccessStrategy bstrategy) {
+    LOCKMODE lmode;
+    Relation rel;
+    LockRelId lockrelid;
+    Oid toast_relid;
+    Oid save_userid;
+    int save_sec_context;
+    int save_nestlevel;
+    VacuumParams toast_vacuum_params;
+
+    // Copy parameters to avoid affecting TOAST processing
+    memcpy(&toast_vacuum_params, params, sizeof(VacuumParams));
+
+    // Start transaction for this vacuum operation
+    StartTransactionCommand();
+
+    // Set process flags for lazy vacuum coordination
+    if (!(params->options & VACOPT_FULL)) {
+        LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+        MyProc->statusFlags |= PROC_IN_VACUUM;
+        if (params->is_wraparound)
+            MyProc->statusFlags |= PROC_VACUUM_FOR_WRAPAROUND;
+        ProcGlobal->statusFlags[MyProc->pgxactoff] = MyProc->statusFlags;
+        LWLockRelease(ProcArrayLock);
+    }
+
+    // Acquire snapshot to prevent log truncation
+    PushActiveSnapshot(GetTransactionSnapshot());
+    CHECK_FOR_INTERRUPTS();
+
+    // Determine lock mode and open relation
+    lmode = (params->options & VACOPT_FULL) ?
+            AccessExclusiveLock : ShareUpdateExclusiveLock;
+
+    rel = vacuum_open_relation(relid, relation, params->options,
+                              params->log_min_duration >= 0, lmode);
+    if (!rel) {
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        return false;
+    }
+
+    // Check privileges and relation validity
+    Oid priv_relid = OidIsValid(params->toast_parent) ?
+                     params->toast_parent : RelationGetRelid(rel);
+
+    if (!vacuum_is_permitted_for_relation(priv_relid, rel->rd_rel,
+                                         params->options & ~VACOPT_ANALYZE)) {
+        relation_close(rel, lmode);
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        return false;
+    }
+
+    // Check for valid relation types
+    if (rel->rd_rel->relkind != RELKIND_RELATION &&
+        rel->rd_rel->relkind != RELKIND_MATVIEW &&
+        rel->rd_rel->relkind != RELKIND_TOASTVALUE &&
+        rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+        ereport(WARNING, (errmsg("skipping \"%s\" --- cannot vacuum non-tables",
+                                RelationGetRelationName(rel))));
+        relation_close(rel, lmode);
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        return false;
+    }
+
+    // Skip temp tables of other backends and partitioned tables
+    if (RELATION_IS_OTHER_TEMP(rel) ||
+        rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        relation_close(rel, lmode);
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        return true;  // OK to proceed with ANALYZE for partitioned tables
+    }
+
+    // Acquire session-level lock for TOAST processing safety
+    lockrelid = rel->rd_lockInfo.lockRelId;
+    LockRelationIdForSession(&lockrelid, lmode);
+
+    // Resolve vacuum options from relation settings if not specified
+    if (params->index_cleanup == VACOPTVALUE_UNSPECIFIED) {
+        // Set index_cleanup based on relation options or defaults
+        params->index_cleanup = VACOPTVALUE_AUTO;  // Simplified logic
+    }
+    if (params->truncate == VACOPTVALUE_UNSPECIFIED) {
+        // Set truncate based on relation options or defaults
+        params->truncate = VACOPTVALUE_ENABLED;  // Simplified logic
+    }
+
+    // Remember TOAST relation for later processing
+    if ((params->options & VACOPT_PROCESS_TOAST) != 0 &&
+        ((params->options & VACOPT_FULL) == 0 ||
+         (params->options & VACOPT_PROCESS_MAIN) == 0)) {
+        toast_relid = rel->rd_rel->reltoastrelid;
+    } else {
+        toast_relid = InvalidOid;
+    }
+
+    // Switch to table owner's security context
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(rel->rd_rel->relowner,
+                          save_sec_context | SECURITY_RESTRICTED_OPERATION);
+    save_nestlevel = NewGUCNestLevel();
+    RestrictSearchPath();
+
+    // Perform the actual vacuum work if PROCESS_MAIN is set
+    if (params->options & VACOPT_PROCESS_MAIN) {
+        if (params->options & VACOPT_FULL) {
+            // VACUUM FULL uses cluster_rel
+            ClusterParams cluster_params = {0};
+            relation_close(rel, NoLock);
+            rel = NULL;
+            if (params->options & VACOPT_VERBOSE)
+                cluster_params.options |= CLUOPT_VERBOSE;
+            cluster_rel(relid, InvalidOid, &cluster_params);
+        } else {
+            // Lazy vacuum
+            table_relation_vacuum(rel, params, bstrategy);
+        }
+    }
+
+    // Restore security context and complete transaction
+    AtEOXact_GUC(false, save_nestlevel);
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+    if (rel)
+        relation_close(rel, NoLock);
+    PopActiveSnapshot();
+    CommitTransactionCommand();
+
+    // Process TOAST table if needed
+    if (toast_relid != InvalidOid) {
+        toast_vacuum_params.options |= VACOPT_PROCESS_MAIN;
+        toast_vacuum_params.toast_parent = relid;
+        vacuum_rel(toast_relid, NULL, &toast_vacuum_params, bstrategy);
+    }
+
+    // Release session lock
+    UnlockRelationIdForSession(&lockrelid, lmode);
+    return true;
+}
+```

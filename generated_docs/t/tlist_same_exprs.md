@@ -38,3 +38,29 @@ This design choice allows the optimizer to make more aggressive optimizations by
 - On success, the caller must still substitute the desired target list into the plan node to ensure proper labeling
 - The function only compares the expr field of each TargetEntry, not the metadata fields
 - This is a critical function for query optimization as it enables plan node reuse and target list substitution
+
+## Simplified Source
+```c
+bool
+tlist_same_exprs(List *tlist1, List *tlist2)
+{
+    ListCell *lc1, *lc2;
+
+    // Quick length check
+    if (list_length(tlist1) != list_length(tlist2))
+        return false;
+
+    // Compare each expression pair
+    forboth(lc1, tlist1, lc2, tlist2)
+    {
+        TargetEntry *tle1 = (TargetEntry *) lfirst(lc1);
+        TargetEntry *tle2 = (TargetEntry *) lfirst(lc2);
+
+        // Only compare expressions, ignore labeling attributes
+        if (!equal(tle1->expr, tle2->expr))
+            return false;
+    }
+
+    return true;
+}
+```

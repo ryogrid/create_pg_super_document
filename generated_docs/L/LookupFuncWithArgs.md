@@ -42,3 +42,110 @@ This function implements the most sophisticated function lookup mechanism in Pos
 
 ## Notes and Other Information
 The function implements complex logic to handle SQL standard procedure semantics where all parameters (IN, OUT, INOUT) are considered for matching, while preserving PostgreSQL's traditional function lookup that considers only input parameters. It validates that the found object matches the requested object type, with historical exceptions allowing functions to match aggregates and window functions. The two-stage lookup prevents ambiguity between functions and procedures with the same input signature but different output parameters. Maximum argument limits are enforced with appropriate error messages distinguishing between functions and procedures.
+
+## Simplified Source
+
+```c
+Oid
+LookupFuncWithArgs(ObjectType objtype, ObjectWithArgs *func, bool missing_ok) {
+    Oid argoids[FUNC_MAX_ARGS];
+    int argcount, nargs, i;
+    ListCell *args_item;
+    Oid oid;
+    FuncLookupError lookupError;
+
+    // Validate object type
+    Assert(objtype == OBJECT_AGGREGATE || objtype == OBJECT_FUNCTION ||
+           objtype == OBJECT_PROCEDURE || objtype == OBJECT_ROUTINE);
+
+    // Check argument count limits
+    argcount = list_length(func->objargs);
+    if (argcount > FUNC_MAX_ARGS)
+        ereport(ERROR, "too many arguments");
+
+    // Convert argument type names to OIDs
+    i = 0;
+    foreach(args_item, func->objargs) {
+        TypeName *t = lfirst_node(TypeName, args_item);
+        argoids[i] = LookupTypeNameOid(NULL, t, missing_ok);
+        if (!OidIsValid(argoids[i]))
+            return InvalidOid; // missing_ok must be true
+        i++;
+    }
+
+    // Set nargs for lookup (-1 means no args specified)
+    nargs = func->args_unspecified ? -1 : argcount;
+
+    // First lookup using traditional PostgreSQL rules (input args only)
+    oid = LookupFuncNameInternal(func->args_unspecified ? objtype : OBJECT_ROUTINE,
+                                 func->objname, nargs, argoids,
+                                 false, missing_ok, &lookupError);
+
+    // For procedures/routines, try second lookup with all parameters
+    if ((objtype == OBJECT_PROCEDURE || objtype == OBJECT_ROUTINE) &&
+        func->objfuncargs != NIL && lookupError != FUNCLOOKUP_AMBIGUOUS) {
+
+        // Check if parameter modes are specified
+        bool have_param_mode = false;
+        foreach(args_item, func->objfuncargs) {
+            FunctionParameter *fp = lfirst_node(FunctionParameter, args_item);
+            if (fp->mode != FUNC_PARAM_DEFAULT) {
+                have_param_mode = true;
+                break;
+            }
+        }
+
+        // If no parameter modes, try lookup with all parameters
+        if (!have_param_mode) {
+            Oid poid = LookupFuncNameInternal(objtype, func->objname,
+                                              argcount, argoids,
+                                              true, missing_ok, &lookupError);
+
+            // Combine results, handle ambiguity
+            if (OidIsValid(poid)) {
+                if (OidIsValid(oid) && oid != poid) {
+                    oid = InvalidOid;
+                    lookupError = FUNCLOOKUP_AMBIGUOUS;
+                } else {
+                    oid = poid;
+                }
+            }
+        }
+    }
+
+    if (OidIsValid(oid)) {
+        // Validate object type matches what was found
+        switch (objtype) {
+            case OBJECT_FUNCTION:
+                if (get_func_prokind(oid) == PROKIND_PROCEDURE)
+                    ereport(ERROR, "is not a function");
+                break;
+            case OBJECT_PROCEDURE:
+                if (get_func_prokind(oid) != PROKIND_PROCEDURE)
+                    ereport(ERROR, "is not a procedure");
+                break;
+            case OBJECT_AGGREGATE:
+                if (get_func_prokind(oid) != PROKIND_AGGREGATE)
+                    ereport(ERROR, "is not an aggregate");
+                break;
+            default:
+                // OBJECT_ROUTINE accepts anything
+                break;
+        }
+        return oid;
+    } else {
+        // Handle lookup failures
+        if (!missing_ok) {
+            switch (lookupError) {
+                case FUNCLOOKUP_NOSUCHFUNC:
+                    ereport(ERROR, "function/procedure does not exist");
+                    break;
+                case FUNCLOOKUP_AMBIGUOUS:
+                    ereport(ERROR, "function/procedure name is not unique");
+                    break;
+            }
+        }
+        return InvalidOid;
+    }
+}
+```

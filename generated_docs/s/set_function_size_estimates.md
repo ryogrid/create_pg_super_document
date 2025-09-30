@@ -36,3 +36,34 @@ The estimation process involves iterating through all functions listed in the ra
 - The function sets rel->tuples to the maximum row estimate among all functions in the RTE
 - Uses assertions to verify the relation is a valid base relation with function range table entry
 - Part of PostgreSQL's cost-based query optimizer infrastructure for estimating execution costs
+
+## Simplified Source
+
+```c
+void
+set_function_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    RangeTblEntry *rte;
+    ListCell *lc;
+
+    // Verify this is a base relation representing a function
+    Assert(rel->relid > 0);
+    rte = planner_rt_fetch(rel->relid, root);
+    Assert(rte->rtekind == RTE_FUNCTION);
+
+    // Find the maximum row count among all functions in the RTE
+    rel->tuples = 0;
+    foreach(lc, rte->functions)
+    {
+        RangeTblFunction *rtfunc = (RangeTblFunction *) lfirst(lc);
+        double ntup = expression_returns_set_rows(root, rtfunc->funcexpr);
+
+        // Keep the largest row count estimate
+        if (ntup > rel->tuples)
+            rel->tuples = ntup;
+    }
+
+    // Complete the size estimation using standard base relation logic
+    set_baserel_size_estimates(root, rel);
+}
+```

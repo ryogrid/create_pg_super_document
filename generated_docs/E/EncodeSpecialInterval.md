@@ -43,3 +43,20 @@ This is the interval-specific version of the timestamp encoding function, design
 - [String](../S/String.md) constants EARLY and LATE are typically "-infinity" and "infinity" respectively
 - Function will error if called with finite interval values
 - Static function scope limits usage to within the timestamp.c compilation unit
+
+## Simplified Source
+
+```c
+static void
+EncodeSpecialInterval(const Interval *interval, char *str) {
+    // Handle negative infinity interval (beginning of time)
+    if (INTERVAL_IS_NOBEGIN(interval))
+        strcpy(str, EARLY);
+    // Handle positive infinity interval (end of time)
+    else if (INTERVAL_IS_NOEND(interval))
+        strcpy(str, LATE);
+    // Error: function only handles special infinite intervals
+    else
+        elog(ERROR, "invalid argument for EncodeSpecialInterval");
+}
+```

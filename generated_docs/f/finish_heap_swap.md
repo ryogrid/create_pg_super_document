@@ -63,3 +63,121 @@ The function includes special handling for pg_class itself, updating freeze info
 - Clears missing attribute settings for non-catalog tables to avoid inconsistencies
 - Critical for the atomicity and consistency of table reorganization operations
 - The function is non-static (public) as it's used by multiple table reorganization subsystems
+
+## Simplified Source
+
+```c
+void
+finish_heap_swap(Oid OIDOldHeap, Oid OIDNewHeap,
+                 bool is_system_catalog, bool swap_toast_by_content,
+                 bool check_constraints, bool is_internal,
+                 TransactionId frozenXid, MultiXactId cutoffMulti,
+                 char newrelpersistence)
+{
+    ObjectAddress object;
+    Oid mapped_tables[4];
+    int reindex_flags;
+    ReindexParams reindex_params = {0};
+
+    // Report progress: swapping relation files
+    pgstat_progress_update_param(PROGRESS_CLUSTER_PHASE,
+                                PROGRESS_CLUSTER_PHASE_SWAP_REL_FILES);
+
+    // Initialize mapped tables array
+    memset(mapped_tables, 0, sizeof(mapped_tables));
+
+    // Swap the physical files between old and new heaps
+    swap_relation_files(OIDOldHeap, OIDNewHeap,
+                       (OIDOldHeap == RelationRelationId),
+                       swap_toast_by_content, is_internal,
+                       frozenXid, cutoffMulti, mapped_tables);
+
+    // Invalidate catalog caches for system catalogs
+    if (is_system_catalog)
+        CacheInvalidateCatalog(OIDOldHeap);
+
+    // Prepare reindex flags
+    reindex_flags = REINDEX_REL_SUPPRESS_INDEX_USE;
+    if (check_constraints)
+        reindex_flags |= REINDEX_REL_CHECK_CONSTRAINTS;
+
+    // Set index persistence based on table persistence
+    if (newrelpersistence == RELPERSISTENCE_UNLOGGED)
+        reindex_flags |= REINDEX_REL_FORCE_INDEXES_UNLOGGED;
+    else if (newrelpersistence == RELPERSISTENCE_PERMANENT)
+        reindex_flags |= REINDEX_REL_FORCE_INDEXES_PERMANENT;
+
+    // Report progress: rebuilding indexes
+    pgstat_progress_update_param(PROGRESS_CLUSTER_PHASE,
+                                PROGRESS_CLUSTER_PHASE_REBUILD_INDEX);
+
+    // Rebuild all indexes on the swapped relation
+    reindex_relation(NULL, OIDOldHeap, reindex_flags, &reindex_params);
+
+    // Report progress: final cleanup
+    pgstat_progress_update_param(PROGRESS_CLUSTER_PHASE,
+                                PROGRESS_CLUSTER_PHASE_FINAL_CLEANUP);
+
+    // Special handling for pg_class: update freeze information
+    if (OIDOldHeap == RelationRelationId) {
+        Relation relRelation;
+        HeapTuple reltup;
+        Form_pg_class relform;
+
+        relRelation = table_open(RelationRelationId, RowExclusiveLock);
+        reltup = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(OIDOldHeap));
+        if (!HeapTupleIsValid(reltup))
+            elog(ERROR, "cache lookup failed for relation %u", OIDOldHeap);
+
+        relform = (Form_pg_class) GETSTRUCT(reltup);
+        relform->relfrozenxid = frozenXid;
+        relform->relminmxid = cutoffMulti;
+
+        CatalogTupleUpdate(relRelation, &reltup->t_self, reltup);
+        table_close(relRelation, RowExclusiveLock);
+    }
+
+    // Drop the temporary heap relation
+    object.classId = RelationRelationId;
+    object.objectId = OIDNewHeap;
+    object.objectSubId = 0;
+    performDeletion(&object, DROP_RESTRICT, PERFORM_DELETION_INTERNAL);
+
+    // Clean up temporary relation mappings
+    for (int i = 0; OidIsValid(mapped_tables[i]); i++)
+        RelationMapRemoveMapping(mapped_tables[i]);
+
+    // Rename TOAST tables if using link-based swapping
+    if (!swap_toast_by_content) {
+        Relation newrel = table_open(OIDOldHeap, NoLock);
+
+        if (OidIsValid(newrel->rd_rel->reltoastrelid)) {
+            Oid toastidx;
+            char NewToastName[NAMEDATALEN];
+
+            // Get TOAST index and rename toast table
+            toastidx = toast_get_valid_index(newrel->rd_rel->reltoastrelid, NoLock);
+
+            snprintf(NewToastName, NAMEDATALEN, "pg_toast_%u", OIDOldHeap);
+            RenameRelationInternal(newrel->rd_rel->reltoastrelid,
+                                 NewToastName, true, false);
+
+            // Rename TOAST index
+            snprintf(NewToastName, NAMEDATALEN, "pg_toast_%u_index", OIDOldHeap);
+            RenameRelationInternal(toastidx, NewToastName, true, true);
+
+            // Reset rewrite information for toast table
+            CommandCounterIncrement();
+            ResetRelRewrite(newrel->rd_rel->reltoastrelid);
+        }
+        relation_close(newrel, NoLock);
+    }
+
+    // Clear missing attribute settings for non-catalog tables
+    if (!is_system_catalog) {
+        Relation newrel = table_open(OIDOldHeap, NoLock);
+        RelationClearMissing(newrel);
+        relation_close(newrel, NoLock);
+    }
+}
+```

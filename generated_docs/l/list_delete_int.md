@@ -37,3 +37,19 @@ When a matching integer is found, the cell is removed using `list_delete_cell()`
 - Returns the original list unchanged if no matching integer is found
 - Part of PostgreSQL's typed list API that provides type-safe operations for different data types
 - The `lfirst_int()` macro safely extracts integer values from list cells
+
+## Simplified Source
+
+```c
+List *list_delete_int(List *list, int datum) {
+    // Search through integer list for matching value
+    foreach(cell, list) {
+        if (lfirst_int(cell) == datum) {
+            return list_delete_cell(list, cell);  // Remove first match
+        }
+    }
+
+    // No match found, return original list
+    return list;
+}
+```

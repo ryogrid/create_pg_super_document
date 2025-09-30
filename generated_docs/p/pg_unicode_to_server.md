@@ -45,3 +45,55 @@ The function is designed to work outside transactions and in aborted transaction
 - Uses UTF-8 as intermediate representation for non-UTF-8 database encodings
 - Part of PostgreSQL's comprehensive Unicode support infrastructure
 - Located in src/backend/utils/mb/mbutils.c:864-925
+
+## Simplified Source
+
+```c
+void pg_unicode_to_server(pg_wchar c, unsigned char *s) {
+    unsigned char c_as_utf8[MAX_MULTIBYTE_CHAR_LEN + 1];
+    int c_as_utf8_len;
+    int server_encoding;
+
+    // Validate Unicode code point
+    if (!is_valid_unicode_codepoint(c))
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("invalid Unicode code point")));
+
+    // Fast path for ASCII range
+    if (c <= 0x7F) {
+        s[0] = (unsigned char) c;
+        s[1] = '\0';
+        return;
+    }
+
+    // Check if server encoding is UTF-8
+    server_encoding = GetDatabaseEncoding();
+    if (server_encoding == PG_UTF8) {
+        // Direct UTF-8 conversion
+        unicode_to_utf8(c, s);
+        s[pg_utf_mblen(s)] = '\0';
+        return;
+    }
+
+    // For other encodings, need conversion function
+    if (Utf8ToServerConvProc == NULL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("conversion between %s and %s is not supported",
+                              pg_enc2name_tbl[PG_UTF8].name,
+                              GetDatabaseEncodingName())));
+
+    // Convert via UTF-8 intermediate format
+    unicode_to_utf8(c, c_as_utf8);
+    c_as_utf8_len = pg_utf_mblen(c_as_utf8);
+    c_as_utf8[c_as_utf8_len] = '\0';
+
+    // Convert UTF-8 to server encoding
+    FunctionCall6(Utf8ToServerConvProc,
+                  Int32GetDatum(PG_UTF8),
+                  Int32GetDatum(server_encoding),
+                  CStringGetDatum((char *) c_as_utf8),
+                  CStringGetDatum((char *) s),
+                  Int32GetDatum(c_as_utf8_len),
+                  BoolGetDatum(false));
+}
+```

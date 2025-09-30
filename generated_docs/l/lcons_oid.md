@@ -40,3 +40,28 @@ The function maintains list invariants and performs type checking to ensure data
 - Returns the modified list with the new OID at the front
 - Used extensively in namespace resolution and catalog operations where OID hierarchies are common
 - The function handles both empty (NIL) and non-empty list cases appropriately
+
+## Simplified Source
+
+```c
+List * lcons_oid(Oid datum, List *list) {
+    // Ensure we're working with an OID list
+    Assert(IsOidList(list));
+
+    if (list == NIL) {
+        // Create new OID list if input is empty
+        list = new_list(T_OidList, 1);
+    } else {
+        // Add new cell at the head of existing list
+        new_head_cell(list);
+    }
+
+    // Set the OID value at the front of the list
+    linitial_oid(list) = datum;
+
+    // Validate list consistency
+    check_list_invariants(list);
+
+    return list;
+}
+```

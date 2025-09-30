@@ -31,3 +31,14 @@ This function registers a new function (identified by its OID) with PostgreSQL's
 - The statistics registration is transactional - if the transaction creating the function is rolled back, the statistics entry will also be cleaned up
 - Located in src/backend/utils/activity/pgstat_function.c:45-59
 - Part of PostgreSQL's comprehensive statistics collection framework for monitoring database performance
+
+## Simplified Source
+
+```c
+void
+pgstat_create_function(Oid proid)
+{
+    // Register function for transactional statistics tracking
+    pgstat_create_transactional(PGSTAT_KIND_FUNCTION, MyDatabaseId, proid);
+}
+```

@@ -42,3 +42,82 @@ The function must provide consistent results when called before and after parsin
 - Some operations could theoretically use weaker locks but use stronger ones for consistency
 - Special handling for constraint types (PRIMARY, UNIQUE, FOREIGN, etc.) with different lock requirements
 - Partition operations have specific concurrent vs non-concurrent lock level differences
+
+## Simplified Source
+
+```c
+LOCKMODE AlterTableGetLockLevel(List *cmds)
+{
+    ListCell   *lcmd;
+    LOCKMODE    lockmode = ShareUpdateExclusiveLock;  // Default lock level
+
+    // Examine each subcommand and determine required lock level
+    foreach(lcmd, cmds)
+    {
+        AlterTableCmd *cmd = (AlterTableCmd *) lfirst(lcmd);
+        LOCKMODE cmd_lockmode = AccessExclusiveLock;  // Default for safety
+
+        switch (cmd->subtype)
+        {
+            // Operations that rewrite the heap - need strongest lock
+            case AT_AddColumn:
+            case AT_SetAccessMethod:
+            case AT_SetTableSpace:
+            case AT_AlterColumnType:
+            case AT_SetStorage:  // May add toast tables
+                cmd_lockmode = AccessExclusiveLock;
+                break;
+
+            // Operations affecting SELECT visibility
+            case AT_DropConstraint:
+            case AT_DropNotNull:
+            case AT_DropColumn:
+            case AT_ChangeOwner:
+            case AT_EnableRule:
+            case AT_DisableRule:
+                cmd_lockmode = AccessExclusiveLock;
+                break;
+
+            // Operations affecting only writes
+            case AT_EnableTrig:
+            case AT_DisableTrig:
+                cmd_lockmode = ShareRowExclusiveLock;
+                break;
+
+            // Constraint operations - depend on constraint type
+            case AT_AddConstraint:
+                if (IsA(cmd->def, Constraint))
+                {
+                    Constraint *con = (Constraint *) cmd->def;
+                    if (con->contype == CONSTR_FOREIGN)
+                        cmd_lockmode = ShareRowExclusiveLock;
+                    else
+                        cmd_lockmode = AccessExclusiveLock;
+                }
+                break;
+
+            // Performance/maintenance operations
+            case AT_SetStatistics:
+            case AT_ClusterOn:
+            case AT_ValidateConstraint:
+                cmd_lockmode = ShareUpdateExclusiveLock;
+                break;
+
+            // Minimal operations
+            case AT_CheckNotNull:
+                cmd_lockmode = AccessShareLock;
+                break;
+
+            default:
+                cmd_lockmode = AccessExclusiveLock;
+                break;
+        }
+
+        // Take the strongest lock mode required
+        if (cmd_lockmode > lockmode)
+            lockmode = cmd_lockmode;
+    }
+
+    return lockmode;
+}
+```

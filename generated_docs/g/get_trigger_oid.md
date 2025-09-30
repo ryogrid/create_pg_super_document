@@ -38,3 +38,52 @@ get_trigger_oid provides a convenient interface for finding triggers by name wit
 - Part of PostgreSQL's object address resolution system for trigger objects
 - Used primarily for resolving trigger references in DDL operations and system queries
 - The missing_ok parameter follows PostgreSQL's common pattern for optional error handling
+
+## Simplified Source
+
+```c
+Oid
+get_trigger_oid(Oid relid, const char *trigname, bool missing_ok)
+{
+    Relation tgrel;
+    ScanKeyData skey[2];
+    SysScanDesc tgscan;
+    HeapTuple tup;
+    Oid oid;
+
+    // Open pg_trigger catalog
+    tgrel = table_open(TriggerRelationId, AccessShareLock);
+
+    // Setup scan keys for relation ID and trigger name
+    ScanKeyInit(&skey[0], Anum_pg_trigger_tgrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+    ScanKeyInit(&skey[1], Anum_pg_trigger_tgname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(trigname));
+
+    // Begin indexed scan
+    tgscan = systable_beginscan(tgrel, TriggerRelidNameIndexId, true,
+                               NULL, 2, skey);
+
+    tup = systable_getnext(tgscan);
+
+    if (!HeapTupleIsValid(tup))
+    {
+        if (!missing_ok)
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("trigger \"%s\" for table \"%s\" does not exist",
+                            trigname, get_rel_name(relid))));
+        oid = InvalidOid;
+    }
+    else
+    {
+        oid = ((Form_pg_trigger) GETSTRUCT(tup))->oid;
+    }
+
+    systable_endscan(tgscan);
+    table_close(tgrel, AccessShareLock);
+    return oid;
+}
+```

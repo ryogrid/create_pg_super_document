@@ -35,3 +35,55 @@ This function takes no parameters and operates on global state variables.
 
 ## Notes and Other Information
 The function differentiates between autovacuum workers and explicit vacuum operations through the MyWorkerInfo global variable. For autovacuum workers, cost parameters follow a three-tier hierarchy: storage parameters override autovacuum GUCs, which override general vacuum GUCs. The debug logging is conditionally compiled to avoid lock overhead when DEBUG2 logging is not enabled. The function ensures that VacuumCostActive and VacuumFailsafeActive states are mutually exclusive, with failsafe mode disabling cost-based delays.
+
+## Simplified Source
+
+```c
+void VacuumUpdateCosts(void) {
+    if (MyWorkerInfo) {
+        // Autovacuum worker: apply cost delay hierarchy
+        if (av_storage_param_cost_delay >= 0)
+            vacuum_cost_delay = av_storage_param_cost_delay;
+        else if (autovacuum_vac_cost_delay >= 0)
+            vacuum_cost_delay = autovacuum_vac_cost_delay;
+        else
+            vacuum_cost_delay = VacuumCostDelay;  // fallback
+
+        // Update cost limit for load balancing
+        AutoVacuumUpdateCostLimit();
+    } else {
+        // Explicit VACUUM/ANALYZE: use global settings
+        vacuum_cost_delay = VacuumCostDelay;
+        vacuum_cost_limit = VacuumCostLimit;
+    }
+
+    // Update cost-based throttling state
+    if (VacuumFailsafeActive) {
+        Assert(!VacuumCostActive);
+    } else if (vacuum_cost_delay > 0) {
+        VacuumCostActive = true;
+    } else {
+        VacuumCostActive = false;
+        VacuumCostBalance = 0;
+    }
+
+    // Debug logging for autovacuum workers
+    if (MyWorkerInfo && message_level_is_interesting(DEBUG2)) {
+        Oid dboid, tableoid;
+
+        LWLockAcquire(AutovacuumLock, LW_SHARED);
+        dboid = MyWorkerInfo->wi_dboid;
+        tableoid = MyWorkerInfo->wi_tableoid;
+        LWLockRelease(AutovacuumLock);
+
+        elog(DEBUG2,
+             "Autovacuum VacuumUpdateCosts(db=%u, rel=%u, dobalance=%s, "
+             "cost_limit=%d, cost_delay=%g active=%s failsafe=%s)",
+             dboid, tableoid,
+             pg_atomic_unlocked_test_flag(&MyWorkerInfo->wi_dobalance) ? "no" : "yes",
+             vacuum_cost_limit, vacuum_cost_delay,
+             vacuum_cost_delay > 0 ? "yes" : "no",
+             VacuumFailsafeActive ? "yes" : "no");
+    }
+}
+```

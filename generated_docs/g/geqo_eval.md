@@ -42,3 +42,44 @@ The function carefully manages the planner's join_rel_list and join_rel_hash to 
 - Does not currently support optimization for partial result retrieval or parameterized paths
 - Assumes new entries to join_rel_list are appended at the end for proper restoration
 - Critical for fitness evaluation in the genetic query optimization process
+
+## Simplified Source
+
+```c
+Cost geqo_eval(PlannerInfo *root, Gene *tour, int num_gene) {
+    MemoryContext mycontext, oldcxt;
+    RelOptInfo *joinrel;
+    Cost fitness;
+    int savelength;
+    struct HTAB *savehash;
+
+    // Create temporary memory context to prevent leaks
+    mycontext = AllocSetContextCreate(CurrentMemoryContext, "GEQO", ALLOCSET_DEFAULT_SIZES);
+    oldcxt = MemoryContextSwitchTo(mycontext);
+
+    // Save current state to restore later
+    savelength = list_length(root->join_rel_list);
+    savehash = root->join_rel_hash;
+    root->join_rel_hash = NULL;
+
+    // Construct best path for given gene tour
+    joinrel = gimme_tree(root, tour, num_gene);
+
+    // Calculate fitness based on join cost
+    if (joinrel) {
+        fitness = joinrel->cheapest_total_path->total_cost;
+    } else {
+        fitness = DBL_MAX;  // Invalid join order
+    }
+
+    // Restore original state
+    root->join_rel_list = list_truncate(root->join_rel_list, savelength);
+    root->join_rel_hash = savehash;
+
+    // Clean up temporary memory
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(mycontext);
+
+    return fitness;
+}
+```

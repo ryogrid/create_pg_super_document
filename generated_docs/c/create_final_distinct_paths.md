@@ -56,3 +56,96 @@ The function prioritizes sort-based approaches when paths are already sorted, bu
 - Respects enable_hashagg and enable_incremental_sort configuration parameters
 - Uses AGGSPLIT_SIMPLE for hash aggregation in the final phase
 - Returns the distinct_rel with populated pathlist for subsequent planning phases
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+create_final_distinct_paths(PlannerInfo *root, RelOptInfo *input_rel,
+                           RelOptInfo *distinct_rel)
+{
+    Query *parse = root->parse;
+    Path *cheapest_input_path = input_rel->cheapest_total_path;
+    double numDistinctRows;
+
+    // Estimate distinct rows based on whether grouping/aggregation already occurred
+    if (parse->groupClause || parse->groupingSets || parse->hasAggs || root->hasHavingQual) {
+        // Input already mostly unique from grouping/aggregation
+        numDistinctRows = cheapest_input_path->rows;
+    } else {
+        // Estimate using GROUP BY-comparable analysis
+        List *distinctExprs = get_sortgrouplist_exprs(root->processed_distinctClause, parse->targetList);
+        numDistinctRows = estimate_num_groups(root, distinctExprs, cheapest_input_path->rows, NULL, NULL);
+    }
+
+    // Try sort-based DISTINCT implementations
+    if (grouping_is_sortable(root->processed_distinctClause)) {
+        List *needed_pathkeys;
+
+        // Choose more rigorous pathkeys for DISTINCT ON
+        if (parse->hasDistinctOn &&
+            list_length(root->distinct_pathkeys) < list_length(root->sort_pathkeys))
+            needed_pathkeys = root->sort_pathkeys;
+        else
+            needed_pathkeys = root->distinct_pathkeys;
+
+        // Process each input path
+        foreach(lc, input_rel->pathlist) {
+            Path *input_path = (Path *) lfirst(lc);
+            Path *sorted_path;
+            bool is_sorted;
+            int presorted_keys;
+
+            // Check if path is already sorted appropriately
+            is_sorted = pathkeys_count_contained_in(needed_pathkeys, input_path->pathkeys, &presorted_keys);
+
+            if (is_sorted) {
+                sorted_path = input_path;
+            } else {
+                // Skip paths that aren't worth sorting (except cheapest)
+                if (input_path != cheapest_input_path &&
+                    (presorted_keys == 0 || !enable_incremental_sort))
+                    continue;
+
+                // Create sort or incremental sort path
+                if (presorted_keys == 0 || !enable_incremental_sort)
+                    sorted_path = create_sort_path(root, distinct_rel, input_path, needed_pathkeys, limittuples);
+                else
+                    sorted_path = create_incremental_sort_path(root, distinct_rel, input_path,
+                                                             needed_pathkeys, presorted_keys, limittuples);
+            }
+
+            // Handle special case: all pathkeys redundant (use LIMIT 1)
+            if (root->distinct_pathkeys == NIL) {
+                Node *limitCount = makeConst(INT8OID, -1, InvalidOid, sizeof(int64),
+                                           Int64GetDatum(1), false, FLOAT8PASSBYVAL);
+                add_path(distinct_rel, create_limit_path(root, distinct_rel, sorted_path,
+                                                       NULL, limitCount, LIMIT_OPTION_COUNT, 0, 1));
+            } else {
+                // Create standard unique path
+                add_path(distinct_rel, create_upper_unique_path(root, distinct_rel, sorted_path,
+                                                              list_length(root->distinct_pathkeys), numDistinctRows));
+            }
+        }
+    }
+
+    // Try hash-based DISTINCT implementation
+    bool allow_hash;
+    if (distinct_rel->pathlist == NIL)
+        allow_hash = true;  // No alternatives available
+    else if (parse->hasDistinctOn || !enable_hashagg)
+        allow_hash = false; // Policy restrictions
+    else
+        allow_hash = true;  // Default case
+
+    if (allow_hash && grouping_is_hashable(root->processed_distinctClause)) {
+        // Create hash aggregation path
+        add_path(distinct_rel, create_agg_path(root, distinct_rel, cheapest_input_path,
+                                             cheapest_input_path->pathtarget, AGG_HASHED,
+                                             AGGSPLIT_SIMPLE, root->processed_distinctClause,
+                                             NIL, NULL, numDistinctRows));
+    }
+
+    return distinct_rel;
+}
+```

@@ -42,3 +42,30 @@ Like its counterpart get_cheapest_path_for_pathkeys, it iterates through candida
 - Optimized for queries that will terminate early (e.g., with LIMIT clauses)
 - Cost comparison is performed before pathkey comparison as an optimization
 - Part of PostgreSQL's fractional path cost optimization framework for partial result retrieval
+
+## Simplified Source
+
+```c
+Path *get_cheapest_fractional_path_for_pathkeys(List *paths, List *pathkeys,
+                                               Relids required_outer, double fraction) {
+    Path *best_path = NULL;
+
+    // Find cheapest path that meets requirements
+    foreach(cell, paths) {
+        Path *path = (Path *) lfirst(cell);
+
+        // Skip if more expensive than current best
+        if (best_path != NULL &&
+            compare_fractional_path_costs(best_path, path, fraction) <= 0)
+            continue;
+
+        // Check if path satisfies ordering and parameterization
+        if (pathkeys_contained_in(pathkeys, path->pathkeys) &&
+            bms_is_subset(PATH_REQ_OUTER(path), required_outer)) {
+            best_path = path;
+        }
+    }
+
+    return best_path;
+}
+```

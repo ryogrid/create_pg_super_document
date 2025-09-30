@@ -51,3 +51,108 @@ The comparison operator is invoked via function call protocol, with the scalar a
 - Respects strict function semantics when encountering NULL values
 - The scalar argument is pre-evaluated and stored in fcinfo->args[0] before this function is called
 - Uses bitmap masking to efficiently track NULL elements in sparse arrays
+
+## Simplified Source
+
+```c
+void ExecEvalScalarArrayOp(ExprState *state, ExprEvalStep *op)
+{
+    FunctionCallInfo fcinfo = op->d.scalararrayop.fcinfo_data;
+    bool useOr = op->d.scalararrayop.useOr;  // true for ANY, false for ALL
+    bool strictfunc = op->d.scalararrayop.finfo->fn_strict;
+
+    // Return NULL if array is NULL
+    if (*op->resnull)
+        return;
+
+    ArrayType *arr = DatumGetArrayTypeP(*op->resvalue);
+    int nitems = ArrayGetNItems(ARR_NDIM(arr), ARR_DIMS(arr));
+
+    // Handle empty array: FALSE for ANY, TRUE for ALL
+    if (nitems <= 0) {
+        *op->resvalue = BoolGetDatum(!useOr);
+        *op->resnull = false;
+        return;
+    }
+
+    // If scalar is NULL and function is strict, return NULL
+    if (fcinfo->args[0].isnull && strictfunc) {
+        *op->resnull = true;
+        return;
+    }
+
+    // Cache element type info for efficiency
+    if (op->d.scalararrayop.element_type != ARR_ELEMTYPE(arr)) {
+        get_typlenbyvalalign(ARR_ELEMTYPE(arr),
+                           &op->d.scalararrayop.typlen,
+                           &op->d.scalararrayop.typbyval,
+                           &op->d.scalararrayop.typalign);
+        op->d.scalararrayop.element_type = ARR_ELEMTYPE(arr);
+    }
+
+    // Initialize result: FALSE for ANY, TRUE for ALL
+    Datum result = BoolGetDatum(!useOr);
+    bool resultnull = false;
+
+    // Iterate through array elements
+    char *s = (char *) ARR_DATA_PTR(arr);
+    bits8 *bitmap = ARR_NULLBITMAP(arr);
+    int bitmask = 1;
+
+    for (int i = 0; i < nitems; i++) {
+        // Extract element value, checking for NULL
+        if (bitmap && (*bitmap & bitmask) == 0) {
+            fcinfo->args[1].value = (Datum) 0;
+            fcinfo->args[1].isnull = true;
+        } else {
+            Datum elt = fetch_att(s, op->d.scalararrayop.typbyval,
+                                 op->d.scalararrayop.typlen);
+            s = att_addlength_pointer(s, op->d.scalararrayop.typlen, s);
+            s = (char *) att_align_nominal(s, op->d.scalararrayop.typalign);
+            fcinfo->args[1].value = elt;
+            fcinfo->args[1].isnull = false;
+        }
+
+        // Apply comparison operator
+        Datum thisresult;
+        if (fcinfo->args[1].isnull && strictfunc) {
+            fcinfo->isnull = true;
+            thisresult = (Datum) 0;
+        } else {
+            fcinfo->isnull = false;
+            thisresult = op->d.scalararrayop.fn_addr(fcinfo);
+        }
+
+        // Combine results with short-circuiting
+        if (fcinfo->isnull) {
+            resultnull = true;
+        } else if (useOr) {
+            // ANY: short-circuit on first TRUE
+            if (DatumGetBool(thisresult)) {
+                result = BoolGetDatum(true);
+                resultnull = false;
+                break;
+            }
+        } else {
+            // ALL: short-circuit on first FALSE
+            if (!DatumGetBool(thisresult)) {
+                result = BoolGetDatum(false);
+                resultnull = false;
+                break;
+            }
+        }
+
+        // Advance NULL bitmap pointer
+        if (bitmap) {
+            bitmask <<= 1;
+            if (bitmask == 0x100) {
+                bitmap++;
+                bitmask = 1;
+            }
+        }
+    }
+
+    *op->resvalue = result;
+    *op->resnull = resultnull;
+}
+```

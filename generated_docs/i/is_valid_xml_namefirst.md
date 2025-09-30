@@ -35,3 +35,18 @@ This validation is crucial for ensuring that SQL identifiers can be properly map
 - The colon character is allowed but should be used carefully as it has special meaning in XML namespaces
 - This function is part of PostgreSQL's XML identifier mapping system, ensuring SQL identifiers can be safely converted to XML names
 - Returns true if the character can be used as the first character of an XML name, false otherwise
+
+## Simplified Source
+
+```c
+static bool
+is_valid_xml_namefirst(pg_wchar c)
+{
+    // Check if character is valid as first character of XML name
+    // XML NameStartChar ::= Letter | '_' | ':'
+    return (xmlIsBaseCharQ(c) ||       // Base letters (A-Z, a-z, etc.)
+            xmlIsIdeographicQ(c) ||    // Ideographic characters (Chinese, etc.)
+            c == '_' ||                // Underscore
+            c == ':');                 // Colon (namespace separator)
+}
+```

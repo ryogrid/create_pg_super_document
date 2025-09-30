@@ -39,3 +39,29 @@ The function follows PostgreSQL's memory management conventions by using the app
 - It properly handles the hierarchical cleanup of complex structures, ensuring no memory leaks occur
 - The function is commonly used in logical replication operations, particularly in subscription management and table synchronization contexts
 - All components of WalRcvExecResult are optional (can be NULL), and the function handles partial initialization gracefully
+
+## Simplified Source
+
+```c
+static inline void
+walrcv_clear_result(WalRcvExecResult *walres)
+{
+    if (!walres)
+        return;
+
+    // Free error message if present
+    if (walres->err)
+        pfree(walres->err);
+
+    // Clean up tuple store if present
+    if (walres->tuplestore)
+        tuplestore_end(walres->tuplestore);
+
+    // Free tuple descriptor if present
+    if (walres->tupledesc)
+        FreeTupleDesc(walres->tupledesc);
+
+    // Free the result structure itself
+    pfree(walres);
+}
+```

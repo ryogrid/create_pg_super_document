@@ -41,3 +41,20 @@ The function checks if the access method provides an `amcanreturn` procedure and
 - Used during query planning to determine the most efficient execution strategy
 - The attribute number follows PostgreSQL's convention where system columns have negative numbers and user columns start from 1
 - Part of the broader index-only scan infrastructure that can significantly improve query performance by avoiding heap access
+
+## Simplified Source
+
+```c
+bool
+index_can_return(Relation indexRelation, int attno)
+{
+    RELATION_CHECKS;
+
+    // Check if access method provides amcanreturn procedure
+    if (indexRelation->rd_indam->amcanreturn == NULL)
+        return false;
+
+    // Delegate to access method specific implementation
+    return indexRelation->rd_indam->amcanreturn(indexRelation, attno);
+}
+```

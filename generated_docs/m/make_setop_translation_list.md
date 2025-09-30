@@ -45,3 +45,34 @@ This translation mechanism is essential for PostgreSQL's append relation optimiz
 - The forward translation initially contains simple Var references, but these may be replaced with complex expressions during subsequent subquery pull-up operations
 - Column numbering follows PostgreSQL's 1-based indexing convention (resno - 1 for array indexing)
 - This function is a critical component in PostgreSQL's set operation optimization pipeline, enabling efficient processing of UNION ALL queries
+
+## Simplified Source
+
+```c
+static void make_setop_translation_list(Query *query, int newvarno, AppendRelInfo *appinfo) {
+    List *vars = NIL;
+    AttrNumber *pcolnos;
+
+    // Initialize reverse-translation array (child -> parent column mapping)
+    appinfo->num_child_cols = list_length(query->targetList);
+    appinfo->parent_colnos = pcolnos =
+        (AttrNumber *) palloc0(appinfo->num_child_cols * sizeof(AttrNumber));
+
+    // Build forward translation list (parent -> child variable mapping)
+    foreach(l, query->targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        // Skip junk columns (internal use only, not part of result)
+        if (tle->resjunk)
+            continue;
+
+        // Create Var node referencing this column in the new relation
+        vars = lappend(vars, makeVarFromTargetEntry(newvarno, tle));
+
+        // Set up reverse mapping: child column -> parent column
+        pcolnos[tle->resno - 1] = tle->resno;
+    }
+
+    appinfo->translated_vars = vars;
+}
+```

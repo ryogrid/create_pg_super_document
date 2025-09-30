@@ -37,3 +37,22 @@ This transfer is necessary because the shared memory segment may be deallocated 
 - The copied data includes statistics from all workers, allowing for comprehensive performance analysis
 - This is typically one of the last operations in parallel query execution for memoize nodes
 - The private copy persists beyond the lifetime of the parallel context, enabling post-execution analysis
+
+## Simplified Source
+
+```c
+void ExecMemoizeRetrieveInstrumentation(MemoizeState *node) {
+    // Skip if no shared instrumentation data
+    if (node->shared_info == NULL)
+        return;
+
+    // Calculate total size for SharedMemoizeInfo + all worker instrumentation
+    Size size = offsetof(SharedMemoizeInfo, sinstrument) +
+                node->shared_info->num_workers * sizeof(MemoizeInstrumentation);
+
+    // Copy shared memory statistics to private memory for persistence
+    SharedMemoizeInfo *private_copy = palloc(size);
+    memcpy(private_copy, node->shared_info, size);
+    node->shared_info = private_copy;
+}
+```

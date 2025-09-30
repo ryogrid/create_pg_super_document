@@ -40,3 +40,28 @@ The AccessShareLock level allows concurrent read operations while preventing des
 - Includes CHECK_FOR_INTERRUPTS() to allow cancellation during potentially long lock acquisition sequences
 - Validates schema existence after lock acquisition to handle race conditions with concurrent DDL
 - Lock acquisition follows the pattern of locking first, then validating existence to handle concurrent schema drops
+
+## Simplified Source
+
+```c
+static void LockSchemaList(List *schemalist)
+{
+    ListCell *lc;
+
+    foreach(lc, schemalist) {
+        Oid schemaid = lfirst_oid(lc);
+
+        // Allow query cancellation during potentially long lock operations
+        CHECK_FOR_INTERRUPTS();
+
+        LockDatabaseObject(NamespaceRelationId, schemaid, 0, AccessShareLock);
+
+        // Verify schema still exists after acquiring lock
+        if (!SearchSysCacheExists1(NAMESPACEOID, ObjectIdGetDatum(schemaid))) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                     errmsg("schema with OID %u does not exist", schemaid)));
+        }
+    }
+}
+```

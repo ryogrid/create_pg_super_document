@@ -51,3 +51,67 @@ Beyond the basic renaming, the function handles associated object renaming inclu
 - Handles both user-initiated and internal rename operations
 - Updates system catalogs directly using low-level catalog functions
 - Invokes post-alter hooks for proper event trigger and extension support
+
+## Simplified Source
+
+```c
+void RenameRelationInternal(Oid myrelid, const char *newrelname, bool is_internal, bool is_index) {
+    Relation targetrelation;
+    Relation relrelation;
+    ItemPointerData otid;
+    HeapTuple reltup;
+    Form_pg_class relform;
+    Oid namespaceId;
+
+    // Open target relation with appropriate lock level
+    targetrelation = relation_open(myrelid, is_index ? ShareUpdateExclusiveLock : AccessExclusiveLock);
+    namespaceId = RelationGetNamespace(targetrelation);
+
+    // Open pg_class catalog for update
+    relrelation = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Get relation tuple and check for name conflicts
+    reltup = SearchSysCacheLockedCopy1(RELOID, ObjectIdGetDatum(myrelid));
+    if (!HeapTupleIsValid(reltup))
+        elog(ERROR, "cache lookup failed for relation %u", myrelid);
+
+    otid = reltup->t_self;
+    relform = (Form_pg_class) GETSTRUCT(reltup);
+
+    // Check if new name already exists
+    if (get_relname_relid(newrelname, namespaceId) != InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_TABLE),
+                       errmsg("relation \"%s\" already exists", newrelname)));
+
+    // Validate index handling consistency
+    Assert(!is_index || is_index == (targetrelation->rd_rel->relkind == RELKIND_INDEX ||
+                                    targetrelation->rd_rel->relkind == RELKIND_PARTITIONED_INDEX));
+
+    // Update relation name in pg_class
+    namestrcpy(&(relform->relname), newrelname);
+    CatalogTupleUpdate(relrelation, &otid, reltup);
+    UnlockTuple(relrelation, &otid, InplaceUpdateTupleLock);
+
+    // Invoke post-alter hook
+    InvokeObjectPostAlterHookArg(RelationRelationId, myrelid, 0, InvalidOid, is_internal);
+
+    // Clean up catalog access
+    heap_freetuple(reltup);
+    table_close(relrelation, RowExclusiveLock);
+
+    // Rename associated type if it exists
+    if (OidIsValid(targetrelation->rd_rel->reltype))
+        RenameTypeInternal(targetrelation->rd_rel->reltype, newrelname, namespaceId);
+
+    // Rename associated constraint for indexes
+    if (targetrelation->rd_rel->relkind == RELKIND_INDEX ||
+        targetrelation->rd_rel->relkind == RELKIND_PARTITIONED_INDEX) {
+        Oid constraintId = get_index_constraint(myrelid);
+        if (OidIsValid(constraintId))
+            RenameConstraintById(constraintId, newrelname);
+    }
+
+    // Close relation but keep lock
+    relation_close(targetrelation, NoLock);
+}
+```

@@ -43,3 +43,21 @@ This function is essential for the multi-insert optimization in COPY FROM operat
 - Buffer registration in miinfo ensures proper cleanup and management across the entire COPY operation
 - This function is part of the multi-insert optimization that batches tuples to improve COPY FROM performance
 - The lappend function is used to maintain a list of all active buffers for centralized management
+
+## Simplified Source
+
+```c
+static inline void CopyMultiInsertInfoSetupBuffer(CopyMultiInsertInfo *miinfo,
+                                                 ResultRelInfo *rri) {
+    CopyMultiInsertBuffer *buffer;
+
+    // Create and initialize new buffer
+    buffer = CopyMultiInsertBufferInit(rri);
+
+    // Setup back-link for quick buffer access
+    rri->ri_CopyMultiInsertBuffer = buffer;
+
+    // Register buffer in the tracked list
+    miinfo->multiInsertBuffers = lappend(miinfo->multiInsertBuffers, buffer);
+}
+```

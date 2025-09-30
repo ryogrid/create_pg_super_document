@@ -50,3 +50,45 @@ The function includes special handling for the legacy "rule" privilege type, whi
 - The legacy "rule" privilege type is maintained for compatibility but effectively ignored
 - [String](../S/String.md) matching is case-sensitive and exact
 - Function will not return on invalid input - it raises an ERROR instead
+
+## Simplified Source
+
+```c
+static AclMode string_to_privilege(const char *privname)
+{
+    // Table privileges
+    if (strcmp(privname, "select") == 0)   return ACL_SELECT;
+    if (strcmp(privname, "insert") == 0)   return ACL_INSERT;
+    if (strcmp(privname, "update") == 0)   return ACL_UPDATE;
+    if (strcmp(privname, "delete") == 0)   return ACL_DELETE;
+    if (strcmp(privname, "truncate") == 0) return ACL_TRUNCATE;
+    if (strcmp(privname, "references") == 0) return ACL_REFERENCES;
+    if (strcmp(privname, "trigger") == 0)  return ACL_TRIGGER;
+
+    // Function privileges
+    if (strcmp(privname, "execute") == 0)  return ACL_EXECUTE;
+
+    // Schema/Type privileges
+    if (strcmp(privname, "usage") == 0)    return ACL_USAGE;
+
+    // Database privileges
+    if (strcmp(privname, "create") == 0)   return ACL_CREATE;
+    if (strcmp(privname, "connect") == 0)  return ACL_CONNECT;
+    if (strcmp(privname, "temporary") == 0 || strcmp(privname, "temp") == 0)
+        return ACL_CREATE_TEMP;
+
+    // System privileges
+    if (strcmp(privname, "set") == 0)      return ACL_SET;
+    if (strcmp(privname, "alter system") == 0) return ACL_ALTER_SYSTEM;
+    if (strcmp(privname, "maintain") == 0) return ACL_MAINTAIN;
+
+    // Legacy compatibility - ignore old rule privileges
+    if (strcmp(privname, "rule") == 0)     return 0;
+
+    // Unknown privilege name
+    ereport(ERROR,
+            (errcode(ERRCODE_SYNTAX_ERROR),
+             errmsg("unrecognized privilege type \"%s\"", privname)));
+    return 0;
+}
+```

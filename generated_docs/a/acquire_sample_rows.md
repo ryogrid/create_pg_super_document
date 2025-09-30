@@ -53,3 +53,97 @@ The returned tuples are sorted by physical position (ItemPointer) to enable corr
 - Handles vacuum delays and progress reporting for long-running operations
 - Returns tuples sorted by physical position for correlation analysis
 - Provides detailed progress logging including pages scanned and row counts found
+
+## Simplified Source
+
+```c
+static int
+acquire_sample_rows(Relation onerel, int elevel,
+                    HeapTuple *rows, int targrows,
+                    double *totalrows, double *totaldeadrows)
+{
+    int numrows = 0;           // rows currently in sample
+    double samplerows = 0;     // total rows processed
+    double liverows = 0;       // live rows encountered
+    double deadrows = 0;       // dead rows encountered
+    double rowstoskip = -1;    // reservoir sampling state
+
+    // Initialize sampling structures
+    BlockNumber totalblocks = RelationGetNumberOfBlocks(onerel);
+    TransactionId OldestXmin = GetOldestNonRemovableTransactionId(onerel);
+
+    // Setup block sampler and reservoir sampler
+    uint32 randseed = pg_prng_uint32(&pg_global_prng_state);
+    BlockSamplerData bs;
+    BlockNumber nblocks = BlockSampler_Init(&bs, totalblocks, targrows, randseed);
+
+    ReservoirStateData rstate;
+    reservoir_init_selection_state(&rstate, targrows);
+
+    // Setup table scan
+    TableScanDesc scan = table_beginscan_analyze(onerel);
+    TupleTableSlot *slot = table_slot_create(onerel, NULL);
+    ReadStream *stream = read_stream_begin_relation(READ_STREAM_MAINTENANCE,
+                                                   vac_strategy, scan->rs_rd,
+                                                   MAIN_FORKNUM,
+                                                   block_sampling_read_stream_next,
+                                                   &bs, 0);
+
+    // Two-stage sampling: blocks then tuples within blocks
+    while (table_scan_analyze_next_block(scan, stream)) {
+        vacuum_delay_point();
+
+        while (table_scan_analyze_next_tuple(scan, OldestXmin,
+                                           &liverows, &deadrows, slot)) {
+            // Reservoir sampling algorithm
+            if (numrows < targrows) {
+                // Fill initial reservoir
+                rows[numrows++] = ExecCopySlotHeapTuple(slot);
+            } else {
+                // Replace random element using Vitter's algorithm
+                if (rowstoskip < 0)
+                    rowstoskip = reservoir_get_next_S(&rstate, samplerows, targrows);
+
+                if (rowstoskip <= 0) {
+                    int k = (int) (targrows * sampler_random_fract(&rstate.randstate));
+                    heap_freetuple(rows[k]);
+                    rows[k] = ExecCopySlotHeapTuple(slot);
+                }
+                rowstoskip -= 1;
+            }
+            samplerows += 1;
+        }
+
+        // Update progress reporting
+        pgstat_progress_update_param(PROGRESS_ANALYZE_BLOCKS_DONE, ++blksdone);
+    }
+
+    // Cleanup scan resources
+    read_stream_end(stream);
+    ExecDropSingleTupleTableSlot(slot);
+    table_endscan(scan);
+
+    // Sort tuples by physical position for correlation analysis
+    if (numrows == targrows)
+        qsort_interruptible(rows, numrows, sizeof(HeapTuple), compare_rows, NULL);
+
+    // Extrapolate total row counts from sample
+    if (bs.m > 0) {
+        *totalrows = floor((liverows / bs.m) * totalblocks + 0.5);
+        *totaldeadrows = floor((deadrows / bs.m) * totalblocks + 0.5);
+    } else {
+        *totalrows = 0.0;
+        *totaldeadrows = 0.0;
+    }
+
+    // Log sampling results
+    ereport(elevel, (errmsg("\"%s\": scanned %d of %u pages, "
+                           "containing %.0f live rows and %.0f dead rows; "
+                           "%d rows in sample, %.0f estimated total rows",
+                           RelationGetRelationName(onerel),
+                           bs.m, totalblocks, liverows, deadrows,
+                           numrows, *totalrows)));
+
+    return numrows;
+}
+```

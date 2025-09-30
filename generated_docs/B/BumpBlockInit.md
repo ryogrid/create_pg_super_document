@@ -39,3 +39,25 @@ This function performs the essential initialization of a bump memory block after
 - Integrates with Valgrind memory checking tools for development debugging
 - Sets up free pointer alignment to start allocation immediately after block header
 - Essential for proper block lifecycle management in bump allocator
+
+## Simplified Source
+
+```c
+static inline void
+BumpBlockInit(BumpContext *context, BumpBlock *block, Size blksize)
+{
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Store context back-reference for debugging builds
+    block->context = context;
+#endif
+
+    // Set free pointer to start just after the block header
+    block->freeptr = ((char *) block) + Bump_BLOCKHDRSZ;
+
+    // Set end pointer to mark the block boundary
+    block->endptr = ((char *) block) + blksize;
+
+    // Mark unallocated space as inaccessible for Valgrind debugging
+    VALGRIND_MAKE_MEM_NOACCESS(block->freeptr, blksize - Bump_BLOCKHDRSZ);
+}
+```

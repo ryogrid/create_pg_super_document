@@ -44,3 +44,29 @@ The function doesn't support pushing join clauses into the sampling scan's quals
 - The check for GetTsmRoutine's repeatable_across_scans is performed last due to its relative expense
 - Risk of multiple scans is detected by checking query level and counting relations in all_query_rels
 - Currently only considers SampleScan paths; no other path types are generated for sampled relations
+
+## Simplified Source
+
+```c
+static void set_tablesample_rel_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte) {
+    Relids required_outer;
+    Path *path;
+
+    // Sample scans only support LATERAL parameterization
+    required_outer = rel->lateral_relids;
+
+    // Create basic sample scan path
+    path = create_samplescan_path(root, rel, required_outer);
+
+    // Check if materialization is needed for non-repeatable sampling methods
+    // This prevents issues when the same relation might be scanned multiple times
+    if ((root->query_level > 1 ||  // In subquery
+         bms_membership(root->all_query_rels) != BMS_SINGLETON) &&  // Or joins present
+        !(GetTsmRoutine(rte->tablesample->tsmhandler)->repeatable_across_scans)) {
+        // Wrap in materialization to ensure consistent results
+        path = (Path *) create_material_path(rel, path);
+    }
+
+    add_path(rel, path);
+}
+```

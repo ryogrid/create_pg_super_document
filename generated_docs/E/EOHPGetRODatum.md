@@ -35,3 +35,14 @@ The returned Datum represents a TOAST pointer that provides read-only access to 
 - This function is used when read-only access to the expanded object is sufficient, which can be more efficient and safer than providing write access
 - The returned Datum maintains the same lifespan as the underlying ExpandedObjectHeader's memory context
 - Having both read-only and read-write pointers available allows PostgreSQL to optimize function calls by providing the minimal necessary access level
+
+## Simplified Source
+
+```c
+static inline Datum
+EOHPGetRODatum(const struct ExpandedObjectHeader *eohptr)
+{
+    // Return the read-only TOAST pointer as a Datum
+    return PointerGetDatum(eohptr->eoh_ro_ptr);
+}
+```

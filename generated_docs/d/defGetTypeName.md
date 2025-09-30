@@ -44,3 +44,32 @@ An important design note: this function deliberately does not accept List argume
 - Provides backward compatibility support for quoted type names
 - Essential for DDL commands that work with data types
 - Located in src/backend/commands/define.c:284-311
+
+## Simplified Source
+
+```c
+TypeName *
+defGetTypeName(DefElem *def)
+{
+    // Validate that parameter is provided
+    if (def->arg == NULL)
+        ereport(ERROR, "%s requires a parameter", def->defname);
+
+    // Handle different argument types
+    switch (nodeTag(def->arg)) {
+        case T_TypeName:
+            // Already in correct format, return directly
+            return (TypeName *) def->arg;
+
+        case T_String:
+            // Convert quoted string to TypeName for backwards compatibility
+            return makeTypeNameFromNameList(list_make1(def->arg));
+
+        default:
+            // Invalid argument type
+            ereport(ERROR, "argument of %s must be a type name", def->defname);
+    }
+
+    return NULL;  // Keep compiler quiet
+}
+```

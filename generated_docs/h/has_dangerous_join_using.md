@@ -36,3 +36,48 @@ This function performs a recursive pre-scan of a join tree to identify problemat
 - Helps avoid unnecessary re-aliasing that would damage query readability when not required
 - Handles RangeTblRef nodes as no-ops, FromExpr nodes by examining fromlist, and JoinExpr nodes by checking USING clauses and recursing on left/right arguments
 - Includes error handling for unrecognized node types
+
+## Simplified Source
+```c
+static bool has_dangerous_join_using(deparse_namespace *dpns, Node *jtnode) {
+    if (IsA(jtnode, RangeTblRef)) {
+        // Base case: nothing to check for simple table references
+        return false;
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        // Recursively check all items in FROM list
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *lc;
+
+        foreach(lc, f->fromlist) {
+            if (has_dangerous_join_using(dpns, (Node *) lfirst(lc)))
+                return true;
+        }
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        // Check if this is an unnamed JOIN with USING clause
+        if (j->alias == NULL && j->usingClause) {
+            RangeTblEntry *jrte = rt_fetch(j->rtindex, dpns->rtable);
+
+            // Examine merged columns for non-simple references
+            for (int i = 0; i < jrte->joinmergedcols; i++) {
+                Node *aliasvar = list_nth(jrte->joinaliasvars, i);
+
+                // If any merged column isn't a simple Var, it's dangerous
+                if (!IsA(aliasvar, Var))
+                    return true;
+            }
+        }
+
+        // Recursively check left and right subtrees
+        if (has_dangerous_join_using(dpns, j->larg))
+            return true;
+        if (has_dangerous_join_using(dpns, j->rarg))
+            return true;
+    }
+
+    return false;
+}
+```

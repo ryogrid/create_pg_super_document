@@ -45,3 +45,62 @@ The function intelligently handles default behaviors (ASC is implicit, DESC defa
 - Optimizes output by omitting default ASC and default NULLS positioning
 - Located at src/backend/utils/adt/ruleutils.c:6448-6505
 - Essential component of query reconstruction for views, rules, and function definitions
+
+## Simplified Source
+
+```c
+static void
+get_rule_orderby(List *orderList, List *targetList,
+                 bool force_colno, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    const char *sep = "";
+    ListCell *l;
+
+    foreach(l, orderList)
+    {
+        SortGroupClause *srt = (SortGroupClause *) lfirst(l);
+        Node *sortexpr;
+        Oid sortcoltype;
+        TypeCacheEntry *typentry;
+
+        // Add separator between multiple ORDER BY items
+        appendStringInfoString(buf, sep);
+
+        // Get the sort expression (column or expression)
+        sortexpr = get_rule_sortgroupclause(srt->tleSortGroupRef, targetList,
+                                           force_colno, context);
+        sortcoltype = exprType(sortexpr);
+
+        // Look up default comparison operators for this data type
+        typentry = lookup_type_cache(sortcoltype,
+                                   TYPECACHE_LT_OPR | TYPECACHE_GT_OPR);
+
+        if (srt->sortop == typentry->lt_opr) {
+            // Standard ASC sort (default, so don't output ASC)
+            if (srt->nulls_first)
+                appendStringInfoString(buf, " NULLS FIRST");
+        }
+        else if (srt->sortop == typentry->gt_opr) {
+            // Standard DESC sort
+            appendStringInfoString(buf, " DESC");
+            // DESC defaults to NULLS FIRST, so only output if different
+            if (!srt->nulls_first)
+                appendStringInfoString(buf, " NULLS LAST");
+        }
+        else {
+            // Custom operator - use USING clause
+            appendStringInfo(buf, " USING %s",
+                           generate_operator_name(srt->sortop,
+                                                 sortcoltype, sortcoltype));
+            // Always be explicit about NULL ordering for custom operators
+            if (srt->nulls_first)
+                appendStringInfoString(buf, " NULLS FIRST");
+            else
+                appendStringInfoString(buf, " NULLS LAST");
+        }
+
+        sep = ", ";
+    }
+}
+```

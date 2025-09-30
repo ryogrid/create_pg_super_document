@@ -39,3 +39,12 @@ The function is defined as a static inline function in the header file, meaning 
 - Located in src/include/utils/date.h, making it available to all components that include this header file
 - Essential for returning date values from PostgreSQL functions that use the fmgr interface
 - Works seamlessly with PostgreSQL's pass-by-value semantics for 32-bit integer types
+
+## Simplified Source
+
+```c
+static inline Datum DateADTGetDatum(DateADT X) {
+    // Convert DateADT (which is internally a 32-bit integer) to Datum
+    return Int32GetDatum(X);
+}
+```

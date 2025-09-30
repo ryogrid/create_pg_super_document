@@ -44,3 +44,45 @@ This function takes no parameters.
 - The function implements the common PostgreSQL pattern of lazy initialization with shared memory structures
 - Memory allocations are performed in TopMemoryContext to ensure they persist beyond the current operation
 - The dual-handle approach (DSA handle and dshash handle) allows for proper reconstruction of the shared structures in different processes
+
+## Simplified Source
+```c
+static void
+logicalrep_launcher_attach_dshmem(void)
+{
+    // Quick exit if already initialized
+    if (LogicalRepCtx->last_start_dsh != DSHASH_HANDLE_INVALID &&
+        last_start_times != NULL)
+        return;
+
+    // Use exclusive lock to prevent race conditions
+    LWLockAcquire(LogicalRepWorkerLock, LW_EXCLUSIVE);
+
+    // Switch to persistent memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+
+    if (LogicalRepCtx->last_start_dsh == DSHASH_HANDLE_INVALID)
+    {
+        // Initialize new dynamic shared hash table
+        last_start_times_dsa = dsa_create(LWTRANCHE_LAUNCHER_DSA);
+        dsa_pin(last_start_times_dsa);
+        dsa_pin_mapping(last_start_times_dsa);
+        last_start_times = dshash_create(last_start_times_dsa, &dsh_params, NULL);
+
+        // Store handles in shared memory for other processes
+        LogicalRepCtx->last_start_dsa = dsa_get_handle(last_start_times_dsa);
+        LogicalRepCtx->last_start_dsh = dshash_get_hash_table_handle(last_start_times);
+    }
+    else if (!last_start_times)
+    {
+        // Attach to existing shared hash table
+        last_start_times_dsa = dsa_attach(LogicalRepCtx->last_start_dsa);
+        dsa_pin_mapping(last_start_times_dsa);
+        last_start_times = dshash_attach(last_start_times_dsa, &dsh_params,
+                                        LogicalRepCtx->last_start_dsh, 0);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+    LWLockRelease(LogicalRepWorkerLock);
+}
+```

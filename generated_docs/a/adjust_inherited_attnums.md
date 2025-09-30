@@ -36,3 +36,37 @@ The function includes comprehensive error checking to validate that each attribu
 - Returns a new list containing the translated child attribute numbers
 - Essential for PostgreSQL's inheritance system where parent and child tables may have different physical column layouts
 - Uses 1-based attribute numbering convention consistent with PostgreSQL system catalogs
+
+## Simplified Source
+```c
+List *
+adjust_inherited_attnums(List *attnums, AppendRelInfo *context)
+{
+    List *result = NIL;
+    ListCell *lc;
+
+    // Only for inheritance cases, not UNION ALL
+    Assert(OidIsValid(context->parent_reloid));
+
+    // Translate each parent attribute number to child attribute number
+    foreach(lc, attnums)
+    {
+        AttrNumber parentattno = lfirst_int(lc);
+
+        // Validate attribute number bounds
+        if (parentattno <= 0 ||
+            parentattno > list_length(context->translated_vars))
+            elog(ERROR, "attribute %d does not exist", parentattno);
+
+        // Get child variable from translation map
+        Var *childvar = (Var *) list_nth(context->translated_vars, parentattno - 1);
+        if (!childvar || !IsA(childvar, Var))
+            elog(ERROR, "attribute %d does not exist", parentattno);
+
+        // Add child attribute number to result
+        result = lappend_int(result, childvar->varattno);
+    }
+
+    return result;
+}
+```

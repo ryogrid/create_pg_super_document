@@ -34,3 +34,18 @@ Subplans are typically used for subqueries, EXISTS clauses, IN/NOT IN operations
 - The actual subplan logic is implemented in nodeSubplan.c, keeping the expression interpreter focused on its core responsibilities
 - Subplans are a fundamental mechanism for executing correlated and uncorrelated subqueries in PostgreSQL
 - The function works with the broader subplan infrastructure including SubPlanState management and caching
+
+## Simplified Source
+
+```c
+void ExecEvalSubPlan(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    SubPlanState *sstate = op->d.subplan.sstate;
+
+    // Ensure sufficient stack space for potentially nested subplans
+    check_stack_depth();
+
+    // Delegate to specialized subplan execution infrastructure
+    *op->resvalue = ExecSubPlan(sstate, econtext, op->resnull);
+}
+```

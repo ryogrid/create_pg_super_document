@@ -42,3 +42,22 @@ This function is typically called at the end of a parallel incremental sort oper
 - The size calculation accounts for the variable-length array of per-worker IncrementalSortInfo structures within SharedIncrementalSortInfo
 - After this function executes, the statistics are preserved in private memory and will remain accessible even after the parallel query execution context is torn down
 - This is part of PostgreSQL's broader instrumentation infrastructure that provides detailed performance metrics for query execution analysis
+
+## Simplified Source
+
+```c
+void ExecIncrementalSortRetrieveInstrumentation(IncrementalSortState *node) {
+    // Skip if no shared instrumentation data
+    if (node->shared_info == NULL)
+        return;
+
+    // Calculate total size for SharedIncrementalSortInfo + all worker data
+    Size size = offsetof(SharedIncrementalSortInfo, sinfo) +
+                node->shared_info->num_workers * sizeof(IncrementalSortInfo);
+
+    // Copy shared memory statistics to private memory for preservation
+    SharedIncrementalSortInfo *private_copy = palloc(size);
+    memcpy(private_copy, node->shared_info, size);
+    node->shared_info = private_copy;
+}
+```

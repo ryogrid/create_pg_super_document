@@ -39,3 +39,40 @@ The `pg_strncoll_icu` function serves as the primary interface for ICU-based str
 - Part of PostgreSQL's ICU integration for international text processing
 - Asserts that the locale uses COLLPROVIDER_ICU to ensure correct usage context
 - Conditionally compiled features based on ICU capabilities (HAVE_UCOL_STRCOLLUTF8)
+
+## Simplified Source
+
+```c
+static int
+pg_strncoll_icu(const char *arg1, int32_t len1, const char *arg2, int32_t len2,
+                pg_locale_t locale)
+{
+    int result;
+
+    Assert(locale->provider == COLLPROVIDER_ICU);
+
+#ifdef HAVE_UCOL_STRCOLLUTF8
+    // Use optimized UTF-8 collation if database encoding is UTF-8
+    if (GetDatabaseEncoding() == PG_UTF8)
+    {
+        UErrorCode status = U_ZERO_ERROR;
+
+        result = ucol_strcollUTF8(locale->info.icu.ucol,
+                                arg1, len1,
+                                arg2, len2,
+                                &status);
+
+        if (U_FAILURE(status))
+            ereport(ERROR,
+                    (errmsg("collation failed: %s", u_errorName(status))));
+    }
+    else
+#endif
+    {
+        // Use general ICU collation with encoding conversion
+        result = pg_strncoll_icu_no_utf8(arg1, len1, arg2, len2, locale);
+    }
+
+    return result;
+}
+```

@@ -50,3 +50,50 @@ The function maintains the parent-child relationship between triggers by using t
 - Passes the current trigger name as expected_name for subsequent recursive calls
 - Maintains consistency in deeply nested partition hierarchies through recursive processing
 - Assumes exclusive locks on all partitions are already held by the calling function
+
+## Simplified Source
+
+```c
+static void renametrig_partition(Relation tgrel, Oid partitionId, Oid parentTriggerOid,
+                               const char *newname, const char *expected_name)
+{
+    // Scan for triggers on this partition
+    ScanKeyData key;
+    ScanKeyInit(&key, Anum_pg_trigger_tgrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(partitionId));
+
+    SysScanDesc tgscan = systable_beginscan(tgrel, TriggerRelidNameIndexId, true, NULL, 1, &key);
+    HeapTuple tuple;
+
+    while (HeapTupleIsValid(tuple = systable_getnext(tgscan)))
+    {
+        Form_pg_trigger tgform = (Form_pg_trigger) GETSTRUCT(tuple);
+
+        // Skip triggers that don't match our parent trigger
+        if (tgform->tgparentid != parentTriggerOid)
+            continue;
+
+        // Open partition relation and rename the trigger
+        Relation partitionRel = table_open(partitionId, NoLock);
+        renametrig_internal(tgrel, partitionRel, tuple, newname, expected_name);
+
+        // If this partition is itself partitioned, recurse to its children
+        if (partitionRel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        {
+            PartitionDesc partdesc = RelationGetPartitionDesc(partitionRel, true);
+
+            for (int i = 0; i < partdesc->nparts; i++)
+            {
+                Oid partoid = partdesc->oids[i];
+                // Recursive call with current trigger as parent
+                renametrig_partition(tgrel, partoid, tgform->oid, newname, NameStr(tgform->tgname));
+            }
+        }
+
+        table_close(partitionRel, NoLock);
+        break; // Found our trigger, exit loop
+    }
+
+    systable_endscan(tgscan);
+}
+```

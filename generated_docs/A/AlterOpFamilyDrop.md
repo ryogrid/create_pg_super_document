@@ -53,3 +53,80 @@ The function creates OpFamilyMember structures that contain only the information
 - No amadjustmembers callback since access methods don't need to validate deletions
 - [OpFamilyMember](../O/OpFamilyMember.md) structures contain only identification information, not full object details
 - Error handling focuses on number validation rather than object existence checking
+
+## Simplified Source
+
+```c
+static void
+AlterOpFamilyDrop(AlterOpFamilyStmt *stmt, Oid amoid, Oid opfamilyoid,
+                  int maxOpNumber, int maxProcNumber, List *items)
+{
+    List *operators = NIL;      // OpFamilyMember list for operators
+    List *procedures = NIL;     // OpFamilyMember list for support procs
+    ListCell *l;
+
+    // Process each item in the DROP list
+    foreach(l, items)
+    {
+        CreateOpClassItem *item = lfirst_node(CreateOpClassItem, l);
+        Oid lefttype, righttype;
+        OpFamilyMember *member;
+
+        switch (item->itemtype)
+        {
+            case OPCLASS_ITEM_OPERATOR:
+                // Validate operator number range
+                if (item->number <= 0 || item->number > maxOpNumber)
+                    ereport(ERROR,
+                            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                             errmsg("invalid operator number %d, must be between 1 and %d",
+                                    item->number, maxOpNumber)));
+
+                // Extract type signature for identification
+                processTypesSpec(item->class_args, &lefttype, &righttype);
+
+                // Create operator family member for removal
+                member = (OpFamilyMember *) palloc0(sizeof(OpFamilyMember));
+                member->is_func = false;
+                member->number = item->number;
+                member->lefttype = lefttype;
+                member->righttype = righttype;
+                addFamilyMember(&operators, member);
+                break;
+
+            case OPCLASS_ITEM_FUNCTION:
+                // Validate function number range
+                if (item->number <= 0 || item->number > maxProcNumber)
+                    ereport(ERROR,
+                            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                             errmsg("invalid function number %d, must be between 1 and %d",
+                                    item->number, maxProcNumber)));
+
+                // Extract type signature for identification
+                processTypesSpec(item->class_args, &lefttype, &righttype);
+
+                // Create function family member for removal
+                member = (OpFamilyMember *) palloc0(sizeof(OpFamilyMember));
+                member->is_func = true;
+                member->number = item->number;
+                member->lefttype = lefttype;
+                member->righttype = righttype;
+                addFamilyMember(&procedures, member);
+                break;
+
+            case OPCLASS_ITEM_STORAGETYPE:
+                // Grammar prevents this from appearing
+            default:
+                elog(ERROR, "unrecognized item type: %d", item->itemtype);
+                break;
+        }
+    }
+
+    // Remove entries from system catalogs
+    dropOperators(stmt->opfamilyname, amoid, opfamilyoid, operators);
+    dropProcedures(stmt->opfamilyname, amoid, opfamilyoid, procedures);
+
+    // Notify event triggers
+    EventTriggerCollectAlterOpFam(stmt, opfamilyoid, operators, procedures);
+}
+```

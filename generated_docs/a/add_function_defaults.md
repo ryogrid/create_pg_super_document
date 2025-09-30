@@ -43,3 +43,28 @@ This is a simpler operation compared to reorder_function_arguments since it does
 - The function creates a new combined list without modifying the original argument list
 - Default expressions are trimmed from the front when more defaults are available than needed
 - An error is raised if insufficient default arguments are available to fill all missing positions
+
+## Simplified Source
+
+```c
+static List *
+add_function_defaults(List *args, int pronargs, HeapTuple func_tuple)
+{
+    int nargsprovided = list_length(args);
+
+    // Get all default expressions from pg_proc tuple
+    List *defaults = fetch_function_defaults(func_tuple);
+
+    // Calculate how many defaults to remove (if we have excess)
+    int ndelete = nargsprovided + list_length(defaults) - pronargs;
+    if (ndelete < 0)
+        elog(ERROR, "not enough default arguments");
+
+    // Remove unused defaults from front of list
+    if (ndelete > 0)
+        defaults = list_delete_first_n(defaults, ndelete);
+
+    // Combine provided args with needed defaults
+    return list_concat_copy(args, defaults);
+}
+```

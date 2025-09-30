@@ -55,3 +55,48 @@ The function assumes the input data is already sorted appropriately for the grou
 - HAVING clause selectivity is applied to refine output tuple estimates
 - The function uses clamp_row_est to ensure row estimates remain within reasonable bounds
 - [Group](../G/Group.md) operations require pre-sorted input to function efficiently
+
+## Simplified Source
+
+```c
+void
+cost_group(Path *path, PlannerInfo *root,
+          int numGroupCols, double numGroups,
+          List *quals,
+          Cost input_startup_cost, Cost input_total_cost,
+          double input_tuples)
+{
+    double output_tuples;
+    Cost startup_cost;
+    Cost total_cost;
+
+    // Start with input costs and group count estimate
+    output_tuples = numGroups;
+    startup_cost = input_startup_cost;
+    total_cost = input_total_cost;
+
+    // Add cost for grouping comparisons
+    // Charge cpu_operator_cost per comparison per input tuple
+    // Assumes all columns get compared for most tuples
+    total_cost += cpu_operator_cost * input_tuples * numGroupCols;
+
+    // Account for HAVING clause costs and selectivity
+    if (quals) {
+        QualCost qual_cost;
+
+        cost_qual_eval(&qual_cost, quals, root);
+        startup_cost += qual_cost.startup;
+        total_cost += qual_cost.startup + output_tuples * qual_cost.per_tuple;
+
+        // Apply HAVING selectivity to reduce output tuple estimate
+        output_tuples = clamp_row_est(output_tuples *
+                                     clauselist_selectivity(root, quals, 0,
+                                                           JOIN_INNER, NULL));
+    }
+
+    // Update path with calculated costs
+    path->rows = output_tuples;
+    path->startup_cost = startup_cost;
+    path->total_cost = total_cost;
+}
+```

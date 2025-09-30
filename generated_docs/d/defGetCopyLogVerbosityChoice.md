@@ -35,3 +35,23 @@ This function parses and validates the LOG_VERBOSITY option value for COPY state
 - Returns COPY_LOG_VERBOSITY_DEFAULT as a fallback to keep the compiler quiet, though error reporting should prevent reaching this point
 - The "verbose" option increases logging detail, which can be helpful for troubleshooting COPY operations and monitoring data loading progress
 - Unlike some other COPY options, LOG_VERBOSITY can be used with both COPY FROM and COPY TO operations
+
+## Simplified Source
+
+```c
+static CopyLogVerbosityChoice defGetCopyLogVerbosityChoice(DefElem *def, ParseState *pstate) {
+    char *sval = defGetString(def);
+
+    // Check valid verbosity levels
+    if (pg_strcasecmp(sval, "default") == 0)
+        return COPY_LOG_VERBOSITY_DEFAULT;
+    if (pg_strcasecmp(sval, "verbose") == 0)
+        return COPY_LOG_VERBOSITY_VERBOSE;
+
+    // Error for invalid values
+    ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                   errmsg("COPY %s \"%s\" not recognized", "LOG_VERBOSITY", sval),
+                   parser_errposition(pstate, def->location)));
+    return COPY_LOG_VERBOSITY_DEFAULT;
+}
+```

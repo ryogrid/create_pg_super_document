@@ -52,3 +52,52 @@ For relations without syscache support, the function performs an index scan usin
 - Located in src/backend/catalog/objectaddress.c:2794-2854
 - Always returns a copy of the tuple, requiring caller to manage memory deallocation
 - Uses Assert to ensure valid OID index when syscache is unavailable
+
+## Simplified Source
+
+```c
+HeapTuple get_catalog_object_by_oid_extended(Relation catalog, AttrNumber oidcol,
+                                            Oid objectId, bool locktup) {
+    HeapTuple tuple;
+    Oid classId = RelationGetRelid(catalog);
+
+    // Try syscache lookup first (faster path)
+    int oidCacheId = get_object_catcache_oid(classId);
+    if (oidCacheId > 0) {
+        // Use locked or regular syscache lookup based on lock requirement
+        if (locktup)
+            tuple = SearchSysCacheLockedCopy1(oidCacheId, ObjectIdGetDatum(objectId));
+        else
+            tuple = SearchSysCacheCopy1(oidCacheId, ObjectIdGetDatum(objectId));
+
+        return HeapTupleIsValid(tuple) ? tuple : NULL;
+    }
+
+    // Fallback to index scan when no syscache available
+    Oid oidIndexId = get_object_oid_index(classId);
+    Assert(OidIsValid(oidIndexId));
+
+    // Set up scan key for OID lookup
+    ScanKeyData skey;
+    ScanKeyInit(&skey, oidcol, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objectId));
+
+    // Perform the scan
+    SysScanDesc scan = systable_beginscan(catalog, oidIndexId, true, NULL, 1, &skey);
+    tuple = systable_getnext(scan);
+
+    if (!HeapTupleIsValid(tuple)) {
+        systable_endscan(scan);
+        return NULL;
+    }
+
+    // Lock tuple if requested for inplace updates
+    if (locktup)
+        LockTuple(catalog, &tuple->t_self, InplaceUpdateTupleLock);
+
+    // Make a copy and clean up
+    tuple = heap_copytuple(tuple);
+    systable_endscan(scan);
+
+    return tuple;
+}
+```

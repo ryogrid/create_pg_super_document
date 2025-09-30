@@ -73,3 +73,156 @@ This is the core function responsible for executing extension scripts during Pos
 - Search path setup ensures extension objects are created in the correct schema
 - GUC variable management reduces noise during script execution
 - The function is critical for the extension system's security and proper operation
+
+## Simplified Source
+
+```c
+static void execute_extension_script(Oid extensionOid, ExtensionControlFile *control,
+                                    const char *from_version, const char *version,
+                                    List *requiredSchemas, const char *schemaName,
+                                    Oid schemaOid) {
+    bool switch_to_superuser = false;
+    Oid save_userid = 0;
+    int save_sec_context = 0;
+    int save_nestlevel;
+
+    // Security: Check if superuser is required
+    if (control->superuser && !superuser()) {
+        if (extension_is_trusted(control)) {
+            switch_to_superuser = true;
+        } else {
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied to %s extension \"%s\"",
+                                  from_version ? "update" : "create", control->name)));
+        }
+    }
+
+    // Get script filename and log execution
+    char *filename = get_extension_script_filename(control, from_version, version);
+    elog(DEBUG1, "executing extension script for \"%s\" %s", control->name,
+         from_version ? "update" : "installation");
+
+    // Switch to superuser if needed for trusted extensions
+    if (switch_to_superuser) {
+        GetUserIdAndSecContext(&save_userid, &save_sec_context);
+        SetUserIdAndSecContext(BOOTSTRAP_SUPERUSERID,
+                              save_sec_context | SECURITY_LOCAL_USERID_CHANGE);
+    }
+
+    // Configure GUC variables to reduce noise and improve security
+    save_nestlevel = NewGUCNestLevel();
+    if (client_min_messages < WARNING) {
+        set_config_option("client_min_messages", "warning", PGC_USERSET,
+                         PGC_S_SESSION, GUC_ACTION_SAVE, true, 0, false);
+    }
+    if (log_min_messages < WARNING) {
+        set_config_option_ext("log_min_messages", "warning", PGC_SUSET,
+                             PGC_S_SESSION, BOOTSTRAP_SUPERUSERID,
+                             GUC_ACTION_SAVE, true, 0, false);
+    }
+    if (check_function_bodies) {
+        set_config_option("check_function_bodies", "off", PGC_USERSET,
+                         PGC_S_SESSION, GUC_ACTION_SAVE, true, 0, false);
+    }
+
+    // Set up search path: target schema + required schemas + pg_temp
+    StringInfoData pathbuf;
+    initStringInfo(&pathbuf);
+    appendStringInfoString(&pathbuf, quote_identifier(schemaName));
+
+    foreach(lc, requiredSchemas) {
+        Oid reqschema = lfirst_oid(lc);
+        char *reqname = get_namespace_name(reqschema);
+        if (reqname && strcmp(reqname, "pg_catalog") != 0) {
+            appendStringInfo(&pathbuf, ", %s", quote_identifier(reqname));
+        }
+    }
+    appendStringInfoString(&pathbuf, ", pg_temp");
+    set_config_option("search_path", pathbuf.data, PGC_USERSET,
+                     PGC_S_SESSION, GUC_ACTION_SAVE, true, 0, false);
+
+    // Set extension creation context
+    creating_extension = true;
+    CurrentExtensionObject = extensionOid;
+
+    PG_TRY();
+    {
+        // Read and process script file
+        char *c_sql = read_extension_script_file(control, filename);
+        Datum t_sql = CStringGetTextDatum(c_sql);
+
+        // Remove \echo commands
+        t_sql = DirectFunctionCall4Coll(textregexreplace, C_COLLATION_OID,
+                                       t_sql, CStringGetTextDatum("^\\\\\\\\echo.*$"),
+                                       CStringGetTextDatum(""), CStringGetTextDatum("ng"));
+
+        // Substitute @extowner@ with actual username
+        if (strstr(c_sql, "@extowner@")) {
+            Oid uid = switch_to_superuser ? save_userid : GetUserId();
+            const char *userName = GetUserNameFromId(uid, false);
+            const char *qUserName = quote_identifier(userName);
+
+            t_sql = DirectFunctionCall3Coll(replace_text, C_COLLATION_OID,
+                                           t_sql, CStringGetTextDatum("@extowner@"),
+                                           CStringGetTextDatum(qUserName));
+
+            // Security check for problematic characters
+            if (strpbrk(userName, "\"$'\\\\")) {
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                               errmsg("invalid character in extension owner")));
+            }
+        }
+
+        // Substitute @extschema@ for non-relocatable extensions
+        if (!control->relocatable) {
+            const char *qSchemaName = quote_identifier(schemaName);
+            Datum old = t_sql;
+
+            t_sql = DirectFunctionCall3Coll(replace_text, C_COLLATION_OID,
+                                           t_sql, CStringGetTextDatum("@extschema@"),
+                                           CStringGetTextDatum(qSchemaName));
+
+            if (t_sql != old && strpbrk(schemaName, "\"$'\\\\")) {
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                               errmsg("invalid character in extension schema")));
+            }
+        }
+
+        // Substitute @extschema:extension_name@ for required extensions
+        forboth(lc, control->requires, lc2, requiredSchemas) {
+            char *reqextname = (char *) lfirst(lc);
+            Oid reqschema = lfirst_oid(lc2);
+            char *reqSchemaName = get_namespace_name(reqschema);
+            char *repltoken = psprintf("@extschema:%s@", reqextname);
+
+            t_sql = DirectFunctionCall3Coll(replace_text, C_COLLATION_OID,
+                                           t_sql, CStringGetTextDatum(repltoken),
+                                           CStringGetTextDatum(quote_identifier(reqSchemaName)));
+        }
+
+        // Substitute MODULE_PATHNAME if specified
+        if (control->module_pathname) {
+            t_sql = DirectFunctionCall3Coll(replace_text, C_COLLATION_OID,
+                                           t_sql, CStringGetTextDatum("MODULE_PATHNAME"),
+                                           CStringGetTextDatum(control->module_pathname));
+        }
+
+        // Execute the processed SQL script
+        c_sql = text_to_cstring(DatumGetTextPP(t_sql));
+        execute_sql_string(c_sql);
+    }
+    PG_FINALLY();
+    {
+        // Clean up extension creation context
+        creating_extension = false;
+        CurrentExtensionObject = InvalidOid;
+    }
+    PG_END_TRY();
+
+    // Restore GUC variables and authentication state
+    AtEOXact_GUC(true, save_nestlevel);
+    if (switch_to_superuser) {
+        SetUserIdAndSecContext(save_userid, save_sec_context);
+    }
+}
+```

@@ -35,3 +35,13 @@ The function accesses the centralized object property system to retrieve the uni
 - Affects how objects are uniquely identified within their namespace
 - Important for determining whether additional qualifiers are needed for object identification beyond name and namespace
 - Different object types have different uniqueness requirements (e.g., tables vs functions vs operators)
+
+## Simplified Source
+```c
+bool
+get_object_namensp_unique(Oid class_id)
+{
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+    return prop->is_nsp_name_unique;
+}
+```

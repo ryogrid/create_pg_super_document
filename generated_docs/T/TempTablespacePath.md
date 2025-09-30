@@ -41,3 +41,23 @@ The function ensures that temporary files are organized properly within PostgreS
 - Custom tablespaces use symbolic links under pg_tblspc/ to reference their actual storage locations
 - The output path buffer must be pre-allocated with sufficient space (MAXPGPATH bytes)
 - This function is essential for PostgreSQL's temporary file management across multiple tablespaces
+
+## Simplified Source
+
+```c
+void
+TempTablespacePath(char *path, Oid tablespace)
+{
+    // Check if this is the default or global tablespace
+    if (tablespace == InvalidOid ||
+        tablespace == DEFAULTTABLESPACE_OID ||
+        tablespace == GLOBALTABLESPACE_OID) {
+        // Use base directory for default tablespace
+        snprintf(path, MAXPGPATH, "base/%s", PG_TEMP_FILES_DIR);
+    } else {
+        // Use symlink path for custom tablespaces
+        snprintf(path, MAXPGPATH, "pg_tblspc/%u/%s/%s",
+                tablespace, TABLESPACE_VERSION_DIRECTORY, PG_TEMP_FILES_DIR);
+    }
+}
+```

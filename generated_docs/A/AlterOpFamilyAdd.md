@@ -58,3 +58,110 @@ Key aspects:
 - Event triggers are notified of the changes for proper extension support
 - Uses InvalidOid for opclass parameter when calling amadjustmembers since this operates at family level
 - Function performs immediate validation of operator/function existence and number ranges
+
+## Simplified Source
+
+```c
+static void
+AlterOpFamilyAdd(AlterOpFamilyStmt *stmt, Oid amoid, Oid opfamilyoid,
+                 int maxOpNumber, int maxProcNumber, int optsProcNumber,
+                 List *items)
+{
+    IndexAmRoutine *amroutine = GetIndexAmRoutineByAmId(amoid, false);
+    List *operators = NIL;      // OpFamilyMember list for operators
+    List *procedures = NIL;     // OpFamilyMember list for support procs
+    ListCell *l;
+
+    // Process each item in the ADD list
+    foreach(l, items)
+    {
+        CreateOpClassItem *item = lfirst_node(CreateOpClassItem, l);
+        OpFamilyMember *member;
+
+        switch (item->itemtype)
+        {
+            case OPCLASS_ITEM_OPERATOR:
+                // Validate operator number range
+                if (item->number <= 0 || item->number > maxOpNumber)
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                                   errmsg("invalid operator number %d, must be between 1 and %d",
+                                          item->number, maxOpNumber)));
+
+                // Require explicit operator argument types for ALTER
+                if (item->name->objargs != NIL)
+                    operOid = LookupOperWithArgs(item->name, false);
+                else
+                    ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                                   errmsg("operator argument types must be specified in ALTER OPERATOR FAMILY")));
+
+                // Handle optional sort family for ordering operators
+                if (item->order_family)
+                    sortfamilyOid = get_opfamily_oid(BTREE_AM_OID, item->order_family, false);
+                else
+                    sortfamilyOid = InvalidOid;
+
+                // Create operator family member
+                member = (OpFamilyMember *) palloc0(sizeof(OpFamilyMember));
+                member->is_func = false;
+                member->object = operOid;
+                member->number = item->number;
+                member->sortfamily = sortfamilyOid;
+                // ALTER ADD creates soft dependencies
+                member->ref_is_hard = false;
+                member->ref_is_family = true;
+                member->refobjid = opfamilyoid;
+
+                assignOperTypes(member, amoid, InvalidOid);
+                addFamilyMember(&operators, member);
+                break;
+
+            case OPCLASS_ITEM_FUNCTION:
+                // Validate function number range
+                if (item->number <= 0 || item->number > maxProcNumber)
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                                   errmsg("invalid function number %d, must be between 1 and %d",
+                                          item->number, maxProcNumber)));
+
+                funcOid = LookupFuncWithArgs(OBJECT_FUNCTION, item->name, false);
+
+                // Create function family member
+                member = (OpFamilyMember *) palloc0(sizeof(OpFamilyMember));
+                member->is_func = true;
+                member->object = funcOid;
+                member->number = item->number;
+                // ALTER ADD creates soft dependencies
+                member->ref_is_hard = false;
+                member->ref_is_family = true;
+                member->refobjid = opfamilyoid;
+
+                // Handle optional argument type override
+                if (item->class_args)
+                    processTypesSpec(item->class_args, &member->lefttype, &member->righttype);
+
+                assignProcTypes(member, amoid, InvalidOid, optsProcNumber);
+                addFamilyMember(&procedures, member);
+                break;
+
+            case OPCLASS_ITEM_STORAGETYPE:
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                               errmsg("STORAGE cannot be specified in ALTER OPERATOR FAMILY")));
+                break;
+
+            default:
+                elog(ERROR, "unrecognized item type: %d", item->itemtype);
+                break;
+        }
+    }
+
+    // Allow access method to adjust dependencies and validate
+    if (amroutine->amadjustmembers)
+        amroutine->amadjustmembers(opfamilyoid, InvalidOid, operators, procedures);
+
+    // Store operators and functions in system catalogs
+    storeOperators(stmt->opfamilyname, amoid, opfamilyoid, operators, true);
+    storeProcedures(stmt->opfamilyname, amoid, opfamilyoid, procedures, true);
+
+    // Notify event triggers
+    EventTriggerCollectAlterOpFam(stmt, opfamilyoid, operators, procedures);
+}
+```

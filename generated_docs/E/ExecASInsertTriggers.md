@@ -47,3 +47,22 @@ The actual trigger execution is handled later by the after-trigger subsystem, wh
 - The function is very lightweight since the heavy lifting is done by AfterTriggerSaveEvent
 - Part of PostgreSQL's sophisticated trigger timing system that supports immediate and deferred execution
 - Essential for maintaining data integrity in complex trigger scenarios involving multiple tables or constraints
+
+## Simplified Source
+
+```c
+void
+ExecASInsertTriggers(EState *estate, ResultRelInfo *relinfo,
+                    TransitionCaptureState *transition_capture)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Schedule AFTER STATEMENT INSERT triggers for deferred execution
+    if (trigdesc && trigdesc->trig_insert_after_statement)
+    {
+        AfterTriggerSaveEvent(estate, relinfo, NULL, NULL,
+                            TRIGGER_EVENT_INSERT, false, NULL, NULL,
+                            NIL, NULL, transition_capture, false);
+    }
+}
+```

@@ -51,3 +51,43 @@ The function follows PostgreSQL's standard pattern for catalog lookups:
 - Part of PostgreSQL's extension management system introduced to support packaged extensions
 - The function is declared in src/include/commands/extension.h and widely used throughout the extension management subsystem
 - Returns InvalidOid (0) for non-existent extensions when missing_ok is true, following PostgreSQL conventions
+
+## Simplified Source
+
+```c
+Oid get_extension_oid(const char *extname, bool missing_ok) {
+    Oid result;
+
+    // Open pg_extension catalog for reading
+    Relation rel = table_open(ExtensionRelationId, AccessShareLock);
+
+    // Setup scan key to search by extension name
+    ScanKeyData entry[1];
+    ScanKeyInit(&entry[0], Anum_pg_extension_extname, BTEqualStrategyNumber,
+                F_NAMEEQ, CStringGetDatum(extname));
+
+    // Perform indexed scan using extension name index
+    SysScanDesc scandesc = systable_beginscan(rel, ExtensionNameIndexId,
+                                             true, NULL, 1, entry);
+
+    HeapTuple tuple = systable_getnext(scandesc);
+
+    // Extract OID from tuple if found
+    if (HeapTupleIsValid(tuple))
+        result = ((Form_pg_extension) GETSTRUCT(tuple))->oid;
+    else
+        result = InvalidOid;
+
+    // Clean up resources
+    systable_endscan(scandesc);
+    table_close(rel, AccessShareLock);
+
+    // Handle missing extension based on missing_ok flag
+    if (!OidIsValid(result) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("extension \"%s\" does not exist", extname)));
+
+    return result;
+}
+```

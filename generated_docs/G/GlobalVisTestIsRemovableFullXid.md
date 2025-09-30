@@ -43,3 +43,31 @@ The state parameter must be initialized for the relation that fxid belongs to, o
 - Critical for vacuum operations, tuple cleanup, and maintaining MVCC correctness
 - Part of PostgreSQL's global visibility infrastructure for multi-version concurrency control
 - Handles the complexity of determining transaction visibility across potentially long-running transactions
+
+## Simplified Source
+
+```c
+bool
+GlobalVisTestIsRemovableFullXid(GlobalVisState *state, FullTransactionId fxid)
+{
+    // Fast path: If transaction is older than maybe_needed, it's definitely visible
+    if (FullTransactionIdPrecedes(fxid, state->maybe_needed))
+        return true;
+
+    // If transaction is too recent (>= definitely_needed), likely still running
+    if (FullTransactionIdFollowsOrEquals(fxid, state->definitely_needed))
+        return false;
+
+    // Transaction is in uncertain range - may update boundaries for accuracy
+    if (GlobalVisTestShouldUpdate(state)) {
+        // Refresh global visibility state
+        GlobalVisUpdate();
+
+        // Recheck with updated boundaries
+        return FullTransactionIdPrecedes(fxid, state->maybe_needed);
+    }
+
+    // Don't update boundaries - assume not removable to be safe
+    return false;
+}
+```

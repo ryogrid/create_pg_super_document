@@ -34,3 +34,30 @@ The aclequal function performs a byte-by-byte comparison of two ACL structures t
 - Does not perform order-independent comparison - items must be in identical order
 - Uses efficient memcmp for bulk comparison after validating ACL structure
 - Part of PostgreSQL's access control system for managing object permissions
+
+## Simplified Source
+
+```c
+bool aclequal(const Acl *left_acl, const Acl *right_acl) {
+    // Handle NULL or empty ACLs - both empty means equal
+    if ((left_acl == NULL || ACL_NUM(left_acl) == 0) &&
+        (right_acl == NULL || ACL_NUM(right_acl) == 0)) {
+        return true;
+    }
+
+    // If only one is empty, they're not equal
+    if ((left_acl == NULL || ACL_NUM(left_acl) == 0) ||
+        (right_acl == NULL || ACL_NUM(right_acl) == 0)) {
+        return false;
+    }
+
+    // Different number of items means not equal
+    if (ACL_NUM(left_acl) != ACL_NUM(right_acl)) {
+        return false;
+    }
+
+    // Compare ACL data arrays byte-by-byte
+    return (memcmp(ACL_DAT(left_acl), ACL_DAT(right_acl),
+                   ACL_NUM(left_acl) * sizeof(AclItem)) == 0);
+}
+```

@@ -47,3 +47,48 @@ Like its counterpart restriction_is_always_true, it includes safety checks to av
 - Includes optimization opportunity comment about removing individual false OR branches
 - Part of PostgreSQL's contradictory condition detection for early query termination
 - Critical for performance as it can eliminate entire query execution when conditions are unsatisfiable
+
+## Simplified Source
+
+```c
+bool
+restriction_is_always_false(PlannerInfo *root, RestrictInfo *restrictinfo)
+{
+    // Skip clone clauses - unreliable nulling relation info
+    if (restrictinfo->has_clone || restrictinfo->is_clone)
+        return false;
+
+    // Check for NullTest IS NULL condition
+    if (IsA(restrictinfo->clause, NullTest)) {
+        NullTest *nulltest = (NullTest *) restrictinfo->clause;
+
+        // Only handle IS_NULL tests
+        if (nulltest->nulltesttype != IS_NULL)
+            return false;
+
+        // Skip row expressions (context-dependent NULL behavior)
+        if (nulltest->argisrow)
+            return false;
+
+        // IS NULL is always false if expression is guaranteed non-null
+        return expr_is_nonnullable(root, nulltest->arg);
+    }
+
+    // Check OR clauses - all branches must be always false
+    if (restriction_is_or_clause(restrictinfo)) {
+        ListCell *lc;
+
+        foreach(lc, ((BoolExpr *) restrictinfo->orclause)->args) {
+            Node *orarg = (Node *) lfirst(lc);
+
+            // If any branch is not always false, OR is not always false
+            if (!IsA(orarg, RestrictInfo) ||
+                !restriction_is_always_false(root, (RestrictInfo *) orarg))
+                return false;
+        }
+        return true;  // All branches are always false
+    }
+
+    return false;  // No optimization applies
+}
+```

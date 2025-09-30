@@ -99,3 +99,34 @@ The function acknowledges that the assumptions are "mighty shaky" but represents
 - The cost model is inherently imprecise due to the unpredictable nature of recursive query convergence
 - Total cost formula: nrterm_cost + (10 × rterm_cost) + (cpu_tuple_cost × total_rows)
 - Represents one of the more challenging areas of PostgreSQL cost estimation due to runtime variability
+
+## Simplified Source
+
+```c
+void
+cost_recursive_union(Path *runion, Path *nrterm, Path *rterm)
+{
+    Cost startup_cost;
+    Cost total_cost;
+    double total_rows;
+
+    // Start with non-recursive term costs (these are reliable)
+    startup_cost = nrterm->startup_cost;
+    total_cost = nrterm->total_cost;
+    total_rows = nrterm->rows;
+
+    // Assume 10 recursive iterations (rough approximation)
+    total_cost += 10 * rterm->total_cost;
+    total_rows += 10 * rterm->rows;
+
+    // Add tuplestore manipulation costs
+    total_cost += cpu_tuple_cost * total_rows;
+
+    // Set final costs and estimates
+    runion->startup_cost = startup_cost;
+    runion->total_cost = total_cost;
+    runion->rows = total_rows;
+    runion->pathtarget->width = Max(nrterm->pathtarget->width,
+                                   rterm->pathtarget->width);
+}
+```

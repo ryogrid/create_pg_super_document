@@ -48,3 +48,84 @@ This function is the core executor for SQL/JSON path expressions, supporting JSO
 - Handles ON ERROR and ON EMPTY behaviors including NULL return, default values, or error throwing
 - Key uniqueness validation and formatting are handled in preceding expression steps
 - Used extensively in SQL/JSON queries like JSON_VALUE(doc, '$.path' RETURNING int DEFAULT 0 ON EMPTY)
+
+## Simplified Source
+
+```c
+int ExecEvalJsonExprPath(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    JsonExprState *jsestate = op->d.jsonexpr.jsestate;
+    JsonExpr *jsexpr = jsestate->jsexpr;
+    Datum item = jsestate->formatted_expr.value;
+    JsonPath *path = DatumGetJsonPathP(jsestate->pathspec.value);
+    bool throw_error = (jsexpr->on_error->btype == JSON_BEHAVIOR_ERROR);
+    bool error = false, empty = false;
+
+    // Reset error/empty state for this evaluation
+    reset_json_expr_state(jsestate);
+
+    // Execute the appropriate JSON operation
+    switch (jsexpr->op)
+    {
+        case JSON_EXISTS_OP:
+        {
+            bool exists = JsonPathExists(item, path, !throw_error ? &error : NULL, jsestate->args);
+            if (!error)
+            {
+                *op->resnull = false;
+                *op->resvalue = BoolGetDatum(exists);
+            }
+            break;
+        }
+
+        case JSON_QUERY_OP:
+            *op->resvalue = JsonPathQuery(item, path, jsexpr->wrapper, &empty,
+                                        !throw_error ? &error : NULL, jsestate->args,
+                                        jsexpr->column_name);
+            *op->resnull = (DatumGetPointer(*op->resvalue) == NULL);
+            break;
+
+        case JSON_VALUE_OP:
+        {
+            JsonbValue *jbv = JsonPathValue(item, path, &empty, !throw_error ? &error : NULL,
+                                          jsestate->args, jsexpr->column_name);
+
+            if (jbv == NULL)
+            {
+                *op->resvalue = (Datum) 0;
+                *op->resnull = true;
+            }
+            else if (!error && !empty)
+            {
+                // Convert result based on returning type
+                handle_json_value_result(jbv, jsexpr, op);
+            }
+            break;
+        }
+
+        default:
+            elog(ERROR, "unrecognized SQL/JSON expression op %d", (int) jsexpr->op);
+    }
+
+    // Perform IO coercion if needed
+    if (!*op->resnull && jsexpr->use_io_coercion)
+    {
+        perform_io_coercion(jsestate, op, &error);
+    }
+
+    // Handle ON EMPTY behavior
+    if (empty)
+    {
+        return handle_empty_result(jsestate, jsexpr, op);
+    }
+
+    // Handle ON ERROR behavior
+    if (error)
+    {
+        return handle_error_result(jsestate, jsexpr, op);
+    }
+
+    // Return next step to execute
+    return jsestate->jump_eval_coercion >= 0 ? jsestate->jump_eval_coercion : jsestate->jump_end;
+}
+```

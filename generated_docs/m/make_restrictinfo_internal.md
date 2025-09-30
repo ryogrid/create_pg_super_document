@@ -55,3 +55,99 @@ This static function serves as the core implementation for RestrictInfo creation
 - Base relation counting: calculates the number of base relations involved by excluding outer join relations from the clause's relation set
 - Serial numbering: assigns a unique serial number to each RestrictInfo for debugging and tracking purposes
 - Lazy evaluation design: most expensive computations (selectivity, join costs, etc.) are deferred until actually needed during optimization
+
+## Simplified Source
+
+```c
+static RestrictInfo *
+make_restrictinfo_internal(PlannerInfo *root, Expr *clause, Expr *orclause,
+                          bool is_pushed_down, bool has_clone, bool is_clone,
+                          bool pseudoconstant, Index security_level,
+                          Relids required_relids, Relids incompatible_relids,
+                          Relids outer_relids)
+{
+    RestrictInfo *restrictinfo = makeNode(RestrictInfo);
+    Relids      baserels;
+
+    // Initialize basic fields
+    restrictinfo->clause = clause;
+    restrictinfo->orclause = orclause;
+    restrictinfo->is_pushed_down = is_pushed_down;
+    restrictinfo->pseudoconstant = pseudoconstant;
+    restrictinfo->has_clone = has_clone;
+    restrictinfo->is_clone = is_clone;
+    restrictinfo->can_join = false;
+    restrictinfo->security_level = security_level;
+    restrictinfo->incompatible_relids = incompatible_relids;
+    restrictinfo->outer_relids = outer_relids;
+
+    // Test for leak-proofness if security level > 0
+    if (security_level > 0)
+        restrictinfo->leakproof = !contain_leaked_vars((Node *) clause);
+    else
+        restrictinfo->leakproof = false;
+
+    // Mark volatility as unknown (computed on demand)
+    restrictinfo->has_volatile = VOLATILITY_UNKNOWN;
+
+    // Handle binary operator clauses specially
+    if (is_opclause(clause) && list_length(((OpExpr *) clause)->args) == 2)
+    {
+        restrictinfo->left_relids = pull_varnos(root, get_leftop(clause));
+        restrictinfo->right_relids = pull_varnos(root, get_rightop(clause));
+        restrictinfo->clause_relids = bms_union(restrictinfo->left_relids,
+                                              restrictinfo->right_relids);
+
+        // Check if this could be a join clause
+        if (!bms_is_empty(restrictinfo->left_relids) &&
+            !bms_is_empty(restrictinfo->right_relids) &&
+            !bms_overlap(restrictinfo->left_relids, restrictinfo->right_relids))
+        {
+            restrictinfo->can_join = true;
+        }
+    }
+    else
+    {
+        // Non-binary clause: no left/right split
+        restrictinfo->left_relids = NULL;
+        restrictinfo->right_relids = NULL;
+        restrictinfo->clause_relids = pull_varnos(root, (Node *) clause);
+    }
+
+    // Set required_relids (defaults to clause_relids)
+    if (required_relids != NULL)
+        restrictinfo->required_relids = required_relids;
+    else
+        restrictinfo->required_relids = restrictinfo->clause_relids;
+
+    // Count base relations (excluding outer joins)
+    baserels = bms_difference(restrictinfo->clause_relids, root->outer_join_rels);
+    restrictinfo->num_base_rels = bms_num_members(baserels);
+    bms_free(baserels);
+
+    // Assign unique serial number
+    restrictinfo->rinfo_serial = ++(root->last_rinfo_serial);
+
+    // Initialize cache fields with sentinel values
+    restrictinfo->parent_ec = NULL;
+    restrictinfo->eval_cost.startup = -1;
+    restrictinfo->norm_selec = -1;
+    restrictinfo->outer_selec = -1;
+    restrictinfo->mergeopfamilies = NIL;
+    restrictinfo->left_ec = NULL;
+    restrictinfo->right_ec = NULL;
+    restrictinfo->left_em = NULL;
+    restrictinfo->right_em = NULL;
+    restrictinfo->scansel_cache = NIL;
+    restrictinfo->outer_is_left = false;
+    restrictinfo->hashjoinoperator = InvalidOid;
+    restrictinfo->left_bucketsize = -1;
+    restrictinfo->right_bucketsize = -1;
+    restrictinfo->left_mcvfreq = -1;
+    restrictinfo->right_mcvfreq = -1;
+    restrictinfo->left_hasheqoperator = InvalidOid;
+    restrictinfo->right_hasheqoperator = InvalidOid;
+
+    return restrictinfo;
+}
+```

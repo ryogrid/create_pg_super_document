@@ -40,3 +40,21 @@ This validation is essential for ensuring that SQL identifiers can be properly c
 - The colon character has special meaning in XML namespaces but is allowed in names
 - This function works in conjunction with is_valid_xml_namefirst to validate complete XML names
 - Returns true if the character can be used anywhere in an XML name, false otherwise
+
+## Simplified Source
+
+```c
+static bool
+is_valid_xml_namechar(pg_wchar c)
+{
+    // Check if character is valid anywhere in XML name
+    // XML NameChar ::= Letter | Digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
+    return (xmlIsBaseCharQ(c) ||      // Base letters
+            xmlIsIdeographicQ(c) ||   // Ideographic characters
+            xmlIsDigitQ(c) ||         // Digits (0-9)
+            c == '.' || c == '-' ||   // Period and hyphen
+            c == '_' || c == ':' ||   // Underscore and colon
+            xmlIsCombiningQ(c) ||     // Combining characters (diacritics)
+            xmlIsExtenderQ(c));       // Extender characters
+}
+```

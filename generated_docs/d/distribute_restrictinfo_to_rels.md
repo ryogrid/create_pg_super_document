@@ -54,3 +54,40 @@ For join clauses, the function also performs additional optimization preparation
 - Critical component of PostgreSQL's query planning infrastructure for organizing query conditions
 - Works in conjunction with the equivalence class machinery for advanced optimization scenarios
 - Part of the broader qualification distribution system that transforms SQL WHERE/JOIN conditions into the internal planner representation
+
+## Simplified Source
+
+```c
+void
+distribute_restrictinfo_to_rels(PlannerInfo *root,
+                                RestrictInfo *restrictinfo)
+{
+    Relids relids = restrictinfo->required_relids;
+
+    if (!bms_is_empty(relids))
+    {
+        int relid;
+
+        if (bms_get_singleton_member(relids, &relid))
+        {
+            // Single relation: add as restriction clause
+            add_base_clause_to_rel(root, relid, restrictinfo);
+        }
+        else
+        {
+            // Multiple relations: treat as join clause
+            // Analyze for hash join and memoization potential
+            check_hashjoinable(restrictinfo);
+            check_memoizable(restrictinfo);
+
+            // Distribute to all relevant relations' join lists
+            add_join_clause_to_rels(root, restrictinfo, relids);
+        }
+    }
+    else
+    {
+        // Error: clause references no relations
+        elog(ERROR, "cannot cope with variable-free clause");
+    }
+}
+```

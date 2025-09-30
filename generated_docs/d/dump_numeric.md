@@ -46,3 +46,32 @@ The function displays the numeric's weight (position of most significant digit),
 - Output format: \[label\]: NUMERIC w=\[weight\] d=\[scale\] \[sign\] \[digits...\]
 - Essential for understanding PostgreSQL's internal numeric representation
 - Not part of the public API - intended for internal debugging only
+
+## Simplified Source
+
+```c
+static void dump_numeric(const char *str, Numeric num) {
+    NumericDigit *digits = NUMERIC_DIGITS(num);
+    int ndigits = NUMERIC_NDIGITS(num);
+
+    // Print header with weight and scale
+    printf("%s: NUMERIC w=%d d=%d ", str,
+           NUMERIC_WEIGHT(num), NUMERIC_DSCALE(num));
+
+    // Print sign information
+    switch (NUMERIC_SIGN(num)) {
+        case NUMERIC_POS:   printf("POS"); break;
+        case NUMERIC_NEG:   printf("NEG"); break;
+        case NUMERIC_NAN:   printf("NaN"); break;
+        case NUMERIC_PINF:  printf("Infinity"); break;
+        case NUMERIC_NINF:  printf("-Infinity"); break;
+        default:            printf("SIGN=0x%x", NUMERIC_SIGN(num)); break;
+    }
+
+    // Print each digit with zero-padding
+    for (int i = 0; i < ndigits; i++) {
+        printf(" %0*d", DEC_DIGITS, digits[i]);
+    }
+    printf("\n");
+}
+```

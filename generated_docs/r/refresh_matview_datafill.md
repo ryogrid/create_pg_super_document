@@ -53,3 +53,54 @@ Key operations include snapshot management to ensure consistent data visibility,
 - The function returns the number of rows processed, which is used for statistics and completion reporting
 - Proper resource cleanup is performed through the executor framework's finish and end functions
 - The destination receiver handles the actual insertion mechanism, allowing for different storage strategies
+
+## Simplified Source
+
+```c
+static uint64
+refresh_matview_datafill(DestReceiver *dest, Query *query, const char *queryString)
+{
+    List *rewritten;
+    PlannedStmt *plan;
+    QueryDesc *queryDesc;
+    Query *copied_query;
+    uint64 processed;
+
+    // Lock and rewrite query (using copy to preserve original)
+    copied_query = copyObject(query);
+    AcquireRewriteLocks(copied_query, true, false);
+    rewritten = QueryRewrite(copied_query);
+
+    // SELECT should rewrite to exactly one query
+    if (list_length(rewritten) != 1)
+        elog(ERROR, "unexpected rewrite result for REFRESH MATERIALIZED VIEW");
+    query = (Query *) linitial(rewritten);
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Plan the query with parallel execution enabled
+    plan = pg_plan_query(query, queryString, CURSOR_OPT_PARALLEL_OK, NULL);
+
+    // Use updated snapshot to see all previous query results
+    PushCopiedSnapshot(GetActiveSnapshot());
+    UpdateActiveSnapshotCommandId();
+
+    // Create query descriptor with destination receiver
+    queryDesc = CreateQueryDesc(plan, queryString,
+                                GetActiveSnapshot(), InvalidSnapshot,
+                                dest, NULL, NULL, 0);
+
+    // Execute the query plan
+    ExecutorStart(queryDesc, 0);
+    ExecutorRun(queryDesc, ForwardScanDirection, 0, true);
+    processed = queryDesc->estate->es_processed;
+
+    // Clean up executor resources
+    ExecutorFinish(queryDesc);
+    ExecutorEnd(queryDesc);
+    FreeQueryDesc(queryDesc);
+    PopActiveSnapshot();
+
+    return processed;
+}
+```

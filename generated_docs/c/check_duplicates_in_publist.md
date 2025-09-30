@@ -36,3 +36,40 @@ This function performs duplicate detection on a list of publication names using 
 - Error reporting is immediate upon finding the first duplicate, preventing further processing
 - When datums parameter is provided, it assumes the caller has allocated sufficient space for all publication names
 - Critical for maintaining data integrity in subscription configurations by preventing ambiguous publication references
+
+## Simplified Source
+
+```c
+static void
+check_duplicates_in_publist(List *publist, Datum *datums)
+{
+    ListCell *cell;
+    int j = 0;
+
+    // Check each publication name against all previous ones
+    foreach(cell, publist)
+    {
+        char *name = strVal(lfirst(cell));
+        ListCell *pcell;
+
+        // Compare with all previous publications
+        foreach(pcell, publist)
+        {
+            char *pname = strVal(lfirst(pcell));
+
+            if (pcell == cell)
+                break;  // Reached current item, stop checking
+
+            if (strcmp(name, pname) == 0)
+                ereport(ERROR,
+                        (errcode(ERRCODE_DUPLICATE_OBJECT),
+                         errmsg("publication name \"%s\" used more than once",
+                                pname)));
+        }
+
+        // Convert to text datum if array provided
+        if (datums)
+            datums[j++] = CStringGetTextDatum(name);
+    }
+}
+```

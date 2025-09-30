@@ -42,3 +42,45 @@ Like its array counterpart, it handles three key scenarios:
 - Implements the same subobject relationship logic as  but for stack-based data structures
 - Used during recursive dependency analysis where a stack-based approach is more appropriate than array-based storage
 - Critical for preventing circular dependencies and managing proper deletion order in PostgreSQL's dependency system
+
+## Simplified Source
+
+```c
+static bool
+stack_address_present_add_flags(const ObjectAddress *object,
+                                int flags,
+                                ObjectAddressStack *stack)
+{
+    bool result = false;
+
+    // Traverse the linked list stack
+    for (ObjectAddressStack *stackptr = stack; stackptr; stackptr = stackptr->next) {
+        const ObjectAddress *thisobj = stackptr->object;
+
+        // Check if class and object IDs match
+        if (object->classId == thisobj->classId &&
+            object->objectId == thisobj->objectId) {
+
+            if (object->objectSubId == thisobj->objectSubId) {
+                // Exact match: add flags to this stack entry
+                stackptr->flags |= flags;
+                result = true;
+            }
+            else if (thisobj->objectSubId == 0) {
+                // Searching for subobject, but whole object is on stack
+                // Skip further processing without flag propagation
+                result = true;
+            }
+            else if (object->objectSubId == 0) {
+                // Searching for whole object, but subobject is on stack
+                // Propagate flags to subobject and mark it
+                if (flags) {
+                    stackptr->flags |= (flags | DEPFLAG_SUBOBJECT);
+                }
+            }
+        }
+    }
+
+    return result;
+}
+```

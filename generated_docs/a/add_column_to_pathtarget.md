@@ -46,3 +46,32 @@ The function also resets the volatility status to unknown when adding a new expr
 - Handles the transition from no sortgrouprefs to having sortgrouprefs
 - Uses repalloc for efficiency when extending existing sortgrouprefs array
 - The function is declared in src/include/optimizer/tlist.h
+
+## Simplified Source
+
+```c
+void
+add_column_to_pathtarget(PathTarget *target, Expr *expr, Index sortgroupref)
+{
+    // Add expression to the target list
+    target->exprs = lappend(target->exprs, expr);
+
+    // Handle sortgrouprefs array
+    if (target->sortgrouprefs) {
+        // Extend existing sortgrouprefs array
+        int nexprs = list_length(target->exprs);
+        target->sortgrouprefs = (Index *)
+            repalloc(target->sortgrouprefs, nexprs * sizeof(Index));
+        target->sortgrouprefs[nexprs - 1] = sortgroupref;
+    } else if (sortgroupref) {
+        // Create new sortgrouprefs array (previously unlabeled target)
+        int nexprs = list_length(target->exprs);
+        target->sortgrouprefs = (Index *) palloc0(nexprs * sizeof(Index));
+        target->sortgrouprefs[nexprs - 1] = sortgroupref;
+    }
+
+    // Reset volatility to unknown - let contain_volatile_functions re-evaluate
+    if (target->has_volatile_expr == VOLATILITY_NOVOLATILE)
+        target->has_volatile_expr = VOLATILITY_UNKNOWN;
+}
+```

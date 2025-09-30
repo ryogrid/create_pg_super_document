@@ -35,3 +35,23 @@ This function implements a tree-walking algorithm that traverses PostgreSQL expr
 - Part of PostgreSQL's rewrite rule system for managing permission checks
 - The function is static, indicating it's only used within the rewriteDefine.c file
 - Uses the standard PostgreSQL tree-walking pattern with expression_tree_walker()
+
+## Simplified Source
+
+```c
+static bool setRuleCheckAsUser_walker(Node *node, Oid *context) {
+    // Handle NULL nodes
+    if (node == NULL) {
+        return false;
+    }
+
+    // If this is a Query node, delegate to specialized handler
+    if (IsA(node, Query)) {
+        setRuleCheckAsUser_Query((Query *) node, *context);
+        return false;  // Don't continue walking this subtree
+    }
+
+    // For all other node types, continue recursive traversal
+    return expression_tree_walker(node, setRuleCheckAsUser_walker, (void *) context);
+}
+```

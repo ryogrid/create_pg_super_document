@@ -42,3 +42,42 @@ This function handles the complex memory management requirements for aggregate t
 - Ensures proper cleanup of old transition values to prevent memory leaks
 - Handles both expanded and non-expanded object types appropriately
 - Located in src/backend/executor/execExprInterp.c at lines 5070-5118
+
+## Simplified Source
+
+```c
+Datum
+ExecAggCopyTransValue(AggState *aggstate, AggStatePerTrans pertrans,
+                      Datum newValue, bool newValueIsNull,
+                      Datum oldValue, bool oldValueIsNull)
+{
+    Assert(newValue != oldValue);
+
+    // Handle new value - ensure it's in the aggregation context
+    if (!newValueIsNull) {
+        MemoryContextSwitchTo(aggstate->curaggcontext->ecxt_per_tuple_memory);
+
+        // Check if it's an expanded object already in the right context
+        if (DatumIsReadWriteExpandedObject(newValue, false, pertrans->transtypeLen) &&
+            MemoryContextGetParent(DatumGetEOHP(newValue)->eoh_context) == CurrentMemoryContext) {
+            // Already in right context, use as-is
+        } else {
+            // Copy to aggregation context
+            newValue = datumCopy(newValue, pertrans->transtypeByVal, pertrans->transtypeLen);
+        }
+    } else {
+        // Ensure NULL values are represented as 0
+        newValue = (Datum) 0;
+    }
+
+    // Clean up old value if present
+    if (!oldValueIsNull) {
+        if (DatumIsReadWriteExpandedObject(oldValue, false, pertrans->transtypeLen))
+            DeleteExpandedObject(oldValue);
+        else
+            pfree(DatumGetPointer(oldValue));
+    }
+
+    return newValue;
+}
+```

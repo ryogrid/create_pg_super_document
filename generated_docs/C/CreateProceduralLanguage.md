@@ -59,3 +59,117 @@ The function supports both creating new languages and replacing existing ones wh
 - Creates dependencies on handler, inline, and validator functions to ensure proper cleanup
 - Automatically records extension membership if created within an extension context
 - Function is located in src/backend/commands/proclang.c:37-225
+
+## Simplified Source
+
+```c
+ObjectAddress
+CreateProceduralLanguage(CreatePLangStmt *stmt)
+{
+    const char *languageName = stmt->plname;
+    Oid languageOwner = GetUserId();
+    Oid handlerOid, inlineOid, valOid;
+    Relation rel;
+    HeapTuple oldtup, tup;
+    Oid langoid;
+    bool is_update;
+    ObjectAddress myself;
+
+    // Check superuser permission
+    if (!superuser())
+        ereport(ERROR, "must be superuser to create custom procedural language");
+
+    // Validate handler function and check return type
+    handlerOid = LookupFuncName(stmt->plhandler, 0, NULL, false);
+    if (get_func_rettype(handlerOid) != LANGUAGE_HANDLEROID)
+        ereport(ERROR, "function must return type language_handler");
+
+    // Validate optional inline function
+    if (stmt->plinline) {
+        inlineOid = LookupFuncName(stmt->plinline, 1, funcargtypes, false);
+    } else {
+        inlineOid = InvalidOid;
+    }
+
+    // Validate optional validator function
+    if (stmt->plvalidator) {
+        valOid = LookupFuncName(stmt->plvalidator, 1, funcargtypes, false);
+    } else {
+        valOid = InvalidOid;
+    }
+
+    // Open language catalog
+    rel = table_open(LanguageRelationId, RowExclusiveLock);
+
+    // Prepare tuple data
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+    memset(replaces, true, sizeof(replaces));
+
+    // Set language attributes
+    values[Anum_pg_language_lanname - 1] = NameGetDatum(&langname);
+    values[Anum_pg_language_lanowner - 1] = ObjectIdGetDatum(languageOwner);
+    values[Anum_pg_language_lanispl - 1] = BoolGetDatum(true);
+    values[Anum_pg_language_lanpltrusted - 1] = BoolGetDatum(stmt->pltrusted);
+    values[Anum_pg_language_lanplcallfoid - 1] = ObjectIdGetDatum(handlerOid);
+    values[Anum_pg_language_laninline - 1] = ObjectIdGetDatum(inlineOid);
+    values[Anum_pg_language_lanvalidator - 1] = ObjectIdGetDatum(valOid);
+
+    // Check if language already exists
+    oldtup = SearchSysCache1(LANGNAME, PointerGetDatum(languageName));
+
+    if (HeapTupleIsValid(oldtup)) {
+        // Update existing language if REPLACE specified
+        if (!stmt->replace)
+            ereport(ERROR, "language already exists");
+
+        // Preserve ownership and permissions
+        replaces[Anum_pg_language_oid - 1] = false;
+        replaces[Anum_pg_language_lanowner - 1] = false;
+        replaces[Anum_pg_language_lanacl - 1] = false;
+
+        tup = heap_modify_tuple(oldtup, tupDesc, values, nulls, replaces);
+        CatalogTupleUpdate(rel, &tup->t_self, tup);
+        langoid = ((Form_pg_language) GETSTRUCT(oldtup))->oid;
+        is_update = true;
+    } else {
+        // Create new language
+        langoid = GetNewOidWithIndex(rel, LanguageOidIndexId, Anum_pg_language_oid);
+        values[Anum_pg_language_oid - 1] = ObjectIdGetDatum(langoid);
+        tup = heap_form_tuple(tupDesc, values, nulls);
+        CatalogTupleInsert(rel, tup);
+        is_update = false;
+    }
+
+    // Set up dependencies
+    myself.classId = LanguageRelationId;
+    myself.objectId = langoid;
+    myself.objectSubId = 0;
+
+    if (is_update)
+        deleteDependencyRecordsFor(myself.classId, myself.objectId, true);
+
+    if (!is_update)
+        recordDependencyOnOwner(myself.classId, myself.objectId, languageOwner);
+
+    recordDependencyOnCurrentExtension(&myself, is_update);
+
+    // Create dependencies on handler and optional functions
+    addrs = new_object_addresses();
+    add_exact_object_address(&(ObjectAddress){ProcedureRelationId, handlerOid}, addrs);
+
+    if (OidIsValid(inlineOid))
+        add_exact_object_address(&(ObjectAddress){ProcedureRelationId, inlineOid}, addrs);
+
+    if (OidIsValid(valOid))
+        add_exact_object_address(&(ObjectAddress){ProcedureRelationId, valOid}, addrs);
+
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+
+    // Cleanup and finish
+    InvokeObjectPostCreateHook(LanguageRelationId, myself.objectId, 0);
+    table_close(rel, RowExclusiveLock);
+
+    return myself;
+}
+```

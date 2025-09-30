@@ -44,3 +44,37 @@ The function follows the same safety principles as GetNewOidWithIndex() by consi
 - Designed for use during OID generation to prevent conflicts during table rewrite scenarios
 - Only needs to find one matching tuple to confirm existence, making it efficient
 - Follows PostgreSQL's general principle of conservative OID management to avoid reuse issues
+
+## Simplified Source
+
+```c
+static bool
+toastrel_valueid_exists(Relation toastrel, Oid valueid)
+{
+    bool result = false;
+
+    // Open toast indexes
+    int num_indexes, validIndex;
+    Relation *toastidxs;
+    validIndex = toast_open_indexes(toastrel, RowExclusiveLock,
+                                   &toastidxs, &num_indexes);
+
+    // Setup scan key to find chunks with matching value ID
+    ScanKeyData toastkey;
+    ScanKeyInit(&toastkey, (AttrNumber) 1, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(valueid));
+
+    // Scan for any chunk with this value ID (using SnapshotAny for safety)
+    SysScanDesc toastscan = systable_beginscan(toastrel,
+                                               RelationGetRelid(toastidxs[validIndex]),
+                                               true, SnapshotAny, 1, &toastkey);
+
+    if (systable_getnext(toastscan) != NULL)
+        result = true;
+
+    systable_endscan(toastscan);
+    toast_close_indexes(toastidxs, num_indexes, RowExclusiveLock);
+
+    return result;
+}
+```

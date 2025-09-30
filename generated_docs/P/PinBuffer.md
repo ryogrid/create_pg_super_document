@@ -56,3 +56,69 @@ The function maintains a private reference count entry per backend to track loca
 - The function is static (internal to bufmgr.c) and not directly callable by external code
 - Handles race conditions through atomic compare-and-swap retry loops
 - Access strategy affects replacement behavior: NULL strategy allows full usage count, non-NULL limits interference with other backends
+
+## Simplified Source
+
+```c
+static bool PinBuffer(BufferDesc *buf, BufferAccessStrategy strategy)
+{
+    Buffer b = BufferDescriptorGetBuffer(buf);
+    bool result;
+    PrivateRefCountEntry *ref;
+
+    Assert(!BufferIsLocal(b));
+    Assert(ReservedRefCountEntry != NULL);
+
+    // Get or create private reference count entry for this buffer
+    ref = GetPrivateRefCountEntry(b, true);
+
+    if (ref == NULL) {
+        // First time pinning this buffer - need to update shared state
+        uint32 buf_state;
+        uint32 old_buf_state;
+
+        ref = NewPrivateRefCountEntry(b);
+
+        // Atomic loop to update buffer state (refcount + usage count)
+        old_buf_state = pg_atomic_read_u32(&buf->state);
+        for (;;) {
+            // Wait if buffer is locked
+            if (old_buf_state & BM_LOCKED)
+                old_buf_state = WaitBufHdrUnlocked(buf);
+
+            buf_state = old_buf_state;
+
+            // Increment reference count
+            buf_state += BUF_REFCOUNT_ONE;
+
+            // Update usage count based on strategy
+            if (strategy == NULL) {
+                // Default: increment usage count up to maximum
+                if (BUF_STATE_GET_USAGECOUNT(buf_state) < BM_MAX_USAGE_COUNT)
+                    buf_state += BUF_USAGECOUNT_ONE;
+            } else {
+                // Ring buffer: only set usage count to 1 if it was 0
+                if (BUF_STATE_GET_USAGECOUNT(buf_state) == 0)
+                    buf_state += BUF_USAGECOUNT_ONE;
+            }
+
+            // Try to atomically update the state
+            if (pg_atomic_compare_exchange_u32(&buf->state, &old_buf_state, buf_state)) {
+                result = (buf_state & BM_VALID) != 0;
+                break;
+            }
+            // If CAS failed, retry with new old_buf_state
+        }
+    } else {
+        // Buffer already pinned by us - just check if it's valid
+        result = (pg_atomic_read_u32(&buf->state) & BM_VALID) != 0;
+    }
+
+    // Increment local reference count and register with resource owner
+    ref->refcount++;
+    Assert(ref->refcount > 0);
+    ResourceOwnerRememberBuffer(CurrentResourceOwner, b);
+
+    return result;
+}
+```

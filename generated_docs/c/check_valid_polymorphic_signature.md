@@ -47,3 +47,53 @@ The function applies different validation rules based on the polymorphic return 
 - Error messages are already translated for internationalization
 - Critical for preventing invalid polymorphic function definitions at creation time
 - The function maintains synchronization with IsPolymorphicTypeFamily1 and IsPolymorphicTypeFamily2 functions
+
+## Simplified Source
+
+```c
+char *
+check_valid_polymorphic_signature(Oid ret_type, const Oid *declared_arg_types, int nargs)
+{
+    // Check range types - need compatible range input
+    if (ret_type == ANYRANGEOID || ret_type == ANYMULTIRANGEOID) {
+        for (int i = 0; i < nargs; i++) {
+            if (declared_arg_types[i] == ANYRANGEOID || declared_arg_types[i] == ANYMULTIRANGEOID)
+                return NULL;  // Valid
+        }
+        return psprintf(_("A result of type %s requires at least one input of type anyrange or anymultirange."),
+                       format_type_be(ret_type));
+    }
+
+    // Check compatible range types - need compatible range input
+    if (ret_type == ANYCOMPATIBLERANGEOID || ret_type == ANYCOMPATIBLEMULTIRANGEOID) {
+        for (int i = 0; i < nargs; i++) {
+            if (declared_arg_types[i] == ANYCOMPATIBLERANGEOID || declared_arg_types[i] == ANYCOMPATIBLEMULTIRANGEOID)
+                return NULL;  // Valid
+        }
+        return psprintf(_("A result of type %s requires at least one input of type anycompatiblerange or anycompatiblemultirange."),
+                       format_type_be(ret_type));
+    }
+
+    // Check Family-1 polymorphic types
+    if (IsPolymorphicTypeFamily1(ret_type)) {
+        for (int i = 0; i < nargs; i++) {
+            if (IsPolymorphicTypeFamily1(declared_arg_types[i]))
+                return NULL;  // Valid
+        }
+        return psprintf(_("A result of type %s requires at least one input of type anyelement, anyarray, anynonarray, anyenum, anyrange, or anymultirange."),
+                       format_type_be(ret_type));
+    }
+
+    // Check Family-2 polymorphic types
+    if (IsPolymorphicTypeFamily2(ret_type)) {
+        for (int i = 0; i < nargs; i++) {
+            if (IsPolymorphicTypeFamily2(declared_arg_types[i]))
+                return NULL;  // Valid
+        }
+        return psprintf(_("A result of type %s requires at least one input of type anycompatible, anycompatiblearray, anycompatiblenonarray, anycompatiblerange, or anycompatiblemultirange."),
+                       format_type_be(ret_type));
+    }
+
+    return NULL;  // Non-polymorphic return type is always valid
+}
+```

@@ -49,3 +49,94 @@ The function validates parameters, normalizes tablespace settings, and delegates
 - Storage creation is conditional based on relkind and create_storage parameter
 - Creates dependency records for non-storage relations using explicit tablespaces
 - Located in src/backend/catalog/heap.c:290-412
+
+## Simplified Source
+
+```c
+Relation
+heap_create(const char *relname,
+            Oid relnamespace,
+            Oid reltablespace,
+            Oid relid,
+            RelFileNumber relfilenumber,
+            Oid accessmtd,
+            TupleDesc tupDesc,
+            char relkind,
+            char relpersistence,
+            bool shared_relation,
+            bool mapped_relation,
+            bool allow_system_table_mods,
+            TransactionId *relfrozenxid,
+            MultiXactId *relminmxid,
+            bool create_storage)
+{
+    Relation rel;
+
+    // Caller must provide valid relation OID
+    Assert(OidIsValid(relid));
+
+    // Security check: prevent creation in system catalogs unless allowed
+    if (!allow_system_table_mods &&
+        ((IsCatalogNamespace(relnamespace) && relkind != RELKIND_INDEX) ||
+         IsToastNamespace(relnamespace)) &&
+        IsNormalProcessingMode())
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied to create \"%s.%s\"",
+                        get_namespace_name(relnamespace), relname),
+                 errdetail("System catalog modifications are currently disallowed.")));
+
+    // Initialize transaction IDs
+    *relfrozenxid = InvalidTransactionId;
+    *relminmxid = InvalidMultiXactId;
+
+    // Clear tablespace for relation kinds that don't support it
+    if (!RELKIND_HAS_TABLESPACE(relkind))
+        reltablespace = InvalidOid;
+
+    // Skip storage creation for virtual relations
+    if (!RELKIND_HAS_STORAGE(relkind))
+        create_storage = false;
+    else {
+        // Use relid as file number if not specified
+        if (!RelFileNumberIsValid(relfilenumber))
+            relfilenumber = relid;
+    }
+
+    // Force default tablespace to InvalidOid for database cloning compatibility
+    if (reltablespace == MyDatabaseTableSpace)
+        reltablespace = InvalidOid;
+
+    // Build the in-memory relation structure
+    rel = RelationBuildLocalRelation(relname,
+                                     relnamespace,
+                                     tupDesc,
+                                     relid,
+                                     accessmtd,
+                                     relfilenumber,
+                                     reltablespace,
+                                     shared_relation,
+                                     mapped_relation,
+                                     relpersistence,
+                                     relkind);
+
+    // Create physical storage if requested
+    if (create_storage) {
+        if (RELKIND_HAS_TABLE_AM(rel->rd_rel->relkind))
+            table_relation_set_new_filelocator(rel, &rel->rd_locator,
+                                              relpersistence,
+                                              relfrozenxid, relminmxid);
+        else if (RELKIND_HAS_STORAGE(rel->rd_rel->relkind))
+            RelationCreateStorage(rel->rd_locator, relpersistence, true);
+    }
+
+    // Record tablespace dependency for non-storage relations
+    if (!create_storage && reltablespace != InvalidOid)
+        recordDependencyOnTablespace(RelationRelationId, relid, reltablespace);
+
+    // Initialize statistics tracking
+    pgstat_create_relation(rel);
+
+    return rel;
+}
+```

@@ -34,3 +34,17 @@ The function uses PostgreSQL's foreach macro to iterate through the list efficie
 - Like add_new_column_to_pathtarget(), it leaves cost and width field updates to the caller
 - Commonly used in query planning phases where multiple expressions need to be consolidated into PathTargets
 - The function inherits the duplicate-avoidance behavior from add_new_column_to_pathtarget()
+
+## Simplified Source
+
+```c
+void add_new_columns_to_pathtarget(PathTarget *target, List *exprs) {
+    ListCell *lc;
+
+    // Add each expression to the path target
+    foreach(lc, exprs) {
+        Expr *expr = (Expr *) lfirst(lc);
+        add_new_column_to_pathtarget(target, expr);
+    }
+}
+```

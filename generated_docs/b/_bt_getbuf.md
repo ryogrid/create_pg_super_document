@@ -41,3 +41,26 @@ The function also applies _bt_checkpage to sanity-check the page and performs Va
 - Raw LockBuffer() calls are disallowed in nbtree code - all locking must go through wrapper functions
 - The returned buffer is both locked and pinned, ready for safe page access
 - Located in src/backend/access/nbtree/nbtpage.c:845-868
+
+## Simplified Source
+
+```c
+Buffer
+_bt_getbuf(Relation rel, BlockNumber blkno, int access)
+{
+    Buffer buf;
+
+    Assert(BlockNumberIsValid(blkno));
+
+    // Read existing block from the relation
+    buf = ReadBuffer(rel, blkno);
+
+    // Apply appropriate lock based on access type
+    _bt_lockbuf(rel, buf, access);
+
+    // Perform sanity checks on the page
+    _bt_checkpage(rel, buf);
+
+    return buf;
+}
+```

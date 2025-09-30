@@ -40,3 +40,11 @@ This is a lightweight validation function that must be consistent with  - any st
 - Serves as a fast pre-validation before attempting actual connection string parsing
 - The validation is intentionally permissive - it may accept some strings that will ultimately fail during actual parsing
 - Return value: true if the string appears to be a connection string, false otherwise
+
+## Simplified Source
+```c
+bool recognized_connection_string(const char *connstr) {
+    // Check for URI format or key=value format
+    return uri_prefix_length(connstr) != 0 || strchr(connstr, '=') != NULL;
+}
+```

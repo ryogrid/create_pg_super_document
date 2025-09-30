@@ -46,3 +46,53 @@ The algorithm iterates through all values, maintaining the current min/max candi
 - The comparison function is expected to return negative, zero, or positive integers for less-than, equal, or greater-than relationships
 - Performance is optimized by pre-evaluating all arguments and using prepared function call information
 - Part of PostgreSQL's compiled expression evaluation system for efficient execution
+
+## Simplified Source
+
+```c
+void ExecEvalMinMax(ExprState *state, ExprEvalStep *op)
+{
+    Datum *values = op->d.minmax.values;
+    bool *nulls = op->d.minmax.nulls;
+    FunctionCallInfo fcinfo = op->d.minmax.fcinfo_data;
+    MinMaxOp operator = op->d.minmax.op;
+
+    // Start with NULL result (will be set if any non-null value found)
+    *op->resnull = true;
+
+    // Compare all values to find greatest or least
+    for (int off = 0; off < op->d.minmax.nelems; off++)
+    {
+        // Skip NULL inputs (SQL NULL semantics)
+        if (nulls[off])
+            continue;
+
+        if (*op->resnull)
+        {
+            // First non-null value becomes initial result
+            *op->resvalue = values[off];
+            *op->resnull = false;
+        }
+        else
+        {
+            // Compare current result with this value
+            fcinfo->args[0].value = *op->resvalue;
+            fcinfo->args[1].value = values[off];
+            fcinfo->isnull = false;
+
+            int cmpresult = DatumGetInt32(FunctionCallInvoke(fcinfo));
+
+            // Skip if comparison function returned NULL
+            if (fcinfo->isnull)
+                continue;
+
+            // Update result if we found a more extreme value
+            if ((cmpresult > 0 && operator == IS_LEAST) ||    // Current > new, want least
+                (cmpresult < 0 && operator == IS_GREATEST))   // Current < new, want greatest
+            {
+                *op->resvalue = values[off];
+            }
+        }
+    }
+}
+```

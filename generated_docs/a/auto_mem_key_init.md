@@ -34,3 +34,14 @@ This function takes no parameters.
 - The created key associates each thread with its own list of allocated memory blocks
 - The destructor function ensures proper cleanup when threads exit
 - Uses POSIX threads (pthread) API for thread-local storage
+
+## Simplified Source
+
+```c
+static void
+auto_mem_key_init(void)
+{
+    // Create thread-specific data key with destructor for cleanup
+    pthread_key_create(&auto_mem_key, auto_mem_destructor);
+}
+```

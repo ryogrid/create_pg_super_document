@@ -32,3 +32,16 @@ The  function serves as a comparison function specifically designed for use with
 - It leverages PostgreSQL's portable comparison functions to ensure consistent behavior across different platforms
 - The function is typically passed as a function pointer to  when integer list sorting is required
 - Located in src/backend/nodes/list.c:1691-1702
+
+## Simplified Source
+
+```c
+int
+list_int_cmp(const ListCell *p1, const ListCell *p2)
+{
+    int v1 = lfirst_int(p1);
+    int v2 = lfirst_int(p2);
+
+    return pg_cmp_s32(v1, v2);
+}
+```

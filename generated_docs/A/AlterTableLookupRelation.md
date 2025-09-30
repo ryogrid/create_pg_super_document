@@ -45,3 +45,17 @@ The function essentially bridges the gap between the parsed ALTER TABLE statemen
 - Returns the OID of the found relation, which becomes the primary identifier for subsequent ALTER TABLE processing steps
 - The lock acquisition at lookup time is critical for ensuring that the relation structure doesn't change between lookup and the actual ALTER operations
 - Part of PostgreSQL's general pattern of early lock acquisition to prevent race conditions in DDL operations
+
+## Simplified Source
+
+```c
+Oid AlterTableLookupRelation(AlterTableStmt *stmt, LOCKMODE lockmode)
+{
+    // Look up the relation name and convert to OID while acquiring the specified lock
+    // Handle missing_ok flag to support IF EXISTS syntax
+    return RangeVarGetRelidExtended(stmt->relation, lockmode,
+                                    stmt->missing_ok ? RVR_MISSING_OK : 0,
+                                    RangeVarCallbackForAlterRelation,
+                                    (void *) stmt);
+}
+```

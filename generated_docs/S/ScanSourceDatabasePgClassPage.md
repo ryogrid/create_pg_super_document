@@ -59,3 +59,55 @@ The function performs direct page-level access without using the normal heap sca
 - Returns updated rlocatorlist with newly discovered relations appended
 - Part of the cross-database access mechanism used during database creation
 - Located at src/backend/commands/dbcommands.c:328-390
+
+## Simplified Source
+
+```c
+static List *
+ScanSourceDatabasePgClassPage(Page page, Buffer buf, Oid tbid, Oid dbid,
+                              char *srcpath, List *rlocatorlist,
+                              Snapshot snapshot)
+{
+    BlockNumber blkno = BufferGetBlockNumber(buf);
+    OffsetNumber offnum;
+    OffsetNumber maxoff;
+    HeapTupleData tuple;
+
+    // Get maximum offset number for this page
+    maxoff = PageGetMaxOffsetNumber(page);
+
+    // Iterate through all offsets on the page
+    for (offnum = FirstOffsetNumber; offnum <= maxoff; offnum = OffsetNumberNext(offnum)) {
+        ItemId itemid;
+
+        itemid = PageGetItemId(page, offnum);
+
+        // Skip empty, dead, or redirected slots
+        if (!ItemIdIsUsed(itemid) || ItemIdIsDead(itemid) || ItemIdIsRedirected(itemid))
+            continue;
+
+        // Process normal items only
+        Assert(ItemIdIsNormal(itemid));
+        ItemPointerSet(&(tuple.t_self), blkno, offnum);
+
+        // Initialize HeapTupleData structure
+        tuple.t_data = (HeapTupleHeader) PageGetItem(page, itemid);
+        tuple.t_len = ItemIdGetLength(itemid);
+        tuple.t_tableOid = RelationRelationId;
+
+        // Check if tuple is visible to our snapshot
+        if (HeapTupleSatisfiesVisibility(&tuple, snapshot, buf)) {
+            CreateDBRelInfo *relinfo;
+
+            // Process the pg_class tuple to extract relation information
+            relinfo = ScanSourceDatabasePgClassTuple(&tuple, tbid, dbid, srcpath);
+
+            // Add relation to list if it needs to be copied
+            if (relinfo != NULL)
+                rlocatorlist = lappend(rlocatorlist, relinfo);
+        }
+    }
+
+    return rlocatorlist;
+}
+```

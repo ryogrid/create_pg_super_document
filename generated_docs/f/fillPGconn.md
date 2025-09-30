@@ -39,3 +39,37 @@ fillPGconn is an internal utility function that performs the critical task of po
 - Essential step in the connection initialization process for transferring parsed parameters to the working connection structure
 - Handles all standard PostgreSQL connection parameters including host, port, database, user, etc.
 - Memory allocation failures are properly propagated up the call stack through the return value
+
+## Simplified Source
+
+```c
+static bool fillPGconn(PGconn *conn, PQconninfoOption *connOptions)
+{
+    // Iterate through all possible connection options
+    for (const internalPQconninfoOption *option = PQconninfoOptions;
+         option->keyword; option++) {
+
+        // Skip options that don't map to PGconn structure fields
+        if (option->connofs >= 0) {
+            const char *tmp = conninfo_getval(connOptions, option->keyword);
+
+            if (tmp) {
+                // Calculate pointer to the PGconn structure field
+                char **connmember = (char **) ((char *) conn + option->connofs);
+
+                // Free existing value and assign new one
+                free(*connmember);
+                *connmember = strdup(tmp);
+
+                // Handle memory allocation failure
+                if (*connmember == NULL) {
+                    libpq_append_conn_error(conn, "out of memory");
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+```

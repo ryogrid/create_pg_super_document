@@ -44,3 +44,123 @@ The function returns a list of PublicationRelInfo structures containing the open
 - Proper error handling for conflicting WHERE clauses and column lists between parent and child tables
 - Memory allocation using palloc for PublicationRelInfo structures
 - Includes CHECK_FOR_INTERRUPTS() calls to allow query cancellation during long operations
+
+## Simplified Source
+
+```c
+static List *OpenTableList(List *tables)
+{
+    List *relids = NIL;
+    List *rels = NIL;
+    List *relids_with_rf = NIL;
+    List *relids_with_collist = NIL;
+    ListCell *lc;
+
+    // Open and lock each explicitly specified relation
+    foreach(lc, tables) {
+        PublicationTable *t = lfirst_node(PublicationTable, lc);
+        bool recurse = t->relation->inh;
+        Relation rel;
+        Oid myrelid;
+        PublicationRelInfo *pub_rel;
+
+        CHECK_FOR_INTERRUPTS();
+
+        rel = table_openrv(t->relation, ShareUpdateExclusiveLock);
+        myrelid = RelationGetRelid(rel);
+
+        // Filter out duplicates - O(N^2) but acceptable for user lists
+        if (list_member_oid(relids, myrelid)) {
+            // Check for conflicts with WHERE clauses
+            if (t->whereClause || list_member_oid(relids_with_rf, myrelid)) {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DUPLICATE_OBJECT),
+                         errmsg("conflicting or redundant WHERE clauses for table \"%s\"",
+                                RelationGetRelationName(rel))));
+            }
+
+            // Check for conflicts with column lists
+            if (t->columns || list_member_oid(relids_with_collist, myrelid)) {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DUPLICATE_OBJECT),
+                         errmsg("conflicting or redundant column lists for table \"%s\"",
+                                RelationGetRelationName(rel))));
+            }
+
+            table_close(rel, ShareUpdateExclusiveLock);
+            continue;
+        }
+
+        // Create PublicationRelInfo for this relation
+        pub_rel = palloc(sizeof(PublicationRelInfo));
+        pub_rel->relation = rel;
+        pub_rel->whereClause = t->whereClause;
+        pub_rel->columns = t->columns;
+        rels = lappend(rels, pub_rel);
+        relids = lappend_oid(relids, myrelid);
+
+        if (t->whereClause)
+            relids_with_rf = lappend_oid(relids_with_rf, myrelid);
+
+        if (t->columns)
+            relids_with_collist = lappend_oid(relids_with_collist, myrelid);
+
+        // Add inheritance children if requested
+        // (partitioned tables handle partitions separately)
+        if (recurse && rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+            List *children = find_all_inheritors(myrelid, ShareUpdateExclusiveLock, NULL);
+            ListCell *child;
+
+            foreach(child, children) {
+                Oid childrelid = lfirst_oid(child);
+
+                CHECK_FOR_INTERRUPTS();
+
+                // Skip duplicates between parent and child specifications
+                if (list_member_oid(relids, childrelid)) {
+                    // Validate no conflicting WHERE clauses
+                    if (childrelid != myrelid &&
+                        (t->whereClause || list_member_oid(relids_with_rf, childrelid))) {
+                        ereport(ERROR,
+                                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                                 errmsg("conflicting or redundant WHERE clauses for table \"%s\"",
+                                        RelationGetRelationName(rel))));
+                    }
+
+                    // Validate no conflicting column lists
+                    if (childrelid != myrelid &&
+                        (t->columns || list_member_oid(relids_with_collist, childrelid))) {
+                        ereport(ERROR,
+                                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                                 errmsg("conflicting or redundant column lists for table \"%s\"",
+                                        RelationGetRelationName(rel))));
+                    }
+
+                    continue;
+                }
+
+                // Add child relation (lock already acquired by find_all_inheritors)
+                rel = table_open(childrelid, NoLock);
+                pub_rel = palloc(sizeof(PublicationRelInfo));
+                pub_rel->relation = rel;
+                pub_rel->whereClause = t->whereClause; // Child inherits parent's WHERE clause
+                pub_rel->columns = t->columns;         // Child inherits parent's column list
+                rels = lappend(rels, pub_rel);
+                relids = lappend_oid(relids, childrelid);
+
+                if (t->whereClause)
+                    relids_with_rf = lappend_oid(relids_with_rf, childrelid);
+
+                if (t->columns)
+                    relids_with_collist = lappend_oid(relids_with_collist, childrelid);
+            }
+        }
+    }
+
+    // Clean up tracking lists
+    list_free(relids);
+    list_free(relids_with_rf);
+
+    return rels;
+}
+```

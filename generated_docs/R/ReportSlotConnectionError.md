@@ -37,3 +37,41 @@ This function handles error reporting when PostgreSQL cannot connect to the publ
 - Provides specific SQL command guidance (ALTER SUBSCRIPTION ... DISABLE and ALTER SUBSCRIPTION ... SET) for manual cleanup
 - Uses WARNING level for individual tablesync slot issues and ERROR level for the overall connection failure
 - Critical for preventing orphaned replication slots when subscription cleanup fails due to connectivity issues
+
+## Simplified Source
+
+```c
+static void ReportSlotConnectionError(List *rstates, Oid subid, char *slotname, char *err)
+{
+    ListCell *lc;
+
+    // Warn about each tablesync slot that couldn't be dropped
+    foreach(lc, rstates)
+    {
+        SubscriptionRelState *rstate = (SubscriptionRelState *) lfirst(lc);
+        Oid relid = rstate->relid;
+
+        // Only process tablesync workers (valid relation OIDs)
+        if (!OidIsValid(relid))
+            continue;
+
+        // Warn about slots for relations not yet fully synced
+        if (rstate->state != SUBREL_STATE_SYNCDONE)
+        {
+            char syncslotname[NAMEDATALEN] = {0};
+
+            ReplicationSlotNameForTablesync(subid, relid, syncslotname, sizeof(syncslotname));
+            elog(WARNING, "could not drop tablesync replication slot \"%s\"", syncslotname);
+        }
+    }
+
+    // Report main error with user guidance
+    ereport(ERROR,
+            (errcode(ERRCODE_CONNECTION_FAILURE),
+             errmsg("could not connect to publisher when attempting to drop replication slot \"%s\": %s",
+                    slotname, err),
+             errhint("Use %s to disable the subscription, and then use %s to disassociate it from the slot.",
+                     "ALTER SUBSCRIPTION ... DISABLE",
+                     "ALTER SUBSCRIPTION ... SET (slot_name = NONE)")));
+}
+```

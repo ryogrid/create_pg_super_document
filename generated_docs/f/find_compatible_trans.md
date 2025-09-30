@@ -74,3 +74,57 @@ The function searches through the provided list of candidate transition numbers 
 - Searches through transnos list in order, returning the first match found
 - InvalidOid values for serialization functions are handled correctly (both must be invalid to match)
 - This function enables the optimization where different aggregate functions can share expensive transition state computation while maintaining separate final result calculation
+
+## Simplified Source
+
+```c
+static int
+find_compatible_trans(PlannerInfo *root, Aggref *newagg, bool shareable,
+                      Oid aggtransfn, Oid aggtranstype,
+                      int transtypeLen, bool transtypeByVal,
+                      Oid aggcombinefn,
+                      Oid aggserialfn, Oid aggdeserialfn,
+                      Datum initValue, bool initValueIsNull,
+                      List *transnos)
+{
+    ListCell *lc;
+
+    // Only shareable aggregates can share transition state
+    if (!shareable)
+        return -1;
+
+    // Search through candidate transition states
+    foreach(lc, transnos)
+    {
+        int transno = lfirst_int(lc);
+        AggTransInfo *pertrans = list_nth_node(AggTransInfo,
+                                              root->aggtransinfos,
+                                              transno);
+
+        // Transition function and type must match
+        if (aggtransfn != pertrans->transfn_oid ||
+            aggtranstype != pertrans->aggtranstype)
+            continue;
+
+        // Serialization functions must match for parallel aggregation
+        if (aggserialfn != pertrans->serialfn_oid ||
+            aggdeserialfn != pertrans->deserialfn_oid)
+            continue;
+
+        // Combine function must match for partial aggregation
+        if (aggcombinefn != pertrans->combinefn_oid)
+            continue;
+
+        // Initial values must be identical
+        if (initValueIsNull && pertrans->initValueIsNull)
+            return transno;
+
+        if (!initValueIsNull && !pertrans->initValueIsNull &&
+            datumIsEqual(initValue, pertrans->initValue,
+                        transtypeByVal, transtypeLen))
+            return transno;
+    }
+
+    return -1;  // No compatible transition state found
+}
+```

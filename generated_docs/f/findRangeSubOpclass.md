@@ -43,3 +43,29 @@ The validation ensures that the operator class can handle the subtype's data, ei
 - The validation prevents runtime errors that could occur if incompatible operator classes were used
 - This function is part of PostgreSQL's extensible type system, specifically supporting the range type infrastructure
 - Located in src/backend/commands/typecmds.c:2282-2320
+
+## Simplified Source
+
+```c
+static Oid findRangeSubOpclass(List *opcname, Oid subtype) {
+    Oid opcid;
+    Oid opInputType;
+
+    if (opcname != NIL) {
+        // Look up named operator class
+        opcid = get_opclass_oid(BTREE_AM_OID, opcname, false);
+
+        // Verify the operator class accepts this datatype
+        opInputType = get_opclass_input_type(opcid);
+        if (!IsBinaryCoercible(subtype, opInputType))
+            ereport(ERROR, "operator class does not accept data type");
+    } else {
+        // Find default operator class for subtype
+        opcid = GetDefaultOpClass(subtype, BTREE_AM_OID);
+        if (!OidIsValid(opcid))
+            ereport(ERROR, "data type has no default operator class for btree");
+    }
+
+    return opcid;
+}
+```

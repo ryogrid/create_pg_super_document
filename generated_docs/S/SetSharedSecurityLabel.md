@@ -57,3 +57,67 @@ The function uses a three-key scan (objectId, classId, provider) to locate exist
 - Properly manages heap tuple memory by freeing any newly created tuples after catalog operations
 - The function performs catalog operations through the standard PostgreSQL catalog interface (CatalogTupleInsert, CatalogTupleUpdate, CatalogTupleDelete)
 - Unlike regular objects, shared objects don't have a sub-object ID component, so only three keys are used in the scan
+
+## Simplified Source
+
+```c
+static void SetSharedSecurityLabel(const ObjectAddress *object, const char *provider, const char *label)
+{
+    Relation pg_shseclabel;
+    ScanKeyData keys[3];
+    SysScanDesc scan;
+    HeapTuple oldtup, newtup = NULL;
+    Datum values[Natts_pg_shseclabel];
+    bool nulls[Natts_pg_shseclabel];
+    bool replaces[Natts_pg_shseclabel];
+
+    // Prepare tuple data for potential insert/update
+    memset(nulls, false, sizeof(nulls));
+    memset(replaces, false, sizeof(replaces));
+    values[Anum_pg_shseclabel_objoid - 1] = ObjectIdGetDatum(object->objectId);
+    values[Anum_pg_shseclabel_classoid - 1] = ObjectIdGetDatum(object->classId);
+    values[Anum_pg_shseclabel_provider - 1] = CStringGetTextDatum(provider);
+    if (label != NULL)
+        values[Anum_pg_shseclabel_label - 1] = CStringGetTextDatum(label);
+
+    // Set up scan keys to find existing entry
+    ScanKeyInit(&keys[0], Anum_pg_shseclabel_objoid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(object->objectId));
+    ScanKeyInit(&keys[1], Anum_pg_shseclabel_classoid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(object->classId));
+    ScanKeyInit(&keys[2], Anum_pg_shseclabel_provider, BTEqualStrategyNumber, F_TEXTEQ,
+                CStringGetTextDatum(provider));
+
+    // Open catalog and search for existing entry
+    pg_shseclabel = table_open(SharedSecLabelRelationId, RowExclusiveLock);
+    scan = systable_beginscan(pg_shseclabel, SharedSecLabelObjectIndexId, true, NULL, 3, keys);
+    oldtup = systable_getnext(scan);
+
+    if (HeapTupleIsValid(oldtup))
+    {
+        if (label == NULL)
+            // Delete existing label
+            CatalogTupleDelete(pg_shseclabel, &oldtup->t_self);
+        else
+        {
+            // Update existing label
+            replaces[Anum_pg_shseclabel_label - 1] = true;
+            newtup = heap_modify_tuple(oldtup, RelationGetDescr(pg_shseclabel), values, nulls, replaces);
+            CatalogTupleUpdate(pg_shseclabel, &oldtup->t_self, newtup);
+        }
+    }
+    systable_endscan(scan);
+
+    // Insert new label if no existing entry found and label provided
+    if (newtup == NULL && label != NULL)
+    {
+        newtup = heap_form_tuple(RelationGetDescr(pg_shseclabel), values, nulls);
+        CatalogTupleInsert(pg_shseclabel, newtup);
+    }
+
+    // Cleanup
+    if (newtup != NULL)
+        heap_freetuple(newtup);
+    table_close(pg_shseclabel, RowExclusiveLock);
+}
+```

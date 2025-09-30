@@ -40,3 +40,14 @@ The function registers the drop operation in a transaction-local pending operati
 - Works in conjunction with `pgstat_create_transactional` to provide complete transactional semantics for statistics management
 - The actual statistics entry remains accessible until transaction commit, allowing for potential rollback scenarios
 - Uses the same underlying mechanism (`create_drop_transactional_internal`) as the create function but with opposite semantics
+
+## Simplified Source
+
+```c
+void
+pgstat_drop_transactional(PgStat_Kind kind, Oid dboid, Oid objoid)
+{
+    // Simply delegate to internal function with create=false
+    create_drop_transactional_internal(kind, dboid, objoid, false);
+}
+```

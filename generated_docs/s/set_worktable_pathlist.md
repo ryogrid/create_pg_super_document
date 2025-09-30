@@ -37,3 +37,43 @@ The function navigates up the planner hierarchy to find the non-recursive term's
 - Includes comprehensive error checking for malformed CTE structures
 - Handles LATERAL parameterization through lateral_relids field
 - The worktable acts as a temporary storage mechanism during recursive CTE evaluation
+
+## Simplified Source
+
+```c
+static void
+set_worktable_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    Path *ctepath;
+    PlannerInfo *cteroot;
+    Index levelsup;
+    Relids required_outer;
+
+    // Navigate up the planner hierarchy to find non-recursive term's path
+    levelsup = rte->ctelevelsup;
+    if (levelsup == 0)
+        elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+
+    levelsup--;
+    cteroot = root;
+    while (levelsup-- > 0) {
+        cteroot = cteroot->parent_root;
+        if (!cteroot)
+            elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+    }
+
+    // Get the path from the recursive UNION level
+    ctepath = cteroot->non_recursive_path;
+    if (!ctepath)
+        elog(ERROR, "could not find path for CTE \"%s\"", rte->ctename);
+
+    // Set size estimates based on non-recursive path
+    set_cte_size_estimates(root, rel, ctepath->rows);
+
+    // Handle LATERAL parameterization if needed
+    required_outer = rel->lateral_relids;
+
+    // Create the WorktableScan path
+    add_path(rel, create_worktablescan_path(root, rel, required_outer));
+}
+```

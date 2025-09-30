@@ -38,3 +38,43 @@ This function handles the namespace relocation of all indexes belonging to a rel
 - The objsMoved duplicate check may be redundant due to single dependency links
 - Critical component of ALTER TABLE SET SCHEMA operations
 - Static function scope limits its use to within tablecmds.c
+
+## Simplified Source
+
+```c
+static void
+AlterIndexNamespaces(Relation classRel, Relation rel,
+                    Oid oldNspOid, Oid newNspOid, ObjectAddresses *objsMoved)
+{
+    List       *indexList;
+    ListCell   *l;
+
+    // Get list of all indexes for this relation
+    indexList = RelationGetIndexList(rel);
+
+    // Move each index to the new namespace
+    foreach(l, indexList)
+    {
+        Oid         indexOid = lfirst_oid(l);
+        ObjectAddress thisobj;
+
+        // Setup object address for the index
+        thisobj.classId = RelationRelationId;
+        thisobj.objectId = indexOid;
+        thisobj.objectSubId = 0;
+
+        // Check if we haven't already moved this index
+        if (!object_address_present(&thisobj, objsMoved))
+        {
+            // Move the index to new namespace
+            AlterRelationNamespaceInternal(classRel, indexOid,
+                                         oldNspOid, newNspOid,
+                                         false, objsMoved);
+            // Track that we moved this object
+            add_exact_object_address(&thisobj, objsMoved);
+        }
+    }
+
+    list_free(indexList);
+}
+```

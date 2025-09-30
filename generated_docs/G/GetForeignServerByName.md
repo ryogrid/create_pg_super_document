@@ -33,3 +33,21 @@ GetForeignServerByName is a utility function that retrieves a foreign server obj
 
 ## Notes and Other Information
 This function is commonly used in foreign data wrapper (FDW) operations where server names need to be resolved to their corresponding server objects. The two-step lookup process (name → OID → ForeignServer) follows PostgreSQL's typical pattern for object resolution. The function is located in src/backend/foreign/foreign.c:182-199.
+
+## Simplified Source
+
+```c
+ForeignServer *
+GetForeignServerByName(const char *srvname, bool missing_ok)
+{
+    // Convert server name to OID
+    Oid serverid = get_foreign_server_oid(srvname, missing_ok);
+
+    // Return NULL if server not found and missing_ok is true
+    if (!OidIsValid(serverid))
+        return NULL;
+
+    // Get and return the full ForeignServer structure
+    return GetForeignServer(serverid);
+}
+```

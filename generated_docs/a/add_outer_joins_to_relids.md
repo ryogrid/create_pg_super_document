@@ -43,3 +43,67 @@ The function handles the intricate rules governing when outer joins can be execu
 - The function modifies input_relids in-place and returns it; callers need bms_copy() if they want to preserve the original
 - Handles cascading effects where adding one outer join may enable adding others through commute_above_l relationships
 - Critical for maintaining correct outer join semantics while enabling query optimization flexibility
+
+## Simplified Source
+
+```c
+Relids
+add_outer_joins_to_relids(PlannerInfo *root, Relids input_relids,
+                         SpecialJoinInfo *sjinfo,
+                         List **pushed_down_joins)
+{
+    // Quick exit: no outer join or no relid assigned
+    if (sjinfo == NULL || sjinfo->ojrelid == 0)
+        return input_relids;
+
+    // Non-left joins use syntactic order only
+    if (sjinfo->jointype != JOIN_LEFT)
+        return bms_add_member(input_relids, sjinfo->ojrelid);
+
+    // Check if this join has been pushed into RHS of lower left join
+    // If so, cannot add its relid yet (outer join identity 3 rule)
+    if (!bms_is_subset(sjinfo->commute_below_l, input_relids))
+        return input_relids;
+
+    // Add this outer join's relid
+    input_relids = bms_add_member(input_relids, sjinfo->ojrelid);
+
+    // Handle pushed-down joins that can now be completed
+    if (sjinfo->commute_above_l) {
+        Relids commute_above_rels = bms_copy(sjinfo->commute_above_l);
+
+        // Check all other SpecialJoinInfos for completable pushed-down joins
+        foreach(lc, root->join_info_list) {
+            SpecialJoinInfo *othersj = (SpecialJoinInfo *) lfirst(lc);
+
+            // Skip self and non-left joins
+            if (othersj == sjinfo ||
+                othersj->ojrelid == 0 ||
+                othersj->jointype != JOIN_LEFT)
+                continue;
+
+            // Skip if not in our commute set
+            if (!bms_is_member(othersj->ojrelid, commute_above_rels))
+                continue;
+
+            // Check if conditions are now satisfied to add this join
+            if (!bms_is_member(othersj->ojrelid, input_relids) &&
+                bms_is_subset(othersj->min_lefthand, input_relids) &&
+                bms_is_subset(othersj->min_righthand, input_relids) &&
+                bms_is_subset(othersj->commute_below_l, input_relids)) {
+
+                // Add the relid and report if requested
+                input_relids = bms_add_member(input_relids, othersj->ojrelid);
+                if (pushed_down_joins != NULL)
+                    *pushed_down_joins = lappend(*pushed_down_joins, othersj);
+
+                // Cascade: check joins that this one commutes with
+                commute_above_rels = bms_add_members(commute_above_rels,
+                                                   othersj->commute_above_l);
+            }
+        }
+    }
+
+    return input_relids;
+}
+```

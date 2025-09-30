@@ -56,3 +56,21 @@ This centralized approach ensures consistent memory limit calculations across al
 - The hash_mem_multiplier allows PostgreSQL to allocate more memory for hash operations than the base work_mem setting
 - Located in src/backend/executor/nodeHash.c:3602-3613
 - According to comments, this location is "rather random" but chosen for lack of a better place
+
+## Simplified Source
+
+```c
+size_t
+get_hash_memory_limit(void)
+{
+    double mem_limit;
+
+    // Calculate: work_mem (KB) × hash_mem_multiplier × 1024 (to get bytes)
+    mem_limit = (double) work_mem * hash_mem_multiplier * 1024.0;
+
+    // Clamp to prevent overflow when converting to size_t
+    mem_limit = Min(mem_limit, (double) SIZE_MAX);
+
+    return (size_t) mem_limit;
+}
+```

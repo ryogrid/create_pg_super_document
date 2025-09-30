@@ -30,3 +30,15 @@ The function is designed to work seamlessly with PostgreSQL's transaction system
 
 ## Notes and Other Information
 This function is typically called during the execution of a DROP SUBSCRIPTION SQL command. The transactional behavior ensures that statistics entries are not orphaned or prematurely deleted. The actual statistics cleanup occurs during transaction commit processing, maintaining consistency with the subscription's lifecycle in the system catalogs. This approach is part of PostgreSQL's broader strategy for maintaining data consistency across system components.
+
+## Simplified Source
+
+```c
+void pgstat_drop_subscription(Oid subid)
+{
+    // Schedule transactional statistics drop for subscription
+    // Stats will be dropped only if transaction commits
+    pgstat_drop_transactional(PGSTAT_KIND_SUBSCRIPTION,
+                             InvalidOid, subid);
+}
+```

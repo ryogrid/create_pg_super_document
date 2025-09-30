@@ -40,3 +40,13 @@ The function is implemented as a static inline function for optimal performance 
 - [Range](../R/Range.md) table entries can represent regular tables, subqueries, functions, VALUES clauses, CTEs, and other relation-like constructs
 - This function provides the foundation for most table-related operations in the executor
 - The inline implementation ensures minimal overhead for this frequently-called function
+
+## Simplified Source
+
+```c
+static inline RangeTblEntry *exec_rt_fetch(Index rti, EState *estate)
+{
+    // Convert 1-based RTI to 0-based list index and fetch entry
+    return (RangeTblEntry *) list_nth(estate->es_range_table, rti - 1);
+}
+```

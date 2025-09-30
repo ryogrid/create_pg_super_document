@@ -50,3 +50,31 @@ The function is designed to be used in situations where non-blocking behavior is
 - Particularly important for autovacuum and utility commands that should not block indefinitely
 - Could easily be extended to other LockXXX routines if needed (as noted in comments)
 - Part of the lock manager (lmgr) subsystem located in src/backend/storage/lmgr/lmgr.c:151-183
+
+## Simplified Source
+
+```c
+bool ConditionalLockRelationOid(Oid relid, LOCKMODE lockmode) {
+    LOCKTAG tag;
+    LOCALLOCK *locallock;
+    LockAcquireResult res;
+
+    // Create lock tag for the relation
+    SetLocktagRelationOid(&tag, relid);
+
+    // Try to acquire lock without blocking
+    res = LockAcquireExtended(&tag, lockmode, false, true, true, &locallock);
+
+    // Return false if lock not available
+    if (res == LOCKACQUIRE_NOT_AVAIL)
+        return false;
+
+    // Process invalidation messages for cache consistency
+    if (res != LOCKACQUIRE_ALREADY_CLEAR) {
+        AcceptInvalidationMessages();
+        MarkLockClear(locallock);
+    }
+
+    return true;
+}
+```

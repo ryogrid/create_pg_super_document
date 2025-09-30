@@ -38,3 +38,30 @@ This function locates and validates a type modifier output function during type 
 - A warning is issued if the function is marked as volatile, as typmod functions should typically be immutable
 - This works in conjunction with findTypeTypmodinFunction to provide complete type modifier support
 - Used when displaying type information in pg_dump, \d commands, and error messages
+
+## Simplified Source
+
+```c
+static Oid findTypeTypmodoutFunction(List *procname) {
+    Oid argList[1] = { INT4OID };
+
+    // Look up function with signature: (int4) -> cstring
+    Oid procOid = LookupFuncName(procname, 1, argList, true);
+
+    if (!OidIsValid(procOid))
+        ereport(ERROR, "function %s does not exist",
+                func_signature_string(procname, 1, NIL, argList));
+
+    // Verify function returns cstring
+    if (get_func_rettype(procOid) != CSTRINGOID)
+        ereport(ERROR, "typmod_out function %s must return type cstring",
+                NameListToString(procname));
+
+    // Warn if volatile (should be immutable)
+    if (func_volatile(procOid) == PROVOLATILE_VOLATILE)
+        ereport(WARNING, "type modifier output function %s should not be volatile",
+                NameListToString(procname));
+
+    return procOid;
+}
+```

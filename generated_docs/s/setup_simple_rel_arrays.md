@@ -45,3 +45,49 @@ The arrays are sized based on the range table length plus one (to accommodate 1-
 - The append_rel_array is conditionally created only when append_rel_list is non-empty, optimizing memory usage
 - Includes sanity checks to prevent duplicate child relations in append_rel_array
 - This function is typically called early in the planning process to establish the foundational data structures for relation access
+
+## Simplified Source
+
+```c
+void setup_simple_rel_arrays(PlannerInfo *root) {
+    int size;
+    Index rti;
+    ListCell *lc;
+
+    // Size arrays based on range table length (1-based indexing)
+    size = list_length(root->parse->rtable) + 1;
+    root->simple_rel_array_size = size;
+
+    // Initialize simple_rel_array (filled later by build_simple_rel)
+    root->simple_rel_array = (RelOptInfo **) palloc0(size * sizeof(RelOptInfo *));
+
+    // Create array equivalent of rtable list for fast access
+    root->simple_rte_array = (RangeTblEntry **) palloc0(size * sizeof(RangeTblEntry *));
+    rti = 1;
+    foreach(lc, root->parse->rtable) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+        root->simple_rte_array[rti++] = rte;
+    }
+
+    // Only create append_rel_array if needed
+    if (root->append_rel_list == NIL) {
+        root->append_rel_array = NULL;
+        return;
+    }
+
+    root->append_rel_array = (AppendRelInfo **) palloc0(size * sizeof(AppendRelInfo *));
+
+    // Fill with existing AppendRelInfos (e.g., from UNION ALL flattening)
+    foreach(lc, root->append_rel_list) {
+        AppendRelInfo *appinfo = lfirst_node(AppendRelInfo, lc);
+        int child_relid = appinfo->child_relid;
+
+        // Sanity check
+        Assert(child_relid < size);
+        if (root->append_rel_array[child_relid])
+            elog(ERROR, "child relation already exists");
+
+        root->append_rel_array[child_relid] = appinfo;
+    }
+}
+```

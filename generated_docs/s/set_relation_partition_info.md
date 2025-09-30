@@ -56,3 +56,32 @@ This information is crucial for partition-aware planning, including partition pr
 - Essential for enabling partition-aware query planning optimizations
 - The partition directory persists for the duration of the planning process to avoid repeated lookups
 - All partition metadata is stored in the RelOptInfo for use throughout planning
+
+## Simplified Source
+
+```c
+static void
+set_relation_partition_info(PlannerInfo *root, RelOptInfo *rel, Relation relation)
+{
+    PartitionDesc partdesc;
+
+    // Create partition directory infrastructure if needed
+    if (root->glob->partition_directory == NULL) {
+        root->glob->partition_directory =
+            CreatePartitionDirectory(CurrentMemoryContext, true);
+    }
+
+    // Look up partition descriptor for this relation
+    partdesc = PartitionDirectoryLookup(root->glob->partition_directory, relation);
+
+    // Set up partition scheme and basic info
+    rel->part_scheme = find_partition_scheme(root, relation);
+    Assert(partdesc != NULL && rel->part_scheme != NULL);
+    rel->boundinfo = partdesc->boundinfo;
+    rel->nparts = partdesc->nparts;
+
+    // Set up partition key expressions and constraints
+    set_baserel_partition_key_exprs(relation, rel);
+    set_baserel_partition_constraint(relation, rel);
+}
+```

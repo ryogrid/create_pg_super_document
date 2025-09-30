@@ -35,3 +35,13 @@ This sorting is essential for genetic algorithm operations such as selection, wh
 - Uses the standard qsort algorithm which provides O(n log n) average time complexity
 - The comment suggests that the compare() function can be modified to change sorting behavior if needed
 - Part of PostgreSQL's genetic query optimizer population management system
+
+## Simplified Source
+
+```c
+void
+sort_pool(PlannerInfo *root, Pool *pool)
+{
+    qsort(pool->data, pool->size, sizeof(Chromosome), compare);
+}
+```

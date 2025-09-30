@@ -49,3 +49,18 @@ This function is particularly useful for:
 - More comprehensive than contain_var_clause but potentially more expensive
 - Used extensively in subquery processing and query transformation
 - Part of PostgreSQL's variable analysis utilities in the optimizer
+
+## Simplified Source
+
+```c
+bool contain_vars_of_level(Node *node, int levelsup) {
+    // Copy the target level to pass to walker
+    int sublevels_up = levelsup;
+
+    // Use tree walker to recursively check for variables at specified level
+    return query_or_expression_tree_walker(node,
+                                         contain_vars_of_level_walker,
+                                         (void *) &sublevels_up,
+                                         0);
+}
+```

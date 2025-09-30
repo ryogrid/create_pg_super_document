@@ -41,3 +41,69 @@ For the trivial case of exactly two members with one source clause (a simple "va
 - Sets mergejoinable clause markings (left_ec, right_ec, left_em, right_em) for non-degenerate clauses
 - Does not generate join clauses since ec_has_const eclasses are not used for joins
 - Located in src/backend/optimizer/path/equivclass.c:1108-1202
+
+## Simplified Source
+
+```c
+static void
+generate_base_implied_equalities_const(PlannerInfo *root, EquivalenceClass *ec)
+{
+    EquivalenceMember *const_em = NULL;
+    ListCell *lc;
+
+    // Trivial case: single "var = const" clause, reuse original
+    if (list_length(ec->ec_members) == 2 && list_length(ec->ec_sources) == 1)
+    {
+        RestrictInfo *restrictinfo = (RestrictInfo *) linitial(ec->ec_sources);
+        distribute_restrictinfo_to_rels(root, restrictinfo);
+        return;
+    }
+
+    // Find the best constant member (prefer Const over pseudoconstants)
+    foreach(lc, ec->ec_members)
+    {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc);
+
+        if (cur_em->em_is_const)
+        {
+            const_em = cur_em;
+            if (IsA(cur_em->em_expr, Const))
+                break;  // Actual constant is preferred
+        }
+    }
+
+    // Generate "member = const" equality for each non-constant member
+    foreach(lc, ec->ec_members)
+    {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc);
+        Oid eq_op;
+        RestrictInfo *rinfo;
+
+        if (cur_em == const_em)
+            continue;
+
+        // Find equality operator between member and constant
+        eq_op = select_equality_operator(ec, cur_em->em_datatype, const_em->em_datatype);
+        if (!OidIsValid(eq_op))
+        {
+            ec->ec_broken = true;
+            break;
+        }
+
+        // Create the implied equality clause
+        rinfo = process_implied_equality(root, eq_op, ec->ec_collation,
+                                         cur_em->em_expr, const_em->em_expr,
+                                         const_em->em_jdomain->jd_relids,
+                                         ec->ec_min_security, cur_em->em_is_const);
+
+        // Store for selectivity estimation if it's a valid mergejoinable clause
+        if (rinfo && rinfo->mergeopfamilies)
+        {
+            rinfo->left_ec = rinfo->right_ec = ec;
+            rinfo->left_em = cur_em;
+            rinfo->right_em = const_em;
+            ec->ec_derives = lappend(ec->ec_derives, rinfo);
+        }
+    }
+}
+```

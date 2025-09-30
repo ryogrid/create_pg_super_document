@@ -44,3 +44,58 @@ The function iterates through all partition key columns and expressions, checkin
 - The used_in_expr parameter may be ambiguous if a column is used both directly and in expressions - this is acceptable for current use cases as it only affects error message tailoring
 - Uses FirstLowInvalidHeapAttributeNumber adjustment for proper attribute number handling in bitmap operations
 - Handles both simple column partition keys (partattno != 0) and arbitrary expression partition keys (partattno == 0)
+
+## Simplified Source
+
+```c
+bool
+has_partition_attrs(Relation rel, Bitmapset *attnums, bool *used_in_expr)
+{
+    PartitionKey key;
+    int partnatts;
+    List *partexprs;
+    ListCell *partexprs_item;
+    int i;
+
+    // Early exit if no attributes to check or not a partitioned table
+    if (attnums == NULL || rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE)
+        return false;
+
+    // Get partition key information
+    key = RelationGetPartitionKey(rel);
+    partnatts = get_partition_natts(key);
+    partexprs = get_partition_exprs(key);
+
+    // Check each partition key attribute
+    partexprs_item = list_head(partexprs);
+    for (i = 0; i < partnatts; i++) {
+        AttrNumber partattno = get_partition_col_attnum(key, i);
+
+        if (partattno != 0) {
+            // Direct column partition key
+            if (bms_is_member(partattno - FirstLowInvalidHeapAttributeNumber, attnums)) {
+                if (used_in_expr)
+                    *used_in_expr = false;
+                return true;
+            }
+        } else {
+            // Expression-based partition key
+            Node *expr = (Node *) lfirst(partexprs_item);
+            Bitmapset *expr_attrs = NULL;
+
+            // Extract all attributes referenced in the expression
+            pull_varattnos(expr, 1, &expr_attrs);
+            partexprs_item = lnext(partexprs, partexprs_item);
+
+            // Check if any input attributes overlap with expression attributes
+            if (bms_overlap(attnums, expr_attrs)) {
+                if (used_in_expr)
+                    *used_in_expr = true;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+```

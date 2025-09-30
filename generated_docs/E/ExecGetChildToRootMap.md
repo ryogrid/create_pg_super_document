@@ -42,3 +42,29 @@ The conversion map is essential for operations that need to present a unified vi
 - Critical for maintaining data consistency across partition boundaries in UPDATE operations
 - Used extensively in trigger processing where tuples may need to be converted between child and root relation formats
 - Part of the infrastructure that makes partitioned tables transparent to upper-level query processing
+
+## Simplified Source
+
+```c
+TupleConversionMap *ExecGetChildToRootMap(ResultRelInfo *resultRelInfo) {
+    // Check if conversion map already computed
+    if (!resultRelInfo->ri_ChildToRootMapValid) {
+        ResultRelInfo *rootRelInfo = resultRelInfo->ri_RootResultRelInfo;
+
+        if (rootRelInfo) {
+            // Create conversion map between child and root relation descriptors
+            resultRelInfo->ri_ChildToRootMap =
+                convert_tuples_by_name(RelationGetDescr(resultRelInfo->ri_RelationDesc),
+                                       RelationGetDescr(rootRelInfo->ri_RelationDesc));
+        } else {
+            // Not a child result relation - no conversion needed
+            resultRelInfo->ri_ChildToRootMap = NULL;
+        }
+
+        // Mark map as computed for future reuse
+        resultRelInfo->ri_ChildToRootMapValid = true;
+    }
+
+    return resultRelInfo->ri_ChildToRootMap;
+}
+```

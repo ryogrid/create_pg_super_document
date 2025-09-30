@@ -34,3 +34,21 @@ This function implements the core logic for detecting SubLink nodes within expre
 - Part of the query analysis infrastructure used to determine when special handling is needed for subqueries
 - Used extensively in query rewriting contexts where the presence of subqueries affects processing logic
 - The traversal behavior is controlled by the caller through query_or_expression_tree_walker flags
+
+## Simplified Source
+
+```c
+static bool
+checkExprHasSubLink_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Found a SubLink - stop traversal and return true
+    if (IsA(node, SubLink))
+        return true;
+
+    // Continue recursively searching the expression tree
+    return expression_tree_walker(node, checkExprHasSubLink_walker, context);
+}
+```

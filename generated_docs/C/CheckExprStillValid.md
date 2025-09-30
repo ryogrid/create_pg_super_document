@@ -51,3 +51,47 @@ The function only checks variable operations because these are the primary point
 - Critical for PostgreSQL's ability to handle schema evolution gracefully in long-running sessions
 - Errors are handled by CheckVarSlotCompatibility, which will throw appropriate exceptions for schema mismatches
 - Part of PostgreSQL's defensive programming strategy to catch schema-related issues at runtime rather than causing crashes or data corruption
+
+## Simplified Source
+
+```c
+void CheckExprStillValid(ExprState *state, ExprContext *econtext)
+{
+    // Get tuple slots from expression context
+    TupleTableSlot *innerslot = econtext->ecxt_innertuple;
+    TupleTableSlot *outerslot = econtext->ecxt_outertuple;
+    TupleTableSlot *scanslot = econtext->ecxt_scantuple;
+
+    // Check each expression step for variable compatibility
+    for (int i = 0; i < state->steps_len; i++) {
+        ExprEvalStep *op = &state->steps[i];
+
+        switch (ExecEvalStepOp(state, op)) {
+            case EEOP_INNER_VAR:
+                // Validate inner tuple variable
+                CheckVarSlotCompatibility(innerslot,
+                                        op->d.var.attnum + 1,
+                                        op->d.var.vartype);
+                break;
+
+            case EEOP_OUTER_VAR:
+                // Validate outer tuple variable
+                CheckVarSlotCompatibility(outerslot,
+                                        op->d.var.attnum + 1,
+                                        op->d.var.vartype);
+                break;
+
+            case EEOP_SCAN_VAR:
+                // Validate scan tuple variable
+                CheckVarSlotCompatibility(scanslot,
+                                        op->d.var.attnum + 1,
+                                        op->d.var.vartype);
+                break;
+
+            default:
+                // Other operations don't need schema validation
+                break;
+        }
+    }
+}
+```

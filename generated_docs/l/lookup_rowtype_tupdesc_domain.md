@@ -40,3 +40,47 @@ For RECORD types, it delegates to lookup_rowtype_tupdesc_internal(), while for o
 - Unlike plain lookup_rowtype_tupdesc(), this variant intentionally exposes domain handling to callers
 - Efficient caching is achieved through the type cache system with TYPECACHE_TUPDESC and TYPECACHE_DOMAIN_BASE_INFO flags
 - Returns NULL when noError=true and the type is not composite, otherwise throws ERRCODE_WRONG_OBJECT_TYPE error
+
+## Simplified Source
+
+```c
+TupleDesc
+lookup_rowtype_tupdesc_domain(Oid type_id, int32 typmod, bool noError)
+{
+    TupleDesc tupDesc;
+
+    if (type_id != RECORDOID)
+    {
+        // Load type cache entry with tuple descriptor and domain info
+        TypeCacheEntry *typentry = lookup_type_cache(type_id,
+                                                     TYPECACHE_TUPDESC |
+                                                     TYPECACHE_DOMAIN_BASE_INFO);
+
+        // If this is a domain, recurse with the base type
+        if (typentry->typtype == TYPTYPE_DOMAIN)
+            return lookup_rowtype_tupdesc_noerror(typentry->domainBaseType,
+                                                 typentry->domainBaseTypmod,
+                                                 noError);
+
+        // Check if we have a valid composite type
+        if (typentry->tupDesc == NULL && !noError)
+            ereport(ERROR,
+                    (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                     errmsg("type %s is not composite",
+                            format_type_be(type_id))));
+
+        tupDesc = typentry->tupDesc;
+    }
+    else
+    {
+        // Handle RECORD types
+        tupDesc = lookup_rowtype_tupdesc_internal(type_id, typmod, noError);
+    }
+
+    // Pin the tuple descriptor to prevent deallocation
+    if (tupDesc != NULL)
+        PinTupleDesc(tupDesc);
+
+    return tupDesc;
+}
+```

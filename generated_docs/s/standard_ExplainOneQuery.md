@@ -50,3 +50,63 @@ The function carefully manages memory contexts when measuring memory usage, crea
 - Buffer usage measurement tracks planning-phase buffer access patterns
 - Timing measurement uses high-resolution instrumentation for accurate planning duration
 - Memory context management ensures accurate measurement without affecting normal planner operation
+
+## Simplified Source
+
+```c
+void standard_ExplainOneQuery(Query *query, int cursorOptions,
+                              IntoClause *into, ExplainState *es,
+                              const char *queryString, ParamListInfo params,
+                              QueryEnvironment *queryEnv)
+{
+    PlannedStmt *plan;
+    instr_time planstart, planduration;
+    BufferUsage bufusage_start, bufusage;
+    MemoryContextCounters mem_counters;
+    MemoryContext planner_ctx = NULL;
+    MemoryContext saved_ctx = NULL;
+
+    // Set up memory tracking if requested
+    if (es->memory)
+    {
+        planner_ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                            "explain analyze planner context",
+                                            ALLOCSET_DEFAULT_SIZES);
+        saved_ctx = MemoryContextSwitchTo(planner_ctx);
+    }
+
+    // Record buffer usage before planning
+    if (es->buffers)
+        bufusage_start = pgBufferUsage;
+
+    // Start timing the planning phase
+    INSTR_TIME_SET_CURRENT(planstart);
+
+    // Generate the execution plan
+    plan = pg_plan_query(query, queryString, cursorOptions, params);
+
+    // Calculate planning duration
+    INSTR_TIME_SET_CURRENT(planduration);
+    INSTR_TIME_SUBTRACT(planduration, planstart);
+
+    // Collect memory usage statistics
+    if (es->memory)
+    {
+        MemoryContextSwitchTo(saved_ctx);
+        MemoryContextMemConsumed(planner_ctx, &mem_counters);
+    }
+
+    // Calculate buffer usage during planning
+    if (es->buffers)
+    {
+        memset(&bufusage, 0, sizeof(BufferUsage));
+        BufferUsageAccumDiff(&bufusage, &pgBufferUsage, &bufusage_start);
+    }
+
+    // Execute plan and generate output
+    ExplainOnePlan(plan, into, es, queryString, params, queryEnv,
+                   &planduration,
+                   es->buffers ? &bufusage : NULL,
+                   es->memory ? &mem_counters : NULL);
+}
+```

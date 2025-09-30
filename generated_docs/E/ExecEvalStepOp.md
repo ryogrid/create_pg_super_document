@@ -36,3 +36,33 @@ This function serves as a bridge between the optimized direct-threaded execution
 - Only compiled when EEO_USE_COMPUTED_GOTO is defined
 - Includes assertion to catch lookups of unknown opcodes
 - Returns ExprEvalOp enum value that can be used for switch statements or debugging
+
+## Simplified Source
+
+```c
+ExprEvalOp
+ExecEvalStepOp(ExprState *state, ExprEvalStep *op)
+{
+#if defined(EEO_USE_COMPUTED_GOTO)
+    // For direct-threaded execution, opcode is a jump address
+    // Need to look up the actual opcode enum value
+    if (state->flags & EEO_FLAG_DIRECT_THREADED) {
+        ExprEvalOpLookup key;
+        ExprEvalOpLookup *res;
+
+        key.opcode = (void *) op->opcode;
+        res = bsearch(&key,
+                      reverse_dispatch_table,
+                      EEOP_LAST,  // number of elements
+                      sizeof(ExprEvalOpLookup),
+                      dispatch_compare_ptr);
+
+        Assert(res);  // Should always find a match
+        return res->op;
+    }
+#endif
+
+    // For normal execution, opcode field contains the enum value directly
+    return (ExprEvalOp) op->opcode;
+}
+```

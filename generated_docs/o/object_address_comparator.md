@@ -41,3 +41,31 @@ The unsigned casting of objectSubId ensures that subId 0 (representing the whole
 - Unsigned comparison of objectSubId ensures subId 0 (whole object) sorts first
 - Used internally by dependency tracking subsystem for maintaining proper deletion order
 - Critical for eliminate_duplicate_dependencies and findDependentObjects functions
+
+## Simplified Source
+
+```c
+static int
+object_address_comparator(const void *a, const void *b)
+{
+    const ObjectAddress *obja = (const ObjectAddress *) a;
+    const ObjectAddress *objb = (const ObjectAddress *) b;
+
+    // Primary sort: OID descending (newer objects first for proper deletion order)
+    if (obja->objectId > objb->objectId) return -1;
+    if (obja->objectId < objb->objectId) return 1;
+
+    // Secondary sort: catalog ID ascending (consistent ordering)
+    if (obja->classId < objb->classId) return -1;
+    if (obja->classId > objb->classId) return 1;
+
+    // Tertiary sort: subId as unsigned (whole object subId=0 comes first)
+    unsigned int subId_a = (unsigned int) obja->objectSubId;
+    unsigned int subId_b = (unsigned int) objb->objectSubId;
+
+    if (subId_a < subId_b) return -1;
+    if (subId_a > subId_b) return 1;
+
+    return 0; // Equal
+}
+```

@@ -43,3 +43,84 @@ This function performs a comprehensive reset of an aggregate execution node to e
 - Distinguishes between different aggregate strategies (hashed vs. sort-based) for appropriate cleanup
 - Part of PostgreSQL's executor rescan protocol, allowing plan nodes to be executed multiple times
 - Critical for proper functioning of nested loop joins and other operators that require multiple scans of their inputs
+
+## Simplified Source
+
+```c
+void ExecReScanAgg(AggState *node) {
+    PlanState *outerPlan = outerPlanState(node);
+    int numGroupingSets = Max(node->maxsets, 1);
+
+    node->agg_done = false;
+
+    // Handle hash-based aggregation
+    if (node->aggstrategy == AGG_HASHED) {
+        if (!node->table_filled) return;
+
+        // Optimization: reuse hash table if no parameters changed
+        if (outerPlan->chgParam == NULL && !node->hash_ever_spilled &&
+            !bms_overlap(node->ss.ps.chgParam, ((Agg *)node->ss.ps.plan)->aggParams)) {
+            ResetTupleHashIterator(node->perhash[0].hashtable, &node->perhash[0].hashiter);
+            select_current_set(node, 0, true);
+            return;
+        }
+    }
+
+    // Clean up open tuplesorts
+    for (int transno = 0; transno < node->numtrans; transno++) {
+        for (int setno = 0; setno < numGroupingSets; setno++) {
+            if (node->pertrans[transno].sortstates[setno]) {
+                tuplesort_end(node->pertrans[transno].sortstates[setno]);
+                node->pertrans[transno].sortstates[setno] = NULL;
+            }
+        }
+    }
+
+    // Reset per-grouping-set contexts
+    for (int setno = 0; setno < numGroupingSets; setno++) {
+        ReScanExprContext(node->aggcontexts[setno]);
+    }
+
+    // Clear current group state
+    if (node->grp_firstTuple != NULL) {
+        heap_freetuple(node->grp_firstTuple);
+        node->grp_firstTuple = NULL;
+    }
+    ExecClearTuple(node->ss.ss_ScanTupleSlot);
+
+    // Reset aggregate values
+    MemSet(node->ss.ps.ps_ExprContext->ecxt_aggvalues, 0, sizeof(Datum) * node->numaggs);
+    MemSet(node->ss.ps.ps_ExprContext->ecxt_aggnulls, 0, sizeof(bool) * node->numaggs);
+
+    // Handle hash/mixed strategy cleanup
+    if (node->aggstrategy == AGG_HASHED || node->aggstrategy == AGG_MIXED) {
+        hashagg_reset_spill_state(node);
+        node->hash_ever_spilled = false;
+        node->hash_spill_mode = false;
+        node->hash_ngroups_current = 0;
+
+        ReScanExprContext(node->hashcontext);
+        build_hash_tables(node);
+        node->table_filled = false;
+        hashagg_recompile_expressions(node, false, false);
+    }
+
+    // Handle non-hash strategy reset
+    if (node->aggstrategy != AGG_HASHED) {
+        // Reset per-group state
+        for (int setno = 0; setno < numGroupingSets; setno++) {
+            MemSet(node->pergroups[setno], 0,
+                   sizeof(AggStatePerGroupData) * node->numaggs);
+        }
+
+        initialize_phase(node, 1);
+        node->input_done = false;
+        node->projected_set = -1;
+    }
+
+    // Rescan outer plan if needed
+    if (outerPlan->chgParam == NULL) {
+        ExecReScan(outerPlan);
+    }
+}
+```

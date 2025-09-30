@@ -33,3 +33,26 @@ XLogCheckBufferNeedsBackup evaluates whether a given buffer needs to be included
 - Returns true only when both full-page writes are enabled and page LSN <= Redo pointer
 - Critical for crash recovery correctness by ensuring modified pages can be reconstructed
 - Check performed before acquiring WAL insertion lock for performance
+
+## Simplified Source
+
+```c
+bool
+XLogCheckBufferNeedsBackup(Buffer buffer)
+{
+    XLogRecPtr RedoRecPtr;
+    bool doPageWrites;
+
+    // Get current full-page write settings and redo recovery pointer
+    GetFullPageWriteInfo(&RedoRecPtr, &doPageWrites);
+
+    // Extract the page from the buffer
+    Page page = BufferGetPage(buffer);
+
+    // Buffer needs backup if full-page writes are on and page is old enough
+    if (doPageWrites && PageGetLSN(page) <= RedoRecPtr)
+        return true;    // Buffer requires backup for crash recovery
+
+    return false;       // Buffer does not need backup
+}
+```

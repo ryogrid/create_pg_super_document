@@ -42,3 +42,48 @@ The conversion process manually extracts each digit using division and modulo op
 - Uses manual digit extraction rather than standard library functions like sprintf
 - Part of the Informix compatibility layer for advanced numeric formatting
 - The maxdigits calculation uses the relationship between binary and decimal representations
+
+## Simplified Source
+
+```c
+static int initValue(long lng_val) {
+    int i, j;
+    long l, dig;
+
+    // Store absolute value and sign
+    value.val = lng_val >= 0 ? lng_val : lng_val * (-1);
+    value.sign = lng_val >= 0 ? '+' : '-';
+    value.maxdigits = log10(2) * (8 * sizeof(long) - 1);
+
+    // Count digits in the value
+    i = 0;
+    l = 1;
+    do {
+        i++;
+        l *= 10;
+    } while ((l - 1) < value.val && l <= LONG_MAX / 10);
+
+    // Set digit count
+    if (l <= LONG_MAX / 10) {
+        value.digits = i;
+        l /= 10;
+    } else {
+        value.digits = i + 1;
+    }
+    value.remaining = value.digits;
+
+    // Convert to string representation
+    if ((value.val_string = malloc(value.digits + 1)) == NULL)
+        return -1;
+
+    dig = value.val;
+    for (i = value.digits, j = 0; i > 0; i--, j++) {
+        value.val_string[j] = dig / l + '0';
+        dig = dig % l;
+        l /= 10;
+    }
+    value.val_string[value.digits] = '\0';
+
+    return 0;
+}
+```

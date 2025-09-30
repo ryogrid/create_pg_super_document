@@ -44,3 +44,31 @@ This function takes no parameters and returns:
 - The allocated OID is used later in the range type creation process to establish the relationship between a multirange type and its array type
 - This completes the full type family for range types: range, range[], multirange, and multirange[]
 - The function is part of PostgreSQL 14's multirange feature implementation
+
+## Simplified Source
+
+```c
+Oid
+AssignTypeMultirangeArrayOid(void)
+{
+    Oid type_multirange_array_oid;
+
+    // Binary upgrade mode: use pre-determined OID
+    if (IsBinaryUpgrade) {
+        if (!OidIsValid(binary_upgrade_next_mrng_array_pg_type_oid))
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("pg_type multirange array OID value not set when in binary upgrade mode")));
+
+        type_multirange_array_oid = binary_upgrade_next_mrng_array_pg_type_oid;
+        binary_upgrade_next_mrng_array_pg_type_oid = InvalidOid;
+    } else {
+        // Normal mode: generate new unique OID
+        Relation pg_type = table_open(TypeRelationId, AccessShareLock);
+        type_multirange_array_oid = GetNewOidWithIndex(pg_type, TypeOidIndexId, Anum_pg_type_oid);
+        table_close(pg_type, AccessShareLock);
+    }
+
+    return type_multirange_array_oid;
+}
+```

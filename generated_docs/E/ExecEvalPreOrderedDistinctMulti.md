@@ -34,3 +34,47 @@ This function implements the DISTINCT filtering logic for multi-argument aggrega
 - Optimized for cases where input data is already sorted, allowing efficient multi-argument DISTINCT processing
 - Works with the equalfnMulti expression for performing multi-column equality checks
 - Located in src/backend/executor/execExprInterp.c at lines 5162-5208
+
+## Simplified Source
+
+```c
+bool ExecEvalPreOrderedDistinctMulti(AggState *aggstate, AggStatePerTrans pertrans)
+{
+    ExprContext *tmpcontext = aggstate->tmpcontext;
+    bool is_distinct = false;
+
+    // Copy current input values into sort slot
+    for (int i = 0; i < pertrans->numTransInputs; i++) {
+        pertrans->sortslot->tts_values[i] = pertrans->transfn_fcinfo->args[i + 1].value;
+        pertrans->sortslot->tts_isnull[i] = pertrans->transfn_fcinfo->args[i + 1].isnull;
+    }
+
+    // Prepare current tuple for comparison
+    ExecClearTuple(pertrans->sortslot);
+    pertrans->sortslot->tts_nvalid = pertrans->numInputs;
+    ExecStoreVirtualTuple(pertrans->sortslot);
+
+    // Save and switch context slots for comparison
+    TupleTableSlot *save_outer = tmpcontext->ecxt_outertuple;
+    TupleTableSlot *save_inner = tmpcontext->ecxt_innertuple;
+    tmpcontext->ecxt_outertuple = pertrans->sortslot;
+    tmpcontext->ecxt_innertuple = pertrans->uniqslot;
+
+    // Check if current values are different from previous
+    if (!pertrans->haslast || !ExecQual(pertrans->equalfnMulti, tmpcontext)) {
+        // Values are distinct - update the unique slot
+        if (pertrans->haslast)
+            ExecClearTuple(pertrans->uniqslot);
+
+        pertrans->haslast = true;
+        ExecCopySlot(pertrans->uniqslot, pertrans->sortslot);
+        is_distinct = true;
+    }
+
+    // Restore original context slots
+    tmpcontext->ecxt_outertuple = save_outer;
+    tmpcontext->ecxt_innertuple = save_inner;
+
+    return is_distinct;
+}
+```

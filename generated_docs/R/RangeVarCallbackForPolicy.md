@@ -52,3 +52,36 @@ The function retrieves the relation's metadata from the system catalog and perfo
 - Error handling provides specific error codes: ERRCODE_INSUFFICIENT_PRIVILEGE for ownership/system catalog issues, ERRCODE_WRONG_OBJECT_TYPE for invalid relation types
 - Supports both regular tables (RELKIND_RELATION) and partitioned tables (RELKIND_PARTITIONED_TABLE) for policy operations
 - System table modifications are controlled by the allowSystemTableMods global variable
+
+## Simplified Source
+
+```c
+static void RangeVarCallbackForPolicy(const RangeVar *rv, Oid relid, Oid oldrelid, void *arg)
+{
+    // Get relation metadata from system catalog
+    HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        return;
+
+    Form_pg_class classform = (Form_pg_class) GETSTRUCT(tuple);
+    char relkind = classform->relkind;
+
+    // Check ownership - user must own the relation
+    if (!object_ownercheck(RelationRelationId, relid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(get_rel_relkind(relid)), rv->relname);
+
+    // Prevent system catalog modifications unless explicitly allowed
+    if (!allowSystemTableMods && IsSystemClass(relid, classform))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied: \"%s\" is a system catalog", rv->relname)));
+
+    // Must be a regular table or partitioned table
+    if (relkind != RELKIND_RELATION && relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not a table", rv->relname)));
+
+    ReleaseSysCache(tuple);
+}
+```

@@ -38,3 +38,29 @@ The mapping ensures consistency with PostgreSQL's existing access control infras
 - Performs strict string matching - commands must be exactly "all", "select", "insert", "update", or "delete"
 - Raises ERROR-level exceptions for null input or unrecognized command names
 - The character-based representation enables efficient storage in system catalogs and fast comparison operations
+
+## Simplified Source
+
+```c
+static char parse_policy_command(const char *cmd_name)
+{
+    if (!cmd_name) {
+        elog(ERROR, "unrecognized policy command");
+    }
+
+    if (strcmp(cmd_name, "all") == 0)
+        return '*';
+    else if (strcmp(cmd_name, "select") == 0)
+        return ACL_SELECT_CHR;
+    else if (strcmp(cmd_name, "insert") == 0)
+        return ACL_INSERT_CHR;
+    else if (strcmp(cmd_name, "update") == 0)
+        return ACL_UPDATE_CHR;
+    else if (strcmp(cmd_name, "delete") == 0)
+        return ACL_DELETE_CHR;
+    else
+        elog(ERROR, "unrecognized policy command");
+
+    return 0; // unreachable
+}
+```

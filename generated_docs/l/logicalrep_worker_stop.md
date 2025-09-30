@@ -37,3 +37,29 @@ The function operates under LogicalRepWorkerLock protection to ensure thread-saf
 - Acquires LogicalRepWorkerLock in shared mode during the entire operation
 - Includes assertion to prevent misuse with parallel apply workers
 - Safe to call even if no worker exists for the given subscription/relation pair
+
+## Simplified Source
+
+```c
+void logicalrep_worker_stop(Oid subid, Oid relid)
+{
+    LogicalRepWorker *worker;
+
+    // Lock worker pool for safe access
+    LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+    // Find worker for this subscription/relation
+    worker = logicalrep_worker_find(subid, relid, false);
+
+    if (worker)
+    {
+        // Ensure not a parallel apply worker
+        Assert(!isParallelApplyWorker(worker));
+
+        // Stop the worker with SIGTERM
+        logicalrep_worker_stop_internal(worker, SIGTERM);
+    }
+
+    LWLockRelease(LogicalRepWorkerLock);
+}
+```

@@ -50,3 +50,145 @@ This function processes WINDOW clause definitions and inline window specificatio
 - Window reference numbers (winref) are assigned sequentially for query execution
 - Frame clause inheritance is prohibited by SQL standard, leading to specific error messages
 - Part of PostgreSQL's comprehensive window function support implementing SQL standard windowing
+
+## Simplified Source
+
+```c
+List *
+transformWindowDefinitions(ParseState *pstate,
+                           List *windowdefs,
+                           List **targetlist)
+{
+    List *result = NIL;
+    Index winref = 0;
+    ListCell *lc;
+
+    foreach(lc, windowdefs) {
+        WindowDef *windef = (WindowDef *) lfirst(lc);
+        WindowClause *refwc = NULL;
+        List *partitionClause;
+        List *orderClause;
+        Oid rangeopfamily = InvalidOid;
+        Oid rangeopcintype = InvalidOid;
+        WindowClause *wc;
+
+        winref++;
+
+        // Check for duplicate window names
+        if (windef->name &&
+            findWindowClause(result, windef->name) != NULL)
+            ereport(ERROR, /* window already defined */);
+
+        // Look up referenced window if any
+        if (windef->refname) {
+            refwc = findWindowClause(result, windef->refname);
+            if (refwc == NULL)
+                ereport(ERROR, /* window does not exist */);
+        }
+
+        // Transform PARTITION and ORDER specs (similar to GROUP BY and ORDER BY)
+        orderClause = transformSortClause(pstate,
+                                          windef->orderClause,
+                                          targetlist,
+                                          EXPR_KIND_WINDOW_ORDER,
+                                          true /* force SQL99 rules */);
+        partitionClause = transformGroupClause(pstate,
+                                               windef->partitionClause,
+                                               NULL,
+                                               targetlist,
+                                               orderClause,
+                                               EXPR_KIND_WINDOW_PARTITION,
+                                               true /* force SQL99 rules */);
+
+        // Create new WindowClause
+        wc = makeNode(WindowClause);
+        wc->name = windef->name;
+        wc->refname = windef->refname;
+
+        // Handle window reference inheritance rules per SQL:2008
+        if (refwc) {
+            if (partitionClause)
+                ereport(ERROR, /* cannot override PARTITION BY clause */);
+            wc->partitionClause = copyObject(refwc->partitionClause);
+        }
+        else
+            wc->partitionClause = partitionClause;
+
+        if (refwc) {
+            if (orderClause && refwc->orderClause)
+                ereport(ERROR, /* cannot override ORDER BY clause */);
+            if (orderClause) {
+                wc->orderClause = orderClause;
+                wc->copiedOrder = false;
+            }
+            else {
+                wc->orderClause = copyObject(refwc->orderClause);
+                wc->copiedOrder = true;
+            }
+        }
+        else {
+            wc->orderClause = orderClause;
+            wc->copiedOrder = false;
+        }
+
+        // Check frame clause inheritance rules
+        if (refwc && refwc->frameOptions != FRAMEOPTION_DEFAULTS) {
+            if (windef->name ||
+                orderClause || windef->frameOptions != FRAMEOPTION_DEFAULTS)
+                ereport(ERROR, /* cannot copy window with frame clause */);
+            else
+                ereport(ERROR, /* cannot copy window with frame clause (hint: omit parentheses) */);
+        }
+
+        wc->frameOptions = windef->frameOptions;
+
+        // RANGE offset requires exactly one ORDER BY column
+        if ((wc->frameOptions & FRAMEOPTION_RANGE) &&
+            (wc->frameOptions & (FRAMEOPTION_START_OFFSET |
+                                 FRAMEOPTION_END_OFFSET))) {
+            SortGroupClause *sortcl;
+            Node *sortkey;
+            int16 rangestrategy;
+
+            if (list_length(wc->orderClause) != 1)
+                ereport(ERROR, /* RANGE with offset requires exactly one ORDER BY column */);
+
+            sortcl = linitial_node(SortGroupClause, wc->orderClause);
+            sortkey = get_sortgroupclause_expr(sortcl, *targetlist);
+
+            if (!get_ordering_op_properties(sortcl->sortop,
+                                            &rangeopfamily,
+                                            &rangeopcintype,
+                                            &rangestrategy))
+                elog(ERROR, "operator %u is not a valid ordering operator",
+                     sortcl->sortop);
+
+            // Record properties of sort ordering
+            wc->inRangeColl = exprCollation(sortkey);
+            wc->inRangeAsc = (rangestrategy == BTLessStrategyNumber);
+            wc->inRangeNullsFirst = sortcl->nulls_first;
+        }
+
+        // GROUPS mode requires an ORDER BY clause
+        if (wc->frameOptions & FRAMEOPTION_GROUPS) {
+            if (wc->orderClause == NIL)
+                ereport(ERROR, /* GROUPS mode requires an ORDER BY clause */);
+        }
+
+        // Process frame offset expressions
+        wc->startOffset = transformFrameOffset(pstate, wc->frameOptions,
+                                               rangeopfamily, rangeopcintype,
+                                               &wc->startInRangeFunc,
+                                               windef->startOffset);
+        wc->endOffset = transformFrameOffset(pstate, wc->frameOptions,
+                                             rangeopfamily, rangeopcintype,
+                                             &wc->endInRangeFunc,
+                                             windef->endOffset);
+        wc->winref = winref;
+
+        result = lappend(result, wc);
+    }
+
+    return result;
+}
+```

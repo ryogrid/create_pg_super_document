@@ -32,3 +32,18 @@ This function should be called after all COPY operations are complete to ensure 
 
 ## Notes and Other Information
 This function serves as the final cleanup step in the COPY FROM operation lifecycle. It's typically called in error handling paths and at the end of successful COPY operations to ensure proper resource deallocation. The function is designed to be safe to call even if some buffers are empty, as the underlying cleanup functions handle this gracefully.
+
+## Simplified Source
+
+```c
+static inline void CopyMultiInsertInfoCleanup(CopyMultiInsertInfo *miinfo) {
+    ListCell *lc;
+
+    // Clean up all individual buffers
+    foreach(lc, miinfo->multiInsertBuffers)
+        CopyMultiInsertBufferCleanup(miinfo, lfirst(lc));
+
+    // Free the buffer list itself
+    list_free(miinfo->multiInsertBuffers);
+}
+```

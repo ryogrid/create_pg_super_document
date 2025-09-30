@@ -41,3 +41,88 @@ This function is the central dispatcher for generating NOTICE messages when obje
 - Supports objects with complex specifications (functions with arguments, casts between types)
 - Always generates NOTICE level messages, never ERROR (since IF EXISTS allows missing objects)
 - Messages are internationalized using gettext_noop
+
+## Simplified Source
+
+```c
+static void does_not_exist_skipping(ObjectType objtype, Node *object) {
+    const char *msg = NULL;
+    char *name = NULL;
+    char *args = NULL;
+
+    // Main switch statement handles different object types
+    switch (objtype) {
+        // Simple object types (schema, extension, language, etc.)
+        case OBJECT_ACCESS_METHOD:
+            msg = gettext_noop("access method \"%s\" does not exist, skipping");
+            name = strVal(object);
+            break;
+
+        case OBJECT_SCHEMA:
+            msg = gettext_noop("schema \"%s\" does not exist, skipping");
+            name = strVal(object);
+            break;
+
+        case OBJECT_EXTENSION:
+            msg = gettext_noop("extension \"%s\" does not exist, skipping");
+            name = strVal(object);
+            break;
+
+        // Types (domain, type) - check schema first
+        case OBJECT_TYPE:
+        case OBJECT_DOMAIN:
+            if (!schema_does_not_exist_skipping(typ->names, &msg, &name)) {
+                msg = gettext_noop("type \"%s\" does not exist, skipping");
+                name = TypeNameToString(typ);
+            }
+            break;
+
+        // Functions/procedures/aggregates - check schema and argument types
+        case OBJECT_FUNCTION:
+        case OBJECT_PROCEDURE:
+        case OBJECT_AGGREGATE:
+            if (!schema_does_not_exist_skipping(owa->objname, &msg, &name) &&
+                !type_in_list_does_not_exist_skipping(owa->objargs, &msg, &name)) {
+                msg = gettext_noop("function %s(%s) does not exist, skipping");
+                name = NameListToString(owa->objname);
+                args = TypeNameListToString(owa->objargs);
+            }
+            break;
+
+        // Relation-dependent objects (triggers, rules, policies)
+        case OBJECT_TRIGGER:
+        case OBJECT_RULE:
+        case OBJECT_POLICY:
+            if (!owningrel_does_not_exist_skipping(object_list, &msg, &name)) {
+                msg = gettext_noop("trigger \"%s\" for relation \"%s\" does not exist, skipping");
+                name = strVal(llast(object_list));
+                args = NameListToString(list_copy_head(object_list, list_length(object_list) - 1));
+            }
+            break;
+
+        // Casts - check both source and target types
+        case OBJECT_CAST:
+            if (!type_in_list_does_not_exist_skipping(source_type, &msg, &name) &&
+                !type_in_list_does_not_exist_skipping(target_type, &msg, &name)) {
+                msg = gettext_noop("cast from type %s to type %s does not exist, skipping");
+                name = TypeNameToString(source_type);
+                args = TypeNameToString(target_type);
+            }
+            break;
+
+        // Other object types handled similarly...
+        default:
+            elog(ERROR, "unsupported object type: %d", (int) objtype);
+            break;
+    }
+
+    // Generate the NOTICE message
+    if (!msg)
+        elog(ERROR, "unrecognized object type: %d", (int) objtype);
+
+    if (!args)
+        ereport(NOTICE, (errmsg(msg, name)));
+    else
+        ereport(NOTICE, (errmsg(msg, name, args)));
+}
+```

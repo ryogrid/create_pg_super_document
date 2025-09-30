@@ -34,3 +34,26 @@ The function uses a walker pattern with  to recursively traverse the node tree. 
 - [Variables](../V/Variables.md) in the returned list are not copied, only linked, so callers should be careful about modifying them
 - Used primarily in lateral reference analysis and subquery optimization
 - Part of PostgreSQL's variable analysis utilities in the optimizer
+
+## Simplified Source
+
+```c
+List *
+pull_vars_of_level(Node *node, int levelsup)
+{
+    pull_vars_context context;
+
+    // Initialize context to collect variables at target level
+    context.vars = NIL;
+    context.sublevels_up = levelsup;
+
+    // Walk the tree to find all variables at the specified level
+    // Handles both Query nodes and bare expression trees
+    query_or_expression_tree_walker(node,
+                                    pull_vars_walker,
+                                    (void *) &context,
+                                    0);
+
+    return context.vars;
+}
+```

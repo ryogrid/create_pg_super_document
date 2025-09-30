@@ -40,3 +40,31 @@ The function includes the same safety checks as AfterTriggerSaveEvent, ensuring 
 - The flag-setting behavior means the first call returns false but sets up subsequent calls to return true
 - This mechanism works in conjunction with similar logic for AFTER STATEMENT triggers to maintain proper trigger firing semantics
 - The function includes the same query depth validation as other trigger-related functions to prevent misuse outside of valid execution contexts
+
+## Simplified Source
+
+```c
+static bool
+before_stmt_triggers_fired(Oid relid, CmdType cmdType)
+{
+    bool result;
+    AfterTriggersTableData *table;
+
+    // Check state - must be within a query
+    if (afterTriggers.query_depth < 0)
+        elog(ERROR, "before_stmt_triggers_fired() called outside of query");
+
+    // Ensure adequate storage for current query depth
+    if (afterTriggers.query_depth >= afterTriggers.maxquerydepth)
+        AfterTriggerEnlargeQueryState();
+
+    // Get table data for this relation and command
+    // State is tied to transition tables - allows new triggers
+    // if new transition tables are created
+    table = GetAfterTriggersTableData(relid, cmdType);
+    result = table->before_trig_done;
+    table->before_trig_done = true;  // Set flag for subsequent calls
+
+    return result;
+}
+```

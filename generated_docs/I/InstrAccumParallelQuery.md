@@ -35,3 +35,13 @@ InstrAccumParallelQuery is the final step in parallel query instrumentation that
 - Essential for maintaining consistent and accurate system-wide resource usage tracking
 - Part of PostgreSQLs parallel execution cleanup and consolidation process
 - Critical for proper accounting in EXPLAIN ANALYZE output and system monitoring when parallel execution is involved
+
+## Simplified Source
+
+```c
+void InstrAccumParallelQuery(BufferUsage *bufusage, WalUsage *walusage) {
+    // Accumulate worker resource usage into leader's global statistics
+    BufferUsageAdd(&pgBufferUsage, bufusage);
+    WalUsageAdd(&pgWalUsage, walusage);
+}
+```

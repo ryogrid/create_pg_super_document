@@ -46,3 +46,37 @@ This dummy SpecialJoinInfo can be used by cost estimation functions, join relati
 - Commute restriction lists are set to NULL, indicating no ordering restrictions
 - This function enables consistent handling of all join types through the SpecialJoinInfo interface
 - Widely used across different modules including cost estimation, join relation creation, and clause optimization
+
+## Simplified Source
+
+```c
+void init_dummy_sjinfo(SpecialJoinInfo *sjinfo, Relids left_relids,
+                       Relids right_relids)
+{
+    // Set up basic SpecialJoinInfo structure
+    sjinfo->type = T_SpecialJoinInfo;
+
+    // Assign relation sets for both syntactic and minimal requirements
+    sjinfo->min_lefthand = left_relids;
+    sjinfo->min_righthand = right_relids;
+    sjinfo->syn_lefthand = left_relids;
+    sjinfo->syn_righthand = right_relids;
+
+    // Configure as inner join with no special properties
+    sjinfo->jointype = JOIN_INNER;
+    sjinfo->ojrelid = 0;  // No outer join relation ID for inner joins
+
+    // No commutation restrictions for inner joins
+    sjinfo->commute_above_l = NULL;
+    sjinfo->commute_above_r = NULL;
+    sjinfo->commute_below_l = NULL;
+    sjinfo->commute_below_r = NULL;
+
+    // Set remaining fields to safe defaults
+    sjinfo->lhs_strict = false;
+    sjinfo->semi_can_btree = false;
+    sjinfo->semi_can_hash = false;
+    sjinfo->semi_operators = NIL;
+    sjinfo->semi_rhs_exprs = NIL;
+}
+```

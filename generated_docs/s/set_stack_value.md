@@ -38,3 +38,36 @@ For string variables, the function uses  to ensure proper memory management and 
 - Handles all GUC variable types through a comprehensive switch statement
 - Works in conjunction with memory management functions to ensure proper reference counting
 - Part of the infrastructure that enables nested configuration scopes and rollback capabilities
+
+## Simplified Source
+
+```c
+static void
+set_stack_value(struct config_generic *gconf, config_var_value *val)
+{
+    // Copy the current value based on variable type
+    switch (gconf->vartype) {
+        case PGC_BOOL:
+            val->val.boolval = *((struct config_bool *) gconf)->variable;
+            break;
+        case PGC_INT:
+            val->val.intval = *((struct config_int *) gconf)->variable;
+            break;
+        case PGC_REAL:
+            val->val.realval = *((struct config_real *) gconf)->variable;
+            break;
+        case PGC_STRING:
+            // Use helper function for proper string memory management
+            set_string_field((struct config_string *) gconf,
+                             &(val->val.stringval),
+                             *((struct config_string *) gconf)->variable);
+            break;
+        case PGC_ENUM:
+            val->val.enumval = *((struct config_enum *) gconf)->variable;
+            break;
+    }
+
+    // Copy associated extra data
+    set_extra_field(gconf, &(val->extra), gconf->extra);
+}
+```

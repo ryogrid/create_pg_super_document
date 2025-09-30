@@ -42,3 +42,46 @@ This function retrieves and opens all indexes associated with a TOAST relation. 
 - The valid index is identified by the indisvalid flag in the index's rd_index structure
 - This is a core function in PostgreSQL's TOAST system, used whenever TOAST data needs to be accessed or modified
 - The function returns the position (index) of the valid index within the opened indexes array, not the OID
+
+## Simplified Source
+
+```c
+int
+toast_open_indexes(Relation toastrel, LOCKMODE lock,
+                   Relation **toastidxs, int *num_indexes)
+{
+    // Get list of indexes for toast relation
+    List *indexlist = RelationGetIndexList(toastrel);
+    Assert(indexlist != NIL);
+
+    *num_indexes = list_length(indexlist);
+
+    // Open all indexes
+    *toastidxs = (Relation *) palloc(*num_indexes * sizeof(Relation));
+    int i = 0;
+    ListCell *lc;
+    foreach(lc, indexlist)
+        (*toastidxs)[i++] = index_open(lfirst_oid(lc), lock);
+
+    // Find first valid index
+    int valid_index = 0;
+    bool found = false;
+    for (i = 0; i < *num_indexes; i++)
+    {
+        if ((*toastidxs)[i]->rd_index->indisvalid)
+        {
+            valid_index = i;
+            found = true;
+            break;
+        }
+    }
+
+    list_free(indexlist);
+
+    if (!found)
+        elog(ERROR, "no valid index found for toast relation with Oid %u",
+             RelationGetRelid(toastrel));
+
+    return valid_index;
+}
+```

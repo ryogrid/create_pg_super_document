@@ -48,3 +48,65 @@ This function is responsible for inserting procedure entries into the pg_amproc 
 - Type dependencies are conditionally created using typeDepNeeded() to avoid unnecessary dependencies for built-in types
 - The function generates a new OID for each pg_amproc entry using GetNewOidWithIndex
 - Post-creation hooks are invoked to allow extensions to perform additional processing after procedure creation
+
+## Simplified Source
+
+```c
+static void
+storeProcedures(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+                List *procedures, bool isAdd)
+{
+    Relation rel = table_open(AccessMethodProcedureRelationId, RowExclusiveLock);
+
+    foreach(ListCell *l, procedures) {
+        OpFamilyMember *proc = (OpFamilyMember *) lfirst(l);
+
+        // Check for conflicts when adding to existing family
+        if (isAdd && SearchSysCacheExists4(AMPROCNUM,
+                                          ObjectIdGetDatum(opfamilyoid),
+                                          ObjectIdGetDatum(proc->lefttype),
+                                          ObjectIdGetDatum(proc->righttype),
+                                          Int16GetDatum(proc->number))) {
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                           errmsg("function %d(%s,%s) already exists in operator family \"%s\"",
+                                  proc->number, format_type_be(proc->lefttype),
+                                  format_type_be(proc->righttype),
+                                  NameListToString(opfamilyname))));
+        }
+
+        // Create pg_amproc entry with all required fields
+        Oid entryoid = GetNewOidWithIndex(rel, AccessMethodProcedureOidIndexId, Anum_pg_amproc_oid);
+        // ... populate values array and insert tuple ...
+        CatalogTupleInsert(rel, tup);
+
+        // Create dependency relationships
+        ObjectAddress myself = {AccessMethodProcedureRelationId, entryoid, 0};
+
+        // Procedure dependency
+        recordDependencyOn(&myself,
+                          &(ObjectAddress){ProcedureRelationId, proc->object, 0},
+                          proc->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+
+        // Class/family dependency
+        recordDependencyOn(&myself,
+                          &(ObjectAddress){proc->ref_is_family ? OperatorFamilyRelationId : OperatorClassRelationId,
+                                          proc->refobjid, 0},
+                          proc->ref_is_hard ? DEPENDENCY_INTERNAL : DEPENDENCY_AUTO);
+
+        // Type dependencies (if needed)
+        if (typeDepNeeded(proc->lefttype, proc)) {
+            recordDependencyOn(&myself, &(ObjectAddress){TypeRelationId, proc->lefttype, 0},
+                              proc->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+        }
+
+        if (proc->lefttype != proc->righttype && typeDepNeeded(proc->righttype, proc)) {
+            recordDependencyOn(&myself, &(ObjectAddress){TypeRelationId, proc->righttype, 0},
+                              proc->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+        }
+
+        InvokeObjectPostCreateHook(AccessMethodProcedureRelationId, entryoid, 0);
+    }
+
+    table_close(rel, RowExclusiveLock);
+}
+```

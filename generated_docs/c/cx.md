@@ -45,3 +45,64 @@ The cycle crossover ensures that each city appears exactly once in the offspring
 - If the initial cycle doesn't produce a complete tour, the algorithm falls back to copying remaining cities from tour2
 - This crossover operator is specifically designed for permutation-based genetic algorithms and maintains the constraint that each city appears exactly once
 - The random starting position ensures diversity in the crossover operation across different calls
+
+## Simplified Source
+
+```c
+int
+cx(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring,
+   int num_gene, City *city_table)
+{
+    int i, start_pos, curr_pos;
+    int count = 0;
+    int num_diffs = 0;
+
+    // Initialize city table with position mappings
+    for (i = 1; i <= num_gene; i++)
+    {
+        city_table[i].used = 0;
+        city_table[tour2[i - 1]].tour2_position = i - 1;
+        city_table[tour1[i - 1]].tour1_position = i - 1;
+    }
+
+    // Choose random starting position and begin cycle
+    start_pos = geqo_randint(root, num_gene - 1, 0);
+    offspring[start_pos] = tour1[start_pos];
+    curr_pos = start_pos;
+    city_table[(int) tour1[start_pos]].used = 1;
+    count++;
+
+    // STEP 1: Follow cycle until we return to start
+    while (tour2[curr_pos] != tour1[start_pos])
+    {
+        city_table[(int) tour2[curr_pos]].used = 1;
+        curr_pos = city_table[(int) tour2[curr_pos]].tour1_position;
+        offspring[curr_pos] = tour1[curr_pos];
+        count++;
+    }
+
+    // STEP 2: Fill remaining positions from tour2
+    if (count < num_gene)
+    {
+        for (i = 1; i <= num_gene; i++)
+        {
+            if (!city_table[i].used)
+            {
+                offspring[city_table[i].tour2_position] =
+                    tour2[city_table[i].tour2_position];
+                count++;
+            }
+        }
+    }
+
+    // STEP 3: Count differences for quality metric
+    if (count < num_gene)
+    {
+        for (i = 0; i < num_gene; i++)
+            if (tour1[i] != offspring[i])
+                num_diffs++;
+    }
+
+    return num_diffs;
+}
+```

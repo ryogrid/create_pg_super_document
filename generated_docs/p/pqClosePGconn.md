@@ -44,3 +44,38 @@ The `pqClosePGconn` function performs a comprehensive shutdown of a PostgreSQL c
 - After this function, the connection status is set to CONNECTION_BAD but the connection can be reestablished
 - Part of the libpq connection lifecycle management infrastructure
 - Used internally by higher-level functions like PQfinish and PQreset
+
+## Simplified Source
+
+```c
+void
+pqClosePGconn(PGconn *conn)
+{
+    // Attempt graceful shutdown by sending terminate message
+    sendTerminateConn(conn);
+
+    // Reset to blocking mode for reconnection compatibility
+    conn->nonblocking = false;
+
+    // Close connection and clean up I/O state
+    pqDropConnection(conn, true);
+
+    // Reset connection status and state
+    conn->status = CONNECTION_BAD;
+    conn->asyncStatus = PGASYNC_IDLE;
+    conn->xactStatus = PQTRANS_IDLE;
+    conn->pipelineStatus = PQ_PIPELINE_OFF;
+
+    // Clear transient data and error state
+    pqClearAsyncResult(conn);
+    pqClearConnErrorState(conn);
+
+    // Release address info (except for cancel requests)
+    if (!conn->cancelRequest) {
+        release_conn_addrinfo(conn);
+    }
+
+    // Drop all server-specific data
+    pqDropServerData(conn);
+}
+```

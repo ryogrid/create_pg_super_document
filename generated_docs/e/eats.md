@@ -38,3 +38,18 @@ The function name likely stands for "error at this source" or similar, reflectin
 - The dual-context approach helps users understand both immediate and rule-related error sources
 - Typically called before potentially error-prone operations to establish proper context
 - Works in conjunction with the `eat` function for simpler single-context scenarios
+
+## Simplified Source
+
+```c
+static void eats(char const *name, lineno_t num, char const *rname, lineno_t rnum)
+{
+    // Set error context for primary file
+    filename = name;
+    linenum = num;
+
+    // Set error context for rule file
+    rfilename = rname;
+    rlinenum = rnum;
+}
+```

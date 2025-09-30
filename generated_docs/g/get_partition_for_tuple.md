@@ -48,3 +48,115 @@ This function determines which partition should receive a tuple based on its par
 - Cache hit validation for RANGE partitioning checks both lower and upper bounds to ensure the value still falls within the cached partition's range
 - The caching mechanism maintains statistics on consecutive hits to the same partition (last_found_count, last_found_part_index, last_found_datum_index)
 - This function can be expensive for tables with many LIST or RANGE partitions due to binary search overhead, hence the caching optimization
+
+## Simplified Source
+
+```c
+static int get_partition_for_tuple(PartitionDispatch pd, Datum *values, bool *isnull) {
+    int bound_offset = -1;
+    int part_index = -1;
+    PartitionKey key = pd->key;
+    PartitionDesc partdesc = pd->partdesc;
+    PartitionBoundInfo boundinfo = partdesc->boundinfo;
+
+    // Route based on partitioning strategy
+    switch (key->strategy) {
+        case PARTITION_STRATEGY_HASH: {
+            // Hash partitioning: compute hash and use modulo
+            uint64 rowHash = compute_partition_hash_value(key->partnatts,
+                                                        key->partsupfunc,
+                                                        key->partcollation,
+                                                        values, isnull);
+            return boundinfo->indexes[rowHash % boundinfo->nindexes];
+        }
+
+        case PARTITION_STRATEGY_LIST:
+            if (isnull[0]) {
+                // Handle NULL values for LIST partitioning
+                if (partition_bound_accepts_nulls(boundinfo))
+                    return boundinfo->null_index;
+            } else {
+                // Try cache hit first
+                if (partdesc->last_found_count >= PARTITION_CACHED_FIND_THRESHOLD) {
+                    int last_datum_offset = partdesc->last_found_datum_index;
+                    Datum lastDatum = boundinfo->datums[last_datum_offset][0];
+                    int32 cmpval = DatumGetInt32(FunctionCall2Coll(&key->partsupfunc[0],
+                                                                  key->partcollation[0],
+                                                                  lastDatum, values[0]));
+                    if (cmpval == 0)
+                        return boundinfo->indexes[last_datum_offset];
+                }
+
+                // Perform binary search
+                bool equal;
+                bound_offset = partition_list_bsearch(key->partsupfunc, key->partcollation,
+                                                    boundinfo, values[0], &equal);
+                if (bound_offset >= 0 && equal)
+                    part_index = boundinfo->indexes[bound_offset];
+            }
+            break;
+
+        case PARTITION_STRATEGY_RANGE: {
+            // Check for NULL values in partition key
+            bool range_partkey_has_null = false;
+            for (int i = 0; i < key->partnatts; i++) {
+                if (isnull[i]) {
+                    range_partkey_has_null = true;
+                    break;
+                }
+            }
+
+            if (range_partkey_has_null)
+                break;  // NULLs go to DEFAULT partition
+
+            // Try cache hit for RANGE partitioning
+            if (partdesc->last_found_count >= PARTITION_CACHED_FIND_THRESHOLD) {
+                int last_datum_offset = partdesc->last_found_datum_index;
+                Datum *lastDatums = boundinfo->datums[last_datum_offset];
+                PartitionRangeDatumKind *kind = boundinfo->kind[last_datum_offset];
+
+                // Check against cached partition bounds
+                int32 cmpval = partition_rbound_datum_cmp(key->partsupfunc, key->partcollation,
+                                                        lastDatums, kind, values, key->partnatts);
+                if (cmpval == 0)
+                    return boundinfo->indexes[last_datum_offset + 1];
+
+                // Check upper bound if needed
+                if (cmpval < 0 && last_datum_offset + 1 < boundinfo->ndatums) {
+                    lastDatums = boundinfo->datums[last_datum_offset + 1];
+                    kind = boundinfo->kind[last_datum_offset + 1];
+                    cmpval = partition_rbound_datum_cmp(key->partsupfunc, key->partcollation,
+                                                      lastDatums, kind, values, key->partnatts);
+                    if (cmpval > 0)
+                        return boundinfo->indexes[last_datum_offset + 1];
+                }
+            }
+
+            // Perform binary search for RANGE
+            bool equal = false;
+            bound_offset = partition_range_datum_bsearch(key->partsupfunc, key->partcollation,
+                                                       boundinfo, key->partnatts, values, &equal);
+            part_index = boundinfo->indexes[bound_offset + 1];
+        }
+        break;
+
+        default:
+            elog(ERROR, "unexpected partition strategy: %d", (int) key->strategy);
+    }
+
+    // Use default partition if no match found
+    if (part_index < 0)
+        return boundinfo->default_index;
+
+    // Update cache statistics
+    if (bound_offset == partdesc->last_found_datum_index)
+        partdesc->last_found_count++;
+    else {
+        partdesc->last_found_count = 1;
+        partdesc->last_found_part_index = part_index;
+        partdesc->last_found_datum_index = bound_offset;
+    }
+
+    return part_index;
+}
+```

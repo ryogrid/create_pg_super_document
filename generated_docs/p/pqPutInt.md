@@ -40,3 +40,36 @@ The function performs the byte order conversion using appropriate conversion fun
 - Essential for constructing PostgreSQL protocol messages which require network byte order for all integer fields
 - Part of the libpq internal API, used extensively in protocol message construction
 - Complements pqGetInt for bidirectional integer handling in the PostgreSQL wire protocol
+
+## Simplified Source
+```c
+int pqPutInt(int value, size_t bytes, PGconn *conn) {
+    uint16 tmp2;
+    uint32 tmp4;
+
+    switch (bytes) {
+        case 2:
+            // Convert to network byte order and write 2 bytes
+            tmp2 = pg_hton16((uint16) value);
+            if (pqPutMsgBytes((const char *) &tmp2, 2, conn))
+                return EOF;
+            break;
+
+        case 4:
+            // Convert to network byte order and write 4 bytes
+            tmp4 = pg_hton32((uint32) value);
+            if (pqPutMsgBytes((const char *) &tmp4, 4, conn))
+                return EOF;
+            break;
+
+        default:
+            // Unsupported integer size
+            pqInternalNotice(&conn->noticeHooks,
+                           "integer of size %lu not supported by pqPutInt",
+                           (unsigned long) bytes);
+            return EOF;
+    }
+
+    return 0;
+}
+```

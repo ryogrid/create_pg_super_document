@@ -48,3 +48,28 @@ This function is particularly useful for operations that need to conditionally w
 - Maintains the same cache invalidation logic as relation_openrv to ensure ACL consistency
 - Useful for implementing IF EXISTS functionality in SQL commands
 - The function provides a clean way to probe for relation existence while respecting lock ordering and cache consistency requirements
+
+## Simplified Source
+
+```c
+Relation
+relation_openrv_extended(const RangeVar *relation, LOCKMODE lockmode,
+                        bool missing_ok)
+{
+    Oid relOid;
+
+    // Handle cache invalidation if locking
+    if (lockmode != NoLock)
+        AcceptInvalidationMessages();
+
+    // Look up relation by name with optional existence check
+    relOid = RangeVarGetRelid(relation, lockmode, missing_ok);
+
+    // Return NULL if not found and missing_ok is true
+    if (!OidIsValid(relOid))
+        return NULL;
+
+    // Open relation using OID
+    return relation_open(relOid, NoLock);
+}
+```

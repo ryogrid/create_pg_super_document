@@ -33,3 +33,11 @@ None (void function)
 - Used by COPY operations and XML processing functions to determine encoding requirements
 - Provides encapsulation of the ClientEncoding global variable
 - The encoding ID can be converted to a name using pg_enc2name_tbl or related functions
+
+## Simplified Source
+```c
+int pg_get_client_encoding(void) {
+    // Return the current client encoding ID from global variable
+    return ClientEncoding->encoding;
+}
+```

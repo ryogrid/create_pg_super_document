@@ -43,3 +43,44 @@ The depth tracking is critical because it allows the function to distinguish bet
 - Returns true immediately upon finding the first external self-reference, short-circuiting further traversal
 - The function distinguishes between self-references at the same level (allowed) vs. external levels (problematic)
 - Static function scope limits visibility to the subselect.c compilation unit
+
+## Simplified Source
+
+```c
+static bool
+contain_outer_selfref_walker(Node *node, Index *depth)
+{
+    if (node == NULL)
+        return false;
+
+    // Check range table entries for problematic CTE self-references
+    if (IsA(node, RangeTblEntry)) {
+        RangeTblEntry *rte = (RangeTblEntry *) node;
+
+        // Found external CTE self-reference (above current query level)
+        if (rte->rtekind == RTE_CTE &&
+            rte->self_reference &&
+            rte->ctelevelsup >= *depth)
+            return true;
+
+        return false;
+    }
+
+    // Recursively process subqueries with proper depth tracking
+    if (IsA(node, Query)) {
+        Query *query = (Query *) node;
+        bool result;
+
+        (*depth)++;
+        result = query_tree_walker(query, contain_outer_selfref_walker,
+                                 (void *) depth, QTW_EXAMINE_RTES_BEFORE);
+        (*depth)--;
+
+        return result;
+    }
+
+    // Process other expression nodes
+    return expression_tree_walker(node, contain_outer_selfref_walker,
+                                (void *) depth);
+}
+```

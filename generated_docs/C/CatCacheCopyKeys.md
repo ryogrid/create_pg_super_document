@@ -40,3 +40,31 @@ A special case is handled for NAME type attributes (NAMEOID), where C strings ar
 - Contains a performance optimization note suggesting that memory and lookup performance could be improved by storing all keys in one allocation
 - Special handling for NAMEOID prevents buffer overruns when copying NAME type data
 - Essential for proper memory management in catalog cache operations
+
+## Simplified Source
+
+```c
+static void
+CatCacheCopyKeys(TupleDesc tupdesc, int nkeys, int *attnos,
+                 Datum *srckeys, Datum *dstkeys)
+{
+    int i;
+
+    // Copy each key, ensuring proper memory allocation
+    for (i = 0; i < nkeys; i++) {
+        int attnum = attnos[i];
+        Form_pg_attribute att = TupleDescAttr(tupdesc, attnum - 1);
+        Datum src = srckeys[i];
+        NameData srcname;
+
+        // Special case: convert C string to properly padded NAME
+        if (att->atttypid == NAMEOID) {
+            namestrcpy(&srcname, DatumGetCString(src));
+            src = NameGetDatum(&srcname);
+        }
+
+        // Perform deep copy using attribute properties
+        dstkeys[i] = datumCopy(src, att->attbyval, att->attlen);
+    }
+}
+```

@@ -39,3 +39,24 @@ The function includes important sanity checks to prevent unreasonable estimates 
 - The tuples estimate is enforced to be at least as large as the rows estimate for consistency
 - Handles the case where pg_class.reltuples contains -1 (unknown) by ensuring a minimum reasonable value
 - The FDW has full control over size estimates but they are subject to final sanity checks
+
+## Simplified Source
+
+```c
+static void
+set_foreign_size(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    // Set initial size estimates using standard PostgreSQL logic
+    set_foreign_size_estimates(root, rel);
+
+    // Let FDW provide more accurate estimates based on foreign data source
+    rel->fdwroutine->GetForeignRelSize(root, rel, rte->relid);
+
+    // Ensure row estimate is never zero to prevent division errors
+    rel->rows = clamp_row_est(rel->rows);
+
+    // Ensure tuples count is at least as large as rows for consistency
+    // This handles cases where pg_class.reltuples contains -1
+    rel->tuples = Max(rel->tuples, rel->rows);
+}
+```

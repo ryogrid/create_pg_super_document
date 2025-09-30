@@ -38,3 +38,32 @@ The function also handles skew optimization parameters, which can improve perfor
 - Skew optimization helps handle cases where certain hash key values are much more common than others, which can lead to uneven hash bucket distribution
 - The hash table built by this node must fit in work_mem, or PostgreSQL will use batch processing to handle larger datasets
 - [Hash](../H/Hash.md) nodes are leaf nodes in the sense that they have no right child, but they process input from their left child
+
+## Simplified Source
+
+```c
+static Hash *
+make_hash(Plan *lefttree,
+          List *hashkeys,
+          Oid skewTable,
+          AttrNumber skewColumn,
+          bool skewInherit)
+{
+    Hash       *node = makeNode(Hash);
+    Plan       *plan = &node->plan;
+
+    // Initialize the basic plan structure
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+
+    // Set Hash-specific properties
+    node->hashkeys = hashkeys;
+    node->skewTable = skewTable;
+    node->skewColumn = skewColumn;
+    node->skewInherit = skewInherit;
+
+    return node;
+}
+```

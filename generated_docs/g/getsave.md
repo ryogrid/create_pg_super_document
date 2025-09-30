@@ -48,3 +48,37 @@ This function is crucial for processing timezone rule definitions where save tim
 - Returns the parsed time offset in seconds using the same units as `gethms`
 - Essential for distinguishing between standard time adjustments and daylight saving time adjustments in timezone rules
 - The function handles the common timezone file convention where save times can be marked explicitly as standard ('s') or daylight ('d') time
+
+## Simplified Source
+
+```c
+static zic_t getsave(char *field, bool *isdst) {
+    int dst = -1;
+    zic_t save;
+    size_t fieldlen = strlen(field);
+
+    // Check for DST indicator suffix
+    if (fieldlen != 0) {
+        char *ep = field + fieldlen - 1;
+
+        switch (*ep) {
+            case 'd':  // daylight time
+                dst = 1;
+                *ep = '\0';
+                break;
+            case 's':  // standard time
+                dst = 0;
+                *ep = '\0';
+                break;
+        }
+    }
+
+    // Parse the time value
+    save = gethms(field, _("invalid saved time"));
+
+    // Determine DST status: explicit suffix or inferred from non-zero save time
+    *isdst = dst < 0 ? save != 0 : dst;
+
+    return save;
+}
+```

@@ -52,3 +52,33 @@ The implementation assumes track_commit_timestamp is a PGC_POSTMASTER parameter,
 - Uses bank-specific locking rather than global locks to improve concurrency
 - Creates WAL records for the page zeroing operation when not in recovery mode
 - The function assumes commit timestamp tracking cannot be toggled during runtime
+
+## Simplified Source
+
+```c
+void
+ExtendCommitTs(TransactionId newestXact)
+{
+    // Early exit if commit timestamp tracking is disabled
+    Assert(!InRecovery);
+    if (!commitTsShared->commitTsActive) {
+        return;
+    }
+
+    // Only extend at first XID of new page (performance optimization)
+    // Special case: after wraparound, first XID of page zero is FirstNormalTransactionId
+    if (TransactionIdToCTsEntry(newestXact) != 0 &&
+        !TransactionIdEquals(newestXact, FirstNormalTransactionId)) {
+        return;
+    }
+
+    // Calculate page number and acquire appropriate lock
+    int64 pageno = TransactionIdToCTsPage(newestXact);
+    LWLock *lock = SimpleLruGetBankLock(CommitTsCtl, pageno);
+
+    // Create and zero the new commit timestamp page
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+    ZeroCommitTsPage(pageno, !InRecovery); // WAL log if not in recovery
+    LWLockRelease(lock);
+}
+```

@@ -49,3 +49,107 @@ ExecBuildSlotValueDescription generates formatted tuple representations for erro
 - Handles dropped columns by skipping them entirely in the output
 - Formats output as either '(val1, val2, ...)' for full table access or '(col1, col2) = (val1, val2, ...)' for partial access
 - Static function used internally by constraint and error reporting functions
+
+## Simplified Source
+
+```c
+static char *ExecBuildSlotValueDescription(Oid reloid, TupleTableSlot *slot,
+                                         TupleDesc tupdesc, Bitmapset *modifiedCols,
+                                         int maxfieldlen) {
+    StringInfoData buf;
+    StringInfoData collist;
+    bool write_comma = false;
+    bool write_comma_collist = false;
+    bool table_perm = false;
+    bool any_perm = false;
+
+    // Check Row Level Security - return NULL if enabled
+    if (check_enable_rls(reloid, InvalidOid, true) == RLS_ENABLED)
+        return NULL;
+
+    initStringInfo(&buf);
+    appendStringInfoChar(&buf, '(');
+
+    // Check table-level SELECT permission
+    AclResult aclresult = pg_class_aclcheck(reloid, GetUserId(), ACL_SELECT);
+    if (aclresult != ACLCHECK_OK) {
+        // Need column-level checking
+        initStringInfo(&collist);
+        appendStringInfoChar(&collist, '(');
+    } else {
+        table_perm = any_perm = true;
+    }
+
+    // Ensure all attributes are deconstructed
+    slot_getallattrs(slot);
+
+    // Process each column
+    for (int i = 0; i < tupdesc->natts; i++) {
+        bool column_perm = false;
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        // Skip dropped columns
+        if (att->attisdropped)
+            continue;
+
+        // Check column permissions if no table permission
+        if (!table_perm) {
+            aclresult = pg_attribute_aclcheck(reloid, att->attnum, GetUserId(), ACL_SELECT);
+            if (bms_is_member(att->attnum - FirstLowInvalidHeapAttributeNumber, modifiedCols) ||
+                aclresult == ACLCHECK_OK) {
+                column_perm = any_perm = true;
+
+                // Add to column list
+                if (write_comma_collist)
+                    appendStringInfoString(&collist, ", ");
+                else
+                    write_comma_collist = true;
+                appendStringInfoString(&collist, NameStr(att->attname));
+            }
+        }
+
+        // Add value if permitted
+        if (table_perm || column_perm) {
+            char *val;
+            if (slot->tts_isnull[i]) {
+                val = "null";
+            } else {
+                Oid foutoid;
+                bool typisvarlena;
+                getTypeOutputInfo(att->atttypid, &foutoid, &typisvarlena);
+                val = OidOutputFunctionCall(foutoid, slot->tts_values[i]);
+            }
+
+            if (write_comma)
+                appendStringInfoString(&buf, ", ");
+            else
+                write_comma = true;
+
+            // Truncate if needed
+            int vallen = strlen(val);
+            if (vallen <= maxfieldlen)
+                appendBinaryStringInfo(&buf, val, vallen);
+            else {
+                vallen = pg_mbcliplen(val, vallen, maxfieldlen);
+                appendBinaryStringInfo(&buf, val, vallen);
+                appendStringInfoString(&buf, "...");
+            }
+        }
+    }
+
+    // Return NULL if no permissions
+    if (!any_perm)
+        return NULL;
+
+    appendStringInfoChar(&buf, ')');
+
+    // Return column-qualified format if partial permissions
+    if (!table_perm) {
+        appendStringInfoString(&collist, ") = ");
+        appendBinaryStringInfo(&collist, buf.data, buf.len);
+        return collist.data;
+    }
+
+    return buf.data;
+}
+```

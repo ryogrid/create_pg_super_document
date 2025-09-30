@@ -57,3 +57,41 @@ The function updates the actions array to indicate what type of revocation shoul
 - When revoking the entire grant or just the ADMIN option, recursive planning is needed to handle dependent grants properly
 - Returns true if the matching grant was found in the membership list, false otherwise
 - The function is static and only used within the user.c module for role management operations
+
+## Simplified Source
+
+```c
+static bool plan_single_revoke(CatCList *memlist, RevokeRoleGrantAction *actions,
+                               Oid member, Oid grantor, GrantRoleOptions *popt,
+                               DropBehavior behavior) {
+    // Ensure only one option bit is set
+    Assert(pg_popcount32(popt->specified) <= 1);
+
+    // Search for matching grant in membership list
+    for (int i = 0; i < memlist->n_members; ++i) {
+        HeapTuple authmem_tuple = &memlist->members[i]->tuple;
+        Form_pg_auth_members authmem_form = (Form_pg_auth_members) GETSTRUCT(authmem_tuple);
+
+        // Check if this is the target grant
+        if (authmem_form->member == member && authmem_form->grantor == grantor) {
+
+            if (popt->specified & GRANT_ROLE_SPECIFIED_INHERIT) {
+                // Revoke INHERIT option - no dependent privileges affected
+                actions[i] = RRG_REMOVE_INHERIT_OPTION;
+            }
+            else if (popt->specified & GRANT_ROLE_SPECIFIED_SET) {
+                // Revoke SET option - no dependent privileges affected
+                actions[i] = RRG_REMOVE_SET_OPTION;
+            }
+            else {
+                // Revoke entire grant or ADMIN option - handle dependencies
+                bool revoke_admin_only = (popt->specified & GRANT_ROLE_SPECIFIED_ADMIN) != 0;
+                plan_recursive_revoke(memlist, actions, i, revoke_admin_only, behavior);
+            }
+            return true;
+        }
+    }
+
+    return false; // Grant not found
+}
+```

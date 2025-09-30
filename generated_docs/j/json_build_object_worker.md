@@ -50,3 +50,72 @@ The function validates that the number of arguments is even (since each key must
 - Supports PostgreSQL's standard JSON formatting with proper escaping and type conversion
 - Used both directly through SQL functions and internally by the expression evaluator
 - Located in src/backend/utils/adt/json.c:1215-1308
+
+## Simplified Source
+
+```c
+Datum
+json_build_object_worker(int nargs, const Datum *args, const bool *nulls,
+                        const Oid *types, bool absent_on_null, bool unique_keys)
+{
+    StringInfo result = makeStringInfo();
+    JsonUniqueBuilderState unique_check;
+    const char *sep = "";
+
+    // Validate even number of arguments (key-value pairs)
+    if (nargs % 2 != 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("argument list must have even number of elements")));
+
+    // Start JSON object
+    appendStringInfoChar(result, '{');
+
+    // Initialize uniqueness checking if required
+    if (unique_keys)
+        json_unique_builder_init(&unique_check);
+
+    // Process key-value pairs
+    for (int i = 0; i < nargs; i += 2) {
+        StringInfo out;
+        bool skip = absent_on_null && nulls[i + 1];
+
+        // Handle NULL keys (not allowed)
+        if (nulls[i])
+            ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                    errmsg("null value not allowed for object key")));
+
+        // Determine output buffer based on skip/unique_keys
+        if (skip && unique_keys)
+            out = json_unique_builder_get_throwawaybuf(&unique_check);
+        else {
+            if (!skip) {
+                appendStringInfoString(result, sep);
+                sep = ", ";
+            }
+            out = result;
+        }
+
+        // Process key and check uniqueness
+        int key_offset = out->len;
+        add_json(args[i], false, out, types[i], true);
+
+        if (unique_keys) {
+            const char *key = pstrdup(&out->data[key_offset]);
+            if (!json_unique_check_key(&unique_check.check, key, 0))
+                ereport(ERROR, (errcode(ERRCODE_DUPLICATE_JSON_OBJECT_KEY_VALUE),
+                        errmsg("duplicate JSON object key value: %s", key)));
+
+            if (skip) continue;
+        }
+
+        // Add separator and process value
+        appendStringInfoString(result, " : ");
+        add_json(args[i + 1], nulls[i + 1], result, types[i + 1], false);
+    }
+
+    // Close JSON object
+    appendStringInfoChar(result, '}');
+
+    return PointerGetDatum(cstring_to_text_with_len(result->data, result->len));
+}
+```

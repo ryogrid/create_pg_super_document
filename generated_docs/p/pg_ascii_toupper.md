@@ -37,3 +37,15 @@ The function is simpler and faster than  because it doesn't need to handle local
 - Faster than locale-aware alternatives since it avoids library calls
 - Used when consistent ASCII-only case conversion is needed regardless of system locale
 - Particularly useful for processing SQL identifiers and keywords that must follow ASCII rules
+
+## Simplified Source
+
+```c
+unsigned char pg_ascii_toupper(unsigned char ch) {
+    // Convert ASCII lowercase to uppercase
+    if (ch >= 'a' && ch <= 'z') {
+        ch += 'A' - 'a';
+    }
+    return ch;
+}
+```

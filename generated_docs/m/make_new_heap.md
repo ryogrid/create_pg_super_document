@@ -55,3 +55,94 @@ The function handles both regular and temporary tables appropriately, placing te
 - The mapped relation property is preserved for system catalogs like pg_class
 - Returns the OID of the newly created table for use in subsequent operations
 - Critical for maintaining data consistency during table reorganization operations
+
+## Simplified Source
+
+```c
+Oid
+make_new_heap(Oid OIDOldHeap, Oid NewTableSpace, Oid NewAccessMethod,
+              char relpersistence, LOCKMODE lockmode)
+{
+    TupleDesc OldHeapDesc;
+    char NewHeapName[NAMEDATALEN];
+    Oid OIDNewHeap;
+    Oid toastid;
+    Relation OldHeap;
+    HeapTuple tuple;
+    Datum reloptions;
+    bool isNull;
+    Oid namespaceid;
+
+    // Open the original table to get its structure
+    OldHeap = table_open(OIDOldHeap, lockmode);
+    OldHeapDesc = RelationGetDescr(OldHeap);
+
+    // Get reloptions from the original table
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(OIDOldHeap));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", OIDOldHeap);
+
+    reloptions = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_reloptions, &isNull);
+    if (isNull)
+        reloptions = (Datum) 0;
+
+    // Determine the namespace for the new table
+    if (relpersistence == RELPERSISTENCE_TEMP)
+        namespaceid = LookupCreationNamespace("pg_temp");
+    else
+        namespaceid = RelationGetNamespace(OldHeap);
+
+    // Create temporary name for the new heap
+    snprintf(NewHeapName, sizeof(NewHeapName), "pg_temp_%u", OIDOldHeap);
+
+    // Create the new heap table with catalog entries
+    OIDNewHeap = heap_create_with_catalog(NewHeapName,
+                                         namespaceid,
+                                         NewTableSpace,
+                                         InvalidOid,        // no type OID
+                                         InvalidOid,        // no array type
+                                         InvalidOid,        // no toast type
+                                         OldHeap->rd_rel->relowner,
+                                         NewAccessMethod,
+                                         OldHeapDesc,       // same column structure
+                                         NIL,               // no constraints
+                                         RELKIND_RELATION,
+                                         relpersistence,
+                                         false,             // not shared
+                                         RelationIsMapped(OldHeap), // preserve mapped status
+                                         ONCOMMIT_NOOP,
+                                         reloptions,        // preserve storage options
+                                         false,             // no OID column
+                                         true,              // allow system columns
+                                         true,              // valid relfilenode
+                                         OIDOldHeap,        // relation being rewritten
+                                         NULL);             // no typeName
+
+    ReleaseSysCache(tuple);
+
+    // Make the new table visible for subsequent operations
+    CommandCounterIncrement();
+
+    // Create TOAST table if the original had one
+    toastid = OldHeap->rd_rel->reltoastrelid;
+    if (OidIsValid(toastid)) {
+        // Get TOAST table's reloptions
+        tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(toastid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for relation %u", toastid);
+
+        reloptions = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_reloptions, &isNull);
+        if (isNull)
+            reloptions = (Datum) 0;
+
+        // Create TOAST table for new heap
+        NewHeapCreateToastTable(OIDNewHeap, reloptions, lockmode, toastid);
+
+        ReleaseSysCache(tuple);
+    }
+
+    table_close(OldHeap, NoLock);
+
+    return OIDNewHeap;
+}
+```

@@ -36,3 +36,12 @@ The function name suggests "error-checked copy allocation," reflecting its role 
 - The function serves as a centralized point for string duplication with error checking
 - It's extensively used throughout the timezone rule parsing and processing logic
 - The memcheck wrapper ensures the program terminates gracefully if memory allocation fails
+
+## Simplified Source
+
+```c
+static char *ecpyalloc(char const *str) {
+    // Duplicate string with error checking
+    return memcheck(strdup(str));
+}
+```

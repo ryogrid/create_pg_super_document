@@ -35,3 +35,32 @@ ReceiveCopyBegin sets up the COPY FROM operation by sending a CopyInResponse mes
 - Sets up both the overall format and per-column format specifications in the protocol message
 - Initializes the frontend message buffer that will be used to receive incoming data
 - The format field indicates whether the copy operation uses text (0) or binary (1) format
+
+## Simplified Source
+```c
+void ReceiveCopyBegin(CopyFromState cstate) {
+    // Prepare CopyInResponse message for frontend
+    StringInfoData buf;
+    int natts = list_length(cstate->attnumlist);
+    int16 format = (cstate->opts.binary ? 1 : 0);  // 0=text, 1=binary
+
+    // Build protocol message
+    pq_beginmessage(&buf, PqMsg_CopyInResponse);
+    pq_sendbyte(&buf, format);        // overall format
+    pq_sendint16(&buf, natts);        // number of columns
+
+    // Send format for each column
+    for (int i = 0; i < natts; i++) {
+        pq_sendint16(&buf, format);
+    }
+
+    pq_endmessage(&buf);
+
+    // Initialize copy state for frontend communication
+    cstate->copy_src = COPY_FRONTEND;
+    cstate->fe_msgbuf = makeStringInfo();
+
+    // Must flush to signal frontend can start sending data
+    pq_flush();
+}
+```

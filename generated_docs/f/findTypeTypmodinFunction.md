@@ -37,3 +37,30 @@ This function locates and validates a type modifier input function during type d
 - A warning is issued if the function is marked as volatile, as typmod functions should typically be immutable
 - This works in conjunction with findTypeTypmodoutFunction to provide complete type modifier support
 - Type modifiers are commonly used for types like VARCHAR(n), DECIMAL(precision,scale), etc.
+
+## Simplified Source
+
+```c
+static Oid findTypeTypmodinFunction(List *procname) {
+    Oid argList[1] = { CSTRINGARRAYOID };
+
+    // Look up function with signature: (cstring[]) -> int4
+    Oid procOid = LookupFuncName(procname, 1, argList, true);
+
+    if (!OidIsValid(procOid))
+        ereport(ERROR, "function %s does not exist",
+                func_signature_string(procname, 1, NIL, argList));
+
+    // Verify function returns int4
+    if (get_func_rettype(procOid) != INT4OID)
+        ereport(ERROR, "typmod_in function %s must return type integer",
+                NameListToString(procname));
+
+    // Warn if volatile (should be immutable)
+    if (func_volatile(procOid) == PROVOLATILE_VOLATILE)
+        ereport(WARNING, "type modifier input function %s should not be volatile",
+                NameListToString(procname));
+
+    return procOid;
+}
+```

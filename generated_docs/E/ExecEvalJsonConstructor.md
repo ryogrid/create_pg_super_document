@@ -47,3 +47,78 @@ The function automatically determines whether to produce JSON (text) or JSONB (b
 - Memory management relies on PostgreSQL's memory context system for temporary allocations
 - Type conversion for scalars uses cached type information including output functions and JSON type categories
 - Error handling includes validation for unknown constructor types
+
+## Simplified Source
+
+```c
+void ExecEvalJsonConstructor(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    JsonConstructorExprState *jcstate = op->d.json_constructor.jcstate;
+    JsonConstructorExpr *ctor = jcstate->constructor;
+    bool is_jsonb = (ctor->returning->format->format_type == JS_FORMAT_JSONB);
+    Datum res;
+    bool isnull = false;
+
+    switch (ctor->type)
+    {
+        case JSCTOR_JSON_ARRAY:
+            // Build JSON array from arguments
+            res = (is_jsonb ? jsonb_build_array_worker : json_build_array_worker)
+                    (jcstate->nargs, jcstate->arg_values, jcstate->arg_nulls,
+                     jcstate->arg_types, ctor->absent_on_null);
+            break;
+
+        case JSCTOR_JSON_OBJECT:
+            // Build JSON object from key-value pairs
+            res = (is_jsonb ? jsonb_build_object_worker : json_build_object_worker)
+                    (jcstate->nargs, jcstate->arg_values, jcstate->arg_nulls,
+                     jcstate->arg_types, ctor->absent_on_null, ctor->unique);
+            break;
+
+        case JSCTOR_JSON_SCALAR:
+            // Convert single value to JSON scalar
+            if (jcstate->arg_nulls[0])
+            {
+                res = (Datum) 0;
+                isnull = true;
+            }
+            else
+            {
+                Datum value = jcstate->arg_values[0];
+                Oid outfuncid = jcstate->arg_type_cache[0].outfuncid;
+                JsonTypeCategory category = (JsonTypeCategory) jcstate->arg_type_cache[0].category;
+
+                res = is_jsonb ? datum_to_jsonb(value, category, outfuncid)
+                               : datum_to_json(value, category, outfuncid);
+            }
+            break;
+
+        case JSCTOR_JSON_PARSE:
+            // Parse text string as JSON
+            if (jcstate->arg_nulls[0])
+            {
+                res = (Datum) 0;
+                isnull = true;
+            }
+            else
+            {
+                text *js = DatumGetTextP(jcstate->arg_values[0]);
+
+                if (is_jsonb)
+                    res = jsonb_from_text(js, true);
+                else
+                {
+                    json_validate(js, true, true);
+                    res = jcstate->arg_values[0];  // Return original text
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "invalid JsonConstructorExpr type %d", ctor->type);
+    }
+
+    *op->resvalue = res;
+    *op->resnull = isnull;
+}
+```

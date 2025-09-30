@@ -40,3 +40,48 @@ The function is critical for vacuum operations and SLRU management decisions. Wh
 - Does not guarantee that returned value is safe for SLRU truncation
 - Safe for setting relminmxid values in vacuum operations
 - Returns the most conservative (oldest) valid MultiXactId found
+
+## Simplified Source
+
+```c
+MultiXactId
+GetOldestMultiXactId(void)
+{
+    MultiXactId oldestMXact;
+    MultiXactId nextMXact;
+    int i;
+
+    // Acquire shared lock to read MultiXact state
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+
+    // Get next MultiXact ID, handling wraparound
+    nextMXact = MultiXactState->nextMXact;
+    if (nextMXact < FirstMultiXactId)
+        nextMXact = FirstMultiXactId;
+
+    // Start with next MXID as default oldest
+    oldestMXact = nextMXact;
+
+    // Scan all slots to find the oldest valid MultiXactId
+    for (i = 0; i < MaxOldestSlot; i++)
+    {
+        MultiXactId thisoldest;
+
+        // Check oldest member MXID for this slot
+        thisoldest = OldestMemberMXactId[i];
+        if (MultiXactIdIsValid(thisoldest) &&
+            MultiXactIdPrecedes(thisoldest, oldestMXact))
+            oldestMXact = thisoldest;
+
+        // Check oldest visible MXID for this slot
+        thisoldest = OldestVisibleMXactId[i];
+        if (MultiXactIdIsValid(thisoldest) &&
+            MultiXactIdPrecedes(thisoldest, oldestMXact))
+            oldestMXact = thisoldest;
+    }
+
+    LWLockRelease(MultiXactGenLock);
+
+    return oldestMXact;
+}
+```

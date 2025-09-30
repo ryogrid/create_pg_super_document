@@ -38,3 +38,20 @@ The function includes an important caveat: it makes no attempt to preserve AND/O
 - Commonly used in query rewriting and optimization phases where conditions need to be combined incrementally
 - The NULL-as-true semantics are specific to PostgreSQL's internal qualifier representation
 - More efficient than always creating AND clauses since it avoids node creation in common cases
+
+## Simplified Source
+
+```c
+Node *
+make_and_qual(Node *qual1, Node *qual2)
+{
+    // NULL qualifiers represent 'true' - return the other qualifier
+    if (qual1 == NULL)
+        return qual2;
+    if (qual2 == NULL)
+        return qual1;
+
+    // Both qualifiers present - create AND clause
+    return (Node *) make_andclause(list_make2(qual1, qual2));
+}
+```

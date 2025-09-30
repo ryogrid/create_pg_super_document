@@ -47,3 +47,114 @@ The function is designed to be recursive, allowing it to drill down through mult
 - The function handles complex cases like CTE references that may span multiple query levels
 - Security considerations prevent accessing statistics from security barrier views to avoid information leakage
 - The acl_ok field in vardata is set based on whether the user has permission to see all rows, affecting which statistical functions can be used later
+
+## Simplified Source
+
+```c
+static void
+examine_simple_variable(PlannerInfo *root, Var *var, VariableStatData *vardata)
+{
+    RangeTblEntry *rte = root->simple_rte_array[var->varno];
+
+    // Try custom stats hook first
+    if (get_relation_stats_hook &&
+        (*get_relation_stats_hook)(root, rte, var->varattno, vardata)) {
+        // Hook handled stats acquisition
+        if (HeapTupleIsValid(vardata->statsTuple) && !vardata->freefunc)
+            elog(ERROR, "no function provided to release variable stats with");
+    }
+    else if (rte->rtekind == RTE_RELATION) {
+        // Regular table - look up column statistics in pg_statistic
+        vardata->statsTuple = SearchSysCache3(STATRELATTINH,
+                                            ObjectIdGetDatum(rte->relid),
+                                            Int16GetDatum(var->varattno),
+                                            BoolGetDatum(rte->inh));
+        vardata->freefunc = ReleaseSysCache;
+
+        // Check user permissions for accessing statistics
+        if (HeapTupleIsValid(vardata->statsTuple)) {
+            vardata->acl_ok = all_rows_selectable(root, var->varno,
+                                                bms_make_singleton(var->varattno - FirstLowInvalidHeapAttributeNumber));
+        } else {
+            vardata->acl_ok = true; // No stats to protect
+        }
+    }
+    else if ((rte->rtekind == RTE_SUBQUERY && !rte->inh) ||
+             (rte->rtekind == RTE_CTE && !rte->self_reference)) {
+        // Subquery or CTE - try to analyze the underlying expression
+
+        if (var->varattno == InvalidAttrNumber)
+            return; // Can't handle whole-row vars
+
+        PlannerInfo *subroot = NULL;
+
+        if (rte->rtekind == RTE_SUBQUERY) {
+            // Get subquery's planner info
+            RelOptInfo *rel = find_base_rel(root, var->varno);
+            subroot = rel->subroot;
+        } else {
+            // CTE case - find the referenced CTE's subroot
+            PlannerInfo *cteroot = root;
+            Index levelsup = rte->ctelevelsup;
+
+            // Navigate to the appropriate query level
+            while (levelsup-- > 0) {
+                cteroot = cteroot->parent_root;
+                if (!cteroot)
+                    elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+            }
+
+            // Find CTE in the list and get its plan ID
+            int ndx = 0;
+            ListCell *lc;
+            foreach(lc, cteroot->parse->cteList) {
+                CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+                if (strcmp(cte->ctename, rte->ctename) == 0)
+                    break;
+                ndx++;
+            }
+
+            if (lc != NULL && ndx < list_length(cteroot->cte_plan_ids)) {
+                int plan_id = list_nth_int(cteroot->cte_plan_ids, ndx);
+                if (plan_id > 0)
+                    subroot = list_nth(root->glob->subroots, plan_id - 1);
+            }
+        }
+
+        if (subroot == NULL)
+            return; // Subquery not planned yet
+
+        Query *subquery = subroot->parse;
+
+        // Skip if subquery has operations that destroy column stats
+        if (subquery->setOperations || subquery->groupClause || subquery->groupingSets)
+            return;
+
+        // Get the target entry that this Var references
+        List *subtlist = subquery->returningList ? subquery->returningList : subquery->targetList;
+        TargetEntry *ste = get_tle_by_resno(subtlist, var->varattno);
+        if (ste == NULL || ste->resjunk)
+            elog(ERROR, "subquery %s does not have attribute %d", rte->eref->aliasname, var->varattno);
+
+        var = (Var *) ste->expr;
+
+        // Handle DISTINCT clause
+        if (subquery->distinctClause) {
+            if (list_length(subquery->distinctClause) == 1 &&
+                targetIsInSortList(ste, InvalidOid, subquery->distinctClause))
+                vardata->isunique = true;
+            return; // Can't get other stats with DISTINCT
+        }
+
+        // Respect security barriers
+        if (rte->security_barrier)
+            return;
+
+        // Recursively examine the underlying variable
+        if (var && IsA(var, Var) && var->varlevelsup == 0) {
+            examine_simple_variable(subroot, var, vardata);
+        }
+    }
+    // Other RTE types (FUNCTION, VALUES) - no stats available
+}
+```

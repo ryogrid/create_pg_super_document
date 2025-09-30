@@ -36,3 +36,28 @@ This function serves as a public interface for changing subscription ownership w
 - It opens the subscription system catalog with RowExclusiveLock to ensure exclusive access during the ownership change
 - Error handling ensures that invalid subscription OIDs are properly reported with appropriate error codes
 - The function follows PostgreSQL's standard pattern of public wrapper functions that perform validation before calling internal implementation functions
+
+## Simplified Source
+
+```c
+void AlterSubscriptionOwner_oid(Oid subid, Oid newOwnerId)
+{
+    // Open subscription catalog table
+    Relation rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+
+    // Find subscription by OID
+    HeapTuple tup = SearchSysCacheCopy1(SUBSCRIPTIONOID, ObjectIdGetDatum(subid));
+
+    // Validate subscription exists
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("subscription with OID %u does not exist", subid)));
+
+    // Perform ownership change
+    AlterSubscriptionOwner_internal(rel, tup, newOwnerId);
+
+    // Cleanup resources
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

@@ -43,3 +43,29 @@ The function handles VARIADIC ANY aggregates correctly by allowing more actual a
 - Includes an assertion to ensure declared argument count doesn't exceed actual argument count
 - Properly handles memory management by freeing the declaredArgTypes array after use
 - Critical for proper type resolution in PostgreSQL's polymorphic aggregate system
+
+## Simplified Source
+
+```c
+Oid resolve_aggregate_transtype(Oid aggfuncid, Oid aggtranstype,
+                                Oid *inputTypes, int numArguments) {
+    // Handle polymorphic transition types
+    if (IsPolymorphicType(aggtranstype)) {
+        Oid *declaredArgTypes;
+        int agg_nargs;
+
+        // Get the aggregate's declared argument types
+        get_func_signature(aggfuncid, &declaredArgTypes, &agg_nargs);
+
+        // Resolve polymorphic type based on actual arguments
+        aggtranstype = enforce_generic_type_consistency(inputTypes,
+                                                        declaredArgTypes,
+                                                        agg_nargs,
+                                                        aggtranstype,
+                                                        false);
+        pfree(declaredArgTypes);
+    }
+
+    return aggtranstype;
+}
+```

@@ -34,3 +34,21 @@ This internal function initializes or resets a NumericVar structure to represent
 - Weight is set to 0 by convention, though it doesn't affect zero representation
 - Essential building block for numeric arithmetic and initialization operations
 - Located in src/backend/utils/adt/numeric.c:7001-7027
+
+## Simplified Source
+
+```c
+static void zero_var(NumericVar *var) {
+    // Free existing digit buffer memory
+    digitbuf_free(var->buf);
+
+    // Reset all fields to represent zero
+    var->buf = NULL;
+    var->digits = NULL;
+    var->ndigits = 0;
+    var->weight = 0;        // By convention
+    var->sign = NUMERIC_POS; // Any non-NAN value
+
+    // Note: dscale (decimal scale) is intentionally preserved
+}
+```

@@ -37,3 +37,27 @@ The selection process uses the `linear_rand()` function which implements a biase
 - Part of PostgreSQL's Genetic Query Optimizer for handling large join problems
 - The selected chromosomes are copied to the output parameters, not referenced directly
 - Selection is biased toward chromosomes with better fitness (earlier positions in sorted pool)
+
+## Simplified Source
+
+```c
+void geqo_selection(PlannerInfo *root, Chromosome *momma, Chromosome *daddy,
+                   Pool *pool, double bias) {
+    int first, second;
+
+    // Select first parent using linear bias
+    first = linear_rand(root, pool->size, bias);
+    second = linear_rand(root, pool->size, bias);
+
+    // Ensure different parents are selected (if possible)
+    if (pool->size > 1) {
+        while (first == second) {
+            second = linear_rand(root, pool->size, bias);
+        }
+    }
+
+    // Copy selected chromosomes to output parameters
+    geqo_copy(root, momma, &pool->data[first], pool->string_length);
+    geqo_copy(root, daddy, &pool->data[second], pool->string_length);
+}
+```

@@ -57,3 +57,19 @@ The function includes protection against unexpected usage during logical decodin
 - Returns true if the tuple was found and passed visibility test, false otherwise
 - Commonly used in DML operations (INSERT, UPDATE, DELETE, MERGE) and trigger execution
 - Suitable for operations that need to examine a specific tuple version rather than finding the current visible version
+
+## Simplified Source
+
+```c
+static inline bool table_tuple_fetch_row_version(Relation rel,
+                                                ItemPointer tid,
+                                                Snapshot snapshot,
+                                                TupleTableSlot *slot) {
+    // Check for unexpected usage during logical decoding
+    if (unlikely(TransactionIdIsValid(CheckXidAlive) && !bsysscan))
+        elog(ERROR, "unexpected table_tuple_fetch_row_version call during logical decoding");
+
+    // Fetch specific tuple version using table access method
+    return rel->rd_tableam->tuple_fetch_row_version(rel, tid, snapshot, slot);
+}
+```

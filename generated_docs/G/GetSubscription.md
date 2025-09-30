@@ -46,3 +46,73 @@ GetSubscription retrieves a subscription record by its OID from the PostgreSQL s
 - Determines ownership privileges by checking if the subscription owner is a superuser
 - Memory allocated for the Subscription structure and string fields should be freed by the caller
 - Part of PostgreSQL's logical replication subscription management system
+
+## Simplified Source
+
+```c
+Subscription *
+GetSubscription(Oid subid, bool missing_ok)
+{
+    HeapTuple tup;
+    Subscription *sub;
+    Form_pg_subscription subform;
+    Datum datum;
+    bool isnull;
+
+    // Look up subscription in system cache
+    tup = SearchSysCache1(SUBSCRIPTIONOID, ObjectIdGetDatum(subid));
+
+    if (!HeapTupleIsValid(tup)) {
+        if (missing_ok)
+            return NULL;
+        elog(ERROR, "cache lookup failed for subscription %u", subid);
+    }
+
+    subform = (Form_pg_subscription) GETSTRUCT(tup);
+
+    // Allocate and populate Subscription structure
+    sub = (Subscription *) palloc(sizeof(Subscription));
+    sub->oid = subid;
+    sub->dbid = subform->subdbid;
+    sub->skiplsn = subform->subskiplsn;
+    sub->name = pstrdup(NameStr(subform->subname));
+    sub->owner = subform->subowner;
+    sub->enabled = subform->subenabled;
+    sub->binary = subform->subbinary;
+    sub->stream = subform->substream;
+    sub->twophasestate = subform->subtwophasestate;
+    sub->disableonerr = subform->subdisableonerr;
+    sub->passwordrequired = subform->subpasswordrequired;
+    sub->runasowner = subform->subrunasowner;
+    sub->failover = subform->subfailover;
+
+    // Get connection info (required field)
+    datum = SysCacheGetAttrNotNull(SUBSCRIPTIONOID, tup, Anum_pg_subscription_subconninfo);
+    sub->conninfo = TextDatumGetCString(datum);
+
+    // Get slot name (optional field)
+    datum = SysCacheGetAttr(SUBSCRIPTIONOID, tup, Anum_pg_subscription_subslotname, &isnull);
+    if (!isnull)
+        sub->slotname = pstrdup(NameStr(*DatumGetName(datum)));
+    else
+        sub->slotname = NULL;
+
+    // Get synchronous commit setting
+    datum = SysCacheGetAttrNotNull(SUBSCRIPTIONOID, tup, Anum_pg_subscription_subsynccommit);
+    sub->synccommit = TextDatumGetCString(datum);
+
+    // Get publications list
+    datum = SysCacheGetAttrNotNull(SUBSCRIPTIONOID, tup, Anum_pg_subscription_subpublications);
+    sub->publications = textarray_to_stringlist(DatumGetArrayTypeP(datum));
+
+    // Get origin setting
+    datum = SysCacheGetAttrNotNull(SUBSCRIPTIONOID, tup, Anum_pg_subscription_suborigin);
+    sub->origin = TextDatumGetCString(datum);
+
+    // Check if subscription owner is superuser
+    sub->ownersuperuser = superuser_arg(sub->owner);
+
+    ReleaseSysCache(tup);
+    return sub;
+}
+```

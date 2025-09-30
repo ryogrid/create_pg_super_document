@@ -32,3 +32,17 @@ This function is essential for timezone parsing where string matching needs to b
 - Part of PostgreSQL's timezone compilation utilities (zic)
 - Commonly used for matching timezone abbreviations and keywords where case should not matter
 - The function handles null-terminated strings and stops comparison at the first differing character or when both strings reach their null terminators
+
+## Simplified Source
+
+```c
+static bool ciequal(const char *ap, const char *bp)
+{
+    // Compare strings character by character, case-insensitively
+    while (lowerit(*ap) == lowerit(*bp++)) {
+        if (*ap++ == '\0')
+            return true;  // Reached end of both strings
+    }
+    return false;  // Found a difference
+}
+```

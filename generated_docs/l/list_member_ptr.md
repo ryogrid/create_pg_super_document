@@ -42,3 +42,26 @@ This function is optimized for pointer comparison and should only be used with l
 - Returns  if the pointer is found,  otherwise
 - Part of PostgreSQL's generic List API located in src/backend/nodes/list.c
 - Commonly used throughout the system for checking membership in collections of pointers to structures, nodes, or other objects
+
+## Simplified Source
+
+```c
+bool
+list_member_ptr(const List *list, const void *datum)
+{
+    const ListCell *cell;
+
+    // Ensure this is a pointer list and validate structure
+    Assert(IsPointerList(list));
+    check_list_invariants(list);
+
+    // Check each list element using pointer comparison
+    foreach(cell, list)
+    {
+        if (lfirst(cell) == datum)
+            return true;
+    }
+
+    return false;
+}
+```

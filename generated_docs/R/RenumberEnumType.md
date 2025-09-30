@@ -46,3 +46,38 @@ The renumbering is triggered only when the normal enum insertion algorithm canno
 - Makes all changes visible with CommandCounterIncrement() after completion
 - Critical for maintaining the integrity of enum value ordering when the sort order space becomes fragmented
 - The enumsortorder values determine the comparison and sorting behavior of enum values
+
+## Simplified Source
+
+```c
+static void
+RenumberEnumType(Relation pg_enum, HeapTuple *existing, int nelems)
+{
+    int i;
+
+    // Renumber existing enum elements to have sort positions 1..n
+    // Work backwards to avoid uniqueness violations during update
+    for (i = nelems - 1; i >= 0; i--)
+    {
+        HeapTuple newtup;
+        Form_pg_enum en;
+        float4 newsortorder;
+
+        newtup = heap_copytuple(existing[i]);
+        en = (Form_pg_enum) GETSTRUCT(newtup);
+
+        newsortorder = i + 1;
+        if (en->enumsortorder != newsortorder)
+        {
+            // Update sort order only if it needs to change
+            en->enumsortorder = newsortorder;
+            CatalogTupleUpdate(pg_enum, &newtup->t_self, newtup);
+        }
+
+        heap_freetuple(newtup);
+    }
+
+    // Make all updates visible to subsequent operations
+    CommandCounterIncrement();
+}
+```

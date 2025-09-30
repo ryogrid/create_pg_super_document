@@ -43,3 +43,72 @@ The function performs sophisticated analysis to separate LATERAL references (var
 - Forces evaluation at syntactic location if no contained variables are found within scope
 - Recursively processes nested PlaceHolderVars in the expression
 - Throws error if called after placeholders are frozen (too late in planning process)
+
+## Simplified Source
+
+```c
+PlaceHolderInfo *find_placeholder_info(PlannerInfo *root, PlaceHolderVar *phv)
+{
+    PlaceHolderInfo *phinfo;
+    Relids rels_used;
+
+    // Quick lookup using placeholder array
+    if (phv->phid < root->placeholder_array_size)
+        phinfo = root->placeholder_array[phv->phid];
+    else
+        phinfo = NULL;
+
+    if (phinfo != NULL)
+        return phinfo;
+
+    // Not found, create new PlaceHolderInfo
+    if (root->placeholdersFrozen)
+        elog(ERROR, "too late to create a new PlaceHolderInfo");
+
+    phinfo = makeNode(PlaceHolderInfo);
+    phinfo->phid = phv->phid;
+    phinfo->ph_var = copyObject(phv);
+    phinfo->ph_var->phnullingrels = NULL; // Clear nulling rels
+
+    // Analyze variable references to determine evaluation placement
+    rels_used = pull_varnos(root, (Node *) phv->phexpr);
+    phinfo->ph_lateral = bms_difference(rels_used, phv->phrels);
+    phinfo->ph_eval_at = bms_int_members(rels_used, phv->phrels);
+
+    // Force evaluation at syntactic location if no contained vars
+    if (bms_is_empty(phinfo->ph_eval_at)) {
+        phinfo->ph_eval_at = bms_copy(phv->phrels);
+    }
+
+    phinfo->ph_needed = NULL; // Initially unused
+    phinfo->ph_width = get_typavgwidth(exprType((Node *) phv->phexpr),
+                                      exprTypmod((Node *) phv->phexpr));
+
+    // Add to placeholder list
+    root->placeholder_list = lappend(root->placeholder_list, phinfo);
+
+    // Expand placeholder array if needed
+    if (phinfo->phid >= root->placeholder_array_size) {
+        int new_size = root->placeholder_array_size ?
+                      root->placeholder_array_size * 2 : 8;
+        while (phinfo->phid >= new_size)
+            new_size *= 2;
+
+        if (root->placeholder_array)
+            root->placeholder_array = repalloc0_array(root->placeholder_array,
+                                                     PlaceHolderInfo *,
+                                                     root->placeholder_array_size,
+                                                     new_size);
+        else
+            root->placeholder_array = palloc0_array(PlaceHolderInfo *, new_size);
+
+        root->placeholder_array_size = new_size;
+    }
+    root->placeholder_array[phinfo->phid] = phinfo;
+
+    // Process nested PlaceHolderVars
+    find_placeholders_in_expr(root, (Node *) phinfo->ph_var->phexpr);
+
+    return phinfo;
+}
+```

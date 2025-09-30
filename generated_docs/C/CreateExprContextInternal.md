@@ -47,3 +47,55 @@ Key ExprContext fields initialized:
 
 ## Notes and Other Information
 This is a static (internal) function that provides the flexibility to create ExprContexts with different memory management characteristics. The function uses lcons() to prepend the new ExprContext to the estate's list, which means that shutdown will occur in reverse order of creation during cleanup. The per-tuple memory context created here will be used for temporary allocations during expression evaluation and can be reset between tuple evaluations to reclaim memory. The function ensures proper memory context management by switching to the query context before allocation and restoring the previous context before returning.
+
+## Simplified Source
+
+```c
+static ExprContext *
+CreateExprContextInternal(EState *estate, Size minContextSize,
+                          Size initBlockSize, Size maxBlockSize)
+{
+    ExprContext *econtext;
+    MemoryContext oldcontext;
+
+    // Create ExprContext in per-query memory context
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+    econtext = makeNode(ExprContext);
+
+    // Initialize tuple slots to NULL
+    econtext->ecxt_scantuple = NULL;
+    econtext->ecxt_innertuple = NULL;
+    econtext->ecxt_outertuple = NULL;
+
+    // Set memory contexts
+    econtext->ecxt_per_query_memory = estate->es_query_cxt;
+    econtext->ecxt_per_tuple_memory =
+        AllocSetContextCreate(estate->es_query_cxt,
+                              "ExprContext",
+                              minContextSize,
+                              initBlockSize,
+                              maxBlockSize);
+
+    // Link to estate parameters
+    econtext->ecxt_param_exec_vals = estate->es_param_exec_vals;
+    econtext->ecxt_param_list_info = estate->es_param_list_info;
+
+    // Initialize aggregate and CASE/domain value fields
+    econtext->ecxt_aggvalues = NULL;
+    econtext->ecxt_aggnulls = NULL;
+    econtext->caseValue_datum = (Datum) 0;
+    econtext->caseValue_isNull = true;
+    econtext->domainValue_datum = (Datum) 0;
+    econtext->domainValue_isNull = true;
+
+    // Set estate backpointer and callbacks
+    econtext->ecxt_estate = estate;
+    econtext->ecxt_callbacks = NULL;
+
+    // Add to estate's context list for cleanup
+    estate->es_exprcontexts = lcons(econtext, estate->es_exprcontexts);
+
+    MemoryContextSwitchTo(oldcontext);
+    return econtext;
+}
+```

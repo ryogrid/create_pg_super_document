@@ -49,3 +49,58 @@ Key safety measures include stack depth checking to prevent infinite recursion i
 - The function modifies rel->nparts to 0 if partitionwise join fails, allowing later functions to handle it correctly
 - Stack depth checking prevents issues with deeply nested partition hierarchies
 - Consider_partitionwise_join flag must be set on the relation before calling
+
+## Simplified Source
+
+```c
+void generate_partitionwise_join_paths(PlannerInfo *root, RelOptInfo *rel) {
+    List *live_children = NIL;
+    int cnt_parts, num_parts;
+    RelOptInfo **part_rels;
+
+    // Only process join relations that are partitioned
+    if (!IS_JOIN_REL(rel) || !IS_PARTITIONED_REL(rel))
+        return;
+
+    // Guard against deep recursion
+    check_stack_depth();
+
+    num_parts = rel->nparts;
+    part_rels = rel->part_rels;
+
+    // Process each child partition
+    for (cnt_parts = 0; cnt_parts < num_parts; cnt_parts++) {
+        RelOptInfo *child_rel = part_rels[cnt_parts];
+
+        // Skip pruned partitions
+        if (child_rel == NULL)
+            continue;
+
+        // Recursively generate paths for child partition
+        generate_partitionwise_join_paths(root, child_rel);
+
+        // If child has no paths, abandon partitionwise join
+        if (child_rel->pathlist == NIL) {
+            rel->nparts = 0;  // Mark as unpartitioned
+            return;
+        }
+
+        // Find cheapest path for this child
+        set_cheapest(child_rel);
+
+        // Collect non-dummy children for final append
+        if (!IS_DUMMY_REL(child_rel))
+            live_children = lappend(live_children, child_rel);
+    }
+
+    // Handle case where all children are dummy
+    if (!live_children) {
+        mark_dummy_rel(rel);
+        return;
+    }
+
+    // Build append paths from live children
+    add_paths_to_append_rel(root, rel, live_children);
+    list_free(live_children);
+}
+```

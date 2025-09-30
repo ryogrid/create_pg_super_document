@@ -43,3 +43,36 @@ This function establishes a new read-write conflict relationship between a reade
 - Adds the conflict to both the reader's outConflicts list and writer's inConflicts list
 - Part of PostgreSQL's serializable snapshot isolation conflict detection mechanism
 - Located in src/backend/storage/lmgr/predicate.c:643-665
+
+## Simplified Source
+
+```c
+static void
+SetRWConflict(SERIALIZABLEXACT *reader, SERIALIZABLEXACT *writer)
+{
+    RWConflict conflict;
+
+    // Validate input parameters
+    Assert(reader != writer);
+    Assert(!RWConflictExists(reader, writer));
+
+    // Check if conflict pool has available entries
+    if (dlist_is_empty(&RWConflictPool->availableList))
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("not enough elements in RWConflictPool"),
+                 errhint("Consider reducing concurrent transactions or increasing max_connections")));
+
+    // Allocate conflict record from pool
+    conflict = dlist_head_element(RWConflictData, outLink, &RWConflictPool->availableList);
+    dlist_delete(&conflict->outLink);
+
+    // Initialize conflict with transaction pointers
+    conflict->sxactOut = reader;
+    conflict->sxactIn = writer;
+
+    // Link conflict to both transactions
+    dlist_push_tail(&reader->outConflicts, &conflict->outLink);
+    dlist_push_tail(&writer->inConflicts, &conflict->inLink);
+}
+```

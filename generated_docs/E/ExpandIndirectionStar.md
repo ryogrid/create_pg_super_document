@@ -53,3 +53,25 @@ The use of copyObject() ensures that the original A_Indirection node is not modi
 - The function assumes that the input A_Indirection node has at least one element (the "*") to truncate
 - Error handling is delegated to the called functions (transformExpr and ExpandRowReference)
 - This function enables PostgreSQL to support complex star expansions like "(SELECT composite_col FROM table).*"
+
+## Simplified Source
+
+```c
+static List *
+ExpandIndirectionStar(ParseState *pstate, A_Indirection *ind,
+                      bool make_target_entry, ParseExprKind exprKind)
+{
+    Node *expr;
+
+    // Strip off the '*' to create a reference to the rowtype object
+    ind = copyObject(ind);
+    ind->indirection = list_truncate(ind->indirection,
+                                     list_length(ind->indirection) - 1);
+
+    // Transform the base expression
+    expr = transformExpr(pstate, (Node *) ind, exprKind);
+
+    // Expand the rowtype expression into individual fields
+    return ExpandRowReference(pstate, expr, make_target_entry);
+}
+```

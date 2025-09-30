@@ -51,3 +51,38 @@ This function is essential for PostgreSQL's object management system, particular
 - The function properly releases the system cache tuple after extracting the needed information
 - Essential for PostgreSQL's dependency tracking and object management systems
 - Located in src/backend/rewrite/rewriteSupport.c:92-116
+
+## Simplified Source
+
+```c
+Oid
+get_rewrite_oid(Oid relid, const char *rulename, bool missing_ok)
+{
+    HeapTuple tuple;
+    Form_pg_rewrite ruleform;
+    Oid ruleoid;
+
+    // Search for rule in system cache by relation and name
+    tuple = SearchSysCache2(RULERELNAME,
+                           ObjectIdGetDatum(relid),
+                           PointerGetDatum(rulename));
+
+    if (!HeapTupleIsValid(tuple))
+    {
+        if (missing_ok)
+            return InvalidOid;
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("rule \"%s\" for relation \"%s\" does not exist",
+                        rulename, get_rel_name(relid))));
+    }
+
+    // Extract OID from rule tuple
+    ruleform = (Form_pg_rewrite) GETSTRUCT(tuple);
+    Assert(relid == ruleform->ev_class);
+    ruleoid = ruleform->oid;
+    ReleaseSysCache(tuple);
+
+    return ruleoid;
+}
+```

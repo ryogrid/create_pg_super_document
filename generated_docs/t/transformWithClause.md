@@ -46,3 +46,83 @@ The function performs several critical validation steps including duplicate name
 - Data-modifying CTEs (INSERT/UPDATE/DELETE/MERGE) set the p_hasModifyingCTE flag
 - All CTEs are initially marked as non-recursive and have reference count zero
 - The function returns the final CTE namespace list which becomes part of the output Query
+
+## Simplified Source
+
+```c
+List *transformWithClause(ParseState *pstate, WithClause *withClause) {
+    ListCell *lc;
+
+    // Ensure only one WITH clause per query level
+    Assert(pstate->p_ctenamespace == NIL);
+    Assert(pstate->p_future_ctes == NIL);
+
+    // Check for duplicate CTE names and initialize each CTE
+    foreach(lc, withClause->ctes) {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+
+        // Check for duplicates in remaining CTEs
+        ListCell *rest;
+        for_each_cell(rest, withClause->ctes, lnext(withClause->ctes, lc)) {
+            CommonTableExpr *cte2 = (CommonTableExpr *) lfirst(rest);
+            if (strcmp(cte->ctename, cte2->ctename) == 0)
+                ereport(ERROR, "WITH query name specified more than once");
+        }
+
+        // Initialize CTE properties
+        cte->cterecursive = false;
+        cte->cterefcount = 0;
+
+        // Mark if this is a data-modifying CTE
+        if (!IsA(cte->ctequery, SelectStmt))
+            pstate->p_hasModifyingCTE = true;
+    }
+
+    if (withClause->recursive) {
+        // Handle recursive WITH: build dependency graph and sort
+        CteState cstate;
+
+        // Set up dependency analysis state
+        cstate.pstate = pstate;
+        cstate.numitems = list_length(withClause->ctes);
+        cstate.items = palloc0(cstate.numitems * sizeof(CteItem));
+
+        // Build dependency graph and check recursion validity
+        makeDependencyGraph(&cstate);
+        checkWellFormedRecursion(&cstate);
+
+        // Add all CTEs to namespace (for recursive visibility)
+        for (int i = 0; i < cstate.numitems; i++) {
+            pstate->p_ctenamespace = lappend(pstate->p_ctenamespace,
+                                            cstate.items[i].cte);
+        }
+
+        // Analyze CTEs in topologically sorted order
+        for (int i = 0; i < cstate.numitems; i++) {
+            analyzeCTE(pstate, cstate.items[i].cte);
+        }
+    } else {
+        // Handle non-recursive WITH: sequential processing
+        pstate->p_future_ctes = list_copy(withClause->ctes);
+
+        foreach(lc, withClause->ctes) {
+            CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+
+            // Analyze and add to namespace sequentially
+            analyzeCTE(pstate, cte);
+            pstate->p_ctenamespace = lappend(pstate->p_ctenamespace, cte);
+            pstate->p_future_ctes = list_delete_first(pstate->p_future_ctes);
+        }
+    }
+
+    return pstate->p_ctenamespace;
+}
+```
+
+**Key Points:**
+- Handles both recursive and non-recursive WITH clauses differently
+- Validates against duplicate CTE names and initializes CTE properties
+- Recursive WITH: builds dependency graph, validates recursion, processes in dependency order
+- Non-recursive WITH: processes CTEs sequentially with proper scoping
+- Maintains CTE namespace for proper visibility during parsing
+- Detects data-modifying CTEs and sets appropriate parser state flags

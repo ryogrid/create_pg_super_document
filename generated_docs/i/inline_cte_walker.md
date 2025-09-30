@@ -54,3 +54,63 @@ Key aspects of the inlining process include:
 - Static function scope limits visibility to the subselect.c compilation unit
 - FOR UPDATE semantics are preserved by not extending row-level locking behavior into the inlined subquery
 - CTE-specific metadata fields are explicitly cleared after conversion to prevent confusion
+
+## Simplified Source
+
+```c
+static bool
+inline_cte_walker(Node *node, inline_cte_walker_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Handle Query nodes: recurse with proper level tracking
+    if (IsA(node, Query)) {
+        Query *query = (Query *) node;
+
+        context->levelsup++;
+
+        // Process RTEs after their contents to avoid descending into newly inlined CTEs
+        query_tree_walker(query, inline_cte_walker, context,
+                         QTW_EXAMINE_RTES_AFTER);
+
+        context->levelsup--;
+        return false;
+    }
+
+    // Handle RTE nodes: check for matching CTE references to inline
+    else if (IsA(node, RangeTblEntry)) {
+        RangeTblEntry *rte = (RangeTblEntry *) node;
+
+        // Found matching CTE reference - perform inlining
+        if (rte->rtekind == RTE_CTE &&
+            strcmp(rte->ctename, context->ctename) == 0 &&
+            rte->ctelevelsup == context->levelsup) {
+
+            // Create copy of CTE query with proper level adjustment
+            Query *newquery = copyObject(context->ctequery);
+
+            if (context->levelsup > 0)
+                IncrementVarSublevelsUp((Node *) newquery, context->levelsup, 1);
+
+            // Convert RTE_CTE to RTE_SUBQUERY
+            rte->rtekind = RTE_SUBQUERY;
+            rte->subquery = newquery;
+            rte->security_barrier = false;
+
+            // Clear CTE-specific fields
+            rte->ctename = NULL;
+            rte->ctelevelsup = 0;
+            rte->self_reference = false;
+            rte->coltypes = NIL;
+            rte->coltypmods = NIL;
+            rte->colcollations = NIL;
+        }
+
+        return false;
+    }
+
+    // Handle other expression nodes
+    return expression_tree_walker(node, inline_cte_walker, context);
+}
+```

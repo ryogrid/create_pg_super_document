@@ -47,3 +47,41 @@ RangeVar is PostgreSQL's standard way of representing relation references in par
 - Used extensively in object address resolution and relation lookup operations
 - Part of PostgreSQL's name resolution and qualification infrastructure
 - Returns a newly allocated RangeVar structure that must be managed by the caller
+
+## Simplified Source
+
+```c
+RangeVar *makeRangeVarFromNameList(const List *names) {
+    RangeVar *rel = makeRangeVar(NULL, NULL, -1);
+
+    // Handle different levels of name qualification
+    switch (list_length(names)) {
+        case 1:
+            // Simple relation name: "table"
+            rel->relname = strVal(linitial(names));
+            break;
+
+        case 2:
+            // Schema-qualified name: "schema.table"
+            rel->schemaname = strVal(linitial(names));
+            rel->relname = strVal(lsecond(names));
+            break;
+
+        case 3:
+            // Fully-qualified name: "database.schema.table"
+            rel->catalogname = strVal(linitial(names));
+            rel->schemaname = strVal(lsecond(names));
+            rel->relname = strVal(lthird(names));
+            break;
+
+        default:
+            // Too many components - invalid
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("improper relation name (too many dotted names): %s",
+                                  NameListToString(names))));
+            break;
+    }
+
+    return rel;
+}
+```

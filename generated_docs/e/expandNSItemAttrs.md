@@ -44,3 +44,50 @@ The function works by first calling  to get the list of variables and column nam
 - The function maintains assertion checks to ensure the names and variables lists have matching lengths
 - [Result](../R/Result.md) numbers are automatically assigned and incremented via 
 - This function is essential for implementing SQL's "*" wildcard functionality in SELECT statements
+
+## Simplified Source
+
+```c
+List *
+expandNSItemAttrs(ParseState *pstate, ParseNamespaceItem *nsitem,
+                  int sublevels_up, bool require_col_privs, int location)
+{
+    RangeTblEntry *rte = nsitem->p_rte;
+    RTEPermissionInfo *perminfo = nsitem->p_perminfo;
+    List *names, *vars;
+    ListCell *name, *var;
+    List *te_list = NIL;
+
+    // Get variables and names for all attributes
+    vars = expandNSItemVars(pstate, nsitem, sublevels_up, location, &names);
+
+    // Mark table as requiring SELECT access for relations
+    if (rte->rtekind == RTE_RELATION)
+    {
+        Assert(perminfo != NULL);
+        perminfo->requiredPerms |= ACL_SELECT;
+    }
+
+    // Create target entries for each column
+    forboth(name, names, var, vars)
+    {
+        char *label = strVal(lfirst(name));
+        Var *varnode = (Var *) lfirst(var);
+        TargetEntry *te;
+
+        te = makeTargetEntry((Expr *) varnode,
+                            (AttrNumber) pstate->p_next_resno++,
+                            label,
+                            false);
+        te_list = lappend(te_list, te);
+
+        // Mark column for SELECT privilege if requested
+        if (require_col_privs)
+            markVarForSelectPriv(pstate, varnode);
+    }
+
+    Assert(name == NULL && var == NULL);  // Ensure lists same length
+
+    return te_list;
+}
+```

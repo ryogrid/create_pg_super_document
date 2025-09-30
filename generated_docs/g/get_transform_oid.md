@@ -38,3 +38,25 @@ The function provides flexible error handling through the missing_ok parameter -
 - Returns InvalidOid when transform doesn't exist and missing_ok is true
 - Error messages include human-readable type and language names for better diagnostics
 - Critical for supporting data type conversions in stored procedures and functions written in procedural languages
+
+## Simplified Source
+
+```c
+Oid
+get_transform_oid(Oid type_id, Oid lang_id, bool missing_ok) {
+    Oid oid;
+
+    // Look up transform in system cache
+    oid = GetSysCacheOid2(TRFTYPELANG, Anum_pg_transform_oid,
+                          ObjectIdGetDatum(type_id),
+                          ObjectIdGetDatum(lang_id));
+
+    // Handle not found case
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR, "transform for type %s language \"%s\" does not exist",
+                format_type_be(type_id),
+                get_language_name(lang_id, false));
+
+    return oid;
+}
+```

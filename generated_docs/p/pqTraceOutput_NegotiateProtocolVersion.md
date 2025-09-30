@@ -34,3 +34,17 @@ The function reads two consecutive 32-bit integers from the message buffer using
 - The two integers typically represent the supported protocol version numbers that the server is proposing
 - The function assumes the message buffer contains at least 8 bytes of data (two 32-bit integers) starting at the cursor position
 - Part of PostgreSQL's protocol-level debugging and diagnostics system for troubleshooting client-server communication issues
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_NegotiateProtocolVersion(FILE *f, const char *message, int *cursor)
+{
+    // Output message type identifier
+    fprintf(f, "NegotiateProtocolVersion\t");
+
+    // Extract and display two protocol version numbers
+    pqTraceOutputInt32(f, message, cursor, false);
+    pqTraceOutputInt32(f, message, cursor, false);
+}
+```

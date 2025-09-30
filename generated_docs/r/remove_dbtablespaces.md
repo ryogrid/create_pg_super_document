@@ -55,3 +55,79 @@ The function handles errors gracefully - if a directory doesn't exist or can't b
 - Memory management is handled carefully with  calls to prevent leaks
 - The function is defined in 
 - Critical for maintaining filesystem cleanliness and preventing orphaned database directories
+
+## Simplified Source
+
+```c
+static void remove_dbtablespaces(Oid db_id) {
+    Relation rel;
+    TableScanDesc scan;
+    HeapTuple tuple;
+    List *ltblspc = NIL;
+    int ntblspc;
+    Oid *tablespace_ids;
+
+    // Scan all tablespaces
+    rel = table_open(TableSpaceRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 0, NULL);
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_tablespace spcform = (Form_pg_tablespace) GETSTRUCT(tuple);
+        Oid dsttablespace = spcform->oid;
+        char *dstpath;
+        struct stat st;
+
+        // Skip global tablespace
+        if (dsttablespace == GLOBALTABLESPACE_OID)
+            continue;
+
+        // Get database path in this tablespace
+        dstpath = GetDatabasePath(db_id, dsttablespace);
+
+        // Check if directory exists
+        if (lstat(dstpath, &st) < 0 || !S_ISDIR(st.st_mode)) {
+            pfree(dstpath);
+            continue;
+        }
+
+        // Remove directory tree
+        if (!rmtree(dstpath, true))
+            ereport(WARNING,
+                    (errmsg("some useless files may be left behind in old database directory \"%s\"",
+                            dstpath)));
+
+        ltblspc = lappend_oid(ltblspc, dsttablespace);
+        pfree(dstpath);
+    }
+
+    ntblspc = list_length(ltblspc);
+    if (ntblspc == 0) {
+        table_endscan(scan);
+        table_close(rel, AccessShareLock);
+        return;
+    }
+
+    // Convert list to array for WAL record
+    tablespace_ids = (Oid *) palloc(ntblspc * sizeof(Oid));
+    int i = 0;
+    ListCell *cell;
+    foreach(cell, ltblspc)
+        tablespace_ids[i++] = lfirst_oid(cell);
+
+    // Log filesystem change in WAL
+    xl_dbase_drop_rec xlrec;
+    xlrec.db_id = db_id;
+    xlrec.ntablespaces = ntblspc;
+
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, MinSizeOfDbaseDropRec);
+    XLogRegisterData((char *) tablespace_ids, ntblspc * sizeof(Oid));
+    XLogInsert(RM_DBASE_ID, XLOG_DBASE_DROP | XLR_SPECIAL_REL_UPDATE);
+
+    // Cleanup
+    list_free(ltblspc);
+    pfree(tablespace_ids);
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+}
+```

@@ -40,3 +40,16 @@ This cleanup mechanism is essential for subscription lifecycle management and al
 - Critical for preventing shared memory leaks when subscriptions are modified or deleted
 - Enables immediate worker restart by removing throttling constraints for configuration changes
 - The void cast on `dshash_delete_key()` indicates deliberate ignoring of whether the key existed
+
+## Simplified Source
+
+```c
+void ApplyLauncherForgetWorkerStartTime(Oid subid)
+{
+    // Ensure shared memory hash table is accessible
+    logicalrep_launcher_attach_dshmem();
+
+    // Remove start time entry for subscription (ignore if not found)
+    (void) dshash_delete_key(last_start_times, &subid);
+}
+```

@@ -37,3 +37,29 @@ The function is designed as a higher-level abstraction that simplifies the commo
 - Proper syscache memory management is implemented by calling ReleaseSysCache() after extracting the OID
 - The function returns InvalidOid rather than throwing an error when missing_ok is true, making it suitable for optional lookups
 - Commonly used throughout the operator class and family management subsystem in PostgreSQL
+
+## Simplified Source
+
+```c
+Oid
+get_opfamily_oid(Oid amID, List *opfamilyname, bool missing_ok)
+{
+    HeapTuple htup;
+    Form_pg_opfamily opfamform;
+    Oid opfID;
+
+    // Look up operator family in cache
+    htup = OpFamilyCacheLookup(amID, opfamilyname, missing_ok);
+    if (!HeapTupleIsValid(htup))
+        return InvalidOid;
+
+    // Extract OID from catalog tuple
+    opfamform = (Form_pg_opfamily) GETSTRUCT(htup);
+    opfID = opfamform->oid;
+
+    // Release cache reference
+    ReleaseSysCache(htup);
+
+    return opfID;
+}
+```

@@ -52,3 +52,67 @@ The output format is "(column1, column2, ...) = (value1, value2, ...)" with prop
 - Long field values are truncated with "..." suffix to keep error messages manageable
 - This is a static function used internally for error reporting in the partition routing subsystem
 - The function balances informative error messages with security considerations by respecting PostgreSQL's access control model
+
+## Simplified Source
+
+```c
+static char *ExecBuildSlotPartitionKeyDescription(Relation rel, Datum *values,
+                                                bool *isnull, int maxfieldlen) {
+    StringInfoData buf;
+    PartitionKey key = RelationGetPartitionKey(rel);
+    int partnatts = get_partition_natts(key);
+    Oid relid = RelationGetRelid(rel);
+
+    // Check Row Level Security
+    if (check_enable_rls(relid, InvalidOid, true) == RLS_ENABLED)
+        return NULL;
+
+    // Check table-level SELECT permission
+    AclResult aclresult = pg_class_aclcheck(relid, GetUserId(), ACL_SELECT);
+    if (aclresult != ACLCHECK_OK) {
+        // Check each partition key column for SELECT permission
+        for (int i = 0; i < partnatts; i++) {
+            AttrNumber attnum = get_partition_col_attnum(key, i);
+
+            // Return NULL for expressions or insufficient permissions
+            if (attnum == InvalidAttrNumber ||
+                pg_attribute_aclcheck(relid, attnum, GetUserId(), ACL_SELECT) != ACLCHECK_OK)
+                return NULL;
+        }
+    }
+
+    // Build the description string
+    initStringInfo(&buf);
+    appendStringInfo(&buf, "(%s) = (", pg_get_partkeydef_columns(relid, true));
+
+    for (int i = 0; i < partnatts; i++) {
+        char *val;
+        int vallen;
+
+        if (isnull[i]) {
+            val = "null";
+        } else {
+            Oid foutoid;
+            bool typisvarlena;
+            getTypeOutputInfo(get_partition_col_typid(key, i), &foutoid, &typisvarlena);
+            val = OidOutputFunctionCall(foutoid, values[i]);
+        }
+
+        if (i > 0)
+            appendStringInfoString(&buf, ", ");
+
+        // Truncate long values
+        vallen = strlen(val);
+        if (vallen <= maxfieldlen)
+            appendBinaryStringInfo(&buf, val, vallen);
+        else {
+            vallen = pg_mbcliplen(val, vallen, maxfieldlen);
+            appendBinaryStringInfo(&buf, val, vallen);
+            appendStringInfoString(&buf, "...");
+        }
+    }
+
+    appendStringInfoChar(&buf, ')');
+    return buf.data;
+}
+```

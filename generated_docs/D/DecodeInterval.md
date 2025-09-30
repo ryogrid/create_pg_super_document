@@ -55,3 +55,132 @@ Key capabilities include:
 - Special reserved words "infinity" and "-infinity" result in infinite interval values
 - Fractional parts are supported for all time units, not just the least significant
 - Comprehensive validation prevents field duplication and ensures proper unit-value pairing
+
+## Simplified Source
+
+```c
+int DecodeInterval(char **field, int *ftype, int nf, int range, int *dtype, struct pg_itm_in *itm_in)
+{
+    bool force_negative = false;
+    bool is_before = false;
+    bool parsing_unit_val = false;
+    int fmask = 0, type = IGNORE_DTF;
+
+    *dtype = DTK_DELTA;
+    ClearPgItmIn(itm_in);
+
+    // Handle SQL standard negative sign propagation
+    if (IntervalStyle == INTSTYLE_SQL_STANDARD && nf > 0 && *field[0] == '-') {
+        force_negative = true;
+        // Check for additional explicit signs that would override global negative
+        for (int i = 1; i < nf; i++) {
+            if (*field[i] == '-' || *field[i] == '+') {
+                force_negative = false;
+                break;
+            }
+        }
+    }
+
+    // Process fields from right to left to handle units before values
+    for (int i = nf - 1; i >= 0; i--) {
+        int64 val;
+        double fval;
+        int tmask = 0;
+
+        switch (ftype[i]) {
+            case DTK_TIME:
+                // Parse HH:MM:SS format
+                if (DecodeTimeForInterval(field[i], fmask, range, &tmask, itm_in))
+                    return DTERR_FIELD_OVERFLOW;
+                if (force_negative && itm_in->tm_usec > 0)
+                    itm_in->tm_usec = -itm_in->tm_usec;
+                type = DTK_DAY;
+                break;
+
+            case DTK_NUMBER:
+            case DTK_DATE:
+                // Parse numeric values with potential fractions
+                val = strtoi64(field[i], &cp, 10);
+                if (errno == ERANGE) return DTERR_FIELD_OVERFLOW;
+
+                // Handle year-month format (e.g., "2-6")
+                if (*cp == '-') {
+                    int val2 = strtoint(cp + 1, &cp, 10);
+                    if (errno == ERANGE || val2 < 0 || val2 >= MONTHS_PER_YEAR)
+                        return DTERR_FIELD_OVERFLOW;
+                    type = DTK_MONTH;
+                    val = val * MONTHS_PER_YEAR + val2;
+                    fval = 0;
+                } else if (*cp == '.') {
+                    ParseFraction(cp, &fval);
+                } else if (*cp == '\0') {
+                    fval = 0;
+                } else {
+                    return DTERR_BAD_FORMAT;
+                }
+
+                // Apply global negative sign if needed
+                if (force_negative) {
+                    if (val > 0) val = -val;
+                    if (fval > 0) fval = -fval;
+                }
+
+                // Adjust interval components based on unit type
+                switch (type) {
+                    case DTK_YEAR:
+                        if (!AdjustYears(val, 1, itm_in) || !AdjustFractYears(fval, 1, itm_in))
+                            return DTERR_FIELD_OVERFLOW;
+                        break;
+                    case DTK_MONTH:
+                        if (!AdjustMonths(val, itm_in) || !AdjustFractDays(fval, DAYS_PER_MONTH, itm_in))
+                            return DTERR_FIELD_OVERFLOW;
+                        break;
+                    case DTK_DAY:
+                        if (!AdjustDays(val, 1, itm_in) || !AdjustFractMicroseconds(fval, USECS_PER_DAY, itm_in))
+                            return DTERR_FIELD_OVERFLOW;
+                        break;
+                    case DTK_HOUR:
+                        if (!AdjustMicroseconds(val, fval, USECS_PER_HOUR, itm_in))
+                            return DTERR_FIELD_OVERFLOW;
+                        break;
+                    // Additional time units handled similarly...
+                }
+                break;
+
+            case DTK_STRING:
+            case DTK_SPECIAL:
+                // Handle unit names and special keywords
+                type = DecodeUnits(i, field[i], &uval);
+                if (type == UNKNOWN_FIELD)
+                    type = DecodeSpecial(i, field[i], &uval);
+
+                if (type == UNITS) {
+                    parsing_unit_val = true;
+                } else if (type == AGO) {
+                    if (i != nf - 1) return DTERR_BAD_FORMAT;  // AGO must be last
+                    is_before = true;
+                } else if (type == RESERV) {
+                    // Handle infinite intervals
+                    if (uval != DTK_LATE && uval != DTK_EARLY) return DTERR_BAD_FORMAT;
+                    if (i != nf - 1) return DTERR_BAD_FORMAT;  // Must be last
+                    *dtype = uval;
+                }
+                break;
+        }
+
+        // Check for duplicate field masks
+        if (tmask & fmask) return DTERR_BAD_FORMAT;
+        fmask |= tmask;
+    }
+
+    // Apply AGO negation to all components
+    if (is_before) {
+        itm_in->tm_usec = -itm_in->tm_usec;
+        itm_in->tm_mday = -itm_in->tm_mday;
+        itm_in->tm_mon = -itm_in->tm_mon;
+        itm_in->tm_year = -itm_in->tm_year;
+    }
+
+    return 0;
+}
+```

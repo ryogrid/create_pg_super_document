@@ -41,3 +41,27 @@ When extension is needed, the function creates a new zeroed CLOG page and genera
 - No actual I/O typically occurs unless dirty pages need to be written to make room
 - Uses ZeroCLOGPage with WAL logging enabled to ensure crash recovery consistency
 - Uses exclusive locking to prevent concurrent access during page creation
+
+## Simplified Source
+
+```c
+void
+ExtendCLOG(TransactionId newestXact)
+{
+    // Only extend at first XID of a new page (optimization)
+    // Special case: after wraparound, first XID of page zero is FirstNormalTransactionId
+    if (TransactionIdToPgIndex(newestXact) != 0 &&
+        !TransactionIdEquals(newestXact, FirstNormalTransactionId)) {
+        return; // No work needed
+    }
+
+    // Calculate which CLOG page we need and get its lock
+    int64 pageno = TransactionIdToPage(newestXact);
+    LWLock *lock = SimpleLruGetBankLock(XactCtl, pageno);
+
+    // Create and zero the new CLOG page with WAL logging
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+    ZeroCLOGPage(pageno, true); // true = make XLOG entry
+    LWLockRelease(lock);
+}
+```

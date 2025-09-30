@@ -48,3 +48,57 @@ This function implements the PBKDF2 (Password-Based Key Derivation Function 2) a
 - The function implements the core PBKDF2 algorithm where: SaltedPassword = PBKDF2(password, salt, iterations)
 - Memory management is handled automatically through pg_hmac_free() cleanup
 - Thread-safe as it uses local variables and doesn't modify global state
+
+## Simplified Source
+
+```c
+int scram_SaltedPassword(const char *password,
+                        pg_cryptohash_type hash_type, int key_length,
+                        const char *salt, int saltlen, int iterations,
+                        uint8 *result, const char **errstr)
+{
+    int password_len = strlen(password);
+    uint32 one = pg_hton32(1);
+    uint8 Ui[SCRAM_MAX_KEY_LEN];
+    uint8 Ui_prev[SCRAM_MAX_KEY_LEN];
+
+    // Create HMAC context
+    pg_hmac_ctx *hmac_ctx = pg_hmac_create(hash_type);
+    if (hmac_ctx == NULL) {
+        *errstr = pg_hmac_error(NULL);
+        return -1;
+    }
+
+    // First iteration: HMAC(password, salt || 1)
+    if (pg_hmac_init(hmac_ctx, (uint8 *) password, password_len) < 0 ||
+        pg_hmac_update(hmac_ctx, (uint8 *) salt, saltlen) < 0 ||
+        pg_hmac_update(hmac_ctx, (uint8 *) &one, sizeof(uint32)) < 0 ||
+        pg_hmac_final(hmac_ctx, Ui_prev, key_length) < 0) {
+        *errstr = pg_hmac_error(hmac_ctx);
+        pg_hmac_free(hmac_ctx);
+        return -1;
+    }
+
+    memcpy(result, Ui_prev, key_length);
+
+    // Subsequent iterations: XOR all results together
+    for (int i = 1; i < iterations; i++) {
+        // HMAC(password, Ui_prev)
+        if (pg_hmac_init(hmac_ctx, (uint8 *) password, password_len) < 0 ||
+            pg_hmac_update(hmac_ctx, (uint8 *) Ui_prev, key_length) < 0 ||
+            pg_hmac_final(hmac_ctx, Ui, key_length) < 0) {
+            *errstr = pg_hmac_error(hmac_ctx);
+            pg_hmac_free(hmac_ctx);
+            return -1;
+        }
+
+        // XOR with accumulated result
+        for (int j = 0; j < key_length; j++)
+            result[j] ^= Ui[j];
+        memcpy(Ui_prev, Ui, key_length);
+    }
+
+    pg_hmac_free(hmac_ctx);
+    return 0;
+}
+```

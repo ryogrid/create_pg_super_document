@@ -45,3 +45,56 @@ When content is provided, the function strips leading whitespace and formats the
 - Located in src/backend/utils/adt/xml.c at lines 1011-1062
 - Target name "xml" is specifically forbidden per XML specification
 - Processing instructions are commonly used for application-specific directives
+
+## Simplified Source
+
+```c
+xmltype *xmlpi(const char *target, text *arg, bool arg_is_null, bool *result_is_null)
+{
+#ifdef USE_LIBXML
+    xmltype *result;
+    StringInfoData buf;
+
+    // Validate target name - "xml" is reserved
+    if (pg_strcasecmp(target, "xml") == 0)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                errmsg("invalid XML processing instruction"),
+                errdetail("XML processing instruction target name cannot be \"%s\".", target)));
+
+    // Handle NULL content (SQL standard: syntax check before NULL check)
+    *result_is_null = arg_is_null;
+    if (*result_is_null)
+        return NULL;
+
+    initStringInfo(&buf);
+
+    // Build processing instruction: <?target content?>
+    appendStringInfo(&buf, "<?%s", target);
+
+    if (arg != NULL)
+    {
+        char *string = text_to_cstring(arg);
+
+        // Validate content doesn't contain PI end sequence
+        if (strstr(string, "?>") != NULL)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_XML_PROCESSING_INSTRUCTION),
+                    errmsg("invalid XML processing instruction"),
+                    errdetail("XML processing instruction cannot contain \"?>\".")));
+
+        // Add space and content (strip leading whitespace)
+        appendStringInfoChar(&buf, ' ');
+        appendStringInfoString(&buf, string + strspn(string, " "));
+        pfree(string);
+    }
+
+    appendStringInfoString(&buf, "?>");
+
+    result = stringinfo_to_xmltype(&buf);
+    pfree(buf.data);
+    return result;
+#else
+    NO_XML_SUPPORT();
+    return NULL;
+#endif
+}
+```

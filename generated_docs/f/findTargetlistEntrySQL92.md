@@ -57,3 +57,105 @@ If neither special case applies, it falls through to SQL99 rules by calling find
 - Multiple matches for the same column name are allowed only if they refer to identical expressions
 - Provides detailed error messages with position information for ambiguous references and invalid position numbers
 - The function bridges SQL92 and SQL99 behaviors, falling back to modern SQL99 rules when SQL92 patterns don't match
+
+## Simplified Source
+
+```c
+static TargetEntry *
+findTargetlistEntrySQL92(ParseState *pstate, Node *node, List **tlist,
+                        ParseExprKind exprKind)
+{
+    ListCell *tl;
+
+    // Handle SQL92 special case 1: Bare ColumnName
+    if (IsA(node, ColumnRef) &&
+        list_length(((ColumnRef *) node)->fields) == 1 &&
+        IsA(linitial(((ColumnRef *) node)->fields), String))
+    {
+        char *name = strVal(linitial(((ColumnRef *) node)->fields));
+        int location = ((ColumnRef *) node)->location;
+
+        // For GROUP BY, prefer FROM-clause columns over targetlist matches
+        if (exprKind == EXPR_KIND_GROUP_BY)
+        {
+            // Check if name matches a FROM-clause column first
+            if (colNameToVar(pstate, name, true, location) != NULL)
+                name = NULL;  // Skip targetlist search
+        }
+
+        if (name != NULL)
+        {
+            TargetEntry *target_result = NULL;
+
+            // Search for matching column name in targetlist
+            foreach(tl, *tlist)
+            {
+                TargetEntry *tle = (TargetEntry *) lfirst(tl);
+
+                if (!tle->resjunk && strcmp(tle->resname, name) == 0)
+                {
+                    if (target_result != NULL)
+                    {
+                        // Check for ambiguous references
+                        if (!equal(target_result->expr, tle->expr))
+                            ereport(ERROR,
+                                    (errcode(ERRCODE_AMBIGUOUS_COLUMN),
+                                     errmsg("%s \"%s\" is ambiguous",
+                                            ParseExprKindName(exprKind), name),
+                                     parser_errposition(pstate, location)));
+                    }
+                    else
+                        target_result = tle;
+                }
+            }
+
+            if (target_result != NULL)
+            {
+                checkTargetlistEntrySQL92(pstate, target_result, exprKind);
+                return target_result;
+            }
+        }
+    }
+
+    // Handle SQL92 special case 2: IntegerConstant (position number)
+    if (IsA(node, A_Const))
+    {
+        A_Const *aconst = castNode(A_Const, node);
+        int targetlist_pos = 0;
+        int target_pos;
+
+        if (!IsA(&aconst->val, Integer))
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("non-integer constant in %s",
+                            ParseExprKindName(exprKind)),
+                     parser_errposition(pstate, aconst->location)));
+
+        target_pos = intVal(&aconst->val);
+
+        // Find the target_pos'th non-resjunk entry
+        foreach(tl, *tlist)
+        {
+            TargetEntry *tle = (TargetEntry *) lfirst(tl);
+
+            if (!tle->resjunk)
+            {
+                if (++targetlist_pos == target_pos)
+                {
+                    checkTargetlistEntrySQL92(pstate, tle, exprKind);
+                    return tle;
+                }
+            }
+        }
+
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("%s position %d is not in select list",
+                        ParseExprKindName(exprKind), target_pos),
+                 parser_errposition(pstate, aconst->location)));
+    }
+
+    // Fall through to SQL99 rules for expressions
+    return findTargetlistEntrySQL99(pstate, node, tlist, exprKind);
+}
+```

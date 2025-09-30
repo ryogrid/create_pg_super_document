@@ -41,3 +41,41 @@ This function safely adds a new OpFamilyMember to a list while ensuring uniquene
 - Essential for maintaining operator family integrity during creation and modification
 - Part of the operator class/family management infrastructure
 - Supports both function and operator member addition with appropriate validation
+
+## Simplified Source
+
+```c
+static void
+addFamilyMember(List **list, OpFamilyMember *member)
+{
+    ListCell *l;
+
+    // Check for duplicates in existing list
+    foreach(l, *list) {
+        OpFamilyMember *old = (OpFamilyMember *) lfirst(l);
+
+        // Compare member number and type combination
+        if (old->number == member->number &&
+            old->lefttype == member->lefttype &&
+            old->righttype == member->righttype) {
+
+            // Report appropriate error for function vs operator
+            if (member->is_func)
+                ereport(ERROR,
+                        "function number %d for (%s,%s) appears more than once",
+                        member->number,
+                        format_type_be(member->lefttype),
+                        format_type_be(member->righttype));
+            else
+                ereport(ERROR,
+                        "operator number %d for (%s,%s) appears more than once",
+                        member->number,
+                        format_type_be(member->lefttype),
+                        format_type_be(member->righttype));
+        }
+    }
+
+    // Add member to list if no duplicates found
+    *list = lappend(*list, member);
+}
+```

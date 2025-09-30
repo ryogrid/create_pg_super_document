@@ -51,3 +51,92 @@ The function first analyzes all input targetlists to determine the most appropri
 - The function follows the same convention as generate_setop_tlist by setting ressortgroupref equal to resno for all non-resjunk columns
 - The flag column, when requested, is created as a resjunk Var that references a flag column from the input subplans
 - A known limitation is that set_pathtarget_cost_width cannot determine realistic width estimates for the varno-zero targetlist produced by this function
+
+## Simplified Source
+
+```c
+static List *
+generate_append_tlist(List *colTypes, List *colCollations,
+                     bool flag,
+                     List *input_tlists,
+                     List *refnames_tlist)
+{
+    List       *tlist = NIL;
+    int         resno = 1;
+    int32      *colTypmods;
+    int         colindex;
+
+    // First, determine appropriate typmods for each column
+    colTypmods = (int32 *) palloc(list_length(colTypes) * sizeof(int32));
+
+    // Analyze all input targetlists to find common typmods
+    ListCell *tlistl;
+    foreach(tlistl, input_tlists)
+    {
+        List *subtlist = (List *) lfirst(tlistl);
+        ListCell *subtlistl;
+        ListCell *curColType = list_head(colTypes);
+
+        colindex = 0;
+        foreach(subtlistl, subtlist)
+        {
+            TargetEntry *subtle = (TargetEntry *) lfirst(subtlistl);
+
+            if (subtle->resjunk)
+                continue;
+
+            if (exprType((Node *) subtle->expr) == lfirst_oid(curColType))
+            {
+                int32 subtypmod = exprTypmod((Node *) subtle->expr);
+
+                // First subplan: copy typmod, others: compare and set to -1 if different
+                if (tlistl == list_head(input_tlists))
+                    colTypmods[colindex] = subtypmod;
+                else if (subtypmod != colTypmods[colindex])
+                    colTypmods[colindex] = -1;
+            }
+            else
+            {
+                // Type disagreement forces typmod to -1
+                colTypmods[colindex] = -1;
+            }
+
+            curColType = lnext(colTypes, curColType);
+            colindex++;
+        }
+    }
+
+    // Build the targetlist for the Append node
+    colindex = 0;
+    ListCell *curColType, *curColCollation, *ref_tl_item;
+    forthree(curColType, colTypes, curColCollation, colCollations,
+             ref_tl_item, refnames_tlist)
+    {
+        Oid colType = lfirst_oid(curColType);
+        int32 colTypmod = colTypmods[colindex++];
+        Oid colColl = lfirst_oid(curColCollation);
+        TargetEntry *reftle = (TargetEntry *) lfirst(ref_tl_item);
+
+        // Create a Var with varno 0 (references current plan node)
+        Node *expr = (Node *) makeVar(0, resno, colType, colTypmod, colColl, 0);
+        TargetEntry *tle = makeTargetEntry((Expr *) expr, (AttrNumber) resno++,
+                                          pstrdup(reftle->resname), false);
+
+        // Set ressortgroupref equal to resno (convention for setop trees)
+        tle->ressortgroupref = tle->resno;
+        tlist = lappend(tlist, tle);
+    }
+
+    // Add optional flag column for distinguishing input sources
+    if (flag)
+    {
+        Node *expr = (Node *) makeVar(0, resno, INT4OID, -1, InvalidOid, 0);
+        TargetEntry *tle = makeTargetEntry((Expr *) expr, (AttrNumber) resno++,
+                                          pstrdup("flag"), true);
+        tlist = lappend(tlist, tle);
+    }
+
+    pfree(colTypmods);
+    return tlist;
+}
+```

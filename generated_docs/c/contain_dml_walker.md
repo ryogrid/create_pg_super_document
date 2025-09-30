@@ -43,3 +43,26 @@ The recursive nature ensures that nested subqueries are also examined, making it
 - Handles both Query nodes (with query_tree_walker) and expression nodes (with expression_tree_walker)
 - The context parameter is unused but maintained for consistency with walker function signature
 - Critical component in CTE inlining decisions to preserve side-effect semantics
+
+## Simplified Source
+```c
+static bool contain_dml_walker(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Query)) {
+        Query *query = (Query *) node;
+
+        // Check for DML operations or row locking
+        if (query->commandType != CMD_SELECT ||
+            query->rowMarks != NIL)
+            return true;
+
+        // Continue checking subqueries
+        return query_tree_walker(query, contain_dml_walker, context, 0);
+    }
+
+    // Continue checking other expression nodes
+    return expression_tree_walker(node, contain_dml_walker, context);
+}
+```

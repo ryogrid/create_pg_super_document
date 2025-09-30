@@ -44,3 +44,23 @@ The function is essential for maintaining numerical stability in the cost-based 
 - All returned values are integers (achieved through rint())
 - Critical for preventing numerical instabilities in cost calculations
 - Used in both planning and execution phases where row count estimates are needed
+
+## Simplified Source
+
+```c
+double
+clamp_row_est(double nrows)
+{
+    // Handle invalid values (infinite/NaN) - use maximum allowed
+    if (nrows > MAXIMUM_ROWCOUNT || isnan(nrows))
+        nrows = MAXIMUM_ROWCOUNT;
+    // Ensure minimum of 1 row to avoid divide-by-zero
+    else if (nrows <= 1.0)
+        nrows = 1.0;
+    // Round to nearest integer for cleaner estimates
+    else
+        nrows = rint(nrows);
+
+    return nrows;
+}
+```

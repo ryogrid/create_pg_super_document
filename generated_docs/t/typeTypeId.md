@@ -40,3 +40,16 @@ The function includes a NULL check to prevent crashes, though as noted in the co
 - Simple accessor function primarily used in type management and DDL operations
 - Located in src/backend/parser/parse_type.c:590-598
 - The returned OID can be used for further type system operations or comparisons
+
+## Simplified Source
+
+```c
+Oid typeTypeId(Type tp) {
+    // Defensive check for NULL input
+    if (tp == NULL)
+        elog(ERROR, "typeTypeId() called with NULL type struct");
+
+    // Extract OID from the pg_type tuple structure
+    return ((Form_pg_type) GETSTRUCT(tp))->oid;
+}
+```

@@ -35,3 +35,33 @@ The function checks if a lock has already been acquired for the sequence in the 
 - Lock ownership is transferred to the top transaction to avoid lock escalation issues in subtransactions
 - The lxid field in SeqTable is used to track which transaction last acquired the lock
 - This is a static function internal to src/backend/commands/sequence.c
+
+## Simplified Source
+
+```c
+static Relation lock_and_open_sequence(SeqTable seq) {
+    LocalTransactionId thislxid = MyProc->vxid.lxid;
+
+    // Check if we already have a lock in this transaction
+    if (seq->lxid != thislxid) {
+        ResourceOwner currentOwner;
+
+        // Temporarily switch to top transaction's resource owner
+        // to ensure lock is owned at the transaction level
+        currentOwner = CurrentResourceOwner;
+        CurrentResourceOwner = TopTransactionResourceOwner;
+
+        // Acquire exclusive lock on the sequence
+        LockRelationOid(seq->relid, RowExclusiveLock);
+
+        // Restore original resource owner
+        CurrentResourceOwner = currentOwner;
+
+        // Mark that we have acquired the lock in this transaction
+        seq->lxid = thislxid;
+    }
+
+    // Open the sequence relation (no additional lock needed)
+    return sequence_open(seq->relid, NoLock);
+}
+```

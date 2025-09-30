@@ -37,3 +37,20 @@ This function serves as the primary conversion mechanism from PostgreSQL's inter
 - The function returns a newly allocated C string that must be managed by PostgreSQL's memory system
 - Located in 
 - Essential for displaying JSONB values in query results, logs, and client applications
+
+## Simplified Source
+
+```c
+Datum
+jsonb_out(PG_FUNCTION_ARGS)
+{
+    // Get JSONB input from function arguments
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+
+    // Convert JSONB to JSON string representation
+    char *out = JsonbToCString(NULL, &jb->root, VARSIZE(jb));
+
+    // Return the JSON string
+    PG_RETURN_CSTRING(out);
+}
+```

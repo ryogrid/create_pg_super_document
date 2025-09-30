@@ -36,3 +36,24 @@ The function retrieves the range table entry for the VALUES relation, counts the
 - Does not account for potential set-returning functions within VALUES items (noted as acceptable limitation)
 - The precise counting makes this one of the most accurate size estimation functions in the optimizer
 - Uses assertions to verify proper relation type and valid relid before processing
+
+## Simplified Source
+
+```c
+void
+set_values_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    RangeTblEntry *rte;
+
+    // Verify this is a base relation with a VALUES list
+    Assert(rel->relid > 0);
+    rte = planner_rt_fetch(rel->relid, root);
+    Assert(rte->rtekind == RTE_VALUES);
+
+    // Count the exact number of value rows - this is precise
+    rel->tuples = list_length(rte->values_lists);
+
+    // Calculate final size estimates based on the exact row count
+    set_baserel_size_estimates(root, rel);
+}
+```

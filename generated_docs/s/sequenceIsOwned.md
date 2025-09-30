@@ -47,3 +47,47 @@ When such a dependency is found, the function extracts the owning table's OID (`
 - Sequence ownership is typically established when creating sequences with SERIAL or IDENTITY columns
 - This function is crucial for maintaining referential integrity when performing operations like changing table ownership or moving tables to different schemas
 - Uses AccessShareLock when accessing the pg_depend catalog to ensure consistent reads
+
+## Simplified Source
+
+```c
+bool sequenceIsOwned(Oid seqId, char deptype, Oid *tableId, int32 *colId)
+{
+    bool ret = false;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_depend catalog
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys for sequence dependency lookup
+    ScanKeyInit(&key[0], Anum_pg_depend_classid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(seqId));
+
+    // Scan for dependencies from this sequence
+    scan = systable_beginscan(depRel, DependDependerIndexId, true, NULL, 2, key);
+
+    while (HeapTupleIsValid((tup = systable_getnext(scan))))
+    {
+        Form_pg_depend depform = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Check if this is an ownership dependency to a table column
+        if (depform->refclassid == RelationRelationId && depform->deptype == deptype)
+        {
+            *tableId = depform->refobjid;      // Owning table OID
+            *colId = depform->refobjsubid;     // Column number
+            ret = true;
+            break; // Found ownership relationship
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+
+    return ret;
+}
+```

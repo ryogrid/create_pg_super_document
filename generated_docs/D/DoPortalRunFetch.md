@@ -49,3 +49,91 @@ For absolute positioning, the function optimizes by choosing whether to rewind a
 - Handles edge cases like fetching when positioned at the end of the result set
 - Returns the number of rows processed, suitable for use in SQL result tags
 - Uses None_Receiver for internal positioning operations that don't need to return data to the client
+
+## Simplified Source
+
+```c
+static uint64 DoPortalRunFetch(Portal portal, FetchDirection fdirection,
+                              long count, DestReceiver *dest) {
+    bool forward;
+
+    // Normalize direction and count
+    switch (fdirection) {
+        case FETCH_FORWARD:
+        case FETCH_BACKWARD:
+            if (count < 0) {
+                fdirection = (fdirection == FETCH_FORWARD) ? FETCH_BACKWARD : FETCH_FORWARD;
+                count = -count;
+            }
+            break;
+
+        case FETCH_ABSOLUTE:
+            if (count > 0) {
+                // Position to absolute row number from start
+                if ((uint64)(count - 1) <= portal->portalPos / 2 ||
+                    portal->portalPos >= (uint64)LONG_MAX) {
+                    DoPortalRewind(portal);
+                    if (count > 1)
+                        PortalRunSelect(portal, true, count - 1, None_Receiver);
+                } else {
+                    // More efficient to scan from current position
+                    long pos = (long)portal->portalPos;
+                    if (portal->atEnd) pos++;
+                    if (count <= pos)
+                        PortalRunSelect(portal, false, pos - count + 1, None_Receiver);
+                    else if (count > pos + 1)
+                        PortalRunSelect(portal, true, count - pos - 1, None_Receiver);
+                }
+                return PortalRunSelect(portal, true, 1L, dest);
+            } else if (count < 0) {
+                // Position from end
+                PortalRunSelect(portal, true, FETCH_ALL, None_Receiver);
+                if (count < -1)
+                    PortalRunSelect(portal, false, -count - 1, None_Receiver);
+                return PortalRunSelect(portal, false, 1L, dest);
+            } else {
+                // count == 0: rewind to start
+                DoPortalRewind(portal);
+                return PortalRunSelect(portal, true, 0L, dest);
+            }
+
+        case FETCH_RELATIVE:
+            if (count > 0) {
+                if (count > 1)
+                    PortalRunSelect(portal, true, count - 1, None_Receiver);
+                return PortalRunSelect(portal, true, 1L, dest);
+            } else if (count < 0) {
+                if (count < -1)
+                    PortalRunSelect(portal, false, -count - 1, None_Receiver);
+                return PortalRunSelect(portal, false, 1L, dest);
+            } else {
+                fdirection = FETCH_FORWARD;
+            }
+            break;
+    }
+
+    forward = (fdirection == FETCH_FORWARD);
+
+    // Handle count == 0 (re-fetch current row)
+    if (count == 0) {
+        bool on_row = (!portal->atStart && !portal->atEnd);
+        if (dest->mydest == DestNone)
+            return on_row ? 1 : 0;
+        if (on_row) {
+            PortalRunSelect(portal, false, 1L, None_Receiver);
+            count = 1;
+            forward = true;
+        }
+    }
+
+    // Optimize MOVE BACKWARD ALL
+    if (!forward && count == FETCH_ALL && dest->mydest == DestNone) {
+        uint64 result = portal->portalPos;
+        if (result > 0 && !portal->atEnd) result--;
+        DoPortalRewind(portal);
+        return result;
+    }
+
+    return PortalRunSelect(portal, forward, count, dest);
+}
+```

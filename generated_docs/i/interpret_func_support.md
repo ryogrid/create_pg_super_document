@@ -39,3 +39,41 @@ The function performs comprehensive validation including existence checks, signa
 - The function includes a comment noting that ACL checks might be added in the future
 - Generates detailed error messages for function not found and invalid signature cases
 - Part of PostgreSQL's extensible function system allowing custom optimization strategies
+
+## Simplified Source
+
+```c
+static Oid
+interpret_func_support(DefElem *defel)
+{
+    List *procName = defGetQualifiedName(defel);
+    Oid procOid;
+    Oid argList[1];
+
+    // Support functions must take one INTERNAL argument and return INTERNAL
+    argList[0] = INTERNALOID;
+
+    // Look up the function by name and signature
+    procOid = LookupFuncName(procName, 1, argList, true);
+    if (!OidIsValid(procOid))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("function %s does not exist",
+                        func_signature_string(procName, 1, NIL, argList))));
+
+    // Verify function returns INTERNAL type
+    if (get_func_rettype(procOid) != INTERNALOID)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("support function %s must return type %s",
+                        NameListToString(procName), "internal")));
+
+    // Only superusers can specify support functions
+    if (!superuser())
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("must be superuser to specify a support function")));
+
+    return procOid;
+}
+```

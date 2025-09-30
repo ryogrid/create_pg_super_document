@@ -36,3 +36,12 @@ The function is part of PostgreSQL's date/time handling infrastructure and follo
 - TimeTzADT contains two fields: a TimeADT (time portion) and an int32 (timezone offset in seconds)
 - The function is commonly used through the PG_RETURN_TIMETZADT_P macro for returning time with timezone values from PostgreSQL functions
 - As an inline function, it generates efficient code with minimal overhead for the type conversion
+
+## Simplified Source
+
+```c
+static inline Datum TimeTzADTPGetDatum(const TimeTzADT *X) {
+    // Convert TimeTzADT pointer to Datum using pointer conversion
+    return PointerGetDatum(X);
+}
+```

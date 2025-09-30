@@ -44,3 +44,19 @@ The implementation is marked as pg_attribute_always_inline to ensure it gets inl
 - Relies on slot_getattr() for bounds checking and error handling
 - Eliminates need for explicit FETCHSOME step implementation
 - Used for the most common case of simple variable expressions in queries
+
+## Simplified Source
+
+```c
+static Datum ExecJustVarImpl(ExprState *state, TupleTableSlot *slot, bool *isnull)
+{
+    ExprEvalStep *op = &state->steps[1];
+    int attnum = op->d.var.attnum + 1;
+
+    // Verify slot compatibility with expected type
+    CheckOpSlotCompatibility(&state->steps[0], slot);
+
+    // Get attribute value from slot
+    return slot_getattr(slot, attnum, isnull);
+}
+```

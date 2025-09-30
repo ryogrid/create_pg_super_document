@@ -44,3 +44,21 @@ This function is part of PostgreSQL's expression evaluation optimization framewo
 - The operation details (source attnum and destination resultnum) are retrieved from the first evaluation step
 - Uses state->resultslot as the destination for the assignment
 - Part of a family of optimized assignment functions for different tuple contexts (inner, outer, scan)
+
+## Simplified Source
+
+```c
+static Datum ExecJustAssignVarVirtImpl(ExprState *state, TupleTableSlot *inslot, bool *isnull)
+{
+    ExprEvalStep *op = &state->steps[0];
+    int attnum = op->d.assign_var.attnum;
+    int resultnum = op->d.assign_var.resultnum;
+    TupleTableSlot *outslot = state->resultslot;
+
+    // Direct assignment from virtual slot (no detoasting needed)
+    outslot->tts_values[resultnum] = inslot->tts_values[attnum];
+    outslot->tts_isnull[resultnum] = inslot->tts_isnull[attnum];
+
+    return 0;
+}
+```

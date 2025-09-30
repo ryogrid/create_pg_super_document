@@ -60,3 +60,145 @@ The function intelligently determines the INSERT type by examining the range tab
 - Critical for view definition reconstruction and rule display
 - Located at src/backend/utils/adt/ruleutils.c:6647-6862
 - One of the largest and most complex query reconstruction functions due to INSERT's syntactic variety
+
+## Simplified Source
+```c
+static void get_insert_query_def(Query *query, deparse_context *context) {
+    StringInfo buf = context->buf;
+    RangeTblEntry *select_rte = NULL;
+    RangeTblEntry *values_rte = NULL;
+    RangeTblEntry *rte;
+    List *strippedexprs = NIL;
+
+    // Add WITH clause if present
+    get_with_clause(query, context);
+
+    // Find the type of INSERT (SELECT, VALUES, or simple)
+    ListCell *l;
+    foreach(l, query->rtable) {
+        rte = (RangeTblEntry *) lfirst(l);
+        if (rte->rtekind == RTE_SUBQUERY)
+            select_rte = rte;
+        else if (rte->rtekind == RTE_VALUES)
+            values_rte = rte;
+    }
+
+    // Start with INSERT INTO relation_name
+    rte = rt_fetch(query->resultRelation, query->rtable);
+
+    if (PRETTY_INDENT(context)) {
+        context->indentLevel += PRETTYINDENT_STD;
+        appendStringInfoChar(buf, ' ');
+    }
+
+    appendStringInfo(buf, "INSERT INTO %s",
+                     generate_relation_name(rte->relid, NIL));
+
+    // Add relation alias if needed
+    get_rte_alias(rte, query->resultRelation, true, context);
+    appendStringInfoChar(buf, ' ');
+
+    // Add column list
+    char *sep = "";
+    if (query->targetList)
+        appendStringInfoChar(buf, '(');
+
+    foreach(l, query->targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+        if (tle->resjunk)
+            continue;
+
+        appendStringInfoString(buf, sep);
+        sep = ", ";
+
+        // Add column name from catalog
+        appendStringInfoString(buf,
+            quote_identifier(get_attname(rte->relid, tle->resno, false)));
+
+        // Process any indirection and collect expressions
+        strippedexprs = lappend(strippedexprs,
+                              processIndirection((Node *) tle->expr, context));
+    }
+
+    if (query->targetList)
+        appendStringInfoString(buf, ") ");
+
+    // Add OVERRIDING clause if present
+    if (query->override) {
+        if (query->override == OVERRIDING_SYSTEM_VALUE)
+            appendStringInfoString(buf, "OVERRIDING SYSTEM VALUE ");
+        else if (query->override == OVERRIDING_USER_VALUE)
+            appendStringInfoString(buf, "OVERRIDING USER VALUE ");
+    }
+
+    // Add the data source
+    if (select_rte) {
+        // INSERT ... SELECT
+        get_query_def(select_rte->subquery, buf, context->namespaces, NULL,
+                      false, context->prettyFlags, context->wrapColumn,
+                      context->indentLevel);
+    }
+    else if (values_rte) {
+        // Multi-row VALUES
+        get_values_def(values_rte->values_lists, context);
+    }
+    else if (strippedexprs) {
+        // Single VALUES
+        appendContextKeyword(context, "VALUES (",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 2);
+        get_rule_list_toplevel(strippedexprs, context, false);
+        appendStringInfoChar(buf, ')');
+    }
+    else {
+        // DEFAULT VALUES
+        appendStringInfoString(buf, "DEFAULT VALUES");
+    }
+
+    // Add ON CONFLICT clause (simplified)
+    if (query->onConflict) {
+        OnConflictExpr *confl = query->onConflict;
+        appendStringInfoString(buf, " ON CONFLICT");
+
+        // Add conflict target (index columns or constraint)
+        if (confl->arbiterElems) {
+            appendStringInfoChar(buf, '(');
+            get_rule_expr((Node *) confl->arbiterElems, context, false);
+            appendStringInfoChar(buf, ')');
+
+            if (confl->arbiterWhere != NULL) {
+                appendContextKeyword(context, " WHERE ",
+                                   -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+                get_rule_expr(confl->arbiterWhere, context, false);
+            }
+        }
+        else if (OidIsValid(confl->constraint)) {
+            char *constraint = get_constraint_name(confl->constraint);
+            appendStringInfo(buf, " ON CONSTRAINT %s",
+                           quote_identifier(constraint));
+        }
+
+        // Add conflict action
+        if (confl->action == ONCONFLICT_NOTHING) {
+            appendStringInfoString(buf, " DO NOTHING");
+        }
+        else {
+            appendStringInfoString(buf, " DO UPDATE SET ");
+            get_update_query_targetlist_def(query, confl->onConflictSet,
+                                          context, rte);
+
+            if (confl->onConflictWhere != NULL) {
+                appendContextKeyword(context, " WHERE ",
+                                   -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+                get_rule_expr(confl->onConflictWhere, context, false);
+            }
+        }
+    }
+
+    // Add RETURNING clause if present
+    if (query->returningList) {
+        appendContextKeyword(context, " RETURNING",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_target_list(query->returningList, context);
+    }
+}
+```

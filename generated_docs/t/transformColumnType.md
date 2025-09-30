@@ -53,3 +53,34 @@ The function is designed to be called during the early phases of statement trans
 - Essential for maintaining type system integrity during DDL operations
 - The collation validation prevents runtime errors by catching incompatible type/collation combinations at parse time
 - Memory management through ReleaseSysCache is crucial for avoiding cache entry leaks during type validation
+
+## Simplified Source
+
+```c
+static void transformColumnType(CreateStmtContext *cxt, ColumnDef *column) {
+    // Validate that the specified type exists and is accessible
+    Type type_info = typenameType(cxt->pstate, column->typeName, NULL);
+
+    // If a collation clause is present, validate it
+    if (column->collClause) {
+        Form_pg_type type_form = (Form_pg_type) GETSTRUCT(type_info);
+
+        // Check that the collation exists
+        LookupCollation(cxt->pstate,
+                       column->collClause->collname,
+                       column->collClause->location);
+
+        // Verify the type supports collation
+        if (!OidIsValid(type_form->typcollation))
+            ereport(ERROR,
+                   (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("collations are not supported by type %s",
+                           format_type_be(type_form->oid)),
+                    parser_errposition(cxt->pstate,
+                                     column->collClause->location)));
+    }
+
+    // Release the type cache entry
+    ReleaseSysCache(type_info);
+}
+```

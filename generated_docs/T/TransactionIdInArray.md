@@ -39,3 +39,18 @@ The function includes a safety check to ensure the array is not empty before att
 - Essential for implementing PostgreSQL's snapshot isolation and determining which tuples should be visible to specific transactions
 - The xidComparator function is used to properly compare transaction IDs, handling wraparound and other PostgreSQL-specific transaction ID semantics
 - Used extensively in historic MVCC visibility checks where the system needs to determine if a transaction was active at a specific point in time
+
+## Simplified Source
+
+```c
+static bool
+TransactionIdInArray(TransactionId xid, TransactionId *xip, Size num)
+{
+    // Safety check: ensure array is not empty
+    if (num == 0)
+        return false;
+
+    // Use binary search to find transaction ID in sorted array
+    return bsearch(&xid, xip, num, sizeof(TransactionId), xidComparator) != NULL;
+}
+```

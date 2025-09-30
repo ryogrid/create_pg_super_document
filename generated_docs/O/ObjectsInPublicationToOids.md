@@ -46,3 +46,50 @@ The function automatically filters out duplicate schema OIDs when the same schem
 - Provides specific error handling for cases where no valid schema exists in the search path
 - Uses elog(ERROR) for unexpected publication object types, indicating an internal error condition
 - Located in src/backend/commands/publicationcmds.c:166-218
+
+## Simplified Source
+
+```c
+static void ObjectsInPublicationToOids(List *pubobjspec_list, ParseState *pstate,
+                                      List **rels, List **schemas) {
+    ListCell *cell;
+    PublicationObjSpec *pubobj;
+
+    if (!pubobjspec_list)
+        return;
+
+    foreach(cell, pubobjspec_list) {
+        pubobj = (PublicationObjSpec *) lfirst(cell);
+
+        switch (pubobj->pubobjtype) {
+            case PUBLICATIONOBJ_TABLE:
+                // Add individual table to relations list
+                *rels = lappend(*rels, pubobj->pubtable);
+                break;
+
+            case PUBLICATIONOBJ_TABLES_IN_SCHEMA:
+                // Add schema to schemas list (with deduplication)
+                Oid schemaid = get_namespace_oid(pubobj->name, false);
+                *schemas = list_append_unique_oid(*schemas, schemaid);
+                break;
+
+            case PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA:
+                // Use first schema from search path as current schema
+                List *search_path = fetch_search_path(false);
+                if (search_path == NIL) {
+                    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                                   errmsg("no schema has been selected for CURRENT_SCHEMA")));
+                }
+
+                Oid current_schemaid = linitial_oid(search_path);
+                list_free(search_path);
+                *schemas = list_append_unique_oid(*schemas, current_schemaid);
+                break;
+
+            default:
+                elog(ERROR, "invalid publication object type %d", pubobj->pubobjtype);
+                break;
+        }
+    }
+}
+```

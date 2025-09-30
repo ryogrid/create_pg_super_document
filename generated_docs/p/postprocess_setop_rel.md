@@ -40,3 +40,18 @@ The function is intentionally lightweight as the heavy lifting of path generatio
 - The hook is called with NULL for both the extra and parent_rel parameters since set operations don't currently use these
 - This function must be called after all paths have been generated and added to the relation to ensure proper cheapest path selection
 - The function is a critical step in the planning pipeline as many other parts of the planner depend on having valid cheapest paths set
+
+## Simplified Source
+
+```c
+static void
+postprocess_setop_rel(PlannerInfo *root, RelOptInfo *rel)
+{
+    // Allow extensions to contribute additional paths
+    if (create_upper_paths_hook)
+        (*create_upper_paths_hook)(root, UPPERREL_SETOP, NULL, rel, NULL);
+
+    // Select the cheapest path from all available paths
+    set_cheapest(rel);
+}
+```

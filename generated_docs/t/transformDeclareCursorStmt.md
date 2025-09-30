@@ -51,3 +51,50 @@ After validation, it transforms the contained query and packages the entire stat
 - The transformed query is stored back in the original statement structure
 - Returns a CMD_UTILITY query rather than executing the cursor declaration directly
 - Parser hook side effects occur during this transformation phase, not at execution time
+
+## Simplified Source
+
+```c
+static Query *
+transformDeclareCursorStmt(ParseState *pstate, DeclareCursorStmt *stmt)
+{
+    Query *result;
+    Query *query;
+
+    // Validate cursor option conflicts
+    if ((stmt->options & CURSOR_OPT_SCROLL) && (stmt->options & CURSOR_OPT_NO_SCROLL))
+        ereport(ERROR, "cannot specify both SCROLL and NO SCROLL");
+
+    if ((stmt->options & CURSOR_OPT_ASENSITIVE) && (stmt->options & CURSOR_OPT_INSENSITIVE))
+        ereport(ERROR, "cannot specify both ASENSITIVE and INSENSITIVE");
+
+    // Transform the contained query
+    query = transformStmt(pstate, stmt->query);
+    stmt->query = (Node *) query;
+
+    // Verify it's a SELECT statement
+    if (!IsA(query, Query) || query->commandType != CMD_SELECT)
+        elog(ERROR, "unexpected non-SELECT command in DECLARE CURSOR");
+
+    // Disallow data-modifying CTEs
+    if (query->hasModifyingCTE)
+        ereport(ERROR, "DECLARE CURSOR must not contain data-modifying statements in WITH");
+
+    // Check compatibility between row marks and cursor options
+    if (query->rowMarks != NIL) {
+        if (stmt->options & CURSOR_OPT_HOLD)
+            ereport(ERROR, "DECLARE CURSOR WITH HOLD ... FOR UPDATE is not supported");
+        if (stmt->options & CURSOR_OPT_SCROLL)
+            ereport(ERROR, "DECLARE SCROLL CURSOR ... FOR UPDATE is not supported");
+        if (stmt->options & CURSOR_OPT_INSENSITIVE)
+            ereport(ERROR, "DECLARE INSENSITIVE CURSOR ... FOR UPDATE is not valid");
+    }
+
+    // Return as utility command
+    result = makeNode(Query);
+    result->commandType = CMD_UTILITY;
+    result->utilityStmt = (Node *) stmt;
+
+    return result;
+}
+```

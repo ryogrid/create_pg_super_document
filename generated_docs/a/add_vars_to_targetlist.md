@@ -62,3 +62,50 @@ The function is essential for building the distributed targetlists that ensure e
 - The function includes optimization to skip processing if where_needed is already satisfied
 - attr_needed arrays are indexed relative to min_attr for efficiency
 - Located in src/backend/optimizer/plan/initsplan.c at lines 279-357
+
+## Simplified Source
+
+```c
+void add_vars_to_targetlist(PlannerInfo *root, List *vars, Relids where_needed)
+{
+    ListCell *temp;
+
+    foreach(temp, vars) {
+        Node *node = (Node *) lfirst(temp);
+
+        if (IsA(node, Var)) {
+            Var *var = (Var *) node;
+            RelOptInfo *rel = find_base_rel(root, var->varno);
+            int attno = var->varattno;
+
+            // Skip if variable is already satisfied by existing relations
+            if (bms_is_subset(where_needed, rel->relids))
+                continue;
+
+            // Calculate attribute index
+            attno -= rel->min_attr;
+
+            if (rel->attr_needed[attno] == NULL) {
+                // Add variable to relation's target list
+                var = copyObject(var);
+                var->varnullingrels = NULL; // Clear nulling at scan level
+                rel->reltarget->exprs = lappend(rel->reltarget->exprs, var);
+            }
+
+            // Update where this attribute is needed
+            rel->attr_needed[attno] = bms_add_members(rel->attr_needed[attno],
+                                                      where_needed);
+        }
+        else if (IsA(node, PlaceHolderVar)) {
+            PlaceHolderVar *phv = (PlaceHolderVar *) node;
+            PlaceHolderInfo *phinfo = find_placeholder_info(root, phv);
+
+            // Update where this placeholder is needed
+            phinfo->ph_needed = bms_add_members(phinfo->ph_needed, where_needed);
+        }
+        else {
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+        }
+    }
+}
+```

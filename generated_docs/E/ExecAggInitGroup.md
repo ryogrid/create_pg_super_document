@@ -32,3 +32,28 @@ This function is responsible for initializing an aggregate group when the first 
 - The function sets transValueIsNull to false and noTransValue to false to indicate a valid transition value
 - Part of PostgreSQL aggregation execution framework for handling group-based aggregates
 - Located in src/backend/executor/execExprInterp.c at lines 5017-5069
+
+## Simplified Source
+
+```c
+void ExecAggInitGroup(AggState *aggstate, AggStatePerTrans pertrans,
+                     AggStatePerGroup pergroup, ExprContext *aggcontext)
+{
+    FunctionCallInfo fcinfo = pertrans->transfn_fcinfo;
+    MemoryContext oldContext;
+
+    // Switch to aggregation memory context for proper memory management
+    oldContext = MemoryContextSwitchTo(aggcontext->ecxt_per_tuple_memory);
+
+    // Copy the first non-NULL input value as initial transition value
+    pergroup->transValue = datumCopy(fcinfo->args[1].value,
+                                    pertrans->transtypeByVal,
+                                    pertrans->transtypeLen);
+
+    // Mark group as having valid transition value
+    pergroup->transValueIsNull = false;
+    pergroup->noTransValue = false;
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

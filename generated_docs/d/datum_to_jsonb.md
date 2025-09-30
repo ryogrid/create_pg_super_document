@@ -39,3 +39,21 @@ The datum_to_jsonb function performs the actual conversion of PostgreSQL Datum v
 - Uses JsonbValueToJsonb to convert the internal representation to final JSONB format
 - The key_scalar parameter is set to false, indicating this is not a JSON object key
 - Central to PostgreSQL's JSONB conversion infrastructure and used throughout the system
+
+## Simplified Source
+
+```c
+Datum
+datum_to_jsonb(Datum val, JsonTypeCategory tcategory, Oid outfuncoid)
+{
+    // Initialize JSONB builder state
+    JsonbInState result;
+    memset(&result, 0, sizeof(JsonbInState));
+
+    // Convert datum to JSONB internal representation
+    datum_to_jsonb_internal(val, false, &result, tcategory, outfuncoid, false);
+
+    // Convert internal representation to final JSONB datum
+    return JsonbPGetDatum(JsonbValueToJsonb(result.res));
+}
+```

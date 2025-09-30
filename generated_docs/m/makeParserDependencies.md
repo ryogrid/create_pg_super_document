@@ -39,3 +39,50 @@ The function also records the parser's membership in the current extension (if e
 - The function returns the ObjectAddress of the parser itself for potential use by callers
 - Dependencies are recorded for: namespace, prsstart, prstoken, prsend, prslextype, and optionally prsheadline functions
 - Extension dependency is recorded separately from the function/namespace dependencies
+
+## Simplified Source
+
+```c
+static ObjectAddress makeParserDependencies(HeapTuple tuple) {
+    Form_pg_ts_parser prs = (Form_pg_ts_parser) GETSTRUCT(tuple);
+    ObjectAddress myself, referenced;
+    ObjectAddresses *addrs;
+
+    // Set up parser object address
+    ObjectAddressSet(myself, TSParserRelationId, prs->oid);
+
+    // Record extension dependency if in extension context
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    addrs = new_object_addresses();
+
+    // Add namespace dependency
+    ObjectAddressSet(referenced, NamespaceRelationId, prs->prsnamespace);
+    add_exact_object_address(&referenced, addrs);
+
+    // Add dependencies on required parser functions
+    ObjectAddressSet(referenced, ProcedureRelationId, prs->prsstart);
+    add_exact_object_address(&referenced, addrs);
+
+    referenced.objectId = prs->prstoken;
+    add_exact_object_address(&referenced, addrs);
+
+    referenced.objectId = prs->prsend;
+    add_exact_object_address(&referenced, addrs);
+
+    referenced.objectId = prs->prslextype;
+    add_exact_object_address(&referenced, addrs);
+
+    // Add optional headline function dependency
+    if (OidIsValid(prs->prsheadline)) {
+        referenced.objectId = prs->prsheadline;
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Record all collected dependencies
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+    free_object_addresses(addrs);
+
+    return myself;
+}
+```

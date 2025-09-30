@@ -74,3 +74,96 @@ The function supports multiple operation modes:
 - Exclusion constraints are always checked after insertion, unlike unique constraints which can prevent insertion
 - The function manages expression evaluation contexts to ensure proper memory management during index expression evaluation
 - Summarizing indices are a special category that can be updated independently during certain optimization scenarios
+
+## Simplified Source
+```c
+List *ExecInsertIndexTuples(ResultRelInfo *resultRelInfo,
+                           TupleTableSlot *slot,
+                           EState *estate,
+                           bool update,
+                           bool noDupErr,
+                           bool *specConflict,
+                           List *arbiterIndexes,
+                           bool onlySummarizing) {
+    ItemPointer tupleid = &slot->tts_tid;
+    List *result = NIL;
+    int numIndices = resultRelInfo->ri_NumIndices;
+    RelationPtr relationDescs = resultRelInfo->ri_IndexRelationDescs;
+    IndexInfo **indexInfoArray = resultRelInfo->ri_IndexRelationInfo;
+    Relation heapRelation = resultRelInfo->ri_RelationDesc;
+
+    // Set up expression context for predicate evaluation
+    ExprContext *econtext = GetPerTupleExprContext(estate);
+    econtext->ecxt_scantuple = slot;
+
+    // Process each index associated with the relation
+    for (int i = 0; i < numIndices; i++) {
+        Relation indexRelation = relationDescs[i];
+        IndexInfo *indexInfo = indexInfoArray[i];
+
+        // Skip invalid, unready, or filtered indices
+        if (indexRelation == NULL || !indexInfo->ii_ReadyForInserts)
+            continue;
+        if (onlySummarizing && !indexInfo->ii_Summarizing)
+            continue;
+
+        // Check partial index predicate if present
+        if (indexInfo->ii_Predicate != NIL) {
+            ExprState *predicate = indexInfo->ii_PredicateState;
+            if (predicate == NULL) {
+                predicate = ExecPrepareQual(indexInfo->ii_Predicate, estate);
+                indexInfo->ii_PredicateState = predicate;
+            }
+            if (!ExecQual(predicate, econtext))
+                continue;
+        }
+
+        // Extract index values from heap tuple
+        Datum values[INDEX_MAX_KEYS];
+        bool isnull[INDEX_MAX_KEYS];
+        FormIndexDatum(indexInfo, slot, estate, values, isnull);
+
+        // Determine uniqueness checking mode
+        bool applyNoDupErr = noDupErr &&
+            (arbiterIndexes == NIL || list_member_oid(arbiterIndexes, indexRelation->rd_index->indexrelid));
+
+        IndexUniqueCheck checkUnique;
+        if (!indexRelation->rd_index->indisunique)
+            checkUnique = UNIQUE_CHECK_NO;
+        else if (applyNoDupErr)
+            checkUnique = UNIQUE_CHECK_PARTIAL;
+        else if (indexRelation->rd_index->indimmediate)
+            checkUnique = UNIQUE_CHECK_YES;
+        else
+            checkUnique = UNIQUE_CHECK_PARTIAL;
+
+        // Check if index unchanged during UPDATE operations
+        bool indexUnchanged = update &&
+            index_unchanged_by_update(resultRelInfo, estate, indexInfo, indexRelation);
+
+        // Insert index tuple with uniqueness checking
+        bool satisfiesConstraint = index_insert(indexRelation, values, isnull, tupleid,
+                                               heapRelation, checkUnique, indexUnchanged, indexInfo);
+
+        // Handle exclusion constraints
+        if (indexInfo->ii_ExclusionOps != NULL) {
+            CEOUC_WAIT_MODE waitMode = applyNoDupErr ? CEOUC_LIVELOCK_PREVENTING_WAIT :
+                                      (!indexRelation->rd_index->indimmediate ? CEOUC_NOWAIT : CEOUC_WAIT);
+            bool violationOK = applyNoDupErr || !indexRelation->rd_index->indimmediate;
+
+            satisfiesConstraint = check_exclusion_or_unique_constraint(heapRelation, indexRelation,
+                indexInfo, tupleid, values, isnull, estate, false, waitMode, violationOK, NULL);
+        }
+
+        // Track constraint violations for deferred checking
+        if ((checkUnique == UNIQUE_CHECK_PARTIAL || indexInfo->ii_ExclusionOps != NULL) &&
+            !satisfiesConstraint) {
+            result = lappend_oid(result, RelationGetRelid(indexRelation));
+            if (indexRelation->rd_index->indimmediate && specConflict)
+                *specConflict = true;
+        }
+    }
+
+    return result;
+}
+```

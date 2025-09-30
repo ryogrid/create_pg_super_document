@@ -57,3 +57,88 @@ The function supports two dependency types: DEPENDENCY_AUTO for regular sequence
 - The function holds locks on referenced tables until transaction commit to prevent concurrent modifications
 - Error handling includes specific error codes for different validation failures (ERRCODE_SYNTAX_ERROR, ERRCODE_WRONG_OBJECT_TYPE, etc.)
 - Located in src/backend/commands/sequence.c:1593-1706
+
+## Simplified Source
+
+```c
+static void
+process_owned_by(Relation seqrel, List *owned_by, bool for_identity)
+{
+    DependencyType deptype;
+    int nnames;
+    Relation tablerel;
+    AttrNumber attnum;
+
+    // Set dependency type: INTERNAL for identity, AUTO for regular sequences
+    deptype = for_identity ? DEPENDENCY_INTERNAL : DEPENDENCY_AUTO;
+
+    nnames = list_length(owned_by);
+
+    if (nnames == 1) {
+        // Handle "OWNED BY NONE" case
+        if (strcmp(strVal(linitial(owned_by)), "none") != 0)
+            ereport(ERROR, "invalid OWNED BY option");
+        tablerel = NULL;
+        attnum = 0;
+    }
+    else {
+        // Parse table.column specification
+        List *relname = list_copy_head(owned_by, nnames - 1);
+        char *attrname = strVal(llast(owned_by));
+
+        // Open and lock the referenced table
+        RangeVar *rel = makeRangeVarFromNameList(relname);
+        tablerel = relation_openrv(rel, AccessShareLock);
+
+        // Validate relation type (table, foreign table, view, partitioned table)
+        if (!(tablerel->rd_rel->relkind == RELKIND_RELATION ||
+              tablerel->rd_rel->relkind == RELKIND_FOREIGN_TABLE ||
+              tablerel->rd_rel->relkind == RELKIND_VIEW ||
+              tablerel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE))
+            ereport(ERROR, "sequence cannot be owned by this relation type");
+
+        // Enforce same owner constraint
+        if (seqrel->rd_rel->relowner != tablerel->rd_rel->relowner)
+            ereport(ERROR, "sequence must have same owner as table");
+
+        // Enforce same schema constraint
+        if (RelationGetNamespace(seqrel) != RelationGetNamespace(tablerel))
+            ereport(ERROR, "sequence must be in same schema as table");
+
+        // Get attribute number and validate column exists
+        attnum = get_attnum(RelationGetRelid(tablerel), attrname);
+        if (attnum == InvalidAttrNumber)
+            ereport(ERROR, "column does not exist");
+    }
+
+    // Prevent manual changes to identity sequence ownership
+    if (deptype == DEPENDENCY_AUTO) {
+        Oid tableId;
+        int32 colId;
+        if (sequenceIsOwned(RelationGetRelid(seqrel), DEPENDENCY_INTERNAL, &tableId, &colId))
+            ereport(ERROR, "cannot change ownership of identity sequence");
+    }
+
+    // Update pg_depend: remove existing dependencies
+    deleteDependencyRecordsForClass(RelationRelationId, RelationGetRelid(seqrel),
+                                    RelationRelationId, deptype);
+
+    // Add new dependency if not "OWNED BY NONE"
+    if (tablerel) {
+        ObjectAddress refobject, depobject;
+
+        refobject.classId = RelationRelationId;
+        refobject.objectId = RelationGetRelid(tablerel);
+        refobject.objectSubId = attnum;
+        depobject.classId = RelationRelationId;
+        depobject.objectId = RelationGetRelid(seqrel);
+        depobject.objectSubId = 0;
+
+        recordDependencyOn(&depobject, &refobject, deptype);
+    }
+
+    // Close table but hold lock until commit
+    if (tablerel)
+        relation_close(tablerel, NoLock);
+}
+```

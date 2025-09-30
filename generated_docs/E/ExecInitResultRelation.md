@@ -34,3 +34,26 @@ This function initializes a ResultRelInfo structure for a relation that will be 
 - Maintains both array and list representations for different access patterns
 - The ResultRelInfo structure contains metadata needed for constraint checking, trigger execution, and partition routing
 - Used primarily in DML operations (INSERT, UPDATE, DELETE) and COPY operations
+
+## Simplified Source
+```c
+void ExecInitResultRelation(EState *estate, ResultRelInfo *resultRelInfo, Index rti) {
+    // Open the target relation from range table
+    Relation resultRelationDesc = ExecGetRangeTableRelation(estate, rti);
+
+    // Initialize ResultRelInfo with relation metadata
+    InitResultRelInfo(resultRelInfo, resultRelationDesc, rti, NULL, estate->es_instrument);
+
+    // Lazily allocate es_result_relations array if needed
+    if (estate->es_result_relations == NULL) {
+        estate->es_result_relations = (ResultRelInfo **)
+            palloc0(estate->es_range_table_size * sizeof(ResultRelInfo *));
+    }
+
+    // Store in array for direct access by range table index
+    estate->es_result_relations[rti - 1] = resultRelInfo;
+
+    // Also add to list for efficient traversal during cleanup
+    estate->es_opened_result_relations = lappend(estate->es_opened_result_relations, resultRelInfo);
+}
+```

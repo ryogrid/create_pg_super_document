@@ -45,3 +45,26 @@ This function manages the complex process of changing object ownership in Postgr
 - Opens pg_shdepend with RowExclusiveLock for safe concurrent access
 - Part of PostgreSQL's ALTER OWNER command implementation
 - Located in src/backend/catalog/pg_shdepend.c:316-369
+
+## Simplified Source
+
+```c
+void changeDependencyOnOwner(Oid classId, Oid objectId, Oid newOwnerId) {
+    // Open shared dependency catalog for modification
+    Relation sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    // Update the ownership dependency record
+    shdepChangeDep(sdepRel, classId, objectId, 0,
+                   AuthIdRelationId, newOwnerId,
+                   SHARED_DEPENDENCY_OWNER);
+
+    // Remove any ACL dependency for the new owner to prevent conflicts
+    // (owners don't need explicit ACL entries for their own objects)
+    shdepDropDependency(sdepRel, classId, objectId, 0, true,
+                        AuthIdRelationId, newOwnerId,
+                        SHARED_DEPENDENCY_ACL);
+
+    // Close the catalog
+    table_close(sdepRel, RowExclusiveLock);
+}
+```

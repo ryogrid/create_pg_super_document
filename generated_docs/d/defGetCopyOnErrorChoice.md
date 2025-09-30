@@ -36,3 +36,27 @@ This function parses and validates the ON_ERROR option value for COPY statements
 - Uses parser_errposition to provide precise error location information in source queries
 - Returns COPY_ON_ERROR_STOP as a compiler-quieting fallback, though error reporting should prevent reaching this point
 - The "ignore" option allows COPY FROM to continue processing despite individual row errors, which is useful for bulk data loading scenarios
+
+## Simplified Source
+
+```c
+static CopyOnErrorChoice
+defGetCopyOnErrorChoice(DefElem *def, ParseState *pstate, bool is_from)
+{
+    char *sval = defGetString(def);
+
+    // ON_ERROR only valid for COPY FROM operations
+    if (!is_from)
+        ereport(ERROR, /* COPY TO not supported */);
+
+    // Accept "stop" or "ignore" values
+    if (pg_strcasecmp(sval, "stop") == 0)
+        return COPY_ON_ERROR_STOP;
+    if (pg_strcasecmp(sval, "ignore") == 0)
+        return COPY_ON_ERROR_IGNORE;
+
+    // Invalid value provided
+    ereport(ERROR, /* unrecognized ON_ERROR value */);
+    return COPY_ON_ERROR_STOP;  // Keep compiler quiet
+}
+```

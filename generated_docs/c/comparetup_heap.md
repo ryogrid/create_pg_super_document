@@ -41,3 +41,25 @@ When the primary sort key comparison returns non-zero (indicating the tuples are
 - Works with both full and abbreviated sort keys, depending on the sorting configuration
 - The CLUSTER_SORT macro references this function, indicating its use in table clustering operations
 - Designed to handle NULL values properly through the ApplySortComparator interface
+
+## Simplified Source
+
+```c
+static int
+comparetup_heap(const SortTuple *a, const SortTuple *b, Tuplesortstate *state)
+{
+    // Get sort configuration from state
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    SortSupport sortKey = base->sortKeys;
+
+    // Compare primary sort key using cached datum1 values
+    int32 compare = ApplySortComparator(a->datum1, a->isnull1,
+                                        b->datum1, b->isnull1,
+                                        sortKey);
+    if (compare != 0)
+        return compare;
+
+    // If primary keys are equal, check additional sort keys
+    return comparetup_heap_tiebreak(a, b, state);
+}
+```

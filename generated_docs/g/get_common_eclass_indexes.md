@@ -38,3 +38,27 @@ The function includes an optimization: when the second relation set contains onl
 - Memory efficient by recycling the first input bitmap for the result
 - Essential for join planning to identify relevant equivalence classes between relation sets
 - Returns the intersection of equivalence classes that span both relation sets
+
+## Simplified Source
+
+```c
+static Bitmapset *
+get_common_eclass_indexes(PlannerInfo *root, Relids relids1, Relids relids2)
+{
+    Bitmapset *rel1ecs;
+    Bitmapset *rel2ecs;
+    int relid;
+
+    // Get EC indexes for first relation set
+    rel1ecs = get_eclass_indexes_for_relids(root, relids1);
+
+    // Optimization: if relids2 is singleton, use direct lookup
+    if (bms_get_singleton_member(relids2, &relid))
+        rel2ecs = root->simple_rel_array[relid]->eclass_indexes;
+    else
+        rel2ecs = get_eclass_indexes_for_relids(root, relids2);
+
+    // Return intersection of the two EC index sets
+    return bms_int_members(rel1ecs, rel2ecs);
+}
+```

@@ -37,3 +37,38 @@ This function is used when a specification for objects that involve datatypes (f
 - Part of the missing_ok logic for graceful handling of dependent objects
 - Stops at the first missing type/schema found and reports that specific issue
 - Helps distinguish between missing objects vs. missing types they depend on
+
+## Simplified Source
+
+```c
+static bool
+type_in_list_does_not_exist_skipping(List *typenames, const char **msg,
+                                     char **name)
+{
+    ListCell   *l;
+
+    // Check each type in the list
+    foreach(l, typenames)
+    {
+        TypeName   *typeName = lfirst_node(TypeName, l);
+
+        if (typeName != NULL)
+        {
+            // Try to look up the type
+            if (!OidIsValid(LookupTypeNameOid(NULL, typeName, true)))
+            {
+                // Type doesn't exist, check if it's because the schema is missing
+                if (schema_does_not_exist_skipping(typeName->names, msg, name))
+                    return true;
+
+                // Schema exists but type doesn't - report type as missing
+                *msg = gettext_noop("type \"%s\" does not exist, skipping");
+                *name = TypeNameToString(typeName);
+                return true;
+            }
+        }
+    }
+
+    return false;  // All types exist
+}
+```

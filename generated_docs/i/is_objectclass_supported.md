@@ -35,3 +35,17 @@ This is primarily used by the object address subsystem to validate whether opera
 - The function performs O(n) linear search through the ObjectProperty array
 - Located in src/backend/catalog/objectaddress.c:2729-2745
 - Essential for object address validation and event trigger functionality
+
+## Simplified Source
+
+```c
+bool is_objectclass_supported(Oid class_id) {
+    // Search ObjectProperty table for matching class
+    for (int index = 0; index < lengthof(ObjectProperty); index++) {
+        if (ObjectProperty[index].class_oid == class_id)
+            return true;  // Found matching object class
+    }
+
+    return false;  // Object class not supported
+}
+```

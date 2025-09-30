@@ -39,3 +39,23 @@ This promotion logic is crucial for maintaining type consistency in SQL operatio
 - The function handles both scalar-to-array promotion and array-to-array identity cases
 - This is part of PostgreSQL's type promotion system, ensuring consistent behavior in array operations
 - The two-step checking process (first try to get array type, then check if already array) implements the complete promotion logic
+
+## Simplified Source
+
+```c
+Oid
+get_promoted_array_type(Oid typid)
+{
+    // Try to get array type for scalar input
+    Oid array_type = get_array_type(typid);
+    if (OidIsValid(array_type))
+        return array_type;
+
+    // Check if input is already an array type
+    if (OidIsValid(get_element_type(typid)))
+        return typid;
+
+    // Neither scalar with array type nor existing array
+    return InvalidOid;
+}
+```

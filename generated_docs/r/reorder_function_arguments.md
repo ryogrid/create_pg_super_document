@@ -44,3 +44,64 @@ The function assumes that positional arguments appear before named arguments in 
 - The function creates a new argument list rather than modifying the input list
 - All argument positions must be filled after processing; NULL entries in the final array indicate an error condition
 - Default argument expressions are inserted at positions corresponding to parameters that have defaults defined
+
+## Simplified Source
+
+```c
+static List *
+reorder_function_arguments(List *args, int pronargs, HeapTuple func_tuple)
+{
+    Form_pg_proc funcform = (Form_pg_proc) GETSTRUCT(func_tuple);
+    int nargsprovided = list_length(args);
+    Node *argarray[FUNC_MAX_ARGS];
+
+    // Validate argument count and initialize array
+    if (pronargs < 0 || pronargs > FUNC_MAX_ARGS)
+        elog(ERROR, "too many function arguments");
+    memset(argarray, 0, pronargs * sizeof(Node *));
+
+    // Place arguments into array by position
+    int i = 0;
+    ListCell *lc;
+    foreach(lc, args)
+    {
+        Node *arg = (Node *) lfirst(lc);
+
+        if (!IsA(arg, NamedArgExpr))
+        {
+            // Positional argument - place sequentially
+            argarray[i++] = arg;
+        }
+        else
+        {
+            // Named argument - place at specified position
+            NamedArgExpr *na = (NamedArgExpr *) arg;
+            argarray[na->argnumber] = (Node *) na->arg;
+        }
+    }
+
+    // Fill in missing arguments with defaults
+    if (nargsprovided < pronargs)
+    {
+        List *defaults = fetch_function_defaults(func_tuple);
+
+        // Insert defaults starting from first parameter with default
+        i = pronargs - funcform->pronargdefaults;
+        foreach(lc, defaults)
+        {
+            if (argarray[i] == NULL)
+                argarray[i] = (Node *) lfirst(lc);
+            i++;
+        }
+    }
+
+    // Rebuild argument list in positional order
+    args = NIL;
+    for (i = 0; i < pronargs; i++)
+    {
+        args = lappend(args, argarray[i]);
+    }
+
+    return args;
+}
+```

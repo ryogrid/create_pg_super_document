@@ -59,3 +59,62 @@ On successful parsing, all extracted values are returned via output parameters. 
 - The salt output parameter is dynamically allocated and must be freed by the caller
 - Currently only supports SCRAM-SHA-256 algorithm
 - Part of PostgreSQL's SCRAM authentication implementation
+
+## Simplified Source
+
+```c
+bool parse_scram_secret(const char *secret, int *iterations,
+                        pg_cryptohash_type *hash_type, int *key_length,
+                        char **salt, uint8 *stored_key, uint8 *server_key) {
+    // Parse format: SCRAM-SHA-256$<iterations>:<salt>$<storedkey>:<serverkey>
+    char *v = pstrdup(secret);
+    char *scheme_str = strtok(v, "$");
+    char *iterations_str = strtok(NULL, ":");
+    char *salt_str = strtok(NULL, "$");
+    char *storedkey_str = strtok(NULL, ":");
+    char *serverkey_str = strtok(NULL, "");
+
+    // Validate all components are present
+    if (!scheme_str || !iterations_str || !salt_str || !storedkey_str || !serverkey_str)
+        goto invalid_secret;
+
+    // Validate scheme is SCRAM-SHA-256
+    if (strcmp(scheme_str, "SCRAM-SHA-256") != 0)
+        goto invalid_secret;
+    *hash_type = PG_SHA256;
+    *key_length = SCRAM_SHA_256_KEY_LEN;
+
+    // Parse iteration count
+    char *p;
+    errno = 0;
+    *iterations = strtol(iterations_str, &p, 10);
+    if (*p || errno != 0)
+        goto invalid_secret;
+
+    // Validate and decode salt (return encoded version)
+    int decoded_len = pg_b64_dec_len(strlen(salt_str));
+    char *decoded_salt_buf = palloc(decoded_len);
+    if (pg_b64_decode(salt_str, strlen(salt_str), decoded_salt_buf, decoded_len) < 0)
+        goto invalid_secret;
+    *salt = pstrdup(salt_str);
+
+    // Decode stored key and server key
+    decoded_len = pg_b64_dec_len(strlen(storedkey_str));
+    char *decoded_stored_buf = palloc(decoded_len);
+    if (pg_b64_decode(storedkey_str, strlen(storedkey_str), decoded_stored_buf, decoded_len) != *key_length)
+        goto invalid_secret;
+    memcpy(stored_key, decoded_stored_buf, *key_length);
+
+    decoded_len = pg_b64_dec_len(strlen(serverkey_str));
+    char *decoded_server_buf = palloc(decoded_len);
+    if (pg_b64_decode(serverkey_str, strlen(serverkey_str), decoded_server_buf, decoded_len) != *key_length)
+        goto invalid_secret;
+    memcpy(server_key, decoded_server_buf, *key_length);
+
+    return true;
+
+invalid_secret:
+    *salt = NULL;
+    return false;
+}
+```

@@ -30,3 +30,45 @@ This function takes no parameters and operates on global state and shared memory
 
 ## Notes and Other Information
 The function only operates on autovacuum workers (identified by MyWorkerInfo being non-NULL) and returns immediately for explicit VACUUM operations. The balancing logic is controlled by the wi_dobalance flag - workers with storage parameter overrides have this flag set to prevent their participation in load balancing. The av_nworkersForBalance counter in shared memory tracks how many workers should participate in cost limit distribution. The function ensures a minimum cost limit of 1 to prevent workers from being completely starved of vacuum resources.
+
+## Simplified Source
+
+```c
+void
+AutoVacuumUpdateCostLimit(void)
+{
+    // Only autovacuum workers should call this
+    if (!MyWorkerInfo)
+        return;
+
+    // Storage parameter takes precedence
+    if (av_storage_param_cost_limit > 0)
+        vacuum_cost_limit = av_storage_param_cost_limit;
+    else
+    {
+        int nworkers_for_balance;
+
+        // Use autovacuum-specific or general vacuum cost limit
+        if (autovacuum_vac_cost_limit > 0)
+            vacuum_cost_limit = autovacuum_vac_cost_limit;
+        else
+            vacuum_cost_limit = VacuumCostLimit;
+
+        // Skip balancing if storage parameters are specified
+        if (pg_atomic_unlocked_test_flag(&MyWorkerInfo->wi_dobalance))
+            return;
+
+        Assert(vacuum_cost_limit > 0);
+
+        // Get number of workers participating in balancing
+        nworkers_for_balance = pg_atomic_read_u32(&AutoVacuumShmem->av_nworkersForBalance);
+
+        // Sanity check
+        if (nworkers_for_balance <= 0)
+            elog(ERROR, "nworkers_for_balance must be > 0");
+
+        // Balance cost limit across workers (minimum 1)
+        vacuum_cost_limit = Max(vacuum_cost_limit / nworkers_for_balance, 1);
+    }
+}
+```

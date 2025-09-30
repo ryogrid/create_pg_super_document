@@ -47,3 +47,22 @@ The function is typically called in two scenarios:
 - The SKIP_ORIGINAL flag ensures the namespace container itself is not deleted, allowing it to be reused
 - The SKIP_EXTENSIONS flag prevents accidental deletion of extensions that might own temporary objects
 - Part of PostgreSQL's temporary object lifecycle management system
+
+## Simplified Source
+```c
+static void RemoveTempRelations(Oid tempNamespaceId) {
+    // Set up object address to target the temporary namespace
+    ObjectAddress object;
+    object.classId = NamespaceRelationId;
+    object.objectId = tempNamespaceId;
+    object.objectSubId = 0;
+
+    // Delete all contents of the namespace but keep the namespace itself
+    // Use special flags for internal cleanup operation
+    performDeletion(&object, DROP_CASCADE,
+                    PERFORM_DELETION_INTERNAL |
+                    PERFORM_DELETION_QUIETLY |
+                    PERFORM_DELETION_SKIP_ORIGINAL |
+                    PERFORM_DELETION_SKIP_EXTENSIONS);
+}
+```

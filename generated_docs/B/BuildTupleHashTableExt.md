@@ -61,3 +61,60 @@ This function creates a comprehensive hash table infrastructure for grouping tup
 - The tableslot is created lazily on first lookup operation
 - All key-related arrays (keyColIdx, eqfuncoids, hashfunctions, collations) must live as long as the hash table
 - Essential for hash-based aggregation, set operations, and subplan operations requiring efficient tuple grouping
+
+## Simplified Source
+
+```c
+TupleHashTable BuildTupleHashTableExt(PlanState *parent,
+                                     TupleDesc inputDesc,
+                                     int numCols, AttrNumber *keyColIdx,
+                                     const Oid *eqfuncoids,
+                                     FmgrInfo *hashfunctions,
+                                     Oid *collations,
+                                     long nbuckets, Size additionalsize,
+                                     MemoryContext metacxt,
+                                     MemoryContext tablecxt,
+                                     MemoryContext tempcxt,
+                                     bool use_variable_hash_iv)
+{
+    TupleHashTable hashtable;
+    Size entrysize = sizeof(TupleHashEntryData) + additionalsize;
+
+    // Limit initial table size to memory constraints
+    Size hash_mem_limit = get_hash_memory_limit() / entrysize;
+    if (nbuckets > hash_mem_limit)
+        nbuckets = hash_mem_limit;
+
+    // Allocate and initialize hash table structure
+    hashtable = (TupleHashTable) palloc(sizeof(TupleHashTableData));
+    hashtable->numCols = numCols;
+    hashtable->keyColIdx = keyColIdx;
+    hashtable->tab_hash_funcs = hashfunctions;
+    hashtable->tab_collations = collations;
+    hashtable->tablecxt = tablecxt;
+    hashtable->tempcxt = tempcxt;
+    hashtable->entrysize = entrysize;
+
+    // Set hash initialization vector for parallel query load balancing
+    if (use_variable_hash_iv)
+        hashtable->hash_iv = murmurhash32(ParallelWorkerNumber);
+    else
+        hashtable->hash_iv = 0;
+
+    // Create underlying hash table and tuple slot
+    hashtable->hashtab = tuplehash_create(metacxt, nbuckets, hashtable);
+    hashtable->tableslot = MakeSingleTupleTableSlot(CreateTupleDescCopy(inputDesc),
+                                                   &TTSOpsMinimalTuple);
+
+    // Build equality comparison function for grouping
+    bool allow_jit = (metacxt != tablecxt);  // Prevent JIT issues with old interface
+    hashtable->tab_eq_func = ExecBuildGroupingEqual(inputDesc, inputDesc, NULL, &TTSOpsMinimalTuple,
+                                                   numCols, keyColIdx, eqfuncoids, collations,
+                                                   allow_jit ? parent : NULL);
+
+    // Create expression context for evaluation
+    hashtable->exprcontext = CreateStandaloneExprContext();
+
+    return hashtable;
+}
+```

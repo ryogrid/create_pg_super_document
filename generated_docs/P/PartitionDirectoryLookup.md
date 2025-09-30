@@ -45,3 +45,28 @@ This caching mechanism is particularly important for query execution and plannin
 - The function assumes the relation is partitioned (PartitionDesc should not be NULL)
 - Provides protection against inconsistent views during concurrent DDL operations
 - The omit_detached setting from the directory is passed through to RelationGetPartitionDesc
+
+## Simplified Source
+
+```c
+PartitionDesc
+PartitionDirectoryLookup(PartitionDirectory pdir, Relation rel)
+{
+    PartitionDirectoryEntry *pde;
+    Oid relid = RelationGetRelid(rel);
+    bool found;
+
+    // Look up or create hash table entry for this relation
+    pde = hash_search(pdir->pdir_hash, &relid, HASH_ENTER, &found);
+
+    if (!found) {
+        // New entry: increment reference count to keep relation alive
+        RelationIncrementReferenceCount(rel);
+        pde->rel = rel;
+        pde->pd = RelationGetPartitionDesc(rel, pdir->omit_detached);
+        Assert(pde->pd != NULL);
+    }
+
+    return pde->pd;
+}
+```

@@ -55,3 +55,168 @@ The function handles multi-level partitioning by properly translating qualificat
 - Handles cases where parentrel and target partition may have different column orders in sub-partitioned tables
 - Creates present_parts bitmapset to track which partitions are available (not already pruned)
 - The function is static and only used within the partition pruning subsystem
+
+## Simplified Source
+
+```c
+static List *
+make_partitionedrel_pruneinfo(PlannerInfo *root, RelOptInfo *parentrel,
+                             List *prunequal, Bitmapset *partrelids,
+                             int *relid_subplan_map, Bitmapset **matchedsubplans)
+{
+    RelOptInfo *targetpart = NULL;
+    List       *pinfolist = NIL;
+    bool        doruntimeprune = false;
+    int        *relid_subpart_map;
+    Bitmapset  *subplansfound = NULL;
+    int         rti;
+    int         i;
+
+    // Phase 1: Examine each partitioned rel and determine if runtime pruning is needed
+    relid_subpart_map = palloc0(sizeof(int) * root->simple_rel_array_size);
+
+    i = 1;
+    rti = -1;
+    while ((rti = bms_next_member(partrelids, rti)) > 0)
+    {
+        RelOptInfo *subpart = find_base_rel(root, rti);
+        PartitionedRelPruneInfo *pinfo;
+        List       *partprunequal;
+        List       *initial_pruning_steps;
+        List       *exec_pruning_steps;
+        Bitmapset  *execparamids;
+        GeneratePruningStepsContext context;
+
+        // Fill the mapping array (1-based indexes)
+        relid_subpart_map[rti] = i++;
+
+        // Translate pruning qual for this partition
+        if (!targetpart)
+        {
+            targetpart = subpart;
+
+            // Adjust quals if parent and target are different
+            if (!bms_equal(parentrel->relids, subpart->relids))
+            {
+                int nappinfos;
+                AppendRelInfo **appinfos = find_appinfos_by_relids(root,
+                                                                  subpart->relids,
+                                                                  &nappinfos);
+                prunequal = (List *) adjust_appendrel_attrs(root, (Node *) prunequal,
+                                                           nappinfos, appinfos);
+                pfree(appinfos);
+            }
+            partprunequal = prunequal;
+        }
+        else
+        {
+            // For sub-partitioned tables, translate quals to match column order
+            partprunequal = (List *)
+                adjust_appendrel_attrs_multilevel(root, (Node *) prunequal,
+                                                 subpart, targetpart);
+        }
+
+        // Generate pruning steps for startup pruning
+        gen_partprune_steps(subpart, partprunequal, PARTTARGET_INITIAL, &context);
+
+        if (context.contradictory)
+            return NIL;  // Disable runtime pruning on contradictions
+
+        // Create initial pruning steps if we have mutable operators/expressions
+        if (context.has_mutable_op || context.has_mutable_arg)
+            initial_pruning_steps = context.steps;
+        else
+            initial_pruning_steps = NIL;
+
+        // Generate exec pruning steps if we have exec parameters
+        if (context.has_exec_param)
+        {
+            gen_partprune_steps(subpart, partprunequal, PARTTARGET_EXEC, &context);
+
+            if (context.contradictory)
+                return NIL;
+
+            exec_pruning_steps = context.steps;
+            execparamids = get_partkey_exec_paramids(exec_pruning_steps);
+
+            if (bms_is_empty(execparamids))
+                exec_pruning_steps = NIL;
+        }
+        else
+        {
+            exec_pruning_steps = NIL;
+            execparamids = NULL;
+        }
+
+        if (initial_pruning_steps || exec_pruning_steps)
+            doruntimeprune = true;
+
+        // Create PartitionedRelPruneInfo for this rel
+        pinfo = makeNode(PartitionedRelPruneInfo);
+        pinfo->rtindex = rti;
+        pinfo->initial_pruning_steps = initial_pruning_steps;
+        pinfo->exec_pruning_steps = exec_pruning_steps;
+        pinfo->execparamids = execparamids;
+
+        pinfolist = lappend(pinfolist, pinfo);
+    }
+
+    if (!doruntimeprune)
+    {
+        pfree(relid_subpart_map);
+        return NIL;  // No runtime pruning needed
+    }
+
+    // Phase 2: Build mapping structures for executor
+    foreach(lc, pinfolist)
+    {
+        PartitionedRelPruneInfo *pinfo = lfirst(lc);
+        RelOptInfo *subpart = find_base_rel(root, pinfo->rtindex);
+        Bitmapset  *present_parts;
+        int         nparts = subpart->nparts;
+        int        *subplan_map;
+        int        *subpart_map;
+        Oid        *relid_map;
+
+        // Create maps (convert to 0-based indexing with -1 for empty entries)
+        subplan_map = (int *) palloc(nparts * sizeof(int));
+        memset(subplan_map, -1, nparts * sizeof(int));
+        subpart_map = (int *) palloc(nparts * sizeof(int));
+        memset(subpart_map, -1, nparts * sizeof(int));
+        relid_map = (Oid *) palloc0(nparts * sizeof(Oid));
+        present_parts = NULL;
+
+        // Fill maps for live partitions
+        i = -1;
+        while ((i = bms_next_member(subpart->live_parts, i)) >= 0)
+        {
+            RelOptInfo *partrel = subpart->part_rels[i];
+            int         subplanidx;
+            int         subpartidx;
+
+            subplan_map[i] = subplanidx = relid_subplan_map[partrel->relid] - 1;
+            subpart_map[i] = subpartidx = relid_subpart_map[partrel->relid] - 1;
+            relid_map[i] = planner_rt_fetch(partrel->relid, root)->relid;
+
+            if (subplanidx >= 0)
+            {
+                present_parts = bms_add_member(present_parts, i);
+                subplansfound = bms_add_member(subplansfound, subplanidx);
+            }
+            else if (subpartidx >= 0)
+                present_parts = bms_add_member(present_parts, i);
+        }
+
+        // Store the maps in PartitionedRelPruneInfo
+        pinfo->present_parts = present_parts;
+        pinfo->nparts = nparts;
+        pinfo->subplan_map = subplan_map;
+        pinfo->subpart_map = subpart_map;
+        pinfo->relid_map = relid_map;
+    }
+
+    pfree(relid_subpart_map);
+    *matchedsubplans = subplansfound;
+    return pinfolist;
+}
+```

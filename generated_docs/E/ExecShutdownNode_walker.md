@@ -54,3 +54,53 @@ The function follows the PostgreSQL convention of returning false to continue tr
 - Essential for preventing resource leaks in foreign data wrappers and custom scan providers
 - Designed to be safe for partially executed or never-executed plans
 - The context parameter provides extensibility for future shutdown requirements
+
+## Simplified Source
+
+```c
+static bool ExecShutdownNode_walker(PlanState *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    check_stack_depth();
+
+    // Start instrumentation if node was previously running
+    if (node->instrument && node->instrument->running)
+        InstrStartNode(node->instrument);
+
+    // Recursively process child nodes first
+    planstate_tree_walker(node, ExecShutdownNode_walker, context);
+
+    // Perform node-specific shutdown operations
+    switch (nodeTag(node)) {
+        case T_GatherState:
+            ExecShutdownGather((GatherState *) node);
+            break;
+        case T_ForeignScanState:
+            ExecShutdownForeignScan((ForeignScanState *) node);
+            break;
+        case T_CustomScanState:
+            ExecShutdownCustomScan((CustomScanState *) node);
+            break;
+        case T_GatherMergeState:
+            ExecShutdownGatherMerge((GatherMergeState *) node);
+            break;
+        case T_HashState:
+            ExecShutdownHash((HashState *) node);
+            break;
+        case T_HashJoinState:
+            ExecShutdownHashJoin((HashJoinState *) node);
+            break;
+        default:
+            // Most node types don't need special shutdown
+            break;
+    }
+
+    // Stop instrumentation if we started it
+    if (node->instrument && node->instrument->running)
+        InstrStopNode(node->instrument, 0);
+
+    return false;
+}
+```

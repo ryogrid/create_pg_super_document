@@ -48,3 +48,73 @@ This function performs bit-level copying of null bitmap information between arra
 - Implementation uses a KISS (Keep It Simple, Stupid) approach rather than optimized bitblt operations
 - Critical for maintaining data integrity in array operations involving NULL values
 - The Assert(destbitmap) ensures the destination bitmap is never NULL, as this would be a programming error
+
+## Simplified Source
+
+```c
+void
+array_bitmap_copy(bits8 *destbitmap, int destoffset,
+                  const bits8 *srcbitmap, int srcoffset,
+                  int nitems)
+{
+    int destbitmask, destbitval, srcbitmask, srcbitval;
+
+    Assert(destbitmap);
+    if (nitems <= 0)
+        return;
+
+    // Set up destination pointers and masks
+    destbitmap += destoffset / 8;
+    destbitmask = 1 << (destoffset % 8);
+    destbitval = *destbitmap;
+
+    if (srcbitmap) {
+        // Copy from source bitmap
+        srcbitmap += srcoffset / 8;
+        srcbitmask = 1 << (srcoffset % 8);
+        srcbitval = *srcbitmap;
+
+        while (nitems-- > 0) {
+            // Copy bit from source to destination
+            if (srcbitval & srcbitmask)
+                destbitval |= destbitmask;
+            else
+                destbitval &= ~destbitmask;
+
+            // Advance destination bit position
+            destbitmask <<= 1;
+            if (destbitmask == 0x100) {
+                *destbitmap++ = destbitval;
+                destbitmask = 1;
+                if (nitems > 0)
+                    destbitval = *destbitmap;
+            }
+
+            // Advance source bit position
+            srcbitmask <<= 1;
+            if (srcbitmask == 0x100) {
+                srcbitmap++;
+                srcbitmask = 1;
+                if (nitems > 0)
+                    srcbitval = *srcbitmap;
+            }
+        }
+        if (destbitmask != 1)
+            *destbitmap = destbitval;
+    } else {
+        // Source is all non-NULL, set all destination bits to 1
+        while (nitems-- > 0) {
+            destbitval |= destbitmask;
+            destbitmask <<= 1;
+            if (destbitmask == 0x100) {
+                *destbitmap++ = destbitval;
+                destbitmask = 1;
+                if (nitems > 0)
+                    destbitval = *destbitmap;
+            }
+        }
+        if (destbitmask != 1)
+            *destbitmap = destbitval;
+    }
+}
+```

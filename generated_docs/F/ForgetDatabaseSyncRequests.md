@@ -46,3 +46,23 @@ This bulk cancellation approach is much more efficient than individually canceli
 - Part of PostgreSQL's crash recovery system (dbase_redo)
 - Significantly improves performance during database drop by bulk-canceling sync requests
 - Essential for maintaining consistency during database lifecycle operations
+
+## Simplified Source
+
+```c
+void ForgetDatabaseSyncRequests(Oid dbid) {
+    FileTag tag;
+    RelFileLocator rlocator;
+
+    // Set up file locator for the database
+    rlocator.dbOid = dbid;
+    rlocator.spcOid = 0;
+    rlocator.relNumber = 0;
+
+    // Create filter tag to match all files in database
+    INIT_MD_FILETAG(tag, rlocator, InvalidForkNumber, InvalidBlockNumber);
+
+    // Register filter request to cancel all sync operations for this database
+    RegisterSyncRequest(&tag, SYNC_FILTER_REQUEST, true);
+}
+```

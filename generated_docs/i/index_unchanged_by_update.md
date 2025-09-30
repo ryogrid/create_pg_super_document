@@ -9,7 +9,9 @@ Determines whether an index remains logically unchanged by an UPDATE operation, 
 ## Definition
 
 ```c
-union(updatedCols, extraUpdatedCols);
+static bool
+index_unchanged_by_update(ResultRelInfo *resultRelInfo, EState *estate,
+                          IndexInfo *indexInfo, Relation indexRelation)
 ```
 ## Detailed Description
 This function performs a comprehensive analysis to determine if an index can be considered unchanged by an UPDATE operation. It implements a caching mechanism to avoid redundant calculations and follows a multi-step process:
@@ -48,3 +50,74 @@ The function specifically ignores INCLUDE columns (non-key columns) since change
 - Row-level BEFORE triggers don't affect the analysis since they don't modify the updatedCols bitmaps
 - The function enables important performance optimizations by allowing index insertion code to skip unnecessary uniqueness checks when indexes are logically unchanged
 - Deliberately ignores index predicates to provide hints even for partial indexes where the updated tuple might not have a corresponding index entry
+
+## Simplified Source
+
+```c
+static bool
+index_unchanged_by_update(ResultRelInfo *resultRelInfo, EState *estate,
+                          IndexInfo *indexInfo, Relation indexRelation)
+{
+    Bitmapset  *updatedCols;
+    Bitmapset  *extraUpdatedCols;
+    Bitmapset  *allUpdatedCols;
+    bool        hasexpression = false;
+    List       *idxExprs;
+
+    // Check cache first to avoid redundant computation
+    if (indexInfo->ii_CheckedUnchanged)
+        return indexInfo->ii_IndexUnchanged;
+    indexInfo->ii_CheckedUnchanged = true;
+
+    // Get updated column information
+    updatedCols = ExecGetUpdatedCols(resultRelInfo, estate);
+    extraUpdatedCols = ExecGetExtraUpdatedCols(resultRelInfo, estate);
+
+    // Check key attributes for overlap with updated columns
+    for (int attr = 0; attr < indexInfo->ii_NumIndexKeyAttrs; attr++) {
+        int keycol = indexInfo->ii_IndexAttrNumbers[attr];
+
+        if (keycol <= 0) {
+            // Expression - will check later
+            hasexpression = true;
+            continue;
+        }
+
+        // Check if this key column was updated
+        if (bms_is_member(keycol - FirstLowInvalidHeapAttributeNumber, updatedCols) ||
+            bms_is_member(keycol - FirstLowInvalidHeapAttributeNumber, extraUpdatedCols)) {
+            // Changed key column - index is affected
+            indexInfo->ii_IndexUnchanged = false;
+            return false;
+        }
+    }
+
+    // If no expressions, index is unchanged
+    if (!hasexpression) {
+        indexInfo->ii_IndexUnchanged = true;
+        return true;
+    }
+
+    // Combine updated column bitmaps for expression analysis
+    if (!extraUpdatedCols)
+        allUpdatedCols = updatedCols;
+    else
+        allUpdatedCols = bms_union(updatedCols, extraUpdatedCols);
+
+    // Check if indexed expressions reference updated columns
+    idxExprs = RelationGetIndexExpressions(indexRelation);
+    hasexpression = index_expression_changed_walker((Node *) idxExprs, allUpdatedCols);
+    list_free(idxExprs);
+    if (extraUpdatedCols)
+        bms_free(allUpdatedCols);
+
+    if (hasexpression) {
+        indexInfo->ii_IndexUnchanged = false;
+        return false;
+    }
+
+    // Index is unchanged - enable optimization hint
+    indexInfo->ii_IndexUnchanged = true;
+    return true;
+}
+```

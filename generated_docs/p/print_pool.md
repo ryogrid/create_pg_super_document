@@ -38,3 +38,40 @@ This function prints detailed information about chromosomes within a specified r
 - If start + stop > pool->size, both are reset to print the entire pool
 - Output format: index followed by tab, gene sequence with spaces, then fitness value
 - Automatically flushes the output stream to ensure immediate visibility
+
+## Simplified Source
+
+```c
+void
+print_pool(FILE *fp, Pool *pool, int start, int stop)
+{
+    int i, j;
+
+    // Validate and correct input bounds
+    if (start < 0)
+        start = 0;
+    if (stop > pool->size)
+        stop = pool->size;
+
+    if (start + stop > pool->size)
+    {
+        start = 0;
+        stop = pool->size;
+    }
+
+    // Print each chromosome in the specified range
+    for (i = start; i < stop; i++)
+    {
+        fprintf(fp, "%d)\t", i);
+
+        // Print gene sequence
+        for (j = 0; j < pool->string_length; j++)
+            fprintf(fp, "%d ", pool->data[i].string[j]);
+
+        // Print fitness value
+        fprintf(fp, "%g\n", pool->data[i].worth);
+    }
+
+    fflush(fp);
+}
+```

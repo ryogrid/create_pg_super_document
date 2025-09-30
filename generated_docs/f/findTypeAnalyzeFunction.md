@@ -41,3 +41,25 @@ If either validation fails, the function raises an appropriate error. This stric
 - The INTERNAL argument represents the type's internal storage format for analysis
 - This function is part of PostgreSQL's extensible type system, allowing users to provide custom statistics gathering for their types
 - The function is located in src/backend/commands/typecmds.c:2208-2234
+
+## Simplified Source
+
+```c
+static Oid findTypeAnalyzeFunction(List *procname, Oid typeOid) {
+    Oid argList[1] = { INTERNALOID };
+
+    // Look up function with signature: (INTERNAL) -> bool
+    Oid procOid = LookupFuncName(procname, 1, argList, true);
+
+    if (!OidIsValid(procOid))
+        ereport(ERROR, "function %s does not exist",
+                func_signature_string(procname, 1, NIL, argList));
+
+    // Verify function returns boolean
+    if (get_func_rettype(procOid) != BOOLOID)
+        ereport(ERROR, "type analyze function %s must return type boolean",
+                NameListToString(procname));
+
+    return procOid;
+}
+```

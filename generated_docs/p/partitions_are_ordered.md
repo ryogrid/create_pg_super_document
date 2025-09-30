@@ -38,3 +38,30 @@ This function analyzes partition bounds to determine if the partitions can be sc
 - [HASH](../H/HASH.md) partitions never provide ordering due to their distribution strategy
 - Critical for PostgreSQL's query optimization to choose efficient execution plans
 - Located in src/backend/partitioning/partbounds.c:2852-2895
+
+## Simplified Source
+
+```c
+bool partitions_are_ordered(PartitionBoundInfo boundinfo, Bitmapset *live_parts) {
+    switch (boundinfo->strategy) {
+        case PARTITION_STRATEGY_RANGE:
+            // RANGE partitions are ordered unless DEFAULT partition is live
+            if (!partition_bound_has_default(boundinfo) ||
+                !bms_is_member(boundinfo->default_index, live_parts))
+                return true;
+            break;
+
+        case PARTITION_STRATEGY_LIST:
+            // LIST partitions are ordered if no interleaved partitions overlap with live_parts
+            if (!bms_overlap(live_parts, boundinfo->interleaved_parts))
+                return true;
+            break;
+
+        case PARTITION_STRATEGY_HASH:
+            // HASH partitions never provide ordering
+            break;
+    }
+
+    return false;
+}
+```

@@ -48,3 +48,58 @@ The function handles NULL inputs by passing them through unchanged and optimizes
 - Includes assertion checking that input tuple type matches expected input descriptor or is generic RECORD type
 - Handles the case where ExecEvalWholeRowVar may have changed tuple markings to plain RECORD due to alias insertion
 - Assumes input composite datum doesn't contain toasted fields since it was already a composite value
+
+## Simplified Source
+
+```c
+void ExecEvalConvertRowtype(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    HeapTuple result;
+    Datum tupDatum;
+    HeapTupleHeader tuple;
+    HeapTupleData tmptup;
+    TupleDesc indesc, outdesc;
+    bool changed = false;
+
+    // NULL in -> NULL out
+    if (*op->resnull)
+        return;
+
+    tupDatum = *op->resvalue;
+    tuple = DatumGetHeapTupleHeader(tupDatum);
+
+    // Get cached tuple descriptors for input and output types
+    indesc = get_cached_rowtype(op->d.convert_rowtype.inputtype, -1,
+                                op->d.convert_rowtype.incache,
+                                &changed);
+    IncrTupleDescRefCount(indesc);
+
+    outdesc = get_cached_rowtype(op->d.convert_rowtype.outputtype, -1,
+                                 op->d.convert_rowtype.outcache,
+                                 &changed);
+    IncrTupleDescRefCount(outdesc);
+
+    // Initialize conversion map if needed (first time or after change)
+    if (changed) {
+        MemoryContext old_cxt = MemoryContextSwitchTo(econtext->ecxt_per_query_memory);
+        op->d.convert_rowtype.map = convert_tuples_by_name(indesc, outdesc);
+        MemoryContextSwitchTo(old_cxt);
+    }
+
+    // Set up HeapTuple structure
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(tuple);
+    tmptup.t_data = tuple;
+
+    if (op->d.convert_rowtype.map != NULL) {
+        // Full conversion with attribute rearrangement
+        result = execute_attr_map_tuple(&tmptup, op->d.convert_rowtype.map);
+        *op->resvalue = HeapTupleGetDatum(result);
+    } else {
+        // Simple case: just update composite datum header
+        *op->resvalue = heap_copy_tuple_as_datum(&tmptup, outdesc);
+    }
+
+    DecrTupleDescRefCount(indesc);
+    DecrTupleDescRefCount(outdesc);
+}
+```

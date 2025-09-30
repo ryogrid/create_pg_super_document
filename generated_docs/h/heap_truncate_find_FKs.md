@@ -51,3 +51,88 @@ The function automatically restarts the scan if new referenced relations are dis
 - Handles partitioned table hierarchies by following conparentid relationships
 - The restart mechanism ensures all dependency chains are fully traversed
 - Results are sorted by OID to ensure consistent behavior in regression tests
+
+## Simplified Source
+
+```c
+List *
+heap_truncate_find_FKs(List *relationIds)
+{
+    List *result = NIL;
+    List *oids = list_copy(relationIds);
+    List *parent_cons;
+    Relation fkeyRel;
+    SysScanDesc fkeyScan;
+    HeapTuple tuple;
+    bool restart;
+
+    // Open constraint catalog for scanning
+    fkeyRel = table_open(ConstraintRelationId, AccessShareLock);
+
+restart:
+    restart = false;
+    parent_cons = NIL;
+
+    // Scan all foreign key constraints
+    fkeyScan = systable_beginscan(fkeyRel, InvalidOid, false, NULL, 0, NULL);
+
+    while (HeapTupleIsValid(tuple = systable_getnext(fkeyScan))) {
+        Form_pg_constraint con = (Form_pg_constraint) GETSTRUCT(tuple);
+
+        // Skip non-foreign key constraints
+        if (con->contype != CONSTRAINT_FOREIGN)
+            continue;
+
+        // Check if it references one of our tables
+        if (!list_member_oid(oids, con->confrelid))
+            continue;
+
+        // Track parent constraints for partitioned tables
+        if (OidIsValid(con->conparentid) &&
+            !list_member_oid(parent_cons, con->conparentid))
+            parent_cons = lappend_oid(parent_cons, con->conparentid);
+
+        // Add referencing table to result (if not in input list)
+        if (!list_member_oid(relationIds, con->conrelid))
+            result = lappend_oid(result, con->conrelid);
+    }
+
+    systable_endscan(fkeyScan);
+
+    // Process parent constraints for partitioned tables
+    foreach_oid(parent, parent_cons) {
+        // Look up parent constraint details
+        ScanKeyInit(&key, Anum_pg_constraint_oid,
+                   BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(parent));
+
+        fkeyScan = systable_beginscan(fkeyRel, ConstraintOidIndexId,
+                                     true, NULL, 1, &key);
+
+        tuple = systable_getnext(fkeyScan);
+        if (HeapTupleIsValid(tuple)) {
+            Form_pg_constraint con = (Form_pg_constraint) GETSTRUCT(tuple);
+
+            if (OidIsValid(con->conparentid))
+                parent_cons = list_append_unique_oid(parent_cons, con->conparentid);
+            else if (!list_member_oid(oids, con->confrelid)) {
+                oids = lappend_oid(oids, con->confrelid);
+                restart = true;
+            }
+        }
+        systable_endscan(fkeyScan);
+    }
+
+    list_free(parent_cons);
+    if (restart)
+        goto restart;
+
+    table_close(fkeyRel, AccessShareLock);
+    list_free(oids);
+
+    // Sort and deduplicate results
+    list_sort(result, list_oid_cmp);
+    list_deduplicate_oid(result);
+
+    return result;
+}
+```

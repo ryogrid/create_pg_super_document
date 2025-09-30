@@ -50,3 +50,47 @@ The function ensures stable sorting by examining all specified sort columns in o
 - Essential for maintaining sort stability and correctness in multi-column sorting scenarios
 - Part of the heap tuple sorting specialization within the broader tuplesort framework
 - Used in table clustering operations through the CLUSTER_SORT macro
+
+## Simplified Source
+
+```c
+static int
+comparetup_heap_tiebreak(const SortTuple *a, const SortTuple *b, Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    SortSupport sortKey = base->sortKeys;
+    TupleDesc tupDesc = (TupleDesc) base->arg;
+
+    // Convert MinimalTuples to HeapTuples for attribute access
+    HeapTupleData ltup, rtup;
+    ltup.t_len = ((MinimalTuple) a->tuple)->t_len + MINIMAL_TUPLE_OFFSET;
+    ltup.t_data = (HeapTupleHeader) ((char *) a->tuple - MINIMAL_TUPLE_OFFSET);
+    rtup.t_len = ((MinimalTuple) b->tuple)->t_len + MINIMAL_TUPLE_OFFSET;
+    rtup.t_data = (HeapTupleHeader) ((char *) b->tuple - MINIMAL_TUPLE_OFFSET);
+
+    // If using abbreviated keys, compare full values for first column
+    if (sortKey->abbrev_converter) {
+        Datum datum1 = heap_getattr(&ltup, sortKey->ssup_attno, tupDesc, &isnull1);
+        Datum datum2 = heap_getattr(&rtup, sortKey->ssup_attno, tupDesc, &isnull2);
+
+        int32 compare = ApplySortAbbrevFullComparator(datum1, isnull1,
+                                                      datum2, isnull2, sortKey);
+        if (compare != 0)
+            return compare;
+    }
+
+    // Compare additional sort keys
+    sortKey++;
+    for (int nkey = 1; nkey < base->nKeys; nkey++, sortKey++) {
+        Datum datum1 = heap_getattr(&ltup, sortKey->ssup_attno, tupDesc, &isnull1);
+        Datum datum2 = heap_getattr(&rtup, sortKey->ssup_attno, tupDesc, &isnull2);
+
+        int32 compare = ApplySortComparator(datum1, isnull1,
+                                            datum2, isnull2, sortKey);
+        if (compare != 0)
+            return compare;
+    }
+
+    return 0;  // All keys are equal
+}
+```

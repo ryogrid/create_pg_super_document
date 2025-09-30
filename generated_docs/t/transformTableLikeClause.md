@@ -56,3 +56,66 @@ The function performs comprehensive permission checking, ensuring the user has a
 
 ## Notes and Other Information
 The function maintains an AccessShareLock on the source relation until transaction commit to prevent concurrent modifications that could affect the LIKE operation. Foreign tables cannot use LIKE clauses due to their external nature. The LIKE options control which aspects are copied: INCLUDING DEFAULTS, INCLUDING CONSTRAINTS, INCLUDING INDEXES, INCLUDING STORAGE, INCLUDING COMMENTS, INCLUDING IDENTITY, INCLUDING GENERATED, and INCLUDING STATISTICS. Some options require deferred processing because they depend on the final column attribute numbers in the new table. The function carefully handles identity columns by extracting sequence options from the source table's identity sequence and creating a new sequence for the target table.
+
+## Simplified Source
+
+```c
+static void
+transformTableLikeClause(CreateStmtContext *cxt, TableLikeClause *table_like_clause)
+{
+    Relation relation;
+    TupleDesc tupleDesc;
+
+    // Set up error callback for better error messages
+    setup_parser_errposition_callback(&pcbstate, cxt->pstate,
+                                     table_like_clause->relation->location);
+
+    // Reject LIKE for foreign tables
+    if (cxt->isforeign)
+        ereport(ERROR, "LIKE is not supported for creating foreign tables");
+
+    // Open and validate the source relation
+    relation = relation_openrv(table_like_clause->relation, AccessShareLock);
+
+    // Check relation type is supported (table, view, matview, composite, foreign, partitioned)
+    if (!is_supported_relkind(relation->rd_rel->relkind))
+        ereport(ERROR, "relation is invalid in LIKE clause");
+
+    // Check permissions (USAGE for composite types, SELECT for relations)
+    check_like_permissions(relation);
+
+    tupleDesc = RelationGetDescr(relation);
+
+    // Copy column definitions from source to target
+    for (AttrNumber attno = 1; attno <= tupleDesc->natts; attno++)
+    {
+        Form_pg_attribute attribute = TupleDescAttr(tupleDesc, attno - 1);
+        ColumnDef *def;
+
+        // Skip dropped columns
+        if (attribute->attisdropped)
+            continue;
+
+        // Create new column definition with basic attributes
+        def = makeColumnDef(NameStr(attribute->attname), attribute->atttypid,
+                           attribute->atttypmod, attribute->attcollation);
+        def->is_not_null = attribute->attnotnull;
+
+        // Copy optional attributes based on LIKE options
+        copy_optional_attributes(def, attribute, table_like_clause->options, cxt);
+
+        // Add column to target table definition
+        cxt->columns = lappend(cxt->columns, def);
+    }
+
+    // Defer complex attributes (defaults, constraints, indexes, statistics)
+    if (has_deferred_options(table_like_clause->options))
+    {
+        table_like_clause->relationOid = RelationGetRelid(relation);
+        cxt->likeclauses = lappend(cxt->likeclauses, table_like_clause);
+    }
+
+    // Close relation but keep lock until commit
+    table_close(relation, NoLock);
+}
+```

@@ -44,3 +44,27 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 - Used to describe the structure of query results before actual data transmission
 - Output format follows tab-delimited structure for easy parsing by analysis tools
 - Essential for understanding the schema and data types of query results in protocol debugging
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_RowDescription(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Output message type and field count
+    fprintf(f, "RowDescription\t");
+    int nfields = pqTraceOutputInt16(f, message, cursor);
+
+    // Output metadata for each field
+    for (int i = 0; i < nfields; i++)
+    {
+        pqTraceOutputString(f, message, cursor, false);   // Field name
+        pqTraceOutputInt32(f, message, cursor, regress);  // Table OID
+        pqTraceOutputInt16(f, message, cursor);           // Column attr number
+        pqTraceOutputInt32(f, message, cursor, regress);  // Type OID
+        pqTraceOutputInt16(f, message, cursor);           // Type size
+        pqTraceOutputInt32(f, message, cursor, false);    // Type modifier
+        pqTraceOutputInt16(f, message, cursor);           // Format code
+    }
+}
+```

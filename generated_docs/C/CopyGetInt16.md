@@ -30,3 +30,23 @@ CopyGetInt16 is a utility function for reading 16-bit integers from binary COPY 
 - Used primarily for reading column counts and other 16-bit metadata in binary COPY format
 - The function is declared as static inline for performance optimization
 - Companion function to CopyGetInt32 for handling different integer sizes in binary format
+
+## Simplified Source
+
+```c
+static inline bool
+CopyGetInt16(CopyFromState cstate, int16 *val)
+{
+    uint16 buf;
+
+    // Read 2 bytes of binary data
+    if (CopyReadBinaryData(cstate, (char *) &buf, sizeof(buf)) != sizeof(buf)) {
+        *val = 0;
+        return false;  // EOF or insufficient data
+    }
+
+    // Convert from network byte order to host byte order
+    *val = (int16) pg_ntoh16(buf);
+    return true;
+}
+```

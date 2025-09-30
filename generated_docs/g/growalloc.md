@@ -43,3 +43,27 @@ The growth algorithm follows the pattern: new_size = old_size + (old_size >> 1) 
 - Includes special handling for Qt-related issues (WORK_AROUND_QTBUG_53071)
 - Returns the existing pointer unchanged if no reallocation is needed
 - Critical for safe dynamic array management in timezone rule processing
+
+## Simplified Source
+
+```c
+static void *growalloc(void *ptr, size_t itemsize, ptrdiff_t nitems, ptrdiff_t *nitems_alloc) {
+    // Return existing pointer if we have enough space
+    if (nitems < *nitems_alloc)
+        return ptr;
+
+    // Calculate safe allocation limits
+    ptrdiff_t nitems_max = PTRDIFF_MAX - WORK_AROUND_QTBUG_53071;
+    ptrdiff_t amax = nitems_max < SIZE_MAX ? nitems_max : SIZE_MAX;
+
+    // Check for overflow before growth calculation
+    if ((amax - 1) / 3 * 2 < *nitems_alloc)
+        memory_exhausted(_("integer overflow"));
+
+    // Grow by 50% + 1 for efficient amortized expansion
+    *nitems_alloc += (*nitems_alloc >> 1) + 1;
+
+    // Reallocate with overflow-safe size calculation
+    return erealloc(ptr, size_product(*nitems_alloc, itemsize));
+}
+```

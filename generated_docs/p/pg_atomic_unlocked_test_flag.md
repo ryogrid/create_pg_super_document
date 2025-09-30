@@ -40,3 +40,14 @@ The function returns true if the flag is unlocked (available), and false if the 
 - Commonly used in busy-wait loops with backoff strategies to reduce contention
 - The lack of barrier semantics means this should not be used where strict memory ordering is required
 - Useful for implementing optimistic lock acquisition patterns and reducing unnecessary contention in high-concurrency scenarios
+
+## Simplified Source
+
+```c
+static inline bool
+pg_atomic_unlocked_test_flag(volatile pg_atomic_flag *ptr)
+{
+    // Delegate to platform-specific implementation
+    return pg_atomic_unlocked_test_flag_impl(ptr);
+}
+```

@@ -37,3 +37,44 @@ For the general case where both lists are non-empty, the function iterates throu
 
 ## Notes and Other Information
 This function is particularly valuable for incremental sort planning, where knowing the exact number of common pathkeys helps determine the cost and feasibility of incremental sorting operations. The performance optimizations for identical lists and empty lists provide significant planning time improvements in worst-case scenarios. The function is widely used throughout the planner for path costing and selection decisions where partial ordering compatibility matters.
+
+## Simplified Source
+
+```c
+bool
+pathkeys_count_contained_in(List *keys1, List *keys2, int *n_common)
+{
+    int n = 0;
+    ListCell *key1, *key2;
+
+    // Optimization: check for special cases
+    if (keys1 == keys2) {
+        *n_common = list_length(keys1);
+        return true;
+    }
+    else if (keys1 == NIL) {
+        *n_common = 0;
+        return true;
+    }
+    else if (keys2 == NIL) {
+        *n_common = 0;
+        return false;
+    }
+
+    // Compare both lists element by element
+    forboth(key1, keys1, key2, keys2) {
+        PathKey *pathkey1 = (PathKey *) lfirst(key1);
+        PathKey *pathkey2 = (PathKey *) lfirst(key2);
+
+        if (pathkey1 != pathkey2) {
+            *n_common = n;
+            return false;
+        }
+        n++;
+    }
+
+    // Return whether keys1 was fully contained (key1 exhausted)
+    *n_common = n;
+    return (key1 == NULL);
+}
+```

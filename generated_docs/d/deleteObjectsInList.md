@@ -50,3 +50,43 @@ The function processes objects in the order they appear in the targetObjects lis
 - Event trigger support is conditional and only applies to non-internal deletions
 - The PERFORM_DELETION_SKIP_ORIGINAL flag allows callers to delete dependencies without deleting the original requested objects
 - Object flags (DEPFLAG_*) are used to categorize objects as original, normal, or reverse dependencies for event trigger purposes
+
+## Simplified Source
+
+```c
+static void deleteObjectsInList(ObjectAddresses *targetObjects, Relation *depRel,
+                               int flags) {
+    // Track dropped objects for event triggers if needed
+    if (trackDroppedObjectsNeeded() && !(flags & PERFORM_DELETION_INTERNAL)) {
+        for (int i = 0; i < targetObjects->numrefs; i++) {
+            const ObjectAddress *obj = &targetObjects->refs[i];
+            const ObjectAddressExtra *extra = &targetObjects->extras[i];
+
+            // Determine object type flags for event triggers
+            bool original = (extra->flags & DEPFLAG_ORIGINAL) != 0;
+            bool normal = (extra->flags & DEPFLAG_NORMAL) != 0 ||
+                         (extra->flags & DEPFLAG_REVERSE) != 0;
+
+            // Add to event trigger tracking if supported
+            if (EventTriggerSupportsObject(obj)) {
+                EventTriggerSQLDropAddObject(obj, original, normal);
+            }
+        }
+    }
+
+    // Delete all objects in proper order
+    for (int i = 0; i < targetObjects->numrefs; i++) {
+        ObjectAddress *obj = &targetObjects->refs[i];
+        ObjectAddressExtra *extra = &targetObjects->extras[i];
+
+        // Skip original objects if requested
+        if ((flags & PERFORM_DELETION_SKIP_ORIGINAL) &&
+            (extra->flags & DEPFLAG_ORIGINAL)) {
+            continue;
+        }
+
+        // Perform the actual deletion
+        deleteOneObject(obj, depRel, flags);
+    }
+}
+```

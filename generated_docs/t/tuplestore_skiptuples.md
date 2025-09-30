@@ -45,3 +45,63 @@ The function includes careful handling of edge cases like backward reading from 
 - Properly handles EOF states and tuple deletion boundaries
 - Includes interrupt checking during long skip operations to allow query cancellation
 - Used primarily in window functions and portal management for efficient tuple navigation
+
+## Simplified Source
+
+```c
+bool
+tuplestore_skiptuples(Tuplestorestate *state, int64 ntuples, bool forward)
+{
+    TSReadPointer *readptr = &state->readptrs[state->activeptr];
+
+    Assert(forward || (readptr->eflags & EXEC_FLAG_BACKWARD));
+
+    if (ntuples <= 0)
+        return true;
+
+    switch (state->status) {
+        case TSS_INMEM:
+            if (forward) {
+                // Forward skip in memory
+                if (readptr->eof_reached)
+                    return false;
+                if (state->memtupcount - readptr->current >= ntuples) {
+                    readptr->current += ntuples;
+                    return true;
+                }
+                // Hit end of tuples
+                readptr->current = state->memtupcount;
+                readptr->eof_reached = true;
+                return false;
+            } else {
+                // Backward skip in memory
+                if (readptr->eof_reached) {
+                    readptr->current = state->memtupcount;
+                    readptr->eof_reached = false;
+                    ntuples--;
+                }
+                if (readptr->current - state->memtupdeleted > ntuples) {
+                    readptr->current -= ntuples;
+                    return true;
+                }
+                readptr->current = state->memtupdeleted;
+                return false;
+            }
+
+        default:
+            // For complex cases, fall back to iterative approach
+            while (ntuples-- > 0) {
+                void *tuple;
+                bool should_free;
+
+                tuple = tuplestore_gettuple(state, forward, &should_free);
+                if (tuple == NULL)
+                    return false;
+                if (should_free)
+                    pfree(tuple);
+                CHECK_FOR_INTERRUPTS();
+            }
+            return true;
+    }
+}
+```

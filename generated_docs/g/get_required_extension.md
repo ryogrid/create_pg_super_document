@@ -45,3 +45,58 @@ This function handles the resolution of extension dependencies during extension 
 - Returns proper error codes (ERRCODE_INVALID_RECURSION, ERRCODE_UNDEFINED_OBJECT) with helpful hints
 - Only propagates SCHEMA and CASCADE options to dependent extensions, not other CREATE EXTENSION options
 - The parents list is extended with the current extension name before recursive calls to track the installation chain
+
+## Simplified Source
+
+```c
+static Oid get_required_extension(char *reqExtensionName, char *extensionName,
+                                 char *origSchemaName, bool cascade,
+                                 List *parents, bool is_create) {
+    Oid reqExtensionOid;
+
+    // Try to find the required extension
+    reqExtensionOid = get_extension_oid(reqExtensionName, true);
+    if (!OidIsValid(reqExtensionOid)) {
+        if (cascade) {
+            // Install the required extension automatically
+            check_valid_extension_name(reqExtensionName);
+
+            // Check for cyclic dependencies
+            foreach(lc, parents) {
+                char *pname = (char *) lfirst(lc);
+                if (strcmp(pname, reqExtensionName) == 0) {
+                    ereport(ERROR,
+                            (errcode(ERRCODE_INVALID_RECURSION),
+                             errmsg("cyclic dependency detected between extensions \"%s\" and \"%s\"",
+                                    reqExtensionName, extensionName)));
+                }
+            }
+
+            ereport(NOTICE,
+                    (errmsg("installing required extension \"%s\"", reqExtensionName)));
+
+            // Add current extension to parent chain for cycle detection
+            List *cascade_parents = lappend(list_copy(parents), extensionName);
+
+            // Recursively create the required extension
+            ObjectAddress addr = CreateExtensionInternal(reqExtensionName,
+                                                        origSchemaName,
+                                                        NULL,  // No specific version
+                                                        cascade,
+                                                        cascade_parents,
+                                                        is_create);
+
+            reqExtensionOid = addr.objectId;
+        } else {
+            // Required extension missing and no cascade
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("required extension \"%s\" is not installed", reqExtensionName),
+                     is_create ?
+                     errhint("Use CREATE EXTENSION ... CASCADE to install required extensions too.") : 0));
+        }
+    }
+
+    return reqExtensionOid;
+}
+```

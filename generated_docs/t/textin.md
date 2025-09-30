@@ -30,4 +30,18 @@ The  function is a PostgreSQL data type input function that handles the conversi
 - This function is registered as the input function for the  data type in PostgreSQL's type system
 - It uses PostgreSQL's function call convention with  and 
 - The actual string-to-text conversion logic is delegated to the  helper function
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum
+textin(PG_FUNCTION_ARGS)
+{
+    // Get input C string from function arguments
+    char *inputText = PG_GETARG_CSTRING(0);
+
+    // Convert C string to PostgreSQL text type and return
+    PG_RETURN_TEXT_P(cstring_to_text(inputText));
+}
+``` 

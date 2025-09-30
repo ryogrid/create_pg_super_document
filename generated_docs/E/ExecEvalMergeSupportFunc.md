@@ -39,3 +39,43 @@ This enables SQL queries like:
 - Part of PostgreSQL's SQL MERGE statement implementation (SQL:2003 standard)
 - Enables introspection of MERGE actions in RETURNING clauses
 - The CMD_NOTHING case is treated as an error since it represents a planning-time concept
+
+## Simplified Source
+
+```c
+void ExecEvalMergeSupportFunc(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    // Get the current MERGE action state
+    ModifyTableState *mtstate = castNode(ModifyTableState, state->parent);
+    MergeActionState *relaction = mtstate->mt_merge_action;
+
+    if (!relaction)
+        elog(ERROR, "no merge action in progress");
+
+    // Return the appropriate action name based on command type
+    switch (relaction->mas_action->commandType)
+    {
+        case CMD_INSERT:
+            *op->resvalue = PointerGetDatum(cstring_to_text_with_len("INSERT", 6));
+            *op->resnull = false;
+            break;
+
+        case CMD_UPDATE:
+            *op->resvalue = PointerGetDatum(cstring_to_text_with_len("UPDATE", 6));
+            *op->resnull = false;
+            break;
+
+        case CMD_DELETE:
+            *op->resvalue = PointerGetDatum(cstring_to_text_with_len("DELETE", 6));
+            *op->resnull = false;
+            break;
+
+        case CMD_NOTHING:
+            elog(ERROR, "unexpected merge action: DO NOTHING");
+            break;
+
+        default:
+            elog(ERROR, "unrecognized commandType: %d", (int) relaction->mas_action->commandType);
+    }
+}
+```

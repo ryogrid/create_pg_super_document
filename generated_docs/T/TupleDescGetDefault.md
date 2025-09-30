@@ -38,3 +38,26 @@ The function returns NULL if either the tuple descriptor has no constraints defi
 - The function performs a linear search through the defval array - this is acceptable since the number of defaults is typically small
 - Used primarily during DDL operations and query rewriting where default expressions need to be processed
 - The attribute number is 1-based following PostgreSQL conventions
+
+## Simplified Source
+```c
+Node *TupleDescGetDefault(TupleDesc tupdesc, AttrNumber attnum) {
+    Node *result = NULL;
+
+    // Check if tuple descriptor has constraints defined
+    if (tupdesc->constr) {
+        AttrDefault *attrdef = tupdesc->constr->defval;
+
+        // Search through default values for matching attribute
+        for (int i = 0; i < tupdesc->constr->num_defval; i++) {
+            if (attrdef[i].adnum == attnum) {
+                // Convert binary representation to Node tree
+                result = stringToNode(attrdef[i].adbin);
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+```

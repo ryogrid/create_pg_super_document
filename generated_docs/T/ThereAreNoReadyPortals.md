@@ -41,3 +41,24 @@ None - the function takes no parameters
 - The function provides early termination - it stops scanning as soon as the first ready portal is found
 - Used primarily for safety checks in operations that might be incompatible with pending portal execution
 - The function is defined in src/backend/utils/mmgr/portalmem.c:1171-1206
+
+## Simplified Source
+```c
+bool ThereAreNoReadyPortals(void) {
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Scan all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+    while ((hentry = (PortalHashEnt *) hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Return false immediately if any portal is ready
+        if (portal->status == PORTAL_READY)
+            return false;
+    }
+
+    // No ready portals found
+    return true;
+}
+```

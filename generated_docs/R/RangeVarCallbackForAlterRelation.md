@@ -46,3 +46,59 @@ The function implements strict type checking to prevent inappropriate operations
 - Prevents schema changes on indexes, composite types, and TOAST tables with helpful error messages
 - Uses PostgreSQL's standard error reporting with appropriate error codes and hints
 - Part of the table command infrastructure in src/backend/commands/tablecmds.c (lines 17847-17987)
+
+## Simplified Source
+
+```c
+static void RangeVarCallbackForAlterRelation(const RangeVar *rv, Oid relid, Oid oldrelid, void *arg)
+{
+    Node *stmt = (Node *) arg;
+    ObjectType reltype;
+    HeapTuple tuple;
+    Form_pg_class classform;
+    char relkind;
+
+    // Get relation info from system catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        return; // concurrently dropped
+    classform = (Form_pg_class) GETSTRUCT(tuple);
+    relkind = classform->relkind;
+
+    // Verify ownership
+    if (!object_ownercheck(RelationRelationId, relid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(get_rel_relkind(relid)), rv->relname);
+
+    // Prevent system catalog modifications unless allowed
+    if (!allowSystemTableMods && IsSystemClass(relid, classform))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied: \"%s\" is a system catalog", rv->relname)));
+
+    // Extract operation type and check permissions
+    if (IsA(stmt, RenameStmt))
+    {
+        // For rename, check CREATE permission on namespace
+        aclresult = object_aclcheck(NamespaceRelationId, classform->relnamespace, GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(classform->relnamespace));
+        reltype = ((RenameStmt *) stmt)->renameType;
+    }
+    else if (IsA(stmt, AlterObjectSchemaStmt))
+        reltype = ((AlterObjectSchemaStmt *) stmt)->objectType;
+    else if (IsA(stmt, AlterTableStmt))
+        reltype = ((AlterTableStmt *) stmt)->objtype;
+    else
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(stmt));
+
+    // Validate operation compatibility with relation type
+    if (reltype == OBJECT_SEQUENCE && relkind != RELKIND_SEQUENCE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("\"%s\" is not a sequence", rv->relname)));
+
+    // Additional type validations for view, materialized view, foreign table, etc.
+    // Block inappropriate operations like ALTER TABLE on composite types
+    // Prevent schema changes on indexes, composite types, TOAST tables
+
+    ReleaseSysCache(tuple);
+}
+```

@@ -44,3 +44,50 @@ The function follows the same object type logic as its recording counterpart, sk
 - Unlike recording, removal processes even dropped columns to ensure complete cleanup
 - The NULL ACL parameter to recordExtensionInitPrivWorker() triggers deletion logic
 - Used during ALTER EXTENSION DROP to clean up privilege tracking entries
+
+## Simplified Source
+
+```c
+void removeExtObjInitPriv(Oid objoid, Oid classoid) {
+    // Handle relations (tables, views, etc.)
+    if (classoid == RelationRelationId) {
+        HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(objoid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for relation %u", objoid);
+
+        Form_pg_class pg_class_tuple = (Form_pg_class) GETSTRUCT(tuple);
+
+        // Skip objects without permissions
+        if (pg_class_tuple->relkind == RELKIND_INDEX ||
+            pg_class_tuple->relkind == RELKIND_PARTITIONED_INDEX ||
+            pg_class_tuple->relkind == RELKIND_COMPOSITE_TYPE) {
+            ReleaseSysCache(tuple);
+            return;
+        }
+
+        // Remove column-level privilege entries for non-sequences
+        if (pg_class_tuple->relkind != RELKIND_SEQUENCE) {
+            AttrNumber nattrs = pg_class_tuple->relnatts;
+
+            for (AttrNumber curr_att = 1; curr_att <= nattrs; curr_att++) {
+                HeapTuple attTuple = SearchSysCache2(ATTNUM,
+                                                    ObjectIdGetDatum(objoid),
+                                                    Int16GetDatum(curr_att));
+
+                if (!HeapTupleIsValid(attTuple))
+                    continue;
+
+                // Remove privilege entry (including dropped columns)
+                recordExtensionInitPrivWorker(objoid, classoid, curr_att, NULL);
+
+                ReleaseSysCache(attTuple);
+            }
+        }
+
+        ReleaseSysCache(tuple);
+    }
+
+    // Remove the top-level object privilege entry
+    recordExtensionInitPrivWorker(objoid, classoid, 0, NULL);
+}
+```

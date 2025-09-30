@@ -41,3 +41,23 @@ The function ensures consistent origin naming across all logical replication com
 - Apply workers use subscription-level origins for overall replication state tracking
 - The "pg_" prefix follows PostgreSQL's internal naming conventions for system-generated objects
 - Buffer size checking is handled by snprintf to prevent buffer overflows
+
+## Simplified Source
+
+```c
+void
+ReplicationOriginNameForLogicalRep(Oid suboid, Oid relid,
+                                   char *originname, Size szoriginname)
+{
+    if (OidIsValid(relid)) {
+        // Tablesync workers: include both subscription and relation IDs
+        // Format: "pg_{subscription_oid}_{relation_oid}"
+        snprintf(originname, szoriginname, "pg_%u_%u", suboid, relid);
+    }
+    else {
+        // Apply workers and other non-tablesync contexts: subscription only
+        // Format: "pg_{subscription_oid}"
+        snprintf(originname, szoriginname, "pg_%u", suboid);
+    }
+}
+```

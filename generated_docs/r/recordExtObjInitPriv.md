@@ -49,3 +49,116 @@ The function skips objects that don't have permissions (indexes, partitioned ind
 - Essential for maintaining consistent privilege states across extension operations
 - The recorded privileges serve as a baseline for privilege restoration when extensions are recreated
 - Only records non-NULL ACLs to avoid unnecessary pg_init_privs entries
+
+## Simplified Source
+
+```c
+void recordExtObjInitPriv(Oid objoid, Oid classoid) {
+    // Handle relations (tables, views, etc.)
+    if (classoid == RelationRelationId) {
+        HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(objoid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for relation %u", objoid);
+
+        Form_pg_class pg_class_tuple = (Form_pg_class) GETSTRUCT(tuple);
+
+        // Skip objects without permissions
+        if (pg_class_tuple->relkind == RELKIND_INDEX ||
+            pg_class_tuple->relkind == RELKIND_PARTITIONED_INDEX ||
+            pg_class_tuple->relkind == RELKIND_COMPOSITE_TYPE) {
+            ReleaseSysCache(tuple);
+            return;
+        }
+
+        // Record column-level ACLs for non-sequences
+        if (pg_class_tuple->relkind != RELKIND_SEQUENCE) {
+            AttrNumber nattrs = pg_class_tuple->relnatts;
+
+            for (AttrNumber curr_att = 1; curr_att <= nattrs; curr_att++) {
+                HeapTuple attTuple = SearchSysCache2(ATTNUM,
+                                                    ObjectIdGetDatum(objoid),
+                                                    Int16GetDatum(curr_att));
+
+                if (!HeapTupleIsValid(attTuple))
+                    continue;
+
+                // Skip dropped columns
+                if (((Form_pg_attribute) GETSTRUCT(attTuple))->attisdropped) {
+                    ReleaseSysCache(attTuple);
+                    continue;
+                }
+
+                // Get column ACL and record if not NULL
+                Datum attaclDatum = SysCacheGetAttr(ATTNUM, attTuple,
+                                                   Anum_pg_attribute_attacl,
+                                                   &isNull);
+
+                if (!isNull) {
+                    recordExtensionInitPrivWorker(objoid, classoid, curr_att,
+                                                 DatumGetAclP(attaclDatum));
+                }
+
+                ReleaseSysCache(attTuple);
+            }
+        }
+
+        // Record table-level ACL
+        Datum aclDatum = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_relacl,
+                                        &isNull);
+
+        if (!isNull) {
+            recordExtensionInitPrivWorker(objoid, classoid, 0,
+                                         DatumGetAclP(aclDatum));
+        }
+
+        ReleaseSysCache(tuple);
+    }
+    // Handle large objects (dead code - large objects can't be extension members)
+    else if (classoid == LargeObjectRelationId) {
+        Relation relation = table_open(LargeObjectMetadataRelationId, RowExclusiveLock);
+
+        ScanKeyData entry[1];
+        ScanKeyInit(&entry[0], Anum_pg_largeobject_metadata_oid,
+                    BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objoid));
+
+        SysScanDesc scan = systable_beginscan(relation,
+                                             LargeObjectMetadataOidIndexId,
+                                             true, NULL, 1, entry);
+
+        HeapTuple tuple = systable_getnext(scan);
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "could not find tuple for large object %u", objoid);
+
+        Datum aclDatum = heap_getattr(tuple,
+                                     Anum_pg_largeobject_metadata_lomacl,
+                                     RelationGetDescr(relation), &isNull);
+
+        if (!isNull) {
+            recordExtensionInitPrivWorker(objoid, classoid, 0,
+                                         DatumGetAclP(aclDatum));
+        }
+
+        systable_endscan(scan);
+    }
+    // Handle other object types generically
+    else if (get_object_attnum_acl(classoid) != InvalidAttrNumber) {
+        int cacheid = get_object_catcache_oid(classoid);
+        HeapTuple tuple = SearchSysCache1(cacheid, ObjectIdGetDatum(objoid));
+
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for %s %u",
+                 get_object_class_descr(classoid), objoid);
+
+        Datum aclDatum = SysCacheGetAttr(cacheid, tuple,
+                                        get_object_attnum_acl(classoid),
+                                        &isNull);
+
+        if (!isNull) {
+            recordExtensionInitPrivWorker(objoid, classoid, 0,
+                                         DatumGetAclP(aclDatum));
+        }
+
+        ReleaseSysCache(tuple);
+    }
+}
+```

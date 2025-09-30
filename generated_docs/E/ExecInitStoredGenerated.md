@@ -51,3 +51,72 @@ The function performs dependency analysis to avoid unnecessary computation when 
 - The function supports both ri_GeneratedExprsI (for INSERT) and ri_GeneratedExprsU (for UPDATE) to handle MERGE operations efficiently
 - Error handling includes specific messages when generation expressions are missing for declared generated columns
 - The function is designed to be called only once per command type per result relation (enforced by assertions)
+
+## Simplified Source
+
+```c
+void ExecInitStoredGenerated(ResultRelInfo *resultRelInfo, EState *estate, CmdType cmdtype) {
+    Relation rel = resultRelInfo->ri_RelationDesc;
+    TupleDesc tupdesc = RelationGetDescr(rel);
+    int natts = tupdesc->natts;
+    ExprState **ri_GeneratedExprs;
+    int ri_NumGeneratedNeeded;
+    Bitmapset *updatedCols;
+    MemoryContext oldContext;
+
+    // Skip if no generated columns exist
+    if (!(tupdesc->constr && tupdesc->constr->has_generated_stored))
+        return;
+
+    // For UPDATE: optimize by checking which columns are actually updated
+    if (cmdtype == CMD_UPDATE &&
+        !(rel->trigdesc && rel->trigdesc->trig_update_before_row))
+        updatedCols = ExecGetUpdatedCols(resultRelInfo, estate);
+    else
+        updatedCols = NULL;
+
+    // Allocate structures in per-query memory context
+    oldContext = MemoryContextSwitchTo(estate->es_query_cxt);
+    ri_GeneratedExprs = (ExprState **) palloc0(natts * sizeof(ExprState *));
+    ri_NumGeneratedNeeded = 0;
+
+    // Process each stored generated column
+    for (int i = 0; i < natts; i++) {
+        if (TupleDescAttr(tupdesc, i)->attgenerated == ATTRIBUTE_GENERATED_STORED) {
+            // Get the generation expression
+            Expr *expr = (Expr *) build_column_default(rel, i + 1);
+            if (expr == NULL)
+                elog(ERROR, "no generation expression found for column %d", i + 1);
+
+            // Skip if this column doesn't depend on updated columns (optimization)
+            if (updatedCols) {
+                Bitmapset *attrs_used = NULL;
+                pull_varattnos((Node *) expr, 1, &attrs_used);
+                if (!bms_overlap(updatedCols, attrs_used))
+                    continue;
+            }
+
+            // Prepare expression for execution
+            ri_GeneratedExprs[i] = ExecPrepareExpr(expr, estate);
+            ri_NumGeneratedNeeded++;
+
+            // Mark as extra updated column for UPDATE operations
+            if (cmdtype == CMD_UPDATE)
+                resultRelInfo->ri_extraUpdatedCols =
+                    bms_add_member(resultRelInfo->ri_extraUpdatedCols,
+                                 i + 1 - FirstLowInvalidHeapAttributeNumber);
+        }
+    }
+
+    // Store results in appropriate fields based on command type
+    if (cmdtype == CMD_UPDATE) {
+        resultRelInfo->ri_GeneratedExprsU = ri_GeneratedExprs;
+        resultRelInfo->ri_NumGeneratedNeededU = ri_NumGeneratedNeeded;
+    } else {
+        resultRelInfo->ri_GeneratedExprsI = ri_GeneratedExprs;
+        resultRelInfo->ri_NumGeneratedNeededI = ri_NumGeneratedNeeded;
+    }
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

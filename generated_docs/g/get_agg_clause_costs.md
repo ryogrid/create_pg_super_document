@@ -62,3 +62,89 @@ The costs are ADDED to the existing values in the costs structure, so the caller
 - The function respects the aggregation split mode to avoid double-counting costs in multi-phase aggregation scenarios
 - Cost calculations distinguish between startup costs (one-time) and per-tuple costs (repeated for each input row)
 - The function is essential for the optimizer to make informed decisions about aggregation strategies (HashAgg vs GroupAgg, partial vs full aggregation)
+
+## Simplified Source
+
+```c
+void
+get_agg_clause_costs(PlannerInfo *root, AggSplit aggsplit, AggClauseCosts *costs)
+{
+    ListCell *lc;
+
+    // Process aggregate transition information
+    foreach(lc, root->aggtransinfos) {
+        AggTransInfo *transinfo = lfirst_node(AggTransInfo, lc);
+
+        // Add appropriate function execution costs
+        if (DO_AGGSPLIT_COMBINE(aggsplit)) {
+            // Cost for combining previously aggregated states
+            add_function_cost(root, transinfo->combinefn_oid, NULL, &costs->transCost);
+        } else {
+            add_function_cost(root, transinfo->transfn_oid, NULL, &costs->transCost);
+        }
+
+        // Add serialization/deserialization costs if needed
+        if (DO_AGGSPLIT_DESERIALIZE(aggsplit) && OidIsValid(transinfo->deserialfn_oid))
+            add_function_cost(root, transinfo->deserialfn_oid, NULL, &costs->transCost);
+        if (DO_AGGSPLIT_SERIALIZE(aggsplit) && OidIsValid(transinfo->serialfn_oid))
+            add_function_cost(root, transinfo->serialfn_oid, NULL, &costs->finalCost);
+
+        // Add input expression and filter costs (only for initial aggregate nodes)
+        if (!DO_AGGSPLIT_COMBINE(aggsplit)) {
+            QualCost argcosts;
+
+            // Cost of input expressions
+            cost_qual_eval_node(&argcosts, (Node *) transinfo->args, root);
+            costs->transCost.startup += argcosts.startup;
+            costs->transCost.per_tuple += argcosts.per_tuple;
+
+            // Cost of aggregate filters
+            if (transinfo->aggfilter) {
+                cost_qual_eval_node(&argcosts, (Node *) transinfo->aggfilter, root);
+                costs->transCost.startup += argcosts.startup;
+                costs->transCost.per_tuple += argcosts.per_tuple;
+            }
+        }
+
+        // Estimate memory space for transition states
+        if (!transinfo->transtypeByVal) {
+            // Pass-by-reference types need space estimation
+            int32 avgwidth;
+
+            if (transinfo->aggtransspace > 0)
+                avgwidth = transinfo->aggtransspace;
+            else if (transinfo->transfn_oid == F_ARRAY_APPEND)
+                avgwidth = ALLOCSET_SMALL_INITSIZE;  // Expanded array estimate
+            else
+                avgwidth = get_typavgwidth(transinfo->aggtranstype, transinfo->aggtranstypmod);
+
+            avgwidth = MAXALIGN(avgwidth);
+            costs->transitionSpace += avgwidth + 2 * sizeof(void *);
+        } else if (transinfo->aggtranstype == INTERNALOID) {
+            // INTERNAL type: likely pointer to large data structure
+            if (transinfo->aggtransspace > 0)
+                costs->transitionSpace += transinfo->aggtransspace;
+            else
+                costs->transitionSpace += ALLOCSET_DEFAULT_INITSIZE;
+        }
+    }
+
+    // Process final aggregate functions
+    foreach(lc, root->agginfos) {
+        AggInfo *agginfo = lfirst_node(AggInfo, lc);
+        Aggref *aggref = linitial_node(Aggref, agginfo->aggrefs);
+
+        // Add final function cost
+        if (!DO_AGGSPLIT_SKIPFINAL(aggsplit) && OidIsValid(agginfo->finalfn_oid))
+            add_function_cost(root, agginfo->finalfn_oid, NULL, &costs->finalCost);
+
+        // Add direct arguments cost
+        if (aggref->aggdirectargs) {
+            QualCost argcosts;
+            cost_qual_eval_node(&argcosts, (Node *) aggref->aggdirectargs, root);
+            costs->finalCost.startup += argcosts.startup;
+            costs->finalCost.per_tuple += argcosts.per_tuple;
+        }
+    }
+}
+```

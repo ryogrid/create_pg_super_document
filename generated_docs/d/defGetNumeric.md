@@ -41,3 +41,34 @@ Unlike `defGetString` which handles multiple node types, `defGetNumeric` is more
 - The function is located in src/backend/commands/define.c:81-106  
 - Primarily used in function definition processing where numeric attributes are specified
 - [Integer](../I/Integer.md) values are automatically cast to double precision
+
+## Simplified Source
+
+```c
+double
+defGetNumeric(DefElem *def)
+{
+    // Check that the DefElem has an argument
+    if (def->arg == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("%s requires a numeric value", def->defname)));
+
+    // Extract numeric value based on node type
+    switch (nodeTag(def->arg))
+    {
+        case T_Integer:
+            return (double) intVal(def->arg);  // Convert integer to double
+
+        case T_Float:
+            return floatVal(def->arg);         // Extract float value directly
+
+        default:
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("%s requires a numeric value", def->defname)));
+    }
+
+    return 0;  // Keep compiler quiet (never reached)
+}
+```

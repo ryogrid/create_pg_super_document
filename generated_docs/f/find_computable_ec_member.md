@@ -47,3 +47,65 @@ Unlike find_ec_member_matching_expr, this function does not provide special hand
 - The function extracts variables using PVC_INCLUDE_AGGREGATES, PVC_INCLUDE_WINDOWFUNCS, and PVC_INCLUDE_PLACEHOLDERS flags
 - Parallel safety checking is performed last as it's an expensive operation
 - Located in src/backend/optimizer/path/equivclass.c:833-916
+
+## Simplified Source
+
+```c
+EquivalenceMember *
+find_computable_ec_member(PlannerInfo *root,
+                         EquivalenceClass *ec,
+                         List *exprs,
+                         Relids relids,
+                         bool require_parallel_safe)
+{
+    List       *exprvars;
+    ListCell   *lc;
+
+    // Extract all variables and quasi-variables from input expressions
+    exprvars = pull_var_clause((Node *) exprs,
+                              PVC_INCLUDE_AGGREGATES |
+                              PVC_INCLUDE_WINDOWFUNCS |
+                              PVC_INCLUDE_PLACEHOLDERS);
+
+    // Check each EC member to see if it's computable
+    foreach(lc, ec->ec_members)
+    {
+        EquivalenceMember *em = (EquivalenceMember *) lfirst(lc);
+        List       *emvars;
+        ListCell   *lc2;
+
+        // Skip constant members (shouldn't be used for sorting)
+        if (em->em_is_const)
+            continue;
+
+        // Skip child members unless they belong to requested relations
+        if (em->em_is_child && !bms_is_subset(em->em_relids, relids))
+            continue;
+
+        // Check if all variables in this EC member are available in exprs
+        emvars = pull_var_clause((Node *) em->em_expr,
+                                PVC_INCLUDE_AGGREGATES |
+                                PVC_INCLUDE_WINDOWFUNCS |
+                                PVC_INCLUDE_PLACEHOLDERS);
+
+        foreach(lc2, emvars)
+        {
+            if (!list_member(exprvars, lfirst(lc2)))
+                break;  // Found a variable that's not available
+        }
+        list_free(emvars);
+
+        if (lc2)
+            continue;  // Some variables were missing
+
+        // Check parallel safety if required (expensive check done last)
+        if (require_parallel_safe &&
+            !is_parallel_safe(root, (Node *) em->em_expr))
+            continue;
+
+        return em;  // Found a computable expression
+    }
+
+    return NULL;  // No computable member found
+}
+```

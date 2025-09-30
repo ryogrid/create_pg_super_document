@@ -45,3 +45,22 @@ This function is particularly useful in contexts where expressions are processed
 - Root parameter can be NULL, which may reduce estimation accuracy but allows broader usage
 - Essential for cost calculations in aggregate functions, window functions, and target list evaluations
 - More efficient than  when only single expressions need evaluation
+
+## Simplified Source
+
+```c
+void cost_qual_eval_node(QualCost *cost, Node *qual, PlannerInfo *root) {
+    cost_qual_eval_context context;
+
+    // Initialize context for cost evaluation
+    context.root = root;
+    context.total.startup = 0;
+    context.total.per_tuple = 0;
+
+    // Walk the expression tree to calculate costs
+    cost_qual_eval_walker(qual, &context);
+
+    // Return the accumulated costs
+    *cost = context.total;
+}
+```

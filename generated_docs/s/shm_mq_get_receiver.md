@@ -30,3 +30,19 @@ The shm_mq_get_receiver function returns a pointer to the PGPROC structure repre
 - The returned PGPROC pointer should not be modified by the caller
 - Provides read-only access to the queue receiver configuration
 - Located in src/backend/storage/ipc/shm_mq.c:242-256
+
+## Simplified Source
+
+```c
+PGPROC *shm_mq_get_receiver(shm_mq *mq)
+{
+    PGPROC *receiver;
+
+    // Lock mutex for thread-safe access
+    SpinLockAcquire(&mq->mq_mutex);
+    receiver = mq->mq_receiver;
+    SpinLockRelease(&mq->mq_mutex);
+
+    return receiver;
+}
+```

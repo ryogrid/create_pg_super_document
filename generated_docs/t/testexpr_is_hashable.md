@@ -39,3 +39,34 @@ The `param_ids` parameter is used to distinguish between the left-hand side (LHS
 
 ## Notes and Other Information
 This function works together with `subplan_is_hashable`/`subpath_is_hashable` to determine complete feasibility of hash-based ANY SubLink execution. While those functions check memory constraints, this function validates the expression structure. The restriction to OpExpr and AND-of-OpExpr patterns reflects the practical limitations of hash-based execution - more complex expressions would require evaluation for each hash probe, eliminating the performance benefits of hashing. The function is part of PostgreSQL's comprehensive optimization strategy for IN/ANY subqueries, allowing the optimizer to choose the most efficient execution method based on both data characteristics and expression complexity.
+
+## Simplified Source
+
+```c
+static bool
+testexpr_is_hashable(Node *testexpr, List *param_ids)
+{
+    // Single OpExpr case
+    if (testexpr && IsA(testexpr, OpExpr)) {
+        if (test_opexpr_is_hashable((OpExpr *) testexpr, param_ids))
+            return true;
+    }
+    // AND clause of OpExprs case
+    else if (is_andclause(testexpr)) {
+        ListCell *l;
+
+        foreach(l, ((BoolExpr *) testexpr)->args) {
+            Node *andarg = (Node *) lfirst(l);
+
+            // Each AND operand must be a hashable OpExpr
+            if (!IsA(andarg, OpExpr))
+                return false;
+            if (!test_opexpr_is_hashable((OpExpr *) andarg, param_ids))
+                return false;
+        }
+        return true; // All AND operands are hashable
+    }
+
+    return false; // Other expression types not supported
+}
+```

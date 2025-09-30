@@ -48,3 +48,39 @@ The function initializes all the standard Path fields, sets up the pathnode stru
 - The function assumes operation above joins (no parameterization) and inherits parallel safety from the subpath
 - Cost calculation uses work_mem setting and considers the limited number of keys that need full sorting
 - The comparison_cost parameter is currently set to 0.0 with a TODO comment suggesting this may need refinement
+
+## Simplified Source
+
+```c
+IncrementalSortPath *
+create_incremental_sort_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                             List *pathkeys, int presorted_keys, double limit_tuples)
+{
+    IncrementalSortPath *sort = makeNode(IncrementalSortPath);
+    SortPath *pathnode = &sort->spath;
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_IncrementalSort;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = subpath->pathtarget;  // Sort doesn't project
+    pathnode->path.param_info = NULL;  // Above joins, no parameterization
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Set subpath
+    pathnode->subpath = subpath;
+
+    // Calculate incremental sort cost
+    cost_incremental_sort(&pathnode->path, root, pathkeys, presorted_keys,
+                          subpath->startup_cost, subpath->total_cost,
+                          subpath->rows, subpath->pathtarget->width,
+                          0.0, work_mem, limit_tuples);
+
+    // Store number of presorted columns
+    sort->nPresortedCols = presorted_keys;
+
+    return sort;
+}
+```

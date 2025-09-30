@@ -48,3 +48,118 @@ Key limitations include potential race conditions during concurrent DDL operatio
 - Uses weakest suitable lock (typically ShareLock) to minimize deadlock risk
 - Results are deterministic due to sorting attributes by column number
 - Part of the domain constraint validation infrastructure
+
+## Simplified Source
+
+```c
+static List *
+get_rels_with_domain(Oid domainOid, LOCKMODE lockmode)
+{
+    List *result = NIL;
+    char *domainTypeName = format_type_be(domainOid);
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc depScan;
+    HeapTuple depTup;
+
+    Assert(lockmode != NoLock);
+    check_stack_depth(); // Prevent stack overflow in recursion
+
+    // Scan pg_depend to find things that depend on the domain
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys to find dependencies on this domain
+    ScanKeyInit(&key[0], Anum_pg_depend_refclassid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(TypeRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_refobjid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(domainOid));
+
+    depScan = systable_beginscan(depRel, DependReferenceIndexId, true, NULL, 2, key);
+
+    while (HeapTupleIsValid(depTup = systable_getnext(depScan)))
+    {
+        Form_pg_depend pg_depend = (Form_pg_depend) GETSTRUCT(depTup);
+        RelToCheck *rtc = NULL;
+        ListCell *rellist;
+
+        // Handle directly dependent types (sub-domains or container types)
+        if (pg_depend->classid == TypeRelationId)
+        {
+            if (get_typtype(pg_depend->objid) == TYPTYPE_DOMAIN)
+            {
+                // Sub-domain: recursively add dependent columns
+                result = list_concat(result,
+                                   get_rels_with_domain(pg_depend->objid, lockmode));
+            }
+            else
+            {
+                // Container type: check for dependencies and fail if found
+                find_composite_type_dependencies(pg_depend->objid, NULL, domainTypeName);
+            }
+            continue;
+        }
+
+        // Skip non-relation dependencies or system columns
+        if (pg_depend->classid != RelationRelationId || pg_depend->objsubid <= 0)
+            continue;
+
+        // Find existing RelToCheck entry for this relation
+        foreach(rellist, result)
+        {
+            RelToCheck *rt = (RelToCheck *) lfirst(rellist);
+            if (RelationGetRelid(rt->rel) == pg_depend->objid)
+            {
+                rtc = rt;
+                break;
+            }
+        }
+
+        if (rtc == NULL)
+        {
+            // First attribute found for this relation
+            Relation rel = relation_open(pg_depend->objid, lockmode);
+
+            // Check for composite type dependencies
+            if (OidIsValid(rel->rd_rel->reltype))
+                find_composite_type_dependencies(rel->rd_rel->reltype, NULL, domainTypeName);
+
+            // Only process tables and materialized views
+            if (rel->rd_rel->relkind != RELKIND_RELATION &&
+                rel->rd_rel->relkind != RELKIND_MATVIEW)
+            {
+                relation_close(rel, lockmode);
+                continue;
+            }
+
+            // Create new RelToCheck entry
+            rtc = (RelToCheck *) palloc(sizeof(RelToCheck));
+            rtc->rel = rel;
+            rtc->natts = 0;
+            rtc->atts = (int *) palloc(sizeof(int) * RelationGetNumberOfAttributes(rel));
+            result = lappend(result, rtc);
+        }
+
+        // Validate column exists and has correct type
+        if (pg_depend->objsubid > RelationGetNumberOfAttributes(rtc->rel))
+            continue;
+
+        Form_pg_attribute pg_att = TupleDescAttr(rtc->rel->rd_att, pg_depend->objsubid - 1);
+        if (pg_att->attisdropped || pg_att->atttypid != domainOid)
+            continue;
+
+        // Add column to result, maintaining sort order
+        int ptr = rtc->natts++;
+        while (ptr > 0 && rtc->atts[ptr - 1] > pg_depend->objsubid)
+        {
+            rtc->atts[ptr] = rtc->atts[ptr - 1];
+            ptr--;
+        }
+        rtc->atts[ptr] = pg_depend->objsubid;
+    }
+
+    systable_endscan(depScan);
+    relation_close(depRel, AccessShareLock);
+
+    return result;
+}
+```

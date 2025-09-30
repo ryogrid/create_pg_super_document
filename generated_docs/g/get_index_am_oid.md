@@ -34,3 +34,14 @@ get_index_am_oid is a specialized wrapper function that provides type-safe looku
 - Used extensively in index creation and manipulation operations
 - Ensures that only index-compatible access methods are accepted
 - Location: src/backend/commands/amcmds.c:163-172
+
+## Simplified Source
+
+```c
+Oid
+get_index_am_oid(const char *amname, bool missing_ok)
+{
+    // Delegate to generic access method lookup with index type constraint
+    return get_am_type_oid(amname, AMTYPE_INDEX, missing_ok);
+}
+```

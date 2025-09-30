@@ -44,3 +44,24 @@ After setting defaults, it calls parse_extension_control_file() with version=NUL
 - Returns a newly allocated ExtensionControlFile structure that must be freed by the caller
 - Only reads the primary control file - auxiliary control files are handled separately
 - The function does not validate extension existence; errors are handled by the underlying parse function
+
+## Simplified Source
+
+```c
+static ExtensionControlFile *read_extension_control_file(const char *extname) {
+    // Allocate and initialize control structure with defaults
+    ExtensionControlFile *control = (ExtensionControlFile *) palloc0(sizeof(ExtensionControlFile));
+
+    // Set default values for extension properties
+    control->name = pstrdup(extname);
+    control->relocatable = false;    // Extension is not relocatable by default
+    control->superuser = true;       // Requires superuser privileges
+    control->trusted = false;        // Not trusted by default
+    control->encoding = -1;          // No specific encoding requirement
+
+    // Parse the actual control file to override defaults
+    parse_extension_control_file(control, NULL);
+
+    return control;
+}
+```

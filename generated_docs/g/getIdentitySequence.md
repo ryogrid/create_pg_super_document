@@ -37,3 +37,44 @@ This function finds the identity sequence owned by a specific column of a relati
 
 ## Notes and Other Information
 The function handles partitioned tables specially by traversing up to the topmost partitioned table, as identity sequences are stored at the partition root level. It performs attribute name resolution to handle cases where column ordering might differ between partitions. The function enforces strict validation by default, ensuring exactly one identity sequence exists unless missing_ok is true. This is crucial for maintaining data integrity in identity column operations.
+
+## Simplified Source
+
+```c
+Oid getIdentitySequence(Relation rel, AttrNumber attnum, bool missing_ok) {
+    Oid relid = RelationGetRelid(rel);
+
+    // For partitioned tables, find the identity sequence in the topmost parent
+    if (RelationGetForm(rel)->relispartition) {
+        // Get the partition ancestry chain
+        List *ancestors = get_partition_ancestors(relid);
+        const char *attname = get_attname(relid, attnum, false);
+
+        // Use the topmost partitioned table
+        relid = llast_oid(ancestors);
+        attnum = get_attnum(relid, attname);
+
+        // Validate the attribute exists in parent table
+        if (attnum == InvalidAttrNumber)
+            elog(ERROR, "cache lookup failed for attribute \"%s\" of relation %u",
+                 attname, relid);
+
+        list_free(ancestors);
+    }
+
+    // Find all owned sequences for this column
+    List *seqlist = getOwnedSequences_internal(relid, attnum, DEPENDENCY_INTERNAL);
+
+    // Validate exactly one sequence found
+    if (list_length(seqlist) > 1) {
+        elog(ERROR, "more than one owned sequence found");
+    } else if (seqlist == NIL) {
+        if (missing_ok)
+            return InvalidOid;
+        else
+            elog(ERROR, "no owned sequence found");
+    }
+
+    return linitial_oid(seqlist);
+}
+```

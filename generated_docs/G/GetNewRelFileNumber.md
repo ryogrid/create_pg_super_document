@@ -49,3 +49,66 @@ This function generates a unique relfile number for database relations by combin
 - Implements a pragmatic approach to filesystem errors during collision detection
 - The relpath construction logic matches RelationInitPhysicalAddr for consistency
 - Continues generation loop until both OID uniqueness (if required) and filesystem uniqueness are achieved
+
+## Simplified Source
+
+```c
+RelFileNumber
+GetNewRelFileNumber(Oid reltablespace, Relation pg_class, char relpersistence)
+{
+    RelFileLocatorBackend rlocator;
+    char *rpath;
+    bool collides;
+    ProcNumber procNumber;
+
+    // Ensure not used during pg_upgrade
+    Assert(!IsBinaryUpgrade);
+
+    // Set backend number based on persistence type
+    switch (relpersistence) {
+        case RELPERSISTENCE_TEMP:
+            procNumber = ProcNumberForTempRelations();
+            break;
+        case RELPERSISTENCE_UNLOGGED:
+        case RELPERSISTENCE_PERMANENT:
+            procNumber = INVALID_PROC_NUMBER;
+            break;
+        default:
+            elog(ERROR, "invalid relpersistence: %c", relpersistence);
+            return InvalidRelFileNumber;
+    }
+
+    // Set up relation locator (matches RelationInitPhysicalAddr logic)
+    rlocator.locator.spcOid = reltablespace ? reltablespace : MyDatabaseTableSpace;
+    rlocator.locator.dbOid = (rlocator.locator.spcOid == GLOBALTABLESPACE_OID) ?
+                             InvalidOid : MyDatabaseId;
+    rlocator.backend = procNumber;
+
+    // Generate unique relfile number
+    do {
+        CHECK_FOR_INTERRUPTS();
+
+        // Generate candidate relfile number
+        if (pg_class)
+            // Also ensure unique as OID in pg_class
+            rlocator.locator.relNumber = GetNewOidWithIndex(pg_class, ClassOidIndexId,
+                                                           Anum_pg_class_oid);
+        else
+            // Just need unique relfile number
+            rlocator.locator.relNumber = GetNewObjectId();
+
+        // Check for filesystem collision
+        rpath = relpath(rlocator, MAIN_FORKNUM);
+
+        if (access(rpath, F_OK) == 0) {
+            collides = true;  // File exists
+        } else {
+            collides = false; // No collision (ignore other errno values)
+        }
+
+        pfree(rpath);
+    } while (collides);
+
+    return rlocator.locator.relNumber;
+}
+```

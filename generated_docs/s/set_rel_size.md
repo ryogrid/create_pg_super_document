@@ -59,3 +59,85 @@ For some relation types (subqueries, CTEs, named tuplestores, result relations),
 - Handles special case of partitioned tables with ONLY clause by marking them as dummy relations
 - Critical function in the size estimation pipeline, serving as the primary dispatcher for different relation types
 - Some relation types bypass the usual size-then-paths sequence by building paths immediately during sizing
+
+## Simplified Source
+
+```c
+static void
+set_rel_size(PlannerInfo *root, RelOptInfo *rel,
+            Index rti, RangeTblEntry *rte)
+{
+    // Check for constraint exclusion first
+    if (rel->reloptkind == RELOPT_BASEREL &&
+        relation_excluded_by_constraints(root, rel, rte))
+    {
+        // Relation excluded by constraints - set up dummy path
+        set_dummy_rel_pathlist(rel);
+    }
+    else if (rte->inh)
+    {
+        // Handle inheritance/append relations
+        set_append_rel_size(root, rel, rti, rte);
+    }
+    else
+    {
+        // Route to appropriate sizing function by relation type
+        switch (rel->rtekind)
+        {
+            case RTE_RELATION:
+                if (rte->relkind == RELKIND_FOREIGN_TABLE)
+                    set_foreign_size(root, rel, rte);
+                else if (rte->relkind == RELKIND_PARTITIONED_TABLE)
+                    // Partitioned table with ONLY - mark as dummy
+                    set_dummy_rel_pathlist(rel);
+                else if (rte->tablesample != NULL)
+                    set_tablesample_rel_size(root, rel, rte);
+                else
+                    set_plain_rel_size(root, rel, rte);
+                break;
+
+            case RTE_SUBQUERY:
+                // Build paths immediately for subqueries
+                set_subquery_pathlist(root, rel, rti, rte);
+                break;
+
+            case RTE_FUNCTION:
+                set_function_size_estimates(root, rel);
+                break;
+
+            case RTE_TABLEFUNC:
+                set_tablefunc_size_estimates(root, rel);
+                break;
+
+            case RTE_VALUES:
+                set_values_size_estimates(root, rel);
+                break;
+
+            case RTE_CTE:
+                // Build paths immediately for CTEs
+                if (rte->self_reference)
+                    set_worktable_pathlist(root, rel, rte);
+                else
+                    set_cte_pathlist(root, rel, rte);
+                break;
+
+            case RTE_NAMEDTUPLESTORE:
+                // Build paths immediately
+                set_namedtuplestore_pathlist(root, rel, rte);
+                break;
+
+            case RTE_RESULT:
+                // Build paths immediately
+                set_result_pathlist(root, rel, rte);
+                break;
+
+            default:
+                elog(ERROR, "unexpected rtekind: %d", (int) rel->rtekind);
+                break;
+        }
+    }
+
+    // Ensure all non-dummy relations have positive row estimates
+    Assert(rel->rows > 0 || IS_DUMMY_REL(rel));
+}
+```

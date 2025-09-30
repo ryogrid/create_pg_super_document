@@ -54,3 +54,49 @@ Additionally, it includes compatibility code to clean up sequence tuples that ma
 - The xmax cleanup is treated as a hint bit update and is not WAL-logged
 - Magic number validation prevents access to corrupted sequence pages
 - This is a static function internal to src/backend/commands/sequence.c
+
+## Simplified Source
+
+```c
+static Form_pg_sequence_data
+read_seq_tuple(Relation rel, Buffer *buf, HeapTuple seqdatatuple)
+{
+    Page page;
+    ItemId lp;
+    sequence_magic *sm;
+    Form_pg_sequence_data seq;
+
+    // Read and exclusively lock sequence page (always page 0)
+    *buf = ReadBuffer(rel, 0);
+    LockBuffer(*buf, BUFFER_LOCK_EXCLUSIVE);
+
+    page = BufferGetPage(*buf);
+    sm = (sequence_magic *) PageGetSpecialPointer(page);
+
+    // Validate sequence magic number for data integrity
+    if (sm->magic != SEQ_MAGIC)
+        elog(ERROR, "bad magic number in sequence \"%s\"",
+             RelationGetRelationName(rel));
+
+    // Get the sequence data tuple (always at first offset)
+    lp = PageGetItemId(page, FirstOffsetNumber);
+    Assert(ItemIdIsNormal(lp));
+
+    // Set up HeapTuple structure with tuple data and length
+    seqdatatuple->t_data = (HeapTupleHeader) PageGetItem(page, lp);
+    seqdatatuple->t_len = ItemIdGetLength(lp);
+
+    // Clean up legacy xmax values from old SELECT FOR UPDATE operations
+    // This prevents transaction log access failures
+    if (HeapTupleHeaderGetRawXmax(seqdatatuple->t_data) != InvalidTransactionId) {
+        HeapTupleHeaderSetXmax(seqdatatuple->t_data, InvalidTransactionId);
+        seqdatatuple->t_data->t_infomask &= ~HEAP_XMAX_COMMITTED;
+        seqdatatuple->t_data->t_infomask |= HEAP_XMAX_INVALID;
+        MarkBufferDirtyHint(*buf, true);  // Hint update, not WAL-logged
+    }
+
+    // Return pointer to sequence data structure
+    seq = (Form_pg_sequence_data) GETSTRUCT(seqdatatuple);
+    return seq;
+}
+```

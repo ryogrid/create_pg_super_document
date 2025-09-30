@@ -34,3 +34,20 @@ The function is part of PostgreSQL's domain constraint enforcement mechanism, en
 - Uses errsave for error reporting which allows for soft error handling in appropriate contexts
 - The error includes the domain type name formatted using format_type_be for user-friendly error messages
 - Part of the domain constraint evaluation system alongside ExecEvalConstraintCheck for CHECK constraints
+
+## Simplified Source
+
+```c
+void ExecEvalConstraintNotNull(ExprState *state, ExprEvalStep *op)
+{
+    // Check if result is null when NOT NULL constraint exists
+    if (*op->resnull) {
+        // Report NOT NULL constraint violation
+        errsave((Node *) op->d.domaincheck.escontext,
+                (errcode(ERRCODE_NOT_NULL_VIOLATION),
+                 errmsg("domain %s does not allow null values",
+                        format_type_be(op->d.domaincheck.resulttype)),
+                 errdatatype(op->d.domaincheck.resulttype)));
+    }
+}
+```

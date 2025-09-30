@@ -33,3 +33,14 @@ The function operates on the GEQO private data structure stored within the plann
 - The function assumes that the GEQO private data has been properly initialized before being called
 - The random seed affects the genetic algorithm's behavior, including mutation, crossover, and selection operations
 - Proper seeding is essential for reproducible query optimization results in testing scenarios
+
+## Simplified Source
+
+```c
+void geqo_set_seed(PlannerInfo *root, double seed) {
+    GeqoPrivateData *private = (GeqoPrivateData *) root->join_search_private;
+
+    // Initialize random number generator with given seed
+    pg_prng_fseed(&private->random_state, seed);
+}
+```

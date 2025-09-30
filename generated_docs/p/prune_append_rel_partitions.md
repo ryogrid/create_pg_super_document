@@ -44,3 +44,59 @@ The function only considers immutable expressions and clauses that can be evalua
 - Requires enable_partition_pruning to be enabled for pruning to occur
 - The caller must ensure that the relation is actually partitioned before calling this function
 - Uses CurrentMemoryContext for temporary allocations during pruning
+
+## Simplified Source
+
+```c
+Bitmapset *
+prune_append_rel_partitions(RelOptInfo *rel)
+{
+    List *clauses = rel->baserestrictinfo;
+    List *pruning_steps;
+    GeneratePruningStepsContext gcontext;
+    PartitionPruneContext context;
+
+    Assert(rel->part_scheme != NULL);
+
+    // Return empty set if no partitions exist
+    if (rel->nparts == 0)
+        return NULL;
+
+    // Return all partitions if pruning disabled or no clauses
+    if (!enable_partition_pruning || clauses == NIL)
+        return bms_add_range(NULL, 0, rel->nparts - 1);
+
+    // Generate pruning steps from restriction clauses
+    gen_partprune_steps(rel, clauses, PARTTARGET_PLANNER, &gcontext);
+
+    // Return empty set if clauses are contradictory
+    if (gcontext.contradictory)
+        return NULL;
+
+    pruning_steps = gcontext.steps;
+
+    // Return all partitions if no usable pruning steps
+    if (pruning_steps == NIL)
+        return bms_add_range(NULL, 0, rel->nparts - 1);
+
+    // Set up pruning context with partition scheme information
+    context.strategy = rel->part_scheme->strategy;
+    context.partnatts = rel->part_scheme->partnatts;
+    context.nparts = rel->nparts;
+    context.boundinfo = rel->boundinfo;
+    context.partcollation = rel->part_scheme->partcollation;
+    context.partsupfunc = rel->part_scheme->partsupfunc;
+    context.stepcmpfuncs = (FmgrInfo *) palloc0(sizeof(FmgrInfo) *
+                                               context.partnatts *
+                                               list_length(pruning_steps));
+    context.ppccontext = CurrentMemoryContext;
+
+    // Planner-time context (no runtime state)
+    context.planstate = NULL;
+    context.exprcontext = NULL;
+    context.exprstates = NULL;
+
+    // Perform the actual partition pruning
+    return get_matching_partitions(&context, pruning_steps);
+}
+```

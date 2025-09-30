@@ -53,3 +53,30 @@ The bufferedTuples and bufferedBytes counters start at zero and will track the t
 - The multiInsertBuffers list starts as NIL and will be populated as buffers are created
 - [Command](Command.md) ID tracking is essential for proper transaction visibility and concurrency control
 - The ti_options parameter allows fine-grained control over insertion behavior and optimizations
+
+## Simplified Source
+
+```c
+static void CopyMultiInsertInfoInit(CopyMultiInsertInfo *miinfo,
+                                   ResultRelInfo *rri,
+                                   CopyFromState cstate,
+                                   EState *estate,
+                                   CommandId mycid,
+                                   int ti_options) {
+    // Initialize buffer management structures
+    miinfo->multiInsertBuffers = NIL;
+    miinfo->bufferedTuples = 0;
+    miinfo->bufferedBytes = 0;
+
+    // Store execution context and state
+    miinfo->cstate = cstate;
+    miinfo->estate = estate;
+    miinfo->mycid = mycid;
+    miinfo->ti_options = ti_options;
+
+    // For regular tables, setup buffer immediately
+    // For partitioned tables, buffers are created on-demand
+    if (rri->ri_RelationDesc->rd_rel->relkind != RELKIND_PARTITIONED_TABLE)
+        CopyMultiInsertInfoSetupBuffer(miinfo, rri);
+}
+```

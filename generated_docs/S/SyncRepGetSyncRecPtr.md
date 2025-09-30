@@ -46,3 +46,58 @@ The function performs validation to ensure sufficient synchronous standbys are a
 - The function notes that  is more efficient than  for calculating oldest positions
 - Memory allocated by  is properly freed with 
 - Function location: src/backend/replication/syncrep.c:586-659
+
+## Simplified Source
+
+```c
+static bool
+SyncRepGetSyncRecPtr(XLogRecPtr *writePtr, XLogRecPtr *flushPtr,
+                     XLogRecPtr *applyPtr, bool *am_sync)
+{
+    SyncRepStandbyData *sync_standbys;
+    int num_standbys;
+
+    // Initialize default results
+    *writePtr = InvalidXLogRecPtr;
+    *flushPtr = InvalidXLogRecPtr;
+    *applyPtr = InvalidXLogRecPtr;
+    *am_sync = false;
+
+    // Quick exit if synchronous replication not configured
+    if (SyncRepConfig == NULL) {
+        return false;
+    }
+
+    // Get list of candidate synchronous standbys
+    num_standbys = SyncRepGetCandidateStandbys(&sync_standbys);
+
+    // Check if current WAL sender is among sync standbys
+    for (int i = 0; i < num_standbys; i++) {
+        if (sync_standbys[i].is_me) {
+            *am_sync = true;
+            break;
+        }
+    }
+
+    // Verify we have enough sync standbys
+    if (!(*am_sync) || num_standbys < SyncRepConfig->num_sync) {
+        pfree(sync_standbys);
+        return false;
+    }
+
+    // Calculate sync positions based on replication method
+    if (SyncRepConfig->syncrep_method == SYNC_REP_PRIORITY) {
+        // Priority-based: use oldest positions
+        SyncRepGetOldestSyncRecPtr(writePtr, flushPtr, applyPtr,
+                                   sync_standbys, num_standbys);
+    } else {
+        // Quorum-based: use Nth latest positions
+        SyncRepGetNthLatestSyncRecPtr(writePtr, flushPtr, applyPtr,
+                                      sync_standbys, num_standbys,
+                                      SyncRepConfig->num_sync);
+    }
+
+    pfree(sync_standbys);
+    return true;
+}
+```

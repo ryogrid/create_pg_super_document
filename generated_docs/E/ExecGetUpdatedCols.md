@@ -43,3 +43,24 @@ The function is essential for determining which columns are being modified, whic
 - Critical for index maintenance optimization - unchanged indexes can skip updates
 - Used by trigger systems to determine which triggers should fire based on column changes
 - Essential component of the UPDATE operation's constraint checking and security enforcement mechanisms
+
+## Simplified Source
+
+```c
+Bitmapset *ExecGetUpdatedCols(ResultRelInfo *relinfo, EState *estate) {
+    // Get permission info for this relation
+    RTEPermissionInfo *perminfo = GetResultRTEPermissionInfo(relinfo, estate);
+    if (perminfo == NULL)
+        return NULL;
+
+    // Handle column mapping for child relations in partitioned tables
+    if (relinfo->ri_RootResultRelInfo) {
+        TupleConversionMap *map = ExecGetRootToChildMap(relinfo, estate);
+        if (map)
+            return execute_attr_map_cols(map->attrMap, perminfo->updatedCols);
+    }
+
+    // For non-partitioned tables, return original bitmap
+    return perminfo->updatedCols;
+}
+```

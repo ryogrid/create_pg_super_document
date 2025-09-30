@@ -65,3 +65,150 @@ Width estimates are computed by weighting child relation widths proportionally t
 - Can result in a dummy append relation if all children are excluded by constraints
 - The function assumes child RelOptInfo structures have already been created during add_other_rels_to_query
 - [Variable](../V/Variable.md) substitution between parent and child uses the AppendRelInfo translation mappings
+
+## Simplified Source
+
+```c
+static void
+set_append_rel_size(PlannerInfo *root, RelOptInfo *rel, Index rti, RangeTblEntry *rte)
+{
+    int parentRTindex = rti;
+    bool has_live_children = false;
+    double parent_rows = 0;
+    double parent_size = 0;
+    double *parent_attrsizes;
+    int nattrs;
+    ListCell *l;
+
+    // Guard against stack overflow in deep inheritance trees
+    check_stack_depth();
+
+    // Enable partitionwise joins for partitioned base relations
+    if (enable_partitionwise_join &&
+        rel->reloptkind == RELOPT_BASEREL &&
+        rte->relkind == RELKIND_PARTITIONED_TABLE &&
+        bms_is_empty(rel->attr_needed[InvalidAttrNumber - rel->min_attr]))
+        rel->consider_partitionwise_join = true;
+
+    // Initialize size estimation variables
+    nattrs = rel->max_attr - rel->min_attr + 1;
+    parent_attrsizes = (double *) palloc0(nattrs * sizeof(double));
+
+    // Process each child relation in the append relation list
+    foreach(l, root->append_rel_list)
+    {
+        AppendRelInfo *appinfo = (AppendRelInfo *) lfirst(l);
+        int childRTindex;
+        RangeTblEntry *childRTE;
+        RelOptInfo *childrel;
+        List *childrinfos;
+        ListCell *parentvars, *childvars;
+
+        // Skip if not a child of this parent
+        if (appinfo->parent_relid != parentRTindex)
+            continue;
+
+        childRTindex = appinfo->child_relid;
+        childRTE = root->simple_rte_array[childRTindex];
+        childrel = find_base_rel(root, childRTindex);
+
+        // Skip dummy relations
+        if (IS_DUMMY_REL(childrel))
+            continue;
+
+        // Apply constraint exclusion
+        if (relation_excluded_by_constraints(root, childrel, childRTE))
+        {
+            set_dummy_rel_pathlist(childrel);
+            continue;
+        }
+
+        // Copy parent's join quals to child (excluding nulling joins)
+        childrinfos = NIL;
+        foreach(lc, rel->joininfo)
+        {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+            if (!bms_overlap(rinfo->clause_relids, rel->nulling_relids))
+                childrinfos = lappend(childrinfos,
+                    adjust_appendrel_attrs(root, (Node *) rinfo, 1, &appinfo));
+        }
+        childrel->joininfo = childrinfos;
+
+        // Copy parent's targetlist to child with variable substitution
+        childrel->reltarget->exprs = (List *)
+            adjust_appendrel_attrs(root, (Node *) rel->reltarget->exprs, 1, &appinfo);
+
+        // Set up equivalence classes for joins and pathkeys
+        if (rel->has_eclass_joins || has_useful_pathkeys(root, rel))
+            add_child_rel_equivalences(root, appinfo, rel, childrel);
+        childrel->has_eclass_joins = rel->has_eclass_joins;
+
+        // Propagate partitionwise join setting
+        if (rel->consider_partitionwise_join)
+            childrel->consider_partitionwise_join = true;
+
+        // Check parallel safety
+        if (root->glob->parallelModeOK && rel->consider_parallel)
+            set_rel_consider_parallel(root, childrel, childRTE);
+
+        // Compute child's size estimates
+        set_rel_size(root, childrel, childRTindex, childRTE);
+
+        // Skip if child became dummy after sizing
+        if (IS_DUMMY_REL(childrel))
+            continue;
+
+        has_live_children = true;
+
+        // Disable parallel processing if any child is not parallel-safe
+        if (!childrel->consider_parallel)
+            rel->consider_parallel = false;
+
+        // Accumulate size statistics from this child
+        parent_rows += childrel->rows;
+        parent_size += childrel->reltarget->width * childrel->rows;
+
+        // Accumulate per-column width estimates
+        forboth(parentvars, rel->reltarget->exprs, childvars, childrel->reltarget->exprs)
+        {
+            Var *parentvar = (Var *) lfirst(parentvars);
+            Node *childvar = (Node *) lfirst(childvars);
+
+            if (IsA(parentvar, Var) && parentvar->varno == parentRTindex)
+            {
+                int pndx = parentvar->varattno - rel->min_attr;
+                int32 child_width = 0;
+
+                // Get width from child if it's a Var, otherwise use type default
+                if (IsA(childvar, Var) && ((Var *) childvar)->varno == childrel->relid)
+                {
+                    int cndx = ((Var *) childvar)->varattno - childrel->min_attr;
+                    child_width = childrel->attr_widths[cndx];
+                }
+                if (child_width <= 0)
+                    child_width = get_typavgwidth(exprType(childvar), exprTypmod(childvar));
+
+                parent_attrsizes[pndx] += child_width * childrel->rows;
+            }
+        }
+    }
+
+    if (has_live_children)
+    {
+        // Set final size estimates using weighted averages
+        rel->rows = parent_rows;
+        rel->reltarget->width = rint(parent_size / parent_rows);
+        for (int i = 0; i < nattrs; i++)
+            rel->attr_widths[i] = rint(parent_attrsizes[i] / parent_rows);
+        rel->tuples = parent_rows;
+        // Leave rel->pages = 0 to avoid double-counting
+    }
+    else
+    {
+        // All children excluded - mark append relation as dummy
+        set_dummy_rel_pathlist(rel);
+    }
+
+    pfree(parent_attrsizes);
+}
+```

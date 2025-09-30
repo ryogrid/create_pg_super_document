@@ -53,3 +53,31 @@ The function ensures atomicity by tracking all moved objects in the objsMoved pa
 - Maintains referential integrity by ensuring all dependent objects move together
 - Uses AccessExclusiveLock when moving sequences to prevent concurrent access issues
 - Part of a coordinated effort where the high-level function handles validation and this function performs the actual work
+
+## Simplified Source
+
+```c
+void AlterTableNamespaceInternal(Relation rel, Oid oldNspOid, Oid nspOid, ObjectAddresses *objsMoved)
+{
+    Relation classRel;
+
+    Assert(objsMoved != NULL);
+
+    // Open pg_class catalog with row exclusive lock
+    classRel = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Move the main relation to new namespace
+    AlterRelationNamespaceInternal(classRel, RelationGetRelid(rel), oldNspOid, nspOid, true, objsMoved);
+
+    // Move the table's row type if it exists
+    if (OidIsValid(rel->rd_rel->reltype))
+        AlterTypeNamespaceInternal(rel->rd_rel->reltype, nspOid, false, false, false, objsMoved);
+
+    // Move all dependent objects to new namespace
+    AlterIndexNamespaces(classRel, rel, oldNspOid, nspOid, objsMoved);
+    AlterSeqNamespaces(classRel, rel, oldNspOid, nspOid, objsMoved, AccessExclusiveLock);
+    AlterConstraintNamespaces(RelationGetRelid(rel), oldNspOid, nspOid, false, objsMoved);
+
+    table_close(classRel, RowExclusiveLock);
+}
+```

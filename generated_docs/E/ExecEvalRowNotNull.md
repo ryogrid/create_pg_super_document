@@ -32,3 +32,13 @@ This function implements the evaluation of "IS NOT NULL" tests for row expressio
 - It specifically handles the "IS NOT NULL" case, while ExecEvalRowNull handles "IS NULL"
 - The actual logic is implemented in ExecEvalRowNullInt to avoid code duplication
 - Row NOT NULL testing follows SQL standard semantics where a row is NOT NULL if any of its components are NOT NULL
+
+## Simplified Source
+
+```c
+void ExecEvalRowNotNull(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    // Delegate to internal function with isnull=false for NOT NULL test
+    ExecEvalRowNullInt(state, op, econtext, false);
+}
+```

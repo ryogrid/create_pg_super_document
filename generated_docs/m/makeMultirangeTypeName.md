@@ -36,3 +36,32 @@ This function is part of PostgreSQL's multirange type system introduced to handl
 
 ## Notes and Other Information
 The caller is responsible for freeing the returned string using pfree(). The function uses a sophisticated naming strategy that preserves readability by replacing "range" with "multirange" when possible, falling back to suffix addition when "range" is not found in the name. If a naming conflict occurs, it provides detailed error messages with hints about manually specifying multirange type names using the "multirange_type_name" attribute. The function respects PostgreSQL's multibyte character encoding by using pg_mbcliplen for proper string truncation.
+
+## Simplified Source
+
+```c
+char *makeMultirangeTypeName(const char *rangeTypeName, Oid typeNamespace) {
+    char *buf;
+    char *rangestr;
+
+    // Strategy: replace "range" with "multirange" if present, else append "_multirange"
+    rangestr = strstr(rangeTypeName, "range");
+    if (rangestr) {
+        // Found "range" - replace with "multirange"
+        char *prefix = pnstrdup(rangeTypeName, rangestr - rangeTypeName);
+        buf = psprintf("%s%s%s", prefix, "multi", rangestr);
+    } else {
+        // No "range" found - append "_multirange"
+        buf = psprintf("%s_multirange", pnstrdup(rangeTypeName, NAMEDATALEN - 12));
+    }
+
+    // Clip to maximum name length
+    buf[pg_mbcliplen(buf, strlen(buf), NAMEDATALEN - 1)] = '\0';
+
+    // Check for naming conflicts
+    if (SearchSysCacheExists2(TYPENAMENSP, CStringGetDatum(buf), ObjectIdGetDatum(typeNamespace)))
+        ereport(ERROR, "type already exists");
+
+    return pstrdup(buf);
+}
+```

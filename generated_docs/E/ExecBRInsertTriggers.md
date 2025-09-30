@@ -60,3 +60,76 @@ The function iterates through all applicable triggers, calling each one with the
 - The function supports both regular tables and partitioned table hierarchies
 - Critical for maintaining data integrity while allowing flexible business logic implementation
 - Used in high-throughput operations like COPY FROM where performance optimization is essential
+
+## Simplified Source
+
+```c
+bool
+ExecBRInsertTriggers(EState *estate, ResultRelInfo *relinfo, TupleTableSlot *slot)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    HeapTuple newtuple = NULL;
+    bool should_free;
+    TriggerData LocTriggerData = {0};
+
+    // Set up trigger context
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_INSERT | TRIGGER_EVENT_ROW | TRIGGER_EVENT_BEFORE;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    // Execute each applicable BEFORE ROW INSERT trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++)
+    {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip if not a BEFORE ROW INSERT trigger or if disabled
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype, TRIGGER_TYPE_ROW,
+                                 TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_INSERT))
+            continue;
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                           NULL, NULL, slot))
+            continue;
+
+        // Convert slot to HeapTuple if needed
+        if (!newtuple)
+            newtuple = ExecFetchSlotHeapTuple(slot, true, &should_free);
+
+        // Execute trigger function
+        HeapTuple oldtuple = newtuple;
+        LocTriggerData.tg_trigslot = slot;
+        LocTriggerData.tg_trigtuple = oldtuple;
+        LocTriggerData.tg_trigger = trigger;
+
+        newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                     relinfo->ri_TrigFunctions,
+                                     relinfo->ri_TrigInstrument,
+                                     GetPerTupleMemoryContext(estate));
+
+        // Handle trigger result
+        if (newtuple == NULL)
+        {
+            // Trigger wants to skip this insert
+            if (should_free)
+                heap_freetuple(oldtuple);
+            return false;
+        }
+        else if (newtuple != oldtuple)
+        {
+            // Trigger modified the tuple
+            ExecForceStoreHeapTuple(newtuple, slot, false);
+
+            // Validate partition constraints for modified tuple
+            if (trigger->tgisclone && !ExecPartitionCheck(relinfo, slot, estate, false))
+            {
+                ereport(ERROR, "moving row to another partition during trigger not supported");
+            }
+
+            if (should_free)
+                heap_freetuple(oldtuple);
+            newtuple = NULL; // Signal for re-fetch if needed
+        }
+    }
+
+    return true;
+}
+```

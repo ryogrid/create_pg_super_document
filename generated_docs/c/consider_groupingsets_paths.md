@@ -60,3 +60,195 @@ Key optimizations include:
 - The knapsack algorithm uses a 5% error margin and scales memory values to avoid integer overflow
 - Generated paths are directly added to the grouped_rel rather than being returned
 - Critical for performance of complex OLAP queries with multiple grouping dimensions
+
+## Simplified Source
+
+```c
+static void
+consider_groupingsets_paths(PlannerInfo *root, RelOptInfo *grouped_rel,
+                           Path *path, bool is_sorted, bool can_hash,
+                           grouping_sets_data *gd, const AggClauseCosts *agg_costs,
+                           double dNumGroups) {
+    Query *parse = root->parse;
+    Size hash_mem_limit = get_hash_memory_limit();
+
+    // Unsorted input: try hash-only approach
+    if (!is_sorted) {
+        List *new_rollups = NIL;
+        RollupData *unhashed_rollup = NULL;
+        List *sets_data, *empty_sets_data = NIL, *empty_sets = NIL;
+        AggStrategy strat = AGG_HASHED;
+        double exclude_groups = 0.0;
+
+        Assert(can_hash);
+
+        // Check if input is coincidentally sorted and can reduce memory usage
+        if (gd->rollups &&
+            pathkeys_contained_in(root->group_pathkeys, path->pathkeys)) {
+            unhashed_rollup = lfirst_node(RollupData, list_head(gd->rollups));
+            exclude_groups = unhashed_rollup->numGroups;
+        }
+
+        // Estimate hash table size
+        double hashsize = estimate_hashagg_tablesize(root, path, agg_costs,
+                                                    dNumGroups - exclude_groups);
+
+        // Bail if won't fit in memory (unless no other option)
+        if (hashsize > hash_mem_limit && gd->rollups)
+            return;
+
+        // Break down rollups into individual grouping sets
+        sets_data = list_copy(gd->unsortable_sets);
+
+        ListCell *lc;
+        foreach(lc, gd->rollups) {
+            RollupData *rollup = lfirst_node(RollupData, lc);
+            if (rollup == unhashed_rollup) continue; // Skip sorted rollup
+
+            if (!rollup->hashable)
+                return; // Need sorted input but can't get it
+
+            sets_data = list_concat(sets_data, rollup->gsets_data);
+        }
+
+        // Process each grouping set
+        foreach(lc, sets_data) {
+            GroupingSetData *gs = lfirst_node(GroupingSetData, lc);
+            if (gs->set == NIL) {
+                // Empty sets can't be hashed
+                empty_sets_data = lappend(empty_sets_data, gs);
+                empty_sets = lappend(empty_sets, NIL);
+            } else {
+                // Create rollup for hashable set
+                RollupData *rollup = makeNode(RollupData);
+                rollup->groupClause = preprocess_groupclause(root, gs->set);
+                rollup->gsets_data = list_make1(gs);
+                rollup->gsets = remap_to_groupclause_idx(rollup->groupClause,
+                                                        rollup->gsets_data,
+                                                        gd->tleref_to_colnum_map);
+                rollup->numGroups = gs->numGroups;
+                rollup->hashable = true;
+                rollup->is_hashed = true;
+                new_rollups = lappend(new_rollups, rollup);
+            }
+        }
+
+        if (new_rollups == NIL) return;
+
+        // Handle unhashed/empty rollups
+        if (unhashed_rollup) {
+            new_rollups = lappend(new_rollups, unhashed_rollup);
+            strat = AGG_MIXED;
+        } else if (empty_sets) {
+            RollupData *rollup = makeNode(RollupData);
+            rollup->groupClause = NIL;
+            rollup->gsets_data = empty_sets_data;
+            rollup->gsets = empty_sets;
+            rollup->numGroups = list_length(empty_sets);
+            rollup->hashable = false;
+            rollup->is_hashed = false;
+            new_rollups = lappend(new_rollups, rollup);
+            strat = AGG_MIXED;
+        }
+
+        add_path(grouped_rel, (Path *)
+                create_groupingsets_path(root, grouped_rel, path,
+                                       (List *) parse->havingQual,
+                                       strat, new_rollups, agg_costs));
+        return;
+    }
+
+    // Sorted input: try mixed approaches
+    if (gd->rollups == NIL) return;
+
+    // Try mixed sort/hash approach using knapsack algorithm
+    if (can_hash && gd->any_hashable) {
+        List *rollups = NIL;
+        List *hash_sets = list_copy(gd->unsortable_sets);
+        double availspace = hash_mem_limit;
+
+        // Account for unsortable sets
+        availspace -= estimate_hashagg_tablesize(root, path, agg_costs,
+                                                gd->dNumHashGroups);
+
+        // Use knapsack algorithm to select optimal hash/sort mix
+        if (availspace > 0 && list_length(gd->rollups) > 1) {
+            int num_rollups = list_length(gd->rollups);
+            int *k_weights = palloc(num_rollups * sizeof(int));
+            double scale = Max(availspace / (20.0 * num_rollups), 1.0);
+            int k_capacity = (int) floor(availspace / scale);
+
+            // Calculate weights for knapsack
+            int i = 0;
+            ListCell *lc;
+            for_each_from(lc, gd->rollups, 1) {
+                RollupData *rollup = lfirst_node(RollupData, lc);
+                if (rollup->hashable) {
+                    double sz = estimate_hashagg_tablesize(root, path, agg_costs,
+                                                         rollup->numGroups);
+                    k_weights[i] = (int) Min(floor(sz / scale), k_capacity + 1.0);
+                    i++;
+                }
+            }
+
+            // Apply knapsack algorithm
+            Bitmapset *hash_items = NULL;
+            if (i > 0)
+                hash_items = DiscreteKnapsack(k_capacity, i, k_weights, NULL);
+
+            // Build rollup lists based on knapsack result
+            if (!bms_is_empty(hash_items)) {
+                rollups = list_make1(linitial(gd->rollups));
+
+                i = 0;
+                for_each_from(lc, gd->rollups, 1) {
+                    RollupData *rollup = lfirst_node(RollupData, lc);
+                    if (rollup->hashable) {
+                        if (bms_is_member(i, hash_items))
+                            hash_sets = list_concat(hash_sets, rollup->gsets_data);
+                        else
+                            rollups = lappend(rollups, rollup);
+                        i++;
+                    } else {
+                        rollups = lappend(rollups, rollup);
+                    }
+                }
+            }
+        }
+
+        if (!rollups && hash_sets)
+            rollups = list_copy(gd->rollups);
+
+        // Create hashed rollups for selected sets
+        foreach(lc, hash_sets) {
+            GroupingSetData *gs = lfirst_node(GroupingSetData, lc);
+            RollupData *rollup = makeNode(RollupData);
+
+            rollup->groupClause = preprocess_groupclause(root, gs->set);
+            rollup->gsets_data = list_make1(gs);
+            rollup->gsets = remap_to_groupclause_idx(rollup->groupClause,
+                                                    rollup->gsets_data,
+                                                    gd->tleref_to_colnum_map);
+            rollup->numGroups = gs->numGroups;
+            rollup->hashable = true;
+            rollup->is_hashed = true;
+            rollups = lcons(rollup, rollups);
+        }
+
+        if (rollups) {
+            add_path(grouped_rel, (Path *)
+                    create_groupingsets_path(root, grouped_rel, path,
+                                           (List *) parse->havingQual,
+                                           AGG_MIXED, rollups, agg_costs));
+        }
+    }
+
+    // Try pure sorted approach
+    if (!gd->unsortable_sets) {
+        add_path(grouped_rel, (Path *)
+                create_groupingsets_path(root, grouped_rel, path,
+                                       (List *) parse->havingQual,
+                                       AGG_SORTED, gd->rollups, agg_costs));
+    }
+}
+```

@@ -41,3 +41,19 @@ This function provides access to the right (or second) argument of an OpExpr nod
 - Critical for query optimization tasks like join planning, index selection, and selectivity estimation
 - The returned Node* may need to be cast to the appropriate expression type depending on the context
 - Used extensively in the same contexts as get_leftop(), often called together to extract both operands of binary expressions
+
+## Simplified Source
+
+```c
+static inline Node *
+get_rightop(const void *clause)
+{
+    const OpExpr *expr = (const OpExpr *) clause;
+
+    // Return second argument if at least 2 args exist, otherwise NULL
+    if (list_length(expr->args) >= 2)
+        return (Node *) lsecond(expr->args);
+    else
+        return NULL;
+}
+```

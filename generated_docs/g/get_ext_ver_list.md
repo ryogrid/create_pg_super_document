@@ -48,3 +48,59 @@ For each valid script file found, it creates ExtensionVersionInfo structures and
 - Creates bidirectional relationships in the version graph through the 'reachable' lists
 - Essential for building the complete extension version dependency graph used by Dijkstra's algorithm
 - Script directory location obtained from extension control file
+
+## Simplified Source
+
+```c
+static List *get_ext_ver_list(ExtensionControlFile *control) {
+    List *evi_list = NIL;
+    int extnamelen = strlen(control->name);
+    char *location;
+    DIR *dir;
+    struct dirent *de;
+
+    // Open extension script directory
+    location = get_extension_script_directory(control);
+    dir = AllocateDir(location);
+
+    // Scan all files in the directory
+    while ((de = ReadDir(dir, location)) != NULL) {
+        // Check if it's a valid SQL script file for this extension
+        if (!is_extension_script_filename(de->d_name) ||
+            strncmp(de->d_name, control->name, extnamelen) != 0 ||
+            de->d_name[extnamelen] != '-' ||
+            de->d_name[extnamelen + 1] != '-') {
+            continue;
+        }
+
+        // Extract version name(s) from filename (remove extension name and .sql)
+        char *vername = pstrdup(de->d_name + extnamelen + 2);
+        *strrchr(vername, '.') = '\0';  // Remove .sql suffix
+
+        char *vername2 = strstr(vername, "--");
+        if (!vername2) {
+            // Install script: extension_name--version.sql
+            ExtensionVersionInfo *evi = get_ext_ver_info(vername, &evi_list);
+            evi->installable = true;
+            continue;
+        }
+
+        // Update script: extension_name--fromver--tover.sql
+        *vername2 = '\0';  // Split at separator
+        vername2 += 2;     // Point to target version
+
+        // Skip malformed filenames with extra separators
+        if (strstr(vername2, "--")) {
+            continue;
+        }
+
+        // Create version info and link them for update path
+        ExtensionVersionInfo *evi = get_ext_ver_info(vername, &evi_list);
+        ExtensionVersionInfo *evi2 = get_ext_ver_info(vername2, &evi_list);
+        evi->reachable = lappend(evi->reachable, evi2);
+    }
+
+    FreeDir(dir);
+    return evi_list;
+}
+```

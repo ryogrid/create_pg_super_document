@@ -51,3 +51,58 @@ The function ensures consistency by validating that the number of expression col
 - Critical for index-only scans and index scan planning
 - Target entries use 1-based numbering (i + 1) to match PostgreSQL conventions
 - Location: src/backend/optimizer/util/plancat.c:1885-1946
+
+## Simplified Source
+
+```c
+static List *
+build_index_tlist(PlannerInfo *root, IndexOptInfo *index, Relation heapRelation)
+{
+    List *tlist = NIL;
+    Index varno = index->rel->relid;
+    ListCell *indexpr_item;
+    int i;
+
+    // Start with first expression in the index expressions list
+    indexpr_item = list_head(index->indexprs);
+
+    // Process each index column
+    for (i = 0; i < index->ncolumns; i++) {
+        int indexkey = index->indexkeys[i];
+        Expr *indexvar;
+
+        if (indexkey != 0) {
+            // Simple column reference
+            const FormData_pg_attribute *att_tup;
+
+            // Get attribute info (system or regular column)
+            if (indexkey < 0)
+                att_tup = SystemAttributeDefinition(indexkey);
+            else
+                att_tup = TupleDescAttr(heapRelation->rd_att, indexkey - 1);
+
+            // Create Var node for the column
+            indexvar = (Expr *) makeVar(varno, indexkey,
+                                        att_tup->atttypid,
+                                        att_tup->atttypmod,
+                                        att_tup->attcollation, 0);
+        } else {
+            // Expression column - get from indexprs list
+            if (indexpr_item == NULL)
+                elog(ERROR, "wrong number of index expressions");
+
+            indexvar = (Expr *) lfirst(indexpr_item);
+            indexpr_item = lnext(index->indexprs, indexpr_item);
+        }
+
+        // Add to target list with 1-based position
+        tlist = lappend(tlist, makeTargetEntry(indexvar, i + 1, NULL, false));
+    }
+
+    // Verify we used all expressions
+    if (indexpr_item != NULL)
+        elog(ERROR, "wrong number of index expressions");
+
+    return tlist;
+}
+```

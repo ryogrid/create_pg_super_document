@@ -47,3 +47,62 @@ For text format operations, it uses CopyLimitPrintoutLength to ensure error mess
 - Memory management is handled properly with pfree() calls for allocated strings
 - The function handles NULL values gracefully and provides appropriate messaging
 - Line buffer validity is checked before attempting to display line content to avoid displaying stale data
+
+## Simplified Source
+
+```c
+void CopyFromErrorCallback(void *arg) {
+    CopyFromState cstate = (CopyFromState) arg;
+
+    // Simple relation-only context
+    if (cstate->relname_only) {
+        errcontext("COPY %s", cstate->cur_relname);
+        return;
+    }
+
+    if (cstate->opts.binary) {
+        // Binary format - can't display data meaningfully
+        if (cstate->cur_attname)
+            errcontext("COPY %s, line %llu, column %s",
+                      cstate->cur_relname,
+                      (unsigned long long) cstate->cur_lineno,
+                      cstate->cur_attname);
+        else
+            errcontext("COPY %s, line %llu",
+                      cstate->cur_relname,
+                      (unsigned long long) cstate->cur_lineno);
+    } else {
+        // Text format - provide detailed context with data values
+        if (cstate->cur_attname && cstate->cur_attval) {
+            // Show column-specific error with value
+            char *attval = CopyLimitPrintoutLength(cstate->cur_attval);
+            errcontext("COPY %s, line %llu, column %s: \"%s\"",
+                      cstate->cur_relname,
+                      (unsigned long long) cstate->cur_lineno,
+                      cstate->cur_attname,
+                      attval);
+            pfree(attval);
+        } else if (cstate->cur_attname) {
+            // Column error with NULL value
+            errcontext("COPY %s, line %llu, column %s: null input",
+                      cstate->cur_relname,
+                      (unsigned long long) cstate->cur_lineno,
+                      cstate->cur_attname);
+        } else {
+            // Line-level error
+            if (cstate->line_buf_valid) {
+                char *lineval = CopyLimitPrintoutLength(cstate->line_buf.data);
+                errcontext("COPY %s, line %llu: \"%s\"",
+                          cstate->cur_relname,
+                          (unsigned long long) cstate->cur_lineno,
+                          lineval);
+                pfree(lineval);
+            } else {
+                errcontext("COPY %s, line %llu",
+                          cstate->cur_relname,
+                          (unsigned long long) cstate->cur_lineno);
+            }
+        }
+    }
+}
+```

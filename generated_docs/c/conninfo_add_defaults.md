@@ -52,3 +52,85 @@ The function also implements advanced SSL configuration logic, automatically upg
 - Service file parsing errors are only reported if an errorMessage buffer is provided
 - Environment variable names are stored in the PQconninfoOption structure's envvar field
 - Returns true on success, false only on allocation errors or service parsing failures
+
+## Simplified Source
+```c
+static bool conninfo_add_defaults(PQconninfoOption *options, PQExpBuffer errorMessage) {
+    PQconninfoOption *option;
+    PQconninfoOption *sslmode_default = NULL, *sslrootcert = NULL;
+    char *tmp;
+
+    // Parse service file for defaults
+    if (parseServiceInfo(options, errorMessage) != 0 && errorMessage)
+        return false;
+
+    // Fill in defaults for each option
+    for (option = options; option->keyword != NULL; option++) {
+        if (strcmp(option->keyword, "sslrootcert") == 0)
+            sslrootcert = option;
+
+        if (option->val != NULL)
+            continue; // Already has value
+
+        // Try environment variable
+        if (option->envvar != NULL) {
+            if ((tmp = getenv(option->envvar)) != NULL) {
+                option->val = strdup(tmp);
+                if (!option->val) {
+                    if (errorMessage)
+                        libpq_append_error(errorMessage, "out of memory");
+                    return false;
+                }
+                continue;
+            }
+        }
+
+        // Handle deprecated PGREQUIRESSL for sslmode
+        if (strcmp(option->keyword, "sslmode") == 0) {
+            const char *requiresslenv = getenv("PGREQUIRESSL");
+            if (requiresslenv != NULL && requiresslenv[0] == '1') {
+                option->val = strdup("require");
+                if (!option->val) {
+                    if (errorMessage)
+                        libpq_append_error(errorMessage, "out of memory");
+                    return false;
+                }
+                continue;
+            }
+            sslmode_default = option;
+        }
+
+        // Use compiled-in default
+        if (option->compiled != NULL) {
+            option->val = strdup(option->compiled);
+            if (!option->val) {
+                if (errorMessage)
+                    libpq_append_error(errorMessage, "out of memory");
+                return false;
+            }
+            continue;
+        }
+
+        // Special case for user parameter
+        if (strcmp(option->keyword, "user") == 0) {
+            option->val = pg_fe_getauthname(NULL);
+            continue;
+        }
+    }
+
+    // SSL security enhancement: system cert + no explicit sslmode = verify-full
+    if (sslmode_default && sslrootcert) {
+        if (sslrootcert->val && strcmp(sslrootcert->val, "system") == 0) {
+            free(sslmode_default->val);
+            sslmode_default->val = strdup("verify-full");
+            if (!sslmode_default->val) {
+                if (errorMessage)
+                    libpq_append_error(errorMessage, "out of memory");
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+```

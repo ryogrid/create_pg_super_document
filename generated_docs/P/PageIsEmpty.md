@@ -37,3 +37,15 @@ This function checks if a page is empty by examining the pd_lower field of the p
 - This function is widely used across different access methods (GIN, GiST, Hash, SP-GiST) and maintenance operations
 - The pd_lower field tracks where free space begins, making this an efficient O(1) operation
 - Used extensively in vacuum operations to identify pages that can be truncated or reused
+
+## Simplified Source
+
+```c
+static inline bool
+PageIsEmpty(Page page)
+{
+    // Check if page lower pointer is at or before end of page header
+    // This indicates no item identifiers have been allocated
+    return ((PageHeader) page)->pd_lower <= SizeOfPageHeaderData;
+}
+```

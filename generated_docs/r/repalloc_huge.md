@@ -35,3 +35,13 @@ This function serves as a convenience wrapper around repalloc_extended, specific
 - Does not perform any additional validation beyond what repalloc_extended provides
 - The original allocation does not need to have been created with huge allocation semantics
 - Located in src/backend/utils/mmgr/mcxt.c:1671-1681
+
+## Simplified Source
+
+```c
+void *repalloc_huge(void *pointer, Size size)
+{
+    // Reallocate memory with huge allocation support
+    return repalloc_extended(pointer, size, MCXT_ALLOC_HUGE);
+}
+```

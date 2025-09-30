@@ -55,3 +55,62 @@ An important optimization allows early exit when no serializable transactions ar
 - Only processes heap relations; index relations are explicitly rejected with assertion
 - Sets MyXactDidWrite=true to track that the transaction has performed writes
 - Located in src/backend/storage/lmgr/predicate.c:4409-4490
+
+## Simplified Source
+
+```c
+void CheckTableForSerializableConflictIn(Relation relation)
+{
+    // Early exit if no serializable transactions are running
+    if (!TransactionIdIsValid(PredXact->SxactGlobalXmin))
+        return;
+
+    if (!SerializationNeededForWrite(relation))
+        return;
+
+    // Mark that this transaction has performed writes
+    MyXactDidWrite = true;
+
+    Oid dbId = relation->rd_locator.dbOid;
+    Oid heapId = relation->rd_id;
+
+    // Acquire all necessary locks to prevent deadlocks
+    LWLockAcquire(SerializablePredicateListLock, LW_EXCLUSIVE);
+    for (int i = 0; i < NUM_PREDICATELOCK_PARTITIONS; i++)
+        LWLockAcquire(PredicateLockHashPartitionLockByIndex(i), LW_SHARED);
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+    // Scan through all predicate lock targets
+    HASH_SEQ_STATUS seqstat;
+    hash_seq_init(&seqstat, PredicateLockTargetHash);
+
+    PREDICATELOCKTARGET *target;
+    while ((target = (PREDICATELOCKTARGET *) hash_seq_search(&seqstat)))
+    {
+        // Check if this target matches our relation
+        if (GET_PREDICATELOCKTARGETTAG_RELATION(target->tag) != heapId ||
+            GET_PREDICATELOCKTARGETTAG_DB(target->tag) != dbId)
+            continue;
+
+        // Flag conflicts for all predicate locks on this target
+        dlist_mutable_iter iter;
+        dlist_foreach_modify(iter, &target->predicateLocks)
+        {
+            PREDICATELOCK *predlock =
+                dlist_container(PREDICATELOCK, targetLink, iter.cur);
+
+            if (predlock->tag.myXact != MySerializableXact &&
+                !RWConflictExists(predlock->tag.myXact, MySerializableXact))
+            {
+                FlagRWConflict(predlock->tag.myXact, MySerializableXact);
+            }
+        }
+    }
+
+    // Release locks in reverse order
+    LWLockRelease(SerializableXactHashLock);
+    for (int i = NUM_PREDICATELOCK_PARTITIONS - 1; i >= 0; i--)
+        LWLockRelease(PredicateLockHashPartitionLockByIndex(i));
+    LWLockRelease(SerializablePredicateListLock);
+}
+```

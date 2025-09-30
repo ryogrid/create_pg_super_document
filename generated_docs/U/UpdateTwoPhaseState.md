@@ -48,3 +48,47 @@ This function is critical for managing the progression of two-phase commit suppo
 - Part of the logical replication two-phase commit infrastructure
 - The function handles all necessary memory management for heap tuples
 - Updates are made to the live catalog and will affect subsequent subscription operations
+
+## Simplified Source
+
+```c
+void
+UpdateTwoPhaseState(Oid suboid, char new_state)
+{
+    Relation rel;
+    HeapTuple tup;
+    bool nulls[Natts_pg_subscription];
+    bool replaces[Natts_pg_subscription];
+    Datum values[Natts_pg_subscription];
+
+    // Validate new state value
+    Assert(new_state == LOGICALREP_TWOPHASE_STATE_DISABLED ||
+           new_state == LOGICALREP_TWOPHASE_STATE_PENDING ||
+           new_state == LOGICALREP_TWOPHASE_STATE_ENABLED);
+
+    // Open subscription catalog table
+    rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+
+    // Find the subscription tuple
+    tup = SearchSysCacheCopy1(SUBSCRIPTIONOID, ObjectIdGetDatum(suboid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for subscription oid %u", suboid);
+
+    // Prepare tuple modification arrays
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+    memset(replaces, false, sizeof(replaces));
+
+    // Set new two-phase state
+    values[Anum_pg_subscription_subtwophasestate - 1] = CharGetDatum(new_state);
+    replaces[Anum_pg_subscription_subtwophasestate - 1] = true;
+
+    // Update the catalog tuple
+    tup = heap_modify_tuple(tup, RelationGetDescr(rel), values, nulls, replaces);
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    // Clean up
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

@@ -50,5 +50,48 @@ Special attention is given to variable-length data types (varlena), which are fo
 - Uses a default expression context since constant expressions don't depend on runtime context
 - Proper memory management ensures no leaks occur during evaluation
 - The detoasting of varlena types prevents issues with TOAST pointer invalidation in cached plans
-- Cannot use  as it would cause recursive calls to 
+- Cannot use  as it would cause recursive calls to
 - Returns a new Const node containing the pre-evaluated result, which can replace the original expression in the query tree
+
+## Simplified Source
+
+```c
+Expr *evaluate_expr(Expr *expr, Oid result_type, int32 result_typmod, Oid result_collation) {
+    // Create executor state for evaluation
+    EState *estate = CreateExecutorState();
+    MemoryContext oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Prepare expression for execution
+    fix_opfuncids((Node *) expr);
+    ExprState *exprstate = ExecInitExpr(expr, NULL);
+
+    // Evaluate the expression
+    bool const_is_null;
+    Datum const_val = ExecEvalExprSwitchContext(exprstate,
+                                               GetPerTupleExprContext(estate),
+                                               &const_is_null);
+
+    // Get result type information
+    int16 resultTypLen;
+    bool resultTypByVal;
+    get_typlenbyval(result_type, &resultTypLen, &resultTypByVal);
+
+    // Switch back to original memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    // Copy result and handle varlena detoasting
+    if (!const_is_null) {
+        if (resultTypLen == -1)
+            const_val = PointerGetDatum(PG_DETOAST_DATUM_COPY(const_val));
+        else
+            const_val = datumCopy(const_val, resultTypByVal, resultTypLen);
+    }
+
+    // Clean up executor state
+    FreeExecutorState(estate);
+
+    // Return result as Const node
+    return (Expr *) makeConst(result_type, result_typmod, result_collation,
+                             resultTypLen, const_val, const_is_null, resultTypByVal);
+}
+```

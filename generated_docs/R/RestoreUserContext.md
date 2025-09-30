@@ -38,3 +38,18 @@ The function checks if a GUC nest level was created during the user switch (indi
 - Typically used in finally blocks or cleanup code paths to ensure proper context restoration even in error cases
 - Critical for maintaining security boundaries and preventing configuration parameter pollution between user contexts
 - Used extensively in logical replication operations where temporary privilege changes are common
+
+## Simplified Source
+
+```c
+void
+RestoreUserContext(UserContext *context)
+{
+    // Roll back GUC changes if a nest level was created
+    if (context->save_nestlevel != -1)
+        AtEOXact_GUC(false, context->save_nestlevel);
+
+    // Restore original user ID and security context
+    SetUserIdAndSecContext(context->save_userid, context->save_sec_context);
+}
+```

@@ -50,3 +50,37 @@ The function assumes that expressions from process_equivalence() are already val
 - The function assumes expressions from process_equivalence() have already been validated for volatility and prohibited constructs
 - Automatically sets em_is_const=true for expressions with no relation dependencies
 - Returns the newly created EquivalenceMember for use by the caller
+
+## Simplified Source
+
+```c
+static EquivalenceMember *add_eq_member(EquivalenceClass *ec, Expr *expr, Relids relids,
+                                       JoinDomain *jdomain, EquivalenceMember *parent, Oid datatype) {
+    EquivalenceMember *em = makeNode(EquivalenceMember);
+
+    // Initialize the new member
+    em->em_expr = expr;
+    em->em_relids = relids;
+    em->em_is_const = false;
+    em->em_is_child = (parent != NULL);
+    em->em_datatype = datatype;
+    em->em_jdomain = jdomain;
+    em->em_parent = parent;
+
+    // Check if this is a constant expression (no relation dependencies)
+    if (bms_is_empty(relids)) {
+        Assert(!parent);  // Constants can't be child members
+        em->em_is_const = true;
+        ec->ec_has_const = true;
+        // Constants don't affect ec_relids
+    } else if (!parent) {
+        // Non-child members contribute to the EC's relation set
+        ec->ec_relids = bms_add_members(ec->ec_relids, relids);
+    }
+
+    // Add member to the equivalence class
+    ec->ec_members = lappend(ec->ec_members, em);
+
+    return em;
+}
+```

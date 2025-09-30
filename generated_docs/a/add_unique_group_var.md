@@ -50,3 +50,52 @@ The function is essential for accurate GROUP BY cardinality estimation, as it en
 - Critical for preventing double-counting of equivalent variables in GROUP BY cardinality estimation
 - Only considers variables from different relations as potentially equivalent (same-relation variables are assumed distinct)
 - Memory management uses palloc for new GroupVarInfo allocation and lappend for list extension
+
+## Simplified Source
+
+```c
+static List *
+add_unique_group_var(PlannerInfo *root, List *varinfos,
+                     Node *var, VariableStatData *vardata) {
+    GroupVarInfo *varinfo;
+    double ndistinct;
+    bool isdefault;
+    ListCell *lc;
+
+    // Get distinct value estimate for this variable
+    ndistinct = get_variable_numdistinct(vardata, &isdefault);
+
+    // Remove nulling relids to enable proper duplicate detection
+    var = remove_nulling_relids(var, root->outer_join_rels, NULL);
+
+    // Check if variable already exists in list
+    foreach(lc, varinfos) {
+        varinfo = (GroupVarInfo *) lfirst(lc);
+
+        // Skip exact duplicates
+        if (equal(var, varinfo->var))
+            return varinfos;
+
+        // Handle known-equal variables from different relations
+        if (vardata->rel != varinfo->rel &&
+            exprs_known_equal(root, var, varinfo->var)) {
+            if (varinfo->ndistinct <= ndistinct) {
+                // Keep existing item with better statistics
+                return varinfos;
+            } else {
+                // Replace with new item that has better statistics
+                varinfos = foreach_delete_current(varinfos, lc);
+            }
+        }
+    }
+
+    // Create new GroupVarInfo and add to list
+    varinfo = (GroupVarInfo *) palloc(sizeof(GroupVarInfo));
+    varinfo->var = var;
+    varinfo->rel = vardata->rel;
+    varinfo->ndistinct = ndistinct;
+    varinfo->isdefault = isdefault;
+
+    return lappend(varinfos, varinfo);
+}
+```

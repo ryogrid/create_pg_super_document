@@ -51,3 +51,52 @@ The function provides consistent tracing infrastructure using TRACE_POSTGRESQL_B
 - Central abstraction point that simplifies the interface for relation extension callers
 - Maintains performance monitoring capabilities through DTrace-compatible tracing probes
 - Part of PostgreSQL's unified buffer management architecture
+
+## Simplified Source
+
+```c
+static BlockNumber
+ExtendBufferedRelCommon(BufferManagerRelation bmr,
+                       ForkNumber fork,
+                       BufferAccessStrategy strategy,
+                       uint32 flags,
+                       uint32 extend_by,
+                       BlockNumber extend_upto,
+                       Buffer *buffers,
+                       uint32 *extended_by)
+{
+    BlockNumber first_block;
+
+    // Start tracing for performance monitoring
+    TRACE_POSTGRESQL_BUFFER_EXTEND_START(fork,
+                                        bmr.smgr->smgr_rlocator.locator.spcOid,
+                                        bmr.smgr->smgr_rlocator.locator.dbOid,
+                                        bmr.smgr->smgr_rlocator.locator.relNumber,
+                                        bmr.smgr->smgr_rlocator.backend,
+                                        extend_by);
+
+    // Route to appropriate extension function based on relation persistence
+    if (bmr.relpersistence == RELPERSISTENCE_TEMP)
+        first_block = ExtendBufferedRelLocal(bmr, fork, flags,
+                                           extend_by, extend_upto,
+                                           buffers, &extend_by);
+    else
+        first_block = ExtendBufferedRelShared(bmr, fork, strategy, flags,
+                                            extend_by, extend_upto,
+                                            buffers, &extend_by);
+
+    // Return actual number of blocks extended
+    *extended_by = extend_by;
+
+    // Complete tracing
+    TRACE_POSTGRESQL_BUFFER_EXTEND_DONE(fork,
+                                       bmr.smgr->smgr_rlocator.locator.spcOid,
+                                       bmr.smgr->smgr_rlocator.locator.dbOid,
+                                       bmr.smgr->smgr_rlocator.locator.relNumber,
+                                       bmr.smgr->smgr_rlocator.backend,
+                                       *extended_by,
+                                       first_block);
+
+    return first_block;
+}
+```

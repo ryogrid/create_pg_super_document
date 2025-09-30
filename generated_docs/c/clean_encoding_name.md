@@ -33,3 +33,29 @@ The function iterates through each character of the input string, filters out ir
 - The function assumes the input string is null-terminated
 - Case conversion is performed using simple ASCII arithmetic (uppercase A-Z to lowercase a-z)
 - All non-alphanumeric characters are stripped from the encoding name
+
+## Simplified Source
+
+```c
+static char *
+clean_encoding_name(const char *key, char *newkey)
+{
+    const char *p;
+    char *np;
+
+    // Copy only alphanumeric characters, converting to lowercase
+    for (p = key, np = newkey; *p != '\0'; p++)
+    {
+        if (isalnum((unsigned char) *p))
+        {
+            // Convert uppercase to lowercase
+            if (*p >= 'A' && *p <= 'Z')
+                *np++ = *p + 'a' - 'A';
+            else
+                *np++ = *p;
+        }
+    }
+    *np = '\0';
+    return newkey;
+}
+```

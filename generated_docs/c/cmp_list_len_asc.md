@@ -39,3 +39,16 @@ The function is designed to be used with PostgreSQL's list_sort function to arra
 - The ascending order ensures shorter grouping sets are processed first, which can improve query optimization
 - Part of PostgreSQL's GROUPING SETS implementation for organizing expanded grouping combinations
 - Uses PostgreSQL's standard comparison utilities for consistent behavior across the codebase
+
+## Simplified Source
+
+```c
+static int
+cmp_list_len_asc(const ListCell *a, const ListCell *b)
+{
+    int la = list_length((const List *) lfirst(a));
+    int lb = list_length((const List *) lfirst(b));
+
+    return pg_cmp_s32(la, lb);
+}
+```

@@ -34,3 +34,25 @@ The function delegates the actual relation discovery to GetSchemaPublicationRela
 - Part of PostgreSQL's logical replication support for schema-level publication definitions
 - The function maintains the publication partition options consistently across all schemas
 - Essential for determining the complete set of tables that will be replicated for schema-based publications
+
+## Simplified Source
+
+```c
+List *GetAllSchemaPublicationRelations(Oid pubid, PublicationPartOpt pub_partopt) {
+    List *result = NIL;
+    List *pubschemalist = GetPublicationSchemas(pubid);
+    ListCell *cell;
+
+    // Aggregate relations from all schemas in the publication
+    foreach(cell, pubschemalist) {
+        Oid schemaid = lfirst_oid(cell);
+        List *schemaRels = NIL;
+
+        // Get publishable relations for this schema
+        schemaRels = GetSchemaPublicationRelations(schemaid, pub_partopt);
+        result = list_concat(result, schemaRels);
+    }
+
+    return result;
+}
+```

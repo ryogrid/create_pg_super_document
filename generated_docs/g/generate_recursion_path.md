@@ -57,3 +57,81 @@ The key insight is that recursive queries work by first executing the non-recurs
 - The non_recursive_path is temporarily stored in the PlannerInfo so the recursive branch can reference it
 - Both left and right paths are processed through build_setop_child_paths if they represent subqueries
 - The RecursiveUnion node will handle the iterative execution of the recursive part at runtime
+
+## Simplified Source
+
+```c
+static RelOptInfo *generate_recursion_path(SetOperationStmt *setOp, PlannerInfo *root,
+                                          List *refnames_tlist, List **pTargetList) {
+    RelOptInfo *result_rel;
+    Path *path;
+    RelOptInfo *lrel, *rrel;
+    Path *lpath, *rpath;
+    List *lpath_tlist, *rpath_tlist;
+    bool lpath_trivial_tlist, rpath_trivial_tlist;
+    List *tlist, *groupList;
+    double dNumGroups;
+
+    // Validate: only UNION can be recursive
+    if (setOp->op != SETOP_UNION)
+        elog(ERROR, "only UNION queries can be recursive");
+    Assert(root->wt_param_id >= 0);
+
+    // Process left (anchor/non-recursive) branch
+    lrel = recurse_set_operations(setOp->larg, root,
+                                setOp->colTypes, setOp->colCollations,
+                                false, -1, refnames_tlist,
+                                &lpath_tlist, &lpath_trivial_tlist);
+    if (lrel->rtekind == RTE_SUBQUERY)
+        build_setop_child_paths(root, lrel, lpath_trivial_tlist, lpath_tlist, NIL, NULL);
+    lpath = lrel->cheapest_total_path;
+
+    // Process right (recursive) branch - needs access to left path results
+    root->non_recursive_path = lpath;
+    rrel = recurse_set_operations(setOp->rarg, root,
+                                setOp->colTypes, setOp->colCollations,
+                                false, -1, refnames_tlist,
+                                &rpath_tlist, &rpath_trivial_tlist);
+    if (rrel->rtekind == RTE_SUBQUERY)
+        build_setop_child_paths(root, rrel, rpath_trivial_tlist, rpath_tlist, NIL, NULL);
+    rpath = rrel->cheapest_total_path;
+    root->non_recursive_path = NULL;
+
+    // Generate target list for the recursive union
+    tlist = generate_append_tlist(setOp->colTypes, setOp->colCollations, false,
+                                list_make2(lpath_tlist, rpath_tlist), refnames_tlist);
+    *pTargetList = tlist;
+
+    // Create result relation
+    result_rel = fetch_upper_rel(root, UPPERREL_SETOP, bms_union(lrel->relids, rrel->relids));
+    result_rel->reltarget = create_pathtarget(root, tlist);
+
+    // Handle grouping for duplicate elimination
+    if (setOp->all) {
+        // UNION ALL - no grouping needed
+        groupList = NIL;
+        dNumGroups = 0;
+    } else {
+        // UNION - need grouping for duplicate elimination
+        groupList = generate_setop_grouplist(setOp, tlist);
+
+        // Validate all columns are hashable
+        if (!grouping_is_hashable(groupList))
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                          errmsg("could not implement recursive UNION"),
+                          errdetail("All column datatypes must be hashable.")));
+
+        // Conservative estimate of distinct groups
+        dNumGroups = lpath->rows + rpath->rows * 10;
+    }
+
+    // Create the recursive union path
+    path = (Path *) create_recursiveunion_path(root, result_rel, lpath, rpath,
+                                             result_rel->reltarget, groupList,
+                                             root->wt_param_id, dNumGroups);
+
+    add_path(result_rel, path);
+    postprocess_setop_rel(root, result_rel);
+    return result_rel;
+}
+```

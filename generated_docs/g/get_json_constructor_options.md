@@ -43,3 +43,33 @@ The function processes three main categories of options:
 - The function applies different null handling semantics based on constructor type: object constructors default to "ABSENT ON NULL" behavior while array constructors use "NULL ON NULL"
 - JSON_PARSE and JSON_SCALAR constructors do not support RETURNING clauses and are excluded from that processing
 - The function is part of PostgreSQL's SQL rule deparsing infrastructure, converting internal representations back to readable SQL text
+
+## Simplified Source
+
+```c
+static void get_json_constructor_options(JsonConstructorExpr *ctor, StringInfo buf) {
+    // Handle null value behavior based on constructor type
+    if (ctor->absent_on_null) {
+        // Object constructors use ABSENT ON NULL
+        if (ctor->type == JSCTOR_JSON_OBJECT || ctor->type == JSCTOR_JSON_OBJECTAGG) {
+            appendStringInfoString(buf, " ABSENT ON NULL");
+        }
+    } else {
+        // Array constructors use NULL ON NULL
+        if (ctor->type == JSCTOR_JSON_ARRAY || ctor->type == JSCTOR_JSON_ARRAYAGG) {
+            appendStringInfoString(buf, " NULL ON NULL");
+        }
+    }
+
+    // Add unique keys constraint if specified
+    if (ctor->unique) {
+        appendStringInfoString(buf, " WITH UNIQUE KEYS");
+    }
+
+    // Add RETURNING clause for supported constructor types
+    // JSON_PARSE and JSON_SCALAR don't support RETURNING clauses
+    if (ctor->type != JSCTOR_JSON_PARSE && ctor->type != JSCTOR_JSON_SCALAR) {
+        get_json_returning(ctor->returning, buf, true);
+    }
+}
+```

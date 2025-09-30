@@ -35,3 +35,13 @@ This function is part of PostgreSQL's collection of standardized comparison util
 - This function is declared as  for maximum performance in hot code paths
 - Part of a family of comparison functions for different integer types (pg_cmp_u32, pg_cmp_s64, etc.)
 - Widely used throughout PostgreSQL for sorting operations, particularly in list sorting and index maintenance
+
+## Simplified Source
+
+```c
+static inline int pg_cmp_s32(int32 a, int32 b) {
+    // Branchless three-way comparison
+    // Returns: -1 if a < b, 0 if a == b, 1 if a > b
+    return (a > b) - (a < b);
+}
+```

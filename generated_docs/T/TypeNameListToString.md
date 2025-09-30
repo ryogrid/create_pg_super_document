@@ -34,3 +34,32 @@ Like TypeNameToString, this function is designed to work reliably even with inva
 
 ## Notes and Other Information
 This function is specifically designed for handling multiple type names in bulk operations, making it valuable for DROP operations and other DDL commands that can operate on multiple types simultaneously. The comma-separated format provides a clear and readable representation for user-facing error messages. The caller is responsible for freeing the returned string memory. The function leverages the same core formatting logic as TypeNameToString through the shared appendTypeNameToBuffer function, ensuring consistency in type name representation across the system.
+
+## Simplified Source
+
+```c
+char *
+TypeNameListToString(List *typenames)
+{
+    StringInfoData string;
+    ListCell   *l;
+
+    // Initialize the string buffer
+    initStringInfo(&string);
+
+    // Process each TypeName in the list
+    foreach(l, typenames)
+    {
+        TypeName   *typeName = lfirst_node(TypeName, l);
+
+        // Add comma separator (except for the first element)
+        if (l != list_head(typenames))
+            appendStringInfoChar(&string, ',');
+
+        // Append this type name to the buffer
+        appendTypeNameToBuffer(typeName, &string);
+    }
+
+    return string.data;
+}
+```

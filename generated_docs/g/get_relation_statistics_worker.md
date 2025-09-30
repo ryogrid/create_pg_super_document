@@ -50,3 +50,58 @@ The function handles the case where the requested statistics data may not exist 
 - Uses bms_copy() to create independent copies of the keys bitmapset for each info structure
 - The inherit flag from the statistics data overrides the inh parameter in the resulting StatisticExtInfo
 - Properly manages system cache resources by calling ReleaseSysCache()
+
+## Simplified Source
+
+```c
+static void
+get_relation_statistics_worker(List **stainfos, RelOptInfo *rel,
+                               Oid statOid, bool inh,
+                               Bitmapset *keys, List *exprs)
+{
+    Form_pg_statistic_ext_data dataForm;
+    HeapTuple dtup;
+
+    // Look up statistics data in system cache
+    dtup = SearchSysCache2(STATEXTDATASTXOID,
+                          ObjectIdGetDatum(statOid), BoolGetDatum(inh));
+    if (!HeapTupleIsValid(dtup))
+        return;  // No data found
+
+    dataForm = (Form_pg_statistic_ext_data) GETSTRUCT(dtup);
+
+    // Create StatisticExtInfo for each available statistics type
+    if (statext_is_kind_built(dtup, STATS_EXT_NDISTINCT))
+        *stainfos = lappend(*stainfos, make_statistic_info(statOid, dataForm, rel,
+                                                          STATS_EXT_NDISTINCT, keys, exprs));
+
+    if (statext_is_kind_built(dtup, STATS_EXT_DEPENDENCIES))
+        *stainfos = lappend(*stainfos, make_statistic_info(statOid, dataForm, rel,
+                                                          STATS_EXT_DEPENDENCIES, keys, exprs));
+
+    if (statext_is_kind_built(dtup, STATS_EXT_MCV))
+        *stainfos = lappend(*stainfos, make_statistic_info(statOid, dataForm, rel,
+                                                          STATS_EXT_MCV, keys, exprs));
+
+    if (statext_is_kind_built(dtup, STATS_EXT_EXPRESSIONS))
+        *stainfos = lappend(*stainfos, make_statistic_info(statOid, dataForm, rel,
+                                                          STATS_EXT_EXPRESSIONS, keys, exprs));
+
+    ReleaseSysCache(dtup);
+
+    // Helper function to create StatisticExtInfo (simplified representation)
+    static StatisticExtInfo *
+    make_statistic_info(Oid statOid, Form_pg_statistic_ext_data dataForm,
+                       RelOptInfo *rel, char kind, Bitmapset *keys, List *exprs)
+    {
+        StatisticExtInfo *info = makeNode(StatisticExtInfo);
+        info->statOid = statOid;
+        info->inherit = dataForm->stxdinherit;
+        info->rel = rel;
+        info->kind = kind;
+        info->keys = bms_copy(keys);
+        info->exprs = exprs;
+        return info;
+    }
+}
+```

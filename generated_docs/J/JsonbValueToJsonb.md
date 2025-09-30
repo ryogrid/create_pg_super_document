@@ -46,3 +46,40 @@ The function is essential for preparing JSONB data for storage or transmission a
 - Binary JsonbValues are assumed to already contain valid JSONB binary data
 - This is a core conversion function used extensively throughout the JSONB subsystem
 - Located in src/backend/utils/adt/jsonb_util.c:92-133
+
+## Simplified Source
+
+```c
+Jsonb *JsonbValueToJsonb(JsonbValue *val) {
+    Jsonb *out;
+
+    if (IsAJsonbScalar(val)) {
+        // Wrap scalar in a raw scalar array structure
+        JsonbParseState *pstate = NULL;
+        JsonbValue scalarArray;
+
+        scalarArray.type = jbvArray;
+        scalarArray.val.array.rawScalar = true;
+        scalarArray.val.array.nElems = 1;
+
+        pushJsonbValue(&pstate, WJB_BEGIN_ARRAY, &scalarArray);
+        pushJsonbValue(&pstate, WJB_ELEM, val);
+        JsonbValue *res = pushJsonbValue(&pstate, WJB_END_ARRAY, NULL);
+
+        out = convertToJsonb(res);
+    }
+    else if (val->type == jbvObject || val->type == jbvArray) {
+        // Convert objects/arrays directly
+        out = convertToJsonb(val);
+    }
+    else {
+        // Handle binary data - copy to new Jsonb structure
+        Assert(val->type == jbvBinary);
+        out = palloc(VARHDRSZ + val->val.binary.len);
+        SET_VARSIZE(out, VARHDRSZ + val->val.binary.len);
+        memcpy(VARDATA(out), val->val.binary.data, val->val.binary.len);
+    }
+
+    return out;
+}
+```

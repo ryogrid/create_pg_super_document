@@ -50,3 +50,88 @@ The function is essential for query planning and execution to avoid referencing 
 - The function handles stored rules that might reference dropped columns by checking for NULL pointers in join alias variable lists
 - For function RTEs returning composite types, it performs deeper analysis of the result tuple descriptor
 - The function includes comprehensive error handling for invalid attribute numbers and unrecognized RTE kinds
+
+## Simplified Source
+
+```c
+bool get_rte_attribute_is_dropped(RangeTblEntry *rte, AttrNumber attnum) {
+    switch (rte->rtekind) {
+        case RTE_RELATION:
+            // Look up attribute in system catalog
+            HeapTuple tp = SearchSysCache2(ATTNUM,
+                                         ObjectIdGetDatum(rte->relid),
+                                         Int16GetDatum(attnum));
+            if (!HeapTupleIsValid(tp)) {
+                elog(ERROR, "cache lookup failed for attribute %d", attnum);
+            }
+
+            Form_pg_attribute att_tup = (Form_pg_attribute) GETSTRUCT(tp);
+            bool result = att_tup->attisdropped;
+            ReleaseSysCache(tp);
+            return result;
+
+        case RTE_SUBQUERY:
+        case RTE_TABLEFUNC:
+        case RTE_VALUES:
+        case RTE_CTE:
+            // These RTE types never have dropped columns
+            return false;
+
+        case RTE_NAMEDTUPLESTORE:
+            // Check if column type is valid (dropped columns have invalid OID)
+            if (attnum <= 0 || attnum > list_length(rte->coltypes)) {
+                elog(ERROR, "invalid varattno %d", attnum);
+            }
+            return !OidIsValid(list_nth_oid(rte->coltypes, attnum - 1));
+
+        case RTE_JOIN:
+            // Check if joinaliasvars has NULL pointer (indicates dropped column)
+            if (attnum <= 0 || attnum > list_length(rte->joinaliasvars)) {
+                elog(ERROR, "invalid varattno %d", attnum);
+            }
+            Var *aliasvar = (Var *) list_nth(rte->joinaliasvars, attnum - 1);
+            return (aliasvar == NULL);
+
+        case RTE_FUNCTION:
+            // For functions returning composite types, check tuple descriptor
+            int atts_done = 0;
+            foreach(lc, rte->functions) {
+                RangeTblFunction *rtfunc = (RangeTblFunction *) lfirst(lc);
+
+                if (attnum > atts_done && attnum <= atts_done + rtfunc->funccolcount) {
+                    // If has column definition list, returns RECORD (no dropped columns)
+                    if (rtfunc->funccolnames != NIL) {
+                        return false;
+                    }
+
+                    // Get tuple descriptor and check attribute
+                    TupleDesc tupdesc = get_expr_result_tupdesc(rtfunc->funcexpr, true);
+                    if (tupdesc) {
+                        Form_pg_attribute att_tup = TupleDescAttr(tupdesc, attnum - atts_done - 1);
+                        return att_tup->attisdropped;
+                    }
+                    return false;
+                }
+                atts_done += rtfunc->funccolcount;
+            }
+
+            // Check for ordinality column
+            if (rte->funcordinality && attnum == atts_done + 1) {
+                return false;
+            }
+
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                          errmsg("column %d does not exist", attnum)));
+            return false;
+
+        case RTE_RESULT:
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                          errmsg("column %d does not exist", attnum)));
+            return false;
+
+        default:
+            elog(ERROR, "unrecognized RTE kind: %d", (int) rte->rtekind);
+            return false;
+    }
+}
+```

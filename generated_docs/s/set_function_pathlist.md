@@ -36,3 +36,42 @@ When ORDINALITY is specified in a function call, PostgreSQL adds an ordinal colu
 - The function checks if the ordinality column is actually referenced in the query's targetlist before attempting to build pathkeys for it
 - Uses Int8LessOperator for sorting the ordinality column since ordinal numbers are stored as int8 (bigint) type
 - Located in src/backend/optimizer/path/allpaths.c:2749-2815
+
+## Simplified Source
+
+```c
+static void set_function_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte) {
+    Relids required_outer;
+    List *pathkeys = NIL;
+
+    // Function scans only support LATERAL parameterization
+    required_outer = rel->lateral_relids;
+
+    // Handle ORDINALITY ordering if present
+    if (rte->funcordinality) {
+        AttrNumber ordattno = rel->max_attr;  // Last column is ordinality
+        Var *var = NULL;
+
+        // Look for ordinality column in target expressions
+        ListCell *lc;
+        foreach(lc, rel->reltarget->exprs) {
+            Var *node = (Var *) lfirst(lc);
+
+            if (IsA(node, Var) && node->varattno == ordattno &&
+                node->varno == rel->relid && node->varlevelsup == 0) {
+                var = node;
+                break;
+            }
+        }
+
+        // Build pathkeys for ordinality ordering if column is used
+        if (var) {
+            pathkeys = build_expression_pathkey(root, (Expr *) var,
+                                              Int8LessOperator, rel->relids, false);
+        }
+    }
+
+    // Create the function scan path
+    add_path(rel, create_functionscan_path(root, rel, pathkeys, required_outer));
+}
+```

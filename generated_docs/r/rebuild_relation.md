@@ -46,3 +46,43 @@ This function is essential for the CLUSTER command and other table reorganizatio
 - Preserves table persistence characteristics (permanent, temporary, etc.)
 - Critical for maintaining data integrity during table reorganization operations
 - The operation is atomic from the user's perspective due to the file swapping mechanism
+
+## Simplified Source
+
+```c
+static void rebuild_relation(Relation OldHeap, Oid indexOid, bool verbose) {
+    Oid tableOid = RelationGetRelid(OldHeap);
+    Oid accessMethod = OldHeap->rd_rel->relam;
+    Oid tableSpace = OldHeap->rd_rel->reltablespace;
+    Oid OIDNewHeap;
+    char relpersistence;
+    bool is_system_catalog;
+    bool swap_toast_by_content;
+    TransactionId frozenXid;
+    MultiXactId cutoffMulti;
+
+    // Mark the index as clustered if specified
+    if (OidIsValid(indexOid))
+        mark_index_clustered(OldHeap, indexOid, true);
+
+    // Save relation properties before closing
+    relpersistence = OldHeap->rd_rel->relpersistence;
+    is_system_catalog = IsSystemRelation(OldHeap);
+
+    // Close old heap but keep lock
+    table_close(OldHeap, NoLock);
+
+    // Create new temporary heap with same structure
+    OIDNewHeap = make_new_heap(tableOid, tableSpace, accessMethod,
+                               relpersistence, AccessExclusiveLock);
+
+    // Copy data in desired order (index or physical)
+    copy_table_data(OIDNewHeap, tableOid, indexOid, verbose,
+                    &swap_toast_by_content, &frozenXid, &cutoffMulti);
+
+    // Swap files and complete the rebuild
+    finish_heap_swap(tableOid, OIDNewHeap, is_system_catalog,
+                     swap_toast_by_content, false, true,
+                     frozenXid, cutoffMulti, relpersistence);
+}
+```

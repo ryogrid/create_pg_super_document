@@ -43,3 +43,25 @@ This validation prevents naming conflicts and maintains the integrity of the ope
 - Error messages are user-friendly and include all relevant identifying information (family name, access method name, and schema name)
 - The function follows PostgreSQL's pattern of immediate error reporting rather than returning boolean status values
 - Located in src/backend/commands/opclasscmds.c:1828-1842
+
+## Simplified Source
+
+```c
+void IsThereOpFamilyInNamespace(const char *opfname, Oid opfmethod, Oid opfnamespace)
+{
+    // Check if operator family already exists with same name and access method
+    if (SearchSysCacheExists3(OPFAMILYAMNAMENSP,
+                             ObjectIdGetDatum(opfmethod),
+                             CStringGetDatum(opfname),
+                             ObjectIdGetDatum(opfnamespace)))
+    {
+        // Report comprehensive error with family name, access method, and schema
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("operator family \"%s\" for access method \"%s\" already exists in schema \"%s\"",
+                        opfname,
+                        get_am_name(opfmethod),
+                        get_namespace_name(opfnamespace))));
+    }
+}
+```

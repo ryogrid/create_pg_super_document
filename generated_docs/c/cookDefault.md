@@ -49,3 +49,56 @@ The function performs comprehensive validation including type checking, mutabili
 - The function provides detailed error messages including type information and suggested solutions
 - Collation assignment is handled as the final step to ensure proper collation semantics
 - This function is central to PostgreSQL's default value and generated column implementation
+
+## Simplified Source
+
+```c
+Node *
+cookDefault(ParseState *pstate, Node *raw_default, Oid atttypid,
+           int32 atttypmod, const char *attname, char attgenerated)
+{
+    Node *cooked_expr;
+
+    Assert(raw_default != NULL);
+
+    // Transform raw expression to executable form
+    ExprKind expr_kind = attgenerated ? EXPR_KIND_GENERATED_COLUMN : EXPR_KIND_COLUMN_DEFAULT;
+    cooked_expr = transformExpr(pstate, raw_default, expr_kind);
+
+    if (attgenerated)
+    {
+        // Additional validation for generated columns
+        check_nested_generated(pstate, cooked_expr);
+
+        // Ensure generated expressions use only immutable functions
+        if (contain_mutable_functions_after_planning((Expr *) cooked_expr))
+            ereport(ERROR, "generation expression is not immutable");
+    }
+    else
+    {
+        // Regular defaults should not contain column references
+        Assert(!contain_var_clause(cooked_expr));
+    }
+
+    // Coerce expression to target column type if specified
+    if (OidIsValid(atttypid))
+    {
+        Oid source_type = exprType(cooked_expr);
+
+        cooked_expr = coerce_to_target_type(pstate, cooked_expr, source_type,
+                                           atttypid, atttypmod,
+                                           COERCION_ASSIGNMENT,
+                                           COERCE_IMPLICIT_CAST, -1);
+
+        if (cooked_expr == NULL)
+            ereport(ERROR,
+                   "column \"%s\" is of type %s but default expression is of type %s",
+                   attname, format_type_be(atttypid), format_type_be(source_type));
+    }
+
+    // Handle collation assignments
+    assign_expr_collations(pstate, cooked_expr);
+
+    return cooked_expr;
+}
+```

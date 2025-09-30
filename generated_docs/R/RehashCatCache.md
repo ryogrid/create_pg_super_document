@@ -47,3 +47,43 @@ The function uses doubly-linked lists (dlist) to manage cache entries within eac
 - The operation is performed in CacheMemoryContext to ensure proper memory management
 - Debug logging helps track cache performance and rehashing frequency
 - The rehashing maintains the integrity of hash-based lookups by recalculating bucket assignments
+
+## Simplified Source
+
+```c
+static void
+RehashCatCache(CatCache *cp)
+{
+    dlist_head *newbucket;
+    int newnbuckets;
+    int i;
+
+    // Log rehashing operation for debugging
+    elog(DEBUG1, "rehashing catalog cache id %d for %s; %d tups, %d buckets",
+         cp->id, cp->cc_relname, cp->cc_ntup, cp->cc_nbuckets);
+
+    // Create new hash table with double the buckets
+    newnbuckets = cp->cc_nbuckets * 2;
+    newbucket = (dlist_head *) MemoryContextAllocZero(CacheMemoryContext,
+                                                      newnbuckets * sizeof(dlist_head));
+
+    // Move all entries from old table to new table
+    for (i = 0; i < cp->cc_nbuckets; i++) {
+        dlist_mutable_iter iter;
+
+        dlist_foreach_modify(iter, &cp->cc_bucket[i]) {
+            CatCTup *ct = dlist_container(CatCTup, cache_elem, iter.cur);
+            int hashIndex = HASH_INDEX(ct->hash_value, newnbuckets);
+
+            // Remove from old bucket and add to new bucket
+            dlist_delete(iter.cur);
+            dlist_push_head(&newbucket[hashIndex], &ct->cache_elem);
+        }
+    }
+
+    // Replace old bucket array with new one
+    pfree(cp->cc_bucket);
+    cp->cc_nbuckets = newnbuckets;
+    cp->cc_bucket = newbucket;
+}
+```

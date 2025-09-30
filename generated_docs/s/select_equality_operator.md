@@ -40,3 +40,37 @@ The function iterates through each operator family in the EquivalenceClass and a
 - The function implements a security-aware operator selection strategy where leakproof operators are required when barrier qualifications are present
 - Uses BTEqualStrategyNumber to specifically look for equality operators within B-tree operator families
 - This is a static function within equivclass.c, indicating it's an internal helper for equivalence class processing
+
+## Simplified Source
+
+```c
+static Oid
+select_equality_operator(EquivalenceClass *ec, Oid lefttype, Oid righttype)
+{
+    ListCell *lc;
+
+    // Search through all operator families in the equivalence class
+    foreach(lc, ec->ec_opfamilies)
+    {
+        Oid opfamily = lfirst_oid(lc);
+        Oid opno;
+
+        // Look for equality operator for these types in this operator family
+        opno = get_opfamily_member(opfamily, lefttype, righttype,
+                                  BTEqualStrategyNumber);
+        if (!OidIsValid(opno))
+            continue;
+
+        // If no security barriers, any valid operator is acceptable
+        if (ec->ec_max_security == 0)
+            return opno;
+
+        // With security barriers, require leakproof operators only
+        if (get_func_leakproof(get_opcode(opno)))
+            return opno;
+    }
+
+    // No suitable operator found
+    return InvalidOid;
+}
+```

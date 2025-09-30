@@ -40,3 +40,30 @@ The function is typically called as part of error reporting chains where datatyp
 - Commonly used in constraint violation and type-related error reporting
 - Stores information in standard PostgreSQL diagnostic fields that can be extracted by client applications
 - Located at src/backend/utils/adt/domains.c:407-430
+
+## Simplified Source
+
+```c
+int
+errdatatype(Oid datatypeOid)
+{
+    HeapTuple tup;
+    Form_pg_type typtup;
+
+    // Look up the datatype in system cache
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(datatypeOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", datatypeOid);
+
+    typtup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Add schema and datatype name to error context
+    err_generic_string(PG_DIAG_SCHEMA_NAME,
+                       get_namespace_name(typtup->typnamespace));
+    err_generic_string(PG_DIAG_DATATYPE_NAME, NameStr(typtup->typname));
+
+    ReleaseSysCache(tup);
+
+    return 0;  // Return value doesn't matter
+}
+```

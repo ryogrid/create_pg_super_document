@@ -40,3 +40,35 @@ For each category, it tracks hit counts, read counts, blocks dirtied, blocks wri
 - All BufferUsage counters are designed to be monotonically increasing and never reset to zero
 - The function is crucial for PostgreSQL's query execution instrumentation and performance monitoring
 - Located in src/backend/executor/instrument.c:226-247
+
+## Simplified Source
+
+```c
+static void
+BufferUsageAdd(BufferUsage *dst, const BufferUsage *add)
+{
+    // Accumulate shared buffer statistics
+    dst->shared_blks_hit += add->shared_blks_hit;
+    dst->shared_blks_read += add->shared_blks_read;
+    dst->shared_blks_dirtied += add->shared_blks_dirtied;
+    dst->shared_blks_written += add->shared_blks_written;
+
+    // Accumulate local buffer statistics
+    dst->local_blks_hit += add->local_blks_hit;
+    dst->local_blks_read += add->local_blks_read;
+    dst->local_blks_dirtied += add->local_blks_dirtied;
+    dst->local_blks_written += add->local_blks_written;
+
+    // Accumulate temporary buffer statistics
+    dst->temp_blks_read += add->temp_blks_read;
+    dst->temp_blks_written += add->temp_blks_written;
+
+    // Accumulate timing information
+    INSTR_TIME_ADD(dst->shared_blk_read_time, add->shared_blk_read_time);
+    INSTR_TIME_ADD(dst->shared_blk_write_time, add->shared_blk_write_time);
+    INSTR_TIME_ADD(dst->local_blk_read_time, add->local_blk_read_time);
+    INSTR_TIME_ADD(dst->local_blk_write_time, add->local_blk_write_time);
+    INSTR_TIME_ADD(dst->temp_blk_read_time, add->temp_blk_read_time);
+    INSTR_TIME_ADD(dst->temp_blk_write_time, add->temp_blk_write_time);
+}
+```

@@ -45,3 +45,31 @@ For invalid or unsupported leading bytes, the function conservatively returns 1,
 - Used extensively throughout PostgreSQL's Unicode and character encoding processing infrastructure
 - The implementation deliberately avoids supporting UTF-8 sequences longer than 4 bytes, as these are not needed for standard Unicode character representation
 - Critical for proper UTF-8 string processing, character boundary detection, and memory allocation calculations
+
+## Simplified Source
+
+```c
+int pg_utf_mblen(const unsigned char *s) {
+    // Determine UTF-8 character length from leading byte bit pattern
+
+    // 1-byte: 0xxxxxxx (ASCII)
+    if ((*s & 0x80) == 0)
+        return 1;
+
+    // 2-byte: 110xxxxx
+    else if ((*s & 0xe0) == 0xc0)
+        return 2;
+
+    // 3-byte: 1110xxxx
+    else if ((*s & 0xf0) == 0xe0)
+        return 3;
+
+    // 4-byte: 11110xxx
+    else if ((*s & 0xf8) == 0xf0)
+        return 4;
+
+    // Invalid or unsupported leading byte - treat as single byte
+    else
+        return 1;
+}
+```

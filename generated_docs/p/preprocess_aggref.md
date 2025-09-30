@@ -62,3 +62,119 @@ Special handling is included for:
 - Handles complex partial aggregation feasibility analysis including serialization requirements
 - Special case handling for array_agg serialization functions that depend on element type send/receive functions
 - Updates planning flags like numOrderedAggs, hasNonPartialAggs, and hasNonSerialAggs based on aggregate properties
+
+## Simplified Source
+
+```c
+static void
+preprocess_aggref(Aggref *aggref, PlannerInfo *root)
+{
+    HeapTuple aggTuple;
+    Form_pg_aggregate aggform;
+    Oid aggtransfn, aggfinalfn, aggcombinefn, aggtranstype;
+    bool shareable;
+    int aggno, transno;
+    Oid inputTypes[FUNC_MAX_ARGS];
+    int numArguments;
+
+    // Fetch aggregate metadata from system catalog
+    aggTuple = SearchSysCache1(AGGFNOID, ObjectIdGetDatum(aggref->aggfnoid));
+    if (!HeapTupleIsValid(aggTuple))
+        elog(ERROR, "cache lookup failed for aggregate %u", aggref->aggfnoid);
+
+    aggform = (Form_pg_aggregate) GETSTRUCT(aggTuple);
+    aggtransfn = aggform->aggtransfn;
+    aggfinalfn = aggform->aggfinalfn;
+    aggcombinefn = aggform->aggcombinefn;
+    aggtranstype = aggform->aggtranstype;
+
+    // Resolve polymorphic aggregate transition type
+    numArguments = get_aggregate_argtypes(aggref, inputTypes);
+    aggtranstype = resolve_aggregate_transtype(aggref->aggfnoid, aggtranstype,
+                                             inputTypes, numArguments);
+    aggref->aggtranstype = aggtranstype;
+
+    // Determine if transition state can be shared
+    shareable = (aggform->aggfinalmodify != AGGMODIFY_READ_WRITE);
+
+    // Get initial value for transition state
+    Datum initValue;
+    bool initValueIsNull;
+    Datum textInitVal = SysCacheGetAttr(AGGFNOID, aggTuple,
+                                       Anum_pg_aggregate_agginitval,
+                                       &initValueIsNull);
+    if (initValueIsNull)
+        initValue = (Datum) 0;
+    else
+        initValue = GetAggInitVal(textInitVal, aggtranstype);
+
+    ReleaseSysCache(aggTuple);
+
+    // Try to find compatible existing aggregate
+    List *same_input_transnos;
+    aggno = find_compatible_agg(root, aggref, &same_input_transnos);
+
+    if (aggno != -1) {
+        // Reuse existing aggregate info
+        AggInfo *agginfo = list_nth_node(AggInfo, root->agginfos, aggno);
+        agginfo->aggrefs = lappend(agginfo->aggrefs, aggref);
+        transno = agginfo->transno;
+    } else {
+        // Create new aggregate info
+        AggInfo *agginfo = makeNode(AggInfo);
+        agginfo->finalfn_oid = aggfinalfn;
+        agginfo->aggrefs = list_make1(aggref);
+        agginfo->shareable = shareable;
+
+        aggno = list_length(root->agginfos);
+        root->agginfos = lappend(root->agginfos, agginfo);
+
+        // Check for ordered aggregates
+        if (aggref->aggorder != NIL || aggref->aggdistinct != NIL) {
+            root->numOrderedAggs++;
+            root->hasNonPartialAggs = true;
+        }
+
+        // Try to find compatible transition state
+        int16 transtypeLen;
+        bool transtypeByVal;
+        get_typlenbyval(aggtranstype, &transtypeLen, &transtypeByVal);
+
+        transno = find_compatible_trans(root, aggref, shareable, aggtransfn,
+                                       aggtranstype, transtypeLen, transtypeByVal,
+                                       aggcombinefn, aggserialfn, aggdeserialfn,
+                                       initValue, initValueIsNull, same_input_transnos);
+
+        if (transno == -1) {
+            // Create new transition state info
+            AggTransInfo *transinfo = makeNode(AggTransInfo);
+            transinfo->args = aggref->args;
+            transinfo->aggfilter = aggref->aggfilter;
+            transinfo->transfn_oid = aggtransfn;
+            transinfo->combinefn_oid = aggcombinefn;
+            transinfo->aggtranstype = aggtranstype;
+            transinfo->initValue = initValue;
+            transinfo->initValueIsNull = initValueIsNull;
+
+            transno = list_length(root->aggtransinfos);
+            root->aggtransinfos = lappend(root->aggtransinfos, transinfo);
+
+            // Check partial aggregation feasibility
+            if (!root->hasNonPartialAggs) {
+                if (!OidIsValid(transinfo->combinefn_oid))
+                    root->hasNonPartialAggs = true;
+                else if (transinfo->aggtranstype == INTERNALOID) {
+                    if (!OidIsValid(transinfo->serialfn_oid) ||
+                        !OidIsValid(transinfo->deserialfn_oid))
+                        root->hasNonSerialAggs = true;
+                }
+            }
+        }
+        agginfo->transno = transno;
+    }
+
+    // Fill in Aggref fields
+    aggref->aggno = aggno;
+    aggref->aggtransno = transno;
+}
+```

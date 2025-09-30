@@ -50,3 +50,39 @@ This function searches the pg_replication_origin system catalog for a replicatio
 - When missing_ok is false, throws ERRCODE_UNDEFINED_OBJECT error with a descriptive message
 - This function is a core building block for many replication origin operations that need to resolve names to IDs
 - Used extensively throughout the logical replication subsystem for origin management
+
+## Simplified Source
+
+```c
+RepOriginId
+replorigin_by_name(const char *roname, bool missing_ok)
+{
+    Form_pg_replication_origin ident;
+    Oid roident = InvalidOid;
+    HeapTuple tuple;
+    Datum roname_d;
+
+    // Convert C string to PostgreSQL text datum
+    roname_d = CStringGetTextDatum(roname);
+
+    // Look up replication origin by name in system cache
+    tuple = SearchSysCache1(REPLORIGNAME, roname_d);
+    if (HeapTupleIsValid(tuple))
+    {
+        // Extract the origin identifier from the tuple
+        ident = (Form_pg_replication_origin) GETSTRUCT(tuple);
+        roident = ident->roident;
+        ReleaseSysCache(tuple);
+    }
+    else if (!missing_ok)
+    {
+        // Throw error if origin not found and missing_ok is false
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("replication origin \"%s\" does not exist",
+                        roname)));
+    }
+
+    return roident;
+}
+```

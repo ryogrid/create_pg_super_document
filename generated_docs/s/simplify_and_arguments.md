@@ -55,3 +55,58 @@ The function mirrors the structure of  but implements the inverse logic for AND 
 - Critical for maintaining SQL AND semantics: returns FALSE if any argument is FALSE, NULL if no argument is FALSE but at least one is NULL, TRUE otherwise
 - The caller is responsible for adding the actual NULL constant to the final result when haveNull is true
 - Uses the same memory management approach as  to avoid list leakage
+
+## Simplified Source
+
+```c
+static List *
+simplify_and_arguments(List *args,
+                      eval_const_expressions_context *context,
+                      bool *haveNull, bool *forceFalse)
+{
+    List *newargs = NIL;
+    List *unprocessed_args = list_copy(args);
+
+    while (unprocessed_args) {
+        Node *arg = (Node *) linitial(unprocessed_args);
+        unprocessed_args = list_delete_first(unprocessed_args);
+
+        // Flatten nested AND expressions
+        if (is_andclause(arg)) {
+            List *subargs = ((BoolExpr *) arg)->args;
+            unprocessed_args = list_concat_copy(subargs, unprocessed_args);
+            continue;
+        }
+
+        // Simplify the argument
+        arg = eval_const_expressions_mutator(arg, context);
+
+        // Check if simplification created an AND clause
+        if (is_andclause(arg)) {
+            List *subargs = ((BoolExpr *) arg)->args;
+            unprocessed_args = list_concat_copy(subargs, unprocessed_args);
+            continue;
+        }
+
+        // Handle constant values per AND logic
+        if (IsA(arg, Const)) {
+            Const *const_input = (Const *) arg;
+
+            if (const_input->constisnull) {
+                *haveNull = true;
+            } else if (!DatumGetBool(const_input->constvalue)) {
+                // FALSE forces entire AND to FALSE
+                *forceFalse = true;
+                return NIL;
+            }
+            // TRUE constants are dropped (continue)
+            continue;
+        }
+
+        // Keep non-constant arguments
+        newargs = lappend(newargs, arg);
+    }
+
+    return newargs;
+}
+```

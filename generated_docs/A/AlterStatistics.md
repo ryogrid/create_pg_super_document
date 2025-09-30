@@ -43,3 +43,99 @@ Key validation steps include:
 - No dependency updates needed since only the target value changes
 - Returns InvalidObjectAddress when IF EXISTS is used and object doesn't exist
 - Requires RowExclusiveLock on StatisticExtRelationId catalog table
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterStatistics(AlterStatsStmt *stmt)
+{
+    Relation rel;
+    Oid stxoid;
+    HeapTuple oldtup, newtup;
+    Datum repl_val[Natts_pg_statistic_ext];
+    bool repl_null[Natts_pg_statistic_ext];
+    bool repl_repl[Natts_pg_statistic_ext];
+    ObjectAddress address;
+    int newtarget = 0;
+    bool newtarget_default;
+
+    // Parse target value (-1 means default in older versions)
+    if (stmt->stxstattarget && intVal(stmt->stxstattarget) != -1) {
+        newtarget = intVal(stmt->stxstattarget);
+        newtarget_default = false;
+    } else {
+        newtarget_default = true;
+    }
+
+    // Validate target range if not using default
+    if (!newtarget_default) {
+        if (newtarget < 0) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("statistics target %d is too low", newtarget)));
+        } else if (newtarget > MAX_STATISTICS_TARGET) {
+            newtarget = MAX_STATISTICS_TARGET;
+            ereport(WARNING, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                             errmsg("lowering statistics target to %d", newtarget)));
+        }
+    }
+
+    // Look up statistics object
+    stxoid = get_statistics_object_oid(stmt->defnames, stmt->missing_ok);
+
+    // Handle IF EXISTS case when object doesn't exist
+    if (!OidIsValid(stxoid)) {
+        char *schemaname, *statname;
+        Assert(stmt->missing_ok);
+
+        DeconstructQualifiedName(stmt->defnames, &schemaname, &statname);
+        if (schemaname)
+            ereport(NOTICE, (errmsg("statistics object \"%s.%s\" does not exist, skipping",
+                                   schemaname, statname)));
+        else
+            ereport(NOTICE, (errmsg("statistics object \"%s\" does not exist, skipping",
+                                   statname)));
+
+        return InvalidObjectAddress;
+    }
+
+    // Open catalog and find the statistics object
+    rel = table_open(StatisticExtRelationId, RowExclusiveLock);
+    oldtup = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(stxoid));
+    if (!HeapTupleIsValid(oldtup))
+        elog(ERROR, "cache lookup failed for extended statistics object %u", stxoid);
+
+    // Check ownership permissions
+    if (!object_ownercheck(StatisticExtRelationId, stxoid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_STATISTIC_EXT,
+                      NameListToString(stmt->defnames));
+
+    // Build updated tuple
+    memset(repl_val, 0, sizeof(repl_val));
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+
+    // Set new statistics target value
+    repl_repl[Anum_pg_statistic_ext_stxstattarget - 1] = true;
+    if (!newtarget_default)
+        repl_val[Anum_pg_statistic_ext_stxstattarget - 1] = Int16GetDatum(newtarget);
+    else
+        repl_null[Anum_pg_statistic_ext_stxstattarget - 1] = true;
+
+    newtup = heap_modify_tuple(oldtup, RelationGetDescr(rel),
+                              repl_val, repl_null, repl_repl);
+
+    // Update catalog
+    CatalogTupleUpdate(rel, &newtup->t_self, newtup);
+
+    InvokeObjectPostAlterHook(StatisticExtRelationId, stxoid, 0);
+    ObjectAddressSet(address, StatisticExtRelationId, stxoid);
+
+    // Cleanup
+    heap_freetuple(newtup);
+    ReleaseSysCache(oldtup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

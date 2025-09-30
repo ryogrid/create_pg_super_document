@@ -59,3 +59,65 @@ This function creates a new replication origin by performing a sequential search
 - Calls CommandCounterIncrement to make the new origin immediately visible to subsequent operations
 - The 16-bit ID limitation is a deliberate design choice for efficient storage and operations
 - Returns the newly allocated RepOriginId on success
+
+## Simplified Source
+
+```c
+RepOriginId
+replorigin_create(const char *roname)
+{
+    Oid roident;
+    HeapTuple tuple = NULL;
+    Relation rel;
+    Datum roname_d = CStringGetTextDatum(roname);
+    SnapshotData SnapshotDirty;
+    SysScanDesc scan;
+    ScanKeyData key;
+
+    Assert(IsTransactionState());
+
+    // Use dirty snapshot to see uncommitted changes from other transactions
+    InitDirtySnapshot(SnapshotDirty);
+
+    // Lock table exclusively to prevent concurrent ID allocation
+    rel = table_open(ReplicationOriginRelationId, ExclusiveLock);
+
+    // Search for first unused ID in 16-bit range
+    for (roident = InvalidOid + 1; roident < PG_UINT16_MAX; roident++) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Check if this ID is already in use
+        ScanKeyInit(&key, Anum_pg_replication_origin_roident,
+                    BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roident));
+
+        scan = systable_beginscan(rel, ReplicationOriginIdentIndex, true,
+                                  &SnapshotDirty, 1, &key);
+        bool collides = HeapTupleIsValid(systable_getnext(scan));
+        systable_endscan(scan);
+
+        if (!collides) {
+            // Found unused ID, create new catalog entry
+            bool nulls[Natts_pg_replication_origin] = {0};
+            Datum values[Natts_pg_replication_origin];
+
+            values[Anum_pg_replication_origin_roident - 1] = ObjectIdGetDatum(roident);
+            values[Anum_pg_replication_origin_roname - 1] = roname_d;
+
+            tuple = heap_form_tuple(RelationGetDescr(rel), values, nulls);
+            CatalogTupleInsert(rel, tuple);
+            CommandCounterIncrement();
+            break;
+        }
+    }
+
+    table_close(rel, ExclusiveLock);
+
+    if (tuple == NULL)
+        ereport(ERROR,
+            (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+             errmsg("could not find free replication origin ID")));
+
+    heap_freetuple(tuple);
+    return roident;
+}
+```

@@ -46,3 +46,68 @@ The function includes a bootstrap mode check to avoid accessing pg_default_acl d
 - Uses a two-tier privilege system: global defaults (InvalidOid namespace) and schema-specific defaults
 - Schema-specific privileges override global ones through the aclmerge() operation
 - Supported object types are mapped to internal pg_default_acl encoding (e.g., DEFACLOBJ_RELATION for tables)
+
+## Simplified Source
+
+```c
+Acl *
+get_user_default_acl(ObjectType objtype, Oid ownerId, Oid nsp_oid)
+{
+    Acl *result;
+    Acl *glob_acl;
+    Acl *schema_acl;
+    Acl *def_acl;
+    char defaclobjtype;
+
+    // Skip during bootstrap - catalog not ready
+    if (IsBootstrapProcessingMode())
+        return NULL;
+
+    // Map object type to pg_default_acl type
+    switch (objtype) {
+        case OBJECT_TABLE:
+            defaclobjtype = DEFACLOBJ_RELATION;
+            break;
+        case OBJECT_SEQUENCE:
+            defaclobjtype = DEFACLOBJ_SEQUENCE;
+            break;
+        case OBJECT_FUNCTION:
+            defaclobjtype = DEFACLOBJ_FUNCTION;
+            break;
+        case OBJECT_TYPE:
+            defaclobjtype = DEFACLOBJ_TYPE;
+            break;
+        case OBJECT_SCHEMA:
+            defaclobjtype = DEFACLOBJ_NAMESPACE;
+            break;
+        default:
+            return NULL;  // Object type not supported
+    }
+
+    // Get global and schema-specific default ACLs
+    glob_acl = get_default_acl_internal(ownerId, InvalidOid, defaclobjtype);
+    schema_acl = get_default_acl_internal(ownerId, nsp_oid, defaclobjtype);
+
+    // No custom defaults found
+    if (glob_acl == NULL && schema_acl == NULL)
+        return NULL;
+
+    // Get hard-wired system default
+    def_acl = acldefault(objtype, ownerId);
+
+    // Use system default if no global entry
+    if (glob_acl == NULL)
+        glob_acl = def_acl;
+
+    // Merge global and schema-specific privileges
+    result = aclmerge(glob_acl, schema_acl, ownerId);
+
+    // Return NULL if result equals system default (efficiency optimization)
+    aclitemsort(result);
+    aclitemsort(def_acl);
+    if (aclequal(result, def_acl))
+        result = NULL;
+
+    return result;
+}
+```

@@ -42,3 +42,23 @@ This more permissive approach enables better cost estimates and planning decisio
 - Critical for selectivity estimation, cost calculation, and limit preprocessing in the query planner
 - Used extensively in statistics and cost estimation functions throughout the optimizer
 - The "unsafe" transformations are acceptable because results are only used for planning, not execution
+
+## Simplified Source
+
+```c
+Node *
+estimate_expression_value(PlannerInfo *root, Node *node)
+{
+    eval_const_expressions_context context;
+
+    // Set up context for aggressive estimation mode
+    context.boundParams = root->glob->boundParams;  // Use bound parameters
+    context.root = NULL;                            // No plan dependency tracking
+    context.active_fns = NIL;                       // No recursive simplification tracking
+    context.case_val = NULL;                        // No CASE context
+    context.estimate = true;                        // Enable unsafe transformations
+
+    // Apply enhanced constant folding with estimation-specific optimizations
+    return eval_const_expressions_mutator(node, &context);
+}
+```

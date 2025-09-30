@@ -60,3 +60,44 @@ This function is crucial for PostgreSQL's virtual file descriptor system, which 
 - The free list is maintained as a singly-linked list using the nextFree field
 - Critical for PostgreSQL's ability to handle large numbers of file operations efficiently
 - Debug logging is conditional on DO_DB macro compilation
+
+## Simplified Source
+
+```c
+static File
+AllocateVfd(void)
+{
+    // Check if we need to expand the VFD cache
+    if (VfdCache[0].nextFree == 0) {
+        // Calculate new cache size (double current, minimum 32)
+        Size newCacheSize = SizeVfdCache * 2;
+        if (newCacheSize < 32) {
+            newCacheSize = 32;
+        }
+
+        // Reallocate VFD cache array
+        Vfd *newVfdCache = (Vfd *) realloc(VfdCache, sizeof(Vfd) * newCacheSize);
+        if (newVfdCache == NULL) {
+            ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY), errmsg("out of memory")));
+        }
+        VfdCache = newVfdCache;
+
+        // Initialize new entries and build free list
+        for (Index i = SizeVfdCache; i < newCacheSize; i++) {
+            MemSet((char *) &(VfdCache[i]), 0, sizeof(Vfd));
+            VfdCache[i].nextFree = i + 1;
+            VfdCache[i].fd = VFD_CLOSED;
+        }
+        VfdCache[newCacheSize - 1].nextFree = 0;  // Terminate list
+        VfdCache[0].nextFree = SizeVfdCache;      // Link to new entries
+
+        SizeVfdCache = newCacheSize;
+    }
+
+    // Allocate next available VFD from free list
+    File file = VfdCache[0].nextFree;
+    VfdCache[0].nextFree = VfdCache[file].nextFree;
+
+    return file;
+}
+```

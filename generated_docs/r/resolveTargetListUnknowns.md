@@ -40,3 +40,28 @@ This function serves as a final type resolution step in PostgreSQL's query parsi
 - Essential for handling cases where type inference cannot determine concrete types from context
 - Modifies the target list in-place by replacing expressions with coerced versions
 - Typically called near the end of query transformation after all type inference has been completed
+
+## Simplified Source
+
+```c
+void resolveTargetListUnknowns(ParseState *pstate, List *targetlist)
+{
+    ListCell *l;
+
+    // Iterate through each target entry in the list
+    foreach(l, targetlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+        Oid restype = exprType((Node *) tle->expr);
+
+        // If type is still unknown, convert to TEXT as fallback
+        if (restype == UNKNOWNOID)
+        {
+            tle->expr = (Expr *) coerce_type(pstate, (Node *) tle->expr,
+                                           restype, TEXTOID, -1,
+                                           COERCION_IMPLICIT,
+                                           COERCE_IMPLICIT_CAST, -1);
+        }
+    }
+}
+```

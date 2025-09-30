@@ -33,3 +33,15 @@ The function serves as a specialized wrapper around preprocess_expression, using
 - The preprocessing occurs after the normal expression preprocessing phase due to the timing of LATERAL reference resolution
 - Located in src/backend/optimizer/plan/planner.c:1302-1334
 - The function is a thin wrapper that delegates the actual work to preprocess_expression with the appropriate expression kind
+
+## Simplified Source
+
+```c
+Expr *
+preprocess_phv_expression(PlannerInfo *root, Expr *expr)
+{
+    // Simple wrapper to preprocess PlaceHolderVar expressions
+    // with the correct expression kind for LATERAL subquery handling
+    return (Expr *) preprocess_expression(root, (Node *) expr, EXPRKIND_PHV);
+}
+```

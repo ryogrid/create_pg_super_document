@@ -256,3 +256,103 @@ Special handling exists for mapped relations where pg_class.relfilenode doesn't 
 - The function ensures transactional safety by scheduling old storage deletion for commit time (except during binary upgrades)
 - Table access methods handle creation of both main fork and initialization fork as needed
 - The operation triggers cache invalidation to ensure the relcache reflects the new relfilenumber
+
+## Simplified Source
+
+```c
+void
+RelationSetNewRelfilenumber(Relation relation, char persistence)
+{
+    RelFileNumber newrelfilenumber;
+    Relation pg_class;
+    HeapTuple tuple;
+    Form_pg_class classform;
+    TransactionId freezeXid = InvalidTransactionId;
+    MultiXactId minmulti = InvalidMultiXactId;
+    RelFileLocator newrlocator;
+
+    // Allocate new relfilenumber (or use pre-assigned for binary upgrade)
+    if (!IsBinaryUpgrade)
+    {
+        newrelfilenumber = GetNewRelFileNumber(relation->rd_rel->reltablespace,
+                                               NULL, persistence);
+    }
+    else
+    {
+        // Binary upgrade mode: use pre-assigned relfilenumber
+        if (relation->rd_rel->relkind == RELKIND_INDEX)
+            newrelfilenumber = binary_upgrade_next_index_pg_class_relfilenumber;
+        else if (relation->rd_rel->relkind == RELKIND_RELATION)
+            newrelfilenumber = binary_upgrade_next_heap_pg_class_relfilenumber;
+        else
+            ereport(ERROR, (errmsg("unexpected request for new relfilenumber")));
+    }
+
+    // Get pg_class tuple for this relation
+    pg_class = table_open(RelationRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheLockedCopy1(RELOID,
+                                      ObjectIdGetDatum(RelationGetRelid(relation)));
+    classform = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Schedule old storage deletion (immediate for binary upgrade)
+    if (IsBinaryUpgrade)
+    {
+        SMgrRelation srel = smgropen(relation->rd_locator, relation->rd_backend);
+        smgrdounlinkall(&srel, 1, false);
+        smgrclose(srel);
+    }
+    else
+        RelationDropStorage(relation);
+
+    // Create new storage
+    newrlocator = relation->rd_locator;
+    newrlocator.relNumber = newrelfilenumber;
+
+    if (RELKIND_HAS_TABLE_AM(relation->rd_rel->relkind))
+    {
+        table_relation_set_new_filelocator(relation, &newrlocator,
+                                           persistence, &freezeXid, &minmulti);
+    }
+    else if (RELKIND_HAS_STORAGE(relation->rd_rel->relkind))
+    {
+        SMgrRelation srel = RelationCreateStorage(newrlocator, persistence, true);
+        smgrclose(srel);
+    }
+
+    // Update catalog or relation mapper
+    if (RelationIsMapped(relation))
+    {
+        // For mapped relations, update relation mapper
+        (void) GetCurrentTransactionId(); // Ensure XID for file deletion
+        RelationMapUpdateMap(RelationGetRelid(relation),
+                             newrelfilenumber,
+                             relation->rd_rel->relisshared,
+                             false);
+        CacheInvalidateRelcache(relation);
+    }
+    else
+    {
+        // Normal case: update pg_class entry
+        classform->relfilenode = newrelfilenumber;
+
+        // Reset statistics for non-sequences
+        if (relation->rd_rel->relkind != RELKIND_SEQUENCE)
+        {
+            classform->relpages = 0;
+            classform->reltuples = -1;
+            classform->relallvisible = 0;
+        }
+        classform->relfrozenxid = freezeXid;
+        classform->relminmxid = minmulti;
+        classform->relpersistence = persistence;
+
+        CatalogTupleUpdate(pg_class, &tuple->t_self, tuple);
+    }
+
+    // Cleanup and finalize
+    heap_freetuple(tuple);
+    table_close(pg_class, RowExclusiveLock);
+    CommandCounterIncrement();
+    RelationAssumeNewRelfilelocator(relation);
+}
+```

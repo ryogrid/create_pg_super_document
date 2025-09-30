@@ -39,3 +39,37 @@ Shell operators are incomplete operator definitions that exist in the system cat
 - Returns the OID of the validated operator
 - Used specifically in ALTER OPERATOR commands for setting commutator and negator relationships
 - The ownership requirement ensures only the operator owner can modify its properties
+
+## Simplified Source
+
+```c
+static Oid
+ValidateOperatorReference(List *name, Oid leftTypeId, Oid rightTypeId)
+{
+    Oid oid;
+    bool defined;
+
+    // Look up operator by name and type signature
+    oid = OperatorLookup(name, leftTypeId, rightTypeId, &defined);
+
+    // Check if operator exists
+    if (!OidIsValid(oid))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator does not exist: %s",
+                        op_signature_string(name, leftTypeId, rightTypeId))));
+
+    // Reject shell operators (incomplete definitions)
+    if (!defined)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator is only a shell: %s",
+                        op_signature_string(name, leftTypeId, rightTypeId))));
+
+    // Verify current user owns the operator
+    if (!object_ownercheck(OperatorRelationId, oid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_OPERATOR, NameListToString(name));
+
+    return oid;
+}
+```

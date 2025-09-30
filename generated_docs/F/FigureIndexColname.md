@@ -40,3 +40,17 @@ The function applies the same sophisticated heuristics as FigureColname:
 - The NULL return value allows calling code to decide whether to use a generated name, skip naming, or handle the situation differently
 - This conservative approach is more appropriate for index contexts where meaningful names are preferred over placeholder names
 - The function maintains the same performance characteristics as FigureColname since it uses the same core logic
+
+## Simplified Source
+
+```c
+char *
+FigureIndexColname(Node *node)
+{
+    char *name = NULL;
+
+    // Use shared logic to determine column name, but return NULL if no good name found
+    (void) FigureColnameInternal(node, &name);
+    return name;
+}
+```

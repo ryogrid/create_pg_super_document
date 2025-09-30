@@ -35,3 +35,21 @@ The function allocates a new BoolExpr node, sets its operation type to NOT_EXPR,
 - Primarily used in query optimization phases, particularly in the `negate_clause` function for logical transformations
 - Essential for implementing De Morgan's laws and other logical transformations during query planning
 - The returned Expr pointer can be cast back to BoolExpr when needed for further processing
+
+## Simplified Source
+
+```c
+Expr *
+make_notclause(Expr *notclause)
+{
+    // Create new BoolExpr node for NOT operation
+    BoolExpr *expr = makeNode(BoolExpr);
+
+    // Configure as NOT expression with single argument
+    expr->boolop = NOT_EXPR;
+    expr->args = list_make1(notclause);
+    expr->location = -1;  // No specific source location
+
+    return (Expr *) expr;
+}
+```

@@ -45,3 +45,104 @@ The optimization is safe because any inner rows not meeting the constant constra
 - Generates constraints within the appropriate JoinDomain for the outer join
 - Each successful constant propagation enables the parent function to remove the original outer join clause
 - The function ensures that at least one constant constraint is successfully generated before declaring success
+
+## Simplified Source
+
+```c
+static bool
+reconsider_outer_join_clause(PlannerInfo *root, OuterJoinClauseInfo *ojcinfo,
+                             bool outer_on_left)
+{
+    RestrictInfo *rinfo = ojcinfo->rinfo;
+    SpecialJoinInfo *sjinfo = ojcinfo->sjinfo;
+    Expr *outervar, *innervar;
+    Oid opno, collation, left_type, right_type, inner_datatype;
+    Relids inner_relids;
+    ListCell *lc1;
+
+    Assert(is_opclause(rinfo->clause));
+    opno = ((OpExpr *) rinfo->clause)->opno;
+    collation = ((OpExpr *) rinfo->clause)->inputcollid;
+
+    // Extract operands based on join direction
+    op_input_types(opno, &left_type, &right_type);
+    if (outer_on_left)
+    {
+        outervar = (Expr *) get_leftop(rinfo->clause);
+        innervar = (Expr *) get_rightop(rinfo->clause);
+        inner_datatype = right_type;
+        inner_relids = rinfo->right_relids;
+    }
+    else
+    {
+        outervar = (Expr *) get_rightop(rinfo->clause);
+        innervar = (Expr *) get_leftop(rinfo->clause);
+        inner_datatype = left_type;
+        inner_relids = rinfo->left_relids;
+    }
+
+    // Search equivalence classes for outer variable match
+    foreach(lc1, root->eq_classes)
+    {
+        EquivalenceClass *cur_ec = (EquivalenceClass *) lfirst(lc1);
+        bool match = false;
+        ListCell *lc2;
+
+        // Skip non-constant or volatile ECs
+        if (!cur_ec->ec_has_const || cur_ec->ec_has_volatile)
+            continue;
+        // Check semantic compatibility
+        if (collation != cur_ec->ec_collation ||
+            !equal(rinfo->mergeopfamilies, cur_ec->ec_opfamilies))
+            continue;
+
+        // Look for outer variable in this EC
+        foreach(lc2, cur_ec->ec_members)
+        {
+            EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc2);
+
+            Assert(!cur_em->em_is_child);
+            if (equal(outervar, cur_em->em_expr))
+            {
+                match = true;
+                break;
+            }
+        }
+        if (!match)
+            continue;
+
+        // Generate inner variable = constant constraints
+        match = false;
+        foreach(lc2, cur_ec->ec_members)
+        {
+            EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc2);
+            Oid eq_op;
+            RestrictInfo *newrinfo;
+            JoinDomain *jdomain;
+
+            if (!cur_em->em_is_const)
+                continue;
+
+            eq_op = select_equality_operator(cur_ec, inner_datatype, cur_em->em_datatype);
+            if (!OidIsValid(eq_op))
+                continue;
+
+            newrinfo = build_implied_join_equality(root, eq_op, cur_ec->ec_collation,
+                                                   innervar, cur_em->em_expr,
+                                                   bms_copy(inner_relids),
+                                                   cur_ec->ec_min_security);
+            jdomain = find_join_domain(root, sjinfo->syn_righthand);
+            if (process_equivalence(root, &newrinfo, jdomain))
+                match = true;
+        }
+
+        // Return success if any constant constraint was generated
+        if (match)
+            return true;
+        else
+            break;  // Outer variable appears in at most one EC
+    }
+
+    return false;
+}
+```

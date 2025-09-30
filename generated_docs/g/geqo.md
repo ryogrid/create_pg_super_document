@@ -50,3 +50,109 @@ The algorithm supports multiple crossover operators (ERX, PMX, CX, PX, OX1, OX2)
 - The algorithm balances exploration vs exploitation through configurable selection bias
 - Genetic parameters can be tuned via GUC variables (geqo_pool_size, geqo_generations, geqo_selection_bias)
 - Returns NULL on failure, which triggers an ERROR in the caller
+
+## Simplified Source
+
+```c
+RelOptInfo *
+geqo(PlannerInfo *root, int number_of_rels, List *initial_rels)
+{
+    GeqoPrivateData private;
+    int generation;
+    Chromosome *momma;
+    Chromosome *daddy;
+    Chromosome *kid;
+    Pool *pool;
+    int pool_size, number_generations;
+    Gene *best_tour;
+    RelOptInfo *best_rel;
+
+    // Setup private information for genetic algorithm
+    root->join_search_private = (void *) &private;
+    private.initial_rels = initial_rels;
+
+    // Initialize random number generator
+    geqo_set_seed(root, Geqo_seed);
+
+    // Set genetic algorithm parameters
+    pool_size = gimme_pool_size(number_of_rels);
+    number_generations = gimme_number_generations(pool_size);
+
+    // Allocate and initialize genetic pool
+    pool = alloc_pool(root, pool_size, number_of_rels);
+    random_init_pool(root, pool);
+    sort_pool(root, pool);
+
+    // Allocate parent chromosomes
+    momma = alloc_chromo(root, pool->string_length);
+    daddy = alloc_chromo(root, pool->string_length);
+
+    // Conditionally allocate structures for chosen crossover method
+#ifdef ERX
+    Edge *edge_table = alloc_edge_table(root, pool->string_length);
+#elif defined(PMX) || defined(CX) || defined(PX) || defined(OX1) || defined(OX2)
+    kid = alloc_chromo(root, pool->string_length);
+#if defined(CX) || defined(PX) || defined(OX1) || defined(OX2)
+    City *city_table = alloc_city_table(root, pool->string_length);
+#endif
+#endif
+
+    // Main genetic algorithm loop
+    for (generation = 0; generation < number_generations; generation++)
+    {
+        // Select parent chromosomes
+        geqo_selection(root, momma, daddy, pool, Geqo_selection_bias);
+
+        // Apply crossover operator (method depends on compile flags)
+#ifdef ERX
+        gimme_edge_table(root, momma->string, daddy->string,
+                        pool->string_length, edge_table);
+        kid = momma;
+        gimme_tour(root, edge_table, kid->string, pool->string_length);
+#elif defined(PMX)
+        pmx(root, momma->string, daddy->string, kid->string, pool->string_length);
+#elif defined(CX)
+        int cycle_diffs = cx(root, momma->string, daddy->string,
+                           kid->string, pool->string_length, city_table);
+        if (cycle_diffs == 0)
+            geqo_mutation(root, kid->string, pool->string_length);
+#elif defined(PX)
+        px(root, momma->string, daddy->string, kid->string,
+           pool->string_length, city_table);
+#elif defined(OX1)
+        ox1(root, momma->string, daddy->string, kid->string,
+            pool->string_length, city_table);
+#elif defined(OX2)
+        ox2(root, momma->string, daddy->string, kid->string,
+            pool->string_length, city_table);
+#endif
+
+        // Evaluate fitness and insert into population
+        kid->worth = geqo_eval(root, kid->string, pool->string_length);
+        spread_chromo(root, kid, pool);
+    }
+
+    // Extract best solution and convert to query plan
+    best_tour = (Gene *) pool->data[0].string;
+    best_rel = gimme_tree(root, best_tour, pool->string_length);
+
+    if (best_rel == NULL)
+        elog(ERROR, "geqo failed to make a valid plan");
+
+    // Cleanup memory
+    free_chromo(root, momma);
+    free_chromo(root, daddy);
+#ifdef ERX
+    free_edge_table(root, edge_table);
+#elif defined(PMX) || defined(CX) || defined(PX) || defined(OX1) || defined(OX2)
+    free_chromo(root, kid);
+#if defined(CX) || defined(PX) || defined(OX1) || defined(OX2)
+    free_city_table(root, city_table);
+#endif
+#endif
+    free_pool(root, pool);
+
+    root->join_search_private = NULL;
+    return best_rel;
+}
+```

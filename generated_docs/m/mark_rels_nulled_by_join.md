@@ -37,3 +37,27 @@ The function handles only base relations (not outer joins themselves) and update
 - An assertion verifies that any NULL RelOptInfo entries correspond to outer joins that are properly tracked in root->outer_join_rels
 - The nulling_relids information is used throughout the optimizer to track which relations might produce NULL values
 - This function is typically called during the deconstruction of the join tree to properly annotate relations with their nulling dependencies
+
+## Simplified Source
+
+```c
+static void mark_rels_nulled_by_join(PlannerInfo *root, Index ojrelid,
+                                     Relids lower_rels)
+{
+    int relid = -1;
+
+    // Iterate through all relations in the lower_rels set
+    while ((relid = bms_next_member(lower_rels, relid)) > 0) {
+        RelOptInfo *rel = root->simple_rel_array[relid];
+
+        // Skip outer join relations (they have NULL RelOptInfo entries)
+        if (rel == NULL) {
+            Assert(bms_is_member(relid, root->outer_join_rels));
+            continue;
+        }
+
+        // Mark this base relation as being nulled by the outer join
+        rel->nulling_relids = bms_add_member(rel->nulling_relids, ojrelid);
+    }
+}
+```

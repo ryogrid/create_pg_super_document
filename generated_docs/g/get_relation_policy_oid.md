@@ -47,3 +47,50 @@ This function serves as a building block for other policy-related operations tha
 - Error messages include both policy name and table name for better diagnostics
 - This is a utility function commonly used in DDL operations and object resolution contexts
 - Policy names are unique within each table but not globally, so both relid and policy_name are required for unique identification
+
+## Simplified Source
+
+```c
+Oid
+get_relation_policy_oid(Oid relid, const char *policy_name, bool missing_ok)
+{
+    Relation pg_policy_rel;
+    ScanKeyData skey[2];
+    SysScanDesc sscan;
+    HeapTuple policy_tuple;
+    Oid policy_oid;
+
+    pg_policy_rel = table_open(PolicyRelationId, AccessShareLock);
+
+    // Setup scan keys for relation ID and policy name
+    ScanKeyInit(&skey[0], Anum_pg_policy_polrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+    ScanKeyInit(&skey[1], Anum_pg_policy_polname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(policy_name));
+
+    // Begin indexed scan
+    sscan = systable_beginscan(pg_policy_rel,
+                              PolicyPolrelidPolnameIndexId, true, NULL, 2, skey);
+
+    policy_tuple = systable_getnext(sscan);
+
+    if (!HeapTupleIsValid(policy_tuple))
+    {
+        if (!missing_ok)
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("policy \"%s\" for table \"%s\" does not exist",
+                            policy_name, get_rel_name(relid))));
+        policy_oid = InvalidOid;
+    }
+    else
+        policy_oid = ((Form_pg_policy) GETSTRUCT(policy_tuple))->oid;
+
+    systable_endscan(sscan);
+    table_close(pg_policy_rel, AccessShareLock);
+
+    return policy_oid;
+}
+```

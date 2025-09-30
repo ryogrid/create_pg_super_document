@@ -51,3 +51,32 @@ This function is part of PostgreSQL's rule deparsing system, which converts inte
 - Error handling is implemented for unsupported underlying node types
 - The is_json_objectagg parameter is passed through to helper functions to enable specialized handling for JSON object aggregation vs array aggregation
 - StringInfo is used for building the options string that gets passed to the helper functions
+
+## Simplified Source
+
+```c
+static void get_json_agg_constructor(JsonConstructorExpr *ctor, deparse_context *context,
+                                   const char *funcname, bool is_json_objectagg) {
+    StringInfoData options;
+
+    // Collect JSON constructor options
+    initStringInfo(&options);
+    get_json_constructor_options(ctor, &options);
+
+    // Delegate to appropriate helper based on function type
+    if (IsA(ctor->func, Aggref)) {
+        // Handle aggregate functions like JSON_ARRAYAGG, JSON_OBJECTAGG
+        get_agg_expr_helper((Aggref *) ctor->func, context,
+                           (Aggref *) ctor->func,
+                           funcname, options.data, is_json_objectagg);
+    } else if (IsA(ctor->func, WindowFunc)) {
+        // Handle window function versions
+        get_windowfunc_expr_helper((WindowFunc *) ctor->func, context,
+                                  funcname, options.data, is_json_objectagg);
+    } else {
+        // Unsupported underlying node type
+        elog(ERROR, "invalid JsonConstructorExpr underlying node type: %d",
+             nodeTag(ctor->func));
+    }
+}
+```

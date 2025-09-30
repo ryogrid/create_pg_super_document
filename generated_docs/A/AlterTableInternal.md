@@ -38,3 +38,21 @@ The function follows a straightforward execution pattern: it determines the appr
 - Does not reject pending AFTER triggers
 - Lacks AlterTableUtilityContext, limiting its use to simpler subcommand types
 - Primarily used for internal operations where relation identification and basic validation have already been performed
+
+## Simplified Source
+
+```c
+void AlterTableInternal(Oid relid, List *cmds, bool recurse) {
+    // Determine required lock level from commands
+    LOCKMODE lockmode = AlterTableGetLockLevel(cmds);
+
+    // Open relation with appropriate lock
+    Relation rel = relation_open(relid, lockmode);
+
+    // Trigger event triggers for ALTER TABLE
+    EventTriggerAlterTableRelid(relid);
+
+    // Execute ALTER TABLE commands using ATController
+    ATController(NULL, rel, cmds, recurse, lockmode, NULL);
+}
+```

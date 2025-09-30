@@ -46,3 +46,77 @@ This function extends the functionality of optionListToArray() by supporting mod
 - The validator function receives either the actual options array or an empty array if result is NULL
 - This is a key function in PostgreSQL's foreign data wrapper infrastructure for managing configuration options
 - Actions default to ADD when not explicitly specified (DEFELEM_UNSPEC)
+
+## Simplified Source
+
+```c
+Datum
+transformGenericOptions(Oid catalogId, Datum oldOptions, List *options, Oid fdwvalidator)
+{
+    List *resultOptions = untransformRelOptions(oldOptions);
+    ListCell *optcell;
+    Datum result;
+
+    // Process each option in the input list
+    foreach(optcell, options)
+    {
+        DefElem *od = lfirst(optcell);
+        ListCell *cell;
+
+        // Find existing option with same name in result list
+        foreach(cell, resultOptions)
+        {
+            DefElem *def = lfirst(cell);
+            if (strcmp(def->defname, od->defname) == 0)
+                break;
+        }
+
+        // Apply the requested action to the option
+        switch (od->defaction)
+        {
+            case DEFELEM_DROP:
+                if (!cell)
+                    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                                    errmsg("option \"%s\" not found", od->defname)));
+                resultOptions = list_delete_cell(resultOptions, cell);
+                break;
+
+            case DEFELEM_SET:
+                if (!cell)
+                    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                                    errmsg("option \"%s\" not found", od->defname)));
+                lfirst(cell) = od;  // Replace existing option value
+                break;
+
+            case DEFELEM_ADD:
+            case DEFELEM_UNSPEC:
+                if (cell)
+                    ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                                    errmsg("option \"%s\" provided more than once", od->defname)));
+                resultOptions = lappend(resultOptions, od);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized action %d on option \"%s\"",
+                     (int) od->defaction, od->defname);
+        }
+    }
+
+    // Convert final option list back to array format
+    result = optionListToArray(resultOptions);
+
+    // Call validator function if specified
+    if (OidIsValid(fdwvalidator))
+    {
+        Datum valarg = result;
+
+        // Pass empty array instead of NULL to validator
+        if (DatumGetPointer(valarg) == NULL)
+            valarg = PointerGetDatum(construct_empty_array(TEXTOID));
+
+        OidFunctionCall2(fdwvalidator, valarg, ObjectIdGetDatum(catalogId));
+    }
+
+    return result;
+}
+```

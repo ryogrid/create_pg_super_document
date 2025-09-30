@@ -38,3 +38,51 @@ When a clause needs reordering (when the right side references the outer relatio
 - The outer_is_left field in RestrictInfo is marked as transient, indicating it's used temporarily during plan creation
 - Used specifically for merge and hash join planning where clause orientation matters for efficient join execution
 - The function assumes all input clauses are operator expressions (OpExpr nodes)
+
+## Simplified Source
+
+```c
+static List *
+get_switched_clauses(List *clauses, Relids outerrelids)
+{
+    List       *t_list = NIL;
+    ListCell   *l;
+
+    foreach(l, clauses)
+    {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(l);
+        OpExpr     *clause = (OpExpr *) restrictinfo->clause;
+
+        Assert(is_opclause(clause));
+
+        if (bms_is_subset(restrictinfo->right_relids, outerrelids))
+        {
+            // Need to commute the clause: right side has outer vars
+            // Create a shallow copy to avoid modifying original
+            OpExpr     *temp = makeNode(OpExpr);
+
+            temp->opno = clause->opno;
+            temp->opfuncid = InvalidOid;
+            temp->opresulttype = clause->opresulttype;
+            temp->opretset = clause->opretset;
+            temp->opcollid = clause->opcollid;
+            temp->inputcollid = clause->inputcollid;
+            temp->args = list_copy(clause->args);
+            temp->location = clause->location;
+
+            // Commute the operator expression (swap left and right operands)
+            CommuteOpExpr(temp);
+            t_list = lappend(t_list, temp);
+            restrictinfo->outer_is_left = false;
+        }
+        else
+        {
+            // Clause is already correctly oriented
+            Assert(bms_is_subset(restrictinfo->left_relids, outerrelids));
+            t_list = lappend(t_list, clause);
+            restrictinfo->outer_is_left = true;
+        }
+    }
+    return t_list;
+}
+```

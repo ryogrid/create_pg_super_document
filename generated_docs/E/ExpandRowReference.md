@@ -52,3 +52,67 @@ The function generates FieldSelect expressions for each non-dropped attribute, p
 - Special handling is provided for RECORD type variables, which require runtime type resolution
 - The function properly handles dropped columns by skipping them during expansion
 - Permission checking is handled differently compared to ExpandSingleTable - for whole-row Vars, both table-level and column-level permissions may be marked
+
+## Simplified Source
+
+```c
+static List *
+ExpandRowReference(ParseState *pstate, Node *expr, bool make_target_entry)
+{
+    List *result = NIL;
+    TupleDesc tupleDesc;
+    int numAttrs;
+    int i;
+
+    // Optimization: if expr is a whole-row Var, delegate to ExpandSingleTable
+    if (IsA(expr, Var) && ((Var *) expr)->varattno == InvalidAttrNumber)
+    {
+        Var *var = (Var *) expr;
+        ParseNamespaceItem *nsitem;
+
+        nsitem = GetNSItemByRangeTablePosn(pstate, var->varno, var->varlevelsup);
+        return ExpandSingleTable(pstate, nsitem, var->varlevelsup, var->location, make_target_entry);
+    }
+
+    // Get tuple descriptor for the composite type expression
+    if (IsA(expr, Var) && ((Var *) expr)->vartype == RECORDOID)
+        tupleDesc = expandRecordVariable(pstate, (Var *) expr, 0);
+    else
+        tupleDesc = get_expr_result_tupdesc(expr, false);
+
+    Assert(tupleDesc);
+
+    // Generate FieldSelect expressions for each non-dropped attribute
+    numAttrs = tupleDesc->natts;
+    for (i = 0; i < numAttrs; i++)
+    {
+        Form_pg_attribute att = TupleDescAttr(tupleDesc, i);
+        FieldSelect *fselect;
+
+        if (att->attisdropped)
+            continue;
+
+        // Create FieldSelect node for this attribute
+        fselect = makeNode(FieldSelect);
+        fselect->arg = (Expr *) copyObject(expr);
+        fselect->fieldnum = i + 1;
+        fselect->resulttype = att->atttypid;
+        fselect->resulttypmod = att->atttypmod;
+        fselect->resultcollid = att->attcollation;
+
+        if (make_target_entry)
+        {
+            // Wrap in TargetEntry if requested
+            TargetEntry *te = makeTargetEntry((Expr *) fselect,
+                                            (AttrNumber) pstate->p_next_resno++,
+                                            pstrdup(NameStr(att->attname)),
+                                            false);
+            result = lappend(result, te);
+        }
+        else
+            result = lappend(result, fselect);
+    }
+
+    return result;
+}
+```

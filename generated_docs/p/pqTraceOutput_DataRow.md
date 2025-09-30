@@ -43,3 +43,27 @@ Fields with length -1 represent NULL values and are skipped in the output. This 
 - Part of PostgreSQL's debugging and development tools for analyzing client-server protocol communication
 - The function assumes the message buffer contains a valid DataRow message and does not perform extensive error checking
 - Field data is output as raw bytes, so binary data may not display readably in trace output
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_DataRow(FILE *f, const char *message, int *cursor)
+{
+    // Output message type identifier
+    fprintf(f, "DataRow\t");
+
+    // Extract number of fields in this row
+    int nfields = pqTraceOutputInt16(f, message, cursor);
+
+    // Process each field in the row
+    for (int i = 0; i < nfields; i++) {
+        // Get field length (-1 means NULL)
+        int len = pqTraceOutputInt32(f, message, cursor, false);
+
+        // Skip NULL fields, output data for non-NULL fields
+        if (len != -1) {
+            pqTraceOutputNchar(f, len, message, cursor);
+        }
+    }
+}
+```

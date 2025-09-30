@@ -38,3 +38,35 @@ This function fills an edge table data structure that represents the set of expl
 - The return value indicates tour diversity: 2.0 means tours are identical, 4.0 means completely different
 - Used in the ERX (Edge Recombination Crossover) algorithm to identify common edges between parent tours
 - [Edge](../E/Edge.md) processing involves calling gimme_edge twice for each connection to handle bidirectionality
+
+## Simplified Source
+
+```c
+float gimme_edge_table(PlannerInfo *root, Gene *tour1, Gene *tour2,
+                      int num_gene, Edge *edge_table) {
+    int i, index1, index2;
+    int edge_total = 0;
+
+    // Clear edge table data
+    for (i = 1; i <= num_gene; i++) {
+        edge_table[i].total_edges = 0;
+        edge_table[i].unused_edges = 0;
+    }
+
+    // Process both tours to build edge table
+    for (index1 = 0; index1 < num_gene; index1++) {
+        // Circular tour: map last index back to first
+        index2 = (index1 + 1) % num_gene;
+
+        // Add bidirectional edges from both tours
+        edge_total += gimme_edge(root, tour1[index1], tour1[index2], edge_table);
+        gimme_edge(root, tour1[index2], tour1[index1], edge_table);
+
+        edge_total += gimme_edge(root, tour2[index1], tour2[index2], edge_table);
+        gimme_edge(root, tour2[index2], tour2[index1], edge_table);
+    }
+
+    // Return average edges per gene (2.0-4.0 range)
+    return ((float) (edge_total * 2) / (float) num_gene);
+}
+```

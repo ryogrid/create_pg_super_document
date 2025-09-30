@@ -49,3 +49,79 @@ AlterTypeRecurse performs the actual catalog updates for type property modificat
 - Uses a system catalog scan to find all domains with the current type as their base type
 - Handles race conditions gracefully - concurrent domain creation might be missed but can be fixed by re-running the ALTER TYPE command
 - Automatically filters the inheritance for domains by clearing flags for non-inherited properties
+
+## Simplified Source
+
+```c
+static void AlterTypeRecurse(Oid typeOid, bool isImplicitArray, HeapTuple tup,
+                            Relation catalog, AlterTypeRecurseParams *atparams) {
+    check_stack_depth();
+
+    // Update current type's pg_type tuple with new properties
+    Datum values[Natts_pg_type];
+    bool nulls[Natts_pg_type];
+    bool replaces[Natts_pg_type];
+
+    memset(values, 0, sizeof(values));
+    memset(nulls, 0, sizeof(nulls));
+    memset(replaces, 0, sizeof(replaces));
+
+    // Set values for each property being updated
+    if (atparams->updateStorage) {
+        replaces[Anum_pg_type_typstorage - 1] = true;
+        values[Anum_pg_type_typstorage - 1] = CharGetDatum(atparams->storage);
+    }
+    // ... similar blocks for other properties (receive, send, typmodin, etc.)
+
+    // Apply changes to catalog
+    HeapTuple newtup = heap_modify_tuple(tup, RelationGetDescr(catalog),
+                                        values, nulls, replaces);
+    CatalogTupleUpdate(catalog, &newtup->t_self, newtup);
+
+    // Rebuild type dependencies
+    GenerateTypeDependencies(newtup, catalog, NULL, NULL, 0,
+                           isImplicitArray, isImplicitArray, false, true);
+
+    InvokeObjectPostAlterHook(TypeRelationId, typeOid, 0);
+
+    // Recursively update array type (typmod functions only)
+    if (!isImplicitArray && (atparams->updateTypmodin || atparams->updateTypmodout)) {
+        Oid arrtypoid = ((Form_pg_type) GETSTRUCT(newtup))->typarray;
+        if (OidIsValid(arrtypoid)) {
+            HeapTuple arrtup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(arrtypoid));
+            AlterTypeRecurseParams arrparams = {0};
+            arrparams.updateTypmodin = atparams->updateTypmodin;
+            arrparams.updateTypmodout = atparams->updateTypmodout;
+            arrparams.typmodinOid = atparams->typmodinOid;
+            arrparams.typmodoutOid = atparams->typmodoutOid;
+
+            AlterTypeRecurse(arrtypoid, true, arrtup, catalog, &arrparams);
+            ReleaseSysCache(arrtup);
+        }
+    }
+
+    // Filter properties not inherited by domains
+    atparams->updateReceive = false;
+    atparams->updateTypmodin = false;
+    atparams->updateTypmodout = false;
+    atparams->updateSubscript = false;
+
+    // Recursively update all domains using this type as base
+    if (atparams->updateStorage || atparams->updateSend || atparams->updateAnalyze) {
+        ScanKeyData key[1];
+        ScanKeyInit(&key[0], Anum_pg_type_typbasetype, BTEqualStrategyNumber,
+                   F_OIDEQ, ObjectIdGetDatum(typeOid));
+
+        SysScanDesc scan = systable_beginscan(catalog, InvalidOid, false, NULL, 1, key);
+        HeapTuple domainTup;
+
+        while ((domainTup = systable_getnext(scan)) != NULL) {
+            Form_pg_type domainForm = (Form_pg_type) GETSTRUCT(domainTup);
+            if (domainForm->typtype == TYPTYPE_DOMAIN) {
+                AlterTypeRecurse(domainForm->oid, false, domainTup, catalog, atparams);
+            }
+        }
+        systable_endscan(scan);
+    }
+}
+```

@@ -35,3 +35,19 @@ This function takes a numeric compression method identifier and returns the corr
 - Part of PostgreSQL's TOAST compression infrastructure
 - Complementary function to CompressionNameToMethod for bidirectional conversion
 - The NULL return after elog(ERROR) is included to keep the compiler quiet, though it's unreachable code
+
+## Simplified Source
+```c
+const char *GetCompressionMethodName(char method) {
+    switch (method) {
+        case TOAST_PGLZ_COMPRESSION:
+            return "pglz";
+        case TOAST_LZ4_COMPRESSION:
+            return "lz4";
+        default:
+            // Invalid compression method - log error
+            elog(ERROR, "invalid compression method %c", method);
+            return NULL;  // Unreachable, keeps compiler quiet
+    }
+}
+```

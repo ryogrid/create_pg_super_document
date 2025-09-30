@@ -37,3 +37,27 @@ This function retrieves the support function OID for a PostgreSQL function from 
 - Support functions are an advanced feature used primarily for custom data types and operators to provide planner hints
 - Unlike get_func_leakproof, this function does not raise an error for missing functions, instead returning InvalidOid
 - Support functions are used by the query planner for selectivity estimation and optimization decisions
+
+## Simplified Source
+
+```c
+RegProcedure get_func_support(Oid funcid) {
+    HeapTuple tp;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_proc functup = (Form_pg_proc) GETSTRUCT(tp);
+        RegProcedure result;
+
+        // Get support function OID from pg_proc tuple
+        result = functup->prosupport;
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Function not found
+        return (RegProcedure) InvalidOid;
+    }
+}
+```

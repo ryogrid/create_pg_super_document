@@ -40,3 +40,47 @@ The function creates VacuumRelation entries with OIDs but no RangeVar, since the
 - Uses catalog scan with AccessShareLock for safe concurrent access
 - Creates VacuumRelation entries with OIDs only (no RangeVar or column lists)
 - Location: src/backend/commands/vacuum.c:1021-1082
+
+## Simplified Source
+
+```c
+static List *get_all_vacuum_rels(MemoryContext vac_context, int options) {
+    List *vacrels = NIL;
+    Relation pgclass;
+    TableScanDesc scan;
+    HeapTuple tuple;
+
+    // Open pg_class catalog for scanning
+    pgclass = table_open(RelationRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(pgclass, 0, NULL);
+
+    // Scan all relations in the catalog
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_class classForm = (Form_pg_class) GETSTRUCT(tuple);
+        MemoryContext oldcontext;
+        Oid relid = classForm->oid;
+
+        // Filter by relation kind: tables, matviews, and partitioned tables
+        if (classForm->relkind != RELKIND_RELATION &&
+            classForm->relkind != RELKIND_MATVIEW &&
+            classForm->relkind != RELKIND_PARTITIONED_TABLE) {
+            continue;
+        }
+
+        // Check if user has permission to vacuum/analyze this relation
+        if (!vacuum_is_permitted_for_relation(relid, classForm, options))
+            continue;
+
+        // Add relation to vacuum list (OID only, no RangeVar or columns)
+        oldcontext = MemoryContextSwitchTo(vac_context);
+        vacrels = lappend(vacrels, makeVacuumRelation(NULL, relid, NIL));
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Clean up scan and close catalog
+    table_endscan(scan);
+    table_close(pgclass, AccessShareLock);
+
+    return vacrels;
+}
+```

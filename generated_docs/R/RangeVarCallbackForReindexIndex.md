@@ -42,3 +42,56 @@ This function serves as a callback for RangeVarGetRelidExtended() during index r
 - Proper lock ordering (heap before index) is essential to prevent deadlocks
 - The callback pattern allows for safe relation name resolution with appropriate validation and locking
 - Error handling includes checking for concurrently dropped relations and invalid relation types
+
+## Simplified Source
+
+```c
+static void
+RangeVarCallbackForReindexIndex(const RangeVar *relation,
+                                Oid relId, Oid oldRelId, void *arg)
+{
+    char relkind;
+    struct ReindexIndexCallbackState *state = arg;
+    LOCKMODE table_lockmode;
+    Oid table_oid;
+
+    // Determine lock level based on concurrent vs non-concurrent reindex
+    table_lockmode = (state->params.options & REINDEXOPT_CONCURRENTLY) != 0 ?
+        ShareUpdateExclusiveLock : ShareLock;
+
+    // Release lock on previously processed relation if different
+    if (relId != oldRelId && OidIsValid(oldRelId))
+    {
+        UnlockRelationOid(state->locked_table_oid, table_lockmode);
+        state->locked_table_oid = InvalidOid;
+    }
+
+    // Nothing to do if relation doesn't exist
+    if (!OidIsValid(relId))
+        return;
+
+    // Check if relation is an index (may have been dropped concurrently)
+    relkind = get_rel_relkind(relId);
+    if (!relkind)
+        return;
+    if (relkind != RELKIND_INDEX && relkind != RELKIND_PARTITIONED_INDEX)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                        errmsg("\"%s\" is not an index", relation->relname)));
+
+    // Check ACL_MAINTAIN permissions on associated table
+    table_oid = IndexGetRelation(relId, true);
+    if (OidIsValid(table_oid))
+    {
+        AclResult aclresult = pg_class_aclcheck(table_oid, GetUserId(), ACL_MAINTAIN);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_INDEX, relation->relname);
+    }
+
+    // Lock heap before index to avoid deadlock
+    if (relId != oldRelId && OidIsValid(table_oid))
+    {
+        LockRelationOid(table_oid, table_lockmode);
+        state->locked_table_oid = table_oid;
+    }
+}
+```

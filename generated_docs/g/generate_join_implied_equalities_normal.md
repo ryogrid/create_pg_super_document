@@ -54,3 +54,128 @@ The function uses sophisticated optimization to select the best member combinati
 - Follows a left-to-right chaining strategy for connecting new members
 - Part of PostgreSQL's equivalence class-based join optimization system
 - Critical for generating efficient join plans in complex multi-table queries
+
+## Simplified Source
+
+```c
+static List *
+generate_join_implied_equalities_normal(PlannerInfo *root,
+                                       EquivalenceClass *ec,
+                                       Relids join_relids,
+                                       Relids outer_relids,
+                                       Relids inner_relids)
+{
+    List *result = NIL;
+    List *outer_members = NIL;
+    List *inner_members = NIL;
+    List *new_members = NIL;
+
+    // Phase 1: Classify EC members by where they can be computed
+    foreach(lc1, ec->ec_members) {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc1);
+
+        // Skip members not computable at this join level
+        if (!bms_is_subset(cur_em->em_relids, join_relids))
+            continue;
+
+        // Categorize by computation location
+        if (bms_is_subset(cur_em->em_relids, outer_relids))
+            outer_members = lappend(outer_members, cur_em);
+        else if (bms_is_subset(cur_em->em_relids, inner_relids))
+            inner_members = lappend(inner_members, cur_em);
+        else
+            new_members = lappend(new_members, cur_em);
+    }
+
+    // Phase 2: Generate join clause between outer and inner members
+    if (outer_members && inner_members) {
+        EquivalenceMember *best_outer_em = NULL;
+        EquivalenceMember *best_inner_em = NULL;
+        Oid best_eq_op = InvalidOid;
+        int best_score = -1;
+
+        // Find best member pair using scoring system
+        foreach(lc1, outer_members) {
+            EquivalenceMember *outer_em = (EquivalenceMember *) lfirst(lc1);
+
+            foreach(lc2, inner_members) {
+                EquivalenceMember *inner_em = (EquivalenceMember *) lfirst(lc2);
+
+                Oid eq_op = select_equality_operator(ec,
+                                                   outer_em->em_datatype,
+                                                   inner_em->em_datatype);
+                if (!OidIsValid(eq_op))
+                    continue;
+
+                // Score based on expression type and hash-joinability
+                int score = 0;
+                if (IsA(outer_em->em_expr, Var) ||
+                    (IsA(outer_em->em_expr, RelabelType) &&
+                     IsA(((RelabelType *) outer_em->em_expr)->arg, Var)))
+                    score++;
+                if (IsA(inner_em->em_expr, Var) ||
+                    (IsA(inner_em->em_expr, RelabelType) &&
+                     IsA(((RelabelType *) inner_em->em_expr)->arg, Var)))
+                    score++;
+                if (op_hashjoinable(eq_op, exprType((Node *) outer_em->em_expr)))
+                    score++;
+
+                if (score > best_score) {
+                    best_outer_em = outer_em;
+                    best_inner_em = inner_em;
+                    best_eq_op = eq_op;
+                    best_score = score;
+                    if (best_score == 3) break; // Optimal found
+                }
+            }
+            if (best_score == 3) break;
+        }
+
+        if (best_score < 0) {
+            // No compatible operator found
+            ec->ec_broken = true;
+            return NIL;
+        }
+
+        // Create the main join clause (marked as redundant)
+        RestrictInfo *rinfo = create_join_clause(root, ec, best_eq_op,
+                                                best_outer_em, best_inner_em,
+                                                ec);
+        result = lappend(result, rinfo);
+    }
+
+    // Phase 3: Handle new members computable at this join level
+    if (new_members) {
+        List *old_members = list_concat(outer_members, inner_members);
+        EquivalenceMember *prev_em = NULL;
+
+        // Include one old member in the chain
+        if (old_members)
+            new_members = lappend(new_members, linitial(old_members));
+
+        // Chain new members together
+        foreach(lc1, new_members) {
+            EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc1);
+
+            if (prev_em != NULL) {
+                Oid eq_op = select_equality_operator(ec,
+                                                   prev_em->em_datatype,
+                                                   cur_em->em_datatype);
+                if (!OidIsValid(eq_op)) {
+                    ec->ec_broken = true;
+                    return NIL;
+                }
+
+                // Create non-redundant clause
+                RestrictInfo *rinfo = create_join_clause(root, ec, eq_op,
+                                                       prev_em, cur_em,
+                                                       NULL);
+                result = lappend(result, rinfo);
+            }
+            prev_em = cur_em;
+        }
+    }
+
+    return result;
+}
+```

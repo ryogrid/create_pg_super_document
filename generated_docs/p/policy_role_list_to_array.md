@@ -47,3 +47,48 @@ The function allocates memory for the result array and populates it with ObjectI
 - The PUBLIC role optimization reduces storage and improves performance by representing "all users" with a single entry
 - Memory allocation uses palloc(), which is automatically freed at transaction end in PostgreSQL
 - The function modifies the `num_roles` parameter to reflect the actual array size, which may differ from the input list length when PUBLIC optimizations are applied
+
+## Simplified Source
+
+```c
+static Datum *policy_role_list_to_array(List *roles, int *num_roles) {
+    Datum *role_oids;
+    ListCell *cell;
+    int i = 0;
+
+    // Default to PUBLIC role when no roles specified
+    if (roles == NIL) {
+        *num_roles = 1;
+        role_oids = (Datum *) palloc(*num_roles * sizeof(Datum));
+        role_oids[0] = ObjectIdGetDatum(ACL_ID_PUBLIC);
+        return role_oids;
+    }
+
+    // Allocate array for role OIDs
+    *num_roles = list_length(roles);
+    role_oids = (Datum *) palloc(*num_roles * sizeof(Datum));
+
+    // Convert each role specification to OID
+    foreach(cell, roles) {
+        RoleSpec *spec = lfirst(cell);
+
+        // Handle PUBLIC role specially (encompasses all roles)
+        if (spec->roletype == ROLESPEC_PUBLIC) {
+            if (*num_roles != 1) {
+                ereport(WARNING, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                                 errmsg("ignoring specified roles other than PUBLIC"),
+                                 errhint("All roles are members of the PUBLIC role.")));
+                *num_roles = 1;
+            }
+            role_oids[0] = ObjectIdGetDatum(ACL_ID_PUBLIC);
+            return role_oids;
+        }
+        else {
+            // Convert role specification to OID
+            role_oids[i++] = ObjectIdGetDatum(get_rolespec_oid(spec, false));
+        }
+    }
+
+    return role_oids;
+}
+```

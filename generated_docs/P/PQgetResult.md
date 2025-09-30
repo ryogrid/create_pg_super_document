@@ -53,3 +53,107 @@ For COPY operations, the function delegates to getCopyResult to handle COPY_IN, 
 - Part of the core public libpq API for result retrieval
 - Fires PGEVT_RESULTCREATE events for event-driven applications
 - Essential for both synchronous and asynchronous query processing patterns
+
+## Simplified Source
+
+```c
+PGresult *PQgetResult(PGconn *conn) {
+    if (!conn)
+        return NULL;
+
+    // Parse any available buffered data
+    parseInput(conn);
+
+    // Wait for result if busy
+    while (conn->asyncStatus == PGASYNC_BUSY) {
+        // Flush any pending outbound data
+        while (pqFlush(conn) > 0) {
+            if (pqWait(false, true, conn))
+                break;
+        }
+
+        // Wait for incoming data and read it
+        if (pqWait(true, false, conn) || pqReadData(conn) < 0) {
+            pqSaveErrorResult(conn);
+            conn->asyncStatus = PGASYNC_IDLE;
+            return pqPrepareAsyncResult(conn);
+        }
+
+        // Parse the new data
+        parseInput(conn);
+
+        // Handle write errors
+        if (conn->write_failed && conn->asyncStatus == PGASYNC_BUSY) {
+            pqSaveWriteError(conn);
+            conn->asyncStatus = PGASYNC_IDLE;
+            return pqPrepareAsyncResult(conn);
+        }
+    }
+
+    // Return result based on current state
+    PGresult *res;
+    switch (conn->asyncStatus) {
+        case PGASYNC_IDLE:
+            res = NULL;  // Query complete
+            break;
+
+        case PGASYNC_PIPELINE_IDLE:
+            pqPipelineProcessQueue(conn);
+            res = NULL;  // Query complete
+            break;
+
+        case PGASYNC_READY:
+            res = pqPrepareAsyncResult(conn);
+
+            // Handle chunked results
+            if (conn->result && res->resultStatus == PGRES_TUPLES_CHUNK)
+                break;
+
+            // Advance command queue
+            pqCommandQueueAdvance(conn, false,
+                                res->resultStatus == PGRES_PIPELINE_SYNC);
+
+            // Handle pipeline vs normal mode
+            if (conn->pipelineStatus != PQ_PIPELINE_OFF) {
+                conn->asyncStatus = PGASYNC_PIPELINE_IDLE;
+                if (res->resultStatus == PGRES_PIPELINE_SYNC)
+                    pqPipelineProcessQueue(conn);
+            } else {
+                conn->asyncStatus = PGASYNC_BUSY;
+            }
+            break;
+
+        case PGASYNC_READY_MORE:
+            res = pqPrepareAsyncResult(conn);
+            conn->asyncStatus = PGASYNC_BUSY;
+            break;
+
+        case PGASYNC_COPY_IN:
+            res = getCopyResult(conn, PGRES_COPY_IN);
+            break;
+
+        case PGASYNC_COPY_OUT:
+            res = getCopyResult(conn, PGRES_COPY_OUT);
+            break;
+
+        case PGASYNC_COPY_BOTH:
+            res = getCopyResult(conn, PGRES_COPY_BOTH);
+            break;
+
+        default:
+            // Handle unexpected state
+            libpq_append_conn_error(conn, "unexpected asyncStatus: %d",
+                                   (int) conn->asyncStatus);
+            pqSaveErrorResult(conn);
+            conn->asyncStatus = PGASYNC_IDLE;
+            res = pqPrepareAsyncResult(conn);
+            break;
+    }
+
+    // Fire result creation events if needed
+    if (res && res->nEvents > 0)
+        PQfireResultCreateEvents(conn, res);
+
+    return res;
+}
+```

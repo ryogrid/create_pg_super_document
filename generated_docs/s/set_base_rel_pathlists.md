@@ -35,3 +35,26 @@ The function operates after size estimates have been established, ensuring that 
 - Essential step in the query optimization pipeline, bridging size estimation and join path generation
 - Includes standard safeguards to skip empty array slots and non-baserel RTEs
 - The generated paths become the foundation for subsequent join path exploration
+
+## Simplified Source
+
+```c
+static void
+set_base_rel_pathlists(PlannerInfo *root)
+{
+    Index rti;
+
+    // Iterate through all relations in the simple_rel_array
+    for (rti = 1; rti < root->simple_rel_array_size; rti++)
+    {
+        RelOptInfo *rel = root->simple_rel_array[rti];
+
+        // Skip empty slots and non-base relations
+        if (rel == NULL || rel->reloptkind != RELOPT_BASEREL)
+            continue;
+
+        // Generate all available access paths for this base relation
+        set_rel_pathlist(root, rel, rti, root->simple_rte_array[rti]);
+    }
+}
+```

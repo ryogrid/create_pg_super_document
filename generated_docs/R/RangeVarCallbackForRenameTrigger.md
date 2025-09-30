@@ -45,3 +45,37 @@ The function is designed to be called by the RangeVar resolution mechanism befor
 - Respects allowSystemTableMods setting to control system catalog modifications
 - Uses system cache lookups for efficient relation metadata access
 - Handles concurrent relation drops gracefully by checking tuple validity
+
+## Simplified Source
+
+```c
+static void RangeVarCallbackForRenameTrigger(const RangeVar *rv, Oid relid, Oid oldrelid, void *arg)
+{
+    // Get relation metadata from system catalog
+    HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        return; // Handle concurrent drops
+
+    Form_pg_class form = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Validate relation kind - only certain types can have triggers
+    if (form->relkind != RELKIND_RELATION && form->relkind != RELKIND_VIEW &&
+        form->relkind != RELKIND_FOREIGN_TABLE && form->relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("relation \"%s\" cannot have triggers", rv->relname),
+                 errdetail_relkind_not_supported(form->relkind)));
+
+    // Check ownership - user must own the relation
+    if (!object_ownercheck(RelationRelationId, relid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(get_rel_relkind(relid)), rv->relname);
+
+    // Prevent system catalog modifications unless explicitly allowed
+    if (!allowSystemTableMods && IsSystemClass(relid, form))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied: \"%s\" is a system catalog", rv->relname)));
+
+    ReleaseSysCache(tuple);
+}
+```

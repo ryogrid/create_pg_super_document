@@ -46,3 +46,63 @@ When offset or count values cannot be estimated (indicated by negative values), 
 - Critical for accurate subquery costing where outer planner needs precise estimates
 - Startup cost increases proportionally with OFFSET to account for skipped rows
 - Total cost adjusts proportionally with LIMIT to reflect reduced processing
+
+## Simplified Source
+
+```c
+void
+adjust_limit_rows_costs(double *rows, Cost *startup_cost, Cost *total_cost,
+                        int64 offset_est, int64 count_est)
+{
+    double input_rows = *rows;
+    Cost input_startup_cost = *startup_cost;
+    Cost input_total_cost = *total_cost;
+
+    // Handle OFFSET: increase startup cost, reduce row count
+    if (offset_est != 0) {
+        double offset_rows;
+
+        // Use actual estimate or 10% heuristic
+        if (offset_est > 0)
+            offset_rows = (double) offset_est;
+        else
+            offset_rows = clamp_row_est(input_rows * 0.10);
+
+        if (offset_rows > *rows)
+            offset_rows = *rows;
+
+        // Add cost for skipping offset_rows
+        if (input_rows > 0)
+            *startup_cost += (input_total_cost - input_startup_cost) *
+                           offset_rows / input_rows;
+
+        *rows -= offset_rows;
+        if (*rows < 1)
+            *rows = 1;
+    }
+
+    // Handle LIMIT: reduce total cost and row count
+    if (count_est != 0) {
+        double count_rows;
+
+        // Use actual estimate or 10% heuristic
+        if (count_est > 0)
+            count_rows = (double) count_est;
+        else
+            count_rows = clamp_row_est(input_rows * 0.10);
+
+        if (count_rows > *rows)
+            count_rows = *rows;
+
+        // Adjust total cost for limited output
+        if (input_rows > 0)
+            *total_cost = *startup_cost +
+                         (input_total_cost - input_startup_cost) *
+                         count_rows / input_rows;
+
+        *rows = count_rows;
+        if (*rows < 1)
+            *rows = 1;
+    }
+}
+```

@@ -48,3 +48,139 @@ The function recursively processes subqueries to ensure locking clauses are prop
 - Provides detailed error messages for unsupported locking targets with specific RTE type handling
 - Cross-references with markQueryForLocking() in rewriteHandler.c and isLockedRefname() in parse_relation.c
 - Located in src/backend/parser/analyze.c at lines 3302-3528
+
+## Simplified Source
+
+```c
+static void
+transformLockingClause(ParseState *pstate, Query *qry, LockingClause *lc,
+                       bool pushedDown)
+{
+    List *lockedRels = lc->lockedRels;
+    ListCell *l;
+    ListCell *rt;
+    Index i;
+    LockingClause *allrels;
+
+    CheckSelectLocking(qry, lc->strength);
+
+    // Create clause to pass down to subqueries for all rels
+    allrels = makeNode(LockingClause);
+    allrels->lockedRels = NIL;  // indicates all rels
+    allrels->strength = lc->strength;
+    allrels->waitPolicy = lc->waitPolicy;
+
+    if (lockedRels == NIL) {
+        // Lock all regular tables used in query and subqueries
+        i = 0;
+        foreach(rt, qry->rtable) {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(rt);
+
+            ++i;
+            if (!rte->inFromCl)
+                continue;
+
+            switch (rte->rtekind) {
+                case RTE_RELATION:
+                    {
+                        RTEPermissionInfo *perminfo;
+
+                        applyLockingClause(qry, i, lc->strength,
+                                           lc->waitPolicy, pushedDown);
+                        perminfo = getRTEPermissionInfo(qry->rteperminfos, rte);
+                        perminfo->requiredPerms |= ACL_SELECT_FOR_UPDATE;
+                    }
+                    break;
+                case RTE_SUBQUERY:
+                    applyLockingClause(qry, i, lc->strength, lc->waitPolicy,
+                                       pushedDown);
+                    // Propagate to subquery's rels
+                    transformLockingClause(pstate, rte->subquery,
+                                           allrels, true);
+                    break;
+                default:
+                    // ignore JOIN, SPECIAL, FUNCTION, VALUES, CTE RTEs
+                    break;
+            }
+        }
+    }
+    else {
+        // Lock just the named tables
+        foreach(l, lockedRels) {
+            RangeVar *thisrel = (RangeVar *) lfirst(l);
+
+            // Insist on unqualified alias names
+            if (thisrel->catalogname || thisrel->schemaname)
+                ereport(ERROR, /* qualified names not allowed */);
+
+            i = 0;
+            foreach(rt, qry->rtable) {
+                RangeTblEntry *rte = (RangeTblEntry *) lfirst(rt);
+                char *rtename = rte->eref->aliasname;
+
+                ++i;
+                if (!rte->inFromCl)
+                    continue;
+
+                // Handle aliasing rules for different RTE types
+                if (rte->alias == NULL) {
+                    if (rte->rtekind == RTE_JOIN) {
+                        if (rte->join_using_alias == NULL)
+                            continue;
+                        rtename = rte->join_using_alias->aliasname;
+                    }
+                    else if (rte->rtekind == RTE_SUBQUERY ||
+                             rte->rtekind == RTE_VALUES)
+                        continue;
+                }
+
+                if (strcmp(rtename, thisrel->relname) == 0) {
+                    switch (rte->rtekind) {
+                        case RTE_RELATION:
+                            {
+                                RTEPermissionInfo *perminfo;
+
+                                applyLockingClause(qry, i, lc->strength,
+                                                   lc->waitPolicy, pushedDown);
+                                perminfo = getRTEPermissionInfo(qry->rteperminfos, rte);
+                                perminfo->requiredPerms |= ACL_SELECT_FOR_UPDATE;
+                            }
+                            break;
+                        case RTE_SUBQUERY:
+                            applyLockingClause(qry, i, lc->strength,
+                                               lc->waitPolicy, pushedDown);
+                            transformLockingClause(pstate, rte->subquery,
+                                                   allrels, true);
+                            break;
+                        case RTE_JOIN:
+                            ereport(ERROR, /* cannot be applied to a join */);
+                            break;
+                        case RTE_FUNCTION:
+                            ereport(ERROR, /* cannot be applied to a function */);
+                            break;
+                        case RTE_TABLEFUNC:
+                            ereport(ERROR, /* cannot be applied to a table function */);
+                            break;
+                        case RTE_VALUES:
+                            ereport(ERROR, /* cannot be applied to VALUES */);
+                            break;
+                        case RTE_CTE:
+                            ereport(ERROR, /* cannot be applied to a WITH query */);
+                            break;
+                        case RTE_NAMEDTUPLESTORE:
+                            ereport(ERROR, /* cannot be applied to a named tuplestore */);
+                            break;
+                        default:
+                            elog(ERROR, "unrecognized RTE type: %d",
+                                 (int) rte->rtekind);
+                            break;
+                    }
+                    break;  // out of foreach loop
+                }
+            }
+            if (rt == NULL)
+                ereport(ERROR, /* relation not found in FROM clause */);
+        }
+    }
+}
+```

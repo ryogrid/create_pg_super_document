@@ -37,3 +37,24 @@ This function retrieves the leakproof flag for a PostgreSQL function from the sy
 - The function raises an ERROR if the function OID is not found in the system cache
 - This is part of PostgreSQL's security infrastructure for determining which functions can be safely executed in restricted contexts
 - The leakproof property is critical for row-level security and other security-sensitive operations
+
+## Simplified Source
+
+```c
+bool
+get_func_leakproof(Oid funcid)
+{
+    HeapTuple tp;
+    bool result;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract leakproof flag from pg_proc tuple
+    result = ((Form_pg_proc) GETSTRUCT(tp))->proleakproof;
+    ReleaseSysCache(tp);
+    return result;
+}
+```

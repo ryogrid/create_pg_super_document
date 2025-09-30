@@ -41,3 +41,38 @@ The function skips resjunk entries since these are internal working columns that
 - Each generated parameter has the same type information as the corresponding target list expression
 - The generated parameters are of type PARAM_EXEC, which are used for inter-plan communication
 - Located in src/backend/optimizer/plan/subselect.c:580-612
+
+## Simplified Source
+
+```c
+static List *
+generate_subquery_params(PlannerInfo *root, List *tlist, List **paramIds)
+{
+    List *result = NIL;
+    List *ids = NIL;
+    ListCell *lc;
+
+    // Process each target list entry
+    foreach(lc, tlist)
+    {
+        TargetEntry *tent = (TargetEntry *) lfirst(lc);
+
+        // Skip internal working columns
+        if (tent->resjunk)
+            continue;
+
+        // Create parameter with same type info as expression
+        Param *param = generate_new_exec_param(root,
+                                             exprType((Node *) tent->expr),
+                                             exprTypmod((Node *) tent->expr),
+                                             exprCollation((Node *) tent->expr));
+
+        // Add to result lists
+        result = lappend(result, param);
+        ids = lappend_int(ids, param->paramid);
+    }
+
+    *paramIds = ids;
+    return result;
+}
+```

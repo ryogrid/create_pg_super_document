@@ -35,3 +35,16 @@ The function acts as a wrapper around the platform-specific implementation pg_at
 - The add_ parameter is signed, allowing both addition (positive values) and subtraction (negative values)
 - This is part of PostgreSQLs portable atomic operations interface, providing consistent behavior across different hardware architectures
 - Particularly useful when you need to know the final result of the atomic addition rather than the original value
+
+## Simplified Source
+
+```c
+static inline uint64 pg_atomic_add_fetch_u64(volatile pg_atomic_uint64 *ptr, int64 add_) {
+#ifndef PG_HAVE_ATOMIC_U64_SIMULATION
+    // Ensure proper 8-byte alignment for atomic operations
+    AssertPointerAlignment(ptr, 8);
+#endif
+    // Delegate to platform-specific implementation
+    return pg_atomic_add_fetch_u64_impl(ptr, add_);
+}
+```

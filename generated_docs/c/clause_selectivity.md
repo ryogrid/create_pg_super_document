@@ -47,3 +47,18 @@ The function handles various join contexts through the `sjinfo` parameter, suppo
 - The function documentation includes detailed guidance on parameter usage for different scenarios
 - Supports variant joins where jointype may differ from sjinfo->jointype (LHS/RHS switched or input unique-ified)
 - When using varRelid != 0, it's typically appropriate to set jointype=JOIN_INNER and sjinfo=NULL
+
+## Simplified Source
+
+```c
+Selectivity clause_selectivity(PlannerInfo *root,
+                              Node *clause,
+                              int varRelid,
+                              JoinType jointype,
+                              SpecialJoinInfo *sjinfo)
+{
+    // Simply delegate to extended version with statistics enabled
+    return clause_selectivity_ext(root, clause, varRelid,
+                                 jointype, sjinfo, true);
+}
+```

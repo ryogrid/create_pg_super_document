@@ -41,3 +41,46 @@ The algorithm validates input sizes to ensure they don't exceed SHRT_MAX limits,
 - The returned state contains the complete matching information and can be used with BipartiteMatchFree for cleanup
 - Includes interrupt checking to allow PostgreSQL to handle query cancellation during long-running matching operations
 - Memory is allocated using PostgreSQL's memory management system (palloc family)
+
+## Simplified Source
+
+```c
+BipartiteMatchState *
+BipartiteMatch(int u_size, int v_size, short **adjacency)
+{
+    BipartiteMatchState *state;
+
+    // Validate input sizes
+    if (u_size < 0 || u_size >= SHRT_MAX ||
+        v_size < 0 || v_size >= SHRT_MAX)
+        elog(ERROR, "invalid set size for BipartiteMatch");
+
+    // Initialize matching state
+    state = palloc(sizeof(BipartiteMatchState));
+    state->u_size = u_size;
+    state->v_size = v_size;
+    state->adjacency = adjacency;
+    state->matching = 0;
+
+    // Allocate arrays (1-based indexing)
+    state->pair_uv = (short *) palloc0((u_size + 1) * sizeof(short));
+    state->pair_vu = (short *) palloc0((v_size + 1) * sizeof(short));
+    state->distance = (short *) palloc((u_size + 1) * sizeof(short));
+    state->queue = (short *) palloc((u_size + 2) * sizeof(short));
+
+    // Hopcroft-Karp algorithm: find maximum matching
+    while (hk_breadth_search(state)) {
+        // Try to find augmenting paths for each unmatched vertex in U
+        for (int u = 1; u <= u_size; u++) {
+            if (state->pair_uv[u] == 0) {
+                if (hk_depth_search(state, u))
+                    state->matching++;
+            }
+        }
+
+        CHECK_FOR_INTERRUPTS();  // Allow query cancellation
+    }
+
+    return state;
+}
+```

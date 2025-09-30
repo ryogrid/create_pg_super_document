@@ -49,3 +49,44 @@ This function processes an operator that is being added to an operator family, d
 - Part of the operator class/family validation and setup process
 - Uses PostgreSQL's system catalog caching mechanism for efficient operator lookup
 - Contains detailed comments about ordering hazards during dump/reload scenarios
+
+## Simplified Source
+
+```c
+static void
+assignOperTypes(OpFamilyMember *member, Oid amoid, Oid typeoid)
+{
+    Operator optup;
+    Form_pg_operator opform;
+
+    // Fetch operator definition from system catalog
+    optup = SearchSysCache1(OPEROID, ObjectIdGetDatum(member->object));
+    if (!HeapTupleIsValid(optup))
+        elog(ERROR, "cache lookup failed for operator %u", member->object);
+    opform = (Form_pg_operator) GETSTRUCT(optup);
+
+    // Validate operator is binary
+    if (opform->oprkind != 'b')
+        ereport(ERROR, "index operators must be binary");
+
+    // Handle ordering vs search operators
+    if (OidIsValid(member->sortfamily)) {
+        // Ordering operator - check access method supports it
+        IndexAmRoutine *amroutine = GetIndexAmRoutineByAmId(amoid, false);
+        if (!amroutine->amcanorderbyop)
+            ereport(ERROR, "access method does not support ordering operators");
+    } else {
+        // Search operator - must return boolean
+        if (opform->oprresult != BOOLOID)
+            ereport(ERROR, "index search operators must return boolean");
+    }
+
+    // Set lefttype/righttype from operator if not specified
+    if (!OidIsValid(member->lefttype))
+        member->lefttype = opform->oprleft;
+    if (!OidIsValid(member->righttype))
+        member->righttype = opform->oprright;
+
+    ReleaseSysCache(optup);
+}
+```

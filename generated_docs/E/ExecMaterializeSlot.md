@@ -46,3 +46,12 @@ The function delegates to the slot's type-specific materialize operation through
 - Part of the TupleTableSlot abstraction layer that provides uniform access to different tuple storage formats
 - Commonly used before operations that need to "scribble on" or modify tuple data
 - Helps prevent data corruption from premature deallocation of source storage
+
+## Simplified Source
+```c
+static inline void ExecMaterializeSlot(TupleTableSlot *slot) {
+    // Force slot into materialized state via type-specific operation
+    // Creates private copy independent of external storage (buffers, other contexts)
+    slot->tts_ops->materialize(slot);
+}
+```

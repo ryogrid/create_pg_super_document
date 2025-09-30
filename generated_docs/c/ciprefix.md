@@ -33,3 +33,18 @@ The function returns `true` as soon as it reaches the end of the abbreviation st
 - Part of PostgreSQL's timezone compilation utilities (zic)
 - Commonly used for matching timezone abbreviations against keywords or longer timezone names
 - More restrictive than `itsabbr` as it doesn't allow gaps between matched characters
+
+## Simplified Source
+
+```c
+static bool ciprefix(char const *abbr, char const *word)
+{
+    // Check if abbr is a case-insensitive prefix of word
+    do {
+        if (!*abbr)
+            return true;  // Reached end of abbreviation - it's a prefix
+    } while (lowerit(*abbr++) == lowerit(*word++));
+
+    return false;  // Characters didn't match
+}
+```

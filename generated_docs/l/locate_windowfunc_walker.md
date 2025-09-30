@@ -35,3 +35,27 @@ This function implements the core logic for locating window function parse locat
 - The function explicitly avoids recursing into subselects to maintain proper query level isolation
 - Part of the error reporting infrastructure, used to provide accurate source locations in error messages
 - The context structure is modified in-place to return the found location to the caller
+
+## Simplified Source
+
+```c
+static bool locate_windowfunc_walker(Node *node, locate_windowfunc_context *context) {
+    // Skip null nodes
+    if (node == NULL)
+        return false;
+
+    // Check if this is a WindowFunc with a valid location
+    if (IsA(node, WindowFunc)) {
+        WindowFunc *wfunc = (WindowFunc *) node;
+        if (wfunc->location >= 0) {
+            // Found a window function with location - store it and stop searching
+            context->win_location = wfunc->location;
+            return true;
+        }
+        // Continue searching if no location info
+    }
+
+    // Recursively traverse the expression tree
+    return expression_tree_walker(node, locate_windowfunc_walker, context);
+}
+```

@@ -30,3 +30,18 @@ This function performs cleanup for a BipartiteMatchState object created by Bipar
 - Should only be called on states returned by BipartiteMatch
 - Frees memory in reverse dependency order: arrays first, then the state structure
 - Part of PostgreSQL's resource management best practices for preventing memory leaks in long-running operations
+
+## Simplified Source
+
+```c
+void BipartiteMatchFree(BipartiteMatchState *state) {
+    // Free all allocated memory components
+    pfree(state->pair_uv);      // Free U-to-V mapping
+    pfree(state->pair_vu);      // Free V-to-U mapping
+    pfree(state->distance);     // Free BFS distance array
+    pfree(state->queue);        // Free BFS queue
+    pfree(state);               // Free state structure
+
+    // Note: adjacency list is caller-owned, not freed
+}
+```

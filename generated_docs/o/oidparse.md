@@ -38,3 +38,26 @@ The function handles two cases: T_Integer nodes are processed directly using , w
 - Part of PostgreSQL's SQL parsing infrastructure for handling OID literals
 - Essential for commands that reference database objects by OID
 - Provides proper error handling for unexpected node types with descriptive error messages
+
+## Simplified Source
+
+```c
+Oid
+oidparse(Node *node) {
+    switch (nodeTag(node)) {
+        case T_Integer:
+            // Direct integer value
+            return intVal(node);
+
+        case T_Float:
+            // Large values represented as float strings
+            return uint32in_subr(castNode(Float, node)->fval, NULL,
+                                 "oid", NULL);
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+    }
+
+    return InvalidOid; // Keep compiler quiet
+}
+```

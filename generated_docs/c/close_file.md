@@ -280,3 +280,22 @@ views
 write_data_to_archive_lz4_doc.md and  parameters gracefully in error message construction
 - The error message format provides full context: program name, file path, filename, and error description
 - Demonstrates defensive programming by checking for both stream errors and close operation failures
+
+## Simplified Source
+
+```c
+static void close_file(FILE *stream, char const *dir, char const *name) {
+    // Check for I/O errors or file close failure
+    char const *error = (ferror(stream) ? "I/O error"
+                        : fclose(stream) != 0 ? strerror(errno) : NULL);
+
+    if (error) {
+        // Report error with full file context and exit
+        fprintf(stderr, "%s: %s%s%s%s%s\n", progname,
+                dir ? dir : "", dir ? "/" : "",
+                name ? name : "", name ? ": " : "",
+                error);
+        exit(EXIT_FAILURE);
+    }
+}
+```

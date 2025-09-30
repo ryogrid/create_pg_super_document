@@ -44,3 +44,59 @@ The PX operator ensures that each gene appears exactly once in the offspring, ma
 - The algorithm is based on the Genitor system developed by Darrell L. Whitley at Colorado State University
 - Maintains the permutation property essential for valid join orderings in query optimization
 - Uses 1-based indexing for the city_table array but 0-based indexing for gene arrays
+
+## Simplified Source
+
+```c
+void
+px(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring, int num_gene,
+   City *city_table)
+{
+    int num_positions;
+    int i, pos, tour2_index, offspring_index;
+
+    // Initialize city tracking table
+    for (i = 1; i <= num_gene; i++)
+        city_table[i].used = 0;
+
+    // Choose random number of positions to inherit from tour1
+    num_positions = geqo_randint(root, 2 * num_gene / 3, num_gene / 3);
+
+    // Randomly select positions from tour1 to inherit
+    for (i = 0; i < num_positions; i++)
+    {
+        pos = geqo_randint(root, num_gene - 1, 0);
+        offspring[pos] = tour1[pos];
+        city_table[(int) tour1[pos]].used = 1;
+    }
+
+    // Fill remaining positions with cities from tour2
+    tour2_index = 0;
+    offspring_index = 0;
+
+    while (offspring_index < num_gene)
+    {
+        // If this position isn't filled yet
+        if (!city_table[(int) tour1[offspring_index]].used)
+        {
+            // If current city from tour2 hasn't been used
+            if (!city_table[(int) tour2[tour2_index]].used)
+            {
+                offspring[offspring_index] = tour2[tour2_index];
+                tour2_index++;
+                offspring_index++;
+            }
+            else
+            {
+                // Skip this city from tour2, it's already used
+                tour2_index++;
+            }
+        }
+        else
+        {
+            // This position is already filled, move to next
+            offspring_index++;
+        }
+    }
+}
+```

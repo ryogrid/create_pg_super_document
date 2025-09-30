@@ -46,3 +46,34 @@ The parsed values are stored directly into the provided VirtualTransactionId str
 - Uses "%d/%u" format specifier to parse the procNumber (signed int) and localTransactionId (unsigned int)
 - The virtual transaction ID identifies the session and transaction that exported the snapshot
 - Essential for tracking the origin of the snapshot and ensuring proper visibility semantics
+
+## Simplified Source
+
+```c
+static void parseVxidFromText(const char *prefix, char **s, const char *filename,
+                             VirtualTransactionId *vxid) {
+    char *ptr = *s;
+
+    // Verify the line starts with expected prefix
+    if (strncmp(ptr, prefix, strlen(prefix)) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    // Skip past prefix and parse VXID components (procNumber/localTransactionId)
+    ptr += strlen(prefix);
+    if (sscanf(ptr, "%d/%u", &vxid->procNumber, &vxid->localTransactionId) != 2) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    // Find end of line and advance to next line
+    ptr = strchr(ptr, '\n');
+    if (!ptr) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    *s = ptr + 1;  // Update parsing position
+}
+```

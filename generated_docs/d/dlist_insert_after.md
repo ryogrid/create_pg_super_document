@@ -39,3 +39,17 @@ The insertion process involves four pointer updates:
 - No null pointer checks are performed - caller must ensure valid pointers
 - The function maintains the doubly-linked nature of the list by updating both forward and backward pointers
 - Used extensively in PostgreSQL for maintaining various internal data structures like GIN index pages and synchronous replication queues
+
+## Simplified Source
+
+```c
+static inline void dlist_insert_after(dlist_node *after, dlist_node *node) {
+    // Link new node into list after the specified node
+    node->prev = after;
+    node->next = after->next;
+
+    // Update adjacent nodes to point to new node
+    after->next = node;
+    node->next->prev = node;
+}
+```

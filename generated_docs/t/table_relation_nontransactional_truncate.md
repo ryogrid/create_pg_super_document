@@ -32,3 +32,14 @@ The function delegates to the table access method's specific implementation of n
 - The function is an inline wrapper that delegates to the table access method implementation
 - More efficient than transactional truncate since it doesn't need to maintain undo information
 - Should not be used on relations that require rollback capability
+
+## Simplified Source
+
+```c
+static inline void
+table_relation_nontransactional_truncate(Relation rel)
+{
+    // Delegate to table access method implementation
+    rel->rd_tableam->relation_nontransactional_truncate(rel);
+}
+```

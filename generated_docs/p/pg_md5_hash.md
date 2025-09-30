@@ -49,3 +49,36 @@ The implementation uses PostgreSQL's cryptohash API for secure MD5 computation, 
 - Uses PostgreSQL's internal cryptographic hash framework for secure and consistent hash computation
 - Originally authored by Sverre H. Huseby <sverrehu@online.no>
 - Error conditions include out-of-memory scenarios and MD5 computation failures
+
+## Simplified Source
+
+```c
+bool
+pg_md5_hash(const void *buff, size_t len, char *hexsum, const char **errstr) {
+    uint8 sum[MD5_DIGEST_LENGTH];
+    pg_cryptohash_ctx *ctx;
+
+    *errstr = NULL;
+
+    // Create MD5 hash context
+    ctx = pg_cryptohash_create(PG_MD5);
+    if (ctx == NULL) {
+        *errstr = pg_cryptohash_error(NULL);  // Returns OOM error
+        return false;
+    }
+
+    // Perform MD5 hash computation: init -> update -> final
+    if (pg_cryptohash_init(ctx) < 0 ||
+        pg_cryptohash_update(ctx, buff, len) < 0 ||
+        pg_cryptohash_final(ctx, sum, sizeof(sum)) < 0) {
+        *errstr = pg_cryptohash_error(ctx);
+        pg_cryptohash_free(ctx);
+        return false;
+    }
+
+    // Convert binary hash to hexadecimal string
+    bytesToHex(sum, hexsum);
+    pg_cryptohash_free(ctx);
+    return true;
+}
+```

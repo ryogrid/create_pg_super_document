@@ -53,3 +53,52 @@ This static function performs the core column name lookup within a specific Rang
 - Supports fuzzy matching for improved error messages when exact matches fail
 - Essential building block for PostgreSQL's column name resolution system
 - Located in src/backend/parser/parse_relation.c:800-882
+
+## Simplified Source
+
+```c
+static int
+scanRTEForColumn(ParseState *pstate, RangeTblEntry *rte, Alias *eref,
+                 const char *colname, int location,
+                 int fuzzy_rte_penalty, FuzzyAttrMatchState *fuzzystate) {
+    int result = InvalidAttrNumber;
+    int attnum = 0;
+
+    // Search through user column names for exact matches
+    foreach(c, eref->colnames) {
+        const char *attcolname = strVal(lfirst(c));
+        attnum++;
+
+        if (strcmp(attcolname, colname) == 0) {
+            // Check for ambiguous column references
+            if (result)
+                ereport(ERROR, (errcode(ERRCODE_AMBIGUOUS_COLUMN),
+                               errmsg("column reference \"%s\" is ambiguous", colname),
+                               parser_errposition(pstate, location)));
+            result = attnum;
+        }
+
+        // Update fuzzy match state for error reporting
+        if (fuzzystate != NULL)
+            updateFuzzyAttrMatchState(fuzzy_rte_penalty, fuzzystate,
+                                     rte, attcolname, colname, attnum);
+    }
+
+    // Return user column match if found (overrides system columns)
+    if (result)
+        return result;
+
+    // Check system columns for real relations (not composite types)
+    if (rte->rtekind == RTE_RELATION && rte->relkind != RELKIND_COMPOSITE_TYPE) {
+        attnum = specialAttNum(colname);
+        if (attnum != InvalidAttrNumber) {
+            // Verify the system column actually exists for this relation
+            if (SearchSysCacheExists2(ATTNUM, ObjectIdGetDatum(rte->relid),
+                                     Int16GetDatum(attnum)))
+                result = attnum;
+        }
+    }
+
+    return result;
+}
+```

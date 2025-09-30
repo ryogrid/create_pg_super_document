@@ -41,3 +41,42 @@ static bool isQueryUsingTempRelation_walker(Node *node, void *context)
 - The QTW_IGNORE_JOINALIASES flag is used to avoid examining join alias structures during tree walking
 - The function performs early termination - returns true immediately upon finding the first temporary relation
 - Memory management is handled by the walker framework and relation opening/closing functions
+
+## Simplified Source
+```c
+static bool
+isQueryUsingTempRelation_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Query))
+    {
+        Query *query = (Query *) node;
+
+        // Check each relation in the range table
+        foreach(rtable, query->rtable)
+        {
+            RangeTblEntry *rte = lfirst(rtable);
+
+            if (rte->rtekind == RTE_RELATION)
+            {
+                // Open relation to check if it's temporary
+                Relation rel = table_open(rte->relid, AccessShareLock);
+                char persistence = rel->rd_rel->relpersistence;
+                table_close(rel, AccessShareLock);
+
+                if (persistence == RELPERSISTENCE_TEMP)
+                    return true;  // Found temporary relation
+            }
+        }
+
+        // Recursively check nested queries
+        return query_tree_walker(query, isQueryUsingTempRelation_walker,
+                                context, QTW_IGNORE_JOINALIASES);
+    }
+
+    // Recursively check expression nodes
+    return expression_tree_walker(node, isQueryUsingTempRelation_walker, context);
+}
+```

@@ -42,3 +42,53 @@ The function handles five different types of parser functions:
 - The prslextype function requires an internal-type argument for security reasons, even though the argument is not actually used
 - Error reporting includes detailed function signature information to help diagnose type mismatches
 - All parser functions except prsend return type 'internal'; prsend returns 'void'
+
+## Simplified Source
+
+```c
+static Datum get_ts_parser_func(DefElem *defel, int attnum) {
+    List *funcName = defGetQualifiedName(defel);
+    Oid typeId[3];
+    Oid retTypeId;
+    int nargs;
+    Oid procOid;
+
+    // Set default return type and first parameter
+    retTypeId = INTERNALOID;
+    typeId[0] = INTERNALOID;
+
+    // Determine function signature based on parser function type
+    switch (attnum) {
+        case Anum_pg_ts_parser_prsstart:
+            nargs = 2;
+            typeId[1] = INT4OID;
+            break;
+        case Anum_pg_ts_parser_prstoken:
+            nargs = 3;
+            typeId[1] = INTERNALOID;
+            typeId[2] = INTERNALOID;
+            break;
+        case Anum_pg_ts_parser_prsend:
+            nargs = 1;
+            retTypeId = VOIDOID;
+            break;
+        case Anum_pg_ts_parser_prsheadline:
+            nargs = 3;
+            typeId[1] = INTERNALOID;
+            typeId[2] = TSQUERYOID;
+            break;
+        case Anum_pg_ts_parser_prslextype:
+            nargs = 1;
+            break;
+        default:
+            elog(ERROR, "unrecognized attribute for text search parser: %d", attnum);
+    }
+
+    // Look up function and validate return type
+    procOid = LookupFuncName(funcName, nargs, typeId, false);
+    if (get_func_rettype(procOid) != retTypeId)
+        ereport(ERROR, "function should return correct type");
+
+    return ObjectIdGetDatum(procOid);
+}
+```

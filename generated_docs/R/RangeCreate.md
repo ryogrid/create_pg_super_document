@@ -53,3 +53,57 @@ The function operates in several phases:
 - Optional parameters like rangeCollation, rangeCanonical, and rangeSubDiff are only processed if they have valid OIDs
 - The dependency system ensures that dropping referenced objects will cascade appropriately to dependent range types
 - This function is part of the DDL infrastructure for CREATE TYPE ... AS RANGE commands
+
+## Simplified Source
+
+```c
+void
+RangeCreate(Oid rangeTypeOid, Oid rangeSubType, Oid rangeCollation,
+            Oid rangeSubOpclass, RegProcedure rangeCanonical,
+            RegProcedure rangeSubDiff, Oid multirangeTypeOid)
+{
+    Relation pg_range = table_open(RangeRelationId, RowExclusiveLock);
+
+    // Populate pg_range tuple with all range metadata
+    Datum values[Natts_pg_range];
+    bool nulls[Natts_pg_range];
+    memset(nulls, 0, sizeof(nulls));
+
+    values[Anum_pg_range_rngtypid - 1] = ObjectIdGetDatum(rangeTypeOid);
+    values[Anum_pg_range_rngsubtype - 1] = ObjectIdGetDatum(rangeSubType);
+    values[Anum_pg_range_rngcollation - 1] = ObjectIdGetDatum(rangeCollation);
+    values[Anum_pg_range_rngsubopc - 1] = ObjectIdGetDatum(rangeSubOpclass);
+    values[Anum_pg_range_rngcanonical - 1] = ObjectIdGetDatum(rangeCanonical);
+    values[Anum_pg_range_rngsubdiff - 1] = ObjectIdGetDatum(rangeSubDiff);
+    values[Anum_pg_range_rngmultitypid - 1] = ObjectIdGetDatum(multirangeTypeOid);
+
+    // Insert the catalog entry
+    HeapTuple tup = heap_form_tuple(RelationGetDescr(pg_range), values, nulls);
+    CatalogTupleInsert(pg_range, tup);
+    heap_freetuple(tup);
+
+    // Record dependencies on all referenced objects
+    ObjectAddresses *addrs = new_object_addresses();
+    ObjectAddress myself = {TypeRelationId, rangeTypeOid, 0};
+
+    // Add dependencies on subtype, operator class, and optional collation/functions
+    add_exact_object_address(&(ObjectAddress){TypeRelationId, rangeSubType, 0}, addrs);
+    add_exact_object_address(&(ObjectAddress){OperatorClassRelationId, rangeSubOpclass, 0}, addrs);
+
+    if (OidIsValid(rangeCollation))
+        add_exact_object_address(&(ObjectAddress){CollationRelationId, rangeCollation, 0}, addrs);
+    if (OidIsValid(rangeCanonical))
+        add_exact_object_address(&(ObjectAddress){ProcedureRelationId, rangeCanonical, 0}, addrs);
+    if (OidIsValid(rangeSubDiff))
+        add_exact_object_address(&(ObjectAddress){ProcedureRelationId, rangeSubDiff, 0}, addrs);
+
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+    free_object_addresses(addrs);
+
+    // Record multirange type's dependency on this range type
+    ObjectAddress multirange = {TypeRelationId, multirangeTypeOid, 0};
+    recordDependencyOn(&multirange, &myself, DEPENDENCY_INTERNAL);
+
+    table_close(pg_range, RowExclusiveLock);
+}
+```

@@ -52,3 +52,81 @@ This function processes GROUP BY clauses and window PARTITION BY clauses, handli
 - The groupingSets tree uses integer ressortgrouprefs rather than actual expressions for efficiency
 - Supports complex grouping operations including CUBE (with exponential expansion) and ROLLUP
 - Part of PostgreSQL's advanced SQL standard compliance for GROUP BY operations
+
+## Simplified Source
+
+```c
+List *
+transformGroupClause(ParseState *pstate, List *grouplist, List **groupingSets,
+                     List **targetlist, List *sortClause,
+                     ParseExprKind exprKind, bool useSQL99)
+{
+    List *result = NIL;
+    List *flat_grouplist;
+    List *gsets = NIL;
+    ListCell *gl;
+    bool hasGroupingSets = false;
+    Bitmapset *seen_local = NULL;
+
+    // Recursively flatten implicit RowExprs
+    flat_grouplist = (List *) flatten_grouping_sets((Node *) grouplist,
+                                                     true,
+                                                     &hasGroupingSets);
+
+    // Handle empty list with grouping sets - restore canonical form
+    if (flat_grouplist == NIL && hasGroupingSets) {
+        flat_grouplist = list_make1(makeGroupingSet(GROUPING_SET_EMPTY,
+                                                     NIL,
+                                                     exprLocation((Node *) grouplist)));
+    }
+
+    foreach(gl, flat_grouplist) {
+        Node *gexpr = (Node *) lfirst(gl);
+
+        if (IsA(gexpr, GroupingSet)) {
+            GroupingSet *gset = (GroupingSet *) gexpr;
+
+            switch (gset->kind) {
+                case GROUPING_SET_EMPTY:
+                    gsets = lappend(gsets, gset);
+                    break;
+                case GROUPING_SET_SIMPLE:
+                    Assert(false);  // can't happen
+                    break;
+                case GROUPING_SET_SETS:
+                case GROUPING_SET_CUBE:
+                case GROUPING_SET_ROLLUP:
+                    gsets = lappend(gsets,
+                                    transformGroupingSet(&result,
+                                                         pstate, gset,
+                                                         targetlist, sortClause,
+                                                         exprKind, useSQL99, true));
+                    break;
+            }
+        }
+        else {
+            // Transform regular grouping expression
+            Index ref = transformGroupClauseExpr(&result, seen_local,
+                                                  pstate, gexpr,
+                                                  targetlist, sortClause,
+                                                  exprKind, useSQL99, true);
+
+            if (ref > 0) {
+                seen_local = bms_add_member(seen_local, ref);
+                if (hasGroupingSets)
+                    gsets = lappend(gsets,
+                                    makeGroupingSet(GROUPING_SET_SIMPLE,
+                                                    list_make1_int(ref),
+                                                    exprLocation(gexpr)));
+            }
+        }
+    }
+
+    Assert(gsets == NIL || groupingSets != NULL);
+
+    if (groupingSets)
+        *groupingSets = gsets;
+
+    return result;
+}
+```

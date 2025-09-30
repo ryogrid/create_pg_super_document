@@ -35,3 +35,16 @@ The default strategy of setting generations equal to pool size ensures that less
 - Setting generations too low may result in premature convergence
 - Setting generations too high provides diminishing returns on optimization quality
 - The function is static, only accessible within the geqo_main.c module
+
+## Simplified Source
+
+```c
+static int gimme_number_generations(int pool_size) {
+    // Use configured value if set, otherwise default to pool size
+    if (Geqo_generations > 0) {
+        return Geqo_generations;
+    }
+
+    return pool_size;
+}
+```

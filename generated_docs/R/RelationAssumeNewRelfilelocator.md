@@ -44,3 +44,21 @@ The timing of this call is crucial for WAL consistency. It must be positioned ca
 - Essential for maintaining WAL replay consistency during crash recovery
 - The rd_firstRelfilelocatorSubid field tracks the very first RelFileLocator change in a transaction tree, while rd_newRelfilelocatorSubid tracks the most recent change
 - Failure to call this function when required can lead to WAL replay issues and data corruption
+
+## Simplified Source
+
+```c
+void
+RelationAssumeNewRelfilelocator(Relation relation)
+{
+    // Record the subtransaction ID when RelFileLocator change occurred
+    relation->rd_newRelfilelocatorSubid = GetCurrentSubTransactionId();
+
+    // Track the first RelFileLocator change in this transaction tree
+    if (relation->rd_firstRelfilelocatorSubid == InvalidSubTransactionId)
+        relation->rd_firstRelfilelocatorSubid = relation->rd_newRelfilelocatorSubid;
+
+    // Register for cleanup at transaction end
+    EOXactListAdd(relation);
+}
+```

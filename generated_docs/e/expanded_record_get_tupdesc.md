@@ -41,3 +41,18 @@ The tuple descriptor describes the structure of the composite type represented b
 - The tuple descriptor may be reference-counted from the type cache or locally allocated
 - If locally allocated, the ER_FLAG_TUPDESC_ALLOCED flag will be set in the header
 - Located in src/include/utils/expandedrecord.h:218-227
+
+## Simplified Source
+
+```c
+static inline TupleDesc
+expanded_record_get_tupdesc(ExpandedRecordHeader *erh)
+{
+    // Fast path: return cached tuple descriptor if available
+    if (likely(erh->er_tupdesc != NULL))
+        return erh->er_tupdesc;
+
+    // Slow path: fetch and cache tuple descriptor
+    return expanded_record_fetch_tupdesc(erh);
+}
+```

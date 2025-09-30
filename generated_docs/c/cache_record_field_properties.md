@@ -42,3 +42,93 @@ This function is the core implementation for determining what operations are sup
 - For domain types over composite types, inherits properties from the base composite type
 - Sets TCFLAGS_CHECKED_FIELD_PROPERTIES to prevent redundant computation
 - Critical for PostgreSQL's type system to determine what operations can be performed on complex types
+
+## Simplified Source
+
+```c
+static void cache_record_field_properties(TypeCacheEntry *typentry)
+{
+    // Handle RECORD pseudo-type: assume equality and comparison work
+    if (typentry->type_id == RECORDOID)
+    {
+        typentry->flags |= (TCFLAGS_HAVE_FIELD_EQUALITY |
+                           TCFLAGS_HAVE_FIELD_COMPARE);
+    }
+    // Handle composite types: check all fields for supported operations
+    else if (typentry->typtype == TYPTYPE_COMPOSITE)
+    {
+        TupleDesc tupdesc;
+        int newflags;
+
+        // Load tuple descriptor if needed
+        if (typentry->tupDesc == NULL)
+            load_typcache_tupdesc(typentry);
+        tupdesc = typentry->tupDesc;
+
+        IncrTupleDescRefCount(tupdesc);
+
+        // Start with all properties available, remove unsupported ones
+        newflags = (TCFLAGS_HAVE_FIELD_EQUALITY |
+                   TCFLAGS_HAVE_FIELD_COMPARE |
+                   TCFLAGS_HAVE_FIELD_HASHING |
+                   TCFLAGS_HAVE_FIELD_EXTENDED_HASHING);
+
+        // Check each non-dropped field
+        for (int i = 0; i < tupdesc->natts; i++)
+        {
+            Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+            if (attr->attisdropped)
+                continue;
+
+            // Get field type capabilities
+            TypeCacheEntry *fieldentry = lookup_type_cache(attr->atttypid,
+                TYPECACHE_EQ_OPR | TYPECACHE_CMP_PROC |
+                TYPECACHE_HASH_PROC | TYPECACHE_HASH_EXTENDED_PROC);
+
+            // Remove unsupported operations
+            if (!OidIsValid(fieldentry->eq_opr))
+                newflags &= ~TCFLAGS_HAVE_FIELD_EQUALITY;
+            if (!OidIsValid(fieldentry->cmp_proc))
+                newflags &= ~TCFLAGS_HAVE_FIELD_COMPARE;
+            if (!OidIsValid(fieldentry->hash_proc))
+                newflags &= ~TCFLAGS_HAVE_FIELD_HASHING;
+            if (!OidIsValid(fieldentry->hash_extended_proc))
+                newflags &= ~TCFLAGS_HAVE_FIELD_EXTENDED_HASHING;
+
+            // Early exit if no operations are supported
+            if (newflags == 0)
+                break;
+        }
+
+        typentry->flags |= newflags;
+        DecrTupleDescRefCount(tupdesc);
+    }
+    // Handle domains over composite types: inherit base type properties
+    else if (typentry->typtype == TYPTYPE_DOMAIN)
+    {
+        // Load base type info if needed
+        if (typentry->domainBaseType == InvalidOid)
+        {
+            typentry->domainBaseTypmod = -1;
+            typentry->domainBaseType = getBaseTypeAndTypmod(typentry->type_id,
+                                                           &typentry->domainBaseTypmod);
+        }
+
+        TypeCacheEntry *baseentry = lookup_type_cache(typentry->domainBaseType,
+            TYPECACHE_EQ_OPR | TYPECACHE_CMP_PROC |
+            TYPECACHE_HASH_PROC | TYPECACHE_HASH_EXTENDED_PROC);
+
+        if (baseentry->typtype == TYPTYPE_COMPOSITE)
+        {
+            typentry->flags |= TCFLAGS_DOMAIN_BASE_IS_COMPOSITE;
+            typentry->flags |= baseentry->flags & (TCFLAGS_HAVE_FIELD_EQUALITY |
+                                                  TCFLAGS_HAVE_FIELD_COMPARE |
+                                                  TCFLAGS_HAVE_FIELD_HASHING |
+                                                  TCFLAGS_HAVE_FIELD_EXTENDED_HASHING);
+        }
+    }
+
+    typentry->flags |= TCFLAGS_CHECKED_FIELD_PROPERTIES;
+}
+```

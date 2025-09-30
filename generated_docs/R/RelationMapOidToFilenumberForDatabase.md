@@ -35,3 +35,26 @@ The function directly reads the relmap file from the target database directory a
 - Returns InvalidRelFileNumber when the relation OID is not found in the target database's mapping
 - The function assumes the target database's relmap file is accessible and valid
 - Error handling is delegated to the read_relmap_file function with ERROR level reporting
+
+## Simplified Source
+
+```c
+RelFileNumber
+RelationMapOidToFilenumberForDatabase(char *dbpath, Oid relationId)
+{
+    RelMapFile map;
+    int i;
+
+    // Read relation mapping file from specified database path
+    read_relmap_file(&map, dbpath, false, ERROR);
+
+    // Search through mappings to find the relation OID
+    for (i = 0; i < map.num_mappings; i++) {
+        if (relationId == map.mappings[i].mapoid)
+            return map.mappings[i].mapfilenumber;
+    }
+
+    // Return invalid if relation not found in mapping
+    return InvalidRelFileNumber;
+}
+```

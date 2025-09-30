@@ -39,3 +39,15 @@ The function follows PostgreSQL's standard pattern for resource cleanup, ensurin
 - Lock management is flexible - locks can be held beyond the close operation and will be automatically released at transaction end
 - Located in src/backend/access/sequence/sequence.c as part of the sequence access subsystem
 - The function is widely used throughout the sequence command implementation, indicating its importance in proper resource management
+
+## Simplified Source
+
+```c
+void
+sequence_close(Relation relation, LOCKMODE lockmode)
+{
+    // Simply delegate to generic relation_close function
+    // This handles both closing the relation and releasing the specified lock
+    relation_close(relation, lockmode);
+}
+```

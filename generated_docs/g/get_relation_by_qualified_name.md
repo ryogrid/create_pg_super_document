@@ -42,3 +42,63 @@ After successful validation, the function sets the objectId to the relation's OI
 
 ## Notes and Other Information
 This function is marked static and serves as a specialized helper for relation objects within the objectaddress.c module. It combines name resolution, locking, and type validation in a single operation. The type validation is strict - it will reject relations that don't exactly match the expected type, which helps prevent operations on wrong object types. The function handles both regular and partitioned variants of tables and indexes, recognizing that these are logically similar object types.
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_relation_by_qualified_name(ObjectType objtype, List *object,
+                               Relation *relp, LOCKMODE lockmode,
+                               bool missing_ok) {
+    ObjectAddress address;
+    Relation relation;
+
+    // Initialize return address
+    address.classId = RelationRelationId;
+    address.objectId = InvalidOid;
+    address.objectSubId = 0;
+
+    // Open the relation by name
+    relation = relation_openrv_extended(makeRangeVarFromNameList(object),
+                                        lockmode, missing_ok);
+    if (!relation)
+        return address;
+
+    // Validate relation type matches expected object type
+    switch (objtype) {
+        case OBJECT_INDEX:
+            if (relation->rd_rel->relkind != RELKIND_INDEX &&
+                relation->rd_rel->relkind != RELKIND_PARTITIONED_INDEX)
+                ereport(ERROR, "not an index");
+            break;
+        case OBJECT_SEQUENCE:
+            if (relation->rd_rel->relkind != RELKIND_SEQUENCE)
+                ereport(ERROR, "not a sequence");
+            break;
+        case OBJECT_TABLE:
+            if (relation->rd_rel->relkind != RELKIND_RELATION &&
+                relation->rd_rel->relkind != RELKIND_PARTITIONED_TABLE)
+                ereport(ERROR, "not a table");
+            break;
+        case OBJECT_VIEW:
+            if (relation->rd_rel->relkind != RELKIND_VIEW)
+                ereport(ERROR, "not a view");
+            break;
+        case OBJECT_MATVIEW:
+            if (relation->rd_rel->relkind != RELKIND_MATVIEW)
+                ereport(ERROR, "not a materialized view");
+            break;
+        case OBJECT_FOREIGN_TABLE:
+            if (relation->rd_rel->relkind != RELKIND_FOREIGN_TABLE)
+                ereport(ERROR, "not a foreign table");
+            break;
+        default:
+            elog(ERROR, "unrecognized object type: %d", objtype);
+    }
+
+    // Return valid address with relation OID
+    address.objectId = RelationGetRelid(relation);
+    *relp = relation;
+    return address;
+}
+```

@@ -48,3 +48,87 @@ This comprehensive function orchestrates the complete attribute renaming process
 - Ensures name collision detection before applying changes
 - Invokes post-alter hooks for proper event notification
 - Function is static, used only within the tablecmds.c module for internal rename operations
+
+## Simplified Source
+
+```c
+static AttrNumber renameatt_internal(Oid myrelid, const char *oldattname, const char *newattname,
+                                   bool recurse, bool recursing, int expected_parents,
+                                   DropBehavior behavior)
+{
+    // Lock target relation exclusively for entire transaction
+    Relation targetrelation = relation_open(myrelid, AccessExclusiveLock);
+    renameatt_check(myrelid, RelationGetForm(targetrelation), recursing);
+
+    // Handle inheritance hierarchy if recursion requested
+    if (recurse)
+    {
+        List *child_oids, *child_numparents;
+        ListCell *lo, *li;
+
+        // Find all inheriting children
+        child_oids = find_all_inheritors(myrelid, AccessExclusiveLock, &child_numparents);
+
+        // Recursively rename in each child
+        forboth(lo, child_oids, li, child_numparents)
+        {
+            Oid childrelid = lfirst_oid(lo);
+            int numparents = lfirst_int(li);
+
+            if (childrelid == myrelid)
+                continue;
+            // Recursive call without further recursion
+            renameatt_internal(childrelid, oldattname, newattname, false, true, numparents, behavior);
+        }
+    }
+    else
+    {
+        // Check for inheritance children when not recursing
+        if (expected_parents == 0 && find_inheritance_children(myrelid, NoLock) != NIL)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("inherited column \"%s\" must be renamed in child tables too", oldattname)));
+    }
+
+    // Handle typed tables for composite types
+    if (targetrelation->rd_rel->relkind == RELKIND_COMPOSITE_TYPE)
+    {
+        List *child_oids = find_typed_table_dependencies(targetrelation->rd_rel->reltype,
+                                                        RelationGetRelationName(targetrelation), behavior);
+        foreach(lo, child_oids)
+            renameatt_internal(lfirst_oid(lo), oldattname, newattname, true, true, 0, behavior);
+    }
+
+    // Open attribute catalog and find the target attribute
+    Relation attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+    HeapTuple atttup = SearchSysCacheCopyAttName(myrelid, oldattname);
+
+    if (!HeapTupleIsValid(atttup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                       errmsg("column \"%s\" does not exist", oldattname)));
+
+    Form_pg_attribute attform = (Form_pg_attribute) GETSTRUCT(atttup);
+    AttrNumber attnum = attform->attnum;
+
+    // Validate rename operation
+    if (attnum <= 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot rename system column \"%s\"", oldattname)));
+
+    if (attform->attinhcount > expected_parents)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                       errmsg("cannot rename inherited column \"%s\"", oldattname)));
+
+    // Check for name collision and update catalog
+    check_for_column_name_collision(targetrelation, newattname, false);
+    namestrcpy(&(attform->attname), newattname);
+    CatalogTupleUpdate(attrelation, &atttup->t_self, atttup);
+
+    // Cleanup and notify
+    InvokeObjectPostAlterHook(RelationRelationId, myrelid, attnum);
+    heap_freetuple(atttup);
+    table_close(attrelation, RowExclusiveLock);
+    relation_close(targetrelation, NoLock);
+
+    return attnum;
+}
+```

@@ -47,3 +47,43 @@ This optimization is particularly valuable because it can turn potentially expen
 - The function demonstrates PostgreSQL's approach to aggressive optimization in special cases
 - This optimization is only safe because degenerate grouping guarantees no table variables are referenced
 - The use of Result nodes makes this one of the most efficient possible query execution strategies
+
+## Simplified Source
+
+```c
+static void
+create_degenerate_grouping_paths(PlannerInfo *root, RelOptInfo *input_rel,
+                                RelOptInfo *grouped_rel)
+{
+    Query *parse = root->parse;
+    int nrows;
+    Path *path;
+
+    // Count number of grouping sets
+    nrows = list_length(parse->groupingSets);
+
+    if (nrows > 1) {
+        // Multiple grouping sets: create one Result path per set and append them
+        List *paths = NIL;
+
+        while (--nrows >= 0) {
+            // Create Result node path for each grouping set
+            path = create_group_result_path(root, grouped_rel,
+                                          grouped_rel->reltarget,
+                                          (List *) parse->havingQual);
+            paths = lappend(paths, path);
+        }
+
+        // Combine all Result paths with Append node
+        path = create_append_path(root, grouped_rel, paths, NIL, NIL,
+                                NULL, 0, false, -1);
+    } else {
+        // Single or no grouping sets: create one Result path
+        path = create_group_result_path(root, grouped_rel,
+                                      grouped_rel->reltarget,
+                                      (List *) parse->havingQual);
+    }
+
+    add_path(grouped_rel, path);
+}
+```

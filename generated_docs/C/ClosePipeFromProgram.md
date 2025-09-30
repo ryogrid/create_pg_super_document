@@ -40,3 +40,36 @@ The error handling ensures that PostgreSQL can provide meaningful diagnostic inf
 - Error reporting includes both generic error codes (ERRCODE_EXTERNAL_ROUTINE_EXCEPTION) and detailed internal error descriptions
 - The function asserts that the cstate->is_program flag is set, ensuring it's only called for program-based COPY operations
 - Located in src/backend/commands/copyfrom.c at lines 1813-1842
+
+## Simplified Source
+
+```c
+static void ClosePipeFromProgram(CopyFromState cstate) {
+    int pclose_rc;
+
+    Assert(cstate->is_program);
+
+    // Close the pipe and get return code
+    pclose_rc = ClosePipeStream(cstate->copy_file);
+
+    // Handle system errors
+    if (pclose_rc == -1) {
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not close pipe to external command: %m")));
+    }
+
+    // Handle program failures
+    if (pclose_rc != 0) {
+        // SIGPIPE is expected if we ended before EOF
+        if (!cstate->raw_reached_eof &&
+            wait_result_is_signal(pclose_rc, SIGPIPE)) {
+            return;
+        }
+
+        // Report unexpected failures
+        ereport(ERROR, (errcode(ERRCODE_EXTERNAL_ROUTINE_EXCEPTION),
+                       errmsg("program \"%s\" failed", cstate->filename),
+                       errdetail_internal("%s", wait_result_to_str(pclose_rc))));
+    }
+}
+```

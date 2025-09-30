@@ -57,3 +57,77 @@ The function categorizes operations into execution passes (AT_PASS_*) that deter
 - The function determines execution passes that control the order of operations in subsequent phases
 - [Complex](../C/Complex.md) operations like ALTER COLUMN TYPE undergo parse transformation
 - Recursion behavior varies by command type - some recurse during preparation, others during execution
+
+## Simplified Source
+
+```c
+static void
+ATPrepCmd(List **wqueue, Relation rel, AlterTableCmd *cmd,
+          bool recurse, bool recursing, LOCKMODE lockmode,
+          AlterTableUtilityContext *context)
+{
+    AlteredTableInfo *tab;
+    AlterTablePass pass = AT_PASS_UNSET;
+
+    // Find or create work queue entry for this table
+    tab = ATGetQueueEntry(wqueue, rel);
+
+    // Check for pending partition detach operations
+    if (rel->rd_rel->relispartition &&
+        cmd->subtype != AT_DetachPartitionFinalize &&
+        PartitionHasPendingDetach(RelationGetRelid(rel)))
+        ereport(ERROR, /* partition detach error */);
+
+    // Copy command to avoid conflicts in child table processing
+    cmd = copyObject(cmd);
+
+    // Process command based on subtype
+    switch (cmd->subtype)
+    {
+        case AT_AddColumn:
+            ATSimplePermissions(cmd->subtype, rel, ATT_TABLE | ATT_COMPOSITE_TYPE | ATT_FOREIGN_TABLE);
+            ATPrepAddColumn(wqueue, rel, recurse, recursing, false, cmd, lockmode, context);
+            pass = AT_PASS_ADD_COL;
+            break;
+
+        case AT_DropColumn:
+            ATSimplePermissions(cmd->subtype, rel, ATT_TABLE | ATT_COMPOSITE_TYPE | ATT_FOREIGN_TABLE);
+            ATPrepDropColumn(wqueue, rel, recurse, recursing, cmd, lockmode, context);
+            pass = AT_PASS_DROP;
+            break;
+
+        case AT_AlterColumnType:
+            ATSimplePermissions(cmd->subtype, rel, ATT_TABLE | ATT_COMPOSITE_TYPE | ATT_FOREIGN_TABLE);
+            cmd = ATParseTransformCmd(wqueue, tab, rel, cmd, recurse, lockmode, AT_PASS_UNSET, context);
+            ATPrepAlterColumnType(wqueue, tab, rel, recurse, recursing, cmd, lockmode, context);
+            pass = AT_PASS_ALTER_TYPE;
+            break;
+
+        case AT_AddConstraint:
+            ATSimplePermissions(cmd->subtype, rel, ATT_TABLE | ATT_FOREIGN_TABLE);
+            if (recurse) cmd->recurse = true;
+            pass = AT_PASS_ADD_CONSTR;
+            break;
+
+        case AT_DropConstraint:
+            ATSimplePermissions(cmd->subtype, rel, ATT_TABLE | ATT_FOREIGN_TABLE);
+            ATCheckPartitionsNotInUse(rel, lockmode);
+            if (recurse) cmd->recurse = true;
+            pass = AT_PASS_DROP;
+            break;
+
+        // Many more cases for different ALTER TABLE operations...
+        // Each checks permissions, sets up recursion, and assigns execution pass
+
+        default:
+            elog(ERROR, "unrecognized alter table type: %d", (int) cmd->subtype);
+            pass = AT_PASS_UNSET;
+            break;
+    }
+
+    Assert(pass > AT_PASS_UNSET);
+
+    // Add the subcommand to appropriate execution pass list
+    tab->subcmds[pass] = lappend(tab->subcmds[pass], cmd);
+}
+```

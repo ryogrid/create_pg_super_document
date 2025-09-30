@@ -50,3 +50,70 @@ The function is exported because it's called from prepare.c in EXPLAIN EXECUTE s
 - For DECLARE CURSOR with EXPLAIN ANALYZE, the query actually executes but no cursor is created
 - The function carefully handles plan cache scenarios by copying statements to avoid modification
 - Different output formats (text vs structured) are handled appropriately for each statement type
+
+## Simplified Source
+
+```c
+void ExplainOneUtility(Node *utilityStmt, IntoClause *into, ExplainState *es,
+                       const char *queryString, ParamListInfo params,
+                       QueryEnvironment *queryEnv)
+{
+    if (utilityStmt == NULL)
+        return;
+
+    if (IsA(utilityStmt, CreateTableAsStmt))
+    {
+        CreateTableAsStmt *ctas = (CreateTableAsStmt *) utilityStmt;
+
+        // Check if target relation already exists
+        if (CreateTableAsRelExists(ctas))
+        {
+            if (ctas->objtype == OBJECT_TABLE)
+                ExplainDummyGroup("CREATE TABLE AS", NULL, es);
+            else if (ctas->objtype == OBJECT_MATVIEW)
+                ExplainDummyGroup("CREATE MATERIALIZED VIEW", NULL, es);
+            else
+                elog(ERROR, "unexpected object type: %d", (int) ctas->objtype);
+            return;
+        }
+
+        // Rewrite and explain the contained SELECT query
+        List *rewritten = QueryRewrite(castNode(Query, copyObject(ctas->query)));
+        Assert(list_length(rewritten) == 1);
+        ExplainOneQuery(linitial_node(Query, rewritten),
+                        CURSOR_OPT_PARALLEL_OK, ctas->into, es,
+                        queryString, params, queryEnv);
+    }
+    else if (IsA(utilityStmt, DeclareCursorStmt))
+    {
+        // Extract and explain the cursor's query
+        DeclareCursorStmt *dcs = (DeclareCursorStmt *) utilityStmt;
+        List *rewritten = QueryRewrite(castNode(Query, copyObject(dcs->query)));
+        Assert(list_length(rewritten) == 1);
+        ExplainOneQuery(linitial_node(Query, rewritten),
+                        dcs->options, NULL, es,
+                        queryString, params, queryEnv);
+    }
+    else if (IsA(utilityStmt, ExecuteStmt))
+    {
+        ExplainExecuteQuery((ExecuteStmt *) utilityStmt, into, es,
+                            queryString, params, queryEnv);
+    }
+    else if (IsA(utilityStmt, NotifyStmt))
+    {
+        if (es->format == EXPLAIN_FORMAT_TEXT)
+            appendStringInfoString(es->str, "NOTIFY\n");
+        else
+            ExplainDummyGroup("Notify", NULL, es);
+    }
+    else
+    {
+        // Generic utility statement with no plan structure
+        if (es->format == EXPLAIN_FORMAT_TEXT)
+            appendStringInfoString(es->str,
+                                   "Utility statements have no plan structure\n");
+        else
+            ExplainDummyGroup("Utility Statement", NULL, es);
+    }
+}
+```

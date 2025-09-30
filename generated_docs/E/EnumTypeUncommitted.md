@@ -34,3 +34,21 @@ The function uses a simple hash table lookup to determine membership, returning 
 - The uncommitted_enum_types hash table is managed globally and persists for the duration of a transaction
 - Used primarily to enforce restrictions on enum modifications within the same transaction that created the enum type
 - The function is read-only and does not modify the uncommitted types table
+
+## Simplified Source
+
+```c
+static bool
+EnumTypeUncommitted(Oid typ_id)
+{
+    bool found;
+
+    // If no uncommitted types table exists, type is not uncommitted
+    if (uncommitted_enum_types == NULL)
+        return false;
+
+    // Check if type ID is in the uncommitted types hash table
+    (void) hash_search(uncommitted_enum_types, &typ_id, HASH_FIND, &found);
+    return found;
+}
+```

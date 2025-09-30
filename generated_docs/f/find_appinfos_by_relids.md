@@ -38,3 +38,40 @@ The function allocates an array to hold the found AppendRelInfo pointers and ite
 - The returned array can be freed by the caller using pfree
 - An error is raised if a base relation ID is found without a corresponding append_rel_array entry, indicating an inconsistent planner state
 - This function is essential for partitioned table and inheritance hierarchy processing in the PostgreSQL query planner
+
+## Simplified Source
+
+```c
+AppendRelInfo **
+find_appinfos_by_relids(PlannerInfo *root, Relids relids, int *nappinfos)
+{
+    AppendRelInfo **appinfos;
+    int cnt = 0;
+    int i;
+
+    // Allocate array large enough for all possible matches
+    appinfos = (AppendRelInfo **)
+        palloc(sizeof(AppendRelInfo *) * bms_num_members(relids));
+
+    // Iterate through all relation IDs in the bitmapset
+    i = -1;
+    while ((i = bms_next_member(relids, i)) >= 0) {
+        AppendRelInfo *appinfo = root->append_rel_array[i];
+
+        if (!appinfo) {
+            // Check if this is an outer-join index (ignore if so)
+            if (find_base_rel_ignore_join(root, i) == NULL)
+                continue;
+
+            // Error: base relation missing from append_rel_array
+            elog(ERROR, "child rel %d not found in append_rel_array", i);
+        }
+
+        // Add found AppendRelInfo to result array
+        appinfos[cnt++] = appinfo;
+    }
+
+    *nappinfos = cnt;
+    return appinfos;
+}
+```

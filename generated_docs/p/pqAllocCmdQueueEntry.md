@@ -38,3 +38,31 @@ The function implements a simple memory pooling strategy to reduce the overhead 
 - Returns NULL and sets an error message if memory allocation fails
 - The function follows PostgreSQL's memory management patterns for efficient command queuing in pipeline mode
 - Part of the libpq command queuing system that supports asynchronous and pipelined query execution
+
+## Simplified Source
+
+```c
+static PGcmdQueueEntry *pqAllocCmdQueueEntry(PGconn *conn) {
+    PGcmdQueueEntry *entry;
+
+    // Try to reuse an entry from recycle queue first
+    if (conn->cmd_queue_recycle == NULL) {
+        // No recycled entries available, allocate new one
+        entry = malloc(sizeof(PGcmdQueueEntry));
+        if (entry == NULL) {
+            libpq_append_conn_error(conn, "out of memory");
+            return NULL;
+        }
+    } else {
+        // Reuse recycled entry
+        entry = conn->cmd_queue_recycle;
+        conn->cmd_queue_recycle = entry->next;
+    }
+
+    // Initialize entry to clean state
+    entry->next = NULL;
+    entry->query = NULL;
+
+    return entry;
+}
+```

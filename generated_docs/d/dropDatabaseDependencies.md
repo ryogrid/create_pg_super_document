@@ -36,3 +36,37 @@ This function performs a comprehensive cleanup of shared dependencies when a dat
 - Critical for preventing dependency system corruption when databases are dropped
 - Uses CatalogTupleDelete for efficient batch deletion of dependency tuples
 - Part of the database drop process to maintain consistency in the shared object dependency graph
+
+## Simplified Source
+
+```c
+void dropDatabaseDependencies(Oid databaseId) {
+    Relation sdepRel;
+    ScanKeyData key[1];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open shared dependency relation for modification
+    sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    // Phase 1: Delete entries where this database has dependencies
+    ScanKeyInit(&key[0], Anum_pg_shdepend_dbid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(databaseId));
+
+    scan = systable_beginscan(sdepRel, SharedDependDependerIndexId,
+                              true, NULL, 1, key);
+
+    // Remove all dependency entries for this database
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        CatalogTupleDelete(sdepRel, &tup->t_self);
+    }
+
+    systable_endscan(scan);
+
+    // Phase 2: Delete entries where the database itself is the dependent object
+    shdepDropDependency(sdepRel, DatabaseRelationId, databaseId, 0, true,
+                        InvalidOid, InvalidOid, SHARED_DEPENDENCY_INVALID);
+
+    table_close(sdepRel, RowExclusiveLock);
+}
+```

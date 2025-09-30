@@ -37,3 +37,28 @@ This function is essential for PostgreSQL's type conversion system, allowing the
 - Uses the CASTSOURCETARGET cache for efficient lookups based on source and target type OIDs
 - Part of PostgreSQL's comprehensive type conversion and casting infrastructure
 - The function only finds explicit cast entries; it does not handle implicit conversions that might be performed through I/O functions or other mechanisms
+
+## Simplified Source
+
+```c
+Oid
+get_cast_oid(Oid sourcetypeid, Oid targettypeid, bool missing_ok)
+{
+    Oid oid;
+
+    // Look up cast in system cache using source and target type OIDs
+    oid = GetSysCacheOid2(CASTSOURCETARGET, Anum_pg_cast_oid,
+                          ObjectIdGetDatum(sourcetypeid),
+                          ObjectIdGetDatum(targettypeid));
+
+    // Handle missing cast based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("cast from type %s to type %s does not exist",
+                        format_type_be(sourcetypeid),
+                        format_type_be(targettypeid))));
+
+    return oid;
+}
+```

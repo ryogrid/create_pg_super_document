@@ -34,3 +34,17 @@ Similar to other specialized scan types, table function scans have limited optim
 - Table functions include constructs like XMLTABLE, JSON_TABLE, and other SQL standard table functions
 - The function generates a single access path using create_tablefuncscan_path
 - Located in src/backend/optimizer/path/allpaths.c:2836-2859
+
+## Simplified Source
+
+```c
+static void set_tablefunc_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte) {
+    Relids required_outer;
+
+    // Table functions only support LATERAL parameterization
+    required_outer = rel->lateral_relids;
+
+    // Create single table function scan path
+    add_path(rel, create_tablefuncscan_path(root, rel, required_outer));
+}
+```

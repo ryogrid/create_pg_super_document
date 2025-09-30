@@ -41,3 +41,50 @@ The `log_invalid_page` function is a critical component of PostgreSQL's WAL reco
 - The hash table uses HASH_ELEM and HASH_BLOBS flags for efficient key-based lookups
 - Duplicate invalid page references are handled gracefully - the 'present' flag is preserved from the first occurrence
 - The function is essential for PostgreSQL's crash recovery and standby server operations
+
+## Simplified Source
+
+```c
+static void
+log_invalid_page(RelFileLocator locator, ForkNumber forkno, BlockNumber blkno,
+                 bool present)
+{
+    xl_invalid_page_key key;
+    xl_invalid_page *hentry;
+    bool found;
+
+    // If recovery has reached consistency, invalid pages should not exist
+    if (reachedConsistency) {
+        report_invalid_page(WARNING, locator, forkno, blkno, present);
+        elog(ignore_invalid_pages ? WARNING : PANIC,
+             "WAL contains references to invalid pages");
+    }
+
+    // Log invalid page references for debugging
+    if (message_level_is_interesting(DEBUG1))
+        report_invalid_page(DEBUG1, locator, forkno, blkno, present);
+
+    // Create hash table if it doesn't exist yet
+    if (invalid_page_tab == NULL) {
+        HASHCTL ctl;
+        ctl.keysize = sizeof(xl_invalid_page_key);
+        ctl.entrysize = sizeof(xl_invalid_page);
+
+        invalid_page_tab = hash_create("XLOG invalid-page table", 100,
+                                       &ctl, HASH_ELEM | HASH_BLOBS);
+    }
+
+    // Add invalid page entry to hash table
+    key.locator = locator;
+    key.forkno = forkno;
+    key.blkno = blkno;
+
+    hentry = hash_search(invalid_page_tab, &key, HASH_ENTER, &found);
+
+    // Set present flag only for new entries
+    if (!found) {
+        hentry->present = present;
+    }
+    // For duplicates, preserve existing present flag
+}
+```

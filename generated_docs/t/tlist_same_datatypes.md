@@ -41,3 +41,39 @@ Note that the function currently only compares base datatypes and does not consi
 - Used primarily in set operations (UNION, INTERSECT, EXCEPT) to ensure type compatibility
 - Type modifiers (precision, scale, etc.) are not compared, only base types
 - The function assumes colTypes contains Oid values representing PostgreSQL type OIDs
+
+## Simplified Source
+
+```c
+bool tlist_same_datatypes(List *tlist, List *colTypes, bool junkOK) {
+    ListCell *curColType = list_head(colTypes);
+
+    // Compare each target entry with expected column types
+    foreach(l, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        if (tle->resjunk) {
+            // Skip or reject junk columns based on junkOK flag
+            if (!junkOK)
+                return false;
+        } else {
+            // Check if we have a corresponding expected type
+            if (curColType == NULL)
+                return false;  // Target list is longer than expected
+
+            // Compare the actual type with expected type
+            if (exprType((Node *) tle->expr) != lfirst_oid(curColType))
+                return false;
+
+            // Move to next expected type
+            curColType = lnext(colTypes, curColType);
+        }
+    }
+
+    // Ensure we've consumed all expected types
+    if (curColType != NULL)
+        return false;  // Target list is shorter than expected
+
+    return true;
+}
+```

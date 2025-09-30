@@ -38,3 +38,35 @@ The function uses a dummy IndexInfo structure during rebuilding to avoid executi
 - Each index is opened with AccessExclusiveLock and closed with NoLock to avoid deadlock issues
 - The index rebuild process creates completely empty indexes ready for new data
 - This function is typically called as part of TRUNCATE operations that need to maintain index structures
+
+## Simplified Source
+
+```c
+static void
+RelationTruncateIndexes(Relation heapRelation)
+{
+    ListCell *indlist;
+
+    // Get list of indexes for this relation
+    foreach(indlist, RelationGetIndexList(heapRelation)) {
+        Oid indexId = lfirst_oid(indlist);
+        Relation currentIndex;
+        IndexInfo *indexInfo;
+
+        // Open index with exclusive lock
+        currentIndex = index_open(indexId, AccessExclusiveLock);
+
+        // Create dummy IndexInfo to avoid running user code
+        indexInfo = BuildDummyIndexInfo(currentIndex);
+
+        // Truncate the index file to zero blocks
+        RelationTruncate(currentIndex, 0);
+
+        // Rebuild the empty index structure
+        index_build(heapRelation, currentIndex, indexInfo, true, false);
+
+        // Close the index
+        index_close(currentIndex, NoLock);
+    }
+}
+```

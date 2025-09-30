@@ -61,3 +61,25 @@ The design philosophy centers on allowing multiple independent updates to be bat
 - Error handling relies on PostgreSQL's transaction system for automatic cleanup and rollback
 - Some subcommands set recurse flags during phase 1 when recursion logic can only be determined during phase 2
 - The architecture supports complex scenarios like adding constraints that require data validation across multiple tables
+
+## Simplified Source
+
+```c
+void AlterTable(AlterTableStmt *stmt, LOCKMODE lockmode, AlterTableUtilityContext *context)
+{
+    Relation rel;
+
+    // Open the target relation using the provided OID from context
+    // Caller already holds the necessary lock, so use NoLock here
+    rel = relation_open(context->relid, NoLock);
+
+    // Perform basic safety checks before proceeding
+    CheckAlterTableIsSafe(rel);
+
+    // Execute the three-phase ALTER TABLE process:
+    // Phase 1: Examine and prepare subcommands
+    // Phase 2: Update catalogs and validate changes
+    // Phase 3: Rewrite tables if needed
+    ATController(stmt, rel, stmt->cmds, stmt->relation->inh, lockmode, context);
+}
+```

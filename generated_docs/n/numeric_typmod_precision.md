@@ -34,3 +34,13 @@ This function decodes the precision component from a typmod value by reversing t
 - The 0xffff mask ensures the result is constrained to 16 bits (0-65535 range)
 - Should only be called on typmods that have been validated with is_valid_numeric_typmod
 - The maximum precision for NUMERIC type is 1000, so most of the 16-bit range is unused
+
+## Simplified Source
+
+```c
+static inline int numeric_typmod_precision(int32 typmod) {
+    // Extract precision from typmod: remove header offset,
+    // shift to get upper 16 bits, mask to 16-bit value
+    return ((typmod - VARHDRSZ) >> 16) & 0xffff;
+}
+```

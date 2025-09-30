@@ -45,3 +45,61 @@ This function transforms a PostgreSQL List of DefElem structures into a properly
 - Part of PostgreSQL's text search dictionary management system
 - The function is declared in defrem.h, making it available to other subsystems
 - Produces human-readable output that matches SQL syntax conventions
+
+## Simplified Source
+
+```c
+text *
+serialize_deflist(List *deflist)
+{
+    text *result;
+    StringInfoData buf;
+    ListCell *l;
+
+    initStringInfo(&buf);
+
+    // Process each DefElem in the list
+    foreach(l, deflist)
+    {
+        DefElem *defel = (DefElem *) lfirst(l);
+        char *val = defGetString(defel);
+
+        // Format as "name = value"
+        appendStringInfo(&buf, "%s = ", quote_identifier(defel->defname));
+
+        // Handle numeric vs string values differently
+        if (IsA(defel->arg, Integer) || IsA(defel->arg, Float))
+        {
+            // Numeric values: no quotes needed
+            appendStringInfoString(&buf, val);
+        }
+        else
+        {
+            // String values: add quotes and proper escaping
+            if (strchr(val, '\\'))
+                appendStringInfoChar(&buf, ESCAPE_STRING_SYNTAX);
+
+            appendStringInfoChar(&buf, '\'');
+            while (*val)
+            {
+                char ch = *val++;
+
+                // Double quotes and backslashes for SQL escaping
+                if (SQL_STR_DOUBLE(ch, true))
+                    appendStringInfoChar(&buf, ch);
+                appendStringInfoChar(&buf, ch);
+            }
+            appendStringInfoChar(&buf, '\'');
+        }
+
+        // Add comma separator between options (except for last one)
+        if (lnext(deflist, l) != NULL)
+            appendStringInfoString(&buf, ", ");
+    }
+
+    // Convert to TEXT datum and clean up
+    result = cstring_to_text_with_len(buf.data, buf.len);
+    pfree(buf.data);
+    return result;
+}
+```

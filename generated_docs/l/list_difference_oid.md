@@ -39,3 +39,24 @@ The function iterates through each OID element in `list1` and checks if that OID
 - Uses OID-specific list functions for better performance with OID data
 - OIDs are PostgreSQL's standard way of identifying database objects like tables, functions, types, etc.
 - Memory for the result list is newly allocated and should be freed when no longer needed
+
+## Simplified Source
+
+```c
+List *list_difference_oid(const List *list1, const List *list2) {
+    List *result = NIL;
+
+    // Quick return: if nothing to exclude, copy the entire first list
+    if (list2 == NIL)
+        return list_copy(list1);
+
+    // Build result list with OIDs from list1 not in list2
+    const ListCell *cell;
+    foreach(cell, list1) {
+        if (!list_member_oid(list2, lfirst_oid(cell)))
+            result = lappend_oid(result, lfirst_oid(cell));
+    }
+
+    return result;
+}
+```

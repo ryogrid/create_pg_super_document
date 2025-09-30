@@ -60,3 +60,39 @@ The function automatically determines the base type and typmod if not provided, 
 - Uses implicit cast formatting for internal typmod coercion while preserving the original coercion context semantics
 - The hideInputCoercion parameter allows suppression of nested coercion display in complex coercion chains
 - Located in src/backend/parser/parse_coerce.c:676-752
+
+## Simplified Source
+
+```c
+Node *coerce_to_domain(Node *arg, Oid baseTypeId, int32 baseTypeMod, Oid typeId,
+                      CoercionContext ccontext, CoercionForm cformat, int location,
+                      bool hideInputCoercion) {
+    // Get the base type and typmod if not provided
+    if (baseTypeId == InvalidOid)
+        baseTypeId = getBaseTypeAndTypmod(typeId, &baseTypeMod);
+
+    // If target type isn't actually a domain, return input unchanged
+    if (baseTypeId == typeId)
+        return arg;
+
+    // Hide nested coercion display if requested
+    if (hideInputCoercion)
+        hide_coercion_node(arg);
+
+    // Apply domain's typmod constraints to the base type
+    // This coercion is marked as implicit for display purposes
+    arg = coerce_type_typmod(arg, baseTypeId, baseTypeMod,
+                            ccontext, COERCE_IMPLICIT_CAST, location, false);
+
+    // Create the domain coercion node for runtime constraint checking
+    CoerceToDomain *result = makeNode(CoerceToDomain);
+    result->arg = (Expr *) arg;
+    result->resulttype = typeId;
+    result->resulttypmod = -1;  // Always -1 for domains currently
+    result->coercionformat = cformat;
+    result->location = location;
+    // resultcollid will be set later by parse_collate.c
+
+    return (Node *) result;
+}
+```

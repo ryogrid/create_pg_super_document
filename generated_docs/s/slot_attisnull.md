@@ -39,3 +39,18 @@ The function is optimized for performance - if the attribute's null status has a
 - The function converts 1-based attnum to 0-based array index (attnum - 1)
 - Commonly used in constraint checking, domain validation, and subplan operations
 - Part of PostgreSQL's lazy evaluation system for tuple attributes
+
+## Simplified Source
+
+```c
+static inline bool slot_attisnull(TupleTableSlot *slot, int attnum) {
+    Assert(attnum > 0);
+
+    // Ensure slot has valid null indicators up to requested attribute
+    if (attnum > slot->tts_nvalid)
+        slot_getsomeattrs(slot, attnum);
+
+    // Return null status from cached array (convert to 0-based index)
+    return slot->tts_isnull[attnum - 1];
+}
+```

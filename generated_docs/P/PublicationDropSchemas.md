@@ -38,3 +38,38 @@ The function uses the system cache PUBLICATIONNAMESPACEMAP to efficiently locate
 - Error messages reference "tables from schema" to provide user-friendly context about what is being removed
 - The function handles both strict (error on missing) and permissive (ignore missing) deletion modes
 - Each successful removal involves looking up the pg_publication_namespace entry and deleting it through the standard object deletion infrastructure
+
+## Simplified Source
+
+```c
+static void PublicationDropSchemas(Oid pubid, List *schemas, bool missing_ok) {
+    ObjectAddress obj;
+    ListCell *lc;
+
+    // Process each schema to remove from publication
+    foreach(lc, schemas) {
+        Oid schemaid = lfirst_oid(lc);
+
+        // Look up the publication-schema mapping
+        Oid psid = GetSysCacheOid2(PUBLICATIONNAMESPACEMAP,
+                                   Anum_pg_publication_namespace_oid,
+                                   ObjectIdGetDatum(schemaid),
+                                   ObjectIdGetDatum(pubid));
+
+        // Handle missing schema mapping
+        if (!OidIsValid(psid)) {
+            if (missing_ok)
+                continue;  // Skip missing schemas silently
+
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("tables from schema \"%s\" are not part of the publication",
+                            get_namespace_name(schemaid))));
+        }
+
+        // Delete the publication-schema mapping
+        ObjectAddressSet(obj, PublicationNamespaceRelationId, psid);
+        performDeletion(&obj, DROP_CASCADE, 0);
+    }
+}
+```

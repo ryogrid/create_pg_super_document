@@ -31,3 +31,18 @@ This function wraps the system's gettimeofday() function to provide a consistent
 - Specifically designed as a reference value for PQsocketPoll's timeout parameter
 - Provides platform independence by abstracting the underlying time retrieval mechanism
 - Used internally by libpq for connection timeouts and socket polling operations
+
+## Simplified Source
+
+```c
+pg_usec_time_t PQgetCurrentTimeUSec(void)
+{
+    struct timeval tval;
+
+    // Get current time with microsecond precision
+    gettimeofday(&tval, NULL);
+
+    // Convert to microseconds since Unix epoch
+    return (pg_usec_time_t) tval.tv_sec * 1000000 + tval.tv_usec;
+}
+```

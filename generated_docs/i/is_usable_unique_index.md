@@ -41,3 +41,31 @@ The validation covers multiple aspects:
 - The B-tree requirement ensures that appropriate equality operators exist and can be used in FULL JOIN operations
 - This function is critical for determining whether concurrent refresh (match-merge) or blocking refresh (heap-swap) should be used
 - Materialized views without usable unique indexes must use the heap-swap refresh method
+
+## Simplified Source
+
+```c
+static bool
+is_usable_unique_index(Relation indexRel)
+{
+    Form_pg_index indexStruct = indexRel->rd_index;
+
+    // Check all required index properties for match-merge compatibility
+    if (indexStruct->indisunique &&
+        indexStruct->indimmediate &&
+        indexRel->rd_rel->relam == BTREE_AM_OID &&
+        indexStruct->indisvalid &&
+        RelationGetIndexPredicate(indexRel) == NIL &&
+        indexStruct->indnatts > 0)
+    {
+        // Verify all indexed columns are plain user columns (not expressions or system columns)
+        for (int i = 0; i < indexStruct->indnatts; i++)
+        {
+            if (indexStruct->indkey.values[i] <= 0)
+                return false;  // Reject system columns and expressions
+        }
+        return true;
+    }
+    return false;
+}
+```

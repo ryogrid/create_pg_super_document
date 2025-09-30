@@ -42,3 +42,14 @@ This inline function provides a convenient way to convert a Jsonb pointer back t
 - Essential for interfacing JSONB operations with PostgreSQL's function call protocol
 - Part of the convenience macro family for seamless JSONB integration with PostgreSQL's type system
 - Commonly used in path query operations and JSONB construction functions
+
+## Simplified Source
+
+```c
+static inline Datum
+JsonbPGetDatum(const Jsonb *p)
+{
+    // Convert JSONB pointer to Datum (PostgreSQL's universal type)
+    return PointerGetDatum(p);
+}
+```

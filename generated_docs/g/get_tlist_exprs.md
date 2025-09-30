@@ -33,3 +33,27 @@ The `get_tlist_exprs` function takes a target list and extracts only the express
 - Does not copy the expressions, so the returned list shares pointers with the original target list
 - Common utility in query optimization when working with expression analysis
 - Part of the target list manipulation utilities in the optimizer
+
+## Simplified Source
+
+```c
+List *
+get_tlist_exprs(List *tlist, bool includeJunk)
+{
+    List *result = NIL;
+    ListCell *l;
+
+    // Extract expressions from each target entry
+    foreach(l, tlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        // Skip resjunk columns unless explicitly included
+        if (tle->resjunk && !includeJunk)
+            continue;
+
+        result = lappend(result, tle->expr);
+    }
+    return result;
+}
+```

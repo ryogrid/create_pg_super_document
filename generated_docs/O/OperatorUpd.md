@@ -47,3 +47,93 @@ The function performs thorough validation to detect and prevent inconsistent ope
 - Handles edge cases like self-commutative operators and self-negating operators
 - [CommandCounterIncrement](../C/CommandCounterIncrement.md) calls are strategically placed to handle cases where operators reference themselves or each other
 - Essential for maintaining referential integrity in the operator system, preventing orphaned references after operator deletion
+
+## Simplified Source
+
+```c
+void OperatorUpd(Oid baseId, Oid commId, Oid negId, bool isDelete) {
+    Relation pg_operator_desc;
+    HeapTuple tup;
+
+    // Increment command counter for visibility when creating operators
+    if (!isDelete)
+        CommandCounterIncrement();
+
+    // Open operator catalog for updates
+    pg_operator_desc = table_open(OperatorRelationId, RowExclusiveLock);
+
+    // Update commutator operator if specified
+    if (OidIsValid(commId)) {
+        tup = SearchSysCacheCopy1(OPEROID, ObjectIdGetDatum(commId));
+
+        if (HeapTupleIsValid(tup)) {
+            Form_pg_operator t = (Form_pg_operator) GETSTRUCT(tup);
+            bool update_commutator = false;
+
+            if (isDelete && OidIsValid(t->oprcom)) {
+                // Clear back-reference for deletion
+                t->oprcom = InvalidOid;
+                update_commutator = true;
+            }
+            else if (!isDelete && t->oprcom != baseId) {
+                // Check for conflicts with existing references
+                if (OidIsValid(t->oprcom)) {
+                    ereport(ERROR,
+                           (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                            errmsg("commutator operator %s is already the commutator of another operator",
+                                   NameStr(t->oprname))));
+                }
+
+                // Set back-reference to base operator
+                t->oprcom = baseId;
+                update_commutator = true;
+            }
+
+            // Apply updates and ensure visibility
+            if (update_commutator) {
+                CatalogTupleUpdate(pg_operator_desc, &tup->t_self, tup);
+                CommandCounterIncrement();
+            }
+        }
+    }
+
+    // Update negator operator if specified (similar logic)
+    if (OidIsValid(negId)) {
+        tup = SearchSysCacheCopy1(OPEROID, ObjectIdGetDatum(negId));
+
+        if (HeapTupleIsValid(tup)) {
+            Form_pg_operator t = (Form_pg_operator) GETSTRUCT(tup);
+            bool update_negator = false;
+
+            if (isDelete && OidIsValid(t->oprnegate)) {
+                // Clear back-reference for deletion
+                t->oprnegate = InvalidOid;
+                update_negator = true;
+            }
+            else if (!isDelete && t->oprnegate != baseId) {
+                // Check for conflicts with existing references
+                if (OidIsValid(t->oprnegate)) {
+                    ereport(ERROR,
+                           (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                            errmsg("negator operator %s is already the negator of another operator",
+                                   NameStr(t->oprname))));
+                }
+
+                // Set back-reference to base operator
+                t->oprnegate = baseId;
+                update_negator = true;
+            }
+
+            // Apply updates and ensure visibility for deletion case
+            if (update_negator) {
+                CatalogTupleUpdate(pg_operator_desc, &tup->t_self, tup);
+                if (isDelete)
+                    CommandCounterIncrement();
+            }
+        }
+    }
+
+    // Close catalog relation
+    table_close(pg_operator_desc, RowExclusiveLock);
+}
+```

@@ -41,3 +41,66 @@ This function serves as the central coordinator for all publication modification
 - Delegates to specialized functions: AlterPublicationOptions for options, AlterPublicationTables/AlterPublicationSchemas for structural changes
 - Part of PostgreSQL's logical replication infrastructure, handling both DDL and configuration changes
 - Error handling includes checks for non-existent publications and permission violations
+
+## Simplified Source
+
+```c
+void
+AlterPublication(ParseState *pstate, AlterPublicationStmt *stmt)
+{
+    Relation rel;
+    HeapTuple tup;
+    Form_pg_publication pubform;
+
+    // Open publication catalog and find the target publication
+    rel = table_open(PublicationRelationId, RowExclusiveLock);
+    tup = SearchSysCacheCopy1(PUBLICATIONNAME, CStringGetDatum(stmt->pubname));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("publication \"%s\" does not exist", stmt->pubname)));
+
+    pubform = (Form_pg_publication) GETSTRUCT(tup);
+
+    // Verify ownership permissions
+    if (!object_ownercheck(PublicationRelationId, pubform->oid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_PUBLICATION, stmt->pubname);
+
+    // Handle option changes vs structural changes
+    if (stmt->options) {
+        // Delegate to options handler
+        AlterPublicationOptions(pstate, stmt, rel, tup);
+    } else {
+        // Handle table/schema changes
+        List *relations = NIL;
+        List *schemaidlist = NIL;
+        Oid pubid = pubform->oid;
+
+        // Parse and resolve object references
+        ObjectsInPublicationToOids(stmt->pubobjects, pstate, &relations, &schemaidlist);
+
+        // Validate the requested changes
+        CheckAlterPublication(stmt, tup, relations, schemaidlist);
+
+        heap_freetuple(tup);
+
+        // Lock publication to prevent concurrent modifications
+        LockDatabaseObject(PublicationRelationId, pubid, 0, AccessExclusiveLock);
+
+        // Double-check existence after acquiring lock (handle concurrent DDL)
+        tup = SearchSysCacheCopy1(PUBLICATIONOID, ObjectIdGetDatum(pubid));
+        if (!HeapTupleIsValid(tup))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                           errmsg("publication \"%s\" does not exist", stmt->pubname)));
+
+        // Delegate to specialized handlers
+        AlterPublicationTables(stmt, tup, relations, pstate->p_sourcetext,
+                              schemaidlist != NIL);
+        AlterPublicationSchemas(stmt, tup, schemaidlist);
+    }
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

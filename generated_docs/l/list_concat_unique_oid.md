@@ -38,3 +38,24 @@ The function modifies and returns the first list parameter, making it the concat
 - The original list1 is modified in place and returned, following PostgreSQL's typical list manipulation pattern
 - Used extensively in publication-related functionality where OID lists need to be merged while maintaining uniqueness
 - Part of PostgreSQL's generic list manipulation utilities in src/backend/nodes/list.c
+
+## Simplified Source
+
+```c
+List *list_concat_unique_oid(List *list1, const List *list2) {
+    ListCell *cell;
+
+    // Verify both lists contain OIDs
+    Assert(IsOidList(list1));
+    Assert(IsOidList(list2));
+
+    // Add each OID from list2 to list1 if not already present
+    foreach(cell, list2) {
+        if (!list_member_oid(list1, lfirst_oid(cell)))
+            list1 = lappend_oid(list1, lfirst_oid(cell));
+    }
+
+    check_list_invariants(list1);
+    return list1;
+}
+```

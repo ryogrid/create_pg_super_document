@@ -38,3 +38,19 @@ The function modifies the top stack entry in-place to avoid affecting levelsup i
 - The caller is responsible for providing a local deparse_namespace variable to save state
 - Critical for proper handling of nested variable references in complex query plans
 - Part of PostgreSQL's query deparsing infrastructure used for rule and view expansion
+
+## Simplified Source
+
+```c
+static void push_child_plan(deparse_namespace *dpns, Plan *plan,
+                           deparse_namespace *save_dpns) {
+    // Save current state for later restoration
+    *save_dpns = *dpns;
+
+    // Link current plan node into ancestors list
+    dpns->ancestors = lcons(dpns->plan, dpns->ancestors);
+
+    // Set attention on the selected child plan
+    set_deparse_plan(dpns, plan);
+}
+```

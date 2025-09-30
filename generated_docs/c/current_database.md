@@ -40,3 +40,18 @@ The function always returns a valid database name since a PostgreSQL session mus
 - MyDatabaseId is a global variable that contains the OID of the current database
 - The function is commonly used in system catalogs, monitoring queries, and administrative scripts
 - Cannot return NULL under normal circumstances since every PostgreSQL session is connected to a database
+
+## Simplified Source
+
+```c
+Datum current_database(PG_FUNCTION_ARGS) {
+    // Allocate memory for database name
+    Name db = (Name) palloc(NAMEDATALEN);
+
+    // Get current database name and copy it to result
+    namestrcpy(db, get_database_name(MyDatabaseId));
+
+    // Return the database name
+    PG_RETURN_NAME(db);
+}
+```

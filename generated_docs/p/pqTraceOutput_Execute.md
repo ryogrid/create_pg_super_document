@@ -38,3 +38,19 @@ The Execute message is part of PostgreSQL's extended query protocol, which allow
 - A maximum row count of 0 means return all available rows
 - Part of the extended query protocol which provides more control over query execution than simple queries
 - The regress parameter is accepted for interface consistency but not used since Execute messages don't contain variable fields that need suppression
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_Execute(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Output message type identifier
+    fprintf(f, "Execute\t");
+
+    // Extract portal name (can be empty string for unnamed portal)
+    pqTraceOutputString(f, message, cursor, false);
+
+    // Extract maximum row count (0 = return all rows)
+    pqTraceOutputInt32(f, message, cursor, false);
+}
+```

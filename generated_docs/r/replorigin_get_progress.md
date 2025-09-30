@@ -38,3 +38,42 @@ replorigin_get_progress queries the current replication progress for a given rep
 - Essential for monitoring replication lag and ensuring consistency in logical replication
 - The function is safe to call concurrently with replorigin_advance operations
 - Commonly used by subscription management and monitoring tools to track replication progress
+
+## Simplified Source
+
+```c
+XLogRecPtr
+replorigin_get_progress(RepOriginId node, bool flush)
+{
+    int i;
+    XLogRecPtr local_lsn = InvalidXLogRecPtr;
+    XLogRecPtr remote_lsn = InvalidXLogRecPtr;
+
+    // Prevent concurrent slot operations
+    LWLockAcquire(ReplicationOriginLock, LW_SHARED);
+
+    // Search for the replication origin in the states array
+    for (i = 0; i < max_replication_slots; i++)
+    {
+        ReplicationState *state = &replication_states[i];
+
+        if (state->roident == node)
+        {
+            // Found the origin, read its progress with state lock
+            LWLockAcquire(&state->lock, LW_SHARED);
+            remote_lsn = state->remote_lsn;
+            local_lsn = state->local_lsn;
+            LWLockRelease(&state->lock);
+            break;
+        }
+    }
+
+    LWLockRelease(ReplicationOriginLock);
+
+    // If requested, flush WAL to ensure durability
+    if (flush && local_lsn != InvalidXLogRecPtr)
+        XLogFlush(local_lsn);
+
+    return remote_lsn;
+}
+```

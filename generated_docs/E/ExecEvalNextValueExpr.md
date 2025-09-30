@@ -45,3 +45,35 @@ Any unsupported sequence type will cause an error.
 - Sequence values are internally represented as int64, then cast to the target type
 - This is part of the step-based expression evaluation system introduced for performance
 - The function assumes the sequence exists and is accessible; access control is handled elsewhere
+
+## Simplified Source
+
+```c
+void ExecEvalNextValueExpr(ExprState *state, ExprEvalStep *op)
+{
+    // Get the next value from the sequence
+    int64 newval = nextval_internal(op->d.nextvalueexpr.seqid, false);
+
+    // Convert to the appropriate integer type
+    switch (op->d.nextvalueexpr.seqtypid)
+    {
+        case INT2OID:
+            *op->resvalue = Int16GetDatum((int16) newval);
+            break;
+
+        case INT4OID:
+            *op->resvalue = Int32GetDatum((int32) newval);
+            break;
+
+        case INT8OID:
+            *op->resvalue = Int64GetDatum((int64) newval);
+            break;
+
+        default:
+            elog(ERROR, "unsupported sequence type %u", op->d.nextvalueexpr.seqtypid);
+    }
+
+    // Sequence values are never NULL
+    *op->resnull = false;
+}
+```

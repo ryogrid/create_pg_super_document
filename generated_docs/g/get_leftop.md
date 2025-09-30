@@ -40,3 +40,19 @@ This function provides access to the left (or first) argument of an OpExpr node 
 - Commonly used in conjunction with get_rightop() to analyze binary operator expressions
 - Critical for query optimization tasks like join planning, index selection, and selectivity estimation
 - The returned Node* may need to be cast to the appropriate expression type depending on the context
+
+## Simplified Source
+
+```c
+static inline Node *
+get_leftop(const void *clause)
+{
+    const OpExpr *expr = (const OpExpr *) clause;
+
+    // Return first argument if args list is not empty, otherwise NULL
+    if (expr->args != NIL)
+        return (Node *) linitial(expr->args);
+    else
+        return NULL;
+}
+```

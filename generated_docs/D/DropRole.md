@@ -50,3 +50,129 @@ DropRole implements the DROP ROLE, DROP USER, and DROP GROUP SQL statements by r
 - Maintains exclusive locks on roles during the drop process to prevent concurrent modifications
 - Automatically removes role memberships, comments, security labels, and configuration settings
 - Uses AccessExclusiveLock to prevent other transactions from accessing the role during deletion
+
+## Simplified Source
+
+```c
+void DropRole(DropRoleStmt *stmt) {
+    Relation pg_authid_rel, pg_auth_members_rel;
+    List *role_oids = NIL;
+
+    // Check if user has permission to drop roles
+    if (!have_createrole_privilege())
+        ereport(ERROR, "permission denied to drop role");
+
+    // Open system catalogs with exclusive locks
+    pg_authid_rel = table_open(AuthIdRelationId, RowExclusiveLock);
+    pg_auth_members_rel = table_open(AuthMemRelationId, RowExclusiveLock);
+
+    // First pass: validate each role and collect role OIDs
+    foreach(item, stmt->roles) {
+        RoleSpec *rolspec = lfirst(item);
+        char *role = rolspec->rolename;
+        HeapTuple tuple;
+        Form_pg_authid roleform;
+        Oid roleid;
+
+        // Look up role by name
+        tuple = SearchSysCache1(AUTHNAME, PointerGetDatum(role));
+        if (!HeapTupleIsValid(tuple)) {
+            if (stmt->missing_ok) {
+                ereport(NOTICE, "role does not exist, skipping");
+                continue;
+            } else {
+                ereport(ERROR, "role does not exist");
+            }
+        }
+
+        roleform = (Form_pg_authid) GETSTRUCT(tuple);
+        roleid = roleform->oid;
+
+        // Safety checks: cannot drop current/session users
+        if (roleid == GetUserId() || roleid == GetOuterUserId() ||
+            roleid == GetSessionUserId())
+            ereport(ERROR, "current/session user cannot be dropped");
+
+        // Permission checks: only superusers can drop superuser roles
+        if (roleform->rolsuper && !superuser())
+            ereport(ERROR, "permission denied to drop superuser role");
+
+        // Must have ADMIN option on the role
+        if (!is_admin_of_role(GetUserId(), roleid))
+            ereport(ERROR, "permission denied - need ADMIN option");
+
+        // Invoke drop hook and lock the role
+        InvokeObjectDropHook(AuthIdRelationId, roleid, 0);
+        ReleaseSysCache(tuple);
+        LockSharedObject(AuthIdRelationId, roleid, 0, AccessExclusiveLock);
+
+        // Remove role membership entries (both as member and grantor)
+        remove_role_memberships(pg_auth_members_rel, roleid);
+
+        CommandCounterIncrement();
+        role_oids = list_append_unique_oid(role_oids, roleid);
+    }
+
+    // Second pass: check dependencies and actually drop the roles
+    foreach(item, role_oids) {
+        Oid roleid = lfirst_oid(item);
+        HeapTuple tuple;
+        Form_pg_authid roleform;
+
+        // Re-find the role tuple
+        tuple = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "could not find tuple for role");
+
+        roleform = (Form_pg_authid) GETSTRUCT(tuple);
+
+        // Check for remaining dependencies that prevent dropping
+        if (checkSharedDependencies(AuthIdRelationId, roleid, &detail, &detail_log))
+            ereport(ERROR, "role cannot be dropped because objects depend on it");
+
+        // Remove the role from pg_authid
+        CatalogTupleDelete(pg_authid_rel, &tuple->t_self);
+        ReleaseSysCache(tuple);
+
+        // Clean up associated metadata
+        DeleteSharedComments(roleid, AuthIdRelationId);
+        DeleteSharedSecurityLabel(roleid, AuthIdRelationId);
+        DropSetting(InvalidOid, roleid);
+    }
+
+    // Close relations (keep locks until commit)
+    table_close(pg_auth_members_rel, NoLock);
+    table_close(pg_authid_rel, NoLock);
+}
+
+// Helper function for membership cleanup (conceptual)
+static void remove_role_memberships(Relation pg_auth_members_rel, Oid roleid) {
+    ScanKeyData scankey;
+    SysScanDesc sscan;
+    HeapTuple tuple;
+
+    // Remove entries where this role is the roleid
+    ScanKeyInit(&scankey, Anum_pg_auth_members_roleid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roleid));
+    sscan = systable_beginscan(pg_auth_members_rel, AuthMemRoleMemIndexId,
+                              true, NULL, 1, &scankey);
+    while (HeapTupleIsValid(tuple = systable_getnext(sscan))) {
+        Form_pg_auth_members authmem_form = (Form_pg_auth_members) GETSTRUCT(tuple);
+        deleteSharedDependencyRecordsFor(AuthMemRelationId, authmem_form->oid, 0);
+        CatalogTupleDelete(pg_auth_members_rel, &tuple->t_self);
+    }
+    systable_endscan(sscan);
+
+    // Remove entries where this role is the member
+    ScanKeyInit(&scankey, Anum_pg_auth_members_member,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roleid));
+    sscan = systable_beginscan(pg_auth_members_rel, AuthMemMemRoleIndexId,
+                              true, NULL, 1, &scankey);
+    while (HeapTupleIsValid(tuple = systable_getnext(sscan))) {
+        Form_pg_auth_members authmem_form = (Form_pg_auth_members) GETSTRUCT(tuple);
+        deleteSharedDependencyRecordsFor(AuthMemRelationId, authmem_form->oid, 0);
+        CatalogTupleDelete(pg_auth_members_rel, &tuple->t_self);
+    }
+    systable_endscan(sscan);
+}
+```

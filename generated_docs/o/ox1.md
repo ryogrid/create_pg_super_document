@@ -46,3 +46,53 @@ The crossover preserves the relative order of elements from the second parent wh
 - The city_table array must be properly sized (at least num_gene + 1 elements) and is used as temporary storage
 - The crossover operator is designed to preserve the permutation property essential for TSP-like problems
 - Part of the genetic algorithm suite used for optimizing complex join orders in PostgreSQL query planning
+
+## Simplified Source
+
+```c
+void
+ox1(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring, int num_gene,
+    City *city_table)
+{
+    int left, right, k, p, temp;
+
+    // Clear the city table tracking array
+    for (k = 1; k <= num_gene; k++)
+        city_table[k].used = 0;
+
+    // Select random segment boundaries from first parent
+    left = geqo_randint(root, num_gene - 1, 0);
+    right = geqo_randint(root, num_gene - 1, 0);
+
+    // Ensure left <= right
+    if (left > right)
+    {
+        temp = left;
+        left = right;
+        right = temp;
+    }
+
+    // Copy segment from tour1 to offspring
+    for (k = left; k <= right; k++)
+    {
+        offspring[k] = tour1[k];
+        city_table[(int) tour1[k]].used = 1;
+    }
+
+    // Fill remaining positions with elements from tour2
+    k = (right + 1) % num_gene;  // Start position in offspring
+    p = k;                       // Start position in tour2
+
+    while (k != left)
+    {
+        // If this gene from tour2 hasn't been used yet
+        if (!city_table[(int) tour2[p]].used)
+        {
+            offspring[k] = tour2[p];
+            k = (k + 1) % num_gene;
+            city_table[(int) tour2[p]].used = 1;
+        }
+        p = (p + 1) % num_gene;
+    }
+}
+```

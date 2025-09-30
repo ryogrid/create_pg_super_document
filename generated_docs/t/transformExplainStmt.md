@@ -44,3 +44,48 @@ The transformation allows SELECT INTO statements within the explained query, unl
 - The function iterates through all GENERIC_PLAN options to use the last specified value
 - Transformation occurs during parse analysis rather than execution to ensure proper parser hook behavior
 - Returns a CMD_UTILITY query that will be executed by the utility statement execution framework
+
+## Simplified Source
+
+```c
+static Query *
+transformExplainStmt(ParseState *pstate, ExplainStmt *stmt)
+{
+    Query *result;
+    bool generic_plan = false;
+    Oid *paramTypes = NULL;
+    int numParams = 0;
+
+    // Check for GENERIC_PLAN option when no external parameter source exists
+    if (pstate->p_paramref_hook == NULL)
+    {
+        ListCell *lc;
+
+        // Find the last GENERIC_PLAN option value
+        foreach(lc, stmt->options)
+        {
+            DefElem *opt = (DefElem *) lfirst(lc);
+            if (strcmp(opt->defname, "generic_plan") == 0)
+                generic_plan = defGetBoolean(opt);
+        }
+
+        // Set up variable parameters if generic plan requested
+        if (generic_plan)
+            setup_parse_variable_parameters(pstate, &paramTypes, &numParams);
+    }
+
+    // Transform the contained query (allows SELECT INTO)
+    stmt->query = (Node *) transformOptionalSelectInto(pstate, stmt->query);
+
+    // Validate parameters for generic plans
+    if (generic_plan)
+        check_variable_parameters(pstate, (Query *) stmt->query);
+
+    // Return as utility command
+    result = makeNode(Query);
+    result->commandType = CMD_UTILITY;
+    result->utilityStmt = (Node *) stmt;
+
+    return result;
+}
+```

@@ -37,3 +37,20 @@ The usecounts array is updated during the substitution process to track how many
 - The usecounts array is modified during substitution to track parameter usage patterns
 - Part of the larger function inlining optimization infrastructure
 - Located in src/backend/optimizer/util/clauses.c at lines 4907-4919
+
+## Simplified Source
+
+```c
+static Node *
+substitute_actual_parameters(Node *expr, int nargs, List *args, int *usecounts)
+{
+    // Set up context for parameter substitution
+    substitute_actual_parameters_context context;
+    context.nargs = nargs;
+    context.args = args;
+    context.usecounts = usecounts;
+
+    // Delegate to mutator for actual tree traversal
+    return substitute_actual_parameters_mutator(expr, &context);
+}
+```

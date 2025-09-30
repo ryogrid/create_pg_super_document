@@ -50,3 +50,36 @@ The childless Append path created by this function will be recognized by is_dumm
 - Clears both regular and partial pathlist to ensure clean state
 - Works in conjunction with is_dummy_rel() to provide complete dummy relation support
 - Located in src/backend/optimizer/path/joinrels.c:1382-1424
+
+## Simplified Source
+
+```c
+void mark_dummy_rel(RelOptInfo *rel)
+{
+    MemoryContext oldcontext;
+
+    // Already marked? Skip if so
+    if (is_dummy_rel(rel))
+        return;
+
+    // Switch to relation's memory context for proper lifecycle management
+    oldcontext = MemoryContextSwitchTo(GetMemoryChunkContext(rel));
+
+    // Set dummy size estimate
+    rel->rows = 0;
+
+    // Clear any existing paths
+    rel->pathlist = NIL;
+    rel->partial_pathlist = NIL;
+
+    // Create a childless Append path as the dummy path
+    add_path(rel, (Path *) create_append_path(NULL, rel, NIL, NIL,
+                                             NIL, rel->lateral_relids,
+                                             0, false, -1));
+
+    // Update cheapest path information
+    set_cheapest(rel);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -67,3 +67,84 @@ The function handles several important aspects:
 - Part of PostgreSQL's equivalence class system for transitive equality inference
 - Critical for generating implied join conditions and optimizing complex queries
 - Integrates with the broader constraint distribution system through distribute_restrictinfo_to_rels()
+
+## Simplified Source
+
+```c
+RestrictInfo *
+process_implied_equality(PlannerInfo *root,
+                        Oid opno,
+                        Oid collation,
+                        Expr *item1,
+                        Expr *item2,
+                        Relids qualscope,
+                        Index security_level,
+                        bool both_const)
+{
+    RestrictInfo *restrictinfo;
+    Node *clause;
+    Relids relids;
+    bool pseudoconstant = false;
+
+    // Build equality clause "item1 op item2" with copied operands
+    clause = (Node *) make_opclause(opno,
+                                    BOOLOID,     /* result type */
+                                    false,       /* not set-returning */
+                                    copyObject(item1),
+                                    copyObject(item2),
+                                    InvalidOid,
+                                    collation);
+
+    // Try constant folding if both operands are constant
+    if (both_const) {
+        clause = eval_const_expressions(root, clause);
+
+        // If clause evaluates to TRUE, return NULL (clause can be dropped)
+        if (clause && IsA(clause, Const)) {
+            Const *cclause = (Const *) clause;
+            if (!cclause->constisnull && DatumGetBool(cclause->constvalue))
+                return NULL;
+        }
+    }
+
+    // Find all relations referenced in the clause
+    relids = pull_varnos(root, clause);
+
+    // Handle variable-free clauses (pseudoconstants)
+    if (bms_is_empty(relids)) {
+        relids = get_join_domain_min_rels(root, qualscope);
+        pseudoconstant = true;
+        root->hasPseudoConstantQuals = true;
+    }
+
+    // Create the RestrictInfo node
+    restrictinfo = make_restrictinfo(root,
+                                    (Expr *) clause,
+                                    true,        /* is_pushed_down */
+                                    false,       /* !has_clone */
+                                    false,       /* !is_clone */
+                                    pseudoconstant,
+                                    security_level,
+                                    relids,
+                                    NULL,        /* incompatible_relids */
+                                    NULL);       /* outer_relids */
+
+    // For join clauses, ensure variables are in target lists
+    if (bms_membership(relids) == BMS_MULTIPLE) {
+        List *vars = pull_var_clause(clause,
+                                    PVC_RECURSE_AGGREGATES |
+                                    PVC_RECURSE_WINDOWFUNCS |
+                                    PVC_INCLUDE_PLACEHOLDERS);
+        add_vars_to_targetlist(root, vars, relids);
+        list_free(vars);
+    }
+
+    // Check if clause can be used for merge joins
+    check_mergejoinable(restrictinfo);
+
+    // Distribute the clause to appropriate relation lists
+    distribute_restrictinfo_to_rels(root, restrictinfo);
+
+    return restrictinfo;
+}
+```

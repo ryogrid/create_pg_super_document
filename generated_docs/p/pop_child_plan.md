@@ -35,3 +35,18 @@ The function ensures that the deparse context is properly restored to its state 
 - The function ensures that the ancestors list is correctly maintained even though it may be unnecessary in some cases
 - Critical for preventing memory leaks and context corruption in complex query deparsing operations
 - Part of PostgreSQL's query deparsing infrastructure used for rule and view expansion
+
+## Simplified Source
+
+```c
+static void pop_child_plan(deparse_namespace *dpns, deparse_namespace *save_dpns) {
+    // Remove the ancestors list cell added by push_child_plan
+    List *ancestors = list_delete_first(dpns->ancestors);
+
+    // Restore all fields modified by push_child_plan
+    *dpns = *save_dpns;
+
+    // Ensure ancestors list is correctly maintained
+    dpns->ancestors = ancestors;
+}
+```

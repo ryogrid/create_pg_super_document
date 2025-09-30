@@ -33,3 +33,14 @@ This function provides a convenient way to extract an xmltype pointer from a Dat
 - The function handles TOAST decompression transparently, ensuring that the returned xmltype pointer points to accessible XML data
 - Part of PostgreSQL's XML data type infrastructure for efficient handling of variable-length XML values
 - Always use this function rather than direct casting when converting Datum to xmltype* to ensure proper TOAST handling
+
+## Simplified Source
+
+```c
+static inline xmltype *
+DatumGetXmlP(Datum X)
+{
+    // Convert Datum to xmltype pointer, handling TOAST decompression
+    return (xmltype *) PG_DETOAST_DATUM(X);
+}
+```

@@ -58,3 +58,163 @@ This comprehensive function processes the parameter list for database objects (f
 - Functions with multiple OUT parameters return RECORD type
 - The function enforces strict parameter ordering: regular inputs, then VARIADIC, then outputs
 - Default expressions are validated to prevent table references, subqueries, and aggregates
+
+## Simplified Source
+
+```c
+void interpret_function_parameter_list(ParseState *pstate,
+                                     List *parameters,
+                                     Oid languageOid,
+                                     ObjectType objtype,
+                                     oidvector **parameterTypes,
+                                     List **parameterTypes_list,
+                                     ArrayType **allParameterTypes,
+                                     ArrayType **parameterModes,
+                                     ArrayType **parameterNames,
+                                     List **inParameterNames_list,
+                                     List **parameterDefaults,
+                                     Oid *variadicArgType,
+                                     Oid *requiredResultType)
+{
+    int parameterCount = list_length(parameters);
+    Oid *inTypes = palloc(parameterCount * sizeof(Oid));
+    int inCount = 0, outCount = 0, varCount = 0;
+    bool have_names = false, have_defaults = false;
+
+    // Initialize output parameters
+    *variadicArgType = InvalidOid;
+    *requiredResultType = InvalidOid;
+    *parameterDefaults = NIL;
+
+    // Allocate work arrays
+    Datum *allTypes = palloc(parameterCount * sizeof(Datum));
+    Datum *paramModes = palloc(parameterCount * sizeof(Datum));
+    Datum *paramNames = palloc0(parameterCount * sizeof(Datum));
+
+    // Process each parameter
+    int i = 0;
+    foreach(cell, parameters) {
+        FunctionParameter *fp = lfirst(cell);
+        TypeName *t = fp->argType;
+        FunctionParameterMode fpmode = fp->mode ?: FUNC_PARAM_IN;
+
+        // Lookup parameter type
+        Type typtup = LookupTypeName(NULL, t, NULL, false);
+        if (!typtup) {
+            ereport(ERROR, "type does not exist");
+        }
+
+        // Validate type - reject shell types for SQL/aggregates
+        if (!type_is_defined(typtup)) {
+            if (languageOid == SQLlanguageId || objtype == OBJECT_AGGREGATE) {
+                ereport(ERROR, "cannot accept shell type");
+            }
+        }
+
+        Oid toid = typeTypeId(typtup);
+        ReleaseSysCache(typtup);
+
+        // Check permissions and reject SETOF types
+        object_aclcheck(TypeRelationId, toid, GetUserId(), ACL_USAGE);
+        if (t->setof) {
+            ereport(ERROR, "cannot accept set arguments");
+        }
+
+        // Handle input parameters
+        if (fpmode != FUNC_PARAM_OUT && fpmode != FUNC_PARAM_TABLE) {
+            if (varCount > 0) {
+                ereport(ERROR, "VARIADIC parameter must be last input parameter");
+            }
+            inTypes[inCount++] = toid;
+            if (parameterTypes_list) {
+                *parameterTypes_list = lappend_oid(*parameterTypes_list, toid);
+            }
+        }
+
+        // Handle output parameters
+        if (fpmode != FUNC_PARAM_IN && fpmode != FUNC_PARAM_VARIADIC) {
+            if (objtype == OBJECT_PROCEDURE) {
+                if (varCount > 0) {
+                    ereport(ERROR, "VARIADIC must be last parameter for procedures");
+                }
+                *requiredResultType = RECORDOID;
+            } else if (outCount == 0) {
+                *requiredResultType = toid;
+            }
+            outCount++;
+        }
+
+        // Handle VARIADIC parameters
+        if (fpmode == FUNC_PARAM_VARIADIC) {
+            *variadicArgType = toid;
+            varCount++;
+
+            // Validate variadic type is array-like
+            if (toid != ANYARRAYOID && toid != ANYCOMPATIBLEARRAYOID &&
+                toid != ANYOID && !OidIsValid(get_element_type(toid))) {
+                ereport(ERROR, "VARIADIC parameter must be an array");
+            }
+        }
+
+        allTypes[i] = ObjectIdGetDatum(toid);
+        paramModes[i] = CharGetDatum(fpmode);
+
+        // Handle parameter names (check for duplicates)
+        if (fp->name && fp->name[0]) {
+            // Simplified duplicate check logic
+            check_parameter_name_conflicts(parameters, fp, fpmode);
+            paramNames[i] = CStringGetTextDatum(fp->name);
+            have_names = true;
+        }
+
+        // Handle default values
+        if (fp->defexpr) {
+            if (fpmode == FUNC_PARAM_OUT || fpmode == FUNC_PARAM_TABLE) {
+                ereport(ERROR, "only input parameters can have defaults");
+            }
+
+            Node *def = transformExpr(pstate, fp->defexpr, EXPR_KIND_FUNCTION_DEFAULT);
+            def = coerce_to_specific_type(pstate, def, toid, "DEFAULT");
+            assign_expr_collations(pstate, def);
+
+            // Validate no table references
+            if (contain_var_clause(def)) {
+                ereport(ERROR, "cannot use table references in parameter defaults");
+            }
+
+            *parameterDefaults = lappend(*parameterDefaults, def);
+            have_defaults = true;
+        } else if (have_defaults && fpmode != FUNC_PARAM_OUT) {
+            ereport(ERROR, "parameters after defaults must also have defaults");
+        }
+
+        i++;
+    }
+
+    // Build output arrays
+    *parameterTypes = buildoidvector(inTypes, inCount);
+
+    if (outCount > 0 || varCount > 0) {
+        *allParameterTypes = construct_array_builtin(allTypes, parameterCount, OIDOID);
+        *parameterModes = construct_array_builtin(paramModes, parameterCount, CHAROID);
+        if (outCount > 1) {
+            *requiredResultType = RECORDOID;
+        }
+    } else {
+        *allParameterTypes = NULL;
+        *parameterModes = NULL;
+    }
+
+    if (have_names) {
+        // Fill empty names
+        for (i = 0; i < parameterCount; i++) {
+            if (paramNames[i] == PointerGetDatum(NULL)) {
+                paramNames[i] = CStringGetTextDatum("");
+            }
+        }
+        *parameterNames = construct_array_builtin(paramNames, parameterCount, TEXTOID);
+    } else {
+        *parameterNames = NULL;
+    }
+}
+```

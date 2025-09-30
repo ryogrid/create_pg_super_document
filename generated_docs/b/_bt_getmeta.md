@@ -44,3 +44,39 @@ This static function safely extracts metadata from a B-tree metapage while perfo
 - Callers caching returned data should account for potential on-the-fly upgrades
 - Error messages include specific version information to aid debugging
 - Returns a pointer to the metadata structure within the page buffer
+
+## Simplified Source
+
+```c
+static BTMetaPageData *
+_bt_getmeta(Relation rel, Buffer metabuf)
+{
+    Page metapg;
+    BTPageOpaque metaopaque;
+    BTMetaPageData *metad;
+
+    // Extract page and metadata from buffer
+    metapg = BufferGetPage(metabuf);
+    metaopaque = BTPageGetOpaque(metapg);
+    metad = BTPageGetMeta(metapg);
+
+    // Verify this is actually a metapage with correct magic number
+    if (!P_ISMETA(metaopaque) || metad->btm_magic != BTREE_MAGIC)
+        ereport(ERROR,
+                (errcode(ERRCODE_INDEX_CORRUPTED),
+                 errmsg("index \"%s\" is not a btree",
+                        RelationGetRelationName(rel))));
+
+    // Check version compatibility
+    if (metad->btm_version < BTREE_MIN_VERSION ||
+        metad->btm_version > BTREE_VERSION)
+        ereport(ERROR,
+                (errcode(ERRCODE_INDEX_CORRUPTED),
+                 errmsg("version mismatch in index \"%s\": file version %d, "
+                        "current version %d, minimal supported version %d",
+                        RelationGetRelationName(rel),
+                        metad->btm_version, BTREE_VERSION, BTREE_MIN_VERSION)));
+
+    return metad;
+}
+```

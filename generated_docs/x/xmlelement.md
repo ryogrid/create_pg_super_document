@@ -46,3 +46,101 @@ The implementation uses libxml2 xmlTextWriter API to build well-formed XML outpu
 - Automatically handles XML character escaping for attributes
 - Memory management includes proper cleanup in exception handlers
 - Located in src/backend/utils/adt/xml.c at lines 869-992
+
+## Simplified Source
+
+```c
+xmltype *xmlelement(XmlExpr *xexpr, Datum *named_argvalue, bool *named_argnull,
+                    Datum *argvalue, bool *argnull)
+{
+#ifdef USE_LIBXML
+    xmltype *result;
+    List *named_arg_strings = NIL;
+    List *arg_strings = NIL;
+    PgXmlErrorContext *xmlerrcxt;
+    volatile xmlBufferPtr buf = NULL;
+    volatile xmlTextWriterPtr writer = NULL;
+
+    // Convert named arguments (attributes) to strings
+    int i = 0;
+    foreach(ListCell *arg, xexpr->named_args)
+    {
+        Expr *e = (Expr *) lfirst(arg);
+        char *str = named_argnull[i] ? NULL :
+                    map_sql_value_to_xml_value(named_argvalue[i], exprType((Node *) e), false);
+        named_arg_strings = lappend(named_arg_strings, str);
+        i++;
+    }
+
+    // Convert regular arguments (content) to strings
+    i = 0;
+    foreach(ListCell *arg, xexpr->args)
+    {
+        if (!argnull[i])
+        {
+            Expr *e = (Expr *) lfirst(arg);
+            char *str = map_sql_value_to_xml_value(argvalue[i], exprType((Node *) e), true);
+            arg_strings = lappend(arg_strings, str);
+        }
+        i++;
+    }
+
+    // Initialize XML processing with error handling
+    xmlerrcxt = pg_xml_init(PG_XML_STRICTNESS_ALL);
+
+    PG_TRY();
+    {
+        // Create XML buffer and writer
+        buf = xmlBufferCreate();
+        if (buf == NULL || xmlerrcxt->err_occurred)
+            xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY, "could not allocate xmlBuffer");
+
+        writer = xmlNewTextWriterMemory(buf, 0);
+        if (writer == NULL || xmlerrcxt->err_occurred)
+            xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY, "could not allocate xmlTextWriter");
+
+        // Write element start tag
+        xmlTextWriterStartElement(writer, (xmlChar *) xexpr->name);
+
+        // Write attributes from named arguments
+        forboth(arg, named_arg_strings, narg, xexpr->arg_names)
+        {
+            char *str = (char *) lfirst(arg);
+            char *argname = strVal(lfirst(narg));
+            if (str)
+                xmlTextWriterWriteAttribute(writer, (xmlChar *) argname, (xmlChar *) str);
+        }
+
+        // Write content from regular arguments
+        foreach(ListCell *arg, arg_strings)
+        {
+            char *str = (char *) lfirst(arg);
+            xmlTextWriterWriteRaw(writer, (xmlChar *) str);
+        }
+
+        // Close element and finalize
+        xmlTextWriterEndElement(writer);
+        xmlFreeTextWriter(writer);
+        writer = NULL;
+
+        result = xmlBuffer_to_xmltype(buf);
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        if (writer) xmlFreeTextWriter(writer);
+        if (buf) xmlBufferFree(buf);
+        pg_xml_done(xmlerrcxt, true);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    xmlBufferFree(buf);
+    pg_xml_done(xmlerrcxt, false);
+    return result;
+#else
+    NO_XML_SUPPORT();
+    return NULL;
+#endif
+}
+```

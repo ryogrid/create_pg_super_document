@@ -36,4 +36,17 @@ The function acts as a wrapper around raw_expression_tree_walker, calling it rec
 - Used exclusively for development/testing purposes to ensure completeness of raw_expression_tree_walker
 - Applied only to DML statements (SELECT, INSERT, UPDATE, DELETE, MERGE) since raw_expression_tree_walker does not handle utility statements  
 - Returns boolean value following the standard walker function convention, though the return value is not used by callers
-- Part of PostgreSQL\s internal testing infrastructure for ensuring comprehensive node type support
+- Part of PostgreSQL's internal testing infrastructure for ensuring comprehensive node type support
+
+## Simplified Source
+
+```c
+static bool test_raw_expression_coverage(Node *node, void *context) {
+    // Skip NULL nodes
+    if (node == NULL)
+        return false;
+
+    // Recursively walk the parse tree using raw_expression_tree_walker
+    return raw_expression_tree_walker(node, test_raw_expression_coverage, context);
+}
+```

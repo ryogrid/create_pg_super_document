@@ -35,3 +35,39 @@ The function processes security quals in levels, where each sublist of clauses g
 - Security levels are incremented for each sublist of security qualifiers to maintain proper security barrier enforcement
 - An assertion ensures that the security_level used doesn't exceed root->qual_security_level
 - Each element in securityQuals is an implicitly-ANDed list of clauses that should receive the same security level
+
+## Simplified Source
+
+```c
+static void process_security_barrier_quals(PlannerInfo *root,
+                                           int rti, JoinTreeItem *jtitem)
+{
+    RangeTblEntry *rte = root->simple_rte_array[rti];
+    Index security_level = 0;
+    ListCell *lc;
+
+    // Process each security qualifier set with increasing security levels
+    foreach(lc, rte->securityQuals) {
+        List *qualset = (List *) lfirst(lc);
+
+        // Distribute this set of security quals to appropriate relations
+        // Note: ojscope = qualscope forces evaluation at relation level
+        distribute_quals_to_rels(root, qualset,
+                                 jtitem,
+                                 NULL,          // sjinfo
+                                 security_level,
+                                 jtitem->qualscope,     // qualscope
+                                 jtitem->qualscope,     // ojscope (same as qualscope)
+                                 NULL,          // outerjoin_nonnullable
+                                 NULL,          // incompatible_relids
+                                 true,          // allow_equivalence
+                                 false, false,  // has_clone, is_clone
+                                 NULL);         // postponed_oj_qual_list
+
+        security_level++;
+    }
+
+    // Ensure security level doesn't exceed global limit
+    Assert(security_level <= root->qual_security_level);
+}
+```

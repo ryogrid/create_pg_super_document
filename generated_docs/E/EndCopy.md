@@ -40,3 +40,27 @@ After handling the output destination, the function performs final cleanup by en
 - Progress reporting is properly terminated to avoid resource leaks
 - The function is static, indicating it's only used within the copyto.c file
 - Essential for proper resource management in PostgreSQL's COPY implementation
+
+## Simplified Source
+
+```c
+static void EndCopy(CopyToState cstate) {
+    // Close output destination
+    if (cstate->is_program) {
+        ClosePipeToProgram(cstate);
+    } else {
+        // Close regular file with error checking
+        if (cstate->filename != NULL && FreeFile(cstate->copy_file)) {
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not close file \"%s\": %m", cstate->filename)));
+        }
+    }
+
+    // End progress reporting
+    pgstat_progress_end_command();
+
+    // Clean up memory
+    MemoryContextDelete(cstate->copycontext);
+    pfree(cstate);
+}
+```

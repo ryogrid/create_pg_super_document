@@ -37,3 +37,15 @@ The command completion tag typically contains information about the command that
 - This message indicates successful completion of a command; errors are reported through different message types
 - Part of PostgreSQL's debugging and development tools for analyzing client-server protocol communication
 - The function assumes the message buffer contains a valid CommandComplete message and does not perform extensive error checking
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_CommandComplete(FILE *f, const char *message, int *cursor) {
+    // Output message type identifier
+    fprintf(f, "CommandComplete\t");
+
+    // Extract and display command completion tag (e.g., "INSERT 0 1", "UPDATE 5")
+    pqTraceOutputString(f, message, cursor, false);
+}
+```

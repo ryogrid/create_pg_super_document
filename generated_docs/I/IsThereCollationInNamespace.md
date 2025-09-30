@@ -39,3 +39,30 @@ If either check finds a match, it raises an appropriate error with detailed info
 - Performs encoding-specific conflict detection to handle both specific and any-encoding collations
 - Raises ERRCODE_DUPLICATE_OBJECT errors with descriptive messages when conflicts are found
 - Critical for maintaining collation name uniqueness within namespaces
+
+## Simplified Source
+
+```c
+void IsThereCollationInNamespace(const char *collname, Oid nspOid) {
+    // Check for collation with same name and current database encoding
+    if (SearchSysCacheExists3(COLLNAMEENCNSP,
+                             CStringGetDatum(collname),
+                             Int32GetDatum(GetDatabaseEncoding()),
+                             ObjectIdGetDatum(nspOid)))
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("collation \"%s\" for encoding \"%s\" already exists in schema \"%s\"",
+                        collname, GetDatabaseEncodingName(),
+                        get_namespace_name(nspOid))));
+
+    // Check for collation with same name and any encoding (-1)
+    if (SearchSysCacheExists3(COLLNAMEENCNSP,
+                             CStringGetDatum(collname),
+                             Int32GetDatum(-1),
+                             ObjectIdGetDatum(nspOid)))
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("collation \"%s\" already exists in schema \"%s\"",
+                        collname, get_namespace_name(nspOid))));
+}
+```

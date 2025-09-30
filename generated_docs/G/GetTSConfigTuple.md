@@ -35,3 +35,28 @@ GetTSConfigTuple is a static utility function that performs a two-step lookup to
 - Includes error handling for cache lookup failures with detailed error message
 - The function comment indicates that cache lookup failure "should not happen"
 - Returns HeapTuple that must be released by caller using ReleaseSysCache
+
+## Simplified Source
+
+```c
+static HeapTuple
+GetTSConfigTuple(List *names)
+{
+    HeapTuple tup;
+    Oid cfgId;
+
+    // Convert configuration name to OID
+    cfgId = get_ts_config_oid(names, true);
+    if (!OidIsValid(cfgId))
+        return NULL;
+
+    // Look up configuration tuple in system cache
+    tup = SearchSysCache1(TSCONFIGOID, ObjectIdGetDatum(cfgId));
+
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for text search configuration %u",
+             cfgId);
+
+    return tup;
+}
+```

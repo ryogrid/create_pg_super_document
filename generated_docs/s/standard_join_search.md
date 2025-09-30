@@ -46,3 +46,54 @@ The function is designed to be replaceable by plugins via join search hooks, ena
 - Plugin authors must preserve original join_rel_list and join_rel_hash states
 - Always produces exactly one final relation containing all joined tables
 - Critical performance component - complexity grows exponentially with join count
+
+## Simplified Source
+
+```c
+RelOptInfo *
+standard_join_search(PlannerInfo *root, int levels_needed, List *initial_rels)
+{
+    int lev;
+    RelOptInfo *rel;
+
+    // Initialize join_rel_level array for dynamic programming
+    root->join_rel_level = (List **) palloc0((levels_needed + 1) * sizeof(List *));
+    root->join_rel_level[1] = initial_rels;
+
+    // Build joins level by level using dynamic programming
+    for (lev = 2; lev <= levels_needed; lev++)
+    {
+        ListCell *lc;
+
+        // Find all possible joins at this level
+        join_search_one_level(root, lev);
+
+        // Post-process each joinrel at this level
+        foreach(lc, root->join_rel_level[lev])
+        {
+            rel = (RelOptInfo *) lfirst(lc);
+
+            // Create partitionwise join paths
+            generate_partitionwise_join_paths(root, rel);
+
+            // Generate gather paths for parallel execution (except topmost rel)
+            if (!bms_equal(rel->relids, root->all_query_rels))
+                generate_useful_gather_paths(root, rel, false);
+
+            // Find and save cheapest paths
+            set_cheapest(rel);
+        }
+    }
+
+    // Should have exactly one relation at final level
+    if (root->join_rel_level[levels_needed] == NIL)
+        elog(ERROR, "failed to build any %d-way joins", levels_needed);
+
+    rel = (RelOptInfo *) linitial(root->join_rel_level[levels_needed]);
+
+    // Cleanup
+    root->join_rel_level = NULL;
+
+    return rel;
+}
+```

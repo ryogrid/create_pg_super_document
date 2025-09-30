@@ -48,3 +48,54 @@ The function performs constraint name validation or generation, checks for exist
 - The function creates a domain constraint (not a relation constraint) in pg_constraint
 - Error handling includes duplicate constraint name detection with appropriate error messages
 - The constraint is marked as local, non-inheritable, and non-internal by default
+
+## Simplified Source
+
+```c
+static void
+domainAddNotNullConstraint(Oid domainOid, Oid domainNamespace, Oid baseTypeOid,
+                          int typMod, Constraint *constr,
+                          const char *domainName, ObjectAddress *constrAddr)
+{
+    Oid constraint_oid;
+
+    Assert(constr->contype == CONSTR_NOTNULL);
+
+    // Generate or validate constraint name
+    if (constr->conname)
+    {
+        if (ConstraintNameIsUsed(CONSTRAINT_DOMAIN, domainOid, constr->conname))
+            ereport(ERROR, "constraint already exists for domain");
+    }
+    else
+    {
+        constr->conname = ChooseConstraintName(domainName, NULL, "not_null",
+                                              domainNamespace, NIL);
+    }
+
+    // Create constraint entry in pg_constraint catalog
+    constraint_oid = CreateConstraintEntry(
+        constr->conname,                    // Constraint name
+        domainNamespace,                    // Namespace
+        CONSTRAINT_NOTNULL,                 // Constraint type
+        false,                              // Not deferrable
+        false,                              // Not deferred
+        !constr->skip_validation,           // Is validated
+        InvalidOid,                         // No parent constraint
+        InvalidOid,                         // Not a relation constraint
+        NULL, 0, 0,                        // No key columns
+        domainOid,                          // Domain constraint
+        InvalidOid,                         // No associated index
+        InvalidOid, NULL, NULL, NULL, NULL, // No foreign key info
+        0, ' ', ' ', NULL, 0, ' ',          // No exclusion constraint info
+        NULL,                               // No expression tree
+        NULL,                               // No binary constraint
+        true,                               // Is local
+        0,                                  // No inheritance count
+        false,                              // No inheritance restriction
+        false);                             // Not internal
+
+    if (constrAddr)
+        ObjectAddressSet(*constrAddr, ConstraintRelationId, constraint_oid);
+}
+```

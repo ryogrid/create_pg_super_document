@@ -36,3 +36,16 @@ As a side effect of the lookup operation, the function causes the type cache's d
 - The side effect of loading domain constraint data is intentional and considered beneficial for performance
 - This function is commonly used throughout the codebase where domain constraint checking is needed
 - The return value directly corresponds to whether typentry->domainData is non-NULL after the lookup operation
+
+## Simplified Source
+
+```c
+bool DomainHasConstraints(Oid type_id) {
+    // Look up type cache entry with domain constraint info
+    // This loads domain data as a side effect if not already loaded
+    TypeCacheEntry *typentry = lookup_type_cache(type_id, TYPECACHE_DOMAIN_CONSTR_INFO);
+
+    // Return true if domain has constraints, false otherwise
+    return (typentry->domainData != NULL);
+}
+```

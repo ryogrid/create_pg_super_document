@@ -33,3 +33,27 @@ This function populates the type cache entry with information about the hashing 
 
 ## Notes and Other Information
 This is a static helper function that implements lazy initialization for multirange element type properties. It follows the same pattern as cache_range_element_properties but handles the more complex indirection required for multirange types (multirange -> range -> element). The function ensures that all necessary type information is loaded before attempting to access element properties, making it robust for use in various contexts within the type cache system. The multirange type system was introduced in PostgreSQL 14 to represent collections of non-overlapping ranges.
+
+## Simplified Source
+
+```c
+static void cache_multirange_element_properties(TypeCacheEntry *typentry) {
+    // Load multirange info if needed
+    if (typentry->rngtype == NULL && typentry->typtype == TYPTYPE_MULTIRANGE)
+        load_multirangetype_info(typentry);
+
+    // Check element hashing capabilities via range type
+    if (typentry->rngtype != NULL && typentry->rngtype->rngelemtype != NULL) {
+        TypeCacheEntry *elementry = lookup_type_cache(
+            typentry->rngtype->rngelemtype->type_id,
+            TYPECACHE_HASH_PROC | TYPECACHE_HASH_EXTENDED_PROC);
+
+        if (OidIsValid(elementry->hash_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;
+        if (OidIsValid(elementry->hash_extended_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;
+    }
+
+    typentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;
+}
+```

@@ -43,3 +43,29 @@ This function combines two range tables by appending the source range table entr
 - Essential for combining range tables when pulling up subqueries or applying rewrite rules
 - Only adjusts perminfoindex if it's greater than 0 (valid permission reference)
 - The function maintains the integrity of RTE-to-permission mappings during table combination
+
+## Simplified Source
+
+```c
+void CombineRangeTables(List **dst_rtable, List **dst_perminfos,
+                       List *src_rtable, List *src_perminfos) {
+    // Calculate offset for adjusting permission indexes
+    int offset = list_length(*dst_perminfos);
+
+    // Update permission indexes in source RTEs if needed
+    if (offset > 0) {
+        ListCell *l;
+        foreach(l, src_rtable) {
+            RangeTblEntry *rte = lfirst_node(RangeTblEntry, l);
+
+            // Adjust permission index to point to correct position in combined list
+            if (rte->perminfoindex > 0)
+                rte->perminfoindex += offset;
+        }
+    }
+
+    // Merge the permission info lists and range table lists
+    *dst_perminfos = list_concat(*dst_perminfos, src_perminfos);
+    *dst_rtable = list_concat(*dst_rtable, src_rtable);
+}
+```

@@ -49,3 +49,46 @@ The function updates the constraint name in-place and triggers post-alter hooks 
 - Triggers post-alter hooks for proper event notification to other subsystems
 - Uses SearchSysCacheCopy1 to get a modifiable copy of the constraint tuple
 - Currently used primarily for index-associated constraint renaming but designed for broader future use
+
+## Simplified Source
+
+```c
+void
+RenameConstraintById(Oid conId, const char *newname)
+{
+    // Open pg_constraint catalog with exclusive lock
+    Relation conDesc = table_open(ConstraintRelationId, RowExclusiveLock);
+
+    // Get a copy of the constraint tuple
+    HeapTuple tuple = SearchSysCacheCopy1(CONSTROID, ObjectIdGetDatum(conId));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for constraint %u", conId);
+
+    Form_pg_constraint con = (Form_pg_constraint) GETSTRUCT(tuple);
+
+    // Check for duplicate relation constraint names
+    if (OidIsValid(con->conrelid) &&
+        ConstraintNameIsUsed(CONSTRAINT_RELATION, con->conrelid, newname))
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("constraint \"%s\" for relation \"%s\" already exists",
+                        newname, get_rel_name(con->conrelid))));
+
+    // Check for duplicate domain constraint names
+    if (OidIsValid(con->contypid) &&
+        ConstraintNameIsUsed(CONSTRAINT_DOMAIN, con->contypid, newname))
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("constraint \"%s\" for domain %s already exists",
+                        newname, format_type_be(con->contypid))));
+
+    // Update the constraint name
+    namestrcpy(&(con->conname), newname);
+    CatalogTupleUpdate(conDesc, &tuple->t_self, tuple);
+
+    // Trigger post-alter hook and cleanup
+    InvokeObjectPostAlterHook(ConstraintRelationId, conId, 0);
+    heap_freetuple(tuple);
+    table_close(conDesc, RowExclusiveLock);
+}
+```

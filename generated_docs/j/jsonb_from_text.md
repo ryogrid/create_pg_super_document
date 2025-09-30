@@ -36,3 +36,17 @@ This function provides a convenient interface for converting PostgreSQL text val
 - Located in 
 - Essential for internal conversions between PostgreSQL's text and JSONB types
 - The function handles PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) through the VARDATA_ANY and VARSIZE_ANY_EXHDR macros
+
+## Simplified Source
+
+```c
+Datum
+jsonb_from_text(text *js, bool unique_keys)
+{
+    // Extract text data and delegate to core conversion function
+    return jsonb_from_cstring(VARDATA_ANY(js),      // Extract text data from PostgreSQL text type
+                              VARSIZE_ANY_EXHDR(js), // Get text length excluding header
+                              unique_keys,            // Pass through unique key validation flag
+                              NULL);                  // Use default memory context
+}
+```

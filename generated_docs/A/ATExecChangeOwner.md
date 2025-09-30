@@ -50,3 +50,138 @@ When changing ownership, the function updates the pg_class catalog, adjusts ACLs
 - Also changes ownership of the relation's row type if it exists
 - Fires post-alter hooks for proper event notification
 - Uses appropriate error messages and hints for unsupported operations
+
+## Simplified Source
+
+```c
+void
+ATExecChangeOwner(Oid relationOid, Oid newOwnerId, bool recursing, LOCKMODE lockmode) {
+    Relation target_rel, class_rel;
+    HeapTuple tuple;
+    Form_pg_class tuple_class;
+
+    // Open the target relation and get its pg_class entry
+    target_rel = relation_open(relationOid, lockmode);
+    class_rel = table_open(RelationRelationId, RowExclusiveLock);
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relationOid));
+    tuple_class = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Validate that we can change ownership of this relation type
+    switch (tuple_class->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_VIEW:
+        case RELKIND_MATVIEW:
+        case RELKIND_FOREIGN_TABLE:
+        case RELKIND_PARTITIONED_TABLE:
+            // These types can have ownership changed
+            break;
+        case RELKIND_INDEX:
+            if (!recursing) {
+                // Warn but don't error for indexes (backward compatibility)
+                if (tuple_class->relowner != newOwnerId)
+                    ereport(WARNING, (errmsg("cannot change owner of index \"%s\"",
+                                           NameStr(tuple_class->relname)),
+                                    errhint("Change the ownership of the index's table instead.")));
+                newOwnerId = tuple_class->relowner; // No-op
+            }
+            break;
+        case RELKIND_SEQUENCE:
+            // Prevent changing ownership of sequences owned by tables
+            if (!recursing && tuple_class->relowner != newOwnerId) {
+                Oid tableId;
+                int32 colId;
+                if (sequenceIsOwned(relationOid, DEPENDENCY_AUTO, &tableId, &colId) ||
+                    sequenceIsOwned(relationOid, DEPENDENCY_INTERNAL, &tableId, &colId))
+                    ereport(ERROR, (errmsg("cannot change owner of sequence \"%s\"",
+                                         NameStr(tuple_class->relname)),
+                                  errdetail("Sequence is linked to table.")));
+            }
+            break;
+        default:
+            // Other types not supported
+            ereport(ERROR, (errmsg("cannot change owner of relation \"%s\"",
+                                 NameStr(tuple_class->relname))));
+    }
+
+    // Perform the ownership change if needed
+    if (tuple_class->relowner != newOwnerId) {
+        // Check permissions (unless recursing)
+        if (!recursing) {
+            if (!superuser()) {
+                if (!object_ownercheck(RelationRelationId, relationOid, GetUserId()))
+                    aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(tuple_class->relkind),
+                                 RelationGetRelationName(target_rel));
+                check_can_set_role(GetUserId(), newOwnerId);
+
+                // New owner needs CREATE privilege on namespace
+                AclResult aclresult = object_aclcheck(NamespaceRelationId,
+                                                    tuple_class->relnamespace,
+                                                    newOwnerId, ACL_CREATE);
+                if (aclresult != ACLCHECK_OK)
+                    aclcheck_error(aclresult, OBJECT_SCHEMA,
+                                 get_namespace_name(tuple_class->relnamespace));
+            }
+        }
+
+        // Update pg_class row with new owner
+        Datum repl_val[Natts_pg_class] = {0};
+        bool repl_null[Natts_pg_class] = {0};
+        bool repl_repl[Natts_pg_class] = {0};
+
+        repl_repl[Anum_pg_class_relowner - 1] = true;
+        repl_val[Anum_pg_class_relowner - 1] = ObjectIdGetDatum(newOwnerId);
+
+        // Update ACL if present
+        Datum aclDatum;
+        bool isNull;
+        aclDatum = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_relacl, &isNull);
+        if (!isNull) {
+            Acl *newAcl = aclnewowner(DatumGetAclP(aclDatum),
+                                     tuple_class->relowner, newOwnerId);
+            repl_repl[Anum_pg_class_relacl - 1] = true;
+            repl_val[Anum_pg_class_relacl - 1] = PointerGetDatum(newAcl);
+        }
+
+        HeapTuple newtuple = heap_modify_tuple(tuple, RelationGetDescr(class_rel),
+                                              repl_val, repl_null, repl_repl);
+        CatalogTupleUpdate(class_rel, &newtuple->t_self, newtuple);
+        heap_freetuple(newtuple);
+
+        // Update column ACLs and dependencies
+        change_owner_fix_column_acls(relationOid, tuple_class->relowner, newOwnerId);
+        if (tuple_class->relkind != RELKIND_COMPOSITE_TYPE &&
+            tuple_class->relkind != RELKIND_INDEX &&
+            tuple_class->relkind != RELKIND_PARTITIONED_INDEX &&
+            tuple_class->relkind != RELKIND_TOASTVALUE)
+            changeDependencyOnOwner(RelationRelationId, relationOid, newOwnerId);
+
+        // Change ownership of row type if it exists
+        if (OidIsValid(tuple_class->reltype))
+            AlterTypeOwnerInternal(tuple_class->reltype, newOwnerId);
+
+        // Recursively change ownership of related objects
+        if (tuple_class->relkind == RELKIND_RELATION ||
+            tuple_class->relkind == RELKIND_PARTITIONED_TABLE ||
+            tuple_class->relkind == RELKIND_MATVIEW ||
+            tuple_class->relkind == RELKIND_TOASTVALUE) {
+
+            // Change ownership of indexes
+            List *index_oid_list = RelationGetIndexList(target_rel);
+            foreach(i, index_oid_list)
+                ATExecChangeOwner(lfirst_oid(i), newOwnerId, true, lockmode);
+            list_free(index_oid_list);
+        }
+
+        // Change ownership of toast table and dependent sequences
+        if (tuple_class->reltoastrelid != InvalidOid)
+            ATExecChangeOwner(tuple_class->reltoastrelid, newOwnerId, true, lockmode);
+        change_owner_recurse_to_sequences(relationOid, newOwnerId, lockmode);
+    }
+
+    InvokeObjectPostAlterHook(RelationRelationId, relationOid, 0);
+
+    ReleaseSysCache(tuple);
+    table_close(class_rel, RowExclusiveLock);
+    relation_close(target_rel, NoLock);
+}
+```

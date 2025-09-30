@@ -49,3 +49,46 @@ The function prioritizes performance over absolute accuracy since it's used for 
 - Empty indexes (no root page) return height 0
 - The cached data includes validation assertions but tolerates slightly stale information
 - The function is located in src/backend/access/nbtree/nbtpage.c:675-738
+
+## Simplified Source
+
+```c
+int
+_bt_getrootheight(Relation rel)
+{
+    BTMetaPageData *metad;
+
+    // Check if metadata is already cached
+    if (rel->rd_amcache == NULL) {
+        Buffer metabuf;
+
+        // Read metadata page
+        metabuf = _bt_getbuf(rel, BTREE_METAPAGE, BT_READ);
+        metad = _bt_getmeta(rel, metabuf);
+
+        // Handle case where no root page exists yet
+        if (metad->btm_root == P_NONE) {
+            _bt_relbuf(rel, metabuf);
+            return 0;  // Empty index
+        }
+
+        // Cache the metadata for future calls
+        rel->rd_amcache = MemoryContextAlloc(rel->rd_indexcxt, sizeof(BTMetaPageData));
+        memcpy(rel->rd_amcache, metad, sizeof(BTMetaPageData));
+        _bt_relbuf(rel, metabuf);
+    }
+
+    // Use cached metadata
+    metad = (BTMetaPageData *) rel->rd_amcache;
+
+    // Basic validation assertions
+    Assert(metad->btm_magic == BTREE_MAGIC);
+    Assert(metad->btm_version >= BTREE_MIN_VERSION);
+    Assert(metad->btm_version <= BTREE_VERSION);
+    Assert(!metad->btm_allequalimage || metad->btm_version > BTREE_NOVAC_VERSION);
+    Assert(metad->btm_fastroot != P_NONE);
+
+    // Return the fast root level (tree height)
+    return metad->btm_fastlevel;
+}
+```

@@ -45,3 +45,32 @@ The function is specifically designed for sorting lists of integers that represe
 - Part of the PostgreSQL GROUPING SETS optimization that sorts combinations for efficient processing
 - The integer comparison assumes the list elements are ressortgroupref values from GROUP BY expressions
 - Uses PostgreSQL's standard list iteration macros for performance and safety
+
+## Simplified Source
+
+```c
+static int
+cmp_list_len_contents_asc(const ListCell *a, const ListCell *b)
+{
+    int res = cmp_list_len_asc(a, b);
+
+    // If lengths are equal, compare contents element by element
+    if (res == 0) {
+        List *la = (List *) lfirst(a);
+        List *lb = (List *) lfirst(b);
+        ListCell *lca, *lcb;
+
+        forboth(lca, la, lcb, lb) {
+            int va = lfirst_int(lca);
+            int vb = lfirst_int(lcb);
+
+            if (va > vb)
+                return 1;
+            if (va < vb)
+                return -1;
+        }
+    }
+
+    return res;
+}
+```

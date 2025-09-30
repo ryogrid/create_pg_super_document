@@ -65,3 +65,91 @@ Key operational aspects:
 - Critical for system catalog maintenance and post-operation cleanup scenarios
 - Progress reporting integration for long-running operations
 - Handles persistence override scenarios for special operational requirements
+
+## Simplified Source
+
+```c
+bool reindex_relation(const ReindexStmt *stmt, Oid relid, int flags,
+                      const ReindexParams *params)
+{
+    // Open and lock the target relation
+    Relation rel;
+    if ((params->options & REINDEXOPT_MISSING_OK) != 0)
+        rel = try_table_open(relid, ShareLock);
+    else
+        rel = table_open(relid, ShareLock);
+
+    if (!rel)
+        return false;
+
+    // Validate relation type - partitioned tables are not supported
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        elog(ERROR, "cannot reindex partitioned table \"%s.%s\"",
+             get_namespace_name(RelationGetNamespace(rel)),
+             RelationGetRelationName(rel));
+
+    // Get all indexes for this relation
+    List *indexIds = RelationGetIndexList(rel);
+    Oid toast_relid = rel->rd_rel->reltoastrelid;
+
+    // If suppressing index use during rebuild, mark indexes as pending
+    if (flags & REINDEX_REL_SUPPRESS_INDEX_USE)
+    {
+        SetReindexPending(indexIds);
+        CommandCounterIncrement();
+    }
+
+    bool result = false;
+
+    // Reindex toast table first to prevent corruption errors
+    if ((flags & REINDEX_REL_PROCESS_TOAST) && OidIsValid(toast_relid))
+    {
+        ReindexParams newparams = *params;
+        newparams.options &= ~(REINDEXOPT_MISSING_OK);
+        newparams.tablespaceOid = InvalidOid;
+        result |= reindex_relation(stmt, toast_relid, flags, &newparams);
+    }
+
+    // Determine persistence for rebuilt indexes
+    char persistence;
+    if (flags & REINDEX_REL_FORCE_INDEXES_UNLOGGED)
+        persistence = RELPERSISTENCE_UNLOGGED;
+    else if (flags & REINDEX_REL_FORCE_INDEXES_PERMANENT)
+        persistence = RELPERSISTENCE_PERMANENT;
+    else
+        persistence = rel->rd_rel->relpersistence;
+
+    // Reindex each individual index
+    int i = 1;
+    ListCell *indexId;
+    foreach(indexId, indexIds)
+    {
+        Oid indexOid = lfirst_oid(indexId);
+
+        // Skip invalid toast indexes with warning
+        if (IsToastNamespace(get_rel_namespace(indexOid)) &&
+            !get_index_isvalid(indexOid))
+        {
+            ereport(WARNING, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                             errmsg("cannot reindex invalid index \"%s.%s\" on TOAST table, skipping",
+                                    get_namespace_name(get_rel_namespace(indexOid)),
+                                    get_rel_name(indexOid))));
+            if (flags & REINDEX_REL_SUPPRESS_INDEX_USE)
+                RemoveReindexPending(indexOid);
+            continue;
+        }
+
+        // Rebuild the index
+        reindex_index(stmt, indexOid, !(flags & REINDEX_REL_CHECK_CONSTRAINTS),
+                      persistence, params);
+        CommandCounterIncrement();
+
+        // Update progress reporting
+        pgstat_progress_update_param(PROGRESS_CLUSTER_INDEX_REBUILD_COUNT, i);
+        i++;
+    }
+
+    table_close(rel, NoLock);
+    return result | (indexIds != NIL);
+}
+```

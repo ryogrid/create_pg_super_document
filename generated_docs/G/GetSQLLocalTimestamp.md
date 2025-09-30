@@ -33,3 +33,20 @@ The function first obtains the transaction start timestamp with timezone, conver
 - Uses timestamptz2timestamp() to convert from timestamptz to local timestamp
 - Part of PostgreSQL's SQL standard timestamp function implementation
 - The conversion to local time respects the current session's timezone setting
+
+## Simplified Source
+
+```c
+Timestamp GetSQLLocalTimestamp(int32 typmod) {
+    Timestamp ts;
+
+    // Get transaction start timestamp and convert to local time
+    ts = timestamptz2timestamp(GetCurrentTransactionStartTimestamp());
+
+    // Apply precision adjustment if specified
+    if (typmod >= 0)
+        AdjustTimestampForTypmod(&ts, typmod, NULL);
+
+    return ts;
+}
+```

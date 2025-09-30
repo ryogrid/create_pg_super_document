@@ -47,3 +47,35 @@ The function uses a linear search through the version list, which the comments a
 - The `installable` flag defaults to false and is set elsewhere based on available scripts
 - Memory allocated by this function (ExtensionVersionInfo and version name) should be freed by the caller context
 - This function is part of PostgreSQL's extension update path calculation system
+
+## Simplified Source
+
+```c
+static ExtensionVersionInfo *get_ext_ver_info(const char *versionname,
+                                             List **evi_list) {
+    ExtensionVersionInfo *evi;
+
+    // Search for existing version info by name
+    foreach(lc, *evi_list) {
+        evi = (ExtensionVersionInfo *) lfirst(lc);
+        if (strcmp(evi->name, versionname) == 0) {
+            return evi;  // Found existing version
+        }
+    }
+
+    // Create new version info if not found
+    evi = (ExtensionVersionInfo *) palloc(sizeof(ExtensionVersionInfo));
+    evi->name = pstrdup(versionname);
+    evi->reachable = NIL;
+    evi->installable = false;
+
+    // Initialize for Dijkstra's algorithm
+    evi->distance_known = false;
+    evi->distance = INT_MAX;
+    evi->previous = NULL;
+
+    // Add to list and return
+    *evi_list = lappend(*evi_list, evi);
+    return evi;
+}
+```

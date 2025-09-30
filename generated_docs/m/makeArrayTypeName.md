@@ -47,3 +47,34 @@ The name generation process leverages makeObjectName() with an empty first compo
 - The naming strategy prioritizes compatibility with existing client code that expects the underscore convention
 - Critical for maintaining consistent array type naming across PostgreSQL's type system
 - Returns a dynamically allocated string that must be freed by the caller
+
+## Simplified Source
+
+```c
+char *
+makeArrayTypeName(const char *typeName, Oid typeNamespace)
+{
+    char *arr_name;
+    int pass = 0;
+    char suffix[NAMEDATALEN];
+
+    // Start with traditional array naming: prepend underscore to base type
+    arr_name = makeObjectName("", typeName, NULL);
+
+    // Check for name conflicts and resolve with numeric suffixes
+    for (;;) {
+        // Check if this name already exists in the namespace
+        if (!SearchSysCacheExists2(TYPENAMENSP,
+                                   CStringGetDatum(arr_name),
+                                   ObjectIdGetDatum(typeNamespace)))
+            break;  // Name is unique, we're done
+
+        // Name conflicts - try with numeric suffix
+        pfree(arr_name);
+        snprintf(suffix, sizeof(suffix), "%d", ++pass);
+        arr_name = makeObjectName("", typeName, suffix);
+    }
+
+    return arr_name;
+}
+```

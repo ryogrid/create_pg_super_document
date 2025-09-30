@@ -39,3 +39,11 @@ This function provides a simpler interface for the common case of setting error 
 - Always sets rule context to NULL/-1, indicating no rule file context
 - Part of the comprehensive error handling infrastructure in the timezone compiler
 - Used extensively in main processing loops and file parsing operations
+
+## Simplified Source
+
+```c
+static void eat(char const *name, lineno_t num) {
+    eats(name, num, NULL, -1);
+}
+```

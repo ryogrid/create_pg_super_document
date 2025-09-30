@@ -54,3 +54,48 @@ All constructors are created as internal language functions marked as immutable 
 - Functions are owned by the bootstrap superuser and marked strict (null inputs produce null output)
 - DEPENDENCY_INTERNAL ensures pg_dump excludes these auto-generated constructors
 - Returns the OID of the 1-argument constructor for subsequent cast creation
+
+## Simplified Source
+
+```c
+static void makeMultirangeConstructors(const char *name, Oid namespace,
+                                      Oid multirangeOid, Oid rangeOid, Oid rangeArrayOid,
+                                      Oid *castFuncOid) {
+    ObjectAddress myself, referenced;
+    oidvector *argtypes;
+
+    // Set up dependency target (the multirange type)
+    referenced.classId = TypeRelationId;
+    referenced.objectId = multirangeOid;
+    referenced.objectSubId = 0;
+
+    // Create 0-arg constructor for empty multiranges
+    argtypes = buildoidvector(NULL, 0);
+    myself = ProcedureCreate(name, namespace, false, false, multirangeOid,
+                            BOOTSTRAP_SUPERUSERID, INTERNALlanguageId,
+                            F_FMGR_INTERNAL_VALIDATOR, "multirange_constructor0",
+                            /* standard function attributes */);
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_INTERNAL);
+    pfree(argtypes);
+
+    // Create 1-arg constructor for casting from range to multirange
+    argtypes = buildoidvector(&rangeOid, 1);
+    myself = ProcedureCreate(name, namespace, false, false, multirangeOid,
+                            BOOTSTRAP_SUPERUSERID, INTERNALlanguageId,
+                            F_FMGR_INTERNAL_VALIDATOR, "multirange_constructor1",
+                            /* standard function attributes */);
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_INTERNAL);
+    pfree(argtypes);
+    *castFuncOid = myself.objectId; // Return for cast creation
+
+    // Create variadic constructor for multiple ranges
+    argtypes = buildoidvector(&rangeArrayOid, 1);
+    // Set up variadic parameter metadata
+    myself = ProcedureCreate(name, namespace, false, false, multirangeOid,
+                            BOOTSTRAP_SUPERUSERID, INTERNALlanguageId,
+                            F_FMGR_INTERNAL_VALIDATOR, "multirange_constructor2",
+                            /* variadic function attributes */);
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_INTERNAL);
+    pfree(argtypes);
+}
+```

@@ -43,3 +43,50 @@ The preservation of rinfo_serial numbers is critical for ensuring that RestrictI
 - Only base relations receive the join clauses, not derived join relations
 - Always-false conditions are converted to constant FALSE expressions for optimization
 - Located in src/backend/optimizer/util/joininfo.c:98-160
+
+## Simplified Source
+
+```c
+void
+add_join_clause_to_rels(PlannerInfo *root, RestrictInfo *restrictinfo, Relids join_relids)
+{
+    int cur_relid;
+
+    // Skip trivially true clauses
+    if (restriction_is_always_true(root, restrictinfo))
+        return;
+
+    // Convert trivially false clauses to constant FALSE
+    if (restriction_is_always_false(root, restrictinfo))
+    {
+        int save_rinfo_serial = restrictinfo->rinfo_serial;
+        int save_last_rinfo_serial = root->last_rinfo_serial;
+
+        // Create FALSE constant while preserving serial numbers
+        restrictinfo = make_restrictinfo(root,
+                                       (Expr *) makeBoolConst(false, false),
+                                       restrictinfo->is_pushed_down,
+                                       restrictinfo->has_clone,
+                                       restrictinfo->is_clone,
+                                       restrictinfo->pseudoconstant,
+                                       0, /* security_level */
+                                       restrictinfo->required_relids,
+                                       restrictinfo->incompatible_relids,
+                                       restrictinfo->outer_relids);
+        restrictinfo->rinfo_serial = save_rinfo_serial;
+        root->last_rinfo_serial = save_last_rinfo_serial;
+    }
+
+    // Add clause to each participating base relation
+    cur_relid = -1;
+    while ((cur_relid = bms_next_member(join_relids, cur_relid)) >= 0)
+    {
+        RelOptInfo *rel = find_base_rel_ignore_join(root, cur_relid);
+
+        // Only add to base relations, skip join relations
+        if (rel == NULL)
+            continue;
+        rel->joininfo = lappend(rel->joininfo, restrictinfo);
+    }
+}
+```

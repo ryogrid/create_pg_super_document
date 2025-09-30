@@ -45,3 +45,81 @@ The supported object types include access methods, databases, extensions, tables
 
 ## Notes and Other Information
 This function is marked static, indicating it's only used within the objectaddress.c module as a helper function. It handles objects that don't require schema qualification because they exist in global namespaces. The function follows a consistent pattern for all object types, making it easy to add new unqualified object types in the future. Each lookup function called by this function is responsible for its own error handling when missing_ok is false.
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_unqualified(ObjectType objtype,
+                              String *strval, bool missing_ok)
+{
+    const char *name;
+    ObjectAddress address;
+
+    name = strVal(strval);
+
+    // Dispatch to appropriate lookup function based on object type
+    switch (objtype) {
+        case OBJECT_ACCESS_METHOD:
+            address.classId = AccessMethodRelationId;
+            address.objectId = get_am_oid(name, missing_ok);
+            break;
+        case OBJECT_DATABASE:
+            address.classId = DatabaseRelationId;
+            address.objectId = get_database_oid(name, missing_ok);
+            break;
+        case OBJECT_EXTENSION:
+            address.classId = ExtensionRelationId;
+            address.objectId = get_extension_oid(name, missing_ok);
+            break;
+        case OBJECT_TABLESPACE:
+            address.classId = TableSpaceRelationId;
+            address.objectId = get_tablespace_oid(name, missing_ok);
+            break;
+        case OBJECT_ROLE:
+            address.classId = AuthIdRelationId;
+            address.objectId = get_role_oid(name, missing_ok);
+            break;
+        case OBJECT_SCHEMA:
+            address.classId = NamespaceRelationId;
+            address.objectId = get_namespace_oid(name, missing_ok);
+            break;
+        case OBJECT_LANGUAGE:
+            address.classId = LanguageRelationId;
+            address.objectId = get_language_oid(name, missing_ok);
+            break;
+        case OBJECT_FDW:
+            address.classId = ForeignDataWrapperRelationId;
+            address.objectId = get_foreign_data_wrapper_oid(name, missing_ok);
+            break;
+        case OBJECT_FOREIGN_SERVER:
+            address.classId = ForeignServerRelationId;
+            address.objectId = get_foreign_server_oid(name, missing_ok);
+            break;
+        case OBJECT_EVENT_TRIGGER:
+            address.classId = EventTriggerRelationId;
+            address.objectId = get_event_trigger_oid(name, missing_ok);
+            break;
+        case OBJECT_PARAMETER_ACL:
+            address.classId = ParameterAclRelationId;
+            address.objectId = ParameterAclLookup(name, missing_ok);
+            break;
+        case OBJECT_PUBLICATION:
+            address.classId = PublicationRelationId;
+            address.objectId = get_publication_oid(name, missing_ok);
+            break;
+        case OBJECT_SUBSCRIPTION:
+            address.classId = SubscriptionRelationId;
+            address.objectId = get_subscription_oid(name, missing_ok);
+            break;
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) objtype);
+            // Fallback values (never reached)
+            address.classId = InvalidOid;
+            address.objectId = InvalidOid;
+    }
+
+    address.objectSubId = 0;  // All these objects have no sub-objects
+    return address;
+}
+```

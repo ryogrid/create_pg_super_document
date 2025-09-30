@@ -40,3 +40,48 @@ The function implements several safety checks to ensure the sort can be performe
 - Parallel safety checking is performed last as it's an expensive operation
 - Returns true if any suitable EC member is found, false otherwise
 - Located in src/backend/optimizer/path/equivclass.c:917-1027
+
+## Simplified Source
+
+```c
+bool relation_can_be_sorted_early(PlannerInfo *root, RelOptInfo *rel,
+                                  EquivalenceClass *ec, bool require_parallel_safe) {
+    PathTarget *target = rel->reltarget;
+    EquivalenceMember *em;
+    ListCell *lc;
+
+    // Reject volatile ECs immediately
+    if (ec->ec_has_volatile)
+        return false;
+
+    // Try to find EM directly matching reltarget member
+    foreach(lc, target->exprs) {
+        Expr *targetexpr = (Expr *) lfirst(lc);
+
+        em = find_ec_member_matching_expr(ec, targetexpr, rel->relids);
+        if (!em)
+            continue;
+
+        // Reject set-returning functions
+        if (expression_returns_set((Node *) em->em_expr))
+            continue;
+
+        // Check parallel safety if required
+        if (require_parallel_safe && !is_parallel_safe(root, (Node *) em->em_expr))
+            continue;
+
+        return true;
+    }
+
+    // Try to find computable expression from reltarget
+    em = find_computable_ec_member(root, ec, target->exprs, rel->relids, require_parallel_safe);
+    if (!em)
+        return false;
+
+    // Reject set-returning functions in computed expressions
+    if (expression_returns_set((Node *) em->em_expr))
+        return false;
+
+    return true;
+}
+```

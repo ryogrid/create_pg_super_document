@@ -37,3 +37,43 @@ This function generates appropriate error messages for duplicate object names ba
 - The function supports only specific object types; unsupported object classes will trigger an ERROR with elog
 - Uses PostgreSQL's internationalization framework with gettext_noop for translatable error messages
 - Part of the object renaming and alteration subsystem in PostgreSQL
+
+## Simplified Source
+
+```c
+static void report_name_conflict(Oid classId, const char *name)
+{
+    char *msgfmt;
+
+    // Determine appropriate error message based on object type
+    switch (classId)
+    {
+        case EventTriggerRelationId:
+            msgfmt = gettext_noop("event trigger \"%s\" already exists");
+            break;
+        case ForeignDataWrapperRelationId:
+            msgfmt = gettext_noop("foreign-data wrapper \"%s\" already exists");
+            break;
+        case ForeignServerRelationId:
+            msgfmt = gettext_noop("server \"%s\" already exists");
+            break;
+        case LanguageRelationId:
+            msgfmt = gettext_noop("language \"%s\" already exists");
+            break;
+        case PublicationRelationId:
+            msgfmt = gettext_noop("publication \"%s\" already exists");
+            break;
+        case SubscriptionRelationId:
+            msgfmt = gettext_noop("subscription \"%s\" already exists");
+            break;
+        default:
+            elog(ERROR, "unsupported object class: %u", classId);
+            break;
+    }
+
+    // Report duplicate object error
+    ereport(ERROR,
+            (errcode(ERRCODE_DUPLICATE_OBJECT),
+             errmsg(msgfmt, name)));
+}
+```

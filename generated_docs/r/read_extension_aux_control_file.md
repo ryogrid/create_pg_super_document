@@ -42,3 +42,20 @@ The function preserves the original primary control structure unchanged and retu
 - Only certain parameters can be overridden in auxiliary control files (as enforced by parse_extension_control_file)
 - Parameters like directory and default_version cannot be specified in auxiliary files
 - The function enables version-specific customization of extension behavior while maintaining core extension identity
+
+## Simplified Source
+
+```c
+static ExtensionControlFile *
+read_extension_aux_control_file(const ExtensionControlFile *pcontrol, const char *version)
+{
+    // Create a copy of the primary control file structure
+    ExtensionControlFile *acontrol = (ExtensionControlFile *) palloc(sizeof(ExtensionControlFile));
+    memcpy(acontrol, pcontrol, sizeof(ExtensionControlFile));
+
+    // Parse the auxiliary control file to override version-specific parameters
+    parse_extension_control_file(acontrol, version);
+
+    return acontrol;
+}
+```

@@ -34,3 +34,22 @@ The term "contain" means that there's a use of the specified relid inside the PH
 - This function is typically used during outer join analysis to determine if placeholder variables might be affected by join nullability
 - The function initializes a context structure with the target relid and sublevels_up counter before calling the walker
 - Returns true if any PlaceHolderVar in the clause references the specified relation ID
+
+## Simplified Source
+
+```c
+bool
+contain_placeholder_references_to(PlannerInfo *root, Node *clause, int relid)
+{
+    contain_placeholder_references_context context;
+
+    // Quick check: return false if no PlaceHolderVars exist
+    if (root->glob->lastPHId == 0)
+        return false;
+
+    // Setup context and run recursive search
+    context.relid = relid;
+    context.sublevels_up = 0;
+    return contain_placeholder_references_walker(clause, &context);
+}
+```

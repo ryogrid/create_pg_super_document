@@ -37,3 +37,19 @@ This function is typically called when the predicate testing operation is comple
 - Must be paired with corresponding setup/initialization functions to prevent memory leaks
 - The function handles cleanup of both scalar arrays (elem_values, elem_nulls) and complex structures (opexpr.args)
 - Location: src/backend/optimizer/util/predtest.c:1021-1038
+
+## Simplified Source
+
+```c
+static void
+arrayconst_cleanup_fn(PredIterInfo info)
+{
+    ArrayConstIterState *state = (ArrayConstIterState *) info->state;
+
+    // Free all allocated resources
+    pfree(state->elem_values);
+    pfree(state->elem_nulls);
+    list_free(state->opexpr.args);
+    pfree(state);
+}
+```

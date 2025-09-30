@@ -49,3 +49,73 @@ Additionally, the function ensures that all variables used in member clauses wil
 - Ensures variable availability by adding all member variables to targetlists across ec_relids
 - Uses PVC_RECURSE_AGGREGATES, PVC_RECURSE_WINDOWFUNCS, and PVC_INCLUDE_PLACEHOLDERS flags
 - Located in src/backend/optimizer/path/equivclass.c:1203-1312
+
+## Simplified Source
+
+```c
+static void
+generate_base_implied_equalities_no_const(PlannerInfo *root, EquivalenceClass *ec)
+{
+    EquivalenceMember **prev_ems;
+    ListCell *lc;
+
+    // Track last-seen member for each base relation
+    prev_ems = (EquivalenceMember **)
+        palloc0(root->simple_rel_array_size * sizeof(EquivalenceMember *));
+
+    // Scan members and generate equalities between consecutive members of same relation
+    foreach(lc, ec->ec_members)
+    {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc);
+        int relid;
+
+        // Skip multi-relation members
+        if (!bms_get_singleton_member(cur_em->em_relids, &relid))
+            continue;
+
+        if (prev_ems[relid] != NULL)
+        {
+            EquivalenceMember *prev_em = prev_ems[relid];
+            Oid eq_op;
+            RestrictInfo *rinfo;
+
+            // Find equality operator for prev_em = cur_em
+            eq_op = select_equality_operator(ec, prev_em->em_datatype, cur_em->em_datatype);
+            if (!OidIsValid(eq_op))
+            {
+                ec->ec_broken = true;
+                break;
+            }
+
+            // Create the implied equality clause
+            rinfo = process_implied_equality(root, eq_op, ec->ec_collation,
+                                             prev_em->em_expr, cur_em->em_expr,
+                                             cur_em->em_relids, ec->ec_min_security, false);
+
+            // Mark as mergejoinable if successful
+            if (rinfo && rinfo->mergeopfamilies)
+            {
+                rinfo->left_ec = rinfo->right_ec = ec;
+                rinfo->left_em = prev_em;
+                rinfo->right_em = cur_em;
+            }
+        }
+        prev_ems[relid] = cur_em;
+    }
+
+    pfree(prev_ems);
+
+    // Ensure all member variables are available at join nodes
+    foreach(lc, ec->ec_members)
+    {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc);
+        List *vars = pull_var_clause((Node *) cur_em->em_expr,
+                                     PVC_RECURSE_AGGREGATES |
+                                     PVC_RECURSE_WINDOWFUNCS |
+                                     PVC_INCLUDE_PLACEHOLDERS);
+
+        add_vars_to_targetlist(root, vars, ec->ec_relids);
+        list_free(vars);
+    }
+}
+```

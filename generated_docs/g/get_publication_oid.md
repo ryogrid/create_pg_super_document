@@ -38,3 +38,21 @@ The function uses the PUBLICATIONNAME system cache to efficiently retrieve the p
 - The function provides both strict (error-throwing) and lenient (InvalidOid-returning) lookup modes
 - Located in src/backend/utils/cache/lsyscache.c:3625-3644
 - Uses the PUBLICATIONNAME system cache for efficient lookups
+
+## Simplified Source
+
+```c
+Oid get_publication_oid(const char *pubname, bool missing_ok) {
+    // Look up publication OID in system cache
+    Oid oid = GetSysCacheOid1(PUBLICATIONNAME, Anum_pg_publication_oid,
+                              CStringGetDatum(pubname));
+
+    // Handle missing publication based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("publication \"%s\" does not exist", pubname)));
+    }
+
+    return oid;
+}
+```

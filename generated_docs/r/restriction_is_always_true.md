@@ -46,3 +46,49 @@ The function includes safety checks to avoid incorrect optimizations with clone 
 - Uses recursive analysis for OR clauses - if any branch is always true, the entire OR is always true
 - Part of PostgreSQL's query optimization infrastructure for eliminating redundant filter conditions
 - Critical for performance as it reduces unnecessary runtime condition evaluations
+
+## Simplified Source
+
+```c
+bool
+restriction_is_always_true(PlannerInfo *root, RestrictInfo *restrictinfo)
+{
+    // Skip clone clauses - unreliable nulling relation info
+    if (restrictinfo->has_clone || restrictinfo->is_clone)
+        return false;
+
+    // Check for NullTest IS NOT NULL condition
+    if (IsA(restrictinfo->clause, NullTest)) {
+        NullTest *nulltest = (NullTest *) restrictinfo->clause;
+
+        // Only handle IS_NOT_NULL tests
+        if (nulltest->nulltesttype != IS_NOT_NULL)
+            return false;
+
+        // Skip row expressions (context-dependent NULL behavior)
+        if (nulltest->argisrow)
+            return false;
+
+        // IS NOT NULL is always true if expression is guaranteed non-null
+        return expr_is_nonnullable(root, nulltest->arg);
+    }
+
+    // Check OR clauses - any branch being true makes the whole OR true
+    if (restriction_is_or_clause(restrictinfo)) {
+        ListCell *lc;
+
+        foreach(lc, ((BoolExpr *) restrictinfo->orclause)->args) {
+            Node *orarg = (Node *) lfirst(lc);
+
+            if (!IsA(orarg, RestrictInfo))
+                continue;
+
+            // If any branch is always true, entire OR is always true
+            if (restriction_is_always_true(root, (RestrictInfo *) orarg))
+                return true;
+        }
+    }
+
+    return false;  // No optimization applies
+}
+```

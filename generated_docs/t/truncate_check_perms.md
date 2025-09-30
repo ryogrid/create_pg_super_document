@@ -39,3 +39,20 @@ The function is designed to be simple and focused, handling only the permission 
 - The function is typically called after truncate_check_rel() to ensure both the relation type is valid and the user has appropriate permissions
 - For inherited TRUNCATE operations, permission checks are only performed on the parent table, not on child tables
 - The error message generated includes the specific relation type (table, foreign table, etc.) to provide context-appropriate feedback
+
+## Simplified Source
+
+```c
+static void
+truncate_check_perms(Oid relid, Form_pg_class reltuple)
+{
+    char *relname = NameStr(reltuple->relname);
+    AclResult aclresult;
+
+    // Check TRUNCATE permission for current user
+    aclresult = pg_class_aclcheck(relid, GetUserId(), ACL_TRUNCATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, get_relkind_objtype(reltuple->relkind),
+                       relname);
+}
+```

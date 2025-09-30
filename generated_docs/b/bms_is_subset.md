@@ -31,3 +31,33 @@ The function determines if bitmap set  is a subset of bitmap set  by checking th
 
 ## Notes and Other Information
 This function is extensively used throughout PostgreSQL's query optimizer for testing relationships between sets of relation IDs, column numbers, and other identifiers. The subset relationship is fundamental for determining join legality, clause applicability, and path optimization. The function assumes that both input bitmap sets are valid or NULL, and uses assertions to verify this in debug builds.
+
+## Simplified Source
+
+```c
+bool
+bms_is_subset(const Bitmapset *a, const Bitmapset *b)
+{
+    int i;
+
+    // Handle NULL cases
+    if (a == NULL)
+        return true;   // Empty set is subset of anything
+    if (b == NULL)
+        return false;  // Non-empty set can't be subset of empty
+
+    // Quick check: a can't be subset of b if a is longer
+    if (a->nwords > b->nwords)
+        return false;
+
+    // Check if all bits in 'a' are also set in 'b'
+    for (i = 0; i < a->nwords; i++)
+    {
+        // If any bit is set in 'a' but not in 'b', not a subset
+        if ((a->words[i] & ~b->words[i]) != 0)
+            return false;
+    }
+
+    return true;  // All bits in 'a' are also in 'b'
+}
+```

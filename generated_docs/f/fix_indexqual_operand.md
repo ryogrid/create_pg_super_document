@@ -43,3 +43,74 @@ The function performs extensive sanity checking to ensure the given expression m
 - Handles RelabelType nodes by unwrapping them to access the underlying expression
 - Contains extensive error checking with elog(ERROR) calls for mismatched expressions
 - This is a static function within createplan.c, part of the query plan creation process
+
+## Simplified Source
+
+```c
+static Node *
+fix_indexqual_operand(Node *node, IndexOptInfo *index, int indexcol)
+{
+    Var *result;
+    int pos;
+    ListCell *indexpr_item;
+
+    // Remove any binary-compatible relabeling
+    if (IsA(node, RelabelType))
+        node = (Node *) ((RelabelType *) node)->arg;
+
+    Assert(indexcol >= 0 && indexcol < index->ncolumns);
+
+    // Handle simple index column (direct table column reference)
+    if (index->indexkeys[indexcol] != 0)
+    {
+        if (IsA(node, Var) &&
+            ((Var *) node)->varno == index->rel->relid &&
+            ((Var *) node)->varattno == index->indexkeys[indexcol])
+        {
+            // Convert to INDEX_VAR reference
+            result = (Var *) copyObject(node);
+            result->varno = INDEX_VAR;
+            result->varattno = indexcol + 1;  // 1-based indexing
+            return (Node *) result;
+        }
+        else
+            elog(ERROR, "index key does not match expected index column");
+    }
+
+    // Handle index expression column
+    indexpr_item = list_head(index->indexprs);
+    for (pos = 0; pos < index->ncolumns; pos++)
+    {
+        if (index->indexkeys[pos] == 0)  // Expression column
+        {
+            if (indexpr_item == NULL)
+                elog(ERROR, "too few entries in indexprs list");
+
+            if (pos == indexcol)
+            {
+                Node *indexkey = (Node *) lfirst(indexpr_item);
+
+                // Remove relabeling from index expression too
+                if (indexkey && IsA(indexkey, RelabelType))
+                    indexkey = (Node *) ((RelabelType *) indexkey)->arg;
+
+                // Check if expressions match
+                if (equal(node, indexkey))
+                {
+                    // Create INDEX_VAR for expression column
+                    result = makeVar(INDEX_VAR, indexcol + 1,
+                                   exprType(lfirst(indexpr_item)), -1,
+                                   exprCollation(lfirst(indexpr_item)), 0);
+                    return (Node *) result;
+                }
+                else
+                    elog(ERROR, "index key does not match expected index column");
+            }
+            indexpr_item = lnext(index->indexprs, indexpr_item);
+        }
+    }
+
+    elog(ERROR, "index key does not match expected index column");
+    return NULL;
+}
+```

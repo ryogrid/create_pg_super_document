@@ -61,3 +61,49 @@ The make_restrictinfo function serves as the primary entry point for creating Re
 - Includes an assertion that the clause should not be an AND clause, as AND/OR flattening should have handled this case earlier in processing
 - The function initializes only fields that depend on the given subexpression, leaving context-dependent fields to be filled later
 - This is a critical function in PostgreSQL's query optimization process, as RestrictInfo nodes are fundamental data structures used throughout the planner
+
+## Simplified Source
+
+```c
+RestrictInfo *
+make_restrictinfo(PlannerInfo *root,
+                  Expr *clause,
+                  bool is_pushed_down,
+                  bool has_clone,
+                  bool is_clone,
+                  bool pseudoconstant,
+                  Index security_level,
+                  Relids required_relids,
+                  Relids incompatible_relids,
+                  Relids outer_relids)
+{
+    // Handle OR clauses with special recursive processing
+    if (is_orclause(clause))
+        return (RestrictInfo *) make_sub_restrictinfos(root,
+                                                       clause,
+                                                       is_pushed_down,
+                                                       has_clone,
+                                                       is_clone,
+                                                       pseudoconstant,
+                                                       security_level,
+                                                       required_relids,
+                                                       incompatible_relids,
+                                                       outer_relids);
+
+    // AND clauses should have been flattened earlier
+    Assert(!is_andclause(clause));
+
+    // Create standard RestrictInfo for the clause
+    return make_restrictinfo_internal(root,
+                                      clause,
+                                      NULL,
+                                      is_pushed_down,
+                                      has_clone,
+                                      is_clone,
+                                      pseudoconstant,
+                                      security_level,
+                                      required_relids,
+                                      incompatible_relids,
+                                      outer_relids);
+}
+```

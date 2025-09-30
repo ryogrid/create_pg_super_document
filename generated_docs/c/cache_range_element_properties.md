@@ -33,3 +33,27 @@ This function populates the type cache entry with information about the hashing 
 
 ## Notes and Other Information
 This is a static helper function that implements lazy initialization for range element type properties. It only performs the work when the TCFLAGS_CHECKED_ELEM_PROPERTIES flag is not set, ensuring that expensive lookups are done only once. The function handles the case where the range element type information may not be loaded yet, making it robust for use in various contexts within the type cache system.
+
+## Simplified Source
+
+```c
+static void cache_range_element_properties(TypeCacheEntry *typentry) {
+    // Load range info if needed
+    if (typentry->rngelemtype == NULL && typentry->typtype == TYPTYPE_RANGE)
+        load_rangetype_info(typentry);
+
+    // Check element hashing capabilities
+    if (typentry->rngelemtype != NULL) {
+        TypeCacheEntry *elementry = lookup_type_cache(
+            typentry->rngelemtype->type_id,
+            TYPECACHE_HASH_PROC | TYPECACHE_HASH_EXTENDED_PROC);
+
+        if (OidIsValid(elementry->hash_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;
+        if (OidIsValid(elementry->hash_extended_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;
+    }
+
+    typentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;
+}
+```

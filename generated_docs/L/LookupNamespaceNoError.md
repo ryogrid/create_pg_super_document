@@ -36,3 +36,24 @@ LookupNamespaceNoError provides a non-error-throwing way to look up a namespace 
 - [LookupExplicitNamespace](LookupExplicitNamespace.md) is preferable in most cases as it includes permission checks
 - Part of PostgreSQL's namespace lookup infrastructure
 - Located in src/backend/catalog/namespace.c:3355-3384
+
+## Simplified Source
+
+```c
+Oid
+LookupNamespaceNoError(const char *nspname)
+{
+    // Handle special "pg_temp" alias for temporary namespace
+    if (strcmp(nspname, "pg_temp") == 0) {
+        if (OidIsValid(myTempNamespace)) {
+            InvokeNamespaceSearchHook(myTempNamespace, true);
+            return myTempNamespace;
+        }
+        // Don't try to initialize temp namespace, just return not found
+        return InvalidOid;
+    }
+
+    // Look up regular namespace (missing_ok = true means no error on not found)
+    return get_namespace_oid(nspname, true);
+}
+```

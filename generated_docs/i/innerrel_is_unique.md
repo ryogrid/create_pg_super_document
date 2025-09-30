@@ -62,3 +62,54 @@ The function distinguishes between "joinquals" and "otherquals" for outer joins,
 - Caching negative results is normally disabled in standard planning but enabled in GEQO mode
 - The `force_cache` parameter allows overriding caching heuristics for special cases like `reduce_unique_semijoins`
 - Critical for join elimination optimizations and semi-join reduction strategies
+
+## Simplified Source
+
+```c
+bool innerrel_is_unique(PlannerInfo *root,
+                       Relids joinrelids,
+                       Relids outerrelids,
+                       RelOptInfo *innerrel,
+                       JoinType jointype,
+                       List *restrictlist,
+                       bool force_cache)
+{
+    // Quick checks: no clauses or relation doesn't support distinctness
+    if (restrictlist == NIL || !rel_supports_distinctness(root, innerrel))
+        return false;
+
+    // Check positive cache: is innerrel already proven unique for a subset of outerrelids?
+    foreach(lc, innerrel->unique_for_rels) {
+        Relids unique_for_rels = (Relids) lfirst(lc);
+        if (bms_is_subset(unique_for_rels, outerrelids))
+            return true;  // Success!
+    }
+
+    // Check negative cache: have we already failed for a superset of outerrelids?
+    foreach(lc, innerrel->non_unique_for_rels) {
+        Relids unique_for_rels = (Relids) lfirst(lc);
+        if (bms_is_subset(outerrelids, unique_for_rels))
+            return false;
+    }
+
+    // No cached result - attempt the actual uniqueness proof
+    if (is_innerrel_unique_for(root, joinrelids, outerrelids, innerrel,
+                              jointype, restrictlist)) {
+        // Cache positive result in planner context
+        old_context = MemoryContextSwitchTo(root->planner_cxt);
+        innerrel->unique_for_rels = lappend(innerrel->unique_for_rels,
+                                           bms_copy(outerrelids));
+        MemoryContextSwitchTo(old_context);
+        return true;
+    } else {
+        // Cache negative result if using GEQO or forced caching
+        if (force_cache || root->join_search_private) {
+            old_context = MemoryContextSwitchTo(root->planner_cxt);
+            innerrel->non_unique_for_rels =
+                lappend(innerrel->non_unique_for_rels, bms_copy(outerrelids));
+            MemoryContextSwitchTo(old_context);
+        }
+        return false;
+    }
+}
+```

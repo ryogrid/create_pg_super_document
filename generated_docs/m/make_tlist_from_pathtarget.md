@@ -37,3 +37,34 @@ The function serves as the inverse of make_pathtarget_from_tlist, allowing the o
 - All created TargetEntry nodes are marked as not resjunk (false)
 - [Sort](../S/Sort.md) group references are preserved if present in the source PathTarget
 - The function is declared in src/include/optimizer/tlist.h
+
+## Simplified Source
+
+```c
+List *
+make_tlist_from_pathtarget(PathTarget *target)
+{
+    List *tlist = NIL;
+    int i = 0;
+    ListCell *lc;
+
+    // Convert each expression in PathTarget to TargetEntry
+    foreach(lc, target->exprs)
+    {
+        Expr *expr = (Expr *) lfirst(lc);
+        TargetEntry *tle;
+
+        // Create TargetEntry with sequential resource number
+        tle = makeTargetEntry(expr, i + 1, NULL, false);
+
+        // Preserve sort group references if present
+        if (target->sortgrouprefs)
+            tle->ressortgroupref = target->sortgrouprefs[i];
+
+        tlist = lappend(tlist, tle);
+        i++;
+    }
+
+    return tlist;
+}
+```

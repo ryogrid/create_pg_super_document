@@ -48,3 +48,53 @@ The function includes comprehensive error handling and provides detailed error m
 - Essential for CREATE TYPE statements that specify storage length
 - Located in src/backend/commands/define.c:312-355
 - Includes fallback return 0 to keep compiler quiet, though unreachable due to error handling
+
+## Simplified Source
+
+```c
+int
+defGetTypeLength(DefElem *def)
+{
+    // Ensure parameter is provided
+    if (def->arg == NULL)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("%s requires a parameter", def->defname)));
+
+    // Process different argument types
+    switch (nodeTag(def->arg)) {
+        case T_Integer:
+            return intVal(def->arg);  // Direct integer byte length
+
+        case T_Float:
+            // Reject float values - type lengths must be integers
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("%s requires an integer value", def->defname)));
+            break;
+
+        case T_String:
+            // Check for "variable" keyword (case-insensitive)
+            if (pg_strcasecmp(strVal(def->arg), "variable") == 0)
+                return -1;  // Variable length indicator
+            break;
+
+        case T_TypeName:
+            // Handle grammar ambiguity where "variable" parsed as typename
+            if (pg_strcasecmp(TypeNameToString((TypeName *) def->arg), "variable") == 0)
+                return -1;  // Variable length indicator
+            break;
+
+        case T_List:
+            // Operator names not valid for type lengths
+            break;
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(def->arg));
+    }
+
+    // Invalid argument - report error with context
+    ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                   errmsg("invalid argument for %s: \"%s\"",
+                          def->defname, defGetString(def))));
+    return 0;  // Keep compiler quiet
+}
+```

@@ -40,3 +40,13 @@ RegisteredSnapshots is a pairing heap that maintains all registered snapshots or
 - RegisteredSnapshots includes various types of snapshots: transaction snapshots, exported snapshots, and catalog snapshots
 - Returns true for both 0 and 1 registered snapshots (treats both as "no prior" activity)
 - Part of PostgreSQL's snapshot management optimization system
+
+## Simplified Source
+```c
+bool ThereAreNoPriorRegisteredSnapshots(void) {
+    // Return true if RegisteredSnapshots has 0 or 1 elements
+    // Used as heuristic for snapshot activity levels, not critical decisions
+    return (pairingheap_is_empty(&RegisteredSnapshots) ||
+            pairingheap_is_singular(&RegisteredSnapshots));
+}
+```

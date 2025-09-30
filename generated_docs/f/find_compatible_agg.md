@@ -60,3 +60,62 @@ This strict matching ensures that optimization is only applied when it's complet
 - The function assumes that agginfos list contains at least one Aggref in each AggInfo's aggrefs list (uses linitial_node)
 - Builds the compatible transitions list incrementally while searching, avoiding a separate pass through agginfos
 - The equal() function performs deep tree comparison of expression nodes to ensure structural identity
+
+## Simplified Source
+
+```c
+static int
+find_compatible_agg(PlannerInfo *root, Aggref *newagg,
+                    List **same_input_transnos)
+{
+    ListCell *lc;
+    int aggno;
+
+    *same_input_transnos = NIL;
+
+    // Can't reuse aggregates with volatile functions
+    if (contain_volatile_functions((Node *) newagg))
+        return -1;
+
+    // Search through existing aggregates
+    aggno = -1;
+    foreach(lc, root->agginfos)
+    {
+        AggInfo *agginfo = lfirst_node(AggInfo, lc);
+        Aggref *existingRef = linitial_node(Aggref, agginfo->aggrefs);
+
+        aggno++;
+
+        // Check if core properties match
+        if (newagg->inputcollid != existingRef->inputcollid ||
+            newagg->aggtranstype != existingRef->aggtranstype ||
+            newagg->aggstar != existingRef->aggstar ||
+            newagg->aggvariadic != existingRef->aggvariadic ||
+            newagg->aggkind != existingRef->aggkind ||
+            !equal(newagg->args, existingRef->args) ||
+            !equal(newagg->aggorder, existingRef->aggorder) ||
+            !equal(newagg->aggdistinct, existingRef->aggdistinct) ||
+            !equal(newagg->aggfilter, existingRef->aggfilter))
+            continue;
+
+        // Check for exact function match
+        if (newagg->aggfnoid == existingRef->aggfnoid &&
+            newagg->aggtype == existingRef->aggtype &&
+            newagg->aggcollid == existingRef->aggcollid &&
+            equal(newagg->aggdirectargs, existingRef->aggdirectargs))
+        {
+            // Exact match found - can reuse entire result
+            list_free(*same_input_transnos);
+            *same_input_transnos = NIL;
+            return aggno;
+        }
+
+        // Same inputs, different function - might share transition state
+        if (agginfo->shareable)
+            *same_input_transnos = lappend_int(*same_input_transnos,
+                                              agginfo->transno);
+    }
+
+    return -1;  // No compatible aggregate found
+}
+```

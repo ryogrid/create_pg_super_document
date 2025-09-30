@@ -43,3 +43,52 @@ The function returns both the ObjectAddress of the publication relation mapping 
 - Error messages include both relation name and publication name for better diagnostics
 - Part of PostgreSQL's logical replication system for tracking which relations are included in publications
 - The caller is responsible for closing the relation returned in the relp parameter
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_publication_rel(List *object,
+                                  Relation *relp, bool missing_ok)
+{
+    ObjectAddress address;
+    Relation relation;
+    List *relname;
+    char *pubname;
+    Publication *pub;
+
+    ObjectAddressSet(address, PublicationRelRelationId, InvalidOid);
+
+    // Open the relation from the first element
+    relname = linitial(object);
+    relation = relation_openrv_extended(makeRangeVarFromNameList(relname),
+                                       AccessShareLock, missing_ok);
+    if (!relation)
+        return address;
+
+    // Get publication name from second element
+    pubname = strVal(lsecond(object));
+
+    // Look up the publication by name
+    pub = GetPublicationByName(pubname, missing_ok);
+    if (!pub) {
+        relation_close(relation, AccessShareLock);
+        return address;
+    }
+
+    // Find the publication-relation mapping
+    address.objectId = GetSysCacheOid2(PUBLICATIONRELMAP, Anum_pg_publication_rel_oid,
+                                      ObjectIdGetDatum(RelationGetRelid(relation)),
+                                      ObjectIdGetDatum(pub->oid));
+
+    if (!OidIsValid(address.objectId)) {
+        if (!missing_ok)
+            ereport(ERROR, "publication relation does not exist");
+        relation_close(relation, AccessShareLock);
+        return address;
+    }
+
+    *relp = relation;  // Return opened relation to caller
+    return address;
+}
+```

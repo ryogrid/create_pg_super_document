@@ -41,3 +41,25 @@ The function ensures proper memory management by freeing the query string if pre
 - Implements LIFO recycling strategy for optimal cache locality
 - Essential part of PostgreSQL's memory management optimization for frequent command queue operations
 - Used both for error cleanup and normal command processing completion
+
+## Simplified Source
+```c
+static void pqRecycleCmdQueueEntry(PGconn *conn, PGcmdQueueEntry *entry) {
+    // Handle NULL entry safely
+    if (entry == NULL)
+        return;
+
+    // Entry should not have follow-on commands when recycled
+    Assert(entry->next == NULL);
+
+    // Free allocated query string if present
+    if (entry->query) {
+        free(entry->query);
+        entry->query = NULL;
+    }
+
+    // Add entry to head of recycle queue
+    entry->next = conn->cmd_queue_recycle;
+    conn->cmd_queue_recycle = entry;
+}
+```

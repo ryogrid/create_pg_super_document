@@ -51,3 +51,87 @@ The function carefully reconstructs the complete XMLTABLE syntax including prope
 - The function uses parallel list iteration (forboth, forfive) to process related lists simultaneously
 - Proper comma separation is maintained throughout the various clause constructions
 - The function is part of PostgreSQL's XML functionality and SQL/XML standard compliance
+
+## Simplified Source
+
+```c
+static void get_xmltable(TableFunc *tf, deparse_context *context, bool showimplicit) {
+    StringInfo buf = context->buf;
+
+    appendStringInfoString(buf, "XMLTABLE(");
+
+    // Handle XML namespaces if present
+    if (tf->ns_uris != NIL) {
+        bool first = true;
+        appendStringInfoString(buf, "XMLNAMESPACES (");
+
+        forboth(lc1, tf->ns_uris, lc2, tf->ns_names) {
+            Node *expr = (Node *) lfirst(lc1);
+            String *ns_node = lfirst_node(String, lc2);
+
+            if (!first)
+                appendStringInfoString(buf, ", ");
+            else
+                first = false;
+
+            if (ns_node != NULL) {
+                get_rule_expr(expr, context, showimplicit);
+                appendStringInfo(buf, " AS %s", quote_identifier(strVal(ns_node)));
+            } else {
+                appendStringInfoString(buf, "DEFAULT ");
+                get_rule_expr(expr, context, showimplicit);
+            }
+        }
+        appendStringInfoString(buf, "), ");
+    }
+
+    // Output row expression
+    appendStringInfoChar(buf, '(');
+    get_rule_expr((Node *) tf->rowexpr, context, showimplicit);
+    appendStringInfoString(buf, ") PASSING (");
+    get_rule_expr((Node *) tf->docexpr, context, showimplicit);
+    appendStringInfoChar(buf, ')');
+
+    // Handle column specifications
+    if (tf->colexprs != NIL) {
+        int colnum = 0;
+        appendStringInfoString(buf, " COLUMNS ");
+
+        forfive(l1, tf->colnames, l2, tf->coltypes, l3, tf->coltypmods,
+                l4, tf->colexprs, l5, tf->coldefexprs) {
+            char *colname = strVal(lfirst(l1));
+            Oid typid = lfirst_oid(l2);
+            int32 typmod = lfirst_int(l3);
+            Node *colexpr = (Node *) lfirst(l4);
+            Node *coldefexpr = (Node *) lfirst(l5);
+            bool ordinality = (tf->ordinalitycol == colnum);
+            bool notnull = bms_is_member(colnum, tf->notnulls);
+
+            if (colnum > 0)
+                appendStringInfoString(buf, ", ");
+            colnum++;
+
+            appendStringInfo(buf, "%s %s", quote_identifier(colname),
+                ordinality ? "FOR ORDINALITY" : format_type_with_typemod(typid, typmod));
+
+            if (ordinality)
+                continue;
+
+            if (coldefexpr != NULL) {
+                appendStringInfoString(buf, " DEFAULT (");
+                get_rule_expr((Node *) coldefexpr, context, showimplicit);
+                appendStringInfoChar(buf, ')');
+            }
+            if (colexpr != NULL) {
+                appendStringInfoString(buf, " PATH (");
+                get_rule_expr((Node *) colexpr, context, showimplicit);
+                appendStringInfoChar(buf, ')');
+            }
+            if (notnull)
+                appendStringInfoString(buf, " NOT NULL");
+        }
+    }
+
+    appendStringInfoChar(buf, ')');
+}
+```

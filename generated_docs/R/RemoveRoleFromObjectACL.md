@@ -42,3 +42,95 @@ The function effectively performs a "REVOKE ALL" operation on the specified obje
 - For table objects with column-level permissions, the function issues REVOKE ALL ON TABLE which also revokes column permissions according to SQL specification
 - This is designed for role deletion scenarios where all permissions must be removed
 - The function handles various PostgreSQL object types including tables, databases, types, procedures, languages, large objects, schemas, tablespaces, foreign servers, foreign data wrappers, and parameter ACLs
+
+## Simplified Source
+```c
+void
+RemoveRoleFromObjectACL(Oid roleid, Oid classid, Oid objid)
+{
+    if (classid == DefaultAclRelationId)
+    {
+        // Handle default ACL removal
+        InternalDefaultACL iacls;
+        Relation rel;
+        ScanKeyData skey[1];
+        SysScanDesc scan;
+        HeapTuple tuple;
+
+        // Fetch default ACL info from pg_default_acl
+        rel = table_open(DefaultAclRelationId, AccessShareLock);
+        ScanKeyInit(&skey[0], Anum_pg_default_acl_oid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objid));
+        scan = systable_beginscan(rel, DefaultAclOidIndexId, true, NULL, 1, skey);
+        tuple = systable_getnext(scan);
+
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "could not find tuple for default ACL %u", objid);
+
+        Form_pg_default_acl pg_default_acl_tuple = (Form_pg_default_acl) GETSTRUCT(tuple);
+
+        // Set up internal ACL structure
+        iacls.roleid = pg_default_acl_tuple->defaclrole;
+        iacls.nspid = pg_default_acl_tuple->defaclnamespace;
+
+        // Map default ACL object type to internal object type
+        switch (pg_default_acl_tuple->defaclobjtype)
+        {
+            case DEFACLOBJ_RELATION:  iacls.objtype = OBJECT_TABLE; break;
+            case DEFACLOBJ_SEQUENCE:  iacls.objtype = OBJECT_SEQUENCE; break;
+            case DEFACLOBJ_FUNCTION:  iacls.objtype = OBJECT_FUNCTION; break;
+            case DEFACLOBJ_TYPE:      iacls.objtype = OBJECT_TYPE; break;
+            case DEFACLOBJ_NAMESPACE: iacls.objtype = OBJECT_SCHEMA; break;
+            default:
+                elog(ERROR, "unexpected default ACL type: %d", (int) pg_default_acl_tuple->defaclobjtype);
+        }
+
+        systable_endscan(scan);
+        table_close(rel, AccessShareLock);
+
+        // Configure for revoke operation
+        iacls.is_grant = false;
+        iacls.all_privs = true;
+        iacls.privileges = ACL_NO_RIGHTS;
+        iacls.grantees = list_make1_oid(roleid);
+        iacls.grant_option = false;
+        iacls.behavior = DROP_CASCADE;
+
+        SetDefaultACL(&iacls);
+    }
+    else
+    {
+        // Handle regular object ACL removal
+        InternalGrant istmt;
+
+        // Map class ID to object type
+        switch (classid)
+        {
+            case RelationRelationId:        istmt.objtype = OBJECT_TABLE; break;
+            case DatabaseRelationId:        istmt.objtype = OBJECT_DATABASE; break;
+            case TypeRelationId:            istmt.objtype = OBJECT_TYPE; break;
+            case ProcedureRelationId:       istmt.objtype = OBJECT_ROUTINE; break;
+            case LanguageRelationId:        istmt.objtype = OBJECT_LANGUAGE; break;
+            case LargeObjectRelationId:     istmt.objtype = OBJECT_LARGEOBJECT; break;
+            case NamespaceRelationId:       istmt.objtype = OBJECT_SCHEMA; break;
+            case TableSpaceRelationId:      istmt.objtype = OBJECT_TABLESPACE; break;
+            case ForeignServerRelationId:   istmt.objtype = OBJECT_FOREIGN_SERVER; break;
+            case ForeignDataWrapperRelationId: istmt.objtype = OBJECT_FDW; break;
+            case ParameterAclRelationId:    istmt.objtype = OBJECT_PARAMETER_ACL; break;
+            default:
+                elog(ERROR, "unexpected object class %u", classid);
+        }
+
+        // Configure for revoke operation
+        istmt.is_grant = false;
+        istmt.objects = list_make1_oid(objid);
+        istmt.all_privs = true;
+        istmt.privileges = ACL_NO_RIGHTS;
+        istmt.col_privs = NIL;
+        istmt.grantees = list_make1_oid(roleid);
+        istmt.grant_option = false;
+        istmt.behavior = DROP_CASCADE;
+
+        ExecGrantStmt_oids(&istmt);
+    }
+}
+```

@@ -44,3 +44,46 @@ This function serves as the main entry point for offsetting variable node refere
 - Used extensively during query rewriting, subquery pullup, and rule application
 - Critical for maintaining referential integrity when combining or transforming queries
 - Works in conjunction with CombineRangeTables to handle complete query merging operations
+
+## Simplified Source
+
+```c
+void OffsetVarNodes(Node *node, int offset, int sublevels_up) {
+    // Set up context for the walker function
+    OffsetVarNodes_context context;
+    context.offset = offset;
+    context.sublevels_up = sublevels_up;
+
+    // Handle Query nodes differently from expression trees
+    if (node && IsA(node, Query)) {
+        Query *qry = (Query *) node;
+
+        // For top-level queries, also adjust Query-specific relation indexes
+        if (sublevels_up == 0) {
+            // Adjust result relation indexes
+            if (qry->resultRelation)
+                qry->resultRelation += offset;
+
+            if (qry->mergeTargetRelation)
+                qry->mergeTargetRelation += offset;
+
+            // Adjust ON CONFLICT excluded relation index
+            if (qry->onConflict && qry->onConflict->exclRelIndex)
+                qry->onConflict->exclRelIndex += offset;
+
+            // Adjust row mark relation indexes
+            ListCell *l;
+            foreach(l, qry->rowMarks) {
+                RowMarkClause *rc = (RowMarkClause *) lfirst(l);
+                rc->rti += offset;
+            }
+        }
+
+        // Use query tree walker for proper Query traversal
+        query_tree_walker(qry, OffsetVarNodes_walker, (void *) &context, 0);
+    } else {
+        // For bare expression trees, call walker directly
+        OffsetVarNodes_walker(node, &context);
+    }
+}
+```

@@ -58,3 +58,138 @@ The function validates that both operands have the same number of columns and es
 - Recursive CTEs require hash-capable grouping operators for proper duplicate elimination
 - The function creates dummy target list entries using SetToDefault nodes to carry type information up the recursion tree
 - Error positioning callbacks ensure accurate error reporting during type resolution
+
+## Simplified Source
+
+```c
+static Node *
+transformSetOperationTree(ParseState *pstate, SelectStmt *stmt,
+                          bool isTopLevel, List **targetlist)
+{
+    bool isLeaf;
+
+    check_stack_depth();
+
+    // Check for disallowed clauses
+    if (stmt->intoClause)
+        ereport(ERROR, (errmsg("INTO is only allowed on first SELECT of UNION/INTERSECT/EXCEPT")));
+
+    if (stmt->lockingClause)
+        ereport(ERROR, (errmsg("FOR UPDATE/SHARE is not allowed with UNION/INTERSECT/EXCEPT")));
+
+    // Determine if this is a leaf node or internal set operation
+    if (stmt->op == SETOP_NONE)
+        isLeaf = true;
+    else
+        isLeaf = (stmt->sortClause || stmt->limitOffset || stmt->limitCount ||
+                  stmt->lockingClause || stmt->withClause);
+
+    if (isLeaf)
+    {
+        // Process leaf SELECT - transform to subquery
+        Query *selectQuery = parse_sub_analyze((Node *) stmt, pstate, NULL, false, false);
+
+        // Check for invalid variable references
+        if (pstate->p_namespace && contain_vars_of_level((Node *) selectQuery, 1))
+            ereport(ERROR, (errmsg("UNION/INTERSECT/EXCEPT member cannot refer to other relations")));
+
+        // Extract non-junk target entries if requested
+        if (targetlist)
+        {
+            *targetlist = NIL;
+            ListCell *tl;
+            foreach(tl, selectQuery->targetList)
+            {
+                TargetEntry *tle = (TargetEntry *) lfirst(tl);
+                if (!tle->resjunk)
+                    *targetlist = lappend(*targetlist, tle);
+            }
+        }
+
+        // Create range table entry for subquery
+        char selectName[32];
+        snprintf(selectName, sizeof(selectName), "*SELECT* %d", list_length(pstate->p_rtable) + 1);
+        ParseNamespaceItem *nsitem = addRangeTableEntryForSubquery(pstate, selectQuery,
+                                                                   makeAlias(selectName, NIL),
+                                                                   false, false);
+
+        // Return reference to the subquery
+        RangeTblRef *rtr = makeNode(RangeTblRef);
+        rtr->rtindex = nsitem->p_rtindex;
+        return (Node *) rtr;
+    }
+    else
+    {
+        // Process internal set operation node
+        SetOperationStmt *op = makeNode(SetOperationStmt);
+        List *ltargetlist, *rtargetlist;
+        bool recursive = (pstate->p_parent_cte && pstate->p_parent_cte->cterecursive);
+
+        op->op = stmt->op;
+        op->all = stmt->all;
+
+        // Recursively process left and right children
+        op->larg = transformSetOperationTree(pstate, stmt->larg, false, &ltargetlist);
+
+        if (isTopLevel && recursive)
+            determineRecursiveColTypes(pstate, op->larg, ltargetlist);
+
+        op->rarg = transformSetOperationTree(pstate, stmt->rarg, false, &rtargetlist);
+
+        // Verify same number of columns
+        if (list_length(ltargetlist) != list_length(rtargetlist))
+            ereport(ERROR, (errmsg("each %s query must have the same number of columns",
+                                  stmt->op == SETOP_UNION ? "UNION" :
+                                  stmt->op == SETOP_INTERSECT ? "INTERSECT" : "EXCEPT")));
+
+        // Process each column pair to determine common types
+        if (targetlist) *targetlist = NIL;
+        op->colTypes = op->colTypmods = op->colCollations = op->groupClauses = NIL;
+
+        ListCell *ltl, *rtl;
+        forboth(ltl, ltargetlist, rtl, rtargetlist)
+        {
+            TargetEntry *ltle = (TargetEntry *) lfirst(ltl);
+            TargetEntry *rtle = (TargetEntry *) lfirst(rtl);
+            Node *lcolnode = (Node *) ltle->expr;
+            Node *rcolnode = (Node *) rtle->expr;
+
+            // Determine common type for this column position
+            Oid rescoltype = select_common_type(pstate, list_make2(lcolnode, rcolnode),
+                                              "set operation", NULL);
+            int32 rescoltypmod = select_common_typmod(pstate, list_make2(lcolnode, rcolnode), rescoltype);
+            Oid rescolcoll = select_common_collation(pstate, list_make2(lcolnode, rcolnode),
+                                                    (op->op == SETOP_UNION && op->all));
+
+            // Coerce UNKNOWN constants/parameters to resolved type
+            if (exprType(lcolnode) == UNKNOWNOID && (IsA(lcolnode, Const) || IsA(lcolnode, Param)))
+                ltle->expr = (Expr *) coerce_to_common_type(pstate, lcolnode, rescoltype, "set operation");
+            if (exprType(rcolnode) == UNKNOWNOID && (IsA(rcolnode, Const) || IsA(rcolnode, Param)))
+                rtle->expr = (Expr *) coerce_to_common_type(pstate, rcolnode, rescoltype, "set operation");
+
+            // Store resolved column information
+            op->colTypes = lappend_oid(op->colTypes, rescoltype);
+            op->colTypmods = lappend_int(op->colTypmods, rescoltypmod);
+            op->colCollations = lappend_oid(op->colCollations, rescolcoll);
+
+            // Add grouping clause for duplicate elimination (except UNION ALL)
+            if (op->op != SETOP_UNION || !op->all)
+                op->groupClauses = lappend(op->groupClauses,
+                                         makeSortGroupClauseForSetOp(rescoltype, recursive));
+
+            // Create dummy target entry for upper level processing
+            if (targetlist)
+            {
+                SetToDefault *rescolnode = makeNode(SetToDefault);
+                rescolnode->typeId = rescoltype;
+                rescolnode->typeMod = rescoltypmod;
+                rescolnode->collation = rescolcoll;
+                TargetEntry *restle = makeTargetEntry((Expr *) rescolnode, 0, NULL, false);
+                *targetlist = lappend(*targetlist, restle);
+            }
+        }
+
+        return (Node *) op;
+    }
+}
+```

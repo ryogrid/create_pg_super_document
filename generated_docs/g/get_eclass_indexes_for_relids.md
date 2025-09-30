@@ -44,3 +44,33 @@ The function includes special handling for outer join relations that may not hav
 - Used as a building block for more complex equivalence class operations
 - Returns NULL if no relevant equivalence classes are found
 - Part of the equivalence class indexing system for efficient lookup operations
+
+## Simplified Source
+
+```c
+static Bitmapset *
+get_eclass_indexes_for_relids(PlannerInfo *root, Relids relids)
+{
+    Bitmapset *ec_indexes = NULL;
+    int i = -1;
+
+    // Ensure EC merging has been completed
+    Assert(root->ec_merging_done);
+
+    // Iterate through all relation IDs in the set
+    while ((i = bms_next_member(relids, i)) > 0) {
+        RelOptInfo *rel = root->simple_rel_array[i];
+
+        // Skip outer join relations (no RelOptInfo entry)
+        if (rel == NULL) {
+            Assert(bms_is_member(i, root->outer_join_rels));
+            continue;
+        }
+
+        // Collect this relation's equivalence class indexes
+        ec_indexes = bms_add_members(ec_indexes, rel->eclass_indexes);
+    }
+
+    return ec_indexes;
+}
+```

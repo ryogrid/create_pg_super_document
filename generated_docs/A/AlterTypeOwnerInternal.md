@@ -48,3 +48,73 @@ The function uses heap_modify_tuple to update the type tuple, ensuring atomic up
 - Self-recursive design ensures all dependent types maintain ownership consistency
 - Used as the lowest-level implementation by both table and type ownership change operations
 - Error handling includes validation that multirange types exist for range types
+
+## Simplified Source
+
+```c
+void
+AlterTypeOwnerInternal(Oid typeOid, Oid newOwnerId)
+{
+    Relation    rel;
+    HeapTuple   tup;
+    Form_pg_type typTup;
+    Datum       repl_val[Natts_pg_type];
+    bool        repl_null[Natts_pg_type];
+    bool        repl_repl[Natts_pg_type];
+    Acl        *newAcl;
+    Datum       aclDatum;
+    bool        isNull;
+
+    // Open pg_type relation
+    rel = table_open(TypeRelationId, RowExclusiveLock);
+
+    // Get the type tuple
+    tup = SearchSysCacheCopy1(TYPEOID, ObjectIdGetDatum(typeOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", typeOid);
+
+    typTup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Setup modification arrays
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+
+    // Update owner
+    repl_repl[Anum_pg_type_typowner - 1] = true;
+    repl_val[Anum_pg_type_typowner - 1] = ObjectIdGetDatum(newOwnerId);
+
+    // Update ACL if present
+    aclDatum = heap_getattr(tup, Anum_pg_type_typacl,
+                            RelationGetDescr(rel), &isNull);
+    if (!isNull)
+    {
+        newAcl = aclnewowner(DatumGetAclP(aclDatum),
+                             typTup->typowner, newOwnerId);
+        repl_repl[Anum_pg_type_typacl - 1] = true;
+        repl_val[Anum_pg_type_typacl - 1] = PointerGetDatum(newAcl);
+    }
+
+    // Update the tuple
+    tup = heap_modify_tuple(tup, RelationGetDescr(rel),
+                            repl_val, repl_null, repl_repl);
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    // Recursively update array type if it exists
+    if (OidIsValid(typTup->typarray))
+        AlterTypeOwnerInternal(typTup->typarray, newOwnerId);
+
+    // Recursively update multirange type if this is a range type
+    if (typTup->typtype == TYPTYPE_RANGE)
+    {
+        Oid multirange_typeid = get_range_multirange(typeOid);
+        if (!OidIsValid(multirange_typeid))
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("could not find multirange type for data type %s",
+                            format_type_be(typeOid))));
+        AlterTypeOwnerInternal(multirange_typeid, newOwnerId);
+    }
+
+    table_close(rel, RowExclusiveLock);
+}
+```

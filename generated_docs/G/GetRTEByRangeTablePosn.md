@@ -38,3 +38,19 @@ This function locates and returns a specific Range Table Entry (RTE) from the Po
 - Critical for resolving table references in nested query contexts
 - The RTE returned may not necessarily be in the current query's namespace
 - Located in src/backend/parser/parse_relation.c:537-556
+
+## Simplified Source
+
+```c
+RangeTblEntry *GetRTEByRangeTablePosn(ParseState *pstate, int varno, int sublevels_up) {
+    // Navigate up through nested parser states
+    while (sublevels_up-- > 0) {
+        pstate = pstate->parentParseState;
+        Assert(pstate != NULL);
+    }
+
+    // Validate position and fetch RTE from range table
+    Assert(varno > 0 && varno <= list_length(pstate->p_rtable));
+    return rt_fetch(varno, pstate->p_rtable);
+}
+```

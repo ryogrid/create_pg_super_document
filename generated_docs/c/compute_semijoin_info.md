@@ -50,3 +50,94 @@ The analysis involves:
 - The enable_hashagg setting affects whether hash-based unique-ification is considered
 - If successful, the function populates semi_can_btree, semi_can_hash, semi_operators, and semi_rhs_exprs fields in the SpecialJoinInfo structure
 - This information is later used by create_unique_plan() to implement the unique-ification optimization
+
+## Simplified Source
+
+```c
+static void
+compute_semijoin_info(PlannerInfo *root, SpecialJoinInfo *sjinfo, List *clause)
+{
+    List *semi_operators = NIL;
+    List *semi_rhs_exprs = NIL;
+    bool all_btree = true;
+    bool all_hash = enable_hashagg;
+    ListCell *lc;
+
+    // Initialize semijoin fields
+    sjinfo->semi_can_btree = false;
+    sjinfo->semi_can_hash = false;
+    sjinfo->semi_operators = NIL;
+    sjinfo->semi_rhs_exprs = NIL;
+
+    // Only process semijoins
+    if (sjinfo->jointype != JOIN_SEMI)
+        return;
+
+    // Analyze each clause for unique-ification potential
+    foreach(lc, clause)
+    {
+        OpExpr *op = (OpExpr *) lfirst(lc);
+        Oid opno;
+        Node *left_expr, *right_expr;
+        Relids left_varnos, right_varnos;
+
+        // Must be binary equality operator
+        if (!IsA(op, OpExpr) || list_length(op->args) != 2)
+        {
+            if (!clause_references_both_sides(op, sjinfo))
+                continue;  // Ignore single-side clauses
+            return;  // Complex clause, can't unique-ify
+        }
+
+        // Extract operator and expressions
+        opno = op->opno;
+        left_expr = linitial(op->args);
+        right_expr = lsecond(op->args);
+        left_varnos = pull_varnos(root, left_expr);
+        right_varnos = pull_varnos(root, right_expr);
+
+        // Determine which side is RHS (right-hand side of semijoin)
+        if (bms_is_subset(right_varnos, sjinfo->syn_righthand) &&
+            !bms_overlap(left_varnos, sjinfo->syn_righthand))
+        {
+            // Normal case: right_expr is RHS variable
+        }
+        else if (bms_is_subset(left_varnos, sjinfo->syn_righthand) &&
+                 !bms_overlap(right_varnos, sjinfo->syn_righthand))
+        {
+            // Flipped case: commute operator and swap expressions
+            opno = get_commutator(opno);
+            if (!OidIsValid(opno))
+                return;  // No commutator available
+            right_expr = left_expr;
+        }
+        else
+        {
+            return;  // Mixed membership, can't unique-ify
+        }
+
+        // Check if operator supports btree or hash operations
+        if (all_btree && !op_mergejoinable(opno, exprType(left_expr)))
+            all_btree = false;
+        if (all_hash && !op_hashjoinable(opno, exprType(left_expr)))
+            all_hash = false;
+
+        if (!(all_btree || all_hash))
+            return;  // Neither method available
+
+        // Collect operator and RHS expression
+        semi_operators = lappend_oid(semi_operators, opno);
+        semi_rhs_exprs = lappend(semi_rhs_exprs, copyObject(right_expr));
+    }
+
+    // Verify we found at least one unique-ifiable column
+    if (semi_rhs_exprs == NIL || contain_volatile_functions((Node *) semi_rhs_exprs))
+        return;
+
+    // Success: set semijoin optimization info
+    sjinfo->semi_can_btree = all_btree;
+    sjinfo->semi_can_hash = all_hash;
+    sjinfo->semi_operators = semi_operators;
+    sjinfo->semi_rhs_exprs = semi_rhs_exprs;
+}
+```

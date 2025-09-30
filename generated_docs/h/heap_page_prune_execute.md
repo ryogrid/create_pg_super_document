@@ -57,3 +57,56 @@ After applying changes, it repairs page fragmentation and validates redirect int
 - Critical for maintaining index consistency by ensuring LP_REDIRECT items exist for index TID references
 - The two-mode operation allows for different locking requirements depending on the extent of changes needed
 - Part of PostgreSQL's space reclamation and HOT update optimization system
+
+## Simplified Source
+
+```c
+void
+heap_page_prune_execute(Buffer buffer, bool lp_truncate_only,
+                       OffsetNumber *redirected, int nredirected,
+                       OffsetNumber *nowdead, int ndead,
+                       OffsetNumber *nowunused, int nunused)
+{
+    Page page = BufferGetPage(buffer);
+
+    // Verify there's work to do
+    Assert(nredirected > 0 || ndead > 0 || nunused > 0);
+
+    // Handle redirections: update line pointers to point to new locations
+    OffsetNumber *offnum = redirected;
+    for (int i = 0; i < nredirected; i++) {
+        OffsetNumber fromoff = *offnum++;
+        OffsetNumber tooff = *offnum++;
+        ItemId fromlp = PageGetItemId(page, fromoff);
+
+        // Set up redirection for HOT chain management
+        ItemIdSetRedirect(fromlp, tooff);
+    }
+
+    // Mark line pointers as dead (can't be removed yet due to potential index refs)
+    offnum = nowdead;
+    for (int i = 0; i < ndead; i++) {
+        OffsetNumber off = *offnum++;
+        ItemId lp = PageGetItemId(page, off);
+        ItemIdSetDead(lp);
+    }
+
+    // Mark line pointers as unused (can be reclaimed)
+    offnum = nowunused;
+    for (int i = 0; i < nunused; i++) {
+        OffsetNumber off = *offnum++;
+        ItemId lp = PageGetItemId(page, off);
+        ItemIdSetUnused(lp);
+    }
+
+    // Complete the operation based on mode
+    if (lp_truncate_only) {
+        // Simple mode: just truncate line pointer array
+        PageTruncateLinePointerArray(page);
+    } else {
+        // Full mode: repair fragmentation and validate
+        PageRepairFragmentation(page);
+        page_verify_redirects(page);
+    }
+}
+```

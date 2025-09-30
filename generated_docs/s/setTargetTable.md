@@ -57,3 +57,51 @@ Lock acquisition occurs before processing the FROM list to ensure write locks ar
 - ENRs (Ephemeral Named Relations) take precedence over regular tables with the same name
 - Permission checking is customized based on the specific DML operation requirements
 - Returns the range table index of the target relation for later reference
+
+## Simplified Source
+
+```c
+int setTargetTable(ParseState *pstate, RangeVar *relation,
+                   bool inh, bool alsoSource, AclMode requiredPerms) {
+    ParseNamespaceItem *nsitem;
+
+    // Check for ENR conflicts (ENRs hide tables of same name)
+    if (relation->schemaname == NULL &&
+        scanNameSpaceForENR(pstate, relation->relname))
+        ereport(ERROR, "relation cannot be target of modifying statement");
+
+    // Close any previous target relation (for multi-action rules)
+    if (pstate->p_target_relation != NULL)
+        table_close(pstate->p_target_relation, NoLock);
+
+    // Open target relation and acquire write lock (held till transaction end)
+    pstate->p_target_relation = parserOpenTable(pstate, relation,
+                                                RowExclusiveLock);
+
+    // Create range table entry and namespace item
+    nsitem = addRangeTableEntryForRelation(pstate, pstate->p_target_relation,
+                                          RowExclusiveLock,
+                                          relation->alias, inh, false);
+
+    // Remember this as the query target
+    pstate->p_target_nsitem = nsitem;
+
+    // Set required permissions (overrides default ACL_SELECT)
+    nsitem->p_perminfo->requiredPerms = requiredPerms;
+
+    // For UPDATE/DELETE, add table to joinlist and namespace
+    if (alsoSource)
+        addNSItemToQuery(pstate, nsitem, true, true, true);
+
+    return nsitem->p_rtindex;
+}
+```
+
+**Key Points:**
+- Sets up target relation for DML statements (INSERT/UPDATE/DELETE/MERGE)
+- Checks for ENR conflicts and closes any previous target relation
+- Acquires RowExclusiveLock on target (held until transaction end)
+- Creates range table entry and namespace item for target relation
+- Sets appropriate permissions based on operation requirements
+- Conditionally adds to joinlist/namespace: true for UPDATE/DELETE, false for INSERT/MERGE
+- Returns range table index for later reference during parsing

@@ -42,3 +42,36 @@ The function follows a hierarchical approach: first checking for user-written co
 - Caller is responsible for ensuring the attribute is not dropped, as the function may return unexpected results for dropped columns
 - Will throw an ERROR if given an invalid attribute number that exceeds the available columns
 - Essential for query deparsing and error message generation where user-friendly column names are important
+
+## Simplified Source
+
+```c
+char *get_rte_attribute_name(RangeTblEntry *rte, AttrNumber attnum) {
+    // Handle whole tuple reference
+    if (attnum == InvalidAttrNumber) {
+        return "*";
+    }
+
+    // First priority: user-written column alias
+    if (rte->alias &&
+        attnum > 0 && attnum <= list_length(rte->alias->colnames)) {
+        return strVal(list_nth(rte->alias->colnames, attnum - 1));
+    }
+
+    // Second priority: for real relations, get current name from system catalogs
+    // This handles cases where columns may have been renamed since eref was built
+    if (rte->rtekind == RTE_RELATION) {
+        return get_attname(rte->relid, attnum, false);
+    }
+
+    // Final fallback: use eref column names (for subselects, joins, etc.)
+    if (attnum > 0 && attnum <= list_length(rte->eref->colnames)) {
+        return strVal(list_nth(rte->eref->colnames, attnum - 1));
+    }
+
+    // Invalid attribute number
+    elog(ERROR, "invalid attnum %d for rangetable entry %s",
+         attnum, rte->eref->aliasname);
+    return NULL; // keep compiler quiet
+}
+```

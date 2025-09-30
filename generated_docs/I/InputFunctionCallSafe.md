@@ -42,3 +42,49 @@ This function serves as a safer alternative to InputFunctionCall by providing er
 - If no ErrorSaveContext is provided, behaves functionally identical to InputFunctionCall
 - Particularly useful in COPY operations and validation scenarios where input errors should not abort the entire operation
 - Part of PostgreSQL's enhanced error handling infrastructure for graceful degradation
+
+## Simplified Source
+
+```c
+bool
+InputFunctionCallSafe(FmgrInfo *flinfo, char *str, Oid typioparam, int32 typmod,
+                      fmNodePtr escontext, Datum *result)
+{
+    LOCAL_FCINFO(fcinfo, 3);
+
+    // Handle NULL input for strict functions
+    if (str == NULL && flinfo->fn_strict) {
+        *result = (Datum) 0;
+        return true;
+    }
+
+    // Initialize function call with error context
+    InitFunctionCallInfoData(*fcinfo, flinfo, 3, InvalidOid, escontext, NULL);
+
+    // Set up function arguments
+    fcinfo->args[0].value = CStringGetDatum(str);      // input string
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = ObjectIdGetDatum(typioparam); // type parameter
+    fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = Int32GetDatum(typmod);     // type modifier
+    fcinfo->args[2].isnull = false;
+
+    // Call the input function
+    *result = FunctionCallInvoke(fcinfo);
+
+    // Check for soft errors
+    if (SOFT_ERROR_OCCURRED(escontext))
+        return false;
+
+    // Validate result consistency
+    if (str == NULL) {
+        if (!fcinfo->isnull)
+            elog(ERROR, "input function %u returned non-NULL", flinfo->fn_oid);
+    } else {
+        if (fcinfo->isnull)
+            elog(ERROR, "input function %u returned NULL", flinfo->fn_oid);
+    }
+
+    return true;
+}
+```

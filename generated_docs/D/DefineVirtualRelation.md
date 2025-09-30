@@ -101,3 +101,122 @@ The function constructs ColumnDef nodes from the target list entries, handling t
 - For view replacement, it ensures that temporary views can only be replaced by temporary views, and permanent views by permanent views
 - The function uses ALTER TABLE infrastructure for adding new columns during view replacement, which is noted as "overkill" but convenient
 - Dependencies are carefully managed during replacement, with most view-level dependencies remaining unchanged while query dependencies are handled by StoreViewQuery
+
+## Simplified Source
+
+```c
+static ObjectAddress
+DefineVirtualRelation(RangeVar *relation, List *tlist, bool replace,
+                     List *options, Query *viewParse)
+{
+    Oid viewOid;
+    LOCKMODE lockmode;
+    CreateStmt *createStmt = makeNode(CreateStmt);
+    List *attrList;
+    ListCell *t;
+
+    // Create column definitions from target list (non-junk columns only)
+    attrList = NIL;
+    foreach(t, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(t);
+        if (!tle->resjunk) {
+            ColumnDef *def = makeColumnDef(tle->resname,
+                                         exprType((Node *) tle->expr),
+                                         exprTypmod((Node *) tle->expr),
+                                         exprCollation((Node *) tle->expr));
+
+            // Validate collation for collatable types
+            if (type_is_collatable(exprType((Node *) tle->expr))) {
+                if (!OidIsValid(def->collOid))
+                    ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                                   errmsg("could not determine which collation to use for view column \"%s\"",
+                                          def->colname),
+                                   errhint("Use the COLLATE clause to set the collation explicitly.")));
+            }
+            attrList = lappend(attrList, def);
+        }
+    }
+
+    // Check namespace and handle existing view for replacement
+    lockmode = replace ? AccessExclusiveLock : NoLock;
+    (void) RangeVarGetAndCheckCreationNamespace(relation, lockmode, &viewOid);
+
+    if (OidIsValid(viewOid) && replace) {
+        // VIEW REPLACEMENT LOGIC
+        Relation rel;
+        TupleDesc descriptor;
+        List *atcmds = NIL;
+        AlterTableCmd *atcmd;
+        ObjectAddress address;
+
+        rel = relation_open(viewOid, NoLock);
+
+        // Verify it's actually a view
+        if (rel->rd_rel->relkind != RELKIND_VIEW)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("\"%s\" is not a view", RelationGetRelationName(rel))));
+
+        CheckTableNotInUse(rel, "CREATE OR REPLACE VIEW");
+
+        // Check column compatibility
+        descriptor = BuildDescForRelation(attrList);
+        checkViewColumns(descriptor, rel->rd_att);
+
+        // Add new columns if necessary
+        if (list_length(attrList) > rel->rd_att->natts) {
+            ListCell *c;
+            int skip = rel->rd_att->natts;
+            foreach(c, attrList) {
+                if (skip > 0) {
+                    skip--;
+                    continue;
+                }
+                atcmd = makeNode(AlterTableCmd);
+                atcmd->subtype = AT_AddColumnToView;
+                atcmd->def = (Node *) lfirst(c);
+                atcmds = lappend(atcmds, atcmd);
+            }
+            AlterTableInternal(viewOid, atcmds, true);
+            CommandCounterIncrement();
+        }
+
+        // Update view query and options
+        StoreViewQuery(viewOid, viewParse, replace);
+        CommandCounterIncrement();
+
+        atcmd = makeNode(AlterTableCmd);
+        atcmd->subtype = AT_ReplaceRelOptions;
+        atcmd->def = (Node *) options;
+        atcmds = list_make1(atcmd);
+        AlterTableInternal(viewOid, atcmds, true);
+
+        ObjectAddressSet(address, RelationRelationId, viewOid);
+        recordDependencyOnCurrentExtension(&address, true);
+
+        relation_close(rel, NoLock);
+        return address;
+    } else {
+        // NEW VIEW CREATION LOGIC
+        ObjectAddress address;
+
+        // Set up creation parameters
+        createStmt->relation = relation;
+        createStmt->tableElts = attrList;
+        createStmt->inhRelations = NIL;
+        createStmt->constraints = NIL;
+        createStmt->options = options;
+        createStmt->oncommit = ONCOMMIT_NOOP;
+        createStmt->tablespacename = NULL;
+        createStmt->if_not_exists = false;
+
+        // Create the view relation
+        address = DefineRelation(createStmt, RELKIND_VIEW, InvalidOid, NULL, NULL);
+        CommandCounterIncrement();
+
+        // Store the view query
+        StoreViewQuery(address.objectId, viewParse, replace);
+
+        return address;
+    }
+}
+```

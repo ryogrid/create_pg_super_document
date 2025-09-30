@@ -45,3 +45,57 @@ The function maintains proper schema locking throughout the operation to prevent
 - Handles edge cases where schema lists may be empty (particularly for SET operations)
 - Maintains consistency with existing table-based publication configurations
 - Uses ignore_if_exists flags appropriately for SET operations to handle duplicates gracefully
+
+## Simplified Source
+
+```c
+static void AlterPublicationSchemas(AlterPublicationStmt *stmt, HeapTuple tup, List *schemaidlist) {
+    Form_pg_publication pubform = (Form_pg_publication) GETSTRUCT(tup);
+
+    // Skip if no schemas specified (except for SET operations)
+    if (!schemaidlist && stmt->action != AP_SetObjects)
+        return;
+
+    // Lock schemas to prevent concurrent modifications
+    LockSchemaList(schemaidlist);
+
+    if (stmt->action == AP_AddObjects) {
+        // Validate that no tables with column lists exist before adding schemas
+        List *reloids = GetPublicationRelations(pubform->oid, PUBLICATION_PART_ROOT);
+
+        foreach(lc, reloids) {
+            HeapTuple coltuple = SearchSysCache2(PUBLICATIONRELMAP,
+                                                ObjectIdGetDatum(lfirst_oid(lc)),
+                                                ObjectIdGetDatum(pubform->oid));
+            if (HeapTupleIsValid(coltuple)) {
+                // Check if table has column list defined
+                if (!heap_attisnull(coltuple, Anum_pg_publication_rel_prattrs, NULL)) {
+                    ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                                   errmsg("cannot add schema to publication \"%s\"", stmt->pubname),
+                                   errdetail("Schemas cannot be added if any tables that specify a column list are already part of the publication.")));
+                }
+                ReleaseSysCache(coltuple);
+            }
+        }
+
+        // Add the schemas to publication
+        PublicationAddSchemas(pubform->oid, schemaidlist, false, stmt);
+    }
+    else if (stmt->action == AP_DropObjects) {
+        // Remove schemas from publication
+        PublicationDropSchemas(pubform->oid, schemaidlist, false);
+    }
+    else { // AP_SetObjects
+        // Replace existing schemas with new list
+        List *oldschemaids = GetPublicationSchemas(pubform->oid);
+        List *delschemas = list_difference_oid(oldschemaids, schemaidlist);
+
+        // Lock and remove schemas not in new list
+        LockSchemaList(delschemas);
+        PublicationDropSchemas(pubform->oid, delschemas, true);
+
+        // Add new schemas (duplicates will be skipped)
+        PublicationAddSchemas(pubform->oid, schemaidlist, true, stmt);
+    }
+}
+```

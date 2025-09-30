@@ -61,3 +61,94 @@ The function supports both concurrent and standard reindexing modes, automatical
 - Includes proper permission checking for tablespace operations
 - Provides verbose output capability for monitoring reindex operations
 - Uses REINDEXOPT_MISSING_OK flag to handle relations that may have been dropped during processing
+
+## Simplified Source
+
+```c
+static void
+ReindexMultipleInternal(const ReindexStmt *stmt, const List *relids, const ReindexParams *params)
+{
+    ListCell *l;
+
+    // Commit current transaction and start fresh transactions for each relation
+    PopActiveSnapshot();
+    CommitTransactionCommand();
+
+    foreach(l, relids)
+    {
+        Oid relid = lfirst_oid(l);
+        char relkind;
+        char relpersistence;
+
+        StartTransactionCommand();
+        PushActiveSnapshot(GetTransactionSnapshot());
+
+        // Skip if relation no longer exists
+        if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(relid)))
+        {
+            PopActiveSnapshot();
+            CommitTransactionCommand();
+            continue;
+        }
+
+        // Check tablespace permissions if specified
+        if (OidIsValid(params->tablespaceOid) &&
+            params->tablespaceOid != MyDatabaseTableSpace)
+        {
+            AclResult aclresult = object_aclcheck(TableSpaceRelationId, params->tablespaceOid,
+                                                  GetUserId(), ACL_CREATE);
+            if (aclresult != ACLCHECK_OK)
+                aclcheck_error(aclresult, OBJECT_TABLESPACE,
+                               get_tablespace_name(params->tablespaceOid));
+        }
+
+        relkind = get_rel_relkind(relid);
+        relpersistence = get_rel_persistence(relid);
+
+        // Partitioned relations should never be processed directly
+        Assert(!RELKIND_HAS_PARTITIONS(relkind));
+
+        // Choose reindex method based on concurrent flag and relation type
+        if ((params->options & REINDEXOPT_CONCURRENTLY) != 0 &&
+            relpersistence != RELPERSISTENCE_TEMP)
+        {
+            // Concurrent reindex
+            ReindexParams newparams = *params;
+            newparams.options |= REINDEXOPT_MISSING_OK;
+            (void) ReindexRelationConcurrently(stmt, relid, &newparams);
+            if (ActiveSnapshotSet())
+                PopActiveSnapshot();
+        }
+        else if (relkind == RELKIND_INDEX)
+        {
+            // Standard index reindex
+            ReindexParams newparams = *params;
+            newparams.options |= REINDEXOPT_REPORT_PROGRESS | REINDEXOPT_MISSING_OK;
+            reindex_index(stmt, relid, false, relpersistence, &newparams);
+            PopActiveSnapshot();
+        }
+        else
+        {
+            // Standard table reindex
+            bool result;
+            ReindexParams newparams = *params;
+            newparams.options |= REINDEXOPT_REPORT_PROGRESS | REINDEXOPT_MISSING_OK;
+            result = reindex_relation(stmt, relid,
+                                      REINDEX_REL_PROCESS_TOAST | REINDEX_REL_CHECK_CONSTRAINTS,
+                                      &newparams);
+
+            // Verbose output for successful table reindex
+            if (result && (params->options & REINDEXOPT_VERBOSE) != 0)
+                ereport(INFO, (errmsg("table \"%s.%s\" was reindexed",
+                                      get_namespace_name(get_rel_namespace(relid)),
+                                      get_rel_name(relid))));
+
+            PopActiveSnapshot();
+        }
+
+        CommitTransactionCommand();
+    }
+
+    StartTransactionCommand();
+}
+```

@@ -44,3 +44,57 @@ The function transforms the original Var into a ROWID_VAR reference and manages 
 - The function maintains a global list in root->row_identity_vars that allows sharing row-identity variables across multiple child relations
 - An error is raised if there are conflicting uses of the same row-identity name with different variable structures
 - This mechanism is essential for correctly handling UPDATE/DELETE/MERGE operations on partitioned tables and inheritance hierarchies
+
+## Simplified Source
+
+```c
+void add_row_identity_var(PlannerInfo *root, Var *orig_var,
+                         Index rtindex, const char *rowid_name) {
+    // Simple case: non-inherited UPDATE/DELETE/MERGE
+    if (rtindex == root->parse->resultRelation) {
+        TargetEntry *tle = makeTargetEntry((Expr *) orig_var,
+                                          list_length(root->processed_tlist) + 1,
+                                          pstrdup(rowid_name), true);
+        root->processed_tlist = lappend(root->processed_tlist, tle);
+        return;
+    }
+
+    // Complex case: inherited operations
+    // Convert original var to ROWID_VAR reference
+    Var *rowid_var = copyObject(orig_var);
+    rowid_var->varno = ROWID_VAR;
+
+    // Look for existing row-identity variable with same name
+    foreach(lc, root->row_identity_vars) {
+        RowIdentityVarInfo *ridinfo = (RowIdentityVarInfo *) lfirst(lc);
+        if (strcmp(rowid_name, ridinfo->rowidname) == 0) {
+            if (equal(rowid_var, ridinfo->rowidvar)) {
+                // Found match, add this relation to the set
+                ridinfo->rowidrels = bms_add_member(ridinfo->rowidrels, rtindex);
+                return;
+            } else {
+                elog(ERROR, "conflicting uses of row-identity name \"%s\"", rowid_name);
+            }
+        }
+    }
+
+    // Create new row-identity variable
+    RowIdentityVarInfo *ridinfo = makeNode(RowIdentityVarInfo);
+    ridinfo->rowidvar = copyObject(rowid_var);
+    ridinfo->rowidwidth = get_typavgwidth(exprType((Node *) rowid_var),
+                                         exprTypmod((Node *) rowid_var));
+    ridinfo->rowidname = pstrdup(rowid_name);
+    ridinfo->rowidrels = bms_make_singleton(rtindex);
+
+    root->row_identity_vars = lappend(root->row_identity_vars, ridinfo);
+
+    // Update rowid_var to reference the new entry
+    rowid_var->varattno = list_length(root->row_identity_vars);
+
+    // Add to processed target list
+    TargetEntry *tle = makeTargetEntry((Expr *) rowid_var,
+                                      list_length(root->processed_tlist) + 1,
+                                      pstrdup(rowid_name), true);
+    root->processed_tlist = lappend(root->processed_tlist, tle);
+}
+```

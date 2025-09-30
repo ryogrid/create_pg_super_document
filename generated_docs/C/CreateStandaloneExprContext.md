@@ -41,3 +41,50 @@ This function takes no parameters and returns a fully initialized ExprContext po
 - The function is commonly used in utility functions that need to evaluate simple expressions outside the main executor framework
 - Memory management follows PostgreSQL's standard pattern: per-query context for the structure itself, per-tuple context for temporary evaluation work
 - Unlike CreateExprContext, this function does not require or associate with an EState structure
+
+## Simplified Source
+
+```c
+ExprContext *
+CreateStandaloneExprContext(void)
+{
+    ExprContext *econtext;
+
+    // Create the ExprContext node in caller's memory context
+    econtext = makeNode(ExprContext);
+
+    // Initialize tuple slots to NULL (no tuple access in standalone mode)
+    econtext->ecxt_scantuple = NULL;
+    econtext->ecxt_innertuple = NULL;
+    econtext->ecxt_outertuple = NULL;
+
+    // Use caller's context as the per-query memory context
+    econtext->ecxt_per_query_memory = CurrentMemoryContext;
+
+    // Create dedicated working memory for expression evaluation
+    econtext->ecxt_per_tuple_memory =
+        AllocSetContextCreate(CurrentMemoryContext,
+                              "ExprContext",
+                              ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize parameter handling (NULL for standalone use)
+    econtext->ecxt_param_exec_vals = NULL;
+    econtext->ecxt_param_list_info = NULL;
+
+    // Initialize aggregate handling (NULL for standalone use)
+    econtext->ecxt_aggvalues = NULL;
+    econtext->ecxt_aggnulls = NULL;
+
+    // Initialize special expression values
+    econtext->caseValue_datum = (Datum) 0;
+    econtext->caseValue_isNull = true;
+    econtext->domainValue_datum = (Datum) 0;
+    econtext->domainValue_isNull = true;
+
+    // No executor state for standalone context
+    econtext->ecxt_estate = NULL;
+    econtext->ecxt_callbacks = NULL;
+
+    return econtext;
+}
+```

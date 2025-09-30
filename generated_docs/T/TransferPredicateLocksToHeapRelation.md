@@ -40,3 +40,12 @@ This consolidation approach ensures that serializable transaction isolation guar
 - Ensures that serialization conflicts are still detected even after structural changes to the database
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation
 - Critical for maintaining ACID properties during concurrent DDL and DML operations in serializable transactions
+
+## Simplified Source
+
+```c
+void TransferPredicateLocksToHeapRelation(Relation relation) {
+    // Transfer all predicate locks to heap relation level
+    DropAllPredicateLocksFromTable(relation, true);
+}
+```

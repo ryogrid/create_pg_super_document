@@ -36,3 +36,14 @@ The function follows the standard qsort comparator contract:
 - The double pointer dereferencing is necessary because qsort passes pointers to the array elements, and the array contains pointers to DomainConstraintState structures
 - Ensures deterministic constraint application order, which is important for reproducible behavior
 - Part of PostgreSQL's domain constraint processing infrastructure
+
+## Simplified Source
+
+```c
+static int dcs_cmp(const void *a, const void *b) {
+    const DomainConstraintState *const *ca = (const DomainConstraintState *const *) a;
+    const DomainConstraintState *const *cb = (const DomainConstraintState *const *) b;
+
+    return strcmp((*ca)->name, (*cb)->name);
+}
+```

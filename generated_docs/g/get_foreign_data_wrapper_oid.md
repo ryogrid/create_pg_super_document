@@ -43,3 +43,27 @@ The function provides flexible error handling through the `missing_ok` parameter
 - This is a fundamental utility function used throughout the PostgreSQL codebase for FDW name resolution
 - The function is part of the foreign data wrapper infrastructure in PostgreSQL
 - Located in src/backend/foreign/foreign.c:681-703
+
+## Simplified Source
+
+```c
+Oid
+get_foreign_data_wrapper_oid(const char *fdwname, bool missing_ok)
+{
+    Oid oid;
+
+    // Look up FDW OID by name in system cache
+    oid = GetSysCacheOid1(FOREIGNDATAWRAPPERNAME,
+                          Anum_pg_foreign_data_wrapper_oid,
+                          CStringGetDatum(fdwname));
+
+    // Handle missing FDW based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("foreign-data wrapper \"%s\" does not exist",
+                        fdwname)));
+
+    return oid;
+}
+```

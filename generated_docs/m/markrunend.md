@@ -35,3 +35,14 @@ This function is essential for the multi-way merge algorithm used in PostgreSQL'
 - Used during the "dump" phase of external sorting when writing sorted runs to temporary storage
 - Essential for proper delimitation of runs during multi-way merge operations
 - The marker consists of exactly 4 bytes (sizeof(unsigned int)) containing the value 0
+
+## Simplified Source
+
+```c
+static void markrunend(LogicalTape *tape)
+{
+    // Write zero-length marker to indicate end of run
+    unsigned int run_end_marker = 0;
+    LogicalTapeWrite(tape, &run_end_marker, sizeof(run_end_marker));
+}
+```

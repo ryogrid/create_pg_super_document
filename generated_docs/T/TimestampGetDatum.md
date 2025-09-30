@@ -40,3 +40,12 @@ TimestampGetDatum is an inline function that converts a Timestamp value into a D
 - Common in date/time arithmetic operations, formatting functions, and JSON processing
 - Essential for the PostgreSQL function manager (fmgr) interface when returning timestamp values
 - Location: src/include/utils/timestamp.h:46-51
+
+## Simplified Source
+
+```c
+static inline Datum TimestampGetDatum(Timestamp X) {
+    // Convert Timestamp to Datum using int64 conversion since Timestamp is int64
+    return Int64GetDatum(X);
+}
+```

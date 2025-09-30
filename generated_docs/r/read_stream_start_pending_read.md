@@ -36,3 +36,75 @@ This function is responsible for starting asynchronous read operations for block
 - The suppress_advice parameter allows callers to disable memory advice for specific scenarios
 - Updates sequential block tracking for advice generation in subsequent reads
 - Handles partial reads by adjusting pending_read_blocknum and pending_read_nblocks accordingly
+
+## Simplified Source
+
+```c
+static void
+read_stream_start_pending_read(ReadStream *stream, bool suppress_advice)
+{
+    bool need_wait;
+    int nblocks;
+    int flags;
+    int16 io_index;
+    int16 buffer_index;
+
+    // Validate stream state
+    Assert(stream->pending_read_nblocks > 0);
+    Assert(stream->pinned_buffers + stream->pending_read_nblocks <=
+           stream->max_pinned_buffers);
+
+    // Determine if we should issue memory advice
+    if (!suppress_advice &&
+        stream->advice_enabled &&
+        stream->pending_read_blocknum != stream->seq_blocknum)
+        flags = READ_BUFFERS_ISSUE_ADVICE;
+    else
+        flags = 0;
+
+    // Start the actual I/O operation
+    buffer_index = stream->next_buffer_index;
+    io_index = stream->next_io_index;
+    nblocks = stream->pending_read_nblocks;
+
+    need_wait = StartReadBuffers(&stream->ios[io_index].op,
+                                &stream->buffers[buffer_index],
+                                stream->pending_read_blocknum,
+                                &nblocks,
+                                flags);
+
+    stream->pinned_buffers += nblocks;
+
+    // Handle synchronous vs asynchronous I/O completion
+    if (!need_wait) {
+        // Data was already cached, reduce look-ahead distance
+        if (stream->distance > 1)
+            stream->distance--;
+    } else {
+        // Track async I/O operation for later completion
+        stream->ios[io_index].buffer_index = buffer_index;
+        if (++stream->next_io_index == stream->max_ios)
+            stream->next_io_index = 0;
+        stream->ios_in_progress++;
+        stream->seq_blocknum = stream->pending_read_blocknum + nblocks;
+    }
+
+    // Handle buffer wraparound in circular queue
+    int16 overflow = (buffer_index + nblocks) - stream->queue_size;
+    if (overflow > 0) {
+        memmove(&stream->buffers[0],
+                &stream->buffers[stream->queue_size],
+                sizeof(stream->buffers[0]) * overflow);
+    }
+
+    // Update buffer position for next read
+    buffer_index += nblocks;
+    if (buffer_index >= stream->queue_size)
+        buffer_index -= stream->queue_size;
+    stream->next_buffer_index = buffer_index;
+
+    // Adjust pending read for remaining blocks
+    stream->pending_read_blocknum += nblocks;
+    stream->pending_read_nblocks -= nblocks;
+}
+```

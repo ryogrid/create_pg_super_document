@@ -53,3 +53,31 @@ This is essential for operations that need to handle structured data differently
 - Essential for JSON processing functions that need to handle nested structures
 - The function handles domain unwrapping automatically, making it safer than checking typtype directly
 - Part of the type classification utilities in lsyscache.c that provide high-level type categorization
+
+## Simplified Source
+
+```c
+bool type_is_rowtype(Oid typid) {
+    // Check for generic RECORD type
+    if (typid == RECORDOID)
+        return true;
+
+    // Check type category
+    switch (get_typtype(typid)) {
+        case TYPTYPE_COMPOSITE:
+            // Named composite type
+            return true;
+
+        case TYPTYPE_DOMAIN:
+            // Domain over composite type?
+            if (get_typtype(getBaseType(typid)) == TYPTYPE_COMPOSITE)
+                return true;
+            break;
+
+        default:
+            break;
+    }
+
+    return false;
+}
+```

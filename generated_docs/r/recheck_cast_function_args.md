@@ -41,3 +41,46 @@ The function validates that the resolved return type matches the expected result
 - It uses enforce_generic_type_consistency to handle polymorphic type resolution
 - The function includes an assertion check to verify that the resolved return type matches the parser's original determination
 - Located in src/backend/optimizer/util/clauses.c at lines 4380-4424
+
+## Simplified Source
+
+```c
+static void
+recheck_cast_function_args(List *args, Oid result_type,
+                          Oid *proargtypes, int pronargs,
+                          HeapTuple func_tuple)
+{
+    Form_pg_proc funcform = (Form_pg_proc) GETSTRUCT(func_tuple);
+    Oid actual_arg_types[FUNC_MAX_ARGS];
+    Oid declared_arg_types[FUNC_MAX_ARGS];
+
+    // Validate argument count
+    if (list_length(args) > FUNC_MAX_ARGS)
+        elog(ERROR, "too many function arguments");
+
+    // Extract actual argument types from expression list
+    int nargs = 0;
+    ListCell *lc;
+    foreach(lc, args)
+    {
+        actual_arg_types[nargs++] = exprType((Node *) lfirst(lc));
+    }
+
+    // Copy declared argument types
+    memcpy(declared_arg_types, proargtypes, pronargs * sizeof(Oid));
+
+    // Resolve polymorphic types and get final return type
+    Oid rettype = enforce_generic_type_consistency(actual_arg_types,
+                                                  declared_arg_types,
+                                                  nargs,
+                                                  funcform->prorettype,
+                                                  false);
+
+    // Verify return type consistency with parser's result
+    if (rettype != result_type)
+        elog(ERROR, "function's resolved result type changed during planning");
+
+    // Apply necessary argument type casts
+    make_fn_arguments(NULL, args, actual_arg_types, declared_arg_types);
+}
+```

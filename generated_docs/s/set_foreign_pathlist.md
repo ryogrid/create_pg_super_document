@@ -37,3 +37,12 @@ The FDW's GetForeignPaths callback is expected to analyze the query context and 
 - The FDW's GetForeignPaths callback is responsible for adding paths to rel->pathlist
 - The function assumes the FDW will generate at least one valid path for the foreign table
 - This design allows FDWs maximum flexibility in implementing optimization strategies specific to their data sources
+
+## Simplified Source
+
+```c
+static void set_foreign_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte) {
+    // Delegate path generation to the Foreign Data Wrapper
+    rel->fdwroutine->GetForeignPaths(root, rel, rte->relid);
+}
+```

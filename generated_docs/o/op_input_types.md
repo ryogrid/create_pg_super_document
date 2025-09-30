@@ -41,3 +41,26 @@ This function looks up an operator in the pg_operator system catalog using its O
 - For unary operators, one of the output type parameters will be set to InvalidOid
 - This is part of the lsyscache module which provides cached access to system catalog information
 - The function is commonly used in query planning and optimization phases
+
+## Simplified Source
+
+```c
+void
+op_input_types(Oid opno, Oid *lefttype, Oid *righttype)
+{
+    HeapTuple   tp;
+    Form_pg_operator optup;
+
+    // Look up operator in system catalog
+    tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for operator %u", opno);
+
+    // Extract left and right operand types
+    optup = (Form_pg_operator) GETSTRUCT(tp);
+    *lefttype = optup->oprleft;
+    *righttype = optup->oprright;
+
+    ReleaseSysCache(tp);
+}
+```

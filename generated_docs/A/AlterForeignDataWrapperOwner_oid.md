@@ -38,3 +38,28 @@ This function serves as an OID-based alternative to AlterForeignDataWrapperOwner
 - Complements AlterForeignDataWrapperOwner() by offering OID-based lookup instead of name-based
 - Inherits all security restrictions from the internal function (superuser requirements)
 - Proper resource management with heap_freetuple() and table_close() calls
+
+## Simplified Source
+
+```c
+void AlterForeignDataWrapperOwner_oid(Oid fwdId, Oid newOwnerId)
+{
+    // Open foreign data wrapper catalog table
+    Relation rel = table_open(ForeignDataWrapperRelationId, RowExclusiveLock);
+
+    // Find wrapper by OID
+    HeapTuple tup = SearchSysCacheCopy1(FOREIGNDATAWRAPPEROID, ObjectIdGetDatum(fwdId));
+
+    // Validate wrapper exists
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("foreign-data wrapper with OID %u does not exist", fwdId)));
+
+    // Perform ownership change
+    AlterForeignDataWrapperOwner_internal(rel, tup, newOwnerId);
+
+    // Cleanup resources
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

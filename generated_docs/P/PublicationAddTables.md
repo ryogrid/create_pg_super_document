@@ -48,3 +48,40 @@ The function ensures that only authorized users can add tables to publications a
 - Uses PublicationRelRelationId for post-create hook invocation
 - Access control follows PostgreSQL's standard ownership model (owner or superuser)
 - Supports conditional addition through if_not_exists parameter to handle duplicate table scenarios gracefully
+
+## Simplified Source
+
+```c
+static void
+PublicationAddTables(Oid pubid, List *rels, bool if_not_exists,
+                     AlterPublicationStmt *stmt)
+{
+    ListCell *lc;
+
+    // Ensure not conflicting with FOR ALL TABLES publications
+    Assert(!stmt || !stmt->for_all_tables);
+
+    // Add each table to the publication
+    foreach(lc, rels)
+    {
+        PublicationRelInfo *pub_rel = (PublicationRelInfo *) lfirst(lc);
+        Relation rel = pub_rel->relation;
+        ObjectAddress obj;
+
+        // Check table ownership permissions
+        if (!object_ownercheck(RelationRelationId, RelationGetRelid(rel), GetUserId()))
+            aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(rel->rd_rel->relkind),
+                          RelationGetRelationName(rel));
+
+        // Create publication-table relationship
+        obj = publication_add_relation(pubid, pub_rel, if_not_exists);
+
+        // Handle event triggers if called from ALTER PUBLICATION
+        if (stmt)
+        {
+            EventTriggerCollectSimpleCommand(obj, InvalidObjectAddress, (Node *) stmt);
+            InvokeObjectPostCreateHook(PublicationRelRelationId, obj.objectId, 0);
+        }
+    }
+}
+```

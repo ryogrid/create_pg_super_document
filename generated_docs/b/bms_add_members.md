@@ -46,3 +46,47 @@ When one input is significantly larger than the other, the function copies the l
 - Extensively used in query optimization where accumulating sets of relations or attributes is common
 - Essential for building composite bitmapsets during join planning and equivalence class processing
 - Maintains the property that the result contains all members from both input sets
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_add_members(Bitmapset *a, const Bitmapset *b)
+{
+    Bitmapset  *result;
+    const Bitmapset *other;
+    int         otherlen;
+    int         i;
+
+    // Handle NULL cases
+    if (a == NULL)
+        return bms_copy(b);
+    if (b == NULL)
+        return a;
+
+    // Choose strategy: copy longer set, union shorter into it
+    if (a->nwords < b->nwords)
+    {
+        result = bms_copy(b);  // b is longer, copy it
+        other = a;             // union a into result
+    }
+    else
+    {
+        result = a;            // a is longer, use it as result
+        other = b;             // union b into result
+    }
+
+    // Perform bitwise OR operation for union
+    otherlen = other->nwords;
+    for (i = 0; i < otherlen; i++)
+    {
+        result->words[i] |= other->words[i];
+    }
+
+    // Clean up: free original 'a' if we copied 'b'
+    if (result != a)
+        pfree(a);
+
+    return result;
+}
+```

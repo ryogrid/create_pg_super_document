@@ -42,3 +42,67 @@ The function creates properly typed Const nodes with correct type information, i
 
 ## Notes and Other Information
 The function uses different constant types depending on the behavior: JSONBOID for empty arrays/objects, BOOLOID for true/false behaviors, and INT4OID for NULL-like behaviors. JSON_BEHAVIOR_DEFAULT and JSON_BEHAVIOR_ERROR cases contain assertions that should never be reached, as these are handled by the caller. The function ensures proper memory representation by setting isbyval and length appropriately for each data type.
+
+## Simplified Source
+
+```c
+static Node *
+GetJsonBehaviorConst(JsonBehaviorType btype, int location)
+{
+    Datum val = (Datum) 0;
+    Oid typid = JSONBOID;
+    int len = -1;
+    bool isbyval = false;
+    bool isnull = false;
+    Const *con;
+
+    switch (btype) {
+        case JSON_BEHAVIOR_EMPTY_ARRAY:
+            val = DirectFunctionCall1(jsonb_in, CStringGetDatum("[]"));
+            break;
+
+        case JSON_BEHAVIOR_EMPTY_OBJECT:
+            val = DirectFunctionCall1(jsonb_in, CStringGetDatum("{}"));
+            break;
+
+        case JSON_BEHAVIOR_TRUE:
+            val = BoolGetDatum(true);
+            typid = BOOLOID;
+            len = sizeof(bool);
+            isbyval = true;
+            break;
+
+        case JSON_BEHAVIOR_FALSE:
+            val = BoolGetDatum(false);
+            typid = BOOLOID;
+            len = sizeof(bool);
+            isbyval = true;
+            break;
+
+        case JSON_BEHAVIOR_NULL:
+        case JSON_BEHAVIOR_UNKNOWN:
+        case JSON_BEHAVIOR_EMPTY:
+            // NULL values with integer type
+            val = (Datum) 0;
+            isnull = true;
+            typid = INT4OID;
+            len = sizeof(int32);
+            isbyval = true;
+            break;
+
+        case JSON_BEHAVIOR_DEFAULT:
+        case JSON_BEHAVIOR_ERROR:
+            Assert(false); // Handled by caller
+            break;
+
+        default:
+            elog(ERROR, "unrecognized SQL/JSON behavior %d", btype);
+            break;
+    }
+
+    con = makeConst(typid, -1, InvalidOid, len, val, isnull, isbyval);
+    con->location = location;
+
+    return (Node *) con;
+}
+```

@@ -42,3 +42,51 @@ The GetComment function performs a lookup in the pg_description system catalog t
 - Returns a palloc()ed string that must be freed by the caller if not NULL
 - The three-key lookup (oid, classoid, subid) provides precise object identification within PostgreSQL's object hierarchy
 - Commonly used during DDL operations like ALTER TYPE and CREATE TABLE LIKE to preserve or copy object comments
+
+## Simplified Source
+
+```c
+char *
+GetComment(Oid oid, Oid classoid, int32 subid)
+{
+    Relation description;
+    ScanKeyData skey[3];
+    SysScanDesc sd;
+    TupleDesc tupdesc;
+    HeapTuple tuple;
+    char *comment = NULL;
+
+    // Set up search keys for indexed scan on pg_description
+    ScanKeyInit(&skey[0], Anum_pg_description_objoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(oid));
+    ScanKeyInit(&skey[1], Anum_pg_description_classoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classoid));
+    ScanKeyInit(&skey[2], Anum_pg_description_objsubid,
+                BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(subid));
+
+    // Open pg_description catalog and get tuple descriptor
+    description = table_open(DescriptionRelationId, AccessShareLock);
+    tupdesc = RelationGetDescr(description);
+
+    // Perform indexed scan to find matching comment
+    sd = systable_beginscan(description, DescriptionObjIndexId, true,
+                            NULL, 3, skey);
+
+    // Extract comment text from first matching tuple
+    while ((tuple = systable_getnext(sd)) != NULL) {
+        Datum value;
+        bool isnull;
+
+        // Get description field from tuple
+        value = heap_getattr(tuple, Anum_pg_description_description, tupdesc, &isnull);
+        if (!isnull)
+            comment = TextDatumGetCString(value);
+        break; // Assume only one match possible
+    }
+
+    systable_endscan(sd);
+    table_close(description, AccessShareLock);
+
+    return comment;
+}
+```

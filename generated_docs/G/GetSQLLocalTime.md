@@ -36,3 +36,25 @@ This function retrieves the current local time and returns it as a TimeADT value
 - The result represents local time in the server's timezone but without timezone metadata
 - Precision can be controlled via the typmod parameter for fractional seconds display
 - More efficient than GetSQLCurrentTime when timezone information is not needed
+
+## Simplified Source
+
+```c
+TimeADT GetSQLLocalTime(int32 typmod) {
+    TimeADT result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+
+    // Get current time with microsecond precision and timezone
+    GetCurrentTimeUsec(tm, &fsec, &tz);
+
+    // Convert to local time format (discarding timezone info)
+    tm2time(tm, fsec, &result);
+
+    // Apply precision adjustment based on typmod
+    AdjustTimeForTypmod(&result, typmod);
+
+    return result;
+}
+```

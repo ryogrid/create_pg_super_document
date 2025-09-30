@@ -53,3 +53,75 @@ Notably, it does NOT create dependencies on commutator and negator operators, as
 - Handles both creation and update scenarios, with updates requiring cleanup of existing dependency records
 - Extension dependencies are only recorded when explicitly requested to maintain proper extension membership
 - Returns the ObjectAddress of the operator for use in higher-level dependency tracking
+
+## Simplified Source
+
+```c
+ObjectAddress makeOperatorDependencies(HeapTuple tuple, bool makeExtensionDep, bool isUpdate) {
+    Form_pg_operator oper = (Form_pg_operator) GETSTRUCT(tuple);
+    ObjectAddress myself, referenced;
+    ObjectAddresses *addrs;
+
+    // Set up operator's own address
+    ObjectAddressSet(myself, OperatorRelationId, oper->oid);
+
+    // Clean up existing dependencies for updates
+    if (isUpdate) {
+        deleteDependencyRecordsFor(myself.classId, myself.objectId, true);
+        deleteSharedDependencyRecordsFor(myself.classId, myself.objectId, 0);
+    }
+
+    // Collect all dependencies
+    addrs = new_object_addresses();
+
+    // Add namespace dependency
+    if (OidIsValid(oper->oprnamespace)) {
+        ObjectAddressSet(referenced, NamespaceRelationId, oper->oprnamespace);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Add type dependencies (left, right, result)
+    if (OidIsValid(oper->oprleft)) {
+        ObjectAddressSet(referenced, TypeRelationId, oper->oprleft);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    if (OidIsValid(oper->oprright)) {
+        ObjectAddressSet(referenced, TypeRelationId, oper->oprright);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    if (OidIsValid(oper->oprresult)) {
+        ObjectAddressSet(referenced, TypeRelationId, oper->oprresult);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Add function dependencies (implementation, selectivity)
+    if (OidIsValid(oper->oprcode)) {
+        ObjectAddressSet(referenced, ProcedureRelationId, oper->oprcode);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    if (OidIsValid(oper->oprrest)) {
+        ObjectAddressSet(referenced, ProcedureRelationId, oper->oprrest);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    if (OidIsValid(oper->oprjoin)) {
+        ObjectAddressSet(referenced, ProcedureRelationId, oper->oprjoin);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Record all collected dependencies
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+    free_object_addresses(addrs);
+
+    // Record owner and extension dependencies
+    recordDependencyOnOwner(OperatorRelationId, oper->oid, oper->oprowner);
+
+    if (makeExtensionDep)
+        recordDependencyOnCurrentExtension(&myself, isUpdate);
+
+    return myself;
+}
+```

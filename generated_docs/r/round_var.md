@@ -43,3 +43,74 @@ The  function implements decimal rounding for PostgreSQL's numeric type by trunc
 - The dscale field is immediately set to the target rscale value
 - For very negative rscale values that eliminate all significant digits, the result becomes 0
 - Uses modular arithmetic for within-digit rounding when DEC_DIGITS > 1
+
+## Simplified Source
+
+```c
+static void round_var(NumericVar *var, int rscale) {
+    NumericDigit *digits = var->digits;
+    int di, ndigits, carry;
+
+    var->dscale = rscale;
+
+    // Calculate decimal digits wanted
+    di = (var->weight + 1) * DEC_DIGITS + rscale;
+
+    // Handle cases where result becomes zero
+    if (di < 0) {
+        var->ndigits = 0;
+        var->weight = 0;
+        var->sign = NUMERIC_POS;
+        return;
+    }
+
+    // Calculate NBASE digits needed
+    ndigits = (di + DEC_DIGITS - 1) / DEC_DIGITS;
+    di %= DEC_DIGITS;
+
+    // Check if rounding is needed
+    if (ndigits < var->ndigits || (ndigits == var->ndigits && di > 0)) {
+        var->ndigits = ndigits;
+
+        // Determine if we need to carry (round up)
+        if (di == 0) {
+            // Round between NBASE digits
+            carry = (digits[ndigits] >= HALF_NBASE) ? 1 : 0;
+        } else {
+            // Round within NBASE digit using power of 10
+            int extra, pow10 = round_powers[di];
+            extra = digits[--ndigits] % pow10;
+            digits[ndigits] -= extra;
+            carry = 0;
+
+            if (extra >= pow10 / 2) {
+                pow10 += digits[ndigits];
+                if (pow10 >= NBASE) {
+                    pow10 -= NBASE;
+                    carry = 1;
+                }
+                digits[ndigits] = pow10;
+            }
+        }
+
+        // Propagate carry through digits
+        while (carry) {
+            carry += digits[--ndigits];
+            if (carry >= NBASE) {
+                digits[ndigits] = carry - NBASE;
+                carry = 1;
+            } else {
+                digits[ndigits] = carry;
+                carry = 0;
+            }
+        }
+
+        // Adjust if carry extends beyond existing digits
+        if (ndigits < 0) {
+            var->digits--;
+            var->ndigits++;
+            var->weight++;
+        }
+    }
+}
+```

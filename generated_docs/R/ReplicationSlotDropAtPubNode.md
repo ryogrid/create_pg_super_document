@@ -45,3 +45,48 @@ The function uses PG_TRY/PG_FINALLY blocks to ensure proper memory cleanup of th
 - Memory management handled via PG_TRY/PG_FINALLY to prevent leaks on errors
 - Requires an active replication connection to function - does not establish connections itself
 - Part of the logical replication infrastructure for managing publisher-side resources from subscribers
+
+## Simplified Source
+
+```c
+void ReplicationSlotDropAtPubNode(WalReceiverConn *wrconn, char *slotname, bool missing_ok)
+{
+    StringInfoData cmd;
+
+    // Load replication library and build DROP command
+    load_file("libpqwalreceiver", false);
+    initStringInfo(&cmd);
+    appendStringInfo(&cmd, "DROP_REPLICATION_SLOT %s WAIT", quote_identifier(slotname));
+
+    PG_TRY();
+    {
+        // Execute DROP command on publisher
+        WalRcvExecResult *res = walrcv_exec(wrconn, cmd.data, 0, NULL);
+
+        if (res->status == WALRCV_OK_COMMAND) {
+            // Success - report slot dropped
+            ereport(NOTICE, (errmsg("dropped replication slot \"%s\" on publisher", slotname)));
+        }
+        else if (res->status == WALRCV_ERROR && missing_ok &&
+                 res->sqlstate == ERRCODE_UNDEFINED_OBJECT) {
+            // Slot not found but missing_ok=true - just log
+            ereport(LOG, (errmsg("could not drop replication slot \"%s\" on publisher: %s",
+                                slotname, res->err)));
+        }
+        else {
+            // Other error - fail with ERROR
+            ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                          errmsg("could not drop replication slot \"%s\" on publisher: %s",
+                                slotname, res->err)));
+        }
+
+        walrcv_clear_result(res);
+    }
+    PG_FINALLY();
+    {
+        // Clean up command string
+        pfree(cmd.data);
+    }
+    PG_END_TRY();
+}
+```

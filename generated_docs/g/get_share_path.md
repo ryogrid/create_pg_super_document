@@ -46,3 +46,16 @@ This approach allows PostgreSQL installations to be moved to different locations
 - The function assumes that ret_path buffer has been allocated with at least MAXPGPATH bytes
 - Critical for proper operation of extensions, timezone handling, and configuration file processing
 - Works in conjunction with other  functions to provide a complete path resolution system
+
+## Simplified Source
+
+```c
+void
+get_share_path(const char *my_exec_path, char *ret_path)
+{
+    // Simple wrapper around make_relative_path for share directory
+    // Uses compile-time PGSHAREDIR and PGBINDIR constants to compute
+    // the correct share path relative to the executable location
+    make_relative_path(ret_path, PGSHAREDIR, PGBINDIR, my_exec_path);
+}
+```

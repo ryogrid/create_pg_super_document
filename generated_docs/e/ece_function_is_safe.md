@@ -39,3 +39,23 @@ Volatile functions are never considered safe for constant expression evaluation 
 - Returns true only for immutable functions or stable functions during estimation contexts
 - The decision to allow stable function evaluation during estimation reflects PostgreSQL's pragmatic approach to query optimization
 - Critical for maintaining query plan determinism while enabling effective cost estimation
+
+## Simplified Source
+
+```c
+static bool ece_function_is_safe(Oid funcid, eval_const_expressions_context *context) {
+    // Get function's volatility level
+    char provolatile = func_volatile(funcid);
+
+    // Always safe to evaluate immutable functions
+    if (provolatile == PROVOLATILE_IMMUTABLE)
+        return true;
+
+    // Stable functions are safe during estimation
+    if (context->estimate && provolatile == PROVOLATILE_STABLE)
+        return true;
+
+    // Volatile functions are never safe
+    return false;
+}
+```

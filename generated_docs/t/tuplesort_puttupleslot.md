@@ -41,3 +41,41 @@ This function takes a tuple stored in a TupleTableSlot and prepares it for sorti
 - Supports abbreviation optimization when available and the first key is not null
 - Uses appropriate memory context switching to manage sort-related allocations
 - Part of the standard interface for adding tuples to sorts from executor nodes
+
+## Simplified Source
+
+```c
+void
+tuplesort_puttupleslot(Tuplesortstate *state, TupleTableSlot *slot)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->tuplecontext);
+    TupleDesc tupDesc = (TupleDesc) base->arg;
+    SortTuple stup;
+    MinimalTuple tuple;
+    HeapTupleData htup;
+    Size tuplen;
+
+    // Copy slot data to minimal tuple format
+    tuple = ExecCopySlotMinimalTuple(slot);
+    stup.tuple = (void *) tuple;
+
+    // Extract first sort key for optimization
+    htup.t_len = tuple->t_len + MINIMAL_TUPLE_OFFSET;
+    htup.t_data = (HeapTupleHeader) ((char *) tuple - MINIMAL_TUPLE_OFFSET);
+    stup.datum1 = heap_getattr(&htup, base->sortKeys[0].ssup_attno, tupDesc, &stup.isnull1);
+
+    // Calculate tuple size based on memory context type
+    if (TupleSortUseBumpTupleCxt(base->sortopt))
+        tuplen = MAXALIGN(tuple->t_len);
+    else
+        tuplen = GetMemoryChunkSpace(tuple);
+
+    // Add to sort with abbreviation if available
+    tuplesort_puttuple_common(state, &stup,
+                              base->sortKeys->abbrev_converter && !stup.isnull1,
+                              tuplen);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -38,3 +38,15 @@ This function is used in various PostgreSQL subsystems for determining age relat
 - There's a comment suggesting potential special handling for InvalidMultiXactId might be needed, but current implementation treats it normally
 - This is a public function used in vacuum operations and MultiXact management
 - Essential for determining inclusive bounds in MultiXact processing and cleanup operations
+
+## Simplified Source
+
+```c
+bool MultiXactIdPrecedesOrEquals(MultiXactId multi1, MultiXactId multi2) {
+    // Use signed arithmetic to handle wrap-around in MultiXact ID space
+    int32 diff = (int32) (multi1 - multi2);
+
+    // Return true if multi1 <= multi2 (including equality)
+    return (diff <= 0);
+}
+```

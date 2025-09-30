@@ -40,3 +40,24 @@ The hash table is allocated in TopTransactionContext to ensure proper transactio
 - The hash table structure mirrors uncommitted_enum_types but tracks individual enum values rather than enum types
 - This initialization is lazy - the hash table is only created when the first enum value is added to an existing enum type in a transaction
 - Critical for maintaining enum value ordering constraints and transaction isolation
+
+## Simplified Source
+
+```c
+static void
+init_uncommitted_enum_values(void)
+{
+    HASHCTL hash_ctl;
+
+    // Configure hash table for tracking uncommitted enum values
+    hash_ctl.keysize = sizeof(Oid);     // OID keys
+    hash_ctl.entrysize = sizeof(Oid);   // OID entries
+    hash_ctl.hcxt = TopTransactionContext; // Transaction-scoped memory
+
+    // Create hash table with 32 initial entries
+    uncommitted_enum_values = hash_create("Uncommitted enum values",
+                                        32,
+                                        &hash_ctl,
+                                        HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+}
+```

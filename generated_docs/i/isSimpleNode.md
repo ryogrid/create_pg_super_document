@@ -57,3 +57,120 @@ This function implements PostgreSQL's logic for determining when parentheses can
 - Accounts for function call contexts, especially for cast operations
 - Uses pretty-printing flags to adjust formatting behavior when enabled
 - Part of PostgreSQL's expression formatting system for readable SQL output
+
+## Simplified Source
+
+```c
+static bool isSimpleNode(Node *node, Node *parentNode, int prettyFlags) {
+    if (!node)
+        return false;
+
+    switch (nodeTag(node)) {
+        // Always simple nodes - single words
+        case T_Var:
+        case T_Const:
+        case T_Param:
+        case T_CoerceToDomainValue:
+        case T_SetToDefault:
+        case T_CurrentOfExpr:
+            return true;
+
+        // Function-like expressions - name(..) or name[..]
+        case T_SubscriptingRef:
+        case T_ArrayExpr:
+        case T_RowExpr:
+        case T_CoalesceExpr:
+        case T_MinMaxExpr:
+        case T_SQLValueFunction:
+        case T_XmlExpr:
+        case T_NextValueExpr:
+        case T_NullIfExpr:
+        case T_Aggref:
+        case T_GroupingFunc:
+        case T_WindowFunc:
+        case T_MergeSupportFunc:
+        case T_FuncExpr:
+        case T_JsonConstructorExpr:
+        case T_JsonExpr:
+        case T_CaseExpr:
+            return true;
+
+        // Field access - avoid chained field selections
+        case T_FieldSelect:
+            return !IsA(parentNode, FieldSelect);
+        case T_FieldStore:
+            return !IsA(parentNode, FieldStore);
+
+        // Coercion nodes - check underlying expression
+        case T_CoerceToDomain:
+            return isSimpleNode((Node *) ((CoerceToDomain *) node)->arg, node, prettyFlags);
+        case T_RelabelType:
+            return isSimpleNode((Node *) ((RelabelType *) node)->arg, node, prettyFlags);
+        case T_CoerceViaIO:
+            return isSimpleNode((Node *) ((CoerceViaIO *) node)->arg, node, prettyFlags);
+        case T_ArrayCoerceExpr:
+            return isSimpleNode((Node *) ((ArrayCoerceExpr *) node)->arg, node, prettyFlags);
+        case T_ConvertRowtypeExpr:
+            return isSimpleNode((Node *) ((ConvertRowtypeExpr *) node)->arg, node, prettyFlags);
+
+        // Complex precedence logic for operators
+        case T_OpExpr:
+            if (prettyFlags & PRETTYFLAG_PAREN && IsA(parentNode, OpExpr)) {
+                const char *op = get_simple_binary_op_name((OpExpr *) node);
+                const char *parentOp = get_simple_binary_op_name((OpExpr *) parentNode);
+
+                if (!op || !parentOp) return false;
+
+                bool is_lopriop = (strchr("+-", *op) != NULL);
+                bool is_hipriop = (strchr("*/%", *op) != NULL);
+                bool is_lopriparent = (strchr("+-", *parentOp) != NULL);
+                bool is_hipriparent = (strchr("*/%", *parentOp) != NULL);
+
+                if (!(is_lopriop || is_hipriop) || !(is_lopriparent || is_hipriparent))
+                    return false;
+
+                // High precedence op with low precedence parent
+                if (is_hipriop && is_lopriparent)
+                    return true;
+                // Low precedence op with high precedence parent
+                if (is_lopriop && is_hipriparent)
+                    return false;
+                // Same precedence - check if left operand
+                return (node == (Node *) linitial(((OpExpr *) parentNode)->args));
+            }
+            // Fall through to generic logic
+
+        // Generic expression nodes - check parent context
+        case T_SubLink:
+        case T_NullTest:
+        case T_BooleanTest:
+        case T_DistinctExpr:
+        case T_JsonIsPredicate:
+            return (IsA(parentNode, FuncExpr) || IsA(parentNode, BoolExpr) ||
+                    IsA(parentNode, SubscriptingRef) || IsA(parentNode, ArrayExpr) ||
+                    IsA(parentNode, RowExpr) || IsA(parentNode, CoalesceExpr) ||
+                    IsA(parentNode, CaseExpr) || IsA(parentNode, Aggref));
+
+        // Boolean expressions - handle precedence
+        case T_BoolExpr:
+            if (IsA(parentNode, BoolExpr) && (prettyFlags & PRETTYFLAG_PAREN)) {
+                BoolExprType type = ((BoolExpr *) node)->boolop;
+                BoolExprType parentType = ((BoolExpr *) parentNode)->boolop;
+
+                // NOT and AND can appear under AND/OR, OR can appear under OR
+                return ((type == NOT_EXPR || type == AND_EXPR) &&
+                        (parentType == AND_EXPR || parentType == OR_EXPR)) ||
+                       (type == OR_EXPR && parentType == OR_EXPR);
+            }
+            return IsA(parentNode, FuncExpr) || IsA(parentNode, SubscriptingRef) ||
+                   IsA(parentNode, ArrayExpr) || IsA(parentNode, CaseExpr);
+
+        // JSON value expressions
+        case T_JsonValueExpr:
+            return isSimpleNode((Node *) ((JsonValueExpr *) node)->raw_expr, node, prettyFlags);
+
+        default:
+            return false; // Unknown nodes are complex
+    }
+}
+```

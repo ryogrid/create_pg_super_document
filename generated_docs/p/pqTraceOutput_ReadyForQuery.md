@@ -39,3 +39,15 @@ The message contains a single byte that indicates the current transaction status
 - Critical for client libraries to understand when it's safe to send the next command
 - Used for debugging connection state and transaction management issues
 - The ReadyForQuery message marks the end of a query cycle in the PostgreSQL protocol
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_ReadyForQuery(FILE *f, const char *message, int *cursor)
+{
+    // Output message type and transaction status
+    fprintf(f, "ReadyForQuery\t");
+    pqTraceOutputByte1(f, message, cursor);  // Transaction status: 'I', 'T', or 'E'
+}
+```

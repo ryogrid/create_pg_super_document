@@ -51,3 +51,47 @@ The function maintains the relationship between parent and child equivalence mem
 - Updates child_rel's eclass_indexes to include all root equivalence classes
 - Part of PostgreSQL's set operation optimization framework
 - Located in src/backend/optimizer/path/equivclass.c:2883-2954
+
+## Simplified Source
+
+```c
+void
+add_setop_child_rel_equivalences(PlannerInfo *root, RelOptInfo *child_rel,
+                                 List *child_tlist, List *setop_pathkeys)
+{
+    ListCell *lc;
+    ListCell *lc2 = list_head(setop_pathkeys);
+
+    // Process each target entry in child target list
+    foreach(lc, child_tlist) {
+        TargetEntry *tle = lfirst_node(TargetEntry, lc);
+        EquivalenceMember *parent_em;
+        PathKey *pk;
+
+        // Skip resjunk columns
+        if (tle->resjunk)
+            continue;
+
+        if (lc2 == NULL)
+            elog(ERROR, "too few pathkeys for set operation");
+
+        // Get corresponding PathKey and parent equivalence member
+        pk = lfirst_node(PathKey, lc2);
+        parent_em = linitial(pk->pk_eclass->ec_members);
+
+        // Add child expression as new equivalence member
+        add_eq_member(pk->pk_eclass,
+                      tle->expr,
+                      child_rel->relids,
+                      parent_em->em_jdomain,
+                      parent_em,
+                      exprType((Node *) tle->expr));
+
+        lc2 = lnext(setop_pathkeys, lc2);
+    }
+
+    // Update child relation's equivalence class indexes
+    child_rel->eclass_indexes = bms_add_range(child_rel->eclass_indexes, 0,
+                                              list_length(root->eq_classes) - 1);
+}
+```

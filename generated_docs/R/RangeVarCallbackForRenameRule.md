@@ -48,3 +48,38 @@ This static callback function is invoked during the relation lock acquisition pr
 - Part of PostgreSQL's lock acquisition safety mechanism using RangeVar callbacks
 - The function is static, limiting its scope to rewriteDefine.c
 - Uses the RELOID system cache for efficient relation metadata lookup
+
+## Simplified Source
+
+```c
+static void RangeVarCallbackForRenameRule(const RangeVar *rv, Oid relid, Oid oldrelid, void *arg) {
+    HeapTuple tuple;
+    Form_pg_class form;
+
+    // Get relation information from system cache
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        return; // Relation was concurrently dropped
+
+    form = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Check if relation type supports rules
+    if (form->relkind != RELKIND_RELATION &&
+        form->relkind != RELKIND_VIEW &&
+        form->relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("relation \"%s\" cannot have rules", rv->relname),
+                       errdetail_relkind_not_supported(form->relkind)));
+
+    // Protect system catalogs
+    if (!allowSystemTableMods && IsSystemClass(relid, form))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied: \"%s\" is a system catalog", rv->relname)));
+
+    // Check ownership requirement
+    if (!object_ownercheck(RelationRelationId, relid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(get_rel_relkind(relid)), rv->relname);
+
+    ReleaseSysCache(tuple);
+}
+```

@@ -46,3 +46,54 @@ This function specifically handles only ADD and DROP operations - other ALTER OP
 - Returns the OID of the modified operator family
 - Access method parameters (amstrategies, amsupport, amoptsprocnum) are used for validation in the delegated functions
 - Other ALTER OPERATOR FAMILY operations (RENAME, OWNER TO, etc.) use different code paths and don't go through this function
+
+## Simplified Source
+
+```c
+Oid
+AlterOpFamily(AlterOpFamilyStmt *stmt)
+{
+    Oid amoid, opfamilyoid;
+    int maxOpNumber, optsProcNumber, maxProcNumber;
+    HeapTuple tup;
+    Form_pg_am amform;
+    IndexAmRoutine *amroutine;
+
+    // Get access method info
+    tup = SearchSysCache1(AMNAME, CStringGetDatum(stmt->amname));
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("access method \"%s\" does not exist", stmt->amname)));
+
+    amform = (Form_pg_am) GETSTRUCT(tup);
+    amoid = amform->oid;
+    amroutine = GetIndexAmRoutineByAmId(amoid, false);
+    ReleaseSysCache(tup);
+
+    // Get operation limits from access method
+    maxOpNumber = amroutine->amstrategies;
+    if (maxOpNumber <= 0)
+        maxOpNumber = SHRT_MAX;
+    maxProcNumber = amroutine->amsupport;
+    optsProcNumber = amroutine->amoptsprocnum;
+
+    // Look up the operator family
+    opfamilyoid = get_opfamily_oid(amoid, stmt->opfamilyname, false);
+
+    // Require superuser privileges
+    if (!superuser())
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("must be superuser to alter an operator family")));
+
+    // Dispatch to ADD or DROP handler
+    if (stmt->isDrop)
+        AlterOpFamilyDrop(stmt, amoid, opfamilyoid,
+                         maxOpNumber, maxProcNumber, stmt->items);
+    else
+        AlterOpFamilyAdd(stmt, amoid, opfamilyoid,
+                        maxOpNumber, maxProcNumber, optsProcNumber,
+                        stmt->items);
+
+    return opfamilyoid;
+}
+```

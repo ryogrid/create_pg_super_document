@@ -44,3 +44,42 @@ This transformation is essential for the executor to correctly identify which co
 - Returns a new list of lists (grouping sets) with integer column indices instead of sort group references
 - Essential for bridging the gap between parse tree representation and execution plan requirements
 - Used multiple times during planning: once for regular rollups and once for hash-only sets
+
+## Simplified Source
+
+```c
+static List *
+remap_to_groupclause_idx(List *groupClause, List *gsets, int *tleref_to_colnum_map)
+{
+    int ref = 0;
+    List *result = NIL;
+    ListCell *lc;
+
+    // Phase 1: Build mapping from sort group refs to column indices
+    foreach(lc, groupClause)
+    {
+        SortGroupClause *gc = lfirst_node(SortGroupClause, lc);
+        tleref_to_colnum_map[gc->tleSortGroupRef] = ref++;
+    }
+
+    // Phase 2: Transform each grouping set using the mapping
+    foreach(lc, gsets)
+    {
+        List *remapped_set = NIL;
+        ListCell *lc2;
+        GroupingSetData *gs = lfirst_node(GroupingSetData, lc);
+
+        // Convert each sort group ref to column index
+        foreach(lc2, gs->set)
+        {
+            int sortgroupref = lfirst_int(lc2);
+            int column_index = tleref_to_colnum_map[sortgroupref];
+            remapped_set = lappend_int(remapped_set, column_index);
+        }
+
+        result = lappend(result, remapped_set);
+    }
+
+    return result;
+}
+```

@@ -35,3 +35,18 @@ The returned list contains expressions that represent the constraints inherited 
 - Used by the planner to establish base relation partition constraints for optimization
 - Essential for partition-wise operations and constraint exclusion
 - The actual constraint generation is delegated to generate_partition_qual function
+
+## Simplified Source
+
+```c
+List *
+RelationGetPartitionQual(Relation rel)
+{
+    // Quick exit for non-partition relations
+    if (!rel->rd_rel->relispartition)
+        return NIL;
+
+    // Generate and return the partition constraint qualification
+    return generate_partition_qual(rel);
+}
+```

@@ -41,3 +41,24 @@ The constraint check follows SQL semantics where:
 - Error messages include both the domain type name and specific constraint name for debugging
 - Uses errsave for error reporting which allows for soft error handling in appropriate contexts
 - Part of the broader domain constraint evaluation system in PostgreSQL's expression interpreter
+
+## Simplified Source
+
+```c
+void ExecEvalConstraintCheck(ExprState *state, ExprEvalStep *op)
+{
+    // Check if constraint failed (not null and evaluates to false)
+    if (!*op->d.domaincheck.checknull &&
+        !DatumGetBool(*op->d.domaincheck.checkvalue))
+    {
+        // Report CHECK constraint violation with domain and constraint details
+        errsave((Node *) op->d.domaincheck.escontext,
+                (errcode(ERRCODE_CHECK_VIOLATION),
+                 errmsg("value for domain %s violates check constraint \"%s\"",
+                        format_type_be(op->d.domaincheck.resulttype),
+                        op->d.domaincheck.constraintname),
+                 errdomainconstraint(op->d.domaincheck.resulttype,
+                                   op->d.domaincheck.constraintname)));
+    }
+}
+```

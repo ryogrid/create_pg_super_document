@@ -36,3 +36,23 @@ The function first establishes size estimates for the relation, then determines 
 - No separate size estimation phase is needed since join-qual-parameterized paths are not supported
 - The function handles LATERAL parameterization through the lateral_relids field
 - [Result](../R/Result.md) relations typically represent computed values, constants, or function results rather than table scans
+
+## Simplified Source
+
+```c
+static void
+set_result_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    Relids required_outer;
+
+    // Set size estimates for the result relation
+    set_result_size_estimates(root, rel);
+
+    // Handle LATERAL references as required parameterization
+    // (Join clauses cannot be pushed into result scans)
+    required_outer = rel->lateral_relids;
+
+    // Create and add the result scan path
+    add_path(rel, create_resultscan_path(root, rel, required_outer));
+}
+```

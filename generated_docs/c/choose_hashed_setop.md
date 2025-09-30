@@ -58,3 +58,73 @@ The function accounts for the fact that set operation inputs are always unsorted
 - The cost comparison uses fractional path costing to properly account for LIMIT clauses and partial result retrieval
 - Error reporting provides helpful details when data types have conflicting sorting/hashing support capabilities
 - The function serves as a critical decision point that can significantly impact set operation performance
+
+## Simplified Source
+
+```c
+static bool
+choose_hashed_setop(PlannerInfo *root, List *groupClauses,
+                    Path *input_path,
+                    double dNumGroups, double dNumOutputRows,
+                    const char *construct)
+{
+    int numGroupCols = list_length(groupClauses);
+    Size hash_mem_limit = get_hash_memory_limit();
+    bool can_sort, can_hash;
+    Size hashentrysize;
+    Path hashed_p, sorted_p;
+    double tuple_fraction;
+
+    // Check what operations the data types support
+    can_sort = grouping_is_sortable(groupClauses);
+    can_hash = grouping_is_hashable(groupClauses);
+
+    // Early decisions based on capability
+    if (can_hash && can_sort)
+    {
+        // Both possible, continue to cost comparison
+    }
+    else if (can_hash)
+        return true;
+    else if (can_sort)
+        return false;
+    else
+        ereport(ERROR, /* Cannot implement operation */);
+
+    // Respect enable_hashagg setting
+    if (!enable_hashagg)
+        return false;
+
+    // Check if hash table fits in memory
+    hashentrysize = MAXALIGN(input_path->pathtarget->width) +
+                   MAXALIGN(SizeofMinimalTupleHeader);
+    if (hashentrysize * dNumGroups > hash_mem_limit)
+        return false;
+
+    // Cost hash strategy
+    cost_agg(&hashed_p, root, AGG_HASHED, NULL,
+             numGroupCols, dNumGroups, NIL,
+             input_path->startup_cost, input_path->total_cost,
+             input_path->rows, input_path->pathtarget->width);
+
+    // Cost sort strategy (sort + group)
+    sorted_p.startup_cost = input_path->startup_cost;
+    sorted_p.total_cost = input_path->total_cost;
+    cost_sort(&sorted_p, root, NIL, sorted_p.total_cost,
+              input_path->rows, input_path->pathtarget->width,
+              0.0, work_mem, -1.0);
+    cost_group(&sorted_p, root, numGroupCols, dNumGroups, NIL,
+               sorted_p.startup_cost, sorted_p.total_cost,
+               input_path->rows);
+
+    // Compare costs considering tuple fraction
+    tuple_fraction = root->tuple_fraction;
+    if (tuple_fraction >= 1.0)
+        tuple_fraction /= dNumOutputRows;
+
+    if (compare_fractional_path_costs(&hashed_p, &sorted_p, tuple_fraction) < 0)
+        return true;  // Hash is cheaper
+
+    return false;     // Sort is cheaper
+}
+```

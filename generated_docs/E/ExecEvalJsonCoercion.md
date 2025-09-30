@@ -50,3 +50,53 @@ This function performs type coercion for JSON expression results, converting JSO
 - Critical for JSON_TABLE column type conversion and JSON_VALUE RETURNING clause handling
 - [ErrorSaveContext](ErrorSaveContext.md) enables ON ERROR behavior implementation in parent JSON expressions
 - Optimized path for common JSON_EXISTS to integer conversion in JSON_TABLE contexts
+
+## Simplified Source
+
+```c
+void ExecEvalJsonCoercion(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    ErrorSaveContext *escontext = op->d.jsonexpr_coercion.escontext;
+
+    // Handle special case for JSON_EXISTS boolean coercion
+    if (op->d.jsonexpr_coercion.exists_coerce)
+    {
+        if (op->d.jsonexpr_coercion.exists_cast_to_int)
+        {
+            // Check domain constraints if needed
+            if (op->d.jsonexpr_coercion.exists_check_domain &&
+                !domain_check_safe(*op->resvalue, *op->resnull,
+                                 op->d.jsonexpr_coercion.targettype,
+                                 &op->d.jsonexpr_coercion.json_coercion_cache,
+                                 econtext->ecxt_per_query_memory,
+                                 (Node *) escontext))
+            {
+                *op->resnull = true;
+                *op->resvalue = (Datum) 0;
+            }
+            else
+            {
+                // Convert boolean to integer directly
+                *op->resvalue = DirectFunctionCall1(bool_int4, *op->resvalue);
+            }
+            return;
+        }
+
+        // Convert boolean to JSONB string representation
+        *op->resvalue = DirectFunctionCall1(jsonb_in,
+                                          DatumGetBool(*op->resvalue) ?
+                                          CStringGetDatum("true") :
+                                          CStringGetDatum("false"));
+    }
+
+    // Perform general JSONB to target type coercion
+    *op->resvalue = json_populate_type(*op->resvalue, JSONBOID,
+                                     op->d.jsonexpr_coercion.targettype,
+                                     op->d.jsonexpr_coercion.targettypmod,
+                                     &op->d.jsonexpr_coercion.json_coercion_cache,
+                                     econtext->ecxt_per_query_memory,
+                                     op->resnull,
+                                     op->d.jsonexpr_coercion.omit_quotes,
+                                     (Node *) escontext);
+}
+```

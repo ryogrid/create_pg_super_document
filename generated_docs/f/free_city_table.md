@@ -33,3 +33,14 @@ The function follows PostgreSQL's memory management conventions by using pfree()
 - Counterpart function to alloc_city_table - they should always be used as a pair
 - Uses PostgreSQL's pfree() for proper memory context management
 - Simple wrapper around pfree() but maintains consistent interface with allocation function
+
+## Simplified Source
+
+```c
+void
+free_city_table(PlannerInfo *root, City *city_table)
+{
+    // Deallocate city table memory
+    pfree(city_table);
+}
+```

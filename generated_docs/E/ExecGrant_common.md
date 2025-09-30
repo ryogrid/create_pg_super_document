@@ -48,3 +48,103 @@ The function is designed to work with any catalog table that stores ACLs by acce
 - Records extension privileges for proper pg_dump/restore handling
 - Increments command counter after each object to handle duplicate processing
 - The object_check callback allows type-specific validation (e.g., checking language trust for procedural languages)
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_common(InternalGrant *istmt, Oid classid, AclMode default_privs,
+                 void (*object_check) (InternalGrant *istmt, HeapTuple tuple))
+{
+    int cacheid;
+    Relation relation;
+    ListCell *cell;
+
+    // Set default privileges if ALL PRIVILEGES specified
+    if (istmt->all_privs && istmt->privileges == ACL_NO_RIGHTS)
+        istmt->privileges = default_privs;
+
+    // Get cache ID and open catalog table
+    cacheid = get_object_catcache_oid(classid);
+    relation = table_open(classid, RowExclusiveLock);
+
+    // Process each object in the grant/revoke statement
+    foreach(cell, istmt->objects)
+    {
+        Oid objectid = lfirst_oid(cell);
+        Acl *old_acl, *new_acl;
+        Oid grantorId, ownerId;
+        AclMode avail_goptions, this_privileges;
+        HeapTuple tuple, newtuple;
+        bool isNull;
+
+        // Look up object in catalog
+        tuple = SearchSysCacheLocked1(cacheid, ObjectIdGetDatum(objectid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for %s %u",
+                 get_object_class_descr(classid), objectid);
+
+        // Perform object-specific validation if needed
+        if (object_check)
+            object_check(istmt, tuple);
+
+        // Get object owner and current ACL
+        ownerId = DatumGetObjectId(SysCacheGetAttrNotNull(cacheid, tuple,
+                                   get_object_attnum_owner(classid)));
+
+        // Get existing ACL or use default
+        Datum aclDatum = SysCacheGetAttr(cacheid, tuple,
+                                       get_object_attnum_acl(classid), &isNull);
+        if (isNull)
+            old_acl = acldefault(get_object_type(classid, objectid), ownerId);
+        else
+            old_acl = DatumGetAclPCopy(aclDatum);
+
+        // Select best grantor and available grant options
+        select_best_grantor(GetUserId(), istmt->privileges,
+                           old_acl, ownerId, &grantorId, &avail_goptions);
+
+        // Validate and restrict privileges
+        this_privileges = restrict_and_check_grant(istmt->is_grant, avail_goptions,
+                                                  istmt->all_privs, istmt->privileges,
+                                                  objectid, grantorId,
+                                                  get_object_type(classid, objectid),
+                                                  "object_name", 0, NULL);
+
+        // Generate new ACL by merging with grant/revoke
+        new_acl = merge_acl_with_grant(old_acl, istmt->is_grant,
+                                      istmt->grant_option, istmt->behavior,
+                                      istmt->grantees, this_privileges,
+                                      grantorId, ownerId);
+
+        // Update catalog with new ACL
+        Datum *values = palloc0_array(Datum, RelationGetDescr(relation)->natts);
+        bool *nulls = palloc0_array(bool, RelationGetDescr(relation)->natts);
+        bool *replaces = palloc0_array(bool, RelationGetDescr(relation)->natts);
+
+        values[get_object_attnum_acl(classid) - 1] = PointerGetDatum(new_acl);
+        replaces[get_object_attnum_acl(classid) - 1] = true;
+
+        newtuple = heap_modify_tuple(tuple, RelationGetDescr(relation),
+                                    values, nulls, replaces);
+        CatalogTupleUpdate(relation, &newtuple->t_self, newtuple);
+
+        // Update extension privileges and dependencies
+        recordExtensionInitPriv(objectid, classid, 0, new_acl);
+
+        // Update ACL dependencies for role tracking
+        int old_members_count, new_members_count;
+        Oid *old_members, *new_members;
+        old_members_count = aclmembers(old_acl, &old_members);
+        new_members_count = aclmembers(new_acl, &new_members);
+        updateAclDependencies(classid, objectid, 0, ownerId,
+                             old_members_count, old_members,
+                             new_members_count, new_members);
+
+        ReleaseSysCache(tuple);
+        CommandCounterIncrement();
+    }
+
+    table_close(relation, RowExclusiveLock);
+}
+```

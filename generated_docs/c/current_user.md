@@ -37,3 +37,13 @@ The function follows PostgreSQL's function calling convention using the PG_FUNCT
 - It works in conjunction with session_user and other user identification functions
 - The function is defined in src/backend/utils/adt/name.c alongside other name-related functions
 - Returns the name as PostgreSQL's 'name' data type, which has specific length limitations
+
+## Simplified Source
+
+```c
+Datum current_user(PG_FUNCTION_ARGS) {
+    // Get current user ID and convert to username, then return as name type
+    PG_RETURN_DATUM(DirectFunctionCall1(namein,
+                    CStringGetDatum(GetUserNameFromId(GetUserId(), false))));
+}
+```

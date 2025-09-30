@@ -36,3 +36,33 @@ LookupOperWithArgs is a wrapper around LookupOperName that extracts operator inf
 - Used in DDL commands and object address resolution
 - Provides type-safe access to operator arguments through structured parsing
 - Part of PostgreSQL's object management and DDL processing system
+
+## Simplified Source
+
+```c
+Oid
+LookupOperWithArgs(ObjectWithArgs *oper, bool noError) {
+    TypeName *oprleft, *oprright;
+    Oid leftoid, rightoid;
+
+    // Expect exactly two arguments
+    Assert(list_length(oper->objargs) == 2);
+    oprleft = linitial_node(TypeName, oper->objargs);
+    oprright = lsecond_node(TypeName, oper->objargs);
+
+    // Convert type names to OIDs (NULL becomes InvalidOid for unary ops)
+    if (oprleft == NULL)
+        leftoid = InvalidOid;
+    else
+        leftoid = LookupTypeNameOid(NULL, oprleft, noError);
+
+    if (oprright == NULL)
+        rightoid = InvalidOid;
+    else
+        rightoid = LookupTypeNameOid(NULL, oprright, noError);
+
+    // Delegate to LookupOperName for actual lookup
+    return LookupOperName(NULL, oper->objname, leftoid, rightoid,
+                          noError, -1);
+}
+```

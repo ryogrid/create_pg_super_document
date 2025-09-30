@@ -41,3 +41,49 @@ The function includes comprehensive error handling, generating detailed error me
 - The function carefully handles memory management by working with syscache tuples
 - Error reporting includes both the operator family name and access method name for better diagnostics
 - The function supports PostgreSQL's namespace resolution mechanism through qualified/unqualified name handling
+
+## Simplified Source
+
+```c
+static HeapTuple OpFamilyCacheLookup(Oid amID, List *opfamilyname, bool missing_ok) {
+    char *schemaname;
+    char *opfname;
+    HeapTuple htup;
+
+    // Parse the qualified/unqualified name
+    DeconstructQualifiedName(opfamilyname, &schemaname, &opfname);
+
+    if (schemaname) {
+        // Schema-qualified lookup: search in specific namespace
+        Oid namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (!OidIsValid(namespaceId))
+            htup = NULL;
+        else
+            htup = SearchSysCache3(OPFAMILYAMNAMENSP,
+                                  ObjectIdGetDatum(amID),
+                                  PointerGetDatum(opfname),
+                                  ObjectIdGetDatum(namespaceId));
+    } else {
+        // Unqualified lookup: search through search path
+        Oid opfID = OpfamilynameGetOpfid(amID, opfname);
+        if (!OidIsValid(opfID))
+            htup = NULL;
+        else
+            htup = SearchSysCache1(OPFAMILYOID, ObjectIdGetDatum(opfID));
+    }
+
+    // Handle not found case
+    if (!HeapTupleIsValid(htup) && !missing_ok) {
+        HeapTuple amtup = SearchSysCache1(AMOID, ObjectIdGetDatum(amID));
+        if (!HeapTupleIsValid(amtup))
+            elog(ERROR, "cache lookup failed for access method %u", amID);
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("operator family \"%s\" does not exist for access method \"%s\"",
+                        NameListToString(opfamilyname),
+                        NameStr(((Form_pg_am) GETSTRUCT(amtup))->amname))));
+    }
+
+    return htup;
+}
+```

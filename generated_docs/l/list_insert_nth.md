@@ -42,3 +42,28 @@ The function has O(n) time complexity proportional to the distance to the end of
 - Maintains list invariants through  in debug builds
 - Time complexity is O(k) where k is the number of elements after insertion point
 - Returns the modified list (same list object, not a new copy)
+
+## Simplified Source
+
+```c
+List *
+list_insert_nth(List *list, int pos, void *datum)
+{
+    // Handle empty list case - create new single-element list
+    if (list == NIL) {
+        Assert(pos == 0);
+        return list_make1(datum);
+    }
+
+    // Ensure we're working with a pointer list
+    Assert(IsPointerList(list));
+
+    // Insert new cell at specified position and set its data
+    lfirst(insert_new_cell(list, pos)) = datum;
+
+    // Verify list integrity in debug builds
+    check_list_invariants(list);
+
+    return list;
+}
+```

@@ -33,3 +33,19 @@ The function is useful for determining whether a query has external parameter de
 - This is a utility function that simplifies parameter detection for callers
 - Uses the standard PostgreSQL tree walking pattern with a specialized walker function
 - Part of the parameter analysis infrastructure used throughout the parser
+
+## Simplified Source
+
+```c
+bool query_contains_extern_params(Query *query) {
+    // Walk the query tree to check for external parameters
+    return query_tree_walker(query,
+                            query_contains_extern_params_walker,
+                            NULL, 0);
+}
+```
+
+**Key Points:**
+- Simple wrapper function that uses PostgreSQL's tree walking mechanism
+- Delegates actual parameter detection to specialized walker function
+- Returns true if any PARAM_EXTERN parameters found, false otherwise

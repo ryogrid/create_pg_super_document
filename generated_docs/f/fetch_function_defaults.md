@@ -42,3 +42,26 @@ The returned list contains expression nodes that represent the default values fo
 - Memory for the temporary string is properly cleaned up after deserialization
 - The function returns a List where each element corresponds to a default expression for parameters that have defaults
 - This is a low-level utility function used by higher-level argument processing functions
+
+## Simplified Source
+
+```c
+static List *
+fetch_function_defaults(HeapTuple func_tuple)
+{
+    // Get default arguments from pg_proc tuple
+    Datum proargdefaults = SysCacheGetAttrNotNull(PROCOID, func_tuple,
+                                                  Anum_pg_proc_proargdefaults);
+
+    // Convert stored datum to string
+    char *str = TextDatumGetCString(proargdefaults);
+
+    // Parse string back to expression list
+    List *defaults = castNode(List, stringToNode(str));
+
+    // Clean up temporary string
+    pfree(str);
+
+    return defaults;
+}
+```

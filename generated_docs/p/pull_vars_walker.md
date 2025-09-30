@@ -47,3 +47,46 @@ The function maintains proper nesting level tracking when encountering Query nod
 - Does not copy variables, only links them into the result list
 - [PlaceHolderVar](../P/PlaceHolderVar.md) nodes are treated specially - their contained expressions are not traversed
 - Returns false to continue tree traversal, true would halt traversal early
+
+## Simplified Source
+
+```c
+static bool
+pull_vars_walker(Node *node, pull_vars_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+        // Collect variables at target query level
+        if (var->varlevelsup == context->sublevels_up)
+            context->vars = lappend(context->vars, var);
+        return false;
+    }
+
+    if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+        // Collect placeholder variables at target level
+        if (phv->phlevelsup == context->sublevels_up)
+            context->vars = lappend(context->vars, phv);
+        // Don't traverse into PHV's contained expression
+        return false;
+    }
+
+    if (IsA(node, Query))
+    {
+        // Handle nested subqueries with adjusted scope level
+        bool result;
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node, pull_vars_walker, context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Continue traversing other node types
+    return expression_tree_walker(node, pull_vars_walker, context);
+}
+```

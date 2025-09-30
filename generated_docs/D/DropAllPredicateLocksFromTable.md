@@ -65,3 +65,131 @@ The function is designed specifically for DDL operations like DROP TABLE, ALTER 
 - Handles both heap relations and index relations, with special logic for index-to-heap transfers
 - Uses scratch space mechanism to guarantee successful completion when transferring locks
 - Part of the infrastructure supporting safe DDL operations in serializable transactions
+
+## Simplified Source
+
+```c
+static void
+DropAllPredicateLocksFromTable(Relation relation, bool transfer)
+{
+    HASH_SEQ_STATUS seqstat;
+    PREDICATELOCKTARGET *oldtarget;
+    PREDICATELOCKTARGET *heaptarget = NULL;
+    Oid dbId, relId, heapId;
+    bool isIndex;
+    uint32 heaptargettaghash = 0;
+
+    // Early exit if no serializable transactions are running
+    if (!TransactionIdIsValid(PredXact->SxactGlobalXmin))
+        return;
+
+    if (!PredicateLockingNeededForRelation(relation))
+        return;
+
+    // Get relation identifiers
+    dbId = relation->rd_locator.dbOid;
+    relId = relation->rd_id;
+
+    if (relation->rd_index == NULL) {
+        isIndex = false;
+        heapId = relId;
+    } else {
+        isIndex = true;
+        heapId = relation->rd_index->indrelid;
+    }
+
+    // Acquire all necessary locks for exclusive access
+    LWLockAcquire(SerializablePredicateListLock, LW_EXCLUSIVE);
+    for (int i = 0; i < NUM_PREDICATELOCK_PARTITIONS; i++)
+        LWLockAcquire(PredicateLockHashPartitionLockByIndex(i), LW_EXCLUSIVE);
+    LWLockAcquire(SerializableXactHashLock, LW_EXCLUSIVE);
+
+    // Remove scratch target if transferring locks
+    if (transfer)
+        RemoveScratchTarget(true);
+
+    // Scan through all lock targets to find matches
+    hash_seq_init(&seqstat, PredicateLockTargetHash);
+
+    while ((oldtarget = (PREDICATELOCKTARGET *) hash_seq_search(&seqstat))) {
+        dlist_mutable_iter iter;
+
+        // Check if this target matches our relation
+        if (GET_PREDICATELOCKTARGETTAG_RELATION(oldtarget->tag) != relId ||
+            GET_PREDICATELOCKTARGETTAG_DB(oldtarget->tag) != dbId)
+            continue;
+
+        // Skip if already the right lock type
+        if (transfer && !isIndex &&
+            GET_PREDICATELOCKTARGETTAG_TYPE(oldtarget->tag) == PREDLOCKTAG_RELATION)
+            continue;
+
+        // Create heap relation target if needed (for transfers)
+        if (transfer && heaptarget == NULL) {
+            PREDICATELOCKTARGETTAG heaptargettag;
+            bool found;
+
+            SET_PREDICATELOCKTARGETTAG_RELATION(heaptargettag, dbId, heapId);
+            heaptargettaghash = PredicateLockTargetTagHashCode(&heaptargettag);
+            heaptarget = hash_search_with_hash_value(PredicateLockTargetHash,
+                                                   &heaptargettag,
+                                                   heaptargettaghash,
+                                                   HASH_ENTER, &found);
+            if (!found)
+                dlist_init(&heaptarget->predicateLocks);
+        }
+
+        // Process all locks on this target
+        dlist_foreach_modify(iter, &oldtarget->predicateLocks) {
+            PREDICATELOCK *oldpredlock =
+                dlist_container(PREDICATELOCK, targetLink, iter.cur);
+
+            // Remove old lock
+            SerCommitSeqNo oldCommitSeqNo = oldpredlock->commitSeqNo;
+            SERIALIZABLEXACT *oldXact = oldpredlock->tag.myXact;
+
+            dlist_delete(&(oldpredlock->xactLink));
+            hash_search(PredicateLockHash, &oldpredlock->tag, HASH_REMOVE, NULL);
+
+            // Transfer to heap relation if requested
+            if (transfer) {
+                PREDICATELOCKTAG newpredlocktag;
+                PREDICATELOCK *newpredlock;
+                bool found;
+
+                newpredlocktag.myTarget = heaptarget;
+                newpredlocktag.myXact = oldXact;
+
+                newpredlock = (PREDICATELOCK *)
+                    hash_search_with_hash_value(PredicateLockHash,
+                                               &newpredlocktag,
+                                               PredicateLockHashCodeFromTargetHashCode(&newpredlocktag, heaptargettaghash),
+                                               HASH_ENTER, &found);
+
+                if (!found) {
+                    // Create new lock entry
+                    dlist_push_tail(&(heaptarget->predicateLocks), &(newpredlock->targetLink));
+                    dlist_push_tail(&(newpredlocktag.myXact->predicateLocks), &(newpredlock->xactLink));
+                    newpredlock->commitSeqNo = oldCommitSeqNo;
+                } else {
+                    // Update existing lock with latest commit sequence
+                    if (newpredlock->commitSeqNo < oldCommitSeqNo)
+                        newpredlock->commitSeqNo = oldCommitSeqNo;
+                }
+            }
+        }
+
+        // Remove the old target
+        hash_search(PredicateLockTargetHash, &oldtarget->tag, HASH_REMOVE, NULL);
+    }
+
+    // Restore scratch target and release locks
+    if (transfer)
+        RestoreScratchTarget(true);
+
+    LWLockRelease(SerializableXactHashLock);
+    for (int i = NUM_PREDICATELOCK_PARTITIONS - 1; i >= 0; i--)
+        LWLockRelease(PredicateLockHashPartitionLockByIndex(i));
+    LWLockRelease(SerializablePredicateListLock);
+}
+```

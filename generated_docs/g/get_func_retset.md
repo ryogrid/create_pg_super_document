@@ -38,3 +38,23 @@ The function uses PostgreSQL's system cache mechanism (SearchSysCache1) for effi
 - Raises an ERROR if the function ID is invalid or not found
 - The proretset flag is essential for distinguishing scalar functions from set-returning functions (SRFs)
 - Located in src/backend/utils/cache/lsyscache.c:1742-1760
+
+## Simplified Source
+
+```c
+bool get_func_retset(Oid funcid) {
+    // Look up function in system cache
+    HeapTuple tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+
+    // Error if function not found
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract the proretset flag from pg_proc tuple
+    bool result = ((Form_pg_proc) GETSTRUCT(tp))->proretset;
+
+    // Clean up and return
+    ReleaseSysCache(tp);
+    return result;
+}
+```

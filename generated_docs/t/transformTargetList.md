@@ -49,3 +49,67 @@ This function is responsible for converting a list of ResTarget parse tree nodes
 - The function preserves the order of target entries while expanding star expressions inline
 - Star expressions can appear in ColumnRef nodes or as indirection items in A_Indirection nodes
 - Multiassign resjunk items are only expected in UPDATE contexts and their resource numbers are set later by transformUpdateStmt
+
+## Simplified Source
+
+```c
+List *
+transformTargetList(ParseState *pstate, List *targetlist,
+                    ParseExprKind exprKind)
+{
+    List *p_target = NIL;
+    bool expand_star;
+    ListCell *o_target;
+
+    Assert(pstate->p_multiassign_exprs == NIL);
+
+    // Expand "something.*" in SELECT and RETURNING, but not UPDATE
+    expand_star = (exprKind != EXPR_KIND_UPDATE_SOURCE);
+
+    foreach(o_target, targetlist) {
+        ResTarget *res = (ResTarget *) lfirst(o_target);
+
+        // Check for "something.*" - could be in ColumnRef or A_Indirection
+        if (expand_star) {
+            if (IsA(res->val, ColumnRef)) {
+                ColumnRef *cref = (ColumnRef *) res->val;
+
+                if (IsA(llast(cref->fields), A_Star)) {
+                    // It is something.*, expand into multiple items
+                    p_target = list_concat(p_target,
+                                           ExpandColumnRefStar(pstate, cref, true));
+                    continue;
+                }
+            }
+            else if (IsA(res->val, A_Indirection)) {
+                A_Indirection *ind = (A_Indirection *) res->val;
+
+                if (IsA(llast(ind->indirection), A_Star)) {
+                    // It is something.*, expand into multiple items
+                    p_target = list_concat(p_target,
+                                           ExpandIndirectionStar(pstate, ind, true, exprKind));
+                    continue;
+                }
+            }
+        }
+
+        // Not "something.*", transform as a single expression
+        p_target = lappend(p_target,
+                           transformTargetEntry(pstate,
+                                                res->val,
+                                                NULL,
+                                                exprKind,
+                                                res->name,
+                                                false));
+    }
+
+    // Attach any multiassign resjunk items to the end (UPDATE only)
+    if (pstate->p_multiassign_exprs) {
+        Assert(exprKind == EXPR_KIND_UPDATE_SOURCE);
+        p_target = list_concat(p_target, pstate->p_multiassign_exprs);
+        pstate->p_multiassign_exprs = NIL;
+    }
+
+    return p_target;
+}
+```

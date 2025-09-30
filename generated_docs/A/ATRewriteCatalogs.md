@@ -50,3 +50,56 @@ Key execution phases include:
 - Work propagation between tables can only occur into later passes, ensuring dependency order
 - Excludes tables that are sources of ATTACH PARTITION commands from toast table evaluation
 - Supports materialized views and regular tables for toast table creation
+
+## Simplified Source
+
+```c
+static void ATRewriteCatalogs(List **wqueue, LOCKMODE lockmode,
+                             AlterTableUtilityContext *context) {
+    // Process all tables in multiple passes to handle dependencies
+    for (AlterTablePass pass = 0; pass < AT_NUM_PASSES; pass++) {
+        foreach(ltab, *wqueue) {
+            AlteredTableInfo *tab = (AlteredTableInfo *) lfirst(ltab);
+            List *subcmds = tab->subcmds[pass];
+
+            if (subcmds == NIL)
+                continue;
+
+            // Open relation (lock already acquired in Phase 1)
+            tab->rel = relation_open(tab->relid, NoLock);
+
+            // Execute all subcommands for this pass
+            foreach(lcmd, subcmds) {
+                ATExecCmd(wqueue, tab, lfirst_node(AlterTableCmd, lcmd),
+                         lockmode, pass, context);
+            }
+
+            // Cleanup after ALTER TYPE or SET EXPRESSION operations
+            if (pass == AT_PASS_ALTER_TYPE || pass == AT_PASS_SET_EXPRESSION) {
+                ATPostAlterTypeCleanup(wqueue, tab, lockmode);
+            }
+
+            // Close relation
+            if (tab->rel) {
+                relation_close(tab->rel, NoLock);
+                tab->rel = NULL;
+            }
+        }
+    }
+
+    // Check if toast tables need to be added
+    foreach(ltab, *wqueue) {
+        AlteredTableInfo *tab = (AlteredTableInfo *) lfirst(ltab);
+
+        // Create toast table for eligible relations (skip ATTACH PARTITION sources)
+        bool needs_toast = (tab->relkind == RELKIND_RELATION ||
+                           tab->relkind == RELKIND_PARTITIONED_TABLE ||
+                           tab->relkind == RELKIND_MATVIEW) &&
+                          tab->partition_constraint == NULL;
+
+        if (needs_toast) {
+            AlterTableCreateToastTable(tab->relid, (Datum) 0, lockmode);
+        }
+    }
+}
+```

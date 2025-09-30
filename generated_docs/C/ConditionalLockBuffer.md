@@ -39,3 +39,24 @@ For local buffers (those that belong to the current backend), the function alway
 - Returns true if the lock was successfully acquired or if dealing with a local buffer
 - Returns false if the lock could not be acquired immediately
 - This is the conditional (non-blocking) variant of LockBuffer which would block until the lock is available
+
+## Simplified Source
+
+```c
+bool
+ConditionalLockBuffer(Buffer buffer)
+{
+    // Verify buffer is already pinned by caller
+    Assert(BufferIsPinned(buffer));
+
+    // Local buffers don't need locking - always succeed
+    if (BufferIsLocal(buffer))
+        return true;
+
+    // Get buffer descriptor for shared buffer
+    BufferDesc *buf = GetBufferDescriptor(buffer - 1);
+
+    // Try to acquire exclusive content lock without waiting
+    return LWLockConditionalAcquire(BufferDescriptorGetContentLock(buf), LW_EXCLUSIVE);
+}
+```

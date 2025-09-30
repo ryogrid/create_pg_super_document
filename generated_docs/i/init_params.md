@@ -61,3 +61,113 @@ The function also handles intelligent defaulting when changing sequence types, a
 - Handles intelligent defaulting when changing sequence data types
 - The log_cnt field is reset whenever parameters affecting future nextval allocations are changed
 - This is a static function internal to src/backend/commands/sequence.c
+
+## Simplified Source
+
+```c
+static void
+init_params(ParseState *pstate, List *options, bool for_identity,
+            bool isInit,
+            Form_pg_sequence seqform,
+            Form_pg_sequence_data seqdataform,
+            bool *need_seq_rewrite,
+            List **owned_by)
+{
+    // Initialize option holders
+    DefElem *as_type = NULL, *start_value = NULL, *restart_value = NULL;
+    DefElem *increment_by = NULL, *max_value = NULL, *min_value = NULL;
+    DefElem *cache_value = NULL, *is_cycled = NULL;
+    bool reset_max_value = false, reset_min_value = false;
+
+    *need_seq_rewrite = false;
+    *owned_by = NIL;
+
+    // Parse each option from the list
+    foreach(option, options) {
+        DefElem *defel = (DefElem *) lfirst(option);
+
+        // Handle each option type (as, increment, start, restart, etc.)
+        if (strcmp(defel->defname, "as") == 0) {
+            if (as_type) errorConflictingDefElem(defel, pstate);
+            as_type = defel;
+            *need_seq_rewrite = true;
+        }
+        // ... similar handling for other options ...
+        else if (strcmp(defel->defname, "owned_by") == 0) {
+            *owned_by = defGetQualifiedName(defel);
+        }
+    }
+
+    // Reset log counter for initialization or parameter changes
+    if (isInit) seqdataform->log_cnt = 0;
+
+    // Process AS (data type) option
+    if (as_type != NULL) {
+        Oid newtypid = typenameTypeId(pstate, defGetTypeName(as_type));
+
+        // Validate type is smallint, int, or bigint
+        if (newtypid != INT2OID && newtypid != INT4OID && newtypid != INT8OID)
+            ereport(ERROR, "sequence type must be smallint, integer, or bigint");
+
+        // Handle type conversion for existing sequences
+        if (!isInit) {
+            // Reset min/max if they were at old type limits
+            if (seqform->seqmax == old_type_max) reset_max_value = true;
+            if (seqform->seqmin == old_type_min) reset_min_value = true;
+        }
+        seqform->seqtypid = newtypid;
+    }
+    else if (isInit) {
+        seqform->seqtypid = INT8OID;  // Default to bigint
+    }
+
+    // Process INCREMENT BY option
+    if (increment_by != NULL) {
+        seqform->seqincrement = defGetInt64(increment_by);
+        if (seqform->seqincrement == 0)
+            ereport(ERROR, "INCREMENT must not be zero");
+        seqdataform->log_cnt = 0;
+    }
+    else if (isInit) {
+        seqform->seqincrement = 1;
+    }
+
+    // Process MAXVALUE and MINVALUE with defaults and validation
+    // Set appropriate defaults based on sequence direction and type
+    if (max_value processing or defaults needed) {
+        if (seqform->seqincrement > 0) {
+            // Ascending sequence - use type maximum
+            seqform->seqmax = get_type_maximum(seqform->seqtypid);
+        } else {
+            seqform->seqmax = -1;  // Descending sequence
+        }
+    }
+
+    // Validate min/max are within type bounds and consistent
+    validate_sequence_bounds(seqform);
+
+    // Process START WITH and RESTART options
+    if (start_value != NULL) {
+        seqform->seqstart = defGetInt64(start_value);
+    }
+    else if (isInit) {
+        // Default start: min for ascending, max for descending
+        seqform->seqstart = (seqform->seqincrement > 0) ?
+            seqform->seqmin : seqform->seqmax;
+    }
+
+    // Validate start/restart values are within bounds
+    validate_start_restart_values(seqform, seqdataform);
+
+    // Process CACHE option
+    if (cache_value != NULL) {
+        seqform->seqcache = defGetInt64(cache_value);
+        if (seqform->seqcache <= 0)
+            ereport(ERROR, "CACHE must be greater than zero");
+        seqdataform->log_cnt = 0;
+    }
+    else if (isInit) {
+        seqform->seqcache = 1;
+    }
+}
+```

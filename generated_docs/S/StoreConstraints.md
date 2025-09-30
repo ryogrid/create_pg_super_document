@@ -61,3 +61,53 @@ Key operations include:
 - Automatically updates the relation's check constraint count when check constraints are processed
 - Returns void but modifies the constraint structures in-place with their new OIDs
 - The function will error on unrecognized constraint types
+
+## Simplified Source
+
+```c
+static void
+StoreConstraints(Relation rel, List *cooked_constraints, bool is_internal)
+{
+    int numchecks = 0;
+    ListCell *lc;
+
+    // Return early if no constraints to process
+    if (cooked_constraints == NIL)
+        return;
+
+    // Make pg_attribute tuples visible for constraint processing
+    CommandCounterIncrement();
+
+    // Process each constraint in the list
+    foreach(lc, cooked_constraints)
+    {
+        CookedConstraint *con = (CookedConstraint *) lfirst(lc);
+
+        switch (con->contype)
+        {
+            case CONSTR_DEFAULT:
+                // Store column default constraint
+                con->conoid = StoreAttrDefault(rel, con->attnum, con->expr,
+                                             is_internal, false);
+                break;
+
+            case CONSTR_CHECK:
+                // Store check constraint
+                con->conoid = StoreRelCheck(rel, con->name, con->expr,
+                                          !con->skip_validation, con->is_local,
+                                          con->inhcount, con->is_no_inherit,
+                                          is_internal);
+                numchecks++;
+                break;
+
+            default:
+                // Error on unknown constraint types
+                elog(ERROR, "unrecognized constraint type: %d", (int) con->contype);
+        }
+    }
+
+    // Update relation's check constraint count if any were added
+    if (numchecks > 0)
+        SetRelationNumChecks(rel, numchecks);
+}
+```

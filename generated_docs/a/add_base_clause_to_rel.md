@@ -52,3 +52,50 @@ Key aspects of the function's behavior:
 **Assertion Requirements**: The function assumes the RestrictInfo references exactly one relation (BMS_SINGLETON membership), which is validated by assertion.
 
 This function is essential for building the final restriction lists that drive relation scanning and filtering in the execution phase of query processing.
+
+## Simplified Source
+
+```c
+static void
+add_base_clause_to_rel(PlannerInfo *root, Index relid, RestrictInfo *restrictinfo)
+{
+    RelOptInfo *rel = find_base_rel(root, relid);
+    RangeTblEntry *rte = root->simple_rte_array[relid];
+
+    // For inheritance tables, preserve original quals (except partitioned tables)
+    if (!rte->inh || rte->relkind == RELKIND_PARTITIONED_TABLE)
+    {
+        // Skip trivially true qualifications
+        if (restriction_is_always_true(root, restrictinfo))
+            return;
+
+        // Replace trivially false qualifications with constant FALSE
+        if (restriction_is_always_false(root, restrictinfo))
+        {
+            int save_rinfo_serial = restrictinfo->rinfo_serial;
+            int save_last_rinfo_serial = root->last_rinfo_serial;
+
+            // Create new FALSE constant while preserving serial numbers
+            restrictinfo = make_restrictinfo(root,
+                                           (Expr *) makeBoolConst(false, false),
+                                           restrictinfo->is_pushed_down,
+                                           restrictinfo->has_clone,
+                                           restrictinfo->is_clone,
+                                           restrictinfo->pseudoconstant,
+                                           0, /* security_level */
+                                           restrictinfo->required_relids,
+                                           restrictinfo->incompatible_relids,
+                                           restrictinfo->outer_relids);
+            restrictinfo->rinfo_serial = save_rinfo_serial;
+            root->last_rinfo_serial = save_last_rinfo_serial;
+        }
+    }
+
+    // Add clause to relation's restriction list
+    rel->baserestrictinfo = lappend(rel->baserestrictinfo, restrictinfo);
+
+    // Update minimum security level
+    rel->baserestrict_min_security = Min(rel->baserestrict_min_security,
+                                        restrictinfo->security_level);
+}
+```

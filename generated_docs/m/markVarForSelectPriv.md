@@ -38,3 +38,18 @@ This function is a key component in PostgreSQL's access control system, ensuring
 - Essential for PostgreSQL's row-level security and column-level access control
 - The function preserves the original parse state context while navigating to the appropriate level for privilege marking
 - Works seamlessly with both regular column references and whole-row references (when varattno is 0)
+
+## Simplified Source
+
+```c
+void markVarForSelectPriv(ParseState *pstate, Var *var) {
+    Assert(IsA(var, Var));
+
+    // Navigate to the appropriate parse state level for uplevel Vars
+    for (Index lv = 0; lv < var->varlevelsup; lv++)
+        pstate = pstate->parentParseState;
+
+    // Mark the RTE for SELECT privilege on this column
+    markRTEForSelectPriv(pstate, var->varno, var->varattno);
+}
+```

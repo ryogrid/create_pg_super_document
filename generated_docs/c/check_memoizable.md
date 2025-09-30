@@ -48,3 +48,41 @@ The memoization system requires both hash and equality operators because it uses
 - This optimization was introduced in PostgreSQL 14 as part of improving nested loop join performance
 - The memoization cache has configurable size limits and eviction policies
 - The function complements other join optimization techniques like hash and merge joins by providing a caching layer
+
+## Simplified Source
+
+```c
+static void
+check_memoizable(RestrictInfo *restrictinfo)
+{
+    TypeCacheEntry *typentry;
+    Expr       *clause = restrictinfo->clause;
+    Oid         lefttype;
+    Oid         righttype;
+
+    // Skip pseudoconstant clauses
+    if (restrictinfo->pseudoconstant)
+        return;
+
+    // Must be a binary operator clause
+    if (!is_opclause(clause))
+        return;
+    if (list_length(((OpExpr *) clause)->args) != 2)
+        return;
+
+    // Check left operand type for hash and equality operators
+    lefttype = exprType(linitial(((OpExpr *) clause)->args));
+    typentry = lookup_type_cache(lefttype, TYPECACHE_HASH_PROC | TYPECACHE_EQ_OPR);
+
+    if (OidIsValid(typentry->hash_proc) && OidIsValid(typentry->eq_opr))
+        restrictinfo->left_hasheqoperator = typentry->eq_opr;
+
+    // Check right operand type (reuse cache entry if same type)
+    righttype = exprType(lsecond(((OpExpr *) clause)->args));
+    if (lefttype != righttype)
+        typentry = lookup_type_cache(righttype, TYPECACHE_HASH_PROC | TYPECACHE_EQ_OPR);
+
+    if (OidIsValid(typentry->hash_proc) && OidIsValid(typentry->eq_opr))
+        restrictinfo->right_hasheqoperator = typentry->eq_opr;
+}
+```

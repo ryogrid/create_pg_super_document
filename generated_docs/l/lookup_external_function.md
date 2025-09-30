@@ -33,3 +33,12 @@ This function is particularly useful for optimizing performance when working wit
 - The filehandle parameter is typically obtained from a previous call to load_external_function
 - Direct wrapper around the POSIX dlsym() system call
 - Used primarily in the function manager (fmgr) system for efficient function caching and retrieval
+
+## Simplified Source
+
+```c
+void *lookup_external_function(void *filehandle, const char *funcname) {
+    // Look up function symbol in already loaded library
+    return dlsym(filehandle, funcname);
+}
+```

@@ -42,3 +42,20 @@ The function operates on a heap tuple from the pg_type catalog, extracting the t
 - Raises ACLCHECK_NOT_OWNER error if user lacks ownership privileges
 - Part of the broader domain management security infrastructure
 - Uses standard PostgreSQL access control mechanisms
+
+## Simplified Source
+
+```c
+void checkDomainOwner(HeapTuple tup) {
+    Form_pg_type typTup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Check that this is actually a domain type
+    if (typTup->typtype != TYPTYPE_DOMAIN)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("%s is not a domain", format_type_be(typTup->oid))));
+
+    // Check ownership permission
+    if (!object_ownercheck(TypeRelationId, typTup->oid, GetUserId()))
+        aclcheck_error_type(ACLCHECK_NOT_OWNER, typTup->oid);
+}
+```

@@ -37,3 +37,27 @@ Similar to get_opfamily_oid, this function serves as a higher-level abstraction 
 - The function returns InvalidOid rather than throwing an error when missing_ok is true, making it suitable for optional lookups
 - Used extensively throughout PostgreSQL for index creation, type handling, and query planning operations
 - Follows the same pattern as get_opfamily_oid but operates on operator classes instead of operator families
+
+## Simplified Source
+
+```c
+Oid
+get_opclass_oid(Oid amID, List *opclassname, bool missing_ok)
+{
+    HeapTuple htup;
+    Form_pg_opclass opcform;
+    Oid opcID;
+
+    // Look up operator class in cache
+    htup = OpClassCacheLookup(amID, opclassname, missing_ok);
+    if (!HeapTupleIsValid(htup))
+        return InvalidOid;
+
+    // Extract OID from tuple
+    opcform = (Form_pg_opclass) GETSTRUCT(htup);
+    opcID = opcform->oid;
+    ReleaseSysCache(htup);
+
+    return opcID;
+}
+```

@@ -44,3 +44,12 @@ This function is widely used throughout the PostgreSQL codebase for deserializin
 - Assumes the input string contains a valid Node representation
 - Used extensively throughout the system for deserializing stored expressions and constraints
 - Part of PostgreSQL's serialization/deserialization infrastructure for Node trees
+
+## Simplified Source
+
+```c
+void *stringToNode(const char *str) {
+    // Convert string representation to Node tree without location fields
+    return stringToNodeInternal(str, false);
+}
+```

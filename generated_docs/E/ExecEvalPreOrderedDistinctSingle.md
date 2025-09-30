@@ -35,3 +35,43 @@ This function implements the DISTINCT filtering logic for single-argument aggreg
 - Optimized for cases where input data is already sorted, allowing efficient DISTINCT processing
 - Manages the haslast, lastdatum, and lastisnull fields in the pertrans structure for state tracking
 - Located in src/backend/executor/execExprInterp.c at lines 5119-5161
+
+## Simplified Source
+
+```c
+bool ExecEvalPreOrderedDistinctSingle(AggState *aggstate, AggStatePerTrans pertrans)
+{
+    Datum value = pertrans->transfn_fcinfo->args[1].value;
+    bool isnull = pertrans->transfn_fcinfo->args[1].isnull;
+
+    // Check if current value is different from previous
+    if (!pertrans->haslast ||
+        pertrans->lastisnull != isnull ||
+        (!isnull && !DatumGetBool(FunctionCall2Coll(&pertrans->equalfnOne,
+                                                     pertrans->aggCollation,
+                                                     pertrans->lastdatum, value)))) {
+
+        // Free previous value if it was pass-by-reference
+        if (pertrans->haslast && !pertrans->inputtypeByVal && !pertrans->lastisnull)
+            pfree(DatumGetPointer(pertrans->lastdatum));
+
+        // Save current value as new "last" value
+        pertrans->haslast = true;
+        if (!isnull) {
+            // Copy value to aggregate memory context
+            MemoryContext oldContext = MemoryContextSwitchTo(
+                aggstate->curaggcontext->ecxt_per_tuple_memory);
+            pertrans->lastdatum = datumCopy(value, pertrans->inputtypeByVal,
+                                           pertrans->inputtypeLen);
+            MemoryContextSwitchTo(oldContext);
+        } else {
+            pertrans->lastdatum = (Datum) 0;
+        }
+        pertrans->lastisnull = isnull;
+
+        return true;  // Value is distinct
+    }
+
+    return false;  // Value is same as previous
+}
+```

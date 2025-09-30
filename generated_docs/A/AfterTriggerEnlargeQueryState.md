@@ -40,3 +40,47 @@ This function takes no parameters and operates on global state:
 - The function uses exponential growth (doubling) for efficient memory management
 - Initial allocation size is at least 8 entries to reduce frequent reallocations
 - This is part of PostgreSQL's deferred trigger execution system
+
+## Simplified Source
+
+```c
+static void
+AfterTriggerEnlargeQueryState(void)
+{
+    int init_depth = afterTriggers.maxquerydepth;
+
+    Assert(afterTriggers.query_depth >= afterTriggers.maxquerydepth);
+
+    if (afterTriggers.maxquerydepth == 0) {
+        // Initial allocation - allocate at least 8 entries
+        int new_alloc = Max(afterTriggers.query_depth + 1, 8);
+
+        afterTriggers.query_stack = (AfterTriggersQueryData *)
+            MemoryContextAlloc(TopTransactionContext,
+                               new_alloc * sizeof(AfterTriggersQueryData));
+        afterTriggers.maxquerydepth = new_alloc;
+    } else {
+        // Grow existing stack using exponential growth strategy
+        int old_alloc = afterTriggers.maxquerydepth;
+        int new_alloc = Max(afterTriggers.query_depth + 1, old_alloc * 2);
+
+        afterTriggers.query_stack = (AfterTriggersQueryData *)
+            repalloc(afterTriggers.query_stack,
+                     new_alloc * sizeof(AfterTriggersQueryData));
+        afterTriggers.maxquerydepth = new_alloc;
+    }
+
+    // Initialize new entries to empty state
+    while (init_depth < afterTriggers.maxquerydepth) {
+        AfterTriggersQueryData *qs = &afterTriggers.query_stack[init_depth];
+
+        qs->events.head = NULL;
+        qs->events.tail = NULL;
+        qs->events.tailfree = NULL;
+        qs->fdw_tuplestore = NULL;
+        qs->tables = NIL;
+
+        ++init_depth;
+    }
+}
+```

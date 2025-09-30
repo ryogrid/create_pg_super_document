@@ -70,3 +70,113 @@ The function manages target list generation carefully, ensuring that column name
 - Target list handling is complex due to the need to maintain proper column ordering and types while handling resjunk flag columns
 - The pTargetList output parameter is somewhat redundant with the RelOptInfo's pathtarget but is needed for proper flag column handling
 - Cross-references between subqueries in the setop tree are not allowed and will trigger an error
+
+## Simplified Source
+
+```c
+static RelOptInfo *recurse_set_operations(Node *setOp, PlannerInfo *root,
+                                        List *colTypes, List *colCollations,
+                                        bool junkOK, int flag, List *refnames_tlist,
+                                        List **pTargetList, bool *istrivial_tlist) {
+    RelOptInfo *rel;
+
+    *istrivial_tlist = true;
+
+    // Prevent stack overflow from deeply nested setops
+    check_stack_depth();
+
+    if (IsA(setOp, RangeTblRef)) {
+        // Handle leaf node (subquery)
+        RangeTblRef *rtr = (RangeTblRef *) setOp;
+        RangeTblEntry *rte = root->simple_rte_array[rtr->rtindex];
+        SetOperationStmt *setops;
+        Query *subquery = rte->subquery;
+        PlannerInfo *subroot;
+        List *tlist;
+        bool trivial_tlist;
+
+        Assert(subquery != NULL);
+
+        // Build RelOptInfo for this subquery
+        rel = build_simple_rel(root, rtr->rtindex, NULL);
+        Assert(root->plan_params == NIL);
+
+        // Plan the subquery
+        setops = castNode(SetOperationStmt, root->parse->setOperations);
+        subroot = rel->subroot = subquery_planner(root->glob, subquery, root,
+                                                false, root->tuple_fraction, setops);
+
+        // Check for unexpected cross-references
+        if (root->plan_params)
+            elog(ERROR, "unexpected outer reference in set operation subquery");
+
+        // Generate target list for subquery
+        tlist = generate_setop_tlist(colTypes, colCollations, flag, rtr->rtindex,
+                                   true, subroot->processed_tlist,
+                                   refnames_tlist, &trivial_tlist);
+        rel->reltarget = create_pathtarget(root, tlist);
+
+        *pTargetList = tlist;
+        *istrivial_tlist = trivial_tlist;
+
+    } else if (IsA(setOp, SetOperationStmt)) {
+        // Handle internal node (set operation)
+        SetOperationStmt *op = (SetOperationStmt *) setOp;
+
+        // Delegate to operation-specific functions
+        if (op->op == SETOP_UNION) {
+            rel = generate_union_paths(op, root, refnames_tlist, pTargetList);
+        } else {
+            rel = generate_nonunion_paths(op, root, refnames_tlist, pTargetList);
+        }
+
+        // Apply projection if needed to match expected types/collations
+        if (flag >= 0 ||
+            !tlist_same_datatypes(*pTargetList, colTypes, junkOK) ||
+            !tlist_same_collations(*pTargetList, colCollations, junkOK)) {
+
+            PathTarget *target;
+            bool trivial_tlist;
+            ListCell *lc;
+
+            // Generate new target list with proper types
+            *pTargetList = generate_setop_tlist(colTypes, colCollations, flag, 0,
+                                              false, *pTargetList, refnames_tlist,
+                                              &trivial_tlist);
+            *istrivial_tlist = trivial_tlist;
+            target = create_pathtarget(root, *pTargetList);
+
+            // Apply projection to regular paths
+            foreach(lc, rel->pathlist) {
+                Path *subpath = (Path *) lfirst(lc);
+                Path *path;
+
+                Assert(subpath->param_info == NULL);
+                path = apply_projection_to_path(root, subpath->parent, subpath, target);
+                if (path != subpath)
+                    lfirst(lc) = path;
+            }
+
+            // Apply projection to partial paths
+            foreach(lc, rel->partial_pathlist) {
+                Path *subpath = (Path *) lfirst(lc);
+                Path *path;
+
+                Assert(subpath->param_info == NULL);
+                path = (Path *) create_projection_path(root, subpath->parent,
+                                                     subpath, target);
+                lfirst(lc) = path;
+            }
+        }
+        postprocess_setop_rel(root, rel);
+
+    } else {
+        // Unknown node type
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(setOp));
+        *pTargetList = NIL;
+        rel = NULL;
+    }
+
+    return rel;
+}
+```

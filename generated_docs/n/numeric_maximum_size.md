@@ -35,3 +35,26 @@ This function computes the maximum number of bytes required to store a PostgreSQ
 - The function accounts for the fact that NumericDigits can hold multiple decimal digits, but alignment issues may cause the first digit to occupy a full NumericDigit
 - Final size calculation includes the numeric header (NUMERIC_HDRSZ) plus space for all NumericDigits
 - Used primarily for query planning and storage estimation purposes
+
+## Simplified Source
+
+```c
+int32 numeric_maximum_size(int32 typmod) {
+    int precision;
+    int numeric_digits;
+
+    // Return -1 for invalid or unlimited typmod
+    if (!is_valid_numeric_typmod(typmod))
+        return -1;
+
+    // Extract precision from upper bits of typmod
+    precision = numeric_typmod_precision(typmod);
+
+    // Calculate maximum NumericDigits needed
+    // This accounts for worst-case where first digit holds only one decimal digit
+    numeric_digits = (precision + 2 * (DEC_DIGITS - 1)) / DEC_DIGITS;
+
+    // Return header size plus space for all digits
+    return NUMERIC_HDRSZ + (numeric_digits * sizeof(NumericDigit));
+}
+```

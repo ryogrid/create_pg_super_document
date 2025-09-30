@@ -38,3 +38,42 @@ The function iterates through both the copied group clauses and the targetlist i
 - Resjunk columns are skipped as they should not have sortgrouprefs and are not involved in grouping/sorting
 - The function performs several assertions to verify the expected structure and consistency between the targetlist and group clauses
 - The original group clauses from the parser have tleSortGroupRef set to 0, which this function updates with the actual references
+
+## Simplified Source
+
+```c
+static List *
+generate_setop_grouplist(SetOperationStmt *op, List *targetlist)
+{
+    List       *grouplist = copyObject(op->groupClauses);
+    ListCell   *lg = list_head(grouplist);
+    ListCell   *lt;
+
+    // Iterate through targetlist and matching group clauses
+    foreach(lt, targetlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(lt);
+
+        // Skip resjunk columns (not involved in grouping)
+        if (tle->resjunk)
+        {
+            Assert(tle->ressortgroupref == 0);
+            continue;
+        }
+
+        // Non-resjunk columns should follow resno convention
+        Assert(tle->ressortgroupref == tle->resno);
+
+        // Get corresponding SortGroupClause and update its reference
+        Assert(lg != NULL);
+        SortGroupClause *sgc = (SortGroupClause *) lfirst(lg);
+        lg = lnext(grouplist, lg);
+
+        Assert(sgc->tleSortGroupRef == 0);
+        sgc->tleSortGroupRef = tle->ressortgroupref;
+    }
+
+    Assert(lg == NULL);  // Should have matched all clauses
+    return grouplist;
+}
+```

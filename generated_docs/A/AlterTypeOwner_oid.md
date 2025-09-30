@@ -46,3 +46,36 @@ The function handles the complexity of composite types by delegating to ATExecCh
 - Used by both user commands (ALTER TYPE OWNER) and system operations (REASSIGN OWNED BY)
 - The hasDependEntry parameter allows selective dependency management for different contexts
 - Recursive handling is mentioned in comments but implemented through the called functions
+
+## Simplified Source
+
+```c
+void AlterTypeOwner_oid(Oid typeOid, Oid newOwnerId, bool hasDependEntry) {
+    // Open the type catalog with exclusive lock
+    Relation rel = table_open(TypeRelationId, RowExclusiveLock);
+
+    // Retrieve the type tuple from syscache
+    HeapTuple tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typeOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", typeOid);
+
+    Form_pg_type typTup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Handle composite types specially (they have associated pg_class entries)
+    if (typTup->typtype == TYPTYPE_COMPOSITE)
+        ATExecChangeOwner(typTup->typrelid, newOwnerId, true, AccessExclusiveLock);
+    else
+        AlterTypeOwnerInternal(typeOid, newOwnerId);
+
+    // Update dependency tracking if requested
+    if (hasDependEntry)
+        changeDependencyOnOwner(TypeRelationId, typeOid, newOwnerId);
+
+    // Notify other subsystems
+    InvokeObjectPostAlterHook(TypeRelationId, typeOid, 0);
+
+    // Clean up
+    ReleaseSysCache(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

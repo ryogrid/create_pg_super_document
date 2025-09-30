@@ -78,3 +78,39 @@ This minimal implementation reflects that PostgreSQL does not currently implemen
 - Part of PostgreSQL's broader character classification system for regular expressions
 - Returns a newly allocated cvec that the caller is responsible for managing
 - In true equivalence class systems, characters like 'é', 'è', and 'e' might all belong to the same equivalence class
+
+## Simplified Source
+
+```c
+static struct cvec *
+eclass(struct vars *v,    /* context */
+       chr c,             /* Collating element representing the equivalence class */
+       int cases)         /* all cases? */
+{
+    struct cvec *cv;
+
+    // Test mode: create fake equivalence class for 'x'
+    if ((v->cflags & REG_FAKE) && c == 'x')
+    {
+        cv = getcvec(v, 4, 0);
+        addchr(cv, CHR('x'));
+        addchr(cv, CHR('y'));
+        if (cases)
+        {
+            addchr(cv, CHR('X'));
+            addchr(cv, CHR('Y'));
+        }
+        return cv;
+    }
+
+    // Normal mode: handle case variants or single character
+    if (cases)
+        return allcases(v, c);  // Generate all case variants
+
+    // Default: single character equivalence class
+    cv = getcvec(v, 1, 0);
+    assert(cv != NULL);
+    addchr(cv, c);
+    return cv;
+}
+```

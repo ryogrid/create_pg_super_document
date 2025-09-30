@@ -42,3 +42,36 @@ The function constructs the path by combining the extension's script directory w
 - The script file naming convention uses "--" as separators between extension name and version identifiers
 - Supports both installation (single version) and update (from-to version) script naming patterns
 - Properly manages memory by freeing the temporary scriptdir allocation before returning
+
+## Simplified Source
+
+```c
+static char *get_extension_script_filename(ExtensionControlFile *control,
+                                          const char *from_version,
+                                          const char *version) {
+    char *result;
+    char *scriptdir;
+
+    // Get the directory where extension scripts are stored
+    scriptdir = get_extension_script_directory(control);
+
+    // Allocate memory for the full path
+    result = (char *) palloc(MAXPGPATH);
+
+    // Build filename based on whether it's install or update script
+    if (from_version) {
+        // Update script: extension_name--from_version--to_version.sql
+        snprintf(result, MAXPGPATH, "%s/%s--%s--%s.sql",
+                 scriptdir, control->name, from_version, version);
+    } else {
+        // Install script: extension_name--version.sql
+        snprintf(result, MAXPGPATH, "%s/%s--%s.sql",
+                 scriptdir, control->name, version);
+    }
+
+    // Clean up temporary directory path
+    pfree(scriptdir);
+
+    return result;
+}
+```

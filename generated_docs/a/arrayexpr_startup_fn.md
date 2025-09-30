@@ -42,3 +42,31 @@ The function sets up a dummy OpExpr structure that will be used to represent eac
 - Sets up both the iterator state and the list of elements to be processed
 - The opexpr field uses T_OpExpr type and BOOLOID result type for boolean operations
 - Location: src/backend/optimizer/util/predtest.c:1042-1068
+
+## Simplified Source
+
+```c
+static void
+arrayexpr_startup_fn(Node *clause, PredIterInfo info)
+{
+    ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+    ArrayExprIterState *state;
+    ArrayExpr *arrayexpr;
+
+    // Allocate iteration state
+    state = (ArrayExprIterState *) palloc(sizeof(ArrayExprIterState));
+    info->state = (void *) state;
+
+    // Setup dummy OpExpr for iteration
+    state->opexpr.xpr.type = T_OpExpr;
+    state->opexpr.opno = saop->opno;
+    state->opexpr.opfuncid = saop->opfuncid;
+    state->opexpr.opresulttype = BOOLOID;
+    state->opexpr.args = list_copy(saop->args);
+
+    // Initialize iteration over ArrayExpr elements
+    arrayexpr = (ArrayExpr *) lsecond(saop->args);
+    info->state_list = arrayexpr->elements;
+    state->next = list_head(arrayexpr->elements);
+}
+```

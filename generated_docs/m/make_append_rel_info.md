@@ -34,3 +34,30 @@ This function constructs an AppendRelInfo node that encapsulates the metadata ne
 - The function automatically populates the AppendRelInfo with relation type information from both parent and child relations
 - It delegates the complex task of building attribute translation lists to make_inh_translation_list
 - This is a foundational function in PostgreSQL's inheritance support, essential for query planning with table hierarchies
+
+## Simplified Source
+
+```c
+AppendRelInfo *
+make_append_rel_info(Relation parentrel, Relation childrel,
+                     Index parentRTindex, Index childRTindex)
+{
+    AppendRelInfo *appinfo = makeNode(AppendRelInfo);
+
+    // Set parent and child relation indexes
+    appinfo->parent_relid = parentRTindex;
+    appinfo->child_relid = childRTindex;
+
+    // Store relation type information
+    appinfo->parent_reltype = parentrel->rd_rel->reltype;
+    appinfo->child_reltype = childrel->rd_rel->reltype;
+
+    // Build attribute translation list for inheritance mapping
+    make_inh_translation_list(parentrel, childrel, childRTindex, appinfo);
+
+    // Store parent relation OID
+    appinfo->parent_reloid = RelationGetRelid(parentrel);
+
+    return appinfo;
+}
+```

@@ -43,3 +43,35 @@ Any parsing errors result in detailed error messages that include the problemati
 - Provides consistent error handling and validation for all integer fields in snapshot data
 - The function modifies the input pointer to advance through the file content line by line
 - Error messages use ERRCODE_INVALID_TEXT_REPRESENTATION for consistency with PostgreSQL error codes
+
+## Simplified Source
+
+```c
+static int parseIntFromText(const char *prefix, char **s, const char *filename) {
+    char *ptr = *s;
+    int val;
+
+    // Verify the line starts with expected prefix
+    if (strncmp(ptr, prefix, strlen(prefix)) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    // Skip past prefix and parse integer value
+    ptr += strlen(prefix);
+    if (sscanf(ptr, "%d", &val) != 1) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    // Find end of line and advance to next line
+    ptr = strchr(ptr, '\n');
+    if (!ptr) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("invalid snapshot data in file \"%s\"", filename)));
+    }
+
+    *s = ptr + 1;  // Update parsing position
+    return val;
+}
+```

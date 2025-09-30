@@ -53,3 +53,24 @@ The message format includes:
 - This message type is part of the COPY protocol flow in PostgreSQL
 - The function properly handles variable numbers of columns by reading the count first
 - Structurally identical to pqTraceOutput_CopyInResponse but handles the opposite direction of data flow
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_CopyOutResponse(FILE *f, const char *message, int *cursor)
+{
+    // Output message type identifier
+    fprintf(f, "CopyOutResponse\t");
+
+    // Extract overall copy format (0=text, 1=binary)
+    pqTraceOutputByte1(f, message, cursor);
+
+    // Extract number of columns and their format codes
+    int nfields = pqTraceOutputInt16(f, message, cursor);
+
+    // Output format code for each column
+    for (int i = 0; i < nfields; i++) {
+        pqTraceOutputInt16(f, message, cursor);
+    }
+}
+```

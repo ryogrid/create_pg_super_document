@@ -50,3 +50,56 @@ The function modifies the existing ColumnDef in the inheritance list and increme
 - Throws specific errors for type conflicts, collation mismatches, storage parameter conflicts, and generation conflicts
 - The inhcount field tracks inheritance depth and has overflow protection
 - Default constraints and other constraint handling is delegated to the caller function
+
+## Simplified Source
+```c
+static ColumnDef *MergeInheritedAttribute(List *inh_columns, int exist_attno, const ColumnDef *newdef) {
+    char *attributeName = newdef->colname;
+    ColumnDef *prevdef;
+    Oid prevtypeid, newtypeid;
+    int32 prevtypmod, newtypmod;
+    Oid prevcollid, newcollid;
+
+    // Log merge operation
+    ereport(NOTICE, "merging multiple inherited definitions of column \"%s\"", attributeName);
+    prevdef = list_nth_node(ColumnDef, inh_columns, exist_attno - 1);
+
+    // Validate type compatibility
+    typenameTypeIdAndMod(NULL, prevdef->typeName, &prevtypeid, &prevtypmod);
+    typenameTypeIdAndMod(NULL, newdef->typeName, &newtypeid, &newtypmod);
+    if (prevtypeid != newtypeid || prevtypmod != newtypmod)
+        ereport(ERROR, "inherited column \"%s\" has a type conflict", attributeName);
+
+    // Merge NOT NULL constraints (OR them together)
+    prevdef->is_not_null |= newdef->is_not_null;
+
+    // Validate collation compatibility
+    prevcollid = GetColumnDefCollation(NULL, prevdef, prevtypeid);
+    newcollid = GetColumnDefCollation(NULL, newdef, newtypeid);
+    if (prevcollid != newcollid)
+        ereport(ERROR, "inherited column \"%s\" has a collation conflict", attributeName);
+
+    // Merge storage parameters
+    if (prevdef->storage == 0)
+        prevdef->storage = newdef->storage;
+    else if (prevdef->storage != newdef->storage)
+        ereport(ERROR, "inherited column \"%s\" has a storage parameter conflict", attributeName);
+
+    // Merge compression parameters
+    if (prevdef->compression == NULL)
+        prevdef->compression = newdef->compression;
+    else if (newdef->compression != NULL && strcmp(prevdef->compression, newdef->compression) != 0)
+        ereport(ERROR, "column \"%s\" has a compression method conflict", attributeName);
+
+    // Validate generation consistency
+    if (prevdef->generated != newdef->generated)
+        ereport(ERROR, "inherited column \"%s\" has a generation conflict", attributeName);
+
+    // Increment inheritance count with overflow check
+    prevdef->inhcount++;
+    if (prevdef->inhcount < 0)
+        ereport(ERROR, "too many inheritance parents");
+
+    return prevdef;
+}
+```

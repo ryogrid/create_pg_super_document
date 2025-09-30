@@ -42,3 +42,38 @@ ExecAggPlainTransByVal is a critical function in PostgreSQL's aggregate executio
 - Updates both the aggregate value (transValue) and its null status (transValueIsNull)
 - Part of PostgreSQL's expression evaluation step execution framework
 - The function assumes the transition function is properly set up in pertrans->transfn_fcinfo
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline void
+ExecAggPlainTransByVal(AggState *aggstate, AggStatePerTrans pertrans,
+                      AggStatePerGroup pergroup, ExprContext *aggcontext, int setno)
+{
+    FunctionCallInfo fcinfo = pertrans->transfn_fcinfo;
+    MemoryContext oldContext;
+    Datum newVal;
+
+    // Set up context for aggregate execution
+    aggstate->curaggcontext = aggcontext;
+    aggstate->current_set = setno;
+    aggstate->curpertrans = pertrans;
+
+    // Execute transition function in temporary context
+    oldContext = MemoryContextSwitchTo(aggstate->tmpcontext->ecxt_per_tuple_memory);
+
+    // Set up function call arguments
+    fcinfo->args[0].value = pergroup->transValue;
+    fcinfo->args[0].isnull = pergroup->transValueIsNull;
+    fcinfo->isnull = false;
+
+    // Invoke the transition function
+    newVal = FunctionCallInvoke(fcinfo);
+
+    // Update group state with new value (no memory copying needed for by-val types)
+    pergroup->transValue = newVal;
+    pergroup->transValueIsNull = fcinfo->isnull;
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

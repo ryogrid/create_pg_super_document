@@ -51,3 +51,127 @@ The function operates in phases: first validating tablespace permissions and res
 - Provides informative notice when no matching objects are found in the source tablespace
 - Integrates with event trigger system for proper dependency tracking and custom logic execution
 - Returns the destination tablespace OID upon successful completion
+
+## Simplified Source
+
+```c
+Oid AlterTableMoveAll(AlterTableMoveAllStmt *stmt)
+{
+    List       *relations = NIL;
+    ListCell   *l;
+    ScanKeyData key[1];
+    Relation    rel;
+    TableScanDesc scan;
+    HeapTuple   tuple;
+    Oid         orig_tablespaceoid;
+    Oid         new_tablespaceoid;
+    List       *role_oids = roleSpecsToIds(stmt->roles);
+
+    // Validate object type (tables, indexes, materialized views only)
+    if (stmt->objtype != OBJECT_TABLE && stmt->objtype != OBJECT_INDEX &&
+        stmt->objtype != OBJECT_MATVIEW)
+        ereport(ERROR, "only tables, indexes, and materialized views exist in tablespaces");
+
+    // Resolve tablespace names to OIDs
+    orig_tablespaceoid = get_tablespace_oid(stmt->orig_tablespacename, false);
+    new_tablespaceoid = get_tablespace_oid(stmt->new_tablespacename, false);
+
+    // Cannot move shared relations to/from pg_global
+    if (orig_tablespaceoid == GLOBALTABLESPACE_OID ||
+        new_tablespaceoid == GLOBALTABLESPACE_OID)
+        ereport(ERROR, "cannot move relations in to or out of pg_global tablespace");
+
+    // Check CREATE permission on destination tablespace
+    if (OidIsValid(new_tablespaceoid) && new_tablespaceoid != MyDatabaseTableSpace)
+    {
+        AclResult aclresult = object_aclcheck(TableSpaceRelationId, new_tablespaceoid,
+                                             GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_TABLESPACE,
+                          get_tablespace_name(new_tablespaceoid));
+    }
+
+    // Handle default tablespace representation
+    if (orig_tablespaceoid == MyDatabaseTableSpace)
+        orig_tablespaceoid = InvalidOid;
+    if (new_tablespaceoid == MyDatabaseTableSpace)
+        new_tablespaceoid = InvalidOid;
+
+    // Early exit if source and destination are the same
+    if (orig_tablespaceoid == new_tablespaceoid)
+        return new_tablespaceoid;
+
+    // Scan pg_class for objects in the source tablespace
+    ScanKeyInit(&key[0], Anum_pg_class_reltablespace, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(orig_tablespaceoid));
+
+    rel = table_open(RelationRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 1, key);
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+    {
+        Form_pg_class relForm = (Form_pg_class) GETSTRUCT(tuple);
+        Oid relOid = relForm->oid;
+
+        // Skip system catalogs, shared tables, temp tables, TOAST tables
+        if (IsCatalogNamespace(relForm->relnamespace) ||
+            relForm->relisshared ||
+            isAnyTempNamespace(relForm->relnamespace) ||
+            IsToastNamespace(relForm->relnamespace))
+            continue;
+
+        // Filter by requested object type
+        if ((stmt->objtype == OBJECT_TABLE &&
+             relForm->relkind != RELKIND_RELATION &&
+             relForm->relkind != RELKIND_PARTITIONED_TABLE) ||
+            (stmt->objtype == OBJECT_INDEX &&
+             relForm->relkind != RELKIND_INDEX &&
+             relForm->relkind != RELKIND_PARTITIONED_INDEX) ||
+            (stmt->objtype == OBJECT_MATVIEW &&
+             relForm->relkind != RELKIND_MATVIEW))
+            continue;
+
+        // Filter by owner if roles specified
+        if (role_oids != NIL && !list_member_oid(role_oids, relForm->relowner))
+            continue;
+
+        // Check ownership permission
+        if (!object_ownercheck(RelationRelationId, relOid, GetUserId()))
+            aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(get_rel_relkind(relOid)),
+                          NameStr(relForm->relname));
+
+        // Acquire lock (with NOWAIT option support)
+        if (stmt->nowait && !ConditionalLockRelationOid(relOid, AccessExclusiveLock))
+            ereport(ERROR, "aborting because lock on relation is not available");
+        else
+            LockRelationOid(relOid, AccessExclusiveLock);
+
+        // Add to list of objects to move
+        relations = lappend_oid(relations, relOid);
+    }
+
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    // Notify if no objects found
+    if (relations == NIL)
+        ereport(NOTICE, "no matching relations in tablespace found");
+
+    // Move each relation to the new tablespace
+    foreach(l, relations)
+    {
+        List *cmds = NIL;
+        AlterTableCmd *cmd = makeNode(AlterTableCmd);
+
+        cmd->subtype = AT_SetTableSpace;
+        cmd->name = stmt->new_tablespacename;
+        cmds = lappend(cmds, cmd);
+
+        EventTriggerAlterTableStart((Node *) stmt);
+        AlterTableInternal(lfirst_oid(l), cmds, false);
+        EventTriggerAlterTableEnd();
+    }
+
+    return new_tablespaceoid;
+}
+```

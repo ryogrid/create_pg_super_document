@@ -305,3 +305,26 @@ Text creation and manipulation
 - Returns elements wrapped in an operator expression format suitable for predicate testing
 - Part of a larger iterator pattern used throughout PostgreSQL's predicate testing system
 - Location: src/backend/optimizer/util/predtest.c:1008-1020
+
+## Simplified Source
+
+```c
+static Node *
+arrayconst_next_fn(PredIterInfo info)
+{
+    ArrayConstIterState *state = (ArrayConstIterState *) info->state;
+
+    // Check if we've processed all elements
+    if (state->next_elem >= state->num_elems)
+        return NULL;
+
+    // Set current element value and null flag
+    state->const_expr.constvalue = state->elem_values[state->next_elem];
+    state->const_expr.constisnull = state->elem_nulls[state->next_elem];
+
+    // Move to next element
+    state->next_elem++;
+
+    return (Node *) &(state->opexpr);
+}
+```

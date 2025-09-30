@@ -43,3 +43,76 @@ The function handles complex scenarios involving child relations from appendrel 
 - Uses planner memory context to ensure clause reusability across different planning phases
 - The parent_ec parameter distinguishes between join clauses and restriction clauses for the same EM pair
 - Automatically sets left_ec and right_ec to the provided EquivalenceClass to avoid additional lookups
+
+## Simplified Source
+
+```c
+static RestrictInfo *
+create_join_clause(PlannerInfo *root, EquivalenceClass *ec, Oid opno,
+                   EquivalenceMember *leftem, EquivalenceMember *rightem,
+                   EquivalenceClass *parent_ec)
+{
+    RestrictInfo *rinfo;
+    RestrictInfo *parent_rinfo = NULL;
+    ListCell *lc;
+    MemoryContext oldcontext;
+
+    // Search existing clauses to avoid duplicates
+    foreach(lc, ec->ec_sources) {
+        rinfo = (RestrictInfo *) lfirst(lc);
+        if ((rinfo->left_em == leftem && rinfo->right_em == rightem &&
+             rinfo->parent_ec == parent_ec) ||
+            (rinfo->left_em == rightem && rinfo->right_em == leftem &&
+             rinfo->parent_ec == parent_ec))
+            return rinfo;
+    }
+
+    foreach(lc, ec->ec_derives) {
+        rinfo = (RestrictInfo *) lfirst(lc);
+        if ((rinfo->left_em == leftem && rinfo->right_em == rightem &&
+             rinfo->parent_ec == parent_ec) ||
+            (rinfo->left_em == rightem && rinfo->right_em == leftem &&
+             rinfo->parent_ec == parent_ec))
+            return rinfo;
+    }
+
+    // Build new clause in planner context for reusability
+    oldcontext = MemoryContextSwitchTo(root->planner_cxt);
+
+    // Handle parent-child relationships for appendrel expansions
+    if (leftem->em_is_child || rightem->em_is_child) {
+        EquivalenceMember *leftp = leftem->em_parent ? leftem->em_parent : leftem;
+        EquivalenceMember *rightp = rightem->em_parent ? rightem->em_parent : rightem;
+        parent_rinfo = create_join_clause(root, ec, opno, leftp, rightp, parent_ec);
+    }
+
+    // Create the new join clause
+    rinfo = build_implied_join_equality(root, opno, ec->ec_collation,
+                                        leftem->em_expr, rightem->em_expr,
+                                        bms_union(leftem->em_relids, rightem->em_relids),
+                                        ec->ec_min_security);
+
+    // Adjust clause_relids for child relations if needed
+    if (leftem->em_is_child)
+        rinfo->clause_relids = bms_add_members(rinfo->clause_relids, leftem->em_relids);
+    if (rightem->em_is_child)
+        rinfo->clause_relids = bms_add_members(rinfo->clause_relids, rightem->em_relids);
+
+    // Copy parent's rinfo_serial for child clauses
+    if (parent_rinfo)
+        rinfo->rinfo_serial = parent_rinfo->rinfo_serial;
+
+    // Set up clause metadata
+    rinfo->parent_ec = parent_ec;
+    rinfo->left_ec = ec;
+    rinfo->right_ec = ec;
+    rinfo->left_em = leftem;
+    rinfo->right_em = rightem;
+
+    // Save for potential reuse
+    ec->ec_derives = lappend(ec->ec_derives, rinfo);
+
+    MemoryContextSwitchTo(oldcontext);
+    return rinfo;
+}
+```

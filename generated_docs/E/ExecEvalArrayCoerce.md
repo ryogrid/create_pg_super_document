@@ -46,3 +46,37 @@ The function handles NULL arrays by returning NULL immediately, preserving SQL N
 - Input arrays are always detoasted and copied to ensure proper memory management
 - The function modifies the result in-place through the op->resvalue pointer
 - Element-wise coercion leverages the array_map infrastructure for consistent array processing
+
+## Simplified Source
+
+```c
+void ExecEvalArrayCoerce(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    Datum arraydatum;
+
+    // NULL array returns NULL
+    if (*op->resnull)
+        return;
+
+    arraydatum = *op->resvalue;
+
+    // Binary-compatible coercion: just change element type metadata
+    if (op->d.arraycoerce.elemexprstate == NULL)
+    {
+        // Copy and detost input array
+        ArrayType *array = DatumGetArrayTypePCopy(arraydatum);
+
+        // Update element type in array header
+        ARR_ELEMTYPE(array) = op->d.arraycoerce.resultelemtype;
+        *op->resvalue = PointerGetDatum(array);
+        return;
+    }
+
+    // Element-wise coercion: transform each array element
+    *op->resvalue = array_map(arraydatum,
+                             op->d.arraycoerce.elemexprstate,
+                             econtext,
+                             op->d.arraycoerce.resultelemtype,
+                             op->d.arraycoerce.amstate);
+}
+```

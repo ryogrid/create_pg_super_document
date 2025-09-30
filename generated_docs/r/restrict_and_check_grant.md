@@ -61,3 +61,123 @@ This static function performs comprehensive privilege validation and restriction
 - The function enforces PostgreSQL's security model by ensuring users can only grant privileges they themselves possess with grant option
 - Warning behavior differs slightly from SQL standard for REVOKE operations to reduce noise while maintaining consistency with GRANT operations
 - Supports all PostgreSQL object types that have ACL-based security including tables, functions, schemas, tablespaces, foreign data wrappers, and configuration parameters
+
+## Simplified Source
+
+```c
+static AclMode
+restrict_and_check_grant(bool is_grant, AclMode avail_goptions, bool all_privs,
+                         AclMode privileges, Oid objectId, Oid grantorId,
+                         ObjectType objtype, const char *objname,
+                         AttrNumber att_number, const char *colname)
+{
+    AclMode this_privileges;
+    AclMode whole_mask;
+
+    // Determine the complete privilege mask for this object type
+    switch (objtype) {
+        case OBJECT_COLUMN:
+            whole_mask = ACL_ALL_RIGHTS_COLUMN;
+            break;
+        case OBJECT_TABLE:
+            whole_mask = ACL_ALL_RIGHTS_RELATION;
+            break;
+        case OBJECT_SEQUENCE:
+            whole_mask = ACL_ALL_RIGHTS_SEQUENCE;
+            break;
+        case OBJECT_DATABASE:
+            whole_mask = ACL_ALL_RIGHTS_DATABASE;
+            break;
+        case OBJECT_FUNCTION:
+            whole_mask = ACL_ALL_RIGHTS_FUNCTION;
+            break;
+        case OBJECT_LANGUAGE:
+            whole_mask = ACL_ALL_RIGHTS_LANGUAGE;
+            break;
+        case OBJECT_LARGEOBJECT:
+            whole_mask = ACL_ALL_RIGHTS_LARGEOBJECT;
+            break;
+        case OBJECT_SCHEMA:
+            whole_mask = ACL_ALL_RIGHTS_SCHEMA;
+            break;
+        case OBJECT_TABLESPACE:
+            whole_mask = ACL_ALL_RIGHTS_TABLESPACE;
+            break;
+        case OBJECT_FDW:
+            whole_mask = ACL_ALL_RIGHTS_FDW;
+            break;
+        case OBJECT_FOREIGN_SERVER:
+            whole_mask = ACL_ALL_RIGHTS_FOREIGN_SERVER;
+            break;
+        case OBJECT_EVENT_TRIGGER:
+            elog(ERROR, "grantable rights not supported for event triggers");
+            return ACL_NO_RIGHTS;
+        case OBJECT_TYPE:
+            whole_mask = ACL_ALL_RIGHTS_TYPE;
+            break;
+        case OBJECT_PARAMETER_ACL:
+            whole_mask = ACL_ALL_RIGHTS_PARAMETER_ACL;
+            break;
+        default:
+            elog(ERROR, "unrecognized object type: %d", objtype);
+            return ACL_NO_RIGHTS;
+    }
+
+    // Check if grantor has sufficient privileges on the object
+    if (avail_goptions == ACL_NO_RIGHTS) {
+        if (pg_aclmask(objtype, objectId, att_number, grantorId,
+                      whole_mask | ACL_GRANT_OPTION_FOR(whole_mask),
+                      ACLMASK_ANY) == ACL_NO_RIGHTS) {
+            if (objtype == OBJECT_COLUMN && colname)
+                aclcheck_error_col(ACLCHECK_NO_PRIV, objtype, objname, colname);
+            else
+                aclcheck_error(ACLCHECK_NO_PRIV, objtype, objname);
+        }
+    }
+
+    // Restrict to what can actually be granted/revoked
+    this_privileges = privileges & ACL_OPTION_TO_PRIVS(avail_goptions);
+
+    // Issue SQL standard-compliant warnings
+    if (is_grant) {
+        if (this_privileges == 0) {
+            if (objtype == OBJECT_COLUMN && colname)
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_GRANTED),
+                                 errmsg("no privileges were granted for column \"%s\" of relation \"%s\"",
+                                       colname, objname)));
+            else
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_GRANTED),
+                                 errmsg("no privileges were granted for \"%s\"", objname)));
+        } else if (!all_privs && this_privileges != privileges) {
+            if (objtype == OBJECT_COLUMN && colname)
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_GRANTED),
+                                 errmsg("not all privileges were granted for column \"%s\" of relation \"%s\"",
+                                       colname, objname)));
+            else
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_GRANTED),
+                                 errmsg("not all privileges were granted for \"%s\"", objname)));
+        }
+    } else {
+        // Similar warnings for REVOKE operations
+        if (this_privileges == 0) {
+            if (objtype == OBJECT_COLUMN && colname)
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_REVOKED),
+                                 errmsg("no privileges could be revoked for column \"%s\" of relation \"%s\"",
+                                       colname, objname)));
+            else
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_REVOKED),
+                                 errmsg("no privileges could be revoked for \"%s\"", objname)));
+        } else if (!all_privs && this_privileges != privileges) {
+            if (objtype == OBJECT_COLUMN && colname)
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_REVOKED),
+                                 errmsg("not all privileges could be revoked for column \"%s\" of relation \"%s\"",
+                                       colname, objname)));
+            else
+                ereport(WARNING, (errcode(ERRCODE_WARNING_PRIVILEGE_NOT_REVOKED),
+                                 errmsg("not all privileges could be revoked for \"%s\"", objname)));
+        }
+    }
+
+    return this_privileges;
+}
+```

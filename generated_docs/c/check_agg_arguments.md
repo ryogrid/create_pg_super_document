@@ -38,3 +38,60 @@ The function uses a walker pattern to traverse the expression tree, collecting i
 - Nested aggregates at the same semantic level trigger an error to prevent execution ordering issues
 - The function validates that outer-level aggregates cannot contain lower-level variables in direct arguments
 - Uses a context structure to maintain state during tree walking operations
+
+## Simplified Source
+
+```c
+static int check_agg_arguments(ParseState *pstate, List *directargs, List *args, Expr *filter) {
+    int agglevel;
+    check_agg_arguments_context context;
+
+    // Initialize context for tree walking
+    context.pstate = pstate;
+    context.min_varlevel = -1;  // -1 means nothing found yet
+    context.min_agglevel = -1;
+    context.sublevels_up = 0;
+
+    // Walk through args and filter to find minimum levels
+    check_agg_arguments_walker((Node *) args, &context);
+    check_agg_arguments_walker((Node *) filter, &context);
+
+    // Determine aggregate level from minimum var/agg levels found
+    if (context.min_varlevel < 0) {
+        agglevel = (context.min_agglevel < 0) ? 0 : context.min_agglevel;
+    } else if (context.min_agglevel < 0) {
+        agglevel = context.min_varlevel;
+    } else {
+        agglevel = Min(context.min_varlevel, context.min_agglevel);
+    }
+
+    // Error if nested aggregate at same level
+    if (agglevel == context.min_agglevel) {
+        int aggloc = locate_agg_of_level((Node *) args, agglevel);
+        if (aggloc < 0)
+            aggloc = locate_agg_of_level((Node *) filter, agglevel);
+        ereport(ERROR, (errcode(ERRCODE_GROUPING_ERROR),
+                errmsg("aggregate function calls cannot be nested"),
+                parser_errposition(pstate, aggloc)));
+    }
+
+    // Check direct arguments for invalid vars/aggs
+    if (directargs) {
+        context.min_varlevel = -1;
+        context.min_agglevel = -1;
+        check_agg_arguments_walker((Node *) directargs, &context);
+
+        // Error if direct args contain lower-level variables
+        if (context.min_varlevel >= 0 && context.min_varlevel < agglevel)
+            ereport(ERROR, (errcode(ERRCODE_GROUPING_ERROR),
+                    errmsg("outer-level aggregate cannot contain a lower-level variable in its direct arguments")));
+
+        // Error if direct args contain same/lower-level aggregates
+        if (context.min_agglevel >= 0 && context.min_agglevel <= agglevel)
+            ereport(ERROR, (errcode(ERRCODE_GROUPING_ERROR),
+                    errmsg("aggregate function calls cannot be nested")));
+    }
+
+    return agglevel;
+}
+```

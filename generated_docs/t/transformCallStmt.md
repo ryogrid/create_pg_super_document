@@ -56,3 +56,81 @@ The function ensures that CALL statements can handle complex parameter scenarios
 - Output arguments include both OUT and INOUT parameters for result processing
 - System catalog lookup is performed to get procedure metadata and argument modes
 - The transformed function expression and output arguments are stored in the CallStmt for later execution
+
+## Simplified Source
+
+```c
+static Query *transformCallStmt(ParseState *pstate, CallStmt *stmt) {
+    List *targs = NIL;
+    List *outargs = NIL;
+
+    // Transform all argument expressions
+    ListCell *lc;
+    foreach(lc, stmt->funccall->args) {
+        targs = lappend(targs, transformExpr(pstate, (Node *) lfirst(lc),
+                                             EXPR_KIND_CALL_ARGUMENT));
+    }
+
+    // Resolve the procedure call
+    Node *node = ParseFuncOrColumn(pstate, stmt->funccall->funcname, targs,
+                                   pstate->p_last_srf, stmt->funccall,
+                                   true, stmt->funccall->location);
+    assign_expr_collations(pstate, node);
+    FuncExpr *fexpr = castNode(FuncExpr, node);
+
+    // Look up procedure in system catalog
+    HeapTuple proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(fexpr->funcid));
+    if (!HeapTupleIsValid(proctup))
+        elog(ERROR, "cache lookup failed for function %u", fexpr->funcid);
+
+    // Expand arguments for named parameters and defaults
+    fexpr->args = expand_function_arguments(fexpr->args, true, fexpr->funcresulttype, proctup);
+
+    // Get argument modes to separate input/output parameters
+    bool isNull;
+    Datum proargmodes = SysCacheGetAttr(PROCOID, proctup, Anum_pg_proc_proargmodes, &isNull);
+
+    if (!isNull) {
+        // Parse argument modes array
+        ArrayType *arr = DatumGetArrayTypeP(proargmodes);
+        int numargs = list_length(fexpr->args);
+        char *argmodes = (char *) ARR_DATA_PTR(arr);
+
+        // Separate arguments by mode
+        List *inargs = NIL;
+        int i = 0;
+        foreach(lc, fexpr->args) {
+            Node *n = lfirst(lc);
+            switch (argmodes[i]) {
+                case PROARGMODE_IN:
+                case PROARGMODE_VARIADIC:
+                    inargs = lappend(inargs, n);
+                    break;
+                case PROARGMODE_OUT:
+                    outargs = lappend(outargs, n);
+                    break;
+                case PROARGMODE_INOUT:
+                    inargs = lappend(inargs, n);
+                    outargs = lappend(outargs, copyObject(n));
+                    break;
+                default:
+                    elog(ERROR, "invalid argmode %c for procedure", argmodes[i]);
+            }
+            i++;
+        }
+        fexpr->args = inargs;
+    }
+
+    // Store results in CallStmt
+    stmt->funcexpr = fexpr;
+    stmt->outargs = outargs;
+    ReleaseSysCache(proctup);
+
+    // Create utility Query node
+    Query *result = makeNode(Query);
+    result->commandType = CMD_UTILITY;
+    result->utilityStmt = (Node *) stmt;
+
+    return result;
+}
+```

@@ -38,3 +38,23 @@ This function serves as a callback for RangeVar processing during attribute rena
 - Part of PostgreSQL's RangeVar callback mechanism for early validation
 - Uses system cache for efficient metadata retrieval during validation
 - Does not use several of its parameters, following the standard callback interface pattern
+
+## Simplified Source
+
+```c
+static void RangeVarCallbackForRenameAttribute(const RangeVar *rv, Oid relid, Oid oldrelid, void *arg) {
+    HeapTuple tuple;
+    Form_pg_class form;
+
+    // Get relation information from system cache
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        return; // Relation was concurrently dropped
+
+    // Extract relation form and perform validation checks
+    form = (Form_pg_class) GETSTRUCT(tuple);
+    renameatt_check(relid, form, false);
+
+    ReleaseSysCache(tuple);
+}
+```

@@ -47,3 +47,37 @@ Each address entry includes the address family (IPv4/IPv6) and the actual socket
 - The resulting  array allows libpq to iterate through multiple addresses during connection attempts
 - This function is part of the connection establishment process where DNS resolution results are stored for later use
 - The copied address information persists in the PGconn until the connection is cleaned up
+
+## Simplified Source
+```c
+static int store_conn_addrinfo(PGconn *conn, struct addrinfo *addrlist) {
+    struct addrinfo *ai = addrlist;
+
+    conn->whichaddr = 0;
+
+    // Count addresses in the linked list
+    conn->naddr = 0;
+    while (ai) {
+        ai = ai->ai_next;
+        conn->naddr++;
+    }
+
+    // Allocate array for addresses
+    conn->addr = calloc(conn->naddr, sizeof(AddrInfo));
+    if (conn->addr == NULL) {
+        libpq_append_conn_error(conn, "out of memory");
+        return 1;
+    }
+
+    // Copy address data to internal array
+    ai = addrlist;
+    for (int i = 0; i < conn->naddr; i++) {
+        conn->addr[i].family = ai->ai_family;
+        memcpy(&conn->addr[i].addr.addr, ai->ai_addr, ai->ai_addrlen);
+        conn->addr[i].addr.salen = ai->ai_addrlen;
+        ai = ai->ai_next;
+    }
+
+    return 0;
+}
+```

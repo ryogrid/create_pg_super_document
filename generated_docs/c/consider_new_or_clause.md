@@ -51,3 +51,52 @@ The selectivity adjustment is described as a "MAJOR HACK" that prevents underest
 - Creates a dummy SpecialJoinInfo for inner join selectivity calculations
 - Ensures adjusted selectivity values remain within valid bounds (≤ 1.0)
 - The function represents a balance between optimization opportunity and computational cost
+
+## Simplified Source
+
+```c
+static void consider_new_or_clause(PlannerInfo *root, RelOptInfo *rel,
+                                  Expr *orclause, RestrictInfo *join_or_rinfo)
+{
+    RestrictInfo *or_rinfo;
+    Selectivity or_selec, orig_selec;
+
+    // Create RestrictInfo for the extracted OR clause
+    or_rinfo = make_restrictinfo(root, orclause, true, false, false, false,
+                                join_or_rinfo->security_level,
+                                NULL, NULL, NULL);
+
+    // Estimate selectivity of the new restriction clause
+    or_selec = clause_selectivity(root, (Node *) or_rinfo, 0, JOIN_INNER, NULL);
+
+    // Only worthwhile if it rejects a significant fraction (> 10%)
+    if (or_selec > 0.9)
+        return; // Not selective enough
+
+    // Add to relation's restriction list
+    rel->baserestrictinfo = lappend(rel->baserestrictinfo, or_rinfo);
+    rel->baserestrict_min_security = Min(rel->baserestrict_min_security,
+                                        or_rinfo->security_level);
+
+    // Compensate original join clause selectivity to maintain cost estimates
+    if (or_selec > 0) {
+        SpecialJoinInfo sjinfo;
+
+        // Create dummy SpecialJoinInfo for JOIN_INNER semantics
+        init_dummy_sjinfo(&sjinfo,
+                         bms_difference(join_or_rinfo->clause_relids, rel->relids),
+                         rel->relids);
+
+        // Get original selectivity
+        orig_selec = clause_selectivity(root, (Node *) join_or_rinfo,
+                                       0, JOIN_INNER, &sjinfo);
+
+        // Adjust cached selectivity to compensate for redundant restriction
+        join_or_rinfo->norm_selec = orig_selec / or_selec;
+
+        // Keep selectivity in valid range
+        if (join_or_rinfo->norm_selec > 1)
+            join_or_rinfo->norm_selec = 1;
+    }
+}
+```

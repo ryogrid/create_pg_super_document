@@ -38,3 +38,20 @@ ReleaseDeletionLock is the companion function to AcquireDeletionLock, responsibl
 - Always unlocks the whole object (subId=0) for consistency with acquisition behavior
 - Critical for preventing deadlocks and ensuring proper lock cleanup after deletion operations
 - Part of the public API for dependency management and object deletion
+
+## Simplified Source
+
+```c
+void
+ReleaseDeletionLock(const ObjectAddress *object)
+{
+    if (object->classId == RelationRelationId) {
+        // Release lock on relation objects
+        UnlockRelationOid(object->objectId, AccessExclusiveLock);
+    } else {
+        // Release lock on other database objects
+        UnlockDatabaseObject(object->classId, object->objectId, 0,
+                            AccessExclusiveLock);
+    }
+}
+```

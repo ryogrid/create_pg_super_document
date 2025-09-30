@@ -44,3 +44,23 @@ After this function completes, the shared_info pointer in the HashState will poi
 - This function is essential for accurate EXPLAIN ANALYZE output in parallel hash joins, as it preserves worker-collected statistics
 - The copied data includes instrumentation from all workers, allowing for aggregate statistics calculation
 - This function is part of the parallel query cleanup sequence and must be called before DSM detachment
+
+## Simplified Source
+
+```c
+void ExecHashRetrieveInstrumentation(HashState *node) {
+    SharedHashInfo *shared_info = node->shared_info;
+
+    // Skip if no shared instrumentation data
+    if (shared_info == NULL)
+        return;
+
+    // Calculate size for SharedHashInfo + all worker instrumentation data
+    size_t size = offsetof(SharedHashInfo, hinstrument) +
+                  shared_info->num_workers * sizeof(HashInstrumentation);
+
+    // Copy shared memory data to backend-local memory before DSM detachment
+    node->shared_info = palloc(size);
+    memcpy(node->shared_info, shared_info, size);
+}
+```

@@ -49,3 +49,40 @@ For combined VACUUM ANALYZE operations, the function prioritizes VACUUM permissi
 - Warning messages are localized and include the relation name for user clarity
 - For VACUUM ANALYZE operations, only the VACUUM permission warning is shown to prevent log spam
 - Used throughout the vacuum subsystem as a centralized authorization check
+
+## Simplified Source
+
+```c
+bool
+vacuum_is_permitted_for_relation(Oid relid, Form_pg_class reltuple,
+                                 bits32 options)
+{
+    char *relname;
+
+    Assert((options & (VACOPT_VACUUM | VACOPT_ANALYZE)) != 0);
+
+    // Check permissions: database owner OR MAINTAIN privilege
+    if ((object_ownercheck(DatabaseRelationId, MyDatabaseId, GetUserId()) &&
+         !reltuple->relisshared) ||
+        pg_class_aclcheck(relid, GetUserId(), ACL_MAINTAIN) == ACLCHECK_OK)
+        return true;
+
+    relname = NameStr(reltuple->relname);
+
+    // Issue appropriate warning and return false
+    if ((options & VACOPT_VACUUM) != 0)
+    {
+        ereport(WARNING,
+                (errmsg("permission denied to vacuum \"%s\", skipping it",
+                        relname)));
+        return false;
+    }
+
+    if ((options & VACOPT_ANALYZE) != 0)
+        ereport(WARNING,
+                (errmsg("permission denied to analyze \"%s\", skipping it",
+                        relname)));
+
+    return false;
+}
+```

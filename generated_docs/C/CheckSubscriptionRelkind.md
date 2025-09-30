@@ -43,3 +43,19 @@ This function is part of the executor's replication infrastructure and serves as
 - The nspname and relname parameters are purely for error reporting and do not affect the validation logic
 - This function is a key component in PostgreSQL's logical replication security and consistency model
 - Located in src/backend/executor/execReplication.c at lines 743-752
+
+## Simplified Source
+
+```c
+void
+CheckSubscriptionRelkind(char relkind, const char *nspname, const char *relname)
+{
+    // Only regular tables and partitioned tables are supported for logical replication
+    if (relkind != RELKIND_RELATION && relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR,
+            (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+             errmsg("cannot use relation \"%s.%s\" as logical replication target",
+                    nspname, relname),
+             errdetail_relkind_not_supported(relkind)));
+}
+```

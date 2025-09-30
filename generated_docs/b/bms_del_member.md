@@ -47,3 +47,46 @@ The function uses bitwise AND with a complement mask to clear the specific bit, 
 - Uses  hint for the case where member is beyond current word range
 - Essential for query optimization operations that need to remove relations or attributes from consideration
 - Maintains memory efficiency by not keeping unnecessary trailing zero words
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_del_member(Bitmapset *a, int x)
+{
+    int wordnum, bitnum;
+
+    // Validate inputs
+    if (x < 0)
+        elog(ERROR, "negative bitmapset member not allowed");
+    if (a == NULL)
+        return NULL;
+
+    // Calculate word and bit position
+    wordnum = WORDNUM(x);
+    bitnum = BITNUM(x);
+
+    // Member beyond current range - return unchanged
+    if (wordnum >= a->nwords)
+        return a;
+
+    // Clear the bit
+    a->words[wordnum] &= ~((bitmapword) 1 << bitnum);
+
+    // Trim trailing empty words if last word became empty
+    if (a->words[wordnum] == 0 && wordnum == a->nwords - 1) {
+        // Find last non-empty word
+        for (int i = wordnum - 1; i >= 0; i--) {
+            if (a->words[i] != 0) {
+                a->nwords = i + 1;
+                return a;
+            }
+        }
+        // Set is now empty - free it
+        pfree(a);
+        return NULL;
+    }
+
+    return a;
+}
+```

@@ -41,3 +41,20 @@ The function creates a lock tag specifically for relation extension using SET_LO
 - This mechanism is critical for preventing corruption during concurrent relation extensions
 - The lock is typically held for a very short duration during the actual page allocation process
 - Used extensively in index maintenance operations and relation extension scenarios
+
+## Simplified Source
+
+```c
+void LockRelationForExtension(Relation relation, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for relation extension
+    SET_LOCKTAG_RELATION_EXTEND(tag,
+                                relation->rd_lockInfo.lockRelId.dbId,
+                                relation->rd_lockInfo.lockRelId.relId);
+
+    // Acquire the extension lock
+    (void) LockAcquire(&tag, lockmode, false, false);
+}
+```

@@ -43,3 +43,79 @@ The function includes careful resource management - if the target object is not 
 
 ## Notes and Other Information
 This function is marked static and serves as a specialized helper within the objectaddress.c module. It uses AccessShareLock for the parent relation regardless of the lockmode requested for the target object, reflecting the principle that the lock applies to the object itself, not its container relation. The function handles the common pattern of relation-dependent objects where the object name must be qualified with its parent relation name. Proper resource management ensures that relations are not leaked when objects are not found.
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_relobject(ObjectType objtype, List *object,
+                            Relation *relp, bool missing_ok)
+{
+    ObjectAddress address;
+    Relation relation = NULL;
+    int nnames;
+    const char *depname;
+    List *relname;
+    Oid reloid;
+
+    // Extract dependent object name (last element)
+    depname = strVal(llast(object));
+
+    // Validate input - need at least relation.object
+    nnames = list_length(object);
+    if (nnames < 2)
+        ereport(ERROR, "must specify relation and object name");
+
+    // Extract relation name and open relation
+    relname = list_copy_head(object, nnames - 1);
+    relation = table_openrv_extended(makeRangeVarFromNameList(relname),
+                                   AccessShareLock, missing_ok);
+
+    reloid = relation ? RelationGetRelid(relation) : InvalidOid;
+
+    // Look up the specific object type within the relation
+    switch (objtype) {
+        case OBJECT_RULE:
+            address.classId = RewriteRelationId;
+            address.objectId = relation ?
+                get_rewrite_oid(reloid, depname, missing_ok) : InvalidOid;
+            address.objectSubId = 0;
+            break;
+
+        case OBJECT_TRIGGER:
+            address.classId = TriggerRelationId;
+            address.objectId = relation ?
+                get_trigger_oid(reloid, depname, missing_ok) : InvalidOid;
+            address.objectSubId = 0;
+            break;
+
+        case OBJECT_TABCONSTRAINT:
+            address.classId = ConstraintRelationId;
+            address.objectId = relation ?
+                get_relation_constraint_oid(reloid, depname, missing_ok) : InvalidOid;
+            address.objectSubId = 0;
+            break;
+
+        case OBJECT_POLICY:
+            address.classId = PolicyRelationId;
+            address.objectId = relation ?
+                get_relation_policy_oid(reloid, depname, missing_ok) : InvalidOid;
+            address.objectSubId = 0;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) objtype);
+    }
+
+    // Clean up if object not found
+    if (!OidIsValid(address.objectId)) {
+        if (relation != NULL)
+            table_close(relation, AccessShareLock);
+        relation = NULL;
+        return address;
+    }
+
+    *relp = relation;  // Return opened relation to caller
+    return address;
+}
+```

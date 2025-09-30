@@ -40,3 +40,19 @@ The function iterates through the  list in the Aggref node and populates the pro
 - Returns the total number of actual arguments processed
 - The inputTypes array must be pre-allocated by the caller with sufficient space (FUNC_MAX_ARGS elements)
 - This function is part of the aggregate function processing pipeline in PostgreSQL's parser subsystem
+
+## Simplified Source
+
+```c
+int get_aggregate_argtypes(Aggref *aggref, Oid *inputTypes) {
+    int numArguments = 0;
+    ListCell *lc;
+
+    // Extract argument types from the aggregate reference
+    foreach(lc, aggref->aggargtypes) {
+        inputTypes[numArguments++] = lfirst_oid(lc);
+    }
+
+    return numArguments;
+}
+```

@@ -45,3 +45,21 @@ The preference algorithm works as follows:
 - The "best" selection algorithm ensures consistent and predictable behavior when multiple admin paths exist
 - This function is particularly important for role management operations where the specific granting role needs to be identified
 - Located in `src/backend/utils/adt/acl.c:5306-5320`
+
+## Simplified Source
+
+```c
+Oid
+select_best_admin(Oid member, Oid role) {
+    Oid admin_role;
+
+    // Policy: A role cannot have admin privileges on itself
+    if (member == role)
+        return InvalidOid;
+
+    // Find the best admin role through privilege-based recursion
+    // Returns the specific role that grants admin privileges to member over role
+    (void) roles_is_member_of(member, ROLERECURSE_PRIVS, role, &admin_role);
+    return admin_role;
+}
+```

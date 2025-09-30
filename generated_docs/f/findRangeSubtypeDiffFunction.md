@@ -49,3 +49,37 @@ The subtype difference function is particularly important for operations like ca
 - Permission checking prevents security issues where users might reference functions they cannot execute
 - This function is part of PostgreSQL's extensible range type system
 - Located in src/backend/commands/typecmds.c:2362-2409
+
+## Simplified Source
+
+```c
+static Oid findRangeSubtypeDiffFunction(List *procname, Oid subtype) {
+    Oid argList[2];
+    Oid procOid;
+    AclResult aclresult;
+
+    // Range subtype diff functions must take two arguments of the subtype
+    argList[0] = subtype;
+    argList[1] = subtype;
+
+    // Look up the function by name and signature
+    procOid = LookupFuncName(procname, 2, argList, true);
+    if (!OidIsValid(procOid))
+        ereport(ERROR, "function does not exist");
+
+    // Must return float8
+    if (get_func_rettype(procOid) != FLOAT8OID)
+        ereport(ERROR, "range subtype diff function must return double precision");
+
+    // Must be immutable
+    if (func_volatile(procOid) != PROVOLATILE_IMMUTABLE)
+        ereport(ERROR, "range subtype diff function must be immutable");
+
+    // Check creator has permission to call function
+    aclresult = object_aclcheck(ProcedureRelationId, procOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, get_func_name(procOid));
+
+    return procOid;
+}
+```

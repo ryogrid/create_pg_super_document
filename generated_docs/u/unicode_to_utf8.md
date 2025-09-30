@@ -43,3 +43,34 @@ The function directly writes the UTF-8 bytes to the provided buffer and assumes 
 - Does not perform input validation - assumes valid Unicode code point
 - Critical component in PostgreSQL's character encoding conversion system
 - Used extensively in string processing, normalization, and database encoding operations
+
+## Simplified Source
+
+```c
+static inline unsigned char *unicode_to_utf8(pg_wchar c, unsigned char *utf8string) {
+    // 1-byte encoding for ASCII (0x00-0x7F)
+    if (c <= 0x7F) {
+        utf8string[0] = c;
+    }
+    // 2-byte encoding (0x80-0x7FF)
+    else if (c <= 0x7FF) {
+        utf8string[0] = 0xC0 | ((c >> 6) & 0x1F);   // First byte: 110xxxxx
+        utf8string[1] = 0x80 | (c & 0x3F);          // Second byte: 10xxxxxx
+    }
+    // 3-byte encoding (0x800-0xFFFF) - Basic Multilingual Plane
+    else if (c <= 0xFFFF) {
+        utf8string[0] = 0xE0 | ((c >> 12) & 0x0F);  // First byte: 1110xxxx
+        utf8string[1] = 0x80 | ((c >> 6) & 0x3F);   // Second byte: 10xxxxxx
+        utf8string[2] = 0x80 | (c & 0x3F);          // Third byte: 10xxxxxx
+    }
+    // 4-byte encoding (0x10000-0x10FFFF) - Supplementary Planes
+    else {
+        utf8string[0] = 0xF0 | ((c >> 18) & 0x07);  // First byte: 11110xxx
+        utf8string[1] = 0x80 | ((c >> 12) & 0x3F);  // Second byte: 10xxxxxx
+        utf8string[2] = 0x80 | ((c >> 6) & 0x3F);   // Third byte: 10xxxxxx
+        utf8string[3] = 0x80 | (c & 0x3F);          // Fourth byte: 10xxxxxx
+    }
+
+    return utf8string;
+}
+```

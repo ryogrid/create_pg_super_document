@@ -40,3 +40,19 @@ When a client sends a Describe message, the server responds with metadata about 
 - Part of PostgreSQL's debugging and development tools for analyzing client-server protocol communication
 - The Describe message is part of the extended query protocol and enables clients to obtain metadata about prepared statements and portals before execution
 - This function has the same structure as pqTraceOutput_Close, as both messages share the same format (type byte + name string)
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_Describe(FILE *f, const char *message, int *cursor)
+{
+    // Output message type identifier
+    fprintf(f, "Describe\t");
+
+    // Extract object type ('S' for statement, 'P' for portal)
+    pqTraceOutputByte1(f, message, cursor);
+
+    // Extract and display the object name
+    pqTraceOutputString(f, message, cursor, false);
+}
+```

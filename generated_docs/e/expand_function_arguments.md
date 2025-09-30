@@ -50,3 +50,54 @@ The function preserves the original argument list when no changes are needed and
 - Input argument lists are never modified in-place; copies are created when changes are needed
 - The function validates array structure for proallargtypes to ensure it's a proper 1-D OID array
 - Argument type checking and casting is performed after argument reordering or default insertion
+
+## Simplified Source
+
+```c
+List *expand_function_arguments(List *args, bool include_out_arguments,
+                               Oid result_type, HeapTuple func_tuple) {
+    Form_pg_proc funcform = (Form_pg_proc) GETSTRUCT(func_tuple);
+    Oid *proargtypes = funcform->proargtypes.values;
+    int pronargs = funcform->pronargs;
+    bool has_named_args = false;
+
+    // Handle OUT arguments if requested
+    if (include_out_arguments) {
+        Datum proallargtypes;
+        bool isNull;
+        proallargtypes = SysCacheGetAttr(PROCOID, func_tuple,
+                                        Anum_pg_proc_proallargtypes, &isNull);
+        if (!isNull) {
+            ArrayType *arr = DatumGetArrayTypeP(proallargtypes);
+            pronargs = ARR_DIMS(arr)[0];
+            // Validate array structure
+            if (ARR_NDIM(arr) != 1 || pronargs < 0 || ARR_HASNULL(arr) ||
+                ARR_ELEMTYPE(arr) != OIDOID)
+                elog(ERROR, "proallargtypes is not a 1-D Oid array or it contains nulls");
+            proargtypes = (Oid *) ARR_DATA_PTR(arr);
+        }
+    }
+
+    // Check for named arguments
+    foreach(lc, args) {
+        Node *arg = (Node *) lfirst(lc);
+        if (IsA(arg, NamedArgExpr)) {
+            has_named_args = true;
+            break;
+        }
+    }
+
+    // Process arguments based on what we found
+    if (has_named_args) {
+        // Reorder named arguments to positional
+        args = reorder_function_arguments(args, pronargs, func_tuple);
+        recheck_cast_function_args(args, result_type, proargtypes, pronargs, func_tuple);
+    } else if (list_length(args) < pronargs) {
+        // Add missing default arguments
+        args = add_function_defaults(args, pronargs, func_tuple);
+        recheck_cast_function_args(args, result_type, proargtypes, pronargs, func_tuple);
+    }
+
+    return args;
+}
+```

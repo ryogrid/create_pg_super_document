@@ -36,3 +36,23 @@ The function is relatively straightforward compared to other pathlist functions 
 - The function calls set_namedtuplestore_size_estimates to determine the estimated number of rows and other statistics
 - Creates a straightforward scan path using create_namedtuplestorescan_path
 - Located in src/backend/optimizer/path/allpaths.c:2939-2965
+
+## Simplified Source
+
+```c
+static void
+set_namedtuplestore_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    Relids required_outer;
+
+    // Set size estimates for the named tuplestore
+    set_namedtuplestore_size_estimates(root, rel);
+
+    // Handle LATERAL references as required parameterization
+    // (Join clauses cannot be pushed into tuplestore scans)
+    required_outer = rel->lateral_relids;
+
+    // Create and add the tuplestore scan path
+    add_path(rel, create_namedtuplestorescan_path(root, rel, required_outer));
+}
+```

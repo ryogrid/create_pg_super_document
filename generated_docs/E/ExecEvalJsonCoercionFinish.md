@@ -34,3 +34,45 @@ When a soft error is detected, the function examines the JsonExprState to determ
 - The function resets the error context state after handling errors to allow for reuse
 - Part of PostgreSQL's JSON expression evaluation infrastructure introduced for SQL/JSON compliance
 - Works in conjunction with ExecEvalJsonCoercion() which performs the actual coercion work
+
+## Simplified Source
+
+```c
+void ExecEvalJsonCoercionFinish(ExprState *state, ExprEvalStep *op)
+{
+    JsonExprState *jsestate = op->d.jsonexpr.jsestate;
+
+    // Check if a soft error occurred during coercion
+    if (SOFT_ERROR_OCCURRED(&jsestate->escontext))
+    {
+        // If error occurred while coercing behavior values, throw proper error
+        if (DatumGetBool(jsestate->error.value))
+        {
+            ereport(ERROR,
+                   (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("could not coerce %s expression (%s) to the RETURNING type",
+                           "ON ERROR",
+                           GetJsonBehaviorValueString(jsestate->jsexpr->on_error)),
+                    errdetail("%s", jsestate->escontext.error_data->message)));
+        }
+        else if (DatumGetBool(jsestate->empty.value))
+        {
+            ereport(ERROR,
+                   (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("could not coerce %s expression (%s) to the RETURNING type",
+                           "ON EMPTY",
+                           GetJsonBehaviorValueString(jsestate->jsexpr->on_empty)),
+                    errdetail("%s", jsestate->escontext.error_data->message)));
+        }
+
+        // Set result to NULL and mark error for ON ERROR/ON EMPTY handling
+        *op->resvalue = (Datum) 0;
+        *op->resnull = true;
+        jsestate->error.value = BoolGetDatum(true);
+
+        // Reset error context for next use
+        jsestate->escontext.error_occurred = false;
+        jsestate->escontext.details_wanted = true;
+    }
+}
+```

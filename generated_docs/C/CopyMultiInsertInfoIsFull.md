@@ -41,3 +41,14 @@ The function is typically called before adding new tuples to the buffer to deter
 - Return value of true indicates that buffers should be flushed before accepting more tuples
 - The function is lightweight and designed to be called frequently during COPY operations
 - MAX_BUFFERED_TUPLES and MAX_BUFFERED_BYTES are compile-time constants that define system-wide limits
+
+## Simplified Source
+
+```c
+static inline bool CopyMultiInsertInfoIsFull(CopyMultiInsertInfo *miinfo) {
+    if (miinfo->bufferedTuples >= MAX_BUFFERED_TUPLES ||
+        miinfo->bufferedBytes >= MAX_BUFFERED_BYTES)
+        return true;
+    return false;
+}
+```

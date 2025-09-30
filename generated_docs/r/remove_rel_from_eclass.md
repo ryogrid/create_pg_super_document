@@ -42,3 +42,43 @@ The function is designed to maintain the integrity of the equivalence class stru
 - Rather than fixing up derived clauses, the function simply drops them, as they would typically be base restriction clauses that are no longer needed
 - The function maintains Assert checks to ensure that constants are not being processed inappropriately
 - Located in src/backend/optimizer/plan/analyzejoins.c at lines 622-675
+
+## Simplified Source
+
+```c
+static void remove_rel_from_eclass(EquivalenceClass *ec, int relid, int ojrelid)
+{
+    ListCell *lc;
+
+    // Remove relation IDs from the equivalence class's overall relid set
+    ec->ec_relids = bms_del_member(ec->ec_relids, relid);
+    ec->ec_relids = bms_del_member(ec->ec_relids, ojrelid);
+
+    // Clean up equivalence members
+    foreach(lc, ec->ec_members) {
+        EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc);
+
+        // If member references the removed relations
+        if (bms_is_member(relid, cur_em->em_relids) ||
+            bms_is_member(ojrelid, cur_em->em_relids)) {
+
+            // Remove relation references from member
+            cur_em->em_relids = bms_del_member(cur_em->em_relids, relid);
+            cur_em->em_relids = bms_del_member(cur_em->em_relids, ojrelid);
+
+            // Delete member if it has no remaining relations
+            if (bms_is_empty(cur_em->em_relids))
+                ec->ec_members = foreach_delete_current(ec->ec_members, lc);
+        }
+    }
+
+    // Clean up source clauses
+    foreach(lc, ec->ec_sources) {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        remove_rel_from_restrictinfo(rinfo, relid, ojrelid);
+    }
+
+    // Drop derived clauses rather than fixing them up
+    ec->ec_derives = NIL;
+}
+```

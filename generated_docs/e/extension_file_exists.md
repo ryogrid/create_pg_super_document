@@ -48,3 +48,50 @@ The function specifically ignores auxiliary control files (those containing "--"
 - The function is used during function creation and DO statement execution to provide helpful error messages
 - Performance consideration: The function scans the entire control directory on each call, so it's not optimized for frequent use
 - The check is filename-based only - it doesn't validate the control file contents
+
+## Simplified Source
+
+```c
+bool extension_file_exists(const char *extensionName)
+{
+    bool result = false;
+    char *control_dir;
+    DIR *dir;
+    struct dirent *entry;
+
+    // Get extension control directory path
+    control_dir = get_extension_control_directory();
+    dir = AllocateDir(control_dir);
+
+    // Return false if directory doesn't exist
+    if (dir == NULL && errno == ENOENT) {
+        return false;
+    }
+
+    // Scan directory for matching control files
+    while ((entry = ReadDir(dir, control_dir)) != NULL) {
+        char *ext_name;
+
+        // Skip non-control files
+        if (!is_extension_control_filename(entry->d_name))
+            continue;
+
+        // Extract extension name from "name.control" filename
+        ext_name = pstrdup(entry->d_name);
+        *strrchr(ext_name, '.') = '\0';
+
+        // Skip auxiliary control files (contain "--")
+        if (strstr(ext_name, "--"))
+            continue;
+
+        // Check if this matches the requested extension
+        if (strcmp(ext_name, extensionName) == 0) {
+            result = true;
+            break;
+        }
+    }
+
+    FreeDir(dir);
+    return result;
+}
+```

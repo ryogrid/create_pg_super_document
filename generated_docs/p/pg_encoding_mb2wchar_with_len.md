@@ -33,3 +33,13 @@ This function provides the same multibyte to wide character conversion functiona
 - The encoding parameter must be a valid encoding ID that corresponds to an entry in pg_wchar_table
 - Returns the number of wide characters produced by the conversion
 - Useful for cross-encoding operations and data processing tasks
+
+## Simplified Source
+
+```c
+int pg_encoding_mb2wchar_with_len(int encoding, const char *from, pg_wchar *to, int len)
+{
+    // Delegate to encoding-specific conversion function
+    return pg_wchar_table[encoding].mb2wchar_with_len((const unsigned char *) from, to, len);
+}
+```

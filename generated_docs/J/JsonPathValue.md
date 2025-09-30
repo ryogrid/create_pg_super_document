@@ -51,3 +51,67 @@ The `JsonPathValue` function implements the SQL/JSON JSON_VALUE operation, which
 - Part of PostgreSQL's SQL/JSON standard compliance
 - Used primarily in SELECT clauses to extract scalar values for typed columns
 - The function automatically handles JSONB binary representation details
+
+## Simplified Source
+
+```c
+JsonbValue *
+JsonPathValue(Datum jb, JsonPath *jp, bool *empty, bool *error, List *vars,
+              const char *column_name)
+{
+    JsonbValue *res;
+    JsonValueList found = {0};
+    JsonPathExecResult jper;
+    int count;
+
+    // Execute JSON path to find values
+    jper = executeJsonPath(jp, vars, GetJsonPathVar, CountJsonPathVars,
+                           DatumGetJsonbP(jb), !error, &found, true);
+
+    // Handle execution errors
+    if (error && jperIsError(jper)) {
+        *error = true;
+        *empty = false;
+        return NULL;
+    }
+
+    // Check if any results were found
+    count = JsonValueListLength(&found);
+    *empty = (count == 0);
+    if (*empty)
+        return NULL;
+
+    // JSON_VALUE requires exactly one item
+    if (count > 1) {
+        if (error) {
+            *error = true;
+            return NULL;
+        }
+        ereport(ERROR, (errcode(ERRCODE_MORE_THAN_ONE_SQL_JSON_ITEM),
+                errmsg("JSON path expression must return single scalar item")));
+    }
+
+    // Get the single result
+    res = JsonValueListHead(&found);
+
+    // Extract scalar from binary container if needed
+    if (res->type == jbvBinary && JsonContainerIsScalar(res->val.binary.data))
+        JsonbExtractScalar(res->val.binary.data, res);
+
+    // JSON_VALUE requires scalar values only
+    if (!IsAJsonbScalar(res)) {
+        if (error) {
+            *error = true;
+            return NULL;
+        }
+        ereport(ERROR, (errcode(ERRCODE_SQL_JSON_SCALAR_REQUIRED),
+                errmsg("JSON path expression must return single scalar item")));
+    }
+
+    // Return NULL for JSON null values
+    if (res->type == jbvNull)
+        return NULL;
+
+    return res;
+}
+```

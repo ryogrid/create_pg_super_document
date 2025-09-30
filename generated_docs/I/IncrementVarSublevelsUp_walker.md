@@ -46,3 +46,83 @@ The function includes special error handling for CurrentOfExpr nodes, which cann
 - Essential for query transformation operations that change subquery nesting structure
 - Includes safety check for CurrentOfExpr nodes which cannot be moved between subquery levels
 - Returns false in most cases to continue tree traversal, only stopping for terminal nodes like Var and CurrentOfExpr
+
+## Simplified Source
+
+```c
+static bool IncrementVarSublevelsUp_walker(Node *node,
+                                          IncrementVarSublevelsUp_context *context) {
+    if (node == NULL) {
+        return false;
+    }
+
+    // Handle Var nodes - increment varlevelsup if above threshold
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+        if (var->varlevelsup >= context->min_sublevels_up) {
+            var->varlevelsup += context->delta_sublevels_up;
+        }
+        return false;
+    }
+
+    // Handle CurrentOfExpr - error if trying to push down
+    if (IsA(node, CurrentOfExpr)) {
+        if (context->min_sublevels_up == 0) {
+            elog(ERROR, "cannot push down CurrentOfExpr");
+        }
+        return false;
+    }
+
+    // Handle aggregate functions
+    if (IsA(node, Aggref)) {
+        Aggref *agg = (Aggref *) node;
+        if (agg->agglevelsup >= context->min_sublevels_up) {
+            agg->agglevelsup += context->delta_sublevels_up;
+        }
+        // Continue to recurse into arguments
+    }
+
+    // Handle grouping functions
+    if (IsA(node, GroupingFunc)) {
+        GroupingFunc *grp = (GroupingFunc *) node;
+        if (grp->agglevelsup >= context->min_sublevels_up) {
+            grp->agglevelsup += context->delta_sublevels_up;
+        }
+        // Continue to recurse into arguments
+    }
+
+    // Handle placeholder variables
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+        if (phv->phlevelsup >= context->min_sublevels_up) {
+            phv->phlevelsup += context->delta_sublevels_up;
+        }
+        // Continue to recurse into arguments
+    }
+
+    // Handle range table entries (specifically CTEs)
+    if (IsA(node, RangeTblEntry)) {
+        RangeTblEntry *rte = (RangeTblEntry *) node;
+        if (rte->rtekind == RTE_CTE) {
+            if (rte->ctelevelsup >= context->min_sublevels_up) {
+                rte->ctelevelsup += context->delta_sublevels_up;
+            }
+        }
+        return false;
+    }
+
+    // Handle subqueries - adjust context for deeper nesting
+    if (IsA(node, Query)) {
+        context->min_sublevels_up++;
+        bool result = query_tree_walker((Query *) node,
+                                       IncrementVarSublevelsUp_walker,
+                                       (void *) context,
+                                       QTW_EXAMINE_RTES_BEFORE);
+        context->min_sublevels_up--;
+        return result;
+    }
+
+    // Default: continue traversing expression tree
+    return expression_tree_walker(node, IncrementVarSublevelsUp_walker, (void *) context);
+}
+```

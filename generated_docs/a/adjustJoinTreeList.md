@@ -41,3 +41,28 @@ The function only examines top-level join items in the FROM list, not nested joi
 - Uses foreach_delete_current for safe list modification during iteration
 - Part of PostgreSQL's rule rewriting infrastructure that ensures proper query structure during rule application
 - The function breaks after finding and removing the first matching RangeTblRef to avoid unnecessary continued iteration
+
+## Simplified Source
+
+```c
+static List *adjustJoinTreeList(Query *parsetree, bool removert, int rt_index) {
+    // Create a deep copy of the join tree from list
+    List *newjointree = copyObject(parsetree->jointree->fromlist);
+
+    // If requested, remove the specified range table entry
+    if (removert) {
+        ListCell *l;
+        foreach(l, newjointree) {
+            RangeTblRef *rtr = lfirst(l);
+
+            // Check if this is the range table ref we want to remove
+            if (IsA(rtr, RangeTblRef) && rtr->rtindex == rt_index) {
+                newjointree = foreach_delete_current(newjointree, l);
+                break; // Only remove first match
+            }
+        }
+    }
+
+    return newjointree;
+}
+```

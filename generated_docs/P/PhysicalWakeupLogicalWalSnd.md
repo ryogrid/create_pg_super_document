@@ -42,3 +42,24 @@ This function takes no parameters and operates on the current process`s replicat
 - Part of the broader slot synchronization mechanism that enables logical replication to survive failover events
 - Requires the synchronized_standby_slots GUC to be properly configured for the physical slot
 - The function includes assertions to ensure it only operates on physical slots, preventing misuse
+
+## Simplified Source
+
+```c
+void
+PhysicalWakeupLogicalWalSnd(void)
+{
+    // Verify we're operating on a physical replication slot
+    Assert(MyReplicationSlot && SlotIsPhysical(MyReplicationSlot));
+
+    // Skip if we're in recovery mode (no cascading standby support)
+    if (RecoveryInProgress()) {
+        return;
+    }
+
+    // Wake up logical WAL senders if this slot is synchronized
+    if (SlotExistsInSyncStandbySlots(NameStr(MyReplicationSlot->data.name))) {
+        ConditionVariableBroadcast(&WalSndCtl->wal_confirm_rcv_cv);
+    }
+}
+```

@@ -51,3 +51,93 @@ The function assumes it will be called even for empty enum types, making it the 
 - The uncommitted_enum_types tracking only occurs at transaction level 1, not in subtransactions, to optimize for the most common usage patterns
 - Multi-insert batching is limited by MAX_CATALOG_MULTI_INSERT_BYTES to control memory usage
 - Enum labels are stored in NAME fields and are subject to NAMEDATALEN length restrictions
+
+## Simplified Source
+
+```c
+void
+EnumValuesCreate(Oid enumTypeOid, List *vals)
+{
+    Relation pg_enum;
+    Oid *oids;
+    int elemno, num_elems;
+    ListCell *lc;
+    int slotCount = 0, nslots;
+    CatalogIndexState indstate;
+    TupleTableSlot **slot;
+
+    // Record enum type in uncommitted_enum_types hash if at top level
+    if (GetCurrentTransactionNestLevel() == 1) {
+        if (uncommitted_enum_types == NULL)
+            init_uncommitted_enum_types();
+        hash_search(uncommitted_enum_types, &enumTypeOid, HASH_ENTER, NULL);
+    }
+
+    num_elems = list_length(vals);
+    pg_enum = table_open(EnumRelationId, RowExclusiveLock);
+
+    // Allocate even-numbered OIDs for proper sort order
+    oids = (Oid *) palloc(num_elems * sizeof(Oid));
+    for (elemno = 0; elemno < num_elems; elemno++) {
+        Oid new_oid;
+        do {
+            new_oid = GetNewOidWithIndex(pg_enum, EnumOidIndexId, Anum_pg_enum_oid);
+        } while (new_oid & 1);  // Ensure even OID
+        oids[elemno] = new_oid;
+    }
+
+    // Sort OIDs in case counter wrapped
+    qsort(oids, num_elems, sizeof(Oid), oid_cmp);
+
+    // Set up for batch insertion
+    indstate = CatalogOpenIndexes(pg_enum);
+    nslots = Min(num_elems, MAX_CATALOG_MULTI_INSERT_BYTES / sizeof(FormData_pg_enum));
+    slot = palloc(sizeof(TupleTableSlot *) * nslots);
+    for (int i = 0; i < nslots; i++)
+        slot[i] = MakeSingleTupleTableSlot(RelationGetDescr(pg_enum), &TTSOpsHeapTuple);
+
+    // Insert enum values
+    elemno = 0;
+    foreach(lc, vals) {
+        char *lab = strVal(lfirst(lc));
+        Name enumlabel = palloc0(NAMEDATALEN);
+
+        // Validate label length
+        if (strlen(lab) > (NAMEDATALEN - 1))
+            ereport(ERROR, "invalid enum label length");
+
+        // Prepare tuple slot
+        ExecClearTuple(slot[slotCount]);
+        memset(slot[slotCount]->tts_isnull, false,
+               slot[slotCount]->tts_tupleDescriptor->natts * sizeof(bool));
+
+        // Set tuple values
+        slot[slotCount]->tts_values[Anum_pg_enum_oid - 1] = ObjectIdGetDatum(oids[elemno]);
+        slot[slotCount]->tts_values[Anum_pg_enum_enumtypid - 1] = ObjectIdGetDatum(enumTypeOid);
+        slot[slotCount]->tts_values[Anum_pg_enum_enumsortorder - 1] = Float4GetDatum(elemno + 1);
+        namestrcpy(enumlabel, lab);
+        slot[slotCount]->tts_values[Anum_pg_enum_enumlabel - 1] = NameGetDatum(enumlabel);
+
+        ExecStoreVirtualTuple(slot[slotCount]);
+        slotCount++;
+
+        // Insert batch when slots are full
+        if (slotCount == nslots) {
+            CatalogTuplesMultiInsertWithInfo(pg_enum, slot, slotCount, indstate);
+            slotCount = 0;
+        }
+        elemno++;
+    }
+
+    // Insert remaining tuples
+    if (slotCount > 0)
+        CatalogTuplesMultiInsertWithInfo(pg_enum, slot, slotCount, indstate);
+
+    // Cleanup
+    pfree(oids);
+    for (int i = 0; i < nslots; i++)
+        ExecDropSingleTupleTableSlot(slot[i]);
+    CatalogCloseIndexes(indstate);
+    table_close(pg_enum, RowExclusiveLock);
+}
+```

@@ -61,3 +61,109 @@ For hash aggregation spilling, the function performs sophisticated analysis usin
 - Requires appropriately-sorted input when aggstrategy is AGG_SORTED
 - Adds disable_cost penalty when enable_hashagg is false for hash-based strategies
 - Output tuple count is set to 1 for AGG_PLAIN, numGroups for other strategies (adjusted by HAVING selectivity)
+
+## Simplified Source
+
+```c
+void cost_agg(Path *path, PlannerInfo *root,
+              AggStrategy aggstrategy, const AggClauseCosts *aggcosts,
+              int numGroupCols, double numGroups, List *quals,
+              Cost input_startup_cost, Cost input_total_cost,
+              double input_tuples, double input_width) {
+    double output_tuples;
+    Cost startup_cost, total_cost;
+    AggClauseCosts dummy_aggcosts;
+
+    // Use dummy costs if aggcosts is NULL (grouping-only hash agg)
+    if (aggcosts == NULL) {
+        MemSet(&dummy_aggcosts, 0, sizeof(AggClauseCosts));
+        aggcosts = &dummy_aggcosts;
+    }
+
+    if (aggstrategy == AGG_PLAIN) {
+        // Single-group aggregation: all costs paid upfront
+        startup_cost = input_total_cost + aggcosts->transCost.startup +
+                      aggcosts->transCost.per_tuple * input_tuples +
+                      aggcosts->finalCost.startup + aggcosts->finalCost.per_tuple;
+        total_cost = startup_cost + cpu_tuple_cost;
+        output_tuples = 1;
+    }
+    else if (aggstrategy == AGG_SORTED || aggstrategy == AGG_MIXED) {
+        // On-the-fly delivery for sorted aggregation
+        startup_cost = input_startup_cost;
+        total_cost = input_total_cost + aggcosts->transCost.startup +
+                    aggcosts->transCost.per_tuple * input_tuples +
+                    (cpu_operator_cost * numGroupCols) * input_tuples +
+                    aggcosts->finalCost.startup + aggcosts->finalCost.per_tuple * numGroups +
+                    cpu_tuple_cost * numGroups;
+
+        // Add disable penalty if needed
+        if (aggstrategy == AGG_MIXED && !enable_hashagg) {
+            startup_cost += disable_cost;
+            total_cost += disable_cost;
+        }
+        output_tuples = numGroups;
+    }
+    else {
+        // AGG_HASHED: all input processed before output
+        startup_cost = input_total_cost + aggcosts->transCost.startup +
+                      aggcosts->transCost.per_tuple * input_tuples +
+                      (cpu_operator_cost * numGroupCols) * input_tuples +
+                      aggcosts->finalCost.startup;
+
+        if (!enable_hashagg)
+            startup_cost += disable_cost;
+
+        total_cost = startup_cost + aggcosts->finalCost.per_tuple * numGroups +
+                    cpu_tuple_cost * numGroups;
+        output_tuples = numGroups;
+    }
+
+    // Add spilling costs for hash aggregation if needed
+    if (aggstrategy == AGG_HASHED || aggstrategy == AGG_MIXED) {
+        // Estimate memory usage and spilling
+        double hashentrysize = hash_agg_entry_size(list_length(root->aggtransinfos),
+                                                  input_width, aggcosts->transitionSpace);
+        Size mem_limit;
+        uint64 ngroups_limit;
+        int num_partitions;
+
+        hash_agg_set_limits(hashentrysize, numGroups, 0, &mem_limit,
+                           &ngroups_limit, &num_partitions);
+
+        double nbatches = Max((numGroups * hashentrysize) / mem_limit,
+                             numGroups / ngroups_limit);
+        nbatches = Max(ceil(nbatches), 1.0);
+
+        if (nbatches > 1.0) {
+            // Calculate spilling I/O costs
+            int depth = ceil(log(nbatches) / log(Max(num_partitions, 2)));
+            double pages = relation_byte_size(input_tuples, input_width) / BLCKSZ;
+            double pages_written = pages_read = pages * depth * 2.0; // 2x penalty
+
+            startup_cost += pages_written * random_page_cost;
+            total_cost += pages_written * random_page_cost + pages_read * seq_page_cost;
+
+            // CPU cost for spilling/reading tuples
+            double spill_cost = depth * input_tuples * 2.0 * cpu_tuple_cost;
+            startup_cost += spill_cost;
+            total_cost += spill_cost;
+        }
+    }
+
+    // Apply HAVING clause costs and selectivity
+    if (quals) {
+        QualCost qual_cost;
+        cost_qual_eval(&qual_cost, quals, root);
+        startup_cost += qual_cost.startup;
+        total_cost += qual_cost.startup + output_tuples * qual_cost.per_tuple;
+
+        output_tuples = clamp_row_est(output_tuples *
+                                     clauselist_selectivity(root, quals, 0, JOIN_INNER, NULL));
+    }
+
+    path->rows = output_tuples;
+    path->startup_cost = startup_cost;
+    path->total_cost = total_cost;
+}
+```

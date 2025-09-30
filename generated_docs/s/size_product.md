@@ -34,3 +34,15 @@ The `size_product` function performs safe multiplication of two size_t values, s
 - The overflow check uses division instead of multiplication to avoid actually causing overflow during the check
 - Essential for preventing security vulnerabilities related to integer overflow in memory allocation
 - Returns the product only if it can be safely computed without overflow
+
+## Simplified Source
+
+```c
+static size_t size_product(size_t nitems, size_t itemsize) {
+    // Check for multiplication overflow before computing
+    if (SIZE_MAX / itemsize < nitems)
+        memory_exhausted(_("size overflow"));
+
+    return nitems * itemsize;
+}
+```

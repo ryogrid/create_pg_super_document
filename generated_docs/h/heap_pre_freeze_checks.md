@@ -53,3 +53,44 @@ The function deliberately avoids relying on tuple hint bits, performing direct t
 - **Xmax Limitations**: Cannot reliably use TransactionIdDidAbort due to crash scenarios, only checks that xmax didn't commit
 - **Buffer Integration**: Works with shared buffer pages, expecting caller to hold appropriate locks
 - **VACUUM Integration**: Designed for use in VACUUM operations where freeze plans may be reused across multiple operations
+
+## Simplified Source
+
+```c
+void
+heap_pre_freeze_checks(Buffer buffer, HeapTupleFreeze *tuples, int ntuples)
+{
+    Page page = BufferGetPage(buffer);
+
+    // Validate each tuple's transaction status before freezing
+    for (int i = 0; i < ntuples; i++) {
+        HeapTupleFreeze *frz = tuples + i;
+
+        // Get the tuple from the page
+        ItemId itemid = PageGetItemId(page, frz->offset);
+        HeapTupleHeader htup = (HeapTupleHeader) PageGetItem(page, itemid);
+
+        // Check xmin is committed if required
+        if (frz->checkflags & HEAP_FREEZE_CHECK_XMIN_COMMITTED) {
+            TransactionId xmin = HeapTupleHeaderGetRawXmin(htup);
+
+            // Verify xmin committed before allowing freeze
+            if (unlikely(!TransactionIdDidCommit(xmin)))
+                ereport(ERROR,
+                       (errcode(ERRCODE_DATA_CORRUPTED),
+                        errmsg_internal("uncommitted xmin %u needs to be frozen", xmin)));
+        }
+
+        // Check xmax is not committed if required
+        if (frz->checkflags & HEAP_FREEZE_CHECK_XMAX_ABORTED) {
+            TransactionId xmax = HeapTupleHeaderGetRawXmax(htup);
+
+            // Verify xmax didn't commit (should be aborted or crashed)
+            if (unlikely(TransactionIdDidCommit(xmax)))
+                ereport(ERROR,
+                       (errcode(ERRCODE_DATA_CORRUPTED),
+                        errmsg_internal("cannot freeze committed xmax %u", xmax)));
+        }
+    }
+}
+```

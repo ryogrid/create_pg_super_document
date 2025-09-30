@@ -36,3 +36,30 @@ The function explicitly excludes expressional indexes and multicolumn unique ind
 
 ## Notes and Other Information
 This function does not check the index's indimmediate property, which means it may report uniqueness even when constraints could be temporarily violated within a transaction (deferred unique constraints). This behavior is appropriate for statistical estimation purposes but should not be relied upon for correctness proofs. The function is primarily used in selectivity estimation where the optimizer needs to know if an attribute's values are guaranteed to be unique for cardinality calculations.
+
+## Simplified Source
+
+```c
+bool
+has_unique_index(RelOptInfo *rel, AttrNumber attno)
+{
+    ListCell *ilist;
+
+    // Check each index on the relation
+    foreach(ilist, rel->indexlist) {
+        IndexOptInfo *index = (IndexOptInfo *) lfirst(ilist);
+
+        // Must be unique, single-column index on the specified attribute
+        // Exclude partial indexes unless predicate is satisfied (predOK)
+        // Exclude expressional and multicolumn indexes
+        if (index->unique &&
+            index->nkeycolumns == 1 &&
+            index->indexkeys[0] == attno &&
+            (index->indpred == NIL || index->predOK)) {
+            return true;  // Found qualifying unique index
+        }
+    }
+
+    return false;  // No suitable unique index found
+}
+```

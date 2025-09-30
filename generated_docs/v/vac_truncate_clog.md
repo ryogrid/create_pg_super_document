@@ -62,3 +62,98 @@ The function implements multiple safety mechanisms including detection of alread
 - Handles race conditions gracefully - concurrent VACUUM operations at worst case result in less aggressive truncation
 - Updates wrap limits for both transaction IDs and MultiXactIds, which may signal the postmaster for additional autovacuum cycles
 - Advances commit timestamp tracking before truncation to provide better user experience (NULL instead of file errors)
+
+## Simplified Source
+
+```c
+static void
+vac_truncate_clog(TransactionId frozenXID,
+                  MultiXactId minMulti,
+                  TransactionId lastSaneFrozenXid,
+                  MultiXactId lastSaneMinMulti)
+{
+    TransactionId nextXID = ReadNextTransactionId();
+    Relation relation;
+    TableScanDesc scan;
+    HeapTuple tuple;
+    Oid oldestxid_datoid, minmulti_datoid;
+    bool bogus = false;
+    bool frozenAlreadyWrapped = false;
+
+    // Acquire exclusive lock to ensure only one backend truncates CLOG
+    LWLockAcquire(WrapLimitsVacuumLock, LW_EXCLUSIVE);
+
+    // Initialize database IDs to current database
+    oldestxid_datoid = MyDatabaseId;
+    minmulti_datoid = MyDatabaseId;
+
+    // Scan pg_database to find system-wide minimum frozen XIDs
+    relation = table_open(DatabaseRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(relation, 0, NULL);
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+    {
+        Form_pg_database dbform = (Form_pg_database) GETSTRUCT(tuple);
+        TransactionId datfrozenxid = dbform->datfrozenxid;
+        TransactionId datminmxid = dbform->datminmxid;
+
+        // Skip invalid/dropping databases
+        if (database_is_invalid_form(dbform))
+            continue;
+
+        // Check for corruption (future XIDs indicate bugs)
+        if (TransactionIdPrecedes(lastSaneFrozenXid, datfrozenxid) ||
+            MultiXactIdPrecedes(lastSaneMinMulti, datminmxid))
+            bogus = true;
+
+        // Check for wraparound condition
+        if (TransactionIdPrecedes(nextXID, datfrozenxid))
+            frozenAlreadyWrapped = true;
+        // Update minimum frozen XID
+        else if (TransactionIdPrecedes(datfrozenxid, frozenXID))
+        {
+            frozenXID = datfrozenxid;
+            oldestxid_datoid = dbform->oid;
+        }
+
+        // Update minimum MultiXact ID
+        if (MultiXactIdPrecedes(datminmxid, minMulti))
+        {
+            minMulti = datminmxid;
+            minmulti_datoid = dbform->oid;
+        }
+    }
+
+    table_endscan(scan);
+    table_close(relation, AccessShareLock);
+
+    // Abort if wraparound already occurred
+    if (frozenAlreadyWrapped)
+    {
+        ereport(WARNING, (errmsg("some databases have not been vacuumed in over 2 billion transactions")));
+        LWLockRelease(WrapLimitsVacuumLock);
+        return;
+    }
+
+    // Abort if corruption detected
+    if (bogus)
+    {
+        LWLockRelease(WrapLimitsVacuumLock);
+        return;
+    }
+
+    // Advance commit timestamp tracking before truncation
+    AdvanceOldestCommitTsXid(frozenXID);
+
+    // Truncate transaction logs to computed minimums
+    TruncateCLOG(frozenXID, oldestxid_datoid);
+    TruncateCommitTs(frozenXID);
+    TruncateMultiXact(minMulti, minmulti_datoid);
+
+    // Update wrap limits for future transactions
+    SetTransactionIdLimit(frozenXID, oldestxid_datoid);
+    SetMultiXactIdLimit(minMulti, minmulti_datoid, false);
+
+    LWLockRelease(WrapLimitsVacuumLock);
+}
+```

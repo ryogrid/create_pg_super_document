@@ -36,3 +36,33 @@ For FieldStore nodes, it returns the `arg` field which represents the input expr
 - For SubscriptingRef, only returns input if there's an actual assignment expression
 - Critical for validating that multiple assignments target the same base expression
 - Used in the rewrite phase to ensure assignment operation compatibility
+
+## Simplified Source
+
+```c
+static Node *
+get_assignment_input(Node *node)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Handle field assignments (e.g., record.field = value)
+    if (IsA(node, FieldStore)) {
+        FieldStore *fstore = (FieldStore *) node;
+        return (Node *) fstore->arg;
+    }
+
+    // Handle array assignments (e.g., arr[1] = value)
+    else if (IsA(node, SubscriptingRef)) {
+        SubscriptingRef *sbsref = (SubscriptingRef *) node;
+
+        // Only return input if this is actually an assignment
+        if (sbsref->refassgnexpr == NULL)
+            return NULL;
+
+        return (Node *) sbsref->refexpr;
+    }
+
+    return NULL;
+}
+```

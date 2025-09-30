@@ -43,3 +43,48 @@ The function handles three distinct scenarios:
 - Includes sophisticated logic for handling table/column deletion ordering to prevent dropping datatypes before tables
 - The flags parameter can be 0 for read-only probing without modification
 - Critical for maintaining consistent dependency deletion order in PostgreSQL's CASCADE operations
+
+## Simplified Source
+
+```c
+static bool
+object_address_present_add_flags(const ObjectAddress *object,
+                                 int flags,
+                                 ObjectAddresses *addrs)
+{
+    bool result = false;
+
+    // Search backwards through the array
+    for (int i = addrs->numrefs - 1; i >= 0; i--) {
+        ObjectAddress *thisobj = addrs->refs + i;
+
+        // Check if class and object IDs match
+        if (object->classId == thisobj->classId &&
+            object->objectId == thisobj->objectId) {
+
+            if (object->objectSubId == thisobj->objectSubId) {
+                // Exact match: add flags to the object's extra data
+                ObjectAddressExtra *thisextra = addrs->extras + i;
+                thisextra->flags |= flags;
+                result = true;
+            }
+            else if (thisobj->objectSubId == 0) {
+                // Searching for subobject, but whole object is already marked
+                // Report found but don't modify flags
+                result = true;
+            }
+            else if (object->objectSubId == 0) {
+                // Searching for whole object, but subobject is already present
+                // Mark subobject with whole object's flags + DEPFLAG_SUBOBJECT
+                ObjectAddressExtra *thisextra = addrs->extras + i;
+                if (flags) {
+                    thisextra->flags |= (flags | DEPFLAG_SUBOBJECT);
+                }
+                // Must continue scanning (cannot exit early)
+            }
+        }
+    }
+
+    return result;
+}
+```

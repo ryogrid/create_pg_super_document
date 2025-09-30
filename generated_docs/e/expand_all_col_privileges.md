@@ -48,3 +48,55 @@ The function iterates through all possible attribute numbers from FirstLowInvali
 - Uses system cache lookups to verify attribute existence and check if attributes are dropped
 - The privileges are applied using bitwise OR, allowing multiple privilege operations to accumulate
 - Array indexing accounts for FirstLowInvalidHeapAttributeNumber offset to handle system columns properly
+
+## Simplified Source
+
+```c
+static void
+expand_all_col_privileges(Oid table_oid, Form_pg_class classForm,
+                          AclMode this_privileges,
+                          AclMode *col_privileges,
+                          int num_col_privileges)
+{
+    AttrNumber curr_att;
+
+    // Safety check: ensure relation fits in our array
+    Assert(classForm->relnatts - FirstLowInvalidHeapAttributeNumber < num_col_privileges);
+
+    // Iterate through all possible attribute numbers
+    for (curr_att = FirstLowInvalidHeapAttributeNumber + 1;
+         curr_att <= classForm->relnatts;
+         curr_att++) {
+        HeapTuple attTuple;
+        bool isdropped;
+
+        // Skip invalid attribute numbers
+        if (curr_att == InvalidAttrNumber)
+            continue;
+
+        // Views don't have system columns (negative attribute numbers)
+        if (classForm->relkind == RELKIND_VIEW && curr_att < 0)
+            continue;
+
+        // Look up attribute information in system catalog
+        attTuple = SearchSysCache2(ATTNUM,
+                                  ObjectIdGetDatum(table_oid),
+                                  Int16GetDatum(curr_att));
+        if (!HeapTupleIsValid(attTuple))
+            elog(ERROR, "cache lookup failed for attribute %d of relation %u",
+                 curr_att, table_oid);
+
+        // Check if column is dropped
+        isdropped = ((Form_pg_attribute) GETSTRUCT(attTuple))->attisdropped;
+        ReleaseSysCache(attTuple);
+
+        // Skip dropped columns
+        if (isdropped)
+            continue;
+
+        // Apply privileges to this valid column
+        // Array is offset by FirstLowInvalidHeapAttributeNumber
+        col_privileges[curr_att - FirstLowInvalidHeapAttributeNumber] |= this_privileges;
+    }
+}
+```

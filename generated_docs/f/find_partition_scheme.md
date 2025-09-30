@@ -55,3 +55,71 @@ When creating a new scheme, the function allocates memory and copies all relevan
 - All partition scheme data is copied to ensure it survives beyond the relation cache entry's lifetime
 - The scheme comparison is comprehensive, ensuring that only truly equivalent partitioning configurations are matched
 - Memory for the partition scheme is allocated in the current memory context and persists for the duration of planning
+
+## Simplified Source
+
+```c
+static PartitionScheme
+find_partition_scheme(PlannerInfo *root, Relation relation)
+{
+    PartitionKey partkey = RelationGetPartitionKey(relation);
+    int partnatts = partkey->partnatts;
+    PartitionScheme part_scheme;
+    ListCell *lc;
+
+    // Search for existing matching partition scheme
+    foreach(lc, root->part_schemes)
+    {
+        part_scheme = lfirst(lc);
+
+        // Check if partition characteristics match
+        if (partkey->strategy == part_scheme->strategy &&
+            partnatts == part_scheme->partnatts &&
+            partition_properties_match(partkey, part_scheme, partnatts))
+        {
+            return part_scheme;  // Found existing scheme
+        }
+    }
+
+    // Create new partition scheme
+    part_scheme = create_new_partition_scheme(partkey, partnatts);
+    root->part_schemes = lappend(root->part_schemes, part_scheme);
+    return part_scheme;
+
+    // Helper: Check if partition properties match
+    static bool
+    partition_properties_match(PartitionKey partkey, PartitionScheme scheme, int natts)
+    {
+        return (memcmp(partkey->partopfamily, scheme->partopfamily,
+                      sizeof(Oid) * natts) == 0 &&
+                memcmp(partkey->partopcintype, scheme->partopcintype,
+                      sizeof(Oid) * natts) == 0 &&
+                memcmp(partkey->partcollation, scheme->partcollation,
+                      sizeof(Oid) * natts) == 0);
+    }
+
+    // Helper: Create new partition scheme with copied metadata
+    static PartitionScheme
+    create_new_partition_scheme(PartitionKey partkey, int natts)
+    {
+        PartitionScheme scheme = palloc0(sizeof(PartitionSchemeData));
+        scheme->strategy = partkey->strategy;
+        scheme->partnatts = natts;
+
+        // Copy partition metadata arrays
+        scheme->partopfamily = copy_oid_array(partkey->partopfamily, natts);
+        scheme->partopcintype = copy_oid_array(partkey->partopcintype, natts);
+        scheme->partcollation = copy_oid_array(partkey->partcollation, natts);
+        scheme->parttyplen = copy_int16_array(partkey->parttyplen, natts);
+        scheme->parttypbyval = copy_bool_array(partkey->parttypbyval, natts);
+
+        // Copy support functions
+        scheme->partsupfunc = palloc(sizeof(FmgrInfo) * natts);
+        for (int i = 0; i < natts; i++)
+            fmgr_info_copy(&scheme->partsupfunc[i], &partkey->partsupfunc[i],
+                          CurrentMemoryContext);
+
+        return scheme;
+    }
+}
+```

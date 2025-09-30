@@ -63,3 +63,74 @@ The function prevents unprincipled deadlocks that could occur when multiple back
 - Updates heap statistics by counting the deletion
 - Sets pruning hints using TransactionXmin or relation's relfrozenxid for future cleanup efficiency
 - Never requires catalog invalidation since catalogs don't support speculative insertion
+
+## Simplified Source
+
+```c
+void
+heap_abort_speculative(Relation relation, ItemPointer tid)
+{
+    TransactionId xid = GetCurrentTransactionId();
+
+    // Read the page and get exclusive lock
+    BlockNumber block = ItemPointerGetBlockNumber(tid);
+    Buffer buffer = ReadBuffer(relation, block);
+    Page page = BufferGetPage(buffer);
+    LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+
+    // Get tuple data
+    ItemId lp = PageGetItemId(page, ItemPointerGetOffsetNumber(tid));
+    HeapTupleData tp;
+    tp.t_data = (HeapTupleHeader) PageGetItem(page, lp);
+    tp.t_len = ItemIdGetLength(lp);
+    tp.t_self = *tid;
+
+    // Validate this is our speculative tuple
+    if (tp.t_data->t_choice.t_heap.t_xmin != xid)
+        elog(ERROR, "attempted to kill a tuple inserted by another transaction");
+    if (!(IsToastRelation(relation) || HeapTupleHeaderIsSpeculative(tp.t_data)))
+        elog(ERROR, "attempted to kill a non-speculative tuple");
+
+    START_CRIT_SECTION();
+
+    // Set page as prunable
+    TransactionId prune_xid = TransactionIdPrecedes(TransactionXmin, relation->rd_rel->relfrozenxid)
+                             ? relation->rd_rel->relfrozenxid : TransactionXmin;
+    PageSetPrunable(page, prune_xid);
+
+    // Clear infomask bits and make tuple immediately invisible
+    tp.t_data->t_infomask &= ~(HEAP_XMAX_BITS | HEAP_MOVED);
+    tp.t_data->t_infomask2 &= ~HEAP_KEYS_UPDATED;
+    HeapTupleHeaderSetXmin(tp.t_data, InvalidTransactionId);
+    tp.t_data->t_ctid = tp.t_self;  // Clear speculative token
+
+    MarkBufferDirty(buffer);
+
+    // WAL logging (same as heap_delete)
+    if (RelationNeedsWAL(relation))
+    {
+        xl_heap_delete xlrec;
+        xlrec.flags = XLH_DELETE_IS_SUPER;
+        xlrec.infobits_set = compute_infobits(tp.t_data->t_infomask, tp.t_data->t_infomask2);
+        xlrec.offnum = ItemPointerGetOffsetNumber(&tp.t_self);
+        xlrec.xmax = xid;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHeapDelete);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+        XLogRecPtr recptr = XLogInsert(RM_HEAP_ID, XLOG_HEAP_DELETE);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+
+    // Clean up TOAST data if needed
+    if (HeapTupleHasExternal(&tp))
+        heap_toast_delete(relation, &tp, true);
+
+    ReleaseBuffer(buffer);
+    pgstat_count_heap_delete(relation);
+}
+```

@@ -46,3 +46,37 @@ The function modifies AppendRelInfo nodes in-place, which is safe in this contex
 - Only processes PlaceHolderVars if they exist in the query (lastPHId optimization)
 - The function expects subrelids to be a singleton set but delays validation until actually needed
 - Critical for maintaining correct relation references after inheritance or partitioning expansion during subquery pullup
+
+## Simplified Source
+
+```c
+static void
+fix_append_rel_relids(PlannerInfo *root, int varno, Relids subrelids)
+{
+    ListCell *l;
+    int subvarno = -1;
+
+    // Process each AppendRelInfo in the list
+    foreach(l, root->append_rel_list)
+    {
+        AppendRelInfo *appinfo = (AppendRelInfo *) lfirst(l);
+
+        // Parent should never be a pullup target
+        Assert(appinfo->parent_relid != varno);
+
+        // Update child_relid if it matches varno
+        if (appinfo->child_relid == varno)
+        {
+            // Extract singleton member only when needed
+            if (subvarno < 0)
+                subvarno = bms_singleton_member(subrelids);
+            appinfo->child_relid = subvarno;
+        }
+
+        // Fix PlaceHolderVars in translated_vars if any exist
+        if (root->glob->lastPHId != 0)
+            substitute_phv_relids((Node *) appinfo->translated_vars,
+                                varno, subrelids);
+    }
+}
+```

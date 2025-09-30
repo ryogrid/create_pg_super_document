@@ -30,3 +30,15 @@ The function operates on PostgreSQL's internal List data structure, which stores
 - More specialized than list_head or list_tail, used in specific parsing and JSON processing contexts
 - Performs explicit bounds checking (l->length >= 2) before accessing the array element
 - Provides a convenient way to access the second element without manual index calculation and bounds checking
+
+## Simplified Source
+
+```c
+static inline ListCell *list_second_cell(const List *l) {
+    // Return second cell if list has at least 2 elements
+    if (l && l->length >= 2)
+        return &l->elements[1];
+    else
+        return NULL;
+}
+```

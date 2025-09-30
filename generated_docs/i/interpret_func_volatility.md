@@ -38,3 +38,27 @@ This function takes a DefElem containing a volatility specification and translat
 - The function uses case-sensitive string comparisons for volatility values
 - Invalid volatility specifications result in ERROR-level logging, terminating the current transaction
 - The return value is used to populate the 'provolatile' column in the pg_proc system catalog
+
+## Simplified Source
+
+```c
+static char
+interpret_func_volatility(DefElem *defel)
+{
+    char *str = strVal(defel->arg);
+
+    // Convert volatility string to internal constant
+    if (strcmp(str, "immutable") == 0)
+        return PROVOLATILE_IMMUTABLE;
+    else if (strcmp(str, "stable") == 0)
+        return PROVOLATILE_STABLE;
+    else if (strcmp(str, "volatile") == 0)
+        return PROVOLATILE_VOLATILE;
+    else
+    {
+        // Report error for invalid volatility specification
+        elog(ERROR, "invalid volatility \"%s\"", str);
+        return 0;  // keep compiler quiet
+    }
+}
+```

@@ -60,3 +60,100 @@ The function supports both traditional inheritance and modern partitioning, with
 - For partitioned children, the inh flag is set to true to trigger further expansion
 - Table aliases are duplicated from parent; ruleutils.c handles uniqueness during plan printing
 - Row identity columns (tableoid) are automatically added for child target relations in DML operations
+
+## Simplified Source
+
+```c
+static void
+expand_single_inheritance_child(PlannerInfo *root, RangeTblEntry *parentrte,
+                                Index parentRTindex, Relation parentrel,
+                                PlanRowMark *top_parentrc, Relation childrel,
+                                RangeTblEntry **childrte_p,
+                                Index *childRTindex_p)
+{
+    Query *parse = root->parse;
+    Oid childOID = RelationGetRelid(childrel);
+    RangeTblEntry *childrte;
+    Index childRTindex;
+    AppendRelInfo *appinfo;
+
+    // Create child RTE by copying parent RTE with child-specific updates
+    childrte = makeNode(RangeTblEntry);
+    memcpy(childrte, parentrte, sizeof(RangeTblEntry));
+
+    childrte->relid = childOID;
+    childrte->relkind = childrel->rd_rel->relkind;
+    childrte->inh = (childrte->relkind == RELKIND_PARTITIONED_TABLE);
+    childrte->securityQuals = NIL;  // Use parent's RLS conditions
+    childrte->perminfoindex = 0;    // No separate permissions for child
+
+    // Add child RTE to range table
+    parse->rtable = lappend(parse->rtable, childrte);
+    childRTindex = list_length(parse->rtable);
+    *childrte_p = childrte;
+    *childRTindex_p = childRTindex;
+
+    // Create AppendRelInfo for parent-child relationship
+    appinfo = make_append_rel_info(parentrel, childrel, parentRTindex, childRTindex);
+    root->append_rel_list = lappend(root->append_rel_list, appinfo);
+
+    // Set up column aliases for proper EXPLAIN output
+    TupleDesc child_tupdesc = RelationGetDescr(childrel);
+    List *parent_colnames = parentrte->eref->colnames;
+    List *child_colnames = NIL;
+
+    for (int cattno = 0; cattno < child_tupdesc->natts; cattno++) {
+        Form_pg_attribute att = TupleDescAttr(child_tupdesc, cattno);
+        const char *attname;
+
+        if (att->attisdropped) {
+            attname = "";
+        } else if (appinfo->parent_colnos[cattno] > 0 &&
+                   appinfo->parent_colnos[cattno] <= list_length(parent_colnames)) {
+            // Use parent's column name
+            attname = strVal(list_nth(parent_colnames, appinfo->parent_colnos[cattno] - 1));
+        } else {
+            // Use child's actual column name
+            attname = NameStr(att->attname);
+        }
+        child_colnames = lappend(child_colnames, makeString(pstrdup(attname)));
+    }
+
+    childrte->alias = childrte->eref = makeAlias(parentrte->eref->aliasname, child_colnames);
+
+    // Store in planner arrays
+    root->simple_rte_array[childRTindex] = childrte;
+    root->append_rel_array[childRTindex] = appinfo;
+
+    // Create PlanRowMark for row locking if needed
+    if (top_parentrc) {
+        PlanRowMark *childrc = makeNode(PlanRowMark);
+        childrc->rti = childRTindex;
+        childrc->prti = top_parentrc->rti;
+        childrc->rowmarkId = top_parentrc->rowmarkId;
+        childrc->markType = select_rowmark_type(childrte, top_parentrc->strength);
+        childrc->allMarkTypes = (1 << childrc->markType);
+        childrc->strength = top_parentrc->strength;
+        childrc->waitPolicy = top_parentrc->waitPolicy;
+        childrc->isParent = (childrte->relkind == RELKIND_PARTITIONED_TABLE);
+
+        top_parentrc->allMarkTypes |= childrc->allMarkTypes;
+        root->rowMarks = lappend(root->rowMarks, childrc);
+    }
+
+    // Handle result relations for DML operations
+    if (bms_is_member(parentRTindex, root->all_result_relids)) {
+        root->all_result_relids = bms_add_member(root->all_result_relids, childRTindex);
+
+        // Add row identity info for leaf relations
+        if (childrte->relkind != RELKIND_PARTITIONED_TABLE) {
+            root->leaf_result_relids = bms_add_member(root->leaf_result_relids, childRTindex);
+
+            // Add tableoid column for multi-table DML
+            Var *rrvar = makeVar(childRTindex, TableOidAttributeNumber, OIDOID, -1, InvalidOid, 0);
+            add_row_identity_var(root, rrvar, childRTindex, "tableoid");
+            add_row_identity_columns(root, childRTindex, childrte, childrel);
+        }
+    }
+}
+```

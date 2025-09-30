@@ -31,3 +31,22 @@ The is_space function provides a locale-independent implementation for detecting
 - Essential for consistent text parsing in timezone data files
 - Helps ensure portable behavior across different system locales and character encodings
 - Part of the timezone compiler's text processing infrastructure for parsing timezone rule files
+
+## Simplified Source
+
+```c
+static bool is_space(char a) {
+    // Check for standard C locale whitespace characters
+    switch (a) {
+        case ' ':
+        case '\f':  // form feed
+        case '\n':  // newline
+        case '\r':  // carriage return
+        case '\t':  // tab
+        case '\v':  // vertical tab
+            return true;
+        default:
+            return false;
+    }
+}
+```

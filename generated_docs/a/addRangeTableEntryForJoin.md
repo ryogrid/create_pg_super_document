@@ -56,3 +56,77 @@ This function creates a RangeTblEntry of type RTE_JOIN for handling join operati
 - Sets default visibility flags for the namespace item which may be modified later by the caller
 - Joins are never lateral references by default (lateral = false)
 - Located in src/backend/parser/parse_relation.c:2216-2313
+
+## Simplified Source
+
+```c
+ParseNamespaceItem *
+addRangeTableEntryForJoin(ParseState *pstate,
+                          List *colnames,
+                          ParseNamespaceColumn *nscolumns,
+                          JoinType jointype,
+                          int nummergedcols,
+                          List *aliasvars,
+                          List *leftcols,
+                          List *rightcols,
+                          Alias *join_using_alias,
+                          Alias *alias,
+                          bool inFromCl)
+{
+    RangeTblEntry *rte = makeNode(RangeTblEntry);
+    Alias *eref;
+    int numaliases;
+    ParseNamespaceItem *nsitem;
+
+    // Check column limit
+    if (list_length(aliasvars) > MaxAttrNumber)
+        ereport(ERROR, (errmsg("joins can have at most %d columns", MaxAttrNumber)));
+
+    // Initialize join RTE
+    rte->rtekind = RTE_JOIN;
+    rte->relid = InvalidOid;
+    rte->subquery = NULL;
+    rte->jointype = jointype;
+    rte->joinmergedcols = nummergedcols;
+    rte->joinaliasvars = aliasvars;
+    rte->joinleftcols = leftcols;
+    rte->joinrightcols = rightcols;
+    rte->join_using_alias = join_using_alias;
+    rte->alias = alias;
+
+    // Set up external alias reference
+    eref = alias ? copyObject(alias) : makeAlias("unnamed_join", NIL);
+    numaliases = list_length(eref->colnames);
+
+    // Fill in missing alias column names
+    if (numaliases < list_length(colnames))
+        eref->colnames = list_concat(eref->colnames, list_copy_tail(colnames, numaliases));
+
+    if (numaliases > list_length(colnames))
+        ereport(ERROR, (errmsg("join expression \"%s\" has %d columns available but %d columns specified",
+                              eref->aliasname, list_length(colnames), numaliases)));
+
+    rte->eref = eref;
+
+    // Set RTE flags
+    rte->lateral = false;
+    rte->inFromCl = inFromCl;
+
+    // Add to range table
+    pstate->p_rtable = lappend(pstate->p_rtable, rte);
+
+    // Create and initialize namespace item
+    nsitem = (ParseNamespaceItem *) palloc(sizeof(ParseNamespaceItem));
+    nsitem->p_names = rte->eref;
+    nsitem->p_rte = rte;
+    nsitem->p_perminfo = NULL;
+    nsitem->p_rtindex = list_length(pstate->p_rtable);
+    nsitem->p_nscolumns = nscolumns;
+    nsitem->p_rel_visible = true;
+    nsitem->p_cols_visible = true;
+    nsitem->p_lateral_only = false;
+    nsitem->p_lateral_ok = true;
+
+    return nsitem;
+}
+```

@@ -36,3 +36,24 @@ The function is used by the various get_*_parampathinfo functions to avoid creat
 - Used for caching optimization to avoid duplicate ParamPathInfo creation
 - Simple but effective for the typically small number of parameterizations per relation
 - The function is located in src/backend/optimizer/util/relnode.c:1901-1921
+
+## Simplified Source
+
+```c
+ParamPathInfo *
+find_param_path_info(RelOptInfo *rel, Relids required_outer)
+{
+    ListCell *lc;
+
+    // Search through cached ParamPathInfo structures
+    foreach(lc, rel->ppilist) {
+        ParamPathInfo *ppi = (ParamPathInfo *) lfirst(lc);
+
+        // Return matching parameterization if found
+        if (bms_equal(ppi->ppi_req_outer, required_outer))
+            return ppi;
+    }
+
+    return NULL;
+}
+```

@@ -42,3 +42,68 @@ Special handling ensures that PRIMARY KEY indexes are preserved in preference to
 - PRIMARY KEY constraints receive special treatment and are always kept in the final index list
 - Generated IndexStmt nodes are appended to the context's action list (cxt->alist) for later execution
 - Supports both CREATE TABLE and ALTER TABLE scenarios through the same logic
+
+## Simplified Source
+
+```c
+static void transformIndexConstraints(CreateStmtContext *cxt) {
+    IndexStmt *index;
+    List *indexlist = NIL;
+    List *finalindexlist = NIL;
+
+    // Transform each constraint into an IndexStmt
+    foreach(lc, cxt->ixconstraints) {
+        Constraint *constraint = lfirst_node(Constraint, lc);
+
+        Assert(constraint->contype == CONSTR_PRIMARY ||
+               constraint->contype == CONSTR_UNIQUE ||
+               constraint->contype == CONSTR_EXCLUSION);
+
+        index = transformIndexConstraint(constraint, cxt);
+        indexlist = lappend(indexlist, index);
+    }
+
+    // Remove redundant index specifications
+    if (cxt->pkey != NULL) {
+        // Keep PRIMARY KEY index in preference to others
+        finalindexlist = list_make1(cxt->pkey);
+    }
+
+    foreach(lc, indexlist) {
+        bool keep = true;
+        index = lfirst(lc);
+
+        // Skip if it's already the primary key
+        if (index == cxt->pkey)
+            continue;
+
+        // Check for duplicates with existing indexes
+        foreach(k, finalindexlist) {
+            IndexStmt *priorindex = lfirst(k);
+
+            if (equal(index->indexParams, priorindex->indexParams) &&
+                equal(index->indexIncludingParams, priorindex->indexIncludingParams) &&
+                equal(index->whereClause, priorindex->whereClause) &&
+                equal(index->excludeOpNames, priorindex->excludeOpNames) &&
+                strcmp(index->accessMethod, priorindex->accessMethod) == 0 &&
+                index->nulls_not_distinct == priorindex->nulls_not_distinct &&
+                index->deferrable == priorindex->deferrable &&
+                index->initdeferred == priorindex->initdeferred) {
+
+                // Merge properties and transfer name if needed
+                priorindex->unique |= index->unique;
+                if (priorindex->idxname == NULL)
+                    priorindex->idxname = index->idxname;
+                keep = false;
+                break;
+            }
+        }
+
+        if (keep)
+            finalindexlist = lappend(finalindexlist, index);
+    }
+
+    // Add all IndexStmts to the action list
+    cxt->alist = list_concat(cxt->alist, finalindexlist);
+}
+```

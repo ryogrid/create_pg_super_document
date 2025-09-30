@@ -31,3 +31,11 @@ The special handling of `nextval()` is important in COPY contexts because sequen
 - The special treatment of nextval() reflects different semantic requirements in COPY contexts
 - Returns a boolean indicating whether volatile functions (other than nextval) are present
 - Part of the specialized volatility checking infrastructure for bulk operations
+
+## Simplified Source
+```c
+bool contain_volatile_functions_not_nextval(Node *clause) {
+    // Delegate to walker function that ignores nextval() but checks other volatile functions
+    return contain_volatile_functions_not_nextval_walker(clause, NULL);
+}
+```

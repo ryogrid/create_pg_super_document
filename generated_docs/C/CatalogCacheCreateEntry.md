@@ -52,3 +52,91 @@ The function includes sophisticated handling of concurrent invalidations through
 - Memory allocated in CacheMemoryContext for persistence across transactions
 - Handles both by-value and by-reference key types correctly
 - Part of PostgreSQL's catalog cache invalidation and consistency mechanism
+
+## Simplified Source
+
+```c
+static CatCTup * CatalogCacheCreateEntry(CatCache *cache, HeapTuple ntp, Datum *arguments,
+                                       uint32 hashValue, Index hashIndex) {
+    CatCTup *ct;
+    MemoryContext oldcxt;
+
+    if (ntp) {
+        // Creating positive cache entry from tuple
+        HeapTuple dtp = ntp;
+
+        // Flatten TOAST values to prevent stale references
+        if (HeapTupleHasExternal(ntp)) {
+            // Set up invalidation tracking during TOAST access
+            CatCInProgress in_progress_ent;
+            in_progress_ent.cache = cache;
+            in_progress_ent.hash_value = hashValue;
+            in_progress_ent.dead = false;
+
+            dtp = toast_flatten_tuple(ntp, cache->cc_tupdesc);
+
+            // Check if entry became invalid during TOAST access
+            if (in_progress_ent.dead) {
+                heap_freetuple(dtp);
+                return NULL;  // Caller must retry
+            }
+        }
+
+        // Allocate CatCTup and tuple data in one block
+        oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+        ct = (CatCTup *) palloc(sizeof(CatCTup) + MAXIMUM_ALIGNOF + dtp->t_len);
+
+        // Copy tuple structure and data
+        ct->tuple.t_len = dtp->t_len;
+        ct->tuple.t_self = dtp->t_self;
+        ct->tuple.t_tableOid = dtp->t_tableOid;
+        ct->tuple.t_data = (HeapTupleHeader) MAXALIGN(((char *) ct) + sizeof(CatCTup));
+        memcpy((char *) ct->tuple.t_data, (const char *) dtp->t_data, dtp->t_len);
+
+        MemoryContextSwitchTo(oldcxt);
+
+        if (dtp != ntp) {
+            heap_freetuple(dtp);
+        }
+
+        // Extract cache keys from tuple
+        for (int i = 0; i < cache->cc_nkeys; i++) {
+            bool isnull;
+            Datum atp = heap_getattr(&ct->tuple, cache->cc_keyno[i],
+                                   cache->cc_tupdesc, &isnull);
+            Assert(!isnull);
+            ct->keys[i] = atp;
+        }
+    } else {
+        // Creating negative cache entry with provided keys
+        oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+        ct = (CatCTup *) palloc(sizeof(CatCTup));
+
+        // Copy cache keys for negative entry
+        CatCacheCopyKeys(cache->cc_tupdesc, cache->cc_nkeys, cache->cc_keyno,
+                        arguments, ct->keys);
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Initialize CatCTup header and add to cache
+    ct->ct_magic = CT_MAGIC;
+    ct->my_cache = cache;
+    ct->c_list = NULL;
+    ct->refcount = 0;
+    ct->dead = false;
+    ct->negative = (ntp == NULL);
+    ct->hash_value = hashValue;
+
+    // Add to hash bucket and update counters
+    dlist_push_head(&cache->cc_bucket[hashIndex], &ct->cache_elem);
+    cache->cc_ntup++;
+    CacheHdr->ch_ntup++;
+
+    // Expand hash table if too full (load factor > 2)
+    if (cache->cc_ntup > cache->cc_nbuckets * 2) {
+        RehashCatCache(cache);
+    }
+
+    return ct;
+}
+```

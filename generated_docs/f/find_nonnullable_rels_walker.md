@@ -57,3 +57,86 @@ Key analysis patterns include:
 - Critical component of PostgreSQL's outer join elimination and optimization infrastructure
 - Uses conservative analysis - safe to miss some nonnullable relations but must never incorrectly identify them
 - Located in src/backend/optimizer/util/clauses.c:1462-1706
+
+## Simplified Source
+
+```c
+static Relids
+find_nonnullable_rels_walker(Node *node, bool top_level)
+{
+    Relids result = NULL;
+    ListCell *l;
+
+    if (node == NULL)
+        return NULL;
+
+    // Variable nodes: add relation to result if current level
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+        if (var->varlevelsup == 0)
+            result = bms_make_singleton(var->varno);
+    }
+    // Lists: union semantics - combine results from all arms
+    else if (IsA(node, List))
+    {
+        foreach(l, (List *) node)
+        {
+            result = bms_join(result,
+                            find_nonnullable_rels_walker(lfirst(l), top_level));
+        }
+    }
+    // Strict functions: if function is strict, arguments are nonnullable
+    else if (IsA(node, FuncExpr))
+    {
+        FuncExpr *expr = (FuncExpr *) node;
+        if (func_strict(expr->funcid))
+            result = find_nonnullable_rels_walker((Node *) expr->args, false);
+    }
+    // Boolean expressions: complex AND/OR logic
+    else if (IsA(node, BoolExpr))
+    {
+        BoolExpr *expr = (BoolExpr *) node;
+        switch (expr->boolop)
+        {
+            case AND_EXPR:
+                if (top_level)
+                {
+                    // At top level: union of arms
+                    result = find_nonnullable_rels_walker((Node *) expr->args, top_level);
+                    break;
+                }
+                // Fall through to OR logic below top level
+            case OR_EXPR:
+                // Intersection of all arms
+                foreach(l, expr->args)
+                {
+                    Relids subresult = find_nonnullable_rels_walker(lfirst(l), top_level);
+                    if (result == NULL)
+                        result = subresult;
+                    else
+                        result = bms_int_members(result, subresult);
+
+                    if (bms_is_empty(result))
+                        break;
+                }
+                break;
+            case NOT_EXPR:
+                result = find_nonnullable_rels_walker((Node *) expr->args, false);
+                break;
+        }
+    }
+    // PlaceHolderVars: inherit from expression, add singleton phrels
+    else if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+        result = find_nonnullable_rels_walker((Node *) phv->phexpr, top_level);
+
+        if (phv->phlevelsup == 0 && bms_membership(phv->phrels) == BMS_SINGLETON)
+            result = bms_add_members(result, phv->phrels);
+    }
+    // [Additional node types handling omitted for brevity]
+
+    return result;
+}
+```

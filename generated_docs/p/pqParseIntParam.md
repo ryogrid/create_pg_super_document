@@ -41,3 +41,44 @@ This function safely converts a string representation to an integer value with c
 - Sets errno to 0 before parsing to detect strtol() errors
 - Provides descriptive error messages including the invalid value and parameter name
 - Used extensively throughout libpq for parsing integer connection options
+
+## Simplified Source
+
+```c
+bool
+pqParseIntParam(const char *value, int *result, PGconn *conn, const char *context)
+{
+    Assert(value != NULL);
+    *result = 0;
+
+    // Parse string to long, skipping leading whitespace
+    errno = 0;
+    char *end;
+    long numval = strtol(value, &end, 10);
+
+    // Check for parsing errors or overflow
+    if (value == end || errno != 0 || numval != (int) numval) {
+        goto error; // No progress, error, or overflow
+    }
+
+    // Skip trailing whitespace
+    while (*end != '\0' && isspace((unsigned char) *end)) {
+        end++;
+    }
+
+    // Ensure string ends properly (no trailing garbage)
+    if (*end != '\0') {
+        goto error;
+    }
+
+    // Success: store result and return
+    *result = numval;
+    return true;
+
+error:
+    libpq_append_conn_error(conn,
+        "invalid integer value \"%s\" for connection option \"%s\"",
+        value, context);
+    return false;
+}
+```

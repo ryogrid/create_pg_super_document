@@ -52,3 +52,58 @@ The function handles the complex interaction between PostgreSQL's parser infrast
 - Each relation gets its own ParseState to ensure proper namespace isolation
 - The transformed WHERE clauses are stored back in the PublicationRelInfo structures for later use
 - Error messages provide specific context about publication WHERE clause restrictions
+
+## Simplified Source
+
+```c
+static void TransformPubWhereClauses(List *tables, const char *queryString, bool pubviaroot)
+{
+    ListCell *lc;
+
+    foreach(lc, tables) {
+        ParseNamespaceItem *nsitem;
+        Node *whereclause = NULL;
+        ParseState *pstate;
+        PublicationRelInfo *pri = (PublicationRelInfo *) lfirst(lc);
+
+        if (pri->whereClause == NULL) {
+            continue;
+        }
+
+        // Restrict WHERE clauses on partitioned tables when not publishing via root
+        if (!pubviaroot && pri->relation->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("cannot use publication WHERE clause for relation \"%s\"",
+                            RelationGetRelationName(pri->relation)),
+                     errdetail("WHERE clause cannot be used for a partitioned table when %s is false.",
+                               "publish_via_partition_root")));
+        }
+
+        // Create fresh parse state with only this relation in range table
+        pstate = make_parsestate(NULL);
+        pstate->p_sourcetext = queryString;
+        nsitem = addRangeTableEntryForRelation(pstate, pri->relation,
+                                               AccessShareLock, NULL,
+                                               false, false);
+        addNSItemToQuery(pstate, nsitem, false, true, true);
+
+        // Transform WHERE clause to boolean expression
+        whereclause = transformWhereClause(pstate,
+                                           copyObject(pri->whereClause),
+                                           EXPR_KIND_WHERE,
+                                           "PUBLICATION WHERE");
+
+        // Assign proper collation information
+        assign_expr_collations(pstate, whereclause);
+
+        // Validate the expression meets publication requirements
+        check_simple_rowfilter_expr(whereclause, pstate);
+
+        free_parsestate(pstate);
+
+        // Store transformed clause back in structure
+        pri->whereClause = whereclause;
+    }
+}
+```

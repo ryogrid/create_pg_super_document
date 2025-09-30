@@ -44,3 +44,43 @@ The function navigates up the planner hierarchy to find the query level where th
 - Type information (aggtype, aggcollid) is copied directly from the Aggref
 - Location information is preserved for error reporting purposes
 - This function is declared in optimizer/paramassign.h and is part of the public interface for parameter assignment
+
+## Simplified Source
+
+```c
+Param *replace_outer_agg(PlannerInfo *root, Aggref *agg) {
+    Param *retval;
+    PlannerParamItem *pitem;
+    Index levelsup;
+
+    // Validate that this is an outer aggregate reference
+    Assert(agg->agglevelsup > 0 && agg->agglevelsup < root->query_level);
+
+    // Navigate up to the query level where this aggregate belongs
+    for (levelsup = agg->agglevelsup; levelsup > 0; levelsup--)
+        root = root->parent_root;
+
+    // Create a copy and adjust level references
+    agg = copyObject(agg);
+    IncrementVarSublevelsUp((Node *) agg, -((int) agg->agglevelsup), 0);
+    Assert(agg->agglevelsup == 0);
+
+    // Create parameter item to track this aggregate
+    pitem = makeNode(PlannerParamItem);
+    pitem->item = (Node *) agg;
+    pitem->paramId = list_length(root->glob->paramExecTypes);
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes, agg->aggtype);
+    root->plan_params = lappend(root->plan_params, pitem);
+
+    // Create the parameter node to replace the aggregate
+    retval = makeNode(Param);
+    retval->paramkind = PARAM_EXEC;
+    retval->paramid = pitem->paramId;
+    retval->paramtype = agg->aggtype;
+    retval->paramtypmod = -1;
+    retval->paramcollid = agg->aggcollid;
+    retval->location = agg->location;
+
+    return retval;
+}
+```

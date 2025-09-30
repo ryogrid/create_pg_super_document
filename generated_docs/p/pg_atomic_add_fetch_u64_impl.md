@@ -37,3 +37,14 @@ The implementation follows the pattern: new_value = fetch_add(ptr, add_) + add_,
 - Thread-safe operation guaranteed by the underlying atomic fetch-add implementation
 - The implementation ensures that the addition and result calculation appear atomic to other threads
 - Part of PostgreSQL's portable atomic operations framework for cross-platform compatibility
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_add_fetch_u64_impl(volatile pg_atomic_uint64 *ptr, int64 add_)
+{
+    // Use fetch-add and add the increment to get new value
+    return pg_atomic_fetch_add_u64_impl(ptr, add_) + add_;
+}
+```

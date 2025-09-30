@@ -38,3 +38,14 @@ The function calculates the total length including the null terminator using str
 - Part of the libpq client library's protocol message construction utilities
 - Commonly used when building PostgreSQL wire protocol messages that require string parameters
 - The function handles the common case where you want to send a complete C string including its terminator
+
+## Simplified Source
+```c
+int pqPuts(const char *s, PGconn *conn) {
+    // Write string including null terminator
+    if (pqPutMsgBytes(s, strlen(s) + 1, conn))
+        return EOF;
+
+    return 0;
+}
+```

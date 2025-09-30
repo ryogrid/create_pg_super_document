@@ -45,3 +45,73 @@ The function manages dynamic arrays that track all initialized partitions, growi
 
 ## Notes and Other Information
 This is a static helper function that handles the common routing setup tasks needed when a partition is first accessed. It optimizes memory usage by only creating partition-specific tuple slots when tuple format conversion is actually required. The function supports foreign table partitions by invoking appropriate FDW callbacks for initialization and batch size determination. The dynamic array management uses an exponential growth strategy (doubling) to efficiently handle workloads with varying numbers of accessed partitions. The function operates within the partition routing memory context to ensure proper memory lifecycle management.
+
+## Simplified Source
+
+```c
+static void
+ExecInitRoutingInfo(ModifyTableState *mtstate,
+                    EState *estate,
+                    PartitionTupleRouting *proute,
+                    PartitionDispatch dispatch,
+                    ResultRelInfo *partRelInfo,
+                    int partidx,
+                    bool is_borrowed_rel)
+{
+    MemoryContext oldcxt;
+    int           rri_index;
+
+    oldcxt = MemoryContextSwitchTo(proute->memcxt);
+
+    // Set up tuple conversion if partition has different rowtype from root
+    if (ExecGetRootToChildMap(partRelInfo, estate) != NULL) {
+        Relation partrel = partRelInfo->ri_RelationDesc;
+        partRelInfo->ri_PartitionTupleSlot =
+            table_slot_create(partrel, &estate->es_tupleTable);
+    } else {
+        partRelInfo->ri_PartitionTupleSlot = NULL;
+    }
+
+    // Initialize FDW for foreign table partitions
+    if (partRelInfo->ri_FdwRoutine != NULL &&
+        partRelInfo->ri_FdwRoutine->BeginForeignInsert != NULL)
+        partRelInfo->ri_FdwRoutine->BeginForeignInsert(mtstate, partRelInfo);
+
+    // Determine batch size for FDW batch insertion
+    if (partRelInfo->ri_FdwRoutine != NULL &&
+        partRelInfo->ri_FdwRoutine->GetForeignModifyBatchSize &&
+        partRelInfo->ri_FdwRoutine->ExecForeignBatchInsert)
+        partRelInfo->ri_BatchSize =
+            partRelInfo->ri_FdwRoutine->GetForeignModifyBatchSize(partRelInfo);
+    else
+        partRelInfo->ri_BatchSize = 1;
+
+    partRelInfo->ri_CopyMultiInsertBuffer = NULL;
+
+    // Add partition to routing arrays, growing them if needed
+    rri_index = proute->num_partitions++;
+
+    if (proute->num_partitions >= proute->max_partitions) {
+        if (proute->max_partitions == 0) {
+            proute->max_partitions = 8;
+            proute->partitions = (ResultRelInfo **)
+                palloc(sizeof(ResultRelInfo *) * proute->max_partitions);
+            proute->is_borrowed_rel = (bool *)
+                palloc(sizeof(bool) * proute->max_partitions);
+        } else {
+            proute->max_partitions *= 2;
+            proute->partitions = (ResultRelInfo **)
+                repalloc(proute->partitions, sizeof(ResultRelInfo *) * proute->max_partitions);
+            proute->is_borrowed_rel = (bool *)
+                repalloc(proute->is_borrowed_rel, sizeof(bool) * proute->max_partitions);
+        }
+    }
+
+    // Store partition info and establish dispatch mapping
+    proute->partitions[rri_index] = partRelInfo;
+    proute->is_borrowed_rel[rri_index] = is_borrowed_rel;
+    dispatch->indexes[partidx] = rri_index;
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

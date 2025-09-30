@@ -40,3 +40,35 @@ This function works in conjunction with `pqPutMsgEnd` to implement a message con
 - Critical component of the libpq message construction protocol
 - Must be paired with pqPutMsgEnd to complete message construction
 - Used extensively throughout libpq for constructing all types of client-to-server messages
+
+## Simplified Source
+```c
+int pqPutMsgStart(char msg_type, PGconn *conn) {
+    int lenPos;
+    int endPos;
+
+    // Reserve space for message type byte if needed
+    if (msg_type)
+        endPos = conn->outCount + 1;
+    else
+        endPos = conn->outCount;
+
+    // Reserve space for 4-byte length field
+    lenPos = endPos;
+    endPos += 4;
+
+    // Ensure buffer has space for header
+    if (pqCheckOutBufferSpace(endPos, conn))
+        return EOF;
+
+    // Store message type byte if provided
+    if (msg_type)
+        conn->outBuffer[conn->outCount] = msg_type;
+
+    // Set up message tracking pointers
+    conn->outMsgStart = lenPos;
+    conn->outMsgEnd = endPos;
+
+    return 0;
+}
+```

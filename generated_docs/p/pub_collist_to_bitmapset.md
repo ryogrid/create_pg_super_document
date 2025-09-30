@@ -47,3 +47,34 @@ The input Datum represents an int16 array stored in the catalog (typically from 
 - The function assumes the input Datum is a valid array - no validation is performed on the array format
 - Returns either a new Bitmapset or the modified existing one depending on the columns parameter
 - Location: src/backend/catalog/pg_publication.c:570-605
+
+## Simplified Source
+
+```c
+Bitmapset *pub_collist_to_bitmapset(Bitmapset *columns, Datum pubcols, MemoryContext mcxt) {
+    Bitmapset *result = columns;  // Use existing bitmap or start with NULL
+    ArrayType *arr;
+    int nelems;
+    int16 *elems;
+    MemoryContext oldcxt = NULL;
+
+    // Extract array data from catalog Datum
+    arr = DatumGetArrayTypeP(pubcols);
+    nelems = ARR_DIMS(arr)[0];
+    elems = (int16 *) ARR_DATA_PTR(arr);
+
+    // Switch to specified memory context if provided
+    if (mcxt)
+        oldcxt = MemoryContextSwitchTo(mcxt);
+
+    // Add each column number to the bitmapset
+    for (int i = 0; i < nelems; i++)
+        result = bms_add_member(result, elems[i]);
+
+    // Restore original memory context
+    if (mcxt)
+        MemoryContextSwitchTo(oldcxt);
+
+    return result;
+}
+```

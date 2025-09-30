@@ -42,3 +42,38 @@ This function performs the actual work of constructing a JSON array from Postgre
 - This is a worker function that handles the core logic for JSON array construction
 - Located in src/backend/utils/adt/json.c:1335-1364
 - Used both by SQL functions and internal PostgreSQL expression evaluation
+
+## Simplified Source
+
+```c
+Datum
+json_build_array_worker(int nargs, const Datum *args, const bool *nulls,
+                        const Oid *types, bool absent_on_null)
+{
+    StringInfo result = makeStringInfo();
+    const char *sep = "";
+
+    // Start JSON array
+    appendStringInfoChar(result, '[');
+
+    // Process each argument
+    for (int i = 0; i < nargs; i++) {
+        // Skip null values if absent_on_null is enabled
+        if (absent_on_null && nulls[i])
+            continue;
+
+        // Add separator between elements
+        appendStringInfoString(result, sep);
+        sep = ", ";
+
+        // Convert argument to JSON and append
+        add_json(args[i], nulls[i], result, types[i], false);
+    }
+
+    // Close JSON array
+    appendStringInfoChar(result, ']');
+
+    // Return as PostgreSQL text datum
+    return PointerGetDatum(cstring_to_text_with_len(result->data, result->len));
+}
+```

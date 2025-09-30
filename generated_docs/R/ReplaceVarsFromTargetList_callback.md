@@ -56,3 +56,77 @@ This callback function implements the core logic for replacing variables with ex
 - Prevents semantic issues with multiple assignment parameters in ON UPDATE rules
 - Recursive calls to replace_rte_variables_mutator ensure proper processing of expanded fields
 - Careful sublevel adjustment maintains proper variable scoping across query levels
+
+## Simplified Source
+
+```c
+static Node *
+ReplaceVarsFromTargetList_callback(Var *var,
+                                   replace_rte_variables_context *context)
+{
+    ReplaceVarsFromTargetList_context *rcon =
+        (ReplaceVarsFromTargetList_context *) context->callback_arg;
+
+    // Handle whole-tuple references (SELECT *)
+    if (var->varattno == InvalidAttrNumber) {
+        RowExpr *rowexpr;
+        List *colnames;
+        List *fields;
+
+        // Expand relation into individual column references
+        expandRTE(rcon->target_rte,
+                  var->varno, var->varlevelsup, var->location,
+                  (var->vartype != RECORDOID),
+                  &colnames, &fields);
+
+        // Apply replacements to the expanded fields
+        fields = (List *) replace_rte_variables_mutator((Node *) fields, context);
+
+        // Build RowExpr to represent the tuple
+        rowexpr = makeNode(RowExpr);
+        rowexpr->args = fields;
+        rowexpr->row_typeid = var->vartype;
+        rowexpr->row_format = COERCE_IMPLICIT_CAST;
+        rowexpr->colnames = (var->vartype == RECORDOID) ? colnames : NIL;
+        rowexpr->location = var->location;
+
+        return (Node *) rowexpr;
+    }
+
+    // Normal case - lookup specific column in target list
+    TargetEntry *tle = get_tle_by_resno(rcon->targetlist, var->varattno);
+
+    if (tle == NULL || tle->resjunk) {
+        // Handle column not found based on policy
+        switch (rcon->nomatch_option) {
+            case REPLACEVARS_CHANGE_VARNO:
+                var = (Var *) copyObject(var);
+                var->varno = rcon->nomatch_varno;
+                return (Node *) var;
+
+            case REPLACEVARS_SUBSTITUTE_NULL:
+                // Create typed NULL with domain constraints
+                return coerce_null_to_domain(var->vartype, var->vartypmod,
+                                           var->varcollid, -1, false);
+
+            default:
+                elog(ERROR, "could not find replacement targetlist entry for attno %d",
+                     var->varattno);
+        }
+    }
+
+    // Found target entry - make a copy and adjust levels
+    Expr *newnode = copyObject(tle->expr);
+
+    if (var->varlevelsup > 0)
+        IncrementVarSublevelsUp((Node *) newnode, var->varlevelsup, 0);
+
+    // Check for unsupported multi-assignment parameters
+    if (contains_multiexpr_param((Node *) newnode, NULL))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("NEW variables in ON UPDATE rules cannot reference "
+                             "columns that are part of a multiple assignment")));
+
+    return (Node *) newnode;
+}
+```

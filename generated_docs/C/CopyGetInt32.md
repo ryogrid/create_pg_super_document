@@ -30,3 +30,21 @@ CopyGetInt32 is a utility function for reading 32-bit integers from binary COPY 
 - Sets the output value to 0 on failure to suppress compiler warnings
 - Used primarily for reading length fields and other metadata in binary COPY format
 - The function is declared as static inline for performance optimization
+
+## Simplified Source
+
+```c
+static inline bool CopyGetInt32(CopyFromState cstate, int32 *val) {
+    uint32 buf;
+
+    // Read 4 bytes of binary data
+    if (CopyReadBinaryData(cstate, (char *) &buf, sizeof(buf)) != sizeof(buf)) {
+        *val = 0;  // Suppress compiler warning on failure
+        return false;
+    }
+
+    // Convert from network byte order to host byte order
+    *val = (int32) pg_ntoh32(buf);
+    return true;
+}
+```

@@ -36,3 +36,17 @@ This design allows the tape system to switch between different allocation strate
 - The function is part of the logical tape system's block management layer
 - Preallocation can improve performance by reducing fragmentation and allocation overhead
 - This abstraction allows the tape system to optimize for different usage patterns
+
+## Simplified Source
+
+```c
+static int64 ltsGetBlock(LogicalTapeSet *lts, LogicalTape *lt)
+{
+    // Choose allocation strategy based on preallocation setting
+    if (lts->enable_prealloc) {
+        return ltsGetPreallocBlock(lts, lt);
+    } else {
+        return ltsGetFreeBlock(lts);
+    }
+}
+```

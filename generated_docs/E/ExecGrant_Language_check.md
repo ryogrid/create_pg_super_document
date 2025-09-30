@@ -35,3 +35,25 @@ This function is called by ExecGrant_common during language privilege operations
 - Untrusted languages are restricted because they require superuser privileges by design
 - Provides specific error message explaining why untrusted languages cannot have privileges managed
 - Part of PostgreSQL's security model that separates trusted and untrusted procedural languages
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_Language_check(InternalGrant *istmt, HeapTuple tuple)
+{
+    Form_pg_language pg_language_tuple;
+
+    // Extract language information from catalog tuple
+    pg_language_tuple = (Form_pg_language) GETSTRUCT(tuple);
+
+    // Only trusted languages can have privileges granted/revoked
+    if (!pg_language_tuple->lanpltrusted)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("language \"%s\" is not trusted",
+                        NameStr(pg_language_tuple->lanname)),
+                 errdetail("GRANT and REVOKE are not allowed on untrusted languages, "
+                          "because only superusers can use untrusted languages.")));
+}
+```

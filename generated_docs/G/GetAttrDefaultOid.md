@@ -36,3 +36,44 @@ This function performs a lookup in the pg_attrdef system catalog to find the OID
 
 ## Notes and Other Information
 The function uses shared locking throughout the operation, making it safe for concurrent execution with other readers while ensuring consistency. It leverages the AttrDefaultIndexId index for efficient lookup performance rather than performing a full table scan. The function is designed as a simple query interface and does not perform any modifications to the catalog. The return of InvalidOid serves as a clear indication that no default exists, allowing callers to distinguish between existing defaults and missing defaults. This function is commonly used in DDL operations where the system needs to determine whether default handling is required for specific columns.
+
+## Simplified Source
+
+```c
+Oid
+GetAttrDefaultOid(Oid relid, AttrNumber attnum)
+{
+    Oid result = InvalidOid;
+    Relation attrdef;
+    ScanKeyData keys[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open pg_attrdef catalog
+    attrdef = table_open(AttrDefaultRelationId, AccessShareLock);
+
+    // Setup scan keys for relation ID and attribute number
+    ScanKeyInit(&keys[0], Anum_pg_attrdef_adrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+    ScanKeyInit(&keys[1], Anum_pg_attrdef_adnum,
+                BTEqualStrategyNumber, F_INT2EQ,
+                Int16GetDatum(attnum));
+
+    // Begin indexed scan
+    scan = systable_beginscan(attrdef, AttrDefaultIndexId, true,
+                             NULL, 2, keys);
+
+    // Get matching tuple and extract OID
+    if (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_attrdef atdform = (Form_pg_attrdef) GETSTRUCT(tup);
+        result = atdform->oid;
+    }
+
+    systable_endscan(scan);
+    table_close(attrdef, AccessShareLock);
+
+    return result;
+}
+```

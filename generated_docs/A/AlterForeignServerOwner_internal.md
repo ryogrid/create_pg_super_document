@@ -44,3 +44,61 @@ This internal function handles the core logic for changing the ownership of a fo
 - Handles ACL updates only when existing ACL is non-null
 - Uses standard PostgreSQL catalog update patterns with tuple modification
 - Triggers post-alter hooks for proper event notification
+
+## Simplified Source
+
+```c
+static void AlterForeignServerOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId) {
+    Form_pg_foreign_server form = (Form_pg_foreign_server) GETSTRUCT(tup);
+
+    // Only proceed if owner actually changes
+    if (form->srvowner != newOwnerId) {
+        // Superusers can always change ownership
+        if (!superuser()) {
+            // Non-superusers must own the server
+            if (!object_ownercheck(ForeignServerRelationId, form->oid, GetUserId()))
+                aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_FOREIGN_SERVER, NameStr(form->srvname));
+
+            // Must be able to become new owner
+            check_can_set_role(GetUserId(), newOwnerId);
+
+            // New owner must have USAGE privilege on the FDW
+            AclResult aclresult = object_aclcheck(ForeignDataWrapperRelationId, form->srvfdw,
+                                                 newOwnerId, ACL_USAGE);
+            if (aclresult != ACLCHECK_OK) {
+                ForeignDataWrapper *fdw = GetForeignDataWrapper(form->srvfdw);
+                aclcheck_error(aclresult, OBJECT_FDW, fdw->fdwname);
+            }
+        }
+
+        // Prepare tuple update arrays
+        Datum repl_val[Natts_pg_foreign_server];
+        bool repl_null[Natts_pg_foreign_server];
+        bool repl_repl[Natts_pg_foreign_server];
+
+        memset(repl_null, false, sizeof(repl_null));
+        memset(repl_repl, false, sizeof(repl_repl));
+
+        // Update owner field
+        repl_repl[Anum_pg_foreign_server_srvowner - 1] = true;
+        repl_val[Anum_pg_foreign_server_srvowner - 1] = ObjectIdGetDatum(newOwnerId);
+
+        // Update ACL if it exists
+        Datum aclDatum = heap_getattr(tup, Anum_pg_foreign_server_srvacl,
+                                     RelationGetDescr(rel), &isNull);
+        if (!isNull) {
+            Acl *newAcl = aclnewowner(DatumGetAclP(aclDatum), form->srvowner, newOwnerId);
+            repl_repl[Anum_pg_foreign_server_srvacl - 1] = true;
+            repl_val[Anum_pg_foreign_server_srvacl - 1] = PointerGetDatum(newAcl);
+        }
+
+        // Update catalog and dependencies
+        tup = heap_modify_tuple(tup, RelationGetDescr(rel), repl_val, repl_null, repl_repl);
+        CatalogTupleUpdate(rel, &tup->t_self, tup);
+        changeDependencyOnOwner(ForeignServerRelationId, form->oid, newOwnerId);
+    }
+
+    // Notify other subsystems
+    InvokeObjectPostAlterHook(ForeignServerRelationId, form->oid, 0);
+}
+```

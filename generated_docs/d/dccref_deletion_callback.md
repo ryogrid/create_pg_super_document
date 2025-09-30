@@ -42,3 +42,19 @@ The "paranoia" check ensures that the function is safe to call multiple times or
 - Ensures that DomainConstraintCache reference counts remain accurate even when contexts are destroyed unexpectedly
 - Critical for preventing memory leaks and maintaining referential integrity in PostgreSQL's constraint caching system
 - Works in conjunction with the reference counting system implemented by decr_dcc_refcount()
+
+## Simplified Source
+
+```c
+static void dccref_deletion_callback(void *arg) {
+    DomainConstraintRef *ref = (DomainConstraintRef *) arg;
+    DomainConstraintCache *dcc = ref->dcc;
+
+    // Safe cleanup: null references before releasing cache
+    if (dcc) {
+        ref->constraints = NIL;
+        ref->dcc = NULL;
+        decr_dcc_refcount(dcc);
+    }
+}
+```

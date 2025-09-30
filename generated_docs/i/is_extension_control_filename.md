@@ -31,3 +31,19 @@ The function is part of PostgreSQL's extension management infrastructure and ser
 - The function performs case-sensitive comparison, so ".CONTROL" would not be recognized
 - Returns true only if the filename ends exactly with ".control"
 - Used primarily during extension discovery operations when scanning extension directories
+
+## Simplified Source
+
+```c
+static bool
+is_extension_control_filename(const char *filename)
+{
+    const char *extension;
+
+    // Find the last dot in filename
+    extension = strrchr(filename, '.');
+
+    // Check if it ends with ".control"
+    return (extension != NULL) && (strcmp(extension, ".control") == 0);
+}
+```

@@ -52,3 +52,74 @@ The function does not perform any interpretation of polymorphic types - it simpl
 - The p_argtypes array is always populated, while p_argnames and p_argmodes may be NULL
 - Essential for introspection of function signatures by various PostgreSQL subsystems
 - Used extensively by procedural language handlers and system utilities for function analysis
+
+## Simplified Source
+
+```c
+int get_func_arg_info(HeapTuple procTup,
+                      Oid **p_argtypes, char ***p_argnames, char **p_argmodes) {
+    Form_pg_proc procStruct = (Form_pg_proc) GETSTRUCT(procTup);
+    int numargs;
+    bool isNull;
+
+    // Get argument types - check proallargtypes first, then proargtypes
+    Datum proallargtypes = SysCacheGetAttr(PROCOID, procTup,
+                                         Anum_pg_proc_proallargtypes, &isNull);
+    if (!isNull) {
+        // Use extended argument types (includes OUT parameters)
+        ArrayType *arr = DatumGetArrayTypeP(proallargtypes);
+        numargs = ARR_DIMS(arr)[0];
+
+        // Validate array structure
+        if (ARR_NDIM(arr) != 1 || numargs < 0 || ARR_HASNULL(arr) ||
+            ARR_ELEMTYPE(arr) != OIDOID) {
+            elog(ERROR, "proallargtypes is not a 1-D Oid array or it contains nulls");
+        }
+
+        *p_argtypes = (Oid *) palloc(numargs * sizeof(Oid));
+        memcpy(*p_argtypes, ARR_DATA_PTR(arr), numargs * sizeof(Oid));
+    } else {
+        // Use basic argument types (IN parameters only)
+        numargs = procStruct->proargtypes.dim1;
+        *p_argtypes = (Oid *) palloc(numargs * sizeof(Oid));
+        memcpy(*p_argtypes, procStruct->proargtypes.values, numargs * sizeof(Oid));
+    }
+
+    // Get argument names if available
+    Datum proargnames = SysCacheGetAttr(PROCOID, procTup,
+                                      Anum_pg_proc_proargnames, &isNull);
+    if (isNull) {
+        *p_argnames = NULL;
+    } else {
+        Datum *elems;
+        int nelems;
+        deconstruct_array_builtin(DatumGetArrayTypeP(proargnames), TEXTOID,
+                                &elems, NULL, &nelems);
+
+        *p_argnames = (char **) palloc(sizeof(char *) * numargs);
+        for (int i = 0; i < numargs; i++) {
+            (*p_argnames)[i] = TextDatumGetCString(elems[i]);
+        }
+    }
+
+    // Get argument modes if available
+    Datum proargmodes = SysCacheGetAttr(PROCOID, procTup,
+                                      Anum_pg_proc_proargmodes, &isNull);
+    if (isNull) {
+        *p_argmodes = NULL;
+    } else {
+        ArrayType *arr = DatumGetArrayTypeP(proargmodes);
+
+        // Validate modes array
+        if (ARR_NDIM(arr) != 1 || ARR_DIMS(arr)[0] != numargs ||
+            ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != CHAROID) {
+            elog(ERROR, "proargmodes is not a 1-D char array of length %d", numargs);
+        }
+
+        *p_argmodes = (char *) palloc(numargs * sizeof(char));
+        memcpy(*p_argmodes, ARR_DATA_PTR(arr), numargs * sizeof(char));
+    }
+
+    return numargs;
+}
+```

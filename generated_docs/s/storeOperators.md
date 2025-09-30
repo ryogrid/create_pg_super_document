@@ -63,3 +63,74 @@ This function persists operator family members to the pg_amop catalog table, whi
 - Part of the operator class/family storage and dependency management infrastructure
 - Invokes object creation hooks to notify other subsystems of new pg_amop entries
 - Uses typeDepNeeded helper to determine if type dependencies should be created
+
+## Simplified Source
+
+```c
+static void
+storeOperators(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+               List *operators, bool isAdd)
+{
+    Relation rel = table_open(AccessMethodOperatorRelationId, RowExclusiveLock);
+
+    foreach(ListCell *l, operators) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(l);
+
+        // Check for conflicts when adding to existing family
+        if (isAdd && SearchSysCacheExists4(AMOPSTRATEGY,
+                                          ObjectIdGetDatum(opfamilyoid),
+                                          ObjectIdGetDatum(op->lefttype),
+                                          ObjectIdGetDatum(op->righttype),
+                                          Int16GetDatum(op->number))) {
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                           errmsg("operator %d(%s,%s) already exists in operator family \"%s\"",
+                                  op->number, format_type_be(op->lefttype),
+                                  format_type_be(op->righttype),
+                                  NameListToString(opfamilyname))));
+        }
+
+        // Determine operator purpose: search or ordering
+        char oppurpose = OidIsValid(op->sortfamily) ? AMOP_ORDER : AMOP_SEARCH;
+
+        // Create pg_amop entry with all required fields
+        Oid entryoid = GetNewOidWithIndex(rel, AccessMethodOperatorOidIndexId, Anum_pg_amop_oid);
+        // ... populate values array and insert tuple ...
+        CatalogTupleInsert(rel, tup);
+
+        // Create dependency relationships
+        ObjectAddress myself = {AccessMethodOperatorRelationId, entryoid, 0};
+
+        // Operator dependency
+        recordDependencyOn(&myself,
+                          &(ObjectAddress){OperatorRelationId, op->object, 0},
+                          op->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+
+        // Class/family dependency
+        recordDependencyOn(&myself,
+                          &(ObjectAddress){op->ref_is_family ? OperatorFamilyRelationId : OperatorClassRelationId,
+                                          op->refobjid, 0},
+                          op->ref_is_hard ? DEPENDENCY_INTERNAL : DEPENDENCY_AUTO);
+
+        // Type dependencies (if needed)
+        if (typeDepNeeded(op->lefttype, op)) {
+            recordDependencyOn(&myself, &(ObjectAddress){TypeRelationId, op->lefttype, 0},
+                              op->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+        }
+
+        if (op->lefttype != op->righttype && typeDepNeeded(op->righttype, op)) {
+            recordDependencyOn(&myself, &(ObjectAddress){TypeRelationId, op->righttype, 0},
+                              op->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+        }
+
+        // Sort family dependency for ordering operators
+        if (OidIsValid(op->sortfamily)) {
+            recordDependencyOn(&myself, &(ObjectAddress){OperatorFamilyRelationId, op->sortfamily, 0},
+                              op->ref_is_hard ? DEPENDENCY_NORMAL : DEPENDENCY_AUTO);
+        }
+
+        InvokeObjectPostCreateHook(AccessMethodOperatorRelationId, entryoid, 0);
+    }
+
+    table_close(rel, RowExclusiveLock);
+}
+```

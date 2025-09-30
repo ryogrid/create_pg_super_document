@@ -61,3 +61,81 @@ The recursive behavior ensures that type hierarchies and table relationships mai
 - Manages initial privilege tracking through recordExtObjInitPriv/removeExtObjInitPriv
 - Prevents circular dependencies by checking if a schema being added contains the extension itself
 - For relations, also handles cleanup of extension configuration arrays (extconfig)
+
+## Simplified Source
+
+```c
+static void
+ExecAlterExtensionContentsRecurse(AlterExtensionContentsStmt *stmt,
+                                  ObjectAddress extension,
+                                  ObjectAddress object)
+{
+    Oid oldExtension;
+
+    // Check current extension membership
+    oldExtension = getExtensionOfObject(object.classId, object.objectId);
+
+    if (stmt->action > 0)
+    {
+        // ADD operation: verify object isn't already in another extension
+        if (OidIsValid(oldExtension))
+            ereport(ERROR, (errmsg("%s is already a member of extension \"%s\"",
+                                   getObjectDescription(&object, false),
+                                   get_extension_name(oldExtension))));
+
+        // Prevent circular dependency (schema containing extension)
+        if (object.classId == NamespaceRelationId &&
+            object.objectId == get_extension_schema(extension.objectId))
+            ereport(ERROR, (errmsg("cannot add schema to extension because schema contains the extension")));
+
+        // Add dependency and record initial privileges
+        recordDependencyOn(&object, &extension, DEPENDENCY_EXTENSION);
+        recordExtObjInitPriv(object.objectId, object.classId);
+    }
+    else
+    {
+        // DROP operation: verify object is member of this extension
+        if (oldExtension != extension.objectId)
+            ereport(ERROR, (errmsg("%s is not a member of extension \"%s\"",
+                                   getObjectDescription(&object, false),
+                                   stmt->extname)));
+
+        // Remove dependency and clean up
+        deleteDependencyRecordsForClass(object.classId, object.objectId,
+                                      ExtensionRelationId, DEPENDENCY_EXTENSION);
+
+        if (object.classId == RelationRelationId)
+            extension_config_remove(extension.objectId, object.objectId);
+
+        removeExtObjInitPriv(object.objectId, object.classId);
+    }
+
+    // Recursively handle dependent objects
+    if (object.classId == TypeRelationId)
+    {
+        ObjectAddress depobject = {TypeRelationId, 0, 0};
+
+        // Handle array type
+        depobject.objectId = get_array_type(object.objectId);
+        if (OidIsValid(depobject.objectId))
+            ExecAlterExtensionContentsRecurse(stmt, extension, depobject);
+
+        // Handle multirange type for range types
+        if (type_is_range(object.objectId))
+        {
+            depobject.objectId = get_range_multirange(object.objectId);
+            if (OidIsValid(depobject.objectId))
+                ExecAlterExtensionContentsRecurse(stmt, extension, depobject);
+        }
+    }
+
+    if (object.classId == RelationRelationId)
+    {
+        // Handle row type for relations
+        ObjectAddress depobject = {TypeRelationId, 0, 0};
+        depobject.objectId = get_rel_type_id(object.objectId);
+        if (OidIsValid(depobject.objectId))
+            ExecAlterExtensionContentsRecurse(stmt, extension, depobject);
+    }
+}
+```

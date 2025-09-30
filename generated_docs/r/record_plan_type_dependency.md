@@ -41,3 +41,23 @@ Currently, this function is primarily used by eval_const_expressions when it rem
 - Particularly important for domain types where constraints and definitions can change
 - Part of the comprehensive plan invalidation system that ensures cached plans remain consistent with database object definitions
 - Essential for maintaining correctness when domain definitions are altered after plans are cached
+
+## Simplified Source
+
+```c
+void record_plan_type_dependency(PlannerInfo *root, Oid typid) {
+    // Skip built-in types for performance (they never change)
+    if (typid >= (Oid) FirstUnpinnedObjectId) {
+        // Create plan invalidation item for this type
+        PlanInvalItem *inval_item = makeNode(PlanInvalItem);
+
+        // Use TYPEOID syscache to track the type dependency
+        inval_item->cacheId = TYPEOID;
+        inval_item->hashValue = GetSysCacheHashValue1(TYPEOID,
+                                                     ObjectIdGetDatum(typid));
+
+        // Add to global list of plan dependencies
+        root->glob->invalItems = lappend(root->glob->invalItems, inval_item);
+    }
+}
+```

@@ -39,3 +39,31 @@ A notable behavior is that this function ensures append_rel_array is allocated e
 - Includes assertion to ensure add_size is positive
 - Updates simple_rel_array_size to reflect the new capacity
 - Primarily used during inheritance expansion and partitioned table processing
+
+## Simplified Source
+
+```c
+void expand_planner_arrays(PlannerInfo *root, int add_size) {
+    int new_size;
+
+    new_size = root->simple_rel_array_size + add_size;
+
+    // Expand RelOptInfo array
+    root->simple_rel_array = repalloc0_array(root->simple_rel_array, RelOptInfo *,
+                                              root->simple_rel_array_size, new_size);
+
+    // Expand RTE array
+    root->simple_rte_array = repalloc0_array(root->simple_rte_array, RangeTblEntry *,
+                                              root->simple_rel_array_size, new_size);
+
+    // Handle append relation array
+    if (root->append_rel_array) {
+        root->append_rel_array = repalloc0_array(root->append_rel_array, AppendRelInfo *,
+                                                  root->simple_rel_array_size, new_size);
+    } else {
+        root->append_rel_array = palloc0_array(AppendRelInfo *, new_size);
+    }
+
+    root->simple_rel_array_size = new_size;
+}
+```

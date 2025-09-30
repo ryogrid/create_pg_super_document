@@ -44,3 +44,66 @@ PageIsVerifiedExtended performs comprehensive validation of a PostgreSQL page th
 - The ignore_checksum_failure global variable can override checksum validation failures
 - Returns true for valid pages (including all-zero pages), false for corrupted pages
 - Error reporting is configurable through the flags parameter for different use cases
+
+## Simplified Source
+
+```c
+bool
+PageIsVerifiedExtended(Page page, BlockNumber blkno, int flags)
+{
+    PageHeader p = (PageHeader) page;
+    bool checksum_failure = false;
+    bool header_sane = false;
+    bool all_zeroes = false;
+
+    // Skip verification for new (empty) pages
+    if (!PageIsNew(page)) {
+        // Verify checksum if enabled
+        if (DataChecksumsEnabled()) {
+            uint16 checksum = pg_checksum_page((char *) page, blkno);
+            if (checksum != p->pd_checksum)
+                checksum_failure = true;
+        }
+
+        // Basic header sanity checks
+        if ((p->pd_flags & ~PD_VALID_FLAG_BITS) == 0 &&
+            p->pd_lower <= p->pd_upper &&
+            p->pd_upper <= p->pd_special &&
+            p->pd_special <= BLCKSZ &&
+            p->pd_special == MAXALIGN(p->pd_special))
+            header_sane = true;
+
+        // Return early if page looks good
+        if (header_sane && !checksum_failure)
+            return true;
+    }
+
+    // Check if page is all zeros (valid after crashes)
+    size_t *pagebytes = (size_t *) page;
+    all_zeroes = true;
+    for (int i = 0; i < (BLCKSZ / sizeof(size_t)); i++) {
+        if (pagebytes[i] != 0) {
+            all_zeroes = false;
+            break;
+        }
+    }
+
+    if (all_zeroes)
+        return true;
+
+    // Handle checksum failures with optional reporting
+    if (checksum_failure) {
+        if (flags & PIV_LOG_WARNING)
+            ereport(WARNING, (errmsg("page verification failed")));
+
+        if (flags & PIV_REPORT_STAT)
+            pgstat_report_checksum_failure();
+
+        // Allow override for checksum failures with good headers
+        if (header_sane && ignore_checksum_failure)
+            return true;
+    }
+
+    return false;
+}
+```

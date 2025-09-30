@@ -36,3 +36,42 @@ The function implements a strategy pattern by choosing between hash-based execut
 - Validates parameter handling constraints for different sublink types
 - Returns a Datum value representing the subplan's execution result
 - The function is declared in nodeSubplan.h and is part of the executor's subplan handling infrastructure
+
+## Simplified Source
+
+```c
+Datum ExecSubPlan(SubPlanState *node, ExprContext *econtext, bool *isNull)
+{
+    SubPlan *subplan = node->subplan;
+    EState *estate = node->planstate->state;
+    ScanDirection dir = estate->es_direction;
+    Datum retval;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Initialize result as non-null
+    *isNull = false;
+
+    // Validate subplan type - CTE sublinks use different execution path
+    if (subplan->subLinkType == CTE_SUBLINK)
+        elog(ERROR, "CTE subplans should not be executed via ExecSubPlan");
+
+    // Validate parameter handling for sublink types
+    if (subplan->setParam != NIL && subplan->subLinkType != MULTIEXPR_SUBLINK)
+        elog(ERROR, "cannot set parent params from subquery");
+
+    // Force forward scan direction for consistent execution
+    estate->es_direction = ForwardScanDirection;
+
+    // Choose execution strategy based on subplan configuration
+    if (subplan->useHashTable)
+        retval = ExecHashSubPlan(node, econtext, isNull);
+    else
+        retval = ExecScanSubPlan(node, econtext, isNull);
+
+    // Restore original scan direction
+    estate->es_direction = dir;
+
+    return retval;
+}
+```

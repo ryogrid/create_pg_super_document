@@ -34,3 +34,15 @@ The implementation is optimized for performance, using a simple while loop that 
 - The function safely handles empty strings (str->len == 0)
 - The implementation uses pre-decrement of str->len to efficiently combine length adjustment with null termination
 - Location: src/backend/utils/adt/ruleutils.c:8840-8858
+
+## Simplified Source
+
+```c
+static void
+removeStringInfoSpaces(StringInfo str)
+{
+    // Remove trailing spaces by working backwards
+    while (str->len > 0 && str->data[str->len - 1] == ' ')
+        str->data[--(str->len)] = '\0';
+}
+```

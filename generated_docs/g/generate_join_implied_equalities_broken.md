@@ -47,3 +47,42 @@ For appendrel children (other relations), the function performs Var translation 
 - Critical for maintaining query correctness even when optimization fails
 - Part of PostgreSQL's robust fallback strategy for equivalence class management
 - Ensures that essential join conditions are not lost due to EC processing failures
+
+## Simplified Source
+
+```c
+static List *
+generate_join_implied_equalities_broken(PlannerInfo *root,
+                                       EquivalenceClass *ec,
+                                       Relids nominal_join_relids,
+                                       Relids outer_relids,
+                                       Relids nominal_inner_relids,
+                                       RelOptInfo *inner_rel)
+{
+    List *result = NIL;
+
+    // Scan through original source RestrictInfos in this EC
+    foreach(lc, ec->ec_sources) {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(lc);
+        Relids clause_relids = restrictinfo->required_relids;
+
+        // Filter: clause must be enforceable at this join level
+        // but not at either side alone
+        if (bms_is_subset(clause_relids, nominal_join_relids) &&
+            !bms_is_subset(clause_relids, outer_relids) &&
+            !bms_is_subset(clause_relids, nominal_inner_relids)) {
+            result = lappend(result, restrictinfo);
+        }
+    }
+
+    // Handle appendrel children: translate parent vars to child vars
+    if (IS_OTHER_REL(inner_rel) && result != NIL) {
+        result = (List *) adjust_appendrel_attrs_multilevel(root,
+                                                           (Node *) result,
+                                                           inner_rel,
+                                                           inner_rel->top_parent);
+    }
+
+    return result;
+}
+```

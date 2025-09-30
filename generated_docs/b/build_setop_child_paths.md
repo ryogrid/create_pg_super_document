@@ -68,3 +68,107 @@ The function is particularly intelligent about sorting: it always includes the c
 - The function always includes the cheapest path regardless of whether sorting is needed, ensuring efficient execution for operations that don't require sorted input
 - Size estimation must be completed before generating paths to ensure accurate costing by cost_subqueryscan
 - The group estimation logic accounts for whether the subquery already performed grouping/aggregation, using row count directly in such cases rather than statistical estimation
+
+## Simplified Source
+
+```c
+static void
+build_setop_child_paths(PlannerInfo *root, RelOptInfo *rel,
+                        bool trivial_tlist, List *child_tlist,
+                        List *interesting_pathkeys, double *pNumGroups)
+{
+    RelOptInfo *final_rel;
+    List       *setop_pathkeys = rel->subroot->setop_pathkeys;
+    ListCell   *lc;
+
+    Assert(rel->rtekind == RTE_SUBQUERY);
+
+    // Add equivalences for sorting when needed
+    if (interesting_pathkeys != NIL)
+        add_setop_child_rel_equivalences(root, rel, child_tlist, interesting_pathkeys);
+
+    // Set size estimates and parallel processing capability
+    set_subquery_size_estimates(root, rel);
+    final_rel = fetch_upper_rel(rel->subroot, UPPERREL_FINAL, NULL);
+    rel->consider_parallel = final_rel->consider_parallel;
+
+    // Generate subquery scan paths for each viable path
+    foreach(lc, final_rel->pathlist)
+    {
+        Path   *subpath = (Path *) lfirst(lc);
+        Path   *cheapest_input_path = final_rel->cheapest_total_path;
+        List   *pathkeys;
+        bool    is_sorted;
+        int     presorted_keys;
+
+        // Always include cheapest path for unsorted operations
+        if (subpath == cheapest_input_path)
+        {
+            pathkeys = convert_subquery_pathkeys(root, rel, subpath->pathkeys,
+                                                make_tlist_from_pathtarget(subpath->pathtarget));
+            add_path(rel, (Path *) create_subqueryscan_path(root, rel, subpath,
+                                                          trivial_tlist, pathkeys, NULL));
+        }
+
+        // Skip if no sorted paths needed
+        if (interesting_pathkeys == NIL)
+            continue;
+
+        // Check if path needs sorting for setop requirements
+        is_sorted = pathkeys_count_contained_in(setop_pathkeys, subpath->pathkeys, &presorted_keys);
+
+        if (!is_sorted)
+        {
+            // Skip non-cheapest paths that aren't partially sorted
+            if (subpath != cheapest_input_path &&
+                (presorted_keys == 0 || !enable_incremental_sort))
+                continue;
+
+            // Create sort or incremental sort path
+            if (presorted_keys == 0 || !enable_incremental_sort)
+                subpath = (Path *) create_sort_path(rel->subroot, final_rel, subpath,
+                                                   setop_pathkeys, rel->subroot->limit_tuples);
+            else
+                subpath = (Path *) create_incremental_sort_path(rel->subroot, final_rel, subpath,
+                                                               setop_pathkeys, presorted_keys,
+                                                               rel->subroot->limit_tuples);
+        }
+
+        // Add sorted path if different from cheapest already added
+        if (subpath != cheapest_input_path)
+        {
+            pathkeys = convert_subquery_pathkeys(root, rel, subpath->pathkeys,
+                                                make_tlist_from_pathtarget(subpath->pathtarget));
+            add_path(rel, (Path *) create_subqueryscan_path(root, rel, subpath,
+                                                          trivial_tlist, pathkeys, NULL));
+        }
+    }
+
+    // Add partial path for parallel processing if available
+    if (rel->consider_parallel && bms_is_empty(rel->lateral_relids) &&
+        final_rel->partial_pathlist != NIL)
+    {
+        Path *partial_subpath = linitial(final_rel->partial_pathlist);
+        Path *partial_path = (Path *) create_subqueryscan_path(root, rel, partial_subpath,
+                                                              trivial_tlist, NIL, NULL);
+        add_partial_path(rel, partial_path);
+    }
+
+    postprocess_setop_rel(root, rel);
+
+    // Estimate distinct groups if requested
+    if (pNumGroups)
+    {
+        Query *subquery = rel->subroot->parse;
+
+        // Use row count if subquery already grouped, otherwise estimate
+        if (subquery->groupClause || subquery->groupingSets || subquery->distinctClause ||
+            rel->subroot->hasHavingQual || subquery->hasAggs)
+            *pNumGroups = rel->cheapest_total_path->rows;
+        else
+            *pNumGroups = estimate_num_groups(rel->subroot,
+                                            get_tlist_exprs(subquery->targetList, false),
+                                            rel->cheapest_total_path->rows, NULL, NULL);
+    }
+}
+```

@@ -52,3 +52,53 @@ The prefix relationship ensures that each grouping set contains all elements of 
 - If the algorithm diverges from the sortclause ordering, it abandons the sortclause and proceeds without it
 - The prefix relationship established is crucial for rollup aggregate efficiency
 - Each result set is wrapped in a GroupingSetData node for further processing
+
+## Simplified Source
+
+```c
+static List *
+reorder_grouping_sets(List *groupingSets, List *sortclause)
+{
+    ListCell *lc;
+    List *previous = NIL;
+    List *result = NIL;
+
+    foreach(lc, groupingSets)
+    {
+        List *candidate = (List *) lfirst(lc);
+        List *new_elems = list_difference_int(candidate, previous);
+        GroupingSetData *gs = makeNode(GroupingSetData);
+
+        // Try to follow sortclause order when possible
+        while (list_length(sortclause) > list_length(previous) &&
+               new_elems != NIL)
+        {
+            SortGroupClause *sc = list_nth(sortclause, list_length(previous));
+            int ref = sc->tleSortGroupRef;
+
+            if (list_member_int(new_elems, ref))
+            {
+                // Add this element following sortclause order
+                previous = lappend_int(previous, ref);
+                new_elems = list_delete_int(new_elems, ref);
+            }
+            else
+            {
+                // Diverged from sortclause - abandon it
+                sortclause = NIL;
+                break;
+            }
+        }
+
+        // Add any remaining new elements
+        previous = list_concat(previous, new_elems);
+
+        // Create GroupingSetData with current accumulated set
+        gs->set = list_copy(previous);
+        result = lcons(gs, result);  // Build in reverse order
+    }
+
+    list_free(previous);
+    return result;  // Returns largest sets first
+}
+```

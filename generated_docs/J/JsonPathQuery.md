@@ -50,3 +50,67 @@ The `JsonPathQuery` function implements the SQL/JSON JSON_QUERY operation, which
 - The wrapping behavior implements SQL/JSON standard WITH/WITHOUT WRAPPER clauses
 - Part of PostgreSQL's comprehensive SQL/JSON implementation
 - Used in SELECT clauses to extract JSON values into result sets
+
+## Simplified Source
+
+```c
+Datum
+JsonPathQuery(Datum jb, JsonPath *jp, JsonWrapper wrapper, bool *empty,
+              bool *error, List *vars, const char *column_name)
+{
+    JsonbValue *singleton;
+    bool wrap;
+    JsonValueList found = {0};
+    JsonPathExecResult res;
+    int count;
+
+    // Execute JSON path to find matching values
+    res = executeJsonPath(jp, vars,
+                          GetJsonPathVar, CountJsonPathVars,
+                          DatumGetJsonbP(jb), !error, &found, true);
+
+    // Handle execution errors
+    if (error && jperIsError(res)) {
+        *error = true;
+        *empty = false;
+        return (Datum) 0;
+    }
+
+    // Determine wrapping behavior based on wrapper mode and result count
+    count = JsonValueListLength(&found);
+    singleton = count > 0 ? JsonValueListHead(&found) : NULL;
+
+    if (singleton == NULL)
+        wrap = false;                                    // No results
+    else if (wrapper == JSW_NONE || wrapper == JSW_UNSPEC)
+        wrap = false;                                    // Explicit no wrapper
+    else if (wrapper == JSW_UNCONDITIONAL)
+        wrap = true;                                     // Always wrap
+    else if (wrapper == JSW_CONDITIONAL)
+        wrap = count > 1;                                // Wrap only if multiple items
+    else
+        elog(ERROR, "unrecognized json wrapper %d", (int) wrapper);
+
+    // Apply wrapping if needed
+    if (wrap)
+        return JsonbPGetDatum(JsonbValueToJsonb(wrapItemsInArray(&found)));
+
+    // Without wrapping, only one item is allowed
+    if (count > 1) {
+        if (error) {
+            *error = true;
+            return (Datum) 0;
+        }
+        // Generate appropriate error message
+        ereport(ERROR, (errcode(ERRCODE_MORE_THAN_ONE_SQL_JSON_ITEM),
+                errmsg("JSON path expression must return single item when no wrapper is requested")));
+    }
+
+    // Return single result or indicate empty
+    if (singleton)
+        return JsonbPGetDatum(JsonbValueToJsonb(singleton));
+
+    *empty = true;
+    return PointerGetDatum(NULL);
+}
+```

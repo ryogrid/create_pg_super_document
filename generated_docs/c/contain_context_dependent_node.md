@@ -32,3 +32,16 @@ This function identifies nodes that are sensitive to their execution context and
 - Located in src/backend/optimizer/util/clauses.c at lines 1179-1185
 - Part of PostgreSQL's query optimizer safety infrastructure
 - Initializes flags to 0 and delegates actual traversal to the walker function
+
+## Simplified Source
+
+```c
+static bool
+contain_context_dependent_node(Node *clause)
+{
+    int flags = 0;
+
+    // Search for context-dependent nodes using walker
+    return contain_context_dependent_node_walker(clause, &flags);
+}
+```

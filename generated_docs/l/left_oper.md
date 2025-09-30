@@ -43,3 +43,53 @@ The function is particularly important in the parsing phase where prefix operato
 - Uses a lookaside cache for performance optimization
 - Implements a fallback mechanism when exact matches are not found
 - The function modifies the candidate list structure during processing by moving argument data for compatibility with oper_select_candidate
+
+## Simplified Source
+
+```c
+Operator
+left_oper(ParseState *pstate, List *op, Oid arg, bool noError, int location)
+{
+    Oid operOid;
+    HeapTuple tup = NULL;
+
+    // Try cache lookup first
+    OprCacheKey key;
+    bool key_ok = make_oper_cache_key(pstate, &key, op, InvalidOid, arg, location);
+    if (key_ok) {
+        operOid = find_oper_cache_entry(&key);
+        if (OidIsValid(operOid)) {
+            tup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operOid));
+            if (HeapTupleIsValid(tup))
+                return (Operator) tup;
+        }
+    }
+
+    // Try exact match
+    operOid = OpernameGetOprid(op, InvalidOid, arg);
+    if (!OidIsValid(operOid)) {
+        // Search for best candidate
+        FuncCandidateList clist = OpernameGetCandidates(op, 'l', false);
+        if (clist != NULL) {
+            // Rearrange arguments for oper_select_candidate
+            FuncCandidateList clisti;
+            for (clisti = clist; clisti != NULL; clisti = clisti->next) {
+                clisti->args[0] = clisti->args[1];
+            }
+
+            FuncDetailCode fdresult = oper_select_candidate(1, &arg, clist, &operOid);
+        }
+    }
+
+    // Get final result
+    if (OidIsValid(operOid)) {
+        tup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operOid));
+        if (HeapTupleIsValid(tup) && key_ok)
+            make_oper_cache_entry(&key, operOid);
+    } else if (!noError) {
+        op_error(pstate, op, InvalidOid, arg, fdresult, location);
+    }
+
+    return (Operator) tup;
+}
+```

@@ -39,3 +39,19 @@ The function uses heap_form_tuple to construct a proper HeapTuple from the pre-e
 - Memory management for the created tuple follows PostgreSQL's memory context system
 - Part of PostgreSQL's compiled expression evaluation framework for efficient row construction
 - The function does not take an ExprContext parameter since all necessary evaluation has been completed previously
+
+## Simplified Source
+
+```c
+void ExecEvalRow(ExprState *state, ExprEvalStep *op)
+{
+    // Build tuple from pre-evaluated column values
+    HeapTuple tuple = heap_form_tuple(op->d.row.tupdesc,
+                                      op->d.row.elemvalues,
+                                      op->d.row.elemnulls);
+
+    // Store tuple as result datum
+    *op->resvalue = HeapTupleGetDatum(tuple);
+    *op->resnull = false;  // ROW result is never NULL
+}
+```

@@ -35,3 +35,15 @@ For most built-in scalar types (like int4, text, etc.), this value is typically 
 - For scalar types, this typically returns InvalidOid (0)
 - This function is part of the parser subsystem's type handling utilities
 - The typrelid is used to look up the structure of composite types in the pg_class and pg_attribute catalogs
+
+## Simplified Source
+
+```c
+Oid typeTypeRelid(Type typ) {
+    // Extract the pg_type structure from the tuple
+    Form_pg_type type_struct = (Form_pg_type) GETSTRUCT(typ);
+
+    // Return the relation OID associated with this type
+    return type_struct->typrelid;
+}
+```

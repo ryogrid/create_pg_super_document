@@ -33,3 +33,18 @@ The allocated table serves as a lookup structure that connects the abstract gene
 - Memory should be freed using corresponding free_city_table function
 - The City type typically contains RelOptInfo pointers and related metadata
 - Critical for establishing the mapping between genetic algorithm genes and actual database relations
+
+## Simplified Source
+
+```c
+City *
+alloc_city_table(PlannerInfo *root, int num_gene)
+{
+    City *city_table;
+
+    // Allocate one extra location for 1-based indexing (0 unused)
+    city_table = (City *) palloc((num_gene + 1) * sizeof(City));
+
+    return city_table;
+}
+```

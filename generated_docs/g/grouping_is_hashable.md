@@ -43,3 +43,25 @@ This check is crucial for the query planner to decide between different grouping
 - [Hash](../H/Hash.md)-based grouping is often more efficient for large datasets when applicable
 - Critical for ensuring correct execution plan generation for GROUP BY operations
 - Located in src/backend/optimizer/util/tlist.c:560-590
+
+## Simplified Source
+
+```c
+bool
+grouping_is_hashable(List *groupClause)
+{
+    ListCell *glitem;
+
+    // Check each grouping column for hashability
+    foreach(glitem, groupClause) {
+        SortGroupClause *groupcl = (SortGroupClause *) lfirst(glitem);
+
+        // If any column is not hashable, return false
+        if (!groupcl->hashable)
+            return false;
+    }
+
+    // All columns are hashable
+    return true;
+}
+```

@@ -35,3 +35,49 @@ The function performs a cache lookup to find the statistics data, extracts the e
 - The returned HeapTuple is a copy that the caller is responsible for freeing
 - Essential for query planning when expressions are used in WHERE clauses or other contexts requiring selectivity estimates
 - Part of PostgreSQL's extended statistics infrastructure that supports multi-column and expression statistics
+
+## Simplified Source
+
+```c
+HeapTuple
+statext_expressions_load(Oid stxoid, bool inh, int idx)
+{
+    bool isnull;
+    Datum value;
+    HeapTuple htup;
+
+    // Look up the statistics object in pg_statistic_ext_data
+    htup = SearchSysCache2(STATEXTDATASTXOID,
+                          ObjectIdGetDatum(stxoid),
+                          BoolGetDatum(inh));
+    if (!HeapTupleIsValid(htup))
+        elog(ERROR, "cache lookup failed for statistics object %u", stxoid);
+
+    // Extract the expression statistics array from stxdexpr field
+    value = SysCacheGetAttr(STATEXTDATASTXOID, htup,
+                           Anum_pg_statistic_ext_data_stxdexpr, &isnull);
+    if (isnull)
+        elog(ERROR, "requested statistics kind \"%c\" is not yet built for statistics object %u",
+             STATS_EXT_EXPRESSIONS, stxoid);
+
+    // Get the expanded array containing expression statistics
+    ExpandedArrayHeader *eah = DatumGetExpandedArray(value);
+    deconstruct_expanded_array(eah);
+
+    // Extract the specific expression's statistics tuple
+    HeapTupleHeader td = DatumGetHeapTupleHeader(eah->dvalues[idx]);
+
+    // Build a temporary HeapTuple structure
+    HeapTupleData tmptup;
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+    ItemPointerSetInvalid(&(tmptup.t_self));
+    tmptup.t_tableOid = InvalidOid;
+    tmptup.t_data = td;
+
+    // Make a copy for the caller to own
+    HeapTuple tup = heap_copytuple(&tmptup);
+
+    ReleaseSysCache(htup);
+    return tup;
+}
+```

@@ -37,3 +37,29 @@ The function iterates through each constraint in the input list, creating new Do
 - The function switches memory contexts to ensure constraint state trees are allocated in the correct context
 - Each prepared constraint retains the original constraint metadata (type, name, check expression) while adding the executable expression state
 - Memory context management is crucial here to prevent memory leaks and ensure proper cleanup of constraint execution structures
+
+## Simplified Source
+
+```c
+static List *prep_domain_constraints(List *constraints, MemoryContext execctx) {
+    List *result = NIL;
+    MemoryContext oldcxt = MemoryContextSwitchTo(execctx);
+
+    // Convert each constraint to executable form
+    foreach(lc, constraints) {
+        DomainConstraintState *constraint = (DomainConstraintState *) lfirst(lc);
+        DomainConstraintState *new_constraint = makeNode(DomainConstraintState);
+
+        // Copy constraint metadata and create executable expression
+        new_constraint->constrainttype = constraint->constrainttype;
+        new_constraint->name = constraint->name;
+        new_constraint->check_expr = constraint->check_expr;
+        new_constraint->check_exprstate = ExecInitExpr(constraint->check_expr, NULL);
+
+        result = lappend(result, new_constraint);
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+    return result;
+}
+```

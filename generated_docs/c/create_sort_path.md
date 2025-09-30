@@ -48,3 +48,34 @@ The sort operation does not project or transform the data - it simply reorders t
 - Comparison cost is currently hardcoded to 0.0 with a TODO comment indicating this may need improvement
 - The pathtype is set to T_Sort to distinguish it from incremental sort (T_IncrementalSort)
 - [Sort](../S/Sort.md) operations are often expensive but necessary for ORDER BY, GROUP BY, and other operations requiring ordered data
+
+## Simplified Source
+
+```c
+SortPath *
+create_sort_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                 List *pathkeys, double limit_tuples)
+{
+    SortPath *pathnode = makeNode(SortPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Sort;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = subpath->pathtarget;  // Sort doesn't project
+    pathnode->path.param_info = NULL;  // Above joins, no parameterization
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Set subpath
+    pathnode->subpath = subpath;
+
+    // Calculate full sort cost
+    cost_sort(&pathnode->path, root, pathkeys,
+              subpath->total_cost, subpath->rows, subpath->pathtarget->width,
+              0.0, work_mem, limit_tuples);
+
+    return pathnode;
+}
+```

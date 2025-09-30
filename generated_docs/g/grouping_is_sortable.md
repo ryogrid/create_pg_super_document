@@ -43,3 +43,25 @@ This check is crucial for the query planner to decide between different grouping
 - Used by the query planner to choose between sort-based and hash-based grouping strategies
 - Critical for ensuring correct execution plan generation for GROUP BY operations
 - Located in src/backend/optimizer/util/tlist.c:540-559
+
+## Simplified Source
+
+```c
+bool
+grouping_is_sortable(List *groupClause)
+{
+    ListCell *glitem;
+
+    // Check each grouping column for sortability
+    foreach(glitem, groupClause) {
+        SortGroupClause *groupcl = (SortGroupClause *) lfirst(glitem);
+
+        // If any column lacks a valid sort operator, return false
+        if (!OidIsValid(groupcl->sortop))
+            return false;
+    }
+
+    // All columns have valid sort operators
+    return true;
+}
+```

@@ -33,3 +33,20 @@ When a security restriction is detected, the function immediately raises an ERRO
 - The error message is translatable (marked with translator comment) to support internationalization
 - This security check is applied selectively to commands that could potentially compromise security in restricted contexts, rather than being applied universally to all utility commands
 - The function represents PostgreSQL's defense-in-depth security approach, adding an additional layer of protection beyond standard permission checks
+
+## Simplified Source
+
+```c
+static void
+CheckRestrictedOperation(const char *cmdname)
+{
+    // Check if we're in a security-restricted context
+    if (InSecurityRestrictedOperation()) {
+        // Block the command with insufficient privilege error
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("cannot execute %s within security-restricted operation",
+                        cmdname)));
+    }
+}
+```

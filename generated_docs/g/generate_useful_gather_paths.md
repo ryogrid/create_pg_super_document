@@ -53,3 +53,62 @@ The function intelligently chooses between full and incremental sort based on th
 - Respects enable_incremental_sort configuration setting
 - Critical for optimizing complex queries with parallel execution and ordering requirements
 - Generates paths that can satisfy both local ordering needs and upstream operation requirements
+
+## Simplified Source
+
+```c
+void generate_useful_gather_paths(PlannerInfo *root, RelOptInfo *rel, bool override_rows) {
+    // Check if there are partial paths to work with
+    if (rel->partial_pathlist == NIL)
+        return;
+
+    // Set up row count override if requested
+    double *rowsp = override_rows ? &rows : NULL;
+
+    // Generate basic gather paths first
+    generate_gather_paths(root, rel, override_rows);
+
+    // Get orderings that might be useful for upper nodes
+    List *useful_pathkeys_list = get_useful_pathkeys_for_relation(root, rel, true);
+    Path *cheapest_partial_path = linitial(rel->partial_pathlist);
+
+    // For each useful ordering, try to create optimized gather merge paths
+    foreach(lc, useful_pathkeys_list) {
+        List *useful_pathkeys = lfirst(lc);
+
+        foreach(lc2, rel->partial_pathlist) {
+            Path *subpath = lfirst(lc2);
+            int presorted_keys;
+
+            // Check if path is already sorted for this ordering
+            bool is_sorted = pathkeys_count_contained_in(useful_pathkeys,
+                                                       subpath->pathkeys,
+                                                       &presorted_keys);
+
+            // Skip fully sorted paths (already handled by generate_gather_paths)
+            if (is_sorted)
+                continue;
+
+            // Only process cheapest path or paths with partial sorting
+            if (subpath != cheapest_partial_path &&
+                (presorted_keys == 0 || !enable_incremental_sort))
+                continue;
+
+            // Add appropriate sort: incremental if partially sorted, full otherwise
+            if (presorted_keys == 0 || !enable_incremental_sort) {
+                subpath = create_sort_path(root, rel, subpath, useful_pathkeys, -1.0);
+            } else {
+                subpath = create_incremental_sort_path(root, rel, subpath,
+                                                     useful_pathkeys, presorted_keys, -1);
+            }
+
+            // Create gather merge path and add to relation
+            GatherMergePath *path = create_gather_merge_path(root, rel, subpath,
+                                                           rel->reltarget,
+                                                           subpath->pathkeys,
+                                                           NULL, rowsp);
+            add_path(rel, &path->path);
+        }
+    }
+}
+```

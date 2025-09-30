@@ -46,3 +46,40 @@ Each constructor is created as an internal language function with the same name 
 - Functions are marked as immutable since range construction is deterministic
 - DEPENDENCY_INTERNAL ensures pg_dump skips these auto-generated constructors
 - All constructors are owned by the bootstrap superuser and marked parallel-safe
+
+## Simplified Source
+
+```c
+static void makeRangeConstructors(const char *name, Oid namespace,
+                                 Oid rangeOid, Oid subtype) {
+    static const char *const prosrc[2] = {"range_constructor2", "range_constructor3"};
+    static const int pronargs[2] = {2, 3};
+
+    Oid constructorArgTypes[3];
+    ObjectAddress myself, referenced;
+    int i;
+
+    // Set up argument types: subtype, subtype, text (for bounds flags)
+    constructorArgTypes[0] = subtype;
+    constructorArgTypes[1] = subtype;
+    constructorArgTypes[2] = TEXTOID;
+
+    // Set up dependency target (the range type)
+    referenced.classId = TypeRelationId;
+    referenced.objectId = rangeOid;
+    referenced.objectSubId = 0;
+
+    // Create 2-arg and 3-arg constructors
+    for (i = 0; i < lengthof(prosrc); i++) {
+        oidvector *constructorArgTypesVector = buildoidvector(constructorArgTypes, pronargs[i]);
+
+        myself = ProcedureCreate(name, namespace, false, false, rangeOid,
+                                BOOTSTRAP_SUPERUSERID, INTERNALlanguageId,
+                                F_FMGR_INTERNAL_VALIDATOR, prosrc[i],
+                                /* standard function attributes */);
+
+        // Make constructor depend on the range type
+        recordDependencyOn(&myself, &referenced, DEPENDENCY_INTERNAL);
+    }
+}
+```

@@ -31,3 +31,14 @@ The function acts as a simple wrapper that delegates all validation logic to che
 - The function returns the same boolean result as its walker counterpart
 - Provides a cleaner API boundary for callers who don't need to know about the tree walking implementation
 - All actual validation logic is implemented in check_simple_rowfilter_expr_walker
+
+## Simplified Source
+
+```c
+static bool
+check_simple_rowfilter_expr(Node *node, ParseState *pstate)
+{
+    // Delegate validation to the tree walker function
+    return check_simple_rowfilter_expr_walker(node, pstate);
+}
+```

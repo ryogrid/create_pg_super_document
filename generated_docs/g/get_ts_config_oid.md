@@ -51,3 +51,53 @@ This function is essential for text search operations as configurations define h
 - Critical for text search functionality as configurations control parsing, stemming, and indexing behavior
 - Used extensively in full-text search operations and configuration management
 - The function ensures proper namespace isolation and search path semantics for text search objects
+
+## Simplified Source
+
+```c
+Oid
+get_ts_config_oid(List *names, bool missing_ok) {
+    char *schemaname;
+    char *config_name;
+    Oid namespaceId;
+    Oid cfgoid = InvalidOid;
+    ListCell *l;
+
+    // Parse the qualified name
+    DeconstructQualifiedName(names, &schemaname, &config_name);
+
+    if (schemaname) {
+        // Schema-qualified lookup
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            cfgoid = InvalidOid;
+        else
+            cfgoid = GetSysCacheOid2(TSCONFIGNAMENSP, Anum_pg_ts_config_oid,
+                                     PointerGetDatum(config_name),
+                                     ObjectIdGetDatum(namespaceId));
+    } else {
+        // Search through the namespace search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath) {
+            namespaceId = lfirst_oid(l);
+
+            // Skip temporary namespace
+            if (namespaceId == myTempNamespace)
+                continue;
+
+            cfgoid = GetSysCacheOid2(TSCONFIGNAMENSP, Anum_pg_ts_config_oid,
+                                     PointerGetDatum(config_name),
+                                     ObjectIdGetDatum(namespaceId));
+            if (OidIsValid(cfgoid))
+                break;
+        }
+    }
+
+    // Handle not found case
+    if (!OidIsValid(cfgoid) && !missing_ok)
+        ereport(ERROR, "text search configuration does not exist");
+
+    return cfgoid;
+}
+```

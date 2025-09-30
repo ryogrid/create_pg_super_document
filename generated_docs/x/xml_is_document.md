@@ -35,3 +35,30 @@ This function determines if the provided XML value is a complete, well-formed XM
 - Used internally by PostgreSQL's XML processing system for the XMLISVALID SQL function
 - The function specifically tests for document validity, not just well-formedness of XML content
 - Memory management is handled properly by freeing the parsed document structure if parsing succeeds
+
+## Simplified Source
+
+```c
+bool xml_is_document(xmltype *arg)
+{
+#ifdef USE_LIBXML
+    xmlDocPtr doc;
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Try parsing as XML document, catching errors softly
+    doc = xml_parse((text *) arg, XMLOPTION_DOCUMENT, true,
+                    GetDatabaseEncoding(), NULL, NULL, (Node *) &escontext);
+
+    // Clean up if parsing succeeded
+    if (doc)
+        xmlFreeDoc(doc);
+
+    // Return true if no parsing errors occurred
+    return !escontext.error_occurred;
+#else
+    // XML support not compiled in
+    NO_XML_SUPPORT();
+    return false;
+#endif
+}
+```

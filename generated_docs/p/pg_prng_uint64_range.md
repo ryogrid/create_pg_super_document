@@ -46,3 +46,28 @@ When the range is empty (rmax <= rmin), the function returns rmin, providing pre
 - Widely used throughout PostgreSQL for bounded random number generation
 - Forms the foundation for other range-based PRNG functions
 - Located in `src/common/pg_prng.c` at lines 144-172
+
+## Simplified Source
+
+```c
+uint64
+pg_prng_uint64_range(pg_prng_state *state, uint64 rmin, uint64 rmax)
+{
+    uint64 val;
+
+    if (rmax > rmin) {
+        // Calculate range size and determine bit shift amount
+        uint64 range = rmax - rmin;
+        uint32 rshift = 63 - pg_leftmost_one_pos64(range);
+
+        // Use rejection method to ensure uniform distribution
+        do {
+            val = xoroshiro128ss(state) >> rshift;
+        } while (val > range);
+    } else {
+        val = 0;  // Empty range case
+    }
+
+    return rmin + val;
+}
+```

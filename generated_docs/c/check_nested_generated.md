@@ -31,3 +31,15 @@ The validation is crucial for maintaining data integrity and preventing situatio
 - It follows PostgreSQL's pattern of having simple wrapper functions that delegate to more complex worker functions
 - The validation occurs during column definition processing to catch invalid references early in the DDL process
 - This function is part of PostgreSQL's generated column feature implementation
+
+## Simplified Source
+
+```c
+static void
+check_nested_generated(ParseState *pstate, Node *node)
+{
+    // Simple wrapper to validate generated column expressions
+    // Ensures no references to other generated columns or invalid constructs
+    check_nested_generated_walker(node, pstate);
+}
+```

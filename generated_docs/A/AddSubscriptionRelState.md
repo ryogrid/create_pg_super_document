@@ -45,3 +45,59 @@ The function performs duplicate checking by searching the SUBSCRIPTIONRELMAP cac
 - Lock management varies based on the retain_lock parameter, supporting both normal operation and binary upgrade scenarios
 - The sublsn parameter can be NULL/InvalidXLogRecPtr, which is handled by setting the corresponding null flag in the tuple
 - Located in src/backend/catalog/pg_subscription.c:236-289
+
+## Simplified Source
+
+```c
+void
+AddSubscriptionRelState(Oid subid, Oid relid, char state,
+                       XLogRecPtr sublsn, bool retain_lock)
+{
+    Relation rel;
+    HeapTuple tup;
+    bool nulls[Natts_pg_subscription_rel];
+    Datum values[Natts_pg_subscription_rel];
+
+    // Lock the subscription to prevent concurrent changes
+    LockSharedObject(SubscriptionRelationId, subid, 0, AccessShareLock);
+
+    // Open the subscription relation catalog
+    rel = table_open(SubscriptionRelRelationId, RowExclusiveLock);
+
+    // Check if mapping already exists
+    tup = SearchSysCacheCopy2(SUBSCRIPTIONRELMAP,
+                             ObjectIdGetDatum(relid),
+                             ObjectIdGetDatum(subid));
+    if (HeapTupleIsValid(tup))
+        elog(ERROR, "subscription table %u in subscription %u already exists",
+             relid, subid);
+
+    // Prepare the new tuple
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    values[Anum_pg_subscription_rel_srsubid - 1] = ObjectIdGetDatum(subid);
+    values[Anum_pg_subscription_rel_srrelid - 1] = ObjectIdGetDatum(relid);
+    values[Anum_pg_subscription_rel_srsubstate - 1] = CharGetDatum(state);
+
+    // Handle LSN - can be invalid
+    if (sublsn != InvalidXLogRecPtr)
+        values[Anum_pg_subscription_rel_srsublsn - 1] = LSNGetDatum(sublsn);
+    else
+        nulls[Anum_pg_subscription_rel_srsublsn - 1] = true;
+
+    // Insert the new subscription relation state
+    tup = heap_form_tuple(RelationGetDescr(rel), values, nulls);
+    CatalogTupleInsert(rel, tup);
+    heap_freetuple(tup);
+
+    // Clean up with appropriate locking behavior
+    if (retain_lock)
+        table_close(rel, NoLock);
+    else
+    {
+        table_close(rel, RowExclusiveLock);
+        UnlockSharedObject(SubscriptionRelationId, subid, 0, AccessShareLock);
+    }
+}
+```

@@ -50,3 +50,30 @@ The function allocates a temporary buffer to hold the concatenated password and 
 - The function provides proper memory management, freeing the temporary buffer in all code paths
 - Error conditions include memory allocation failures and any errors from the underlying pg_md5_hash function
 - Widely used in PostgreSQL's authentication infrastructure for both server-side and client-side password processing
+
+## Simplified Source
+
+```c
+bool pg_md5_encrypt(const char *passwd, const char *salt, size_t salt_len,
+                    char *buf, const char **errstr) {
+    size_t passwd_len = strlen(passwd);
+
+    // Allocate buffer for password + salt concatenation
+    char *crypt_buf = malloc(passwd_len + salt_len + 1);
+    if (!crypt_buf) {
+        *errstr = "out of memory";
+        return false;
+    }
+
+    // Concatenate password and salt (salt at end for security)
+    memcpy(crypt_buf, passwd, passwd_len);
+    memcpy(crypt_buf + passwd_len, salt, salt_len);
+
+    // Create "md5" prefixed result
+    strcpy(buf, "md5");
+    bool success = pg_md5_hash(crypt_buf, passwd_len + salt_len, buf + 3, errstr);
+
+    free(crypt_buf);
+    return success;
+}
+```

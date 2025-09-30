@@ -35,3 +35,30 @@ The function automatically extends the List with empty (NULL) elements if the sp
 - The function automatically grows the List as needed by appending NULL elements
 - Returns the modified List (which may be the same as the input or a new List if growth occurred)
 - Part of the multibitmapset utility functions for managing complex bitmap structures in PostgreSQL's optimizer
+
+## Simplified Source
+
+```c
+List *
+mbms_add_member(List *a, int listidx, int bitidx)
+{
+    Bitmapset *bms;
+    ListCell *lc;
+
+    // Validate input indices
+    if (listidx < 0 || bitidx < 0)
+        elog(ERROR, "negative multibitmapset member index not allowed");
+
+    // Extend list with NULL elements as needed
+    while (list_length(a) <= listidx)
+        a = lappend(a, NULL);
+
+    // Get target bitmapset and add the bit
+    lc = list_nth_cell(a, listidx);
+    bms = lfirst_node(Bitmapset, lc);
+    bms = bms_add_member(bms, bitidx);
+    lfirst(lc) = bms;
+
+    return a;
+}
+```

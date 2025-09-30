@@ -50,3 +50,44 @@ The function is used for both small in-memory sorts and for sorting individual r
 - The function assumes serial execution and explicitly excludes parallel sort leaders
 - Quicksort is preferred for in-memory operations due to its good cache locality and average-case performance
 - No sorting is performed if memtupcount <= 1 (empty or single-element arrays)
+
+## Simplified Source
+
+```c
+static void tuplesort_sort_memtuples(Tuplesortstate *state)
+{
+    // Skip sorting if 0 or 1 tuples
+    if (state->memtupcount <= 1)
+        return;
+
+    // Try type-specific optimized sorts first
+    if (state->base.haveDatum1 && state->base.sortKeys) {
+        // Use unsigned integer optimized sort
+        if (state->base.sortKeys[0].comparator == ssup_datum_unsigned_cmp) {
+            qsort_tuple_unsigned(state->memtuples, state->memtupcount, state);
+            return;
+        }
+
+        // Use signed integer optimized sort (64-bit platforms)
+        if (state->base.sortKeys[0].comparator == ssup_datum_signed_cmp) {
+            qsort_tuple_signed(state->memtuples, state->memtupcount, state);
+            return;
+        }
+
+        // Use 32-bit integer optimized sort
+        if (state->base.sortKeys[0].comparator == ssup_datum_int32_cmp) {
+            qsort_tuple_int32(state->memtuples, state->memtupcount, state);
+            return;
+        }
+    }
+
+    // Use single-key sort if available
+    if (state->base.onlyKey != NULL) {
+        qsort_ssup(state->memtuples, state->memtupcount, state->base.onlyKey);
+    } else {
+        // Fall back to generic multi-key sort
+        qsort_tuple(state->memtuples, state->memtupcount,
+                   state->base.comparetup, state);
+    }
+}
+```

@@ -38,3 +38,26 @@ The function follows PostgreSQL's standard input function convention by taking P
 - Generates ERRCODE_INVALID_TEXT_REPRESENTATION errors for invalid input
 - Used internally by SQL parsing when LSN literals are encountered
 - Essential for subscription and replication functionality where LSN values are specified as strings
+
+## Simplified Source
+
+```c
+Datum
+pg_lsn_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+    XLogRecPtr result;
+    bool have_error = false;
+
+    // Parse the LSN string using internal function
+    result = pg_lsn_in_internal(str, &have_error);
+
+    if (have_error)
+        ereturn(fcinfo->context, (Datum) 0,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"",
+                        "pg_lsn", str)));
+
+    PG_RETURN_LSN(result);
+}
+```

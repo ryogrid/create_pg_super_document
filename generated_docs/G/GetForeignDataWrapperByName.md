@@ -35,3 +35,20 @@ GetForeignDataWrapperByName provides a convenient interface to look up foreign-d
 - The returned ForeignDataWrapper structure is palloc'd and should be freed by the caller
 - This function is commonly used during DDL operations where FDWs are referenced by name
 - Error handling behavior is controlled by the missing_ok parameter, similar to other PostgreSQL catalog lookup functions
+
+## Simplified Source
+```c
+ForeignDataWrapper *
+GetForeignDataWrapperByName(const char *fdwname, bool missing_ok)
+{
+    // Convert name to OID
+    Oid fdwId = get_foreign_data_wrapper_oid(fdwname, missing_ok);
+
+    // Return NULL if not found and missing_ok is true
+    if (!OidIsValid(fdwId))
+        return NULL;
+
+    // Retrieve and return the FDW object by OID
+    return GetForeignDataWrapper(fdwId);
+}
+```

@@ -36,3 +36,12 @@ The function leverages the robust `hash_bytes` algorithm internally while handli
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL's hash infrastructure, serving as the standard entry point for hashing operations on various data types including floating-point numbers, text, network addresses, UUIDs, and numeric types. Its inline implementation ensures minimal overhead when used in performance-critical hash table operations.
+
+## Simplified Source
+
+```c
+static inline Datum hash_any(const unsigned char *k, int keylen) {
+    // Hash byte array and convert to Datum format
+    return UInt32GetDatum(hash_bytes(k, keylen));
+}
+```

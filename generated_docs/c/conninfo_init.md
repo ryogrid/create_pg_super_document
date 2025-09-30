@@ -43,3 +43,32 @@ The function carefully copies only the public portion of each option structure (
 - Only copies the public fields of connection options, hiding internal implementation details
 - The caller is responsible for freeing the returned array when no longer needed
 - Essential building block for all connection parameter parsing functions in libpq
+
+## Simplified Source
+```c
+static PQconninfoOption *conninfo_init(PQExpBuffer errorMessage) {
+    PQconninfoOption *options;
+    PQconninfoOption *opt_dest;
+    const internalPQconninfoOption *cur_opt;
+
+    // Allocate memory for all connection options
+    options = (PQconninfoOption *) malloc(sizeof(PQconninfoOption) *
+                                         sizeof(PQconninfoOptions) / sizeof(PQconninfoOptions[0]));
+    if (options == NULL) {
+        libpq_append_error(errorMessage, "out of memory");
+        return NULL;
+    }
+    opt_dest = options;
+
+    // Copy public part of each option from template array
+    for (cur_opt = PQconninfoOptions; cur_opt->keyword; cur_opt++) {
+        memcpy(opt_dest, cur_opt, sizeof(PQconninfoOption));
+        opt_dest++;
+    }
+
+    // Null-terminate the array
+    MemSet(opt_dest, 0, sizeof(PQconninfoOption));
+
+    return options;
+}
+```

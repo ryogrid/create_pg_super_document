@@ -42,3 +42,24 @@ Functions that both accept and return INTERNAL types are typically system functi
 - API is kept similar to check_valid_polymorphic_signature for consistency
 - Critical for maintaining type safety and preventing unsafe SQL operations with INTERNAL types
 - Part of PostgreSQL's defense against potential security vulnerabilities related to internal data structures
+
+## Simplified Source
+
+```c
+char *
+check_valid_internal_signature(Oid ret_type, const Oid *declared_arg_types, int nargs)
+{
+    // Only functions returning INTERNAL type need validation
+    if (ret_type == INTERNALOID) {
+        // Check if at least one argument is also INTERNAL type
+        for (int i = 0; i < nargs; i++) {
+            if (declared_arg_types[i] == ret_type)
+                return NULL;  // Safe - has INTERNAL input
+        }
+        // Unsafe - returns INTERNAL but no INTERNAL inputs
+        return pstrdup(_("A result of type internal requires at least one input of type internal."));
+    }
+
+    return NULL;  // Safe - not returning INTERNAL type
+}
+```

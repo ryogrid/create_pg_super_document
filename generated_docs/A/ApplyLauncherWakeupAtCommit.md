@@ -31,3 +31,16 @@ This function sets a flag () that signals the logical replication launcher to wa
 - The function implements a simple optimization by only setting the flag once per transaction
 - The actual launcher wakeup is deferred until transaction commit to ensure atomicity
 - This is part of PostgreSQL's logical replication infrastructure for managing subscription workers
+
+## Simplified Source
+
+```c
+void
+ApplyLauncherWakeupAtCommit(void)
+{
+    // Set flag to wake up launcher when transaction commits
+    // Avoids redundant wakeup requests within same transaction
+    if (!on_commit_launcher_wakeup)
+        on_commit_launcher_wakeup = true;
+}
+```

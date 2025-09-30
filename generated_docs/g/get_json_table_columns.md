@@ -56,3 +56,82 @@ The function properly formats SQL syntax including comma separation, proper quot
 - FORMAT specifications are only added for string-category types in JSON_QUERY operations
 - The function maintains proper SQL syntax compliance when reconstructing complex JSON_TABLE expressions
 - Part of PostgreSQL's JSON_TABLE feature for converting JSON data to relational format
+
+## Simplified Source
+
+```c
+static void get_json_table_columns(TableFunc *tf, JsonTablePathScan *scan,
+                                   deparse_context *context, bool showimplicit) {
+    StringInfo buf = context->buf;
+    int colnum = 0;
+
+    // Start COLUMNS clause
+    appendStringInfoChar(buf, ' ');
+    appendContextKeyword(context, "COLUMNS (", 0, 0, 0);
+
+    // Iterate through all columns in parallel lists
+    forfour(lc_colname, tf->colnames,
+            lc_coltype, tf->coltypes,
+            lc_coltypmod, tf->coltypmods,
+            lc_colvalexpr, tf->colvalexprs) {
+
+        char *colname = strVal(lfirst(lc_colname));
+        JsonExpr *colexpr = castNode(JsonExpr, lfirst(lc_colvalexpr));
+        Oid typid = lfirst_oid(lc_coltype);
+        int32 typmod = lfirst_int(lc_coltypmod);
+
+        // Skip columns outside scan range
+        if (scan->colMin >= 0 && (colnum < scan->colMin || colnum > scan->colMax)) {
+            colnum++;
+            continue;
+        }
+
+        // Add comma separator for multiple columns
+        if (colnum > scan->colMin)
+            appendStringInfoString(buf, ", ");
+        colnum++;
+
+        // Handle ordinality columns (no expression)
+        bool ordinality = !colexpr;
+        appendStringInfo(buf, "%s %s", quote_identifier(colname),
+                        ordinality ? "FOR ORDINALITY" :
+                        format_type_with_typemod(typid, typmod));
+
+        if (ordinality)
+            continue;
+
+        // Handle different JSON operation types
+        JsonBehaviorType default_behavior;
+        if (colexpr->op == JSON_EXISTS_OP) {
+            appendStringInfoString(buf, " EXISTS");
+            default_behavior = JSON_BEHAVIOR_FALSE;
+        } else {
+            // Handle JSON_QUERY operations with format specifications
+            if (colexpr->op == JSON_QUERY_OP) {
+                char typcategory;
+                bool typispreferred;
+                get_type_category_preferred(typid, &typcategory, &typispreferred);
+
+                if (typcategory == TYPCATEGORY_STRING) {
+                    appendStringInfoString(buf,
+                        colexpr->format->format_type == JS_FORMAT_JSONB ?
+                        " FORMAT JSONB" : " FORMAT JSON");
+                }
+            }
+            default_behavior = JSON_BEHAVIOR_NULL;
+        }
+
+        // Add PATH specification and options
+        appendStringInfoString(buf, " PATH ");
+        get_json_path_spec(colexpr->path_spec, context, showimplicit);
+        get_json_expr_options(colexpr, context, default_behavior);
+    }
+
+    // Handle nested columns
+    if (scan->child)
+        get_json_table_nested_columns(tf, scan->child, context, showimplicit,
+                                      scan->colMin >= 0);
+
+    appendContextKeyword(context, ")", 0, 0, 0);
+}
+```

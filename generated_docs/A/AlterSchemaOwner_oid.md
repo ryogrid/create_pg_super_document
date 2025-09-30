@@ -39,3 +39,25 @@ Key behaviors include:
 - Serves as a thin wrapper around AlterSchemaOwner_internal, handling only the lookup and locking aspects
 - Error handling for invalid schema OIDs through cache lookup validation
 - Part of the schema ownership change infrastructure used by higher-level operations
+
+## Simplified Source
+
+```c
+void AlterSchemaOwner_oid(Oid schemaoid, Oid newOwnerId)
+{
+    // Open namespace catalog table
+    Relation rel = table_open(NamespaceRelationId, RowExclusiveLock);
+
+    // Find schema by OID
+    HeapTuple tup = SearchSysCache1(NAMESPACEOID, ObjectIdGetDatum(schemaoid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for schema %u", schemaoid);
+
+    // Perform ownership change
+    AlterSchemaOwner_internal(tup, rel, newOwnerId);
+
+    // Cleanup resources
+    ReleaseSysCache(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

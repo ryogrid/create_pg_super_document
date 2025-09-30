@@ -43,3 +43,54 @@ The parsing stops when either the end of string is reached or a comment characte
 - Part of the timezone compiler (zic) infrastructure for parsing configuration files
 - Handles both simple whitespace-delimited tokens and complex quoted strings containing spaces
 - Comments (lines starting with '#') cause parsing to stop, effectively ignoring the rest of the line
+
+## Simplified Source
+
+```c
+static char **getfields(char *cp) {
+    if (cp == NULL)
+        return NULL;
+
+    char **array = emalloc(size_product(strlen(cp) + 1, sizeof *array));
+    int nsubs = 0;
+
+    for (;;) {
+        // Skip whitespace
+        while (is_space(*cp))
+            ++cp;
+
+        // Stop at end of line or comment
+        if (*cp == '\0' || *cp == '#')
+            break;
+
+        // Start new field
+        array[nsubs++] = cp;
+        char *dp = cp;
+
+        // Process field content, handling quotes
+        do {
+            if ((*dp = *cp++) != '"') {
+                ++dp;  // Regular character
+            } else {
+                // Handle quoted string
+                while ((*dp = *cp++) != '"') {
+                    if (*dp != '\0')
+                        ++dp;
+                    else {
+                        error("Odd number of quotation marks");
+                        exit(EXIT_FAILURE);
+                    }
+                }
+            }
+        } while (*cp && *cp != '#' && !is_space(*cp));
+
+        // Skip trailing whitespace and null-terminate field
+        if (is_space(*cp))
+            ++cp;
+        *dp = '\0';
+    }
+
+    array[nsubs] = NULL;  // Null-terminate array
+    return array;
+}
+```

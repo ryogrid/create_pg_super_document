@@ -38,3 +38,13 @@ None - this is a parameter-less function that returns a boolean value.
 - Essential for maintaining security boundaries around materialized view modifications
 - Part of the infrastructure that enables concurrent reads during materialized view refresh
 - The depth counter approach ensures proper nesting behavior if multiple maintenance operations occur simultaneously
+
+## Simplified Source
+
+```c
+bool
+MatViewIncrementalMaintenanceIsEnabled(void)
+{
+    return matview_maintenance_depth > 0;
+}
+```

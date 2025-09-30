@@ -45,3 +45,22 @@ This is a utility function that's essential for connecting the abstract sorting/
 - The SortGroupRef mechanism allows the same expression to be referenced from multiple clauses
 - Linear search is acceptable since target lists are typically small
 - Essential for implementing ORDER BY, GROUP BY, DISTINCT, and window function operations
+
+## Simplified Source
+
+```c
+TargetEntry *get_sortgroupref_tle(Index sortref, List *targetList)
+{
+    // Search through target list for matching SortGroupRef
+    foreach(l, targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        if (tle->ressortgroupref == sortref)
+            return tle;
+    }
+
+    // Should never happen in correct code
+    elog(ERROR, "ORDER/GROUP BY expression not found in targetlist");
+    return NULL;  // Keep compiler quiet
+}
+```

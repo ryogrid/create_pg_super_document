@@ -99,3 +99,131 @@ The function validates polymorphic types, ensures proper function signatures mat
 The function performs extensive validation including checking that transition function return types match declared transition types, ensuring polymorphic consistency across all components, and validating that moving-aggregate implementations produce the same result type as regular implementations. It supports parallel aggregation through combine functions and window functions through moving-aggregate implementations with forward/inverse transition functions.
 
 The function handles replacement of existing aggregates carefully, ensuring that critical properties like aggregate kind and number of direct arguments cannot be changed, as these would break existing callers.
+
+## Simplified Source
+
+```c
+ObjectAddress
+AggregateCreate(const char *aggName, Oid aggNamespace, bool replace, char aggKind,
+                int numArgs, int numDirectArgs, oidvector *parameterTypes,
+                /* ... many other parameters ... */
+                char proparallel)
+{
+    // Basic validation
+    if (!aggName) elog(ERROR, "no aggregate name supplied");
+    if (!aggtransfnName) elog(ERROR, "aggregate must have a transition function");
+    if (numArgs < 0 || numArgs > FUNC_MAX_ARGS - 1)
+        ereport(ERROR, "too many arguments");
+
+    // Validate polymorphic types
+    detailmsg = check_valid_polymorphic_signature(aggTransType, aggArgTypes, numArgs);
+    if (detailmsg) ereport(ERROR, "cannot determine transition data type");
+
+    // Special validation for ordered-set and hypothetical aggregates
+    if (AGGKIND_IS_ORDERED_SET(aggKind) && OidIsValid(variadicArgType) &&
+        variadicArgType != ANYOID)
+        ereport(ERROR, "variadic ordered-set aggregate must use VARIADIC type ANY");
+
+    // Build function arguments and find transition function
+    if (AGGKIND_IS_ORDERED_SET(aggKind)) {
+        // Set up args for ordered-set: transtype + aggregated args only
+        nargs_transfn = numArgs - numDirectArgs + 1;
+        fnArgs[0] = aggTransType;
+        memcpy(fnArgs + 1, aggArgTypes + (numArgs - (nargs_transfn - 1)),
+               (nargs_transfn - 1) * sizeof(Oid));
+    } else {
+        // Set up args for normal aggregate: transtype + all args
+        nargs_transfn = numArgs + 1;
+        fnArgs[0] = aggTransType;
+        memcpy(fnArgs + 1, aggArgTypes, numArgs * sizeof(Oid));
+    }
+
+    // Lookup and validate transition function
+    transfn = lookup_agg_function(aggtransfnName, nargs_transfn, fnArgs,
+                                  variadicArgType, &rettype);
+    if (rettype != aggTransType)
+        ereport(ERROR, "return type mismatch");
+
+    // Validate function strictness for NULL initial values
+    tup = SearchSysCache1(PROCOID, ObjectIdGetDatum(transfn));
+    proc = (Form_pg_proc) GETSTRUCT(tup);
+    if (proc->proisstrict && agginitval == NULL &&
+        !IsBinaryCoercible(aggArgTypes[0], aggTransType))
+        ereport(ERROR, "must not omit initial value");
+    ReleaseSysCache(tup);
+
+    // Handle optional functions (finalfn, combinefn, etc.)
+    if (aggfinalfnName) {
+        finalfn = lookup_agg_function(aggfinalfnName, nargs_finalfn,
+                                      fnArgs, ffnVariadicArgType, &finaltype);
+        if (finalfnExtraArgs && func_strict(finalfn))
+            ereport(ERROR, "final function with extra arguments must not be strict");
+    } else {
+        finaltype = aggTransType;
+    }
+
+    // Handle combine function for parallel aggregation
+    if (aggcombinefnName) {
+        fnArgs[0] = fnArgs[1] = aggTransType;
+        combinefn = lookup_agg_function(aggcombinefnName, 2, fnArgs,
+                                        InvalidOid, &combineType);
+        if (combineType != aggTransType)
+            ereport(ERROR, "combine function return type mismatch");
+    }
+
+    // Validate serialization/deserialization functions
+    if (aggserialfnName) {
+        fnArgs[0] = INTERNALOID;
+        serialfn = lookup_agg_function(aggserialfnName, 1, fnArgs, InvalidOid, &rettype);
+        if (rettype != BYTEAOID) ereport(ERROR, "serialization function type mismatch");
+    }
+
+    // Check permissions on all types
+    for (i = 0; i < numArgs; i++) {
+        aclresult = object_aclcheck(TypeRelationId, aggArgTypes[i], GetUserId(), ACL_USAGE);
+        if (aclresult != ACLCHECK_OK) aclcheck_error_type(aclresult, aggArgTypes[i]);
+    }
+
+    // Create the aggregate's pg_proc entry
+    myself = ProcedureCreate(aggName, aggNamespace, replace, false, finaltype,
+                             GetUserId(), INTERNALlanguageId, InvalidOid,
+                             "aggregate_dummy", NULL, NULL, PROKIND_AGGREGATE,
+                             /* ... other parameters ... */);
+    procOid = myself.objectId;
+
+    // Create pg_aggregate catalog entry
+    aggdesc = table_open(AggregateRelationId, RowExclusiveLock);
+
+    // Initialize catalog values
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+    values[Anum_pg_aggregate_aggfnoid - 1] = ObjectIdGetDatum(procOid);
+    values[Anum_pg_aggregate_aggtransfn - 1] = ObjectIdGetDatum(transfn);
+    values[Anum_pg_aggregate_aggfinalfn - 1] = ObjectIdGetDatum(finalfn);
+    // ... set other catalog values ...
+
+    // Insert or update catalog entry
+    if (replace && HeapTupleIsValid(oldtup)) {
+        tup = heap_modify_tuple(oldtup, tupDesc, values, nulls, replaces);
+        CatalogTupleUpdate(aggdesc, &tup->t_self, tup);
+    } else {
+        tup = heap_form_tuple(tupDesc, values, nulls);
+        CatalogTupleInsert(aggdesc, tup);
+    }
+
+    table_close(aggdesc, RowExclusiveLock);
+
+    // Record dependencies on component functions
+    addrs = new_object_addresses();
+    ObjectAddressSet(referenced, ProcedureRelationId, transfn);
+    add_exact_object_address(&referenced, addrs);
+    if (OidIsValid(finalfn)) {
+        ObjectAddressSet(referenced, ProcedureRelationId, finalfn);
+        add_exact_object_address(&referenced, addrs);
+    }
+    // ... add other dependencies ...
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+
+    return myself;
+}
+```

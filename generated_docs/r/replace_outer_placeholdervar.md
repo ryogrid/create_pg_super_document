@@ -42,3 +42,29 @@ The function validates that the PlaceHolderVar is from an outer level (phlevelsu
 - The resulting Param node has paramkind set to PARAM_EXEC for execution-time parameter passing
 - This function is declared in optimizer/paramassign.h and is part of the public interface for parameter assignment
 - PlaceHolderVars are more complex than Vars as they contain arbitrary expressions that may have different types
+
+## Simplified Source
+
+```c
+Param *replace_outer_placeholdervar(PlannerInfo *root, PlaceHolderVar *phv) {
+    Param *retval;
+    int i;
+
+    // Validate that this is an outer placeholder variable
+    Assert(phv->phlevelsup > 0 && phv->phlevelsup < root->query_level);
+
+    // Find or create parameter ID for this placeholder variable
+    i = assign_param_for_placeholdervar(root, phv);
+
+    // Create the parameter node to replace the placeholder variable
+    retval = makeNode(Param);
+    retval->paramkind = PARAM_EXEC;
+    retval->paramid = i;
+    retval->paramtype = exprType((Node *) phv->phexpr);
+    retval->paramtypmod = exprTypmod((Node *) phv->phexpr);
+    retval->paramcollid = exprCollation((Node *) phv->phexpr);
+    retval->location = -1;
+
+    return retval;
+}
+```

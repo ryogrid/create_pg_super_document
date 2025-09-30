@@ -58,3 +58,55 @@ This function is particularly important for handling complex query scenarios inv
 - More sophisticated than expandRTE because it works with pre-processed namespace information rather than raw relation metadata
 - Essential for scenarios where the relationship between syntactic and semantic column references differs (e.g., after view expansion or join processing)
 - Part of PostgreSQL's advanced namespace management system that handles complex query transformations
+
+## Simplified Source
+
+```c
+List *
+expandNSItemVars(ParseState *pstate, ParseNamespaceItem *nsitem,
+                 int sublevels_up, int location, List **colnames) {
+    List *result = NIL;
+    int colindex = 0;
+
+    // Initialize output column names if requested
+    if (colnames)
+        *colnames = NIL;
+
+    // Iterate through all columns in the namespace item
+    foreach(lc, nsitem->p_names->colnames) {
+        String *colnameval = lfirst(lc);
+        const char *colname = strVal(colnameval);
+        ParseNamespaceColumn *nscol = nsitem->p_nscolumns + colindex;
+
+        // Skip columns marked as non-expandable
+        if (nscol->p_dontexpand) {
+            // skip this column
+        }
+        // Process non-dropped columns (have non-empty names)
+        else if (colname[0]) {
+            // Create a Var node for this column
+            Var *var = makeVar(nscol->p_varno, nscol->p_varattno,
+                              nscol->p_vartype, nscol->p_vartypmod,
+                              nscol->p_varcollid, sublevels_up);
+
+            // Set syntactic representation fields
+            var->varnosyn = nscol->p_varnosyn;
+            var->varattnosyn = nscol->p_varattnosyn;
+            var->location = location;
+
+            // Update nullability based on join context
+            markNullableIfNeeded(pstate, var);
+
+            // Add to result lists
+            result = lappend(result, var);
+            if (colnames)
+                *colnames = lappend(*colnames, colnameval);
+        }
+        // Dropped columns have empty names and p_varno == 0
+
+        colindex++;
+    }
+
+    return result;
+}
+```

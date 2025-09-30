@@ -46,3 +46,44 @@ The approach deliberately avoids de-duplication of outer aggregate references, c
 - The resulting Param node uses PARAM_EXEC parameter kind, indicating it's an execution-time parameter
 - Parameter type modifier is set to -1 (no specific modifier) and collation ID is InvalidOid
 - The location information from the original GroupingFunc is preserved in the Param node
+
+## Simplified Source
+
+```c
+Param *replace_outer_grouping(PlannerInfo *root, GroupingFunc *grp) {
+    Param *retval;
+    PlannerParamItem *pitem;
+    Index levelsup;
+    Oid ptype = exprType((Node *) grp);
+
+    // Validate that this is an outer grouping function reference
+    Assert(grp->agglevelsup > 0 && grp->agglevelsup < root->query_level);
+
+    // Navigate up to the query level where this grouping function belongs
+    for (levelsup = grp->agglevelsup; levelsup > 0; levelsup--)
+        root = root->parent_root;
+
+    // Create a copy and adjust level references
+    grp = copyObject(grp);
+    IncrementVarSublevelsUp((Node *) grp, -((int) grp->agglevelsup), 0);
+    Assert(grp->agglevelsup == 0);
+
+    // Create parameter item to track this grouping function
+    pitem = makeNode(PlannerParamItem);
+    pitem->item = (Node *) grp;
+    pitem->paramId = list_length(root->glob->paramExecTypes);
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes, ptype);
+    root->plan_params = lappend(root->plan_params, pitem);
+
+    // Create the parameter node to replace the grouping function
+    retval = makeNode(Param);
+    retval->paramkind = PARAM_EXEC;
+    retval->paramid = pitem->paramId;
+    retval->paramtype = ptype;
+    retval->paramtypmod = -1;
+    retval->paramcollid = InvalidOid;
+    retval->location = grp->location;
+
+    return retval;
+}
+```

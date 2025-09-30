@@ -27,3 +27,21 @@ This function provides a non-error variant of get_sortgroupref_clause(). It sear
 
 ## Notes and Other Information
 This function is particularly useful in optimization scenarios where the presence or absence of a sort/group clause affects the chosen strategy, but the absence shouldn't be treated as an error. For example, when reordering group keys by path keys or when constructing partial grouping targets, the optimizer may need to check if certain clauses exist without assuming they must be present. The function follows the same linear search pattern as get_sortgroupref_clause() but provides gentler error handling semantics.
+
+## Simplified Source
+
+```c
+SortGroupClause *get_sortgroupref_clause_noerr(Index sortref, List *clauses) {
+    ListCell *l;
+
+    // Search for clause with matching sortref
+    foreach(l, clauses) {
+        SortGroupClause *cl = (SortGroupClause *) lfirst(l);
+
+        if (cl->tleSortGroupRef == sortref)
+            return cl;
+    }
+
+    return NULL;  // Not found - no error
+}
+```

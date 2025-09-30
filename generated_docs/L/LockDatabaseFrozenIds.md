@@ -37,3 +37,19 @@ The lock prevents race conditions that could cause datfrozenxid or datminmxid to
 - The function is usually called with ExclusiveLock mode to ensure exclusive access
 - Part of PostgreSQL's vacuum and transaction ID management infrastructure
 - Helps coordinate with clog (commit log) and multixact truncation operations
+
+## Simplified Source
+
+```c
+void
+LockDatabaseFrozenIds(LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Set up lock tag for database frozen ID operations
+    SET_LOCKTAG_DATABASE_FROZEN_IDS(tag, MyDatabaseId);
+
+    // Acquire the database-specific frozen ID lock
+    (void) LockAcquire(&tag, lockmode, false, false);
+}
+```

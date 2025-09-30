@@ -34,3 +34,13 @@ This function decodes the scale component from a typmod value by reversing the e
 - The bit hack (x^1024)-1024 correctly handles sign extension for negative scales in two's complement format
 - Should only be called on typmods that have been validated with is_valid_numeric_typmod
 - Scale values are constrained to the range [-1000, 1000] in PostgreSQL's NUMERIC type
+
+## Simplified Source
+
+```c
+static inline int numeric_typmod_scale(int32 typmod) {
+    // Extract scale from lower 11 bits of typmod
+    // Use bit manipulation to sign-extend negative values: (x^1024)-1024
+    return (((typmod - VARHDRSZ) & 0x7ff) ^ 1024) - 1024;
+}
+```

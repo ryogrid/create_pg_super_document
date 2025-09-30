@@ -45,3 +45,28 @@ This function is fundamental to PostgreSQL's cost-based optimization, as qualifi
 - Does not charge cost for implicit ANDing at the top level of qualification lists
 - Results are accumulated in a cost_qual_eval_context structure before final assignment
 - Critical for selectivity and cost estimation in scan operations, joins, and aggregations
+
+## Simplified Source
+
+```c
+void
+cost_qual_eval(QualCost *cost, List *quals, PlannerInfo *root)
+{
+    cost_qual_eval_context context;
+    ListCell *l;
+
+    // Initialize cost evaluation context
+    context.root = root;
+    context.total.startup = 0;
+    context.total.per_tuple = 0;
+
+    // Walk through each qualification expression and accumulate costs
+    foreach(l, quals) {
+        Node *qual = (Node *) lfirst(l);
+        cost_qual_eval_walker(qual, &context);
+    }
+
+    // Return accumulated costs
+    *cost = context.total;
+}
+```

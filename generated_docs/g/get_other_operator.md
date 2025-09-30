@@ -50,3 +50,48 @@ The function also performs permission checks to ensure the user has CREATE privi
 - Shell operators allow forward references in operator definitions, enabling circular dependencies like commutator pairs
 - Permission checks ensure users can only create operators in namespaces where they have CREATE privileges
 - Used specifically for resolving commutator and negator operator references during CREATE OPERATOR
+
+## Simplified Source
+
+```c
+static Oid
+get_other_operator(List *otherOp, Oid otherLeftTypeId, Oid otherRightTypeId,
+                   const char *operatorName, Oid operatorNamespace,
+                   Oid leftTypeId, Oid rightTypeId)
+{
+    Oid other_oid;
+    bool otherDefined;
+
+    // First, try to find existing operator
+    other_oid = OperatorLookup(otherOp, otherLeftTypeId, otherRightTypeId, &otherDefined);
+
+    if (OidIsValid(other_oid)) {
+        // Operator already exists in catalogs
+        return other_oid;
+    }
+
+    // Resolve namespace and name for the other operator
+    char *otherName;
+    Oid otherNamespace = QualifiedNameGetCreationNamespace(otherOp, &otherName);
+
+    // Check if this is a self-reference (operator refers to itself)
+    if (strcmp(otherName, operatorName) == 0 &&
+        otherNamespace == operatorNamespace &&
+        otherLeftTypeId == leftTypeId &&
+        otherRightTypeId == rightTypeId) {
+        // Self-linkage - caller must handle this case
+        return InvalidOid;
+    }
+
+    // Different operator that doesn't exist - check permissions and create shell
+    AclResult aclresult = object_aclcheck(NamespaceRelationId, otherNamespace,
+                                         GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(otherNamespace));
+
+    // Create shell operator for future completion
+    other_oid = OperatorShellMake(otherName, otherNamespace,
+                                 otherLeftTypeId, otherRightTypeId);
+    return other_oid;
+}
+```

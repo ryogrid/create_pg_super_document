@@ -41,3 +41,28 @@ This function is particularly useful in scenarios where the publication OID is a
 - Serves as a wrapper around AlterPublicationOwner_internal, handling the OID-based publication lookup and resource management
 - Used primarily by internal PostgreSQL subsystems that work with object OIDs, such as the shared dependency management system
 - More efficient than name-based lookup when the OID is already available
+
+## Simplified Source
+
+```c
+void AlterPublicationOwner_oid(Oid subid, Oid newOwnerId)
+{
+    // Open publication catalog table
+    Relation rel = table_open(PublicationRelationId, RowExclusiveLock);
+
+    // Find publication by OID
+    HeapTuple tup = SearchSysCacheCopy1(PUBLICATIONOID, ObjectIdGetDatum(subid));
+
+    // Validate publication exists
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("publication with OID %u does not exist", subid)));
+
+    // Perform ownership change
+    AlterPublicationOwner_internal(rel, tup, newOwnerId);
+
+    // Cleanup resources
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

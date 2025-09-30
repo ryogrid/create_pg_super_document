@@ -52,3 +52,71 @@ For standalone attributes:
 - Memory management includes proper cleanup with pfree for temporary strings
 - Used internally by PostgreSQL's XML expression evaluation system
 - Returns NULL when libxml support is not available
+
+## Simplified Source
+
+```c
+xmltype *xmlconcat(List *args)
+{
+#ifdef USE_LIBXML
+    int global_standalone = 1;
+    xmlChar *global_version = NULL;
+    bool global_version_no_value = false;
+    StringInfoData buf;
+
+    initStringInfo(&buf);
+
+    // Process each XML input
+    foreach(ListCell *v, args)
+    {
+        xmltype *x = DatumGetXmlP(PointerGetDatum(lfirst(v)));
+        size_t len;
+        xmlChar *version;
+        int standalone;
+        char *str;
+
+        // Extract XML content and parse declaration
+        len = VARSIZE(x) - VARHDRSZ;
+        str = text_to_cstring((text *) x);
+        parse_xml_decl((xmlChar *) str, &len, &version, NULL, &standalone);
+
+        // Merge standalone attributes (most restrictive wins)
+        if (standalone == 0 && global_standalone == 1)
+            global_standalone = 0;
+        if (standalone < 0)
+            global_standalone = -1;
+
+        // Merge version info (must be consistent or omitted)
+        if (!version)
+            global_version_no_value = true;
+        else if (!global_version)
+            global_version = version;
+        else if (xmlStrcmp(version, global_version) != 0)
+            global_version_no_value = true;
+
+        // Append content (without declaration)
+        appendStringInfoString(&buf, str + len);
+        pfree(str);
+    }
+
+    // Add unified XML declaration if needed
+    if (!global_version_no_value || global_standalone >= 0)
+    {
+        StringInfoData buf2;
+        initStringInfo(&buf2);
+
+        print_xml_decl(&buf2,
+                       (!global_version_no_value) ? global_version : NULL,
+                       0, global_standalone);
+
+        appendBinaryStringInfo(&buf2, buf.data, buf.len);
+        buf = buf2;
+    }
+
+    return stringinfo_to_xmltype(&buf);
+#else
+    NO_XML_SUPPORT();
+    return NULL;
+#endif
+}
+```

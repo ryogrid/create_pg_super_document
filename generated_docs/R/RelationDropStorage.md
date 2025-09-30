@@ -36,3 +36,27 @@ RelationDropStorage schedules the unlinking of physical storage files for a rela
 - Closes storage manager handle immediately to prevent further access to the relation files
 - Uses the relations rd_locator and rd_backend fields to identify files for deletion
 - Transaction nesting level is recorded to handle subtransaction rollback scenarios properly
+
+## Simplified Source
+
+```c
+void
+RelationDropStorage(Relation rel)
+{
+    PendingRelDelete *pending;
+
+    // Create pending deletion entry in TopMemoryContext
+    pending = (PendingRelDelete *) MemoryContextAlloc(TopMemoryContext, sizeof(PendingRelDelete));
+    pending->rlocator = rel->rd_locator;
+    pending->procNumber = rel->rd_backend;
+    pending->atCommit = true;  // Delete if transaction commits
+    pending->nestLevel = GetCurrentTransactionNestLevel();
+
+    // Add to pending deletion list
+    pending->next = pendingDeletes;
+    pendingDeletes = pending;
+
+    // Close storage manager handle to prevent further access
+    RelationCloseSmgr(rel);
+}
+```

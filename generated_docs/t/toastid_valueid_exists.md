@@ -36,3 +36,18 @@ The function maintains the same safety semantics as its underlying implementatio
 - Inherits the safety characteristics of toastrel_valueid_exists regarding live/dead tuple detection
 - Properly manages relation lifecycle by opening and closing with matching lock modes
 - Used primarily during table rewrite scenarios where OID conflicts need to be avoided across multiple toast relations
+
+## Simplified Source
+
+```c
+static bool
+toastid_valueid_exists(Oid toastrelid, Oid valueid)
+{
+    // Open toast relation and check if value exists
+    Relation toastrel = table_open(toastrelid, AccessShareLock);
+    bool result = toastrel_valueid_exists(toastrel, valueid);
+    table_close(toastrel, AccessShareLock);
+
+    return result;
+}
+```

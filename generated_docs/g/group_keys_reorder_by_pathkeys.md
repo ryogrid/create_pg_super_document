@@ -39,3 +39,59 @@ The algorithm walks through the input pathkeys and searches for matching GROUP B
 
 ## Notes and Other Information
 This function is static and serves as a helper for get_useful_group_keys_orderings. It's designed to handle the complexity of matching pathkeys with GROUP BY clauses while avoiding issues with aggregate pathkeys that have invalid sortref values. The function returns the number of successfully matched pathkeys, which indicates how many GROUP BY keys can benefit from the existing sort order. The reordering is essential for incremental sort and other optimization techniques that can leverage partial ordering.
+
+## Simplified Source
+
+```c
+static int
+group_keys_reorder_by_pathkeys(List *pathkeys, List **group_pathkeys,
+                               List **group_clauses, int num_groupby_pathkeys)
+{
+    List *new_group_pathkeys = NIL;
+    List *new_group_clauses = NIL;
+    List *grouping_pathkeys;
+    ListCell *lc;
+    int n;
+
+    if (pathkeys == NIL || *group_pathkeys == NIL)
+        return 0;
+
+    // Create subset of pathkeys to avoid aggregate pathkey issues
+    grouping_pathkeys = list_copy_head(*group_pathkeys, num_groupby_pathkeys);
+
+    // Walk input pathkeys and find matching GROUP BY keys
+    foreach(lc, pathkeys) {
+        PathKey *pathkey = (PathKey *) lfirst(lc);
+        SortGroupClause *sgc;
+
+        // Stop if we've exceeded the groupby range, can't find the pathkey,
+        // or the pathkey has no sortref
+        if (foreach_current_index(lc) >= num_groupby_pathkeys ||
+            !list_member_ptr(grouping_pathkeys, pathkey) ||
+            pathkey->pk_eclass->ec_sortref == 0)
+            break;
+
+        // Look up the corresponding GROUP BY clause
+        sgc = get_sortgroupref_clause_noerr(pathkey->pk_eclass->ec_sortref,
+                                           *group_clauses);
+        if (!sgc)
+            break;  // No matching grouping clause
+
+        Assert(OidIsValid(sgc->sortop));
+
+        // Add matching pathkey and clause to reordered lists
+        new_group_pathkeys = lappend(new_group_pathkeys, pathkey);
+        new_group_clauses = lappend(new_group_clauses, sgc);
+    }
+
+    // Count how many pathkeys matched
+    n = list_length(new_group_pathkeys);
+
+    // Combine reordered keys with remaining keys (maintaining uniqueness)
+    *group_pathkeys = list_concat_unique_ptr(new_group_pathkeys, *group_pathkeys);
+    *group_clauses = list_concat_unique_ptr(new_group_clauses, *group_clauses);
+
+    list_free(grouping_pathkeys);
+    return n;  // Number of pathkeys that matched
+}
+```

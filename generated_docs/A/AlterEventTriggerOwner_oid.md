@@ -44,3 +44,30 @@ Unlike its name-based counterpart, this function returns void rather than an Obj
 - The function requires an exclusive row lock on the pg_event_trigger relation to prevent concurrent modifications
 - Memory management includes proper cleanup of the tuple copy obtained from the system cache
 - Shares the core ownership change logic with AlterEventTriggerOwner through AlterEventTriggerOwner_internal()
+
+## Simplified Source
+
+```c
+void
+AlterEventTriggerOwner_oid(Oid trigOid, Oid newOwnerId) {
+    HeapTuple tup;
+    Relation rel;
+
+    // Open the pg_event_trigger catalog
+    rel = table_open(EventTriggerRelationId, RowExclusiveLock);
+
+    // Find the event trigger by OID
+    tup = SearchSysCacheCopy1(EVENTTRIGGEROID, ObjectIdGetDatum(trigOid));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("event trigger with OID %u does not exist", trigOid)));
+
+    // Delegate to the internal function to perform the ownership change
+    AlterEventTriggerOwner_internal(rel, tup, newOwnerId);
+
+    // Clean up
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+}
+```

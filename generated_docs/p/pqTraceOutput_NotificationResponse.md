@@ -42,3 +42,17 @@ The function outputs a tab-separated trace line starting with 'NotificationRespo
 - The regress parameter allows for deterministic output during regression testing by hiding variable process IDs
 - Output format is tab-delimited for easy parsing by trace analysis tools
 - The function assumes the message buffer contains a properly formatted NotificationResponse according to the PostgreSQL protocol specification
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_NotificationResponse(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Output message type and notification data
+    fprintf(f, "NotificationResponse\t");
+    pqTraceOutputInt32(f, message, cursor, regress);   // Backend process ID
+    pqTraceOutputString(f, message, cursor, false);    // Channel name
+    pqTraceOutputString(f, message, cursor, false);    // Payload message
+}
+```

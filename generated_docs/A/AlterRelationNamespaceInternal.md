@@ -50,3 +50,69 @@ This function implements the core logic for moving a relation between namespaces
 - Fires post-alter hooks to notify other subsystems of the namespace change
 - Handles cases where objects have already been moved or are already in the correct namespace
 - Critical for implementing ALTER TABLE/INDEX/SEQUENCE SET SCHEMA operations
+
+## Simplified Source
+
+```c
+void
+AlterRelationNamespaceInternal(Relation classRel, Oid relOid,
+                              Oid oldNspOid, Oid newNspOid,
+                              bool hasDependEntry,
+                              ObjectAddresses *objsMoved)
+{
+    HeapTuple   classTup;
+    Form_pg_class classForm;
+    ObjectAddress thisobj;
+    bool        already_done = false;
+
+    // Lock and get the relation's catalog entry
+    classTup = SearchSysCacheLockedCopy1(RELOID, ObjectIdGetDatum(relOid));
+    if (!HeapTupleIsValid(classTup))
+        elog(ERROR, "cache lookup failed for relation %u", relOid);
+
+    classForm = (Form_pg_class) GETSTRUCT(classTup);
+    Assert(classForm->relnamespace == oldNspOid);
+
+    // Setup object address
+    thisobj.classId = RelationRelationId;
+    thisobj.objectId = relOid;
+    thisobj.objectSubId = 0;
+
+    // Check if already moved
+    already_done = object_address_present(&thisobj, objsMoved);
+
+    if (!already_done && oldNspOid != newNspOid)
+    {
+        // Check for name conflicts in target namespace
+        if (get_relname_relid(NameStr(classForm->relname), newNspOid) != InvalidOid)
+            ereport(ERROR,
+                    (errcode(ERRCODE_DUPLICATE_TABLE),
+                     errmsg("relation \"%s\" already exists in schema \"%s\"",
+                            NameStr(classForm->relname),
+                            get_namespace_name(newNspOid))));
+
+        // Update the namespace in pg_class
+        classForm->relnamespace = newNspOid;
+        CatalogTupleUpdate(classRel, &classTup->t_self, classTup);
+        UnlockTuple(classRel, &classTup->t_self, InplaceUpdateTupleLock);
+
+        // Update schema dependency if needed
+        if (hasDependEntry &&
+            changeDependencyFor(RelationRelationId, relOid,
+                               NamespaceRelationId,
+                               oldNspOid, newNspOid) != 1)
+            elog(ERROR, "could not change schema dependency for relation \"%s\"",
+                 NameStr(classForm->relname));
+    }
+    else
+        UnlockTuple(classRel, &classTup->t_self, InplaceUpdateTupleLock);
+
+    if (!already_done)
+    {
+        add_exact_object_address(&thisobj, objsMoved);
+        InvokeObjectPostAlterHook(RelationRelationId, relOid, 0);
+    }
+
+    heap_freetuple(classTup);
+}
+```

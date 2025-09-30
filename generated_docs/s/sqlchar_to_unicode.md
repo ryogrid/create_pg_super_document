@@ -38,3 +38,27 @@ The function is designed to handle multi-byte characters correctly by determinin
 - The function is primarily used in XML processing contexts where SQL identifiers need to be converted to valid XML names
 - Multi-byte character support is essential for international character sets and proper XML name generation
 - The function does not assume null-terminated input, making it safe for use with substring operations
+
+## Simplified Source
+
+```c
+static pg_wchar
+sqlchar_to_unicode(const char *s)
+{
+    char *utf8string;
+    pg_wchar unicode_result[2];  // Space for character + null terminator
+
+    // Convert from server encoding to UTF-8
+    utf8string = pg_server_to_any(s, pg_mblen(s), PG_UTF8);
+
+    // Convert UTF-8 to Unicode codepoint
+    pg_encoding_mb2wchar_with_len(PG_UTF8, utf8string, unicode_result,
+                                  pg_encoding_mblen(PG_UTF8, utf8string));
+
+    // Clean up if conversion allocated new memory
+    if (utf8string != s)
+        pfree(utf8string);
+
+    return unicode_result[0];
+}
+```

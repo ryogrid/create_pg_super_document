@@ -50,3 +50,62 @@ A key aspect is the handling of RestrictInfo nodes: the function uses embedded R
 - Maintains logical expression flatness by unwrapping nested OR structures
 - The recursion is mandatory for correctness, not just optimization, to properly handle nested structures
 - Preserves the original OR clause semantics while creating relation-specific restrictions
+
+## Simplified Source
+
+```c
+static Expr *
+extract_or_clause(RestrictInfo *or_rinfo, RelOptInfo *rel)
+{
+    List *clauselist = NIL;
+    ListCell *lc;
+
+    // Process each arm of the OR clause
+    foreach(lc, ((BoolExpr *) or_rinfo->orclause)->args)
+    {
+        Node *orarg = (Node *) lfirst(lc);
+        List *subclauses = NIL;
+
+        if (is_andclause(orarg))
+        {
+            // Handle AND arms: check each conjunct
+            ListCell *lc2;
+            foreach(lc2, ((BoolExpr *) orarg)->args)
+            {
+                RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc2);
+
+                if (restriction_is_or_clause(rinfo))
+                {
+                    // Recursively extract from nested OR
+                    Expr *suborclause = extract_or_clause(rinfo, rel);
+                    if (suborclause)
+                        subclauses = lappend(subclauses, suborclause);
+                }
+                else if (is_safe_restriction_clause_for(rinfo, rel))
+                    subclauses = lappend(subclauses, rinfo->clause);
+            }
+        }
+        else
+        {
+            // Handle simple OR arm
+            RestrictInfo *rinfo = castNode(RestrictInfo, orarg);
+            if (is_safe_restriction_clause_for(rinfo, rel))
+                subclauses = lappend(subclauses, rinfo->clause);
+        }
+
+        // If no clauses extracted from this arm, extraction fails
+        if (subclauses == NIL)
+            return NULL;
+
+        // Combine subclauses and add to result, maintaining OR flatness
+        Node *subclause = (Node *) make_ands_explicit(subclauses);
+        if (is_orclause(subclause))
+            clauselist = list_concat(clauselist, ((BoolExpr *) subclause)->args);
+        else
+            clauselist = lappend(clauselist, subclause);
+    }
+
+    // Return OR of all extracted clauses, or NULL if none
+    return (clauselist != NIL) ? make_orclause(clauselist) : NULL;
+}
+```

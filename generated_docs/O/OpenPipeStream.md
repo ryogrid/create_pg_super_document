@@ -46,3 +46,53 @@ The function manages file descriptor limits by releasing least-recently-used fil
 - The function flushes all stdio streams before creating the pipe to ensure proper I/O ordering
 - Signal handling ensures that child processes respond appropriately to broken pipes (e.g., early pipe closure)
 - Each opened pipe is tracked in the allocatedDescs array with metadata including the creating subtransaction ID
+
+## Simplified Source
+```c
+FILE *OpenPipeStream(const char *command, const char *mode) {
+    FILE *file;
+    int save_errno;
+
+    // Check if we can allocate another file descriptor
+    if (!reserveAllocatedDesc()) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                       errmsg("exceeded maxAllocatedDescs (%d) while trying to execute command \"%s\"",
+                              maxAllocatedDescs, command)));
+    }
+
+    // Close excess files to free descriptors
+    ReleaseLruFiles();
+
+TryAgain:
+    // Flush all streams and temporarily restore default SIGPIPE handling
+    fflush(NULL);
+    pqsignal(SIGPIPE, SIG_DFL);
+    errno = 0;
+    file = popen(command, mode);
+    save_errno = errno;
+    pqsignal(SIGPIPE, SIG_IGN);  // Restore PostgreSQL's SIGPIPE handling
+    errno = save_errno;
+
+    if (file != NULL) {
+        // Register the pipe in our tracking system
+        AllocateDesc *desc = &allocatedDescs[numAllocatedDescs];
+        desc->kind = AllocateDescPipe;
+        desc->desc.file = file;
+        desc->create_subid = GetCurrentSubTransactionId();
+        numAllocatedDescs++;
+        return desc->desc.file;
+    }
+
+    // Handle file descriptor exhaustion by releasing LRU files and retrying
+    if (errno == EMFILE || errno == ENFILE) {
+        ereport(LOG, (errcode(ERRCODE_INSUFFICIENT_RESOURCES),
+                     errmsg("out of file descriptors: %m; release and retry")));
+        if (ReleaseLruFile()) {
+            goto TryAgain;
+        }
+        errno = save_errno;
+    }
+
+    return NULL;
+}
+```

@@ -44,3 +44,39 @@ When a matching relation is found, the removal counter is incremented and the no
 - Empty sublists are filtered out to prevent structural pollution of the result
 - The caller is expected to verify that exactly one occurrence was removed by checking the nremoved counter
 - Located in src/backend/optimizer/plan/analyzejoins.c at lines 676-729
+
+## Simplified Source
+
+```c
+static List *remove_rel_from_joinlist(List *joinlist, int relid, int *nremoved)
+{
+    List *result = NIL;
+
+    foreach(jl, joinlist) {
+        Node *jlnode = (Node *) lfirst(jl);
+
+        if (IsA(jlnode, RangeTblRef)) {
+            // Direct relation reference
+            int varno = ((RangeTblRef *) jlnode)->rtindex;
+
+            if (varno == relid)
+                (*nremoved)++;  // Found target relation, don't add to result
+            else
+                result = lappend(result, jlnode);  // Keep this relation
+        }
+        else if (IsA(jlnode, List)) {
+            // Nested sublist - recurse to process it
+            List *sublist = remove_rel_from_joinlist((List *) jlnode, relid, nremoved);
+
+            // Only include non-empty sublists
+            if (sublist)
+                result = lappend(result, sublist);
+        }
+        else {
+            elog(ERROR, "unrecognized joinlist node type: %d", (int) nodeTag(jlnode));
+        }
+    }
+
+    return result;
+}
+```

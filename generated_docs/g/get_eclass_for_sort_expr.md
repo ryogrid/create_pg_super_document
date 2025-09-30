@@ -67,3 +67,112 @@ The function handles several important considerations:
 - New EquivalenceClasses are constructed in the planner memory context for proper lifespan
 - Expression canonicalization ensures consistent type and collation exposure
 - Returns NULL when no match is found and create_it is false
+
+## Simplified Source
+
+```c
+EquivalenceClass *get_eclass_for_sort_expr(PlannerInfo *root, Expr *expr, List *opfamilies,
+                                          Oid opcintype, Oid collation, Index sortref,
+                                          Relids rel, bool create_it) {
+    JoinDomain *jdomain;
+    Relids expr_relids;
+    EquivalenceClass *newec;
+    EquivalenceMember *newem;
+    ListCell *lc1;
+    MemoryContext oldcontext;
+
+    // Canonicalize the expression type and collation
+    expr = canonicalize_ec_expression(expr, opcintype, collation);
+
+    // Use the top-level join domain for sort expressions
+    jdomain = linitial_node(JoinDomain, root->join_domains);
+
+    // Search existing equivalence classes for a match
+    foreach(lc1, root->eq_classes) {
+        EquivalenceClass *cur_ec = (EquivalenceClass *) lfirst(lc1);
+        ListCell *lc2;
+
+        // Skip volatile ECs unless sortref matches
+        if (cur_ec->ec_has_volatile && (sortref == 0 || sortref != cur_ec->ec_sortref))
+            continue;
+
+        // Check collation and operator families
+        if (collation != cur_ec->ec_collation || !equal(opfamilies, cur_ec->ec_opfamilies))
+            continue;
+
+        // Check each member for expression match
+        foreach(lc2, cur_ec->ec_members) {
+            EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc2);
+
+            // Skip child members unless they match the request
+            if (cur_em->em_is_child && !bms_equal(cur_em->em_relids, rel))
+                continue;
+
+            // Match constants only within the same JoinDomain
+            if (cur_em->em_is_const && cur_em->em_jdomain != jdomain)
+                continue;
+
+            // Check for expression and type match
+            if (opcintype == cur_em->em_datatype && equal(expr, cur_em->em_expr))
+                return cur_ec;  // Found match
+        }
+    }
+
+    // No match found
+    if (!create_it)
+        return NULL;
+
+    // Create new single-member EquivalenceClass
+    oldcontext = MemoryContextSwitchTo(root->planner_cxt);
+
+    newec = makeNode(EquivalenceClass);
+    newec->ec_opfamilies = list_copy(opfamilies);
+    newec->ec_collation = collation;
+    newec->ec_members = NIL;
+    newec->ec_sources = NIL;
+    newec->ec_derives = NIL;
+    newec->ec_relids = NULL;
+    newec->ec_has_const = false;
+    newec->ec_has_volatile = contain_volatile_functions((Node *) expr);
+    newec->ec_broken = false;
+    newec->ec_sortref = sortref;
+    newec->ec_min_security = UINT_MAX;
+    newec->ec_max_security = 0;
+    newec->ec_merged = NULL;
+
+    // Validate volatile expressions have sortref
+    if (newec->ec_has_volatile && sortref == 0)
+        elog(ERROR, "volatile EquivalenceClass has no sortref");
+
+    // Add the expression as a member
+    expr_relids = pull_varnos(root, (Node *) expr);
+    newem = add_eq_member(newec, copyObject(expr), expr_relids, jdomain, NULL, opcintype);
+
+    // Validate const marking for expressions with prohibited constructs
+    if (newec->ec_has_const) {
+        if (newec->ec_has_volatile || expression_returns_set((Node *) expr) ||
+            contain_agg_clause((Node *) expr) || contain_window_function((Node *) expr)) {
+            newec->ec_has_const = false;
+            newem->em_is_const = false;
+        }
+    }
+
+    root->eq_classes = lappend(root->eq_classes, newec);
+
+    // Update relation indexes if EC merging is complete
+    if (root->ec_merging_done) {
+        int ec_index = list_length(root->eq_classes) - 1;
+        int i = -1;
+
+        while ((i = bms_next_member(newec->ec_relids, i)) > 0) {
+            RelOptInfo *rel_info = root->simple_rel_array[i];
+            if (rel_info && rel_info->reloptkind == RELOPT_BASEREL) {
+                rel_info->eclass_indexes = bms_add_member(rel_info->eclass_indexes, ec_index);
+            }
+        }
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+    return newec;
+}
+```

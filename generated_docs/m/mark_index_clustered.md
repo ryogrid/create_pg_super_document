@@ -48,3 +48,66 @@ When indexOid is InvalidOid, the function clears the clustered flag from all ind
 - Uses RowExclusiveLock on pg_index to ensure exclusive access during catalog updates
 - Invokes object post-alter hooks for all processed indexes, not just the one being marked clustered, to ensure complete notification coverage
 - The function is transactional and will be rolled back if the containing transaction fails
+
+## Simplified Source
+
+```c
+void
+mark_index_clustered(Relation rel, Oid indexOid, bool is_internal)
+{
+    HeapTuple indexTuple;
+    Form_pg_index indexForm;
+    Relation pg_index;
+    ListCell *index;
+
+    // Prevent clustering on partitioned tables
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot mark index clustered in partitioned table")));
+
+    // Skip if the index is already marked clustered
+    if (OidIsValid(indexOid)) {
+        if (get_index_isclustered(indexOid))
+            return;
+    }
+
+    // Open pg_index catalog for modification
+    pg_index = table_open(IndexRelationId, RowExclusiveLock);
+
+    // Process all indexes on the relation
+    foreach(index, RelationGetIndexList(rel)) {
+        Oid thisIndexOid = lfirst_oid(index);
+
+        // Get the index tuple from system cache
+        indexTuple = SearchSysCacheCopy1(INDEXRELID, ObjectIdGetDatum(thisIndexOid));
+        if (!HeapTupleIsValid(indexTuple))
+            elog(ERROR, "cache lookup failed for index %u", thisIndexOid);
+
+        indexForm = (Form_pg_index) GETSTRUCT(indexTuple);
+
+        // Clear clustered flag from previously clustered indexes
+        if (indexForm->indisclustered) {
+            indexForm->indisclustered = false;
+            CatalogTupleUpdate(pg_index, &indexTuple->t_self, indexTuple);
+        }
+        // Set clustered flag on the target index
+        else if (thisIndexOid == indexOid) {
+            // Validate index is usable for clustering
+            if (!indexForm->indisvalid)
+                elog(ERROR, "cannot cluster on invalid index %u", indexOid);
+
+            indexForm->indisclustered = true;
+            CatalogTupleUpdate(pg_index, &indexTuple->t_self, indexTuple);
+        }
+
+        // Notify post-alter hooks for this index
+        InvokeObjectPostAlterHookArg(IndexRelationId, thisIndexOid, 0,
+                                    InvalidOid, is_internal);
+
+        heap_freetuple(indexTuple);
+    }
+
+    table_close(pg_index, RowExclusiveLock);
+}
+```

@@ -32,3 +32,14 @@ The function is crucial for determining the order of predicate evaluation in que
 - This function is essential for PostgreSQL's row-level security (RLS) and security barrier views implementation
 - The actual logic is delegated to `contain_leaked_vars_walker` which performs the tree traversal
 - Located in src/backend/optimizer/util/clauses.c:1263-1268
+
+## Simplified Source
+
+```c
+bool
+contain_leaked_vars(Node *clause)
+{
+    // Simple wrapper that delegates to the actual tree-walking function
+    return contain_leaked_vars_walker(clause, NULL);
+}
+```

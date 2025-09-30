@@ -51,3 +51,46 @@ The function uses a combination of  for Query nodes and  for other expression no
 - Returns NULL for NULL input nodes, maintaining tree structure integrity
 - Uses both query tree and expression tree mutators appropriately based on node type
 - The function is designed to work with the PostgreSQL tree mutation framework, following its conventions and patterns
+
+## Simplified Source
+
+```c
+static Node *
+substitute_actual_srf_parameters_mutator(Node *node,
+                                        substitute_actual_srf_parameters_context *context)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Handle Query nodes by tracking sublevel depth
+    if (IsA(node, Query)) {
+        context->sublevels_up++;
+        Node *result = (Node *) query_tree_mutator((Query *) node,
+                                                  substitute_actual_srf_parameters_mutator,
+                                                  (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Handle external parameters - substitute with actual arguments
+    if (IsA(node, Param)) {
+        Param *param = (Param *) node;
+
+        if (param->paramkind == PARAM_EXTERN) {
+            // Validate parameter ID
+            if (param->paramid <= 0 || param->paramid > context->nargs)
+                elog(ERROR, "invalid paramid: %d", param->paramid);
+
+            // Get the actual argument and adjust variable levels
+            Node *result = copyObject(list_nth(context->args, param->paramid - 1));
+            IncrementVarSublevelsUp(result, context->sublevels_up, 0);
+            return result;
+        }
+    }
+
+    // Continue tree traversal for other node types
+    return expression_tree_mutator(node,
+                                  substitute_actual_srf_parameters_mutator,
+                                  (void *) context);
+}
+```

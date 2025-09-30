@@ -45,3 +45,121 @@ For SERIAL columns, the function automatically creates NOT NULL and DEFAULT next
 
 ## Notes and Other Information
 The function maintains strict validation of constraint combinations, preventing conflicting specifications like both DEFAULT and IDENTITY on the same column. SERIAL types are treated as pseudo-types that expand into integer types with associated sequences and constraints. For identity columns, the function ensures they are implicitly NOT NULL and validates that they're not used on typed tables or partitions. Foreign table columns have restricted constraint support, prohibiting PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints. The function accumulates constraints into different lists within the CreateStmtContext for later processing in the appropriate order.
+
+## Simplified Source
+
+```c
+static void transformColumnDefinition(CreateStmtContext *cxt, ColumnDef *column) {
+    bool is_serial = false;
+    bool saw_nullable = false, saw_default = false;
+    bool saw_identity = false, saw_generated = false;
+
+    cxt->columns = lappend(cxt->columns, column);
+
+    // Check for SERIAL pseudo-types
+    if (column->typeName && list_length(column->typeName->names) == 1) {
+        char *typname = strVal(linitial(column->typeName->names));
+
+        if (strcmp(typname, "serial") == 0 || strcmp(typname, "serial4") == 0) {
+            is_serial = true;
+            column->typeName->typeOid = INT4OID;
+        } else if (strcmp(typname, "bigserial") == 0 || strcmp(typname, "serial8") == 0) {
+            is_serial = true;
+            column->typeName->typeOid = INT8OID;
+        } else if (strcmp(typname, "smallserial") == 0 || strcmp(typname, "serial2") == 0) {
+            is_serial = true;
+            column->typeName->typeOid = INT2OID;
+        }
+    }
+
+    // Process column type
+    if (column->typeName)
+        transformColumnType(cxt, column);
+
+    // Generate sequence for SERIAL columns
+    if (is_serial) {
+        generateSerialExtraStmts(cxt, column, column->typeName->typeOid, NIL,
+                               false, false, &snamespace, &sname);
+
+        // Add DEFAULT nextval() constraint
+        Constraint *constraint = makeNode(Constraint);
+        constraint->contype = CONSTR_DEFAULT;
+        constraint->raw_expr = (Node *) makeFuncCall(SystemFuncName("nextval"), ...);
+        column->constraints = lappend(column->constraints, constraint);
+
+        // Add NOT NULL constraint
+        constraint = makeNode(Constraint);
+        constraint->contype = CONSTR_NOTNULL;
+        column->constraints = lappend(column->constraints, constraint);
+    }
+
+    // Process column constraints
+    transformConstraintAttrs(cxt, column->constraints);
+
+    foreach(clist, column->constraints) {
+        Constraint *constraint = lfirst_node(Constraint, clist);
+
+        switch (constraint->contype) {
+            case CONSTR_NULL:
+                column->is_not_null = false;
+                saw_nullable = true;
+                break;
+
+            case CONSTR_NOTNULL:
+                column->is_not_null = true;
+                saw_nullable = true;
+                break;
+
+            case CONSTR_DEFAULT:
+                column->raw_default = constraint->raw_expr;
+                saw_default = true;
+                break;
+
+            case CONSTR_IDENTITY:
+                generateSerialExtraStmts(cxt, column, typeOid, constraint->options,
+                                       true, false, NULL, NULL);
+                column->identity = constraint->generated_when;
+                column->is_not_null = true;
+                saw_identity = saw_nullable = true;
+                break;
+
+            case CONSTR_GENERATED:
+                column->generated = ATTRIBUTE_GENERATED_STORED;
+                column->raw_default = constraint->raw_expr;
+                saw_generated = true;
+                break;
+
+            case CONSTR_CHECK:
+                cxt->ckconstraints = lappend(cxt->ckconstraints, constraint);
+                break;
+
+            case CONSTR_PRIMARY:
+            case CONSTR_UNIQUE:
+                constraint->keys = list_make1(makeString(column->colname));
+                cxt->ixconstraints = lappend(cxt->ixconstraints, constraint);
+                break;
+
+            case CONSTR_FOREIGN:
+                constraint->fk_attrs = list_make1(makeString(column->colname));
+                cxt->fkconstraints = lappend(cxt->fkconstraints, constraint);
+                break;
+        }
+
+        // Validate constraint combinations
+        if (saw_default && saw_identity)
+            ereport(ERROR, (errmsg("both default and identity specified")));
+        if (saw_default && saw_generated)
+            ereport(ERROR, (errmsg("both default and generation expression specified")));
+        if (saw_identity && saw_generated)
+            ereport(ERROR, (errmsg("both identity and generation expression specified")));
+    }
+
+    // Handle foreign data wrapper options
+    if (column->fdwoptions != NIL) {
+        // Generate ALTER FOREIGN TABLE statement for column options
+        AlterTableStmt *stmt = makeNode(AlterTableStmt);
+        // ... setup alter table command
+        cxt->alist = lappend(cxt->alist, stmt);
+    }
+}
+```

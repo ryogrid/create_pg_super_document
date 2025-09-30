@@ -44,3 +44,23 @@ The function creates a two-argument function call where the first argument is th
 - Location information is preserved for error reporting
 - The function handles default encoding through getJsonEncodingConst()
 - Part of PostgreSQL's JSON processing infrastructure for handling binary data conversion
+
+## Simplified Source
+
+```c
+static Node *makeJsonByteaToTextConversion(Node *expr, JsonFormat *format, int location) {
+    // Get encoding constant from format (defaults to UTF8 if format is NULL)
+    Const *encoding = getJsonEncodingConst(format);
+
+    // Create convert_from() function call: convert_from(expr, encoding)
+    FuncExpr *fexpr = makeFuncExpr(F_CONVERT_FROM, TEXTOID,
+                                   list_make2(expr, encoding),
+                                   InvalidOid, InvalidOid,
+                                   COERCE_EXPLICIT_CALL);
+
+    // Preserve source location for error reporting
+    fexpr->location = location;
+
+    return (Node *) fexpr;
+}
+```

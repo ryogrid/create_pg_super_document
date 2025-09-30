@@ -44,3 +44,53 @@ The lookup process follows these steps:
 - Follows PostgreSQL's standard qualified name resolution patterns used throughout the system
 - Essential for text search template management and dictionary creation processes
 - The function ensures proper namespace isolation and search path semantics for text search objects
+
+## Simplified Source
+
+```c
+Oid
+get_ts_template_oid(List *names, bool missing_ok) {
+    char *schemaname;
+    char *template_name;
+    Oid namespaceId;
+    Oid tmploid = InvalidOid;
+    ListCell *l;
+
+    // Parse the qualified name
+    DeconstructQualifiedName(names, &schemaname, &template_name);
+
+    if (schemaname) {
+        // Schema-qualified lookup
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            tmploid = InvalidOid;
+        else
+            tmploid = GetSysCacheOid2(TSTEMPLATENAMENSP, Anum_pg_ts_template_oid,
+                                      PointerGetDatum(template_name),
+                                      ObjectIdGetDatum(namespaceId));
+    } else {
+        // Search through the namespace search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath) {
+            namespaceId = lfirst_oid(l);
+
+            // Skip temporary namespace
+            if (namespaceId == myTempNamespace)
+                continue;
+
+            tmploid = GetSysCacheOid2(TSTEMPLATENAMENSP, Anum_pg_ts_template_oid,
+                                      PointerGetDatum(template_name),
+                                      ObjectIdGetDatum(namespaceId));
+            if (OidIsValid(tmploid))
+                break;
+        }
+    }
+
+    // Handle not found case
+    if (!OidIsValid(tmploid) && !missing_ok)
+        ereport(ERROR, "text search template does not exist");
+
+    return tmploid;
+}
+```

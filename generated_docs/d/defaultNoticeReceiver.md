@@ -33,3 +33,15 @@ The implementation follows a two-level setup that exists primarily for backwards
 - The comment suggests that the use of PQsetNoticeProcessor might be deprecated in future versions
 - The function checks if a notice processor is registered before attempting to call it
 - This is part of libpq's client-side PostgreSQL interface library
+
+## Simplified Source
+
+```c
+static void defaultNoticeReceiver(void *arg, const PGresult *res) {
+    // Extract notice message and forward to processor
+    if (res->noticeHooks.noticeProc != NULL) {
+        res->noticeHooks.noticeProc(res->noticeHooks.noticeProcArg,
+                                   PQresultErrorMessage(res));
+    }
+}
+```

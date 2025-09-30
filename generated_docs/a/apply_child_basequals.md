@@ -51,3 +51,91 @@ The function returns false if any qualifier evaluates to constant false or NULL,
 - Performs constant folding optimization to eliminate unnecessary conditions
 - Part of PostgreSQL's inheritance and partitioning optimization system
 - Located in src/backend/optimizer/util/inherit.c at lines 842-968
+
+## Simplified Source
+
+```c
+bool apply_child_basequals(PlannerInfo *root, RelOptInfo *parentrel,
+                          RelOptInfo *childrel, RangeTblEntry *childRTE,
+                          AppendRelInfo *appinfo)
+{
+    List *childquals = NIL;
+    Index min_security = UINT_MAX;
+    ListCell *lc;
+
+    // Process each parent restriction clause
+    foreach(lc, parentrel->baserestrictinfo) {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        Node *childqual;
+
+        // Translate variables for child relation
+        childqual = adjust_appendrel_attrs(root, (Node *) rinfo->clause,
+                                          1, &appinfo);
+        // Evaluate constant expressions
+        childqual = eval_const_expressions(root, childqual);
+
+        // Check for constant TRUE/FALSE after translation
+        if (childqual && IsA(childqual, Const)) {
+            if (((Const *) childqual)->constisnull ||
+                !DatumGetBool(((Const *) childqual)->constvalue)) {
+                // FALSE or NULL - child relation is empty
+                return false;
+            }
+            // TRUE - skip this restriction
+            continue;
+        }
+
+        // Process flattened AND clauses
+        foreach(lc2, make_ands_implicit((Expr *) childqual)) {
+            Node *onecq = (Node *) lfirst(lc2);
+            bool pseudoconstant;
+            RestrictInfo *childrinfo;
+
+            // Check if this is a pseudoconstant
+            pseudoconstant = !contain_vars_of_level(onecq, 0) &&
+                           !contain_volatile_functions(onecq);
+
+            // Create RestrictInfo for child clause
+            childrinfo = make_restrictinfo(root, (Expr *) onecq,
+                                         rinfo->is_pushed_down,
+                                         rinfo->has_clone, rinfo->is_clone,
+                                         pseudoconstant, rinfo->security_level,
+                                         NULL, NULL, NULL);
+
+            // Check for always FALSE/TRUE
+            if (restriction_is_always_false(root, childrinfo))
+                return false;
+            if (restriction_is_always_true(root, childrinfo))
+                continue;
+
+            childquals = lappend(childquals, childrinfo);
+            min_security = Min(min_security, rinfo->security_level);
+        }
+    }
+
+    // Handle child-specific security quals
+    if (childRTE->securityQuals) {
+        Index security_level = 0;
+        foreach(lc, childRTE->securityQuals) {
+            List *qualset = (List *) lfirst(lc);
+            ListCell *lc2;
+
+            foreach(lc2, qualset) {
+                Expr *qual = (Expr *) lfirst(lc2);
+                childquals = lappend(childquals,
+                                   make_restrictinfo(root, qual, true,
+                                                   false, false, false,
+                                                   security_level,
+                                                   NULL, NULL, NULL));
+                min_security = Min(min_security, security_level);
+            }
+            security_level++;
+        }
+    }
+
+    // Set child relation's restrictions
+    childrel->baserestrictinfo = childquals;
+    childrel->baserestrict_min_security = min_security;
+    return true;
+}
+```

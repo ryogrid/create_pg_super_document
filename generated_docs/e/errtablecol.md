@@ -40,3 +40,21 @@ The function provides a convenient interface for callers who have an attribute n
 - Designed to be more convenient than errtablecolname() when callers have attribute numbers rather than names
 - Part of PostgreSQL's structured error reporting system for enhanced debugging
 - The return value (0) does not matter and is ignored by callers
+
+## Simplified Source
+
+```c
+int errtablecol(Relation rel, int attnum) {
+    TupleDesc reldesc = RelationGetDescr(rel);
+    const char *colname;
+
+    // Get column name: use relation descriptor for user attributes, catalog lookup for others
+    if (attnum > 0 && attnum <= reldesc->natts)
+        colname = NameStr(TupleDescAttr(reldesc, attnum - 1)->attname);
+    else
+        colname = get_attname(RelationGetRelid(rel), attnum, false);
+
+    // Store table and column info in error context
+    return errtablecolname(rel, colname);
+}
+```

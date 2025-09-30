@@ -51,3 +51,71 @@ This function handles reindexing operations on partitioned relations by:
 - Error context includes qualified relation name for precise error identification
 - Memory context management ensures cleanup even in error scenarios since it"s a child of PortalContext
 - The function specifically handles both partitioned tables (REINDEX TABLE) and partitioned indexes (REINDEX INDEX) scenarios in transaction block prevention
+
+## Simplified Source
+
+```c
+static void
+ReindexPartitions(const ReindexStmt *stmt, Oid relid, const ReindexParams *params, bool isTopLevel)
+{
+    List *partitions = NIL;
+    char relkind = get_rel_relkind(relid);
+    char *relname = get_rel_name(relid);
+    char *relnamespace = get_namespace_name(get_rel_namespace(relid));
+    MemoryContext reindex_context;
+    List *inhoids;
+    ErrorContextCallback errcallback;
+    ReindexErrorInfo errinfo;
+
+    Assert(RELKIND_HAS_PARTITIONS(relkind));
+
+    // Set up error context for better error reporting
+    errinfo.relname = pstrdup(relname);
+    errinfo.relnamespace = pstrdup(relnamespace);
+    errinfo.relkind = relkind;
+    errcallback.callback = reindex_error_callback;
+    errcallback.arg = (void *) &errinfo;
+    errcallback.previous = error_context_stack;
+    error_context_stack = &errcallback;
+
+    // Prevent running in transaction block since we commit internally
+    PreventInTransactionBlock(isTopLevel,
+                              relkind == RELKIND_PARTITIONED_TABLE ?
+                              "REINDEX TABLE" : "REINDEX INDEX");
+
+    // Pop error context
+    error_context_stack = errcallback.previous;
+
+    // Create memory context for cross-transaction storage
+    reindex_context = AllocSetContextCreate(PortalContext, "Reindex",
+                                            ALLOCSET_DEFAULT_SIZES);
+
+    // Find all partitions with ShareLock to prevent schema changes
+    inhoids = find_all_inheritors(relid, ShareLock, NULL);
+
+    // Filter to only physical partitions (exclude partitioned and foreign tables)
+    foreach(lc, inhoids)
+    {
+        Oid partoid = lfirst_oid(lc);
+        char partkind = get_rel_relkind(partoid);
+        MemoryContext old_context;
+
+        // Keep only relations with physical storage
+        if (!RELKIND_HAS_STORAGE(partkind))
+            continue;
+
+        Assert(partkind == RELKIND_INDEX || partkind == RELKIND_RELATION);
+
+        // Save partition OID in cross-transaction context
+        old_context = MemoryContextSwitchTo(reindex_context);
+        partitions = lappend_oid(partitions, partoid);
+        MemoryContextSwitchTo(old_context);
+    }
+
+    // Process partitions in separate transactions
+    ReindexMultipleInternal(stmt, partitions, params);
+
+    // Clean up memory context
+    MemoryContextDelete(reindex_context);
+}
+```

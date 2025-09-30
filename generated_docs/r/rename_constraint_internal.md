@@ -48,3 +48,90 @@ The function includes comprehensive inheritance handling for CHECK constraints, 
 - Performs cache invalidation to ensure other sessions see the constraint name change
 - Similar logic structure to renameatt_internal for consistency
 - Supports both recursive and non-recursive constraint renaming operations
+
+## Simplified Source
+
+```c
+static ObjectAddress rename_constraint_internal(Oid myrelid, Oid mytypid, const char *oldconname,
+                                               const char *newconname, bool recurse, bool recursing,
+                                               int expected_parents) {
+    Relation targetrelation = NULL;
+    Oid constraintOid;
+    HeapTuple tuple;
+    Form_pg_constraint con;
+    ObjectAddress address;
+
+    Assert(!myrelid || !mytypid); // Either relation or domain, not both
+
+    // Get constraint OID
+    if (mytypid) {
+        // Domain constraint
+        constraintOid = get_domain_constraint_oid(mytypid, oldconname, false);
+    } else {
+        // Relation constraint
+        targetrelation = relation_open(myrelid, AccessExclusiveLock);
+        renameatt_check(myrelid, RelationGetForm(targetrelation), false);
+        constraintOid = get_relation_constraint_oid(myrelid, oldconname, false);
+    }
+
+    // Get constraint information
+    tuple = SearchSysCache1(CONSTROID, ObjectIdGetDatum(constraintOid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for constraint %u", constraintOid);
+    con = (Form_pg_constraint) GETSTRUCT(tuple);
+
+    // Handle inheritance for CHECK constraints
+    if (myrelid && con->contype == CONSTRAINT_CHECK && !con->connoinherit) {
+        if (recurse) {
+            // Recursively rename in child tables
+            List *child_oids, *child_numparents;
+            ListCell *lo, *li;
+
+            child_oids = find_all_inheritors(myrelid, AccessExclusiveLock, &child_numparents);
+            forboth(lo, child_oids, li, child_numparents) {
+                Oid childrelid = lfirst_oid(lo);
+                int numparents = lfirst_int(li);
+
+                if (childrelid == myrelid)
+                    continue;
+
+                rename_constraint_internal(childrelid, InvalidOid, oldconname, newconname,
+                                         false, true, numparents);
+            }
+        } else {
+            // Check inheritance rules if not recursing
+            if (expected_parents == 0 && find_inheritance_children(myrelid, NoLock) != NIL)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                               errmsg("inherited constraint \"%s\" must be renamed in child tables too",
+                                      oldconname)));
+        }
+
+        // Check inheritance count
+        if (con->coninhcount > expected_parents)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot rename inherited constraint \"%s\"", oldconname)));
+    }
+
+    // Perform the actual rename
+    if (con->conindid && (con->contype == CONSTRAINT_PRIMARY ||
+                         con->contype == CONSTRAINT_UNIQUE ||
+                         con->contype == CONSTRAINT_EXCLUSION)) {
+        // For indexed constraints, rename the index (which renames the constraint)
+        RenameRelationInternal(con->conindid, newconname, false, true);
+    } else {
+        // For other constraints, rename directly
+        RenameConstraintById(constraintOid, newconname);
+    }
+
+    ObjectAddressSet(address, ConstraintRelationId, constraintOid);
+    ReleaseSysCache(tuple);
+
+    // Clean up relation if opened
+    if (targetrelation) {
+        CacheInvalidateRelcache(targetrelation);
+        relation_close(targetrelation, NoLock);
+    }
+
+    return address;
+}
+```

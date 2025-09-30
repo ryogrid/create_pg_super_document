@@ -40,3 +40,38 @@ Unlike parser dependencies, dictionary dependencies include an ownership depende
 - The function returns the ObjectAddress of the dictionary itself for potential use by callers
 - Template dependency ensures dictionary is dropped if its template is removed
 - Ownership dependency enables proper permission and ownership tracking
+
+## Simplified Source
+
+```c
+static ObjectAddress makeDictionaryDependencies(HeapTuple tuple) {
+    Form_pg_ts_dict dict = (Form_pg_ts_dict) GETSTRUCT(tuple);
+    ObjectAddress myself, referenced;
+    ObjectAddresses *addrs;
+
+    // Set up dictionary object address
+    ObjectAddressSet(myself, TSDictionaryRelationId, dict->oid);
+
+    // Record ownership dependency
+    recordDependencyOnOwner(myself.classId, myself.objectId, dict->dictowner);
+
+    // Record extension dependency if in extension context
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    addrs = new_object_addresses();
+
+    // Add namespace dependency
+    ObjectAddressSet(referenced, NamespaceRelationId, dict->dictnamespace);
+    add_exact_object_address(&referenced, addrs);
+
+    // Add template dependency
+    ObjectAddressSet(referenced, TSTemplateRelationId, dict->dicttemplate);
+    add_exact_object_address(&referenced, addrs);
+
+    // Record all collected dependencies
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+    free_object_addresses(addrs);
+
+    return myself;
+}
+```

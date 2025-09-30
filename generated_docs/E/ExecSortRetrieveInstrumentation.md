@@ -41,3 +41,22 @@ This ensures that instrumentation data remains available for analysis and report
 - After this function completes, the instrumentation data persists in private memory and can be accessed for reporting
 - The private memory copy preserves all statistics from all workers, enabling comprehensive performance analysis
 - This function is the final step in the parallel sort instrumentation lifecycle, moving from shared to private storage
+
+## Simplified Source
+
+```c
+void ExecSortRetrieveInstrumentation(SortState *node) {
+    // Skip if no shared instrumentation data
+    if (node->shared_info == NULL)
+        return;
+
+    // Calculate total size for SharedSortInfo + all worker instrumentation data
+    Size size = offsetof(SharedSortInfo, sinstrument) +
+                node->shared_info->num_workers * sizeof(TuplesortInstrumentation);
+
+    // Copy shared memory statistics to private memory for persistence
+    SharedSortInfo *private_copy = palloc(size);
+    memcpy(private_copy, node->shared_info, size);
+    node->shared_info = private_copy;
+}
+```

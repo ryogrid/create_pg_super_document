@@ -41,3 +41,44 @@ Like its datatype counterpart, this function handles resjunk columns based on th
 - Collation compatibility is essential for correct text handling in international applications
 - The function assumes colCollations contains Oid values representing PostgreSQL collation OIDs
 - Works in conjunction with tlist_same_datatypes to ensure complete type and collation compatibility
+
+## Simplified Source
+
+```c
+bool
+tlist_same_collations(List *tlist, List *colCollations, bool junkOK)
+{
+    ListCell   *l;
+    ListCell   *curColColl = list_head(colCollations);
+
+    foreach(l, tlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        if (tle->resjunk)
+        {
+            // Reject junk columns if not allowed
+            if (!junkOK)
+                return false;
+        }
+        else
+        {
+            // Check if we have more non-junk columns than expected collations
+            if (curColColl == NULL)
+                return false;
+
+            // Compare actual collation with expected collation
+            if (exprCollation((Node *) tle->expr) != lfirst_oid(curColColl))
+                return false;
+
+            curColColl = lnext(colCollations, curColColl);
+        }
+    }
+
+    // Check if we have fewer non-junk columns than expected collations
+    if (curColColl != NULL)
+        return false;
+
+    return true;
+}
+```

@@ -40,3 +40,36 @@ This function performs the actual work of changing an event trigger's owner. It 
 - Updates both the catalog record and the dependency tracking system atomically
 - Triggers post-alter hooks to notify other subsystems of the ownership change
 - Part of the event trigger ownership management subsystem in PostgreSQL
+
+## Simplified Source
+
+```c
+static void AlterEventTriggerOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId) {
+    Form_pg_event_trigger form = (Form_pg_event_trigger) GETSTRUCT(tup);
+
+    // Skip if owner is already the same
+    if (form->evtowner == newOwnerId)
+        return;
+
+    // Check current user has permission to change ownership
+    if (!object_ownercheck(EventTriggerRelationId, form->oid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_EVENT_TRIGGER, NameStr(form->evtname));
+
+    // New owner must be a superuser (event trigger requirement)
+    if (!superuser_arg(newOwnerId))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied to change owner of event trigger \"%s\"",
+                              NameStr(form->evtname)),
+                       errhint("The owner of an event trigger must be a superuser.")));
+
+    // Update the catalog record
+    form->evtowner = newOwnerId;
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    // Update dependency tracking
+    changeDependencyOnOwner(EventTriggerRelationId, form->oid, newOwnerId);
+
+    // Notify other subsystems
+    InvokeObjectPostAlterHook(EventTriggerRelationId, form->oid, 0);
+}
+```

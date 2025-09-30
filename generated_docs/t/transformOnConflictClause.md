@@ -54,3 +54,80 @@ Design considerations:
 - Temporary modification of p_is_insert ensures proper expression context during UPDATE processing
 - Careful namespace management prevents inappropriate EXCLUDED references in other clauses
 - Returns OnConflictExpr node containing all necessary information for execution planning
+
+## Simplified Source
+
+```c
+static OnConflictExpr *transformOnConflictClause(ParseState *pstate,
+                                                 OnConflictClause *onConflictClause) {
+    ParseNamespaceItem *exclNSItem = NULL;
+    List *arbiterElems;
+    Node *arbiterWhere;
+    Oid arbiterConstraint;
+    List *onConflictSet = NIL;
+    Node *onConflictWhere = NULL;
+    int exclRelIndex = 0;
+    List *exclRelTlist = NIL;
+
+    // For DO UPDATE, create EXCLUDED pseudo-relation
+    if (onConflictClause->action == ONCONFLICT_UPDATE) {
+        Relation targetrel = pstate->p_target_relation;
+
+        // Add EXCLUDED pseudo-relation to range table
+        exclNSItem = addRangeTableEntryForRelation(pstate, targetrel,
+                                                  RowExclusiveLock,
+                                                  makeAlias("excluded", NIL),
+                                                  false, false);
+        exclRelIndex = exclNSItem->p_rtindex;
+
+        // Mark as composite type to bypass permission checks
+        exclNSItem->p_rte->relkind = RELKIND_COMPOSITE_TYPE;
+
+        // Build target list for EXPLAIN
+        exclRelTlist = BuildOnConflictExcludedTargetlist(targetrel, exclRelIndex);
+    }
+
+    // Process arbiter clause (conflict detection)
+    transformOnConflictArbiter(pstate, onConflictClause, &arbiterElems,
+                              &arbiterWhere, &arbiterConstraint);
+
+    // Process DO UPDATE action
+    if (onConflictClause->action == ONCONFLICT_UPDATE) {
+        // Switch to UPDATE context for expression processing
+        pstate->p_is_insert = false;
+
+        // Add EXCLUDED to namespace for UPDATE expressions
+        addNSItemToQuery(pstate, exclNSItem, false, true, true);
+
+        // Transform UPDATE target list and WHERE clause
+        onConflictSet = transformUpdateTargetList(pstate, onConflictClause->targetList);
+        onConflictWhere = transformWhereClause(pstate, onConflictClause->whereClause,
+                                              EXPR_KIND_WHERE, "WHERE");
+
+        // Remove EXCLUDED from namespace (not available in RETURNING)
+        Assert((ParseNamespaceItem *) llast(pstate->p_namespace) == exclNSItem);
+        pstate->p_namespace = list_delete_last(pstate->p_namespace);
+    }
+
+    // Build final OnConflictExpr node
+    OnConflictExpr *result = makeNode(OnConflictExpr);
+    result->action = onConflictClause->action;
+    result->arbiterElems = arbiterElems;
+    result->arbiterWhere = arbiterWhere;
+    result->constraint = arbiterConstraint;
+    result->onConflictSet = onConflictSet;
+    result->onConflictWhere = onConflictWhere;
+    result->exclRelIndex = exclRelIndex;
+    result->exclRelTlist = exclRelTlist;
+
+    return result;
+}
+```
+
+**Key Points:**
+- Transforms ON CONFLICT clauses for UPSERT functionality in INSERT statements
+- Creates EXCLUDED pseudo-relation for DO UPDATE to access conflicting values
+- Processes conflict detection (arbiter) elements and constraints
+- Manages namespace carefully: EXCLUDED available in UPDATE expressions, not in RETURNING
+- Temporarily switches parser context from INSERT to UPDATE for proper expression processing
+- Returns OnConflictExpr containing all information needed for execution planning

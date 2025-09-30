@@ -34,3 +34,13 @@ The validation follows the Unicode standard which defines the valid code point r
 - The function excludes U+0000 by using  rather than 
 - The upper bound 0x10FFFF represents the highest valid Unicode code point as defined by the Unicode standard
 - Used extensively in PostgreSQL's Unicode string processing and character encoding conversion routines
+
+## Simplified Source
+
+```c
+static inline bool is_valid_unicode_codepoint(pg_wchar c) {
+    // Valid Unicode range: U+0001 to U+10FFFF
+    // Excludes U+0000 (null) and values above maximum Unicode code point
+    return (c > 0 && c <= 0x10FFFF);
+}
+```

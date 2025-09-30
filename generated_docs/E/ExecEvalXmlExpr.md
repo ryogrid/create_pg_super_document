@@ -54,3 +54,163 @@ Each operation type has specific argument handling and uses specialized XML proc
 - Error handling includes assertion checks for expected argument counts and types
 - The function supports both named arguments (for attributes) and positional arguments (for content)
 - NULL handling follows SQL standards where NULL inputs typically result in NULL outputs, with some exceptions for specific operations
+
+## Simplified Source
+
+```c
+void ExecEvalXmlExpr(ExprState *state, ExprEvalStep *op)
+{
+    XmlExpr *xexpr = op->d.xmlexpr.xexpr;
+
+    // Initialize result to null
+    *op->resnull = true;
+    *op->resvalue = (Datum) 0;
+
+    switch (xexpr->op) {
+        case IS_XMLCONCAT:
+            {
+                // Concatenate multiple XML values
+                Datum *argvalue = op->d.xmlexpr.argvalue;
+                bool *argnull = op->d.xmlexpr.argnull;
+                List *values = NIL;
+
+                // Collect non-null arguments
+                for (int i = 0; i < list_length(xexpr->args); i++) {
+                    if (!argnull[i])
+                        values = lappend(values, DatumGetPointer(argvalue[i]));
+                }
+
+                if (values != NIL) {
+                    *op->resvalue = PointerGetDatum(xmlconcat(values));
+                    *op->resnull = false;
+                }
+            }
+            break;
+
+        case IS_XMLFOREST:
+            {
+                // Create XML forest from named arguments
+                Datum *argvalue = op->d.xmlexpr.named_argvalue;
+                bool *argnull = op->d.xmlexpr.named_argnull;
+                StringInfoData buf;
+
+                initStringInfo(&buf);
+
+                // Build XML elements for each named argument
+                int i = 0;
+                ListCell *lc, *lc2;
+                forboth(lc, xexpr->named_args, lc2, xexpr->arg_names) {
+                    if (!argnull[i]) {
+                        char *argname = strVal(lfirst(lc2));
+                        Expr *e = (Expr *) lfirst(lc);
+
+                        appendStringInfo(&buf, "<%s>%s</%s>",
+                                       argname,
+                                       map_sql_value_to_xml_value(argvalue[i], exprType((Node *) e), true),
+                                       argname);
+                        *op->resnull = false;
+                    }
+                    i++;
+                }
+
+                if (!*op->resnull) {
+                    text *result = cstring_to_text_with_len(buf.data, buf.len);
+                    *op->resvalue = PointerGetDatum(result);
+                }
+                pfree(buf.data);
+            }
+            break;
+
+        case IS_XMLELEMENT:
+            // Create XML element with attributes and content
+            *op->resvalue = PointerGetDatum(xmlelement(xexpr,
+                                                     op->d.xmlexpr.named_argvalue,
+                                                     op->d.xmlexpr.named_argnull,
+                                                     op->d.xmlexpr.argvalue,
+                                                     op->d.xmlexpr.argnull));
+            *op->resnull = false;
+            break;
+
+        case IS_XMLPARSE:
+            {
+                // Parse text into XML
+                Datum *argvalue = op->d.xmlexpr.argvalue;
+                bool *argnull = op->d.xmlexpr.argnull;
+
+                if (argnull[0] || argnull[1])
+                    return;
+
+                text *data = DatumGetTextPP(argvalue[0]);
+                bool preserve_whitespace = DatumGetBool(argvalue[1]);
+
+                *op->resvalue = PointerGetDatum(xmlparse(data, xexpr->xmloption, preserve_whitespace));
+                *op->resnull = false;
+            }
+            break;
+
+        case IS_XMLPI:
+            {
+                // Create XML processing instruction
+                text *arg = NULL;
+                bool isnull = false;
+
+                if (xexpr->args) {
+                    isnull = op->d.xmlexpr.argnull[0];
+                    if (!isnull)
+                        arg = DatumGetTextPP(op->d.xmlexpr.argvalue[0]);
+                }
+
+                *op->resvalue = PointerGetDatum(xmlpi(xexpr->name, arg, isnull, op->resnull));
+            }
+            break;
+
+        case IS_XMLROOT:
+            {
+                // Modify XML root element
+                Datum *argvalue = op->d.xmlexpr.argvalue;
+                bool *argnull = op->d.xmlexpr.argnull;
+
+                if (argnull[0])
+                    return;
+
+                xmltype *data = DatumGetXmlP(argvalue[0]);
+                text *version = argnull[1] ? NULL : DatumGetTextPP(argvalue[1]);
+                int standalone = DatumGetInt32(argvalue[2]);
+
+                *op->resvalue = PointerGetDatum(xmlroot(data, version, standalone));
+                *op->resnull = false;
+            }
+            break;
+
+        case IS_XMLSERIALIZE:
+            {
+                // Serialize XML to text
+                if (op->d.xmlexpr.argnull[0])
+                    return;
+
+                Datum value = op->d.xmlexpr.argvalue[0];
+                *op->resvalue = PointerGetDatum(xmltotext_with_options(DatumGetXmlP(value),
+                                                                     xexpr->xmloption,
+                                                                     xexpr->indent));
+                *op->resnull = false;
+            }
+            break;
+
+        case IS_DOCUMENT:
+            {
+                // Check if XML is a well-formed document
+                if (op->d.xmlexpr.argnull[0])
+                    return;
+
+                Datum value = op->d.xmlexpr.argvalue[0];
+                *op->resvalue = BoolGetDatum(xml_is_document(DatumGetXmlP(value)));
+                *op->resnull = false;
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized XML operation");
+            break;
+    }
+}
+```

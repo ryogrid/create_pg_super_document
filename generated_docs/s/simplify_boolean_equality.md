@@ -47,3 +47,43 @@ The function only operates when  has failed, meaning it will never see two const
 - The transformations help normalize boolean expressions to canonical forms
 - Particularly important for partial index matching where different but equivalent expressions need to be recognized as the same
 - Only handles binary boolean operations (exactly 2 arguments expected)
+
+## Simplified Source
+
+```c
+static Node *
+simplify_boolean_equality(Oid opno, List *args)
+{
+    Node *leftop = linitial(args);
+    Node *rightop = lsecond(args);
+
+    // Check if left operand is a boolean constant
+    if (leftop && IsA(leftop, Const)) {
+        bool const_value = DatumGetBool(((Const *) leftop)->constvalue);
+
+        if (opno == BooleanEqualOperator) {
+            // true = foo -> foo, false = foo -> NOT foo
+            return const_value ? rightop : negate_clause(rightop);
+        } else {
+            // true <> foo -> NOT foo, false <> foo -> foo
+            return const_value ? negate_clause(rightop) : rightop;
+        }
+    }
+
+    // Check if right operand is a boolean constant
+    if (rightop && IsA(rightop, Const)) {
+        bool const_value = DatumGetBool(((Const *) rightop)->constvalue);
+
+        if (opno == BooleanEqualOperator) {
+            // foo = true -> foo, foo = false -> NOT foo
+            return const_value ? leftop : negate_clause(leftop);
+        } else {
+            // foo <> true -> NOT foo, foo <> false -> foo
+            return const_value ? negate_clause(leftop) : leftop;
+        }
+    }
+
+    // No simplification possible
+    return NULL;
+}
+```

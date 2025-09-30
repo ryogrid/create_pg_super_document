@@ -44,3 +44,58 @@ The function returns the first matching Node pointer found, or NULL if no matchi
 - For JoinExpr nodes, checks the join's own rtindex before checking its children, allowing joins themselves to be located
 - Raises an ERROR for unrecognized node types, indicating internal corruption or programming errors
 - The function is essential for operations that need to locate specific parts of the join tree for analysis or modification
+
+## Simplified Source
+
+```c
+// Simplified version of find_jointree_node_for_rel
+static Node *
+find_jointree_node_for_rel(Node *jtnode, int relid)
+{
+    if (jtnode == NULL)
+        return NULL;
+
+    // Handle Range Table Reference - simple table
+    if (IsA(jtnode, RangeTblRef))
+    {
+        RangeTblRef *rtr = (RangeTblRef *) jtnode;
+        return (relid == rtr->rtindex) ? jtnode : NULL;
+    }
+
+    // Handle FROM expression - search through fromlist
+    if (IsA(jtnode, FromExpr))
+    {
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *l;
+
+        foreach(l, f->fromlist)
+        {
+            Node *result = find_jointree_node_for_rel(lfirst(l), relid);
+            if (result)
+                return result;
+        }
+        return NULL;
+    }
+
+    // Handle JOIN expression - check join itself, then children
+    if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        // Check if this join node matches
+        if (relid == j->rtindex)
+            return jtnode;
+
+        // Search left and right branches
+        Node *result = find_jointree_node_for_rel(j->larg, relid);
+        if (result)
+            return result;
+
+        return find_jointree_node_for_rel(j->rarg, relid);
+    }
+
+    // Unknown node type
+    elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+    return NULL;
+}
+```

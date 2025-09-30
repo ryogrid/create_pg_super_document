@@ -49,3 +49,57 @@ This function serves as PostgreSQL's primary JSON validation mechanism, performi
 - The function is part of PostgreSQL's JSON data type infrastructure and is used in JSON constructors and predicates
 - Memory management includes proper cleanup of lexical context when uniqueness checking is enabled
 - Error codes follow PostgreSQL conventions (ERRCODE_DUPLICATE_JSON_OBJECT_KEY_VALUE for duplicate keys)
+
+## Simplified Source
+
+```c
+bool
+json_validate(text *json, bool check_unique_keys, bool throw_error)
+{
+    JsonLexContext lex;
+    JsonSemAction uniqueSemAction = {0};
+    JsonUniqueParsingState state;
+    JsonParseErrorType result;
+
+    // Initialize JSON lexical context
+    makeJsonLexContext(&lex, json, check_unique_keys);
+
+    // Set up uniqueness checking if requested
+    if (check_unique_keys) {
+        state.lex = &lex;
+        state.stack = NULL;
+        state.unique = true;
+        json_unique_check_init(&state.check);
+
+        // Configure semantic actions for uniqueness validation
+        uniqueSemAction.semstate = &state;
+        uniqueSemAction.object_start = json_unique_object_start;
+        uniqueSemAction.object_field_start = json_unique_object_field_start;
+        uniqueSemAction.object_end = json_unique_object_end;
+    }
+
+    // Parse JSON with appropriate semantic actions
+    result = pg_parse_json(&lex, check_unique_keys ? &uniqueSemAction : &nullSemAction);
+
+    // Handle parsing errors
+    if (result != JSON_SUCCESS) {
+        if (throw_error)
+            json_errsave_error(result, &lex, NULL);
+        return false;
+    }
+
+    // Handle uniqueness constraint violations
+    if (check_unique_keys && !state.unique) {
+        if (throw_error)
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_JSON_OBJECT_KEY_VALUE),
+                    errmsg("duplicate JSON object key value")));
+        return false;
+    }
+
+    // Cleanup lexical context if uniqueness checking was enabled
+    if (check_unique_keys)
+        freeJsonLexContext(&lex);
+
+    return true;
+}
+```

@@ -45,3 +45,73 @@ This function removes token-to-dictionary mappings from the pg_ts_config_map cat
 - Part of PostgreSQL's text search configuration management system
 - Ensures complete cleanup by deleting all mappings associated with specified token types
 - Uses proper transaction-safe catalog operations for data consistency
+
+## Simplified Source
+
+```c
+static void
+DropConfigurationMapping(AlterTSConfigurationStmt *stmt,
+                        HeapTuple tup, Relation relMap)
+{
+    Form_pg_ts_config tsform;
+    Oid cfgId;
+    ScanKeyData skey[2];
+    SysScanDesc scan;
+    HeapTuple maptup;
+    Oid prsId;
+    List *tokens = NIL;
+    ListCell *c;
+
+    // Extract configuration info from tuple
+    tsform = (Form_pg_ts_config) GETSTRUCT(tup);
+    cfgId = tsform->oid;
+    prsId = tsform->cfgparser;
+
+    // Get valid token types for this parser
+    tokens = getTokenTypes(prsId, stmt->tokentype);
+
+    // Process each token type for removal
+    foreach(c, tokens)
+    {
+        TSTokenTypeItem *ts = (TSTokenTypeItem *) lfirst(c);
+        bool found = false;
+
+        // Set up scan keys: configuration ID and token type
+        ScanKeyInit(&skey[0], Anum_pg_ts_config_map_mapcfg,
+                    BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(cfgId));
+        ScanKeyInit(&skey[1], Anum_pg_ts_config_map_maptokentype,
+                    BTEqualStrategyNumber, F_INT4EQ,
+                    Int32GetDatum(ts->num));
+
+        // Scan for matching mappings and delete them
+        scan = systable_beginscan(relMap, TSConfigMapIndexId, true,
+                                  NULL, 2, skey);
+
+        while (HeapTupleIsValid((maptup = systable_getnext(scan))))
+        {
+            CatalogTupleDelete(relMap, &maptup->t_self);
+            found = true;
+        }
+
+        systable_endscan(scan);
+
+        // Handle missing mappings based on missing_ok flag
+        if (!found)
+        {
+            if (!stmt->missing_ok)
+                ereport(ERROR,
+                        (errcode(ERRCODE_UNDEFINED_OBJECT),
+                         errmsg("mapping for token type \"%s\" does not exist",
+                                ts->name)));
+            else
+                ereport(NOTICE,
+                        (errmsg("mapping for token type \"%s\" does not exist, skipping",
+                                ts->name)));
+        }
+    }
+
+    // Trigger event tracking for configuration changes
+    EventTriggerCollectAlterTSConfig(stmt, cfgId, NULL, 0);
+}
+```

@@ -46,3 +46,101 @@ Key features include:
 - The 'T' character separates date and time components
 - Alternative format parsing handles both basic (no separators) and extended (with separators) formats
 - Comprehensive overflow checking prevents integer overflow in all adjustment operations
+
+## Simplified Source
+
+```c
+int DecodeISO8601Interval(char *str, int *dtype, struct pg_itm_in *itm_in)
+{
+    bool datepart = true;  // Track if parsing date or time portion
+    bool havefield = false;
+
+    *dtype = DTK_DELTA;
+    ClearPgItmIn(itm_in);
+
+    // Must start with 'P' and be at least 2 characters
+    if (strlen(str) < 2 || str[0] != 'P')
+        return DTERR_BAD_FORMAT;
+
+    str++;
+    while (*str) {
+        char *fieldstart;
+        int64 val;
+        double fval;
+        char unit;
+        int dterr;
+
+        // 'T' separates date and time portions
+        if (*str == 'T') {
+            datepart = false;
+            havefield = false;
+            str++;
+            continue;
+        }
+
+        // Parse numeric value (integer and fractional parts)
+        fieldstart = str;
+        dterr = ParseISO8601Number(str, &str, &val, &fval);
+        if (dterr) return dterr;
+
+        unit = *str++;
+
+        if (datepart) {
+            // Date units: Y(ears), M(onths), W(eeks), D(ays)
+            switch (unit) {
+                case 'Y':
+                    if (!AdjustYears(val, 1, itm_in) || !AdjustFractYears(fval, 1, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                case 'M':
+                    if (!AdjustMonths(val, itm_in) || !AdjustFractDays(fval, DAYS_PER_MONTH, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                case 'W':
+                    if (!AdjustDays(val, 7, itm_in) || !AdjustFractDays(fval, 7, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                case 'D':
+                    if (!AdjustDays(val, 1, itm_in) || !AdjustFractMicroseconds(fval, USECS_PER_DAY, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                // Handle alternative formats (basic and extended)
+                case 'T':
+                case '\0':
+                case '-':
+                    // Alternative format parsing logic (simplified)
+                    // Handle formats like P2020-06-07T01:30:00 or P20200607T013000
+                    return ProcessAlternativeFormat(fieldstart, unit, val, fval, itm_in, &str, &datepart, &havefield);
+                default:
+                    return DTERR_BAD_FORMAT;
+            }
+        } else {
+            // Time units: H(ours), M(inutes), S(econds)
+            switch (unit) {
+                case 'H':
+                    if (!AdjustMicroseconds(val, fval, USECS_PER_HOUR, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                case 'M':
+                    if (!AdjustMicroseconds(val, fval, USECS_PER_MINUTE, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                case 'S':
+                    if (!AdjustMicroseconds(val, fval, USECS_PER_SEC, itm_in))
+                        return DTERR_FIELD_OVERFLOW;
+                    break;
+                // Handle alternative time formats
+                case '\0':
+                case ':':
+                    return ProcessAlternativeTimeFormat(fieldstart, unit, val, fval, itm_in, &str, &havefield);
+                default:
+                    return DTERR_BAD_FORMAT;
+            }
+        }
+
+        havefield = true;
+    }
+
+    return 0;
+}
+```

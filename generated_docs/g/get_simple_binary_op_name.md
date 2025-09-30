@@ -33,3 +33,28 @@ This function examines an OpExpr to determine whether it represents a simple bin
 - Uses generate_operator_name to get the textual representation of the operator
 - Part of the expression formatting system to determine when parentheses can be omitted
 - Helps create cleaner SQL output by identifying operators that don't need explicit parenthesization
+
+## Simplified Source
+```c
+static const char *get_simple_binary_op_name(OpExpr *expr) {
+    List *args = expr->args;
+
+    // Check if this is a binary operator (exactly 2 arguments)
+    if (list_length(args) == 2) {
+        Node *arg1 = (Node *) linitial(args);
+        Node *arg2 = (Node *) lsecond(args);
+
+        // Get operator name based on operator ID and argument types
+        const char *op = generate_operator_name(expr->opno,
+                                               exprType(arg1),
+                                               exprType(arg2));
+
+        // Return operator name only if it's a single character
+        if (strlen(op) == 1)
+            return op;
+    }
+
+    // Not a simple binary operator
+    return NULL;
+}
+```

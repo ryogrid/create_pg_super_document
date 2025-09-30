@@ -36,3 +36,15 @@ This function is used during query execution to track parameter changes that aff
 - Essential for parameterized plans where subplans depend on outer plan parameters
 - Helps optimize nested loop joins and correlated subqueries by avoiding unnecessary re-execution
 - The chgParam set is used by plan nodes to determine what work needs to be redone during rescans
+
+## Simplified Source
+
+```c
+void UpdateChangedParamSet(PlanState *node, Bitmapset *newchg) {
+    // Find intersection of node's dependencies and new changes
+    Bitmapset *relevant_params = bms_intersect(node->plan->allParam, newchg);
+
+    // Add only relevant parameter changes to node's change set
+    node->chgParam = bms_join(node->chgParam, relevant_params);
+}
+```

@@ -43,3 +43,23 @@ The function performs a system catalog lookup in pg_operator using the provided 
 - The oprnegate field in pg_operator stores the OID of the negator operator, or 0 if none exists
 - This function is frequently used in the query optimizer for logical transformations like NOT elimination
 - Common negator pairs include: = and <>, < and >=, <= and >, etc.
+
+## Simplified Source
+
+```c
+Oid get_negator(Oid opno) {
+    // Look up operator in system catalog
+    HeapTuple tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract operator structure and get negator OID
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+        Oid result = optup->oprnegate;
+        ReleaseSysCache(tp);
+        return result;
+    }
+
+    // No operator found
+    return InvalidOid;
+}
+```

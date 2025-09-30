@@ -41,3 +41,14 @@ The caller typically uses this function after verifying that the expression cont
 - A return value of true indicates the presence of nonstrict constructs that could produce non-NULL outputs despite NULL inputs, requiring more conservative optimization approaches
 - The function is commonly used in conjunction with other clause analysis functions for comprehensive expression evaluation
 - Located in src/backend/optimizer/util/clauses.c:993-998
+
+## Simplified Source
+
+```c
+bool
+contain_nonstrict_functions(Node *clause)
+{
+    // Delegate to walker function for tree traversal
+    return contain_nonstrict_functions_walker(clause, NULL);
+}
+```

@@ -37,3 +37,28 @@ The function first constructs the name for the next segment (segment + 1) and de
 - Returns a File handle that must be > 0 (validated by Assert)
 - Part of PostgreSQL's temporary file management system for handling large data sets that don't fit in memory
 - The segment cleanup strategy ensures consistent state after system crashes or restarts
+
+## Simplified Source
+
+```c
+static File
+MakeNewFileSetSegment(BufFile *buffile, int segment)
+{
+    char name[MAXPGPATH];
+    File file;
+
+    // Clean up any leftover segment from previous crashes
+    // This prevents confusion about segment count during recovery
+    FileSetSegmentName(name, buffile->name, segment + 1);
+    FileSetDelete(buffile->fileset, name, true);
+
+    // Create the new segment file
+    FileSetSegmentName(name, buffile->name, segment);
+    file = FileSetCreate(buffile->fileset, name);
+
+    // Verify successful creation
+    Assert(file > 0);
+
+    return file;
+}
+```

@@ -41,3 +41,33 @@ The function is designed to work with both ORDER BY and GROUP BY clauses. It del
 - Critical for preventing duplicate entries in sort/group clause lists
 - Efficient lookup using ressortgroupref rather than expensive expression comparison
 - The reason this function exists instead of simple ressortgroupref checks is that a TLE might appear in only one of multiple related lists
+
+## Simplified Source
+
+```c
+bool
+targetIsInSortList(TargetEntry *tle, Oid sortop, List *sortList)
+{
+    Index ref = tle->ressortgroupref;
+    ListCell *l;
+
+    // Quick exit if target entry has no sort/group reference marker
+    if (ref == 0)
+        return false;
+
+    // Search through the sort/group list for matching entries
+    foreach(l, sortList)
+    {
+        SortGroupClause *scl = (SortGroupClause *) lfirst(l);
+
+        // Check if reference matches and operator is compatible
+        if (scl->tleSortGroupRef == ref &&
+            (sortop == InvalidOid ||           // No specific operator required
+             sortop == scl->sortop ||          // Exact operator match
+             sortop == get_commutator(scl->sortop)))  // Commutator match (e.g., < vs >)
+            return true;
+    }
+
+    return false;
+}
+```

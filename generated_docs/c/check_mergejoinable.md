@@ -48,3 +48,31 @@ If all conditions are met, the function populates the mergeopfamilies field of t
 - Merge joins require ordered data, so this function is closely tied to PostgreSQL's btree indexing infrastructure
 - The exclusion of volatile functions is critical for correctness, as merge joins may not evaluate all combinations of rows
 - The mergeopfamilies field populated by this function is used later in the planning process to determine join strategies and costs
+
+## Simplified Source
+
+```c
+static void
+check_mergejoinable(RestrictInfo *restrictinfo)
+{
+    Expr *clause = restrictinfo->clause;
+    Oid opno;
+    Node *leftarg;
+
+    // Skip pseudoconstant clauses
+    if (restrictinfo->pseudoconstant)
+        return;
+
+    // Check if clause is a binary operator
+    if (!is_opclause(clause) || list_length(((OpExpr *) clause)->args) != 2)
+        return;
+
+    opno = ((OpExpr *) clause)->opno;
+    leftarg = linitial(((OpExpr *) clause)->args);
+
+    // Check if operator supports merge joins and has no volatile functions
+    if (op_mergejoinable(opno, exprType(leftarg)) &&
+        !contain_volatile_functions((Node *) restrictinfo))
+        restrictinfo->mergeopfamilies = get_mergejoin_opfamilies(opno);
+}
+```

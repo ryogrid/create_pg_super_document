@@ -55,3 +55,58 @@ The function implements sophisticated memory management to avoid list leakage du
 - Handles the subtle case where simplification might convert a non-OR into an OR
 - Critical for maintaining SQL OR semantics: returns TRUE if any argument is TRUE, NULL if no argument is TRUE but at least one is NULL, FALSE otherwise
 - The caller is responsible for adding the actual NULL constant to the final result when haveNull is true
+
+## Simplified Source
+
+```c
+static List *
+simplify_or_arguments(List *args,
+                     eval_const_expressions_context *context,
+                     bool *haveNull, bool *forceTrue)
+{
+    List *newargs = NIL;
+    List *unprocessed_args = list_copy(args);
+
+    while (unprocessed_args) {
+        Node *arg = (Node *) linitial(unprocessed_args);
+        unprocessed_args = list_delete_first(unprocessed_args);
+
+        // Flatten nested OR expressions
+        if (is_orclause(arg)) {
+            List *subargs = ((BoolExpr *) arg)->args;
+            unprocessed_args = list_concat_copy(subargs, unprocessed_args);
+            continue;
+        }
+
+        // Simplify the argument
+        arg = eval_const_expressions_mutator(arg, context);
+
+        // Check if simplification created an OR clause
+        if (is_orclause(arg)) {
+            List *subargs = ((BoolExpr *) arg)->args;
+            unprocessed_args = list_concat_copy(subargs, unprocessed_args);
+            continue;
+        }
+
+        // Handle constant values per OR logic
+        if (IsA(arg, Const)) {
+            Const *const_input = (Const *) arg;
+
+            if (const_input->constisnull) {
+                *haveNull = true;
+            } else if (DatumGetBool(const_input->constvalue)) {
+                // TRUE forces entire OR to TRUE
+                *forceTrue = true;
+                return NIL;
+            }
+            // FALSE constants are dropped (continue)
+            continue;
+        }
+
+        // Keep non-constant arguments
+        newargs = lappend(newargs, arg);
+    }
+
+    return newargs;
+}
+```

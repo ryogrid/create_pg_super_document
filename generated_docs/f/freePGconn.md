@@ -55,3 +55,69 @@ Swap:        8388608           0     8388608 (memory deallocation)
 - The function assumes the connection has already been properly closed before being called
 - Memory cleanup follows a logical order from higher-level constructs to basic allocations
 - All dynamically allocated string fields are freed, even if they might be NULL (free() handles NULL gracefully)
+
+## Simplified Source
+
+```c
+static void
+freePGconn(PGconn *conn)
+{
+    // Notify event handlers of connection destruction
+    for (int i = 0; i < conn->nEvents; i++) {
+        PGEventConnDestroy evt;
+        evt.conn = conn;
+        conn->events[i].proc(PGEVT_CONNDESTROY, &evt, conn->events[i].passThrough);
+        free(conn->events[i].name);
+    }
+
+    // Free network and host information
+    release_conn_addrinfo(conn);
+    pqReleaseConnHosts(conn);
+
+    // Free all connection parameter strings
+    free(conn->client_encoding_initial);
+    free(conn->events);
+    free(conn->pghost);
+    free(conn->pghostaddr);
+    free(conn->pgport);
+    free(conn->connect_timeout);
+    free(conn->pgtcp_user_timeout);
+    free(conn->pgoptions);
+    free(conn->appname);
+    free(conn->fbappname);
+    free(conn->dbName);
+    free(conn->replication);
+    free(conn->pguser);
+
+    // Securely clear and free sensitive password data
+    if (conn->pgpass) {
+        explicit_bzero(conn->pgpass, strlen(conn->pgpass));
+        free(conn->pgpass);
+    }
+    if (conn->sslpassword) {
+        explicit_bzero(conn->sslpassword, strlen(conn->sslpassword));
+        free(conn->sslpassword);
+    }
+
+    // Free SSL and authentication settings
+    free(conn->pgpassfile);
+    free(conn->channel_binding);
+    free(conn->sslmode);
+    free(conn->sslcert);
+    free(conn->sslkey);
+    free(conn->requirepeer);
+    free(conn->require_auth);
+    // ... (other SSL and connection parameters)
+
+    // Free buffers and internal structures
+    free(conn->write_err_msg);
+    free(conn->inBuffer);
+    free(conn->outBuffer);
+    free(conn->rowBuf);
+    termPQExpBuffer(&conn->errorMessage);
+    termPQExpBuffer(&conn->workBuffer);
+
+    // Finally, free the main structure
+    free(conn);
+}
+```

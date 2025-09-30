@@ -57,3 +57,106 @@ The function ensures catalog consistency by properly handling all the metadata a
 - Updates visibility through CommandCounterIncrement() to make changes available to subsequent operations in the same transaction
 - Manages both primary (DEPENDENCY_PARTITION_PRI) and secondary (DEPENDENCY_PARTITION_SEC) partition dependencies
 - Always updates the partition's relispartition status to maintain catalog consistency
+
+## Simplified Source
+
+```c
+void IndexSetParentIndex(Relation partitionIdx, Oid parentOid)
+{
+    Relation pg_inherits;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    Oid partRelid = RelationGetRelid(partitionIdx);
+    HeapTuple tuple;
+    bool fix_dependencies;
+
+    // Ensure this is an index (regular or partitioned)
+    Assert(partitionIdx->rd_rel->relkind == RELKIND_INDEX ||
+           partitionIdx->rd_rel->relkind == RELKIND_PARTITIONED_INDEX);
+
+    // Search for existing inheritance relationship in pg_inherits
+    pg_inherits = relation_open(InheritsRelationId, RowExclusiveLock);
+
+    // Set up scan keys to find inheritance record for this index
+    ScanKeyInit(&key[0], Anum_pg_inherits_inhrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(partRelid));
+    ScanKeyInit(&key[1], Anum_pg_inherits_inhseqno,
+                BTEqualStrategyNumber, F_INT4EQ,
+                Int32GetDatum(1));
+
+    scan = systable_beginscan(pg_inherits, InheritsRelidSeqnoIndexId,
+                             true, NULL, 2, key);
+    tuple = systable_getnext(scan);
+
+    if (!HeapTupleIsValid(tuple)) {
+        // No existing inheritance record found
+        if (parentOid == InvalidOid) {
+            // No parent wanted and none exists - nothing to do
+            fix_dependencies = false;
+        } else {
+            // Create new inheritance relationship
+            StoreSingleInheritance(partRelid, parentOid, 1);
+            fix_dependencies = true;
+        }
+    } else {
+        // Existing inheritance record found
+        Form_pg_inherits inhForm = (Form_pg_inherits) GETSTRUCT(tuple);
+
+        if (parentOid == InvalidOid) {
+            // Remove existing inheritance relationship
+            CatalogTupleDelete(pg_inherits, &tuple->t_self);
+            fix_dependencies = true;
+        } else {
+            // Check if existing parent matches desired parent
+            if (inhForm->inhparent != parentOid) {
+                elog(ERROR, "bogus pg_inherit row: inhrelid %u inhparent %u",
+                     inhForm->inhrelid, inhForm->inhparent);
+            }
+            // Already correct - no changes needed
+            fix_dependencies = false;
+        }
+    }
+
+    // Clean up pg_inherits scan
+    systable_endscan(scan);
+    relation_close(pg_inherits, RowExclusiveLock);
+
+    // Update parent index metadata if adding a partition
+    if (OidIsValid(parentOid)) {
+        LockRelationOid(parentOid, ShareUpdateExclusiveLock);
+        SetRelationHasSubclass(parentOid, true);
+    }
+
+    // Update partition's relispartition flag
+    update_relispartition(partRelid, OidIsValid(parentOid));
+
+    // Update dependency records if inheritance changed
+    if (fix_dependencies) {
+        if (OidIsValid(parentOid)) {
+            // Add partition dependencies
+            ObjectAddress partIdx, parentIdx, partitionTbl;
+
+            ObjectAddressSet(partIdx, RelationRelationId, partRelid);
+            ObjectAddressSet(parentIdx, RelationRelationId, parentOid);
+            ObjectAddressSet(partitionTbl, RelationRelationId,
+                           partitionIdx->rd_index->indrelid);
+
+            // Record dependencies: partition -> parent, partition -> table
+            recordDependencyOn(&partIdx, &parentIdx, DEPENDENCY_PARTITION_PRI);
+            recordDependencyOn(&partIdx, &partitionTbl, DEPENDENCY_PARTITION_SEC);
+        } else {
+            // Remove partition dependencies
+            deleteDependencyRecordsForClass(RelationRelationId, partRelid,
+                                          RelationRelationId,
+                                          DEPENDENCY_PARTITION_PRI);
+            deleteDependencyRecordsForClass(RelationRelationId, partRelid,
+                                          RelationRelationId,
+                                          DEPENDENCY_PARTITION_SEC);
+        }
+
+        // Make changes visible to subsequent operations
+        CommandCounterIncrement();
+    }
+}
+```

@@ -47,3 +47,48 @@ The function uses the query_or_expression_tree_mutator infrastructure to recursi
 - Unlike aggregate and window function tracking, SubLink tracking requires special attention because replacements can introduce new subqueries
 - The function can start with either a Query or bare expression tree, with appropriate handling for both cases
 - Error handling ensures that if SubLinks are inserted but no place exists to record them, an error is raised
+
+## Simplified Source
+
+```c
+Node *
+replace_rte_variables(Node *node, int target_varno, int sublevels_up,
+                      replace_rte_variables_callback callback,
+                      void *callback_arg,
+                      bool *outer_hasSubLinks)
+{
+    replace_rte_variables_context context;
+
+    // Set up context for the tree walk
+    context.callback = callback;
+    context.callback_arg = callback_arg;
+    context.target_varno = target_varno;
+    context.sublevels_up = sublevels_up;
+
+    // Initialize SubLink tracking based on current state
+    if (node && IsA(node, Query))
+        context.inserted_sublink = ((Query *) node)->hasSubLinks;
+    else if (outer_hasSubLinks)
+        context.inserted_sublink = *outer_hasSubLinks;
+    else
+        context.inserted_sublink = false;
+
+    // Perform the tree walk and replacement
+    Node *result = query_or_expression_tree_mutator(node,
+                                                    replace_rte_variables_mutator,
+                                                    (void *) &context,
+                                                    0);
+
+    // Update SubLink flags if new SubLinks were inserted
+    if (context.inserted_sublink) {
+        if (result && IsA(result, Query))
+            ((Query *) result)->hasSubLinks = true;
+        else if (outer_hasSubLinks)
+            *outer_hasSubLinks = true;
+        else
+            elog(ERROR, "replace_rte_variables inserted a SubLink, but has no place to record it");
+    }
+
+    return result;
+}
+```

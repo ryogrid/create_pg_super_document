@@ -38,3 +38,14 @@ The function is implemented as a static inline function, providing optimal perfo
 - The conversion involves casting XLogRecPtr (which is typically uint64) to int64, maintaining the bit pattern while changing signedness
 - Critical for SQL functions that report replication progress, WAL positions, and checkpoint information
 - Being an inline function, it incurs no runtime performance penalty when compiler optimizations are enabled
+
+## Simplified Source
+
+```c
+static inline Datum
+LSNGetDatum(XLogRecPtr X)
+{
+    // Convert XLogRecPtr to Datum by casting to int64
+    return Int64GetDatum((int64) X);
+}
+```

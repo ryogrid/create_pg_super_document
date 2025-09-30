@@ -37,3 +37,33 @@ The sequencing is critical: parallel considerations must be evaluated before set
 - Includes safeguards to skip non-baserel RTEs and empty array slots
 - Critical for establishing the foundation for subsequent path generation phases
 - The parallelism check precedes size estimation to handle inheritance parents and immediate path creation scenarios
+
+## Simplified Source
+
+```c
+static void
+set_base_rel_sizes(PlannerInfo *root)
+{
+    Index rti;
+
+    // Process each relation in the simple_rel_array
+    for (rti = 1; rti < root->simple_rel_array_size; rti++)
+    {
+        RelOptInfo *rel = root->simple_rel_array[rti];
+        RangeTblEntry *rte;
+
+        // Skip empty slots and non-base relations
+        if (rel == NULL || rel->reloptkind != RELOPT_BASEREL)
+            continue;
+
+        rte = root->simple_rte_array[rti];
+
+        // Set parallel processing eligibility if globally enabled
+        if (root->glob->parallelModeOK)
+            set_rel_consider_parallel(root, rel, rte);
+
+        // Establish size estimates for this relation
+        set_rel_size(root, rel, rti, rte);
+    }
+}
+```

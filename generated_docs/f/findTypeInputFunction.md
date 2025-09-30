@@ -50,3 +50,52 @@ The function follows PostgreSQL's convention that type input functions convert t
 - Throws ERRCODE_UNDEFINED_FUNCTION if no matching function is found
 - Issues warnings rather than errors for volatile functions to maintain backward compatibility
 - Returns the OID of the validated input function for use in type catalog creation
+
+## Simplified Source
+
+```c
+static Oid
+findTypeInputFunction(List *procname, Oid typeOid)
+{
+    Oid argList[3];
+    Oid procOid, procOid2;
+
+    // Set up argument types - all input functions use INTERNAL types
+    argList[0] = CSTRINGOID;  // String input
+    argList[1] = OIDOID;      // Type I/O param
+    argList[2] = INT4OID;     // Type modifier
+
+    // Look for both 1-argument and 3-argument forms
+    procOid = LookupFuncName(procname, 1, argList, true);   // (cstring)
+    procOid2 = LookupFuncName(procname, 3, argList, true);  // (cstring, oid, int4)
+
+    // Check for ambiguity - both forms shouldn't exist
+    if (OidIsValid(procOid)) {
+        if (OidIsValid(procOid2))
+            ereport(ERROR, (errcode(ERRCODE_AMBIGUOUS_FUNCTION),
+                           errmsg("type input function %s has multiple matches",
+                                  NameListToString(procname))));
+    } else {
+        procOid = procOid2;
+        // Error if neither form found
+        if (!OidIsValid(procOid))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                           errmsg("function %s does not exist",
+                                  func_signature_string(procname, 1, NIL, argList))));
+    }
+
+    // Validate return type matches target type
+    if (get_func_rettype(procOid) != typeOid)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                       errmsg("type input function %s must return type %s",
+                              NameListToString(procname), format_type_be(typeOid))));
+
+    // Warn about volatile functions (should be stable/immutable)
+    if (func_volatile(procOid) == PROVOLATILE_VOLATILE)
+        ereport(WARNING, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                         errmsg("type input function %s should not be volatile",
+                                NameListToString(procname))));
+
+    return procOid;
+}
+```

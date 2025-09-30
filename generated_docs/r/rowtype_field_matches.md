@@ -48,3 +48,36 @@ The validation process involves:
 - Part of PostgreSQL's defense against optimization bugs after DDL operations
 - Returns false for dropped columns to prevent access to invalid fields
 - May need similar checks in other parts of the system (as noted in code comments)
+
+## Simplified Source
+
+```c
+static bool rowtype_field_matches(Oid rowtypeid, int fieldnum,
+                                 Oid expectedtype, int32 expectedtypmod,
+                                 Oid expectedcollation) {
+    // RECORD types can't be altered, so always valid
+    if (rowtypeid == RECORDOID)
+        return true;
+
+    // Get tuple descriptor for the row type
+    TupleDesc tupdesc = lookup_rowtype_tupdesc_domain(rowtypeid, -1, false);
+
+    // Validate field number is in bounds
+    if (fieldnum <= 0 || fieldnum > tupdesc->natts) {
+        ReleaseTupleDesc(tupdesc);
+        return false;
+    }
+
+    // Get attribute info for the field
+    Form_pg_attribute attr = TupleDescAttr(tupdesc, fieldnum - 1);
+
+    // Check if field matches expected characteristics
+    bool matches = !attr->attisdropped &&
+                   attr->atttypid == expectedtype &&
+                   attr->atttypmod == expectedtypmod &&
+                   attr->attcollation == expectedcollation;
+
+    ReleaseTupleDesc(tupdesc);
+    return matches;
+}
+```

@@ -35,3 +35,14 @@ This function extracts the single argument from a NOT clause. It assumes the inp
 - Should typically be used in conjunction with is_notclause for safety
 - The function directly accesses the first element of the args list since NOT expressions have exactly one argument
 - Used throughout the optimizer when processing negated expressions for selectivity estimation, index matching, and constraint checking
+
+## Simplified Source
+
+```c
+static inline Expr *
+get_notclausearg(const void *notclause)
+{
+    // Extract the first (and only) argument from the NOT clause
+    return (Expr *) linitial(((const BoolExpr *) notclause)->args);
+}
+```

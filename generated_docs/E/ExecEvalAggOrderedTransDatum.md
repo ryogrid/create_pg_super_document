@@ -36,3 +36,18 @@ ExecEvalAggOrderedTransDatum is part of PostgreSQL's expression evaluation frame
 - The datum value and null flag are accessed through op->resvalue and op->resnull
 - This is part of the expression evaluation step execution in PostgreSQL's executor
 - The function works in conjunction with ExecEvalAggOrderedTransTuple for tuple-based ordered aggregates
+
+## Simplified Source
+
+```c
+void ExecEvalAggOrderedTransDatum(ExprState *state, ExprEvalStep *op,
+                                 ExprContext *econtext)
+{
+    AggStatePerTrans pertrans = op->d.agg_trans.pertrans;
+    int setno = op->d.agg_trans.setno;
+
+    // Store datum value in tuple sort for ordered processing
+    tuplesort_putdatum(pertrans->sortstates[setno],
+                      *op->resvalue, *op->resnull);
+}
+```

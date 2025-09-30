@@ -40,3 +40,25 @@ This function serves as a validation subroutine for ALTER OPERATOR CLASS operati
 - Error reporting includes human-readable names for both the access method and namespace using get_am_name() and get_namespace_name()
 - This function is part of PostgreSQL's DDL (Data Definition Language) infrastructure for maintaining catalog consistency
 - The function name follows PostgreSQL's naming convention for existence-checking functions with the "IsThere" prefix
+
+## Simplified Source
+
+```c
+void IsThereOpClassInNamespace(const char *opcname, Oid opcmethod, Oid opcnamespace)
+{
+    // Check if operator class already exists with same name and access method
+    if (SearchSysCacheExists3(CLAAMNAMENSP,
+                             ObjectIdGetDatum(opcmethod),
+                             CStringGetDatum(opcname),
+                             ObjectIdGetDatum(opcnamespace)))
+    {
+        // Report detailed error with operator class, access method, and schema names
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("operator class \"%s\" for access method \"%s\" already exists in schema \"%s\"",
+                        opcname,
+                        get_am_name(opcmethod),
+                        get_namespace_name(opcnamespace))));
+    }
+}
+```

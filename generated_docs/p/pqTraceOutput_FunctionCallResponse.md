@@ -36,3 +36,21 @@ The function first reads a 32-bit integer indicating the length of the result da
 - The result data can contain binary content, which pqTraceOutputNchar handles by escaping non-printable characters
 - Used for debugging PostgreSQL's function call protocol between client and server
 - Function calls in PostgreSQL can be invoked using the binary protocol for better performance compared to text-based SQL
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_FunctionCallResponse(FILE *f, const char *message, int *cursor)
+{
+    // Output message type identifier
+    fprintf(f, "FunctionCallResponse\t");
+
+    // Extract result data length (-1 means NULL)
+    int len = pqTraceOutputInt32(f, message, cursor, false);
+
+    // Output result data if not NULL
+    if (len != -1) {
+        pqTraceOutputNchar(f, len, message, cursor);
+    }
+}
+```

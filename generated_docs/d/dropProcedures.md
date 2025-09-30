@@ -44,3 +44,43 @@ This function handles the removal of support procedure (support function) entrie
 - This function is the procedural counterpart to dropOperators, handling support functions rather than operators
 - Designed specifically for "loose" operator family members that can be safely removed without compromising operator family integrity
 - Support procedures are critical for index access method functionality, so their removal is carefully controlled
+
+## Simplified Source
+
+```c
+static void dropProcedures(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+                           List *procedures) {
+    ListCell *l;
+
+    // Process each support procedure to be dropped
+    foreach(l, procedures) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(l);
+        Oid amprocid;
+        ObjectAddress object;
+
+        // Look up procedure in pg_amproc by family, types, and support number
+        amprocid = GetSysCacheOid4(AMPROCNUM, Anum_pg_amproc_oid,
+                                  ObjectIdGetDatum(opfamilyoid),
+                                  ObjectIdGetDatum(op->lefttype),
+                                  ObjectIdGetDatum(op->righttype),
+                                  Int16GetDatum(op->number));
+
+        // Error if procedure doesn't exist in the family
+        if (!OidIsValid(amprocid))
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("function %d(%s,%s) does not exist in operator family \"%s\"",
+                            op->number,
+                            format_type_be(op->lefttype),
+                            format_type_be(op->righttype),
+                            NameListToString(opfamilyname))));
+
+        // Set up object address and perform deletion
+        object.classId = AccessMethodProcedureRelationId;
+        object.objectId = amprocid;
+        object.objectSubId = 0;
+
+        performDeletion(&object, DROP_RESTRICT, 0);
+    }
+}
+```

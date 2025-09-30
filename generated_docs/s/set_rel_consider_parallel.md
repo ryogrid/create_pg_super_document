@@ -48,3 +48,90 @@ After relation-type-specific checks, the function validates that all base restri
 - The function uses early return strategy - any unsafe condition immediately disqualifies parallel access
 - Table functions (RTE_TABLEFUNC) are currently not supported for parallel execution
 - The consider_parallel flag enables subsequent parallel path generation but doesn't guarantee parallel execution
+
+## Simplified Source
+
+```c
+static void
+set_rel_consider_parallel(PlannerInfo *root, RelOptInfo *rel,
+                         RangeTblEntry *rte)
+{
+    // Start with assumption that parallel is not safe
+    Assert(!rel->consider_parallel);
+    Assert(root->glob->parallelModeOK);
+    Assert(IS_SIMPLE_REL(rel));
+
+    // Check relation type specific constraints
+    switch (rte->rtekind)
+    {
+        case RTE_RELATION:
+            // Temporary tables cannot be accessed by workers
+            if (get_rel_persistence(rte->relid) == RELPERSISTENCE_TEMP)
+                return;
+
+            // Check table sampling function safety
+            if (rte->tablesample != NULL)
+            {
+                char proparallel = func_parallel(rte->tablesample->tsmhandler);
+                if (proparallel != PROPARALLEL_SAFE)
+                    return;
+                if (!is_parallel_safe(root, (Node *) rte->tablesample->args))
+                    return;
+            }
+
+            // Foreign tables need explicit FDW support
+            if (rte->relkind == RELKIND_FOREIGN_TABLE)
+            {
+                if (!rel->fdwroutine->IsForeignScanParallelSafe)
+                    return;
+                if (!rel->fdwroutine->IsForeignScanParallelSafe(root, rel, rte))
+                    return;
+            }
+            break;
+
+        case RTE_SUBQUERY:
+            // Subqueries with LIMIT/OFFSET cannot be parallelized
+            {
+                Query *subquery = castNode(Query, rte->subquery);
+                if (limit_needed(subquery))
+                    return;
+            }
+            break;
+
+        case RTE_FUNCTION:
+            // Check for parallel-restricted functions
+            if (!is_parallel_safe(root, (Node *) rte->functions))
+                return;
+            break;
+
+        case RTE_VALUES:
+            // Check for parallel-restricted functions in values
+            if (!is_parallel_safe(root, (Node *) rte->values_lists))
+                return;
+            break;
+
+        case RTE_TABLEFUNC:  // Not parallel safe
+        case RTE_CTE:        // CTE tuplestores not shared
+        case RTE_NAMEDTUPLESTORE:  // Tuplestores not shared
+            return;
+
+        case RTE_RESULT:     // RESULT RTEs are fine
+            break;
+
+        case RTE_JOIN:
+            Assert(false);   // Should not happen for baserels
+            return;
+    }
+
+    // Check that base restriction clauses are parallel-safe
+    if (!is_parallel_safe(root, (Node *) rel->baserestrictinfo))
+        return;
+
+    // Check that output expressions are parallel-safe
+    if (!is_parallel_safe(root, (Node *) rel->reltarget->exprs))
+        return;
+
+    // All checks passed - enable parallel consideration
+    rel->consider_parallel = true;
+}
+```

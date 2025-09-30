@@ -43,3 +43,20 @@ The function ensures that other processes waiting for the relation extension loc
 - Should be called in exception handling paths to ensure locks are released even when errors occur
 - The underlying LockRelease function handles complex scenarios including fast-path locks and waiter notification
 - Typically used in try-finally patterns or similar constructs to guarantee lock release
+
+## Simplified Source
+
+```c
+void UnlockRelationForExtension(Relation relation, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for relation extension
+    SET_LOCKTAG_RELATION_EXTEND(tag,
+                                relation->rd_lockInfo.lockRelId.dbId,
+                                relation->rd_lockInfo.lockRelId.relId);
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```

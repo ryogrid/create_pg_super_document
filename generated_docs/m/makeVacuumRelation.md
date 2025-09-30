@@ -38,3 +38,19 @@ The structure supports both relation identification methods: by name (through Ra
 - Supports both user-initiated maintenance commands and automated maintenance via autovacuum
 - Used in command processing to maintain a list of relations that need vacuum/analyze operations
 - The dual identification system (RangeVar vs OID) accommodates different operational contexts where relations may be specified differently
+
+## Simplified Source
+
+```c
+VacuumRelation *
+makeVacuumRelation(RangeVar *relation, Oid oid, List *va_cols)
+{
+    VacuumRelation *v = makeNode(VacuumRelation);
+
+    v->relation = relation;  // Schema-qualified relation name
+    v->oid = oid;           // Object ID for direct identification
+    v->va_cols = va_cols;   // Column list for ANALYZE operations
+
+    return v;
+}
+```

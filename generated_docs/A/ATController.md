@@ -46,3 +46,26 @@ The function maintains the relation open during the preparation phase but closes
 - [Relation](../R/Relation.md) is closed after Phase 1 but lock is retained until commit
 - Event trigger support is maintained through the parsetree parameter
 - The three-phase approach allows for proper dependency handling and rollback capabilities
+
+## Simplified Source
+
+```c
+static void ATController(AlterTableStmt *parsetree, Relation rel, List *cmds,
+                        bool recurse, LOCKMODE lockmode, AlterTableUtilityContext *context) {
+    List *work_queue = NIL;
+
+    // Phase 1: Build work queue from commands
+    foreach(cmd, cmds) {
+        ATPrepCmd(&work_queue, rel, cmd, recurse, false, lockmode, context);
+    }
+
+    // Close relation but keep lock until commit
+    relation_close(rel, NoLock);
+
+    // Phase 2: Update system catalogs
+    ATRewriteCatalogs(&work_queue, lockmode, context);
+
+    // Phase 3: Rewrite tables and run after-statements
+    ATRewriteTables(parsetree, &work_queue, lockmode, context);
+}
+```

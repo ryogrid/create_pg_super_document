@@ -311,3 +311,15 @@ Text creation and manipulation
 - [BoolExpr](../B/BoolExpr.md) represents boolean expressions (AND, OR, NOT) in the PostgreSQL expression tree
 - This is a static function used internally within the predicate testing module
 - Part of the function pointer-based iteration pattern that allows different node types to have specialized startup behavior while sharing common iteration and cleanup logic
+
+## Simplified Source
+
+```c
+static void
+boolexpr_startup_fn(Node *clause, PredIterInfo info)
+{
+    // Extract arguments list from BoolExpr and setup iteration
+    info->state_list = ((BoolExpr *) clause)->args;
+    info->state = (void *) list_head(info->state_list);
+}
+```

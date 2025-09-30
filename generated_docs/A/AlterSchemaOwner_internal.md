@@ -52,3 +52,58 @@ Key behaviors include:
 - Handles ACL updates only when existing ACL is non-null, preserving NULL ACL semantics
 - Updates both the ownership field and corresponding shared dependencies atomically
 - Uses heap_modify_tuple pattern for safe catalog updates with proper tuple replacement
+
+## Simplified Source
+
+```c
+static void AlterSchemaOwner_internal(HeapTuple tup, Relation rel, Oid newOwnerId) {
+    Form_pg_namespace nspForm = (Form_pg_namespace) GETSTRUCT(tup);
+
+    // Only proceed if owner actually changes
+    if (nspForm->nspowner != newOwnerId) {
+        // Must be owner of the existing schema
+        if (!object_ownercheck(NamespaceRelationId, nspForm->oid, GetUserId()))
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SCHEMA, NameStr(nspForm->nspname));
+
+        // Must be able to become new owner
+        check_can_set_role(GetUserId(), newOwnerId);
+
+        // Current user must have CREATE privilege on database
+        // (unique requirement for schema ownership changes)
+        AclResult aclresult = object_aclcheck(DatabaseRelationId, MyDatabaseId,
+                                             GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_DATABASE, get_database_name(MyDatabaseId));
+
+        // Prepare tuple update arrays
+        Datum repl_val[Natts_pg_namespace];
+        bool repl_null[Natts_pg_namespace];
+        bool repl_repl[Natts_pg_namespace];
+
+        memset(repl_null, false, sizeof(repl_null));
+        memset(repl_repl, false, sizeof(repl_repl));
+
+        // Update owner field
+        repl_repl[Anum_pg_namespace_nspowner - 1] = true;
+        repl_val[Anum_pg_namespace_nspowner - 1] = ObjectIdGetDatum(newOwnerId);
+
+        // Update ACL if it exists
+        Datum aclDatum = SysCacheGetAttr(NAMESPACENAME, tup, Anum_pg_namespace_nspacl, &isNull);
+        if (!isNull) {
+            Acl *newAcl = aclnewowner(DatumGetAclP(aclDatum), nspForm->nspowner, newOwnerId);
+            repl_repl[Anum_pg_namespace_nspacl - 1] = true;
+            repl_val[Anum_pg_namespace_nspacl - 1] = PointerGetDatum(newAcl);
+        }
+
+        // Update catalog and dependencies
+        HeapTuple newtuple = heap_modify_tuple(tup, RelationGetDescr(rel),
+                                              repl_val, repl_null, repl_repl);
+        CatalogTupleUpdate(rel, &newtuple->t_self, newtuple);
+        heap_freetuple(newtuple);
+        changeDependencyOnOwner(NamespaceRelationId, nspForm->oid, newOwnerId);
+    }
+
+    // Notify other subsystems
+    InvokeObjectPostAlterHook(NamespaceRelationId, nspForm->oid, 0);
+}
+```

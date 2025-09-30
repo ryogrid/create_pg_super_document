@@ -48,3 +48,26 @@ Cost evaluation for restriction clauses is performed using , storing the result 
 - Uses JOIN_INNER selectivity semantics even though this is for base relations
 - Essential function called by various relation type sizing functions throughout the optimizer
 - Located in src/backend/optimizer/path/costsize.c:5242-5271
+
+## Simplified Source
+
+```c
+void set_baserel_size_estimates(PlannerInfo *root, RelOptInfo *rel) {
+    double nrows;
+
+    // Validate this is a base relation
+    Assert(rel->relid > 0);
+
+    // Calculate filtered row count: base tuples * restriction selectivity
+    nrows = rel->tuples * clauselist_selectivity(root, rel->baserestrictinfo, 0, JOIN_INNER, NULL);
+
+    // Set the estimated output rows
+    rel->rows = clamp_row_est(nrows);
+
+    // Calculate cost of evaluating restriction clauses
+    cost_qual_eval(&rel->baserestrictcost, rel->baserestrictinfo, root);
+
+    // Set the estimated output tuple width
+    set_rel_width(root, rel);
+}
+```

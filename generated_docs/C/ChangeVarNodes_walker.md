@@ -41,3 +41,107 @@ The function operates at a specific sublevel context, allowing it to correctly h
 - For Query nodes, it increments the sublevel counter before recursing and decrements it afterward
 - The function updates not just the primary range table references but also related nulling relations in Var and PlaceHolderVar nodes
 - Returns false to continue tree traversal in most cases
+
+## Simplified Source
+
+```c
+static bool
+ChangeVarNodes_walker(Node *node, ChangeVarNodes_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Handle Var nodes - update range table references and nulling relations
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        if (var->varlevelsup == context->sublevels_up) {
+            if (var->varno == context->rt_index)
+                var->varno = context->new_index;
+
+            var->varnullingrels = adjust_relid_set(var->varnullingrels,
+                                                  context->rt_index,
+                                                  context->new_index);
+
+            if (var->varnosyn == context->rt_index)
+                var->varnosyn = context->new_index;
+        }
+        return false;
+    }
+
+    // Handle CurrentOfExpr nodes
+    if (IsA(node, CurrentOfExpr)) {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) node;
+        if (context->sublevels_up == 0 && cexpr->cvarno == context->rt_index)
+            cexpr->cvarno = context->new_index;
+        return false;
+    }
+
+    // Handle RangeTblRef nodes
+    if (IsA(node, RangeTblRef)) {
+        RangeTblRef *rtr = (RangeTblRef *) node;
+        if (context->sublevels_up == 0 && rtr->rtindex == context->rt_index)
+            rtr->rtindex = context->new_index;
+        return false;
+    }
+
+    // Handle JoinExpr nodes
+    if (IsA(node, JoinExpr)) {
+        JoinExpr *j = (JoinExpr *) node;
+        if (context->sublevels_up == 0 && j->rtindex == context->rt_index)
+            j->rtindex = context->new_index;
+        // Continue to examine children
+    }
+
+    // Handle PlaceHolderVar nodes
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+        if (phv->phlevelsup == context->sublevels_up) {
+            phv->phrels = adjust_relid_set(phv->phrels,
+                                          context->rt_index,
+                                          context->new_index);
+            phv->phnullingrels = adjust_relid_set(phv->phnullingrels,
+                                                 context->rt_index,
+                                                 context->new_index);
+        }
+        // Continue to examine children
+    }
+
+    // Handle PlanRowMark nodes
+    if (IsA(node, PlanRowMark)) {
+        PlanRowMark *rowmark = (PlanRowMark *) node;
+        if (context->sublevels_up == 0) {
+            if (rowmark->rti == context->rt_index)
+                rowmark->rti = context->new_index;
+            if (rowmark->prti == context->rt_index)
+                rowmark->prti = context->new_index;
+        }
+        return false;
+    }
+
+    // Handle AppendRelInfo nodes
+    if (IsA(node, AppendRelInfo)) {
+        AppendRelInfo *appinfo = (AppendRelInfo *) node;
+        if (context->sublevels_up == 0) {
+            if (appinfo->parent_relid == context->rt_index)
+                appinfo->parent_relid = context->new_index;
+            if (appinfo->child_relid == context->rt_index)
+                appinfo->child_relid = context->new_index;
+        }
+        // Continue to examine children
+    }
+
+    // Handle subqueries with sublevel tracking
+    if (IsA(node, Query)) {
+        context->sublevels_up++;
+        bool result = query_tree_walker((Query *) node, ChangeVarNodes_walker,
+                                       (void *) context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Continue recursive traversal for other node types
+    return expression_tree_walker(node, ChangeVarNodes_walker,
+                                 (void *) context);
+}
+```

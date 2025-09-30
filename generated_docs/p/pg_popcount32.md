@@ -41,3 +41,14 @@ The choice between these approaches is made at runtime through  based on CPU fea
 - When used as a function pointer (TRY_POPCNT_FAST), it's initialized during system startup
 - Part of the core bit manipulation API used throughout PostgreSQL for various operations including bitmap processing and user permission management
 - The simple wrapper approach (when TRY_POPCNT_FAST is not defined) relies on compiler optimization to eliminate function call overhead
+
+## Simplified Source
+
+```c
+int pg_popcount32(uint32 word)
+{
+    // Wrapper that delegates to the slow implementation
+    // When hardware optimizations aren't available
+    return pg_popcount32_slow(word);
+}
+```

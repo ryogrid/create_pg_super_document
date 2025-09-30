@@ -40,3 +40,22 @@ The function identifies the target ancestor plan using the ListCell that holds i
 - Critical for proper handling of parameter references in complex nested query plans
 - Uses list operations to precisely manage the ancestor chain during context switching
 - Part of PostgreSQL's query deparsing infrastructure used for rule and view expansion
+
+## Simplified Source
+
+```c
+static void push_ancestor_plan(deparse_namespace *dpns, ListCell *ancestor_cell,
+                              deparse_namespace *save_dpns) {
+    Plan *plan = (Plan *) lfirst(ancestor_cell);
+
+    // Save current state for later restoration
+    *save_dpns = *dpns;
+
+    // Build new ancestor list with only this node's ancestors
+    dpns->ancestors = list_copy_tail(dpns->ancestors,
+                                    list_cell_number(dpns->ancestors, ancestor_cell) + 1);
+
+    // Set attention on the selected ancestor plan
+    set_deparse_plan(dpns, plan);
+}
+```

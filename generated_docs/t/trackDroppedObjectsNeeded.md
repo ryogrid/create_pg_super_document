@@ -38,3 +38,16 @@ The function examines three types of events:
 - Used as a performance optimization to avoid unnecessary object tracking overhead
 - The function uses bitwise OR (||) to check all three event types
 - Located in src/backend/commands/event_trigger.c:1246-1277
+
+## Simplified Source
+
+```c
+bool trackDroppedObjectsNeeded(void)
+{
+    // Check if any event triggers exist that need object tracking
+    // Returns true if any sql_drop, table_rewrite, or ddl_command_end triggers exist
+    return (EventCacheLookup(EVT_SQLDrop) != NIL) ||
+           (EventCacheLookup(EVT_TableRewrite) != NIL) ||
+           (EventCacheLookup(EVT_DDLCommandEnd) != NIL);
+}
+```

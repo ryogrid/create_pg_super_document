@@ -46,3 +46,29 @@ A notable design consideration is that the function accepts potentially compress
 - The function is robust against various text storage formats (compressed, toasted, or regular)
 - Essential for functions that need to pass PostgreSQL text data to C library functions expecting null-terminated strings
 - Located in `src/backend/utils/adt/varlena.c` as part of the variable-length data type utilities
+
+## Simplified Source
+
+```c
+char *
+text_to_cstring(const text *t)
+{
+    // Detoast the input text (handles compressed/toasted values)
+    text *tunpacked = pg_detoast_datum_packed(unconstify(text *, t));
+    int len = VARSIZE_ANY_EXHDR(tunpacked);
+    char *result;
+
+    // Allocate memory for string plus null terminator
+    result = (char *) palloc(len + 1);
+
+    // Copy data and add null terminator
+    memcpy(result, VARDATA_ANY(tunpacked), len);
+    result[len] = '\0';
+
+    // Clean up temporary detoasted data if different from input
+    if (tunpacked != t)
+        pfree(tunpacked);
+
+    return result;
+}
+```

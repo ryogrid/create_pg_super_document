@@ -42,3 +42,41 @@ The conversion map accounts for differences in column order, data types, and pre
 - For non-partitioned child relations, missing columns in the child are handled by setting 
 - The function assumes the caller has verified that  represents a child relation (assertion check)
 - A NULL return value is valid and indicates no conversion is necessary between root and child schemas
+
+## Simplified Source
+
+```c
+TupleConversionMap *
+ExecGetRootToChildMap(ResultRelInfo *resultRelInfo, EState *estate)
+{
+    // Must be called for a child relation
+    Assert(resultRelInfo->ri_RootResultRelInfo);
+
+    // Compute map if not already done
+    if (!resultRelInfo->ri_RootToChildMapValid)
+    {
+        ResultRelInfo *rootRelInfo = resultRelInfo->ri_RootResultRelInfo;
+        TupleDesc indesc = RelationGetDescr(rootRelInfo->ri_RelationDesc);
+        TupleDesc outdesc = RelationGetDescr(resultRelInfo->ri_RelationDesc);
+        Relation childrel = resultRelInfo->ri_RelationDesc;
+        MemoryContext oldcontext;
+
+        // Switch to query context for permanent allocation
+        oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+        // Build attribute map between root and child schemas
+        // For non-partitions, allow missing columns in child
+        AttrMap *attrMap = build_attrmap_by_name_if_req(indesc, outdesc,
+                                                       !childrel->rd_rel->relispartition);
+
+        // Create tuple conversion map if needed
+        if (attrMap)
+            resultRelInfo->ri_RootToChildMap = convert_tuples_by_name_attrmap(indesc, outdesc, attrMap);
+
+        MemoryContextSwitchTo(oldcontext);
+        resultRelInfo->ri_RootToChildMapValid = true;
+    }
+
+    return resultRelInfo->ri_RootToChildMap;
+}
+```

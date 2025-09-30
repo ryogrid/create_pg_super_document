@@ -44,3 +44,98 @@ The function includes an optimization where if the new ACL matches the default p
 - Optimizes storage by deleting catalog entries when ACL equals default privileges
 - Part of PostgreSQL's security model allowing delegation of parameter management to non-superusers
 - Parameter names are stored as text values and must be extracted using TextDatumGetCString
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_Parameter(InternalGrant *istmt)
+{
+    Relation relation;
+    ListCell *cell;
+
+    // Set default privileges if ALL PRIVILEGES specified
+    if (istmt->all_privs && istmt->privileges == ACL_NO_RIGHTS)
+        istmt->privileges = ACL_ALL_RIGHTS_PARAMETER_ACL;
+
+    // Open parameter ACL catalog
+    relation = table_open(ParameterAclRelationId, RowExclusiveLock);
+
+    // Process each parameter
+    foreach(cell, istmt->objects)
+    {
+        Oid parameterId = lfirst_oid(cell);
+        Datum nameDatum, aclDatum;
+        const char *parname;
+        bool isNull;
+        AclMode avail_goptions, this_privileges;
+        Acl *old_acl, *new_acl;
+        Oid grantorId, ownerId;
+        HeapTuple tuple;
+        // ... variable declarations ...
+
+        // Find parameter ACL tuple
+        tuple = SearchSysCache1(PARAMETERACLOID, ObjectIdGetDatum(parameterId));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for parameter ACL %u", parameterId);
+
+        // Extract parameter name
+        nameDatum = SysCacheGetAttrNotNull(PARAMETERACLOID, tuple,
+                                           Anum_pg_parameter_acl_parname);
+        parname = TextDatumGetCString(nameDatum);
+
+        // All parameters owned by bootstrap superuser
+        ownerId = BOOTSTRAP_SUPERUSERID;
+
+        // Get existing ACL or use default
+        aclDatum = SysCacheGetAttr(PARAMETERACLOID, tuple,
+                                   Anum_pg_parameter_acl_paracl, &isNull);
+        if (isNull)
+            old_acl = acldefault(istmt->objtype, ownerId);
+        else
+            old_acl = DatumGetAclPCopy(aclDatum);
+
+        // Determine grantor and validate privileges
+        select_best_grantor(GetUserId(), istmt->privileges, old_acl, ownerId,
+                            &grantorId, &avail_goptions);
+        this_privileges = restrict_and_check_grant(istmt->is_grant, avail_goptions,
+                                                   istmt->all_privs, istmt->privileges,
+                                                   parameterId, grantorId,
+                                                   OBJECT_PARAMETER_ACL, parname, 0, NULL);
+
+        // Generate new ACL
+        new_acl = merge_acl_with_grant(old_acl, istmt->is_grant,
+                                       istmt->grant_option, istmt->behavior,
+                                       istmt->grantees, this_privileges,
+                                       grantorId, ownerId);
+
+        // Update or delete catalog entry based on whether ACL equals default
+        if (aclequal(new_acl, acldefault(istmt->objtype, ownerId)))
+        {
+            // Remove entry if ACL equals default
+            CatalogTupleDelete(relation, &tuple->t_self);
+        }
+        else
+        {
+            // Update with new ACL
+            HeapTuple newtuple;
+            replaces[Anum_pg_parameter_acl_paracl - 1] = true;
+            values[Anum_pg_parameter_acl_paracl - 1] = PointerGetDatum(new_acl);
+            newtuple = heap_modify_tuple(tuple, RelationGetDescr(relation),
+                                         values, nulls, replaces);
+            CatalogTupleUpdate(relation, &newtuple->t_self, newtuple);
+        }
+
+        // Update dependencies and extension privileges
+        recordExtensionInitPriv(parameterId, ParameterAclRelationId, 0, new_acl);
+        updateAclDependencies(ParameterAclRelationId, parameterId, 0, ownerId,
+                              noldmembers, oldmembers, nnewmembers, newmembers);
+
+        ReleaseSysCache(tuple);
+        pfree(new_acl);
+        CommandCounterIncrement();
+    }
+
+    table_close(relation, RowExclusiveLock);
+}
+```

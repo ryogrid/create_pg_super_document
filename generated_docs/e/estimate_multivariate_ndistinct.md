@@ -259,3 +259,155 @@ The function handles both simple Var nodes and complex expressions, applying app
 - Tie-breaking mechanism should be improved to use object names for stable outcomes
 - The function assumes that ndistinct statistics include all combinations of attributes
 - Extended statistics must match the inheritance setting of the range table entry
+
+## Simplified Source
+
+```c
+static bool
+estimate_multivariate_ndistinct(PlannerInfo *root, RelOptInfo *rel,
+                                List **varinfos, double *ndistinct) {
+    ListCell *lc;
+    int nmatches_vars = 0, nmatches_exprs = 0;
+    Oid statOid = InvalidOid;
+    MVNDistinct *stats;
+    StatisticExtInfo *matched_info = NULL;
+    RangeTblEntry *rte = planner_rt_fetch(rel->relid, root);
+
+    // Early exit if no extended statistics available
+    if (!rel->statlist)
+        return false;
+
+    // Find the best matching ndistinct statistics object
+    foreach(lc, rel->statlist) {
+        StatisticExtInfo *info = (StatisticExtInfo *) lfirst(lc);
+        int nshared_vars = 0, nshared_exprs = 0;
+
+        // Skip wrong type or mismatched inheritance
+        if (info->kind != STATS_EXT_NDISTINCT || info->inherit != rte->inh)
+            continue;
+
+        // Count matching variables and expressions
+        ListCell *lc2;
+        foreach(lc2, *varinfos) {
+            GroupVarInfo *varinfo = (GroupVarInfo *) lfirst(lc2);
+
+            if (IsA(varinfo->var, Var)) {
+                AttrNumber attnum = ((Var *) varinfo->var)->varattno;
+                if (AttrNumberIsForUserDefinedAttr(attnum) &&
+                    bms_is_member(attnum, info->keys))
+                    nshared_vars++;
+            } else {
+                // Check if expression matches any in statistics object
+                ListCell *lc3;
+                foreach(lc3, info->exprs) {
+                    if (equal(varinfo->var, (Node *) lfirst(lc3))) {
+                        nshared_exprs++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Keep if this statistics object matches more columns
+        if ((nshared_vars + nshared_exprs >= 2) &&
+            ((nshared_exprs > nmatches_exprs) ||
+             ((nshared_exprs == nmatches_exprs) && (nshared_vars > nmatches_vars)))) {
+            statOid = info->statOid;
+            nmatches_vars = nshared_vars;
+            nmatches_exprs = nshared_exprs;
+            matched_info = info;
+        }
+    }
+
+    // No suitable statistics found
+    if (statOid == InvalidOid)
+        return false;
+
+    // Load statistics and find matching item
+    stats = statext_ndistinct_load(statOid, rte->inh);
+    if (!stats)
+        return false;
+
+    // Build bitmap of matched attributes with proper offsets
+    Bitmapset *matched = NULL;
+    AttrNumber attnum_offset = matched_info->exprs ?
+                              (list_length(matched_info->exprs) + 1) : 0;
+
+    foreach(lc, *varinfos) {
+        GroupVarInfo *varinfo = (GroupVarInfo *) lfirst(lc);
+
+        if (IsA(varinfo->var, Var)) {
+            AttrNumber attnum = ((Var *) varinfo->var)->varattno;
+            if (AttrNumberIsForUserDefinedAttr(attnum) &&
+                bms_is_member(attnum, matched_info->keys)) {
+                matched = bms_add_member(matched, attnum + attnum_offset);
+            }
+        } else {
+            // Handle expressions
+            int idx = 0;
+            ListCell *lc3;
+            foreach(lc3, matched_info->exprs) {
+                if (equal(varinfo->var, (Node *) lfirst(lc3))) {
+                    matched = bms_add_member(matched, -(idx + 1) + attnum_offset);
+                    break;
+                }
+                idx++;
+            }
+        }
+    }
+
+    // Find exact matching statistics item
+    MVNDistinctItem *item = NULL;
+    for (int i = 0; i < stats->nitems; i++) {
+        MVNDistinctItem *tmpitem = &stats->items[i];
+        if (tmpitem->nattributes != bms_num_members(matched))
+            continue;
+
+        // Check if all attributes match
+        item = tmpitem;
+        for (int j = 0; j < tmpitem->nattributes; j++) {
+            AttrNumber attnum = tmpitem->attributes[j] + attnum_offset;
+            if (!bms_is_member(attnum, matched)) {
+                item = NULL;
+                break;
+            }
+        }
+        if (item) break;
+    }
+
+    if (!item)
+        elog(ERROR, "corrupt MVNDistinct entry");
+
+    // Remove matched variables from input list
+    List *newlist = NIL;
+    foreach(lc, *varinfos) {
+        GroupVarInfo *varinfo = (GroupVarInfo *) lfirst(lc);
+        bool found = false;
+
+        if (IsA(varinfo->var, Var)) {
+            AttrNumber attnum = ((Var *) varinfo->var)->varattno;
+            if (AttrNumberIsForUserDefinedAttr(attnum)) {
+                attnum += attnum_offset;
+                if (bms_is_member(attnum, matched))
+                    found = true;
+            }
+        } else {
+            // Check expressions for exact match
+            ListCell *lc3;
+            foreach(lc3, matched_info->exprs) {
+                if (equal(varinfo->var, (Node *) lfirst(lc3))) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if (!found)
+            newlist = lappend(newlist, varinfo);
+    }
+
+    *varinfos = newlist;
+    *ndistinct = item->ndistinct;
+    return true;
+}
+```

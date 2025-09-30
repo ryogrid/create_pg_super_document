@@ -41,3 +41,20 @@ The function acts as a gatekeeper, checking the appropriate conditions before de
 - The function can replace existing ACL entries or remove them entirely by passing NULL
 - Sub-object IDs are primarily used for table columns; other object types typically use 0
 - The function is static, indicating it's only used within the aclchk.c compilation unit
+
+## Simplified Source
+
+```c
+static void
+recordExtensionInitPriv(Oid objoid, Oid classoid, int objsubid, Acl *new_acl)
+{
+    // Only record initial privileges during extension creation or binary upgrade
+    // This allows the system to distinguish between normal privilege operations
+    // and those that should be recorded as initial extension privileges
+    if (!creating_extension && !binary_upgrade_record_init_privs)
+        return;
+
+    // Delegate the actual work to the worker function
+    recordExtensionInitPrivWorker(objoid, classoid, objsubid, new_acl);
+}
+```

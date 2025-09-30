@@ -46,3 +46,42 @@ The immutability requirement is particularly important because canonical functio
 - Common use cases include normalizing different representations of equivalent ranges (e.g., `[1,3)` vs `[1,2]`)
 - This function is part of PostgreSQL's extensible range type system
 - Located in src/backend/commands/typecmds.c:2321-2361
+
+## Simplified Source
+
+```c
+static Oid
+findRangeCanonicalFunction(List *procname, Oid typeOid)
+{
+    Oid argList[1] = {typeOid};
+
+    // Look up the function with range type as argument
+    Oid procOid = LookupFuncName(procname, 1, argList, true);
+    if (!OidIsValid(procOid))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("function %s does not exist",
+                        func_signature_string(procname, 1, NIL, argList))));
+
+    // Validate return type matches range type
+    if (get_func_rettype(procOid) != typeOid)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("range canonical function %s must return range type",
+                        func_signature_string(procname, 1, NIL, argList))));
+
+    // Ensure function is immutable for consistency
+    if (func_volatile(procOid) != PROVOLATILE_IMMUTABLE)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("range canonical function %s must be immutable",
+                        func_signature_string(procname, 1, NIL, argList))));
+
+    // Check execute permission
+    AclResult aclresult = object_aclcheck(ProcedureRelationId, procOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, get_func_name(procOid));
+
+    return procOid;
+}
+```

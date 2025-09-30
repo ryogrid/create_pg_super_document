@@ -41,3 +41,80 @@ This static function resolves references to specific members within operator fam
 - Provides detailed error messages including member numbers, type names, and operator family descriptions
 - Uses system cache lookups with operator family OID, left type OID, right type OID, and strategy/procedure number as keys
 - Returns ObjectAddress with objectSubId set to 0 and objectId set to the pg_amop/pg_amproc entry's OID
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_opf_member(ObjectType objtype,
+                             List *object, bool missing_ok)
+{
+    ObjectAddress famaddr, address;
+    ListCell *cell;
+    List *copy;
+    TypeName *typenames[2];
+    Oid typeoids[2];
+    int membernum, i;
+
+    // Extract strategy/procedure number (last element)
+    membernum = atoi(strVal(llast(linitial(object))));
+
+    // Get operator family address (excluding the member number)
+    copy = list_copy_head(linitial(object), list_length(linitial(object)) - 1);
+    famaddr = get_object_address_opcf(OBJECT_OPFAMILY, copy, false);
+
+    // Resolve operand types (left and right)
+    typenames[0] = typenames[1] = NULL;
+    typeoids[0] = typeoids[1] = InvalidOid;
+    i = 0;
+    foreach(cell, lsecond(object)) {
+        ObjectAddress typaddr;
+        typenames[i] = lfirst_node(TypeName, cell);
+        typaddr = get_object_address_type(OBJECT_TYPE, typenames[i], missing_ok);
+        typeoids[i] = typaddr.objectId;
+        if (++i >= 2)
+            break;
+    }
+
+    switch (objtype) {
+        case OBJECT_AMOP:
+            // Find operator in pg_amop
+            ObjectAddressSet(address, AccessMethodOperatorRelationId, InvalidOid);
+            HeapTuple tp = SearchSysCache4(AMOPSTRATEGY,
+                                         ObjectIdGetDatum(famaddr.objectId),
+                                         ObjectIdGetDatum(typeoids[0]),
+                                         ObjectIdGetDatum(typeoids[1]),
+                                         Int16GetDatum(membernum));
+            if (!HeapTupleIsValid(tp)) {
+                if (!missing_ok)
+                    ereport(ERROR, "operator does not exist");
+            } else {
+                address.objectId = ((Form_pg_amop) GETSTRUCT(tp))->oid;
+                ReleaseSysCache(tp);
+            }
+            break;
+
+        case OBJECT_AMPROC:
+            // Find support procedure in pg_amproc
+            ObjectAddressSet(address, AccessMethodProcedureRelationId, InvalidOid);
+            tp = SearchSysCache4(AMPROCNUM,
+                               ObjectIdGetDatum(famaddr.objectId),
+                               ObjectIdGetDatum(typeoids[0]),
+                               ObjectIdGetDatum(typeoids[1]),
+                               Int16GetDatum(membernum));
+            if (!HeapTupleIsValid(tp)) {
+                if (!missing_ok)
+                    ereport(ERROR, "function does not exist");
+            } else {
+                address.objectId = ((Form_pg_amproc) GETSTRUCT(tp))->oid;
+                ReleaseSysCache(tp);
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) objtype);
+    }
+
+    return address;
+}
+```

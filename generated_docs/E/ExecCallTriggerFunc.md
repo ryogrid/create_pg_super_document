@@ -61,3 +61,63 @@ Key safety features include protection against uninitialized transition table in
 - Function lookup results are cached in finfo array to improve performance for repeated calls
 - [Instrumentation](../I/Instrumentation.md) data helps with query performance analysis in EXPLAIN ANALYZE
 - The function is static, indicating it's an internal implementation detail of the trigger system
+
+## Simplified Source
+
+```c
+static HeapTuple ExecCallTriggerFunc(TriggerData *trigdata, int tgindx,
+                                     FmgrInfo *finfo, Instrumentation *instr,
+                                     MemoryContext per_tuple_context) {
+    LOCAL_FCINFO(fcinfo, 0);
+    PgStat_FunctionCallUsage fcusage;
+    Datum result;
+    MemoryContext oldContext;
+
+    // Validate transition table setup
+    Assert(/* complex trigger validation logic */);
+
+    finfo += tgindx;
+
+    // Cache function lookup if needed
+    if (finfo->fn_oid == InvalidOid)
+        fmgr_info(trigdata->tg_trigger->tgfoid, finfo);
+
+    // Start instrumentation if enabled
+    if (instr)
+        InstrStartNode(instr + tgindx);
+
+    // Switch to per-tuple memory context
+    oldContext = MemoryContextSwitchTo(per_tuple_context);
+
+    // Initialize function call and statistics
+    InitFunctionCallInfoData(*fcinfo, finfo, 0, InvalidOid,
+                             (Node *) trigdata, NULL);
+    pgstat_init_function_usage(fcinfo, &fcusage);
+
+    // Call trigger function with depth tracking
+    MyTriggerDepth++;
+    PG_TRY();
+    {
+        result = FunctionCallInvoke(fcinfo);
+    }
+    PG_FINALLY();
+    {
+        MyTriggerDepth--;
+    }
+    PG_END_TRY();
+
+    pgstat_end_function_usage(&fcusage, true);
+    MemoryContextSwitchTo(oldContext);
+
+    // Validate trigger protocol - no NULL with isnull flag
+    if (fcinfo->isnull)
+        ereport(ERROR, (errcode(ERRCODE_E_R_I_E_TRIGGER_PROTOCOL_VIOLATED),
+                        errmsg("trigger function returned null value")));
+
+    // Stop instrumentation
+    if (instr)
+        InstrStopNode(instr + tgindx, 1);
+
+    return (HeapTuple) DatumGetPointer(result);
+}
+```

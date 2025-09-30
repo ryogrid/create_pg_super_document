@@ -54,3 +54,23 @@ This function is primarily used by PostgreSQL's EXPLAIN system to provide detail
 - This is a read-only operation that doesn't modify any context state
 - Commonly used in query execution analysis and performance monitoring tools
 - Provides more detailed information than simple allocation tracking, including memory overhead and fragmentation data
+
+## Simplified Source
+
+```c
+void MemoryContextMemConsumed(MemoryContext context,
+                             MemoryContextCounters *consumed) {
+    // Initialize counters to zero
+    memset(consumed, 0, sizeof(*consumed));
+
+    // Collect stats from the root context
+    context->methods->stats(context, NULL, NULL, consumed, false);
+
+    // Traverse all child contexts and accumulate their stats
+    for (MemoryContext child = context->firstchild;
+         child != NULL;
+         child = MemoryContextTraverseNext(child, context)) {
+        child->methods->stats(child, NULL, NULL, consumed, false);
+    }
+}
+```

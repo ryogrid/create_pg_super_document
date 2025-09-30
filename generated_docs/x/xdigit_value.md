@@ -25,3 +25,15 @@ The `xdigit_value` function is a simple character-to-digit conversion utility th
 
 ## Notes and Other Information
 This is a pure utility function with no side effects. It uses character arithmetic to efficiently convert digits by subtracting the character code of '0' for decimal digits, and adjusting by adding 10 for alphabetic hex digits. The function returns -1 for invalid characters, which allows callers to easily detect and handle invalid hexadecimal input. The inline designation suggests this function is expected to be called frequently enough that inlining provides a measurable performance benefit.
+
+## Simplified Source
+
+```c
+static inline int xdigit_value(char dig) {
+    // Convert hexadecimal digit character to numeric value (0-15)
+    // Returns -1 for invalid characters
+    return dig >= '0' && dig <= '9' ? dig - '0' :
+           dig >= 'a' && dig <= 'f' ? dig - 'a' + 10 :
+           dig >= 'A' && dig <= 'F' ? dig - 'A' + 10 : -1;
+}
+```

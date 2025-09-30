@@ -49,3 +49,29 @@ This optimization allows the walker to skip deep recursion into aggregate sub-ex
 - Relies on parser guarantees about aggregate nesting to optimize traversal
 - The Assert for SubLink indicates these should be processed by subquery planning before aggregate preprocessing
 - Uses expression_tree_walker for general tree traversal, which handles all PostgreSQL expression node types
+
+## Simplified Source
+
+```c
+static bool preprocess_aggrefs_walker(Node *node, PlannerInfo *root) {
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Aggref)) {
+        Aggref *aggref = (Aggref *) node;
+
+        // Process this aggregate reference
+        preprocess_aggref(aggref, root);
+
+        // Don't recurse into aggregate arguments - parser guarantees
+        // no nested aggregates exist at this level
+        return false;
+    }
+
+    // SubLinks should be handled elsewhere in planning
+    Assert(!IsA(node, SubLink));
+
+    // Continue walking the expression tree for other node types
+    return expression_tree_walker(node, preprocess_aggrefs_walker, (void *) root);
+}
+```

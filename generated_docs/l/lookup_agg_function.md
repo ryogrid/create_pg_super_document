@@ -45,3 +45,59 @@ The function uses func_get_detail to resolve the function name and handle polymo
 This function is critical for aggregate validation because it ensures that all component functions can be called efficiently without runtime type coercion, which is essential for aggregate performance. The function is particularly careful about VARIADIC ANY consistency and polymorphic type resolution, as these are common sources of aggregate definition errors.
 
 The function enforces that aggregate support functions cannot return sets, as this would be meaningless in the context of aggregation. It also validates that the caller has execute permissions on all referenced functions, ensuring proper security in aggregate definitions.
+
+## Simplified Source
+
+```c
+static Oid
+lookup_agg_function(List *fnName, int nargs, Oid *input_types,
+                   Oid variadicArgType, Oid *rettype)
+{
+    Oid fnOid, *true_oid_array;
+    bool retset;
+    int nvargs;
+    Oid vatype;
+
+    // Look up function in catalogs and resolve polymorphic types
+    FuncDetailCode fdresult = func_get_detail(fnName, NIL, NIL,
+                                              nargs, input_types, false, false, false,
+                                              &fnOid, rettype, &retset,
+                                              &nvargs, &vatype, &true_oid_array, NULL);
+
+    // Function must exist and be normal (not set-returning)
+    if (fdresult != FUNCDETAIL_NORMAL || !OidIsValid(fnOid))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("function %s does not exist",
+                             func_signature_string(fnName, nargs, NIL, input_types))));
+
+    if (retset)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("function %s returns a set",
+                             func_signature_string(fnName, nargs, NIL, input_types))));
+
+    // Check VARIADIC ANY consistency
+    if (variadicArgType == ANYOID && vatype != ANYOID)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("function %s must accept VARIADIC ANY to be used in this aggregate",
+                             func_signature_string(fnName, nargs, NIL, input_types))));
+
+    // Enforce polymorphic type consistency
+    *rettype = enforce_generic_type_consistency(input_types, true_oid_array,
+                                               nargs, *rettype, true);
+
+    // Ensure no runtime type coercion is needed
+    for (int i = 0; i < nargs; i++) {
+        if (!IsBinaryCoercible(input_types[i], true_oid_array[i]))
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("function %s requires run-time type coercion",
+                                 func_signature_string(fnName, nargs, NIL, true_oid_array))));
+    }
+
+    // Check execute permissions
+    AclResult aclresult = object_aclcheck(ProcedureRelationId, fnOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, get_func_name(fnOid));
+
+    return fnOid;
+}
+```

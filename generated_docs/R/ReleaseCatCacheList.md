@@ -42,3 +42,15 @@ This function is the standard way for code to release a catalog cache list when 
 - The function is safe to call with NULL pointers (handled by the underlying implementation)
 - Part of PostgreSQL's reference counting system for catalog cache management
 - Always use this function rather than directly manipulating reference counts
+
+## Simplified Source
+
+```c
+void
+ReleaseCatCacheList(CatCList *list)
+{
+    // Simple wrapper that decrements reference count using current resource owner
+    // Must be called for every CatCList obtained from SearchCatCacheList
+    ReleaseCatCacheListWithOwner(list, CurrentResourceOwner);
+}
+```

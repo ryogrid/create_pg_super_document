@@ -40,3 +40,12 @@ The function leverages PostgreSQL's system cache (syscache) when available for i
 - Utilizes system cache (syscache) for performance optimization when available
 - Located in src/backend/catalog/objectaddress.c:2781-2793
 - Returns a copy of the tuple, so caller is responsible for freeing the memory
+
+## Simplified Source
+```c
+HeapTuple
+get_catalog_object_by_oid(Relation catalog, AttrNumber oidcol, Oid objectId)
+{
+    return get_catalog_object_by_oid_extended(catalog, oidcol, objectId, false);
+}
+```

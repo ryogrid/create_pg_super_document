@@ -45,3 +45,70 @@ This function handles the namespace migration of sequences that have auto or int
 - Maintains lock consistency by keeping sequence locks until transaction end
 - Static function scope limits usage to within tablecmds.c
 - Critical for maintaining referential integrity during ALTER TABLE SET SCHEMA operations
+
+## Simplified Source
+
+```c
+static void
+AlterSeqNamespaces(Relation classRel, Relation rel,
+                  Oid oldNspOid, Oid newNspOid, ObjectAddresses *objsMoved,
+                  LOCKMODE lockmode)
+{
+    Relation    depRel;
+    SysScanDesc scan;
+    ScanKeyData key[2];
+    HeapTuple   tup;
+
+    // Open pg_depend to find sequences with auto dependencies on this table
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Setup scan keys to find dependencies on this relation
+    ScanKeyInit(&key[0], Anum_pg_depend_refclassid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_refobjid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(rel)));
+
+    scan = systable_beginscan(depRel, DependReferenceIndexId, true,
+                              NULL, 2, key);
+
+    // Process each dependency entry
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_depend depForm = (Form_pg_depend) GETSTRUCT(tup);
+        Relation    seqRel;
+
+        // Only process auto/internal dependencies on columns
+        if (depForm->refobjsubid == 0 ||
+            depForm->classid != RelationRelationId ||
+            depForm->objsubid != 0 ||
+            !(depForm->deptype == DEPENDENCY_AUTO ||
+              depForm->deptype == DEPENDENCY_INTERNAL))
+            continue;
+
+        // Open the potentially dependent object
+        seqRel = relation_open(depForm->objid, lockmode);
+
+        // Skip if not actually a sequence
+        if (RelationGetForm(seqRel)->relkind != RELKIND_SEQUENCE)
+        {
+            relation_close(seqRel, lockmode);
+            continue;
+        }
+
+        // Move the sequence to the new namespace
+        AlterRelationNamespaceInternal(classRel, depForm->objid,
+                                       oldNspOid, newNspOid,
+                                       true, objsMoved);
+
+        // Note: sequences no longer have pg_type entries
+        Assert(RelationGetForm(seqRel)->reltype == InvalidOid);
+
+        relation_close(seqRel, NoLock);
+    }
+
+    systable_endscan(scan);
+    relation_close(depRel, AccessShareLock);
+}
+```

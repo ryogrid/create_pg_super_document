@@ -128,3 +128,373 @@ Key operations include:
 - Variadic parameters must be the last input parameter and are validated for proper array type usage
 - The function creates comprehensive dependency records to track all objects the function depends on
 - Statistics are initialized for new functions to support query planning cost estimation
+
+## Simplified Source
+
+```c
+ObjectAddress ProcedureCreate(const char *procedureName,
+                             Oid procNamespace,
+                             bool replace,
+                             bool returnsSet,
+                             Oid returnType,
+                             Oid proowner,
+                             Oid languageObjectId,
+                             Oid languageValidator,
+                             const char *prosrc,
+                             const char *probin,
+                             Node *prosqlbody,
+                             char prokind,
+                             bool security_definer,
+                             bool isLeakProof,
+                             bool isStrict,
+                             char volatility,
+                             char parallel,
+                             oidvector *parameterTypes,
+                             Datum allParameterTypes,
+                             Datum parameterModes,
+                             Datum parameterNames,
+                             List *parameterDefaults,
+                             Datum trftypes,
+                             Datum proconfig,
+                             Oid prosupport,
+                             float4 procost,
+                             float4 prorows)
+{
+    Oid retval;
+    int parameterCount = parameterTypes->dim1;
+    int allParamCount;
+    Oid *allParams;
+    char *paramModes = NULL;
+    Oid variadicType = InvalidOid;
+    Relation rel;
+    HeapTuple tup, oldtup;
+    bool nulls[Natts_pg_proc];
+    Datum values[Natts_pg_proc];
+    bool replaces[Natts_pg_proc];
+    bool is_update;
+    ObjectAddress myself, referenced;
+
+    // Validate parameter count
+    if (parameterCount < 0 || parameterCount > FUNC_MAX_ARGS) {
+        ereport(ERROR, "functions cannot have more than %d arguments", FUNC_MAX_ARGS);
+    }
+
+    // Process parameter arrays
+    if (allParameterTypes != PointerGetDatum(NULL)) {
+        ArrayType *allParamArray = (ArrayType *) DatumGetPointer(allParameterTypes);
+        allParamCount = ARR_DIMS(allParamArray)[0];
+        // Validate array format
+        if (ARR_NDIM(allParamArray) != 1 || allParamCount <= 0 ||
+            ARR_HASNULL(allParamArray) || ARR_ELEMTYPE(allParamArray) != OIDOID) {
+            elog(ERROR, "allParameterTypes is not a 1-D Oid array");
+        }
+        allParams = (Oid *) ARR_DATA_PTR(allParamArray);
+    } else {
+        allParamCount = parameterCount;
+        allParams = parameterTypes->values;
+    }
+
+    // Process parameter modes array
+    if (parameterModes != PointerGetDatum(NULL)) {
+        ArrayType *modesArray = (ArrayType *) DatumGetPointer(parameterModes);
+        // Validate modes array format
+        if (ARR_NDIM(modesArray) != 1 ||
+            ARR_DIMS(modesArray)[0] != allParamCount ||
+            ARR_HASNULL(modesArray) || ARR_ELEMTYPE(modesArray) != CHAROID) {
+            elog(ERROR, "parameterModes is not a 1-D char array");
+        }
+        paramModes = (char *) ARR_DATA_PTR(modesArray);
+    }
+
+    // Validate polymorphic types
+    char *detailmsg = check_valid_polymorphic_signature(returnType,
+                                                       parameterTypes->values,
+                                                       parameterCount);
+    if (detailmsg) {
+        ereport(ERROR, "cannot determine result data type");
+    }
+
+    // Validate internal types
+    detailmsg = check_valid_internal_signature(returnType,
+                                              parameterTypes->values,
+                                              parameterCount);
+    if (detailmsg) {
+        ereport(ERROR, "unsafe use of pseudo-type \"internal\"");
+    }
+
+    // Validate OUT parameter types
+    if (allParameterTypes != PointerGetDatum(NULL)) {
+        for (int i = 0; i < allParamCount; i++) {
+            if (paramModes == NULL ||
+                paramModes[i] == PROARGMODE_IN ||
+                paramModes[i] == PROARGMODE_VARIADIC) {
+                continue; // Skip input-only params
+            }
+
+            // Validate polymorphic and internal types for OUT params
+            detailmsg = check_valid_polymorphic_signature(allParams[i],
+                                                         parameterTypes->values,
+                                                         parameterCount);
+            if (detailmsg) {
+                ereport(ERROR, "cannot determine result data type");
+            }
+
+            detailmsg = check_valid_internal_signature(allParams[i],
+                                                      parameterTypes->values,
+                                                      parameterCount);
+            if (detailmsg) {
+                ereport(ERROR, "unsafe use of pseudo-type \"internal\"");
+            }
+        }
+    }
+
+    // Identify variadic parameter type
+    if (paramModes != NULL) {
+        for (int i = 0; i < allParamCount; i++) {
+            if (paramModes[i] == PROARGMODE_VARIADIC) {
+                if (OidIsValid(variadicType)) {
+                    elog(ERROR, "variadic parameter must be last");
+                }
+
+                // Handle special variadic types
+                switch (allParams[i]) {
+                    case ANYOID:
+                        variadicType = ANYOID;
+                        break;
+                    case ANYARRAYOID:
+                        variadicType = ANYELEMENTOID;
+                        break;
+                    case ANYCOMPATIBLEARRAYOID:
+                        variadicType = ANYCOMPATIBLEOID;
+                        break;
+                    default:
+                        variadicType = get_element_type(allParams[i]);
+                        if (!OidIsValid(variadicType)) {
+                            elog(ERROR, "variadic parameter is not an array");
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    // Initialize tuple values
+    memset(nulls, false, sizeof(nulls));
+    memset(values, 0, sizeof(values));
+    memset(replaces, true, sizeof(replaces));
+
+    // Fill in basic procedure attributes
+    NameData procname;
+    namestrcpy(&procname, procedureName);
+    values[Anum_pg_proc_proname - 1] = NameGetDatum(&procname);
+    values[Anum_pg_proc_pronamespace - 1] = ObjectIdGetDatum(procNamespace);
+    values[Anum_pg_proc_proowner - 1] = ObjectIdGetDatum(proowner);
+    values[Anum_pg_proc_prolang - 1] = ObjectIdGetDatum(languageObjectId);
+    values[Anum_pg_proc_procost - 1] = Float4GetDatum(procost);
+    values[Anum_pg_proc_prorows - 1] = Float4GetDatum(prorows);
+    values[Anum_pg_proc_provariadic - 1] = ObjectIdGetDatum(variadicType);
+    values[Anum_pg_proc_prosupport - 1] = ObjectIdGetDatum(prosupport);
+    values[Anum_pg_proc_prokind - 1] = CharGetDatum(prokind);
+    values[Anum_pg_proc_prosecdef - 1] = BoolGetDatum(security_definer);
+    values[Anum_pg_proc_proleakproof - 1] = BoolGetDatum(isLeakProof);
+    values[Anum_pg_proc_proisstrict - 1] = BoolGetDatum(isStrict);
+    values[Anum_pg_proc_proretset - 1] = BoolGetDatum(returnsSet);
+    values[Anum_pg_proc_provolatile - 1] = CharGetDatum(volatility);
+    values[Anum_pg_proc_proparallel - 1] = CharGetDatum(parallel);
+    values[Anum_pg_proc_pronargs - 1] = UInt16GetDatum(parameterCount);
+    values[Anum_pg_proc_pronargdefaults - 1] = UInt16GetDatum(list_length(parameterDefaults));
+    values[Anum_pg_proc_prorettype - 1] = ObjectIdGetDatum(returnType);
+    values[Anum_pg_proc_proargtypes - 1] = PointerGetDatum(parameterTypes);
+
+    // Set optional arrays (or null if not provided)
+    if (allParameterTypes != PointerGetDatum(NULL))
+        values[Anum_pg_proc_proallargtypes - 1] = allParameterTypes;
+    else
+        nulls[Anum_pg_proc_proallargtypes - 1] = true;
+
+    if (parameterModes != PointerGetDatum(NULL))
+        values[Anum_pg_proc_proargmodes - 1] = parameterModes;
+    else
+        nulls[Anum_pg_proc_proargmodes - 1] = true;
+
+    if (parameterNames != PointerGetDatum(NULL))
+        values[Anum_pg_proc_proargnames - 1] = parameterNames;
+    else
+        nulls[Anum_pg_proc_proargnames - 1] = true;
+
+    if (parameterDefaults != NIL)
+        values[Anum_pg_proc_proargdefaults - 1] = CStringGetTextDatum(nodeToString(parameterDefaults));
+    else
+        nulls[Anum_pg_proc_proargdefaults - 1] = true;
+
+    if (trftypes != PointerGetDatum(NULL))
+        values[Anum_pg_proc_protrftypes - 1] = trftypes;
+    else
+        nulls[Anum_pg_proc_protrftypes - 1] = true;
+
+    values[Anum_pg_proc_prosrc - 1] = CStringGetTextDatum(prosrc);
+
+    if (probin)
+        values[Anum_pg_proc_probin - 1] = CStringGetTextDatum(probin);
+    else
+        nulls[Anum_pg_proc_probin - 1] = true;
+
+    if (prosqlbody)
+        values[Anum_pg_proc_prosqlbody - 1] = CStringGetTextDatum(nodeToString(prosqlbody));
+    else
+        nulls[Anum_pg_proc_prosqlbody - 1] = true;
+
+    if (proconfig != PointerGetDatum(NULL))
+        values[Anum_pg_proc_proconfig - 1] = proconfig;
+    else
+        nulls[Anum_pg_proc_proconfig - 1] = true;
+
+    // Open catalog and check for existing function
+    rel = table_open(ProcedureRelationId, RowExclusiveLock);
+    TupleDesc tupDesc = RelationGetDescr(rel);
+
+    oldtup = SearchSysCache3(PROCNAMEARGSNSP,
+                            PointerGetDatum(procedureName),
+                            PointerGetDatum(parameterTypes),
+                            ObjectIdGetDatum(procNamespace));
+
+    if (HeapTupleIsValid(oldtup)) {
+        // Handle function replacement
+        Form_pg_proc oldproc = (Form_pg_proc) GETSTRUCT(oldtup);
+
+        if (!replace) {
+            ereport(ERROR, "function already exists with same argument types");
+        }
+
+        if (!object_ownercheck(ProcedureRelationId, oldproc->oid, proowner)) {
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_FUNCTION, procedureName);
+        }
+
+        // Validate function kind compatibility
+        if (oldproc->prokind != prokind) {
+            ereport(ERROR, "cannot change routine kind");
+        }
+
+        // Validate return type compatibility
+        if (returnType != oldproc->prorettype || returnsSet != oldproc->proretset) {
+            ereport(ERROR, prokind == PROKIND_PROCEDURE ?
+                   "cannot change whether a procedure has output parameters" :
+                   "cannot change return type of existing function");
+        }
+
+        // Additional compatibility checks for RECORD types and parameter names omitted for brevity
+
+        // Preserve original OID, ownership, and ACL
+        replaces[Anum_pg_proc_oid - 1] = false;
+        replaces[Anum_pg_proc_proowner - 1] = false;
+        replaces[Anum_pg_proc_proacl - 1] = false;
+
+        tup = heap_modify_tuple(oldtup, tupDesc, values, nulls, replaces);
+        CatalogTupleUpdate(rel, &tup->t_self, tup);
+        ReleaseSysCache(oldtup);
+        is_update = true;
+    } else {
+        // Create new function
+        Acl *proacl = get_user_default_acl(OBJECT_FUNCTION, proowner, procNamespace);
+        if (proacl != NULL)
+            values[Anum_pg_proc_proacl - 1] = PointerGetDatum(proacl);
+        else
+            nulls[Anum_pg_proc_proacl - 1] = true;
+
+        Oid newOid = GetNewOidWithIndex(rel, ProcedureOidIndexId, Anum_pg_proc_oid);
+        values[Anum_pg_proc_oid - 1] = ObjectIdGetDatum(newOid);
+        tup = heap_form_tuple(tupDesc, values, nulls);
+        CatalogTupleInsert(rel, tup);
+        is_update = false;
+    }
+
+    retval = ((Form_pg_proc) GETSTRUCT(tup))->oid;
+
+    // Create dependencies
+    if (is_update) {
+        deleteDependencyRecordsFor(ProcedureRelationId, retval, true);
+    }
+
+    ObjectAddresses *addrs = new_object_addresses();
+    ObjectAddressSet(myself, ProcedureRelationId, retval);
+
+    // Record dependencies on namespace, language, return type, parameter types, etc.
+    ObjectAddressSet(referenced, NamespaceRelationId, procNamespace);
+    add_exact_object_address(&referenced, addrs);
+
+    ObjectAddressSet(referenced, LanguageRelationId, languageObjectId);
+    add_exact_object_address(&referenced, addrs);
+
+    ObjectAddressSet(referenced, TypeRelationId, returnType);
+    add_exact_object_address(&referenced, addrs);
+
+    // Dependencies on parameter types
+    for (int i = 0; i < allParamCount; i++) {
+        ObjectAddressSet(referenced, TypeRelationId, allParams[i]);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Support function dependency
+    if (OidIsValid(prosupport)) {
+        ObjectAddressSet(referenced, ProcedureRelationId, prosupport);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    record_object_address_dependencies(&myself, addrs, DEPENDENCY_NORMAL);
+    free_object_addresses(addrs);
+
+    // Record dependencies on SQL body and parameter defaults
+    if (languageObjectId == SQLlanguageId && prosqlbody) {
+        recordDependencyOnExpr(&myself, prosqlbody, NIL, DEPENDENCY_NORMAL);
+    }
+
+    if (parameterDefaults) {
+        recordDependencyOnExpr(&myself, (Node *) parameterDefaults, NIL, DEPENDENCY_NORMAL);
+    }
+
+    // Record ownership and ACL dependencies for new functions
+    if (!is_update) {
+        recordDependencyOnOwner(ProcedureRelationId, retval, proowner);
+        recordDependencyOnNewAcl(ProcedureRelationId, retval, 0, proowner, proacl);
+    }
+
+    recordDependencyOnCurrentExtension(&myself, is_update);
+
+    heap_freetuple(tup);
+    InvokeObjectPostCreateHook(ProcedureRelationId, retval, 0);
+    table_close(rel, RowExclusiveLock);
+
+    // Validate function body if validator exists
+    if (OidIsValid(languageValidator)) {
+        CommandCounterIncrement();
+
+        ArrayType *set_items = NULL;
+        int save_nestlevel = 0;
+
+        // Apply function configuration settings during validation
+        if (check_function_bodies) {
+            set_items = (ArrayType *) DatumGetPointer(proconfig);
+            if (set_items) {
+                save_nestlevel = NewGUCNestLevel();
+                ProcessGUCArray(set_items,
+                               (superuser() ? PGC_SUSET : PGC_USERSET),
+                               PGC_S_SESSION,
+                               GUC_ACTION_SAVE);
+            }
+        }
+
+        OidFunctionCall1(languageValidator, ObjectIdGetDatum(retval));
+
+        if (set_items) {
+            AtEOXact_GUC(true, save_nestlevel);
+        }
+    }
+
+    // Initialize function statistics
+    if (!is_update) {
+        pgstat_create_function(retval);
+    }
+
+    return myself;
+}
+```

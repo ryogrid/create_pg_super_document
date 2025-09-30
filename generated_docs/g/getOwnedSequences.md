@@ -24,3 +24,14 @@ This function serves as a public interface to retrieve all sequences owned by a 
 
 ## Notes and Other Information
 This is a convenience function that internally calls getOwnedSequences_internal with parameters (relid, 0, 0), which means it retrieves all owned sequences for the relation without filtering by specific columns or sequence types. The function is part of PostgreSQL's dependency management system and is crucial for maintaining referential integrity when performing table operations that affect dependent sequences.
+
+## Simplified Source
+
+```c
+List *getOwnedSequences(Oid relid)
+{
+    // Simple wrapper that calls internal function with default parameters
+    // Returns all sequences (identity and serial) owned by the relation
+    return getOwnedSequences_internal(relid, 0, 0);
+}
+```

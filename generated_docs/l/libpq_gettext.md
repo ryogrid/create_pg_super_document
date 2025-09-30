@@ -38,3 +38,15 @@ The function is a wrapper around the standard gettext dgettext() function, addin
 - Returns the translated string if available, or the original msgid if no translation exists
 - Part of the standard gettext-based localization system used in PostgreSQL
 - Critical for providing localized error messages and user interface text in client applications
+
+## Simplified Source
+
+```c
+char *libpq_gettext(const char *msgid) {
+    // Ensure text domain is properly bound
+    libpq_binddomain();
+
+    // Return translated string from libpq text domain
+    return dgettext(PG_TEXTDOMAIN("libpq"), msgid);
+}
+```

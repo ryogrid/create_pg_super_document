@@ -41,3 +41,27 @@ If the search path is empty (NIL), the function returns NULL. If the first schem
 - The function is defined in src/backend/utils/adt/name.c alongside other name-related functions
 - Returns the name as PostgreSQL's 'name' data type
 - Essential for understanding the current schema context for unqualified object references
+
+## Simplified Source
+
+```c
+Datum current_schema(PG_FUNCTION_ARGS) {
+    // Get the current search path
+    List *search_path = fetch_search_path(false);
+
+    // Return NULL if no search path exists
+    if (search_path == NIL)
+        PG_RETURN_NULL();
+
+    // Get the first schema name from the search path
+    char *nspname = get_namespace_name(linitial_oid(search_path));
+    list_free(search_path);
+
+    // Return NULL if schema was recently deleted
+    if (!nspname)
+        PG_RETURN_NULL();
+
+    // Convert schema name to name type and return
+    PG_RETURN_DATUM(DirectFunctionCall1(namein, CStringGetDatum(nspname)));
+}
+```

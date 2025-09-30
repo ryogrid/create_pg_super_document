@@ -39,3 +39,32 @@ This is crucial for pathkey conversion, as it prevents the creation of pathkeys 
 - Resjunk entries are automatically excluded as they're not visible to outer queries
 - Returns a copied Var node to prevent memory management issues
 - Part of PostgreSQL's subquery optimization system for maintaining proper variable references
+
+## Simplified Source
+
+```c
+static Var *find_var_for_subquery_tle(RelOptInfo *rel, TargetEntry *tle) {
+    ListCell *lc;
+
+    // Resjunk entries are not visible to outer queries
+    if (tle->resjunk)
+        return NULL;
+
+    // Search the relation's target expressions for a matching Var
+    foreach(lc, rel->reltarget->exprs) {
+        Var *var = (Var *) lfirst(lc);
+
+        // Skip non-Var expressions (placeholders)
+        if (!IsA(var, Var))
+            continue;
+
+        Assert(var->varno == rel->relid);
+
+        // Check if this Var references the target list entry
+        if (var->varattno == tle->resno)
+            return copyObject(var);  // Return a safe copy
+    }
+
+    return NULL;  // No matching Var found
+}
+```

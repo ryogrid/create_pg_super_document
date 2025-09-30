@@ -43,3 +43,27 @@ The function implements a singly-linked list where new fields are prepended to t
 - The function is designed to handle both error messages and notice messages
 - Field codes follow PostgreSQL's diagnostic field conventions (e.g., PG_DIAG_MESSAGE_PRIMARY, PG_DIAG_SEVERITY)
 - Memory is automatically managed through the PGresult's memory context and freed when PQclear() is called
+
+## Simplified Source
+
+```c
+void pqSaveMessageField(PGresult *res, char code, const char *value) {
+    PGMessageField *pfield;
+
+    // Allocate memory for field structure plus string content
+    pfield = (PGMessageField *) pqResultAlloc(res,
+                                              offsetof(PGMessageField, contents) + strlen(value) + 1,
+                                              true);
+    if (!pfield) {
+        return; // Out of memory
+    }
+
+    // Initialize the field
+    pfield->code = code;
+    strcpy(pfield->contents, value);
+
+    // Prepend to error fields list
+    pfield->next = res->errFields;
+    res->errFields = pfield;
+}
+```

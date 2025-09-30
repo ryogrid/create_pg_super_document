@@ -66,3 +66,35 @@ The function supports both CASCADE behavior (delete dependent objects) and RESTR
 - Related function performMultipleDeletions provides similar functionality for multiple objects
 - Error handling and transaction management are handled by the calling context
 - The dependency analysis phase can be computationally expensive for objects with many dependencies
+
+## Simplified Source
+
+```c
+void
+performDeletion(const ObjectAddress *object, DropBehavior behavior, int flags)
+{
+    Relation depRel;
+    ObjectAddresses *targetObjects;
+
+    // Open pg_depend catalog for dependency tracking
+    depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Acquire lock on the target object to prevent concurrent modifications
+    AcquireDeletionLock(object, 0);
+
+    // Build list of all objects to delete (target + dependencies)
+    targetObjects = new_object_addresses();
+    findDependentObjects(object, DEPFLAG_ORIGINAL, flags, NULL,
+                        targetObjects, NULL, &depRel);
+
+    // Validate deletion permissions and report what will be deleted
+    reportDependentObjects(targetObjects, behavior, flags, object);
+
+    // Perform the actual deletions
+    deleteObjectsInList(targetObjects, &depRel, flags);
+
+    // Clean up resources
+    free_object_addresses(targetObjects);
+    table_close(depRel, RowExclusiveLock);
+}
+```

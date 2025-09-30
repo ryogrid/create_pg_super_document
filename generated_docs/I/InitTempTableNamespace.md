@@ -60,3 +60,62 @@ This function takes no parameters and operates on global state variables and sys
 - Critical for transaction cleanup via AtEOXact_Namespace through the recorded subtransaction ID
 - Implements lazy initialization - namespaces are only created when actually needed
 - Handles crash recovery by cleaning up leftover temporary relations from previous sessions
+
+## Simplified Source
+
+```c
+static void
+InitTempTableNamespace(void) {
+    char namespaceName[NAMEDATALEN];
+    Oid namespaceId;
+    Oid toastspaceId;
+
+    Assert(!OidIsValid(myTempNamespace));
+
+    // Check permissions for creating temp tables
+    if (object_aclcheck(DatabaseRelationId, MyDatabaseId, GetUserId(), ACL_CREATE_TEMP) != ACLCHECK_OK)
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied to create temporary tables")));
+
+    // Prevent temp tables during recovery or parallel operations
+    if (RecoveryInProgress())
+        ereport(ERROR, (errcode(ERRCODE_READ_ONLY_SQL_TRANSACTION),
+                errmsg("cannot create temporary tables during recovery")));
+
+    if (IsParallelWorker())
+        ereport(ERROR, (errcode(ERRCODE_READ_ONLY_SQL_TRANSACTION),
+                errmsg("cannot create temporary tables during parallel operation")));
+
+    // Create namespace name: pg_temp_N
+    snprintf(namespaceName, sizeof(namespaceName), "pg_temp_%d", MyProcNumber);
+
+    // Check if namespace exists
+    namespaceId = get_namespace_oid(namespaceName, true);
+    if (!OidIsValid(namespaceId)) {
+        // Create new temp namespace owned by superuser
+        namespaceId = NamespaceCreate(namespaceName, BOOTSTRAP_SUPERUSERID, true);
+        CommandCounterIncrement();
+    } else {
+        // Clean up existing namespace from crashed session
+        RemoveTempRelations(namespaceId);
+    }
+
+    // Create corresponding toast namespace: pg_toast_temp_N
+    snprintf(namespaceName, sizeof(namespaceName), "pg_toast_temp_%d", MyProcNumber);
+    toastspaceId = get_namespace_oid(namespaceName, true);
+    if (!OidIsValid(toastspaceId)) {
+        toastspaceId = NamespaceCreate(namespaceName, BOOTSTRAP_SUPERUSERID, true);
+        CommandCounterIncrement();
+    }
+
+    // Set global state variables
+    myTempNamespace = namespaceId;
+    myTempToastNamespace = toastspaceId;
+    MyProc->tempNamespaceId = namespaceId;
+    myTempNamespaceSubID = GetCurrentSubTransactionId();
+
+    // Invalidate search path caches
+    baseSearchPathValid = false;
+    searchPathCacheValid = false;
+}
+```

@@ -51,3 +51,34 @@ The function operates on packed numeric representations for efficiency and conve
 - Returns `true` for success, `false` for failure with soft error handling
 - Uses packed numeric representation for efficiency
 - Error messages provide clear feedback about precision/scale constraints that prevent storing infinite values
+
+## Simplified Source
+
+```c
+static bool
+apply_typmod_special(Numeric num, int32 typmod, Node *escontext)
+{
+    int precision, scale;
+
+    Assert(NUMERIC_IS_SPECIAL(num));  // Must be NaN or Infinity
+
+    // NaN is always allowed (legacy behavior)
+    if (NUMERIC_IS_NAN(num))
+        return true;
+
+    // No constraints means infinity is allowed
+    if (!is_valid_numeric_typmod(typmod))
+        return true;
+
+    // Extract precision and scale for error message
+    precision = numeric_typmod_precision(typmod);
+    scale = numeric_typmod_scale(typmod);
+
+    // Infinity cannot fit in finite precision - always reject
+    return ereturn(escontext, false,
+                  (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                   errmsg("numeric field overflow"),
+                   errdetail("A field with precision %d, scale %d cannot hold an infinite value.",
+                            precision, scale)));
+}
+```

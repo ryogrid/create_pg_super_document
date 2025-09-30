@@ -36,3 +36,16 @@ When a client is sending data via COPY FROM STDIN and encounters an error or nee
 - Part of PostgreSQL's COPY protocol which enables high-performance bulk data operations
 - CopyFail messages are sent by the client, not the server, when aborting a COPY FROM STDIN operation
 - The server responds to CopyFail with an ErrorResponse message to acknowledge the failed operation
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_CopyFail(FILE *f, const char *message, int *cursor)
+{
+    // Output the message type identifier
+    fprintf(f, "CopyFail\t");
+
+    // Extract and display the error message string
+    pqTraceOutputString(f, message, cursor, false);
+}
+```

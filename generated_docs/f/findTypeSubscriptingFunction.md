@@ -43,3 +43,30 @@ This validation ensures that only properly formed, user-appropriate subscripting
 - The explicit prohibition of `array_subscript_handler()` prevents users from accidentally breaking the distinction between user-defined types and system-managed array types
 - This function is part of PostgreSQL's extensible type system, enabling custom types to implement sophisticated indexing behaviors
 - The function is located in src/backend/commands/typecmds.c:2235-2281
+
+## Simplified Source
+
+```c
+static Oid findTypeSubscriptingFunction(List *procname, Oid typeOid) {
+    Oid argList[1] = { INTERNALOID };
+
+    // Look up function with signature: (INTERNAL) -> INTERNAL
+    Oid procOid = LookupFuncName(procname, 1, argList, true);
+
+    if (!OidIsValid(procOid))
+        ereport(ERROR, "function %s does not exist",
+                func_signature_string(procname, 1, NIL, argList));
+
+    // Verify function returns INTERNAL
+    if (get_func_rettype(procOid) != INTERNALOID)
+        ereport(ERROR, "type subscripting function %s must return type internal",
+                NameListToString(procname));
+
+    // Prohibit use of reserved array_subscript_handler
+    if (procOid == F_ARRAY_SUBSCRIPT_HANDLER)
+        ereport(ERROR, "user-defined types cannot use subscripting function %s",
+                NameListToString(procname));
+
+    return procOid;
+}
+```

@@ -35,3 +35,14 @@ NoticeResponse messages are sent by the PostgreSQL server to provide information
 - Common use cases include warnings about deprecated features, informational messages about query planning, or notices about database configuration
 - The function maintains parameter consistency with other message-specific tracing functions
 - Part of the libpq tracing infrastructure used for debugging client-server protocol communication
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_NoticeResponse(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Delegate to shared notice/error response handler
+    pqTraceOutputNR(f, "NoticeResponse", message, cursor, regress);
+}
+```

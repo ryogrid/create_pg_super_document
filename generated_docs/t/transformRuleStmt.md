@@ -73,3 +73,89 @@ The function includes extensive validation to ensure rules follow PostgreSQL's c
 - NEW is treated specially in UPDATE rules as a transformed reference to OLD rather than a separate relation
 - Extensive error checking ensures rule definitions comply with PostgreSQL's rule system constraints
 - The transformation is essential for the rewrite system to properly apply rules during query execution
+
+## Simplified Source
+
+```c
+void transformRuleStmt(RuleStmt *stmt, const char *queryString,
+                      List **actions, Node **whereClause) {
+    Relation rel;
+    ParseState *pstate;
+    ParseNamespaceItem *oldnsitem, *newnsitem;
+
+    // Lock target relation to avoid deadlocks
+    rel = table_openrv(stmt->relation, AccessExclusiveLock);
+
+    // Materialized views don't support rules
+    if (rel->rd_rel->relkind == RELKIND_MATVIEW)
+        ereport(ERROR, "rules on materialized views are not supported");
+
+    // Set up parse state
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+
+    // Set up OLD and NEW references (OLD=varno 1, NEW=varno 2)
+    oldnsitem = addRangeTableEntryForRelation(pstate, rel, AccessShareLock,
+                                             makeAlias("old", NIL), false, false);
+    newnsitem = addRangeTableEntryForRelation(pstate, rel, AccessShareLock,
+                                             makeAlias("new", NIL), false, false);
+
+    // Add OLD/NEW to namespace based on rule event type
+    switch (stmt->event) {
+        case CMD_SELECT:
+            addNSItemToQuery(pstate, oldnsitem, false, true, true);
+            break;
+        case CMD_UPDATE:
+            addNSItemToQuery(pstate, oldnsitem, false, true, true);
+            addNSItemToQuery(pstate, newnsitem, false, true, true);
+            break;
+        case CMD_INSERT:
+            addNSItemToQuery(pstate, newnsitem, false, true, true);
+            break;
+        case CMD_DELETE:
+            addNSItemToQuery(pstate, oldnsitem, false, true, true);
+            break;
+    }
+
+    // Transform WHERE clause
+    *whereClause = transformWhereClause(pstate, stmt->whereClause,
+                                       EXPR_KIND_WHERE, "WHERE");
+    assign_expr_collations(pstate, *whereClause);
+
+    // Handle rule actions
+    if (stmt->actions == NIL) {
+        // Create "INSTEAD NOTHING" rule
+        Query *nothing_qry = makeNode(Query);
+        nothing_qry->commandType = CMD_NOTHING;
+        nothing_qry->rtable = pstate->p_rtable;
+        *actions = list_make1(nothing_qry);
+    } else {
+        // Transform each action statement
+        List *newactions = NIL;
+        ListCell *l;
+
+        foreach(l, stmt->actions) {
+            Node *action = (Node *) lfirst(l);
+            ParseState *sub_pstate = make_parsestate(NULL);
+            Query *sub_qry, *top_subqry;
+
+            // Set up OLD/NEW for this action
+            sub_pstate->p_sourcetext = queryString;
+            // Add OLD/NEW to sub-parsestate...
+
+            // Transform the action
+            top_subqry = transformStmt(sub_pstate, action);
+
+            // Validate OLD/NEW usage based on event type
+            // Check for unsupported features...
+
+            newactions = lappend(newactions, top_subqry);
+            free_parsestate(sub_pstate);
+        }
+        *actions = newactions;
+    }
+
+    free_parsestate(pstate);
+    table_close(rel, NoLock);
+}
+```

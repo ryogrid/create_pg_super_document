@@ -40,3 +40,33 @@ This adaptive sizing ensures that complex queries with many relations get larger
 - [Pool](../P/Pool.md) size directly impacts memory usage and algorithm convergence time
 - Larger pools generally find better solutions but take longer to execute
 - The function is static, only accessible within the geqo_main.c module
+
+## Simplified Source
+
+```c
+static int gimme_pool_size(int nr_rel) {
+    double size;
+    int minsize, maxsize;
+
+    // Use configured pool size if valid (>= 2)
+    if (Geqo_pool_size >= 2) {
+        return Geqo_pool_size;
+    }
+
+    // Calculate default size: 2^(nr_rel + 1)
+    size = pow(2.0, nr_rel + 1.0);
+
+    // Apply effort-based constraints
+    maxsize = 50 * Geqo_effort;  // 50 to 500 individuals
+    if (size > maxsize) {
+        return maxsize;
+    }
+
+    minsize = 10 * Geqo_effort;  // 10 to 100 individuals
+    if (size < minsize) {
+        return minsize;
+    }
+
+    return (int) ceil(size);
+}
+```

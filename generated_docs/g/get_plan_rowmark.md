@@ -33,3 +33,25 @@ This is a helper function that could logically belong in other parts of the code
 
 ## Notes and Other Information
 This function is located in src/backend/optimizer/prep/preptlist.c:526-538. Despite being a simple utility function, it plays an important role in PostgreSQL's concurrency control and query planning infrastructure. The comment in the source acknowledges that this function "probably ought to be elsewhere", suggesting it might be moved to a more appropriate location in future versions. The function's simplicity makes it efficient for the typical use cases where the rowmarks list is small.
+
+## Simplified Source
+
+```c
+PlanRowMark *
+get_plan_rowmark(List *rowmarks, Index rtindex)
+{
+    ListCell *l;
+
+    // Search through the list of row marks
+    foreach(l, rowmarks) {
+        PlanRowMark *rc = (PlanRowMark *) lfirst(l);
+
+        // Return the matching row mark if found
+        if (rc->rti == rtindex)
+            return rc;
+    }
+
+    // No match found
+    return NULL;
+}
+```

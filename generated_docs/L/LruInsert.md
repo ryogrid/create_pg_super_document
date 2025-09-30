@@ -50,3 +50,31 @@ This function is crucial for PostgreSQL's virtual file descriptor system, which 
 - The two-phase approach (release files first, then try to open) helps manage system file descriptor limits
 - Debug logging is conditional on DO_DB macro compilation
 - Critical for PostgreSQL's ability to handle large numbers of concurrent file operations while respecting OS limits
+
+## Simplified Source
+
+```c
+static int
+LruInsert(File file)
+{
+    Vfd *vfdP = &VfdCache[file];
+
+    // If file is not currently open, reopen it
+    if (FileIsNotOpen(file)) {
+        // Free up kernel file descriptors first
+        ReleaseLruFiles();
+
+        // Attempt to reopen the file
+        vfdP->fd = BasicOpenFilePerm(vfdP->fileName, vfdP->fileFlags, vfdP->fileMode);
+        if (vfdP->fd < 0) {
+            return -1;  // Failed to reopen
+        }
+        ++nfile;  // Increment open file count
+    }
+
+    // Place file at head of LRU list (most recently used)
+    Insert(file);
+
+    return 0;  // Success
+}
+```

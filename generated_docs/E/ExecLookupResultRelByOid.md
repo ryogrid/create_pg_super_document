@@ -9,9 +9,9 @@ Locates a ResultRelInfo structure for a specific table OID among the result rela
 ## Definition
 
 ```c
-structure
-	 */
-	mtstate = makeNode(ModifyTableState);
+ResultRelInfo *
+ExecLookupResultRelByOid(ModifyTableState *node, Oid resultoid,
+						 bool missing_ok, bool update_cache)
 ```
 ## Detailed Description
 This function searches for a ResultRelInfo structure corresponding to a given table OID within the result relations of a ModifyTable node. It employs two different search strategies based on the number of target relations: a hash table for efficient lookup when many relations are involved, or a simple linear search for fewer relations. The function also provides caching capabilities to optimize repeated lookups of the same relation.
@@ -44,3 +44,45 @@ The function first checks if a hash table () exists for fast lookups. If present
 - The caching mechanism stores the last looked-up OID and its corresponding index for quick subsequent access
 - Error handling respects the  parameter, allowing callers to handle missing relations gracefully or fail fast as needed
 - This function is critical for partition-wise operations where different tuples may target different result relations
+
+## Simplified Source
+
+```c
+ResultRelInfo *
+ExecLookupResultRelByOid(ModifyTableState *node, Oid resultoid,
+                         bool missing_ok, bool update_cache)
+{
+    if (node->mt_resultOidHash) {
+        // Use hash table for efficient lookup with many relations
+        MTTargetRelLookup *mtlookup;
+
+        mtlookup = (MTTargetRelLookup *)
+            hash_search(node->mt_resultOidHash, &resultoid, HASH_FIND, NULL);
+        if (mtlookup) {
+            if (update_cache) {
+                node->mt_lastResultOid = resultoid;
+                node->mt_lastResultIndex = mtlookup->relationIndex;
+            }
+            return node->resultRelInfo + mtlookup->relationIndex;
+        }
+    } else {
+        // Linear search for few relations
+        for (int ndx = 0; ndx < node->mt_nrels; ndx++) {
+            ResultRelInfo *rInfo = node->resultRelInfo + ndx;
+
+            if (RelationGetRelid(rInfo->ri_RelationDesc) == resultoid) {
+                if (update_cache) {
+                    node->mt_lastResultOid = resultoid;
+                    node->mt_lastResultIndex = ndx;
+                }
+                return rInfo;
+            }
+        }
+    }
+
+    // Handle not found case
+    if (!missing_ok)
+        elog(ERROR, "incorrect result relation OID %u", resultoid);
+    return NULL;
+}
+```

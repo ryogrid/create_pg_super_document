@@ -43,3 +43,53 @@ The function uses the TSPARSERNAMENSP system cache to efficiently locate parsers
 - Skips temporary namespaces during search path traversal
 - Part of PostgreSQL's text search infrastructure for full-text search functionality
 - Located in src/backend/catalog/namespace.c at lines 2716-2773
+
+## Simplified Source
+
+```c
+Oid
+get_ts_parser_oid(List *names, bool missing_ok) {
+    char *schemaname;
+    char *parser_name;
+    Oid namespaceId;
+    Oid prsoid = InvalidOid;
+    ListCell *l;
+
+    // Parse the qualified name
+    DeconstructQualifiedName(names, &schemaname, &parser_name);
+
+    if (schemaname) {
+        // Schema-qualified lookup
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            prsoid = InvalidOid;
+        else
+            prsoid = GetSysCacheOid2(TSPARSERNAMENSP, Anum_pg_ts_parser_oid,
+                                     PointerGetDatum(parser_name),
+                                     ObjectIdGetDatum(namespaceId));
+    } else {
+        // Search through the namespace search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath) {
+            namespaceId = lfirst_oid(l);
+
+            // Skip temporary namespace
+            if (namespaceId == myTempNamespace)
+                continue;
+
+            prsoid = GetSysCacheOid2(TSPARSERNAMENSP, Anum_pg_ts_parser_oid,
+                                     PointerGetDatum(parser_name),
+                                     ObjectIdGetDatum(namespaceId));
+            if (OidIsValid(prsoid))
+                break;
+        }
+    }
+
+    // Handle not found case
+    if (!OidIsValid(prsoid) && !missing_ok)
+        ereport(ERROR, "text search parser does not exist");
+
+    return prsoid;
+}
+```

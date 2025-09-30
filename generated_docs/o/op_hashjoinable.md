@@ -41,3 +41,38 @@ This function evaluates if an operator is suitable for hash join algorithms. For
 - For record equality, requires F_HASH_RECORD hash procedure to be available
 - The oprcanhash flag in pg_operator must be true and suitable hash opfamily entries must exist
 - Critical for query planner decisions about using hash join algorithms
+
+## Simplified Source
+
+```c
+bool
+op_hashjoinable(Oid opno, Oid inputtype)
+{
+    bool result = false;
+    HeapTuple tp;
+    TypeCacheEntry *typentry;
+
+    // Special cases for array and record equality operators
+    if (opno == ARRAY_EQ_OP) {
+        typentry = lookup_type_cache(inputtype, TYPECACHE_HASH_PROC);
+        if (typentry->hash_proc == F_HASH_ARRAY)
+            result = true;
+    }
+    else if (opno == RECORD_EQ_OP) {
+        typentry = lookup_type_cache(inputtype, TYPECACHE_HASH_PROC);
+        if (typentry->hash_proc == F_HASH_RECORD)
+            result = true;
+    }
+    else {
+        // For other operators, check pg_operator.oprcanhash flag
+        tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+        if (HeapTupleIsValid(tp)) {
+            Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+            result = optup->oprcanhash;
+            ReleaseSysCache(tp);
+        }
+    }
+
+    return result;
+}
+```

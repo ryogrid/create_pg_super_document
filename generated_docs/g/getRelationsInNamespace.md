@@ -41,3 +41,44 @@ This function performs a catalog scan on the pg_class system table to find all r
 - Common relkind values include 'r' (ordinary table), 'S' (sequence), 'v' (view), 'm' (materialized view), 'f' (foreign table), 'p' (partitioned table)
 - The function acquires AccessShareLock on pg_class, which allows concurrent reads but prevents schema modifications during the scan
 - Returns an empty list (NIL) if no matching relations are found
+
+## Simplified Source
+
+```c
+static List *
+getRelationsInNamespace(Oid namespaceId, char relkind)
+{
+    List *relations = NIL;
+    ScanKeyData key[2];
+    Relation rel;
+    TableScanDesc scan;
+    HeapTuple tuple;
+
+    // Setup scan keys for namespace and relation kind
+    ScanKeyInit(&key[0],
+                Anum_pg_class_relnamespace,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(namespaceId));
+    ScanKeyInit(&key[1],
+                Anum_pg_class_relkind,
+                BTEqualStrategyNumber, F_CHAREQ,
+                CharGetDatum(relkind));
+
+    // Open pg_class catalog and start scan
+    rel = table_open(RelationRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 2, key);
+
+    // Collect OIDs of matching relations
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+    {
+        Oid oid = ((Form_pg_class) GETSTRUCT(tuple))->oid;
+        relations = lappend_oid(relations, oid);
+    }
+
+    // Cleanup scan and close catalog
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    return relations;
+}
+```

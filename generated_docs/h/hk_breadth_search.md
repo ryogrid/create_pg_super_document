@@ -34,3 +34,47 @@ The level structure created by this BFS ensures that the DFS phase can find mult
 - Returns true when augmenting paths exist, false when maximum matching is achieved
 - Critical for the O(E√V) time complexity of Hopcroft-Karp by enabling multiple augmenting paths to be found in each iteration
 - The adjacency list format stores the count at index 0 followed by the actual adjacent vertices
+
+## Simplified Source
+
+```c
+static bool hk_breadth_search(BipartiteMatchState *state) {
+    int usize = state->u_size;
+    short *queue = state->queue;
+    short *distance = state->distance;
+    int qhead = 0, qtail = 0;
+
+    // Initialize distances - unmatched vertices get distance 0
+    distance[0] = HK_INFINITY;
+    for (int u = 1; u <= usize; u++) {
+        if (state->pair_uv[u] == 0) {
+            distance[u] = 0;
+            queue[qhead++] = u;
+        } else {
+            distance[u] = HK_INFINITY;
+        }
+    }
+
+    // BFS to build level structure
+    while (qtail < qhead) {
+        int u = queue[qtail++];
+
+        if (distance[u] < distance[0]) {
+            short *u_adj = state->adjacency[u];
+            int adj_count = u_adj ? u_adj[0] : 0;
+
+            // Process all adjacent vertices
+            for (int i = adj_count; i > 0; i--) {
+                int u_next = state->pair_vu[u_adj[i]];
+
+                if (distance[u_next] == HK_INFINITY) {
+                    distance[u_next] = 1 + distance[u];
+                    queue[qhead++] = u_next;
+                }
+            }
+        }
+    }
+
+    return (distance[0] != HK_INFINITY);
+}
+```

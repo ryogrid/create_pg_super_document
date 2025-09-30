@@ -35,3 +35,13 @@ This function serves as the cleanup routine for the predicate iterator framework
 - This is a static function used internally within the predicate testing module
 - Part of the function pointer-based iteration pattern that ensures consistent cleanup semantics across different node types
 - The empty implementation indicates that List iteration uses only stack-allocated or externally-managed memory
+
+## Simplified Source
+
+```c
+static void
+list_cleanup_fn(PredIterInfo info)
+{
+    // Nothing to clean up for regular Lists
+}
+```

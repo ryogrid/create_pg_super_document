@@ -38,3 +38,31 @@ The partition constraint is used by the query planner for partition pruning - el
 - The expression_planner call optimizes the partition constraint for better runtime performance
 - [Variable](../V/Variable.md) node re-stamping ensures correct relation references when the relation ID is not 1
 - The partition constraint is essential for partition pruning optimization during query execution
+
+## Simplified Source
+
+```c
+static void
+set_baserel_partition_constraint(Relation relation, RelOptInfo *rel)
+{
+    List *partconstr;
+
+    // Skip if partition constraint already set
+    if (rel->partition_qual)
+        return;
+
+    // Get partition constraint from relation metadata
+    partconstr = RelationGetPartitionQual(relation);
+    if (partconstr)
+    {
+        // Optimize constraint for better performance
+        partconstr = (List *) expression_planner((Expr *) partconstr);
+
+        // Update variable references to use correct relation ID
+        if (rel->relid != 1)
+            ChangeVarNodes((Node *) partconstr, 1, rel->relid, 0);
+
+        rel->partition_qual = partconstr;
+    }
+}
+```

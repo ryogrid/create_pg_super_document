@@ -55,3 +55,38 @@ This function is particularly useful in scenarios where relation existence is un
 - Still raises an ERROR if relcache loading fails for an existing relation (indicating a system problem)
 - Useful for operations that need to handle potentially dropped or non-existent relations gracefully
 - The existence check helps avoid unnecessary relcache invalidation messages and potential race conditions
+
+## Simplified Source
+
+```c
+Relation try_relation_open(Oid relationId, LOCKMODE lockmode) {
+    Relation r;
+
+    // Acquire lock if needed
+    if (lockmode != NoLock)
+        LockRelationOid(relationId, lockmode);
+
+    // Check if relation exists in system catalog
+    if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(relationId))) {
+        // Release lock and return NULL if relation doesn't exist
+        if (lockmode != NoLock)
+            UnlockRelationOid(relationId, lockmode);
+        return NULL;
+    }
+
+    // Load relation from relcache
+    r = RelationIdGetRelation(relationId);
+
+    if (!RelationIsValid(r))
+        elog(ERROR, "could not open relation with OID %u", relationId);
+
+    // Track access to temporary relations
+    if (RelationUsesLocalBuffers(r))
+        MyXactFlags |= XACT_FLAGS_ACCESSEDTEMPNAMESPACE;
+
+    // Initialize relation statistics
+    pgstat_init_relation(r);
+
+    return r;
+}
+```

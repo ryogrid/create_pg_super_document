@@ -38,3 +38,32 @@ This function is the core implementation that determines and caches what operati
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as the central implementation for determining array element capabilities. It implements a lazy caching pattern where element properties are only computed when first needed. The function handles the mapping between element type operations and array-level capability flags. This is crucial for PostgreSQL operations that need to know whether array elements can be compared, hashed, or tested for equality, which affects query planning and execution strategies for operations involving arrays.
+
+## Simplified Source
+
+```c
+static void cache_array_element_properties(TypeCacheEntry *typentry) {
+    Oid elem_type = get_base_element_type(typentry->type_id);
+
+    if (OidIsValid(elem_type)) {
+        // Look up element type's operational capabilities
+        TypeCacheEntry *elementry = lookup_type_cache(elem_type,
+                                      TYPECACHE_EQ_OPR |
+                                      TYPECACHE_CMP_PROC |
+                                      TYPECACHE_HASH_PROC |
+                                      TYPECACHE_HASH_EXTENDED_PROC);
+
+        // Set flags based on element capabilities
+        if (OidIsValid(elementry->eq_opr))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_EQUALITY;
+        if (OidIsValid(elementry->cmp_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_COMPARE;
+        if (OidIsValid(elementry->hash_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_HASHING;
+        if (OidIsValid(elementry->hash_extended_proc))
+            typentry->flags |= TCFLAGS_HAVE_ELEM_EXTENDED_HASHING;
+    }
+
+    typentry->flags |= TCFLAGS_CHECKED_ELEM_PROPERTIES;
+}
+```

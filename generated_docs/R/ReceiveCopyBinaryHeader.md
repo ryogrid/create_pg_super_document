@@ -27,7 +27,52 @@ ReceiveCopyBinaryHeader reads and validates the header of a binary COPY file for
 
 ## Notes and Other Information
 - The function strictly validates the binary format header and reports errors for any deviations
-- Rejects files with WITH OIDS format (legacy feature no longer supported)  
+- Rejects files with WITH OIDS format (legacy feature no longer supported)
 - Handles extension headers by skipping them, allowing for future format extensibility
 - Critical flags in the upper 16 bits of the flags field are rejected to ensure forward compatibility
 - The 11-byte signature must exactly match PostgreSQL's binary COPY format identifier
+
+## Simplified Source
+```c
+void ReceiveCopyBinaryHeader(CopyFromState cstate) {
+    char readSig[11];
+    int32 tmp;
+
+    // Validate 11-byte binary signature
+    if (CopyReadBinaryData(cstate, readSig, 11) != 11 ||
+        memcmp(readSig, BinarySignature, 11) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                       errmsg("COPY file signature not recognized")));
+    }
+
+    // Read and validate flags field
+    if (!CopyGetInt32(cstate, &tmp)) {
+        ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                       errmsg("invalid COPY file header (missing flags)")));
+    }
+
+    // Reject WITH OIDS format and unknown critical flags
+    if ((tmp & (1 << 16)) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                       errmsg("invalid COPY file header (WITH OIDS)")));
+    }
+    if ((tmp >> 16) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                       errmsg("unrecognized critical flags in COPY file header")));
+    }
+
+    // Read header extension length and skip extension data
+    if (!CopyGetInt32(cstate, &tmp) || tmp < 0) {
+        ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                       errmsg("invalid COPY file header (missing length)")));
+    }
+
+    // Skip extension header if present
+    while (tmp-- > 0) {
+        if (CopyReadBinaryData(cstate, readSig, 1) != 1) {
+            ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                           errmsg("invalid COPY file header (wrong length)")));
+        }
+    }
+}
+```

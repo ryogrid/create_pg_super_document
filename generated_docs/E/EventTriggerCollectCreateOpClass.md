@@ -47,3 +47,45 @@ Operator classes define how PostgreSQL's indexing methods (like B-tree, GiST, GI
 - Stores both the operators and procedures lists directly since they are assumed to have appropriate lifetime
 - Part of PostgreSQL's operator class infrastructure that enables custom indexing behavior
 - Critical for event triggers that need to monitor the creation of indexing infrastructure components
+
+## Simplified Source
+
+```c
+void
+EventTriggerCollectCreateOpClass(CreateOpClassStmt *stmt, Oid opcoid,
+                                 List *operators, List *procedures)
+{
+    MemoryContext oldcxt;
+    CollectedCommand *command;
+
+    // Check if event trigger collection is active
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create command structure
+    command = palloc0(sizeof(CollectedCommand));
+    command->type = SCT_CreateOpClass;
+    command->in_extension = creating_extension;
+
+    // Set operator class address
+    ObjectAddressSet(command->d.createopc.address,
+                     OperatorClassRelationId, opcoid);
+
+    // Store operators and procedures lists
+    command->d.createopc.operators = operators;
+    command->d.createopc.procedures = procedures;
+
+    // Copy the original statement
+    command->parsetree = (Node *) copyObject(stmt);
+
+    // Add to event trigger command list
+    currentEventTriggerState->commandList =
+        lappend(currentEventTriggerState->commandList, command);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

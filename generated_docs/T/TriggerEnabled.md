@@ -61,3 +61,75 @@ The function handles the lazy compilation of WHEN expressions, converting stored
 - The function properly handles variable references in WHEN clauses by converting OLD/NEW references to INNER_VAR/OUTER_VAR
 - Replication role checks ensure triggers fire appropriately in master-slave replication scenarios
 - Returns true if the trigger should fire, false if it should be skipped
+
+## Simplified Source
+
+```c
+static bool
+TriggerEnabled(EState *estate, ResultRelInfo *relinfo,
+               Trigger *trigger, TriggerEvent event,
+               Bitmapset *modifiedCols,
+               TupleTableSlot *oldslot, TupleTableSlot *newslot)
+{
+    // Check replication-role-dependent enable state
+    if (SessionReplicationRole == SESSION_REPLICATION_ROLE_REPLICA) {
+        if (trigger->tgenabled == TRIGGER_FIRES_ON_ORIGIN ||
+            trigger->tgenabled == TRIGGER_DISABLED)
+            return false;
+    } else {
+        // ORIGIN or LOCAL role
+        if (trigger->tgenabled == TRIGGER_FIRES_ON_REPLICA ||
+            trigger->tgenabled == TRIGGER_DISABLED)
+            return false;
+    }
+
+    // Check for column-specific trigger (UPDATE only)
+    if (trigger->tgnattr > 0 && TRIGGER_FIRED_BY_UPDATE(event)) {
+        bool modified = false;
+        for (int i = 0; i < trigger->tgnattr; i++) {
+            if (bms_is_member(trigger->tgattr[i] - FirstLowInvalidHeapAttributeNumber,
+                             modifiedCols)) {
+                modified = true;
+                break;
+            }
+        }
+        if (!modified)
+            return false;
+    }
+
+    // Check for WHEN clause
+    if (trigger->tgqual) {
+        ExprState **predicate;
+        ExprContext *econtext;
+        int i;
+
+        // Find matching element in ri_TrigWhenExprs
+        i = trigger - relinfo->ri_TrigDesc->triggers;
+        predicate = &relinfo->ri_TrigWhenExprs[i];
+
+        // Compile WHEN expression if first time
+        if (*predicate == NULL) {
+            MemoryContext oldContext = MemoryContextSwitchTo(estate->es_query_cxt);
+            Node *tgqual = stringToNode(trigger->tgqual);
+
+            // Convert OLD/NEW references to INNER_VAR/OUTER_VAR
+            ChangeVarNodes(tgqual, PRS2_OLD_VARNO, INNER_VAR, 0);
+            ChangeVarNodes(tgqual, PRS2_NEW_VARNO, OUTER_VAR, 0);
+            tgqual = (Node *) make_ands_implicit((Expr *) tgqual);
+
+            *predicate = ExecPrepareQual((List *) tgqual, estate);
+            MemoryContextSwitchTo(oldContext);
+        }
+
+        // Evaluate WHEN expression
+        econtext = GetPerTupleExprContext(estate);
+        econtext->ecxt_innertuple = oldslot;
+        econtext->ecxt_outertuple = newslot;
+
+        if (!ExecQual(*predicate, econtext))
+            return false;
+    }
+
+    return true;
+}
+```

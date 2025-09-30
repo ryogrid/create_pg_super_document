@@ -47,3 +47,45 @@ After obtaining the hash table entry, the function opens and locks the sequence 
 - Cached values are discarded when sequence replacement is detected, but currval() state is preserved
 - This is a static function internal to src/backend/commands/sequence.c
 - Memory usage from deleted sequences is minimal and generally not a concern
+
+## Simplified Source
+
+```c
+static void
+init_sequence(Oid relid, SeqTable *p_elm, Relation *p_rel)
+{
+    SeqTable elm;
+    Relation seqrel;
+    bool found;
+
+    // Ensure sequence hash table exists
+    if (seqhashtab == NULL)
+        create_seq_hashtable();
+
+    // Find or create hash table entry for this sequence
+    elm = (SeqTable) hash_search(seqhashtab, &relid, HASH_ENTER, &found);
+
+    // Initialize new hash table entry if needed
+    if (!found) {
+        // relid already filled in by hash_search
+        elm->filenumber = InvalidRelFileNumber;
+        elm->lxid = InvalidLocalTransactionId;
+        elm->last_valid = false;
+        elm->last = elm->cached = 0;
+    }
+
+    // Open and lock the sequence relation
+    seqrel = lock_and_open_sequence(elm);
+
+    // Handle sequence replacement: if file number changed,
+    // discard cached values but preserve currval() state
+    if (seqrel->rd_rel->relfilenode != elm->filenumber) {
+        elm->filenumber = seqrel->rd_rel->relfilenode;
+        elm->cached = elm->last;  // Discard unissued cached values
+    }
+
+    // Return the sequence table entry and relation
+    *p_elm = elm;
+    *p_rel = seqrel;
+}
+```

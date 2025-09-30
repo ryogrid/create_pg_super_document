@@ -41,3 +41,19 @@ Similar to `make_andclause`, this function allocates a new BoolExpr node, sets i
 - Used extensively in logical replication row filtering and query optimization phases
 - The returned Expr pointer can be cast back to BoolExpr when needed for further processing
 - Complements `make_andclause` to provide complete boolean expression construction capabilities
+
+## Simplified Source
+
+```c
+Expr *make_orclause(List *orclauses) {
+    // Create a new boolean expression node
+    BoolExpr *expr = makeNode(BoolExpr);
+
+    // Set up OR operation with the provided clauses
+    expr->boolop = OR_EXPR;
+    expr->args = orclauses;
+    expr->location = -1;  // No specific source location
+
+    return (Expr *) expr;
+}
+```

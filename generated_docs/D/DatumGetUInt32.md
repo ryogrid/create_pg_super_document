@@ -37,3 +37,12 @@ DatumGetUInt32 is a static inline function that converts a PostgreSQL Datum valu
 - The function assumes the Datum contains a valid 32-bit unsigned integer value - no validation is performed
 - Particularly important in hash-based algorithms, bloom filters, and various data type hash functions throughout PostgreSQL
 - Performance-critical as it's used in hot code paths like hashing and comparison operations
+
+## Simplified Source
+
+```c
+static inline uint32 DatumGetUInt32(Datum X) {
+    // Simple cast: Extract 32-bit unsigned integer from Datum
+    return (uint32) X;
+}
+```

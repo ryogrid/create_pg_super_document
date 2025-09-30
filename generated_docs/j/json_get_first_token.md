@@ -44,3 +44,27 @@ This is particularly useful for JSON type checking operations, conditional proce
 - Used in JSON type predicate functions and conditional JSON processing
 - Part of PostgreSQL's JSON infrastructure for lightweight type inspection
 - The returned token type can be used to branch to appropriate JSON processing logic
+
+## Simplified Source
+
+```c
+JsonTokenType json_get_first_token(text *json, bool throw_error) {
+    JsonLexContext lex;
+    JsonParseErrorType result;
+
+    // Initialize lexical context for JSON parsing
+    makeJsonLexContext(&lex, json, false);
+
+    // Lex exactly one token from the input
+    result = json_lex(&lex);
+
+    if (result == JSON_SUCCESS)
+        return lex.token_type;
+
+    // Handle error based on caller preference
+    if (throw_error)
+        json_errsave_error(result, &lex, NULL);
+
+    return JSON_TOKEN_INVALID;
+}
+```

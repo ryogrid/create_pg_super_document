@@ -49,3 +49,46 @@ The output formatting respects pretty-printing preferences specified in the depa
 - Part of the broader query deparsing infrastructure used for rule definitions, view definitions, and query display
 - The function handles both simple single-table deletes and complex multi-table delete scenarios
 - RETURNING clause support allows the function to handle DELETE statements that return data from deleted rows
+
+## Simplified Source
+```c
+static void get_delete_query_def(Query *query, deparse_context *context) {
+    StringInfo buf = context->buf;
+    RangeTblEntry *rte;
+
+    // Add WITH clause for CTEs if present
+    get_with_clause(query, context);
+
+    // Generate DELETE FROM relation_name
+    rte = rt_fetch(query->resultRelation, query->rtable);
+
+    if (PRETTY_INDENT(context)) {
+        appendStringInfoChar(buf, ' ');
+        context->indentLevel += PRETTYINDENT_STD;
+    }
+
+    appendStringInfo(buf, "DELETE FROM %s%s",
+                     only_marker(rte),
+                     generate_relation_name(rte->relid, NIL));
+
+    // Add relation alias if needed
+    get_rte_alias(rte, query->resultRelation, false, context);
+
+    // Add USING clause for multi-table deletes
+    get_from_clause(query, " USING ", context);
+
+    // Add WHERE clause if present
+    if (query->jointree->quals != NULL) {
+        appendContextKeyword(context, " WHERE ",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_rule_expr(query->jointree->quals, context, false);
+    }
+
+    // Add RETURNING clause if present
+    if (query->returningList) {
+        appendContextKeyword(context, " RETURNING",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_target_list(query->returningList, context);
+    }
+}
+```

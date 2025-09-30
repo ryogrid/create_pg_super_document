@@ -53,3 +53,66 @@ The function maintains the original SQL syntax structure while reconstructing fr
 - Part of PostgreSQL's JSON_TABLE functionality for converting JSON to relational data
 - The function preserves all semantic information needed to reconstruct the original query
 - Coordinates with other JSON table functions to handle nested column structures
+
+## Simplified Source
+
+```c
+static void get_json_table(TableFunc *tf, deparse_context *context, bool showimplicit) {
+    StringInfo buf = context->buf;
+    JsonExpr *jexpr = castNode(JsonExpr, tf->docexpr);
+    JsonTablePathScan *root = castNode(JsonTablePathScan, tf->plan);
+
+    appendStringInfoString(buf, "JSON_TABLE(");
+
+    if (PRETTY_INDENT(context))
+        context->indentLevel += PRETTYINDENT_VAR;
+
+    appendContextKeyword(context, "", 0, 0, 0);
+
+    // Output document expression
+    get_rule_expr(jexpr->formatted_expr, context, showimplicit);
+
+    appendStringInfoString(buf, ", ");
+
+    // Output root path with alias
+    get_const_expr(root->path->value, context, -1);
+    appendStringInfo(buf, " AS %s", quote_identifier(root->path->name));
+
+    // Handle PASSING clause if present
+    if (jexpr->passing_values) {
+        bool needcomma = false;
+
+        appendStringInfoChar(buf, ' ');
+        appendContextKeyword(context, "PASSING ", 0, 0, 0);
+
+        if (PRETTY_INDENT(context))
+            context->indentLevel += PRETTYINDENT_VAR;
+
+        forboth(lc1, jexpr->passing_names, lc2, jexpr->passing_values) {
+            if (needcomma)
+                appendStringInfoString(buf, ", ");
+            needcomma = true;
+
+            appendContextKeyword(context, "", 0, 0, 0);
+            get_rule_expr((Node *) lfirst(lc2), context, false);
+            appendStringInfo(buf, " AS %s",
+                quote_identifier((lfirst_node(String, lc1))->sval));
+        }
+
+        if (PRETTY_INDENT(context))
+            context->indentLevel -= PRETTYINDENT_VAR;
+    }
+
+    // Output column specifications
+    get_json_table_columns(tf, castNode(JsonTablePathScan, tf->plan), context, showimplicit);
+
+    // Handle error behavior if not default
+    if (jexpr->on_error->btype != JSON_BEHAVIOR_EMPTY_ARRAY)
+        get_json_behavior(jexpr->on_error, context, "ERROR");
+
+    if (PRETTY_INDENT(context))
+        context->indentLevel -= PRETTYINDENT_VAR;
+
+    appendContextKeyword(context, ")", 0, 0, 0);
+}
+```

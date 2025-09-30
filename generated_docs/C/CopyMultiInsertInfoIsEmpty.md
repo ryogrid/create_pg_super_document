@@ -27,3 +27,11 @@ This function provides a straightforward check to determine if a CopyMultiInsert
 
 ## Notes and Other Information
 This is an inline function for performance optimization since it's a simple check that may be called frequently during COPY operations. The function is used within the COPY FROM implementation to determine when buffers need to be flushed or cleaned up, helping to optimize the bulk insert process by avoiding unnecessary work when no tuples are buffered.
+
+## Simplified Source
+
+```c
+static inline bool CopyMultiInsertInfoIsEmpty(CopyMultiInsertInfo *miinfo) {
+    return miinfo->bufferedTuples == 0;
+}
+```

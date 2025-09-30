@@ -42,3 +42,62 @@ The results are returned as a palloc'd list of OpBtreeInterpretation structures,
 - The function performs two searches: first for direct operator membership, then for negated equality operators
 - Memory for OpBtreeInterpretation structures is allocated using palloc
 - Located in src/backend/utils/cache/lsyscache.c at lines 601-697
+
+## Simplified Source
+
+```c
+List *get_op_btree_interpretation(Oid opno) {
+    List *result = NIL;
+
+    // Search for direct btree operator family memberships
+    CatCList *catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(opno));
+
+    for (int i = 0; i < catlist->n_members; i++) {
+        HeapTuple op_tuple = &catlist->members[i]->tuple;
+        Form_pg_amop op_form = (Form_pg_amop) GETSTRUCT(op_tuple);
+
+        // Only process btree operators
+        if (op_form->amopmethod != BTREE_AM_OID)
+            continue;
+
+        // Create interpretation entry
+        OpBtreeInterpretation *thisresult = palloc(sizeof(OpBtreeInterpretation));
+        thisresult->opfamily_id = op_form->amopfamily;
+        thisresult->strategy = op_form->amopstrategy;
+        thisresult->oplefttype = op_form->amoplefttype;
+        thisresult->oprighttype = op_form->amoprighttype;
+        result = lappend(result, thisresult);
+    }
+    ReleaseSysCacheList(catlist);
+
+    // If no direct match, check if this is a <> operator
+    // by looking for a negator that's an equality operator
+    if (result == NIL) {
+        Oid op_negator = get_negator(opno);
+        if (OidIsValid(op_negator)) {
+            catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(op_negator));
+
+            for (int i = 0; i < catlist->n_members; i++) {
+                HeapTuple op_tuple = &catlist->members[i]->tuple;
+                Form_pg_amop op_form = (Form_pg_amop) GETSTRUCT(op_tuple);
+
+                // Must be btree and equality operator
+                if (op_form->amopmethod == BTREE_AM_OID &&
+                    op_form->amopstrategy == BTEqualStrategyNumber) {
+
+                    // Treat original operator as <> with special strategy
+                    OpBtreeInterpretation *thisresult = palloc(sizeof(OpBtreeInterpretation));
+                    thisresult->opfamily_id = op_form->amopfamily;
+                    thisresult->strategy = ROWCOMPARE_NE;
+                    thisresult->oplefttype = op_form->amoplefttype;
+                    thisresult->oprighttype = op_form->amoprighttype;
+                    result = lappend(result, thisresult);
+                }
+            }
+            ReleaseSysCacheList(catlist);
+        }
+    }
+
+    return result;
+}
+```

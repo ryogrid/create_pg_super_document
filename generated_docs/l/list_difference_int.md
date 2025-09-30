@@ -38,3 +38,25 @@ The function iterates through each integer element in `list1` and checks if that
 - The result list maintains the original order of elements from list1
 - Uses integer-specific list functions for better performance with integer data
 - Memory for the result list is newly allocated and should be freed when no longer needed
+
+## Simplified Source
+
+```c
+List *list_difference_int(const List *list1, const List *list2) {
+    List *result = NIL;
+
+    // Quick return if nothing to exclude
+    if (list2 == NIL)
+        return list_copy(list1);
+
+    // Build result with elements from list1 not in list2
+    foreach(cell, list1) {
+        int value = lfirst_int(cell);
+        if (!list_member_int(list2, value)) {
+            result = lappend_int(result, value);
+        }
+    }
+
+    return result;
+}
+```

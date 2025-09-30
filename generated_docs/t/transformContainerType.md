@@ -42,3 +42,19 @@ The function modifies the provided type OID and typmod in-place, allowing the ca
 - The domain-to-base-type conversion ensures that subscripting operations work consistently regardless of domain wrappers
 - Special handling of vector types prevents type system inconsistencies when slicing operations create arrays with different dimensionality constraints
 - Location: src/backend/parser/parse_node.c:189-242
+
+## Simplified Source
+
+```c
+void transformContainerType(Oid *containerType, int32 *containerTypmod) {
+    // Resolve domain to base type for subscripting operations
+    *containerType = getBaseTypeAndTypmod(*containerType, containerTypmod);
+
+    // Convert special vector types to corresponding array types
+    // This allows slicing operations to work properly
+    if (*containerType == INT2VECTOROID)
+        *containerType = INT2ARRAYOID;
+    else if (*containerType == OIDVECTOROID)
+        *containerType = OIDARRAYOID;
+}
+```

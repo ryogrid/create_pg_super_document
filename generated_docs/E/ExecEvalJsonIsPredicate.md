@@ -40,3 +40,98 @@ This function implements the SQL/JSON IS JSON predicate evaluation, which tests 
 - Key uniqueness validation is skipped for JSONB since it's already guaranteed by the format
 - Supports JS_TYPE_ANY for accepting any valid JSON type
 - Used in SQL expressions like 'column IS JSON OBJECT' or 'column IS JSON WITH UNIQUE KEYS'
+
+## Simplified Source
+
+```c
+void ExecEvalJsonIsPredicate(ExprState *state, ExprEvalStep *op)
+{
+    JsonIsPredicate *pred = op->d.is_json.pred;
+    Datum js = *op->resvalue;
+    bool res;
+
+    // Return false for NULL input
+    if (*op->resnull)
+    {
+        *op->resvalue = BoolGetDatum(false);
+        return;
+    }
+
+    Oid exprtype = exprType(pred->expr);
+
+    if (exprtype == TEXTOID || exprtype == JSONOID)
+    {
+        // Handle TEXT/JSON input
+        text *json = DatumGetTextP(js);
+
+        if (pred->item_type == JS_TYPE_ANY)
+        {
+            res = true;  // Accept any valid JSON
+        }
+        else
+        {
+            // Check specific JSON type based on first token
+            switch (json_get_first_token(json, false))
+            {
+                case JSON_TOKEN_OBJECT_START:
+                    res = (pred->item_type == JS_TYPE_OBJECT);
+                    break;
+                case JSON_TOKEN_ARRAY_START:
+                    res = (pred->item_type == JS_TYPE_ARRAY);
+                    break;
+                case JSON_TOKEN_STRING:
+                case JSON_TOKEN_NUMBER:
+                case JSON_TOKEN_TRUE:
+                case JSON_TOKEN_FALSE:
+                case JSON_TOKEN_NULL:
+                    res = (pred->item_type == JS_TYPE_SCALAR);
+                    break;
+                default:
+                    res = false;
+                    break;
+            }
+        }
+
+        // Perform full validation if needed (for uniqueness or TEXT validation)
+        if (res && (pred->unique_keys || exprtype == TEXTOID))
+        {
+            res = json_validate(json, pred->unique_keys, false);
+        }
+    }
+    else if (exprtype == JSONBOID)
+    {
+        // Handle JSONB input with efficient binary checks
+        if (pred->item_type == JS_TYPE_ANY)
+        {
+            res = true;
+        }
+        else
+        {
+            Jsonb *jb = DatumGetJsonbP(js);
+
+            switch (pred->item_type)
+            {
+                case JS_TYPE_OBJECT:
+                    res = JB_ROOT_IS_OBJECT(jb);
+                    break;
+                case JS_TYPE_ARRAY:
+                    res = JB_ROOT_IS_ARRAY(jb) && !JB_ROOT_IS_SCALAR(jb);
+                    break;
+                case JS_TYPE_SCALAR:
+                    res = JB_ROOT_IS_ARRAY(jb) && JB_ROOT_IS_SCALAR(jb);
+                    break;
+                default:
+                    res = false;
+                    break;
+            }
+        }
+        // Key uniqueness is guaranteed for JSONB, no need to check
+    }
+    else
+    {
+        res = false;  // Non-JSON types are not valid JSON
+    }
+
+    *op->resvalue = BoolGetDatum(res);
+}
+```

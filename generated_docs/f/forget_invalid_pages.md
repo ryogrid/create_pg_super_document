@@ -44,3 +44,40 @@ The `forget_invalid_pages` function cleans up the invalid page hash table by rem
 - Essential for maintaining the integrity of the invalid page tracking system during DDL operations
 - Memory allocated by relpathperm is properly freed to prevent memory leaks
 - The function is typically called during WAL replay of relation modification operations
+
+## Simplified Source
+
+```c
+static void forget_invalid_pages(RelFileLocator locator, ForkNumber forkno,
+                                BlockNumber minblkno) {
+    // Return early if no invalid page table exists
+    if (invalid_page_tab == NULL)
+        return;
+
+    // Scan through all entries in the invalid page hash table
+    HASH_SEQ_STATUS status;
+    xl_invalid_page *entry;
+
+    hash_seq_init(&status, invalid_page_tab);
+
+    while ((entry = hash_seq_search(&status)) != NULL) {
+        // Check if this entry matches our criteria for removal
+        if (RelFileLocatorEquals(entry->key.locator, locator) &&
+            entry->key.forkno == forkno &&
+            entry->key.blkno >= minblkno) {
+
+            // Log the page removal if debug logging is enabled
+            if (message_level_is_interesting(DEBUG2)) {
+                char *path = relpathperm(entry->key.locator, forkno);
+                elog(DEBUG2, "page %u of relation %s has been dropped",
+                     entry->key.blkno, path);
+                pfree(path);
+            }
+
+            // Remove the entry from the hash table
+            if (hash_search(invalid_page_tab, &entry->key, HASH_REMOVE, NULL) == NULL)
+                elog(ERROR, "hash table corrupted");
+        }
+    }
+}
+```

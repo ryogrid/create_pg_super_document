@@ -43,3 +43,62 @@ Note that this function only handles out-of-line external values - it does not d
 - Carefully maintains transaction-related info masks from the original tuple
 - Memory management: allocates new storage for detoasted values and cleans up temporary allocations
 - The resulting tuple is completely self-contained with no external dependencies
+
+## Simplified Source
+
+```c
+HeapTuple
+toast_flatten_tuple(HeapTuple tup, TupleDesc tupleDesc)
+{
+    HeapTuple new_tuple;
+    int numAttrs = tupleDesc->natts;
+    int i;
+    Datum toast_values[MaxTupleAttributeNumber];
+    bool toast_isnull[MaxTupleAttributeNumber];
+    bool toast_free[MaxTupleAttributeNumber];
+
+    // Break down the tuple into individual attribute values
+    Assert(numAttrs <= MaxTupleAttributeNumber);
+    heap_deform_tuple(tup, tupleDesc, toast_values, toast_isnull);
+
+    memset(toast_free, 0, numAttrs * sizeof(bool));
+
+    // Process each variable-length attribute
+    for (i = 0; i < numAttrs; i++) {
+        // Check non-null varlena attributes for external storage
+        if (!toast_isnull[i] && TupleDescAttr(tupleDesc, i)->attlen == -1) {
+            struct varlena *new_value;
+
+            new_value = (struct varlena *) DatumGetPointer(toast_values[i]);
+            if (VARATT_IS_EXTERNAL(new_value)) {
+                // Detoast external attribute and mark for cleanup
+                new_value = detoast_external_attr(new_value);
+                toast_values[i] = PointerGetDatum(new_value);
+                toast_free[i] = true;
+            }
+        }
+    }
+
+    // Create new tuple with flattened values
+    new_tuple = heap_form_tuple(tupleDesc, toast_values, toast_isnull);
+
+    // Copy tuple identity and visibility information
+    new_tuple->t_self = tup->t_self;
+    new_tuple->t_tableOid = tup->t_tableOid;
+    new_tuple->t_data->t_choice = tup->t_data->t_choice;
+    new_tuple->t_data->t_ctid = tup->t_data->t_ctid;
+
+    // Preserve transaction-related info masks
+    new_tuple->t_data->t_infomask &= ~HEAP_XACT_MASK;
+    new_tuple->t_data->t_infomask |= tup->t_data->t_infomask & HEAP_XACT_MASK;
+    new_tuple->t_data->t_infomask2 &= ~HEAP2_XACT_MASK;
+    new_tuple->t_data->t_infomask2 |= tup->t_data->t_infomask2 & HEAP2_XACT_MASK;
+
+    // Clean up temporary allocations
+    for (i = 0; i < numAttrs; i++)
+        if (toast_free[i])
+            pfree(DatumGetPointer(toast_values[i]));
+
+    return new_tuple;
+}
+```

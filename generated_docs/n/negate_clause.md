@@ -50,3 +50,104 @@ The function unconditionally applies DeMorgan's laws even if it results in more 
 - The transformation ensures that logically equivalent expressions will be physically equal after processing
 - Handles special cases like double negation elimination and null handling appropriately
 - Part of the PostgreSQL query optimizer's constant expression evaluation and boolean simplification system
+
+## Simplified Source
+
+```c
+Node *negate_clause(Node *node) {
+    if (node == NULL)
+        elog(ERROR, "can't negate an empty subexpression");
+
+    switch (nodeTag(node)) {
+        case T_Const: {
+            Const *c = (Const *) node;
+            // NOT NULL is still NULL
+            if (c->constisnull)
+                return makeBoolConst(false, true);
+            // Negate boolean constant
+            return makeBoolConst(!DatumGetBool(c->constvalue), false);
+        }
+
+        case T_OpExpr: {
+            // Use negator operator if available (e.g., < becomes >=)
+            OpExpr *opexpr = (OpExpr *) node;
+            Oid negator = get_negator(opexpr->opno);
+            if (negator) {
+                OpExpr *newopexpr = makeNode(OpExpr);
+                newopexpr->opno = negator;
+                newopexpr->opfuncid = InvalidOid;
+                newopexpr->opresulttype = opexpr->opresulttype;
+                newopexpr->opretset = opexpr->opretset;
+                newopexpr->opcollid = opexpr->opcollid;
+                newopexpr->inputcollid = opexpr->inputcollid;
+                newopexpr->args = opexpr->args;
+                newopexpr->location = opexpr->location;
+                return (Node *) newopexpr;
+            }
+            break;
+        }
+
+        case T_BoolExpr: {
+            BoolExpr *expr = (BoolExpr *) node;
+            switch (expr->boolop) {
+                case AND_EXPR: {
+                    // Apply DeMorgan's law: NOT(A AND B) => (NOT A) OR (NOT B)
+                    List *nargs = NIL;
+                    foreach(lc, expr->args) {
+                        nargs = lappend(nargs, negate_clause(lfirst(lc)));
+                    }
+                    return (Node *) make_orclause(nargs);
+                }
+                case OR_EXPR: {
+                    // Apply DeMorgan's law: NOT(A OR B) => (NOT A) AND (NOT B)
+                    List *nargs = NIL;
+                    foreach(lc, expr->args) {
+                        nargs = lappend(nargs, negate_clause(lfirst(lc)));
+                    }
+                    return (Node *) make_andclause(nargs);
+                }
+                case NOT_EXPR:
+                    // Double negation elimination: NOT(NOT A) => A
+                    return (Node *) linitial(expr->args);
+            }
+            break;
+        }
+
+        case T_NullTest: {
+            // Flip IS NULL <-> IS NOT NULL (scalar types only)
+            NullTest *expr = (NullTest *) node;
+            if (!expr->argisrow) {
+                NullTest *newexpr = makeNode(NullTest);
+                newexpr->arg = expr->arg;
+                newexpr->nulltesttype = (expr->nulltesttype == IS_NULL ?
+                                        IS_NOT_NULL : IS_NULL);
+                newexpr->argisrow = expr->argisrow;
+                newexpr->location = expr->location;
+                return (Node *) newexpr;
+            }
+            break;
+        }
+
+        case T_BooleanTest: {
+            // Flip boolean test types (IS_TRUE <-> IS_NOT_TRUE, etc.)
+            BooleanTest *expr = (BooleanTest *) node;
+            BooleanTest *newexpr = makeNode(BooleanTest);
+            newexpr->arg = expr->arg;
+            // Map each test type to its negation
+            switch (expr->booltesttype) {
+                case IS_TRUE: newexpr->booltesttype = IS_NOT_TRUE; break;
+                case IS_NOT_TRUE: newexpr->booltesttype = IS_TRUE; break;
+                case IS_FALSE: newexpr->booltesttype = IS_NOT_FALSE; break;
+                case IS_NOT_FALSE: newexpr->booltesttype = IS_FALSE; break;
+                case IS_UNKNOWN: newexpr->booltesttype = IS_NOT_UNKNOWN; break;
+                case IS_NOT_UNKNOWN: newexpr->booltesttype = IS_UNKNOWN; break;
+            }
+            newexpr->location = expr->location;
+            return (Node *) newexpr;
+        }
+    }
+
+    // Fallback: wrap with explicit NOT node
+    return (Node *) make_notclause((Expr *) node);
+}
+```

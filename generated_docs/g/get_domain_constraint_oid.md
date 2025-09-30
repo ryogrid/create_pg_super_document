@@ -41,3 +41,50 @@ Domain constraints are check constraints that are applied to domain types, which
 - The function can handle missing constraints gracefully when missing_ok is true
 - Error messages use format_type_be to provide a human-readable domain type name in error reports
 - There can be at most one constraint with a given name on a specific domain
+
+## Simplified Source
+
+```c
+Oid
+get_domain_constraint_oid(Oid typid, const char *conname, bool missing_ok)
+{
+    Relation pg_constraint;
+    HeapTuple tuple;
+    SysScanDesc scan;
+    ScanKeyData skey[3];
+    Oid conOid = InvalidOid;
+
+    pg_constraint = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Setup scan keys for domain constraint lookup
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(InvalidOid));
+    ScanKeyInit(&skey[1], Anum_pg_constraint_contypid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(typid));
+    ScanKeyInit(&skey[2], Anum_pg_constraint_conname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(conname));
+
+    scan = systable_beginscan(pg_constraint, ConstraintRelidTypidNameIndexId, true,
+                              NULL, 3, skey);
+
+    // Get constraint OID if found (at most one matching row)
+    if (HeapTupleIsValid(tuple = systable_getnext(scan)))
+        conOid = ((Form_pg_constraint) GETSTRUCT(tuple))->oid;
+
+    systable_endscan(scan);
+
+    // Handle missing constraint
+    if (!OidIsValid(conOid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("constraint \"%s\" for domain %s does not exist",
+                        conname, format_type_be(typid))));
+
+    table_close(pg_constraint, AccessShareLock);
+
+    return conOid;
+}
+```

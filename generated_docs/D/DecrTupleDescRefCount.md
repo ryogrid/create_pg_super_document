@@ -38,3 +38,21 @@ The function includes an assertion to ensure the TupleDesc has a positive refere
 - The assertion  helps detect reference counting errors in debug builds
 - Resource owner cleanup occurs before the reference count check to ensure proper cleanup ordering
 - When the reference count reaches zero, FreeTupleDesc is called to perform complete deallocation
+
+## Simplified Source
+
+```c
+void
+DecrTupleDescRefCount(TupleDesc tupdesc)
+{
+    // Ensure reference count is positive before decrementing
+    Assert(tupdesc->tdrefcount > 0);
+
+    // Remove from resource owner tracking
+    ResourceOwnerForgetTupleDesc(CurrentResourceOwner, tupdesc);
+
+    // Decrement reference count and free if it reaches zero
+    if (--tupdesc->tdrefcount == 0)
+        FreeTupleDesc(tupdesc);
+}
+```

@@ -39,3 +39,33 @@ The function is designed to handle complex expressions that may contain PlaceHol
 - Essential for discovering PlaceHolderVars that may be deeply nested in complex expressions
 - Properly manages memory by freeing the temporary variable list
 - May trigger recursive calls through find_placeholder_info when nested PlaceHolderVars are found
+
+## Simplified Source
+
+```c
+static void find_placeholders_in_expr(PlannerInfo *root, Node *expr)
+{
+    List *vars;
+    ListCell *vl;
+
+    // Extract all variable-like nodes from expression, including PlaceHolderVars
+    vars = pull_var_clause(expr,
+                          PVC_RECURSE_AGGREGATES |
+                          PVC_RECURSE_WINDOWFUNCS |
+                          PVC_INCLUDE_PLACEHOLDERS);
+
+    // Process each node in the extracted list
+    foreach(vl, vars) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) lfirst(vl);
+
+        // Skip regular Vars, only process PlaceHolderVars
+        if (!IsA(phv, PlaceHolderVar))
+            continue;
+
+        // Ensure PlaceHolderInfo entry exists for this PlaceHolderVar
+        (void) find_placeholder_info(root, phv);
+    }
+
+    list_free(vars);
+}
+```

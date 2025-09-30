@@ -35,3 +35,44 @@ This static function resolves operator class or operator family names into Objec
 - No direct missing_ok support for the access method lookup (marked with XXX comment)
 - The missing_ok parameter is passed through to get_opclass_oid/get_opfamily_oid for the actual operator class/family lookup
 - Uses elog(ERROR) for unexpected object types, which should not occur in normal operation
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_opcf(ObjectType objtype, List *object, bool missing_ok)
+{
+    Oid amoid;
+    ObjectAddress address;
+
+    // Get access method OID from first element
+    amoid = get_index_am_oid(strVal(linitial(object)), false);
+
+    // Remove access method name, keep the rest for lookup
+    object = list_copy_tail(object, 1);
+
+    // Handle operator class or operator family
+    switch (objtype) {
+        case OBJECT_OPCLASS:
+            address.classId = OperatorClassRelationId;
+            address.objectId = get_opclass_oid(amoid, object, missing_ok);
+            address.objectSubId = 0;
+            break;
+
+        case OBJECT_OPFAMILY:
+            address.classId = OperatorFamilyRelationId;
+            address.objectId = get_opfamily_oid(amoid, object, missing_ok);
+            address.objectSubId = 0;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) objtype);
+            // Fallback values (never reached)
+            address.classId = InvalidOid;
+            address.objectId = InvalidOid;
+            address.objectSubId = 0;
+    }
+
+    return address;
+}
+```

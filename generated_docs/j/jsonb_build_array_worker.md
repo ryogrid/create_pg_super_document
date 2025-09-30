@@ -43,3 +43,36 @@ This function is the workhorse for JSONB array construction in PostgreSQL. It ta
 - When  is true, null values are completely skipped rather than being added as JSON null
 - The function handles type conversion through the  helper function
 - Used in JSON constructor expressions in SQL queries for performance optimization
+
+## Simplified Source
+
+```c
+Datum
+jsonb_build_array_worker(int nargs, const Datum *args, const bool *nulls, const Oid *types,
+                         bool absent_on_null)
+{
+    JsonbInState result;
+
+    // Initialize JSONB construction state
+    memset(&result, 0, sizeof(JsonbInState));
+
+    // Start building array
+    result.res = pushJsonbValue(&result.parseState, WJB_BEGIN_ARRAY, NULL);
+
+    // Process each argument
+    for (int i = 0; i < nargs; i++) {
+        // Skip null values if absent_on_null is true
+        if (absent_on_null && nulls[i])
+            continue;
+
+        // Add element to array (handles type conversion)
+        add_jsonb(args[i], nulls[i], &result, types[i], false);
+    }
+
+    // Complete array construction
+    result.res = pushJsonbValue(&result.parseState, WJB_END_ARRAY, NULL);
+
+    // Convert to final JSONB datum
+    return JsonbPGetDatum(JsonbValueToJsonb(result.res));
+}
+```

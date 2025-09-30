@@ -44,3 +44,29 @@ For any other utility statement type, the function raises an error, as only NOTI
 - Part of the broader query deparsing infrastructure, but with much more restricted functionality than DML statement deparsers
 - The error case indicates that expanding support for other utility statements would require additional implementation
 - In PostgreSQL's architecture, most utility statements are not stored in rules and therefore don't need deparsing support
+
+## Simplified Source
+
+```c
+static void get_utility_query_def(Query *query, deparse_context *context) {
+    StringInfo buf = context->buf;
+
+    // Only NOTIFY statements are supported in rule contexts
+    if (query->utilityStmt && IsA(query->utilityStmt, NotifyStmt)) {
+        NotifyStmt *stmt = (NotifyStmt *) query->utilityStmt;
+
+        // Format basic NOTIFY command with quoted channel name
+        appendContextKeyword(context, "", 0, PRETTYINDENT_STD, 1);
+        appendStringInfo(buf, "NOTIFY %s", quote_identifier(stmt->conditionname));
+
+        // Add optional payload if present
+        if (stmt->payload) {
+            appendStringInfoString(buf, ", ");
+            simple_quote_literal(buf, stmt->payload);
+        }
+    } else {
+        // Error: only NOTIFY commands can appear in rules
+        elog(ERROR, "unexpected utility statement type");
+    }
+}
+```

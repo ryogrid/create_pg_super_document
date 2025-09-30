@@ -39,3 +39,12 @@ The function is defined as a static inline function in the header file, meaning 
 - Essential for returning time values from PostgreSQL functions that use the fmgr interface
 - TimeADT uses pass-by-reference semantics if and only if int64 is passed by reference on the target platform
 - Works seamlessly with PostgreSQL's internal time representation and precision requirements
+
+## Simplified Source
+
+```c
+static inline Datum TimeADTGetDatum(TimeADT X) {
+    // Convert TimeADT to Datum using int64 conversion since TimeADT is int64
+    return Int64GetDatum(X);
+}
+```

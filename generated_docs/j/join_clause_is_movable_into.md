@@ -38,3 +38,27 @@ The function assumes that lateral reference checks have been performed upstream 
 
 ## Notes and Other Information
 The API design requires callers to pre-compute the union of current and outer relation IDs for efficiency when applying the function to multiple clauses. The function will always return false if current_and_outer is NULL, which is relied upon by get_joinrel_parampathinfo. This function works in conjunction with join_clause_is_movable_to to support PostgreSQL's parameterized path generation. Note that returning true indicates the clause could be moved to this join relation, but not necessarily that this is the lowest possible join location.
+
+## Simplified Source
+
+```c
+bool
+join_clause_is_movable_into(RestrictInfo *rinfo,
+                            Relids currentrelids,
+                            Relids current_and_outer)
+{
+    // Check if clause can be evaluated with available context
+    if (!bms_is_subset(rinfo->clause_relids, current_and_outer))
+        return false;
+
+    // Ensure clause references at least one target relation
+    if (!bms_overlap(currentrelids, rinfo->clause_relids))
+        return false;
+
+    // Prevent moving clause into its outer-join's outer side
+    if (bms_overlap(currentrelids, rinfo->outer_relids))
+        return false;
+
+    return true;
+}
+```

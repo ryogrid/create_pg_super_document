@@ -55,3 +55,72 @@ The function modifies the inherited column definition in place and handles prope
 - Implements PostgreSQL's principle that inheritance should maintain strict type safety while allowing property overrides
 - The function is destructive - it modifies the inherited column definition rather than creating a new one
 - Critical for maintaining data integrity and type safety across inheritance hierarchies
+
+## Simplified Source
+```c
+static void MergeChildAttribute(List *inh_columns, int exist_attno, int newcol_attno, const ColumnDef *newdef) {
+    char *attributeName = newdef->colname;
+    ColumnDef *inhdef;
+    Oid inhtypeid, newtypeid;
+    int32 inhtypmod, newtypmod;
+    Oid inhcollid, newcollid;
+
+    // Log merge operation notice
+    if (exist_attno == newcol_attno)
+        ereport(NOTICE, "merging column \"%s\" with inherited definition", attributeName);
+    else
+        ereport(NOTICE, "moving and merging column \"%s\" with inherited definition", attributeName);
+
+    inhdef = list_nth_node(ColumnDef, inh_columns, exist_attno - 1);
+
+    // Validate type compatibility
+    typenameTypeIdAndMod(NULL, inhdef->typeName, &inhtypeid, &inhtypmod);
+    typenameTypeIdAndMod(NULL, newdef->typeName, &newtypeid, &newtypmod);
+    if (inhtypeid != newtypeid || inhtypmod != newtypmod)
+        ereport(ERROR, "column \"%s\" has a type conflict", attributeName);
+
+    // Validate collation compatibility
+    inhcollid = GetColumnDefCollation(NULL, inhdef, inhtypeid);
+    newcollid = GetColumnDefCollation(NULL, newdef, newtypeid);
+    if (inhcollid != newcollid)
+        ereport(ERROR, "column \"%s\" has a collation conflict", attributeName);
+
+    // Copy identity setting (child takes precedence)
+    inhdef->identity = newdef->identity;
+
+    // Merge storage parameters
+    if (inhdef->storage == 0)
+        inhdef->storage = newdef->storage;
+    else if (newdef->storage != 0 && inhdef->storage != newdef->storage)
+        ereport(ERROR, "column \"%s\" has a storage parameter conflict", attributeName);
+
+    // Merge compression settings
+    if (inhdef->compression == NULL)
+        inhdef->compression = newdef->compression;
+    else if (newdef->compression != NULL && strcmp(inhdef->compression, newdef->compression) != 0)
+        ereport(ERROR, "column \"%s\" has a compression method conflict", attributeName);
+
+    // Merge NOT NULL constraints (OR them together)
+    inhdef->is_not_null |= newdef->is_not_null;
+
+    // Validate generated column rules
+    if (inhdef->generated) {
+        if (newdef->raw_default && !newdef->generated)
+            ereport(ERROR, "column \"%s\" inherits from generated column but specifies default", inhdef->colname);
+        if (newdef->identity)
+            ereport(ERROR, "column \"%s\" inherits from generated column but specifies identity", inhdef->colname);
+    } else {
+        if (newdef->generated)
+            ereport(ERROR, "child column \"%s\" specifies generation expression", inhdef->colname);
+    }
+
+    // Override default value if child specifies one
+    if (newdef->raw_default != NULL) {
+        inhdef->raw_default = newdef->raw_default;
+        inhdef->cooked_default = newdef->cooked_default;
+    }
+
+    // Mark column as locally defined
+    inhdef->is_local = true;
+}
+```

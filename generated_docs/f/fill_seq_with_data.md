@@ -50,3 +50,28 @@ This dual-fork approach for unlogged sequences ensures that after a crash, the s
 - The function ensures transactional consistency by proper buffer management
 - Storage manager operations are carefully logged for WAL replay purposes
 - Used during sequence creation, reset, alteration, and persistence changes
+
+## Simplified Source
+
+```c
+static void fill_seq_with_data(Relation rel, HeapTuple tuple) {
+    // Always write to main fork
+    fill_seq_fork_with_data(rel, tuple, MAIN_FORKNUM);
+
+    // Handle unlogged sequences - need init fork for crash recovery
+    if (rel->rd_rel->relpersistence == RELPERSISTENCE_UNLOGGED) {
+        SMgrRelation srel;
+
+        // Create and populate init fork
+        srel = smgropen(rel->rd_locator, INVALID_PROC_NUMBER);
+        smgrcreate(srel, INIT_FORKNUM, false);
+        log_smgrcreate(&rel->rd_locator, INIT_FORKNUM);
+
+        fill_seq_fork_with_data(rel, tuple, INIT_FORKNUM);
+
+        // Ensure data is written to disk
+        FlushRelationBuffers(rel);
+        smgrclose(srel);
+    }
+}
+```

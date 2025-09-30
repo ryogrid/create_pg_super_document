@@ -39,3 +39,25 @@ The function iterates through each freeze plan, retrieves the corresponding tupl
 - Caller is responsible for marking the buffer dirty and emitting WAL if needed
 - The 'offset' field in each HeapTupleFreeze plan must be set by the caller before calling this function
 - This is a low-level function that performs the actual tuple modification after freeze planning is complete
+
+## Simplified Source
+
+```c
+void
+heap_freeze_prepared_tuples(Buffer buffer, HeapTupleFreeze *tuples, int ntuples)
+{
+    Page page = BufferGetPage(buffer);
+
+    // Apply freeze plan to each tuple in the array
+    for (int i = 0; i < ntuples; i++) {
+        HeapTupleFreeze *frz = tuples + i;
+
+        // Get the tuple header from the page using the offset
+        ItemId itemid = PageGetItemId(page, frz->offset);
+        HeapTupleHeader htup = (HeapTupleHeader) PageGetItem(page, itemid);
+
+        // Execute the freeze operation on this tuple
+        heap_execute_freeze_tuple(htup, frz);
+    }
+}
+```

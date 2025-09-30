@@ -26,3 +26,27 @@ This function searches through a list of SortGroupClause structures to find the 
 
 ## Notes and Other Information
 This function enforces the invariant that all referenced sort/group clauses must be present in the provided list by raising an error if a match is not found. This helps catch programming errors during query planning where references become inconsistent. The function is part of a family of utilities for working with sort and group clause lists, though it's less frequently used than its related functions. The linear search approach is acceptable given that sort/group clause lists are typically small.
+
+## Simplified Source
+
+```c
+SortGroupClause *
+get_sortgroupref_clause(Index sortref, List *clauses)
+{
+    ListCell *lc;
+
+    // Linear search through the clause list
+    foreach(lc, clauses)
+    {
+        SortGroupClause *clause = (SortGroupClause *) lfirst(lc);
+
+        // Return the matching clause
+        if (clause->tleSortGroupRef == sortref)
+            return clause;
+    }
+
+    // Error if not found - should never happen
+    elog(ERROR, "ORDER/GROUP BY expression not found in list");
+    return NULL;
+}
+```

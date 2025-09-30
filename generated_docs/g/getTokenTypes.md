@@ -41,3 +41,67 @@ This function converts string-based token type names into structured TSTokenType
 - Memory allocation for TSTokenTypeItem structures uses palloc0 for zero-initialized memory
 - Token name strings are duplicated using pstrdup to ensure proper memory management
 - Part of PostgreSQL's text search configuration management system for mapping token types
+
+## Simplified Source
+
+```c
+static List *
+getTokenTypes(Oid prsId, List *tokennames)
+{
+    TSParserCacheEntry *prs = lookup_ts_parser_cache(prsId);
+    LexDescr *list;
+    List *result = NIL;
+    int ntoken;
+    ListCell *tn;
+
+    ntoken = list_length(tokennames);
+    if (ntoken == 0)
+        return NIL;
+
+    // Ensure parser has lextype method defined
+    if (!OidIsValid(prs->lextypeOid))
+        elog(ERROR, "method lextype isn't defined for text search parser %u",
+             prsId);
+
+    // Get available token types from parser
+    list = (LexDescr *) DatumGetPointer(OidFunctionCall1(prs->lextypeOid,
+                                                        (Datum) 0));
+
+    // Process each requested token name
+    foreach(tn, tokennames)
+    {
+        String *val = lfirst_node(String, tn);
+        bool found = false;
+        int j;
+
+        // Skip if already in result (deduplication)
+        if (tstoken_list_member(strVal(val), result))
+            continue;
+
+        // Search for token name in parser's lexical types
+        j = 0;
+        while (list && list[j].lexid)
+        {
+            if (strcmp(strVal(val), list[j].alias) == 0)
+            {
+                TSTokenTypeItem *ts = palloc0(sizeof(TSTokenTypeItem));
+
+                ts->num = list[j].lexid;
+                ts->name = pstrdup(strVal(val));
+                result = lappend(result, ts);
+                found = true;
+                break;
+            }
+            j++;
+        }
+
+        if (!found)
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("token type \"%s\" does not exist",
+                            strVal(val))));
+    }
+
+    return result;
+}
+```

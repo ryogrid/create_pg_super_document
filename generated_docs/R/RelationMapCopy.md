@@ -38,3 +38,19 @@ The function operates under RelationMappingLock to ensure atomicity and prevent 
 - Uses exclusive RelationMappingLock to ensure atomic operation
 - The function does not attempt to preserve existing files in the destination since the new database is not yet usable
 - Failure during this operation would make the new database unusable, so error handling is critical
+
+## Simplified Source
+
+```c
+void RelationMapCopy(Oid dbid, Oid tsid, char *srcdbpath, char *dstdbpath) {
+    RelMapFile map;
+
+    // Read relation mapping from source database
+    read_relmap_file(&map, srcdbpath, false, ERROR);
+
+    // Write mapping to destination database with WAL logging
+    LWLockAcquire(RelationMappingLock, LW_EXCLUSIVE);
+    write_relmap_file(&map, true, false, false, dbid, tsid, dstdbpath);
+    LWLockRelease(RelationMappingLock);
+}
+```

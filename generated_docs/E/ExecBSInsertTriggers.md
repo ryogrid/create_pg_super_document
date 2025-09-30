@@ -48,3 +48,50 @@ The function iterates through all triggers defined on the relation, filtering fo
 - The function short-circuits if no triggers exist or if no INSERT BEFORE STATEMENT triggers are defined
 - Used in both regular INSERT operations and bulk operations like COPY FROM
 - Part of PostgreSQL's comprehensive trigger system that supports multiple timing and granularity combinations
+
+## Simplified Source
+
+```c
+void
+ExecBSInsertTriggers(EState *estate, ResultRelInfo *relinfo)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    TriggerData LocTriggerData = {0};
+
+    // Exit early if no triggers or already fired in this context
+    if (trigdesc == NULL || !trigdesc->trig_insert_before_statement)
+        return;
+    if (before_stmt_triggers_fired(RelationGetRelid(relinfo->ri_RelationDesc), CMD_INSERT))
+        return;
+
+    // Set up trigger context
+    LocTriggerData.type = T_TriggerData;
+    LocTriggerData.tg_event = TRIGGER_EVENT_INSERT | TRIGGER_EVENT_BEFORE;
+    LocTriggerData.tg_relation = relinfo->ri_RelationDesc;
+
+    // Execute each BEFORE STATEMENT INSERT trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++)
+    {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Skip if not a BEFORE STATEMENT INSERT trigger or if disabled
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype, TRIGGER_TYPE_STATEMENT,
+                                 TRIGGER_TYPE_BEFORE, TRIGGER_TYPE_INSERT))
+            continue;
+        if (!TriggerEnabled(estate, relinfo, trigger, LocTriggerData.tg_event,
+                           NULL, NULL, NULL))
+            continue;
+
+        // Execute trigger function
+        LocTriggerData.tg_trigger = trigger;
+        HeapTuple newtuple = ExecCallTriggerFunc(&LocTriggerData, i,
+                                               relinfo->ri_TrigFunctions,
+                                               relinfo->ri_TrigInstrument,
+                                               GetPerTupleMemoryContext(estate));
+
+        // BEFORE STATEMENT triggers must not return values
+        if (newtuple)
+            ereport(ERROR, "BEFORE STATEMENT trigger cannot return a value");
+    }
+}
+```

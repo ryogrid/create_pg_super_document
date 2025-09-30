@@ -43,3 +43,40 @@ The function handles NULL values appropriately by skipping the output function c
 - Part of PostgreSQL's expression evaluation interpreter framework
 - Related to EEOP_IOCOERCE but with added error safety
 - Located in src/backend/executor/execExprInterp.c:2579-2638
+
+## Simplified Source
+
+```c
+void ExecEvalCoerceViaIOSafe(ExprState *state, ExprEvalStep *op)
+{
+    char *str;
+
+    // Step 1: Convert source value to string via output function
+    if (*op->resnull) {
+        str = NULL;  // Output functions not called on nulls
+    } else {
+        FunctionCallInfo fcinfo_out = op->d.iocoerce.fcinfo_data_out;
+        fcinfo_out->args[0].value = *op->resvalue;
+        fcinfo_out->args[0].isnull = false;
+
+        str = DatumGetCString(FunctionCallInvoke(fcinfo_out));
+    }
+
+    // Step 2: Convert string to target type via input function
+    if (!op->d.iocoerce.finfo_in->fn_strict || str != NULL) {
+        FunctionCallInfo fcinfo_in = op->d.iocoerce.fcinfo_data_in;
+        fcinfo_in->args[0].value = PointerGetDatum(str);
+        fcinfo_in->args[0].isnull = *op->resnull;
+
+        // Safe conversion with error handling
+        *op->resvalue = FunctionCallInvoke(fcinfo_in);
+
+        if (SOFT_ERROR_OCCURRED(fcinfo_in->context)) {
+            // Conversion failed - return NULL instead of error
+            *op->resnull = true;
+            *op->resvalue = (Datum) 0;
+            return;
+        }
+    }
+}
+```

@@ -34,3 +34,22 @@ The function's primary responsibility is to format the resolved expression node 
 - Part of the special variable resolution system that handles OUTER_VAR, INNER_VAR, and INDEX_VAR references in plan trees
 - The callback_arg parameter is currently unused but follows the standard callback interface pattern
 - Works in conjunction with resolve_special_varno to provide a complete solution for special variable decompilation
+
+## Simplified Source
+
+```c
+static void get_special_variable(Node *node, deparse_context *context, void *callback_arg) {
+    StringInfo buf = context->buf;
+
+    // Add parentheses for non-Var expressions to maintain precedence
+    if (!IsA(node, Var))
+        appendStringInfoChar(buf, '(');
+
+    // Format the resolved expression
+    get_rule_expr(node, context, true);
+
+    // Close parentheses if we added them
+    if (!IsA(node, Var))
+        appendStringInfoChar(buf, ')');
+}
+```

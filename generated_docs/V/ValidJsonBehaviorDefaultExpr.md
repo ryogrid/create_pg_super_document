@@ -30,3 +30,34 @@ The ValidJsonBehaviorDefaultExpr function performs recursive validation of expre
 
 ## Notes and Other Information
 This function is part of PostgreSQL's security and validation framework for SQL/JSON functionality. It prevents potentially dangerous or meaningless expressions from being used as default values in JSON behavior clauses. The recursive nature handles complex nested expressions while maintaining strict control over what types of expressions are acceptable. The function is designed to be used with PostgreSQL's expression tree walker infrastructure for comprehensive validation. Located at src/backend/parser/parse_expr.c:4663-4695.
+
+## Simplified Source
+
+```c
+static bool
+ValidJsonBehaviorDefaultExpr(Node *expr, void *context)
+{
+    if (expr == NULL)
+        return false;
+
+    switch (nodeTag(expr)) {
+        // Allow basic expression types
+        case T_Const:
+        case T_FuncExpr:
+        case T_OpExpr:
+            return true;
+
+        // Allow coercion nodes if their arguments are valid
+        case T_CoerceViaIO:
+        case T_CoerceToDomain:
+        case T_ArrayCoerceExpr:
+        case T_ConvertRowtypeExpr:
+        case T_RelabelType:
+        case T_CollateExpr:
+            return expression_tree_walker(expr, ValidJsonBehaviorDefaultExpr, context);
+
+        default:
+            return false;
+    }
+}
+```

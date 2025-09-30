@@ -47,3 +47,42 @@ This function takes no parameters and operates on shared transaction state.
 - The function uses shared locks for safety, though the comment notes this may not be strictly necessary
 - Designed to err on the side of caution - false positives (unnecessary updates) are preferred over false negatives (missed updates)
 - Part of PostgreSQL's robust wraparound prevention system that adapts to changing database conditions
+
+## Simplified Source
+
+```c
+bool
+ForceTransactionIdLimitUpdate(void)
+{
+    TransactionId nextXid;
+    TransactionId xidVacLimit;
+    TransactionId oldestXid;
+    Oid oldestXidDB;
+
+    // Get current transaction state under shared lock
+    LWLockAcquire(XidGenLock, LW_SHARED);
+    nextXid = XidFromFullTransactionId(TransamVariables->nextXid);
+    xidVacLimit = TransamVariables->xidVacLimit;
+    oldestXid = TransamVariables->oldestXid;
+    oldestXidDB = TransamVariables->oldestXidDB;
+    LWLockRelease(XidGenLock);
+
+    // Force update if oldest XID is invalid
+    if (!TransactionIdIsNormal(oldestXid))
+        return true;
+
+    // Force update if vacuum limit is invalid
+    if (!TransactionIdIsValid(xidVacLimit))
+        return true;
+
+    // Force update if we've reached the vacuum limit
+    if (TransactionIdFollowsOrEquals(nextXid, xidVacLimit))
+        return true;
+
+    // Force update if database with oldest XID no longer exists
+    if (!SearchSysCacheExists1(DATABASEOID, ObjectIdGetDatum(oldestXidDB)))
+        return true;
+
+    return false;
+}
+```

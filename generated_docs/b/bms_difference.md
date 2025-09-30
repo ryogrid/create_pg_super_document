@@ -46,3 +46,56 @@ This function performs a bitwise difference operation (A - B) on two Bitmapsets,
 - The result is either NULL or a newly allocated Bitmapset that must be freed by the caller
 - Essential for query optimization operations that need to exclude certain relations or parameters
 - Widely used in join planning, equivalence class processing, and constraint analysis
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_difference(const Bitmapset *a, const Bitmapset *b)
+{
+    Bitmapset  *result;
+    int         i;
+
+    // Handle NULL cases
+    if (a == NULL)
+        return NULL;
+    if (b == NULL)
+        return bms_copy(a);
+
+    // Optimization: check if result would be empty before allocation
+    if (!bms_nonempty_difference(a, b))
+        return NULL;
+
+    // Copy the first set
+    result = bms_copy(a);
+
+    // Remove b's bits from result using bitwise AND with complement
+    if (result->nwords > b->nwords)
+    {
+        // a is longer than b, no need to trim trailing zeros
+        for (i = 0; i < b->nwords; i++)
+        {
+            result->words[i] &= ~b->words[i];  // Remove bits present in b
+        }
+    }
+    else
+    {
+        // Same size or b is longer, may need to trim trailing zeros
+        int lastnonzero = -1;
+
+        for (i = 0; i < result->nwords; i++)
+        {
+            result->words[i] &= ~b->words[i];  // Remove bits present in b
+
+            // Track last non-zero word for trimming
+            if (result->words[i] != 0)
+                lastnonzero = i;
+        }
+
+        // Trim trailing zero words
+        result->nwords = lastnonzero + 1;
+    }
+
+    return result;
+}
+```

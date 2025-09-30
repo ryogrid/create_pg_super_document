@@ -39,3 +39,24 @@ These checks ensure that extracting and duplicating the clause for early evaluat
 - The relids comparison ensures the clause doesn't reference relations outside the target relation's scope
 - Volatile function detection prevents issues with functions that might return different values on repeated calls
 - Used as a building block for more complex OR clause extraction logic
+
+## Simplified Source
+
+```c
+static bool is_safe_restriction_clause_for(RestrictInfo *rinfo, RelOptInfo *rel)
+{
+    // Reject pseudoconstant clauses - they don't provide real restrictions
+    if (rinfo->pseudoconstant)
+        return false;
+
+    // Clause must reference exactly the same relations as the target rel
+    if (!bms_equal(rinfo->clause_relids, rel->relids))
+        return false;
+
+    // Avoid extra evaluations of volatile functions
+    if (contain_volatile_functions((Node *) rinfo->clause))
+        return false;
+
+    return true;
+}
+```

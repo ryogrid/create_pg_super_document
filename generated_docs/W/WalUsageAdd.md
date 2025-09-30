@@ -40,3 +40,16 @@ This function focuses specifically on WAL activity that can be meaningfully meas
 - The function is crucial for PostgreSQL's query execution instrumentation, particularly for EXPLAIN output and pg_stat_statements
 - [WalUsage](WalUsage.md) tracking is separate from general WAL statistics and focuses on per-query measurable activity
 - Located in src/backend/executor/instrument.c:278-285
+
+## Simplified Source
+
+```c
+static void
+WalUsageAdd(WalUsage *dst, WalUsage *add)
+{
+    // Accumulate WAL statistics into destination structure
+    dst->wal_bytes += add->wal_bytes;      // Total WAL bytes
+    dst->wal_records += add->wal_records;  // Number of WAL records
+    dst->wal_fpi += add->wal_fpi;          // Number of full page images
+}
+```

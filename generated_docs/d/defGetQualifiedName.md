@@ -44,3 +44,41 @@ This flexibility allows the function to handle various syntax forms that users m
 - Extensively used throughout PostgreSQL's DDL command processing infrastructure
 - The qualified name format supports PostgreSQL's schema.object naming convention
 - Located in src/backend/commands/define.c:252-283
+
+## Simplified Source
+
+```c
+List *
+defGetQualifiedName(DefElem *def)
+{
+    // Ensure the DefElem has an argument
+    if (def->arg == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("%s requires a parameter", def->defname)));
+
+    // Handle different argument node types
+    switch (nodeTag(def->arg))
+    {
+        case T_TypeName:
+            // Extract names list from TypeName node
+            return ((TypeName *) def->arg)->names;
+
+        case T_List:
+            // Return list directly when already in correct format
+            return (List *) def->arg;
+
+        case T_String:
+            // Wrap single string in list for backward compatibility
+            return list_make1(def->arg);
+
+        default:
+            // Report error for unsupported argument types
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("argument of %s must be a name", def->defname)));
+    }
+
+    return NIL;  // keep compiler quiet
+}
+```

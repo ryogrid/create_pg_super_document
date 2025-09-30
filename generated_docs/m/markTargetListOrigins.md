@@ -35,3 +35,19 @@ This function iterates through a target list and marks target entries that corre
 - Origin marking helps clients understand which table and column each result column comes from
 - Essential for tools and applications that need to track data provenance in query results
 - Works in conjunction with markTargetListOrigin which performs the actual metadata assignment for individual entries
+
+## Simplified Source
+
+```c
+void markTargetListOrigins(ParseState *pstate, List *targetlist)
+{
+    ListCell *l;
+
+    // Mark each target entry with its source table and column info
+    foreach(l, targetlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+        markTargetListOrigin(pstate, tle, (Var *) tle->expr, 0);
+    }
+}
+```

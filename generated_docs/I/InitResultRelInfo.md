@@ -50,3 +50,47 @@ InitResultRelInfo performs comprehensive initialization of a ResultRelInfo struc
 - Many fields are initialized to NULL/NIL and set later during execution as needed
 - Handles partition hierarchy relationships through ri_RootResultRelInfo field
 - Essential part of the executor's initialization phase for any data modification operation
+
+## Simplified Source
+
+```c
+void
+InitResultRelInfo(ResultRelInfo *resultRelInfo,
+                  Relation resultRelationDesc,
+                  Index resultRelationIndex,
+                  ResultRelInfo *partition_root_rri,
+                  int instrument_options)
+{
+    // Initialize basic structure fields
+    MemSet(resultRelInfo, 0, sizeof(ResultRelInfo));
+    resultRelInfo->type = T_ResultRelInfo;
+    resultRelInfo->ri_RangeTableIndex = resultRelationIndex;
+    resultRelInfo->ri_RelationDesc = resultRelationDesc;
+
+    // Set up index and lock information
+    resultRelInfo->ri_NumIndices = 0;
+    resultRelInfo->ri_needLockTagTuple = IsInplaceUpdateRelation(resultRelationDesc);
+
+    // Copy trigger descriptor to avoid relcache dependencies
+    resultRelInfo->ri_TrigDesc = CopyTriggerDesc(resultRelationDesc->trigdesc);
+
+    if (resultRelInfo->ri_TrigDesc) {
+        int n = resultRelInfo->ri_TrigDesc->numtriggers;
+
+        // Allocate trigger function and expression arrays
+        resultRelInfo->ri_TrigFunctions = palloc0(n * sizeof(FmgrInfo));
+        resultRelInfo->ri_TrigWhenExprs = palloc0(n * sizeof(ExprState *));
+
+        if (instrument_options)
+            resultRelInfo->ri_TrigInstrument = InstrAlloc(n, instrument_options, false);
+    }
+
+    // Set up FDW routine for foreign tables
+    if (resultRelationDesc->rd_rel->relkind == RELKIND_FOREIGN_TABLE)
+        resultRelInfo->ri_FdwRoutine = GetFdwRoutineForRelation(resultRelationDesc, true);
+
+    // Initialize remaining fields to NULL/NIL (will be set later as needed)
+    resultRelInfo->ri_RootResultRelInfo = partition_root_rri;
+    // ... other fields initialized to defaults
+}
+```

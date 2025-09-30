@@ -35,3 +35,21 @@ The function performs basic validation to ensure it's operating on a valid base 
 - The fixed estimate approach reflects the difficulty in accurately predicting table function cardinality
 - Part of PostgreSQL's cost-based optimizer for handling special relation types
 - Uses assertions to verify proper relation type before processing
+
+## Simplified Source
+
+```c
+void
+set_tablefunc_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+{
+    // Verify this is a base relation representing a table function
+    Assert(rel->relid > 0);
+    Assert(planner_rt_fetch(rel->relid, root)->rtekind == RTE_TABLEFUNC);
+
+    // Use fixed estimate of 100 rows for table functions
+    rel->tuples = 100;
+
+    // Complete the size estimation using standard base relation logic
+    set_baserel_size_estimates(root, rel);
+}
+```

@@ -46,3 +46,60 @@ For all other node types, it delegates to expression_tree_mutator() to continue 
 
 ## Notes and Other Information
 This function is a critical component of PostgreSQL's nested loop join implementation. It ensures proper parameterization of outer relation references, which is essential for efficient nested loop execution. The function handles PlaceHolderVars specially, creating copies when the entire PHV cannot be replaced but its internal expressions need processing. The recursive nature allows it to handle complex nested expression structures while maintaining the correct parameter relationships. Located in src/backend/optimizer/plan/createplan.c at lines 4943-5022.
+
+## Simplified Source
+
+```c
+static Node *
+replace_nestloop_params_mutator(Node *node, PlannerInfo *root)
+{
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+
+        // Upper-level Vars should be resolved by now
+        Assert(var->varlevelsup == 0);
+
+        // Skip special varnos and vars not in outer relations
+        if (IS_SPECIAL_VARNO(var->varno) ||
+            !bms_is_member(var->varno, root->curOuterRels))
+            return node;
+
+        // Replace with nestloop parameter
+        return (Node *) replace_nestloop_param_var(root, var);
+    }
+
+    if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Upper-level PHVs should be resolved by now
+        Assert(phv->phlevelsup == 0);
+
+        // Check if PHV needs replacement based on evaluation context
+        if (!bms_is_subset(find_placeholder_info(root, phv)->ph_eval_at,
+                          root->curOuterRels))
+        {
+            // Can't replace whole PHV, but process its expression
+            // Create a flat copy and recurse on the expression
+            PlaceHolderVar *newphv = makeNode(PlaceHolderVar);
+
+            memcpy(newphv, phv, sizeof(PlaceHolderVar));
+            newphv->phexpr = (Expr *)
+                replace_nestloop_params_mutator((Node *) phv->phexpr, root);
+            return (Node *) newphv;
+        }
+
+        // Replace the entire PHV with a nestloop parameter
+        return (Node *) replace_nestloop_param_placeholdervar(root, phv);
+    }
+
+    // For all other node types, continue recursive traversal
+    return expression_tree_mutator(node,
+                                  replace_nestloop_params_mutator,
+                                  (void *) root);
+}
+```

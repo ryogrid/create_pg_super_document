@@ -45,3 +45,76 @@ The function uses join clauses, equivalence classes, and join order restrictions
 - Special handling exists for sub-joinlist scenarios where all relations have only external join clauses
 - Includes sanity checking to detect cases where no legal joins can be formed when no special joins or lateral references exist
 - The algorithm avoids duplicate work by leveraging symmetry in join operations and careful iteration bounds
+
+## Simplified Source
+
+```c
+void join_search_one_level(PlannerInfo *root, int level) {
+    List **joinrels = root->join_rel_level;
+    ListCell *r;
+    int k;
+
+    // Set current level for new join relations
+    root->join_cur_level = level;
+
+    // Phase 1: Left-sided and right-sided plans
+    // Join (level-1) relations against initial relations
+    foreach(r, joinrels[level - 1]) {
+        RelOptInfo *old_rel = (RelOptInfo *) lfirst(r);
+
+        if (old_rel->joininfo != NIL || old_rel->has_eclass_joins ||
+            has_join_restriction(root, old_rel)) {
+            // Has join clauses - make selective joins
+            int first_rel = (level == 2) ? foreach_current_index(r) + 1 : 0;
+            make_rels_by_clause_joins(root, old_rel, joinrels[1], first_rel);
+        } else {
+            // No join clauses - make Cartesian products
+            make_rels_by_clauseless_joins(root, old_rel, joinrels[1]);
+        }
+    }
+
+    // Phase 2: Bushy plans
+    // Join k-way relations with (level-k)-way relations
+    for (k = 2; k <= level/2; k++) {
+        int other_level = level - k;
+
+        foreach(r, joinrels[k]) {
+            RelOptInfo *old_rel = (RelOptInfo *) lfirst(r);
+
+            // Skip relations without join clauses or restrictions
+            if (old_rel->joininfo == NIL && !old_rel->has_eclass_joins &&
+                !has_join_restriction(root, old_rel))
+                continue;
+
+            int first_rel = (k == other_level) ? foreach_current_index(r) + 1 : 0;
+
+            // Try joining with relations at other_level
+            ListCell *r2;
+            for_each_from(r2, joinrels[other_level], first_rel) {
+                RelOptInfo *new_rel = (RelOptInfo *) lfirst(r2);
+
+                // Check relations don't overlap and have join conditions
+                if (!bms_overlap(old_rel->relids, new_rel->relids) &&
+                    (have_relevant_joinclause(root, old_rel, new_rel) ||
+                     have_join_order_restriction(root, old_rel, new_rel))) {
+                    make_join_rel(root, old_rel, new_rel);
+                }
+            }
+        }
+    }
+
+    // Phase 3: Last resort - force Cartesian products if no joins found
+    if (joinrels[level] == NIL) {
+        foreach(r, joinrels[level - 1]) {
+            RelOptInfo *old_rel = (RelOptInfo *) lfirst(r);
+            make_rels_by_clauseless_joins(root, old_rel, joinrels[1]);
+        }
+
+        // Sanity check for cases without special joins
+        if (joinrels[level] == NIL &&
+            root->join_info_list == NIL && !root->hasLateralRTEs) {
+            elog(ERROR, "failed to build any %d-way joins", level);
+        }
+    }
+}
+```

@@ -312,3 +312,49 @@ Text creation and manipulation
 - Part of the function pointer-based iteration pattern for handling different expression types
 - The function assumes the second argument of the ScalarArrayOpExpr is a constant array
 - Used internally within the predicate testing module for query optimization
+
+## Simplified Source
+
+```c
+static void
+arrayconst_startup_fn(Node *clause, PredIterInfo info)
+{
+    ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+    ArrayConstIterState *state;
+    Const *arrayconst;
+    ArrayType *arrayval;
+
+    // Allocate iteration state
+    state = (ArrayConstIterState *) palloc(sizeof(ArrayConstIterState));
+    info->state = (void *) state;
+
+    // Extract array constant from expression
+    arrayconst = (Const *) lsecond(saop->args);
+    arrayval = DatumGetArrayTypeP(arrayconst->constvalue);
+
+    // Get array element type information
+    get_typlenbyvalalign(ARR_ELEMTYPE(arrayval),
+                         &elmlen, &elmbyval, &elmalign);
+
+    // Deconstruct array into individual elements
+    deconstruct_array(arrayval, ARR_ELEMTYPE(arrayval),
+                      elmlen, elmbyval, elmalign,
+                      &state->elem_values, &state->elem_nulls,
+                      &state->num_elems);
+
+    // Setup dummy OpExpr for iteration
+    state->opexpr.xpr.type = T_OpExpr;
+    state->opexpr.opno = saop->opno;
+    state->opexpr.opfuncid = saop->opfuncid;
+    state->opexpr.opresulttype = BOOLOID;
+    state->opexpr.args = list_copy(saop->args);
+
+    // Setup dummy Const node for element values
+    state->const_expr.xpr.type = T_Const;
+    state->const_expr.consttype = ARR_ELEMTYPE(arrayval);
+    lsecond(state->opexpr.args) = &state->const_expr;
+
+    // Initialize iteration position
+    state->next_elem = 0;
+}
+```

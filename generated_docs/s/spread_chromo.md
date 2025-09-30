@@ -40,3 +40,68 @@ The algorithm ensures that the pool maintains its sorted order and fixed size, i
 - Critical for maintaining selection pressure in the genetic algorithm
 - The function is declared in 
 - [Pool](../P/Pool.md) assumes fitness values where smaller worth indicates better fitness
+
+## Simplified Source
+
+```c
+void
+spread_chromo(PlannerInfo *root, Chromosome *chromo, Pool *pool)
+{
+    int top, mid, bot;
+    int i, index;
+    Chromosome swap_chromo, tmp_chromo;
+
+    // Reject chromosome if it's worse than the worst in pool
+    if (chromo->worth > pool->data[pool->size - 1].worth)
+        return;
+
+    // Binary search to find insertion position
+    top = 0;
+    mid = pool->size / 2;
+    bot = pool->size - 1;
+    index = -1;
+
+    while (index == -1)
+    {
+        // Find insertion point
+        if (chromo->worth <= pool->data[top].worth)
+            index = top;
+        else if (chromo->worth == pool->data[mid].worth)
+            index = mid;
+        else if (chromo->worth == pool->data[bot].worth)
+            index = bot;
+        else if (bot - top <= 1)
+            index = bot;
+        // Narrow search range
+        else if (chromo->worth < pool->data[mid].worth)
+        {
+            bot = mid;
+            mid = top + ((bot - top) / 2);
+        }
+        else
+        {
+            top = mid;
+            mid = top + ((bot - top) / 2);
+        }
+    }
+
+    // Copy new chromosome to end of pool (replacing worst)
+    geqo_copy(root, &pool->data[pool->size - 1], chromo, pool->string_length);
+
+    // Shift chromosomes to make room at insertion point
+    swap_chromo.string = pool->data[pool->size - 1].string;
+    swap_chromo.worth = pool->data[pool->size - 1].worth;
+
+    for (i = index; i < pool->size; i++)
+    {
+        tmp_chromo.string = pool->data[i].string;
+        tmp_chromo.worth = pool->data[i].worth;
+
+        pool->data[i].string = swap_chromo.string;
+        pool->data[i].worth = swap_chromo.worth;
+
+        swap_chromo.string = tmp_chromo.string;
+        swap_chromo.worth = tmp_chromo.worth;
+    }
+}
+```

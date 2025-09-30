@@ -34,3 +34,54 @@ This function constructs a ProjectSetPath node specifically designed to handle p
 
 ## Notes and Other Information
 The function estimates output cardinality by finding the maximum number of rows returned by any SRF in the target list. Cost calculation uses a heuristic from PostgreSQL 9.6: cpu_tuple_cost per input row plus half cpu_tuple_cost for each additional output row. The pathkeys are preserved from the subpath, though this may need revisiting. Like other projection paths, it assumes no parameterization above joins.
+
+## Simplified Source
+```c
+ProjectSetPath *
+create_set_projection_path(PlannerInfo *root,
+                          RelOptInfo *rel,
+                          Path *subpath,
+                          PathTarget *target)
+{
+    ProjectSetPath *pathnode = makeNode(ProjectSetPath);
+    double tlist_rows;
+    ListCell *lc;
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_ProjectSet;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel &&
+        subpath->parallel_safe &&
+        is_parallel_safe(root, (Node *) target->exprs);
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = subpath->pathkeys;  // Preserve sort order
+
+    pathnode->subpath = subpath;
+
+    // Find maximum rows produced by any SRF in the target list
+    tlist_rows = 1;
+    foreach(lc, target->exprs)
+    {
+        Node *node = (Node *) lfirst(lc);
+        double itemrows;
+
+        itemrows = expression_returns_set_rows(root, node);
+        if (tlist_rows < itemrows)
+            tlist_rows = itemrows;
+    }
+
+    // Calculate costs with SRF overhead
+    pathnode->path.rows = subpath->rows * tlist_rows;
+    pathnode->path.startup_cost = subpath->startup_cost +
+        target->cost.startup;
+    pathnode->path.total_cost = subpath->total_cost +
+        target->cost.startup +
+        (cpu_tuple_cost + target->cost.per_tuple) * subpath->rows +
+        (pathnode->path.rows - subpath->rows) * cpu_tuple_cost / 2;
+
+    return pathnode;
+}
+```

@@ -36,3 +36,22 @@ This specialized configuration helps the query planner generate optimal index sc
 - The function eliminates pathkey types that are irrelevant to MIN/MAX optimization (grouping, windowing, distinct)
 - By making sort_pathkeys the primary query_pathkeys, it signals to the planner that ordered access paths are preferred
 - The callback interface follows the standard query_planner callback pattern with an unused extra parameter
+
+## Simplified Source
+
+```c
+static void minmax_qp_callback(PlannerInfo *root, void *extra) {
+    // Clear pathkeys not needed for MIN/MAX optimization
+    root->group_pathkeys = NIL;
+    root->window_pathkeys = NIL;
+    root->distinct_pathkeys = NIL;
+
+    // Generate sort pathkeys from ORDER BY clause
+    root->sort_pathkeys = make_pathkeys_for_sortclauses(root,
+                                                       root->parse->sortClause,
+                                                       root->parse->targetList);
+
+    // Make sort order the primary query requirement
+    root->query_pathkeys = root->sort_pathkeys;
+}
+```

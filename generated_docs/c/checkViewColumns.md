@@ -46,3 +46,53 @@ The strict enforcement of type, typmod, and collation immutability is critical b
 - The error messages provide helpful hints, such as suggesting ALTER VIEW ... RENAME COLUMN for name changes
 - Type and collation changes are prohibited because they could break dependent views and rules that reference the view
 - The XXX comment indicates that the "cannot drop columns" message may not be entirely accurate, but DROP COLUMN is not supported on views anyway
+
+## Simplified Source
+
+```c
+static void
+checkViewColumns(TupleDesc newdesc, TupleDesc olddesc)
+{
+    // Check that new view has at least as many columns as old
+    if (newdesc->natts < olddesc->natts)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                       errmsg("cannot drop columns from view")));
+
+    // Validate each existing column for compatibility
+    for (int i = 0; i < olddesc->natts; i++) {
+        Form_pg_attribute newattr = TupleDescAttr(newdesc, i);
+        Form_pg_attribute oldattr = TupleDescAttr(olddesc, i);
+
+        // Check dropped status consistency
+        if (newattr->attisdropped != oldattr->attisdropped)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot drop columns from view")));
+
+        // Check column name compatibility
+        if (strcmp(NameStr(newattr->attname), NameStr(oldattr->attname)) != 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot change name of view column \"%s\" to \"%s\"",
+                                 NameStr(oldattr->attname), NameStr(newattr->attname)),
+                           errhint("Use ALTER VIEW ... RENAME COLUMN ... to change name of view column instead.")));
+
+        // Check data type and type modifier compatibility
+        if (newattr->atttypid != oldattr->atttypid || newattr->atttypmod != oldattr->atttypmod)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot change data type of view column \"%s\" from %s to %s",
+                                 NameStr(oldattr->attname),
+                                 format_type_with_typemod(oldattr->atttypid, oldattr->atttypmod),
+                                 format_type_with_typemod(newattr->atttypid, newattr->atttypmod))));
+
+        // Check collation compatibility
+        if (newattr->attcollation != oldattr->attcollation)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot change collation of view column \"%s\" from \"%s\" to \"%s\"",
+                                 NameStr(oldattr->attname),
+                                 get_collation_name(oldattr->attcollation),
+                                 get_collation_name(newattr->attcollation))));
+    }
+
+    // Note: Constraint fields are ignored - new views can't have constraints
+    // and existing defaults are preserved
+}
+```

@@ -50,3 +50,112 @@ The function intentionally does not pass created paths to add_path() since these
 - Created paths are not added to the general path list as they serve specific purposes
 - Critical for ensuring consistent parameterization across child paths in append relations
 - Supports parallel path processing by maintaining separation between regular and partial paths in append scenarios
+
+## Simplified Source
+
+```c
+Path *reparameterize_path(PlannerInfo *root, Path *path,
+                         Relids required_outer, double loop_count) {
+    RelOptInfo *rel = path->parent;
+
+    // Can only increase parameterization
+    if (!bms_is_subset(PATH_REQ_OUTER(path), required_outer))
+        return NULL;
+
+    switch (path->pathtype) {
+        case T_SeqScan:
+            return create_seqscan_path(root, rel, required_outer, 0);
+
+        case T_SampleScan:
+            return (Path *) create_samplescan_path(root, rel, required_outer);
+
+        case T_IndexScan:
+        case T_IndexOnlyScan:
+            {
+                IndexPath *ipath = (IndexPath *) path;
+                IndexPath *newpath = makeNode(IndexPath);
+
+                // Copy existing path and update parameterization
+                memcpy(newpath, ipath, sizeof(IndexPath));
+                newpath->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+                cost_index(newpath, root, loop_count, false);
+                return (Path *) newpath;
+            }
+
+        case T_BitmapHeapScan:
+            {
+                BitmapHeapPath *bpath = (BitmapHeapPath *) path;
+                return (Path *) create_bitmap_heap_path(root, rel, bpath->bitmapqual,
+                                                       required_outer, loop_count, 0);
+            }
+
+        case T_SubqueryScan:
+            {
+                SubqueryScanPath *spath = (SubqueryScanPath *) path;
+                bool trivial_pathtarget = (spath->subpath->total_cost == spath->path.total_cost);
+                return (Path *) create_subqueryscan_path(root, rel, spath->subpath,
+                                                        trivial_pathtarget, spath->path.pathkeys,
+                                                        required_outer);
+            }
+
+        case T_Result:
+            if (IsA(path, Path))
+                return create_resultscan_path(root, rel, required_outer);
+            break;
+
+        case T_Append:
+            {
+                AppendPath *apath = (AppendPath *) path;
+                List *childpaths = NIL;
+                List *partialpaths = NIL;
+                int i = 0;
+                ListCell *lc;
+
+                // Reparameterize all child paths
+                foreach(lc, apath->subpaths) {
+                    Path *spath = reparameterize_path(root, (Path *) lfirst(lc),
+                                                     required_outer, loop_count);
+                    if (spath == NULL)
+                        return NULL;
+
+                    // Split regular and partial paths
+                    if (i < apath->first_partial_path)
+                        childpaths = lappend(childpaths, spath);
+                    else
+                        partialpaths = lappend(partialpaths, spath);
+                    i++;
+                }
+
+                return (Path *) create_append_path(root, rel, childpaths, partialpaths,
+                                                  apath->path.pathkeys, required_outer,
+                                                  apath->path.parallel_workers,
+                                                  apath->path.parallel_aware, -1);
+            }
+
+        case T_Material:
+            {
+                MaterialPath *mpath = (MaterialPath *) path;
+                Path *spath = reparameterize_path(root, mpath->subpath, required_outer, loop_count);
+                if (spath == NULL)
+                    return NULL;
+                return (Path *) create_material_path(rel, spath);
+            }
+
+        case T_Memoize:
+            {
+                MemoizePath *mpath = (MemoizePath *) path;
+                Path *spath = reparameterize_path(root, mpath->subpath, required_outer, loop_count);
+                if (spath == NULL)
+                    return NULL;
+                return (Path *) create_memoize_path(root, rel, spath, mpath->param_exprs,
+                                                   mpath->hash_operators, mpath->singlerow,
+                                                   mpath->binary_mode, mpath->calls);
+            }
+
+        default:
+            break;
+    }
+
+    return NULL;
+}
+```

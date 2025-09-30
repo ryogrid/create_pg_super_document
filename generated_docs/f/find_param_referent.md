@@ -63,3 +63,71 @@ The function maintains the invariant that parameters are resolved in their prope
 - Output parameters must be used with push_ancestor_plan() to establish correct evaluation context
 - Error checking ensures SubPlan nodes are never the outermost ancestor (which would be invalid)
 - The ancestor traversal continues until a match is found or all ancestors are exhausted
+
+## Simplified Source
+
+```c
+static Node *find_param_referent(Param *param, deparse_context *context,
+                               deparse_namespace **dpns_p, ListCell **ancestor_cell_p) {
+    // Initialize output parameters
+    *dpns_p = NULL;
+    *ancestor_cell_p = NULL;
+
+    // Only handle PARAM_EXEC parameters
+    if (param->paramkind != PARAM_EXEC) {
+        return NULL;
+    }
+
+    deparse_namespace *dpns = (deparse_namespace *) linitial(context->namespaces);
+    Plan *child_plan = dpns->plan;
+
+    // Search through ancestor plans for parameter definition
+    foreach(lc, dpns->ancestors) {
+        Node *ancestor = (Node *) lfirst(lc);
+
+        // Check NestLoop parameters (only passed to inner child)
+        if (IsA(ancestor, NestLoop) && child_plan == innerPlan(ancestor)) {
+            NestLoop *nl = (NestLoop *) ancestor;
+
+            foreach(lc2, nl->nestParams) {
+                NestLoopParam *nlp = (NestLoopParam *) lfirst(lc2);
+                if (nlp->paramno == param->paramid) {
+                    // Found matching parameter
+                    *dpns_p = dpns;
+                    *ancestor_cell_p = lc;
+                    return (Node *) nlp->paramval;
+                }
+            }
+        }
+
+        // Check SubPlan parameters
+        if (IsA(ancestor, SubPlan)) {
+            SubPlan *subplan = (SubPlan *) ancestor;
+
+            forboth(lc3, subplan->parParam, lc4, subplan->args) {
+                int paramid = lfirst_int(lc3);
+                Node *arg = (Node *) lfirst(lc4);
+
+                if (paramid == param->paramid) {
+                    // Find next non-SubPlan ancestor for proper variable context
+                    for_each_cell(rest, dpns->ancestors, lnext(dpns->ancestors, lc)) {
+                        Node *ancestor2 = (Node *) lfirst(rest);
+                        if (!IsA(ancestor2, SubPlan)) {
+                            *dpns_p = dpns;
+                            *ancestor_cell_p = rest;
+                            return arg;
+                        }
+                    }
+                    elog(ERROR, "SubPlan cannot be outermost ancestor");
+                }
+            }
+            continue; // SubPlan isn't a Plan, skip to next ancestor
+        }
+
+        // Move up to next ancestor
+        child_plan = (Plan *) ancestor;
+    }
+
+    return NULL; // No referent found
+}
+```

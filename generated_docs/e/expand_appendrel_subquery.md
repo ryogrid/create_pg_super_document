@@ -39,3 +39,34 @@ The function iterates through all append relations in the planner's append_rel_l
 - Part of PostgreSQL's subquery flattening and UNION ALL optimization system  
 - The rte->inh flag indicates this is an inheritable relation (flattened UNION ALL)
 - Located in src/backend/optimizer/util/inherit.c at lines 799-841
+
+## Simplified Source
+
+```c
+static void expand_appendrel_subquery(PlannerInfo *root, RelOptInfo *rel,
+                                      RangeTblEntry *rte, Index rti) {
+    ListCell *l;
+
+    // Process all append relations for this parent
+    foreach(l, root->append_rel_list) {
+        AppendRelInfo *appinfo = (AppendRelInfo *) lfirst(l);
+        Index childRTindex = appinfo->child_relid;
+        RangeTblEntry *childrte;
+        RelOptInfo *childrel;
+
+        // Skip append rels for other parents
+        if (appinfo->parent_relid != rti)
+            continue;
+
+        // Get the child RTE
+        childrte = root->simple_rte_array[childRTindex];
+
+        // Build RelOptInfo for the child subquery
+        childrel = build_simple_rel(root, childRTindex, rel);
+
+        // Recursively handle inherited children
+        if (childrte->inh)
+            expand_inherited_rtentry(root, childrel, childrte, childRTindex);
+    }
+}
+```

@@ -40,3 +40,15 @@ This method is typically used when concurrent access is not required or when the
 - Blocks all access to the materialized view during the refresh operation
 - Security context switching is handled by the finish_heap_swap function
 - Uses current transaction's RecentXmin and next MultiXactId for proper transaction visibility
+
+## Simplified Source
+
+```c
+static void
+refresh_by_heap_swap(Oid matviewOid, Oid OIDNewHeap, char relpersistence)
+{
+    // Swap heap files between materialized view and new data, rebuild indexes
+    finish_heap_swap(matviewOid, OIDNewHeap, false, false, true, true,
+                     RecentXmin, ReadNextMultiXactId(), relpersistence);
+}
+```

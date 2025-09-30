@@ -41,3 +41,15 @@ This approach ensures that shared DomainConstraintCache objects are properly cle
 - Deleting the memory context automatically frees all memory allocated within it, including the DomainConstraintCache structure itself and all associated constraint data
 - Critical for preventing memory leaks in long-running PostgreSQL sessions
 - Works in conjunction with reference counting to enable safe sharing of constraint cache data across multiple type cache entries
+
+## Simplified Source
+
+```c
+static void decr_dcc_refcount(DomainConstraintCache *dcc) {
+    Assert(dcc->dccRefCount > 0);
+
+    // Free cache if no more references
+    if (--(dcc->dccRefCount) <= 0)
+        MemoryContextDelete(dcc->dccContext);
+}
+```

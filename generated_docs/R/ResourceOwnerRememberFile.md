@@ -31,3 +31,14 @@ The function is part of PostgreSQL's resource management system that tracks vari
 - The function works in conjunction with ResourceOwnerForgetFile to manage file descriptor lifecycles
 - The file_resowner_desc structure defines how files should be released (after locks, with specific priority)
 - Part of PostgreSQL's defensive programming approach to prevent resource leaks
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberFile(ResourceOwner owner, File file)
+{
+    // Register file with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, Int32GetDatum(file), &file_resowner_desc);
+}
+```

@@ -40,3 +40,76 @@ Note that this function modifies schema-name fields within the passed-in structu
 - The ordering strategy places sequences first, followed by tables, views, indexes, triggers, and finally grants
 - TODO items mentioned in code include dealing with constraints and references between views
 - Returns NIL if the input schema elements list is empty
+
+## Simplified Source
+
+```c
+List *
+transformCreateSchemaStmtElements(List *schemaElts, const char *schemaName)
+{
+    CreateSchemaStmtContext cxt;
+    List *result;
+    ListCell *elements;
+
+    // Initialize context with schema name and empty lists
+    cxt.schemaname = schemaName;
+    cxt.sequences = NIL;
+    cxt.tables = NIL;
+    cxt.views = NIL;
+    cxt.indexes = NIL;
+    cxt.triggers = NIL;
+    cxt.grants = NIL;
+
+    // Categorize each schema element by type
+    foreach(elements, schemaElts)
+    {
+        Node *element = lfirst(elements);
+
+        switch (nodeTag(element))
+        {
+            case T_CreateSeqStmt:
+                setSchemaName(cxt.schemaname, &((CreateSeqStmt *) element)->sequence->schemaname);
+                cxt.sequences = lappend(cxt.sequences, element);
+                break;
+
+            case T_CreateStmt:
+                setSchemaName(cxt.schemaname, &((CreateStmt *) element)->relation->schemaname);
+                cxt.tables = lappend(cxt.tables, element);
+                break;
+
+            case T_ViewStmt:
+                setSchemaName(cxt.schemaname, &((ViewStmt *) element)->view->schemaname);
+                cxt.views = lappend(cxt.views, element);
+                break;
+
+            case T_IndexStmt:
+                setSchemaName(cxt.schemaname, &((IndexStmt *) element)->relation->schemaname);
+                cxt.indexes = lappend(cxt.indexes, element);
+                break;
+
+            case T_CreateTrigStmt:
+                setSchemaName(cxt.schemaname, &((CreateTrigStmt *) element)->relation->schemaname);
+                cxt.triggers = lappend(cxt.triggers, element);
+                break;
+
+            case T_GrantStmt:
+                cxt.grants = lappend(cxt.grants, element);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized node type: %d", (int) nodeTag(element));
+        }
+    }
+
+    // Concatenate in dependency order: sequences, tables, views, indexes, triggers, grants
+    result = NIL;
+    result = list_concat(result, cxt.sequences);
+    result = list_concat(result, cxt.tables);
+    result = list_concat(result, cxt.views);
+    result = list_concat(result, cxt.indexes);
+    result = list_concat(result, cxt.triggers);
+    result = list_concat(result, cxt.grants);
+
+    return result;
+}
+```

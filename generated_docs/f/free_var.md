@@ -36,3 +36,17 @@ The  function is a memory management utility in PostgreSQL's numeric data type i
 
 ## Notes and Other Information
 This function is used extensively throughout the numeric module for cleanup operations. It ensures that after freeing a variable, it cannot be accidentally used again by setting its sign to NUMERIC_NAN. The function is static and only accessible within the numeric.c file, indicating it's an internal implementation detail of the numeric type system.
+
+## Simplified Source
+
+```c
+static void
+free_var(NumericVar *var)
+{
+    // Free the digit buffer and reset variable to invalid state
+    digitbuf_free(var->buf);
+    var->buf = NULL;
+    var->digits = NULL;
+    var->sign = NUMERIC_NAN;  // Mark as invalid to catch use-after-free
+}
+```

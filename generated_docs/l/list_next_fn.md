@@ -44,3 +44,23 @@ This function implements the "next" operation for iterating over regular Postgre
 - The function is stateful - each call modifies the iterator position stored in info->state
 - This is a static function used internally within the predicate testing module
 - Part of the function pointer-based iteration pattern that allows uniform handling of different node types
+
+## Simplified Source
+
+```c
+static Node *
+list_next_fn(PredIterInfo info)
+{
+    ListCell *current = (ListCell *) info->state;
+
+    // Return NULL if at end of list
+    if (current == NULL)
+        return NULL;
+
+    // Get current node and advance to next position
+    Node *node = lfirst(current);
+    info->state = (void *) lnext(info->state_list, current);
+
+    return node;
+}
+```

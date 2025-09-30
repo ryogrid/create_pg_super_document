@@ -35,3 +35,56 @@ This function searches for a conversion by name, which can be either a simple na
 - Returns InvalidOid if conversion not found and missing_ok is true
 - Raises ERRCODE_UNDEFINED_OBJECT error if conversion not found and missing_ok is false
 - The function searches both explicitly qualified names and through the namespace search path
+
+## Simplified Source
+
+```c
+Oid
+get_conversion_oid(List *conname, bool missing_ok)
+{
+    char *schemaname;
+    char *conversion_name;
+    Oid namespaceId;
+    Oid conoid = InvalidOid;
+    ListCell *l;
+
+    // Split qualified name into schema and conversion name
+    DeconstructQualifiedName(conname, &schemaname, &conversion_name);
+
+    if (schemaname) {
+        // Search in specified schema only
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            conoid = InvalidOid;
+        else
+            conoid = GetSysCacheOid2(CONNAMENSP, Anum_pg_conversion_oid,
+                                     PointerGetDatum(conversion_name),
+                                     ObjectIdGetDatum(namespaceId));
+    } else {
+        // Search through namespace search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath) {
+            namespaceId = lfirst_oid(l);
+
+            if (namespaceId == myTempNamespace)
+                continue;  // Skip temp namespace
+
+            conoid = GetSysCacheOid2(CONNAMENSP, Anum_pg_conversion_oid,
+                                     PointerGetDatum(conversion_name),
+                                     ObjectIdGetDatum(namespaceId));
+            if (OidIsValid(conoid))
+                return conoid;
+        }
+    }
+
+    // Handle not found case
+    if (!OidIsValid(conoid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("conversion \"%s\" does not exist",
+                        NameListToString(conname))));
+
+    return conoid;
+}
+```

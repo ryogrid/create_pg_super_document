@@ -47,3 +47,27 @@ Like `lcons`, this function has O(n) time complexity proportional to the length 
 - Part of PostgreSQL's type-safe list API that prevents mixing different data types in lists
 - Commonly used in query explanation and execution contexts where integer lists are needed
 - Follows the same destructive modification pattern as `lcons` introduced in PostgreSQL 8.0
+
+## Simplified Source
+
+```c
+List *lcons_int(int datum, List *list)
+{
+    // Ensure the list contains only integers
+    Assert(IsIntegerList(list));
+
+    // Create new list if starting from empty, otherwise expand existing list
+    if (list == NIL)
+        list = new_list(T_IntList, 1);
+    else
+        new_head_cell(list);
+
+    // Set the new head element to the provided integer value
+    linitial_int(list) = datum;
+
+    // Verify list structure integrity (debug builds only)
+    check_list_invariants(list);
+
+    return list;
+}
+```

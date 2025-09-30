@@ -58,3 +58,49 @@ Key operational steps:
 - Buffer management is optimized to reuse the attribute_buf across multiple field reads within the same row
 - Error messages distinguish between protocol-level issues (unexpected EOF, invalid length) and type-level issues (incorrect binary representation)
 - The function integrates with PostgreSQL's function manager system for efficient type conversion dispatch
+
+## Simplified Source
+
+```c
+static Datum
+CopyReadBinaryAttribute(CopyFromState cstate, FmgrInfo *flinfo,
+                        Oid typioparam, int32 typmod, bool *isnull)
+{
+    int32 fld_size;
+    Datum result;
+
+    // Read 4-byte field length prefix
+    if (!CopyGetInt32(cstate, &fld_size))
+        ereport(ERROR, (errmsg("unexpected EOF in COPY data")));
+
+    // Handle NULL value (length = -1)
+    if (fld_size == -1) {
+        *isnull = true;
+        return ReceiveFunctionCall(flinfo, NULL, typioparam, typmod);
+    }
+
+    // Validate field length
+    if (fld_size < 0)
+        ereport(ERROR, (errmsg("invalid field size")));
+
+    // Prepare buffer and read binary data
+    resetStringInfo(&cstate->attribute_buf);
+    enlargeStringInfo(&cstate->attribute_buf, fld_size);
+
+    if (CopyReadBinaryData(cstate, cstate->attribute_buf.data, fld_size) != fld_size)
+        ereport(ERROR, (errmsg("unexpected EOF in COPY data")));
+
+    cstate->attribute_buf.len = fld_size;
+    cstate->attribute_buf.data[fld_size] = '\0';
+
+    // Convert binary data using type's receive function
+    result = ReceiveFunctionCall(flinfo, &cstate->attribute_buf, typioparam, typmod);
+
+    // Verify complete data consumption
+    if (cstate->attribute_buf.cursor != cstate->attribute_buf.len)
+        ereport(ERROR, (errmsg("incorrect binary data format")));
+
+    *isnull = false;
+    return result;
+}
+```

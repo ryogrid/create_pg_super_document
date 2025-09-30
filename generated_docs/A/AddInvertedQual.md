@@ -37,3 +37,23 @@ The function creates a BooleanTest node wrapping the input qualification and del
 - The input qualification is not copied since AddQual will handle necessary copying
 - The location field is set to -1, indicating no specific source location for the generated BooleanTest node
 - This function is part of PostgreSQL's rule system and query rewriting infrastructure
+
+## Simplified Source
+
+```c
+void AddInvertedQual(Query *parsetree, Node *qual) {
+    // Return early if no qualification to invert
+    if (qual == NULL)
+        return;
+
+    // Create boolean test node for "IS NOT TRUE" semantics
+    // This handles NULLs correctly unlike simple NOT operation
+    BooleanTest *invqual = makeNode(BooleanTest);
+    invqual->arg = (Expr *) qual;
+    invqual->booltesttype = IS_NOT_TRUE;
+    invqual->location = -1;
+
+    // Add the inverted qualification to query's WHERE clause
+    AddQual(parsetree, (Node *) invqual);
+}
+```

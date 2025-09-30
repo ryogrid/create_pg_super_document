@@ -46,3 +46,31 @@ The function performs a critical validation check for foreign tables with transi
 - The function only saves trigger events when there are actual AFTER ROW INSERT triggers defined or when transition capture is needed
 - AFTER triggers are executed later during statement/transaction completion rather than immediately
 - The recheckIndexes parameter is passed through to support index constraint validation that may be required after trigger execution
+
+## Simplified Source
+
+```c
+void
+ExecARInsertTriggers(EState *estate, ResultRelInfo *relinfo,
+                    TupleTableSlot *slot, List *recheckIndexes,
+                    TransitionCaptureState *transition_capture)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // Error if foreign table tries to use transition capture
+    if (relinfo->ri_FdwRoutine && transition_capture &&
+        transition_capture->tcs_insert_new_table)
+    {
+        ereport(ERROR, "cannot collect transition tuples from child foreign tables");
+    }
+
+    // Queue trigger event if there are triggers or transition capture needed
+    if ((trigdesc && trigdesc->trig_insert_after_row) ||
+        (transition_capture && transition_capture->tcs_insert_new_table))
+    {
+        AfterTriggerSaveEvent(estate, relinfo, NULL, NULL,
+                            TRIGGER_EVENT_INSERT, true, NULL, slot,
+                            recheckIndexes, NULL, transition_capture, false);
+    }
+}
+```

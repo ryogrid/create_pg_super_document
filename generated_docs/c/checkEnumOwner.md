@@ -42,3 +42,23 @@ The function operates on a heap tuple containing type information from the pg_ty
 - Throws ERRCODE_WRONG_OBJECT_TYPE if the type is not an enum
 - Throws access control errors if the user lacks ownership privileges
 - Essential security check preventing unauthorized enum modifications
+
+## Simplified Source
+
+```c
+static void
+checkEnumOwner(HeapTuple tup)
+{
+    Form_pg_type typTup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Verify this is actually an enum type
+    if (typTup->typtype != TYPTYPE_ENUM)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("%s is not an enum", format_type_be(typTup->oid))));
+
+    // Check that current user owns this enum type
+    if (!object_ownercheck(TypeRelationId, typTup->oid, GetUserId()))
+        aclcheck_error_type(ACLCHECK_NOT_OWNER, typTup->oid);
+}
+```

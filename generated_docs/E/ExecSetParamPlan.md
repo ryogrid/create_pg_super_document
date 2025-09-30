@@ -56,3 +56,131 @@ The function includes comprehensive error checking for unsupported sublink types
 - The function assumes non-correlated subplans (parParam should be NIL)
 - Handles NULL results appropriately for different sublink types (false for EXISTS, NULL for others)
 - Memory context switching ensures results persist after the function returns while using caller's context for temporary operations
+
+## Simplified Source
+
+```c
+void ExecSetParamPlan(SubPlanState *node, ExprContext *econtext) {
+    SubPlan *subplan = node->subplan;
+    PlanState *planstate = node->planstate;
+    SubLinkType subLinkType = subplan->subLinkType;
+    EState *estate = planstate->state;
+    ScanDirection dir = estate->es_direction;
+    MemoryContext oldcontext;
+    TupleTableSlot *slot;
+    bool found = false;
+    ArrayBuildStateAny *astate = NULL;
+
+    // Error checking for unsupported sublink types
+    if (subLinkType == ANY_SUBLINK || subLinkType == ALL_SUBLINK)
+        elog(ERROR, "ANY/ALL subselect unsupported as initplan");
+    if (subLinkType == CTE_SUBLINK)
+        elog(ERROR, "CTE subplans should not be executed via ExecSetParamPlan");
+    if (subplan->parParam || node->args)
+        elog(ERROR, "correlated subplans should not be executed via ExecSetParamPlan");
+
+    // Enforce forward scan direction
+    estate->es_direction = ForwardScanDirection;
+
+    // Initialize array builder for ARRAY sublinks
+    if (subLinkType == ARRAY_SUBLINK)
+        astate = initArrayResultAny(subplan->firstColType, CurrentMemoryContext, true);
+
+    // Switch to per-query memory context for results
+    oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_query_memory);
+
+    // Execute the subplan and process results
+    for (slot = ExecProcNode(planstate); !TupIsNull(slot); slot = ExecProcNode(planstate)) {
+        TupleDesc tdesc = slot->tts_tupleDescriptor;
+        int i = 1;
+
+        if (subLinkType == EXISTS_SUBLINK) {
+            // For EXISTS, just set parameter to true and exit
+            int paramid = linitial_int(subplan->setParam);
+            ParamExecData *prm = &(econtext->ecxt_param_exec_vals[paramid]);
+
+            prm->execPlan = NULL;
+            prm->value = BoolGetDatum(true);
+            prm->isnull = false;
+            found = true;
+            break;
+        }
+
+        if (subLinkType == ARRAY_SUBLINK) {
+            // Collect all values into array
+            Datum dvalue;
+            bool disnull;
+
+            found = true;
+            Assert(subplan->firstColType == TupleDescAttr(tdesc, 0)->atttypid);
+            dvalue = slot_getattr(slot, 1, &disnull);
+            astate = accumArrayResultAny(astate, dvalue, disnull,
+                                         subplan->firstColType, oldcontext);
+            continue;
+        }
+
+        // Check cardinality for expression sublinks
+        if (found && (subLinkType == EXPR_SUBLINK || subLinkType == MULTIEXPR_SUBLINK ||
+                      subLinkType == ROWCOMPARE_SUBLINK))
+            ereport(ERROR, (errcode(ERRCODE_CARDINALITY_VIOLATION),
+                    errmsg("more than one row returned by a subquery used as an expression")));
+
+        found = true;
+
+        // Copy tuple and set parameters for expression sublinks
+        if (node->curTuple)
+            heap_freetuple(node->curTuple);
+        node->curTuple = ExecCopySlotHeapTuple(slot);
+
+        // Set all output parameters from tuple columns
+        foreach(ListCell, l, subplan->setParam) {
+            int paramid = lfirst_int(l);
+            ParamExecData *prm = &(econtext->ecxt_param_exec_vals[paramid]);
+
+            prm->execPlan = NULL;
+            prm->value = heap_getattr(node->curTuple, i, tdesc, &(prm->isnull));
+            i++;
+        }
+    }
+
+    // Handle final result setting
+    if (subLinkType == ARRAY_SUBLINK) {
+        // Build final array result
+        int paramid = linitial_int(subplan->setParam);
+        ParamExecData *prm = &(econtext->ecxt_param_exec_vals[paramid]);
+
+        if (node->curArray != PointerGetDatum(NULL))
+            pfree(DatumGetPointer(node->curArray));
+        node->curArray = makeArrayResultAny(astate, econtext->ecxt_per_query_memory, true);
+        prm->execPlan = NULL;
+        prm->value = node->curArray;
+        prm->isnull = false;
+    }
+    else if (!found) {
+        // Handle no results case
+        if (subLinkType == EXISTS_SUBLINK) {
+            int paramid = linitial_int(subplan->setParam);
+            ParamExecData *prm = &(econtext->ecxt_param_exec_vals[paramid]);
+
+            prm->execPlan = NULL;
+            prm->value = BoolGetDatum(false);
+            prm->isnull = false;
+        }
+        else {
+            // Set all parameters to NULL
+            foreach(ListCell, l, subplan->setParam) {
+                int paramid = lfirst_int(l);
+                ParamExecData *prm = &(econtext->ecxt_param_exec_vals[paramid]);
+
+                prm->execPlan = NULL;
+                prm->value = (Datum) 0;
+                prm->isnull = true;
+            }
+        }
+    }
+
+    // Restore contexts and scan direction
+    MemoryContextSwitchTo(oldcontext);
+    estate->es_direction = dir;
+}
+```

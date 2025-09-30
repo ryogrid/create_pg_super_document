@@ -36,3 +36,19 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 - Used in conjunction with prepared statements and extended query protocol
 - Output format follows tab-delimited structure for easy parsing by analysis tools
 - Type OIDs correspond to PostgreSQL internal data type identifiers
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_ParameterDescription(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Output message type and parameter count
+    fprintf(f, "ParameterDescription\t");
+    int nfields = pqTraceOutputInt16(f, message, cursor);
+
+    // Output each parameter's type OID
+    for (int i = 0; i < nfields; i++)
+        pqTraceOutputInt32(f, message, cursor, regress);
+}
+```

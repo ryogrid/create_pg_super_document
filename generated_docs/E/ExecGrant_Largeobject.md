@@ -43,3 +43,92 @@ Large objects have their own privilege set (SELECT and UPDATE privileges) define
 - Creates readable names like "large object 12345" for error messages
 - Updates dependencies using LargeObjectRelationId rather than LargeObjectMetadataRelationId
 - Large objects support SELECT (read) and UPDATE (write) privileges
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_Largeobject(InternalGrant *istmt)
+{
+    Relation relation;
+    ListCell *cell;
+
+    // Set default privileges if ALL PRIVILEGES specified
+    if (istmt->all_privs && istmt->privileges == ACL_NO_RIGHTS)
+        istmt->privileges = ACL_ALL_RIGHTS_LARGEOBJECT;
+
+    // Open large object metadata catalog
+    relation = table_open(LargeObjectMetadataRelationId, RowExclusiveLock);
+
+    // Process each large object
+    foreach(cell, istmt->objects)
+    {
+        Oid loid = lfirst_oid(cell);
+        Form_pg_largeobject_metadata form_lo_meta;
+        char loname[NAMEDATALEN];
+        Datum aclDatum;
+        bool isNull;
+        AclMode avail_goptions, this_privileges;
+        Acl *old_acl, *new_acl;
+        Oid grantorId, ownerId;
+        HeapTuple tuple, newtuple;
+        // ... variable declarations for ACL management ...
+
+        // Find large object metadata tuple
+        ScanKeyInit(&entry[0], Anum_pg_largeobject_metadata_oid,
+                    BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(loid));
+        scan = systable_beginscan(relation, LargeObjectMetadataOidIndexId,
+                                  true, NULL, 1, entry);
+        tuple = systable_getnext(scan);
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "could not find tuple for large object %u", loid);
+
+        form_lo_meta = (Form_pg_largeobject_metadata) GETSTRUCT(tuple);
+        ownerId = form_lo_meta->lomowner;
+
+        // Get existing ACL or use default
+        aclDatum = heap_getattr(tuple, Anum_pg_largeobject_metadata_lomacl,
+                                RelationGetDescr(relation), &isNull);
+        if (isNull)
+            old_acl = acldefault(OBJECT_LARGEOBJECT, ownerId);
+        else
+            old_acl = DatumGetAclPCopy(aclDatum);
+
+        // Determine grantor and available grant options
+        select_best_grantor(GetUserId(), istmt->privileges, old_acl, ownerId,
+                            &grantorId, &avail_goptions);
+
+        // Validate and restrict privileges
+        snprintf(loname, sizeof(loname), "large object %u", loid);
+        this_privileges = restrict_and_check_grant(istmt->is_grant, avail_goptions,
+                                                   istmt->all_privs, istmt->privileges,
+                                                   loid, grantorId, OBJECT_LARGEOBJECT,
+                                                   loname, 0, NULL);
+
+        // Generate new ACL
+        new_acl = merge_acl_with_grant(old_acl, istmt->is_grant,
+                                       istmt->grant_option, istmt->behavior,
+                                       istmt->grantees, this_privileges,
+                                       grantorId, ownerId);
+
+        // Update catalog with new ACL
+        replaces[Anum_pg_largeobject_metadata_lomacl - 1] = true;
+        values[Anum_pg_largeobject_metadata_lomacl - 1] = PointerGetDatum(new_acl);
+        newtuple = heap_modify_tuple(tuple, RelationGetDescr(relation),
+                                     values, nulls, replaces);
+        CatalogTupleUpdate(relation, &newtuple->t_self, newtuple);
+
+        // Update dependencies and extension privileges
+        recordExtensionInitPriv(loid, LargeObjectRelationId, 0, new_acl);
+        updateAclDependencies(LargeObjectRelationId, form_lo_meta->oid, 0,
+                              ownerId, noldmembers, oldmembers,
+                              nnewmembers, newmembers);
+
+        systable_endscan(scan);
+        pfree(new_acl);
+        CommandCounterIncrement();
+    }
+
+    table_close(relation, RowExclusiveLock);
+}
+```

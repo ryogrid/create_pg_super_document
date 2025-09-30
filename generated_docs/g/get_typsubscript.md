@@ -35,3 +35,28 @@ This function looks up a type's subscripting handler in the system catalog (pg_t
 - The `typelemp` parameter optimization reduces system catalog lookups for callers who need both pieces of information
 - Part of PostgreSQL's extensible type system that allows custom subscripting operations
 - Located in `src/backend/utils/cache/lsyscache.c:3097-3129`
+
+## Simplified Source
+
+```c
+RegProcedure get_typsubscript(Oid typid, Oid *typelemp) {
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        Form_pg_type typform = (Form_pg_type) GETSTRUCT(tp);
+        RegProcedure handler = typform->typsubscript;
+
+        // Optionally return element type OID
+        if (typelemp)
+            *typelemp = typform->typelem;
+
+        ReleaseSysCache(tp);
+        return handler;
+    } else {
+        // Type not found
+        if (typelemp)
+            *typelemp = InvalidOid;
+        return InvalidOid;
+    }
+}
+```

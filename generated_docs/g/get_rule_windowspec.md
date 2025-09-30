@@ -49,3 +49,103 @@ Frame clause generation supports:
 - Optimizes output by avoiding redundant clauses based on inheritance rules
 - Located at src/backend/utils/adt/ruleutils.c:6538-6646
 - Critical for accurate reconstruction of window function calls in views and rules
+
+## Simplified Source
+
+```c
+static void get_rule_windowspec(WindowClause *wc, List *targetList,
+                                deparse_context *context) {
+    StringInfo buf = context->buf;
+    bool needspace = false;
+
+    appendStringInfoChar(buf, '(');
+
+    // Add reference window name if specified
+    if (wc->refname) {
+        appendStringInfoString(buf, quote_identifier(wc->refname));
+        needspace = true;
+    }
+
+    // PARTITION BY clause (only if no reference, since it's always inherited)
+    if (wc->partitionClause && !wc->refname) {
+        if (needspace) appendStringInfoChar(buf, ' ');
+        appendStringInfoString(buf, "PARTITION BY ");
+
+        const char *sep = "";
+        foreach(l, wc->partitionClause) {
+            SortGroupClause *grp = (SortGroupClause *) lfirst(l);
+            appendStringInfoString(buf, sep);
+            get_rule_sortgroupclause(grp->tleSortGroupRef, targetList, false, context);
+            sep = ", ";
+        }
+        needspace = true;
+    }
+
+    // ORDER BY clause (only if not inherited)
+    if (wc->orderClause && !wc->copiedOrder) {
+        if (needspace) appendStringInfoChar(buf, ' ');
+        appendStringInfoString(buf, "ORDER BY ");
+        get_rule_orderby(wc->orderClause, targetList, false, context);
+        needspace = true;
+    }
+
+    // Frame clause (never inherited, only if non-default)
+    if (wc->frameOptions & FRAMEOPTION_NONDEFAULT) {
+        if (needspace) appendStringInfoChar(buf, ' ');
+
+        // Frame type: RANGE, ROWS, or GROUPS
+        if (wc->frameOptions & FRAMEOPTION_RANGE)
+            appendStringInfoString(buf, "RANGE ");
+        else if (wc->frameOptions & FRAMEOPTION_ROWS)
+            appendStringInfoString(buf, "ROWS ");
+        else if (wc->frameOptions & FRAMEOPTION_GROUPS)
+            appendStringInfoString(buf, "GROUPS ");
+
+        // BETWEEN syntax for explicit boundaries
+        if (wc->frameOptions & FRAMEOPTION_BETWEEN)
+            appendStringInfoString(buf, "BETWEEN ");
+
+        // Start boundary
+        if (wc->frameOptions & FRAMEOPTION_START_UNBOUNDED_PRECEDING)
+            appendStringInfoString(buf, "UNBOUNDED PRECEDING ");
+        else if (wc->frameOptions & FRAMEOPTION_START_CURRENT_ROW)
+            appendStringInfoString(buf, "CURRENT ROW ");
+        else if (wc->frameOptions & FRAMEOPTION_START_OFFSET) {
+            get_rule_expr(wc->startOffset, context, false);
+            if (wc->frameOptions & FRAMEOPTION_START_OFFSET_PRECEDING)
+                appendStringInfoString(buf, " PRECEDING ");
+            else if (wc->frameOptions & FRAMEOPTION_START_OFFSET_FOLLOWING)
+                appendStringInfoString(buf, " FOLLOWING ");
+        }
+
+        // End boundary for BETWEEN syntax
+        if (wc->frameOptions & FRAMEOPTION_BETWEEN) {
+            appendStringInfoString(buf, "AND ");
+            if (wc->frameOptions & FRAMEOPTION_END_UNBOUNDED_FOLLOWING)
+                appendStringInfoString(buf, "UNBOUNDED FOLLOWING ");
+            else if (wc->frameOptions & FRAMEOPTION_END_CURRENT_ROW)
+                appendStringInfoString(buf, "CURRENT ROW ");
+            else if (wc->frameOptions & FRAMEOPTION_END_OFFSET) {
+                get_rule_expr(wc->endOffset, context, false);
+                if (wc->frameOptions & FRAMEOPTION_END_OFFSET_PRECEDING)
+                    appendStringInfoString(buf, " PRECEDING ");
+                else if (wc->frameOptions & FRAMEOPTION_END_OFFSET_FOLLOWING)
+                    appendStringInfoString(buf, " FOLLOWING ");
+            }
+        }
+
+        // EXCLUDE options
+        if (wc->frameOptions & FRAMEOPTION_EXCLUDE_CURRENT_ROW)
+            appendStringInfoString(buf, "EXCLUDE CURRENT ROW ");
+        else if (wc->frameOptions & FRAMEOPTION_EXCLUDE_GROUP)
+            appendStringInfoString(buf, "EXCLUDE GROUP ");
+        else if (wc->frameOptions & FRAMEOPTION_EXCLUDE_TIES)
+            appendStringInfoString(buf, "EXCLUDE TIES ");
+
+        // Remove trailing space
+        buf->len--;
+    }
+
+    appendStringInfoChar(buf, ')');
+}
+```

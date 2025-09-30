@@ -41,3 +41,33 @@ The function is designed to support the planner's optimization decisions, partic
 - Only considers operators registered for the btree access method with BTEqualStrategyNumber strategy
 - Critical for merge join planning and optimization opportunity recognition
 - [List](../L/List.md) ordering may be unspecified when system index usage is disabled, potentially affecting planner optimization
+
+## Simplified Source
+
+```c
+List *
+get_mergejoin_opfamilies(Oid opno)
+{
+    List       *result = NIL;
+    CatCList   *catlist;
+    int         i;
+
+    // Search pg_amop catalog for the operator
+    catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(opno));
+
+    // Check each catalog entry
+    for (i = 0; i < catlist->n_members; i++)
+    {
+        HeapTuple   tuple = &catlist->members[i]->tuple;
+        Form_pg_amop aform = (Form_pg_amop) GETSTRUCT(tuple);
+
+        // Add to result if this is a btree equality operator
+        if (aform->amopmethod == BTREE_AM_OID &&
+            aform->amopstrategy == BTEqualStrategyNumber)
+            result = lappend_oid(result, aform->amopfamily);
+    }
+
+    ReleaseSysCacheList(catlist);
+    return result;
+}
+```

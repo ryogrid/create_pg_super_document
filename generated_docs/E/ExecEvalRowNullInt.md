@@ -52,3 +52,64 @@ Zero-field rows vacuously satisfy both predicates according to this implementati
 - The function caches row type information in op->d.nulltest_row.rowcache for efficiency
 - The implementation follows SQL standard semantics precisely and handles edge cases like zero-field rows
 - Performance is optimized with early termination to avoid unnecessary field checks
+
+## Simplified Source
+
+```c
+static void ExecEvalRowNullInt(ExprState *state, ExprEvalStep *op,
+                               ExprContext *econtext, bool checkisnull) {
+    Datum value = *op->resvalue;
+    bool isnull = *op->resnull;
+    HeapTupleHeader tuple;
+    Oid tupType;
+    int32 tupTypmod;
+    TupleDesc tupDesc;
+    HeapTupleData tmptup;
+
+    *op->resnull = false;
+
+    // Handle NULL row variables as NULL scalar columns
+    if (isnull) {
+        *op->resvalue = BoolGetDatum(checkisnull);
+        return;
+    }
+
+    // Extract tuple information
+    tuple = DatumGetHeapTupleHeader(value);
+    tupType = HeapTupleHeaderGetTypeId(tuple);
+    tupTypmod = HeapTupleHeaderGetTypMod(tuple);
+
+    // Get cached tuple descriptor
+    tupDesc = get_cached_rowtype(tupType, tupTypmod, &op->d.nulltest_row.rowcache, NULL);
+
+    // Prepare HeapTuple for heap_attisnull calls
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(tuple);
+    tmptup.t_data = tuple;
+
+    // Check each attribute for null status
+    for (int att = 1; att <= tupDesc->natts; att++) {
+        // Skip dropped columns
+        if (TupleDescAttr(tupDesc, att - 1)->attisdropped)
+            continue;
+
+        if (heap_attisnull(&tmptup, att, tupDesc)) {
+            // Found null field
+            if (!checkisnull) {
+                // IS NOT NULL test fails when any field is null
+                *op->resvalue = BoolGetDatum(false);
+                return;
+            }
+        } else {
+            // Found non-null field
+            if (checkisnull) {
+                // IS NULL test fails when any field is non-null
+                *op->resvalue = BoolGetDatum(false);
+                return;
+            }
+        }
+    }
+
+    // All fields passed the test
+    *op->resvalue = BoolGetDatum(true);
+}
+```

@@ -35,3 +35,48 @@ The generated string serves as the \"name2\" parameter for ChooseExtendedStatist
 - For expressions without column names, defaults to using \"expr\" as the name component
 - Inserts underscores between column names to create readable concatenated names
 - Returns a palloc\d string via pstrdup that must be freed by caller
+
+## Simplified Source
+
+```c
+static char *
+ChooseExtendedStatisticNameAddition(List *exprs)
+{
+    char buf[NAMEDATALEN * 2];
+    int buflen = 0;
+    ListCell *lc;
+
+    buf[0] = '\0';
+
+    // Concatenate column/expression names with underscores
+    foreach(lc, exprs)
+    {
+        StatsElem *selem = (StatsElem *) lfirst(lc);
+        const char *name;
+
+        // Skip if not a StatsElem
+        if (!IsA(selem, StatsElem))
+            continue;
+
+        name = selem->name;
+
+        // Add separator between names
+        if (buflen > 0)
+            buf[buflen++] = '_';
+
+        // Use "expr" for expressions without column names
+        if (!name)
+            name = "expr";
+
+        // Copy name with length limit protection
+        strlcpy(buf + buflen, name, NAMEDATALEN);
+        buflen += strlen(buf + buflen);
+
+        // Stop if we've reached the name length limit
+        if (buflen >= NAMEDATALEN)
+            break;
+    }
+
+    return pstrdup(buf);
+}
+```

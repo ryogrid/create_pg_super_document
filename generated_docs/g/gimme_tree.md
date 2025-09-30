@@ -48,3 +48,55 @@ The process occurs in two phases: first, relations are joined using only desirab
 - Handles join order restrictions and semantic constraints through the clumping mechanism
 - May fail with LATERAL restrictions if relations are clumped inappropriately without ability to un-clump
 - Critical component bridging genetic algorithm gene representation and actual query plan construction
+
+## Simplified Source
+
+```c
+RelOptInfo *
+gimme_tree(PlannerInfo *root, Gene *tour, int num_gene)
+{
+    GeqoPrivateData *private = (GeqoPrivateData *) root->join_search_private;
+    List *clumps = NIL;
+    int rel_count;
+
+    // Process each relation from the tour, building clumps of joined relations
+    for (rel_count = 0; rel_count < num_gene; rel_count++)
+    {
+        int cur_rel_index;
+        RelOptInfo *cur_rel;
+        Clump *cur_clump;
+
+        // Get next relation from tour
+        cur_rel_index = (int) tour[rel_count];
+        cur_rel = (RelOptInfo *) list_nth(private->initial_rels, cur_rel_index - 1);
+
+        // Create single-relation clump
+        cur_clump = (Clump *) palloc(sizeof(Clump));
+        cur_clump->joinrel = cur_rel;
+        cur_clump->size = 1;
+
+        // Try to merge with existing clumps using heuristics
+        clumps = merge_clump(root, clumps, cur_clump, num_gene, false);
+    }
+
+    // Force-join remaining clumps if multiple still exist
+    if (list_length(clumps) > 1)
+    {
+        List *fclumps = NIL;
+        ListCell *lc;
+
+        foreach(lc, clumps)
+        {
+            Clump *clump = (Clump *) lfirst(lc);
+            fclumps = merge_clump(root, fclumps, clump, num_gene, true);
+        }
+        clumps = fclumps;
+    }
+
+    // Success only if we have exactly one clump (complete join tree)
+    if (list_length(clumps) != 1)
+        return NULL;
+
+    return ((Clump *) linitial(clumps))->joinrel;
+}
+```

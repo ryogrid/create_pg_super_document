@@ -32,3 +32,18 @@ The function validates the input attribute number and uses it as an index into t
 - Input validation ensures the attribute number is negative and within the bounds of the SysAtt array
 - These system attributes are fundamental to PostgreSQL MVCC (Multi-Version Concurrency Control) implementation
 - Located in src/backend/catalog/heap.c:241-246
+
+## Simplified Source
+
+```c
+const FormData_pg_attribute *
+SystemAttributeDefinition(AttrNumber attno)
+{
+    // Validate system attribute number (must be negative and within bounds)
+    if (attno >= 0 || attno < -(int) lengthof(SysAtt))
+        elog(ERROR, "invalid system attribute number %d", attno);
+
+    // Return system attribute definition from static array
+    return SysAtt[-attno - 1];
+}
+```

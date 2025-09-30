@@ -44,3 +44,17 @@ The function is designed to be safe for concurrent access, as multiple backends 
 - Returns a Buffer for the last block in the extended range
 - Safe for concurrent execution by multiple backends
 - The zero-initialization is semantically correct for FSM pages as it indicates no free space is available
+
+## Simplified Source
+
+```c
+static Buffer
+fsm_extend(Relation rel, BlockNumber fsm_nblocks)
+{
+    // Extend FSM fork to at least fsm_nblocks, creating empty pages as needed
+    return ExtendBufferedRelTo(BMR_REL(rel), FSM_FORKNUM, NULL,
+                               EB_CREATE_FORK_IF_NEEDED | EB_CLEAR_SIZE_CACHE,
+                               fsm_nblocks,
+                               RBM_ZERO_ON_ERROR);
+}
+```

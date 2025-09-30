@@ -47,3 +47,27 @@ This function is particularly useful when the caller already has both the databa
 - Performs same invalidation message processing for relcache consistency
 - Primarily used in database creation and management operations
 - Part of the lock manager (lmgr) subsystem located in src/backend/storage/lmgr/lmgr.c:184-211
+
+## Simplified Source
+
+```c
+void
+LockRelationId(LockRelId *relid, LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+    LOCALLOCK *locallock;
+    LockAcquireResult res;
+
+    // Create lock tag for relation
+    SET_LOCKTAG_RELATION(tag, relid->dbId, relid->relId);
+
+    // Acquire the lock
+    res = LockAcquireExtended(&tag, lockmode, false, false, true, &locallock);
+
+    // Process invalidation messages if lock was newly acquired
+    if (res != LOCKACQUIRE_ALREADY_CLEAR) {
+        AcceptInvalidationMessages();
+        MarkLockClear(locallock);
+    }
+}
+```

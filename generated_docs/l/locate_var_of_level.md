@@ -41,3 +41,25 @@ Unlike `contain_vars_of_level()` which only checks for existence, this function 
 - The function comment notes that it might seem logical to merge this with `contain_vars_of_level()`, but this would complicate that function's simpler API
 - Performance is not critical since this is primarily used for error reporting
 - The context structure contains: `var_location` (result field, initialized to -1) and `sublevels_up` (target level)
+
+## Simplified Source
+
+```c
+int locate_var_of_level(Node *node, int levelsup) {
+    locate_var_of_level_context context;
+
+    // Initialize search context
+    context.var_location = -1;        // Default: no Var found
+    context.sublevels_up = levelsup;  // Target query nesting level
+
+    // Walk the expression/query tree to find Vars at specified level
+    // Return value ignored - we only care about location stored in context
+    (void) query_or_expression_tree_walker(node,
+                                          locate_var_of_level_walker,
+                                          (void *) &context,
+                                          0);
+
+    // Return parse location of found Var, or -1 if none found
+    return context.var_location;
+}
+```

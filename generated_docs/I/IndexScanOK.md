@@ -46,3 +46,42 @@ The function uses global flags like criticalRelcachesBuilt and criticalSharedRel
 - The cur_skey parameter is currently unused but preserved for potential future enhancements
 - Prevents infinite recursion that would occur if index scans were used before indexes are properly initialized
 - Part of the careful bootstrap sequence that allows PostgreSQL to start up successfully
+
+## Simplified Source
+
+```c
+static bool IndexScanOK(CatCache *cache, ScanKey cur_skey) {
+    switch (cache->id) {
+        case INDEXRELID:
+            // Force heap scans for pg_index until critical relcaches built
+            // (prevents infinite recursion during index initialization)
+            if (!criticalRelcachesBuilt) {
+                return false;
+            }
+            break;
+
+        case AMOID:
+        case AMNAME:
+            // Always use heap scans for pg_am - table is small,
+            // and required during critical relcache building
+            return false;
+
+        case AUTHNAME:
+        case AUTHOID:
+        case AUTHMEMMEMROLE:
+        case DATABASEOID:
+            // Protect authentication lookups before shared relcaches ready
+            if (!criticalSharedRelcachesBuilt) {
+                return false;
+            }
+            break;
+
+        default:
+            // Other caches can use index scans when available
+            break;
+    }
+
+    // Normal case: index scans are safe to use
+    return true;
+}
+```

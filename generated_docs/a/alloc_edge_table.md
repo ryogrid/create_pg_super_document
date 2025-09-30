@@ -38,3 +38,18 @@ This function allocates memory for an edge table that is used in the ERX crossov
 - Uses PostgreSQL's palloc memory allocation which provides automatic cleanup
 - Part of the ERX crossover implementation in the genetic query optimizer
 - The edge table stores connectivity information between nodes in the genetic algorithm's tour representation
+
+## Simplified Source
+
+```c
+Edge *
+alloc_edge_table(PlannerInfo *root, int num_gene)
+{
+    Edge *edge_table;
+
+    // Allocate one extra location for 1-based indexing (0 unused)
+    edge_table = (Edge *) palloc((num_gene + 1) * sizeof(Edge));
+
+    return edge_table;
+}
+```

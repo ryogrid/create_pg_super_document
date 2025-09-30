@@ -37,3 +37,31 @@ The function performs a rescan operation on the plan state, which recursively re
 - Does not recreate the execution state, only resets existing plan nodes
 - Essential for implementing SQL cursor SCROLL functionality
 - Should not be used with updating queries (INSERT/UPDATE/DELETE) as it's not semantically meaningful
+
+## Simplified Source
+
+```c
+void
+ExecutorRewind(QueryDesc *queryDesc)
+{
+    EState *estate;
+    MemoryContext oldcontext;
+
+    // Validate input parameters
+    Assert(queryDesc != NULL);
+    estate = queryDesc->estate;
+    Assert(estate != NULL);
+
+    // Only makes sense for SELECT operations
+    Assert(queryDesc->operation == CMD_SELECT);
+
+    // Switch to per-query memory context
+    oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+    // Rescan the plan to restart execution
+    ExecReScan(queryDesc->planstate);
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

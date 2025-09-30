@@ -36,3 +36,22 @@ The function accesses parameters through an array index stored in the ExprEvalSt
 - Uses Assert to verify that ExecSetParamPlan properly processes the parameter
 - The unlikely() macro suggests that most parameters are pre-computed
 - Located in src/backend/executor/execExprInterp.c:2510-2531
+
+## Simplified Source
+
+```c
+void ExecEvalParamExec(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    // Get parameter data from the execution context array
+    ParamExecData *param = &(econtext->ecxt_param_exec_vals[op->d.param.paramid]);
+
+    // If parameter not yet evaluated, execute the subplan to compute it
+    if (param->execPlan != NULL) {
+        ExecSetParamPlan(param->execPlan, econtext);
+    }
+
+    // Return the parameter value and null indicator
+    *op->resvalue = param->value;
+    *op->resnull = param->isnull;
+}
+```

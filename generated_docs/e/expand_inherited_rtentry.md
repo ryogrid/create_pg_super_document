@@ -53,3 +53,74 @@ The function also handles row locking (FOR UPDATE/SHARE) by updating PlanRowMark
 - The function handles temporary tables from other backends by silently ignoring them for safety
 - Row locking support includes generating appropriate junk columns (ctid, wholerow, tableoid) when needed
 - The function assumes appropriate locks have already been obtained by the rewriter for parent relations
+
+## Simplified Source
+
+```c
+void expand_inherited_rtentry(PlannerInfo *root, RelOptInfo *rel,
+                             RangeTblEntry *rte, Index rti) {
+    // Handle SUBQUERY RTEs (UNION ALL groups)
+    if (rte->rtekind == RTE_SUBQUERY) {
+        expand_appendrel_subquery(root, rel, rte, rti);
+        return;
+    }
+
+    // Must be a RELATION RTE
+    Relation parent_rel = table_open(rte->relid, NoLock);
+    LOCKMODE lockmode = rte->rellockmode;
+
+    // Handle row locking setup
+    PlanRowMark *rowmark = get_plan_rowmark(root->rowMarks, rti);
+    if (rowmark) {
+        rowmark->isParent = true;
+    }
+
+    // Branch on table type
+    if (parent_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        // Partitioned table: recursively expand partitions
+        RTEPermissionInfo *perminfo = getRTEPermissionInfo(root->parse->rteperminfos, rte);
+        expand_partitioned_rtentry(root, rel, rte, rti, parent_rel,
+                                  perminfo->updatedCols, rowmark, lockmode);
+    } else {
+        // Traditional inheritance: find and expand all child tables
+        List *child_oids = find_all_inheritors(rte->relid, lockmode, NULL);
+        expand_planner_arrays(root, list_length(child_oids));
+
+        // Process each child table
+        foreach(lc, child_oids) {
+            Oid child_oid = lfirst_oid(lc);
+            Relation child_rel = (child_oid != rte->relid) ?
+                               table_open(child_oid, NoLock) : parent_rel;
+
+            // Skip temp tables from other backends
+            if (child_oid != rte->relid && RELATION_IS_OTHER_TEMP(child_rel)) {
+                table_close(child_rel, lockmode);
+                continue;
+            }
+
+            // Create RTE and planner structures for child
+            RangeTblEntry *child_rte;
+            Index child_rtindex;
+            expand_single_inheritance_child(root, rte, rti, parent_rel,
+                                          rowmark, child_rel,
+                                          &child_rte, &child_rtindex);
+
+            // Build RelOptInfo for child
+            build_simple_rel(root, child_rtindex, rel);
+
+            // Clean up
+            if (child_oid != rte->relid)
+                table_close(child_rel, NoLock);
+        }
+    }
+
+    // Add row locking junk columns if needed
+    if (rowmark && rowmark->allMarkTypes != old_mark_types) {
+        // Add ctid, wholerow, tableoid columns as needed
+        // (detailed junk column logic simplified)
+        add_rowmark_junk_columns(root, rowmark);
+    }
+
+    table_close(parent_rel, NoLock);
+}
+```

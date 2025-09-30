@@ -33,3 +33,20 @@ The function operates by examining the trigger descriptor of the relation and ch
 - The function does not execute the triggers immediately but saves them for later execution via the after-trigger mechanism
 - TRUNCATE triggers are statement-level only (no row-level TRUNCATE triggers exist in PostgreSQL)
 - The function is part of PostgreSQL's comprehensive trigger system that ensures data integrity and allows for custom actions during DDL operations
+
+## Simplified Source
+
+```c
+void ExecASTruncateTriggers(EState *estate, ResultRelInfo *relinfo)
+{
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+
+    // If relation has AFTER STATEMENT TRUNCATE triggers, queue them for execution
+    if (trigdesc && trigdesc->trig_truncate_after_statement)
+        AfterTriggerSaveEvent(estate, relinfo,
+                              NULL, NULL,
+                              TRIGGER_EVENT_TRUNCATE,
+                              false, NULL, NULL, NIL, NULL, NULL,
+                              false);
+}
+```

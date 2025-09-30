@@ -60,3 +60,73 @@ The function integrates with PostgreSQL's constraint management system by creati
 - Creates non-deferrable, immediately validated constraints by default
 - Integrates with PostgreSQL's dependency tracking system through CreateConstraintEntry
 - Part of the domain constraint management infrastructure
+
+## Simplified Source
+
+```c
+static char *
+domainAddCheckConstraint(Oid domainOid, Oid domainNamespace, Oid baseTypeOid,
+                        int typMod, Constraint *constr,
+                        const char *domainName, ObjectAddress *constrAddr)
+{
+    Node *constraint_expr;
+    char *constraint_binary;
+    ParseState *pstate;
+    CoerceToDomainValue *domainValue;
+    Oid constraint_oid;
+
+    Assert(constr->contype == CONSTR_CHECK);
+
+    // Generate or validate constraint name
+    if (constr->conname)
+    {
+        if (ConstraintNameIsUsed(CONSTRAINT_DOMAIN, domainOid, constr->conname))
+            ereport(ERROR, "constraint already exists for domain");
+    }
+    else
+    {
+        constr->conname = ChooseConstraintName(domainName, NULL, "check",
+                                              domainNamespace, NIL);
+    }
+
+    // Set up parser state for expression transformation
+    pstate = make_parsestate(NULL);
+
+    // Create VALUE placeholder for the domain constraint
+    domainValue = makeNode(CoerceToDomainValue);
+    domainValue->typeId = baseTypeOid;
+    domainValue->typeMod = typMod;
+    domainValue->collation = get_typcollation(baseTypeOid);
+    domainValue->location = -1;
+
+    // Set up VALUE substitution hook
+    pstate->p_pre_columnref_hook = replace_domain_constraint_value;
+    pstate->p_ref_hook_state = (void *) domainValue;
+
+    // Transform and validate the constraint expression
+    constraint_expr = transformExpr(pstate, constr->raw_expr, EXPR_KIND_DOMAIN_CHECK);
+    constraint_expr = coerce_to_boolean(pstate, constraint_expr, "CHECK");
+    assign_expr_collations(pstate, constraint_expr);
+
+    // Ensure no table references in domain constraints
+    if (pstate->p_rtable != NIL || contain_var_clause(constraint_expr))
+        ereport(ERROR, "cannot use table references in domain check constraint");
+
+    // Convert to string form for storage
+    constraint_binary = nodeToString(constraint_expr);
+
+    // Store constraint in pg_constraint catalog
+    constraint_oid = CreateConstraintEntry(constr->conname, domainNamespace,
+                                          CONSTRAINT_CHECK, false, false,
+                                          !constr->skip_validation, InvalidOid,
+                                          InvalidOid, NULL, 0, 0, domainOid,
+                                          InvalidOid, /* remaining parameters */,
+                                          constraint_expr, constraint_binary,
+                                          true, 0, false, false);
+
+    if (constrAddr)
+        ObjectAddressSet(*constrAddr, ConstraintRelationId, constraint_oid);
+
+    return constraint_binary;
+}
+```

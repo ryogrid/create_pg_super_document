@@ -38,3 +38,16 @@ The function immediately raises an error with a descriptive message indicating t
 - Provides clear error messages for unsupported table types
 - Located in src/backend/executor/execExprInterp.c:2706-2716
 - The comment explains the expected planning behavior for CURRENT OF expressions
+
+## Simplified Source
+
+```c
+void ExecEvalCurrentOfExpr(ExprState *state, ExprEvalStep *op)
+{
+    // This function should never be reached during normal execution
+    // CURRENT OF should be converted to TidScan or handled by FDW during planning
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("WHERE CURRENT OF is not supported for this table type")));
+}
+```

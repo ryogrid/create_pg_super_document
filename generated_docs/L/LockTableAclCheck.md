@@ -48,3 +48,24 @@ This design follows PostgreSQL's principle that users should have appropriate ta
 - The permission model is cumulative: higher-privilege operations (MAINTAIN, UPDATE, DELETE, TRUNCATE) automatically grant permission for any lock mode
 - Lower-privilege operations (SELECT, INSERT) only grant permission for specific, less restrictive lock modes
 - This function is part of PostgreSQL's comprehensive security model, ensuring that lock acquisition is subject to the same access control as the underlying table operations
+
+## Simplified Source
+
+```c
+static AclResult LockTableAclCheck(Oid reloid, LOCKMODE lockmode, Oid userid) {
+    AclMode aclmask;
+
+    // Any of these privileges permit any lock mode
+    aclmask = ACL_MAINTAIN | ACL_UPDATE | ACL_DELETE | ACL_TRUNCATE;
+
+    // SELECT privileges permit ACCESS SHARE and below
+    if (lockmode <= AccessShareLock)
+        aclmask |= ACL_SELECT;
+
+    // INSERT privileges permit ROW EXCLUSIVE and below
+    if (lockmode <= RowExclusiveLock)
+        aclmask |= ACL_INSERT;
+
+    return pg_class_aclcheck(reloid, userid, aclmask);
+}
+```

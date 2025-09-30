@@ -52,3 +52,46 @@ The function manages memory correctly for each case, respecting the shouldFree p
 - More expensive than type-specific storage functions but provides maximum flexibility
 - Essential for trigger execution and various executor nodes that need to work with different slot types
 - When shouldFree is true and the slot type requires deformation, the function materializes the slot before freeing the original tuple to preserve data
+
+## Simplified Source
+
+```c
+void
+ExecForceStoreHeapTuple(HeapTuple tuple,
+                       TupleTableSlot *slot,
+                       bool shouldFree)
+{
+    if (TTS_IS_HEAPTUPLE(slot)) {
+        // Direct storage for heap tuple slots
+        ExecStoreHeapTuple(tuple, slot, shouldFree);
+    }
+    else if (TTS_IS_BUFFERTUPLE(slot)) {
+        // Buffer tuple slots: copy tuple to slot's memory context
+        BufferHeapTupleTableSlot *bslot = (BufferHeapTupleTableSlot *) slot;
+        MemoryContext oldContext;
+
+        ExecClearTuple(slot);
+        slot->tts_flags &= ~TTS_FLAG_EMPTY;
+
+        oldContext = MemoryContextSwitchTo(slot->tts_mcxt);
+        bslot->base.tuple = heap_copytuple(tuple);
+        slot->tts_flags |= TTS_FLAG_SHOULDFREE;
+        MemoryContextSwitchTo(oldContext);
+
+        if (shouldFree)
+            pfree(tuple);
+    }
+    else {
+        // Other slot types: deform tuple into individual values
+        ExecClearTuple(slot);
+        heap_deform_tuple(tuple, slot->tts_tupleDescriptor,
+                         slot->tts_values, slot->tts_isnull);
+        ExecStoreVirtualTuple(slot);
+
+        if (shouldFree) {
+            ExecMaterializeSlot(slot);
+            pfree(tuple);
+        }
+    }
+}
+```

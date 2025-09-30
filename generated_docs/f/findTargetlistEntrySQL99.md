@@ -53,3 +53,42 @@ The matching process ignores implicit casts on existing target list expressions,
 - Creates new resjunk entries when no existing match is found, ensuring the expression can be evaluated even if not explicitly selected
 - The strip_implicit_coercions call enables matching expressions that differ only by implicit type conversions
 - New target entries are always marked as resjunk=true to prevent them from appearing in the final output unless explicitly selected
+
+## Simplified Source
+
+```c
+static TargetEntry *
+findTargetlistEntrySQL99(ParseState *pstate, Node *node, List **tlist,
+                        ParseExprKind exprKind)
+{
+    TargetEntry *target_result;
+    ListCell *tl;
+    Node *expr;
+
+    // Transform the untransformed expression node
+    expr = transformExpr(pstate, node, exprKind);
+
+    // Search for a matching expression in the existing target list
+    foreach(tl, *tlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(tl);
+        Node *texpr;
+
+        // Strip implicit casts to allow matching equivalent expressions
+        // with different type coercions
+        texpr = strip_implicit_coercions((Node *) tle->expr);
+
+        if (equal(expr, texpr))
+            return tle;
+    }
+
+    // No match found - create a new resjunk target entry
+    target_result = transformTargetEntry(pstate, node, expr, exprKind,
+                                       NULL, true);  // resjunk = true
+
+    // Append the new entry to the target list
+    *tlist = lappend(*tlist, target_result);
+
+    return target_result;
+}
+```

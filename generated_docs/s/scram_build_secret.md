@@ -47,3 +47,109 @@ This function is the main entry point for creating SCRAM authentication secrets 
 - Uses different memory allocation strategies: malloc() in frontend, palloc() in backend
 - Implements complete SCRAM key derivation chain in a single function call
 - Password should be pre-processed with SASLprep normalization before calling
+
+## Simplified Source
+
+```c
+char *
+scram_build_secret(pg_cryptohash_type hash_type, int key_length,
+                  const char *salt, int saltlen, int iterations,
+                  const char *password, const char **errstr) {
+    uint8 salted_password[SCRAM_MAX_KEY_LEN];
+    uint8 stored_key[SCRAM_MAX_KEY_LEN];
+    uint8 server_key[SCRAM_MAX_KEY_LEN];
+    char *result;
+    char *p;
+    int maxlen;
+
+    // Only SHA-256 is currently supported
+    Assert(hash_type == PG_SHA256);
+    Assert(iterations > 0);
+
+    // Perform SCRAM key derivation chain
+    if (scram_SaltedPassword(password, hash_type, key_length,
+                            salt, saltlen, iterations,
+                            salted_password, errstr) < 0 ||
+        scram_ClientKey(salted_password, hash_type, key_length,
+                       stored_key, errstr) < 0 ||
+        scram_H(stored_key, hash_type, key_length,
+               stored_key, errstr) < 0 ||
+        scram_ServerKey(salted_password, hash_type, key_length,
+                       server_key, errstr) < 0) {
+        // Error already set in errstr
+#ifdef FRONTEND
+        return NULL;
+#else
+        elog(ERROR, "could not calculate stored key and server key: %s", *errstr);
+#endif
+    }
+
+    // Calculate buffer size for formatted result
+    maxlen = strlen("SCRAM-SHA-256") + 1 +
+             10 + 1 +                                    // iteration count
+             pg_b64_enc_len(saltlen) + 1 +              // Base64 salt
+             pg_b64_enc_len(key_length) + 1 +           // Base64 stored key
+             pg_b64_enc_len(key_length) + 1;            // Base64 server key
+
+    // Allocate result buffer (malloc vs palloc depending on build)
+#ifdef FRONTEND
+    result = malloc(maxlen);
+    if (!result) {
+        *errstr = _("out of memory");
+        return NULL;
+    }
+#else
+    result = palloc(maxlen);
+#endif
+
+    // Build formatted string: "SCRAM-SHA-256$<iterations>:<salt>$<stored>:<server>"
+    p = result + sprintf(result, "SCRAM-SHA-256$%d:", iterations);
+
+    // Encode and append salt
+    int encoded_result = pg_b64_encode(salt, saltlen, p, pg_b64_enc_len(saltlen));
+    if (encoded_result < 0) {
+        *errstr = _("could not encode salt");
+#ifdef FRONTEND
+        free(result);
+        return NULL;
+#else
+        elog(ERROR, "%s", *errstr);
+#endif
+    }
+    p += encoded_result;
+    *(p++) = '$';
+
+    // Encode and append stored key
+    encoded_result = pg_b64_encode((char *) stored_key, key_length, p,
+                                  pg_b64_enc_len(key_length));
+    if (encoded_result < 0) {
+        *errstr = _("could not encode stored key");
+#ifdef FRONTEND
+        free(result);
+        return NULL;
+#else
+        elog(ERROR, "%s", *errstr);
+#endif
+    }
+    p += encoded_result;
+    *(p++) = ':';
+
+    // Encode and append server key
+    encoded_result = pg_b64_encode((char *) server_key, key_length, p,
+                                  pg_b64_enc_len(key_length));
+    if (encoded_result < 0) {
+        *errstr = _("could not encode server key");
+#ifdef FRONTEND
+        free(result);
+        return NULL;
+#else
+        elog(ERROR, "%s", *errstr);
+#endif
+    }
+    p += encoded_result;
+    *(p++) = '\0';
+
+    Assert(p - result <= maxlen);
+    return result;
+}
+```

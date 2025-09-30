@@ -35,3 +35,24 @@ The descending order ensures that the most expensive paths are processed first, 
 - Falls back to relids comparison to ensure deterministic sorting when costs are identical
 - Part of the parallel append optimization strategy where expensive non-partial paths should be started first
 - The comparison logic ensures that list_sort produces consistent, reproducible results
+
+## Simplified Source
+
+```c
+// Simplified version of append_total_cost_compare
+static int
+append_total_cost_compare(const ListCell *a, const ListCell *b)
+{
+    Path *path1 = (Path *) lfirst(a);
+    Path *path2 = (Path *) lfirst(b);
+    int cmp;
+
+    // Primary comparison: total cost (descending order)
+    cmp = compare_path_costs(path1, path2, TOTAL_COST);
+    if (cmp != 0)
+        return -cmp; // Negate for descending order
+
+    // Tie-breaker: compare relation IDs for deterministic results
+    return bms_compare(path1->parent->relids, path2->parent->relids);
+}
+```

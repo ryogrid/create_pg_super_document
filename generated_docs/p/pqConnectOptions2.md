@@ -56,3 +56,118 @@ The function returns true on success and false on failure, setting appropriate e
 - Error handling includes specific out-of-memory error paths
 - Host type detection distinguishes between Unix sockets, host names, and IP addresses
 - Password file lookup follows the standard ~/.pgpass format and precedence rules
+
+## Simplified Source
+
+```c
+bool pqConnectOptions2(PGconn *conn)
+{
+    int i;
+
+    // Phase 1: Setup host connection structures
+    conn->whichhost = 0;
+
+    // Count number of hosts from hostaddr or host parameters
+    if (conn->pghostaddr && conn->pghostaddr[0] != '\0')
+        conn->nconnhost = count_comma_separated_elems(conn->pghostaddr);
+    else if (conn->pghost && conn->pghost[0] != '\0')
+        conn->nconnhost = count_comma_separated_elems(conn->pghost);
+    else
+        conn->nconnhost = 1;
+
+    // Allocate host connection structures
+    conn->connhost = (pg_conn_host *) calloc(conn->nconnhost, sizeof(pg_conn_host));
+    if (conn->connhost == NULL)
+        goto oom_error;
+
+    // Parse hostaddr values
+    if (conn->pghostaddr && conn->pghostaddr[0] != '\0') {
+        parse_host_addresses(conn->pghostaddr, conn->connhost, conn->nconnhost);
+    }
+
+    // Parse host values
+    if (conn->pghost && conn->pghost[0] != '\0') {
+        parse_host_names(conn->pghost, conn->connhost, conn->nconnhost);
+    }
+
+    // Phase 2: Determine host types (Unix socket, hostname, or IP address)
+    for (i = 0; i < conn->nconnhost; i++) {
+        pg_conn_host *ch = &conn->connhost[i];
+
+        if (ch->hostaddr && ch->hostaddr[0] != '\0')
+            ch->type = CHT_HOST_ADDRESS;
+        else if (ch->host && ch->host[0] != '\0') {
+            ch->type = is_unixsock_path(ch->host) ? CHT_UNIX_SOCKET : CHT_HOST_NAME;
+        } else {
+            // Set default host
+            ch->host = strdup(DEFAULT_PGSOCKET_DIR[0] ? DEFAULT_PGSOCKET_DIR : DefaultHost);
+            ch->type = DEFAULT_PGSOCKET_DIR[0] ? CHT_UNIX_SOCKET : CHT_HOST_NAME;
+        }
+    }
+
+    // Phase 3: Parse port numbers
+    if (conn->pgport && conn->pgport[0] != '\0') {
+        parse_port_numbers(conn->pgport, conn->connhost, conn->nconnhost);
+    }
+
+    // Phase 4: Set default user and database
+    if (!conn->pguser || conn->pguser[0] == '\0') {
+        free(conn->pguser);
+        conn->pguser = pg_fe_getauthname(&conn->errorMessage);
+        if (!conn->pguser) {
+            conn->status = CONNECTION_BAD;
+            return false;
+        }
+    }
+
+    if (!conn->dbName || conn->dbName[0] == '\0') {
+        free(conn->dbName);
+        conn->dbName = strdup(conn->pguser);
+        if (!conn->dbName)
+            goto oom_error;
+    }
+
+    // Phase 5: Password file lookup
+    if (!conn->pgpass || conn->pgpass[0] == '\0') {
+        setup_password_file_path(conn);
+        lookup_passwords_from_file(conn);
+    }
+
+    // Phase 6: Validate authentication requirements
+    if (conn->require_auth && conn->require_auth[0]) {
+        if (!parse_and_validate_auth_methods(conn))
+            return false;
+    }
+
+    // Phase 7: Validate SSL/TLS options
+    if (!validate_ssl_options(conn))
+        return false;
+
+    // Phase 8: Validate GSSAPI options
+    if (!validate_gss_options(conn))
+        return false;
+
+    // Phase 9: Set target server type and load balancing
+    set_target_server_type(conn);
+    setup_load_balancing(conn);
+
+    // Phase 10: Resolve client encoding
+    if (conn->client_encoding_initial &&
+        strcmp(conn->client_encoding_initial, "auto") == 0) {
+        free(conn->client_encoding_initial);
+        conn->client_encoding_initial = strdup(pg_encoding_to_char(
+            pg_get_encoding_from_locale(NULL, true)));
+        if (!conn->client_encoding_initial)
+            goto oom_error;
+    }
+
+    // Mark options as valid
+    conn->options_valid = true;
+    return true;
+
+oom_error:
+    conn->status = CONNECTION_BAD;
+    libpq_append_conn_error(conn, "out of memory");
+    return false;
+}
+```

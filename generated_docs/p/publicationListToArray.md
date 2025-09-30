@@ -43,3 +43,39 @@ The function ensures proper memory management by using a dedicated memory contex
 - The check_duplicates_in_publist function handles both duplicate detection and Datum array population
 - Memory context cleanup ensures no memory leaks occur during the conversion process
 - The resulting array is compatible with PostgreSQL's internal array representation and can be stored in system catalogs
+
+## Simplified Source
+
+```c
+static Datum
+publicationListToArray(List *publist)
+{
+    ArrayType  *arr;
+    Datum      *datums;
+    MemoryContext memcxt;
+    MemoryContext oldcxt;
+
+    // Create temporary memory context for safe allocation
+    memcxt = AllocSetContextCreate(CurrentMemoryContext,
+                                   "publicationListToArray to array",
+                                   ALLOCSET_DEFAULT_SIZES);
+    oldcxt = MemoryContextSwitchTo(memcxt);
+
+    // Allocate array to hold publication names as Datums
+    datums = (Datum *) palloc(sizeof(Datum) * list_length(publist));
+
+    // Convert publication list to Datum array, checking for duplicates
+    check_duplicates_in_publist(publist, datums);
+
+    // Switch back to original context
+    MemoryContextSwitchTo(oldcxt);
+
+    // Build PostgreSQL text array from Datum array
+    arr = construct_array_builtin(datums, list_length(publist), TEXTOID);
+
+    // Clean up temporary context
+    MemoryContextDelete(memcxt);
+
+    return PointerGetDatum(arr);
+}
+```

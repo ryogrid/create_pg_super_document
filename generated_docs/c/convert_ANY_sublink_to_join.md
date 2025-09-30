@@ -61,3 +61,80 @@ The function performs extensive safety checks to ensure the transformation prese
 - Semi-joins preserve the semantics of ANY sublinks by ensuring each outer row matches at most once
 - Volatile functions in the test expression prevent conversion to maintain consistent evaluation semantics
 - The available_rels constraint is crucial for maintaining correct semantics in complex queries with multiple join levels
+
+## Simplified Source
+
+```c
+JoinExpr *
+convert_ANY_sublink_to_join(PlannerInfo *root, SubLink *sublink,
+                            Relids available_rels)
+{
+    Query *parse = root->parse;
+    Query *subselect = (Query *) sublink->subselect;
+    Relids upper_varnos;
+    int rtindex;
+    ParseNamespaceItem *nsitem;
+    RangeTblEntry *rte;
+    RangeTblRef *rtr;
+    List *subquery_vars;
+    Node *quals;
+    ParseState *pstate;
+    Relids sub_ref_outer_relids;
+    bool use_lateral;
+    JoinExpr *result;
+
+    // Check for LATERAL semantics (subquery references parent vars)
+    sub_ref_outer_relids = pull_varnos_of_level(NULL, (Node *) subselect, 1);
+    use_lateral = !bms_is_empty(sub_ref_outer_relids);
+
+    // Validate that subquery only references available relations
+    if (!bms_is_subset(sub_ref_outer_relids, available_rels))
+        return NULL;
+
+    // Test expression must contain parent query variables
+    upper_varnos = pull_varnos(root, sublink->testexpr);
+    if (bms_is_empty(upper_varnos))
+        return NULL;
+
+    // Test expression can only reference available relations
+    if (!bms_is_subset(upper_varnos, available_rels))
+        return NULL;
+
+    // No volatile functions allowed in test expression
+    if (contain_volatile_functions(sublink->testexpr))
+        return NULL;
+
+    // Add subquery to range table
+    pstate = make_parsestate(NULL);
+    nsitem = addRangeTableEntryForSubquery(pstate, subselect,
+                                          makeAlias("ANY_subquery", NIL),
+                                          use_lateral, false);
+    rte = nsitem->p_rte;
+    parse->rtable = lappend(parse->rtable, rte);
+    rtindex = list_length(parse->rtable);
+
+    // Create range table reference for the subquery
+    rtr = makeNode(RangeTblRef);
+    rtr->rtindex = rtindex;
+
+    // Generate variables representing subquery outputs
+    subquery_vars = generate_subquery_vars(root, subselect->targetList, rtindex);
+
+    // Convert test expression to join quals
+    quals = convert_testexpr(root, sublink->testexpr, subquery_vars);
+
+    // Build the semi-join expression
+    result = makeNode(JoinExpr);
+    result->jointype = JOIN_SEMI;
+    result->isNatural = false;
+    result->larg = NULL;        // caller sets this
+    result->rarg = (Node *) rtr;
+    result->usingClause = NIL;
+    result->join_using_alias = NULL;
+    result->quals = quals;
+    result->alias = NULL;
+    result->rtindex = 0;
+
+    return result;
+}
+```

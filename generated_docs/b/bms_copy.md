@@ -49,3 +49,31 @@ The function uses memcpy for efficient copying of the entire bitmap structure, e
 - Widely used throughout PostgreSQL for creating independent copies of bitmaps
 - Essential for operations that need to preserve original sets while creating modified versions
 - The copied set is completely independent and can be modified without affecting the original
+
+## Simplified Source
+
+```c
+Bitmapset *bms_copy(const Bitmapset *a)
+{
+    Bitmapset *result;
+    size_t size;
+
+    // Validate input in debug builds
+    Assert(bms_is_valid_set(a));
+
+    // Handle NULL input (empty set)
+    if (a == NULL)
+        return NULL;
+
+    // Calculate total size of the bitmap structure
+    size = BITMAPSET_SIZE(a->nwords);
+
+    // Allocate new memory and copy entire structure
+    result = (Bitmapset *) palloc(size);
+    memcpy(result, a, size);
+
+    return result;
+}
+```
+
+This function creates a complete deep copy of a Bitmapset. It handles the NULL case (empty set) and uses memcpy for efficient copying of the entire bitmap structure including all words and metadata.

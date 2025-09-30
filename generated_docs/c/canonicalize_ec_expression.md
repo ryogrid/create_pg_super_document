@@ -45,3 +45,32 @@ The function uses applyRelabelType to preserve const-flatness, which is crucial 
 - Handles polymorphic and RECORD types by preserving the original expression type
 - Critical for ensuring that expressions from different sources (index keys, sort expressions, quals) can be properly matched in EquivalenceClasses
 - Returns the original expression unchanged if no type or collation adjustment is needed
+
+## Simplified Source
+
+```c
+Expr *canonicalize_ec_expression(Expr *expr, Oid req_type, Oid req_collation) {
+    Oid expr_type = exprType((Node *) expr);
+
+    // Handle polymorphic and RECORD types by preserving original type
+    if (IsPolymorphicType(req_type) || req_type == RECORDOID)
+        req_type = expr_type;
+
+    // Check if type or collation needs adjustment
+    if (expr_type != req_type || exprCollation((Node *) expr) != req_collation) {
+        int32 req_typmod;
+
+        // Set typmod based on whether type is changing
+        if (expr_type != req_type)
+            req_typmod = -1;  // New type may have different typmod interpretation
+        else
+            req_typmod = exprTypmod((Node *) expr);  // Preserve typmod for collation-only changes
+
+        // Apply relabel type to adjust type/collation while preserving const-flatness
+        expr = (Expr *) applyRelabelType((Node *) expr, req_type, req_typmod, req_collation,
+                                        COERCE_IMPLICIT_CAST, -1, false);
+    }
+
+    return expr;
+}
+```

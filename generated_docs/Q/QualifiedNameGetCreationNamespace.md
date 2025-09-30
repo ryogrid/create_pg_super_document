@@ -47,3 +47,40 @@ Unlike permission-checking variants, this function focuses purely on namespace r
 - Throws an error if no valid creation namespace can be determined
 - Essential component of PostgreSQL's DDL command processing infrastructure
 - Returns the target namespace OID and extracts the object name via output parameter
+
+## Simplified Source
+```c
+Oid
+QualifiedNameGetCreationNamespace(const List *names, char **objname_p)
+{
+    char *schemaname;
+    Oid namespaceId;
+
+    // Parse the qualified name into schema and object components
+    DeconstructQualifiedName(names, &schemaname, objname_p);
+
+    if (schemaname) {
+        // Handle special pg_temp alias
+        if (strcmp(schemaname, "pg_temp") == 0) {
+            AccessTempTableNamespace(false);
+            return myTempNamespace;
+        }
+        // Use explicitly specified schema
+        namespaceId = get_namespace_oid(schemaname, false);
+    }
+    else {
+        // Use default creation namespace
+        recomputeNamespacePath();
+        if (activeTempCreationPending) {
+            AccessTempTableNamespace(true);
+            return myTempNamespace;
+        }
+        namespaceId = activeCreationNamespace;
+        if (!OidIsValid(namespaceId))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                           errmsg("no schema has been selected to create in")));
+    }
+
+    return namespaceId;
+}
+```

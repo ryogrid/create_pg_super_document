@@ -50,3 +50,48 @@ The function opens the PublicationRelRelationId catalog table with AccessShareLo
 - Returns a sorted and deduplicated list to ensure consistent ordering
 - Properly manages locks and resource cleanup with AccessShareLock
 - The function ensures memory management by properly closing catalog relations and ending scans
+
+## Simplified Source
+
+```c
+List *GetPublicationRelations(Oid pubid, PublicationPartOpt pub_partopt) {
+    List *result;
+    Relation pubrelsrel;
+    ScanKeyData scankey;
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open publication relations catalog
+    pubrelsrel = table_open(PublicationRelRelationId, AccessShareLock);
+
+    // Set up scan key to find relations for this publication
+    ScanKeyInit(&scankey,
+                Anum_pg_publication_rel_prpubid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(pubid));
+
+    // Begin indexed scan
+    scan = systable_beginscan(pubrelsrel, PublicationRelPrpubidIndexId,
+                              true, NULL, 1, &scankey);
+
+    // Collect relations, handling partition options
+    result = NIL;
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_publication_rel pubrel;
+
+        pubrel = (Form_pg_publication_rel) GETSTRUCT(tup);
+        result = GetPubPartitionOptionRelations(result, pub_partopt,
+                                               pubrel->prrelid);
+    }
+
+    // Clean up scan and close relation
+    systable_endscan(scan);
+    table_close(pubrelsrel, AccessShareLock);
+
+    // Sort and deduplicate the result list
+    list_sort(result, list_oid_cmp);
+    list_deduplicate_oid(result);
+
+    return result;
+}
+```

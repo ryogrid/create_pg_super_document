@@ -46,3 +46,30 @@ This is the most comprehensive version of the object address addition functions,
 - Less frequently used than basic add_exact_object_address function
 - Essential for dependency analysis that needs context beyond basic object identification
 - Memory managed through PostgreSQL's palloc/repalloc system
+
+## Simplified Source
+
+```c
+static void
+add_exact_object_address_extra(const ObjectAddress *object,
+                               const ObjectAddressExtra *extra,
+                               ObjectAddresses *addrs)
+{
+    // Lazy allocation: create extras array if not already allocated
+    if (!addrs->extras) {
+        addrs->extras = palloc(addrs->maxrefs * sizeof(ObjectAddressExtra));
+    }
+
+    // Expand arrays if we've reached capacity
+    if (addrs->numrefs >= addrs->maxrefs) {
+        addrs->maxrefs *= 2;
+        addrs->refs = repalloc(addrs->refs, addrs->maxrefs * sizeof(ObjectAddress));
+        addrs->extras = repalloc(addrs->extras, addrs->maxrefs * sizeof(ObjectAddressExtra));
+    }
+
+    // Add the new object and extra data to parallel arrays
+    addrs->refs[addrs->numrefs] = *object;
+    addrs->extras[addrs->numrefs] = *extra;
+    addrs->numrefs++;
+}
+```

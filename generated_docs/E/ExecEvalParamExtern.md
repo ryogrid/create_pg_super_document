@@ -40,3 +40,40 @@ If a paramFetch hook is provided, it's called to allow dynamic parameter resolut
 - Uses likely() macros for performance optimization of common paths
 - Reports detailed error messages for parameter type mismatches
 - Located in src/backend/executor/execExprInterp.c:2532-2578
+
+## Simplified Source
+
+```c
+void ExecEvalParamExtern(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    ParamListInfo paramInfo = econtext->ecxt_param_list_info;
+    int paramId = op->d.param.paramid;
+
+    // Check if parameter info exists and ID is valid
+    if (paramInfo && paramId > 0 && paramId <= paramInfo->numParams) {
+        ParamExternData *param;
+        ParamExternData prmdata;
+
+        // Use hook for dynamic parameters, or get from static array
+        if (paramInfo->paramFetch != NULL)
+            param = paramInfo->paramFetch(paramInfo, paramId, false, &prmdata);
+        else
+            param = &paramInfo->params[paramId - 1];
+
+        // Verify parameter exists and type matches
+        if (OidIsValid(param->ptype)) {
+            if (param->ptype != op->d.param.paramtype)
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("parameter %d type mismatch", paramId)));
+
+            *op->resvalue = param->value;
+            *op->resnull = param->isnull;
+            return;
+        }
+    }
+
+    // Parameter not found
+    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+        errmsg("no value found for parameter %d", paramId)));
+}
+```

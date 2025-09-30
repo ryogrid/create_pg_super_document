@@ -49,3 +49,37 @@ The function handles EOF gracefully by returning the actual number of bytes read
 - EOF detection is handled through the raw_reached_eof flag set by CopyLoadRawBuf()
 - This function is used extensively throughout the binary COPY parsing pipeline for reading headers, lengths, and attribute data
 - Buffer index management (raw_buf_index) is updated automatically as data is consumed
+
+## Simplified Source
+
+```c
+static int CopyReadBinaryData(CopyFromState cstate, char *dest, int nbytes) {
+    int copied_bytes = 0;
+
+    if (RAW_BUF_BYTES(cstate) >= nbytes) {
+        // Fast path: data available in buffer
+        memcpy(dest, cstate->raw_buf + cstate->raw_buf_index, nbytes);
+        cstate->raw_buf_index += nbytes;
+        copied_bytes = nbytes;
+    } else {
+        // Buffered path: read from file in chunks
+        do {
+            // Load more data if buffer is empty
+            if (RAW_BUF_BYTES(cstate) == 0) {
+                CopyLoadRawBuf(cstate);
+                if (cstate->raw_reached_eof)
+                    break;
+            }
+
+            // Transfer available bytes
+            int copy_bytes = Min(nbytes - copied_bytes, RAW_BUF_BYTES(cstate));
+            memcpy(dest, cstate->raw_buf + cstate->raw_buf_index, copy_bytes);
+            cstate->raw_buf_index += copy_bytes;
+            dest += copy_bytes;
+            copied_bytes += copy_bytes;
+        } while (copied_bytes < nbytes);
+    }
+
+    return copied_bytes;
+}
+```

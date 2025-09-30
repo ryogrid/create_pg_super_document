@@ -44,3 +44,29 @@ This process effectively "flattens" join aliases by expanding them to show the a
 - It plays a key role in the process of flattening join alias variables, ensuring that references to join relations are properly expanded to their constituent base relations
 - The function handles the bitmap manipulation carefully, building up the result set incrementally as it processes each input relation ID
 - Located in src/backend/optimizer/util/var.c at lines 1098-1114
+
+## Simplified Source
+
+```c
+static Relids
+alias_relid_set(Query *query, Relids relids)
+{
+    Relids result = NULL;
+    int rtindex;
+
+    // Iterate through each relation ID in the input set
+    rtindex = -1;
+    while ((rtindex = bms_next_member(relids, rtindex)) >= 0) {
+        RangeTblEntry *rte = rt_fetch(rtindex, query->rtable);
+
+        // Expand join relations to their underlying base relations
+        if (rte->rtekind == RTE_JOIN)
+            result = bms_join(result, get_relids_for_join(query, rtindex));
+        // Keep non-join relations as-is
+        else
+            result = bms_add_member(result, rtindex);
+    }
+
+    return result;
+}
+```

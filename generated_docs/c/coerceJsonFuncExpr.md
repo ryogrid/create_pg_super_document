@@ -50,3 +50,53 @@ The function respects PostgreSQL's type coercion hierarchy and provides detailed
 - Location tracking is carefully managed to provide accurate error positioning to users
 - The function can operate in both error-reporting and silent modes based on the report_error parameter
 - Primarily enables JSON/JSONB to string type conversions as part of SQL/JSON standard compliance
+
+## Simplified Source
+
+```c
+static Node *coerceJsonFuncExpr(ParseState *pstate, Node *expr,
+                               const JsonReturning *returning, bool report_error) {
+    Oid exprtype = exprType(expr);
+
+    // Return unchanged if no target type specified or types already match
+    if (!OidIsValid(returning->typid) || returning->typid == exprtype)
+        return expr;
+
+    int location = exprLocation(expr);
+    if (location < 0)
+        location = returning->format->location;
+
+    // Special case: convert JSON to bytea using encoding
+    if (returning->format->format_type == JS_FORMAT_JSON &&
+        returning->typid == BYTEAOID) {
+
+        // First convert to text, then encode to bytea
+        Node *texpr = coerce_to_specific_type(pstate, expr, TEXTOID, "JSON_FUNCTION");
+        Const *enc = getJsonEncodingConst(returning->format);
+        FuncExpr *fexpr = makeFuncExpr(F_CONVERT_TO, BYTEAOID,
+                                       list_make2(texpr, enc),
+                                       InvalidOid, InvalidOid,
+                                       COERCE_EXPLICIT_CALL);
+        fexpr->location = location;
+        return (Node *) fexpr;
+    }
+
+    // General case: use assignment-level coercion
+    Node *res = coerce_to_target_type(pstate, expr, exprtype,
+                                      returning->typid, returning->typmod,
+                                      COERCION_ASSIGNMENT,
+                                      COERCE_IMPLICIT_CAST,
+                                      location);
+
+    // Report error if coercion failed and error reporting is enabled
+    if (!res && report_error)
+        ereport(ERROR,
+                errcode(ERRCODE_CANNOT_COERCE),
+                errmsg("cannot cast type %s to %s",
+                       format_type_be(exprtype),
+                       format_type_be(returning->typid)),
+                parser_coercion_errposition(pstate, location, expr));
+
+    return res;
+}
+```

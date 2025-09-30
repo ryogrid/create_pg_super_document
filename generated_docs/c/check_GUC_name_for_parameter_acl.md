@@ -34,3 +34,18 @@ The function serves as a gatekeeper for the parameter ACL system, maintaining da
 - Custom GUC names must follow specific naming conventions (typically containing a dot separator)
 - This validation is crucial for maintaining the integrity of the parameter ACL system
 - Located in src/backend/utils/misc/guc.c:1412-1437
+
+## Simplified Source
+
+```c
+void
+check_GUC_name_for_parameter_acl(const char *name)
+{
+    // Check if the GUC parameter already exists
+    if (find_option(name, false, true, DEBUG5) != NULL)
+        return;
+
+    // If not found, validate that it's a valid custom GUC name pattern
+    (void) assignable_custom_variable_name(name, false, ERROR);
+}
+```

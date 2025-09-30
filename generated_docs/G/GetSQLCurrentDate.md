@@ -38,3 +38,36 @@ The `GetSQLCurrentDate` function implements PostgreSQL's SQL CURRENT_DATE functi
 - The function is thread-safe as long as GetCurrentDateTime is thread-safe
 - Used internally by PostgreSQL's SQL executor when CURRENT_DATE is referenced in queries
 - The optimization significantly reduces computational overhead for applications that frequently access the current date
+
+## Simplified Source
+
+```c
+DateADT GetSQLCurrentDate(void) {
+    struct pg_tm tm;
+
+    // Static cache variables to avoid expensive calculations
+    static int cache_year = 0;
+    static int cache_mon = 0;
+    static int cache_mday = 0;
+    static DateADT cache_date;
+
+    // Get current date/time
+    GetCurrentDateTime(&tm);
+
+    // Only recalculate if date has changed
+    if (tm.tm_year != cache_year ||
+        tm.tm_mon != cache_mon ||
+        tm.tm_mday != cache_mday) {
+
+        // Convert to PostgreSQL date format (days since epoch)
+        cache_date = date2j(tm.tm_year, tm.tm_mon, tm.tm_mday) - POSTGRES_EPOCH_JDATE;
+
+        // Update cache
+        cache_year = tm.tm_year;
+        cache_mon = tm.tm_mon;
+        cache_mday = tm.tm_mday;
+    }
+
+    return cache_date;
+}
+```

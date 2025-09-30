@@ -40,3 +40,37 @@ The function first checks if a hash table exists and if the join relation list h
 - Returns NULL if no matching join relation is found
 - [Hash](../H/Hash.md) table is built lazily only when needed
 - Located in src/backend/optimizer/util/relnode.c:527-588
+
+## Simplified Source
+
+```c
+RelOptInfo *
+find_join_rel(PlannerInfo *root, Relids relids)
+{
+    // Build hash table when join list grows beyond 32 entries
+    if (!root->join_rel_hash && list_length(root->join_rel_list) > 32)
+        build_join_rel_hash(root);
+
+    // Use hash lookup if available, otherwise linear search
+    if (root->join_rel_hash) {
+        // Hash table lookup - O(1) performance
+        Relids hashkey = relids;  // Avoid register pressure
+        JoinHashEntry *hentry = (JoinHashEntry *) hash_search(root->join_rel_hash,
+                                                              &hashkey,
+                                                              HASH_FIND,
+                                                              NULL);
+        if (hentry)
+            return hentry->join_rel;
+    } else {
+        // Linear search through join relation list - O(n) performance
+        ListCell *l;
+        foreach(l, root->join_rel_list) {
+            RelOptInfo *rel = (RelOptInfo *) lfirst(l);
+            if (bms_equal(rel->relids, relids))
+                return rel;
+        }
+    }
+
+    return NULL;  // No matching join relation found
+}
+```

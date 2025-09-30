@@ -38,3 +38,40 @@ This function locates and validates a type receive function during type definiti
 - The receive function must return exactly the target type being defined
 - A warning is issued if the function is marked as volatile, as receive functions should typically be stable or immutable
 - This complements the type's send function to provide binary I/O capabilities for network transmission and storage
+
+## Simplified Source
+
+```c
+static Oid findTypeReceiveFunction(List *procname, Oid typeOid) {
+    Oid argList[3] = { INTERNALOID, OIDOID, INT4OID };
+
+    // Look for both 1-arg and 3-arg signatures
+    Oid procOid1 = LookupFuncName(procname, 1, argList, true);
+    Oid procOid3 = LookupFuncName(procname, 3, argList, true);
+
+    // Check for ambiguity (both signatures exist)
+    if (OidIsValid(procOid1)) {
+        if (OidIsValid(procOid3))
+            ereport(ERROR, "type receive function %s has multiple matches",
+                    NameListToString(procname));
+        procOid = procOid1;
+    } else {
+        procOid = procOid3;
+        if (!OidIsValid(procOid))
+            ereport(ERROR, "function %s does not exist",
+                    func_signature_string(procname, 1, NIL, argList));
+    }
+
+    // Verify function returns the target type
+    if (get_func_rettype(procOid) != typeOid)
+        ereport(ERROR, "type receive function %s must return type %s",
+                NameListToString(procname), format_type_be(typeOid));
+
+    // Warn if volatile (should be stable/immutable)
+    if (func_volatile(procOid) == PROVOLATILE_VOLATILE)
+        ereport(WARNING, "type receive function %s should not be volatile",
+                NameListToString(procname));
+
+    return procOid;
+}
+```

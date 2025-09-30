@@ -36,3 +36,38 @@ This function is responsible for locating and validating a type output function 
 - The function issues an error if the specified function doesn't exist or has wrong return type
 - A warning is issued (not an error) if the function is marked as volatile, as output functions should typically be stable or immutable
 - This is part of PostgreSQL's type system infrastructure that ensures type safety and proper data conversion
+
+## Simplified Source
+
+```c
+static Oid
+findTypeOutputFunction(List *procname, Oid typeOid)
+{
+    Oid argList[1];
+    Oid procOid;
+
+    // Output functions take one argument of the target type
+    argList[0] = typeOid;
+
+    // Look up the function with single argument signature
+    procOid = LookupFuncName(procname, 1, argList, true);
+    if (!OidIsValid(procOid))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("function %s does not exist",
+                              func_signature_string(procname, 1, NIL, argList))));
+
+    // Validate return type is cstring
+    if (get_func_rettype(procOid) != CSTRINGOID)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                       errmsg("type output function %s must return type %s",
+                              NameListToString(procname), "cstring")));
+
+    // Warn about volatile functions (should be stable/immutable)
+    if (func_volatile(procOid) == PROVOLATILE_VOLATILE)
+        ereport(WARNING, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                         errmsg("type output function %s should not be volatile",
+                                NameListToString(procname))));
+
+    return procOid;
+}
+```

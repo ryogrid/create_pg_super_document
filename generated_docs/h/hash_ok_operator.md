@@ -45,3 +45,40 @@ The implementation avoids redundant cache lookups by combining the checks for bo
 - Uses system catalog caching for efficient operator property lookup
 - The function performs error checking for missing operators in the system catalog
 - Optimization technique combines multiple property checks to avoid redundant cache operations
+
+## Simplified Source
+
+```c
+static bool
+hash_ok_operator(OpExpr *expr)
+{
+    Oid opid = expr->opno;
+
+    // Must be binary operator
+    if (list_length(expr->args) != 2)
+        return false;
+
+    // Special cases: array and record equality operators
+    if (opid == ARRAY_EQ_OP || opid == RECORD_EQ_OP)
+    {
+        // These are strict, just check if input type is hashable
+        Node *leftarg = linitial(expr->args);
+        return op_hashjoinable(opid, exprType(leftarg));
+    }
+    else
+    {
+        // General case: look up operator properties
+        HeapTuple tup = SearchSysCache1(OPEROID, ObjectIdGetDatum(opid));
+        if (!HeapTupleIsValid(tup))
+            elog(ERROR, "cache lookup failed for operator %u", opid);
+
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tup);
+
+        // Check both hashable and strict properties
+        bool result = (optup->oprcanhash && func_strict(optup->oprcode));
+
+        ReleaseSysCache(tup);
+        return result;
+    }
+}
+```

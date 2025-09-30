@@ -39,3 +39,26 @@ The function includes an assertion to verify that the restrictinfo exists in eac
 - Includes assertion checking to ensure consistency in join clause management
 - Typically used when query optimization determines a relation can be eliminated
 - Located in src/backend/optimizer/util/joininfo.c:161-183
+
+## Simplified Source
+
+```c
+void remove_join_clause_from_rels(PlannerInfo *root,
+                                  RestrictInfo *restrictinfo,
+                                  Relids join_relids)
+{
+    int cur_relid = -1;
+
+    // Iterate through all relations in the join clause
+    while ((cur_relid = bms_next_member(join_relids, cur_relid)) >= 0) {
+        RelOptInfo *rel = find_base_rel_ignore_join(root, cur_relid);
+
+        // Skip if relation not found (only process base relations)
+        if (rel == NULL)
+            continue;
+
+        // Remove the restrictinfo from this relation's joininfo list
+        rel->joininfo = list_delete_ptr(rel->joininfo, restrictinfo);
+    }
+}
+```

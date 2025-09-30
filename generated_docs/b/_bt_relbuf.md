@@ -40,3 +40,17 @@ The function serves as the counterpart to _bt_getbuf and is used throughout the 
 - Prevents resource leaks by ensuring complete buffer release
 - Simple but critical function for maintaining buffer pool integrity
 - Located in src/backend/access/nbtree/nbtpage.c:1023-1038
+
+## Simplified Source
+
+```c
+void
+_bt_relbuf(Relation rel, Buffer buf)
+{
+    // First unlock the buffer to release any locks
+    _bt_unlockbuf(rel, buf);
+
+    // Then release the buffer pin to allow reuse
+    ReleaseBuffer(buf);
+}
+```

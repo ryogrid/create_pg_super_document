@@ -37,3 +37,60 @@ This function attempts to locate the subplan or initplan that emits the value fo
 - Returns NULL if no generator is found
 - Sets *column_p to 0 initially to prevent compiler warnings
 - Part of PostgreSQL's rule deparsing system for query plan visualization
+
+## Simplified Source
+
+```c
+static SubPlan *find_param_generator(Param *param, deparse_context *context, int *column_p) {
+    *column_p = 0;
+
+    // Only handle PARAM_EXEC parameters
+    if (param->paramkind != PARAM_EXEC)
+        return NULL;
+
+    deparse_namespace *dpns = (deparse_namespace *) linitial(context->namespaces);
+
+    // Check innermost plan node's initplans first
+    SubPlan *result = find_param_generator_initplan(param, dpns->plan, column_p);
+    if (result)
+        return result;
+
+    // Check MULTIEXPR_SUBLINK SubPlans in targetlist
+    foreach_node(TargetEntry, tle, dpns->plan->targetlist) {
+        if (tle->expr && IsA(tle->expr, SubPlan)) {
+            SubPlan *subplan = (SubPlan *) tle->expr;
+            if (subplan->subLinkType == MULTIEXPR_SUBLINK) {
+                foreach_int(paramid, subplan->setParam) {
+                    if (paramid == param->paramid) {
+                        *column_p = foreach_current_index(paramid);
+                        return subplan;
+                    }
+                }
+            }
+        }
+    }
+
+    // Search through ancestor nodes
+    foreach(lc, dpns->ancestors) {
+        Node *ancestor = (Node *) lfirst(lc);
+
+        if (IsA(ancestor, SubPlan)) {
+            SubPlan *subplan = (SubPlan *) ancestor;
+            foreach_int(paramid, subplan->paramIds) {
+                if (paramid == param->paramid) {
+                    *column_p = foreach_current_index(paramid);
+                    return subplan;
+                }
+            }
+            continue;
+        }
+
+        // Check Plan node's initplans
+        result = find_param_generator_initplan(param, (Plan *) ancestor, column_p);
+        if (result)
+            return result;
+    }
+
+    return NULL;
+}
+```

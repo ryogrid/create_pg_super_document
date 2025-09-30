@@ -40,3 +40,73 @@ CreateAccessMethod processes a CREATE ACCESS METHOD statement by inserting a new
 - Supports extension membership tracking for proper cleanup during extension drops
 - Uses row-exclusive locking on the pg_am catalog during the operation
 - Location: src/backend/commands/amcmds.c:43-128
+
+## Simplified Source
+
+```c
+ObjectAddress CreateAccessMethod(CreateAmStmt *stmt)
+{
+    Relation    rel;
+    ObjectAddress myself;
+    ObjectAddress referenced;
+    Oid         amoid;
+    Oid         amhandler;
+    bool        nulls[Natts_pg_am];
+    Datum       values[Natts_pg_am];
+    HeapTuple   tup;
+
+    // Open the access method catalog
+    rel = table_open(AccessMethodRelationId, RowExclusiveLock);
+
+    // Only superusers can create access methods
+    if (!superuser())
+        ereport(ERROR, "permission denied to create access method - must be superuser");
+
+    // Check if the access method name already exists
+    amoid = GetSysCacheOid1(AMNAME, Anum_pg_am_oid, CStringGetDatum(stmt->amname));
+    if (OidIsValid(amoid))
+        ereport(ERROR, "access method already exists");
+
+    // Validate and get the handler function OID
+    amhandler = lookup_am_handler_func(stmt->handler_name, stmt->amtype);
+
+    // Prepare the new tuple data
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    // Get a new OID for this access method
+    amoid = GetNewOidWithIndex(rel, AmOidIndexId, Anum_pg_am_oid);
+
+    // Set up the column values
+    values[Anum_pg_am_oid - 1] = ObjectIdGetDatum(amoid);
+    values[Anum_pg_am_amname - 1] = DirectFunctionCall1(namein, CStringGetDatum(stmt->amname));
+    values[Anum_pg_am_amhandler - 1] = ObjectIdGetDatum(amhandler);
+    values[Anum_pg_am_amtype - 1] = CharGetDatum(stmt->amtype);
+
+    // Create and insert the new tuple
+    tup = heap_form_tuple(RelationGetDescr(rel), values, nulls);
+    CatalogTupleInsert(rel, tup);
+    heap_freetuple(tup);
+
+    // Set up object address for dependency tracking
+    myself.classId = AccessMethodRelationId;
+    myself.objectId = amoid;
+    myself.objectSubId = 0;
+
+    // Record dependency on the handler function
+    referenced.classId = ProcedureRelationId;
+    referenced.objectId = amhandler;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    // Record as part of current extension if applicable
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    // Trigger post-creation hooks
+    InvokeObjectPostCreateHook(AccessMethodRelationId, amoid, 0);
+
+    // Clean up and return
+    table_close(rel, RowExclusiveLock);
+    return myself;
+}
+```

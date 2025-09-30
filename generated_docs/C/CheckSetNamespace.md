@@ -38,3 +38,21 @@ The function specifically prohibits moving objects into or out of temporary name
 - Helps maintain the integrity of temporary and system-managed namespaces
 - Used consistently across different ALTER ... SET SCHEMA implementations
 - Does not return a value; either succeeds silently or throws an error
+
+## Simplified Source
+
+```c
+void CheckSetNamespace(Oid oldNspOid, Oid nspOid) {
+    // Prevent moving objects into/out of temporary schemas
+    if (isAnyTempNamespace(nspOid) || isAnyTempNamespace(oldNspOid))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot move objects into or out of temporary schemas")));
+
+    // Prevent moving objects into/out of TOAST schema
+    if (nspOid == PG_TOAST_NAMESPACE || oldNspOid == PG_TOAST_NAMESPACE)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot move objects into or out of TOAST schema")));
+}
+```

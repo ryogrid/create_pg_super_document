@@ -51,3 +51,109 @@ Note that this function specifically handles basic SELECT statements without set
 - Window definitions are processed after all window functions have been identified
 - Aggregate validation is performed last after all other processing is complete
 - The function sets various Query flags based on what constructs were found during parsing (hasSubLinks, hasWindowFuncs, etc.)
+
+## Simplified Source
+
+```c
+static Query *
+transformSelectStmt(ParseState *pstate, SelectStmt *stmt)
+{
+    Query *qry = makeNode(Query);
+    Node *qual;
+    ListCell *l;
+
+    qry->commandType = CMD_SELECT;
+
+    // Process WITH clause independently
+    if (stmt->withClause)
+    {
+        qry->hasRecursive = stmt->withClause->recursive;
+        qry->cteList = transformWithClause(pstate, stmt->withClause);
+        qry->hasModifyingCTE = pstate->p_hasModifyingCTE;
+    }
+
+    // Reject SELECT INTO in contexts where it's not allowed
+    if (stmt->intoClause)
+        ereport(ERROR, "SELECT ... INTO is not allowed here");
+
+    // Prepare for locking and window clauses
+    pstate->p_locking_clause = stmt->lockingClause;
+    pstate->p_windowdefs = stmt->windowClause;
+
+    // Transform major clauses in dependency order
+    transformFromClause(pstate, stmt->fromClause);
+    qry->targetList = transformTargetList(pstate, stmt->targetList, EXPR_KIND_SELECT_TARGET);
+    markTargetListOrigins(pstate, qry->targetList);
+
+    qual = transformWhereClause(pstate, stmt->whereClause, EXPR_KIND_WHERE, "WHERE");
+    qry->havingQual = transformWhereClause(pstate, stmt->havingClause, EXPR_KIND_HAVING, "HAVING");
+
+    // Transform sorting/grouping (ORDER BY first for dependency reasons)
+    qry->sortClause = transformSortClause(pstate, stmt->sortClause, &qry->targetList,
+                                        EXPR_KIND_ORDER_BY, false);
+    qry->groupClause = transformGroupClause(pstate, stmt->groupClause, &qry->groupingSets,
+                                          &qry->targetList, qry->sortClause,
+                                          EXPR_KIND_GROUP_BY, false);
+    qry->groupDistinct = stmt->groupDistinct;
+
+    // Handle DISTINCT variations
+    if (stmt->distinctClause == NIL)
+    {
+        qry->distinctClause = NIL;
+        qry->hasDistinctOn = false;
+    }
+    else if (linitial(stmt->distinctClause) == NULL)
+    {
+        // SELECT DISTINCT
+        qry->distinctClause = transformDistinctClause(pstate, &qry->targetList,
+                                                     qry->sortClause, false);
+        qry->hasDistinctOn = false;
+    }
+    else
+    {
+        // SELECT DISTINCT ON
+        qry->distinctClause = transformDistinctOnClause(pstate, stmt->distinctClause,
+                                                       &qry->targetList, qry->sortClause);
+        qry->hasDistinctOn = true;
+    }
+
+    // Transform LIMIT/OFFSET
+    qry->limitOffset = transformLimitClause(pstate, stmt->limitOffset,
+                                          EXPR_KIND_OFFSET, "OFFSET", stmt->limitOption);
+    qry->limitCount = transformLimitClause(pstate, stmt->limitCount,
+                                         EXPR_KIND_LIMIT, "LIMIT", stmt->limitOption);
+    qry->limitOption = stmt->limitOption;
+
+    // Transform window definitions after finding all window functions
+    qry->windowClause = transformWindowDefinitions(pstate, pstate->p_windowdefs, &qry->targetList);
+
+    // Resolve unknown types as text
+    if (pstate->p_resolve_unknowns)
+        resolveTargetListUnknowns(pstate, qry->targetList);
+
+    // Build final query structure
+    qry->rtable = pstate->p_rtable;
+    qry->rteperminfos = pstate->p_rteperminfos;
+    qry->jointree = makeFromExpr(pstate->p_joinlist, qual);
+
+    // Set query flags from parse state
+    qry->hasSubLinks = pstate->p_hasSubLinks;
+    qry->hasWindowFuncs = pstate->p_hasWindowFuncs;
+    qry->hasTargetSRFs = pstate->p_hasTargetSRFs;
+    qry->hasAggs = pstate->p_hasAggs;
+
+    // Process locking clauses
+    foreach(l, stmt->lockingClause)
+    {
+        transformLockingClause(pstate, qry, (LockingClause *) lfirst(l), false);
+    }
+
+    assign_query_collations(pstate, qry);
+
+    // Validate aggregates (must be after collation assignment)
+    if (pstate->p_hasAggs || qry->groupClause || qry->groupingSets || qry->havingQual)
+        parseCheckAggregates(pstate, qry);
+
+    return qry;
+}
+```

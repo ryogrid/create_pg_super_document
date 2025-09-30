@@ -44,3 +44,55 @@ The function performs lazy initialization of expression evaluation state on firs
 - Expression evaluation uses ExecEvalExprSwitchContext to ensure proper memory context management
 - Error checking ensures the number of partition key expressions matches the expected count
 - This is a static function used internally within the partition routing subsystem
+
+## Simplified Source
+
+```c
+static void
+FormPartitionKeyDatum(PartitionDispatch pd,
+                      TupleTableSlot *slot,
+                      EState *estate,
+                      Datum *values,
+                      bool *isnull)
+{
+    ListCell   *partexpr_item;
+    int         i;
+
+    // Initialize expression evaluation state on first use
+    if (pd->key->partexprs != NIL && pd->keystate == NIL) {
+        Assert(estate != NULL &&
+               GetPerTupleExprContext(estate)->ecxt_scantuple == slot);
+        pd->keystate = ExecPrepareExprList(pd->key->partexprs, estate);
+    }
+
+    partexpr_item = list_head(pd->keystate);
+
+    // Extract each partition key component
+    for (i = 0; i < pd->key->partnatts; i++) {
+        AttrNumber  keycol = pd->key->partattrs[i];
+        Datum       datum;
+        bool        isNull;
+
+        if (keycol != 0) {
+            // Plain column: get value directly from tuple
+            datum = slot_getattr(slot, keycol, &isNull);
+        } else {
+            // Expression: evaluate it
+            if (partexpr_item == NULL)
+                elog(ERROR, "wrong number of partition key expressions");
+
+            datum = ExecEvalExprSwitchContext((ExprState *) lfirst(partexpr_item),
+                                             GetPerTupleExprContext(estate),
+                                             &isNull);
+            partexpr_item = lnext(pd->keystate, partexpr_item);
+        }
+
+        values[i] = datum;
+        isnull[i] = isNull;
+    }
+
+    // Ensure all expressions were consumed
+    if (partexpr_item != NULL)
+        elog(ERROR, "wrong number of partition key expressions");
+}
+```

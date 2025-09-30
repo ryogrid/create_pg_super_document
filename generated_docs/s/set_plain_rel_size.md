@@ -35,3 +35,19 @@ The order of operations is critical - partial index predicates must be evaluated
 - Partial index evaluation must occur before size estimation because unique partial indexes affect distinctness calculations
 - This function handles only the simplest case of base relations - other relation types have their own specialized size estimation functions
 - The separation of index predicate checking and size estimation allows for proper dependency handling in the optimizer
+
+## Simplified Source
+
+```c
+static void
+set_plain_rel_size(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    // Check partial index applicability first - affects size estimates
+    // Must be done before size estimation because partial unique indexes
+    // can change distinctness calculations
+    check_index_predicates(root, rel);
+
+    // Compute size estimates using standard base relation logic
+    set_baserel_size_estimates(root, rel);
+}
+```

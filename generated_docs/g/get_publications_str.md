@@ -38,3 +38,34 @@ The function is designed to handle the common need to format publication lists f
 - The comma-separated format matches PostgreSQL's standard convention for lists in SQL contexts
 - The dual quoting modes allow the same function to be used for both SQL query construction and user-facing error messages
 - First publication in the list is handled specially to avoid leading comma
+
+## Simplified Source
+
+```c
+static void
+get_publications_str(List *publications, StringInfo dest, bool quote_literal)
+{
+    bool first = true;
+
+    // Iterate through each publication name
+    foreach(ListCell *lc, publications)
+    {
+        char *pubname = strVal(lfirst(lc));
+
+        // Add comma separator after first item
+        if (first)
+            first = false;
+        else
+            appendStringInfoString(dest, ", ");
+
+        // Apply appropriate quoting style
+        if (quote_literal)
+            appendStringInfoString(dest, quote_literal_cstr(pubname));
+        else {
+            appendStringInfoChar(dest, '"');
+            appendStringInfoString(dest, pubname);
+            appendStringInfoChar(dest, '"');
+        }
+    }
+}
+```

@@ -43,3 +43,14 @@ The function allocates memory for the result using  and returns a newly allocate
 - Part of PostgreSQL's identifier processing infrastructure in the parser subsystem
 - Used extensively in date/time functions for processing field names like 'YEAR', 'MONTH', etc.
 - The function handles the case where the input string may not be null-terminated by using the explicit length parameter
+
+## Simplified Source
+
+```c
+char *
+downcase_truncate_identifier(const char *ident, int len, bool warn)
+{
+    // Delegate to downcase_identifier with truncation enabled
+    return downcase_identifier(ident, len, warn, true);
+}
+```

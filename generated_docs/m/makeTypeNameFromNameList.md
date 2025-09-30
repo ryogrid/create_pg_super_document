@@ -39,3 +39,22 @@ The function allocates a new TypeName node using `makeNode` and sets up the basi
 - The names list typically contains one element for unqualified types or two elements for schema-qualified types
 - Declared in src/include/nodes/makefuncs.h at line 73
 - Widely used across DDL commands, type resolution, and parser functions
+
+## Simplified Source
+
+```c
+TypeName *makeTypeNameFromNameList(List *names)
+{
+    TypeName *n = makeNode(TypeName);
+
+    // Set the qualified name list
+    n->names = names;
+
+    // Initialize with default values
+    n->typmods = NIL;     // No type modifiers
+    n->typemod = -1;      // Default type modifier
+    n->location = -1;     // Unknown source location
+
+    return n;
+}
+```

@@ -50,3 +50,82 @@ For OFFSET FOLLOWING frames, the function attempts to extract exact values from 
 - Return value is capped to never exceed the estimated partition size
 - Uses DEFAULT_INEQ_SEL heuristic when offset values cannot be determined from non-constant expressions
 - Considers peer groups (tuples with identical ORDER BY values) for RANGE and GROUPS frame modes
+
+## Simplified Source
+
+```c
+static double get_windowclause_startup_tuples(PlannerInfo *root, WindowClause *wc, double input_tuples) {
+    int frameOptions = wc->frameOptions;
+    double partition_tuples;
+    double peer_tuples;
+    double return_tuples;
+
+    // Calculate partition size
+    if (wc->partitionClause != NIL) {
+        List *partexprs = get_sortgrouplist_exprs(wc->partitionClause, root->parse->targetList);
+        double num_partitions = estimate_num_groups(root, partexprs, input_tuples, NULL, NULL);
+        list_free(partexprs);
+        partition_tuples = input_tuples / num_partitions;
+    } else {
+        partition_tuples = input_tuples;
+    }
+
+    // Calculate peer group size
+    if (wc->orderClause != NIL) {
+        List *orderexprs = get_sortgrouplist_exprs(wc->orderClause, root->parse->targetList);
+        double num_groups = estimate_num_groups(root, orderexprs, partition_tuples, NULL, NULL);
+        list_free(orderexprs);
+        peer_tuples = partition_tuples / num_groups;
+    } else {
+        peer_tuples = 1.0;
+    }
+
+    // Determine tuples needed based on frame options
+    if (frameOptions & FRAMEOPTION_END_UNBOUNDED_FOLLOWING) {
+        return_tuples = partition_tuples;
+    } else if (frameOptions & FRAMEOPTION_END_CURRENT_ROW) {
+        if (frameOptions & FRAMEOPTION_ROWS) {
+            return_tuples = 1.0;
+        } else if (frameOptions & (FRAMEOPTION_RANGE | FRAMEOPTION_GROUPS)) {
+            return_tuples = (wc->orderClause == NIL) ? partition_tuples : peer_tuples;
+        } else {
+            return_tuples = 1.0;
+        }
+    } else if (frameOptions & FRAMEOPTION_END_OFFSET_PRECEDING) {
+        return_tuples = 1.0;
+    } else if (frameOptions & FRAMEOPTION_END_OFFSET_FOLLOWING) {
+        // Extract offset value for FOLLOWING frames
+        Const *endOffset = (Const *) wc->endOffset;
+        double end_offset_value;
+
+        if (IsA(endOffset, Const) && !endOffset->constisnull) {
+            // Extract numeric offset based on type
+            switch (endOffset->consttype) {
+                case INT2OID: end_offset_value = (double) DatumGetInt16(endOffset->constvalue); break;
+                case INT4OID: end_offset_value = (double) DatumGetInt32(endOffset->constvalue); break;
+                case INT8OID: end_offset_value = (double) DatumGetInt64(endOffset->constvalue); break;
+                default: end_offset_value = partition_tuples / peer_tuples * DEFAULT_INEQ_SEL; break;
+            }
+        } else {
+            end_offset_value = partition_tuples / peer_tuples * DEFAULT_INEQ_SEL;
+        }
+
+        if (frameOptions & FRAMEOPTION_ROWS) {
+            return_tuples = end_offset_value + 1.0;
+        } else {
+            return_tuples = peer_tuples * (end_offset_value + 1.0);
+        }
+    } else {
+        return_tuples = 1.0;
+    }
+
+    // Add extra tuple for boundary detection if needed
+    if (wc->partitionClause != NIL || wc->orderClause != NIL) {
+        return_tuples = Min(return_tuples + 1.0, partition_tuples);
+    } else {
+        return_tuples = Min(return_tuples, partition_tuples);
+    }
+
+    return clamp_row_est(return_tuples);
+}
+```

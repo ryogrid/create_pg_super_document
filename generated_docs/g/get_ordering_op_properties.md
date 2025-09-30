@@ -48,3 +48,43 @@ The function only considers btree access method operators with BTLessStrategyNum
 - The function prioritizes deterministic results by choosing the opfamily with smallest OID when multiple registrations exist
 - Only considers operators registered for the btree access method
 - Requires operators to have consistent left and right input types
+
+## Simplified Source
+
+```c
+bool get_ordering_op_properties(Oid opno, Oid *opfamily, Oid *opcintype, int16 *strategy) {
+    // Initialize outputs to invalid values
+    *opfamily = InvalidOid;
+    *opcintype = InvalidOid;
+    *strategy = 0;
+
+    // Search for operator in pg_amop catalog
+    CatCList *catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(opno));
+
+    // Check each catalog entry for btree ordering operators
+    for (int i = 0; i < catlist->n_members; i++) {
+        Form_pg_amop aform = (Form_pg_amop) GETSTRUCT(&catlist->members[i]->tuple);
+
+        // Must be btree access method
+        if (aform->amopmethod != BTREE_AM_OID)
+            continue;
+
+        // Must be less-than or greater-than strategy
+        if (aform->amopstrategy == BTLessStrategyNumber ||
+            aform->amopstrategy == BTGreaterStrategyNumber) {
+
+            // Require consistent left/right input types
+            if (aform->amoplefttype == aform->amoprighttype) {
+                *opfamily = aform->amopfamily;
+                *opcintype = aform->amoplefttype;
+                *strategy = aform->amopstrategy;
+                ReleaseSysCacheList(catlist);
+                return true;  // Found valid ordering operator
+            }
+        }
+    }
+
+    ReleaseSysCacheList(catlist);
+    return false;  // No valid ordering operator found
+}
+```

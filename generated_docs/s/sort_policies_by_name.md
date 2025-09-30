@@ -33,3 +33,12 @@ This sorting is only applied to restrictive policies because they are combined u
 - The sorting is performed in-place, modifying the original list
 - Critical for deterministic behavior in multi-policy scenarios
 - Policy name comparison is case-sensitive and follows standard string collation rules
+
+## Simplified Source
+
+```c
+static void sort_policies_by_name(List *policies) {
+    // Sort policies in-place by name using comparison function
+    list_sort(policies, row_security_policy_cmp);
+}
+```

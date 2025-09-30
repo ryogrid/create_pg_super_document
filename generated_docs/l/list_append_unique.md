@@ -38,3 +38,16 @@ The function performs a simple linear search through the list to check for membe
 - The list can be NIL (empty) - in this case, a new single-element list is created
 - Suitable for maintaining small lists where duplicate prevention is important
 - For better performance with large lists, consider using hash-based uniqueness checking
+
+## Simplified Source
+
+```c
+List *list_append_unique(List *list, void *datum) {
+    // Check if datum already exists in the list using deep comparison
+    if (list_member(list, datum)) {
+        return list;  // No change needed, datum already present
+    } else {
+        return lappend(list, datum);  // Append datum to list
+    }
+}
+```

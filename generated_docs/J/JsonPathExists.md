@@ -41,3 +41,27 @@ The  function serves as the primary entry point for JSON_EXISTS operations in Po
 - Part of PostgreSQL's SQL/JSON standard implementation
 - Commonly used in WHERE clauses and conditional expressions involving JSON data
 - The  parameter supports JSON path expressions with variables (e.g., )
+
+## Simplified Source
+
+```c
+bool
+JsonPathExists(Datum jb, JsonPath *jp, bool *error, List *vars)
+{
+    JsonPathExecResult res;
+
+    // Execute JSON path with existence-checking mode
+    res = executeJsonPath(jp, vars,
+                          GetJsonPathVar, CountJsonPathVars,
+                          DatumGetJsonbP(jb), !error, NULL, true);
+
+    // Handle error cases based on error parameter
+    if (error && jperIsError(res)) {
+        *error = true;
+        return false;
+    }
+
+    // Return true if path exists (result is jperOk)
+    return res == jperOk;
+}
+```

@@ -34,3 +34,20 @@ This function performs the actual conversion of a PostgreSQL Datum to JSON text 
 - Located in src/backend/utils/adt/json.c:754-769
 - Part of the internal JSON conversion infrastructure used by multiple PostgreSQL components
 - The tcategory and outfuncoid parameters must come from a previous json_categorize_type call
+
+## Simplified Source
+
+```c
+Datum
+datum_to_json(Datum val, JsonTypeCategory tcategory, Oid outfuncoid)
+{
+    // Create output buffer for JSON text
+    StringInfo result = makeStringInfo();
+
+    // Convert datum to JSON string representation
+    datum_to_json_internal(val, false, result, tcategory, outfuncoid, false);
+
+    // Convert result string to PostgreSQL text datum
+    return PointerGetDatum(cstring_to_text_with_len(result->data, result->len));
+}
+```

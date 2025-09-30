@@ -47,3 +47,47 @@ The canonicalization process involves chasing up the equivalence class hierarchy
 - The function performs equivalence class chasing to handle merged equivalence classes
 - Critical for query optimization performance as it prevents duplicate PathKey creation
 - Located in src/backend/optimizer/path/pathkeys.c:55-105
+
+## Simplified Source
+
+```c
+PathKey *make_canonical_pathkey(PlannerInfo *root, EquivalenceClass *eclass,
+                               Oid opfamily, int strategy, bool nulls_first) {
+    PathKey *pk;
+    ListCell *lc;
+    MemoryContext oldcontext;
+
+    // Validate that EC merging is complete
+    if (!root->ec_merging_done)
+        elog(ERROR, "too soon to build canonical pathkeys");
+
+    // Chase up to the top-level (non-merged) equivalence class
+    while (eclass->ec_merged)
+        eclass = eclass->ec_merged;
+
+    // Search for existing canonical pathkey with same characteristics
+    foreach(lc, root->canon_pathkeys) {
+        pk = (PathKey *) lfirst(lc);
+        if (eclass == pk->pk_eclass &&
+            opfamily == pk->pk_opfamily &&
+            strategy == pk->pk_strategy &&
+            nulls_first == pk->pk_nulls_first)
+            return pk;  // Found existing match
+    }
+
+    // Create new canonical pathkey in main planning context
+    oldcontext = MemoryContextSwitchTo(root->planner_cxt);
+
+    pk = makeNode(PathKey);
+    pk->pk_eclass = eclass;
+    pk->pk_opfamily = opfamily;
+    pk->pk_strategy = strategy;
+    pk->pk_nulls_first = nulls_first;
+
+    // Add to canonical list
+    root->canon_pathkeys = lappend(root->canon_pathkeys, pk);
+
+    MemoryContextSwitchTo(oldcontext);
+    return pk;
+}
+```

@@ -46,3 +46,28 @@ The function is called as part of PostgreSQL's identifier normalization pipeline
 - Critical for maintaining PostgreSQL's identifier length constraints across the system
 - The truncation point is NAMEDATALEN-1 to leave room for the null terminator
 - Part of PostgreSQL's identifier processing infrastructure in the parser subsystem
+
+## Simplified Source
+
+```c
+void
+truncate_identifier(char *ident, int len, bool warn)
+{
+    // Check if truncation is needed
+    if (len >= NAMEDATALEN) {
+        // Find safe truncation point for multi-byte characters
+        len = pg_mbcliplen(ident, len, NAMEDATALEN - 1);
+
+        // Issue warning if requested
+        if (warn) {
+            ereport(NOTICE,
+                (errcode(ERRCODE_NAME_TOO_LONG),
+                 errmsg("identifier \"%s\" will be truncated to \"%.*s\"",
+                        ident, len, ident)));
+        }
+
+        // Terminate string at truncation point
+        ident[len] = '\0';
+    }
+}
+```

@@ -56,3 +56,84 @@ This function performs the core catalog operations for extension registration. I
 - Implements proper memory management with heap_freetuple and free_object_addresses cleanup
 - Invokes object creation hooks for extension registration events
 - Returns ObjectAddress for the newly created extension for further processing
+
+## Simplified Source
+
+```c
+ObjectAddress InsertExtensionTuple(const char *extName, Oid extOwner,
+                                  Oid schemaOid, bool relocatable,
+                                  const char *extVersion, Datum extConfig,
+                                  Datum extCondition, List *requiredExtensions) {
+    Oid extensionOid;
+    Relation rel;
+    Datum values[Natts_pg_extension];
+    bool nulls[Natts_pg_extension];
+    HeapTuple tuple;
+    ObjectAddress myself;
+    ObjectAddresses *refobjs;
+
+    // Open pg_extension catalog for insertion
+    rel = table_open(ExtensionRelationId, RowExclusiveLock);
+
+    // Initialize tuple data
+    memset(values, 0, sizeof(values));
+    memset(nulls, 0, sizeof(nulls));
+
+    // Generate new OID and set basic fields
+    extensionOid = GetNewOidWithIndex(rel, ExtensionOidIndexId, Anum_pg_extension_oid);
+    values[Anum_pg_extension_oid - 1] = ObjectIdGetDatum(extensionOid);
+    values[Anum_pg_extension_extname - 1] = DirectFunctionCall1(namein, CStringGetDatum(extName));
+    values[Anum_pg_extension_extowner - 1] = ObjectIdGetDatum(extOwner);
+    values[Anum_pg_extension_extnamespace - 1] = ObjectIdGetDatum(schemaOid);
+    values[Anum_pg_extension_extrelocatable - 1] = BoolGetDatum(relocatable);
+    values[Anum_pg_extension_extversion - 1] = CStringGetTextDatum(extVersion);
+
+    // Handle optional config and condition arrays
+    if (extConfig == PointerGetDatum(NULL)) {
+        nulls[Anum_pg_extension_extconfig - 1] = true;
+    } else {
+        values[Anum_pg_extension_extconfig - 1] = extConfig;
+    }
+
+    if (extCondition == PointerGetDatum(NULL)) {
+        nulls[Anum_pg_extension_extcondition - 1] = true;
+    } else {
+        values[Anum_pg_extension_extcondition - 1] = extCondition;
+    }
+
+    // Create and insert tuple
+    tuple = heap_form_tuple(rel->rd_att, values, nulls);
+    CatalogTupleInsert(rel, tuple);
+    heap_freetuple(tuple);
+    table_close(rel, RowExclusiveLock);
+
+    // Record dependencies
+    recordDependencyOnOwner(ExtensionRelationId, extensionOid, extOwner);
+
+    // Build dependency list for schema and required extensions
+    refobjs = new_object_addresses();
+    ObjectAddressSet(myself, ExtensionRelationId, extensionOid);
+
+    // Add schema dependency
+    ObjectAddress nsp;
+    ObjectAddressSet(nsp, NamespaceRelationId, schemaOid);
+    add_exact_object_address(&nsp, refobjs);
+
+    // Add required extension dependencies
+    foreach(lc, requiredExtensions) {
+        Oid reqext = lfirst_oid(lc);
+        ObjectAddress otherext;
+        ObjectAddressSet(otherext, ExtensionRelationId, reqext);
+        add_exact_object_address(&otherext, refobjs);
+    }
+
+    // Record all dependencies and cleanup
+    record_object_address_dependencies(&myself, refobjs, DEPENDENCY_NORMAL);
+    free_object_addresses(refobjs);
+
+    // Invoke post-creation hook
+    InvokeObjectPostCreateHook(ExtensionRelationId, extensionOid, 0);
+
+    return myself;
+}
+```

@@ -39,3 +39,46 @@ The function follows a depth-first traversal pattern, ensuring that all nested j
 - Throws ERROR for unrecognized node types to catch programming errors
 - Implements depth-first traversal to ensure complete coverage of join tree
 - Critical component of the placeholder discovery phase during query planning
+
+## Simplified Source
+
+```c
+static void
+find_placeholders_recurse(PlannerInfo *root, Node *jtnode)
+{
+    if (jtnode == NULL)
+        return;
+
+    if (IsA(jtnode, RangeTblRef))
+    {
+        // Base table reference - no quals to process
+    }
+    else if (IsA(jtnode, FromExpr))
+    {
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *lc;
+
+        // First, recurse to handle child joins
+        foreach(lc, f->fromlist)
+            find_placeholders_recurse(root, lfirst(lc));
+
+        // Then process top-level quals (WHERE clauses)
+        find_placeholders_in_expr(root, f->quals);
+    }
+    else if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        // First, recurse to handle child joins
+        find_placeholders_recurse(root, j->larg);
+        find_placeholders_recurse(root, j->rarg);
+
+        // Then process join qual clauses
+        find_placeholders_in_expr(root, j->quals);
+    }
+    else
+    {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+    }
+}
+```

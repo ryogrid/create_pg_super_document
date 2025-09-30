@@ -50,3 +50,68 @@ The function includes comprehensive error checking for malformed input and buffe
 - Primarily used in SCRAM authentication for decoding cryptographic data
 - Requires properly formatted base64 input without any extraneous characters
 - Buffer overflow protection ensures safe operation with pre-allocated buffers
+
+## Simplified Source
+
+```c
+int pg_b64_decode(const char *src, int len, char *dst, int dstlen)
+{
+    const char *srcend = src + len;
+    const char *s = src;
+    char *p = dst;
+    uint32 buf = 0;
+    int pos = 0, end = 0;
+
+    while (s < srcend) {
+        char c = *s++;
+
+        // Reject whitespace
+        if (c == ' ' || c == '\t' || c == '\n' || c == '\r')
+            goto error;
+
+        int b;
+        if (c == '=') {
+            // Handle padding characters
+            if (pos == 2) end = 1;
+            else if (pos == 3) end = 2;
+            else goto error;
+            b = 0;
+        } else {
+            // Look up base64 character value
+            if (c <= 0 || c >= 127 || (b = b64lookup[c]) < 0)
+                goto error;
+        }
+
+        // Accumulate 4 characters into 24-bit buffer
+        buf = (buf << 6) + b;
+        pos++;
+
+        if (pos == 4) {
+            // Extract 3 bytes from 24-bit buffer
+            if ((p - dst + 1) > dstlen) goto error;
+            *p++ = (buf >> 16) & 255;
+
+            if (end == 0 || end > 1) {
+                if ((p - dst + 1) > dstlen) goto error;
+                *p++ = (buf >> 8) & 255;
+            }
+            if (end == 0 || end > 2) {
+                if ((p - dst + 1) > dstlen) goto error;
+                *p++ = buf & 255;
+            }
+
+            buf = 0;
+            pos = 0;
+        }
+    }
+
+    // Ensure proper termination
+    if (pos != 0) goto error;
+
+    return p - dst;
+
+error:
+    memset(dst, 0, dstlen);
+    return -1;
+}
+```

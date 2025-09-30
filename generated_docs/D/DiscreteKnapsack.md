@@ -47,3 +47,55 @@ The function creates a temporary memory context to manage allocations and automa
 - Handles the case where item_values is NULL by treating all items as having unit value
 - Creates and destroys a temporary memory context to avoid memory leaks
 - Used primarily in query optimization for selecting optimal grouping sets
+
+## Simplified Source
+
+```c
+Bitmapset *
+DiscreteKnapsack(int max_weight, int num_items,
+                int *item_weights, double *item_values)
+{
+    // Create temporary memory context for cleanup
+    MemoryContext local_ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                                   "Knapsack",
+                                                   ALLOCSET_SMALL_SIZES);
+    MemoryContext oldctx = MemoryContextSwitchTo(local_ctx);
+
+    // Allocate arrays for dynamic programming
+    double *values = palloc((1 + max_weight) * sizeof(double));
+    Bitmapset **sets = palloc((1 + max_weight) * sizeof(Bitmapset *));
+
+    // Initialize: each weight capacity starts with 0 value and empty set
+    for (int i = 0; i <= max_weight; ++i) {
+        values[i] = 0;
+        sets[i] = bms_make_singleton(num_items);  // Pre-allocate with unused high bit
+    }
+
+    // Dynamic programming: consider each item
+    for (int i = 0; i < num_items; ++i) {
+        int item_weight = item_weights[i];
+        double item_value = item_values ? item_values[i] : 1.0;
+
+        // Work backwards through weights to avoid using updated values
+        for (int w = max_weight; w >= item_weight; --w) {
+            int old_weight = w - item_weight;
+
+            // If including this item improves the solution
+            if (values[w] <= values[old_weight] + item_value) {
+                // Copy the previous optimal set and add current item
+                if (w != old_weight)
+                    sets[w] = bms_replace_members(sets[w], sets[old_weight]);
+                sets[w] = bms_add_member(sets[w], i);
+                values[w] = values[old_weight] + item_value;
+            }
+        }
+    }
+
+    // Extract result and clean up
+    MemoryContextSwitchTo(oldctx);
+    Bitmapset *result = bms_del_member(bms_copy(sets[max_weight]), num_items);
+    MemoryContextDelete(local_ctx);
+
+    return result;
+}
+```

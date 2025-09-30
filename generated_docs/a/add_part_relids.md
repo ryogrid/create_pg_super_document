@@ -36,3 +36,36 @@ This organization is essential for efficient partition pruning as it groups rela
 - Topmost parents are restricted to not be higher than the parentrel associated with the append path
 - Handles cases where parentrel itself may be a child partitioned table
 - The function is static and only used within the partition pruning subsystem
+
+## Simplified Source
+
+```c
+static List *
+add_part_relids(List *allpartrelids, Bitmapset *partrelids)
+{
+    Index targetpart;
+    ListCell *lc;
+
+    // Find the topmost parent (lowest RT index in the set)
+    targetpart = bms_next_member(partrelids, -1);
+    Assert(targetpart > 0);
+
+    // Search for existing hierarchy with the same topmost parent
+    foreach(lc, allpartrelids)
+    {
+        Bitmapset *currpartrelids = (Bitmapset *) lfirst(lc);
+        Index currtarget = bms_next_member(currpartrelids, -1);
+
+        if (targetpart == currtarget)
+        {
+            // Found matching hierarchy - merge new relids
+            currpartrelids = bms_add_members(currpartrelids, partrelids);
+            lfirst(lc) = currpartrelids;
+            return allpartrelids;
+        }
+    }
+
+    // No match found - add as new partition hierarchy
+    return lappend(allpartrelids, partrelids);
+}
+```

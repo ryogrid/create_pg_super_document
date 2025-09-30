@@ -51,3 +51,86 @@ The function is careful not to replace any jointree structure itself, delegating
 - Handles special cases like ON CONFLICT clauses, MERGE actions, and join alias variables
 - Assumes that ON CONFLICT's arbiterElems, arbiterWhere, and exclRelTlist cannot contain subquery references
 - The function asserts that setOperations is NULL, indicating it doesn't handle set operations at this level
+
+## Simplified Source
+
+```c
+// Simplified version of perform_pullup_replace_vars
+static void
+perform_pullup_replace_vars(PlannerInfo *root,
+                           pullup_replace_vars_context *rvcontext,
+                           AppendRelInfo *containing_appendrel)
+{
+    Query *parse = root->parse;
+    ListCell *lc;
+
+    // Special case: appendrel child subquery (UNION ALL member)
+    if (containing_appendrel)
+    {
+        bool save_wrap_non_vars = rvcontext->wrap_non_vars;
+
+        // Disable PHV wrapping for appendrel children
+        rvcontext->wrap_non_vars = false;
+        containing_appendrel->translated_vars = (List *)
+            pullup_replace_vars((Node *) containing_appendrel->translated_vars,
+                               rvcontext);
+        rvcontext->wrap_non_vars = save_wrap_non_vars;
+        return;
+    }
+
+    // Regular subquery pullup: replace variables throughout query tree
+
+    // Replace in main query clauses (use PHVs as these are above outer joins)
+    parse->targetList = (List *)
+        pullup_replace_vars((Node *) parse->targetList, rvcontext);
+    parse->returningList = (List *)
+        pullup_replace_vars((Node *) parse->returningList, rvcontext);
+
+    // Handle ON CONFLICT clauses
+    if (parse->onConflict)
+    {
+        parse->onConflict->onConflictSet = (List *)
+            pullup_replace_vars((Node *) parse->onConflict->onConflictSet,
+                               rvcontext);
+        parse->onConflict->onConflictWhere =
+            pullup_replace_vars(parse->onConflict->onConflictWhere, rvcontext);
+    }
+
+    // Handle MERGE actions
+    if (parse->mergeActionList)
+    {
+        foreach(lc, parse->mergeActionList)
+        {
+            MergeAction *action = lfirst(lc);
+            action->qual = pullup_replace_vars(action->qual, rvcontext);
+            action->targetList = (List *)
+                pullup_replace_vars((Node *) action->targetList, rvcontext);
+        }
+    }
+
+    parse->mergeJoinCondition = pullup_replace_vars(parse->mergeJoinCondition,
+                                                   rvcontext);
+
+    // Replace in jointree (uses location-aware PHV logic)
+    replace_vars_in_jointree((Node *) parse->jointree, rvcontext);
+
+    parse->havingQual = pullup_replace_vars(parse->havingQual, rvcontext);
+
+    // Replace in appendrel translated_vars lists
+    foreach(lc, root->append_rel_list)
+    {
+        AppendRelInfo *appinfo = (AppendRelInfo *) lfirst(lc);
+        appinfo->translated_vars = (List *)
+            pullup_replace_vars((Node *) appinfo->translated_vars, rvcontext);
+    }
+
+    // Replace in join RTEs joinaliasvars lists
+    foreach(lc, parse->rtable)
+    {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+        if (rte->rtekind == RTE_JOIN)
+            rte->joinaliasvars = (List *)
+                pullup_replace_vars((Node *) rte->joinaliasvars, rvcontext);
+    }
+}
+```

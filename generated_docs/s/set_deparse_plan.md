@@ -54,3 +54,63 @@ This setup is essential for proper variable resolution during expression decompi
 - Essential for maintaining proper scoping and variable resolution during rule decompilation
 - The target list assignments enable correct interpretation of Var nodes with different varnos (OUTER_VAR, INNER_VAR, INDEX_VAR)
 - Part of the broader plan decompilation infrastructure that converts execution plans back to SQL text
+
+## Simplified Source
+
+```c
+static void
+set_deparse_plan(deparse_namespace *dpns, Plan *plan)
+{
+    dpns->plan = plan;
+
+    // Set up OUTER plan reference based on plan type
+    if (IsA(plan, Append))
+        dpns->outer_plan = linitial(((Append *) plan)->appendplans);
+    else if (IsA(plan, MergeAppend))
+        dpns->outer_plan = linitial(((MergeAppend *) plan)->mergeplans);
+    else
+        dpns->outer_plan = outerPlan(plan);
+
+    // Set outer target list based on outer plan
+    if (dpns->outer_plan)
+        dpns->outer_tlist = dpns->outer_plan->targetlist;
+    else
+        dpns->outer_tlist = NIL;
+
+    // Set up INNER plan reference for special plan types
+    if (IsA(plan, SubqueryScan))
+        dpns->inner_plan = ((SubqueryScan *) plan)->subplan;
+    else if (IsA(plan, CteScan))
+        dpns->inner_plan = list_nth(dpns->subplans,
+                                   ((CteScan *) plan)->ctePlanId - 1);
+    else if (IsA(plan, WorkTableScan))
+        dpns->inner_plan = find_recursive_union(dpns, (WorkTableScan *) plan);
+    else if (IsA(plan, ModifyTable)) {
+        if (((ModifyTable *) plan)->operation == CMD_MERGE)
+            dpns->inner_plan = outerPlan(plan);
+        else
+            dpns->inner_plan = plan;
+    }
+    else
+        dpns->inner_plan = innerPlan(plan);
+
+    // Set inner target list based on inner plan or special cases
+    if (IsA(plan, ModifyTable) &&
+        ((ModifyTable *) plan)->operation == CMD_INSERT)
+        dpns->inner_tlist = ((ModifyTable *) plan)->exclRelTlist;
+    else if (dpns->inner_plan)
+        dpns->inner_tlist = dpns->inner_plan->targetlist;
+    else
+        dpns->inner_tlist = NIL;
+
+    // Set up INDEX_VAR target list for scan plans that need it
+    if (IsA(plan, IndexOnlyScan))
+        dpns->index_tlist = ((IndexOnlyScan *) plan)->indextlist;
+    else if (IsA(plan, ForeignScan))
+        dpns->index_tlist = ((ForeignScan *) plan)->fdw_scan_tlist;
+    else if (IsA(plan, CustomScan))
+        dpns->index_tlist = ((CustomScan *) plan)->custom_scan_tlist;
+    else
+        dpns->index_tlist = NIL;
+}
+```

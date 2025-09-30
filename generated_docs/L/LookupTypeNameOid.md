@@ -32,3 +32,27 @@ LookupTypeNameOid serves as a convenience wrapper around LookupTypeName when onl
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:232-263. Important: the returned OID may correspond to a shell type, so callers need to be aware of this limitation. Most code should use typenameTypeId instead, which provides additional validation. The function properly manages system cache resources by releasing the Type tuple after extracting the OID.
+
+## Simplified Source
+```c
+Oid LookupTypeNameOid(ParseState *pstate, const TypeName *typeName, bool missing_ok) {
+    // Look up the type name in system catalogs
+    Type tup = LookupTypeName(pstate, typeName, NULL, missing_ok);
+
+    // Handle type not found
+    if (tup == NULL) {
+        if (!missing_ok) {
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                           errmsg("type \"%s\" does not exist", TypeNameToString(typeName)),
+                           parser_errposition(pstate, typeName->location)));
+        }
+        return InvalidOid;
+    }
+
+    // Extract OID from the type tuple and clean up
+    Oid typoid = ((Form_pg_type) GETSTRUCT(tup))->oid;
+    ReleaseSysCache(tup);
+
+    return typoid;
+}
+```

@@ -35,3 +35,15 @@ This function is a type-checking utility that determines whether a given clause 
 - Part of a family of clause-testing functions that help categorize different types of boolean expressions
 - The function safely handles NULL input by checking for it explicitly
 - Widely used throughout the optimizer for OR clause detection and special processing
+
+## Simplified Source
+
+```c
+static inline bool is_orclause(const void *clause)
+{
+    // Check if clause is non-NULL BoolExpr with OR_EXPR operator
+    return (clause != NULL &&
+            IsA(clause, BoolExpr) &&
+            ((const BoolExpr *) clause)->boolop == OR_EXPR);
+}
+```

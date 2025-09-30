@@ -41,3 +41,56 @@ The function includes an assertion to verify that the target function is indeed 
 
 ## Notes and Other Information
 The function returns an unfiltered estimate and does not apply any clamping to ensure reasonable bounds. Callers are typically expected to apply clamp_row_est() to the result to prevent extremely large or small estimates from causing poor planning decisions. The function properly manages system catalog cache resources by releasing cached tuples after use. The row count estimation is essential for determining the cost and selectivity of operations involving set-returning functions in complex queries.
+
+## Simplified Source
+
+```c
+// Simplified version of get_function_rows
+double
+get_function_rows(PlannerInfo *root, Oid funcid, Node *node)
+{
+    HeapTuple proctup;
+    Form_pg_proc procform;
+    double result;
+
+    // Look up function in system catalog
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    procform = (Form_pg_proc) GETSTRUCT(proctup);
+    Assert(procform->proretset); // Must be set-returning function
+
+    // Try to get estimate from support function if available
+    if (OidIsValid(procform->prosupport))
+    {
+        SupportRequestRows req;
+        SupportRequestRows *sresult;
+
+        // Setup support function request
+        req.type = T_SupportRequestRows;
+        req.root = root;
+        req.funcid = funcid;
+        req.node = node;
+        req.rows = 0;
+
+        // Call support function for custom estimate
+        sresult = (SupportRequestRows *)
+            DatumGetPointer(OidFunctionCall1(procform->prosupport,
+                                           PointerGetDatum(&req)));
+
+        if (sresult == &req)
+        {
+            // Support function succeeded
+            ReleaseSysCache(proctup);
+            return req.rows;
+        }
+    }
+
+    // Fallback to static estimate from pg_proc
+    result = procform->prorows;
+    ReleaseSysCache(proctup);
+
+    return result;
+}
+```

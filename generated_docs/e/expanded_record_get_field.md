@@ -43,3 +43,22 @@ The function converts from 1-based field numbering (PostgreSQL convention) to 0-
 - Field numbering follows PostgreSQL convention (1-based) but internally converts to 0-based array access
 - Commonly used in expression evaluation for field selection operations
 - Located in src/include/utils/expandedrecord.h:228-241
+
+## Simplified Source
+
+```c
+static inline Datum
+expanded_record_get_field(ExpandedRecordHeader *erh, int fnumber,
+                          bool *isnull)
+{
+    // Fast path: use cached field data if available
+    if ((erh->flags & ER_FLAG_DVALUES_VALID) &&
+        likely(fnumber > 0 && fnumber <= erh->nfields)) {
+        *isnull = erh->dnulls[fnumber - 1];
+        return erh->dvalues[fnumber - 1];
+    } else {
+        // Slow path: extract field from flat tuple
+        return expanded_record_fetch_field(erh, fnumber, isnull);
+    }
+}
+```

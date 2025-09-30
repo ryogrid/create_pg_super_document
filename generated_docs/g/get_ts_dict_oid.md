@@ -44,3 +44,53 @@ The function uses efficient system cache lookups to resolve dictionary names to 
 - Part of PostgreSQL's text search infrastructure, used for dictionary-based text processing
 - Mirrors the functionality of get_ts_parser_oid but for dictionary objects
 - Located in src/backend/catalog/namespace.c at lines 2861-2918
+
+## Simplified Source
+
+```c
+Oid
+get_ts_dict_oid(List *names, bool missing_ok) {
+    char *schemaname;
+    char *dict_name;
+    Oid namespaceId;
+    Oid dictoid = InvalidOid;
+    ListCell *l;
+
+    // Parse the qualified name
+    DeconstructQualifiedName(names, &schemaname, &dict_name);
+
+    if (schemaname) {
+        // Schema-qualified lookup
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            dictoid = InvalidOid;
+        else
+            dictoid = GetSysCacheOid2(TSDICTNAMENSP, Anum_pg_ts_dict_oid,
+                                      PointerGetDatum(dict_name),
+                                      ObjectIdGetDatum(namespaceId));
+    } else {
+        // Search through the namespace search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath) {
+            namespaceId = lfirst_oid(l);
+
+            // Skip temporary namespace
+            if (namespaceId == myTempNamespace)
+                continue;
+
+            dictoid = GetSysCacheOid2(TSDICTNAMENSP, Anum_pg_ts_dict_oid,
+                                      PointerGetDatum(dict_name),
+                                      ObjectIdGetDatum(namespaceId));
+            if (OidIsValid(dictoid))
+                break;
+        }
+    }
+
+    // Handle not found case
+    if (!OidIsValid(dictoid) && !missing_ok)
+        ereport(ERROR, "text search dictionary does not exist");
+
+    return dictoid;
+}
+```

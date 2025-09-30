@@ -45,3 +45,62 @@ This static function provides type-aware conversion of JsonbValue structures to 
 - Static function scope limits its use to the execExprInterp.c compilation unit
 - Memory allocated by this function should be managed by PostgreSQL's memory context system
 - Essential for type coercion pipeline in SQL/JSON value extraction
+
+## Simplified Source
+
+```c
+static char *
+ExecGetJsonValueItemString(JsonbValue *item, bool *resnull)
+{
+    *resnull = false;
+
+    // Handle different JSONB value types
+    switch (item->type) {
+        case jbvNull:
+            *resnull = true;
+            return NULL;
+
+        case jbvString:
+            // Manual string copy with null termination
+            char *str = palloc(item->val.string.len + 1);
+            memcpy(str, item->val.string.val, item->val.string.len);
+            str[item->val.string.len] = '\0';
+            return str;
+
+        case jbvNumeric:
+            return DatumGetCString(DirectFunctionCall1(numeric_out,
+                                  NumericGetDatum(item->val.numeric)));
+
+        case jbvBool:
+            return DatumGetCString(DirectFunctionCall1(boolout,
+                                  BoolGetDatum(item->val.boolean)));
+
+        case jbvDatetime:
+            // Handle different datetime types
+            switch (item->val.datetime.typid) {
+                case DATEOID:
+                    return DatumGetCString(DirectFunctionCall1(date_out,
+                                          item->val.datetime.value));
+                case TIMEOID:
+                    return DatumGetCString(DirectFunctionCall1(time_out,
+                                          item->val.datetime.value));
+                // ... other datetime types similar
+                default:
+                    elog(ERROR, "unexpected jsonb datetime type oid %u",
+                         item->val.datetime.typid);
+            }
+
+        case jbvArray:
+        case jbvObject:
+        case jbvBinary:
+            // Convert complex types back to JSONB string
+            return DatumGetCString(DirectFunctionCall1(jsonb_out,
+                                  JsonbPGetDatum(JsonbValueToJsonb(item))));
+
+        default:
+            elog(ERROR, "unexpected jsonb value type %d", item->type);
+    }
+
+    return NULL;
+}
+```

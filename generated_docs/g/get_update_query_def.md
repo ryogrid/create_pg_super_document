@@ -47,3 +47,51 @@ The function follows PostgreSQL's standard deparsing pattern:
 - Pretty-printing behavior is controlled through PRETTY_INDENT context settings
 - The function handles complex UPDATE scenarios including those with FROM clauses for multi-table updates
 - Part of the broader query deparsing infrastructure used for rule definitions, view definitions, and query display
+
+## Simplified Source
+```c
+static void get_update_query_def(Query *query, deparse_context *context) {
+    StringInfo buf = context->buf;
+    RangeTblEntry *rte;
+
+    // Add WITH clause if present
+    get_with_clause(query, context);
+
+    // Generate UPDATE relation_name
+    rte = rt_fetch(query->resultRelation, query->rtable);
+
+    if (PRETTY_INDENT(context)) {
+        appendStringInfoChar(buf, ' ');
+        context->indentLevel += PRETTYINDENT_STD;
+    }
+
+    appendStringInfo(buf, "UPDATE %s%s",
+                     only_marker(rte),
+                     generate_relation_name(rte->relid, NIL));
+
+    // Add relation alias if needed
+    get_rte_alias(rte, query->resultRelation, false, context);
+
+    appendStringInfoString(buf, " SET ");
+
+    // Add SET clause with target assignments
+    get_update_query_targetlist_def(query, query->targetList, context, rte);
+
+    // Add FROM clause for multi-table updates
+    get_from_clause(query, " FROM ", context);
+
+    // Add WHERE clause if present
+    if (query->jointree->quals != NULL) {
+        appendContextKeyword(context, " WHERE ",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_rule_expr(query->jointree->quals, context, false);
+    }
+
+    // Add RETURNING clause if present
+    if (query->returningList) {
+        appendContextKeyword(context, " RETURNING",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_target_list(query->returningList, context);
+    }
+}
+```

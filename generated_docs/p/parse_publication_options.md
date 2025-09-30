@@ -49,3 +49,88 @@ The function first sets default values for all publication actions (all enabled 
 - Supports parsing comma-separated lists for the 'publish' parameter
 - Provides detailed error messages for invalid syntax and unrecognized options
 - Located in src/backend/commands/publicationcmds.c:76-165
+
+## Simplified Source
+
+```c
+static void parse_publication_options(ParseState *pstate,
+                                     List *options,
+                                     bool *publish_given,
+                                     PublicationActions *pubactions,
+                                     bool *publish_via_partition_root_given,
+                                     bool *publish_via_partition_root)
+{
+    ListCell *lc;
+
+    *publish_given = false;
+    *publish_via_partition_root_given = false;
+
+    // Set defaults - all DML operations enabled by default
+    pubactions->pubinsert = true;
+    pubactions->pubupdate = true;
+    pubactions->pubdelete = true;
+    pubactions->pubtruncate = true;
+    *publish_via_partition_root = false;
+
+    // Parse each option
+    foreach(lc, options) {
+        DefElem *defel = (DefElem *) lfirst(lc);
+
+        if (strcmp(defel->defname, "publish") == 0) {
+            char *publish;
+            List *publish_list;
+            ListCell *lc2;
+
+            if (*publish_given) {
+                errorConflictingDefElem(defel, pstate);
+            }
+
+            // When publish option is given, only explicitly listed actions are enabled
+            pubactions->pubinsert = false;
+            pubactions->pubupdate = false;
+            pubactions->pubdelete = false;
+            pubactions->pubtruncate = false;
+
+            *publish_given = true;
+            publish = defGetString(defel);
+
+            if (!SplitIdentifierString(publish, ',', &publish_list)) {
+                ereport(ERROR,
+                        (errcode(ERRCODE_SYNTAX_ERROR),
+                         errmsg("invalid list syntax in parameter \"%s\"", "publish")));
+            }
+
+            // Process each publish option
+            foreach(lc2, publish_list) {
+                char *publish_opt = (char *) lfirst(lc2);
+
+                if (strcmp(publish_opt, "insert") == 0)
+                    pubactions->pubinsert = true;
+                else if (strcmp(publish_opt, "update") == 0)
+                    pubactions->pubupdate = true;
+                else if (strcmp(publish_opt, "delete") == 0)
+                    pubactions->pubdelete = true;
+                else if (strcmp(publish_opt, "truncate") == 0)
+                    pubactions->pubtruncate = true;
+                else
+                    ereport(ERROR,
+                            (errcode(ERRCODE_SYNTAX_ERROR),
+                             errmsg("unrecognized value for publication option \"%s\": \"%s\"",
+                                    "publish", publish_opt)));
+            }
+        }
+        else if (strcmp(defel->defname, "publish_via_partition_root") == 0) {
+            if (*publish_via_partition_root_given) {
+                errorConflictingDefElem(defel, pstate);
+            }
+            *publish_via_partition_root_given = true;
+            *publish_via_partition_root = defGetBoolean(defel);
+        }
+        else {
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("unrecognized publication parameter: \"%s\"", defel->defname)));
+        }
+    }
+}
+```

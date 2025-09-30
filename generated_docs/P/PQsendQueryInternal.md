@@ -53,3 +53,55 @@ The function ensures proper pipeline mode handling by rejecting queries when pip
 - [Query](../Q/Query.md) text is duplicated and stored in the command queue entry for debugging and tracking purposes
 - The function supports both blocking and non-blocking operation modes through the underlying flush mechanism
 - Error handling follows libpq conventions with error messages appended to the connection's error buffer
+
+## Simplified Source
+
+```c
+static int PQsendQueryInternal(PGconn *conn, const char *query, bool newQuery) {
+    // Validate connection state and prepare for query
+    if (!PQsendQueryStart(conn, newQuery))
+        return 0;
+
+    // Validate query parameter
+    if (!query) {
+        libpq_append_conn_error(conn, "command string is a null pointer");
+        return 0;
+    }
+
+    // Simple queries not allowed in pipeline mode
+    if (conn->pipelineStatus != PQ_PIPELINE_OFF) {
+        libpq_append_conn_error(conn, "%s not allowed in pipeline mode",
+                                "PQsendQuery");
+        return 0;
+    }
+
+    // Allocate command queue entry
+    PGcmdQueueEntry *entry = pqAllocCmdQueueEntry(conn);
+    if (entry == NULL)
+        return 0;  // Error already set
+
+    // Construct and send Query message
+    if (pqPutMsgStart(PqMsg_Query, conn) < 0 ||
+        pqPuts(query, conn) < 0 ||
+        pqPutMsgEnd(conn) < 0) {
+        pqRecycleCmdQueueEntry(conn, entry);
+        return 0;
+    }
+
+    // Set query class and store query text
+    entry->queryclass = PGQUERY_SIMPLE;
+    entry->query = strdup(query);
+
+    // Attempt to flush data
+    if (pqFlush(conn) < 0)
+        goto sendFailed;
+
+    // Add to command queue and return success
+    pqAppendCmdQueueEntry(conn, entry);
+    return 1;
+
+sendFailed:
+    pqRecycleCmdQueueEntry(conn, entry);
+    return 0;
+}
+```

@@ -43,3 +43,20 @@ This function is typically called indirectly through the MakeExpandedObjectReadO
 - The conversion from read-write to read-only helps prevent accidental modifications in contexts where the data should be immutable
 - Used extensively in the expression evaluation system to ensure proper access control
 - The function is defined in src/backend/utils/adt/expandeddatum.c:95-117
+
+## Simplified Source
+
+```c
+Datum MakeExpandedObjectReadOnlyInternal(Datum d)
+{
+    // Check if this is a read-write expanded object
+    if (!VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d)))
+        return d;  // Not a R/W expanded object, return unchanged
+
+    // Extract the expanded object header
+    ExpandedObjectHeader *eohptr = DatumGetEOHP(d);
+
+    // Return the read-only equivalent
+    return EOHPGetRODatum(eohptr);
+}
+```

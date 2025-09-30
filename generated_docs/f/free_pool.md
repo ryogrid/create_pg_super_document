@@ -38,3 +38,22 @@ This function is critical for preventing memory leaks in the GEQO system, as gen
 - Frees memory in reverse allocation order: gene strings → chromosome array → pool structure
 - The function assumes the pool structure is valid and properly initialized
 - Part of PostgreSQL's genetic query optimizer memory management system
+
+## Simplified Source
+
+```c
+void free_pool(PlannerInfo *root, Pool *pool) {
+    Chromosome *chromo = (Chromosome *) pool->data;
+
+    // Free each chromosome's gene string
+    for (int i = 0; i < pool->size; i++) {
+        pfree(chromo[i].string);
+    }
+
+    // Free chromosome array
+    pfree(pool->data);
+
+    // Free pool structure
+    pfree(pool);
+}
+```

@@ -49,3 +49,78 @@ The function ensures proper resource management by creating tuplestores in the c
 - Supports inheritance scenarios by allowing tcs_original_insert_tuple to be set for child table handling
 - Part of PostgreSQL's implementation of SQL standard transition table functionality for triggers
 - Validates query depth to ensure it's called within proper query execution context
+
+## Simplified Source
+```c
+TransitionCaptureState *MakeTransitionCaptureState(TriggerDesc *trigdesc, Oid relid, CmdType cmdType) {
+    if (trigdesc == NULL)
+        return NULL;
+
+    // Determine which transition tables are needed based on command type
+    bool need_old_upd = false, need_new_upd = false;
+    bool need_old_del = false, need_new_ins = false;
+
+    switch (cmdType) {
+        case CMD_INSERT:
+            need_new_ins = trigdesc->trig_insert_new_table;
+            break;
+        case CMD_UPDATE:
+            need_old_upd = trigdesc->trig_update_old_table;
+            need_new_upd = trigdesc->trig_update_new_table;
+            break;
+        case CMD_DELETE:
+            need_old_del = trigdesc->trig_delete_old_table;
+            break;
+        case CMD_MERGE:
+            need_old_upd = trigdesc->trig_update_old_table;
+            need_new_upd = trigdesc->trig_update_new_table;
+            need_old_del = trigdesc->trig_delete_old_table;
+            need_new_ins = trigdesc->trig_insert_new_table;
+            break;
+        default:
+            elog(ERROR, "unexpected CmdType: %d", (int) cmdType);
+    }
+
+    // Return NULL if no transition tables needed
+    if (!need_old_upd && !need_new_upd && !need_new_ins && !need_old_del)
+        return NULL;
+
+    // Validate query state
+    if (afterTriggers.query_depth < 0)
+        elog(ERROR, "MakeTransitionCaptureState() called outside of query");
+
+    // Ensure adequate query state capacity
+    if (afterTriggers.query_depth >= afterTriggers.maxquerydepth)
+        AfterTriggerEnlargeQueryState();
+
+    // Get or create table data structure for tuplestores
+    AfterTriggersTableData *table = GetAfterTriggersTableData(relid, cmdType);
+
+    // Create needed tuplestores in transaction context
+    MemoryContext oldcxt = MemoryContextSwitchTo(CurTransactionContext);
+    ResourceOwner saveResourceOwner = CurrentResourceOwner;
+    CurrentResourceOwner = CurTransactionResourceOwner;
+
+    if (need_old_upd && table->old_upd_tuplestore == NULL)
+        table->old_upd_tuplestore = tuplestore_begin_heap(false, false, work_mem);
+    if (need_new_upd && table->new_upd_tuplestore == NULL)
+        table->new_upd_tuplestore = tuplestore_begin_heap(false, false, work_mem);
+    if (need_old_del && table->old_del_tuplestore == NULL)
+        table->old_del_tuplestore = tuplestore_begin_heap(false, false, work_mem);
+    if (need_new_ins && table->new_ins_tuplestore == NULL)
+        table->new_ins_tuplestore = tuplestore_begin_heap(false, false, work_mem);
+
+    CurrentResourceOwner = saveResourceOwner;
+    MemoryContextSwitchTo(oldcxt);
+
+    // Build and return TransitionCaptureState
+    TransitionCaptureState *state = (TransitionCaptureState *) palloc0(sizeof(TransitionCaptureState));
+    state->tcs_delete_old_table = need_old_del;
+    state->tcs_update_old_table = need_old_upd;
+    state->tcs_update_new_table = need_new_upd;
+    state->tcs_insert_new_table = need_new_ins;
+    state->tcs_private = table;
+
+    return state;
+}
+```

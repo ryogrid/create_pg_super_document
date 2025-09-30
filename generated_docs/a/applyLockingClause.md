@@ -46,3 +46,43 @@ The pushedDown parameter tracks whether the locking requirement originated from 
 - pushedDown flag becomes false if any clause targeting the relation is explicit
 - Creates RowMarkClause structures that are later used by the planner and executor
 - Located in src/backend/parser/analyze.c at lines 3529-3588
+
+## Simplified Source
+
+```c
+void applyLockingClause(Query *qry, Index rtindex,
+                       LockClauseStrength strength, LockWaitPolicy waitPolicy,
+                       bool pushedDown) {
+    Assert(strength != LCS_NONE);
+
+    // Set hasForUpdate flag for explicit clauses
+    if (!pushedDown) {
+        qry->hasForUpdate = true;
+    }
+
+    // Check if a RowMarkClause already exists for this relation
+    RowMarkClause *rc = get_parse_rowmark(qry, rtindex);
+    if (rc != NULL) {
+        // Update existing clause with stronger settings
+        // Stronger lock strength wins (FOR UPDATE > FOR SHARE)
+        rc->strength = Max(rc->strength, strength);
+
+        // More restrictive wait policy wins (NOWAIT > SKIP LOCKED > wait)
+        rc->waitPolicy = Max(rc->waitPolicy, waitPolicy);
+
+        // If any clause is explicit, pushedDown becomes false
+        rc->pushedDown &= pushedDown;
+        return;
+    }
+
+    // Create new RowMarkClause
+    rc = makeNode(RowMarkClause);
+    rc->rti = rtindex;
+    rc->strength = strength;
+    rc->waitPolicy = waitPolicy;
+    rc->pushedDown = pushedDown;
+
+    // Add to query's rowMarks list
+    qry->rowMarks = lappend(qry->rowMarks, rc);
+}
+```

@@ -59,3 +59,47 @@ This static function performs the core ACL modification logic for PostgreSQL's G
 - Memory management is carefully handled - the original old_acl is freed and intermediate ACLs are freed during iteration to prevent leaks when processing multiple grantees
 - The function implements the SQL standard's asymmetric GRANT/REVOKE semantics where GRANT WITH GRANT OPTION affects both privileges and grant options, while REVOKE has different behavior for regular revoke vs REVOKE GRANT OPTION
 - This is a core utility function used by all PostgreSQL object types that support ACL-based permissions
+
+## Simplified Source
+
+```c
+static Acl *
+merge_acl_with_grant(Acl *old_acl, bool is_grant,
+                     bool grant_option, DropBehavior behavior,
+                     List *grantees, AclMode privileges,
+                     Oid grantorId, Oid ownerId)
+{
+    unsigned modechg = is_grant ? ACL_MODECHG_ADD : ACL_MODECHG_DEL;
+    Acl *new_acl = old_acl;
+
+    // Process each grantee in the list
+    foreach(ListCell *j, grantees) {
+        AclItem aclitem;
+
+        aclitem.ai_grantee = lfirst_oid(j);
+        aclitem.ai_grantor = grantorId;
+
+        // Security check: grant options can only go to individual roles, not PUBLIC
+        if (is_grant && grant_option && aclitem.ai_grantee == ACL_ID_PUBLIC)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_GRANT_OPERATION),
+                           errmsg("grant options can only be granted to roles")));
+
+        // Handle asymmetric GRANT/REVOKE semantics per SQL standard:
+        // - GRANT WITH GRANT OPTION: grants both privilege and grant option
+        // - REVOKE: removes both privilege and grant option by default
+        // - REVOKE GRANT OPTION: removes only the grant option
+        ACLITEM_SET_PRIVS_GOPTIONS(aclitem,
+                                   (is_grant || !grant_option) ? privileges : ACL_NO_RIGHTS,
+                                   (!is_grant || grant_option) ? privileges : ACL_NO_RIGHTS);
+
+        // Update the ACL with this item
+        Acl *newer_acl = aclupdate(new_acl, &aclitem, modechg, ownerId, behavior);
+
+        // Prevent memory leaks when processing multiple grantees
+        pfree(new_acl);
+        new_acl = newer_acl;
+    }
+
+    return new_acl;
+}
+```

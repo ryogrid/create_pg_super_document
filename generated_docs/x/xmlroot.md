@@ -40,3 +40,54 @@ This function takes an existing XML document and creates a new XML document with
 - When libxml2 support is not available, the function calls NO_XML_SUPPORT() and returns NULL
 - The function creates a completely new XML document rather than modifying the original in-place
 - Used internally by PostgreSQL's XML processing system for XMLROOT SQL function implementation
+
+## Simplified Source
+
+```c
+xmltype *xmlroot(xmltype *data, text *version, int standalone)
+{
+#ifdef USE_LIBXML
+    char *str;
+    size_t len;
+    xmlChar *orig_version;
+    int orig_standalone;
+    StringInfoData buf;
+
+    // Extract content and parse existing XML declaration
+    len = VARSIZE(data) - VARHDRSZ;
+    str = text_to_cstring((text *) data);
+    parse_xml_decl((xmlChar *) str, &len, &orig_version, NULL, &orig_standalone);
+
+    // Set new version if provided
+    if (version)
+        orig_version = xml_text2xmlChar(version);
+
+    // Update standalone attribute based on parameter
+    switch (standalone)
+    {
+        case XML_STANDALONE_YES:
+            orig_standalone = 1;
+            break;
+        case XML_STANDALONE_NO:
+            orig_standalone = 0;
+            break;
+        case XML_STANDALONE_NO_VALUE:
+            orig_standalone = -1;
+            break;
+        case XML_STANDALONE_OMITTED:
+            // Keep original value unchanged
+            break;
+    }
+
+    // Build new XML document with updated declaration
+    initStringInfo(&buf);
+    print_xml_decl(&buf, orig_version, 0, orig_standalone);
+    appendStringInfoString(&buf, str + len);  // Add original content
+
+    return stringinfo_to_xmltype(&buf);
+#else
+    NO_XML_SUPPORT();
+    return NULL;
+#endif
+}
+```

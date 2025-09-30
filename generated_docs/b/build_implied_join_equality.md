@@ -62,3 +62,45 @@ Unlike process_implied_equality(), this function does not perform constant foldi
 - Part of PostgreSQL's equivalence class system for advanced join optimization
 - Used primarily in contexts where manual clause placement control is needed
 - Simpler than process_implied_equality() as it skips distribution complexity
+
+## Simplified Source
+
+```c
+RestrictInfo *
+build_implied_join_equality(PlannerInfo *root, Oid opno, Oid collation,
+                           Expr *item1, Expr *item2, Relids qualscope,
+                           Index security_level)
+{
+    RestrictInfo *restrictinfo;
+    Expr       *clause;
+
+    // Build the equality clause "item1 op item2"
+    // Deep copy operands to avoid shared substructure
+    clause = make_opclause(opno,
+                          BOOLOID,    /* opresulttype */
+                          false,      /* opretset */
+                          copyObject(item1),
+                          copyObject(item2),
+                          InvalidOid,
+                          collation);
+
+    // Create RestrictInfo wrapper
+    restrictinfo = make_restrictinfo(root,
+                                   clause,
+                                   true,        /* is_pushed_down */
+                                   false,       /* !has_clone */
+                                   false,       /* !is_clone */
+                                   false,       /* pseudoconstant */
+                                   security_level,
+                                   qualscope,   /* required_relids */
+                                   NULL,        /* incompatible_relids */
+                                   NULL);       /* outer_relids */
+
+    // Analyze join method suitability
+    check_mergejoinable(restrictinfo);
+    check_hashjoinable(restrictinfo);
+    check_memoizable(restrictinfo);
+
+    return restrictinfo;
+}
+```

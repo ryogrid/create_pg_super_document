@@ -39,3 +39,32 @@ The function iterates through each string in the input list, converts each strin
 - The function handles memory management by allocating space for the Datum array and freeing temporary string duplicates
 - The conversion to text arrays allows efficient storage and querying of filter conditions in the PostgreSQL catalog
 - Future case-sensitive filter variables might require modifications to this function's uppercase conversion logic
+
+## Simplified Source
+```c
+static Datum filter_list_to_array(List *filterlist) {
+    // Allocate array to hold converted strings
+    int len = list_length(filterlist);
+    Datum *data = (Datum *) palloc(len * sizeof(Datum));
+
+    int i = 0;
+    ListCell *lc;
+    foreach(lc, filterlist) {
+        // Get string value and convert to uppercase
+        const char *value = strVal(lfirst(lc));
+        char *result = pstrdup(value);
+
+        // Convert to uppercase for case-insensitive matching
+        for (char *p = result; *p; p++) {
+            *p = pg_ascii_toupper((unsigned char) *p);
+        }
+
+        // Convert to PostgreSQL text type and store in array
+        data[i++] = PointerGetDatum(cstring_to_text(result));
+        pfree(result);
+    }
+
+    // Construct and return PostgreSQL text array
+    return PointerGetDatum(construct_array_builtin(data, len, TEXTOID));
+}
+```

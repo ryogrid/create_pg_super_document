@@ -43,3 +43,28 @@ The function preserves errno across its operation and includes retry logic to ha
 - Gracefully handles broken buffer states by returning early
 - Widely used throughout libpq for consistent error message formatting and reporting
 - Essential component of libpq's error handling and user feedback system
+
+## Simplified Source
+```c
+void libpq_append_error(PQExpBuffer errorMessage, const char *fmt, ...) {
+    int save_errno = errno;
+    bool done;
+    va_list args;
+
+    Assert(fmt[strlen(fmt) - 1] != '\n');
+
+    if (PQExpBufferBroken(errorMessage))
+        return; // Buffer already failed
+
+    // Format and append the translated message
+    do {
+        errno = save_errno;
+        va_start(args, fmt);
+        done = appendPQExpBufferVA(errorMessage, libpq_gettext(fmt), args);
+        va_end(args);
+    } while (!done); // Retry if buffer needs enlarging
+
+    // Automatically add newline
+    appendPQExpBufferChar(errorMessage, '\n');
+}
+```

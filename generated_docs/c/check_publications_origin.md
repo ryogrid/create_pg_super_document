@@ -59,3 +59,78 @@ This function performs a critical validation check for logical replication subsc
 - Uses complex SQL with partition hierarchy functions (pg_partition_ancestors, pg_partition_tree) to check parent and child table relationships
 - Warning messages use plural forms to handle single vs. multiple publication scenarios appropriately
 - The check is designed to be conservative - it warns even if tables might be empty, prioritizing safety over precision
+
+## Simplified Source
+
+```c
+static void
+check_publications_origin(WalReceiverConn *wrconn, List *publications,
+                          bool copydata, char *origin, Oid *subrel_local_oids,
+                          int subrel_count, char *subname)
+{
+    WalRcvExecResult *res;
+    StringInfoData cmd;
+    TupleTableSlot *slot;
+    List *publist = NIL;
+
+    // Early return if not checking origin conflicts
+    if (!copydata || !origin || (pg_strcasecmp(origin, LOGICALREP_ORIGIN_NONE) != 0))
+        return;
+
+    // Build SQL query to find overlapping publications
+    initStringInfo(&cmd);
+    appendStringInfoString(&cmd,
+        "SELECT DISTINCT P.pubname "
+        "FROM pg_publication P, "
+        "     LATERAL pg_get_publication_tables(P.pubname) GPT "
+        "     JOIN pg_subscription_rel PS ON (GPT.relid = PS.srrelid OR "
+        "     GPT.relid IN (SELECT relid FROM pg_partition_ancestors(PS.srrelid) UNION "
+        "                   SELECT relid FROM pg_partition_tree(PS.srrelid))), "
+        "     pg_class C JOIN pg_namespace N ON (N.oid = C.relnamespace) "
+        "WHERE C.oid = GPT.relid AND P.pubname IN (");
+
+    get_publications_str(publications, &cmd, true);
+    appendStringInfoString(&cmd, ")");
+
+    // Exclude already synchronized tables
+    for (int i = 0; i < subrel_count; i++) {
+        Oid relid = subrel_local_oids[i];
+        char *schemaname = get_namespace_name(get_rel_namespace(relid));
+        char *tablename = get_rel_name(relid);
+
+        appendStringInfo(&cmd, "AND NOT (N.nspname = '%s' AND C.relname = '%s')",
+                         schemaname, tablename);
+    }
+
+    // Execute query and process results
+    res = walrcv_exec(wrconn, cmd.data, 1, (Oid[]){TEXTOID});
+    pfree(cmd.data);
+
+    if (res->status != WALRCV_OK_TUPLES)
+        ereport(ERROR, (errmsg("could not receive list of replicated tables")));
+
+    // Collect publication names that have conflicts
+    slot = MakeSingleTupleTableSlot(res->tupledesc, &TTSOpsMinimalTuple);
+    while (tuplestore_gettupleslot(res->tuplestore, true, false, slot)) {
+        char *pubname = TextDatumGetCString(slot_getattr(slot, 1, &isnull));
+        publist = list_append_unique(publist, makeString(pubname));
+        ExecClearTuple(slot);
+    }
+
+    // Issue warning if conflicts detected
+    if (publist) {
+        StringInfo pubnames = makeStringInfo();
+        get_publications_str(publist, pubnames, false);
+
+        ereport(WARNING,
+            (errmsg("subscription \"%s\" requested copy_data with origin = NONE "
+                    "but might copy data that had a different origin", subname),
+             errdetail_plural("Publication (%s) contains tables written by other subscriptions.",
+                             "Publications (%s) contain tables written by other subscriptions.",
+                             list_length(publist), pubnames->data)));
+    }
+
+    ExecDropSingleTupleTableSlot(slot);
+    walrcv_clear_result(res);
+}
+```

@@ -37,3 +37,13 @@ This function provides a simple boolean test to determine if a RestrictInfo cont
 - Optimization usage: This function is frequently used in path generation and index optimization to identify opportunities for bitmap OR scans and other OR-specific optimizations
 - Field semantics: A non-NULL orclause indicates that the RestrictInfo represents an OR clause where each constituent has been wrapped with its own RestrictInfo node
 - Return value: Returns true if the RestrictInfo contains an OR clause, false otherwise
+
+## Simplified Source
+
+```c
+bool
+restriction_is_or_clause(RestrictInfo *restrictinfo)
+{
+    return (restrictinfo->orclause != NULL);
+}
+```

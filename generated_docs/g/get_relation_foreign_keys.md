@@ -48,3 +48,73 @@ The created ForeignKeyOptInfo structures are added to the root->fkey_list for la
 - The cached foreign key list belongs to relcache and may disappear during cache flushes
 - Initial ForeignKeyOptInfo fields are zeroed and populated later by match_foreign_keys_to_quals()
 - Useless ForeignKeyOptInfos (for non-baserels) are filtered out later in the optimization process
+
+## Simplified Source
+
+```c
+static void
+get_relation_foreign_keys(PlannerInfo *root, RelOptInfo *rel,
+                          Relation relation, bool inhparent)
+{
+    List *rtable = root->parse->rtable;
+    List *cachedfkeys;
+    ListCell *lc;
+
+    // Only process base relations in multi-relation queries
+    if (rel->reloptkind != RELOPT_BASEREL || list_length(rtable) < 2)
+        return;
+
+    // Skip inheritance parents (too complex for constraint analysis)
+    if (inhparent)
+        return;
+
+    // Get cached foreign key list from relcache
+    cachedfkeys = RelationGetFKeyList(relation);
+
+    // Process each foreign key constraint
+    foreach(lc, cachedfkeys) {
+        ForeignKeyCacheInfo *cachedfk = (ForeignKeyCacheInfo *) lfirst(lc);
+        Index rti;
+        ListCell *lc2;
+
+        // Find RTEs that match the referenced table
+        rti = 0;
+        foreach(lc2, rtable) {
+            RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc2);
+            ForeignKeyOptInfo *info;
+
+            rti++;
+
+            // Skip non-matching or inappropriate RTEs
+            if (rte->rtekind != RTE_RELATION ||
+                rte->relid != cachedfk->confrelid ||
+                rte->inh ||                    // Skip inheritance parents
+                rti == rel->relid)             // Skip self-references
+                continue;
+
+            // Create ForeignKeyOptInfo for this FK relationship
+            info = makeNode(ForeignKeyOptInfo);
+            info->con_relid = rel->relid;
+            info->ref_relid = rti;
+            info->nkeys = cachedfk->nkeys;
+
+            // Copy key arrays from cache
+            memcpy(info->conkey, cachedfk->conkey, sizeof(info->conkey));
+            memcpy(info->confkey, cachedfk->confkey, sizeof(info->confkey));
+            memcpy(info->conpfeqop, cachedfk->conpfeqop, sizeof(info->conpfeqop));
+
+            // Initialize fields for later processing
+            info->nmatched_ec = 0;
+            info->nconst_ec = 0;
+            info->nmatched_rcols = 0;
+            info->nmatched_ri = 0;
+            memset(info->eclass, 0, sizeof(info->eclass));
+            memset(info->fk_eclass_member, 0, sizeof(info->fk_eclass_member));
+            memset(info->rinfos, 0, sizeof(info->rinfos));
+
+            // Add to global foreign key list
+            root->fkey_list = lappend(root->fkey_list, info);
+        }
+    }
+}
+```

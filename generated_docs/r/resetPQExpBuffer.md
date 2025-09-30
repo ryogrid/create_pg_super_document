@@ -38,3 +38,19 @@ This function is essential for buffer reuse and recovery from error conditions, 
 - The function handles the special case of `oom_buffer`, which is used as a sentinel value when memory allocation fails
 - Widely used throughout PostgreSQL client tools and utilities for buffer management
 - Part of the libpq interface for expandable string buffers
+
+## Simplified Source
+```c
+void resetPQExpBuffer(PQExpBuffer str) {
+    if (str) {
+        if (str->data != oom_buffer) {
+            // Normal case: clear buffer contents
+            str->len = 0;
+            str->data[0] = '\0';
+        } else {
+            // Broken buffer: reinitialize to valid state
+            initPQExpBuffer(str);
+        }
+    }
+}
+```

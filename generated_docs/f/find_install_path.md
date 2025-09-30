@@ -45,3 +45,44 @@ The function uses the reject_indirect optimization when calling find_update_path
 - Essential for PostgreSQL's extension installation when target version lacks direct install script
 - best_path output parameter set to NIL initially and updated with optimal path on success
 - Each candidate path is calculated independently with full reinitialization
+
+## Simplified Source
+
+```c
+static ExtensionVersionInfo *find_install_path(List *evi_list,
+                                              ExtensionVersionInfo *evi_target,
+                                              List **best_path) {
+    ExtensionVersionInfo *evi_start = NULL;
+    *best_path = NIL;
+
+    // Quick return: if target is already installable, no path needed
+    if (evi_target->installable) {
+        return evi_target;
+    }
+
+    // Try each installable version as a potential starting point
+    foreach(lc, evi_list) {
+        ExtensionVersionInfo *evi1 = (ExtensionVersionInfo *) lfirst(lc);
+
+        if (!evi1->installable)
+            continue;
+
+        // Find shortest path from this installable version to target
+        List *path = find_update_path(evi_list, evi1, evi_target, true, true);
+        if (path == NIL)
+            continue;
+
+        // Check if this is the best path so far
+        // Prefer: 1) shorter paths, 2) lexicographically smaller start version
+        if (evi_start == NULL ||
+            list_length(path) < list_length(*best_path) ||
+            (list_length(path) == list_length(*best_path) &&
+             strcmp(evi_start->name, evi1->name) < 0)) {
+            evi_start = evi1;
+            *best_path = path;
+        }
+    }
+
+    return evi_start;  // NULL if no path found
+}
+```

@@ -50,3 +50,42 @@ After this deformation step, subsequent evaluation steps will overwrite specific
 - Part of PostgreSQL's compiled expression evaluation system for efficient tuple modification
 - Must be followed by field update steps and FIELDSTORE_FORM to complete the operation
 - Uses HeapTupleData wrapper to interface with heap_deform_tuple function requirements
+
+## Simplified Source
+
+```c
+void ExecEvalFieldStoreDeForm(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    if (*op->resnull) {
+        // Convert null input tuple into all-nulls row
+        memset(op->d.fieldstore.nulls, true,
+               op->d.fieldstore.ncolumns * sizeof(bool));
+    } else {
+        // Deform valid tuple into individual field values
+        Datum tupDatum = *op->resvalue;
+        HeapTupleHeader tuphdr = DatumGetHeapTupleHeader(tupDatum);
+        HeapTupleData tmptup;
+        TupleDesc tupDesc;
+
+        // Set up HeapTuple structure for heap_deform_tuple
+        tmptup.t_len = HeapTupleHeaderGetDatumLength(tuphdr);
+        ItemPointerSetInvalid(&(tmptup.t_self));
+        tmptup.t_tableOid = InvalidOid;
+        tmptup.t_data = tuphdr;
+
+        // Get tuple descriptor for the result type
+        tupDesc = get_cached_rowtype(op->d.fieldstore.fstore->resulttype, -1,
+                                    op->d.fieldstore.rowcache, NULL);
+
+        // Validate that we have enough space for all columns
+        if (unlikely(tupDesc->natts > op->d.fieldstore.ncolumns))
+            elog(ERROR, "too many columns in composite type %u",
+                 op->d.fieldstore.fstore->resulttype);
+
+        // Deform tuple into values and nulls arrays
+        heap_deform_tuple(&tmptup, tupDesc,
+                         op->d.fieldstore.values,
+                         op->d.fieldstore.nulls);
+    }
+}
+```

@@ -66,3 +66,84 @@ The operation is fully transactional - if the transaction aborts, all changes ar
 - The function preserves currval() state across alterations for user session consistency
 - Proper integration with the extension system and object dependency tracking
 - Transaction safety ensured through proper buffer management and WAL logging
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterSequence(ParseState *pstate, AlterSeqStmt *stmt)
+{
+    Oid relid;
+    SeqTable elm;
+    Relation seqrel, rel;
+    Buffer buf;
+    HeapTupleData datatuple;
+    Form_pg_sequence seqform;
+    Form_pg_sequence_data newdataform;
+    bool need_seq_rewrite;
+    List *owned_by;
+    ObjectAddress address;
+    HeapTuple seqtuple, newdatatuple;
+
+    // Open and lock sequence with ownership check
+    relid = RangeVarGetRelidExtended(stmt->sequence, ShareRowExclusiveLock,
+                                    stmt->missing_ok ? RVR_MISSING_OK : 0,
+                                    RangeVarCallbackOwnsRelation, NULL);
+    if (relid == InvalidOid) {
+        ereport(NOTICE, (errmsg("relation \"%s\" does not exist, skipping",
+                               stmt->sequence->relname)));
+        return InvalidObjectAddress;
+    }
+
+    // Initialize sequence access
+    init_sequence(relid, &elm, &seqrel);
+
+    // Get sequence metadata from catalog
+    rel = table_open(SequenceRelationId, RowExclusiveLock);
+    seqtuple = SearchSysCacheCopy1(SEQRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(seqtuple))
+        elog(ERROR, "cache lookup failed for sequence %u", relid);
+
+    seqform = (Form_pg_sequence) GETSTRUCT(seqtuple);
+
+    // Read current sequence data and make working copy
+    (void) read_seq_tuple(seqrel, &buf, &datatuple);
+    newdatatuple = heap_copytuple(&datatuple);
+    newdataform = (Form_pg_sequence_data) GETSTRUCT(newdatatuple);
+    UnlockReleaseBuffer(buf);
+
+    // Process parameter changes
+    init_params(pstate, stmt->options, stmt->for_identity, false,
+               seqform, newdataform, &need_seq_rewrite, &owned_by);
+
+    // Rewrite sequence storage if parameters require it
+    if (need_seq_rewrite) {
+        // Ensure WAL logging for durability
+        if (RelationNeedsWAL(seqrel))
+            GetTopTransactionId();
+
+        // Create new storage file and write updated data
+        RelationSetNewRelfilenumber(seqrel, seqrel->rd_rel->relpersistence);
+        fill_seq_with_data(seqrel, newdatatuple);
+    }
+
+    // Clear cached sequence values (preserve currval state)
+    elm->cached = elm->last;
+
+    // Handle OWNED BY clause if specified
+    if (owned_by)
+        process_owned_by(seqrel, owned_by, stmt->for_identity);
+
+    // Update catalog metadata
+    CatalogTupleUpdate(rel, &seqtuple->t_self, seqtuple);
+
+    InvokeObjectPostAlterHook(RelationRelationId, relid, 0);
+    ObjectAddressSet(address, RelationRelationId, relid);
+
+    // Cleanup
+    table_close(rel, RowExclusiveLock);
+    sequence_close(seqrel, NoLock);
+
+    return address;
+}
+```

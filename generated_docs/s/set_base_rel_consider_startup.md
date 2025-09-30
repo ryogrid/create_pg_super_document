@@ -37,3 +37,28 @@ The logic recognizes that while parameterized paths are typically used on the in
 - Deliberately ignores appendrels and joinrels to minimize planning time growth
 - The optimization specifically targets single base relations on RHS of SEMI/ANTI joins
 - Aligns with costsize.c's costing rules for nestloop semi/antijoins
+
+## Simplified Source
+
+```c
+static void
+set_base_rel_consider_startup(PlannerInfo *root)
+{
+    ListCell *lc;
+
+    // Scan special join info to find SEMI/ANTI joins
+    foreach(lc, root->join_info_list)
+    {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+        int varno;
+
+        // Check for SEMI or ANTI join with single base relation on RHS
+        if ((sjinfo->jointype == JOIN_SEMI || sjinfo->jointype == JOIN_ANTI) &&
+            bms_get_singleton_member(sjinfo->syn_righthand, &varno))
+        {
+            RelOptInfo *rel = find_base_rel(root, varno);
+            rel->consider_param_startup = true;
+        }
+    }
+}
+```

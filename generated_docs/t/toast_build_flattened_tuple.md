@@ -40,3 +40,47 @@ The function preserves the caller's isnull array unchanged but creates a modifie
 - Useful for creating self-contained tuples without external dependencies
 - The question of whether to also decompress inline compressed datums remains unresolved (currently they are left compressed)
 - Part of PostgreSQL's TOAST system for handling oversized attribute values
+
+## Simplified Source
+
+```c
+HeapTuple toast_build_flattened_tuple(TupleDesc tupleDesc, Datum *values, bool *isnull)
+{
+    HeapTuple new_tuple;
+    int numAttrs = tupleDesc->natts;
+    int num_to_free = 0;
+    Datum new_values[MaxTupleAttributeNumber];
+    Pointer freeable_values[MaxTupleAttributeNumber];
+
+    // Copy input values array (isnull array used directly)
+    Assert(numAttrs <= MaxTupleAttributeNumber);
+    memcpy(new_values, values, numAttrs * sizeof(Datum));
+
+    // Process each attribute to expand external TOAST values
+    for (int i = 0; i < numAttrs; i++)
+    {
+        // Check non-null variable-length attributes
+        if (!isnull[i] && TupleDescAttr(tupleDesc, i)->attlen == -1)
+        {
+            struct varlena *new_value = (struct varlena *) DatumGetPointer(new_values[i]);
+
+            // If value is stored externally, retrieve full content
+            if (VARATT_IS_EXTERNAL(new_value))
+            {
+                new_value = detoast_external_attr(new_value);
+                new_values[i] = PointerGetDatum(new_value);
+                freeable_values[num_to_free++] = (Pointer) new_value;
+            }
+        }
+    }
+
+    // Build tuple with flattened values
+    new_tuple = heap_form_tuple(tupleDesc, new_values, isnull);
+
+    // Clean up temporary detoasted values
+    for (int i = 0; i < num_to_free; i++)
+        pfree(freeable_values[i]);
+
+    return new_tuple;
+}
+```

@@ -50,3 +50,48 @@ The function provides flexible error handling through the missing_ok parameter. 
 - Provides user-friendly error messages including both constraint name and relation name
 - Essential utility function for constraint name resolution in DDL operations and system utilities
 - Only searches relation constraints by explicitly setting contypid to InvalidOid in search key
+
+## Simplified Source
+
+```c
+Oid
+get_relation_constraint_oid(Oid relid, const char *conname, bool missing_ok)
+{
+    Relation pg_constraint;
+    HeapTuple tuple;
+    SysScanDesc scan;
+    ScanKeyData skey[3];
+    Oid conOid = InvalidOid;
+
+    // Open pg_constraint catalog for reading
+    pg_constraint = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Set up search keys for indexed scan
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relid));
+    ScanKeyInit(&skey[1], Anum_pg_constraint_contypid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(InvalidOid));
+    ScanKeyInit(&skey[2], Anum_pg_constraint_conname,
+                BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(conname));
+
+    // Perform indexed scan for matching constraint
+    scan = systable_beginscan(pg_constraint, ConstraintRelidTypidNameIndexId, true,
+                              NULL, 3, skey);
+
+    // Extract OID if constraint found (at most one matching row)
+    if (HeapTupleIsValid(tuple = systable_getnext(scan)))
+        conOid = ((Form_pg_constraint) GETSTRUCT(tuple))->oid;
+
+    systable_endscan(scan);
+
+    // Report error if constraint not found and missing_ok is false
+    if (!OidIsValid(conOid) && !missing_ok)
+        ereport(ERROR,
+            (errcode(ERRCODE_UNDEFINED_OBJECT),
+             errmsg("constraint \"%s\" for table \"%s\" does not exist",
+                    conname, get_rel_name(relid))));
+
+    table_close(pg_constraint, AccessShareLock);
+    return conOid;
+}
+```

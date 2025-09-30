@@ -48,3 +48,66 @@ The function uses the system cache to efficiently retrieve all existing enum val
 - The sort order of enum values is not affected by label renaming
 - Changes are transactional and will be rolled back if the transaction fails
 - Maximum label length is constrained by NAMEDATALEN-1 (typically 63 bytes)
+
+## Simplified Source
+
+```c
+void
+RenameEnumLabel(Oid enumTypeOid, const char *oldVal, const char *newVal)
+{
+    Relation pg_enum;
+    HeapTuple enum_tup, old_tup;
+    Form_pg_enum en;
+    CatCList *list;
+    int nelems, i;
+    bool found_new = false;
+
+    // Validate new label length
+    if (strlen(newVal) > (NAMEDATALEN - 1))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_NAME),
+                        errmsg("invalid enum label \"%s\"", newVal),
+                        errdetail("Labels must be %d bytes or less.", NAMEDATALEN - 1)));
+
+    // Lock enum type to prevent concurrent modifications
+    LockDatabaseObject(TypeRelationId, enumTypeOid, 0, ExclusiveLock);
+
+    // Open pg_enum catalog
+    pg_enum = table_open(EnumRelationId, RowExclusiveLock);
+
+    // Get all existing enum labels for this type
+    list = SearchSysCacheList1(ENUMTYPOIDNAME, ObjectIdGetDatum(enumTypeOid));
+    nelems = list->n_members;
+
+    // Find old label and check new label doesn't exist
+    old_tup = NULL;
+    for (i = 0; i < nelems; i++)
+    {
+        enum_tup = &(list->members[i]->tuple);
+        en = (Form_pg_enum) GETSTRUCT(enum_tup);
+
+        if (strcmp(NameStr(en->enumlabel), oldVal) == 0)
+            old_tup = enum_tup;
+        if (strcmp(NameStr(en->enumlabel), newVal) == 0)
+            found_new = true;
+    }
+
+    // Validate old label exists and new label doesn't exist
+    if (!old_tup)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("\"%s\" is not an existing enum label", oldVal)));
+    if (found_new)
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                        errmsg("enum label \"%s\" already exists", newVal)));
+
+    // Update the enum label
+    enum_tup = heap_copytuple(old_tup);
+    en = (Form_pg_enum) GETSTRUCT(enum_tup);
+    namestrcpy(&en->enumlabel, newVal);
+    CatalogTupleUpdate(pg_enum, &enum_tup->t_self, enum_tup);
+
+    // Clean up
+    heap_freetuple(enum_tup);
+    ReleaseCatCacheList(list);
+    table_close(pg_enum, RowExclusiveLock);
+}
+```

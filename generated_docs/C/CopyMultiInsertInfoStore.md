@@ -39,3 +39,22 @@ This function works in conjunction with CopyMultiInsertInfoNextFreeSlot to manag
 - Line numbers are stored for accurate error reporting during batch insert operations
 - Updates both per-buffer (nused) and global (bufferedTuples, bufferedBytes) statistics
 - Part of the multi-insert buffering mechanism that improves COPY performance by batching operations
+
+## Simplified Source
+
+```c
+static inline void
+CopyMultiInsertInfoStore(CopyMultiInsertInfo *miinfo, ResultRelInfo *rri,
+                        TupleTableSlot *slot, int tuplen, uint64 lineno)
+{
+    CopyMultiInsertBuffer *buffer = rri->ri_CopyMultiInsertBuffer;
+
+    // Store line number for error reporting
+    buffer->linenos[buffer->nused] = lineno;
+
+    // Mark slot as used and update statistics
+    buffer->nused++;
+    miinfo->bufferedTuples++;
+    miinfo->bufferedBytes += tuplen;
+}
+```

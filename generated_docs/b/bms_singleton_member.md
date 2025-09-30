@@ -36,3 +36,34 @@ This function extracts the single member from a bitmapset that is expected to co
 - Calculates the final member value by combining word offset (wordnum * BITS_PER_BITMAPWORD) with bit position
 - Commonly used in query optimization when a singleton set is expected
 - Located in src/backend/nodes/bitmapset.c:672-714
+
+## Simplified Source
+
+```c
+int bms_singleton_member(const Bitmapset *a)
+{
+    int result = -1;
+    int wordnum = 0;
+
+    // Validate input
+    if (a == NULL)
+        elog(ERROR, "bitmapset is empty");
+
+    // Scan each word for set bits
+    do {
+        bitmapword w = a->words[wordnum];
+
+        if (w != 0) {
+            // Check for multiple members (either multiple words or multiple bits in one word)
+            if (result >= 0 || HAS_MULTIPLE_ONES(w))
+                elog(ERROR, "bitmapset has multiple members");
+
+            // Calculate member value: word offset + bit position
+            result = wordnum * BITS_PER_BITMAPWORD;
+            result += bmw_rightmost_one_pos(w);
+        }
+    } while (++wordnum < a->nwords);
+
+    return result;
+}
+```

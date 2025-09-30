@@ -43,3 +43,53 @@ The function is designed to be crash-safe through proper WAL logging and uses cr
 - Used in vacuum operations where the current backend may not be a member
 - Critical sections ensure atomicity of the creation process
 - The function handles both member creation and storage in SLRU files
+
+## Simplified Source
+
+```c
+MultiXactId MultiXactIdCreateFromMembers(int nmembers, MultiXactMember *members) {
+    MultiXactId multi;
+    MultiXactOffset offset;
+
+    // Check cache first - avoid creating duplicate MultiXacts
+    multi = mXactCacheGetBySet(nmembers, members);
+    if (MultiXactIdIsValid(multi)) {
+        return multi;  // Found existing MultiXact with same members
+    }
+
+    // Validate: at most one updating member allowed
+    bool has_update = false;
+    for (int i = 0; i < nmembers; i++) {
+        if (ISUPDATE_from_mxstatus(members[i].status)) {
+            if (has_update) {
+                elog(ERROR, "new multixact has more than one updating member");
+            }
+            has_update = true;
+        }
+    }
+
+    // Assign new MultiXact ID and offset range (starts critical section)
+    multi = GetNewMultiXactId(nmembers, &offset);
+
+    // Create WAL record for crash recovery
+    xl_multixact_create xlrec;
+    xlrec.mid = multi;
+    xlrec.moff = offset;
+    xlrec.nmembers = nmembers;
+
+    XLogBeginInsert();
+    XLogRegisterData((char *) (&xlrec), SizeOfMultiXactCreate);
+    XLogRegisterData((char *) members, nmembers * sizeof(MultiXactMember));
+    XLogInsert(RM_MULTIXACT_ID, XLOG_MULTIXACT_CREATE_ID);
+
+    // Store in SLRU files (OFFSETs and MEMBERs)
+    RecordNewMultiXact(multi, offset, nmembers, members);
+
+    END_CRIT_SECTION();
+
+    // Cache the new MultiXact for future lookups
+    mXactCachePut(multi, nmembers, members);
+
+    return multi;
+}
+```

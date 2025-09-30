@@ -55,3 +55,44 @@ During the response waiting phase, the function:
 - Any unexpected data received from the server is treated as an error condition
 - The function expects only connection closure, not data exchange with the server
 - Error conditions result in CONNECTION_BAD status and detailed error messages
+
+## Simplified Source
+
+```c
+PostgresPollingStatusType PQcancelPoll(PGcancelConn *cancelConn)
+{
+    PGconn *conn = &cancelConn->conn;
+
+    // Phase 1: Continue connection establishment if not ready
+    if (conn->status != CONNECTION_AWAITING_RESPONSE) {
+        return PQconnectPoll(conn);
+    }
+
+    // Phase 2: Wait for server to close connection (indicating cancel completion)
+    int n = pqReadData(conn);
+
+    // Still waiting for data/response
+    if (n == 0)
+        return PGRES_POLLING_READING;
+
+    // Handle read errors (except on Windows due to TCP closure behavior)
+#ifndef WIN32
+    if (n < 0 && errno != 0) {
+        conn->status = CONNECTION_BAD;
+        return PGRES_POLLING_FAILED;
+    }
+#endif
+
+    // Unexpected data received (should only get EOF)
+    if (n > 0) {
+        libpq_append_conn_error(conn, "unexpected response from server");
+        conn->status = CONNECTION_BAD;
+        return PGRES_POLLING_FAILED;
+    }
+
+    // EOF received - cancel completed successfully
+    cancelConn->conn.status = CONNECTION_OK;
+    resetPQExpBuffer(&conn->errorMessage);
+    return PGRES_POLLING_OK;
+}
+```

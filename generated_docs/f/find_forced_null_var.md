@@ -40,3 +40,41 @@ The function only considers level-zero variables (varlevelsup == 0) to ensure it
 - The function treats "IS UNKNOWN" and "IS NULL" as equivalent for variable nullness constraints
 - Only considers current-level variables (varlevelsup == 0) to avoid confusion with outer query references
 - Returns NULL if the clause doesn't match the specific patterns it recognizes
+
+## Simplified Source
+
+```c
+Var *
+find_forced_null_var(Node *node)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Check for "var IS NULL" expressions
+    if (IsA(node, NullTest)) {
+        NullTest *expr = (NullTest *) node;
+
+        if (expr->nulltesttype == IS_NULL && !expr->argisrow) {
+            Var *var = (Var *) expr->arg;
+
+            // Return var if it's a current-level variable
+            if (var && IsA(var, Var) && var->varlevelsup == 0)
+                return var;
+        }
+    }
+    // Check for "var IS UNKNOWN" expressions (equivalent to IS NULL)
+    else if (IsA(node, BooleanTest)) {
+        BooleanTest *expr = (BooleanTest *) node;
+
+        if (expr->booltesttype == IS_UNKNOWN) {
+            Var *var = (Var *) expr->arg;
+
+            // Return var if it's a current-level variable
+            if (var && IsA(var, Var) && var->varlevelsup == 0)
+                return var;
+        }
+    }
+
+    return NULL;
+}
+```

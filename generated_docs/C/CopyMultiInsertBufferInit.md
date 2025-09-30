@@ -43,3 +43,24 @@ The function specifically handles the distinction between regular tables and for
 - Memory is allocated in the current memory context using palloc
 - The buffer starts with zero used slots (nused = 0), ready to accept new tuples
 - [BulkInsertState](../B/BulkInsertState.md) is only created for regular tables to optimize buffer allocation during bulk operations
+
+## Simplified Source
+
+```c
+static CopyMultiInsertBuffer *
+CopyMultiInsertBufferInit(ResultRelInfo *rri)
+{
+    CopyMultiInsertBuffer *buffer;
+
+    // Allocate and initialize buffer structure
+    buffer = (CopyMultiInsertBuffer *) palloc(sizeof(CopyMultiInsertBuffer));
+    memset(buffer->slots, 0, sizeof(TupleTableSlot *) * MAX_BUFFERED_TUPLES);
+
+    // Set up buffer fields
+    buffer->resultRelInfo = rri;
+    buffer->bistate = (rri->ri_FdwRoutine == NULL) ? GetBulkInsertState() : NULL;
+    buffer->nused = 0;
+
+    return buffer;
+}
+```

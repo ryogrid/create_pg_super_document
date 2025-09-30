@@ -51,3 +51,12 @@ TimestampTzGetDatum is an inline function that converts a TimestampTz value into
 - Essential for the PostgreSQL function manager (fmgr) interface when returning timestamptz values
 - TimestampTz represents timestamps that are timezone-aware but stored in UTC internally
 - Location: src/include/utils/timestamp.h:52-57
+
+## Simplified Source
+
+```c
+static inline Datum TimestampTzGetDatum(TimestampTz X) {
+    // Convert TimestampTz to Datum using int64 conversion since TimestampTz is int64
+    return Int64GetDatum(X);
+}
+```

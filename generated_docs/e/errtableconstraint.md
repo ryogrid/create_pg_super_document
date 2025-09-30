@@ -43,3 +43,17 @@ This function is commonly used in constraint violation scenarios, including uniq
 - The return value (0) does not matter and is ignored by callers
 - Builds upon errtable() to provide complete table and constraint context in error messages
 - Used across multiple subsystems including B-tree access methods, table commands, executor, and referential integrity
+
+## Simplified Source
+
+```c
+int errtableconstraint(Relation rel, const char *conname) {
+    // Store table context (schema and table name)
+    errtable(rel);
+
+    // Add constraint name to error context
+    err_generic_string(PG_DIAG_CONSTRAINT_NAME, conname);
+
+    return 0;  // Return value ignored
+}
+```

@@ -42,3 +42,43 @@ The function performs a loop that:
 - When creating multiple statistics objects in a single command, the caller should create each object and call CommandCounterIncrement before choosing the next name
 - Returns a palloc'd string that must be freed by the caller
 - Located in src/backend/commands/statscmds.c (lines 809-850)
+
+## Simplified Source
+
+```c
+static char *
+ChooseExtendedStatisticName(const char *name1, const char *name2,
+                           const char *label, Oid namespaceid)
+{
+    int pass = 0;
+    char *stxname = NULL;
+    char modlabel[NAMEDATALEN];
+
+    // Start with the unmodified label
+    strlcpy(modlabel, label, sizeof(modlabel));
+
+    // Keep trying until we find a unique name
+    for (;;)
+    {
+        Oid existingstats;
+
+        // Construct candidate name
+        stxname = makeObjectName(name1, name2, modlabel);
+
+        // Check if name already exists in the namespace
+        existingstats = GetSysCacheOid2(STATEXTNAMENSP, Anum_pg_statistic_ext_oid,
+                                       PointerGetDatum(stxname),
+                                       ObjectIdGetDatum(namespaceid));
+
+        // If name is unique, we're done
+        if (!OidIsValid(existingstats))
+            break;
+
+        // Name conflict - try again with a number suffix
+        pfree(stxname);
+        snprintf(modlabel, sizeof(modlabel), "%s%d", label, ++pass);
+    }
+
+    return stxname;
+}
+```

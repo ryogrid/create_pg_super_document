@@ -36,3 +36,15 @@ This function is part of PostgreSQL's rewrite rule system, which allows for quer
 - This is a read-only operation that does not modify any system state
 - Used internally by PostgreSQL's rule management system for validation and lookup operations
 - The function is defined in src/backend/rewrite/rewriteSupport.c:32-52
+
+## Simplified Source
+
+```c
+bool IsDefinedRewriteRule(Oid owningRel, const char *ruleName)
+{
+    // Check if rule exists in system cache using relation OID and rule name
+    return SearchSysCacheExists2(RULERELNAME,
+                                ObjectIdGetDatum(owningRel),
+                                PointerGetDatum(ruleName));
+}
+```

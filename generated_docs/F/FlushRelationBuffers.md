@@ -67,3 +67,81 @@ The caller should typically hold AccessExclusiveLock on the target relation to p
 - Effects may not persist after the exclusive lock is released due to potential concurrent modifications
 - Includes comprehensive error context tracking for local buffer writes
 - Updates I/O statistics and buffer usage counters appropriately
+
+## Simplified Source
+
+```c
+void FlushRelationBuffers(Relation rel) {
+    int i;
+    BufferDesc *bufHdr;
+    SMgrRelation srel = RelationGetSmgr(rel);
+
+    // Handle local buffers (temporary relations)
+    if (RelationUsesLocalBuffers(rel)) {
+        for (i = 0; i < NLocBuffer; i++) {
+            bufHdr = GetLocalBufferDescriptor(i);
+            uint32 buf_state = pg_atomic_read_u32(&bufHdr->state);
+
+            // Check if buffer matches relation and is dirty
+            if (BufTagMatchesRelFileLocator(&bufHdr->tag, &rel->rd_locator) &&
+                (buf_state & (BM_VALID | BM_DIRTY)) == (BM_VALID | BM_DIRTY)) {
+
+                Page localpage = (char *) LocalBufHdrGetBlock(bufHdr);
+
+                // Set up error context for better error reporting
+                ErrorContextCallback errcallback;
+                errcallback.callback = local_buffer_write_error_callback;
+                errcallback.arg = (void *) bufHdr;
+                errcallback.previous = error_context_stack;
+                error_context_stack = &errcallback;
+
+                // Write page with checksum and I/O timing
+                PageSetChecksumInplace(localpage, bufHdr->tag.blockNum);
+                instr_time io_start = pgstat_prepare_io_time(track_io_timing);
+
+                smgrwrite(srel, BufTagGetForkNum(&bufHdr->tag),
+                         bufHdr->tag.blockNum, localpage, false);
+
+                pgstat_count_io_op_time(IOOBJECT_TEMP_RELATION, IOCONTEXT_NORMAL,
+                                       IOOP_WRITE, io_start, 1);
+
+                // Clear dirty flags and update statistics
+                buf_state &= ~(BM_DIRTY | BM_JUST_DIRTIED);
+                pg_atomic_unlocked_write_u32(&bufHdr->state, buf_state);
+                pgBufferUsage.local_blks_written++;
+
+                error_context_stack = errcallback.previous;
+            }
+        }
+        return;
+    }
+
+    // Handle shared buffers (permanent relations)
+    for (i = 0; i < NBuffers; i++) {
+        bufHdr = GetBufferDescriptor(i);
+
+        // Quick unlocked check to avoid unnecessary work
+        if (!BufTagMatchesRelFileLocator(&bufHdr->tag, &rel->rd_locator))
+            continue;
+
+        // Prepare for buffer operations
+        ReservePrivateRefCountEntry();
+        ResourceOwnerEnlarge(CurrentResourceOwner);
+
+        // Lock buffer and recheck conditions
+        uint32 buf_state = LockBufHdr(bufHdr);
+        if (BufTagMatchesRelFileLocator(&bufHdr->tag, &rel->rd_locator) &&
+            (buf_state & (BM_VALID | BM_DIRTY)) == (BM_VALID | BM_DIRTY)) {
+
+            // Pin buffer and flush with proper locking
+            PinBuffer_Locked(bufHdr);
+            LWLockAcquire(BufferDescriptorGetContentLock(bufHdr), LW_SHARED);
+            FlushBuffer(bufHdr, srel, IOOBJECT_RELATION, IOCONTEXT_NORMAL);
+            LWLockRelease(BufferDescriptorGetContentLock(bufHdr));
+            UnpinBuffer(bufHdr);
+        } else {
+            UnlockBufHdr(bufHdr, buf_state);
+        }
+    }
+}
+```

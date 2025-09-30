@@ -32,3 +32,17 @@ The oidin function is responsible for parsing string input and converting it to 
 - Error handling is delegated to uint32in_subr, which provides context-aware error messages
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS macro
 - Location: src/backend/utils/adt/oid.c:37-46
+
+## Simplified Source
+
+```c
+Datum oidin(PG_FUNCTION_ARGS) {
+    char *s = PG_GETARG_CSTRING(0);
+    Oid result;
+
+    // Convert string to OID using uint32 parser
+    result = uint32in_subr(s, NULL, "oid", fcinfo->context);
+
+    PG_RETURN_OID(result);
+}
+```

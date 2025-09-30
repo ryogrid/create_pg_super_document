@@ -37,3 +37,14 @@ PostgreSQL's volatility categories:
 - Part of the callback-based function checking infrastructure used by `check_functions_in_node`
 - More specific than `contain_mutable_functions_checker` which treats both STABLE and VOLATILE as mutable
 - Static function, indicating it's an internal implementation detail of the volatility checking system
+
+## Simplified Source
+
+```c
+static bool
+contain_volatile_functions_checker(Oid func_id, void *context)
+{
+    // Check if function is marked as volatile (can modify database/return different results)
+    return (func_volatile(func_id) == PROVOLATILE_VOLATILE);
+}
+```

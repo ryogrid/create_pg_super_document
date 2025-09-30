@@ -43,3 +43,42 @@ The function iterates through all provided tables, checking each one with a colu
 - The restriction against column lists with schema publication is designed to avoid complex interactions and potential conflicts
 - For partitioned tables, the restriction exists because individual partitions would use their own column lists when publish_via_partition_root is false
 - The function provides detailed explanations in error messages about why specific restrictions exist
+
+## Simplified Source
+
+```c
+static void CheckPubRelationColumnList(char *pubname, List *tables,
+                                      bool publish_schema, bool pubviaroot)
+{
+    ListCell *lc;
+
+    foreach(lc, tables) {
+        PublicationRelInfo *pri = (PublicationRelInfo *) lfirst(lc);
+
+        if (pri->columns == NIL) {
+            continue;
+        }
+
+        // Disallow column lists when any schema is in the publication
+        if (publish_schema) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("cannot use column list for relation \"%s.%s\" in publication \"%s\"",
+                            get_namespace_name(RelationGetNamespace(pri->relation)),
+                            RelationGetRelationName(pri->relation), pubname),
+                     errdetail("Column lists cannot be specified in publications containing FOR TABLES IN SCHEMA elements.")));
+        }
+
+        // Disallow column lists on partitioned tables when not publishing via root
+        if (!pubviaroot && pri->relation->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("cannot use column list for relation \"%s.%s\" in publication \"%s\"",
+                            get_namespace_name(RelationGetNamespace(pri->relation)),
+                            RelationGetRelationName(pri->relation), pubname),
+                     errdetail("Column lists cannot be specified for partitioned tables when %s is false.",
+                               "publish_via_partition_root")));
+        }
+    }
+}
+```

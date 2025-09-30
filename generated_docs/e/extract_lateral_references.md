@@ -41,3 +41,71 @@ The function handles different types of range table entries (RTEs) including rel
 - Special handling for PlaceHolderVars including expression preprocessing for subquery-derived PHVs
 - Stores the processed lateral variables in brel->lateral_vars for later use by create_lateral_join_info
 - Uses a simplified approach of marking all variables as needed at the LATERAL RTE rather than computing separate dependencies for each variable
+
+## Simplified Source
+
+```c
+static void
+extract_lateral_references(PlannerInfo *root, RelOptInfo *brel, Index rtindex)
+{
+    RangeTblEntry *rte = root->simple_rte_array[rtindex];
+    List *vars;
+    List *newvars;
+    ListCell *lc;
+
+    // Skip if not a LATERAL relation
+    if (!rte->lateral)
+        return;
+
+    // Extract variables based on RTE type
+    if (rte->rtekind == RTE_RELATION)
+        vars = pull_vars_of_level((Node *) rte->tablesample, 0);
+    else if (rte->rtekind == RTE_SUBQUERY)
+        vars = pull_vars_of_level((Node *) rte->subquery, 1);
+    else if (rte->rtekind == RTE_FUNCTION)
+        vars = pull_vars_of_level((Node *) rte->functions, 0);
+    else if (rte->rtekind == RTE_TABLEFUNC)
+        vars = pull_vars_of_level((Node *) rte->tablefunc, 0);
+    else if (rte->rtekind == RTE_VALUES)
+        vars = pull_vars_of_level((Node *) rte->values_lists, 0);
+    else
+        return;
+
+    if (vars == NIL)
+        return;
+
+    // Process each variable and adjust to current level
+    newvars = NIL;
+    foreach(lc, vars)
+    {
+        Node *node = copyObject(lfirst(lc));
+
+        if (IsA(node, Var))
+        {
+            ((Var *) node)->varlevelsup = 0;
+        }
+        else if (IsA(node, PlaceHolderVar))
+        {
+            PlaceHolderVar *phv = (PlaceHolderVar *) node;
+            int levelsup = phv->phlevelsup;
+
+            // Adjust contained expression levels
+            if (levelsup != 0)
+                IncrementVarSublevelsUp(node, -levelsup, 0);
+
+            // Preprocess subquery PHV expressions
+            if (levelsup > 0)
+                phv->phexpr = preprocess_phv_expression(root, phv->phexpr);
+        }
+
+        newvars = lappend(newvars, node);
+    }
+
+    list_free(vars);
+
+    // Add variables to targetlists and remember lateral references
+    RelIds where_needed = bms_make_singleton(rtindex);
+    add_vars_to_targetlist(root, newvars, where_needed);
+    brel->lateral_vars = newvars;
+}
+```

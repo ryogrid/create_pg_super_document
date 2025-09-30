@@ -42,3 +42,20 @@ The function is particularly useful in scenarios where the existence of a compos
 - The noError parameter only affects composite type existence checks, not general validation
 - Used when composite type existence is uncertain and graceful degradation is preferred
 - Part of the type cache system's flexible error handling interface
+
+## Simplified Source
+
+```c
+TupleDesc
+lookup_rowtype_tupdesc_noerror(Oid type_id, int32 typmod, bool noError)
+{
+    // Get tuple descriptor with optional error suppression
+    TupleDesc tupDesc = lookup_rowtype_tupdesc_internal(type_id, typmod, noError);
+
+    // Pin descriptor if found to maintain reference count
+    if (tupDesc != NULL)
+        PinTupleDesc(tupDesc);
+
+    return tupDesc;
+}
+```

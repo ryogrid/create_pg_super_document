@@ -40,3 +40,23 @@ The function returns a double value to prevent potential integer overflow when m
 - [Hash](../H/Hash.md) table growth policies and fill-factors are not considered in the estimation
 - Returns double precision to handle potentially large memory size calculations
 - Used primarily for deciding between hash-based and sort-based aggregation strategies
+
+## Simplified Source
+
+```c
+double
+estimate_hashagg_tablesize(PlannerInfo *root, Path *path,
+                          const AggClauseCosts *agg_costs, double dNumGroups)
+{
+    Size hashentrysize;
+
+    // Calculate the size of each hash table entry
+    hashentrysize = hash_agg_entry_size(list_length(root->aggtransinfos),
+                                       path->pathtarget->width,
+                                       agg_costs->transitionSpace);
+
+    // Total table size = entry size × number of groups
+    // Note: ignores fill-factor and growth policies for simplicity
+    return hashentrysize * dNumGroups;
+}
+```

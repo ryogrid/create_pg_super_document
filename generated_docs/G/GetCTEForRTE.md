@@ -35,3 +35,37 @@ This function locates and returns the CommonTableExpr structure that defines a C
 - Includes error handling for cases where CTE cannot be found or invalid nesting levels
 - Essential for resolving CTE references during query parsing and analysis
 - Located in src/backend/parser/parse_relation.c:557-586
+
+## Simplified Source
+
+```c
+CommonTableExpr *
+GetCTEForRTE(ParseState *pstate, RangeTblEntry *rte, int rtelevelsup) {
+    Index levelsup;
+
+    // Ensure this is a CTE reference
+    Assert(rte->rtekind == RTE_CTE);
+
+    // Calculate total levels to traverse
+    levelsup = rte->ctelevelsup + rtelevelsup;
+
+    // Navigate up to the appropriate parse state level
+    while (levelsup-- > 0) {
+        pstate = pstate->parentParseState;
+        if (!pstate)
+            elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+    }
+
+    // Search for the CTE by name in the namespace
+    foreach(lc, pstate->p_ctenamespace) {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+
+        if (strcmp(cte->ctename, rte->ctename) == 0)
+            return cte;
+    }
+
+    // CTE not found - this shouldn't happen
+    elog(ERROR, "could not find CTE \"%s\"", rte->ctename);
+    return NULL;
+}
+```

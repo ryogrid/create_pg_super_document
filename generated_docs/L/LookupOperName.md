@@ -40,3 +40,36 @@ LookupOperName searches for an operator given its name (possibly schema-qualifie
 - Uses exact type matching only - no type coercion is performed
 - Error messages include the full operator signature for better diagnostics
 - Part of the PostgreSQL parser's operator resolution system
+
+## Simplified Source
+
+```c
+Oid
+LookupOperName(ParseState *pstate, List *opername, Oid oprleft, Oid oprright,
+               bool noError, int location)
+{
+    // Try to find the operator with exact type matching
+    Oid result = OpernameGetOprid(opername, oprleft, oprright);
+    if (OidIsValid(result))
+        return result;
+
+    // Handle not found case
+    if (!noError) {
+        // Check for unsupported postfix operators
+        if (!OidIsValid(oprright))
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("postfix operators are not supported"),
+                     parser_errposition(pstate, location)));
+
+        // Report operator not found error
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator does not exist: %s",
+                        op_signature_string(opername, oprleft, oprright)),
+                 parser_errposition(pstate, location)));
+    }
+
+    return InvalidOid;
+}
+```

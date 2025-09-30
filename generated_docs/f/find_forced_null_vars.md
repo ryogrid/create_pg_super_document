@@ -36,3 +36,51 @@ For implicit-AND lists, the function accumulates forced-null variables from each
 - The function is particularly useful for outer join reduction optimizations
 - Results are returned in the same multibitmapset format as find_nonnullable_vars for consistency
 - The analysis is limited to top-level NULL tests to maintain reliability and performance
+
+## Simplified Source
+
+```c
+List *
+find_forced_null_vars(Node *node)
+{
+    List *result = NIL;
+    Var *var;
+    ListCell *l;
+
+    if (node == NULL)
+        return NIL;
+
+    // Check for single "var IS NULL" test
+    var = find_forced_null_var(node);
+    if (var)
+    {
+        // Add variable to result set with offset attribute number
+        result = mbms_add_member(result,
+                                var->varno,
+                                var->varattno - FirstLowInvalidHeapAttributeNumber);
+    }
+    // Handle implicit-AND lists
+    else if (IsA(node, List))
+    {
+        // For AND conditions, accumulate forced-null vars from each arm
+        foreach(l, (List *) node)
+        {
+            result = mbms_add_members(result,
+                                    find_forced_null_vars((Node *) lfirst(l)));
+        }
+    }
+    // Handle explicit AND expressions
+    else if (IsA(node, BoolExpr))
+    {
+        BoolExpr *expr = (BoolExpr *) node;
+
+        // Only process AND expressions (skip OR and NOT for simplicity)
+        if (expr->boolop == AND_EXPR)
+        {
+            result = find_forced_null_vars((Node *) expr->args);
+        }
+    }
+
+    return result;
+}
+```

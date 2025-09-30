@@ -54,3 +54,77 @@ Key design aspects:
 - The strip_indirection parameter is used when building VALUES RTEs where indirection must be applied later
 - Handles complex assignment expressions including field updates and array element assignments
 - Part of the larger INSERT statement transformation pipeline
+
+## Simplified Source
+
+```c
+List *transformInsertRow(ParseState *pstate, List *exprlist,
+                        List *stmtcols, List *icolumns, List *attrnos,
+                        bool strip_indirection) {
+    List *result;
+    ListCell *lc, *icols, *attnos;
+
+    // Validate expression count vs target columns
+    if (list_length(exprlist) > list_length(icolumns))
+        ereport(ERROR, "INSERT has more expressions than target columns");
+
+    if (stmtcols != NIL && list_length(exprlist) < list_length(icolumns)) {
+        // Special hint for common RowExpr mistake
+        char *hint = NULL;
+        if (list_length(exprlist) == 1 &&
+            count_rowexpr_columns(pstate, linitial(exprlist)) == list_length(icolumns))
+            hint = "Did you accidentally use extra parentheses?";
+
+        ereport(ERROR, "INSERT has more target columns than expressions", hint);
+    }
+
+    // Transform each expression for assignment to target columns
+    result = NIL;
+    forthree(lc, exprlist, icols, icolumns, attnos, attrnos) {
+        Expr *expr = (Expr *) lfirst(lc);
+        ResTarget *col = lfirst_node(ResTarget, icols);
+        int attno = lfirst_int(attnos);
+
+        // Transform expression for assignment (handles type coercion, indirection)
+        expr = transformAssignedExpr(pstate, expr,
+                                    EXPR_KIND_INSERT_TARGET,
+                                    col->name, attno,
+                                    col->indirection, col->location);
+
+        // Strip indirection if requested (for VALUES RTE building)
+        if (strip_indirection) {
+            while (expr) {
+                Expr *subexpr = expr;
+
+                // Skip over CoerceToDomain nodes
+                while (IsA(subexpr, CoerceToDomain))
+                    subexpr = ((CoerceToDomain *) subexpr)->arg;
+
+                // Handle FieldStore and SubscriptingRef nodes
+                if (IsA(subexpr, FieldStore)) {
+                    expr = (Expr *) linitial(((FieldStore *) subexpr)->newvals);
+                } else if (IsA(subexpr, SubscriptingRef)) {
+                    SubscriptingRef *sbsref = (SubscriptingRef *) subexpr;
+                    if (sbsref->refassgnexpr == NULL)
+                        break;
+                    expr = sbsref->refassgnexpr;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        result = lappend(result, expr);
+    }
+
+    return result;
+}
+```
+
+**Key Points:**
+- Prepares INSERT row expressions for assignment to target table columns
+- Validates expression count against target columns with helpful error messages
+- Detects common mistake of using extra parentheses (creating RowExpr)
+- Transforms each expression with type coercion and indirection handling
+- Optionally strips FieldStore/SubscriptingRef nodes when building VALUES RTEs
+- Returns list of transformed expressions ready for execution

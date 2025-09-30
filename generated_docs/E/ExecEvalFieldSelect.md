@@ -52,3 +52,75 @@ The implementation includes special handling for NULL records (returns NULL), dr
 - Part of PostgreSQL's compiled expression evaluation system
 - Dropped columns are handled gracefully by returning NULL rather than errors
 - Field numbering is 1-based following PostgreSQL attribute numbering conventions
+
+## Simplified Source
+
+```c
+void ExecEvalFieldSelect(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    AttrNumber fieldnum = op->d.fieldselect.fieldnum;
+    Datum tupDatum;
+    TupleDesc tupDesc;
+    Form_pg_attribute attr;
+
+    // NULL record -> NULL result
+    if (*op->resnull)
+        return;
+
+    tupDatum = *op->resvalue;
+
+    // Fast path for expanded records
+    if (VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(tupDatum))) {
+        ExpandedRecordHeader *erh = (ExpandedRecordHeader *) DatumGetEOHP(tupDatum);
+        tupDesc = expanded_record_get_tupdesc(erh);
+
+        // Validate field number and get attribute info
+        if (fieldnum <= 0 || fieldnum > tupDesc->natts)
+            elog(ERROR, "invalid field number %d", fieldnum);
+
+        attr = TupleDescAttr(tupDesc, fieldnum - 1);
+
+        // Handle dropped columns and type mismatches
+        if (attr->attisdropped) {
+            *op->resnull = true;
+            return;
+        }
+
+        if (op->d.fieldselect.resulttype != attr->atttypid)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("attribute %d has wrong type", fieldnum)));
+
+        // Extract field from expanded record
+        *op->resvalue = expanded_record_get_field(erh, fieldnum, op->resnull);
+    } else {
+        // Standard heap tuple path
+        HeapTupleHeader tuple = DatumGetHeapTupleHeader(tupDatum);
+        HeapTupleData tmptup;
+
+        // Get tuple descriptor and validate field
+        tupDesc = get_cached_rowtype(HeapTupleHeaderGetTypeId(tuple),
+                                   HeapTupleHeaderGetTypMod(tuple),
+                                   &op->d.fieldselect.rowcache, NULL);
+
+        if (fieldnum <= 0 || fieldnum > tupDesc->natts)
+            elog(ERROR, "invalid field number %d", fieldnum);
+
+        attr = TupleDescAttr(tupDesc, fieldnum - 1);
+
+        // Handle dropped columns and type mismatches
+        if (attr->attisdropped) {
+            *op->resnull = true;
+            return;
+        }
+
+        if (op->d.fieldselect.resulttype != attr->atttypid)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("attribute %d has wrong type", fieldnum)));
+
+        // Extract field from heap tuple
+        tmptup.t_len = HeapTupleHeaderGetDatumLength(tuple);
+        tmptup.t_data = tuple;
+        *op->resvalue = heap_getattr(&tmptup, fieldnum, tupDesc, op->resnull);
+    }
+}
+```

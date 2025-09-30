@@ -56,3 +56,89 @@ The function is designed to be conservative and only updates parts of the planne
 - The target relation's RelOptInfo is freed at the end to prevent any further access
 - Includes debug assertions to verify that redistributed clauses don't reference the eliminated relation
 - Foreign key references are left for match_foreign_keys_to_quals() to clean up later
+
+## Simplified Source
+
+```c
+static void remove_rel_from_query(PlannerInfo *root, int relid, SpecialJoinInfo *sjinfo)
+{
+    RelOptInfo *rel = find_base_rel(root, relid);
+    int ojrelid = sjinfo->ojrelid;
+
+    // Calculate join relation set
+    joinrelids = bms_union(sjinfo->min_lefthand, sjinfo->min_righthand);
+    joinrelids = bms_add_member(joinrelids, ojrelid);
+
+    // Remove references from other baserels' attr_needed arrays
+    for (rti = 1; rti < root->simple_rel_array_size; rti++) {
+        RelOptInfo *otherrel = root->simple_rel_array[rti];
+        if (otherrel == NULL || otherrel == rel)
+            continue;
+
+        // Clean attr_needed arrays
+        for (attroff = otherrel->max_attr - otherrel->min_attr; attroff >= 0; attroff--) {
+            otherrel->attr_needed[attroff] = bms_del_member(otherrel->attr_needed[attroff], relid);
+            otherrel->attr_needed[attroff] = bms_del_member(otherrel->attr_needed[attroff], ojrelid);
+        }
+    }
+
+    // Update global relation sets
+    root->all_baserels = bms_del_member(root->all_baserels, relid);
+    root->outer_join_rels = bms_del_member(root->outer_join_rels, ojrelid);
+    root->all_query_rels = bms_del_member(root->all_query_rels, relid);
+    root->all_query_rels = bms_del_member(root->all_query_rels, ojrelid);
+
+    // Update SpecialJoinInfo structures for nested outer joins
+    foreach(l, root->join_info_list) {
+        SpecialJoinInfo *sjinf = (SpecialJoinInfo *) lfirst(l);
+
+        // Copy to avoid modifying shared structures, then remove references
+        sjinf->min_lefthand = bms_del_member(bms_copy(sjinf->min_lefthand), relid);
+        sjinf->min_righthand = bms_del_member(bms_copy(sjinf->min_righthand), relid);
+        /* similar updates for syn_lefthand, syn_righthand, commute_* fields */
+    }
+
+    // Handle PlaceHolderVars: remove entirely or update eval_at/needed sets
+    foreach(l, root->placeholder_list) {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(l);
+
+        if (bms_is_subset(phinfo->ph_needed, joinrelids) &&
+            bms_is_member(relid, phinfo->ph_eval_at) &&
+            !bms_is_member(ojrelid, phinfo->ph_eval_at)) {
+            // Remove PHV entirely
+            root->placeholder_list = foreach_delete_current(root->placeholder_list, l);
+            root->placeholder_array[phinfo->phid] = NULL;
+        } else {
+            // Update PHV references
+            phinfo->ph_eval_at = bms_del_member(phinfo->ph_eval_at, relid);
+            phinfo->ph_eval_at = bms_del_member(phinfo->ph_eval_at, ojrelid);
+            phinfo->ph_needed = bms_del_member(phinfo->ph_needed, relid);
+            phinfo->ph_needed = bms_del_member(phinfo->ph_needed, ojrelid);
+        }
+    }
+
+    // Remove/redistribute join clauses
+    joininfos = list_copy(rel->joininfo);
+    foreach(l, joininfos) {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(l);
+
+        remove_join_clause_from_rels(root, rinfo, rinfo->required_relids);
+
+        if (RINFO_IS_PUSHED_DOWN(rinfo, join_plus_commute)) {
+            remove_rel_from_restrictinfo(rinfo, relid, ojrelid);
+            distribute_restrictinfo_to_rels(root, rinfo);
+        }
+    }
+
+    // Remove from EquivalenceClasses
+    foreach(l, root->eq_classes) {
+        EquivalenceClass *ec = (EquivalenceClass *) lfirst(l);
+        if (bms_is_member(relid, ec->ec_relids) || bms_is_member(ojrelid, ec->ec_relids))
+            remove_rel_from_eclass(ec, relid, ojrelid);
+    }
+
+    // Clean up: nullify relation entry and free memory
+    root->simple_rel_array[relid] = NULL;
+    pfree(rel);
+}
+```

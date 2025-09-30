@@ -44,3 +44,50 @@ After creating the copy, the function constructs a CollectedCommand structure wi
 - The parsetree field is set to NULL since InternalGrant structures don't correspond directly to parse trees
 - Part of PostgreSQL's comprehensive event trigger system for DDL command monitoring
 - Handles the complexity of copying nested list structures containing various privilege-related data
+
+## Simplified Source
+
+```c
+void
+EventTriggerCollectGrant(InternalGrant *istmt)
+{
+    MemoryContext oldcxt;
+    CollectedCommand *command;
+    InternalGrant *icopy;
+    ListCell *cell;
+
+    // Skip if event triggers not active or collection disabled
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create deep copy of InternalGrant structure
+    icopy = palloc(sizeof(InternalGrant));
+    memcpy(icopy, istmt, sizeof(InternalGrant));
+
+    // Copy object and grantee lists
+    icopy->objects = list_copy(istmt->objects);
+    icopy->grantees = list_copy(istmt->grantees);
+
+    // Deep copy column privileges list
+    icopy->col_privs = NIL;
+    foreach(cell, istmt->col_privs)
+        icopy->col_privs = lappend(icopy->col_privs, copyObject(lfirst(cell)));
+
+    // Create command entry for event trigger system
+    command = palloc(sizeof(CollectedCommand));
+    command->type = SCT_Grant;
+    command->in_extension = creating_extension;
+    command->d.grant.istmt = icopy;
+    command->parsetree = NULL;
+
+    // Add to event trigger command list
+    currentEventTriggerState->commandList =
+        lappend(currentEventTriggerState->commandList, command);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

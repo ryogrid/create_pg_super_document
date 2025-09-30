@@ -61,3 +61,166 @@ The function processes each relation in the istmt->objects list, handling relati
 - Uses tuple locking mechanisms to ensure consistency during concurrent operations
 - Validates that column privileges are appropriate for the object type (sequences only support SELECT on columns)
 - Records initial privileges for extension objects to support proper privilege restoration during upgrades
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_Relation(InternalGrant *istmt)
+{
+    Relation relation, attRelation;
+    ListCell *cell;
+
+    // Open catalogs for relation and attribute privileges
+    relation = table_open(RelationRelationId, RowExclusiveLock);
+    attRelation = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Process each relation
+    foreach(cell, istmt->objects)
+    {
+        Oid relOid = lfirst_oid(cell);
+        Form_pg_class pg_class_tuple;
+        AclMode this_privileges;
+        AclMode *col_privileges;
+        Acl *old_acl, *old_rel_acl;
+        Oid ownerId;
+        HeapTuple tuple;
+        bool have_col_privileges = false;
+
+        // Look up relation metadata
+        tuple = SearchSysCacheLocked1(RELOID, ObjectIdGetDatum(relOid));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for relation %u", relOid);
+        pg_class_tuple = (Form_pg_class) GETSTRUCT(tuple);
+
+        // Validate object type - reject indexes and composite types
+        if (pg_class_tuple->relkind == RELKIND_INDEX ||
+            pg_class_tuple->relkind == RELKIND_PARTITIONED_INDEX)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("\"%s\" is an index", NameStr(pg_class_tuple->relname))));
+        if (pg_class_tuple->relkind == RELKIND_COMPOSITE_TYPE)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("\"%s\" is a composite type", NameStr(pg_class_tuple->relname))));
+
+        // Set appropriate privilege defaults based on object type
+        if (istmt->all_privs && istmt->privileges == ACL_NO_RIGHTS)
+        {
+            if (pg_class_tuple->relkind == RELKIND_SEQUENCE)
+                this_privileges = ACL_ALL_RIGHTS_SEQUENCE;
+            else
+                this_privileges = ACL_ALL_RIGHTS_RELATION;
+        }
+        else
+            this_privileges = istmt->privileges;
+
+        // Initialize column privileges array
+        num_col_privileges = pg_class_tuple->relnatts - FirstLowInvalidHeapAttributeNumber + 1;
+        col_privileges = (AclMode *) palloc0(num_col_privileges * sizeof(AclMode));
+
+        // Handle implicit column privilege revocation
+        if (!istmt->is_grant && (this_privileges & ACL_ALL_RIGHTS_COLUMN) != 0)
+        {
+            expand_all_col_privileges(relOid, pg_class_tuple,
+                                      this_privileges & ACL_ALL_RIGHTS_COLUMN,
+                                      col_privileges, num_col_privileges);
+            have_col_privileges = true;
+        }
+
+        // Get existing relation ACL
+        ownerId = pg_class_tuple->relowner;
+        aclDatum = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_relacl, &isNull);
+        if (isNull)
+        {
+            if (pg_class_tuple->relkind == RELKIND_SEQUENCE)
+                old_acl = acldefault(OBJECT_SEQUENCE, ownerId);
+            else
+                old_acl = acldefault(OBJECT_TABLE, ownerId);
+        }
+        else
+            old_acl = DatumGetAclPCopy(aclDatum);
+
+        old_rel_acl = aclcopy(old_acl);
+
+        // Process relation-level privileges
+        if (this_privileges != ACL_NO_RIGHTS)
+        {
+            AclMode avail_goptions;
+            Acl *new_acl;
+            Oid grantorId;
+            ObjectType objtype;
+
+            // Determine grantor and object type
+            select_best_grantor(GetUserId(), this_privileges, old_acl, ownerId,
+                                &grantorId, &avail_goptions);
+            objtype = (pg_class_tuple->relkind == RELKIND_SEQUENCE) ?
+                      OBJECT_SEQUENCE : OBJECT_TABLE;
+
+            // Validate and restrict privileges
+            this_privileges = restrict_and_check_grant(istmt->is_grant, avail_goptions,
+                                                       istmt->all_privs, this_privileges,
+                                                       relOid, grantorId, objtype,
+                                                       NameStr(pg_class_tuple->relname), 0, NULL);
+
+            // Generate and update new ACL
+            new_acl = merge_acl_with_grant(old_acl, istmt->is_grant,
+                                           istmt->grant_option, istmt->behavior,
+                                           istmt->grantees, this_privileges,
+                                           grantorId, ownerId);
+
+            // Update catalog
+            replaces[Anum_pg_class_relacl - 1] = true;
+            values[Anum_pg_class_relacl - 1] = PointerGetDatum(new_acl);
+            newtuple = heap_modify_tuple(tuple, RelationGetDescr(relation),
+                                         values, nulls, replaces);
+            CatalogTupleUpdate(relation, &newtuple->t_self, newtuple);
+            UnlockTuple(relation, &tuple->t_self, InplaceUpdateTupleLock);
+
+            // Update dependencies and extensions
+            recordExtensionInitPriv(relOid, RelationRelationId, 0, new_acl);
+            updateAclDependencies(RelationRelationId, relOid, 0, ownerId,
+                                  noldmembers, oldmembers, nnewmembers, newmembers);
+            pfree(new_acl);
+        }
+        else
+            UnlockTuple(relation, &tuple->t_self, InplaceUpdateTupleLock);
+
+        // Process column-level privileges
+        foreach(cell_colprivs, istmt->col_privs)
+        {
+            AccessPriv *col_privs = (AccessPriv *) lfirst(cell_colprivs);
+
+            // Determine column privilege type
+            if (col_privs->priv_name == NULL)
+                this_privileges = ACL_ALL_RIGHTS_COLUMN;
+            else
+                this_privileges = string_to_privilege(col_privs->priv_name);
+
+            // Expand privileges to affected columns
+            expand_col_privileges(col_privs->cols, relOid, this_privileges,
+                                  col_privileges, num_col_privileges);
+            have_col_privileges = true;
+        }
+
+        // Apply column privilege changes
+        if (have_col_privileges)
+        {
+            for (i = 0; i < num_col_privileges; i++)
+            {
+                if (col_privileges[i] != ACL_NO_RIGHTS)
+                    ExecGrant_Attribute(istmt, relOid, NameStr(pg_class_tuple->relname),
+                                        i + FirstLowInvalidHeapAttributeNumber,
+                                        ownerId, col_privileges[i],
+                                        attRelation, old_rel_acl);
+            }
+        }
+
+        pfree(old_rel_acl);
+        pfree(col_privileges);
+        ReleaseSysCache(tuple);
+        CommandCounterIncrement();
+    }
+
+    table_close(attRelation, RowExclusiveLock);
+    table_close(relation, RowExclusiveLock);
+}
+```

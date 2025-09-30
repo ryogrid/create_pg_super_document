@@ -57,3 +57,107 @@ This function implements the core logic for managing default ACL entries in the 
 - Dependency management includes both ownership dependencies (on the role) and usage dependencies (on the namespace)
 - [CommandCounterIncrement](../C/CommandCounterIncrement.md)() prevents issues when processing duplicate objects in the same command
 - Post-creation/alteration hooks are invoked for proper event notification
+
+## Simplified Source
+
+```c
+static void SetDefaultACL(InternalDefaultACL *iacls) {
+    AclMode this_privileges = iacls->privileges;
+    char objtype;
+    Relation rel;
+    HeapTuple tuple;
+    bool isNew;
+    Acl *def_acl, *old_acl, *new_acl;
+
+    rel = table_open(DefaultAclRelationId, RowExclusiveLock);
+
+    // Get default ACL baseline - global entries use hard-wired defaults,
+    // schema-specific entries start empty
+    if (!OidIsValid(iacls->nspid))
+        def_acl = acldefault(iacls->objtype, iacls->roleid);
+    else
+        def_acl = make_empty_acl();
+
+    // Convert object type and handle all_privs expansion
+    switch (iacls->objtype) {
+        case OBJECT_TABLE:
+            objtype = DEFACLOBJ_RELATION;
+            if (iacls->all_privs && this_privileges == ACL_NO_RIGHTS)
+                this_privileges = ACL_ALL_RIGHTS_RELATION;
+            break;
+        // ... similar cases for SEQUENCE, FUNCTION, TYPE, SCHEMA
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) iacls->objtype);
+    }
+
+    // Look for existing catalog entry
+    tuple = SearchSysCache3(DEFACLROLENSPOBJ,
+                           ObjectIdGetDatum(iacls->roleid),
+                           ObjectIdGetDatum(iacls->nspid),
+                           CharGetDatum(objtype));
+
+    if (HeapTupleIsValid(tuple)) {
+        // Extract existing ACL from catalog
+        Datum aclDatum = SysCacheGetAttr(DEFACLROLENSPOBJ, tuple,
+                                        Anum_pg_default_acl_defaclacl, &isNull);
+        old_acl = isNull ? NULL : DatumGetAclPCopy(aclDatum);
+        isNew = false;
+    } else {
+        old_acl = NULL;
+        isNew = true;
+    }
+
+    // Start with default if no existing ACL
+    if (old_acl == NULL)
+        old_acl = aclcopy(def_acl);
+
+    // Generate new ACL by merging grant/revoke operations
+    new_acl = merge_acl_with_grant(old_acl, iacls->is_grant, iacls->grant_option,
+                                   iacls->behavior, iacls->grantees,
+                                   this_privileges, iacls->roleid, iacls->roleid);
+
+    // If result equals default, remove entry; otherwise insert/update
+    aclitemsort(new_acl);
+    aclitemsort(def_acl);
+
+    if (aclequal(new_acl, def_acl)) {
+        // Delete existing entry if present
+        if (!isNew) {
+            ObjectAddress myself;
+            myself.classId = DefaultAclRelationId;
+            myself.objectId = ((Form_pg_default_acl) GETSTRUCT(tuple))->oid;
+            myself.objectSubId = 0;
+            performDeletion(&myself, DROP_RESTRICT, 0);
+        }
+    } else {
+        // Insert new or update existing entry
+        if (isNew) {
+            // Create new catalog entry with all required fields
+            Oid defAclOid = GetNewOidWithIndex(rel, DefaultAclOidIndexId,
+                                              Anum_pg_default_acl_oid);
+            // Set up values array and insert tuple
+            CatalogTupleInsert(rel, heap_form_tuple(RelationGetDescr(rel), values, nulls));
+
+            // Record dependencies on role and namespace
+            recordDependencyOnOwner(DefaultAclRelationId, defAclOid, iacls->roleid);
+            if (OidIsValid(iacls->nspid))
+                recordDependencyOn(&myself, &referenced, DEPENDENCY_AUTO);
+        } else {
+            // Update existing entry's ACL field
+            CatalogTupleUpdate(rel, &newtuple->t_self,
+                              heap_modify_tuple(tuple, RelationGetDescr(rel),
+                                               values, nulls, replaces));
+        }
+
+        // Update shared dependency information
+        updateAclDependencies(DefaultAclRelationId, defAclOid, 0, iacls->roleid,
+                             noldmembers, oldmembers, nnewmembers, newmembers);
+    }
+
+    if (HeapTupleIsValid(tuple))
+        ReleaseSysCache(tuple);
+
+    table_close(rel, RowExclusiveLock);
+    CommandCounterIncrement();
+}
+```

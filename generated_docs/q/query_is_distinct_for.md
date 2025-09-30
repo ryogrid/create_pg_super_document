@@ -55,3 +55,85 @@ Operator compatibility is checked using `equality_ops_are_compatible()` to ensur
 - Grouping sets with expressions are considered too complex and punt to false
 - Set operations check all non-junk output columns for completeness
 - Part of PostgreSQL's advanced query optimization for join elimination and unique path generation
+
+## Simplified Source
+
+```c
+bool
+query_is_distinct_for(Query *query, List *colnos, List *opids)
+{
+    ListCell *l;
+    Oid opid;
+
+    Assert(list_length(colnos) == list_length(opids));
+
+    // Check DISTINCT clause
+    if (query->distinctClause) {
+        foreach(l, query->distinctClause) {
+            SortGroupClause *sgc = (SortGroupClause *) lfirst(l);
+            TargetEntry *tle = get_sortgroupclause_tle(sgc, query->targetList);
+
+            opid = distinct_col_search(tle->resno, colnos, opids);
+            if (!OidIsValid(opid) || !equality_ops_are_compatible(opid, sgc->eqop))
+                break; // No match found
+        }
+        if (l == NULL) // All DISTINCT columns matched
+            return true;
+    }
+
+    // SRFs break distinctness guarantees
+    if (query->hasTargetSRFs)
+        return false;
+
+    // Check GROUP BY (without grouping sets)
+    if (query->groupClause && !query->groupingSets) {
+        foreach(l, query->groupClause) {
+            SortGroupClause *sgc = (SortGroupClause *) lfirst(l);
+            TargetEntry *tle = get_sortgroupclause_tle(sgc, query->targetList);
+
+            opid = distinct_col_search(tle->resno, colnos, opids);
+            if (!OidIsValid(opid) || !equality_ops_are_compatible(opid, sgc->eqop))
+                break; // No match found
+        }
+        if (l == NULL) // All GROUP BY columns matched
+            return true;
+    }
+    else if (query->groupingSets) {
+        // Single empty grouping set = one row = unique
+        if (list_length(query->groupingSets) == 1 &&
+            ((GroupingSet *) linitial(query->groupingSets))->kind == GROUPING_SET_EMPTY)
+            return true;
+        else
+            return false;
+    }
+    else {
+        // Aggregates or HAVING without GROUP BY = at most one row
+        if (query->hasAggs || query->havingQual)
+            return true;
+    }
+
+    // Check set operations (UNION/INTERSECT/EXCEPT without ALL)
+    if (query->setOperations) {
+        SetOperationStmt *topop = castNode(SetOperationStmt, query->setOperations);
+        if (!topop->all) {
+            ListCell *lg = list_head(topop->groupClauses);
+            foreach(l, query->targetList) {
+                TargetEntry *tle = (TargetEntry *) lfirst(l);
+                if (tle->resjunk)
+                    continue;
+
+                SortGroupClause *sgc = (SortGroupClause *) lfirst(lg);
+                lg = lnext(topop->groupClauses, lg);
+
+                opid = distinct_col_search(tle->resno, colnos, opids);
+                if (!OidIsValid(opid) || !equality_ops_are_compatible(opid, sgc->eqop))
+                    break;
+            }
+            if (l == NULL) // All columns matched
+                return true;
+        }
+    }
+
+    return false;
+}
+```

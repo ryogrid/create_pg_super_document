@@ -45,3 +45,54 @@ This function verifies that existing data in all tables using the specified doma
 - Uses the latest snapshot for consistent validation results
 - Maintains relation locks after processing to ensure consistency
 - Error reporting focuses on table/column information rather than domain type for better user experience
+
+## Simplified Source
+
+```c
+static void
+validateDomainNotNullConstraint(Oid domainoid)
+{
+    List *relations_with_domain;
+
+    // Find all relations containing columns of this domain type
+    relations_with_domain = get_rels_with_domain(domainoid, ShareLock);
+
+    // Check each relation for null values in domain columns
+    foreach(ListCell *lc, relations_with_domain)
+    {
+        RelToCheck *rel_info = (RelToCheck *) lfirst(lc);
+        Relation relation = rel_info->rel;
+
+        // Scan all tuples in this relation
+        Snapshot snapshot = RegisterSnapshot(GetLatestSnapshot());
+        TableScanDesc scan = table_beginscan(relation, snapshot, 0, NULL);
+        TupleTableSlot *slot = table_slot_create(relation, NULL);
+
+        while (table_scan_getnextslot(scan, ForwardScanDirection, slot))
+        {
+            // Check each domain-typed column for null values
+            for (int i = 0; i < rel_info->natts; i++)
+            {
+                int attnum = rel_info->atts[i];
+
+                if (slot_attisnull(slot, attnum))
+                {
+                    // Report error with table and column details
+                    Form_pg_attribute attr = TupleDescAttr(RelationGetDescr(relation), attnum - 1);
+                    ereport(ERROR,
+                           (errcode(ERRCODE_NOT_NULL_VIOLATION),
+                            errmsg("column \"%s\" of table \"%s\" contains null values",
+                                   NameStr(attr->attname), RelationGetRelationName(relation)),
+                            errtablecol(relation, attnum)));
+                }
+            }
+        }
+
+        // Clean up scan resources
+        ExecDropSingleTupleTableSlot(slot);
+        table_endscan(scan);
+        UnregisterSnapshot(snapshot);
+        table_close(relation, NoLock);
+    }
+}
+```

@@ -33,3 +33,34 @@ InstrAggNode is a utility function that merges instrumentation data from a sourc
 - Conditionally aggregates WAL usage statistics only if dst->need_walusage is true
 - Essential for parallel query execution where worker instrumentation data must be consolidated
 - Used in PostgreSQLs EXPLAIN ANALYZE functionality to provide unified performance statistics across parallel workers
+
+## Simplified Source
+
+```c
+void InstrAggNode(Instrumentation *dst, Instrumentation *add) {
+    // Handle running state and earliest firsttuple time
+    if (!dst->running && add->running) {
+        dst->running = true;
+        dst->firsttuple = add->firsttuple;
+    } else if (dst->running && add->running && dst->firsttuple > add->firsttuple) {
+        dst->firsttuple = add->firsttuple;
+    }
+
+    // Aggregate timing and execution counters
+    INSTR_TIME_ADD(dst->counter, add->counter);
+    dst->tuplecount += add->tuplecount;
+    dst->startup += add->startup;
+    dst->total += add->total;
+    dst->ntuples += add->ntuples;
+    dst->ntuples2 += add->ntuples2;
+    dst->nloops += add->nloops;
+    dst->nfiltered1 += add->nfiltered1;
+    dst->nfiltered2 += add->nfiltered2;
+
+    // Conditionally aggregate buffer and WAL usage
+    if (dst->need_bufusage)
+        BufferUsageAdd(&dst->bufusage, &add->bufusage);
+    if (dst->need_walusage)
+        WalUsageAdd(&dst->walusage, &add->walusage);
+}
+```

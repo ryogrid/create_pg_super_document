@@ -47,3 +47,43 @@ This multi-level checking ensures that the generated column aliases will not cre
 - Critical for preventing naming conflicts that could cause parsing errors when rules/views are reloaded  
 - The multi-scope checking approach handles complex scenarios with nested joins and USING clauses
 - Used as a building block by make_colname_unique() to find suitable unique names
+
+## Simplified Source
+
+```c
+static bool
+colname_is_unique(const char *colname, deparse_namespace *dpns,
+                  deparse_columns *colinfo)
+{
+    // Check against already-assigned column aliases within RTE
+    for (int i = 0; i < colinfo->num_cols; i++) {
+        char *oldname = colinfo->colnames[i];
+        if (oldname && strcmp(oldname, colname) == 0)
+            return false;
+    }
+
+    // Check against new column names being built
+    for (int i = 0; i < colinfo->num_new_cols; i++) {
+        char *oldname = colinfo->new_colnames[i];
+        if (oldname && strcmp(oldname, colname) == 0)
+            return false;
+    }
+
+    // Check against globally unique USING column names
+    ListCell *lc;
+    foreach(lc, dpns->using_names) {
+        char *oldname = (char *) lfirst(lc);
+        if (strcmp(oldname, colname) == 0)
+            return false;
+    }
+
+    // Check against parent-join USING column names
+    foreach(lc, colinfo->parentUsing) {
+        char *oldname = (char *) lfirst(lc);
+        if (strcmp(oldname, colname) == 0)
+            return false;
+    }
+
+    return true;  // Name is unique
+}
+```

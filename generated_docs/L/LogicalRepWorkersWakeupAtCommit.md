@@ -47,3 +47,20 @@ This design is commonly used when subscription metadata is modified (e.g., subsc
 - Memory is automatically reclaimed at transaction end
 - This function is declared in src/include/replication/logicalworker.h
 - Located in src/backend/replication/logical/worker.c:5065-5078
+
+## Simplified Source
+
+```c
+void LogicalRepWorkersWakeupAtCommit(Oid subid)
+{
+    // Switch to transaction context to persist until commit
+    MemoryContext oldcxt = MemoryContextSwitchTo(TopTransactionContext);
+
+    // Add subscription to wakeup list (avoiding duplicates)
+    on_commit_wakeup_workers_subids =
+        list_append_unique_oid(on_commit_wakeup_workers_subids, subid);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

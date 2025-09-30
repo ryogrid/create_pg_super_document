@@ -43,3 +43,28 @@ This information is crucial for the query optimizer when making cost-based decis
 - The function only identifies node types that inherently materialize; it doesn't account for runtime materialization decisions
 - [Plan](../P/Plan.md) types not listed in the switch statement are assumed to not materialize their output
 - The function is critical for accurate cost estimation in scenarios involving multiple rescans of the same plan node
+
+## Simplified Source
+
+```c
+bool
+ExecMaterializesOutput(NodeTag plantype)
+{
+    // Check if this plan type automatically materializes output
+    switch (plantype) {
+        case T_Material:           // Explicit materialization node
+        case T_FunctionScan:       // Function scans may cache results
+        case T_TableFuncScan:      // Table function scans
+        case T_CteScan:           // CTE scans use materialized results
+        case T_NamedTuplestoreScan: // Named tuplestore access
+        case T_WorkTableScan:      // Recursive query work tables
+        case T_Sort:              // Sort nodes must materialize to sort
+            return true;
+
+        default:
+            break;
+    }
+
+    return false;
+}
+```

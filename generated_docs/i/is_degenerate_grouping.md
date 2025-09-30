@@ -42,3 +42,17 @@ When these conditions are met, PostgreSQL can apply specialized optimizations si
 - Another case is HAVING-only queries without GROUP BY: 
 - When true, the query planner will call create_degenerate_grouping_paths instead of create_ordinary_grouping_paths
 - This optimization can provide significant performance benefits by avoiding unnecessary grouping operations
+
+## Simplified Source
+
+```c
+static bool
+is_degenerate_grouping(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+
+    // Degenerate grouping: has HAVING or grouping sets, but no aggregates or GROUP BY
+    return (root->hasHavingQual || parse->groupingSets) &&
+           !parse->hasAggs && parse->groupClause == NIL;
+}
+```

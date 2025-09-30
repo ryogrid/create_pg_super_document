@@ -41,3 +41,53 @@ The function provides flexible error handling through the missing_ok parameter -
 - Follows standard PostgreSQL patterns for qualified name resolution
 - Returns InvalidOid when object is not found and missing_ok is true
 - Located in src/backend/catalog/namespace.c:2575-2631
+
+## Simplified Source
+
+```c
+Oid
+get_statistics_object_oid(List *names, bool missing_ok) {
+    char *schemaname;
+    char *stats_name;
+    Oid namespaceId;
+    Oid stats_oid = InvalidOid;
+    ListCell *l;
+
+    // Parse the qualified name
+    DeconstructQualifiedName(names, &schemaname, &stats_name);
+
+    if (schemaname) {
+        // Schema-qualified lookup
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (missing_ok && !OidIsValid(namespaceId))
+            stats_oid = InvalidOid;
+        else
+            stats_oid = GetSysCacheOid2(STATEXTNAMENSP, Anum_pg_statistic_ext_oid,
+                                        PointerGetDatum(stats_name),
+                                        ObjectIdGetDatum(namespaceId));
+    } else {
+        // Search through the namespace search path
+        recomputeNamespacePath();
+
+        foreach(l, activeSearchPath) {
+            namespaceId = lfirst_oid(l);
+
+            // Skip temporary namespace
+            if (namespaceId == myTempNamespace)
+                continue;
+
+            stats_oid = GetSysCacheOid2(STATEXTNAMENSP, Anum_pg_statistic_ext_oid,
+                                        PointerGetDatum(stats_name),
+                                        ObjectIdGetDatum(namespaceId));
+            if (OidIsValid(stats_oid))
+                break;
+        }
+    }
+
+    // Handle not found case
+    if (!OidIsValid(stats_oid) && !missing_ok)
+        ereport(ERROR, "statistics object does not exist");
+
+    return stats_oid;
+}
+```

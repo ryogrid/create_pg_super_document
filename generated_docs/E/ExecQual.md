@@ -46,3 +46,24 @@ This function is fundamental to query execution as it determines which tuples sa
 - The function assumes that boolean expressions never return NULL; this is enforced by the expression compiler
 - Short-circuiting for NULL state provides an important optimization for queries without WHERE clauses
 - Used extensively throughout executor nodes for filtering, join conditions, and constraint checking
+
+## Simplified Source
+
+```c
+static inline bool
+ExecQual(ExprState *state, ExprContext *econtext)
+{
+    Datum result;
+    bool isnull;
+
+    // Handle empty restriction list - no conditions to check
+    if (state == NULL)
+        return true;
+
+    // Evaluate the boolean expression in proper context
+    result = ExecEvalExprSwitchContext(state, econtext, &isnull);
+
+    // Convert result to boolean (qualification expressions never return NULL)
+    return DatumGetBool(result);
+}
+```

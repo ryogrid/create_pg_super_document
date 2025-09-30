@@ -42,3 +42,32 @@ This function performs a lookup operation in a shared memory table of contents s
 - Widely used throughout PostgreSQL's parallel execution infrastructure
 - Returns a pointer calculated as an offset from the TOC base address
 - The lock-free design is specifically optimized for scenarios where multiple worker processes read from the same TOC concurrently
+
+## Simplified Source
+
+```c
+void *
+shm_toc_lookup(shm_toc *toc, uint64 key, bool noError)
+{
+    uint32 nentry;
+    uint32 i;
+
+    // Read number of entries atomically and add memory barrier
+    nentry = toc->toc_nentry;
+    pg_read_barrier();
+
+    // Search through TOC entries for matching key
+    for (i = 0; i < nentry; ++i) {
+        if (toc->toc_entry[i].key == key) {
+            // Calculate and return pointer to data chunk
+            return ((char *) toc) + toc->toc_entry[i].offset;
+        }
+    }
+
+    // Handle key not found case
+    if (!noError)
+        elog(ERROR, "could not find key " UINT64_FORMAT " in shm TOC at %p",
+             key, toc);
+    return NULL;
+}
+```

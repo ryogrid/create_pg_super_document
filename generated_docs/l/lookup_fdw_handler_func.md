@@ -34,3 +34,29 @@ This utility function processes handler function specifications from SQL DDL com
 - Part of PostgreSQL's type safety mechanisms for FDW infrastructure
 - Error messages include the full function name for user clarity
 - Static function, only used internally within foreigncmds.c module
+
+## Simplified Source
+
+```c
+static Oid
+lookup_fdw_handler_func(DefElem *handler)
+{
+    Oid handlerOid;
+
+    // Return InvalidOid if no handler specified
+    if (handler == NULL || handler->arg == NULL)
+        return InvalidOid;
+
+    // Look up function with zero arguments (handlers take no parameters)
+    handlerOid = LookupFuncName((List *) handler->arg, 0, NULL, false);
+
+    // Validate that handler returns fdw_handler type
+    if (get_func_rettype(handlerOid) != FDW_HANDLEROID)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("function %s must return type %s",
+                        NameListToString((List *) handler->arg), "fdw_handler")));
+
+    return handlerOid;
+}
+```

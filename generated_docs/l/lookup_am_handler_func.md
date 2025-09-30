@@ -54,3 +54,44 @@ The function enforces PostgreSQL's access method handler function contract, whic
 - Part of the CREATE ACCESS METHOD command implementation
 - Critical for ensuring access method handler functions conform to PostgreSQL's internal API requirements
 - Function names are resolved using the standard PostgreSQL function lookup mechanism, supporting schema-qualified names
+
+## Simplified Source
+```c
+static Oid
+lookup_am_handler_func(List *handler_name, char amtype)
+{
+    Oid handlerOid;
+    Oid funcargtypes[1] = {INTERNALOID};
+    Oid expectedType;
+
+    // Check if handler name is provided
+    if (handler_name == NIL)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("handler function is not specified")));
+
+    // Look up the function (must take one 'internal' argument)
+    handlerOid = LookupFuncName(handler_name, 1, funcargtypes, false);
+
+    // Determine expected return type based on access method type
+    switch (amtype)
+    {
+        case AMTYPE_INDEX:
+            expectedType = INDEX_AM_HANDLEROID;
+            break;
+        case AMTYPE_TABLE:
+            expectedType = TABLE_AM_HANDLEROID;
+            break;
+        default:
+            elog(ERROR, "unrecognized access method type \"%c\"", amtype);
+    }
+
+    // Validate return type matches expected handler type
+    if (get_func_rettype(handlerOid) != expectedType)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("function %s must return type %s",
+                             get_func_name(handlerOid),
+                             format_type_extended(expectedType, -1, 0))));
+
+    return handlerOid;
+}
+```

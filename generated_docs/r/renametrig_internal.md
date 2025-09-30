@@ -53,3 +53,51 @@ The function also includes a notification mechanism that issues a NOTICE when th
 - Triggers post-alter hooks to maintain consistency with the dependency system
 - Invalidates relation cache to ensure distributed consistency across all backends
 - Handles name conflicts gracefully with informative error messages including relation and trigger names
+
+## Simplified Source
+
+```c
+static void renametrig_internal(Relation tgrel, Relation targetrel, HeapTuple trigtup,
+                              const char *newname, const char *expected_name)
+{
+    Form_pg_trigger tgform = (Form_pg_trigger) GETSTRUCT(trigtup);
+
+    // Early return if trigger already has the new name
+    if (strcmp(NameStr(tgform->tgname), newname) == 0)
+        return;
+
+    // Check for name conflicts with existing triggers
+    ScanKeyData key[2];
+    ScanKeyInit(&key[0], Anum_pg_trigger_tgrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(targetrel)));
+    ScanKeyInit(&key[1], Anum_pg_trigger_tgname, BTEqualStrategyNumber, F_NAMEEQ,
+                PointerGetDatum(newname));
+
+    SysScanDesc tgscan = systable_beginscan(tgrel, TriggerRelidNameIndexId, true, NULL, 2, key);
+    HeapTuple tuple;
+    if (HeapTupleIsValid(tuple = systable_getnext(tgscan)))
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_OBJECT),
+                 errmsg("trigger \"%s\" for relation \"%s\" already exists",
+                        newname, RelationGetRelationName(targetrel))));
+    systable_endscan(tgscan);
+
+    // Create modifiable copy and update name
+    tuple = heap_copytuple(trigtup);
+    tgform = (Form_pg_trigger) GETSTRUCT(tuple);
+
+    // Notify if actual name differs from expected
+    if (strcmp(NameStr(tgform->tgname), expected_name) != 0)
+        ereport(NOTICE,
+                errmsg("renamed trigger \"%s\" on relation \"%s\"",
+                       NameStr(tgform->tgname), RelationGetRelationName(targetrel)));
+
+    // Update catalog with new name
+    namestrcpy(&tgform->tgname, newname);
+    CatalogTupleUpdate(tgrel, &tuple->t_self, tuple);
+
+    // Post-alter hooks and cache invalidation
+    InvokeObjectPostAlterHook(TriggerRelationId, tgform->oid, 0);
+    CacheInvalidateRelcache(targetrel);
+}
+```

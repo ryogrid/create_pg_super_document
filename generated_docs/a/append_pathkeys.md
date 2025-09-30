@@ -72,3 +72,23 @@ The function is essential for combining ordering requirements from different par
 - Only adds PathKeys that are not redundant with respect to the existing target list
 - Used in query planning to combine ordering requirements from different operations
 - Located in src/backend/optimizer/path/pathkeys.c:106-157
+
+## Simplified Source
+
+```c
+List *append_pathkeys(List *target, List *source)
+{
+    // Target list must not be empty
+    Assert(target != NIL);
+
+    // Add each non-redundant PathKey from source to target
+    foreach(lc, source) {
+        PathKey *pk = lfirst_node(PathKey, lc);
+
+        if (!pathkey_is_redundant(pk, target))
+            target = lappend(target, pk);
+    }
+
+    return target;
+}
+```

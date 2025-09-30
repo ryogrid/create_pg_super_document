@@ -37,3 +37,37 @@ This function handles the evaluation of strict function call expressions where P
 - Performs early NULL detection to avoid unnecessary function calls
 - Stores function result in op->resvalue and NULL status in op->resnull
 - More efficient than non-strict version when NULL arguments are present
+
+## Simplified Source
+
+```c
+void ExecEvalFuncExprStrictFusage(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    FunctionCallInfo fcinfo = op->d.func.fcinfo_data;
+    PgStat_FunctionCallUsage fcusage;
+    NullableDatum *args = fcinfo->args;
+    int nargs = op->d.func.nargs;
+    Datum result;
+
+    // Strict function: check for NULL args and return NULL if found
+    for (int argno = 0; argno < nargs; argno++) {
+        if (args[argno].isnull) {
+            *op->resnull = true;
+            return;
+        }
+    }
+
+    // All args are non-NULL, proceed with function call and usage tracking
+    pgstat_init_function_usage(fcinfo, &fcusage);
+
+    fcinfo->isnull = false;
+    result = op->d.func.fn_addr(fcinfo);
+
+    // Store results
+    *op->resvalue = result;
+    *op->resnull = fcinfo->isnull;
+
+    // Finalize function usage statistics
+    pgstat_end_function_usage(&fcusage, true);
+}
+```

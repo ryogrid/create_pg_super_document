@@ -200,3 +200,81 @@ The function ensures that qualification clauses are distributed to the correct R
 - Creates SpecialJoinInfo nodes that guide later join planning decisions about valid join orders
 - Distinction between degenerate and non-degenerate clauses affects postponement decisions
 - Critical for ensuring SQL outer join semantics are preserved during optimization
+
+## Simplified Source
+
+```c
+static void deconstruct_distribute(PlannerInfo *root, JoinTreeItem *jtitem)
+{
+    Node *jtnode = jtitem->jtnode;
+
+    if (IsA(jtnode, RangeTblRef)) {
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+
+        // Process security barrier quals if present
+        if (root->qual_security_level > 0)
+            process_security_barrier_quals(root, varno, jtitem);
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        FromExpr *f = (FromExpr *) jtnode;
+
+        // Distribute postponed lateral clauses
+        distribute_quals_to_rels(root, jtitem->lateral_clauses,
+                                jtitem, NULL, root->qual_security_level,
+                                jtitem->qualscope, NULL, NULL, NULL,
+                                true, false, false, NULL);
+
+        // Distribute top-level WHERE quals
+        distribute_quals_to_rels(root, (List *) f->quals,
+                                jtitem, NULL, root->qual_security_level,
+                                jtitem->qualscope, NULL, NULL, NULL,
+                                true, false, false, NULL);
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        JoinExpr *j = (JoinExpr *) jtnode;
+        Relids ojscope;
+        List *my_quals;
+        SpecialJoinInfo *sjinfo;
+        List **postponed_oj_qual_list;
+
+        // Include lateral clauses in join quals
+        my_quals = list_concat(jtitem->lateral_clauses, (List *) j->quals);
+
+        // Create SpecialJoinInfo for outer joins
+        if (j->jointype != JOIN_INNER) {
+            sjinfo = make_outerjoininfo(root,
+                                       jtitem->left_rels, jtitem->right_rels,
+                                       jtitem->inner_join_rels, j->jointype,
+                                       j->rtindex, my_quals);
+            jtitem->sjinfo = sjinfo;
+            ojscope = (j->jointype == JOIN_SEMI) ? NULL :
+                     bms_union(sjinfo->min_lefthand, sjinfo->min_righthand);
+        } else {
+            sjinfo = NULL;
+            ojscope = NULL;
+        }
+
+        // Handle LEFT JOIN clause postponement for commutativity
+        if (j->jointype == JOIN_LEFT && sjinfo->lhs_strict) {
+            postponed_oj_qual_list = &jtitem->oj_joinclauses;
+            ojscope = bms_add_members(ojscope, sjinfo->commute_below_l);
+            ojscope = bms_add_members(ojscope, sjinfo->commute_below_r);
+        } else {
+            postponed_oj_qual_list = NULL;
+        }
+
+        // Distribute join quals
+        distribute_quals_to_rels(root, my_quals, jtitem, sjinfo,
+                                root->qual_security_level, jtitem->qualscope,
+                                ojscope, jtitem->nonnullable_rels, NULL,
+                                true, false, false, postponed_oj_qual_list);
+
+        // Add SpecialJoinInfo to global list
+        if (sjinfo)
+            root->join_info_list = lappend(root->join_info_list, sjinfo);
+    }
+    else {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+    }
+}
+```

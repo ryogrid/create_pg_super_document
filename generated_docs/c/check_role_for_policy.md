@@ -37,3 +37,26 @@ The function performs a quick optimization for policies that apply to all roles 
 - Part of the broader row-level security framework introduced in PostgreSQL 9.5
 - The function returns true if the policy should be applied, false otherwise
 - Located in src/backend/rewrite/rowsecurity.c, which handles the rewriting of queries to include row-level security constraints
+
+## Simplified Source
+
+```c
+static bool check_role_for_policy(ArrayType *policy_roles, Oid user_id) {
+    // Extract array of role OIDs from the policy
+    Oid *roles = (Oid *) ARR_DATA_PTR(policy_roles);
+
+    // Quick check: if policy applies to PUBLIC (all roles)
+    if (roles[0] == ACL_ID_PUBLIC) {
+        return true;
+    }
+
+    // Check if user has privileges of any role in the policy
+    for (int i = 0; i < ARR_DIMS(policy_roles)[0]; i++) {
+        if (has_privs_of_role(user_id, roles[i])) {
+            return true;  // User is member of this role
+        }
+    }
+
+    return false;  // User doesn't match any policy roles
+}
+```

@@ -37,3 +37,65 @@ This function constructs a ProjectionPath node that represents computing a speci
 
 ## Notes and Other Information
 The function implements a key optimization by setting dummypp flag when no separate Result node is needed. This occurs when the subpath can project directly or when target expressions match the input. Projection operations preserve the sort order (pathkeys) from the input path. Cost calculation accounts for expression evaluation overhead and potential cpu_tuple_cost when a Result node is required.
+
+## Simplified Source
+```c
+ProjectionPath *
+create_projection_path(PlannerInfo *root,
+                      RelOptInfo *rel,
+                      Path *subpath,
+                      PathTarget *target)
+{
+    ProjectionPath *pathnode = makeNode(ProjectionPath);
+    PathTarget *oldtarget;
+
+    // Unwrap nested ProjectionPaths to avoid stacking
+    if (IsA(subpath, ProjectionPath))
+    {
+        ProjectionPath *subpp = (ProjectionPath *) subpath;
+        subpath = subpp->subpath;
+    }
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Result;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel &&
+        subpath->parallel_safe &&
+        is_parallel_safe(root, (Node *) target->exprs);
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = subpath->pathkeys;  // Preserve sort order
+
+    pathnode->subpath = subpath;
+
+    // Check if we can optimize away the Result node
+    oldtarget = subpath->pathtarget;
+    if (is_projection_capable_path(subpath) ||
+        equal(oldtarget->exprs, target->exprs))
+    {
+        // No separate Result node needed
+        pathnode->dummypp = true;
+        pathnode->path.rows = subpath->rows;
+        pathnode->path.startup_cost = subpath->startup_cost +
+            (target->cost.startup - oldtarget->cost.startup);
+        pathnode->path.total_cost = subpath->total_cost +
+            (target->cost.startup - oldtarget->cost.startup) +
+            (target->cost.per_tuple - oldtarget->cost.per_tuple) * subpath->rows;
+    }
+    else
+    {
+        // Need a separate Result node
+        pathnode->dummypp = false;
+        pathnode->path.rows = subpath->rows;
+        pathnode->path.startup_cost = subpath->startup_cost +
+            target->cost.startup;
+        pathnode->path.total_cost = subpath->total_cost +
+            target->cost.startup +
+            (cpu_tuple_cost + target->cost.per_tuple) * subpath->rows;
+    }
+
+    return pathnode;
+}
+```

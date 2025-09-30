@@ -38,3 +38,12 @@ This function deallocates the memory previously allocated for an edge table in t
 - Uses PostgreSQL's pfree which is the counterpart to palloc
 - Part of proper resource management in the genetic query optimizer
 - The root parameter is included for consistency with other GEQO functions but is not used in the deallocation process
+
+## Simplified Source
+
+```c
+void free_edge_table(PlannerInfo *root, Edge *edge_table) {
+    // Deallocate memory for edge table
+    pfree(edge_table);
+}
+```

@@ -39,3 +39,25 @@ The function uses the PROCNAMEARGSNSP system cache to efficiently search for exi
 - Error message includes the full function signature and target schema name for clarity
 - Part of PostgreSQL's DDL validation infrastructure
 - Returns void - either succeeds silently or throws an error
+
+## Simplified Source
+
+```c
+void IsThereFunctionInNamespace(const char *proname, int pronargs,
+                               oidvector *proargtypes, Oid nspOid)
+{
+    // Check if function already exists in target namespace
+    if (SearchSysCacheExists3(PROCNAMEARGSNSP,
+                             CStringGetDatum(proname),
+                             PointerGetDatum(proargtypes),
+                             ObjectIdGetDatum(nspOid)))
+    {
+        // Raise user-friendly error with function signature and schema name
+        ereport(ERROR,
+                (errcode(ERRCODE_DUPLICATE_FUNCTION),
+                 errmsg("function %s already exists in schema \"%s\"",
+                        funcname_signature_string(proname, pronargs, NIL, proargtypes->values),
+                        get_namespace_name(nspOid))));
+    }
+}
+```

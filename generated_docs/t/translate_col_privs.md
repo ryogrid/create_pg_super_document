@@ -48,3 +48,46 @@ The function ensures proper security enforcement while accommodating the structu
 - Whole-row references are intentionally not translated to avoid overly strict permission requirements
 - Dropped columns are safely ignored during translation by checking for NULL vars
 - Essential for maintaining proper column-level security in inheritance and partitioning scenarios
+
+## Simplified Source
+
+```c
+static Bitmapset *
+translate_col_privs(const Bitmapset *parent_privs, List *translated_vars)
+{
+    Bitmapset *child_privs = NULL;
+    bool whole_row;
+    int attno;
+    ListCell *lc;
+
+    // Copy system attributes directly (same numbers across all tables)
+    for (attno = FirstLowInvalidHeapAttributeNumber + 1; attno < 0; attno++) {
+        if (bms_is_member(attno - FirstLowInvalidHeapAttributeNumber, parent_privs)) {
+            child_privs = bms_add_member(child_privs,
+                                       attno - FirstLowInvalidHeapAttributeNumber);
+        }
+    }
+
+    // Check for whole-row reference in parent
+    whole_row = bms_is_member(InvalidAttrNumber - FirstLowInvalidHeapAttributeNumber,
+                             parent_privs);
+
+    // Translate user attributes using the vars mapping
+    attno = InvalidAttrNumber;
+    foreach(lc, translated_vars) {
+        Var *var = lfirst_node(Var, lc);
+        attno++;
+
+        if (var == NULL) continue; // Skip dropped columns
+
+        // Grant privilege if parent has whole-row or specific column privilege
+        if (whole_row ||
+            bms_is_member(attno - FirstLowInvalidHeapAttributeNumber, parent_privs)) {
+            child_privs = bms_add_member(child_privs,
+                                       var->varattno - FirstLowInvalidHeapAttributeNumber);
+        }
+    }
+
+    return child_privs;
+}
+```

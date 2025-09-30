@@ -57,3 +57,66 @@ The returned list is allocated in the current memory context and must be managed
 - Handles null LSN values by setting them to InvalidXLogRecPtr
 - Uses AccessShareLock for safe concurrent access to the system catalog
 - More comprehensive than HasSubscriptionRelations but with higher overhead when you only need existence information
+
+## Simplified Source
+
+```c
+List *GetSubscriptionRelations(Oid subid, bool not_ready)
+{
+    List *res = NIL;
+    Relation rel;
+    HeapTuple tup;
+    int nkeys = 0;
+    ScanKeyData skey[2];
+    SysScanDesc scan;
+
+    // Open pg_subscription_rel catalog
+    rel = table_open(SubscriptionRelRelationId, AccessShareLock);
+
+    // Set up scan key for subscription ID
+    ScanKeyInit(&skey[nkeys++],
+                Anum_pg_subscription_rel_srsubid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(subid));
+
+    // Add filter for not-ready relations if requested
+    if (not_ready)
+        ScanKeyInit(&skey[nkeys++],
+                    Anum_pg_subscription_rel_srsubstate,
+                    BTEqualStrategyNumber, F_CHARNE,
+                    CharGetDatum(SUBREL_STATE_READY));
+
+    // Start catalog scan
+    scan = systable_beginscan(rel, InvalidOid, false, NULL, nkeys, skey);
+
+    // Process each matching relation
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_subscription_rel subrel = (Form_pg_subscription_rel) GETSTRUCT(tup);
+        SubscriptionRelState *relstate = (SubscriptionRelState *) palloc(sizeof(SubscriptionRelState));
+
+        // Extract relation info
+        relstate->relid = subrel->srrelid;
+        relstate->state = subrel->srsubstate;
+
+        // Extract LSN, handling null values
+        Datum d;
+        bool isnull;
+
+        d = SysCacheGetAttr(SUBSCRIPTIONRELMAP, tup,
+                           Anum_pg_subscription_rel_srsublsn, &isnull);
+        if (isnull)
+            relstate->lsn = InvalidXLogRecPtr;
+        else
+            relstate->lsn = DatumGetLSN(d);
+
+        res = lappend(res, relstate);
+    }
+
+    // Cleanup
+    systable_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    return res;
+}
+```

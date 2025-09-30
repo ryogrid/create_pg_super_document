@@ -39,3 +39,22 @@ ExecEvalAggOrderedTransTuple is the tuple-based counterpart to ExecEvalAggOrdere
 - Works in conjunction with ExecEvalAggOrderedTransDatum for datum-based ordered aggregates
 - Part of PostgreSQL's expression evaluation step execution framework
 - The tuple sort state is accessed through pertrans->sortstates[setno] array
+
+## Simplified Source
+
+```c
+void ExecEvalAggOrderedTransTuple(ExprState *state, ExprEvalStep *op,
+                                 ExprContext *econtext)
+{
+    AggStatePerTrans pertrans = op->d.agg_trans.pertrans;
+    int setno = op->d.agg_trans.setno;
+
+    // Prepare tuple slot for sorting
+    ExecClearTuple(pertrans->sortslot);
+    pertrans->sortslot->tts_nvalid = pertrans->numInputs;
+    ExecStoreVirtualTuple(pertrans->sortslot);
+
+    // Store tuple in sort state for ordered processing
+    tuplesort_puttupleslot(pertrans->sortstates[setno], pertrans->sortslot);
+}
+```

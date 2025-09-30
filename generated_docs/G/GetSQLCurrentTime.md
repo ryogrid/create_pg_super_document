@@ -37,3 +37,28 @@ This function retrieves the current time with timezone information and returns i
 - Returns a dynamically allocated TimeTzADT structure that must be managed by the caller
 - The timezone component reflects the local timezone setting of the server
 - Precision can be controlled via the typmod parameter, affecting fractional seconds display
+
+## Simplified Source
+
+```c
+TimeTzADT *GetSQLCurrentTime(int32 typmod) {
+    TimeTzADT *result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+
+    // Get current time with microsecond precision and timezone
+    GetCurrentTimeUsec(tm, &fsec, &tz);
+
+    // Allocate result structure
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+
+    // Convert time components to TimeTzADT format
+    tm2timetz(tm, fsec, tz, result);
+
+    // Apply precision adjustment based on typmod
+    AdjustTimeForTypmod(&(result->time), typmod);
+
+    return result;
+}
+```

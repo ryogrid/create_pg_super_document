@@ -45,3 +45,39 @@ The implementation includes bounds checking to ensure the behavior type is valid
 - The function enforces type safety through bounds checking on behavior types
 - Essential for proper SQL/JSON syntax generation in rule decompilation
 - Location: src/backend/utils/adt/ruleutils.c:8877-8914
+
+## Simplified Source
+
+```c
+static void get_json_behavior(JsonBehavior *behavior, deparse_context *context,
+                             const char *on) {
+    // Behavior name lookup table - must match JsonBehaviorType enum order
+    const char *behavior_names[] = {
+        " NULL",
+        " ERROR",
+        " EMPTY",
+        " TRUE",
+        " FALSE",
+        " UNKNOWN",
+        " EMPTY ARRAY",
+        " EMPTY OBJECT",
+        " DEFAULT "
+    };
+
+    // Validate behavior type
+    if ((int) behavior->btype < 0 || behavior->btype >= lengthof(behavior_names)) {
+        elog(ERROR, "invalid json behavior type: %d", behavior->btype);
+    }
+
+    // Append the behavior name
+    appendStringInfoString(context->buf, behavior_names[behavior->btype]);
+
+    // For DEFAULT behavior, append the default expression
+    if (behavior->btype == JSON_BEHAVIOR_DEFAULT) {
+        get_rule_expr(behavior->expr, context, false);
+    }
+
+    // Complete with ON clause (e.g., "ON ERROR", "ON EMPTY")
+    appendStringInfo(context->buf, " ON %s", on);
+}
+```

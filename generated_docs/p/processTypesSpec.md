@@ -41,3 +41,29 @@ This static function parses a list of type name arguments and converts them to t
 - For single argument cases (unary operators), both lefttype and righttype are set to the same OID
 - Uses PostgreSQL's type resolution system via typenameTypeId to convert type names to OIDs
 - Part of the operator class/family management subsystem in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+processTypesSpec(List *args, Oid *lefttype, Oid *righttype)
+{
+    // Extract first type name and convert to OID
+    TypeName *typeName = (TypeName *) linitial(args);
+    *lefttype = typenameTypeId(NULL, typeName);
+
+    // Handle second type if present (binary operator), else use first type (unary)
+    if (list_length(args) > 1) {
+        typeName = (TypeName *) lsecond(args);
+        *righttype = typenameTypeId(NULL, typeName);
+    } else {
+        *righttype = *lefttype;
+    }
+
+    // Enforce maximum of 2 argument types
+    if (list_length(args) > 2) {
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("one or two argument types must be specified")));
+    }
+}
+```

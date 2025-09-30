@@ -50,3 +50,31 @@ Different relation types require different horizon strategies:
 - The NULL relation case provides a safe horizon for operations that affect multiple or unknown relations
 - The function includes a compiler warning prevention return statement, though all enum cases should be covered
 - Critical for maintaining MVCC consistency and preventing premature tuple removal that could cause data corruption or incorrect query results
+
+## Simplified Source
+
+```c
+TransactionId
+GetOldestNonRemovableTransactionId(Relation rel)
+{
+    ComputeXidHorizonsResult horizons;
+
+    // Compute all visibility horizons
+    ComputeXidHorizons(&horizons);
+
+    // Return appropriate horizon based on relation type
+    switch (GlobalVisHorizonKindForRel(rel))
+    {
+        case VISHORIZON_SHARED:
+            return horizons.shared_oldest_nonremovable;
+        case VISHORIZON_CATALOG:
+            return horizons.catalog_oldest_nonremovable;
+        case VISHORIZON_DATA:
+            return horizons.data_oldest_nonremovable;
+        case VISHORIZON_TEMP:
+            return horizons.temp_oldest_nonremovable;
+    }
+
+    return InvalidTransactionId; // Fallback for compiler
+}
+```

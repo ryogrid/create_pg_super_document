@@ -45,3 +45,46 @@ The function performs a catalog scan on pg_class using the reloftype attribute t
 - The error message suggests using CASCADE to handle dependent typed tables
 - Uses AccessShareLock for safe concurrent access to the pg_class catalog
 - Typed tables are a PostgreSQL feature allowing tables to inherit structure from composite types
+
+## Simplified Source
+
+```c
+static List *
+find_typed_table_dependencies(Oid typeOid, const char *typeName, DropBehavior behavior)
+{
+    List *result = NIL;
+
+    // Open pg_class catalog for scanning
+    Relation classRel = table_open(RelationRelationId, AccessShareLock);
+
+    // Set up scan key to find tables with reloftype = typeOid
+    ScanKeyData key[1];
+    ScanKeyInit(&key[0], Anum_pg_class_reloftype, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(typeOid));
+
+    // Scan for typed tables that use this composite type
+    TableScanDesc scan = table_beginscan_catalog(classRel, 1, key);
+    HeapTuple tuple;
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_class classform = (Form_pg_class) GETSTRUCT(tuple);
+
+        // If RESTRICT behavior, error on any dependency found
+        if (behavior == DROP_RESTRICT)
+            ereport(ERROR,
+                    (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                     errmsg("cannot alter type \"%s\" because it is the type of a typed table",
+                            typeName),
+                     errhint("Use ALTER ... CASCADE to alter the typed tables too.")));
+
+        // Otherwise, collect the table OID for later processing
+        result = lappend_oid(result, classform->oid);
+    }
+
+    // Clean up scan and release lock
+    table_endscan(scan);
+    table_close(classRel, AccessShareLock);
+
+    return result;
+}
+```

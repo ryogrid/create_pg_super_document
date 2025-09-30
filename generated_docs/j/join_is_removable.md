@@ -53,3 +53,67 @@ The function performs comprehensive checks including:
 - Uses mergejoinable clauses as the basis for distinctness proofs, as these behave like equality for btree operations
 - Includes optimizations like starting attribute checks from max_attr and counting down, assuming system attributes are less likely to be referenced
 - The distinctness proof is currently the only method implemented, though comments suggest future extensions for other proof methods
+
+## Simplified Source
+
+```c
+static bool join_is_removable(PlannerInfo *root, SpecialJoinInfo *sjinfo)
+{
+    // Must be left join to single base relation
+    if (sjinfo->jointype != JOIN_LEFT ||
+        !bms_get_singleton_member(sjinfo->min_righthand, &innerrelid))
+        return false;
+
+    // Don't eliminate joins to query result relation (important for MERGE)
+    if (innerrelid == root->parse->resultRelation)
+        return false;
+
+    innerrel = find_base_rel(root, innerrelid);
+
+    // Quick check: does relation support distinctness proofs?
+    if (!rel_supports_distinctness(root, innerrel))
+        return false;
+
+    // Calculate join relation IDs
+    inputrelids = bms_union(sjinfo->min_lefthand, sjinfo->min_righthand);
+    joinrelids = bms_add_member(bms_copy(inputrelids), sjinfo->ojrelid);
+
+    // Check if any inner relation attributes are needed above the join
+    for (attroff = innerrel->max_attr - innerrel->min_attr; attroff >= 0; attroff--) {
+        if (!bms_is_subset(innerrel->attr_needed[attroff], inputrelids))
+            return false;
+    }
+
+    // Check PlaceHolderVar dependencies
+    foreach(l, root->placeholder_list) {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(l);
+
+        // Various PHV dependency checks...
+        if (bms_overlap(phinfo->ph_lateral, innerrel->relids) ||
+            (bms_overlap(phinfo->ph_eval_at, innerrel->relids) &&
+             !bms_is_subset(phinfo->ph_needed, inputrelids) &&
+             /* additional complex PHV checks */))
+            return false;
+    }
+
+    // Collect mergejoinable equality clauses
+    List *clause_list = NIL;
+    foreach(l, innerrel->joininfo) {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(l);
+
+        // Skip clones, pushed-down clauses, non-mergejoinable clauses
+        if (restrictinfo->is_clone ||
+            RINFO_IS_PUSHED_DOWN(restrictinfo, joinrelids) ||
+            !restrictinfo->can_join ||
+            restrictinfo->mergeopfamilies == NIL)
+            continue;
+
+        // Check clause structure matches join
+        if (clause_sides_match_join(restrictinfo, sjinfo->min_lefthand, innerrel->relids))
+            clause_list = lappend(clause_list, restrictinfo);
+    }
+
+    // Try to prove inner relation is distinct for these clauses
+    return rel_is_distinct_for(root, innerrel, clause_list);
+}
+```

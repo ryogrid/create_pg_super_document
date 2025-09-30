@@ -64,3 +64,71 @@ The function ensures that privilege hierarchies remain consistent after revocati
 - Performance is optimized by early returns when actions have already been planned
 - The function maintains consistency in complex role hierarchies where privileges can be granted through multiple paths
 - Critical for maintaining referential integrity in PostgreSQL's role-based access control system
+
+## Simplified Source
+
+```c
+static void
+plan_recursive_revoke(CatCList *memlist, RevokeRoleGrantAction *actions,
+                     int index, bool revoke_admin_option_only, DropBehavior behavior) {
+    bool would_still_have_admin_option = false;
+    HeapTuple authmem_tuple;
+    Form_pg_auth_members authmem_form;
+    int i;
+
+    // Early exit if action already planned
+    if (actions[index] == RRG_DELETE_GRANT)
+        return;
+    if (actions[index] == RRG_REMOVE_ADMIN_OPTION && revoke_admin_option_only)
+        return;
+
+    // Get tuple data for this grant
+    authmem_tuple = &memlist->members[index]->tuple;
+    authmem_form = (Form_pg_auth_members) GETSTRUCT(authmem_tuple);
+
+    // Plan action based on admin option and revoke type
+    if (!revoke_admin_option_only) {
+        actions[index] = RRG_DELETE_GRANT;
+        if (!authmem_form->admin_option)
+            return;
+    } else {
+        if (!authmem_form->admin_option)
+            return;
+        actions[index] = RRG_REMOVE_ADMIN_OPTION;
+    }
+
+    // Check if member would still have admin option from other grants
+    for (i = 0; i < memlist->n_members; ++i) {
+        HeapTuple am_cascade_tuple = &memlist->members[i]->tuple;
+        Form_pg_auth_members am_cascade_form = (Form_pg_auth_members) GETSTRUCT(am_cascade_tuple);
+
+        if (am_cascade_form->member == authmem_form->member &&
+            am_cascade_form->admin_option && actions[i] == RRG_NOOP) {
+            would_still_have_admin_option = true;
+            break;
+        }
+    }
+
+    // If member still has admin option, no need to recurse
+    if (would_still_have_admin_option)
+        return;
+
+    // Recursively handle grants where this member is the grantor
+    for (i = 0; i < memlist->n_members; ++i) {
+        HeapTuple am_cascade_tuple = &memlist->members[i]->tuple;
+        Form_pg_auth_members am_cascade_form = (Form_pg_auth_members) GETSTRUCT(am_cascade_tuple);
+
+        if (am_cascade_form->grantor == authmem_form->member &&
+            actions[i] != RRG_DELETE_GRANT) {
+            // Check for restrict behavior
+            if (behavior == DROP_RESTRICT)
+                ereport(ERROR, (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                        errmsg("dependent privileges exist"),
+                        errhint("Use CASCADE to revoke them too.")));
+
+            // Recurse to handle dependent grants
+            plan_recursive_revoke(memlist, actions, i, false, behavior);
+        }
+    }
+}
+```

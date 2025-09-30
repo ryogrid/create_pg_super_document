@@ -49,3 +49,39 @@ Key behaviors include:
 - Normal gather operations result in unordered output (pathkeys = NIL)
 - The gather path itself is marked as not parallel-safe and not parallel-aware since it serves as the collection point
 - Cost calculation is delegated to the cost_gather function, which considers parallel execution overhead
+
+## Simplified Source
+
+```c
+GatherPath *create_gather_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                              PathTarget *target, Relids required_outer, double *rows) {
+    GatherPath *pathnode = makeNode(GatherPath);
+
+    // Initialize path properties
+    pathnode->path.pathtype = T_Gather;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = false;
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.pathkeys = NIL;  // Gather produces unordered result
+
+    // Set subpath and worker configuration
+    pathnode->subpath = subpath;
+    pathnode->num_workers = subpath->parallel_workers;
+    pathnode->single_copy = false;
+
+    // Handle special case: no workers available
+    if (pathnode->num_workers == 0) {
+        pathnode->path.pathkeys = subpath->pathkeys;  // Preserve ordering
+        pathnode->num_workers = 1;
+        pathnode->single_copy = true;
+    }
+
+    // Calculate execution costs
+    cost_gather(pathnode, root, rel, pathnode->path.param_info, rows);
+
+    return pathnode;
+}
+```

@@ -44,3 +44,35 @@ The function maintains the integrity of the command queue as a linked list by pr
 - Critical for maintaining proper command ordering in PostgreSQL's pipeline mode
 - Handles state transitions that ensure proper asynchronous query execution flow
 - The function assumes the entry is properly initialized and ready for queue insertion
+
+## Simplified Source
+```c
+static void pqAppendCmdQueueEntry(PGconn *conn, PGcmdQueueEntry *entry) {
+    // Add entry to the command queue
+    if (conn->cmd_queue_head == NULL) {
+        conn->cmd_queue_head = entry;
+    } else {
+        conn->cmd_queue_tail->next = entry;
+    }
+    conn->cmd_queue_tail = entry;
+
+    // Update connection status based on pipeline state
+    switch (conn->pipelineStatus) {
+        case PQ_PIPELINE_OFF:
+        case PQ_PIPELINE_ON:
+            // Normal operation: set to busy if idle
+            if (conn->asyncStatus == PGASYNC_IDLE) {
+                conn->asyncStatus = PGASYNC_BUSY;
+            }
+            break;
+
+        case PQ_PIPELINE_ABORTED:
+            // Aborted pipeline: process queue if idle
+            if (conn->asyncStatus == PGASYNC_IDLE ||
+                conn->asyncStatus == PGASYNC_PIPELINE_IDLE) {
+                pqPipelineProcessQueue(conn);
+            }
+            break;
+    }
+}
+```

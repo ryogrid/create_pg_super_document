@@ -36,3 +36,26 @@ The function first navigates to the appropriate parse state level based on the V
 - Uses bitmap sets to efficiently represent sets of relation IDs that make this Var nullable
 - The nulling relations are determined during join processing and stored in the parse state's `p_nullingrels` list
 - This is crucial for correct NULL semantics in outer joins, ensuring that expressions properly handle potentially NULL values from outer-joined tables
+
+## Simplified Source
+
+```c
+void markNullableIfNeeded(ParseState *pstate, Var *var) {
+    int rtindex = var->varno;
+    Bitmapset *relids;
+
+    // Navigate to the appropriate parse state level
+    for (int lv = 0; lv < var->varlevelsup; lv++)
+        pstate = pstate->parentParseState;
+
+    // Find nulling relations for this Var's relation
+    if (rtindex > 0 && rtindex <= list_length(pstate->p_nullingrels))
+        relids = (Bitmapset *) list_nth(pstate->p_nullingrels, rtindex - 1);
+    else
+        relids = NULL;
+
+    // Merge with existing nulling relations if any
+    if (relids != NULL)
+        var->varnullingrels = bms_union(var->varnullingrels, relids);
+}
+```

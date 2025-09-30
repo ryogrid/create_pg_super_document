@@ -40,3 +40,25 @@ The function uses the range_table_walker infrastructure to traverse the range ta
 - This is part of PostgreSQL's query rewriting infrastructure
 - The function works in conjunction with the walker pattern to efficiently traverse and modify range table structures
 - Essential for maintaining correct variable scoping when restructuring queries during optimization or rewriting
+
+## Simplified Source
+
+```c
+// Simplified version of IncrementVarSublevelsUp_rtable
+void
+IncrementVarSublevelsUp_rtable(List *rtable, int delta_sublevels_up,
+                              int min_sublevels_up)
+{
+    IncrementVarSublevelsUp_context context;
+
+    // Setup context for walker
+    context.delta_sublevels_up = delta_sublevels_up;
+    context.min_sublevels_up = min_sublevels_up;
+
+    // Walk through range table and increment var sublevels
+    range_table_walker(rtable,
+                      IncrementVarSublevelsUp_walker,
+                      (void *) &context,
+                      QTW_EXAMINE_RTES_BEFORE);
+}
+```

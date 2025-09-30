@@ -36,3 +36,17 @@ The function is a thin wrapper around `generate_new_exec_param` and handles the 
 - This is part of PostgreSQL's subquery processing infrastructure, specifically for handling subqueries that can be converted to initplans for better performance
 - The returned Param node will have `paramkind` set to `PARAM_EXEC` and will be assigned a unique `paramid`
 - Location: `src/backend/optimizer/plan/subselect.c:3001-3016`
+
+## Simplified Source
+
+```c
+Param *
+SS_make_initplan_output_param(PlannerInfo *root,
+                              Oid resulttype, int32 resulttypmod,
+                              Oid resultcollation)
+{
+    // Simple wrapper - create new execution parameter for initplan output
+    return generate_new_exec_param(root, resulttype,
+                                   resulttypmod, resultcollation);
+}
+```

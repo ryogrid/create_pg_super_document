@@ -40,3 +40,46 @@ This function searches the pg_constraint catalog to locate a validated NOT NULL 
 - Caller is responsible for freeing the returned HeapTuple
 - Specific to domain type constraints, not table column constraints
 - Part of the domain constraint management infrastructure
+
+## Simplified Source
+
+```c
+HeapTuple
+findDomainNotNullConstraint(Oid typid)
+{
+    Relation pg_constraint;
+    HeapTuple conTup, retval = NULL;
+    SysScanDesc scan;
+    ScanKeyData key;
+
+    // Open pg_constraint catalog for scanning
+    pg_constraint = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Set up scan key to find constraints for this domain type
+    ScanKeyInit(&key, Anum_pg_constraint_contypid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(typid));
+
+    // Begin scan using the constraint index
+    scan = systable_beginscan(pg_constraint, ConstraintRelidTypidNameIndexId,
+                              true, NULL, 1, &key);
+
+    // Scan through all constraints for this domain
+    while (HeapTupleIsValid(conTup = systable_getnext(scan)))
+    {
+        Form_pg_constraint con = (Form_pg_constraint) GETSTRUCT(conTup);
+
+        // Look for validated NOT NULL constraints only
+        if (con->contype == CONSTRAINT_NOTNULL && con->convalidated)
+        {
+            retval = heap_copytuple(conTup);  // Return copy of found constraint
+            break;
+        }
+    }
+
+    // Clean up scan and close relation
+    systable_endscan(scan);
+    table_close(pg_constraint, AccessShareLock);
+
+    return retval;  // NULL if not found, tuple copy if found
+}
+```

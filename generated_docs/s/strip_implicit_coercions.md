@@ -42,3 +42,59 @@ This function recursively traverses down expression trees to remove implicit typ
 - RowExpr nodes are returned unchanged even if marked as implicit coercions, as there's no meaningful way to strip them
 - The function is recursive, continuing to strip nested implicit coercions until it reaches a non-coercion node
 - This is commonly used in query planning and rewriting phases where the actual underlying expressions are needed without the coercion wrapper nodes
+
+## Simplified Source
+
+```c
+Node *
+strip_implicit_coercions(Node *node)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Handle function call coercions
+    if (IsA(node, FuncExpr)) {
+        FuncExpr *f = (FuncExpr *) node;
+        if (f->funcformat == COERCE_IMPLICIT_CAST)
+            return strip_implicit_coercions(linitial(f->args));
+    }
+
+    // Handle type relabeling coercions
+    else if (IsA(node, RelabelType)) {
+        RelabelType *r = (RelabelType *) node;
+        if (r->relabelformat == COERCE_IMPLICIT_CAST)
+            return strip_implicit_coercions((Node *) r->arg);
+    }
+
+    // Handle I/O-based coercions
+    else if (IsA(node, CoerceViaIO)) {
+        CoerceViaIO *c = (CoerceViaIO *) node;
+        if (c->coerceformat == COERCE_IMPLICIT_CAST)
+            return strip_implicit_coercions((Node *) c->arg);
+    }
+
+    // Handle array element coercions
+    else if (IsA(node, ArrayCoerceExpr)) {
+        ArrayCoerceExpr *c = (ArrayCoerceExpr *) node;
+        if (c->coerceformat == COERCE_IMPLICIT_CAST)
+            return strip_implicit_coercions((Node *) c->arg);
+    }
+
+    // Handle row type conversions
+    else if (IsA(node, ConvertRowtypeExpr)) {
+        ConvertRowtypeExpr *c = (ConvertRowtypeExpr *) node;
+        if (c->convertformat == COERCE_IMPLICIT_CAST)
+            return strip_implicit_coercions((Node *) c->arg);
+    }
+
+    // Handle domain coercions
+    else if (IsA(node, CoerceToDomain)) {
+        CoerceToDomain *c = (CoerceToDomain *) node;
+        if (c->coercionformat == COERCE_IMPLICIT_CAST)
+            return strip_implicit_coercions((Node *) c->arg);
+    }
+
+    // No implicit coercion found - return original node
+    return node;
+}
+```

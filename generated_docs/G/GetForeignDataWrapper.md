@@ -39,3 +39,13 @@ GetForeignDataWrapper is a wrapper function that provides a convenient interface
 - For cases where you need to handle missing FDWs gracefully, use GetForeignDataWrapperExtended directly with FDW_MISSING_OK flag
 - Located in src/backend/foreign/foreign.c:37-48
 - Returns a palloc'd ForeignDataWrapper structure that should be freed by the caller when no longer needed
+
+## Simplified Source
+
+```c
+ForeignDataWrapper *
+GetForeignDataWrapper(Oid fdwid)
+{
+    return GetForeignDataWrapperExtended(fdwid, 0);
+}
+```

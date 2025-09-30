@@ -39,3 +39,16 @@ The system identifier is appended to prevent slot name collisions between subscr
 - The naming scheme is optimized to stay well under the NAMEDATALEN limit while maintaining uniqueness
 - This is a utility function that does not perform any database operations itself, only string formatting
 - The generated slot names are used for temporary replication slots created during initial table synchronization
+
+## Simplified Source
+
+```c
+void ReplicationSlotNameForTablesync(Oid suboid, Oid relid,
+                                   char *syncslotname, Size szslot)
+{
+    // Generate unique slot name: pg_{subid}_sync_{relid}_{systemid}
+    // Format ensures uniqueness across subscriptions and clusters
+    snprintf(syncslotname, szslot, "pg_%u_sync_%u_" UINT64_FORMAT,
+             suboid, relid, GetSystemIdentifier());
+}
+```

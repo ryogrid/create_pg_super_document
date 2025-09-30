@@ -43,3 +43,31 @@ This function takes no parameters and returns:
 - After using the binary upgrade OID, it resets `binary_upgrade_next_mrng_pg_type_oid` to InvalidOid to prevent reuse
 - The allocated OID is used later in the range type creation process to establish the relationship between a range type and its multirange type
 - Multirange types allow storing multiple non-overlapping ranges as a single value, extending PostgreSQL's range functionality
+
+## Simplified Source
+
+```c
+Oid
+AssignTypeMultirangeOid(void)
+{
+    Oid type_multirange_oid;
+
+    // Binary upgrade mode: use pre-determined OID
+    if (IsBinaryUpgrade) {
+        if (!OidIsValid(binary_upgrade_next_mrng_pg_type_oid))
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("pg_type multirange OID value not set when in binary upgrade mode")));
+
+        type_multirange_oid = binary_upgrade_next_mrng_pg_type_oid;
+        binary_upgrade_next_mrng_pg_type_oid = InvalidOid;
+    } else {
+        // Normal mode: generate new unique OID
+        Relation pg_type = table_open(TypeRelationId, AccessShareLock);
+        type_multirange_oid = GetNewOidWithIndex(pg_type, TypeOidIndexId, Anum_pg_type_oid);
+        table_close(pg_type, AccessShareLock);
+    }
+
+    return type_multirange_oid;
+}
+```

@@ -51,3 +51,44 @@ The function is conservative about cleaning - it only touches clause_relids and 
 - Essential for maintaining consistency when relations are eliminated from the query plan
 - The recursive nature ensures that all sub-clauses in complex boolean expressions are properly cleaned up
 - Future improvements may be needed to handle nullingrel bits in contained expressions more comprehensively
+
+## Simplified Source
+
+```c
+static void remove_rel_from_restrictinfo(RestrictInfo *rinfo, int relid, int ojrelid)
+{
+    // Make private copies of relid sets before modifying
+    rinfo->clause_relids = bms_copy(rinfo->clause_relids);
+    rinfo->clause_relids = bms_del_member(rinfo->clause_relids, relid);
+    rinfo->clause_relids = bms_del_member(rinfo->clause_relids, ojrelid);
+
+    rinfo->required_relids = bms_copy(rinfo->required_relids);
+    rinfo->required_relids = bms_del_member(rinfo->required_relids, relid);
+    rinfo->required_relids = bms_del_member(rinfo->required_relids, ojrelid);
+
+    // Handle OR clauses by cleaning up sub-clauses recursively
+    if (restriction_is_or_clause(rinfo)) {
+        ListCell *lc;
+
+        foreach(lc, ((BoolExpr *) rinfo->orclause)->args) {
+            Node *orarg = (Node *) lfirst(lc);
+
+            // Process AND sub-clauses
+            if (is_andclause(orarg)) {
+                List *andargs = ((BoolExpr *) orarg)->args;
+                ListCell *lc2;
+
+                foreach(lc2, andargs) {
+                    RestrictInfo *rinfo2 = lfirst_node(RestrictInfo, lc2);
+                    remove_rel_from_restrictinfo(rinfo2, relid, ojrelid);
+                }
+            }
+            // Process simple RestrictInfo sub-clauses
+            else {
+                RestrictInfo *rinfo2 = castNode(RestrictInfo, orarg);
+                remove_rel_from_restrictinfo(rinfo2, relid, ojrelid);
+            }
+        }
+    }
+}
+```

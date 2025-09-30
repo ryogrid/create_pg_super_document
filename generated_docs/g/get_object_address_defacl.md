@@ -43,3 +43,69 @@ The function supports five object types for default ACLs: relations (tables), se
 - Error messages differentiate between schema-specific and global default ACLs for clarity
 - Part of PostgreSQL's privilege management system for automatically granting permissions on newly created objects
 - Uses a goto-based error handling pattern with a common not_found label for consistent error reporting
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_defacl(List *object, bool missing_ok)
+{
+    HeapTuple tp;
+    Oid userid, schemaid;
+    char *username, *schema;
+    char objtype;
+    ObjectAddress address;
+
+    ObjectAddressSet(address, DefaultAclRelationId, InvalidOid);
+
+    // Extract parameters from input list
+    objtype = ((char *) strVal(linitial(object)))[0];  // First char of object type
+    username = strVal(lsecond(object));                // Username
+    schema = (list_length(object) >= 3) ? strVal(lthird(object)) : NULL;
+
+    // Validate object type (tables, sequences, functions, types, schemas)
+    switch (objtype) {
+        case DEFACLOBJ_RELATION:
+        case DEFACLOBJ_SEQUENCE:
+        case DEFACLOBJ_FUNCTION:
+        case DEFACLOBJ_TYPE:
+        case DEFACLOBJ_NAMESPACE:
+            break;
+        default:
+            ereport(ERROR, "unrecognized default ACL object type");
+    }
+
+    // Look up user ID by username
+    tp = SearchSysCache1(AUTHNAME, CStringGetDatum(username));
+    if (!HeapTupleIsValid(tp))
+        goto not_found;
+    userid = ((Form_pg_authid) GETSTRUCT(tp))->oid;
+    ReleaseSysCache(tp);
+
+    // Look up schema OID if provided
+    if (schema) {
+        schemaid = get_namespace_oid(schema, true);
+        if (schemaid == InvalidOid)
+            goto not_found;
+    } else {
+        schemaid = InvalidOid;
+    }
+
+    // Find the default ACL entry
+    tp = SearchSysCache3(DEFACLROLENSPOBJ,
+                        ObjectIdGetDatum(userid),
+                        ObjectIdGetDatum(schemaid),
+                        CharGetDatum(objtype));
+    if (!HeapTupleIsValid(tp))
+        goto not_found;
+
+    address.objectId = ((Form_pg_default_acl) GETSTRUCT(tp))->oid;
+    ReleaseSysCache(tp);
+    return address;
+
+not_found:
+    if (!missing_ok)
+        ereport(ERROR, "default ACL does not exist");
+    return address;  // Returns invalid ObjectAddress
+}
+```

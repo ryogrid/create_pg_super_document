@@ -59,3 +59,65 @@ A key design consideration is permission handling: the function avoids marking t
 - Permission tracking is carefully handled to avoid unnecessary whole-row SELECT permissions
 - The Assert(make_target_entry) for bare "*" reflects a grammar constraint that bare "*" only appears at SELECT top level
 - The function is marked static, indicating it's an internal helper within parse_target.c
+
+## Simplified Source
+
+```c
+static List *
+ExpandColumnRefStar(ParseState *pstate, ColumnRef *cref,
+                    bool make_target_entry)
+{
+    List *fields = cref->fields;
+    int numnames = list_length(fields);
+
+    if (numnames == 1) {
+        // Bare '*' - expand all tables
+        Assert(make_target_entry);
+        return ExpandAllTables(pstate, cref->location);
+    } else {
+        // Qualified '*' - expand specific relation (relation.*)
+        char *nspname = NULL;
+        char *relname = NULL;
+        ParseNamespaceItem *nsitem = NULL;
+        int levels_up;
+
+        // Parse the qualified name components
+        switch (numnames) {
+            case 2:
+                // relation.*
+                relname = strVal(linitial(fields));
+                break;
+            case 3:
+                // schema.relation.*
+                nspname = strVal(linitial(fields));
+                relname = strVal(lsecond(fields));
+                break;
+            case 4:
+                // database.schema.relation.*
+                // Check database name matches current database
+                char *catname = strVal(linitial(fields));
+                if (strcmp(catname, get_database_name(MyDatabaseId)) != 0)
+                    ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                                   errmsg("cross-database references are not implemented")));
+                nspname = strVal(lsecond(fields));
+                relname = strVal(lthird(fields));
+                break;
+            default:
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                               errmsg("improper qualified name (too many dotted names)")));
+                break;
+        }
+
+        // Find the relation in namespace
+        nsitem = refnameNamespaceItem(pstate, nspname, relname,
+                                      cref->location, &levels_up);
+        if (nsitem == NULL) {
+            errorMissingRTE(pstate, makeRangeVar(nspname, relname, cref->location));
+        }
+
+        // Expand the relation's columns
+        return ExpandSingleTable(pstate, nsitem, levels_up, cref->location,
+                                 make_target_entry);
+    }
+}
+```

@@ -31,3 +31,17 @@ This is a standard qsort comparison function that takes two void pointers, casts
 - The function returns a negative value if a < b, zero if a == b, and positive if a > b, following standard qsort comparator conventions
 - The subtraction approach (av - bv) is safe from integer overflow on systems where int is wider than int16
 - Commonly used for sorting attribute numbers (attnums) in PostgreSQL's publication and statistics subsystems
+
+## Simplified Source
+
+```c
+static int
+compare_int16(const void *a, const void *b)
+{
+    int av = *(const int16 *) a;
+    int bv = *(const int16 *) b;
+
+    // Return difference for qsort comparison (safe from overflow)
+    return (av - bv);
+}
+```

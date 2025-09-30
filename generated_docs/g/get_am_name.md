@@ -42,3 +42,27 @@ The implementation uses PostgreSQL's system cache (syscache) for efficient looku
 - Uses the system cache for efficient lookup performance
 - Part of the access method command utilities in PostgreSQL
 - The returned string is a copy of the name stored in the pg_am catalog
+
+## Simplified Source
+
+```c
+char *
+get_am_name(Oid amOid)
+{
+    HeapTuple tup;
+    char *result = NULL;
+
+    // Look up access method by OID in system cache
+    tup = SearchSysCache1(AMOID, ObjectIdGetDatum(amOid));
+
+    if (HeapTupleIsValid(tup)) {
+        Form_pg_am amform = (Form_pg_am) GETSTRUCT(tup);
+
+        // Return copy of access method name
+        result = pstrdup(NameStr(amform->amname));
+        ReleaseSysCache(tup);
+    }
+
+    return result;  // NULL if not found
+}
+```

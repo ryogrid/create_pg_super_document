@@ -34,3 +34,16 @@ The function performs a three-part check to ensure the clause is genuinely a con
 - The function is part of PostgreSQL's clause filtering mechanism that removes redundant constant TRUE conditions from execution plans
 - Constant TRUE clauses can arise from equivclass processing, particularly when dealing with equivalence relationships between columns
 - The three-condition check (IsA + !constisnull + DatumGetBool) ensures robust detection of genuine boolean TRUE constants while avoiding false positives from NULL values or non-boolean constants
+
+## Simplified Source
+
+```c
+static inline bool
+rinfo_is_constant_true(RestrictInfo *rinfo)
+{
+    // Check if clause is a non-null Const node with boolean TRUE value
+    return IsA(rinfo->clause, Const) &&
+           !((Const *) rinfo->clause)->constisnull &&
+           DatumGetBool(((Const *) rinfo->clause)->constvalue);
+}
+```

@@ -38,3 +38,26 @@ This function serves as the main entry point for translating parent relation ref
 - Includes assertions to prevent misuse with Query trees and ensure valid input parameters
 - Similar in concept to pullup_replace_vars() but specialized for inheritance/partitioning scenarios
 - Acts as a wrapper that establishes context before calling the actual mutator function
+
+## Simplified Source
+
+```c
+Node *
+adjust_appendrel_attrs(PlannerInfo *root, Node *node, int nappinfos,
+                      AppendRelInfo **appinfos)
+{
+    adjust_appendrel_attrs_context context;
+
+    // Set up transformation context
+    context.root = root;
+    context.nappinfos = nappinfos;
+    context.appinfos = appinfos;
+
+    // Validate input parameters
+    Assert(nappinfos >= 1 && appinfos != NULL);
+    Assert(node == NULL || !IsA(node, Query));
+
+    // Perform the actual transformation using the mutator
+    return adjust_appendrel_attrs_mutator(node, &context);
+}
+```

@@ -38,3 +38,13 @@ The function is commonly used in PostgreSQL's function API when returning tuple 
 - Widely used throughout PostgreSQL's codebase in system functions, executor operations, and procedural language implementations
 - Essential for the function API when returning composite/record types from C functions
 - The underlying HeapTupleHeaderGetDatum handles TOAST decompression automatically
+
+## Simplified Source
+
+```c
+static inline Datum
+HeapTupleGetDatum(const HeapTupleData *tuple)
+{
+    return HeapTupleHeaderGetDatum(tuple->t_data);
+}
+```

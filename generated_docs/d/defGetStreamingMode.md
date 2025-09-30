@@ -46,3 +46,54 @@ The function handles various input formats including integers, strings, and miss
 - Provides descriptive error messages that include the parameter name
 - Part of PostgreSQL's logical replication infrastructure for subscription management
 - The function ensures robust parameter validation for streaming mode configuration
+
+## Simplified Source
+
+```c
+char
+defGetStreamingMode(DefElem *def)
+{
+    // Default to streaming enabled if no parameter provided
+    if (!def->arg)
+        return LOGICALREP_STREAM_ON;
+
+    // Handle different parameter types
+    switch (nodeTag(def->arg))
+    {
+        case T_Integer:
+            switch (intVal(def->arg))
+            {
+                case 0:
+                    return LOGICALREP_STREAM_OFF;
+                case 1:
+                    return LOGICALREP_STREAM_ON;
+                default:
+                    break;  // Fall through to error
+            }
+            break;
+
+        default:
+            {
+                char *sval = defGetString(def);
+
+                // Check for boolean values
+                if (pg_strcasecmp(sval, "false") == 0 ||
+                    pg_strcasecmp(sval, "off") == 0)
+                    return LOGICALREP_STREAM_OFF;
+                if (pg_strcasecmp(sval, "true") == 0 ||
+                    pg_strcasecmp(sval, "on") == 0)
+                    return LOGICALREP_STREAM_ON;
+                if (pg_strcasecmp(sval, "parallel") == 0)
+                    return LOGICALREP_STREAM_PARALLEL;
+            }
+            break;
+    }
+
+    // Invalid value - report error
+    ereport(ERROR,
+            (errcode(ERRCODE_SYNTAX_ERROR),
+             errmsg("%s requires a Boolean value or \"parallel\"",
+                    def->defname)));
+    return LOGICALREP_STREAM_OFF;
+}
+```

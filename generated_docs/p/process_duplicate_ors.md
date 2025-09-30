@@ -55,3 +55,108 @@ The optimization is particularly effective for expressions like:
 - Uses list operations extensively to manipulate expression trees
 - Returns the optimized expression which could be an AND clause, OR clause, or even a single sub-expression depending on the input
 - The algorithm is conservative - if no common factors are found, it returns the original OR clause unchanged
+
+## Simplified Source
+
+```c
+static Expr *process_duplicate_ors(List *orlist) {
+    List *reference = NIL;
+    int num_subclauses = 0;
+    List *winners;
+    List *neworlist;
+    ListCell *temp;
+
+    // Handle special cases
+    if (orlist == NIL)
+        return (Expr *) makeBoolConst(false, false);
+    if (list_length(orlist) == 1)
+        return (Expr *) linitial(orlist);
+
+    // Find the shortest AND clause as reference
+    foreach(temp, orlist) {
+        Expr *clause = (Expr *) lfirst(temp);
+        if (is_andclause(clause)) {
+            List *subclauses = ((BoolExpr *) clause)->args;
+            int nclauses = list_length(subclauses);
+            if (reference == NIL || nclauses < num_subclauses) {
+                reference = subclauses;
+                num_subclauses = nclauses;
+            }
+        } else {
+            reference = list_make1(clause);
+            break;
+        }
+    }
+
+    // Remove duplicates from reference
+    reference = list_union(NIL, reference);
+
+    // Find expressions that appear in ALL OR branches
+    winners = NIL;
+    foreach(temp, reference) {
+        Expr *refclause = (Expr *) lfirst(temp);
+        bool win = true;
+        ListCell *temp2;
+
+        foreach(temp2, orlist) {
+            Expr *clause = (Expr *) lfirst(temp2);
+            if (is_andclause(clause)) {
+                if (!list_member(((BoolExpr *) clause)->args, refclause)) {
+                    win = false;
+                    break;
+                }
+            } else {
+                if (!equal(refclause, clause)) {
+                    win = false;
+                    break;
+                }
+            }
+        }
+        if (win)
+            winners = lappend(winners, refclause);
+    }
+
+    // If no common factors found, return original OR
+    if (winners == NIL)
+        return make_orclause(orlist);
+
+    // Build new OR list with common factors removed
+    neworlist = NIL;
+    foreach(temp, orlist) {
+        Expr *clause = (Expr *) lfirst(temp);
+        if (is_andclause(clause)) {
+            List *subclauses = list_difference(((BoolExpr *) clause)->args, winners);
+            if (subclauses != NIL) {
+                if (list_length(subclauses) == 1)
+                    neworlist = lappend(neworlist, linitial(subclauses));
+                else
+                    neworlist = lappend(neworlist, make_andclause(subclauses));
+            } else {
+                neworlist = NIL;  // Degenerate case
+                break;
+            }
+        } else {
+            if (!list_member(winners, clause))
+                neworlist = lappend(neworlist, clause);
+            else {
+                neworlist = NIL;  // Degenerate case
+                break;
+            }
+        }
+    }
+
+    // Combine winners with reduced OR clause
+    if (neworlist != NIL) {
+        if (list_length(neworlist) == 1)
+            winners = lappend(winners, linitial(neworlist));
+        else
+            winners = lappend(winners, make_orclause(pull_ors(neworlist)));
+    }
+
+    // Return the final AND clause
+    if (list_length(winners) == 1)
+        return (Expr *) linitial(winners);
+    else
+        return make_andclause(pull_ands(winners));
+}
+```

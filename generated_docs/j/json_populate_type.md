@@ -45,3 +45,58 @@ This function serves as a high-level interface for converting JSON/JSONB values 
 
 ## Notes and Other Information
 This function acts as a bridge between PostgreSQL's JSON processing and the general type conversion system. It efficiently handles both JSON text and binary JSONB formats by creating appropriate JsValue structures. The caching mechanism significantly improves performance for repeated conversions of the same type. The function supports PostgreSQL's soft error handling mechanism through the escontext parameter, allowing callers to handle conversion errors gracefully rather than throwing exceptions. The omit_quotes parameter is particularly useful for direct string conversions from JSON values.
+
+## Simplified Source
+
+```c
+Datum
+json_populate_type(Datum json_val, Oid json_type,
+                   Oid typid, int32 typmod,
+                   void **cache, MemoryContext mcxt,
+                   bool *isnull, bool omit_quotes,
+                   Node *escontext)
+{
+    JsValue jsv = {0};
+    JsonbValue jbv;
+
+    // Set up JsValue based on input type (JSON text vs JSONB binary)
+    jsv.is_json = (json_type == JSONOID);
+
+    if (*isnull) {
+        // Handle NULL input
+        jsv.val.json.str = NULL;
+        jsv.val.jsonb = NULL;
+    } else if (jsv.is_json) {
+        // Handle JSON text input
+        text *json = DatumGetTextPP(json_val);
+        jsv.val.json.str = VARDATA_ANY(json);
+        jsv.val.json.len = VARSIZE_ANY_EXHDR(json);
+    } else {
+        // Handle JSONB binary input
+        Jsonb *jsonb = DatumGetJsonbP(json_val);
+        jsv.val.jsonb = &jbv;
+
+        if (omit_quotes) {
+            // Strip quotes from string values
+            char *str = JsonbUnquote(jsonb);
+            jbv.type = jbvString;
+            jbv.val.string.len = strlen(str);
+            jbv.val.string.val = str;
+        } else {
+            // Use binary JSONB representation
+            jbv.type = jbvBinary;
+            jbv.val.binary.data = &jsonb->root;
+            jbv.val.binary.len = VARSIZE(jsonb) - VARHDRSZ;
+        }
+    }
+
+    // Initialize cache if needed
+    if (*cache == NULL)
+        *cache = MemoryContextAllocZero(mcxt, sizeof(ColumnIOData));
+
+    // Delegate to record field population
+    return populate_record_field(*cache, typid, typmod, NULL, mcxt,
+                                 PointerGetDatum(NULL), &jsv, isnull,
+                                 escontext, omit_quotes);
+}
+```

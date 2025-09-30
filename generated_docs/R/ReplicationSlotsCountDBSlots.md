@@ -43,3 +43,46 @@ Returns true if any slots reference the specified database, false otherwise. The
 - Early return with false if max_replication_slots <= 0 (replication slots disabled)
 - Active slots are identified by having a non-zero active_pid
 - This function is commonly used in database management operations to check if a database can be safely dropped
+
+## Simplified Source
+
+```c
+bool ReplicationSlotsCountDBSlots(Oid dboid, int *nslots, int *nactive) {
+    int i;
+
+    // Initialize counters
+    *nslots = *nactive = 0;
+
+    // Early return if replication slots disabled
+    if (max_replication_slots <= 0)
+        return false;
+
+    // Iterate through all slots with shared lock
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+    for (i = 0; i < max_replication_slots; i++) {
+        ReplicationSlot *s = &ReplicationSlotCtl->replication_slots[i];
+
+        // Skip unused slots
+        if (!s->in_use)
+            continue;
+
+        // Only count logical slots (physical slots aren't database-specific)
+        if (!SlotIsLogical(s))
+            continue;
+
+        // Skip slots for other databases
+        if (s->data.database != dboid)
+            continue;
+
+        // Count this slot (including invalidated ones)
+        SpinLockAcquire(&s->mutex);
+        (*nslots)++;
+        if (s->active_pid != 0)
+            (*nactive)++;
+        SpinLockRelease(&s->mutex);
+    }
+    LWLockRelease(ReplicationSlotControlLock);
+
+    return (*nslots > 0);
+}
+```

@@ -41,3 +41,47 @@ The function ensures that RETURNING clauses behave consistently with SELECT targ
 
 ## Notes and Other Information
 The function is used across all data modification statements that support RETURNING clauses, providing consistent behavior. The result number management ensures that RETURNING lists start numbering from 1, independent of the main statement's target list numbering. The validation for at least one column prevents confusing behavior when star-expansion results in zero columns. The type resolution to text for unknowns follows PostgreSQL's general approach for ambiguous types in output contexts. The function maintains proper isolation between RETURNING processing and main statement processing through careful state management.
+
+## Simplified Source
+
+```c
+List *transformReturningList(ParseState *pstate, List *returningList,
+                            ParseExprKind exprKind) {
+    List *rlist;
+    int save_next_resno;
+
+    // Handle empty RETURNING clause
+    if (returningList == NIL)
+        return NIL;
+
+    // Save current result number and start RETURNING list from 1
+    save_next_resno = pstate->p_next_resno;
+    pstate->p_next_resno = 1;
+
+    // Transform RETURNING clause like a SELECT target list
+    rlist = transformTargetList(pstate, returningList, exprKind);
+
+    // Ensure at least one column in result
+    if (rlist == NIL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("RETURNING must have at least one column")));
+
+    // Mark column origins and resolve unknown types
+    markTargetListOrigins(pstate, rlist);
+    if (pstate->p_resolve_unknowns)
+        resolveTargetListUnknowns(pstate, rlist);
+
+    // Restore original result number state
+    pstate->p_next_resno = save_next_resno;
+
+    return rlist;
+}
+```
+
+**Key Points:**
+- Transforms RETURNING clauses in INSERT/UPDATE/DELETE/MERGE statements
+- Manages independent result numbering (starts from 1, isolated from main statement)
+- Validates that transformation produces at least one column
+- Handles type resolution for unknown types (converts to text)
+- Maintains proper isolation through careful state save/restore

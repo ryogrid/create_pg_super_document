@@ -45,3 +45,29 @@ The function uses PostgreSQL's system cache (SearchSysCache1) for efficient look
 - The missing_ok parameter provides flexibility for callers that may encounter missing indexes during concurrent operations
 - Returns the actual table OID stored in pg_index.indrelid field
 - Includes safety assertion to verify cache consistency
+
+## Simplified Source
+
+```c
+Oid IndexGetRelation(Oid indexId, bool missing_ok) {
+    HeapTuple tuple;
+    Form_pg_index index;
+    Oid result;
+
+    // Look up index in system cache
+    tuple = SearchSysCache1(INDEXRELID, ObjectIdGetDatum(indexId));
+
+    if (!HeapTupleIsValid(tuple)) {
+        if (missing_ok)
+            return InvalidOid;
+        elog(ERROR, "cache lookup failed for index %u", indexId);
+    }
+
+    // Extract the parent table OID
+    index = (Form_pg_index) GETSTRUCT(tuple);
+    result = index->indrelid;
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

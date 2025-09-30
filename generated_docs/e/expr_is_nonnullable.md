@@ -46,3 +46,36 @@ The function is used as a helper for optimization decisions, particularly in det
 **Future Extensions**: The comment 'For now only check simple Vars' suggests that the function could potentially be extended to handle more complex expressions in the future, such as function calls that are known to never return NULL.
 
 The function plays an important role in the constant folding and qual simplification optimizations within PostgreSQL's query planner.
+
+## Simplified Source
+
+```c
+static bool
+expr_is_nonnullable(PlannerInfo *root, Expr *expr)
+{
+    RelOptInfo *rel;
+    Var *var;
+
+    // Only handle simple Var nodes
+    if (!IsA(expr, Var))
+        return false;
+
+    var = (Var *) expr;
+
+    // Check if the var could be nulled by outer joins
+    if (!bms_is_empty(var->varnullingrels))
+        return false;
+
+    // System columns (ctid, xmin, etc.) are never NULL
+    if (var->varattno < 0)
+        return true;
+
+    // Check if the column has a NOT NULL constraint
+    rel = find_base_rel(root, var->varno);
+    if (var->varattno > 0 &&
+        bms_is_member(var->varattno, rel->notnullattnums))
+        return true;
+
+    return false;
+}
+```

@@ -40,3 +40,39 @@ The function resets the global counters (bufferedTuples and bufferedBytes) to ze
 
 ## Notes and Other Information
 The buffer trimming mechanism is crucial for preventing quadratic memory growth when copying into highly partitioned tables. By limiting buffers to MAX_PARTITION_BUFFERS and removing the oldest first, it maintains reasonable memory usage while preserving performance. The special handling of curr_rri ensures that the currently active buffer is never prematurely removed, which would require immediate recreation and reduce efficiency.
+
+## Simplified Source
+
+```c
+static inline void CopyMultiInsertInfoFlush(CopyMultiInsertInfo *miinfo,
+                                           ResultRelInfo *curr_rri,
+                                           int64 *processed) {
+    ListCell *lc;
+
+    // Flush all buffers to their respective tables
+    foreach(lc, miinfo->multiInsertBuffers) {
+        CopyMultiInsertBuffer *buffer = (CopyMultiInsertBuffer *) lfirst(lc);
+        CopyMultiInsertBufferFlush(miinfo, buffer, processed);
+    }
+
+    // Reset counters since all tuples are now flushed
+    miinfo->bufferedTuples = 0;
+    miinfo->bufferedBytes = 0;
+
+    // Trim buffer list to prevent excessive memory usage
+    while (list_length(miinfo->multiInsertBuffers) > MAX_PARTITION_BUFFERS) {
+        CopyMultiInsertBuffer *buffer = (CopyMultiInsertBuffer *) linitial(miinfo->multiInsertBuffers);
+
+        // Protect currently active buffer by moving it to end if needed
+        if (buffer->resultRelInfo == curr_rri) {
+            miinfo->multiInsertBuffers = list_delete_first(miinfo->multiInsertBuffers);
+            miinfo->multiInsertBuffers = lappend(miinfo->multiInsertBuffers, buffer);
+            buffer = (CopyMultiInsertBuffer *) linitial(miinfo->multiInsertBuffers);
+        }
+
+        // Remove and cleanup the oldest buffer
+        CopyMultiInsertBufferCleanup(miinfo, buffer);
+        miinfo->multiInsertBuffers = list_delete_first(miinfo->multiInsertBuffers);
+    }
+}
+```

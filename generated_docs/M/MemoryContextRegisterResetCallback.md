@@ -44,3 +44,18 @@ Importantly, there is no deregistration API - once a callback is registered, it 
 - Callback structures should typically be allocated within the monitored context for automatic cleanup
 - Used extensively for resource management in replication, type caching, and procedural language implementations
 - The callback system provides a clean way to ensure cleanup operations occur before memory is freed
+
+## Simplified Source
+
+```c
+void MemoryContextRegisterResetCallback(MemoryContext context, MemoryContextCallback *cb) {
+    Assert(MemoryContextIsValid(context));
+
+    // Add callback to front of list (LIFO execution order)
+    cb->next = context->reset_cbs;
+    context->reset_cbs = cb;
+
+    // Mark context as non-reset
+    context->isReset = false;
+}
+```

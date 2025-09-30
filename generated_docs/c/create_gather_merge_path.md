@@ -53,3 +53,54 @@ The function asserts that the subpath is parallel-safe and that pathkeys are pro
 - Row count estimation adds the subpath's rows to the path's row count
 - Parameter info is obtained using get_baserel_parampathinfo for proper parameterized path handling
 - The final costing is delegated to cost_gather_merge which handles the complexity of merging multiple sorted streams
+
+## Simplified Source
+
+```c
+GatherMergePath *
+create_gather_merge_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                         PathTarget *target, List *pathkeys,
+                         Relids required_outer, double *rows)
+{
+    GatherMergePath *pathnode = makeNode(GatherMergePath);
+    Cost input_startup_cost = 0;
+    Cost input_total_cost = 0;
+
+    Assert(subpath->parallel_safe);
+    Assert(pathkeys);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_GatherMerge;
+    pathnode->path.parent = rel;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+    pathnode->path.parallel_aware = false;
+
+    // Set gather merge specific properties
+    pathnode->subpath = subpath;
+    pathnode->num_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = pathkeys;
+    pathnode->path.pathtarget = target ? target : rel->reltarget;
+    pathnode->path.rows += subpath->rows;
+
+    // Check if subpath is already sorted correctly
+    if (pathkeys_contained_in(pathkeys, subpath->pathkeys)) {
+        // No sorting needed - use subpath costs directly
+        input_startup_cost += subpath->startup_cost;
+        input_total_cost += subpath->total_cost;
+    } else {
+        // Need to sort first - include sorting cost
+        Path sort_path;
+        cost_sort(&sort_path, root, pathkeys, subpath->total_cost,
+                  subpath->rows, subpath->pathtarget->width,
+                  0.0, work_mem, -1);
+        input_startup_cost += sort_path.startup_cost;
+        input_total_cost += sort_path.total_cost;
+    }
+
+    // Calculate final gather merge cost
+    cost_gather_merge(pathnode, root, rel, pathnode->path.param_info,
+                      input_startup_cost, input_total_cost, rows);
+
+    return pathnode;
+}
+```

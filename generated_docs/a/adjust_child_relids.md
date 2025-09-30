@@ -41,3 +41,36 @@ The substitution process removes the parent relation ID from the set and adds th
 - Only creates a modified copy when actual changes are required, optimizing memory usage
 - Part of PostgreSQL's append relation handling infrastructure for inheritance and partitioning
 - Used extensively in join planning and relation processing for partitioned tables
+
+## Simplified Source
+
+```c
+// Simplified version of adjust_child_relids
+Relids
+adjust_child_relids(Relids relids, int nappinfos, AppendRelInfo **appinfos)
+{
+    Bitmapset *result = NULL;
+    int cnt;
+
+    // Check each AppendRelInfo for parent->child substitutions
+    for (cnt = 0; cnt < nappinfos; cnt++)
+    {
+        AppendRelInfo *appinfo = appinfos[cnt];
+
+        // If parent relation is in the set, substitute with child
+        if (bms_is_member(appinfo->parent_relid, relids))
+        {
+            // Create copy only when we need to make changes
+            if (!result)
+                result = bms_copy(relids);
+
+            // Remove parent, add child
+            result = bms_del_member(result, appinfo->parent_relid);
+            result = bms_add_member(result, appinfo->child_relid);
+        }
+    }
+
+    // Return modified copy if changes were made, otherwise original set
+    return result ? result : relids;
+}
+```

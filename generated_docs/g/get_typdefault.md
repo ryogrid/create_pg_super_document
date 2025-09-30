@@ -49,3 +49,52 @@ This function performs a system catalog lookup to retrieve the default value for
 - Part of the lsyscache.c module which provides cached access to system catalog information
 - Used primarily in DDL operations and query rewriting where default values need to be materialized
 - The caller should be prepared to perform type coercion as the default might be of a related but not identical type
+
+## Simplified Source
+
+```c
+Node *get_typdefault(Oid typid) {
+    // Look up the type in system catalog
+    HeapTuple typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(typeTuple))
+        elog(ERROR, "cache lookup failed for type %u", typid);
+
+    Form_pg_type type = (Form_pg_type) GETSTRUCT(typeTuple);
+    Datum datum;
+    bool isNull;
+    Node *expr;
+
+    // First try to get binary expression default (typdefaultbin)
+    datum = SysCacheGetAttr(TYPEOID, typeTuple,
+                           Anum_pg_type_typdefaultbin, &isNull);
+
+    if (!isNull) {
+        // We have a binary expression default - deserialize it
+        expr = stringToNode(TextDatumGetCString(datum));
+    } else {
+        // Try plain text literal default (typdefault)
+        datum = SysCacheGetAttr(TYPEOID, typeTuple,
+                               Anum_pg_type_typdefault, &isNull);
+
+        if (!isNull) {
+            // Convert text default to proper type value and create Const node
+            char *strDefaultVal = TextDatumGetCString(datum);
+
+            // Parse the text using type's input function
+            datum = OidInputFunctionCall(type->typinput, strDefaultVal,
+                                        getTypeIOParam(typeTuple), -1);
+
+            // Create Const node with the parsed value
+            expr = (Node *) makeConst(typid, -1, type->typcollation,
+                                     type->typlen, datum, false, type->typbyval);
+            pfree(strDefaultVal);
+        } else {
+            // No default value defined
+            expr = NULL;
+        }
+    }
+
+    ReleaseSysCache(typeTuple);
+    return expr;
+}
+```

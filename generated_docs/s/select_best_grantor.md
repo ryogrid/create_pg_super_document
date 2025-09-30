@@ -51,3 +51,61 @@ The function first checks if the requesting role is the object owner or a superu
 - The algorithm ensures privilege consistency by always making grants appear to flow from object owners
 - Superusers are treated as implicit members of every role and act as object owners
 - The function is critical for maintaining PostgreSQL's role-based access control security model
+
+## Simplified Source
+
+```c
+void
+select_best_grantor(Oid roleId, AclMode privileges,
+                    const Acl *acl, Oid ownerId,
+                    Oid *grantorId, AclMode *grantOptions)
+{
+    AclMode needed_goptions = ACL_GRANT_OPTION_FOR(privileges);
+    List *roles_list;
+    int nrights;
+
+    // Object owner or superuser can grant any privilege
+    if (roleId == ownerId || superuser_arg(roleId)) {
+        *grantorId = ownerId;
+        *grantOptions = needed_goptions;
+        return;
+    }
+
+    // Search through all roles the user is a member of
+    roles_list = roles_is_member_of(roleId, ROLERECURSE_PRIVS, InvalidOid, NULL);
+
+    // Initialize with default (no grant options available)
+    *grantorId = roleId;
+    *grantOptions = ACL_NO_RIGHTS;
+    nrights = 0;
+
+    // Find the best role with grant options
+    foreach(ListCell *l, roles_list) {
+        Oid otherrole = lfirst_oid(l);
+        AclMode otherprivs;
+
+        // Check what grant options this role has
+        otherprivs = aclmask_direct(acl, otherrole, ownerId,
+                                   needed_goptions, ACLMASK_ALL);
+
+        if (otherprivs == needed_goptions) {
+            // Perfect match - this role has all needed grant options
+            *grantorId = otherrole;
+            *grantOptions = otherprivs;
+            return;
+        }
+
+        // Remember the best partial match (most grant options)
+        if (otherprivs != ACL_NO_RIGHTS) {
+            int nnewrights = count_one_bits(otherprivs);
+            if (nnewrights > nrights) {
+                *grantorId = otherrole;
+                *grantOptions = otherprivs;
+                nrights = nnewrights;
+            }
+        }
+    }
+
+    // Return the best available grantor (may have no grant options)
+}
+```

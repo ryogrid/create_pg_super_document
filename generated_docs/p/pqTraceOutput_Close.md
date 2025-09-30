@@ -38,3 +38,18 @@ This is a relatively simple message format compared to other protocol messages, 
 - The function assumes the message buffer contains a valid Close message and does not perform extensive error checking
 - Part of PostgreSQL's debugging and development tools for analyzing client-server protocol communication
 - The Close message is part of the extended query protocol and helps manage resource cleanup on the server side
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_Close(FILE *f, const char *message, int *cursor) {
+    // Output message type identifier
+    fprintf(f, "Close\t");
+
+    // Extract object type (S=statement, P=portal)
+    pqTraceOutputByte1(f, message, cursor);
+
+    // Extract object name to be closed
+    pqTraceOutputString(f, message, cursor, false);
+}
+```

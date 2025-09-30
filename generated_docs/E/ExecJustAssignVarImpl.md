@@ -33,6 +33,26 @@ Unlike the ExecJustVar* functions that return the extracted value, this function
   - [ExecJustAssignOuterVar](ExecJustAssignOuterVar.md)  
   - [ExecJustAssignScanVar](ExecJustAssignScanVar.md)
 
+## Simplified Source
+
+```c
+static Datum ExecJustAssignVarImpl(ExprState *state, TupleTableSlot *inslot, bool *isnull)
+{
+    ExprEvalStep *op = &state->steps[1];
+    int attnum = op->d.assign_var.attnum + 1;
+    int resultnum = op->d.assign_var.resultnum;
+    TupleTableSlot *outslot = state->resultslot;
+
+    // Verify slot compatibility
+    CheckOpSlotCompatibility(&state->steps[0], inslot);
+
+    // Extract attribute value and assign to result slot
+    outslot->tts_values[resultnum] = slot_getattr(inslot, attnum, &outslot->tts_isnull[resultnum]);
+
+    return 0;  // Return value not used
+}
+```
+
 ## Notes and Other Information
 - Always marked as pg_attribute_always_inline for maximum performance
 - Returns 0 as the actual result is stored in the output slot's tts_values array

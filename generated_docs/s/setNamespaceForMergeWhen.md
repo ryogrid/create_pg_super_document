@@ -44,3 +44,44 @@ The function explicitly makes the appropriate relations visible in the namespace
 - The visibility settings are crucial for proper scoping of column references in MERGE actions
 - Different match types have different visibility requirements based on SQL MERGE semantics
 - The function handles the three main MERGE match scenarios defined by the SQL standard
+
+## Simplified Source
+
+```c
+static void
+setNamespaceForMergeWhen(ParseState *pstate, MergeWhenClause *mergeWhenClause,
+                         Index targetRTI, Index sourceRTI)
+{
+    RangeTblEntry *targetRelRTE, *sourceRelRTE;
+
+    targetRelRTE = rt_fetch(targetRTI, pstate->p_rtable);
+    sourceRelRTE = rt_fetch(sourceRTI, pstate->p_rtable);
+
+    if (mergeWhenClause->matchKind == MERGE_WHEN_MATCHED) {
+        // MATCHED actions can see both target and source relations
+        Assert(mergeWhenClause->commandType == CMD_UPDATE ||
+               mergeWhenClause->commandType == CMD_DELETE ||
+               mergeWhenClause->commandType == CMD_NOTHING);
+
+        setNamespaceVisibilityForRTE(pstate->p_namespace, targetRelRTE, true, true);
+        setNamespaceVisibilityForRTE(pstate->p_namespace, sourceRelRTE, true, true);
+    }
+    else if (mergeWhenClause->matchKind == MERGE_WHEN_NOT_MATCHED_BY_SOURCE) {
+        // NOT MATCHED BY SOURCE actions can see target but not source
+        Assert(mergeWhenClause->commandType == CMD_UPDATE ||
+               mergeWhenClause->commandType == CMD_DELETE ||
+               mergeWhenClause->commandType == CMD_NOTHING);
+
+        setNamespaceVisibilityForRTE(pstate->p_namespace, targetRelRTE, true, true);
+        setNamespaceVisibilityForRTE(pstate->p_namespace, sourceRelRTE, false, false);
+    }
+    else {
+        // NOT MATCHED BY TARGET actions can see source but not target
+        Assert(mergeWhenClause->commandType == CMD_INSERT ||
+               mergeWhenClause->commandType == CMD_NOTHING);
+
+        setNamespaceVisibilityForRTE(pstate->p_namespace, targetRelRTE, false, false);
+        setNamespaceVisibilityForRTE(pstate->p_namespace, sourceRelRTE, true, true);
+    }
+}
+```

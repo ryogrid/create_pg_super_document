@@ -41,3 +41,42 @@ The cache comparison assumes that cached entries are already sorted and that unu
 - Cache entries are assumed to be pre-sorted and have zeroed unused status bits for efficient comparison
 - Returns InvalidMultiXactId when no matching cache entry is found
 - The cache is backend-local and transaction-scoped, being cleared at transaction end
+
+## Simplified Source
+
+```c
+static MultiXactId
+mXactCacheGetBySet(int nmembers, MultiXactMember *members)
+{
+    dlist_iter iter;
+
+    debug_elog3(DEBUG2, "CacheGet: looking for %s",
+                mxid_to_string(InvalidMultiXactId, nmembers, members));
+
+    // Sort members array for consistent comparison
+    qsort(members, nmembers, sizeof(MultiXactMember), mxactMemberComparator);
+
+    // Search through cache entries
+    dclist_foreach(iter, &MXactCache)
+    {
+        mXactCacheEnt *entry = dclist_container(mXactCacheEnt, node, iter.cur);
+
+        // Quick check: member count must match
+        if (entry->nmembers != nmembers)
+            continue;
+
+        // Compare member arrays (cache entries are pre-sorted with zeroed unused bits)
+        if (memcmp(members, entry->members, nmembers * sizeof(MultiXactMember)) == 0)
+        {
+            debug_elog3(DEBUG2, "CacheGet: found %u", entry->multi);
+
+            // Move to head for LRU optimization
+            dclist_move_head(&MXactCache, iter.cur);
+            return entry->multi;
+        }
+    }
+
+    debug_elog2(DEBUG2, "CacheGet: not found :-(");
+    return InvalidMultiXactId;
+}
+```

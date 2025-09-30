@@ -44,3 +44,21 @@ The function ensures that all dynamically allocated memory associated with conne
 - Essential counterpart to functions like PQconninfo() and PQconndefaults()
 - Widely used throughout PostgreSQL tools and applications for proper memory management
 - Simple but critical function for maintaining memory hygiene in libpq applications
+
+## Simplified Source
+
+```c
+void PQconninfoFree(PQconninfoOption *connOptions)
+{
+    // Handle NULL input safely
+    if (connOptions == NULL)
+        return;
+
+    // Free all value strings in the array
+    for (PQconninfoOption *option = connOptions; option->keyword != NULL; option++)
+        free(option->val);
+
+    // Free the array structure itself
+    free(connOptions);
+}
+```

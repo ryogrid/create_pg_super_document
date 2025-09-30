@@ -37,3 +37,19 @@ The expiration information is stored in the global variable  and is used to dete
 - The expiration date helps applications determine when they need to update their leap second information
 - The  parameter passed to  indicates this is an expiration context rather than a leap second entry
 - Leap second data typically has expiration dates to ensure systems don't rely on potentially outdated information indefinitely
+
+## Simplified Source
+
+```c
+static void inexpires(char **fields, int nfields) {
+    // Validate field count
+    if (nfields != EXPIRES_FIELDS)
+        error("wrong number of fields on Expires line");
+    // Check for duplicate expires lines
+    else if (0 <= leapexpires)
+        error("multiple Expires lines");
+    // Parse and store expiration datetime
+    else
+        leapexpires = getleapdatetime(fields, nfields, true);
+}
+```

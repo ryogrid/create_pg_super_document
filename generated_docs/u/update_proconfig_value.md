@@ -38,3 +38,37 @@ The function is used internally by PostgreSQL's function management system to ma
 - Input and result may be NULL to signify a null proconfig entry
 - Uses PostgreSQL's GUC (Grand Unified Configuration) system for parameter management
 - Part of the function DDL (Data Definition Language) implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+static ArrayType *
+update_proconfig_value(ArrayType *a, List *set_items)
+{
+    ListCell *l;
+
+    // Process each configuration setting statement
+    foreach(l, set_items)
+    {
+        VariableSetStmt *sstmt = lfirst_node(VariableSetStmt, l);
+
+        if (sstmt->kind == VAR_RESET_ALL)
+        {
+            // RESET ALL: clear entire configuration array
+            a = NULL;
+        }
+        else
+        {
+            // SET or RESET individual parameter
+            char *valuestr = ExtractSetVariableArgs(sstmt);
+
+            if (valuestr)
+                a = GUCArrayAdd(a, sstmt->name, valuestr);  // SET parameter
+            else
+                a = GUCArrayDelete(a, sstmt->name);         // RESET parameter
+        }
+    }
+
+    return a;
+}
+```

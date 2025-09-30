@@ -35,3 +35,15 @@ The function ensures that the deparse context is properly restored to its state 
 - Critical for maintaining memory management discipline in complex query deparsing operations
 - Simpler than  because it doesn't need to preserve existing ancestor list elements
 - Part of PostgreSQL's query deparsing infrastructure used for rule and view expansion
+
+## Simplified Source
+
+```c
+static void pop_ancestor_plan(deparse_namespace *dpns, deparse_namespace *save_dpns) {
+    // Free the ancestor list created by push_ancestor_plan
+    list_free(dpns->ancestors);
+
+    // Restore all fields modified by push_ancestor_plan
+    *dpns = *save_dpns;
+}
+```

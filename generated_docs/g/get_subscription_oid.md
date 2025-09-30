@@ -41,3 +41,21 @@ The function uses the SUBSCRIPTIONNAME system cache along with the current datab
 - Used during binary upgrades to maintain subscription relationship state
 - Located in src/backend/utils/cache/lsyscache.c:3675-3694
 - Uses the SUBSCRIPTIONNAME system cache for efficient lookups with database-specific scoping
+
+## Simplified Source
+
+```c
+Oid get_subscription_oid(const char *subname, bool missing_ok) {
+    // Look up subscription OID in system cache (database-scoped)
+    Oid oid = GetSysCacheOid2(SUBSCRIPTIONNAME, Anum_pg_subscription_oid,
+                              MyDatabaseId, CStringGetDatum(subname));
+
+    // Handle missing subscription based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("subscription \"%s\" does not exist", subname)));
+    }
+
+    return oid;
+}
+```

@@ -39,3 +39,15 @@ The function leverages the centralized object property system through  to mainta
 - Part of the object address subsystem that provides uniform access to object metadata
 - Essential for namespace-related operations like schema changes, object identification, and event trigger processing
 - The returned attribute number corresponds to the column position in the system catalog table where the namespace OID is stored
+
+## Simplified Source
+
+```c
+AttrNumber get_object_attnum_namespace(Oid class_id) {
+    // Get object property metadata for the catalog class
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+
+    // Return the attribute number for the namespace column
+    return prop->attnum_namespace;
+}
+```

@@ -35,3 +35,19 @@ The function sets up a hash table with specific parameters optimized for sequenc
 - HASH_BLOBS flag is used because Oid keys can be compared byte-wise
 - This is a static function internal to src/backend/commands/sequence.c
 - The created hash table is stored in the global `seqhashtab` variable
+
+## Simplified Source
+
+```c
+static void create_seq_hashtable(void) {
+    HASHCTL ctl;
+
+    // Configure hash table parameters
+    ctl.keysize = sizeof(Oid);           // Keys are sequence relation OIDs
+    ctl.entrysize = sizeof(SeqTableData); // Values are sequence data structures
+
+    // Create hash table for sequence caching
+    seqhashtab = hash_create("Sequence values", 16, &ctl,
+                            HASH_ELEM | HASH_BLOBS);
+}
+```

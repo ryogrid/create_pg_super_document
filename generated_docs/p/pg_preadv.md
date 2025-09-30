@@ -42,3 +42,36 @@ The function includes important platform-specific behavior: on Windows, unlike t
 - On Windows, this function has the side effect of changing the current file position, unlike POSIX preadv()
 - Error handling: Returns -1 on error for the first buffer, or partial read count if error occurs on subsequent buffers
 - The fallback implementation handles partial reads correctly by checking if fewer bytes were read than requested
+
+## Simplified Source
+
+```c
+static inline ssize_t
+pg_preadv(int fd, const struct iovec *iov, int iovcnt, off_t offset)
+{
+#if HAVE_DECL_PREADV
+    // Use native preadv, optimize single buffer case
+    if (iovcnt == 1) {
+        return pread(fd, iov[0].iov_base, iov[0].iov_len, offset);
+    } else {
+        return preadv(fd, iov, iovcnt, offset);
+    }
+#else
+    // Fallback: iterate through buffers manually
+    ssize_t sum = 0;
+
+    for (int i = 0; i < iovcnt; ++i) {
+        ssize_t part = pg_pread(fd, iov[i].iov_base, iov[i].iov_len, offset);
+        if (part < 0) {
+            return (i == 0) ? -1 : sum;  // Error handling
+        }
+        sum += part;
+        offset += part;
+        if ((size_t) part < iov[i].iov_len) {
+            return sum;  // Partial read
+        }
+    }
+    return sum;
+#endif
+}
+```

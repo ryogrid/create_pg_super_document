@@ -53,3 +53,51 @@ This function creates a SetOpPath node that represents the execution of set oper
 - Assumes all columns in distinctList get compared for most tuples during execution
 - The flagColIdx and firstFlag parameters are used for distinguishing between different input relations in the implementation
 - Both INTERSECT and EXCEPT operations can be performed with or without the ALL keyword, affecting duplicate handling
+
+## Simplified Source
+
+```c
+SetOpPath *
+create_setop_path(PlannerInfo *root,
+                  RelOptInfo *rel,
+                  Path *subpath,
+                  SetOpCmd cmd,
+                  SetOpStrategy strategy,
+                  List *distinctList,
+                  AttrNumber flagColIdx,
+                  int firstFlag,
+                  double numGroups,
+                  double outputRows)
+{
+    SetOpPath *pathnode = makeNode(SetOpPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_SetOp;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = subpath->pathtarget;  // No projection
+    pathnode->path.param_info = NULL;                 // No parameterization
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+
+    // Preserve sort order only for sorted strategy
+    pathnode->path.pathkeys = (strategy == SETOP_SORTED) ? subpath->pathkeys : NIL;
+
+    // Set SetOp-specific properties
+    pathnode->subpath = subpath;
+    pathnode->cmd = cmd;
+    pathnode->strategy = strategy;
+    pathnode->distinctList = distinctList;
+    pathnode->flagColIdx = flagColIdx;
+    pathnode->firstFlag = firstFlag;
+    pathnode->numGroups = numGroups;
+
+    // Calculate costs (comparison cost per tuple)
+    pathnode->path.startup_cost = subpath->startup_cost;
+    pathnode->path.total_cost = subpath->total_cost +
+        cpu_operator_cost * subpath->rows * list_length(distinctList);
+    pathnode->path.rows = outputRows;
+
+    return pathnode;
+}
+```

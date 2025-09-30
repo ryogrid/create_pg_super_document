@@ -30,3 +30,12 @@ This function is responsible for cleaning up statistics tracking data when a dat
 - Located in src/backend/utils/activity/pgstat_database.c:44-54
 - Uses the transactional statistics dropping mechanism to ensure consistency
 - The function is called during database drop operations to maintain clean statistics state
+
+## Simplified Source
+
+```c
+void pgstat_drop_database(Oid databaseid) {
+    // Remove database statistics entry transactionally
+    pgstat_drop_transactional(PGSTAT_KIND_DATABASE, databaseid, InvalidOid);
+}
+```

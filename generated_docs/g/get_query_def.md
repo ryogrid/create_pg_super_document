@@ -62,3 +62,68 @@ The function uses a switch statement to dispatch to command-specific handlers li
 
 ## Notes and Other Information
 This function is a core component of PostgreSQL's rule system and query deparsing infrastructure. It's used extensively throughout the system for generating readable SQL from internal parse trees, particularly in view definitions, rule definitions, and query introspection. The function is designed to handle nested queries and maintains proper namespace resolution through the parentnamespace parameter. The locking mechanism ensures consistency when deparsing queries that reference database objects that might be modified concurrently.
+
+## Simplified Source
+
+```c
+static void get_query_def(Query *query, StringInfo buf, List *parentnamespace,
+                         TupleDesc resultDesc, bool colNamesVisible,
+                         int prettyFlags, int wrapColumn, int startIndent) {
+    deparse_context context;
+    deparse_namespace dpns;
+
+    // Safety checks for long/deeply-nested queries
+    CHECK_FOR_INTERRUPTS();
+    check_stack_depth();
+
+    // Acquire locks on referenced relations for consistency
+    AcquireRewriteLocks(query, false, false);
+
+    // Initialize deparse context
+    context.buf = buf;
+    context.namespaces = lcons(&dpns, list_copy(parentnamespace));
+    context.resultDesc = NULL;
+    context.targetList = NIL;
+    context.windowClause = NIL;
+    context.varprefix = (parentnamespace != NIL || list_length(query->rtable) != 1);
+    context.prettyFlags = prettyFlags;
+    context.wrapColumn = wrapColumn;
+    context.indentLevel = startIndent;
+    context.colNamesVisible = colNamesVisible;
+    context.inGroupBy = false;
+    context.varInOrderBy = false;
+    context.appendparents = NULL;
+
+    // Set up namespace for this query
+    set_deparse_for_query(&dpns, query, parentnamespace);
+
+    // Dispatch to appropriate command handler
+    switch (query->commandType) {
+        case CMD_SELECT:
+            context.resultDesc = resultDesc;
+            get_select_query_def(query, &context);
+            break;
+        case CMD_UPDATE:
+            get_update_query_def(query, &context);
+            break;
+        case CMD_INSERT:
+            get_insert_query_def(query, &context);
+            break;
+        case CMD_DELETE:
+            get_delete_query_def(query, &context);
+            break;
+        case CMD_MERGE:
+            get_merge_query_def(query, &context);
+            break;
+        case CMD_NOTHING:
+            appendStringInfoString(buf, "NOTHING");
+            break;
+        case CMD_UTILITY:
+            get_utility_query_def(query, &context);
+            break;
+        default:
+            elog(ERROR, "unrecognized query command type: %d", query->commandType);
+            break;
+    }
+}
+```

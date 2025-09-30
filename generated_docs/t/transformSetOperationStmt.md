@@ -48,3 +48,158 @@ A key restriction is that ORDER BY clauses can only reference result columns by 
 - The function enforces SQL92 restrictions on ORDER BY clauses - only result column names/numbers are allowed, not expressions
 - Memory management includes proper cleanup of temporary namespace entries and range table modifications
 - The transformation preserves the original set operation tree structure in the Query's setOperations field for later processing by the planner
+
+## Simplified Source
+
+```c
+static Query *
+transformSetOperationStmt(ParseState *pstate, SelectStmt *stmt)
+{
+    Query *qry = makeNode(Query);
+    SelectStmt *leftmostSelect;
+    int leftmostRTI;
+    Query *leftmostQuery;
+    SetOperationStmt *sostmt;
+    List *sortClause, *lockingClause;
+    Node *limitOffset, *limitCount;
+    WithClause *withClause;
+    List *targetvars, *targetnames;
+    ParseNamespaceItem *jnsitem;
+    ParseNamespaceColumn *sortnscolumns;
+    int sortcolindex, tllen;
+
+    qry->commandType = CMD_SELECT;
+
+    // Find leftmost leaf SELECT to check for illegal INTO clause
+    leftmostSelect = stmt->larg;
+    while (leftmostSelect && leftmostSelect->op != SETOP_NONE)
+        leftmostSelect = leftmostSelect->larg;
+
+    if (leftmostSelect->intoClause)
+        ereport(ERROR, "SELECT ... INTO is not allowed here");
+
+    // Extract top-level clauses before recursive processing
+    sortClause = stmt->sortClause;
+    limitOffset = stmt->limitOffset;
+    limitCount = stmt->limitCount;
+    lockingClause = stmt->lockingClause;
+    withClause = stmt->withClause;
+
+    // Clear these from stmt to prevent recursive handling
+    stmt->sortClause = NIL;
+    stmt->limitOffset = NULL;
+    stmt->limitCount = NULL;
+    stmt->lockingClause = NIL;
+    stmt->withClause = NULL;
+
+    // Reject FOR UPDATE/SHARE with set operations
+    if (lockingClause)
+        ereport(ERROR, "%s is not allowed with UNION/INTERSECT/EXCEPT",
+                LCS_asString(((LockingClause *) linitial(lockingClause))->strength));
+
+    // Process WITH clause
+    if (withClause)
+    {
+        qry->hasRecursive = withClause->recursive;
+        qry->cteList = transformWithClause(pstate, withClause);
+        qry->hasModifyingCTE = pstate->p_hasModifyingCTE;
+    }
+
+    // Recursively transform the set operation tree
+    sostmt = castNode(SetOperationStmt, transformSetOperationTree(pstate, stmt, true, NULL));
+    qry->setOperations = (Node *) sostmt;
+
+    // Find leftmost SELECT in transformed tree
+    Node *node = sostmt->larg;
+    while (node && IsA(node, SetOperationStmt))
+        node = ((SetOperationStmt *) node)->larg;
+
+    leftmostRTI = ((RangeTblRef *) node)->rtindex;
+    leftmostQuery = rt_fetch(leftmostRTI, pstate->p_rtable)->subquery;
+
+    // Build dummy target list using leftmost column names and common types
+    qry->targetList = NIL;
+    targetvars = NIL;
+    targetnames = NIL;
+    sortnscolumns = (ParseNamespaceColumn *)
+        palloc0(list_length(sostmt->colTypes) * sizeof(ParseNamespaceColumn));
+    sortcolindex = 0;
+
+    forfour(lct, sostmt->colTypes,
+            lcm, sostmt->colTypmods,
+            lcc, sostmt->colCollations,
+            left_tlist, leftmostQuery->targetList)
+    {
+        Oid colType = lfirst_oid(lct);
+        int32 colTypmod = lfirst_int(lcm);
+        Oid colCollation = lfirst_oid(lcc);
+        TargetEntry *lefttle = (TargetEntry *) lfirst(left_tlist);
+        char *colName = pstrdup(lefttle->resname);
+
+        Var *var = makeVar(leftmostRTI, lefttle->resno, colType, colTypmod, colCollation, 0);
+        var->location = exprLocation((Node *) lefttle->expr);
+
+        TargetEntry *tle = makeTargetEntry((Expr *) var, (AttrNumber) pstate->p_next_resno++,
+                                          colName, false);
+        qry->targetList = lappend(qry->targetList, tle);
+        targetvars = lappend(targetvars, var);
+        targetnames = lappend(targetnames, makeString(colName));
+
+        // Set up namespace column info for ORDER BY
+        sortnscolumns[sortcolindex].p_varno = leftmostRTI;
+        sortnscolumns[sortcolindex].p_varattno = lefttle->resno;
+        sortnscolumns[sortcolindex].p_vartype = colType;
+        sortnscolumns[sortcolindex].p_vartypmod = colTypmod;
+        sortnscolumns[sortcolindex].p_varcollid = colCollation;
+        sortnscolumns[sortcolindex].p_varnosyn = leftmostRTI;
+        sortnscolumns[sortcolindex].p_varattnosyn = lefttle->resno;
+        sortcolindex++;
+    }
+
+    // Create temporary namespace for ORDER BY processing
+    int sv_rtable_length = list_length(pstate->p_rtable);
+    jnsitem = addRangeTableEntryForJoin(pstate, targetnames, sortnscolumns,
+                                       JOIN_INNER, 0, targetvars, NIL, NIL,
+                                       NULL, NULL, false);
+    List *sv_namespace = pstate->p_namespace;
+    pstate->p_namespace = NIL;
+    addNSItemToQuery(pstate, jnsitem, false, false, true);
+
+    // Transform ORDER BY (restricted to result column names/numbers only)
+    tllen = list_length(qry->targetList);
+    qry->sortClause = transformSortClause(pstate, sortClause, &qry->targetList,
+                                        EXPR_KIND_ORDER_BY, false);
+
+    // Restore namespace and check for illegal expressions in ORDER BY
+    pstate->p_namespace = sv_namespace;
+    pstate->p_rtable = list_truncate(pstate->p_rtable, sv_rtable_length);
+
+    if (tllen != list_length(qry->targetList))
+        ereport(ERROR, "invalid UNION/INTERSECT/EXCEPT ORDER BY clause");
+
+    // Transform LIMIT/OFFSET
+    qry->limitOffset = transformLimitClause(pstate, limitOffset,
+                                          EXPR_KIND_OFFSET, "OFFSET", stmt->limitOption);
+    qry->limitCount = transformLimitClause(pstate, limitCount,
+                                         EXPR_KIND_LIMIT, "LIMIT", stmt->limitOption);
+    qry->limitOption = stmt->limitOption;
+
+    // Finalize query structure
+    qry->rtable = pstate->p_rtable;
+    qry->rteperminfos = pstate->p_rteperminfos;
+    qry->jointree = makeFromExpr(pstate->p_joinlist, NULL);
+
+    qry->hasSubLinks = pstate->p_hasSubLinks;
+    qry->hasWindowFuncs = pstate->p_hasWindowFuncs;
+    qry->hasTargetSRFs = pstate->p_hasTargetSRFs;
+    qry->hasAggs = pstate->p_hasAggs;
+
+    assign_query_collations(pstate, qry);
+
+    // Validate aggregates if present
+    if (pstate->p_hasAggs || qry->groupClause || qry->groupingSets || qry->havingQual)
+        parseCheckAggregates(pstate, qry);
+
+    return qry;
+}
+```

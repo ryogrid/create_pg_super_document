@@ -41,3 +41,52 @@ The `cost_subqueryscan` function calculates the cost of scanning a subquery by b
 - Handles both parameterized and non-parameterized paths appropriately
 - Target list evaluation costs are applied per output row, not per scanned tuple
 - The function accounts for potential discrepancies between cost estimates and actual plan structure in edge cases
+
+## Simplified Source
+
+```c
+void cost_subqueryscan(SubqueryScanPath *path, PlannerInfo *root,
+                      RelOptInfo *baserel, ParamPathInfo *param_info,
+                      bool trivial_pathtarget) {
+    Cost startup_cost;
+    Cost run_cost;
+    List *qpquals;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+
+    Assert(baserel->relid > 0);
+    Assert(baserel->rtekind == RTE_SUBQUERY);
+
+    // Combine restriction clauses for parameterized and non-parameterized paths
+    if (param_info)
+        qpquals = list_concat_copy(param_info->ppi_clauses, baserel->baserestrictinfo);
+    else
+        qpquals = baserel->baserestrictinfo;
+
+    // Calculate row estimate: subpath rows * restriction selectivity
+    path->path.rows = clamp_row_est(path->subpath->rows *
+                                   clauselist_selectivity(root, qpquals, 0, JOIN_INNER, NULL));
+
+    // Start with subpath costs
+    path->path.startup_cost = path->subpath->startup_cost;
+    path->path.total_cost = path->subpath->total_cost;
+
+    // Optimization: if no restrictions and trivial target, SubqueryScan may be eliminated
+    if (qpquals == NIL && trivial_pathtarget)
+        return;
+
+    // Add costs for restriction clause evaluation
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+    startup_cost = qpqual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple;
+    run_cost = cpu_per_tuple * path->subpath->rows;
+
+    // Add target list evaluation costs (paid per output row)
+    startup_cost += path->path.pathtarget->cost.startup;
+    run_cost += path->path.pathtarget->cost.per_tuple * path->path.rows;
+
+    // Apply additional costs to the path
+    path->path.startup_cost += startup_cost;
+    path->path.total_cost += startup_cost + run_cost;
+}
+```

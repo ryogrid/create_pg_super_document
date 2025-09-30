@@ -47,3 +47,53 @@ This function creates a ParseNamespaceItem for relations that don't have physica
 - Default visibility flags are set but may be modified later during parsing
 - Complements buildNSItemFromTupleDesc for handling non-physical relation types
 - Both regular and synonym attribute numbers are initialized identically
+
+## Simplified Source
+
+```c
+static ParseNamespaceItem *
+buildNSItemFromLists(RangeTblEntry *rte, Index rtindex,
+                     List *coltypes, List *coltypmods, List *colcollations)
+{
+    int maxattrs = list_length(coltypes);
+
+    // Validate all lists have same length
+    Assert(maxattrs == list_length(rte->eref->colnames));
+    Assert(maxattrs == list_length(coltypmods));
+    Assert(maxattrs == list_length(colcollations));
+
+    // Allocate column information array
+    ParseNamespaceColumn *nscolumns =
+        (ParseNamespaceColumn *) palloc0(maxattrs * sizeof(ParseNamespaceColumn));
+
+    // Fill column information from lists
+    int varattno = 0;
+    forthree(lct, coltypes, lcm, coltypmods, lcc, colcollations)
+    {
+        nscolumns[varattno].p_varno = rtindex;
+        nscolumns[varattno].p_varattno = varattno + 1;
+        nscolumns[varattno].p_vartype = lfirst_oid(lct);
+        nscolumns[varattno].p_vartypmod = lfirst_int(lcm);
+        nscolumns[varattno].p_varcollid = lfirst_oid(lcc);
+        nscolumns[varattno].p_varnosyn = rtindex;
+        nscolumns[varattno].p_varattnosyn = varattno + 1;
+        varattno++;
+    }
+
+    // Build namespace item
+    ParseNamespaceItem *nsitem = (ParseNamespaceItem *) palloc(sizeof(ParseNamespaceItem));
+    nsitem->p_names = rte->eref;
+    nsitem->p_rte = rte;
+    nsitem->p_rtindex = rtindex;
+    nsitem->p_perminfo = NULL;
+    nsitem->p_nscolumns = nscolumns;
+
+    // Set default visibility flags
+    nsitem->p_rel_visible = true;
+    nsitem->p_cols_visible = true;
+    nsitem->p_lateral_only = false;
+    nsitem->p_lateral_ok = true;
+
+    return nsitem;
+}
+```

@@ -39,3 +39,13 @@ This function provides a type-safe way to determine if a clause represents an op
 - Part of a family of similar type-checking functions for different node types in PostgreSQL's parse tree
 - Heavily used in join planning, selectivity estimation, predicate testing, and statistics collection
 - [OpExpr](../O/OpExpr.md) is one of the most common expression types in SQL queries, making this function critical for query optimization
+
+## Simplified Source
+
+```c
+static inline bool
+is_opclause(const void *clause)
+{
+    return clause != NULL && IsA(clause, OpExpr);
+}
+```

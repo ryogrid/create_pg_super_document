@@ -54,3 +54,60 @@ Similar to publication_add_relation, this function considers partition hierarchi
 - Schema-level publications automatically include all tables in the schema, both existing and future ones
 - Used primarily by DDL commands like ALTER PUBLICATION ADD TABLES IN SCHEMA
 - Location: src/backend/catalog/pg_publication.c:606-686
+
+## Simplified Source
+
+```c
+ObjectAddress
+publication_add_schema(Oid pubid, Oid schemaid, bool if_not_exists)
+{
+    Publication *pub = GetPublication(pubid);
+    ObjectAddress myself, referenced;
+
+    // Open catalog with exclusive lock
+    Relation rel = table_open(PublicationNamespaceRelationId, RowExclusiveLock);
+
+    // Check for existing mapping
+    if (SearchSysCacheExists2(PUBLICATIONNAMESPACEMAP, ObjectIdGetDatum(schemaid), ObjectIdGetDatum(pubid))) {
+        table_close(rel, RowExclusiveLock);
+        if (if_not_exists)
+            return InvalidObjectAddress;
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                       errmsg("schema \"%s\" is already member of publication \"%s\"",
+                             get_namespace_name(schemaid), pub->name)));
+    }
+
+    // Validate schema can be added
+    check_publication_add_schema(schemaid);
+
+    // Create new catalog entry
+    Datum values[Natts_pg_publication_namespace];
+    bool nulls[Natts_pg_publication_namespace];
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    Oid psschid = GetNewOidWithIndex(rel, PublicationNamespaceObjectIndexId, Anum_pg_publication_namespace_oid);
+    values[Anum_pg_publication_namespace_oid - 1] = ObjectIdGetDatum(psschid);
+    values[Anum_pg_publication_namespace_pnpubid - 1] = ObjectIdGetDatum(pubid);
+    values[Anum_pg_publication_namespace_pnnspid - 1] = ObjectIdGetDatum(schemaid);
+
+    HeapTuple tup = heap_form_tuple(RelationGetDescr(rel), values, nulls);
+    CatalogTupleInsert(rel, tup);
+    heap_freetuple(tup);
+
+    // Set up object addresses and dependencies
+    ObjectAddressSet(myself, PublicationNamespaceRelationId, psschid);
+    ObjectAddressSet(referenced, PublicationRelationId, pubid);
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_AUTO);
+    ObjectAddressSet(referenced, NamespaceRelationId, schemaid);
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_AUTO);
+
+    table_close(rel, RowExclusiveLock);
+
+    // Invalidate relcache for all schema relations
+    List *schemaRels = GetSchemaPublicationRelations(schemaid, PUBLICATION_PART_ALL);
+    InvalidatePublicationRels(schemaRels);
+
+    return myself;
+}
+```

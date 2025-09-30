@@ -35,3 +35,28 @@ This function handles the evaluation of function call expressions where PostgreS
 - Stores function result in op->resvalue and NULL status in op->resnull
 - The econtext parameter is provided for consistency but not used in this implementation
 - Essential for performance monitoring and analysis of user-defined functions
+
+## Simplified Source
+
+```c
+void ExecEvalFuncExprFusage(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    FunctionCallInfo fcinfo = op->d.func.fcinfo_data;
+    PgStat_FunctionCallUsage fcusage;
+    Datum result;
+
+    // Initialize function usage statistics tracking
+    pgstat_init_function_usage(fcinfo, &fcusage);
+
+    // Call the function and capture result
+    fcinfo->isnull = false;
+    result = op->d.func.fn_addr(fcinfo);
+
+    // Store results
+    *op->resvalue = result;
+    *op->resnull = fcinfo->isnull;
+
+    // Finalize function usage statistics
+    pgstat_end_function_usage(&fcusage, true);
+}
+```

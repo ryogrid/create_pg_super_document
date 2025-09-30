@@ -49,3 +49,92 @@ The function handles complex scenarios involving partition hierarchies, schema p
 - Optimizes SET operations by reusing unchanged table-publication relationships
 - Handles concurrent table modifications gracefully through system cache operations
 - Maintains backward compatibility with existing publication configurations
+
+## Simplified Source
+
+```c
+static void AlterPublicationTables(AlterPublicationStmt *stmt, HeapTuple tup,
+                                  List *tables, const char *queryString,
+                                  bool publish_schema) {
+    List *rels = NIL;
+    Form_pg_publication pubform = (Form_pg_publication) GETSTRUCT(tup);
+    Oid pubid = pubform->oid;
+
+    // Skip if no tables specified (except for SET operations)
+    if (!tables && stmt->action != AP_SetObjects)
+        return;
+
+    rels = OpenTableList(tables);
+
+    if (stmt->action == AP_AddObjects) {
+        // Transform WHERE clauses and validate column lists
+        TransformPubWhereClauses(rels, queryString, pubform->pubviaroot);
+
+        publish_schema |= is_schema_publication(pubid);
+        CheckPubRelationColumnList(stmt->pubname, rels, publish_schema, pubform->pubviaroot);
+
+        // Add tables to publication
+        PublicationAddTables(pubid, rels, false, stmt);
+    }
+    else if (stmt->action == AP_DropObjects) {
+        // Remove tables from publication
+        PublicationDropTables(pubid, rels, false);
+    }
+    else { // AP_SetObjects
+        // Replace existing tables with new list
+        TransformPubWhereClauses(rels, queryString, pubform->pubviaroot);
+        CheckPubRelationColumnList(stmt->pubname, rels, publish_schema, pubform->pubviaroot);
+
+        List *oldrelids = GetPublicationRelations(pubid, PUBLICATION_PART_ROOT);
+        List *delrels = NIL;
+
+        // Find tables that need to be dropped (not in new list or with different settings)
+        foreach(oldlc, oldrelids) {
+            Oid oldrelid = lfirst_oid(oldlc);
+            bool found = false;
+
+            // Get existing WHERE clause and column list for comparison
+            HeapTuple rftuple = SearchSysCache2(PUBLICATIONRELMAP,
+                                               ObjectIdGetDatum(oldrelid),
+                                               ObjectIdGetDatum(pubid));
+
+            Node *oldrelwhereclause = NULL;
+            Bitmapset *oldcolumns = NULL;
+
+            if (HeapTupleIsValid(rftuple)) {
+                // Extract existing WHERE clause and column list
+                // (complex extraction logic simplified)
+                ReleaseSysCache(rftuple);
+            }
+
+            // Check if table exists in new list with same settings
+            foreach(newlc, rels) {
+                PublicationRelInfo *newpubrel = (PublicationRelInfo *) lfirst(newlc);
+                if (RelationGetRelid(newpubrel->relation) == oldrelid) {
+                    // Compare WHERE clauses and column lists
+                    if (equal(oldrelwhereclause, newpubrel->whereClause) &&
+                        bms_equal(oldcolumns, newcolumns)) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            // Mark for deletion if not found or settings differ
+            if (!found) {
+                PublicationRelInfo *oldrel = palloc(sizeof(PublicationRelInfo));
+                oldrel->relation = table_open(oldrelid, ShareUpdateExclusiveLock);
+                delrels = lappend(delrels, oldrel);
+            }
+        }
+
+        // Drop old tables and add new ones
+        PublicationDropTables(pubid, delrels, true);
+        PublicationAddTables(pubid, rels, true, stmt);
+
+        CloseTableList(delrels);
+    }
+
+    CloseTableList(rels);
+}
+```

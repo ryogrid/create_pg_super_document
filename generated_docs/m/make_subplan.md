@@ -54,3 +54,68 @@ Key operations include:
 - The function handles the complexity of parameter passing between outer and inner queries
 - Located in src/backend/optimizer/plan/subselect.c:162-318
 - Returns either a SubPlan node, a Param node (for InitPlans), or an AlternativeSubPlan node containing multiple execution strategies
+
+## Simplified Source
+
+```c
+static Node *make_subplan(PlannerInfo *root, Query *orig_subquery,
+                         SubLinkType subLinkType, int subLinkId,
+                         Node *testexpr, bool isTopQual) {
+    Query *subquery;
+    bool simple_exists = false;
+    double tuple_fraction;
+    PlannerInfo *subroot;
+    RelOptInfo *final_rel;
+    Path *best_path;
+    Plan *plan;
+    List *plan_params;
+    Node *result;
+
+    // Copy the subquery to avoid parser tree conflicts
+    subquery = copyObject(orig_subquery);
+
+    // Try to simplify EXISTS subqueries
+    if (subLinkType == EXISTS_SUBLINK)
+        simple_exists = simplify_EXISTS_query(root, subquery);
+
+    // Set tuple fraction hints based on sublink type
+    if (subLinkType == EXISTS_SUBLINK)
+        tuple_fraction = 1.0;  // Like LIMIT 1
+    else if (subLinkType == ALL_SUBLINK || subLinkType == ANY_SUBLINK)
+        tuple_fraction = 0.5;  // Expect early termination
+    else
+        tuple_fraction = 0.0;  // Default behavior
+
+    // Plan the subquery
+    subroot = subquery_planner(root->glob, subquery, root, false, tuple_fraction, NULL);
+
+    // Capture parameters needed by this subplan
+    plan_params = root->plan_params;
+    root->plan_params = NIL;
+
+    // Select best path and create plan
+    final_rel = fetch_upper_rel(subroot, UPPERREL_FINAL, NULL);
+    best_path = get_cheapest_fractional_path(final_rel, tuple_fraction);
+    plan = create_plan(subroot, best_path);
+
+    // Convert to SubPlan or InitPlan format
+    result = build_subplan(root, plan, best_path, subroot, plan_params,
+                          subLinkType, subLinkId, testexpr, NIL, isTopQual);
+
+    // For correlated EXISTS, try to create hash-based alternative
+    if (simple_exists && IsA(result, SubPlan)) {
+        // Create alternative ANY-based execution plan if beneficial
+        Query *alt_subquery = copyObject(orig_subquery);
+        Node *newtestexpr;
+        List *paramIds;
+
+        if (convert_EXISTS_to_ANY(root, alt_subquery, &newtestexpr, &paramIds)) {
+            // Plan the ANY version and check if hashable
+            // If so, create AlternativeSubPlan with both options
+            // ... (hash planning logic)
+        }
+    }
+
+    return result;
+}
+```

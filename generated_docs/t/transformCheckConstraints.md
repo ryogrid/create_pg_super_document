@@ -38,3 +38,21 @@ This approach improves performance during table creation by avoiding unnecessary
 - The skipValidation optimization only applies to regular tables, not foreign tables
 - When skipValidation is true, it overrides user-supplied NOT VALID specifications
 - Part of PostgreSQL's constraint processing pipeline that handles all constraint types uniformly
+
+## Simplified Source
+
+```c
+static void transformCheckConstraints(CreateStmtContext *cxt, bool skipValidation) {
+    if (cxt->ckconstraints == NIL)
+        return;
+
+    // For new tables, skip validation and mark constraints as valid
+    if (skipValidation) {
+        foreach(ckclist, cxt->ckconstraints) {
+            Constraint *constraint = (Constraint *) lfirst(ckclist);
+            constraint->skip_validation = true;
+            constraint->initially_valid = true;
+        }
+    }
+}
+```

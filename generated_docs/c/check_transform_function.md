@@ -44,3 +44,41 @@ These constraints ensure transform functions can reliably convert data between S
 - The 'internal' argument type requirement allows procedural languages to pass opaque data structures
 - All validation failures result in ERROR reports with specific error codes and messages
 - Transform functions are critical for procedural language integration with PostgreSQL's type system
+
+## Simplified Source
+
+```c
+static void
+check_transform_function(Form_pg_proc procstruct)
+{
+    // Transform functions must not be volatile for data conversion stability
+    if (procstruct->provolatile == PROVOLATILE_VOLATILE)
+        ereport(ERROR,
+            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+             errmsg("transform function must not be volatile")));
+
+    // Must be a normal function, not procedure or aggregate
+    if (procstruct->prokind != PROKIND_FUNCTION)
+        ereport(ERROR,
+            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+             errmsg("transform function must be a normal function")));
+
+    // Must return single value, not a set
+    if (procstruct->proretset)
+        ereport(ERROR,
+            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+             errmsg("transform function must not return a set")));
+
+    // Must take exactly one argument
+    if (procstruct->pronargs != 1)
+        ereport(ERROR,
+            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+             errmsg("transform function must take one argument")));
+
+    // Single argument must be of type 'internal'
+    if (procstruct->proargtypes.values[0] != INTERNALOID)
+        ereport(ERROR,
+            (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+             errmsg("first argument of transform function must be type %s", "internal")));
+}
+```

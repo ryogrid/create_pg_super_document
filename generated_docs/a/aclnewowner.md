@@ -42,3 +42,76 @@ This function creates a modified copy of an ACL array by replacing all occurrenc
 - Function name is somewhat misleading as it works for any role substitution, not just actual owners
 - Primarily used in ALTER OWNER operations across different PostgreSQL object types
 - Located in src/backend/utils/adt/acl.c:1119-1221
+
+## Simplified Source
+
+```c
+Acl *aclnewowner(const Acl *old_acl, Oid oldOwnerId, Oid newOwnerId)
+{
+    Acl *new_acl;
+    AclItem *new_aip;
+    AclItem *old_aip;
+    bool newpresent = false;
+    int dst, src, targ, num;
+
+    check_acl(old_acl);
+
+    // Create copy of ACL with owner ID substitutions
+    num = ACL_NUM(old_acl);
+    old_aip = ACL_DAT(old_acl);
+    new_acl = allocacl(num);
+    new_aip = ACL_DAT(new_acl);
+    memcpy(new_aip, old_aip, num * sizeof(AclItem));
+
+    // Replace old owner ID with new owner ID in all entries
+    for (dst = 0; dst < num; dst++)
+    {
+        if (new_aip[dst].ai_grantor == oldOwnerId)
+            new_aip[dst].ai_grantor = newOwnerId;
+        else if (new_aip[dst].ai_grantor == newOwnerId)
+            newpresent = true;
+
+        if (new_aip[dst].ai_grantee == oldOwnerId)
+            new_aip[dst].ai_grantee = newOwnerId;
+        else if (new_aip[dst].ai_grantee == newOwnerId)
+            newpresent = true;
+    }
+
+    // If new owner was already present, merge duplicate entries
+    if (newpresent)
+    {
+        dst = 0;
+        for (targ = 0; targ < num; targ++)
+        {
+            // Skip entries marked as deleted
+            if (ACLITEM_GET_RIGHTS(new_aip[targ]) == ACL_NO_RIGHTS)
+                continue;
+
+            // Find and merge any duplicates
+            for (src = targ + 1; src < num; src++)
+            {
+                if (ACLITEM_GET_RIGHTS(new_aip[src]) == ACL_NO_RIGHTS)
+                    continue;
+                if (aclitem_match(&new_aip[targ], &new_aip[src]))
+                {
+                    // Merge privileges and mark duplicate for deletion
+                    ACLITEM_SET_RIGHTS(new_aip[targ],
+                                      ACLITEM_GET_RIGHTS(new_aip[targ]) |
+                                      ACLITEM_GET_RIGHTS(new_aip[src]));
+                    ACLITEM_SET_RIGHTS(new_aip[src], ACL_NO_RIGHTS);
+                }
+            }
+
+            // Copy non-duplicate entry to output position
+            new_aip[dst] = new_aip[targ];
+            dst++;
+        }
+
+        // Adjust array size to exclude deleted entries
+        ARR_DIMS(new_acl)[0] = dst;
+        SET_VARSIZE(new_acl, ACL_N_SIZE(dst));
+    }
+
+    return new_acl;
+}
+```

@@ -41,3 +41,27 @@ The function handles the memory layout transformation between MinimalTuple and H
 - The extracted attribute corresponds to the first sort key (sortKeys[0])
 - Part of the heap tuple sorting specialization within the broader tuplesort framework
 - The CLUSTER_SORT macro references this function, indicating its use in table clustering operations
+
+## Simplified Source
+
+```c
+static void
+removeabbrev_heap(Tuplesortstate *state, SortTuple *stups, int count)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // Process each tuple in the array
+    for (int i = 0; i < count; i++) {
+        // Convert MinimalTuple to HeapTuple format
+        HeapTupleData htup;
+        htup.t_len = ((MinimalTuple) stups[i].tuple)->t_len + MINIMAL_TUPLE_OFFSET;
+        htup.t_data = (HeapTupleHeader) ((char *) stups[i].tuple - MINIMAL_TUPLE_OFFSET);
+
+        // Extract the actual attribute value for first sort key
+        stups[i].datum1 = heap_getattr(&htup,
+                                       base->sortKeys[0].ssup_attno,
+                                       (TupleDesc) base->arg,
+                                       &stups[i].isnull1);
+    }
+}
+```

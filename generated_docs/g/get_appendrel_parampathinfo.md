@@ -39,3 +39,29 @@ The function creates a minimal ParamPathInfo with zero ppi_rows and empty ppi_cl
 - Asserts that LATERAL references are properly accounted for in required_outer
 - Much simpler than base relation and join parameterization due to append semantics
 - The function is located in src/backend/optimizer/util/relnode.c:1868-1900
+
+## Simplified Source
+
+```c
+ParamPathInfo *get_appendrel_parampathinfo(RelOptInfo *appendrel, Relids required_outer) {
+    ParamPathInfo *ppi;
+
+    // Return NULL for unparameterized paths
+    if (bms_is_empty(required_outer))
+        return NULL;
+
+    // Check if ParamPathInfo already exists for this parameterization
+    if ((ppi = find_param_path_info(appendrel, required_outer)))
+        return ppi;
+
+    // Create minimal ParamPathInfo for append relation
+    ppi = makeNode(ParamPathInfo);
+    ppi->ppi_req_outer = required_outer;
+    ppi->ppi_rows = 0;          // Rowcount computed from children
+    ppi->ppi_clauses = NIL;     // Append nodes don't evaluate quals
+    ppi->ppi_serials = NULL;
+
+    appendrel->ppilist = lappend(appendrel->ppilist, ppi);
+    return ppi;
+}
+```

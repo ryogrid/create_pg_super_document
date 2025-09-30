@@ -45,3 +45,43 @@ The function includes important assertions to ensure that the read pointer has t
 - Critical for implementing rescan operations in PostgreSQL executor nodes
 - Used extensively in material nodes, CTE scans, and function scans that need to be re-executed
 - Essential for portal operations that need to rewind and re-read results
+
+## Simplified Source
+
+```c
+void
+tuplestore_rescan(Tuplestorestate *state)
+{
+    TSReadPointer *readptr = &state->readptrs[state->activeptr];
+
+    Assert(readptr->eflags & EXEC_FLAG_REWIND);
+    Assert(!state->truncated);
+
+    // Reset read pointer based on tuplestore state
+    switch (state->status) {
+        case TSS_INMEM:
+            // Reset in-memory position to start
+            readptr->eof_reached = false;
+            readptr->current = 0;
+            break;
+
+        case TSS_WRITEFILE:
+            // Reset file writing position to start
+            readptr->eof_reached = false;
+            readptr->file = 0;
+            readptr->offset = 0;
+            break;
+
+        case TSS_READFILE:
+            // Seek to beginning of file
+            readptr->eof_reached = false;
+            if (BufFileSeek(state->myfile, 0, 0, SEEK_SET) != 0)
+                ereport(ERROR, (errcode_for_file_access(),
+                               errmsg("could not seek in tuplestore temporary file")));
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplestore state");
+    }
+}
+```

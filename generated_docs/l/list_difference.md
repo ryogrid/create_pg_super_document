@@ -47,3 +47,31 @@ Key behavioral characteristics:
 - Performance warning: time complexity is O(n*m), consider other data structures for large lists
 - Uses `equal()` function for element comparison rather than pointer equality
 - Widely used in PostgreSQL's query optimizer for plan generation and optimization
+
+## Simplified Source
+
+```c
+List *
+list_difference(const List *list1, const List *list2)
+{
+    const ListCell *cell;
+    List       *result = NIL;
+
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // Optimization: if list2 is empty, return a copy of list1
+    if (list2 == NIL)
+        return list_copy(list1);
+
+    // Check each element in list1 and include it if not in list2
+    foreach(cell, list1)
+    {
+        if (!list_member(list2, lfirst(cell)))
+            result = lappend(result, lfirst(cell));
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

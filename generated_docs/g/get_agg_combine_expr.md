@@ -39,3 +39,23 @@ The function validates that the node is indeed an Aggref (aggregate reference), 
 - Includes error checking to ensure type safety when processing aggregate nodes
 - The original_aggref parameter provides necessary context for proper formatting of the combining aggregate
 - This function bridges the gap between the special variable resolution system and aggregate expression deparsing
+
+## Simplified Source
+
+```c
+static void
+get_agg_combine_expr(Node *node, deparse_context *context, void *callback_arg)
+{
+    Aggref *aggref;
+    Aggref *original_aggref = callback_arg;
+
+    // Validate that the node is actually an Aggref
+    if (!IsA(node, Aggref))
+        elog(ERROR, "combining Aggref does not point to an Aggref");
+
+    aggref = (Aggref *) node;
+
+    // Deparse the partial aggregate using the main aggregate expression function
+    get_agg_expr(aggref, context, original_aggref);
+}
+```

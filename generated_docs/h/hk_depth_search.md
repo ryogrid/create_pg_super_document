@@ -36,3 +36,44 @@ This function performs the DFS phase of the Hopcroft-Karp maximum bipartite matc
 - Sets distance[u] to HK_INFINITY when no augmenting path exists from u, serving as memoization for efficiency
 - Critical component enabling the O(E√V) complexity of Hopcroft-Karp by finding multiple disjoint augmenting paths per iteration
 - The algorithm only explores edges that maintain the level structure established by the BFS phase
+
+## Simplified Source
+
+```c
+static bool hk_depth_search(BipartiteMatchState *state, int u) {
+    short *distance = state->distance;
+    short *pair_uv = state->pair_uv;
+    short *pair_vu = state->pair_vu;
+
+    // Base cases
+    if (u == 0)  // Reached unmatched vertex (NIL)
+        return true;
+    if (distance[u] == HK_INFINITY)
+        return false;
+
+    short nextdist = distance[u] + 1;
+    check_stack_depth();
+
+    // Try all adjacent vertices
+    short *u_adj = state->adjacency[u];
+    int adj_count = u_adj ? u_adj[0] : 0;
+
+    for (int i = adj_count; i > 0; i--) {
+        int v = u_adj[i];
+
+        // Follow level structure constraint
+        if (distance[pair_vu[v]] == nextdist) {
+            if (hk_depth_search(state, pair_vu[v])) {
+                // Found augmenting path - update matching
+                pair_vu[v] = u;
+                pair_uv[u] = v;
+                return true;
+            }
+        }
+    }
+
+    // No augmenting path found from this vertex
+    distance[u] = HK_INFINITY;
+    return false;
+}
+```

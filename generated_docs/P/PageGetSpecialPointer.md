@@ -42,3 +42,17 @@ The function includes validation through PageValidateSpecialPointer to ensure th
 - The function is declared as static inline for performance optimization since it's called frequently
 - Each access method typically wraps this function in their own type-specific accessor (e.g., BTPageGetOpaque)
 - The special space is located at the end of the page, with its offset stored in the page header's pd_special field
+
+## Simplified Source
+
+```c
+static inline char *
+PageGetSpecialPointer(Page page)
+{
+    // Validate page structure is correct
+    PageValidateSpecialPointer(page);
+
+    // Return pointer to special space: page base + special offset
+    return (char *) page + ((PageHeader) page)->pd_special;
+}
+```

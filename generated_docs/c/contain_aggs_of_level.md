@@ -36,3 +36,22 @@ The function is designed to handle complex query structures with nested subqueri
 - Uses the query_or_expression_tree_walker pattern for robust tree traversal
 - Critical for maintaining proper aggregate function semantics in complex nested queries
 - The function must be prepared to handle both Query nodes and bare expression trees as starting points
+
+## Simplified Source
+
+```c
+bool
+contain_aggs_of_level(Node *node, int levelsup)
+{
+    contain_aggs_of_level_context context;
+
+    // Set the target query level to search for aggregates
+    context.sublevels_up = levelsup;
+
+    // Walk the expression/query tree looking for aggregates at the target level
+    return query_or_expression_tree_walker(node,
+                                          contain_aggs_of_level_walker,
+                                          (void *) &context,
+                                          0);
+}
+```

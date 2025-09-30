@@ -46,3 +46,47 @@ The function implements lazy initialization of constraint expressions for perfor
 - The function returns the name of the first failed constraint, allowing callers to provide specific error messages
 - Part of PostgreSQL's constraint enforcement infrastructure, typically called during INSERT and UPDATE operations
 - Efficient design: avoids re-parsing constraint expressions on every tuple by caching prepared expressions
+
+## Simplified Source
+
+```c
+static const char *ExecRelCheck(ResultRelInfo *resultRelInfo, TupleTableSlot *slot, EState *estate) {
+    Relation rel = resultRelInfo->ri_RelationDesc;
+    int ncheck = rel->rd_att->constr->num_check;
+    ConstrCheck *check = rel->rd_att->constr->check;
+    ExprContext *econtext;
+    MemoryContext oldContext;
+
+    // Verify constraint count matches catalog
+    if (ncheck != rel->rd_rel->relchecks)
+        elog(ERROR, "%d pg_constraint record(s) missing for relation \"%s\"",
+             rel->rd_rel->relchecks - ncheck, RelationGetRelationName(rel));
+
+    // Prepare constraint expressions on first call (lazy initialization)
+    if (resultRelInfo->ri_ConstraintExprs == NULL) {
+        oldContext = MemoryContextSwitchTo(estate->es_query_cxt);
+        resultRelInfo->ri_ConstraintExprs = (ExprState **) palloc(ncheck * sizeof(ExprState *));
+
+        for (int i = 0; i < ncheck; i++) {
+            Expr *checkconstr = stringToNode(check[i].ccbin);
+            resultRelInfo->ri_ConstraintExprs[i] = ExecPrepareExpr(checkconstr, estate);
+        }
+        MemoryContextSwitchTo(oldContext);
+    }
+
+    // Set up expression evaluation context
+    econtext = GetPerTupleExprContext(estate);
+    econtext->ecxt_scantuple = slot;
+
+    // Evaluate each constraint expression
+    for (int i = 0; i < ncheck; i++) {
+        ExprState *checkconstr = resultRelInfo->ri_ConstraintExprs[i];
+
+        // SQL semantics: NULL constraint result is treated as success
+        if (!ExecCheck(checkconstr, econtext))
+            return check[i].ccname;  // Return name of failed constraint
+    }
+
+    return NULL;  // All constraints passed
+}
+```

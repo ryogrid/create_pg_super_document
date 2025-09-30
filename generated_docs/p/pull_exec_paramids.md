@@ -32,3 +32,18 @@ PARAM_EXEC parameters are commonly used in subquery execution, correlated querie
 - The function uses a walker pattern common in PostgreSQL for traversing expression trees
 - PARAM_EXEC parameters represent runtime values that may affect partition pruning decisions
 - The returned Bitmapset contains the parameter IDs that need to be evaluated at execution time
+
+## Simplified Source
+
+```c
+static Bitmapset *
+pull_exec_paramids(Expr *expr)
+{
+    Bitmapset *result = NULL;
+
+    // Use walker to traverse expression tree and collect PARAM_EXEC IDs
+    (void) pull_exec_paramids_walker((Node *) expr, &result);
+
+    return result;
+}
+```

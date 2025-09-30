@@ -35,3 +35,19 @@ The function uses the PostgreSQL access control system via pg_class_aclcheck() t
 - Uses get_rel_name() to provide helpful relation name in warning messages
 - Returns true if permission is granted, false if denied
 - Essential for security in multi-user environments where not all users should be able to cluster all tables
+
+## Simplified Source
+
+```c
+static bool cluster_is_permitted_for_relation(Oid relid, Oid userid) {
+    // Check if user has MAINTAIN privilege on the relation
+    if (pg_class_aclcheck(relid, userid, ACL_MAINTAIN) == ACLCHECK_OK)
+        return true;
+
+    // Emit warning and skip relation if permission denied
+    ereport(WARNING,
+            (errmsg("permission denied to cluster \"%s\", skipping it",
+                    get_rel_name(relid))));
+    return false;
+}
+```

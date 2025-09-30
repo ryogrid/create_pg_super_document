@@ -57,3 +57,83 @@ The function requires determining the object's owner to properly process the ACL
 - Maintains consistency with pg_shdepend through updateInitAclDependencies
 - Requires RowExclusiveLock on pg_init_privs to ensure update consistency
 - Uses CommandCounterIncrement to handle multiple object processing
+
+## Simplified Source
+```c
+void
+RemoveRoleFromInitPriv(Oid roleid, Oid classid, Oid objid, int32 objsubid)
+{
+    Relation rel;
+    ScanKeyData key[3];
+    SysScanDesc scan;
+    HeapTuple oldtuple;
+    Acl *old_acl;
+    Acl *new_acl;
+    Oid ownerId;
+
+    // Open pg_init_privs table and search for target object
+    rel = table_open(InitPrivsRelationId, RowExclusiveLock);
+
+    ScanKeyInit(&key[0], Anum_pg_init_privs_objoid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objid));
+    ScanKeyInit(&key[1], Anum_pg_init_privs_classoid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classid));
+    ScanKeyInit(&key[2], Anum_pg_init_privs_objsubid, BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(objsubid));
+
+    scan = systable_beginscan(rel, InitPrivsObjIndexId, true, NULL, 3, key);
+    oldtuple = systable_getnext(scan);
+
+    if (!HeapTupleIsValid(oldtuple))
+    {
+        // No entry found - nothing to do
+        systable_endscan(scan);
+        table_close(rel, RowExclusiveLock);
+        return;
+    }
+
+    // Get current ACL and extract member info for dependency tracking
+    Datum oldAclDatum = heap_getattr(oldtuple, Anum_pg_init_privs_initprivs, RelationGetDescr(rel), &isNull);
+    old_acl = DatumGetAclPCopy(oldAclDatum);
+
+    int noldmembers = aclmembers(old_acl, &oldmembers);
+
+    // Look up object owner
+    int cacheid = get_object_catcache_oid(classid);
+    HeapTuple objtuple = SearchSysCache1(cacheid, ObjectIdGetDatum(objid));
+    ownerId = DatumGetObjectId(SysCacheGetAttrNotNull(cacheid, objtuple, get_object_attnum_owner(classid)));
+    ReleaseSysCache(objtuple);
+
+    // Remove role from ACL by revoking all its privileges
+    if (old_acl != NULL)
+        new_acl = merge_acl_with_grant(old_acl, false, false, DROP_RESTRICT,
+                                      list_make1_oid(roleid), ACLITEM_ALL_PRIV_BITS, ownerId, ownerId);
+    else
+        new_acl = NULL;
+
+    // Update or delete entry based on resulting ACL
+    if (new_acl == NULL || ACL_NUM(new_acl) == 0)
+    {
+        // Empty ACL - delete entire entry
+        CatalogTupleDelete(rel, &oldtuple->t_self);
+    }
+    else
+    {
+        // Update entry with new ACL
+        Datum values[Natts_pg_init_privs] = {0};
+        bool nulls[Natts_pg_init_privs] = {0};
+        bool replaces[Natts_pg_init_privs] = {0};
+
+        values[Anum_pg_init_privs_initprivs - 1] = PointerGetDatum(new_acl);
+        replaces[Anum_pg_init_privs_initprivs - 1] = true;
+
+        HeapTuple newtuple = heap_modify_tuple(oldtuple, RelationGetDescr(rel), values, nulls, replaces);
+        CatalogTupleUpdate(rel, &newtuple->t_self, newtuple);
+    }
+
+    // Update shared dependency information
+    int nnewmembers = aclmembers(new_acl, &newmembers);
+    updateInitAclDependencies(classid, objid, objsubid, noldmembers, oldmembers, nnewmembers, newmembers);
+
+    systable_endscan(scan);
+    CommandCounterIncrement();
+    table_close(rel, RowExclusiveLock);
+}
+```

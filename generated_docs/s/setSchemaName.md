@@ -36,3 +36,22 @@ The function ensures that all elements within a CREATE SCHEMA statement are cons
 - Generates ERRCODE_INVALID_SCHEMA_DEFINITION error when schema names don't match
 - Critical for maintaining schema consistency across all elements in a CREATE SCHEMA statement
 - The function modifies the stmt_schema_name parameter by reference when it's initially NULL
+
+## Simplified Source
+
+```c
+static void
+setSchemaName(const char *context_schema, char **stmt_schema_name)
+{
+    if (*stmt_schema_name == NULL) {
+        // Set schema name from context if not specified
+        *stmt_schema_name = unconstify(char *, context_schema);
+    } else if (strcmp(context_schema, *stmt_schema_name) != 0) {
+        // Validate that specified schema matches context schema
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_SCHEMA_DEFINITION),
+                 errmsg("CREATE specifies a schema (%s) different from the one being created (%s)",
+                        *stmt_schema_name, context_schema)));
+    }
+}
+```

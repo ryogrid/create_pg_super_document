@@ -34,3 +34,13 @@ This function checks if a typmod value is valid by ensuring it meets the minimum
 - The VARHDRSZ offset requirement is a consequence of the encoding scheme used in make_numeric_typmod
 - Invalid typmods (like -1) are commonly used to indicate that no type modifier was specified
 - This validation is used throughout the numeric type system before attempting to extract precision and scale values
+
+## Simplified Source
+
+```c
+static inline bool is_valid_numeric_typmod(int32 typmod)
+{
+    // Valid numeric typmods must be at least VARHDRSZ due to encoding offset
+    return typmod >= (int32) VARHDRSZ;
+}
+```

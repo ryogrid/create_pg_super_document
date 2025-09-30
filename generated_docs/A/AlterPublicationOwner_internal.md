@@ -49,3 +49,54 @@ The function enforces strict security policies: FOR ALL TABLES and FOR TABLES IN
 - Triggers post-alter hooks for proper event notification
 - All permission checks are bypassed for superusers (current user), but restrictions on new owner still apply
 - Updates the publication tuple in place and ensures catalog consistency
+
+## Simplified Source
+
+```c
+static void AlterPublicationOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId) {
+    Form_pg_publication form = (Form_pg_publication) GETSTRUCT(tup);
+
+    // Skip if owner is already the same
+    if (form->pubowner == newOwnerId)
+        return;
+
+    // Non-superusers need additional permission checks
+    if (!superuser()) {
+        // Must own the publication
+        if (!object_ownercheck(PublicationRelationId, form->oid, GetUserId()))
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_PUBLICATION, NameStr(form->pubname));
+
+        // Must be able to become new owner
+        check_can_set_role(GetUserId(), newOwnerId);
+
+        // New owner must have CREATE privilege on database
+        AclResult aclresult = object_aclcheck(DatabaseRelationId, MyDatabaseId,
+                                             newOwnerId, ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_DATABASE, get_database_name(MyDatabaseId));
+
+        // Special publications require superuser ownership
+        if (form->puballtables && !superuser_arg(newOwnerId))
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied to change owner of publication \"%s\"",
+                                  NameStr(form->pubname)),
+                           errhint("The owner of a FOR ALL TABLES publication must be a superuser.")));
+
+        if (!superuser_arg(newOwnerId) && is_schema_publication(form->oid))
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied to change owner of publication \"%s\"",
+                                  NameStr(form->pubname)),
+                           errhint("The owner of a FOR TABLES IN SCHEMA publication must be a superuser.")));
+    }
+
+    // Update the catalog record
+    form->pubowner = newOwnerId;
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    // Update dependency tracking
+    changeDependencyOnOwner(PublicationRelationId, form->oid, newOwnerId);
+
+    // Notify other subsystems
+    InvokeObjectPostAlterHook(PublicationRelationId, form->oid, 0);
+}
+```

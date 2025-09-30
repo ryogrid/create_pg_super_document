@@ -40,3 +40,33 @@ Unlike PreventInTransactionBlock, this function does not force a post-statement 
 - The function is specifically designed to allow statements like ANALYZE to make informed decisions about transaction handling
 - Pipeline mode (XACT_FLAGS_PIPELINING) is treated as a transaction context that prevents internal commit cycles
 - Function-level execution (isTopLevel=false) is considered a transaction context
+
+## Simplified Source
+
+```c
+bool IsInTransactionBlock(bool isTopLevel) {
+    // Check if we're in an explicit transaction block
+    if (IsTransactionBlock())
+        return true;
+
+    // Check if we're in a subtransaction
+    if (IsSubTransaction())
+        return true;
+
+    // Check if pipeline mode is active
+    if (MyXactFlags & XACT_FLAGS_PIPELINING)
+        return true;
+
+    // Check if we're inside a function (not top level)
+    if (!isTopLevel)
+        return true;
+
+    // Check transaction block state - only allow default or started states
+    if (CurrentTransactionState->blockState != TBLOCK_DEFAULT &&
+        CurrentTransactionState->blockState != TBLOCK_STARTED)
+        return true;
+
+    // Safe to perform internal transaction cycles
+    return false;
+}
+```

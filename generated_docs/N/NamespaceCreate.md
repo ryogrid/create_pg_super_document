@@ -45,3 +45,81 @@ NamespaceCreate is the core function responsible for creating new namespaces (sc
 - The function maintains proper catalog consistency through row-exclusive locking and transactional operations
 - All dependency relationships are properly recorded to ensure cascade operations work correctly during schema drops
 - Post-creation hooks allow extensions and other components to respond to schema creation events
+
+## Simplified Source
+
+```c
+Oid
+NamespaceCreate(const char *nspName, Oid ownerId, bool isTemp)
+{
+    Relation nspdesc;
+    HeapTuple tup;
+    Oid nspoid;
+    bool nulls[Natts_pg_namespace];
+    Datum values[Natts_pg_namespace];
+    NameData nname;
+    TupleDesc tupDesc;
+    ObjectAddress myself;
+    Acl *nspacl;
+
+    // Validate namespace name
+    if (!nspName)
+        elog(ERROR, "no namespace name supplied");
+
+    // Check for duplicate namespace
+    if (SearchSysCacheExists1(NAMESPACENAME, PointerGetDatum(nspName)))
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_SCHEMA),
+                       errmsg("schema \"%s\" already exists", nspName)));
+
+    // Get default ACL (only for non-temp schemas)
+    if (!isTemp)
+        nspacl = get_user_default_acl(OBJECT_SCHEMA, ownerId, InvalidOid);
+    else
+        nspacl = NULL;
+
+    // Open catalog and prepare tuple
+    nspdesc = table_open(NamespaceRelationId, RowExclusiveLock);
+    tupDesc = nspdesc->rd_att;
+
+    // Initialize values array
+    for (int i = 0; i < Natts_pg_namespace; i++)
+    {
+        nulls[i] = false;
+        values[i] = (Datum) NULL;
+    }
+
+    // Set namespace attributes
+    nspoid = GetNewOidWithIndex(nspdesc, NamespaceOidIndexId, Anum_pg_namespace_oid);
+    values[Anum_pg_namespace_oid - 1] = ObjectIdGetDatum(nspoid);
+    namestrcpy(&nname, nspName);
+    values[Anum_pg_namespace_nspname - 1] = NameGetDatum(&nname);
+    values[Anum_pg_namespace_nspowner - 1] = ObjectIdGetDatum(ownerId);
+
+    if (nspacl != NULL)
+        values[Anum_pg_namespace_nspacl - 1] = PointerGetDatum(nspacl);
+    else
+        nulls[Anum_pg_namespace_nspacl - 1] = true;
+
+    // Insert into catalog
+    tup = heap_form_tuple(tupDesc, values, nulls);
+    CatalogTupleInsert(nspdesc, tup);
+    table_close(nspdesc, RowExclusiveLock);
+
+    // Record dependencies
+    myself.classId = NamespaceRelationId;
+    myself.objectId = nspoid;
+    myself.objectSubId = 0;
+
+    recordDependencyOnOwner(NamespaceRelationId, nspoid, ownerId);
+    recordDependencyOnNewAcl(NamespaceRelationId, nspoid, 0, ownerId, nspacl);
+
+    // Record extension dependency (except for temp schemas)
+    if (!isTemp)
+        recordDependencyOnCurrentExtension(&myself, false);
+
+    // Invoke post-creation hooks
+    InvokeObjectPostCreateHook(NamespaceRelationId, nspoid, 0);
+
+    return nspoid;
+}
+```

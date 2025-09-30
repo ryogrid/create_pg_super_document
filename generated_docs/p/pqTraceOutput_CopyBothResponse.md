@@ -38,3 +38,20 @@ The function first reads a single byte indicating the overall copy format (0 for
 - Used primarily for debugging streaming replication and logical replication setup
 - CopyBothResponse differs from CopyInResponse and CopyOutResponse by supporting bidirectional data flow
 - The number of column format codes depends on the number of columns in the relation being replicated
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_CopyBothResponse(FILE *f, const char *message, int *cursor, int length) {
+    // Output message type identifier
+    fprintf(f, "CopyBothResponse\t");
+
+    // Extract overall copy format (0=text, 1=binary)
+    pqTraceOutputByte1(f, message, cursor);
+
+    // Extract column format codes (0=text, 1=binary for each column)
+    while (length > *cursor) {
+        pqTraceOutputInt16(f, message, cursor);
+    }
+}
+```

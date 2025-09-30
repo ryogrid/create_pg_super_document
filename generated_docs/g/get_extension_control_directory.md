@@ -34,3 +34,23 @@ The function allocates memory for the result string using PostgreSQL's memory ma
 - Uses MAXPGPATH constant to ensure the path buffer is sufficiently large for PostgreSQL path names
 - The returned path typically resolves to something like /usr/share/postgresql/extension or similar depending on the installation
 - my_exec_path is a global variable containing the path to the PostgreSQL executable, used as a reference point for finding related directories
+
+## Simplified Source
+
+```c
+static char *
+get_extension_control_directory(void)
+{
+    char sharepath[MAXPGPATH];
+    char *result;
+
+    // Get PostgreSQL share directory path
+    get_share_path(my_exec_path, sharepath);
+
+    // Allocate result string and format extension directory path
+    result = (char *) palloc(MAXPGPATH);
+    snprintf(result, MAXPGPATH, "%s/extension", sharepath);
+
+    return result;
+}
+```

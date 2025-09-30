@@ -46,3 +46,44 @@ The function includes error checking to ensure that the MergeSupportFunc is inde
 - Parameter type modifier is set to -1 and collation ID is InvalidOid
 - Location information from the original MergeSupportFunc is preserved in the Param node
 - [MergeSupportFunc](../M/MergeSupportFunc.md) expressions are typically used to access MERGE action metadata in RETURNING clauses
+
+## Simplified Source
+
+```c
+Param *replace_outer_merge_support(PlannerInfo *root, MergeSupportFunc *msf) {
+    Param *retval;
+    PlannerParamItem *pitem;
+    Oid ptype = exprType((Node *) msf);
+
+    // Validate that current level is not a MERGE command
+    Assert(root->parse->commandType != CMD_MERGE);
+
+    // Search upward to find the MERGE command this function references
+    do {
+        root = root->parent_root;
+        if (root == NULL)
+            elog(ERROR, "MergeSupportFunc found outside MERGE");
+    } while (root->parse->commandType != CMD_MERGE);
+
+    // Create a copy of the merge support function
+    msf = copyObject(msf);
+
+    // Create parameter item to track this merge support function
+    pitem = makeNode(PlannerParamItem);
+    pitem->item = (Node *) msf;
+    pitem->paramId = list_length(root->glob->paramExecTypes);
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes, ptype);
+    root->plan_params = lappend(root->plan_params, pitem);
+
+    // Create the parameter node to replace the merge support function
+    retval = makeNode(Param);
+    retval->paramkind = PARAM_EXEC;
+    retval->paramid = pitem->paramId;
+    retval->paramtype = ptype;
+    retval->paramtypmod = -1;
+    retval->paramcollid = InvalidOid;
+    retval->location = msf->location;
+
+    return retval;
+}
+```

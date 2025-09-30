@@ -50,3 +50,69 @@ The function respects PostgreSQL's WAL-before-data rule and logs new pages when 
 - WAL logging is conditional: skipped for unlogged relations except init fork, always done for permanent relations when WAL is enabled
 - The function pre-extends the destination to the full size before copying to avoid repeated extension operations
 - Critical sections ensure atomicity of page copy and WAL logging operations
+
+## Simplified Source
+
+```c
+static void
+RelationCopyStorageUsingBuffer(RelFileLocator srclocator,
+                              RelFileLocator dstlocator,
+                              ForkNumber forkNum, bool permanent)
+{
+    Buffer srcBuf, dstBuf;
+    Page srcPage, dstPage;
+    bool use_wal;
+    BlockNumber nblocks, blkno;
+    BufferAccessStrategy bstrategy_src, bstrategy_dst;
+
+    // Determine if WAL logging is needed
+    use_wal = XLogIsNeeded() && (permanent || forkNum == INIT_FORKNUM);
+
+    // Get source relation size
+    nblocks = smgrnblocks(smgropen(srclocator, INVALID_PROC_NUMBER), forkNum);
+    if (nblocks == 0)
+        return;
+
+    // Pre-extend destination to full size
+    memset(buf.data, 0, BLCKSZ);
+    smgrextend(smgropen(dstlocator, INVALID_PROC_NUMBER), forkNum,
+               nblocks - 1, buf.data, true);
+
+    // Setup bulk access strategies for performance
+    bstrategy_src = GetAccessStrategy(BAS_BULKREAD);
+    bstrategy_dst = GetAccessStrategy(BAS_BULKWRITE);
+
+    // Copy each block from source to destination
+    for (blkno = 0; blkno < nblocks; blkno++)
+    {
+        // Read source block
+        srcBuf = ReadBufferWithoutRelcache(srclocator, forkNum, blkno,
+                                          RBM_NORMAL, bstrategy_src, permanent);
+        LockBuffer(srcBuf, BUFFER_LOCK_SHARE);
+        srcPage = BufferGetPage(srcBuf);
+
+        // Read destination block (zero-initialized)
+        dstBuf = ReadBufferWithoutRelcache(dstlocator, forkNum, blkno,
+                                          RBM_ZERO_AND_LOCK, bstrategy_dst, permanent);
+        dstPage = BufferGetPage(dstBuf);
+
+        START_CRIT_SECTION();
+
+        // Copy page data
+        memcpy(dstPage, srcPage, BLCKSZ);
+        MarkBufferDirty(dstBuf);
+
+        // Log if WAL is needed
+        if (use_wal)
+            log_newpage_buffer(dstBuf, true);
+
+        END_CRIT_SECTION();
+
+        UnlockReleaseBuffer(dstBuf);
+        UnlockReleaseBuffer(srcBuf);
+    }
+
+    FreeAccessStrategy(bstrategy_src);
+    FreeAccessStrategy(bstrategy_dst);
+}
+```

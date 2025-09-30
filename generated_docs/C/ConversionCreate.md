@@ -50,3 +50,89 @@ ConversionCreate is responsible for creating new encoding conversions in Postgre
 - Creates dependencies on the conversion procedure, namespace, owner, and current extension
 - Uses RowExclusiveLock on the pg_conversion relation during the operation
 - Triggers post-creation hooks to notify other system components of the new conversion
+
+## Simplified Source
+```c
+ObjectAddress
+ConversionCreate(const char *conname, Oid connamespace,
+                 Oid conowner,
+                 int32 conforencoding, int32 contoencoding,
+                 Oid conproc, bool def)
+{
+    Relation rel;
+    HeapTuple tup;
+    Oid oid;
+    bool nulls[Natts_pg_conversion];
+    Datum values[Natts_pg_conversion];
+    NameData cname;
+    ObjectAddress myself, referenced;
+
+    // Basic validation
+    if (!conname)
+        elog(ERROR, "no conversion name supplied");
+
+    // Check for duplicate conversion name
+    if (SearchSysCacheExists2(CONNAMENSP,
+                             PointerGetDatum(conname),
+                             ObjectIdGetDatum(connamespace)))
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                       errmsg("conversion \"%s\" already exists", conname)));
+
+    // For default conversions, check for existing default for this encoding pair
+    if (def) {
+        if (FindDefaultConversion(connamespace, conforencoding, contoencoding))
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                           errmsg("default conversion for %s to %s already exists",
+                                 pg_encoding_to_char(conforencoding),
+                                 pg_encoding_to_char(contoencoding))));
+    }
+
+    // Open catalog and initialize tuple data
+    rel = table_open(ConversionRelationId, RowExclusiveLock);
+    for (int i = 0; i < Natts_pg_conversion; i++) {
+        nulls[i] = false;
+        values[i] = (Datum) NULL;
+    }
+
+    // Prepare tuple values
+    namestrcpy(&cname, conname);
+    oid = GetNewOidWithIndex(rel, ConversionOidIndexId, Anum_pg_conversion_oid);
+    values[Anum_pg_conversion_oid - 1] = ObjectIdGetDatum(oid);
+    values[Anum_pg_conversion_conname - 1] = NameGetDatum(&cname);
+    values[Anum_pg_conversion_connamespace - 1] = ObjectIdGetDatum(connamespace);
+    values[Anum_pg_conversion_conowner - 1] = ObjectIdGetDatum(conowner);
+    values[Anum_pg_conversion_conforencoding - 1] = Int32GetDatum(conforencoding);
+    values[Anum_pg_conversion_contoencoding - 1] = Int32GetDatum(contoencoding);
+    values[Anum_pg_conversion_conproc - 1] = ObjectIdGetDatum(conproc);
+    values[Anum_pg_conversion_condefault - 1] = BoolGetDatum(def);
+
+    // Create and insert tuple
+    tup = heap_form_tuple(rel->rd_att, values, nulls);
+    CatalogTupleInsert(rel, tup);
+
+    // Set up object address for dependency tracking
+    myself.classId = ConversionRelationId;
+    myself.objectId = oid;
+    myself.objectSubId = 0;
+
+    // Create dependencies
+    referenced.classId = ProcedureRelationId;
+    referenced.objectId = conproc;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    referenced.classId = NamespaceRelationId;
+    referenced.objectId = connamespace;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    recordDependencyOnOwner(ConversionRelationId, oid, conowner);
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    // Cleanup and post-creation hook
+    InvokeObjectPostCreateHook(ConversionRelationId, oid, 0);
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return myself;
+}
+```

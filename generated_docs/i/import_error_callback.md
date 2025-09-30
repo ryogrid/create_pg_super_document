@@ -43,3 +43,24 @@ The function is specifically designed to improve debugging experience when FDW-g
 - The tablename field in the callback argument may be NULL initially and is set when a specific table is being processed
 - The function follows PostgreSQL's standard error context callback pattern
 - Error context callbacks are automatically called by PostgreSQL's error handling system when ereport() or elog() functions are invoked
+
+## Simplified Source
+
+```c
+static void import_error_callback(void *arg) {
+    import_error_callback_arg *callback_arg = (import_error_callback_arg *) arg;
+
+    // Handle syntax errors by converting position to internal error format
+    int syntaxerrposition = geterrposition();
+    if (syntaxerrposition > 0) {
+        errposition(0);  // Clear external position
+        internalerrposition(syntaxerrposition);  // Set internal position
+        internalerrquery(callback_arg->cmd);     // Include failing SQL
+    }
+
+    // Add table name context if available
+    if (callback_arg->tablename) {
+        errcontext("importing foreign table \"%s\"", callback_arg->tablename);
+    }
+}
+```

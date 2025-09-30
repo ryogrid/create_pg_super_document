@@ -44,3 +44,31 @@ This function calculates the ServerKey as defined in the SCRAM specification by 
 - Complements scram_ClientKey function, both deriving different keys from the same salted password
 - Handles memory management automatically with proper cleanup via pg_hmac_free()
 - Thread-safe as it uses local variables and doesn't modify global state
+
+## Simplified Source
+
+```c
+int scram_ServerKey(const uint8 *salted_password,
+                   pg_cryptohash_type hash_type, int key_length,
+                   uint8 *result, const char **errstr)
+{
+    // Create HMAC context
+    pg_hmac_ctx *ctx = pg_hmac_create(hash_type);
+    if (ctx == NULL) {
+        *errstr = pg_hmac_error(NULL);
+        return -1;
+    }
+
+    // Compute HMAC(SaltedPassword, "Server Key")
+    if (pg_hmac_init(ctx, salted_password, key_length) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) "Server Key", strlen("Server Key")) < 0 ||
+        pg_hmac_final(ctx, result, key_length) < 0) {
+        *errstr = pg_hmac_error(ctx);
+        pg_hmac_free(ctx);
+        return -1;
+    }
+
+    pg_hmac_free(ctx);
+    return 0;
+}
+```

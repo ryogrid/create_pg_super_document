@@ -40,3 +40,32 @@ The function includes an important optimization: if the join domain is the top-l
 - This function cannot be used in distribute_qual_to_rels where it deals with pseudoconstant quals because the necessary SpecialJoinInfos aren't all formed at that point
 - The function specifically targets LEFT joins when looking for lower outer joins that could potentially commute out
 - This is a static function within the initsplan.c module, indicating it's an internal optimization utility
+
+## Simplified Source
+
+```c
+static Relids
+get_join_domain_min_rels(PlannerInfo *root, Relids domain_relids)
+{
+    Relids result = bms_copy(domain_relids);
+    ListCell *lc;
+
+    // If this is the top-level join domain, no need to remove outer joins
+    if (bms_equal(result, root->all_query_rels))
+        return result;
+
+    // Look for lower outer joins that could potentially commute out
+    foreach(lc, root->join_info_list)
+    {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+
+        if (sjinfo->jointype == JOIN_LEFT &&
+            bms_is_member(sjinfo->ojrelid, result))
+        {
+            result = bms_del_member(result, sjinfo->ojrelid);
+            result = bms_del_members(result, sjinfo->syn_righthand);
+        }
+    }
+    return result;
+}
+```

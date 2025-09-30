@@ -45,3 +45,77 @@ pqResultAlloc is the core memory allocation function for PGresult objects. It im
 - Tracks total memory usage in res->memorySize for monitoring purposes
 - Returns res->null_field for zero-byte allocations
 - Located at src/interfaces/libpq/fe-exec.c:563-662
+
+## Simplified Source
+
+```c
+void *pqResultAlloc(PGresult *res, size_t nBytes, bool isBinary) {
+    char *space;
+    PGresult_data *block;
+
+    // Basic validation
+    if (!res || nBytes <= 0) {
+        return res ? res->null_field : NULL;
+    }
+
+    // Handle binary alignment if needed
+    if (isBinary) {
+        int offset = res->curOffset % PGRESULT_ALIGN_BOUNDARY;
+        if (offset) {
+            res->curOffset += PGRESULT_ALIGN_BOUNDARY - offset;
+            res->spaceLeft -= PGRESULT_ALIGN_BOUNDARY - offset;
+        }
+    }
+
+    // Use current block if enough space available
+    if (nBytes <= (size_t) res->spaceLeft) {
+        space = res->curBlock->space + res->curOffset;
+        res->curOffset += nBytes;
+        res->spaceLeft -= nBytes;
+        return space;
+    }
+
+    // Large allocations get their own block
+    if (nBytes >= PGRESULT_SEP_ALLOC_THRESHOLD) {
+        size_t alloc_size = nBytes + PGRESULT_BLOCK_OVERHEAD;
+        block = (PGresult_data *) malloc(alloc_size);
+        if (!block) return NULL;
+
+        res->memorySize += alloc_size;
+        space = block->space + PGRESULT_BLOCK_OVERHEAD;
+
+        // Insert block into chain
+        if (res->curBlock) {
+            block->next = res->curBlock->next;
+            res->curBlock->next = block;
+        } else {
+            block->next = NULL;
+            res->curBlock = block;
+            res->spaceLeft = 0;
+        }
+        return space;
+    }
+
+    // Allocate new standard block
+    block = (PGresult_data *) malloc(PGRESULT_DATA_BLOCKSIZE);
+    if (!block) return NULL;
+
+    res->memorySize += PGRESULT_DATA_BLOCKSIZE;
+    block->next = res->curBlock;
+    res->curBlock = block;
+
+    // Set up block offsets based on alignment needs
+    if (isBinary) {
+        res->curOffset = PGRESULT_BLOCK_OVERHEAD;
+        res->spaceLeft = PGRESULT_DATA_BLOCKSIZE - PGRESULT_BLOCK_OVERHEAD;
+    } else {
+        res->curOffset = sizeof(PGresult_data);
+        res->spaceLeft = PGRESULT_DATA_BLOCKSIZE - sizeof(PGresult_data);
+    }
+
+    space = block->space + res->curOffset;
+    res->curOffset += nBytes;
+    res->spaceLeft -= nBytes;
+    return space;
+}
+```

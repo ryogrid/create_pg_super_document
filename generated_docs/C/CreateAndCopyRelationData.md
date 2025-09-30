@@ -48,3 +48,43 @@ The function is designed for use in database creation operations where complete 
 - WAL logging for fork creation follows the same rules as the copy operation: always for permanent relations, only for init fork of unlogged relations
 - The function systematically checks all possible fork numbers beyond the main fork to ensure complete relation duplication
 - Fork creation and copying are separate operations to maintain proper storage manager state
+
+## Simplified Source
+
+```c
+void
+CreateAndCopyRelationData(RelFileLocator src_rlocator,
+                         RelFileLocator dst_rlocator, bool permanent)
+{
+    char relpersistence;
+    SMgrRelation src_rel;
+    SMgrRelation dst_rel;
+
+    // Set persistence type
+    relpersistence = permanent ?
+        RELPERSISTENCE_PERMANENT : RELPERSISTENCE_UNLOGGED;
+
+    src_rel = smgropen(src_rlocator, INVALID_PROC_NUMBER);
+    dst_rel = smgropen(dst_rlocator, INVALID_PROC_NUMBER);
+
+    // Create destination storage (no cleanup registration needed for database creation)
+    RelationCreateStorage(dst_rlocator, relpersistence, false);
+
+    // Copy main fork
+    RelationCopyStorageUsingBuffer(src_rlocator, dst_rlocator, MAIN_FORKNUM, permanent);
+
+    // Copy additional forks that exist
+    for (ForkNumber forkNum = MAIN_FORKNUM + 1; forkNum <= MAX_FORKNUM; forkNum++) {
+        if (smgrexists(src_rel, forkNum)) {
+            smgrcreate(dst_rel, forkNum, false);
+
+            // WAL log creation for permanent relations or init fork of unlogged relations
+            if (permanent || forkNum == INIT_FORKNUM)
+                log_smgrcreate(&dst_rlocator, forkNum);
+
+            // Copy fork data block by block
+            RelationCopyStorageUsingBuffer(src_rlocator, dst_rlocator, forkNum, permanent);
+        }
+    }
+}
+```

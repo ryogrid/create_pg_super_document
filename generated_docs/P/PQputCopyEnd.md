@@ -57,3 +57,53 @@ The function supports both successful completion (errormsg = NULL) and error rep
 - The errormsg parameter allows detailed error reporting to the server
 - After successful completion, use PQgetResult() to get the final command status
 - Critical for proper cleanup of COPY operations and connection state management
+
+## Simplified Source
+
+```c
+int PQputCopyEnd(PGconn *conn, const char *errormsg) {
+    if (!conn)
+        return -1;
+
+    // Validate we're in COPY IN or COPY BOTH state
+    if (conn->asyncStatus != PGASYNC_COPY_IN &&
+        conn->asyncStatus != PGASYNC_COPY_BOTH) {
+        libpq_append_conn_error(conn, "no COPY in progress");
+        return -1;
+    }
+
+    // Send appropriate termination message
+    if (errormsg) {
+        // Send COPY FAIL with error message
+        if (pqPutMsgStart(PqMsg_CopyFail, conn) < 0 ||
+            pqPuts(errormsg, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            return -1;
+    } else {
+        // Send COPY DONE for successful completion
+        if (pqPutMsgStart(PqMsg_CopyDone, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            return -1;
+    }
+
+    // Send Sync message for extended-query mode
+    if (conn->cmd_queue_head &&
+        conn->cmd_queue_head->queryclass != PGQUERY_SIMPLE) {
+        if (pqPutMsgStart(PqMsg_Sync, conn) < 0 ||
+            pqPutMsgEnd(conn) < 0)
+            return -1;
+    }
+
+    // Update connection state
+    if (conn->asyncStatus == PGASYNC_COPY_BOTH)
+        conn->asyncStatus = PGASYNC_COPY_OUT;
+    else
+        conn->asyncStatus = PGASYNC_BUSY;
+
+    // Flush the output buffer
+    if (pqFlush(conn) < 0)
+        return -1;
+
+    return 1;
+}
+```

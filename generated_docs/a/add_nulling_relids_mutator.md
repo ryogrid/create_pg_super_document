@@ -52,3 +52,64 @@ The function ensures proper handling of nested subqueries by tracking the sublev
 - The sublevel tracking mechanism ensures that variables from different query levels are handled correctly
 - For PlaceHolderVars, only the nulling relations are modified, not the contained expression, preserving the PHV's evaluation semantics
 - Critical component of PostgreSQL's outer join nulling infrastructure
+
+## Simplified Source
+```c
+static Node *add_nulling_relids_mutator(Node *node,
+                                       add_nulling_relids_context *context) {
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Check if this var should be modified
+        if (var->varlevelsup == context->sublevels_up &&
+            (context->target_relids == NULL ||
+             bms_is_member(var->varno, context->target_relids))) {
+
+            // Add new nulling relations to existing ones
+            Relids newnullingrels = bms_union(var->varnullingrels,
+                                            context->added_relids);
+
+            // Copy var and update nulling relations
+            var = copyObject(var);
+            var->varnullingrels = newnullingrels;
+            return (Node *) var;
+        }
+    }
+    else if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Check if this PHV should be modified
+        if (phv->phlevelsup == context->sublevels_up &&
+            (context->target_relids == NULL ||
+             bms_overlap(phv->phrels, context->target_relids))) {
+
+            // Add new nulling relations
+            Relids newnullingrels = bms_union(phv->phnullingrels,
+                                            context->added_relids);
+
+            // Shallow copy PHV and update nulling relations
+            phv = makeNode(PlaceHolderVar);
+            memcpy(phv, node, sizeof(PlaceHolderVar));
+            phv->phnullingrels = newnullingrels;
+            return (Node *) phv;
+        }
+    }
+    else if (IsA(node, Query)) {
+        // Handle subqueries
+        Query *newnode;
+        context->sublevels_up++;
+        newnode = query_tree_mutator((Query *) node,
+                                   add_nulling_relids_mutator,
+                                   (void *) context, 0);
+        context->sublevels_up--;
+        return (Node *) newnode;
+    }
+
+    // Default: continue tree traversal
+    return expression_tree_mutator(node, add_nulling_relids_mutator,
+                                 (void *) context);
+}
+```

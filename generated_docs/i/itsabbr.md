@@ -33,3 +33,27 @@ The matching algorithm allows for gaps in the word - it doesn't require consecut
 - Part of PostgreSQL's timezone compilation utilities (zic)
 - Used in timezone parsing to match abbreviations against full timezone names or descriptions
 - The function terminates early if the abbreviation cannot be completed within the remaining characters of the word
+
+## Simplified Source
+
+```c
+static bool itsabbr(const char *abbr, const char *word)
+{
+    // First characters must match
+    if (lowerit(*abbr) != lowerit(*word))
+        return false;
+
+    ++word;
+
+    // Check remaining abbreviation characters
+    while (*++abbr != '\0') {
+        // Find next matching character in word
+        do {
+            if (*word == '\0')
+                return false;  // Reached end of word
+        } while (lowerit(*word++) != lowerit(*abbr));
+    }
+
+    return true;  // All abbreviation characters found
+}
+```

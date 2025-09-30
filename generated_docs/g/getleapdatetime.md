@@ -50,3 +50,78 @@ The  function processes leap second date and time information from input fields 
 - Performs extensive bounds checking and validation
 - Part of PostgreSQL's timezone data compilation system (zic) for processing leap second data
 - The comment 'Leapin' Lizards!' is a playful reference to leap years/seconds
+
+## Simplified Source
+
+```c
+static zic_t getleapdatetime(char **fields, int nfields, bool expire_line) {
+    int year, month, day;
+    zic_t dayoff = 0, tod, t;
+    char xs;
+    const struct lookup *lp;
+
+    // Parse and validate year
+    if (sscanf(fields[LP_YEAR], "%d%c", &year, &xs) != 1) {
+        error(_("invalid leaping year"));
+        return -1;
+    }
+
+    // Track leap year ranges for non-expiration lines
+    if (!expire_line) {
+        if (!leapseen || leapmaxyear < year)
+            leapmaxyear = year;
+        if (!leapseen || leapminyear > year)
+            leapminyear = year;
+        leapseen = true;
+    }
+
+    // Calculate days from EPOCH_YEAR to target year
+    zic_t j = EPOCH_YEAR;
+    while (j != year) {
+        if (year > j) {
+            dayoff = oadd(dayoff, len_years[isleap(j)]);
+            j++;
+        } else {
+            j--;
+            dayoff = oadd(dayoff, -len_years[isleap(j)]);
+        }
+    }
+
+    // Parse and validate month
+    if ((lp = byword(fields[LP_MONTH], mon_names)) == NULL) {
+        error(_("invalid month name"));
+        return -1;
+    }
+    month = lp->l_value;
+
+    // Add days for months from January to target month
+    for (j = TM_JANUARY; j != month; j++) {
+        dayoff = oadd(dayoff, len_months[isleap(year)][j]);
+    }
+
+    // Parse and validate day of month
+    if (sscanf(fields[LP_DAY], "%d%c", &day, &xs) != 1 ||
+        day <= 0 || day > len_months[isleap(year)][month]) {
+        error(_("invalid day of month"));
+        return -1;
+    }
+
+    dayoff = oadd(dayoff, day - 1);
+
+    // Check time bounds
+    if (dayoff < min_time / SECSPERDAY || dayoff > max_time / SECSPERDAY) {
+        error(_("time too small or too large"));
+        return -1;
+    }
+
+    // Convert to seconds and add time of day
+    t = dayoff * SECSPERDAY;
+    tod = gethms(fields[LP_TIME], _("invalid time of day"));
+    t = tadd(t, tod);
+
+    if (t < 0)
+        error(_("leap second precedes Epoch"));
+
+    return t;
+}
+```

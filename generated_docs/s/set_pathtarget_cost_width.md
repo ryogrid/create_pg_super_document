@@ -46,3 +46,36 @@ The function serves as a notational convenience by returning the same PathTarget
 - Width calculations are clamped using `clamp_width_est` to prevent overflow
 - Designed for efficiency during early planning phases where catalog accuracy isn't critical
 - Essential component of PostgreSQL's cost-based query optimization infrastructure
+
+## Simplified Source
+
+```c
+PathTarget *set_pathtarget_cost_width(PlannerInfo *root, PathTarget *target) {
+    int64 tuple_width = 0;
+    ListCell *lc;
+
+    // Initialize costs (Vars are free, other expressions have cost)
+    target->cost.startup = 0;
+    target->cost.per_tuple = 0;
+
+    foreach(lc, target->exprs) {
+        Node *node = (Node *) lfirst(lc);
+
+        // Accumulate width estimate for each expression
+        tuple_width += get_expr_width(root, node);
+
+        // Add evaluation cost for non-Var expressions
+        if (!IsA(node, Var)) {
+            QualCost cost;
+            cost_qual_eval_node(&cost, node, root);
+            target->cost.startup += cost.startup;
+            target->cost.per_tuple += cost.per_tuple;
+        }
+    }
+
+    // Set final width (clamped to prevent overflow)
+    target->width = clamp_width_est(tuple_width);
+
+    return target;
+}
+```

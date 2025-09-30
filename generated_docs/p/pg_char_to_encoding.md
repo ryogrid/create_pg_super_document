@@ -43,3 +43,48 @@ The search algorithm uses binary search for efficient lookup in the sorted encod
 - All encoding names in the table are pre-normalized and sorted alphabetically
 - The function is widely used throughout PostgreSQL for encoding name resolution
 - Input names are automatically normalized before comparison, allowing flexible input formats
+
+## Simplified Source
+
+```c
+int
+pg_char_to_encoding(const char *name)
+{
+    unsigned int nel = lengthof(pg_encname_tbl);
+    const pg_encname *base = pg_encname_tbl,
+                     *last = base + nel - 1,
+                     *position;
+    int result;
+    char buff[NAMEDATALEN],
+         *key;
+
+    // Basic input validation
+    if (name == NULL || *name == '\0')
+        return -1;
+
+    if (strlen(name) >= NAMEDATALEN)
+        return -1;  // Name too long to be in table
+
+    // Normalize the encoding name for consistent comparison
+    key = clean_encoding_name(name, buff);
+
+    // Binary search through sorted encoding table
+    while (last >= base) {
+        position = base + ((last - base) >> 1);
+        result = key[0] - position->name[0];
+
+        if (result == 0) {
+            result = strcmp(key, position->name);
+            if (result == 0)
+                return position->encoding;
+        }
+
+        if (result < 0)
+            last = position - 1;
+        else
+            base = position + 1;
+    }
+
+    return -1;  // Encoding not found
+}
+```

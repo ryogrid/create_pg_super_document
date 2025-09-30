@@ -45,3 +45,54 @@ The function handles different operational modes including normal query executio
 - Initializes result accumulation state for non-pipeline operations to prepare for incoming query results
 - Enforces operational constraints such as preventing queries during COPY operations
 - Foundation function that ensures all higher-level query operations start from a valid, consistent state
+
+## Simplified Source
+```c
+static bool PQsendQueryStart(PGconn *conn, bool newQuery) {
+    if (!conn)
+        return false;
+
+    // Clear error state for new query cycles (if no commands queued)
+    if (newQuery && conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Check connection is alive
+    if (conn->status != CONNECTION_OK) {
+        libpq_append_conn_error(conn, "no connection to the server");
+        return false;
+    }
+
+    // Check not busy (unless queueing for pipeline)
+    if (conn->asyncStatus != PGASYNC_IDLE &&
+        conn->pipelineStatus == PQ_PIPELINE_OFF) {
+        libpq_append_conn_error(conn, "another command is already in progress");
+        return false;
+    }
+
+    if (conn->pipelineStatus != PQ_PIPELINE_OFF) {
+        // Pipeline mode: check if safe to queue
+        switch (conn->asyncStatus) {
+            case PGASYNC_IDLE:
+            case PGASYNC_PIPELINE_IDLE:
+            case PGASYNC_READY:
+            case PGASYNC_READY_MORE:
+            case PGASYNC_BUSY:
+                break; // OK to queue
+
+            case PGASYNC_COPY_IN:
+            case PGASYNC_COPY_OUT:
+            case PGASYNC_COPY_BOTH:
+                libpq_append_conn_error(conn, "cannot queue commands during COPY");
+                return false;
+        }
+    } else {
+        // Non-pipeline mode: initialize result state
+        pqClearAsyncResult(conn);
+        conn->partialResMode = false;
+        conn->singleRowMode = false;
+        conn->maxChunkSize = 0;
+    }
+
+    return true;
+}
+```

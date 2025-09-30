@@ -41,3 +41,80 @@ The function carefully handles memory allocation and ensures proper initializati
 - Events are copied last to ensure the result object is valid before any potential failure in event duplication
 - All PGresult fields are explicitly initialized to ensure consistent state
 - Memory size tracking includes the base PGresult structure size
+
+## Simplified Source
+
+```c
+PGresult *PQmakeEmptyPGresult(PGconn *conn, ExecStatusType status) {
+    PGresult *result;
+
+    // Allocate and initialize result structure
+    result = (PGresult *) malloc(sizeof(PGresult));
+    if (!result) return NULL;
+
+    // Initialize all fields to default values
+    result->ntups = 0;
+    result->numAttributes = 0;
+    result->attDescs = NULL;
+    result->tuples = NULL;
+    result->tupArrSize = 0;
+    result->numParameters = 0;
+    result->paramDescs = NULL;
+    result->resultStatus = status;
+    result->cmdStatus[0] = '\0';
+    result->binary = 0;
+    result->events = NULL;
+    result->nEvents = 0;
+    result->errMsg = NULL;
+    result->errFields = NULL;
+    result->errQuery = NULL;
+    result->null_field[0] = '\0';
+    result->curBlock = NULL;
+    result->curOffset = 0;
+    result->spaceLeft = 0;
+    result->memorySize = sizeof(PGresult);
+
+    if (conn) {
+        // Copy connection properties
+        result->noticeHooks = conn->noticeHooks;
+        result->client_encoding = conn->client_encoding;
+
+        // Copy error message for error status types
+        switch (status) {
+            case PGRES_EMPTY_QUERY:
+            case PGRES_COMMAND_OK:
+            case PGRES_TUPLES_OK:
+            case PGRES_COPY_OUT:
+            case PGRES_COPY_IN:
+            case PGRES_COPY_BOTH:
+            case PGRES_SINGLE_TUPLE:
+            case PGRES_TUPLES_CHUNK:
+                // Success cases - no error to copy
+                break;
+            default:
+                // Error cases - copy connection's error message
+                pqSetResultError(result, &conn->errorMessage, 0);
+                break;
+        }
+
+        // Copy events from connection
+        if (conn->nEvents > 0) {
+            result->events = dupEvents(conn->events, conn->nEvents, &result->memorySize);
+            if (!result->events) {
+                PQclear(result);
+                return NULL;
+            }
+            result->nEvents = conn->nEvents;
+        }
+    } else {
+        // Default values when no connection provided
+        result->noticeHooks.noticeRec = NULL;
+        result->noticeHooks.noticeRecArg = NULL;
+        result->noticeHooks.noticeProc = NULL;
+        result->noticeHooks.noticeProcArg = NULL;
+        result->client_encoding = PG_SQL_ASCII;
+    }
+
+    return result;
+}
+```

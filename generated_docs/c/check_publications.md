@@ -46,3 +46,71 @@ This validation helps prevent subscription creation with non-existent publicatio
 - Creates a copy of the original publication list to track which publications are found during result processing
 - [Query](../Q/Query.md) results are processed using tuple table slots for efficient data access
 - WAL receiver connection must be established and valid before calling this function
+
+## Simplified Source
+
+```c
+static void
+check_publications(WalReceiverConn *wrconn, List *publications)
+{
+    WalRcvExecResult *res;
+    StringInfo cmd;
+    TupleTableSlot *slot;
+    List *publicationsCopy = NIL;
+    Oid tableRow[1] = {TEXTOID};
+
+    // Build query to check publications on publisher
+    cmd = makeStringInfo();
+    appendStringInfoString(cmd, "SELECT t.pubname FROM\n"
+                              " pg_catalog.pg_publication t WHERE\n"
+                              " t.pubname IN (");
+    get_publications_str(publications, cmd, true);
+    appendStringInfoChar(cmd, ')');
+
+    // Execute query on publisher
+    res = walrcv_exec(wrconn, cmd->data, 1, tableRow);
+    destroyStringInfo(cmd);
+
+    if (res->status != WALRCV_OK_TUPLES)
+        ereport(ERROR,
+                errmsg("could not receive list of publications from the publisher: %s",
+                       res->err));
+
+    // Keep track of which publications we need to find
+    publicationsCopy = list_copy(publications);
+
+    // Process query results
+    slot = MakeSingleTupleTableSlot(res->tupledesc, &TTSOpsMinimalTuple);
+    while (tuplestore_gettupleslot(res->tuplestore, true, false, slot))
+    {
+        char *pubname;
+        bool isnull;
+
+        // Extract publication name from result
+        pubname = TextDatumGetCString(slot_getattr(slot, 1, &isnull));
+        Assert(!isnull);
+
+        // Remove found publication from our tracking list
+        publicationsCopy = list_delete(publicationsCopy, makeString(pubname));
+        ExecClearTuple(slot);
+    }
+
+    // Clean up
+    ExecDropSingleTupleTableSlot(slot);
+    walrcv_clear_result(res);
+
+    // Report any missing publications
+    if (list_length(publicationsCopy))
+    {
+        StringInfo pubnames = makeStringInfo();
+
+        get_publications_str(publicationsCopy, pubnames, false);
+        ereport(WARNING,
+                errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg_plural("publication %s does not exist on the publisher",
+                             "publications %s do not exist on the publisher",
+                             list_length(publicationsCopy),
+                             pubnames->data));
+    }
+}
+```

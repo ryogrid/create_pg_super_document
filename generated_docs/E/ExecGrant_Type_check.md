@@ -39,3 +39,38 @@ This function maintains PostgreSQL's type system integrity by preventing confusi
 - Validates that GRANT DOMAIN syntax is only used on actual domain types (typtype = TYPTYPE_DOMAIN)
 - Part of PostgreSQL's type privilege system that allows USAGE privileges on types
 - Helps maintain clear privilege semantics by preventing operations on derived types
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_Type_check(InternalGrant *istmt, HeapTuple tuple)
+{
+    Form_pg_type pg_type_tuple;
+
+    // Extract type information from catalog tuple
+    pg_type_tuple = (Form_pg_type) GETSTRUCT(tuple);
+
+    // Reject array types - privileges should be set on element type
+    if (IsTrueArrayType(pg_type_tuple))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_GRANT_OPERATION),
+                 errmsg("cannot set privileges of array types"),
+                 errhint("Set the privileges of the element type instead.")));
+
+    // Reject multirange types - privileges should be set on range type
+    if (pg_type_tuple->typtype == TYPTYPE_MULTIRANGE)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_GRANT_OPERATION),
+                 errmsg("cannot set privileges of multirange types"),
+                 errhint("Set the privileges of the range type instead.")));
+
+    // Validate GRANT DOMAIN syntax is used only on domain types
+    if (istmt->objtype == OBJECT_DOMAIN &&
+        pg_type_tuple->typtype != TYPTYPE_DOMAIN)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not a domain",
+                        NameStr(pg_type_tuple->typname))));
+}
+```

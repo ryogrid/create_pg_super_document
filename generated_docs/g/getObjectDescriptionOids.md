@@ -29,3 +29,18 @@ This function provides a simplified interface to getObjectDescription by accepti
 
 ## Notes and Other Information
 - Returns a pallocd string that must be freed by the caller
+
+## Simplified Source
+
+```c
+char *getObjectDescriptionOids(Oid classid, Oid objid) {
+    // Create ObjectAddress from separate OID components
+    ObjectAddress address;
+    address.classId = classid;
+    address.objectId = objid;
+    address.objectSubId = 0;  // Whole object, not a sub-object
+
+    // Generate description using the main implementation
+    return getObjectDescription(&address, false);
+}
+```

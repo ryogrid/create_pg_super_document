@@ -45,3 +45,46 @@ ExecAggPlainTransByRef is the pass-by-reference counterpart to ExecAggPlainTrans
 - Executes transition function in per-tuple memory context for proper memory management
 - Part of PostgreSQL's expression evaluation step execution framework
 - Critical for aggregates involving variable-length types like strings, arrays, and custom data types
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline void
+ExecAggPlainTransByRef(AggState *aggstate, AggStatePerTrans pertrans,
+                      AggStatePerGroup pergroup, ExprContext *aggcontext, int setno)
+{
+    FunctionCallInfo fcinfo = pertrans->transfn_fcinfo;
+    MemoryContext oldContext;
+    Datum newVal;
+
+    // Set up context for aggregate execution
+    aggstate->curaggcontext = aggcontext;
+    aggstate->current_set = setno;
+    aggstate->curpertrans = pertrans;
+
+    // Execute transition function in temporary context
+    oldContext = MemoryContextSwitchTo(aggstate->tmpcontext->ecxt_per_tuple_memory);
+
+    // Set up function call arguments
+    fcinfo->args[0].value = pergroup->transValue;
+    fcinfo->args[0].isnull = pergroup->transValueIsNull;
+    fcinfo->isnull = false;
+
+    // Invoke the transition function
+    newVal = FunctionCallInvoke(fcinfo);
+
+    // Handle memory management for pass-by-ref types
+    // If function returned same pointer, no copying needed
+    if (DatumGetPointer(newVal) != DatumGetPointer(pergroup->transValue))
+        newVal = ExecAggCopyTransValue(aggstate, pertrans,
+                                      newVal, fcinfo->isnull,
+                                      pergroup->transValue,
+                                      pergroup->transValueIsNull);
+
+    // Update group state with new value
+    pergroup->transValue = newVal;
+    pergroup->transValueIsNull = fcinfo->isnull;
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

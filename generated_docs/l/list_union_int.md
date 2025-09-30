@@ -37,3 +37,29 @@ The function includes assertions to verify that both input lists contain only in
 - The function allocates a new list; callers are responsible for memory management
 - Order of elements follows list1 first, then unique elements from list2
 - Time complexity is O(n*m) where n and m are the sizes of the input lists due to membership testing
+
+## Simplified Source
+
+```c
+List *
+list_union_int(const List *list1, const List *list2)
+{
+    List *result;
+    const ListCell *cell;
+
+    Assert(IsIntegerList(list1));
+    Assert(IsIntegerList(list2));
+
+    // Start with copy of first list
+    result = list_copy(list1);
+
+    // Add unique elements from second list
+    foreach(cell, list2) {
+        if (!list_member_int(result, lfirst_int(cell)))
+            result = lappend_int(result, lfirst_int(cell));
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

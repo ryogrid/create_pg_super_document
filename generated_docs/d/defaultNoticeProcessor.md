@@ -34,3 +34,13 @@ Applications can override this default behavior by providing their own notice pr
 - Applications should not simply discard notices as they may contain important diagnostic information
 - This is part of libpq's extensible notice handling system that allows applications to customize notice processing
 - The function serves as a reasonable default that ensures notices are visible to users during development and debugging
+
+## Simplified Source
+
+```c
+static void defaultNoticeProcessor(void *arg, const char *message) {
+    // Simply output the notice message to stderr
+    // The arg parameter is unused in the default implementation
+    fprintf(stderr, "%s", message);
+}
+```

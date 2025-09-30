@@ -50,3 +50,73 @@ The function handles race conditions gracefully - relations may disappear betwee
 - Gracefully handles relations that disappear during processing (common in high-concurrency environments)
 - When RangeVar is NULL, skips detailed error reporting (allows callers to suppress logging intentionally)
 - Error messages include specific relation names and distinguish between lock contention and missing relations
+
+## Simplified Source
+
+```c
+Relation
+vacuum_open_relation(Oid relid, RangeVar *relation, bits32 options,
+                     bool verbose, LOCKMODE lmode)
+{
+    Relation rel;
+    bool rel_lock = true;
+    int elevel;
+
+    Assert((options & (VACOPT_VACUUM | VACOPT_ANALYZE)) != 0);
+
+    // Try to open relation with appropriate locking strategy
+    if (!(options & VACOPT_SKIP_LOCKED))
+        rel = try_relation_open(relid, lmode);
+    else if (ConditionalLockRelationOid(relid, lmode))
+        rel = try_relation_open(relid, NoLock);
+    else
+    {
+        rel = NULL;
+        rel_lock = false;
+    }
+
+    // Success - return opened relation
+    if (rel)
+        return rel;
+
+    // Skip logging if no RangeVar provided
+    if (relation == NULL)
+        return NULL;
+
+    // Determine appropriate log level
+    if (!AmAutoVacuumWorkerProcess())
+        elevel = WARNING;
+    else if (verbose)
+        elevel = LOG;
+    else
+        return NULL;
+
+    // Log appropriate error message
+    if ((options & VACOPT_VACUUM) != 0)
+    {
+        if (!rel_lock)
+            ereport(elevel, (errcode(ERRCODE_LOCK_NOT_AVAILABLE),
+                    errmsg("skipping vacuum of \"%s\" --- lock not available",
+                           relation->relname)));
+        else
+            ereport(elevel, (errcode(ERRCODE_UNDEFINED_TABLE),
+                    errmsg("skipping vacuum of \"%s\" --- relation no longer exists",
+                           relation->relname)));
+        return NULL;
+    }
+
+    if ((options & VACOPT_ANALYZE) != 0)
+    {
+        if (!rel_lock)
+            ereport(elevel, (errcode(ERRCODE_LOCK_NOT_AVAILABLE),
+                    errmsg("skipping analyze of \"%s\" --- lock not available",
+                           relation->relname)));
+        else
+            ereport(elevel, (errcode(ERRCODE_UNDEFINED_TABLE),
+                    errmsg("skipping analyze of \"%s\" --- relation no longer exists",
+                           relation->relname)));
+    }
+
+    return NULL;
+}
+```

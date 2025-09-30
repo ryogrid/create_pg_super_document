@@ -32,3 +32,15 @@ This function is responsible for properly terminating a frontend copy-out operat
 - The CopyDone message is an empty message with no additional payload
 - This function is static, meaning it's only accessible within the copyto.c file
 - It must be called after all data has been sent via CopySendData or related functions
+
+## Simplified Source
+
+```c
+static void SendCopyEnd(CopyToState cstate) {
+    // Verify no unsent data remains
+    Assert(cstate->fe_msgbuf->len == 0);
+
+    // Send Copy Done message to complete transfer
+    pq_putemptymessage(PqMsg_CopyDone);
+}
+```

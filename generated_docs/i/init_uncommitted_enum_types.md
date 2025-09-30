@@ -39,3 +39,24 @@ This tracking mechanism is crucial for operations like ALTER TYPE ADD VALUE, whi
 - HASH_BLOBS flag is used because OID keys are treated as opaque byte sequences
 - The hash table uses OID as both key and entry data (keysize = entrysize = sizeof(Oid))
 - This initialization is lazy - the hash table is only created when the first enum type is created in a transaction
+
+## Simplified Source
+
+```c
+static void
+init_uncommitted_enum_types(void)
+{
+    HASHCTL hash_ctl;
+
+    // Configure hash table for OID keys/values
+    hash_ctl.keysize = sizeof(Oid);
+    hash_ctl.entrysize = sizeof(Oid);
+    hash_ctl.hcxt = TopTransactionContext;
+
+    // Create hash table to track uncommitted enum types
+    uncommitted_enum_types = hash_create("Uncommitted enum types",
+                                        32,
+                                        &hash_ctl,
+                                        HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+}
+```

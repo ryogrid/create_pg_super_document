@@ -37,3 +37,27 @@ This function is used in the PostgreSQL query optimizer to handle relations that
 - The function immediately calls set_cheapest() for safety, though this may be redundant with later set_rel_pathlist calls
 - Located in src/backend/optimizer/path/allpaths.c at lines 2166-2213
 - Critical for constraint exclusion optimization where entire partitions can be eliminated
+
+## Simplified Source
+
+```c
+static void
+set_dummy_rel_pathlist(RelOptInfo *rel)
+{
+    // Set dummy size estimates - zero rows and width
+    rel->rows = 0;
+    rel->reltarget->width = 0;
+
+    // Clear any existing paths since relation produces no rows
+    rel->pathlist = NIL;
+    rel->partial_pathlist = NIL;
+
+    // Create empty AppendPath to represent dummy relation
+    add_path(rel, (Path *) create_append_path(NULL, rel, NIL, NIL,
+                                              NIL, rel->lateral_relids,
+                                              0, false, -1));
+
+    // Update cheapest path fields for safety and consistency
+    set_cheapest(rel);
+}
+```

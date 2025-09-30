@@ -41,3 +41,29 @@ This function processes parallel safety attributes specified in function definit
 - The error message explicitly lists all valid options to guide users
 - Invalid specifications terminate the current transaction with a syntax error
 - Default return value of PROPARALLEL_UNSAFE ensures conservative behavior if function somehow continues after error
+
+## Simplified Source
+
+```c
+static char
+interpret_func_parallel(DefElem *defel)
+{
+    char *str = strVal(defel->arg);
+
+    // Convert parallel safety string to internal constant
+    if (strcmp(str, "safe") == 0)
+        return PROPARALLEL_SAFE;
+    else if (strcmp(str, "unsafe") == 0)
+        return PROPARALLEL_UNSAFE;
+    else if (strcmp(str, "restricted") == 0)
+        return PROPARALLEL_RESTRICTED;
+    else
+    {
+        // Report syntax error for invalid parallel specification
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("parameter \"parallel\" must be SAFE, RESTRICTED, or UNSAFE")));
+        return PROPARALLEL_UNSAFE;  // keep compiler quiet
+    }
+}
+```

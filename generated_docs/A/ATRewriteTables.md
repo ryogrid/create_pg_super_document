@@ -238,3 +238,127 @@ The function operates in multiple distinct phases: first handling table rewrites
 - Executes after-statements generated during the parse transformation phase
 - Fires event triggers before table rewrites to allow extensions to hook into the process
 - Located at src/backend/commands/tablecmds.c:5702-5987
+
+## Simplified Source
+
+```c
+static void ATRewriteTables(AlterTableStmt *parsetree, List **wqueue,
+                           LOCKMODE lockmode, AlterTableUtilityContext *context) {
+    // Phase 1: Process table rewrites and constraint validation
+    foreach(ltab, *wqueue) {
+        AlteredTableInfo *tab = (AlteredTableInfo *) lfirst(ltab);
+
+        // Skip relations without storage
+        if (!RELKIND_HAS_STORAGE(tab->relkind))
+            continue;
+
+        // Check composite type dependencies when changing column types
+        if (tab->newvals != NIL || tab->rewrite > 0) {
+            Relation rel = table_open(tab->relid, NoLock);
+            find_composite_type_dependencies(rel->rd_rel->reltype, rel, NULL);
+            table_close(rel, NoLock);
+        }
+
+        // Perform full table rewrite if needed
+        if (tab->rewrite > 0 && tab->relkind != RELKIND_SEQUENCE) {
+            Relation OldHeap = table_open(tab->relid, NoLock);
+
+            // Safety checks: no system catalogs or other session's temp tables
+            if (IsSystemRelation(OldHeap) || RelationIsUsedAsCatalogTable(OldHeap) ||
+                RELATION_IS_OTHER_TEMP(OldHeap)) {
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("cannot rewrite this type of relation")));
+            }
+
+            // Determine new tablespace, access method, and persistence
+            Oid NewTableSpace = tab->newTableSpace ?
+                tab->newTableSpace : OldHeap->rd_rel->reltablespace;
+            Oid NewAccessMethod = tab->chgAccessMethod ?
+                tab->newAccessMethod : OldHeap->rd_rel->relam;
+            char persistence = tab->chgPersistence ?
+                tab->newrelpersistence : OldHeap->rd_rel->relpersistence;
+
+            table_close(OldHeap, NoLock);
+
+            // Fire event trigger before rewrite
+            if (parsetree) {
+                EventTriggerTableRewrite((Node *) parsetree, tab->relid, tab->rewrite);
+            }
+
+            // Create new table, copy data, and swap files
+            Oid OIDNewHeap = make_new_heap(tab->relid, NewTableSpace,
+                                          NewAccessMethod, persistence, lockmode);
+            ATRewriteTable(tab, OIDNewHeap, lockmode);
+            finish_heap_swap(tab->relid, OIDNewHeap, false, false, true,
+                           !OidIsValid(tab->newTableSpace), RecentXmin,
+                           ReadNextMultiXactId(), persistence);
+
+            InvokeObjectPostAlterHook(RelationRelationId, tab->relid, 0);
+        }
+        // Handle sequence persistence change
+        else if (tab->rewrite > 0 && tab->relkind == RELKIND_SEQUENCE) {
+            if (tab->chgPersistence) {
+                SequenceChangePersistence(tab->relid, tab->newrelpersistence);
+            }
+        }
+        // Handle constraint validation or tablespace move without rewrite
+        else {
+            // Validate constraints without rebuilding data
+            if (tab->constraints != NIL || tab->verify_new_notnull ||
+                tab->partition_constraint != NULL) {
+                ATRewriteTable(tab, InvalidOid, lockmode);
+            }
+
+            // Handle tablespace change via block copy
+            if (tab->newTableSpace) {
+                ATExecSetTableSpace(tab->relid, tab->newTableSpace, lockmode);
+            }
+        }
+
+        // Update persistence of owned sequences
+        if (tab->chgPersistence) {
+            List *seqlist = getOwnedSequences(tab->relid);
+            foreach(lc, seqlist) {
+                SequenceChangePersistence(lfirst_oid(lc), tab->newrelpersistence);
+            }
+        }
+    }
+
+    // Phase 2: Validate foreign key constraints
+    foreach(ltab, *wqueue) {
+        AlteredTableInfo *tab = (AlteredTableInfo *) lfirst(ltab);
+        Relation rel = NULL;
+
+        if (!RELKIND_HAS_STORAGE(tab->relkind))
+            continue;
+
+        foreach(lcon, tab->constraints) {
+            NewConstraint *con = lfirst(lcon);
+
+            if (con->contype == CONSTR_FOREIGN) {
+                if (rel == NULL) {
+                    rel = table_open(tab->relid, NoLock);
+                }
+
+                Relation refrel = table_open(con->refrelid, RowShareLock);
+                validateForeignKeyConstraint(((Constraint *) con->qual)->conname,
+                                           rel, refrel, con->refindid, con->conid);
+                table_close(refrel, NoLock);
+            }
+        }
+
+        if (rel)
+            table_close(rel, NoLock);
+    }
+
+    // Phase 3: Execute queued after-statements
+    foreach(ltab, *wqueue) {
+        AlteredTableInfo *tab = (AlteredTableInfo *) lfirst(ltab);
+
+        foreach(lc, tab->afterStmts) {
+            ProcessUtilityForAlterTable((Node *) lfirst(lc), context);
+            CommandCounterIncrement();
+        }
+    }
+}
+```

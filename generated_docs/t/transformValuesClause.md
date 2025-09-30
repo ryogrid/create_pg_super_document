@@ -48,3 +48,115 @@ The intermediate representation is organized by columns rather than rows to simp
 - LATERAL marking is applied when the VALUES expressions contain references to outer query variables (typically in CREATE RULE contexts)
 - Memory optimization includes releasing intermediate sublists to save memory during processing
 - The final Query structure appears as if selecting all columns from a virtual table containing the VALUES data
+
+## Simplified Source
+
+```c
+static Query *
+transformValuesClause(ParseState *pstate, SelectStmt *stmt)
+{
+    Query *qry = makeNode(Query);
+    List *exprsLists = NIL;
+    List *coltypes = NIL;
+    List *coltypmods = NIL;
+    List *colcollations = NIL;
+    List **colexprs = NULL;
+    int sublist_length = -1;
+    bool lateral = false;
+    ParseNamespaceItem *nsitem;
+
+    qry->commandType = CMD_SELECT;
+
+    // Process WITH clause
+    if (stmt->withClause) {
+        qry->hasRecursive = stmt->withClause->recursive;
+        qry->cteList = transformWithClause(pstate, stmt->withClause);
+        qry->hasModifyingCTE = pstate->p_hasModifyingCTE;
+    }
+
+    // Transform each VALUES row and organize by columns
+    foreach(lc, stmt->valuesLists) {
+        List *sublist = (List *) lfirst(lc);
+
+        // Transform expressions in this row
+        sublist = transformExpressionList(pstate, sublist, EXPR_KIND_VALUES, false);
+
+        // Ensure all rows have same length
+        if (sublist_length < 0) {
+            sublist_length = list_length(sublist);
+            colexprs = (List **) palloc0(sublist_length * sizeof(List *));
+        } else if (sublist_length != list_length(sublist)) {
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("VALUES lists must all be the same length")));
+        }
+
+        // Build per-column expression lists
+        int i = 0;
+        foreach(lc2, sublist) {
+            Node *col = (Node *) lfirst(lc2);
+            colexprs[i] = lappend(colexprs[i], col);
+            i++;
+        }
+
+        list_free(sublist);
+        exprsLists = lappend(exprsLists, NIL);
+    }
+
+    // Resolve common types for each column and coerce expressions
+    for (int i = 0; i < sublist_length; i++) {
+        Oid coltype = select_common_type(pstate, colexprs[i], "VALUES", NULL);
+
+        // Coerce all expressions in this column to common type
+        foreach(lc, colexprs[i]) {
+            Node *col = coerce_to_common_type(pstate, (Node *) lfirst(lc), coltype, "VALUES");
+            lfirst(lc) = (void *) col;
+        }
+
+        int32 coltypmod = select_common_typmod(pstate, colexprs[i], coltype);
+        Oid colcoll = select_common_collation(pstate, colexprs[i], true);
+
+        coltypes = lappend_oid(coltypes, coltype);
+        coltypmods = lappend_int(coltypmods, coltypmod);
+        colcollations = lappend_oid(colcollations, colcoll);
+    }
+
+    // Rearrange expressions back into row-organized lists
+    for (int i = 0; i < sublist_length; i++) {
+        forboth(lc, colexprs[i], lc2, exprsLists) {
+            Node *col = (Node *) lfirst(lc);
+            List *sublist = lfirst(lc2);
+            sublist = lappend(sublist, col);
+            lfirst(lc2) = sublist;
+        }
+        list_free(colexprs[i]);
+    }
+
+    // Check for variable references requiring LATERAL
+    if (pstate->p_rtable != NIL && contain_vars_of_level((Node *) exprsLists, 0))
+        lateral = true;
+
+    // Create VALUES range table entry
+    nsitem = addRangeTableEntryForValues(pstate, exprsLists, coltypes,
+                                         coltypmods, colcollations, NULL, lateral, true);
+    addNSItemToQuery(pstate, nsitem, true, true, true);
+
+    // Generate target list and handle ORDER BY/LIMIT
+    qry->targetList = expandNSItemAttrs(pstate, nsitem, 0, true, -1);
+    qry->sortClause = transformSortClause(pstate, stmt->sortClause, &qry->targetList,
+                                          EXPR_KIND_ORDER_BY, false);
+    qry->limitOffset = transformLimitClause(pstate, stmt->limitOffset,
+                                            EXPR_KIND_OFFSET, "OFFSET", stmt->limitOption);
+    qry->limitCount = transformLimitClause(pstate, stmt->limitCount,
+                                           EXPR_KIND_LIMIT, "LIMIT", stmt->limitOption);
+    qry->limitOption = stmt->limitOption;
+
+    // Assemble final query
+    qry->rtable = pstate->p_rtable;
+    qry->rteperminfos = pstate->p_rteperminfos;
+    qry->jointree = makeFromExpr(pstate->p_joinlist, NULL);
+    qry->hasSubLinks = pstate->p_hasSubLinks;
+
+    assign_query_collations(pstate, qry);
+    return qry;
+}
+```

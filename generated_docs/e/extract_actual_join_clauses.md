@@ -41,3 +41,40 @@ The function uses the RINFO_IS_PUSHED_DOWN macro to determine whether each claus
 - Pushed-down clauses may include pseudoconstants (hence the additional check), but native join clauses should not
 - The function modifies the output parameters in-place, initializing them to NIL and building them incrementally
 - Critical for maintaining SQL standard compliance in outer join processing where premature clause evaluation can change result correctness
+
+## Simplified Source
+
+```c
+void
+extract_actual_join_clauses(List *restrictinfo_list,
+                           Relids joinrelids,
+                           List **joinquals,
+                           List **otherquals)
+{
+    ListCell   *l;
+
+    // Initialize output lists
+    *joinquals = NIL;
+    *otherquals = NIL;
+
+    // Process each RestrictInfo in the input list
+    foreach(l, restrictinfo_list)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+        if (RINFO_IS_PUSHED_DOWN(rinfo, joinrelids))
+        {
+            // This clause was pushed down from a higher level
+            if (!rinfo->pseudoconstant && !rinfo_is_constant_true(rinfo))
+                *otherquals = lappend(*otherquals, rinfo->clause);
+        }
+        else
+        {
+            // This clause belongs to the current join level
+            Assert(!rinfo->pseudoconstant);  // joinquals shouldn't be pseudoconstant
+            if (!rinfo_is_constant_true(rinfo))
+                *joinquals = lappend(*joinquals, rinfo->clause);
+        }
+    }
+}
+```

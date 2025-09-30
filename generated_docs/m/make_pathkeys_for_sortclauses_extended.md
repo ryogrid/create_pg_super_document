@@ -47,3 +47,54 @@ The function maintains canonical form by eliminating redundant ordering keys and
 - The `remove_redundant` feature helps optimize queries by eliminating unnecessary sort columns
 - Setting equivalence class sort references is important for window function processing and grouping operations
 - Invalid sort operators (OidIsValid check fails) cause clauses to be marked as unsortable but processing continues
+
+## Simplified Source
+
+```c
+List *make_pathkeys_for_sortclauses_extended(PlannerInfo *root,
+                                           List **sortclauses,
+                                           List *tlist,
+                                           bool remove_redundant,
+                                           bool *sortable,
+                                           bool set_ec_sortref) {
+    List *pathkeys = NIL;
+    ListCell *l;
+
+    *sortable = true;
+
+    foreach(l, *sortclauses) {
+        SortGroupClause *sortcl = (SortGroupClause *) lfirst(l);
+        Expr *sortkey;
+        PathKey *pathkey;
+
+        // Get the sort expression from the target list
+        sortkey = (Expr *) get_sortgroupclause_expr(sortcl, tlist);
+
+        // Check if clause is sortable
+        if (!OidIsValid(sortcl->sortop)) {
+            *sortable = false;
+            continue;
+        }
+
+        // Create pathkey from the sort operator
+        pathkey = make_pathkey_from_sortop(root, sortkey, sortcl->sortop,
+                                         sortcl->nulls_first,
+                                         sortcl->tleSortGroupRef, true);
+
+        // Set equivalence class sort reference if requested
+        if (pathkey->pk_eclass->ec_sortref == 0 && set_ec_sortref) {
+            pathkey->pk_eclass->ec_sortref = sortcl->tleSortGroupRef;
+        }
+
+        // Add to pathkeys if not redundant
+        if (!pathkey_is_redundant(pathkey, pathkeys)) {
+            pathkeys = lappend(pathkeys, pathkey);
+        } else if (remove_redundant) {
+            // Remove redundant clause from sortclauses list
+            *sortclauses = foreach_delete_current(*sortclauses, l);
+        }
+    }
+
+    return pathkeys;
+}
+```

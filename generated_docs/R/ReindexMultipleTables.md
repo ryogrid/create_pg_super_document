@@ -56,3 +56,100 @@ This function orchestrates bulk reindexing operations across multiple tables wit
 - Provides warnings for skipped relations due to concurrent or tablespace restrictions
 - Uses separate transactions for each table to reduce deadlock probability and allow immediate lock release
 - Supports filtering by relation persistence (temporary vs permanent) and ownership checks for shared catalogs
+
+## Simplified Source
+
+```c
+static void ReindexMultipleTables(const ReindexStmt *stmt, const ReindexParams *params) {
+    Oid objectOid;
+    List *relids = NIL;
+    MemoryContext private_context;
+
+    // Validate reindex object type (schema, database, or system)
+    Assert(stmt->kind == REINDEX_OBJECT_SCHEMA ||
+           stmt->kind == REINDEX_OBJECT_SYSTEM ||
+           stmt->kind == REINDEX_OBJECT_DATABASE);
+
+    // Prohibit concurrent reindexing of system catalogs
+    if (stmt->kind == REINDEX_OBJECT_SYSTEM &&
+        (params->options & REINDEXOPT_CONCURRENTLY)) {
+        ereport(ERROR, "cannot reindex system catalogs concurrently");
+    }
+
+    // Get target object OID and check permissions
+    if (stmt->kind == REINDEX_OBJECT_SCHEMA) {
+        objectOid = get_namespace_oid(stmt->name, false);
+        // Check schema ownership or maintenance privileges
+        if (!object_ownercheck(NamespaceRelationId, objectOid, GetUserId()) &&
+            !has_privs_of_role(GetUserId(), ROLE_PG_MAINTAIN)) {
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SCHEMA, stmt->name);
+        }
+    } else {
+        objectOid = MyDatabaseId;
+        // Check database ownership or maintenance privileges
+        if (!object_ownercheck(DatabaseRelationId, objectOid, GetUserId()) &&
+            !has_privs_of_role(GetUserId(), ROLE_PG_MAINTAIN)) {
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, get_database_name(objectOid));
+        }
+    }
+
+    // Create memory context to survive transaction commits
+    private_context = AllocSetContextCreate(PortalContext, "ReindexMultipleTables",
+                                          ALLOCSET_SMALL_SIZES);
+
+    // Scan pg_class to find tables to reindex
+    Relation relationRelation = table_open(RelationRelationId, AccessShareLock);
+    TableScanDesc scan = table_beginscan_catalog(relationRelation,
+                                               stmt->kind == REINDEX_OBJECT_SCHEMA ? 1 : 0,
+                                               scan_keys);
+
+    HeapTuple tuple;
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_class classtuple = (Form_pg_class) GETSTRUCT(tuple);
+        Oid relid = classtuple->oid;
+
+        // Filter: only regular tables and materialized views
+        if (classtuple->relkind != RELKIND_RELATION &&
+            classtuple->relkind != RELKIND_MATVIEW) {
+            continue;
+        }
+
+        // Filter: skip temp tables from other backends
+        if (classtuple->relpersistence == RELPERSISTENCE_TEMP &&
+            !isTempNamespace(classtuple->relnamespace)) {
+            continue;
+        }
+
+        // Filter: system vs user catalogs based on object kind
+        if (stmt->kind == REINDEX_OBJECT_SYSTEM && !IsCatalogRelationOid(relid)) {
+            continue;
+        }
+        if (stmt->kind == REINDEX_OBJECT_DATABASE && IsCatalogRelationOid(relid)) {
+            continue;
+        }
+
+        // Filter: check permissions for shared catalogs
+        if (classtuple->relisshared &&
+            pg_class_aclcheck(relid, GetUserId(), ACL_MAINTAIN) != ACLCHECK_OK) {
+            continue;
+        }
+
+        // Add to relation list (pg_class first for integrity)
+        MemoryContext old = MemoryContextSwitchTo(private_context);
+        if (relid == RelationRelationId) {
+            relids = lcons_oid(relid, relids);  // Add to front
+        } else {
+            relids = lappend_oid(relids, relid); // Add to end
+        }
+        MemoryContextSwitchTo(old);
+    }
+
+    table_endscan(scan);
+    table_close(relationRelation, AccessShareLock);
+
+    // Process each relation in separate transactions
+    ReindexMultipleInternal(stmt, relids, params);
+
+    MemoryContextDelete(private_context);
+}
+```

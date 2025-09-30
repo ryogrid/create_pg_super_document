@@ -30,7 +30,19 @@ The function uses PostgreSQL's  memory deallocation function, which is the stand
 
 ## Notes and Other Information
 - The function deallocates in the correct order: gene string first, then the chromosome structure
-- Memory deallocation is performed using , which is PostgreSQL's standard memory management function
+- Memory deallocation is performed using pfree, which is PostgreSQL's standard memory management function
 - This is a critical cleanup function for the GEQO genetic algorithm implementation to prevent memory leaks
-- The function is declared in 
-- Must be called for every chromosome allocated with  to ensure proper memory management
+- The function is declared in geqo.h
+- Must be called for every chromosome allocated with alloc_chromo to ensure proper memory management
+
+## Simplified Source
+
+```c
+void
+free_chromo(PlannerInfo *root, Chromosome *chromo)
+{
+    // Free gene string first, then chromosome structure
+    pfree(chromo->string);
+    pfree(chromo);
+}
+```

@@ -54,3 +54,61 @@ The function does not account for spooling costs when data overflows work_mem, w
 - The cost estimation for window functions may be conservative as it assumes single evaluation per cycle
 - Future enhancement needed: accounting for disk spooling costs when work_mem is exceeded
 - The startup cost calculation considers the window clause requirements to determine how many tuples must be processed before the first output tuple can be produced
+
+## Simplified Source
+
+```c
+void
+cost_windowagg(Path *path, PlannerInfo *root,
+               List *windowFuncs, WindowClause *winclause,
+               Cost input_startup_cost, Cost input_total_cost,
+               double input_tuples)
+{
+    Cost startup_cost = input_startup_cost;
+    Cost total_cost = input_total_cost;
+    ListCell *lc;
+
+    int numPartCols = list_length(winclause->partitionClause);
+    int numOrderCols = list_length(winclause->orderClause);
+
+    // Calculate window function execution costs
+    foreach(lc, windowFuncs) {
+        WindowFunc *wfunc = lfirst_node(WindowFunc, lc);
+        Cost wfunccost;
+        QualCost argcosts;
+
+        // Function execution cost
+        argcosts.startup = argcosts.per_tuple = 0;
+        add_function_cost(root, wfunc->winfnoid, (Node *) wfunc, &argcosts);
+        startup_cost += argcosts.startup;
+        wfunccost = argcosts.per_tuple;
+
+        // Input expression costs
+        cost_qual_eval_node(&argcosts, (Node *) wfunc->args, root);
+        startup_cost += argcosts.startup;
+        wfunccost += argcosts.per_tuple;
+
+        // Filter costs
+        cost_qual_eval_node(&argcosts, (Node *) wfunc->aggfilter, root);
+        startup_cost += argcosts.startup;
+        wfunccost += argcosts.per_tuple;
+
+        total_cost += wfunccost * input_tuples;
+    }
+
+    // Grouping and general overhead costs
+    total_cost += cpu_operator_cost * (numPartCols + numOrderCols) * input_tuples;
+    total_cost += cpu_tuple_cost * input_tuples;
+
+    // Adjust startup cost based on startup tuples needed
+    double startup_tuples = get_windowclause_startup_tuples(root, winclause, input_tuples);
+    if (startup_tuples > 1.0) {
+        path->startup_cost += (total_cost - startup_cost) / input_tuples *
+                              (startup_tuples - 1.0);
+    }
+
+    path->rows = input_tuples;
+    path->startup_cost = startup_cost;
+    path->total_cost = total_cost;
+}
+```

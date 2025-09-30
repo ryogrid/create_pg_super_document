@@ -47,3 +47,52 @@ Special handling is provided for cancel requests, which should only attempt conn
 - Automatically closes any opened socket on failure to prevent resource leaks
 - Part of PostgreSQL's robust connection establishment and recovery system
 - Sets connection status to CONNECTION_BAD on failure, allowing proper error reporting to applications
+
+## Simplified Source
+
+```c
+int pqConnectDBStart(PGconn *conn)
+{
+    // Basic validation
+    if (!conn)
+        return 0;
+
+    if (!conn->options_valid)
+        goto connect_errReturn;
+
+    // Check for proper frontend library linking
+    if (!pg_link_canary_is_frontend()) {
+        appendPQExpBufferStr(&conn->errorMessage,
+                           "libpq is incorrectly linked to backend functions\n");
+        goto connect_errReturn;
+    }
+
+    // Initialize connection buffers
+    conn->inStart = conn->inCursor = conn->inEnd = 0;
+    conn->outCount = 0;
+
+    // Setup host connection parameters (except for cancel requests)
+    if (!conn->cancelRequest) {
+        conn->whichhost = -1;       // Will advance to 0 in PQconnectPoll
+        conn->try_next_host = true;
+        conn->try_next_addr = false;
+    }
+
+    // Set initial connection state
+    conn->status = CONNECTION_NEEDED;
+
+    // Reset server type preference if needed
+    if (conn->target_server_type == SERVER_TYPE_PREFER_STANDBY_PASS2)
+        conn->target_server_type = SERVER_TYPE_PREFER_STANDBY;
+
+    // Start the connection process - expect WRITING state for success
+    if (PQconnectPoll(conn) == PGRES_POLLING_WRITING)
+        return 1;
+
+connect_errReturn:
+    // Cleanup on failure
+    pqDropConnection(conn, true);
+    conn->status = CONNECTION_BAD;
+    return 0;
+}
+```

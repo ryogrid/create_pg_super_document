@@ -43,3 +43,37 @@ This rebuilding process is essential after operations that modify leaf nodes (su
 - The function only updates a node's value if it differs from the calculated value, minimizing unnecessary modifications
 - This function is critical for maintaining FSM performance, as incorrect upper-level values would lead to inefficient space allocation decisions
 - The fp_nodes array represents the complete binary tree structure, with leaf nodes at the end and non-leaf nodes at the beginning
+
+## Simplified Source
+
+```c
+bool
+fsm_rebuild_page(Page page)
+{
+    FSMPage fsmpage = (FSMPage) PageGetContents(page);
+    bool changed = false;
+
+    // Traverse non-leaf nodes from bottom to top, updating parent values
+    for (int nodeno = NonLeafNodesPerPage - 1; nodeno >= 0; nodeno--)
+    {
+        int lchild = leftchild(nodeno);
+        int rchild = lchild + 1;
+        uint8 newvalue = 0;
+
+        // Calculate maximum value of children
+        if (lchild < NodesPerPage)
+            newvalue = fsmpage->fp_nodes[lchild];
+        if (rchild < NodesPerPage)
+            newvalue = Max(newvalue, fsmpage->fp_nodes[rchild]);
+
+        // Update node if value changed
+        if (fsmpage->fp_nodes[nodeno] != newvalue)
+        {
+            fsmpage->fp_nodes[nodeno] = newvalue;
+            changed = true;
+        }
+    }
+
+    return changed;
+}
+```

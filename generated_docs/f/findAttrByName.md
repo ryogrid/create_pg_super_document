@@ -36,3 +36,22 @@ The search is case-sensitive and uses standard C string comparison (strcmp). The
 - Returns index of first matching column if duplicates exist
 - The 1-based indexing convention matches PostgreSQL's internal attribute numbering system
 - Simple utility function with no side effects or error handling requirements
+
+## Simplified Source
+```c
+static int findAttrByName(const char *attributeName, const List *columns) {
+    ListCell *lc;
+    int i = 1;
+
+    // Iterate through column list
+    foreach(lc, columns) {
+        // Compare column name with target name
+        if (strcmp(attributeName, lfirst_node(ColumnDef, lc)->colname) == 0)
+            return i;  // Return 1-based index if found
+
+        i++;
+    }
+
+    return 0;  // Return 0 if not found
+}
+```

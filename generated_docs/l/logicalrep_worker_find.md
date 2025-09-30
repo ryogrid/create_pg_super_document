@@ -44,3 +44,28 @@ The function operates under the assumption that the caller holds the LogicalRepW
 - Used extensively by both launcher and tablesync subsystems for worker management
 - The only_running parameter allows callers to distinguish between allocated workers and actually running processes
 - Critical for coordinating worker lifecycle management across the logical replication system
+
+## Simplified Source
+
+```c
+LogicalRepWorker *logicalrep_worker_find(Oid subid, Oid relid, bool only_running) {
+    Assert(LWLockHeldByMe(LogicalRepWorkerLock));
+
+    // Search through all worker slots
+    for (int i = 0; i < max_logical_replication_workers; i++) {
+        LogicalRepWorker *w = &LogicalRepCtx->workers[i];
+
+        // Skip parallel apply workers - we only want leader/sync workers
+        if (isParallelApplyWorker(w))
+            continue;
+
+        // Check if worker matches criteria
+        if (w->in_use && w->subid == subid && w->relid == relid &&
+            (!only_running || w->proc)) {
+            return w;  // Found matching worker
+        }
+    }
+
+    return NULL;  // No matching worker found
+}
+```

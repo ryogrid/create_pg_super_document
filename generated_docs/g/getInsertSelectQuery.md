@@ -50,3 +50,58 @@ This is specifically designed for rule-action queries where OLD and NEW placehol
 - Described in comments as "a hack" that may be cleaned up in future querytree redesigns
 - Essential for correct rule processing in PostgreSQL's rewrite system
 - Only applies to rule-action queries, not regular INSERT ... SELECT statements
+
+## Simplified Source
+
+```c
+Query *getInsertSelectQuery(Query *parsetree, Query ***subquery_ptr) {
+    // Initialize output parameter
+    if (subquery_ptr)
+        *subquery_ptr = NULL;
+
+    // Basic validation - must be INSERT command
+    if (parsetree == NULL || parsetree->commandType != CMD_INSERT)
+        return parsetree;
+
+    // Check if OLD/NEW placeholders are at top level
+    // If so, return original query (no subquery extraction needed)
+    if (list_length(parsetree->rtable) >= 2 &&
+        strcmp(rt_fetch(PRS2_OLD_VARNO, parsetree->rtable)->eref->aliasname, "old") == 0 &&
+        strcmp(rt_fetch(PRS2_NEW_VARNO, parsetree->rtable)->eref->aliasname, "new") == 0)
+        return parsetree;
+
+    // Navigate to SELECT subquery in FROM clause
+    Assert(parsetree->jointree && IsA(parsetree->jointree, FromExpr));
+    if (list_length(parsetree->jointree->fromlist) != 1)
+        elog(ERROR, "expected to find SELECT subquery");
+
+    RangeTblRef *rtr = (RangeTblRef *) linitial(parsetree->jointree->fromlist);
+    if (!IsA(rtr, RangeTblRef))
+        elog(ERROR, "expected to find SELECT subquery");
+
+    // Extract and validate the SELECT subquery
+    RangeTblEntry *selectrte = rt_fetch(rtr->rtindex, parsetree->rtable);
+    if (!(selectrte->rtekind == RTE_SUBQUERY &&
+          selectrte->subquery &&
+          IsA(selectrte->subquery, Query) &&
+          selectrte->subquery->commandType == CMD_SELECT))
+        elog(ERROR, "expected to find SELECT subquery");
+
+    Query *selectquery = selectrte->subquery;
+
+    // Verify OLD/NEW placeholders exist in SELECT subquery
+    if (list_length(selectquery->rtable) >= 2 &&
+        strcmp(rt_fetch(PRS2_OLD_VARNO, selectquery->rtable)->eref->aliasname, "old") == 0 &&
+        strcmp(rt_fetch(PRS2_NEW_VARNO, selectquery->rtable)->eref->aliasname, "new") == 0) {
+
+        // Set output parameter if requested
+        if (subquery_ptr)
+            *subquery_ptr = &(selectrte->subquery);
+
+        return selectquery;
+    }
+
+    elog(ERROR, "could not find rule placeholders");
+    return NULL;
+}
+```

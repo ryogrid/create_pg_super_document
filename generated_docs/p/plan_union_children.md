@@ -57,3 +57,61 @@ This optimization reduces the number of Append/MergeAppend nodes in the final pl
 - The flattening optimization only applies to UNIONs with identical column types, collations, and compatible ALL flags
 - The algorithm uses a work list approach to handle arbitrary depths of nested identical UNIONs
 - This optimization is particularly beneficial for queries with deeply nested UNION operations that would otherwise create multiple levels of Append nodes
+
+## Simplified Source
+
+```c
+static List *
+plan_union_children(PlannerInfo *root,
+                    SetOperationStmt *top_union,
+                    List *refnames_tlist,
+                    List **tlist_list,
+                    List **istrivial_tlist)
+{
+    List *pending_rels = list_make1(top_union);
+    List *result = NIL;
+    List *child_tlist;
+    bool trivial_tlist;
+
+    *tlist_list = NIL;
+    *istrivial_tlist = NIL;
+
+    // Process each operation in the pending list
+    while (pending_rels != NIL)
+    {
+        Node *setOp = linitial(pending_rels);
+        pending_rels = list_delete_first(pending_rels);
+
+        if (IsA(setOp, SetOperationStmt))
+        {
+            SetOperationStmt *op = (SetOperationStmt *) setOp;
+
+            // Check if this UNION can be flattened with the top-level one
+            if (op->op == top_union->op &&
+                (op->all == top_union->all || op->all) &&
+                equal(op->colTypes, top_union->colTypes) &&
+                equal(op->colCollations, top_union->colCollations))
+            {
+                // Identical UNION - flatten by adding children to pending list
+                pending_rels = lcons(op->rarg, pending_rels);
+                pending_rels = lcons(op->larg, pending_rels);
+                continue;
+            }
+        }
+
+        // Different operation - plan this child separately
+        // (No resjunk columns allowed for uniform output format)
+        result = lappend(result, recurse_set_operations(setOp, root,
+                                                       top_union->colTypes,
+                                                       top_union->colCollations,
+                                                       false, -1,
+                                                       refnames_tlist,
+                                                       &child_tlist,
+                                                       &trivial_tlist));
+        *tlist_list = lappend(*tlist_list, child_tlist);
+        *istrivial_tlist = lappend_int(*istrivial_tlist, trivial_tlist);
+    }
+
+    return result;
+}
+```

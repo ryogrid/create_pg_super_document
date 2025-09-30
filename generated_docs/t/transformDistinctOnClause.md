@@ -47,3 +47,73 @@ The function adds all DISTINCT ON expressions to the target list (as resjunk ite
 - Handles cases where users specify both DISTINCT ON and ORDER BY by adopting sorting semantics from matching ORDER BY items
 - The implementation notes that using DISTINCT ON without proper ORDER BY coordination may produce inconsistent results
 - Unlike transformDistinctClause, this function cannot return an empty result due to grammar restrictions that ensure at least one DISTINCT ON expression is always present
+
+## Simplified Source
+
+```c
+List *
+transformDistinctOnClause(ParseState *pstate, List *distinctlist,
+                          List **targetlist, List *sortClause)
+{
+    List *result = NIL;
+    List *sortgrouprefs = NIL;
+    bool skipped_sortitem;
+    ListCell *lc;
+    ListCell *lc2;
+
+    // Add all DISTINCT ON expressions to targetlist with sortgroupref numbers
+    foreach(lc, distinctlist) {
+        Node *dexpr = (Node *) lfirst(lc);
+        int sortgroupref;
+        TargetEntry *tle;
+
+        tle = findTargetlistEntrySQL92(pstate, dexpr, targetlist,
+                                       EXPR_KIND_DISTINCT_ON);
+        sortgroupref = assignSortGroupRef(tle, *targetlist);
+        sortgrouprefs = lappend_int(sortgrouprefs, sortgroupref);
+    }
+
+    // Adopt sorting semantics from matching ORDER BY items
+    skipped_sortitem = false;
+    foreach(lc, sortClause) {
+        SortGroupClause *scl = (SortGroupClause *) lfirst(lc);
+
+        if (list_member_int(sortgrouprefs, scl->tleSortGroupRef)) {
+            if (skipped_sortitem)
+                ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                     errmsg("SELECT DISTINCT ON expressions must match initial ORDER BY expressions"),
+                     parser_errposition(pstate,
+                                        get_matching_location(scl->tleSortGroupRef,
+                                                              sortgrouprefs,
+                                                              distinctlist))));
+            else
+                result = lappend(result, copyObject(scl));
+        }
+        else
+            skipped_sortitem = true;
+    }
+
+    // Add remaining DISTINCT ON items using default sort/group semantics
+    forboth(lc, distinctlist, lc2, sortgrouprefs) {
+        Node *dexpr = (Node *) lfirst(lc);
+        int sortgroupref = lfirst_int(lc2);
+        TargetEntry *tle = get_sortgroupref_tle(sortgroupref, *targetlist);
+
+        if (targetIsInSortList(tle, InvalidOid, result))
+            continue;  // already in list with some semantics
+
+        if (skipped_sortitem)
+            ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("SELECT DISTINCT ON expressions must match initial ORDER BY expressions"),
+                 parser_errposition(pstate, exprLocation(dexpr))));
+
+        result = addTargetToGroupList(pstate, tle, result, *targetlist,
+                                      exprLocation(dexpr));
+    }
+
+    Assert(result != NIL);  // Grammar ensures non-empty result
+    return result;
+}
+```

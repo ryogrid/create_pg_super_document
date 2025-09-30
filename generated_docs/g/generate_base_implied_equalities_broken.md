@@ -35,3 +35,26 @@ The function maintains the invariant that constant-containing ECs can be safely 
 - Multi-relation clauses are intentionally deferred to join-level processing for consistency
 - The BMS_MULTIPLE check determines if a RestrictInfo applies to multiple relations
 - Part of PostgreSQL's query optimization equivalence class management system
+
+## Simplified Source
+
+```c
+static void
+generate_base_implied_equalities_broken(PlannerInfo *root, EquivalenceClass *ec)
+{
+    ListCell *lc;
+
+    // Process each source RestrictInfo from the broken EC
+    foreach(lc, ec->ec_sources)
+    {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(lc);
+
+        // Push back if EC has constants or restriction affects single relation
+        if (ec->ec_has_const ||
+            bms_membership(restrictinfo->required_relids) != BMS_MULTIPLE)
+        {
+            distribute_restrictinfo_to_rels(root, restrictinfo);
+        }
+    }
+}
+```

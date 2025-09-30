@@ -35,3 +35,15 @@ The function accesses the object property metadata for the given class and retur
 - The cache typically indexes objects by name and namespace (schema) for efficient resolution
 - May return -1 or an invalid cache ID if no name-based cache is available for the object class
 - Used primarily in DDL operations where objects are referenced by name rather than OID
+
+## Simplified Source
+
+```c
+int get_object_catcache_name(Oid class_id) {
+    // Get object property metadata for the catalog class
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+
+    // Return the name-based catalog cache ID
+    return prop->name_catcache_id;
+}
+```

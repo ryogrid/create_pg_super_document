@@ -38,3 +38,14 @@ The function includes an optimization to only perform sorting when there are mul
 - Primarily designed for regression test stability rather than user-facing functionality
 - The comment explicitly warns against using this ordering when object order is determined by user input (e.g., DROP command targets)
 - Part of PostgreSQL's object management utilities for dependency handling
+
+## Simplified Source
+```c
+void
+sort_object_addresses(ObjectAddresses *addrs)
+{
+    // Only sort if there are multiple objects to sort
+    if (addrs->numrefs > 1)
+        qsort(addrs->refs, addrs->numrefs, sizeof(ObjectAddress), object_address_comparator);
+}
+```

@@ -42,4 +42,35 @@ This function retrieves the complete signature information for a specified funct
 - Validates consistency between argument count and array dimensions using Assert
 - Provides complete signature information needed for function signature matching
 - Critical for dynamic function calling and type checking in language handlers
+
+## Simplified Source
+
+```c
+Oid get_func_signature(Oid funcid, Oid **argtypes, int *nargs) {
+    HeapTuple tp;
+    Form_pg_proc procstruct;
+    Oid result;
+
+    // Look up the function in the system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract function structure from the tuple
+    procstruct = (Form_pg_proc) GETSTRUCT(tp);
+
+    // Get return type and argument count
+    result = procstruct->prorettype;
+    *nargs = (int) procstruct->pronargs;
+    Assert(*nargs == procstruct->proargtypes.dim1);
+
+    // Allocate and copy argument types array
+    *argtypes = (Oid *) palloc(*nargs * sizeof(Oid));
+    memcpy(*argtypes, procstruct->proargtypes.values, *nargs * sizeof(Oid));
+
+    // Clean up and return result type
+    ReleaseSysCache(tp);
+    return result;
+}
+```
 - Used extensively in procedural language implementations and aggregate functions

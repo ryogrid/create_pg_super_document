@@ -51,3 +51,50 @@ This function cleans up the in-memory replication state associated with a specif
 - When nowait is false, uses condition variable waiting mechanism with WAIT_EVENT_REPLICATION_ORIGIN_DROP
 - Clears all relevant state fields including roident, remote_lsn, and local_lsn
 - Always calls ConditionVariableCancelSleep to clean up any pending sleep operations
+
+## Simplified Source
+
+```c
+static void replorigin_state_clear(RepOriginId roident, bool nowait) {
+restart:
+    LWLockAcquire(ReplicationOriginLock, LW_EXCLUSIVE);
+
+    // Find matching replication state slot
+    for (int i = 0; i < max_replication_slots; i++) {
+        ReplicationState *state = &replication_states[i];
+
+        if (state->roident == roident) {
+            // Check if slot is currently in use
+            if (state->acquired_by != 0) {
+                if (nowait) {
+                    ereport(ERROR,
+                           (errcode(ERRCODE_OBJECT_IN_USE),
+                            errmsg("could not drop replication origin with ID %d, in use by PID %d",
+                                   state->roident, state->acquired_by)));
+                }
+
+                // Wait for slot to become available
+                LWLockRelease(ReplicationOriginLock);
+                ConditionVariableSleep(&state->origin_cv, WAIT_EVENT_REPLICATION_ORIGIN_DROP);
+                goto restart;
+            }
+
+            // Log WAL record for crash recovery
+            xl_replorigin_drop xlrec;
+            xlrec.node_id = roident;
+            XLogBeginInsert();
+            XLogRegisterData((char *) (&xlrec), sizeof(xlrec));
+            XLogInsert(RM_REPLORIGIN_ID, XLOG_REPLORIGIN_DROP);
+
+            // Clear the in-memory slot state
+            state->roident = InvalidRepOriginId;
+            state->remote_lsn = InvalidXLogRecPtr;
+            state->local_lsn = InvalidXLogRecPtr;
+            break;
+        }
+    }
+
+    LWLockRelease(ReplicationOriginLock);
+    ConditionVariableCancelSleep();
+}
+```

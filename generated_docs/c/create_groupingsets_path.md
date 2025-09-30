@@ -49,3 +49,99 @@ This function creates a GroupingSetsPath node that represents sorted grouping wi
 - In AGG_HASHED mode, there is one rollup per grouping set
 - In AGG_MIXED mode, initial rollups are hashed, the first non-hashed rollup uses sorted input, and following ones sort themselves
 - The pathnode's pathkeys are set to root->group_pathkeys only for AGG_SORTED strategy with a single rollup
+
+## Simplified Source
+
+```c
+GroupingSetsPath *
+create_groupingsets_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                        List *having_qual, AggStrategy aggstrategy,
+                        List *rollups, const AggClauseCosts *agg_costs)
+{
+    GroupingSetsPath *pathnode = makeNode(GroupingSetsPath);
+    PathTarget *target = rel->reltarget;
+    bool is_first = true;
+    bool is_first_sort = true;
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Agg;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = subpath->param_info;
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->subpath = subpath;
+
+    // Simplify aggregation strategies when possible
+    if (aggstrategy == AGG_SORTED && list_length(rollups) == 1 &&
+        ((RollupData *) linitial(rollups))->groupClause == NIL)
+        aggstrategy = AGG_PLAIN;
+
+    if (aggstrategy == AGG_MIXED && list_length(rollups) == 1)
+        aggstrategy = AGG_HASHED;
+
+    // Set output ordering: sorted only for single AGG_SORTED rollup
+    if (aggstrategy == AGG_SORTED && list_length(rollups) == 1)
+        pathnode->path.pathkeys = root->group_pathkeys;
+    else
+        pathnode->path.pathkeys = NIL;
+
+    // Set GroupingSetsPath-specific fields
+    pathnode->aggstrategy = aggstrategy;
+    pathnode->rollups = rollups;
+    pathnode->qual = having_qual;
+    pathnode->transitionSpace = agg_costs ? agg_costs->transitionSpace : 0;
+
+    // Calculate costs for each rollup operation
+    ListCell *lc;
+    foreach(lc, rollups) {
+        RollupData *rollup = lfirst(lc);
+        List *gsets = rollup->gsets;
+        int numGroupCols = list_length(linitial(gsets));
+
+        if (is_first) {
+            // First rollup: use input costs directly
+            cost_agg(&pathnode->path, root, aggstrategy, agg_costs,
+                    numGroupCols, rollup->numGroups, having_qual,
+                    subpath->startup_cost, subpath->total_cost,
+                    subpath->rows, subpath->pathtarget->width);
+            is_first = false;
+            if (!rollup->is_hashed)
+                is_first_sort = false;
+        } else {
+            // Subsequent rollups: calculate incremental costs
+            Path sort_path, agg_path;
+
+            if (rollup->is_hashed || is_first_sort) {
+                // Hash aggregation or first sorted rollup
+                cost_agg(&agg_path, root,
+                        rollup->is_hashed ? AGG_HASHED : AGG_SORTED,
+                        agg_costs, numGroupCols, rollup->numGroups,
+                        having_qual, 0.0, 0.0, subpath->rows,
+                        subpath->pathtarget->width);
+                if (!rollup->is_hashed)
+                    is_first_sort = false;
+            } else {
+                // Need to sort before aggregating
+                cost_sort(&sort_path, root, NIL, 0.0, subpath->rows,
+                         subpath->pathtarget->width, 0.0, work_mem, -1.0);
+                cost_agg(&agg_path, root, AGG_SORTED, agg_costs,
+                        numGroupCols, rollup->numGroups, having_qual,
+                        sort_path.startup_cost, sort_path.total_cost,
+                        sort_path.rows, subpath->pathtarget->width);
+            }
+
+            pathnode->path.total_cost += agg_path.total_cost;
+            pathnode->path.rows += agg_path.rows;
+        }
+    }
+
+    // Add target list evaluation costs
+    pathnode->path.startup_cost += target->cost.startup;
+    pathnode->path.total_cost += target->cost.startup +
+                                target->cost.per_tuple * pathnode->path.rows;
+
+    return pathnode;
+}
+```

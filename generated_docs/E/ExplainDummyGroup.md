@@ -47,3 +47,46 @@ The function ensures that empty groups are represented consistently across all s
 - Commonly used in utility command explanations where certain sections may be empty
 - Handles proper escaping for string content in JSON and YAML formats to prevent output corruption
 - Located in src/backend/commands/explain.c:5070-5114
+
+## Simplified Source
+
+```c
+static void
+ExplainDummyGroup(const char *objtype, const char *labelname, ExplainState *es)
+{
+    switch (es->format)
+    {
+        case EXPLAIN_FORMAT_TEXT:
+            // No output needed for text format
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // Emit self-closing XML tag
+            ExplainXMLTag(objtype, X_CLOSE_IMMEDIATE, es);
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            // Emit JSON string with proper formatting
+            ExplainJSONLineEnding(es);
+            appendStringInfoSpaces(es->str, 2 * es->indent);
+            if (labelname) {
+                escape_json(es->str, labelname);
+                appendStringInfoString(es->str, ": ");
+            }
+            escape_json(es->str, objtype);
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // Emit YAML entry with proper formatting
+            ExplainYAMLLineStarting(es);
+            if (labelname) {
+                escape_yaml(es->str, labelname);
+                appendStringInfoString(es->str, ": ");
+            } else {
+                appendStringInfoString(es->str, "- ");
+            }
+            escape_yaml(es->str, objtype);
+            break;
+    }
+}
+```

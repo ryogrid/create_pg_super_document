@@ -43,6 +43,43 @@ The function is optimized to skip unnecessary work when the portal is already at
 - Enforces NO SCROLL cursor restrictions by throwing an error if backward scanning is attempted on a forward-only cursor
 - Handles both materialized portals (with holdStore) and active executor-based portals
 - Properly manages memory contexts when accessing tuple stores
-- Maintains snapshot consistency during executor rewind operations  
+- Maintains snapshot consistency during executor rewind operations
 - Optimizes by avoiding work when the portal is already in the starting state
 - Critical for implementing SQL cursor semantics, particularly FETCH ABSOLUTE and cursor rewinding operations
+
+## Simplified Source
+
+```c
+static void DoPortalRewind(Portal portal) {
+    // Skip work if portal is already at start and hasn't moved
+    if (portal->atStart && !portal->atEnd)
+        return;
+
+    // Check if cursor allows backward scanning
+    if (portal->cursorOptions & CURSOR_OPT_NO_SCROLL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("cursor can only scan forward"),
+                 errhint("Declare it with SCROLL option to enable backward scan.")));
+
+    // Rewind the tuple store if materialized results exist
+    if (portal->holdStore) {
+        MemoryContext oldcontext = MemoryContextSwitchTo(portal->holdContext);
+        tuplestore_rescan(portal->holdStore);
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    // Rewind the executor if active query exists
+    QueryDesc *queryDesc = portal->queryDesc;
+    if (queryDesc) {
+        PushActiveSnapshot(queryDesc->snapshot);
+        ExecutorRewind(queryDesc);
+        PopActiveSnapshot();
+    }
+
+    // Reset portal position flags
+    portal->atStart = true;
+    portal->atEnd = false;
+    portal->portalPos = 0;
+}
+```

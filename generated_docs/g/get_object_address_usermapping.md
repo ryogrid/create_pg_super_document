@@ -40,3 +40,60 @@ The function performs a two-stage lookup process: first resolving the username t
 - Returns an ObjectAddress with UserMappingRelationId as the class ID and the user mapping OID as the object ID
 - Error messages provide both username and server name context for better diagnostics
 - Part of PostgreSQL's object address resolution system used for dependency tracking and privilege management
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_usermapping(List *object, bool missing_ok)
+{
+    ObjectAddress address;
+    Oid userid;
+    char *username, *servername;
+    ForeignServer *server;
+    HeapTuple tp;
+
+    ObjectAddressSet(address, UserMappingRelationId, InvalidOid);
+
+    // Extract username and server name from input list
+    username = strVal(linitial(object));
+    servername = strVal(lsecond(object));
+
+    // Handle special "public" user case or look up user ID
+    if (strcmp(username, "public") == 0) {
+        userid = InvalidOid;
+    } else {
+        tp = SearchSysCache1(AUTHNAME, CStringGetDatum(username));
+        if (!HeapTupleIsValid(tp)) {
+            if (!missing_ok)
+                ereport(ERROR, "user mapping does not exist");
+            return address;
+        }
+        userid = ((Form_pg_authid) GETSTRUCT(tp))->oid;
+        ReleaseSysCache(tp);
+    }
+
+    // Look up foreign server by name
+    server = GetForeignServerByName(servername, true);
+    if (!server) {
+        if (!missing_ok)
+            ereport(ERROR, "server does not exist");
+        return address;
+    }
+
+    // Find the user mapping entry
+    tp = SearchSysCache2(USERMAPPINGUSERSERVER,
+                        ObjectIdGetDatum(userid),
+                        ObjectIdGetDatum(server->serverid));
+    if (!HeapTupleIsValid(tp)) {
+        if (!missing_ok)
+            ereport(ERROR, "user mapping does not exist");
+        return address;
+    }
+
+    address.objectId = ((Form_pg_user_mapping) GETSTRUCT(tp))->oid;
+    ReleaseSysCache(tp);
+
+    return address;
+}
+```

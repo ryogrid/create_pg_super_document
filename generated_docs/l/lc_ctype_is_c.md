@@ -37,3 +37,47 @@ This function provides an efficient way to determine if a collation uses C-style
 - ICU provider always returns false as it never uses C-style character classification
 - Essential for performance in functions that perform character classification, case conversion, and pattern matching
 - Enables use of simple ASCII-based algorithms when collation guarantees C/POSIX behavior
+
+## Simplified Source
+
+```c
+bool
+lc_ctype_is_c(Oid collation)
+{
+    // Invalid collation - return false for proper error handling
+    if (!OidIsValid(collation))
+        return false;
+
+    // Handle default collation with caching
+    if (collation == DEFAULT_COLLATION_OID) {
+        static int result = -1;
+        const char *localeptr;
+
+        if (result >= 0) return (bool) result;
+
+        // Check different collation providers
+        if (default_locale.provider == COLLPROVIDER_BUILTIN) {
+            localeptr = default_locale.info.builtin.locale;
+        } else if (default_locale.provider == COLLPROVIDER_ICU) {
+            result = false;  // ICU is never C-equivalent
+            return (bool) result;
+        } else if (default_locale.provider == COLLPROVIDER_LIBC) {
+            localeptr = setlocale(LC_CTYPE, NULL);
+            if (!localeptr) elog(ERROR, "invalid LC_CTYPE setting");
+        } else {
+            elog(ERROR, "unexpected collation provider");
+        }
+
+        // Check if locale is C or POSIX
+        result = (strcmp(localeptr, "C") == 0 || strcmp(localeptr, "POSIX") == 0);
+        return (bool) result;
+    }
+
+    // Built-in C/POSIX collations are always C-equivalent
+    if (collation == C_COLLATION_OID || collation == POSIX_COLLATION_OID)
+        return true;
+
+    // Look up in collation cache for other collations
+    return (lookup_collation_cache(collation, true))->ctype_is_c;
+}
+```

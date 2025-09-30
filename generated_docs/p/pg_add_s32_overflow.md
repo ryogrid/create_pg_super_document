@@ -43,3 +43,28 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
 - Returns implementation-defined result content on overflow (0x5EED) to suppress compiler warnings
 - Widely used throughout PostgreSQL for safe integer arithmetic in array operations, date/time calculations, and string processing
 - More commonly used than the 16-bit version due to 32-bit integers being the standard integer type in many contexts
+
+## Simplified Source
+
+```c
+static inline bool
+pg_add_s32_overflow(int32 a, int32 b, int32 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_add_overflow(a, b, result);
+#else
+    // Manual overflow detection using 64-bit arithmetic
+    int64 res = (int64) a + (int64) b;
+
+    // Check if result exceeds 32-bit range
+    if (res > PG_INT32_MAX || res < PG_INT32_MIN) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;       // Overflow occurred
+    }
+
+    *result = (int32) res;
+    return false;          // No overflow
+#endif
+}
+```

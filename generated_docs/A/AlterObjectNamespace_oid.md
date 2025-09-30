@@ -49,3 +49,49 @@ The function is designed to work with dependent types and objects, allowing the 
 - Uses assertions to verify that ignored object types truly don't have schema-qualified names
 - Designed to handle bulk operations efficiently as part of extension schema changes
 - Uses appropriate locking (AccessExclusiveLock for relations, RowExclusiveLock for catalog access)
+
+## Simplified Source
+
+```c
+Oid AlterObjectNamespace_oid(Oid classId, Oid objid, Oid nspOid, ObjectAddresses *objsMoved) {
+    Oid oldNspOid = InvalidOid;
+
+    switch (classId) {
+        case RelationRelationId:
+            // Handle table/relation namespace change
+            rel = relation_open(objid, AccessExclusiveLock);
+            oldNspOid = RelationGetNamespace(rel);
+            AlterTableNamespaceInternal(rel, oldNspOid, nspOid, objsMoved);
+            relation_close(rel, NoLock);
+            break;
+
+        case TypeRelationId:
+            // Handle type namespace change
+            oldNspOid = AlterTypeNamespace_oid(objid, nspOid, true, objsMoved);
+            break;
+
+        case ProcedureRelationId:
+        case CollationRelationId:
+        case ConversionRelationId:
+        case OperatorRelationId:
+        case OperatorClassRelationId:
+        case OperatorFamilyRelationId:
+        case StatisticExtRelationId:
+        case TSParserRelationId:
+        case TSDictionaryRelationId:
+        case TSTemplateRelationId:
+        case TSConfigRelationId:
+            // Handle generic object namespace change
+            catalog = table_open(classId, RowExclusiveLock);
+            oldNspOid = AlterObjectNamespace_internal(catalog, objid, nspOid);
+            table_close(catalog, RowExclusiveLock);
+            break;
+
+        default:
+            // Ignore objects without schema-qualified names
+            break;
+    }
+
+    return oldNspOid;
+}
+```

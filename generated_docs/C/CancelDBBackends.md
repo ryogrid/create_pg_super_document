@@ -47,3 +47,37 @@ The function can target all databases by passing InvalidOid, or specific databas
 - The recoveryConflictPending flag helps backends understand why they're being terminated
 - Error handling is minimal since the goal is best-effort termination
 - Can be used for emergency database shutdown scenarios
+
+## Simplified Source
+
+```c
+void
+CancelDBBackends(Oid databaseid, ProcSignalReason sigmode, bool conflictPending)
+{
+    ProcArrayStruct *arrayP = procArray;
+
+    // Acquire exclusive lock on process array
+    LWLockAcquire(ProcArrayLock, LW_EXCLUSIVE);
+
+    // Iterate through all processes
+    for (int index = 0; index < arrayP->numProcs; index++)
+    {
+        PGPROC *proc = &allProcs[arrayP->pgprocnos[index]];
+
+        // Check if this process matches the target database
+        if (databaseid == InvalidOid || proc->databaseId == databaseid)
+        {
+            VirtualTransactionId procvxid;
+            GET_VXID_FROM_PGPROC(procvxid, *proc);
+
+            // Set conflict flag and send signal to terminate
+            proc->recoveryConflictPending = conflictPending;
+            pid_t pid = proc->pid;
+            if (pid != 0)
+                (void) SendProcSignal(pid, sigmode, procvxid.procNumber);
+        }
+    }
+
+    LWLockRelease(ProcArrayLock);
+}
+```

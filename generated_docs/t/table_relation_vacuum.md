@@ -40,3 +40,15 @@ Important operational constraints include that a transaction must already be est
 - The actual vacuum behavior depends entirely on the table access method implementation
 - Buffer access strategy helps manage memory usage during large vacuum operations
 - This is an inline wrapper function that delegates to the storage engine-specific implementation
+
+## Simplified Source
+
+```c
+static inline void
+table_relation_vacuum(Relation rel, struct VacuumParams *params,
+                      BufferAccessStrategy bstrategy)
+{
+    // Delegate to table access method's vacuum implementation
+    rel->rd_tableam->relation_vacuum(rel, params, bstrategy);
+}
+```

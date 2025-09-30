@@ -37,3 +37,38 @@ Restriction estimators are used by the query planner to estimate what fraction o
 - Requires EXECUTE permission on the estimator function
 - Return value is the OID of the validated estimator function
 - Estimator functions must return float8 (double precision) values between 0.0 and 1.0 representing selectivity
+
+## Simplified Source
+
+```c
+static Oid
+ValidateRestrictionEstimator(List *restrictionName)
+{
+    Oid typeId[4];
+    Oid restrictionOid;
+    AclResult aclresult;
+
+    // Define expected signature: (internal, oid, internal, int4) -> float8
+    typeId[0] = INTERNALOID;    // PlannerInfo
+    typeId[1] = OIDOID;         // operator OID
+    typeId[2] = INTERNALOID;    // args list
+    typeId[3] = INT4OID;        // varRelid
+
+    // Look up function with exact signature
+    restrictionOid = LookupFuncName(restrictionName, 4, typeId, false);
+
+    // Verify function returns float8
+    if (get_func_rettype(restrictionOid) != FLOAT8OID)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("restriction estimator function %s must return type %s",
+                        NameListToString(restrictionName), "float8")));
+
+    // Check EXECUTE permission
+    aclresult = object_aclcheck(ProcedureRelationId, restrictionOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, NameListToString(restrictionName));
+
+    return restrictionOid;
+}
+```

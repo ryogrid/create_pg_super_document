@@ -30,3 +30,32 @@ DropErrorMsgWrongType is a static helper function that produces informative erro
 
 ## Notes and Other Information
 DropErrorMsgWrongType provides user-friendly guidance when type mismatches occur in DROP operations. The function uses the static dropmsgstringarray to map relation kinds to their corresponding error messages and hints. It handles cases where the wrongkind might not be found in the table by conditionally including the hint. The error uses ERRCODE_WRONG_OBJECT_TYPE to categorize the issue appropriately. This function is essential for making PostgreSQL's error messages more helpful by not just saying "relation not found" but explaining what the relation actually is and how to drop it correctly.
+
+## Simplified Source
+
+```c
+static void
+DropErrorMsgWrongType(const char *relname, char wrongkind, char rightkind)
+{
+    // Find message entry for the expected relation type
+    const struct dropmsgstrings *rentry;
+    for (rentry = dropmsgstringarray; rentry->kind != '\0'; rentry++) {
+        if (rentry->kind == rightkind)
+            break;
+    }
+    Assert(rentry->kind != '\0');
+
+    // Find message entry for the actual relation type
+    const struct dropmsgstrings *wentry;
+    for (wentry = dropmsgstringarray; wentry->kind != '\0'; wentry++) {
+        if (wentry->kind == wrongkind)
+            break;
+    }
+
+    // Report error with appropriate message and hint
+    ereport(ERROR,
+            (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+             errmsg(rentry->nota_msg, relname),
+             (wentry->kind != '\0') ? errhint("%s", _(wentry->drophint_msg)) : 0));
+}
+```

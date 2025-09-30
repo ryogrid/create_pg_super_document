@@ -37,3 +37,25 @@ This function is useful in scenarios where the existence of a table is uncertain
 - Still validates relation type after opening, so will raise an error if the relation is an index or composite type
 - Provides the same table-specific validation as `table_open` but with graceful missing-relation handling
 - Part of the table access method interface for safe table operations
+
+## Simplified Source
+
+```c
+Relation
+try_table_open(Oid relationId, LOCKMODE lockmode)
+{
+    Relation r;
+
+    // Try to open the relation, returns NULL if not found
+    r = try_relation_open(relationId, lockmode);
+
+    // Return NULL if table doesn't exist
+    if (!r)
+        return NULL;
+
+    // Validate it's actually a table (not index/composite type)
+    validate_relation_kind(r);
+
+    return r;
+}
+```

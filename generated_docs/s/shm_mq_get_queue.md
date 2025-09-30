@@ -34,3 +34,14 @@ The function serves as an abstraction layer between the high-level handle interf
 - Part of the handle-based abstraction layer for shared memory message queues
 - Returns raw pointer to shared memory structure - caller must ensure proper usage
 - Essential for code that needs to interact with queue internals beyond the standard API
+
+## Simplified Source
+
+```c
+shm_mq *
+shm_mq_get_queue(shm_mq_handle *mqh)
+{
+    // Simple accessor: return the queue pointer from the handle
+    return mqh->mqh_queue;
+}
+```

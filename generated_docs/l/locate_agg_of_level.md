@@ -39,3 +39,25 @@ The function returns the parse location as an integer offset, or -1 if no matchi
 - Uses the same tree walking pattern as contain_aggs_of_level but with different context and return semantics
 - The function deliberately maintains a separate API from contain_aggs_of_level for clarity
 - Critical for providing meaningful error messages with precise source locations
+
+## Simplified Source
+
+```c
+int locate_agg_of_level(Node *node, int levelsup) {
+    locate_agg_of_level_context context;
+
+    // Initialize context for tree walking
+    context.agg_location = -1;        // Default: no aggregate found
+    context.sublevels_up = levelsup;  // Target query nesting level
+
+    // Walk the expression/query tree to find aggregates at specified level
+    // Returns ignored since we only care about the location stored in context
+    (void) query_or_expression_tree_walker(node,
+                                          locate_agg_of_level_walker,
+                                          (void *) &context,
+                                          0);
+
+    // Return parse location of found aggregate, or -1 if none found
+    return context.agg_location;
+}
+```

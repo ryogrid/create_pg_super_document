@@ -53,3 +53,104 @@ The function performs comprehensive validation of the requested changes, updates
 - **Bidirectional consistency**: When commutator or negator relationships are established, both operators are updated via `OperatorUpd`
 - **Self-reference protection**: Prevents operators from being their own negator
 - **Dependency management**: Automatically updates object dependencies when relationships change
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterOperator(AlterOperatorStmt *stmt)
+{
+    ObjectAddress address;
+    Oid oprId;
+    Relation catalog;
+    HeapTuple tup;
+    Form_pg_operator oprForm;
+    Datum values[Natts_pg_operator];
+    bool nulls[Natts_pg_operator], replaces[Natts_pg_operator];
+
+    Oid restrictionOid = InvalidOid, joinOid = InvalidOid;
+    Oid commutatorOid = InvalidOid, negatorOid = InvalidOid;
+    bool canMerge = false, canHash = false;
+    bool updateRestriction = false, updateJoin = false;
+    bool updateMerges = false, updateHashes = false;
+
+    // Look up the operator
+    oprId = LookupOperWithArgs(stmt->opername, false);
+    catalog = table_open(OperatorRelationId, RowExclusiveLock);
+    tup = SearchSysCacheCopy1(OPEROID, ObjectIdGetDatum(oprId));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for operator %u", oprId);
+    oprForm = (Form_pg_operator) GETSTRUCT(tup);
+
+    // Process option changes
+    foreach(pl, stmt->options) {
+        DefElem *defel = (DefElem *) lfirst(pl);
+
+        if (strcmp(defel->defname, "restrict") == 0) {
+            restrictionName = defel->arg ? defGetQualifiedName(defel) : NIL;
+            updateRestriction = true;
+        } else if (strcmp(defel->defname, "join") == 0) {
+            joinName = defel->arg ? defGetQualifiedName(defel) : NIL;
+            updateJoin = true;
+        } else if (strcmp(defel->defname, "commutator") == 0) {
+            commutatorName = defGetQualifiedName(defel);
+        } else if (strcmp(defel->defname, "negator") == 0) {
+            negatorName = defGetQualifiedName(defel);
+        } else if (strcmp(defel->defname, "merges") == 0) {
+            canMerge = defGetBoolean(defel);
+            updateMerges = true;
+        } else if (strcmp(defel->defname, "hashes") == 0) {
+            canHash = defGetBoolean(defel);
+            updateHashes = true;
+        }
+    }
+
+    // Check permissions (must be owner)
+    if (!object_ownercheck(OperatorRelationId, oprId, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_OPERATOR, NameStr(oprForm->oprname));
+
+    // Validate function references
+    if (restrictionName)
+        restrictionOid = ValidateRestrictionEstimator(restrictionName);
+    if (joinName)
+        joinOid = ValidateJoinEstimator(joinName);
+    if (commutatorName)
+        commutatorOid = ValidateOperatorReference(commutatorName, oprForm->oprright, oprForm->oprleft);
+    if (negatorName) {
+        negatorOid = ValidateOperatorReference(negatorName, oprForm->oprleft, oprForm->oprright);
+        if (negatorOid == oprForm->oid)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("operator cannot be its own negator")));
+    }
+
+    // Prevent changing attributes that might invalidate plans
+    if (OidIsValid(commutatorOid) && OidIsValid(oprForm->oprcom) &&
+        commutatorOid != oprForm->oprcom)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                       errmsg("operator attribute \"commutator\" cannot be changed if already set")));
+
+    // Build updated tuple
+    memset(values, 0, sizeof(values));
+    memset(replaces, false, sizeof(replaces));
+    memset(nulls, false, sizeof(nulls));
+
+    if (updateRestriction) {
+        replaces[Anum_pg_operator_oprrest - 1] = true;
+        values[Anum_pg_operator_oprrest - 1] = ObjectIdGetDatum(restrictionOid);
+    }
+    // Similar updates for other modified attributes...
+
+    tup = heap_modify_tuple(tup, RelationGetDescr(catalog), values, nulls, replaces);
+    CatalogTupleUpdate(catalog, &tup->t_self, tup);
+
+    address = makeOperatorDependencies(tup, false, true);
+
+    if (OidIsValid(commutatorOid) || OidIsValid(negatorOid))
+        OperatorUpd(oprId, commutatorOid, negatorOid, false);
+
+    InvokeObjectPostAlterHook(OperatorRelationId, oprId, 0);
+    table_close(catalog, NoLock);
+
+    return address;
+}
+```

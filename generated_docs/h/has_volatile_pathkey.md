@@ -33,3 +33,20 @@ This check is important for query optimization decisions, particularly when dete
 - This function is used as a safety check before applying certain query optimizations
 - Volatile functions can include system functions like random(), clock_timestamp(), txid_current(), etc.
 - The presence of volatile functions typically prevents certain query rewrite optimizations
+
+## Simplified Source
+
+```c
+static bool has_volatile_pathkey(List *keys)
+{
+    // Check each PathKey for volatile EquivalenceClass
+    foreach(lc, keys) {
+        PathKey *pathkey = lfirst_node(PathKey, lc);
+
+        if (pathkey->pk_eclass->ec_has_volatile)
+            return true;
+    }
+
+    return false;
+}
+```

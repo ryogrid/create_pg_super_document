@@ -53,3 +53,77 @@ A key rule enforced is that outer joins (LEFT, RIGHT, FULL) disallow any upper l
 - Recursive traversal handles arbitrarily complex jointree structures
 - Part of PostgreSQL's subquery pullup safety infrastructure
 - Located in src/backend/optimizer/prep/prepjointree.c:2191-2265
+
+## Simplified Source
+
+```c
+// Simplified version of jointree_contains_lateral_outer_refs
+static bool
+jointree_contains_lateral_outer_refs(PlannerInfo *root, Node *jtnode,
+                                    bool restricted, Relids safe_upper_varnos)
+{
+    if (jtnode == NULL)
+        return false;
+
+    // Simple table references have no lateral refs
+    if (IsA(jtnode, RangeTblRef))
+        return false;
+
+    // Handle FROM expressions
+    if (IsA(jtnode, FromExpr))
+    {
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *l;
+
+        // Check child joins first
+        foreach(l, f->fromlist)
+        {
+            if (jointree_contains_lateral_outer_refs(root, lfirst(l),
+                                                   restricted, safe_upper_varnos))
+                return true;
+        }
+
+        // Check top-level quals for restricted lateral references
+        if (restricted &&
+            !bms_is_subset(pull_varnos_of_level(root, f->quals, 1),
+                          safe_upper_varnos))
+            return true;
+
+        return false;
+    }
+
+    // Handle JOIN expressions
+    if (IsA(jtnode, JoinExpr))
+    {
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        // Outer joins disallow any upper lateral references
+        if (j->jointype != JOIN_INNER)
+        {
+            restricted = true;
+            safe_upper_varnos = NULL;
+        }
+
+        // Check both left and right children
+        if (jointree_contains_lateral_outer_refs(root, j->larg,
+                                               restricted, safe_upper_varnos))
+            return true;
+
+        if (jointree_contains_lateral_outer_refs(root, j->rarg,
+                                               restricted, safe_upper_varnos))
+            return true;
+
+        // Check JOIN quals for restricted lateral references
+        if (restricted &&
+            !bms_is_subset(pull_varnos_of_level(root, j->quals, 1),
+                          safe_upper_varnos))
+            return true;
+
+        return false;
+    }
+
+    // Unknown node type
+    elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+    return false;
+}
+```

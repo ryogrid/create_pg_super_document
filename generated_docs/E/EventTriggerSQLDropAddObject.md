@@ -53,3 +53,105 @@ The function supports reentrancy, allowing event trigger functions to drop objec
 - Temporary objects are marked with "pg_temp" schema name and istemp=true
 - Located in src/backend/commands/event_trigger.c:1278-1396
 - Essential for the event trigger infrastructure that supports DDL auditing and replication systems
+
+## Simplified Source
+
+```c
+void EventTriggerSQLDropAddObject(const ObjectAddress *object, bool original, bool normal)
+{
+    SQLDropObject *obj;
+    MemoryContext oldcxt;
+
+    // Only process if event triggers are active
+    if (!currentEventTriggerState)
+        return;
+
+    Assert(EventTriggerSupportsObject(object));
+
+    // Skip temp schemas not owned by current session
+    if (object->classId == NamespaceRelationId &&
+        (isAnyTempNamespace(object->objectId) && !isTempNamespace(object->objectId)))
+        return;
+
+    // Switch to event trigger memory context
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create drop object record
+    obj = palloc0(sizeof(SQLDropObject));
+    obj->address = *object;
+    obj->original = original;
+    obj->normal = normal;
+
+    // Get schema and object names from catalog if supported
+    if (is_objectclass_supported(object->classId))
+    {
+        Relation catalog = table_open(obj->address.classId, AccessShareLock);
+        HeapTuple tuple = get_catalog_object_by_oid(catalog,
+                                                  get_object_attnum_oid(object->classId),
+                                                  obj->address.objectId);
+        if (tuple)
+        {
+            // Extract namespace information
+            AttrNumber attnum = get_object_attnum_namespace(obj->address.classId);
+            if (attnum != InvalidAttrNumber)
+            {
+                Datum datum;
+                bool isnull;
+
+                datum = heap_getattr(tuple, attnum, RelationGetDescr(catalog), &isnull);
+                if (!isnull)
+                {
+                    Oid namespaceId = DatumGetObjectId(datum);
+                    if (isTempNamespace(namespaceId))
+                    {
+                        obj->schemaname = "pg_temp";
+                        obj->istemp = true;
+                    }
+                    else if (isAnyTempNamespace(namespaceId))
+                    {
+                        // Skip other session's temp objects
+                        pfree(obj);
+                        table_close(catalog, AccessShareLock);
+                        MemoryContextSwitchTo(oldcxt);
+                        return;
+                    }
+                    else
+                    {
+                        obj->schemaname = get_namespace_name(namespaceId);
+                        obj->istemp = false;
+                    }
+                }
+            }
+
+            // Extract object name if unique within namespace
+            if (get_object_namensp_unique(obj->address.classId) &&
+                obj->address.objectSubId == 0)
+            {
+                attnum = get_object_attnum_name(obj->address.classId);
+                if (attnum != InvalidAttrNumber)
+                {
+                    datum = heap_getattr(tuple, attnum, RelationGetDescr(catalog), &isnull);
+                    if (!isnull)
+                        obj->objname = pstrdup(NameStr(*DatumGetName(datum)));
+                }
+            }
+        }
+        table_close(catalog, AccessShareLock);
+    }
+    else
+    {
+        // Handle temp namespace case for unsupported classes
+        if (object->classId == NamespaceRelationId && isTempNamespace(object->objectId))
+            obj->istemp = true;
+    }
+
+    // Get object identity and type information
+    obj->objidentity = getObjectIdentityParts(&obj->address, &obj->addrnames, &obj->addrargs, false);
+    obj->objecttype = getObjectTypeDescription(&obj->address, false);
+
+    // Add to drop list
+    slist_push_head(&(currentEventTriggerState->SQLDropList), &obj->next);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

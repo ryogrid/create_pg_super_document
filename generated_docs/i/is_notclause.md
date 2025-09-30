@@ -35,3 +35,16 @@ This function is a type-checking utility that determines whether a given clause 
 - The function safely handles NULL input by checking for it explicitly
 - Used in query optimization for recognizing negation patterns and applying appropriate transformations
 - Important for boolean index matching and partition pruning logic
+
+## Simplified Source
+
+```c
+static inline bool
+is_notclause(const void *clause)
+{
+    // Check if clause is a BoolExpr with NOT_EXPR operator
+    return (clause != NULL &&
+            IsA(clause, BoolExpr) &&
+            ((const BoolExpr *) clause)->boolop == NOT_EXPR);
+}
+```

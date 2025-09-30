@@ -57,3 +57,80 @@ This function parses individual function attribute definition elements and categ
 - All other attributes are checked for duplicates and raise errors if specified more than once
 - Error messages include precise location information for better user experience
 - The function uses a goto label 'procedure_error' for consistent error handling of invalid procedure attributes
+
+## Simplified Source
+
+```c
+static bool
+compute_common_attribute(ParseState *pstate, bool is_procedure, DefElem *defel,
+                         DefElem **volatility_item, DefElem **strict_item,
+                         DefElem **security_item, DefElem **leakproof_item,
+                         List **set_items, DefElem **cost_item,
+                         DefElem **rows_item, DefElem **support_item,
+                         DefElem **parallel_item)
+{
+    // Check each supported attribute type
+    if (strcmp(defel->defname, "volatility") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*volatility_item) errorConflictingDefElem(defel, pstate);
+        *volatility_item = defel;
+    }
+    else if (strcmp(defel->defname, "strict") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*strict_item) errorConflictingDefElem(defel, pstate);
+        *strict_item = defel;
+    }
+    else if (strcmp(defel->defname, "security") == 0)
+    {
+        if (*security_item) errorConflictingDefElem(defel, pstate);
+        *security_item = defel;
+    }
+    else if (strcmp(defel->defname, "leakproof") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*leakproof_item) errorConflictingDefElem(defel, pstate);
+        *leakproof_item = defel;
+    }
+    else if (strcmp(defel->defname, "set") == 0)
+    {
+        *set_items = lappend(*set_items, defel->arg);  // Allow multiple SET items
+    }
+    else if (strcmp(defel->defname, "cost") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*cost_item) errorConflictingDefElem(defel, pstate);
+        *cost_item = defel;
+    }
+    else if (strcmp(defel->defname, "rows") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*rows_item) errorConflictingDefElem(defel, pstate);
+        *rows_item = defel;
+    }
+    else if (strcmp(defel->defname, "support") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*support_item) errorConflictingDefElem(defel, pstate);
+        *support_item = defel;
+    }
+    else if (strcmp(defel->defname, "parallel") == 0)
+    {
+        if (is_procedure) goto procedure_error;
+        if (*parallel_item) errorConflictingDefElem(defel, pstate);
+        *parallel_item = defel;
+    }
+    else
+        return false;  // Attribute not recognized
+
+    return true;  // Attribute was recognized and processed
+
+procedure_error:
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+             errmsg("invalid attribute in procedure definition"),
+             parser_errposition(pstate, defel->location)));
+    return false;
+}
+```

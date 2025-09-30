@@ -32,3 +32,25 @@ The function is specifically designed to work with PostgreSQL's enum type system
 - The function follows the standard qsort comparison function contract
 - Used specifically in the context of adding new enum labels to maintain proper ordering
 - The comparison is based on the enumsortorder field, which is a float4 value that determines the logical ordering of enum values
+
+## Simplified Source
+
+```c
+static int
+sort_order_cmp(const void *p1, const void *p2)
+{
+    // qsort comparison function for enum tuples by sort order
+    HeapTuple v1 = *((const HeapTuple *) p1);
+    HeapTuple v2 = *((const HeapTuple *) p2);
+    Form_pg_enum en1 = (Form_pg_enum) GETSTRUCT(v1);
+    Form_pg_enum en2 = (Form_pg_enum) GETSTRUCT(v2);
+
+    // Compare enumsortorder fields - standard three-way comparison
+    if (en1->enumsortorder < en2->enumsortorder)
+        return -1;
+    else if (en1->enumsortorder > en2->enumsortorder)
+        return 1;
+    else
+        return 0;
+}
+```

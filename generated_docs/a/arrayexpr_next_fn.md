@@ -38,3 +38,25 @@ The function modifies the second argument of the stored OpExpr to point to the c
 - Returns the modified OpExpr wrapped as a Node for predicate testing
 - Works in conjunction with arrayexpr_startup_fn and arrayexpr_cleanup_fn
 - Location: src/backend/optimizer/util/predtest.c:1069-1080
+
+## Simplified Source
+
+```c
+static Node *
+arrayexpr_next_fn(PredIterInfo info)
+{
+    ArrayExprIterState *state = (ArrayExprIterState *) info->state;
+
+    // Check if iteration is complete
+    if (state->next == NULL)
+        return NULL;
+
+    // Update second argument to current array element
+    lsecond(state->opexpr.args) = lfirst(state->next);
+
+    // Advance to next element
+    state->next = lnext(info->state_list, state->next);
+
+    return (Node *) &(state->opexpr);
+}
+```

@@ -43,3 +43,47 @@ The function stops building pathkeys when it encounters a partition key that can
 - [Boolean](../B/Boolean.md) partition keys receive special treatment and may be skipped if they represent constant conditions
 - Part of PostgreSQL's partition-wise join and append optimization system
 - The returned pathkeys can be used to determine if an ordered append operation is beneficial
+
+## Simplified Source
+
+```c
+List *build_partition_pathkeys(PlannerInfo *root, RelOptInfo *partrel,
+                              ScanDirection scandir, bool *partialkeys) {
+    List *retval = NIL;
+    PartitionScheme partscheme = partrel->part_scheme;
+    int i;
+
+    // Iterate through each partition key column
+    for (i = 0; i < partscheme->partnatts; i++) {
+        PathKey *cpathkey;
+        Expr *keyCol = (Expr *) linitial(partrel->partexprs[i]);
+
+        // Try to create canonical pathkey for this partition column
+        cpathkey = make_pathkey_from_sortinfo(root,
+                                            keyCol,
+                                            partscheme->partopfamily[i],
+                                            partscheme->partopcintype[i],
+                                            partscheme->partcollation[i],
+                                            ScanDirectionIsBackward(scandir),  // reverse
+                                            ScanDirectionIsBackward(scandir),  // nulls_first
+                                            0,
+                                            partrel->relids,
+                                            false);
+
+        if (cpathkey) {
+            // Add pathkey if it's not redundant
+            if (!pathkey_is_redundant(cpathkey, retval))
+                retval = lappend(retval, cpathkey);
+        } else {
+            // Stop if key isn't useful, unless it's a boolean constant
+            if (!partkey_is_bool_constant_for_query(partrel, i)) {
+                *partialkeys = true;
+                return retval;
+            }
+        }
+    }
+
+    *partialkeys = false;
+    return retval;
+}
+```

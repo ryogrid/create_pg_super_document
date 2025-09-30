@@ -60,3 +60,107 @@ The function maintains performance optimizations while ensuring type safety and 
 - Critical for implementing PostgreSQL's whole-row variable semantics in SQL queries
 - The function must handle TOAST values correctly by flattening them in the composite datum
 - Column name resolution for RECORD types attempts to use aliases from range table entries when available
+
+## Simplified Source
+
+```c
+void ExecEvalWholeRowVar(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    Var *variable = op->d.wholerow.var;
+    TupleTableSlot *slot;
+
+    // Get appropriate tuple slot based on variable type
+    switch (variable->varno) {
+        case INNER_VAR:
+            slot = econtext->ecxt_innertuple;
+            break;
+        case OUTER_VAR:
+            slot = econtext->ecxt_outertuple;
+            break;
+        default:
+            slot = econtext->ecxt_scantuple;
+            break;
+    }
+
+    // Apply junk filter if needed
+    if (op->d.wholerow.junkFilter != NULL)
+        slot = ExecFilterJunk(op->d.wholerow.junkFilter, slot);
+
+    // First-time setup: validate type compatibility and create tuple descriptor
+    if (op->d.wholerow.first) {
+        TupleDesc output_tupdesc;
+
+        if (variable->vartype != RECORDOID) {
+            // Named composite type: validate compatibility
+            TupleDesc var_tupdesc = lookup_rowtype_tupdesc_domain(variable->vartype, -1, false);
+            TupleDesc slot_tupdesc = slot->tts_tupleDescriptor;
+
+            // Check attribute count and types match
+            if (var_tupdesc->natts != slot_tupdesc->natts)
+                ereport(ERROR, "table row type and query-specified row type do not match");
+
+            // Validate each attribute type
+            for (int i = 0; i < var_tupdesc->natts; i++) {
+                Form_pg_attribute vattr = TupleDescAttr(var_tupdesc, i);
+                Form_pg_attribute sattr = TupleDescAttr(slot_tupdesc, i);
+
+                if (vattr->atttypid != sattr->atttypid && !vattr->attisdropped)
+                    ereport(ERROR, "table row type and query-specified row type do not match");
+
+                // Mark as slow if dropped columns have storage mismatches
+                if (vattr->attisdropped &&
+                    (vattr->attlen != sattr->attlen || vattr->attalign != sattr->attalign))
+                    op->d.wholerow.slow = true;
+            }
+
+            output_tupdesc = CreateTupleDescCopy(var_tupdesc);
+            ReleaseTupleDesc(var_tupdesc);
+        } else {
+            // RECORD type: use slot's descriptor and resolve column names
+            output_tupdesc = CreateTupleDescCopy(slot->tts_tupleDescriptor);
+            output_tupdesc->tdtypeid = RECORDOID;
+            output_tupdesc->tdtypmod = -1;
+
+            // Try to get column names from range table entry
+            if (econtext->ecxt_estate && variable->varno <= econtext->ecxt_estate->es_range_table_size) {
+                RangeTblEntry *rte = exec_rt_fetch(variable->varno, econtext->ecxt_estate);
+                if (rte->eref)
+                    ExecTypeSetColNames(output_tupdesc, rte->eref->colnames);
+            }
+        }
+
+        op->d.wholerow.tupdesc = BlessTupleDesc(output_tupdesc);
+        op->d.wholerow.first = false;
+    }
+
+    // Ensure all slot attributes are accessible
+    slot_getallattrs(slot);
+
+    // Slow path: validate dropped columns if needed
+    if (op->d.wholerow.slow) {
+        TupleDesc var_tupdesc = op->d.wholerow.tupdesc;
+        for (int i = 0; i < var_tupdesc->natts; i++) {
+            Form_pg_attribute vattr = TupleDescAttr(var_tupdesc, i);
+            if (vattr->attisdropped && !slot->tts_isnull[i]) {
+                // Validate storage compatibility for non-null dropped columns
+                Form_pg_attribute sattr = TupleDescAttr(slot->tts_tupleDescriptor, i);
+                if (vattr->attlen != sattr->attlen || vattr->attalign != sattr->attalign)
+                    ereport(ERROR, "Physical storage mismatch on dropped attribute");
+            }
+        }
+    }
+
+    // Build composite datum with flattened TOAST values
+    HeapTuple tuple = toast_build_flattened_tuple(slot->tts_tupleDescriptor,
+                                                  slot->tts_values,
+                                                  slot->tts_isnull);
+
+    // Set type information and return result
+    HeapTupleHeader dtuple = tuple->t_data;
+    HeapTupleHeaderSetTypeId(dtuple, op->d.wholerow.tupdesc->tdtypeid);
+    HeapTupleHeaderSetTypMod(dtuple, op->d.wholerow.tupdesc->tdtypmod);
+
+    *op->resvalue = PointerGetDatum(dtuple);
+    *op->resnull = false;
+}
+```

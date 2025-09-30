@@ -37,3 +37,30 @@ This function locates and validates a type send function during type definition 
 - A warning is issued (not an error) if the function is marked as volatile, as send functions should typically be stable or immutable
 - This complements the type's receive function to provide complete binary I/O capabilities
 - The binary format produced by send functions must be compatible with the corresponding receive function
+
+## Simplified Source
+
+```c
+static Oid findTypeSendFunction(List *procname, Oid typeOid) {
+    Oid argList[1] = { typeOid };
+
+    // Look up function with signature: (type) -> bytea
+    Oid procOid = LookupFuncName(procname, 1, argList, true);
+
+    if (!OidIsValid(procOid))
+        ereport(ERROR, "function %s does not exist",
+                func_signature_string(procname, 1, NIL, argList));
+
+    // Verify function returns bytea
+    if (get_func_rettype(procOid) != BYTEAOID)
+        ereport(ERROR, "type send function %s must return type bytea",
+                NameListToString(procname));
+
+    // Warn if volatile (should be stable/immutable)
+    if (func_volatile(procOid) == PROVOLATILE_VOLATILE)
+        ereport(WARNING, "type send function %s should not be volatile",
+                NameListToString(procname));
+
+    return procOid;
+}
+```

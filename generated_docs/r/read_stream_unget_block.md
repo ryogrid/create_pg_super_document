@@ -32,3 +32,18 @@ This function implements a simple "unget" mechanism that allows a block number t
 - This is a static inline function for performance as it's a simple state update
 - The unget mechanism is limited to a single block to keep the implementation simple
 - Used primarily in error handling and short read scenarios in the I/O subsystem
+
+## Simplified Source
+
+```c
+static inline void
+read_stream_unget_block(ReadStream *stream, BlockNumber blocknum)
+{
+    // Ensure we don't already have a buffered block
+    Assert(stream->buffered_blocknum == InvalidBlockNumber);
+    Assert(blocknum != InvalidBlockNumber);
+
+    // Store the block for later retrieval
+    stream->buffered_blocknum = blocknum;
+}
+```

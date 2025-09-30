@@ -58,3 +58,42 @@ The function also performs necessary opcode lookup operations and updates the gl
 - The function specifically notes that PlaceHolderVars cannot refer to result relations due to outer join semantics
 - Static scope indicates this function is internal to the setrefs.c module
 - The design accounts for trigger execution timing, ensuring result-table variables are evaluated correctly
+
+## Simplified Source
+
+```c
+static List *
+set_returning_clause_references(PlannerInfo *root,
+                                List *rlist,
+                                Plan *topplan,
+                                Index resultRelation,
+                                int rtoffset)
+{
+    indexed_tlist *itlist;
+
+    /*
+     * Fix RETURNING clause variable references by reusing join expression
+     * machinery. Search top plan's targetlist for non-result relation vars
+     * and convert RETURNING vars to reference those entries, while leaving
+     * result-rel vars unchanged for executor evaluation.
+     */
+
+    // Build index of targetlist entries for non-result relations
+    itlist = build_tlist_index_other_vars(topplan->targetlist, resultRelation);
+
+    // Fix variable references in RETURNING list
+    rlist = fix_join_expr(root,
+                         rlist,
+                         itlist,
+                         NULL,
+                         resultRelation,
+                         rtoffset,
+                         NRM_EQUAL,
+                         NUM_EXEC_TLIST(topplan));
+
+    // Clean up indexed targetlist
+    pfree(itlist);
+
+    return rlist;
+}
+```

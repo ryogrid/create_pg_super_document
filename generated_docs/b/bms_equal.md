@@ -52,3 +52,42 @@ The function efficiently determines equality by first checking metadata (word co
 - Widely used throughout PostgreSQL for comparing sets of relation IDs, attribute numbers, and other bitmap-represented collections
 - Essential for optimization decisions in query planning and execution
 - Part of the core equality checking infrastructure used by the node equality system
+
+## Simplified Source
+
+```c
+bool bms_equal(const Bitmapset *a, const Bitmapset *b)
+{
+    int i;
+
+    // Validate both inputs in debug builds
+    Assert(bms_is_valid_set(a));
+    Assert(bms_is_valid_set(b));
+
+    // Handle NULL cases - both NULL means equal (empty sets)
+    if (a == NULL)
+    {
+        if (b == NULL)
+            return true;    // Both NULL (empty)
+        return false;       // Only a is NULL
+    }
+    else if (b == NULL)
+        return false;       // Only b is NULL
+
+    // Quick check: different word counts means not equal
+    if (a->nwords != b->nwords)
+        return false;
+
+    // Compare each word in the bitmap
+    i = 0;
+    do
+    {
+        if (a->words[i] != b->words[i])
+            return false;   // Found different word
+    } while (++i < a->nwords);
+
+    return true;    // All words match
+}
+```
+
+This function performs a comprehensive equality check between two Bitmapsets. It efficiently handles NULL cases, compares metadata (word counts), and then performs bitwise comparison of all words in the bitmap.

@@ -49,3 +49,47 @@ This function creates a RecursiveUnionPath node that represents the execution of
 - The wtParam represents the work table parameter that enables the recursive execution mechanism
 - Cost calculation is delegated to the cost_recursive_union function which handles the complexity of iterative execution
 - Essential for implementing SQL standard recursive Common Table Expressions (WITH RECURSIVE)
+
+## Simplified Source
+
+```c
+RecursiveUnionPath *
+create_recursiveunion_path(PlannerInfo *root,
+                          RelOptInfo *rel,
+                          Path *leftpath,
+                          Path *rightpath,
+                          PathTarget *target,
+                          List *distinctList,
+                          int wtParam,
+                          double numGroups)
+{
+    RecursiveUnionPath *pathnode = makeNode(RecursiveUnionPath);
+
+    // Set basic path properties
+    pathnode->path.pathtype = T_RecursiveUnion;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;  // No parameterization
+
+    // Set parallel execution properties
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel &&
+                                  leftpath->parallel_safe && rightpath->parallel_safe;
+    pathnode->path.parallel_workers = leftpath->parallel_workers;
+
+    // RecursiveUnion output is always unsorted
+    pathnode->path.pathkeys = NIL;
+
+    // Set recursive union specific properties
+    pathnode->leftpath = leftpath;      // Non-recursive term (base case)
+    pathnode->rightpath = rightpath;    // Recursive term (iterative case)
+    pathnode->distinctList = distinctList;  // Empty for UNION ALL
+    pathnode->wtParam = wtParam;        // Work table parameter
+    pathnode->numGroups = numGroups;    // Zero for UNION ALL
+
+    // Calculate execution cost
+    cost_recursive_union(&pathnode->path, leftpath, rightpath);
+
+    return pathnode;
+}
+```

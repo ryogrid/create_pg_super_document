@@ -68,3 +68,53 @@ The function handles optional EquivalenceClass creation based on the create_it p
 - Critical for translating ORDER BY clauses and index ordering into PathKey representation
 - Performs extensive error checking for missing operators and operator families
 - Located in src/backend/optimizer/path/pathkeys.c:197-254
+
+## Simplified Source
+
+```c
+static PathKey *
+make_pathkey_from_sortinfo(PlannerInfo *root,
+                           Expr *expr,
+                           Oid opfamily,
+                           Oid opcintype,
+                           Oid collation,
+                           bool reverse_sort,
+                           bool nulls_first,
+                           Index sortref,
+                           Relids rel,
+                           bool create_it)
+{
+    int16 strategy;
+    Oid equality_op;
+    List *opfamilies;
+    EquivalenceClass *eclass;
+
+    // Determine sort strategy direction
+    strategy = reverse_sort ? BTGreaterStrategyNumber : BTLessStrategyNumber;
+
+    // Look up equality operator for the opfamily
+    equality_op = get_opfamily_member(opfamily, opcintype, opcintype,
+                                      BTEqualStrategyNumber);
+    if (!OidIsValid(equality_op))
+        elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+             BTEqualStrategyNumber, opcintype, opcintype, opfamily);
+
+    // Get all mergejoinable operator families
+    opfamilies = get_mergejoin_opfamilies(equality_op);
+    if (!opfamilies)
+        elog(ERROR, "could not find opfamilies for equality operator %u",
+             equality_op);
+
+    // Find or create EquivalenceClass
+    eclass = get_eclass_for_sort_expr(root, expr, opfamilies, opcintype,
+                                      collation, sortref, rel, create_it);
+
+    // Return NULL if no EC found and not creating
+    if (!eclass)
+        return NULL;
+
+    // Create canonical PathKey
+    return make_canonical_pathkey(root, eclass, opfamily,
+                                  strategy, nulls_first);
+}
+```

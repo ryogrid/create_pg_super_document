@@ -51,3 +51,41 @@ The function uses COERCION_ASSIGNMENT context, providing appropriate flexibility
 - Commonly used in contexts where exact type specifications are required
 - Provides clear error messages indicating both the construct name and expected vs. actual types
 - Set-returning functions are prohibited, maintaining scalar value requirements
+
+## Simplified Source
+
+```c
+Node *
+coerce_to_specific_type_typmod(ParseState *pstate, Node *node,
+                               Oid targetTypeId, int32 targetTypmod,
+                               const char *constructName)
+{
+    Oid inputTypeId = exprType(node);
+
+    // Coerce type if needed
+    if (inputTypeId != targetTypeId) {
+        Node *newnode = coerce_to_target_type(pstate, node, inputTypeId,
+                                              targetTypeId, targetTypmod,
+                                              COERCION_ASSIGNMENT,
+                                              COERCE_IMPLICIT_CAST, -1);
+        if (newnode == NULL)
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATATYPE_MISMATCH),
+                     errmsg("argument of %s must be type %s, not type %s",
+                            constructName,
+                            format_type_be(targetTypeId),
+                            format_type_be(inputTypeId)),
+                     parser_errposition(pstate, exprLocation(node))));
+        node = newnode;
+    }
+
+    // Ensure expression doesn't return a set
+    if (expression_returns_set(node))
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("argument of %s must not return a set", constructName),
+                 parser_errposition(pstate, exprLocation(node))));
+
+    return node;
+}
+```

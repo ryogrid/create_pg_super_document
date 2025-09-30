@@ -32,3 +32,21 @@ The function uses a clever bit manipulation technique to detect when a node is a
 - The wrapping behavior ensures that navigation stays within the same logical level of the tree
 - The bit manipulation trick  is a well-known method to check if a number is a power of two
 - Part of PostgreSQL's Free Space Map implementation for efficient space management in heap files
+
+## Simplified Source
+
+```c
+static int
+rightneighbor(int x)
+{
+    // Move to next position
+    x++;
+
+    // Check if we wrapped to next level's leftmost node
+    // If (x+1) is power of 2, we're at leftmost of next level
+    if (((x + 1) & x) == 0)
+        x = parentof(x);  // Wrap around to parent level
+
+    return x;
+}
+```

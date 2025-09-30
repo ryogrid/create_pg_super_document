@@ -40,3 +40,30 @@ This function is fundamental to the GEQO system as it sets up the data structure
 - The allocated pool must be properly freed using free_pool() to avoid memory leaks
 - Each chromosome's gene string is allocated with (string_length + 1) to accommodate string termination
 - This function is part of PostgreSQL's genetic query optimizer which is used for complex join ordering problems involving many tables
+
+## Simplified Source
+
+```c
+Pool *
+alloc_pool(PlannerInfo *root, int pool_size, int string_length)
+{
+    Pool *new_pool;
+    Chromosome *chromo;
+    int i;
+
+    // Allocate main pool structure
+    new_pool = (Pool *) palloc(sizeof(Pool));
+    new_pool->size = pool_size;
+    new_pool->string_length = string_length;
+
+    // Allocate array of chromosomes
+    new_pool->data = (Chromosome *) palloc(pool_size * sizeof(Chromosome));
+
+    // Allocate gene string for each chromosome
+    chromo = (Chromosome *) new_pool->data;
+    for (i = 0; i < pool_size; i++)
+        chromo[i].string = palloc((string_length + 1) * sizeof(Gene));
+
+    return new_pool;
+}
+```

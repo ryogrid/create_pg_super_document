@@ -46,3 +46,36 @@ Each validation failure triggers an ERROR with ERRCODE_INVALID_PARAMETER_VALUE, 
 - Validation rules are designed to ensure extension names can be safely used as part of filenames in the file system
 - All error messages include both the invalid name and a specific explanation of what rule was violated
 - Essential for preventing security issues in extension loading and script file resolution
+
+## Simplified Source
+```c
+static void
+check_valid_extension_name(const char *extensionname)
+{
+    int namelen = strlen(extensionname);
+
+    // Check for empty name
+    if (namelen == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension name: \"%s\"", extensionname),
+                       errdetail("Extension names must not be empty.")));
+
+    // Check for double dashes (conflicts with script filename format)
+    if (strstr(extensionname, "--"))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension name: \"%s\"", extensionname),
+                       errdetail("Extension names must not contain \"--\".")));
+
+    // Check for leading or trailing dashes
+    if (extensionname[0] == '-' || extensionname[namelen - 1] == '-')
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension name: \"%s\"", extensionname),
+                       errdetail("Extension names must not begin or end with \"-\".")));
+
+    // Check for directory separators (prevent path traversal)
+    if (first_dir_separator(extensionname) != NULL)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension name: \"%s\"", extensionname),
+                       errdetail("Extension names must not contain directory separator characters.")));
+}
+```

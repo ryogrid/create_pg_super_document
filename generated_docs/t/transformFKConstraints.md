@@ -45,3 +45,41 @@ The deferred execution ensures that foreign key constraints are added after all 
 - The skipValidation optimization applies to scenarios where no existing data needs validation
 - Generated ALTER TABLE commands are added to cxt->alist for later execution
 - Ensures foreign key constraints are processed consistently across CREATE TABLE and ALTER TABLE operations
+
+## Simplified Source
+
+```c
+static void transformFKConstraints(CreateStmtContext *cxt,
+                                 bool skipValidation, bool isAddConstraint) {
+    if (cxt->fkconstraints == NIL)
+        return;
+
+    // Skip validation for new tables/columns with NULL defaults
+    if (skipValidation) {
+        foreach(fkclist, cxt->fkconstraints) {
+            Constraint *constraint = (Constraint *) lfirst(fkclist);
+            constraint->skip_validation = true;
+            constraint->initially_valid = true;
+        }
+    }
+
+    // Generate ALTER TABLE ADD CONSTRAINT commands for deferred execution
+    if (!isAddConstraint) {
+        AlterTableStmt *alterstmt = makeNode(AlterTableStmt);
+        alterstmt->relation = cxt->relation;
+        alterstmt->cmds = NIL;
+        alterstmt->objtype = OBJECT_TABLE;
+
+        foreach(fkclist, cxt->fkconstraints) {
+            Constraint *constraint = (Constraint *) lfirst(fkclist);
+            AlterTableCmd *altercmd = makeNode(AlterTableCmd);
+
+            altercmd->subtype = AT_AddConstraint;
+            altercmd->def = (Node *) constraint;
+            alterstmt->cmds = lappend(alterstmt->cmds, altercmd);
+        }
+
+        cxt->alist = lappend(cxt->alist, alterstmt);
+    }
+}
+```

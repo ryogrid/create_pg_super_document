@@ -48,3 +48,75 @@ The function first attempts to look up the specified return type. If found but i
 - Type modifiers are not allowed for shell types
 - The function issues NOTICE messages when creating shell types to inform users
 - Access control checks ensure the user has USAGE permission on the return type
+
+## Simplified Source
+```c
+static void
+compute_return_type(TypeName *returnType, Oid languageOid,
+                    Oid *prorettype_p, bool *returnsSet_p)
+{
+    Oid rettype;
+    Type typtup;
+
+    // Try to lookup the return type
+    typtup = LookupTypeName(NULL, returnType, NULL, false);
+
+    if (typtup) {
+        // Type exists - check if it's fully defined
+        if (!((Form_pg_type) GETSTRUCT(typtup))->typisdefined) {
+            if (languageOid == SQLlanguageId)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                               errmsg("SQL function cannot return shell type %s",
+                                     TypeNameToString(returnType))));
+            else
+                ereport(NOTICE, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                               errmsg("return type %s is only a shell",
+                                     TypeNameToString(returnType))));
+        }
+        rettype = typeTypeId(typtup);
+        ReleaseSysCache(typtup);
+    }
+    else {
+        // Type doesn't exist - create shell type for C functions only
+        char *typnam = TypeNameToString(returnType);
+        Oid namespaceId;
+        char *typname;
+        ObjectAddress address;
+
+        // Only C-coded functions can use undefined types
+        if (languageOid != INTERNALlanguageId && languageOid != ClanguageId)
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                           errmsg("type \"%s\" does not exist", typnam)));
+
+        // No type modifiers allowed for shell types
+        if (returnType->typmods != NIL)
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("type modifier cannot be specified for shell type \"%s\"",
+                                 typnam)));
+
+        // Create shell type with proper permissions
+        ereport(NOTICE, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                        errmsg("type \"%s\" is not yet defined", typnam),
+                        errdetail("Creating a shell type definition.")));
+
+        namespaceId = QualifiedNameGetCreationNamespace(returnType->names, &typname);
+
+        // Check creation permissions
+        AclResult aclresult = object_aclcheck(NamespaceRelationId, namespaceId,
+                                             GetUserId(), ACL_CREATE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(namespaceId));
+
+        address = TypeShellMake(typname, namespaceId, GetUserId());
+        rettype = address.objectId;
+    }
+
+    // Check USAGE permission on the return type
+    AclResult aclresult = object_aclcheck(TypeRelationId, rettype, GetUserId(), ACL_USAGE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error_type(aclresult, rettype);
+
+    *prorettype_p = rettype;
+    *returnsSet_p = returnType->setof;
+}
+```

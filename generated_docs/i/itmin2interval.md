@@ -45,3 +45,24 @@ The function serves as a more permissive alternative to itm2interval, specifical
 - Month field overflow is the only error condition checked
 - Time component (tm_usec) is copied directly without validation or component assembly
 - This function prioritizes data preservation over strict validation
+
+## Simplified Source
+
+```c
+int itmin2interval(struct pg_itm_in *itm_in, Interval *span)
+{
+    // Calculate total months from years and months
+    int64 total_months = (int64) itm_in->tm_year * MONTHS_PER_YEAR + itm_in->tm_mon;
+
+    // Check for month field overflow
+    if (total_months > INT_MAX || total_months < INT_MIN)
+        return -1;
+
+    // Direct assignment of interval components
+    span->month = (int32) total_months;
+    span->day = itm_in->tm_mday;
+    span->time = itm_in->tm_usec;
+
+    return 0;
+}
+```

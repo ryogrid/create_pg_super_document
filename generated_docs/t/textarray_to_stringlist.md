@@ -35,3 +35,27 @@ textarray_to_stringlist is a static utility function that transforms a PostgreSQ
 - The resulting List contains String nodes, not raw C strings
 - Memory allocated by this function should be managed by the calling context
 - Essential for converting stored array data into usable list structures for subscription processing
+
+## Simplified Source
+
+```c
+static List *
+textarray_to_stringlist(ArrayType *textarray)
+{
+    Datum *elems;
+    int nelems, i;
+    List *res = NIL;
+
+    // Extract array elements into datum array
+    deconstruct_array_builtin(textarray, TEXTOID, &elems, NULL, &nelems);
+
+    if (nelems == 0)
+        return NIL;
+
+    // Convert each text datum to string and add to list
+    for (i = 0; i < nelems; i++)
+        res = lappend(res, makeString(TextDatumGetCString(elems[i])));
+
+    return res;
+}
+```

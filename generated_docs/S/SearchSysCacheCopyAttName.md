@@ -50,3 +50,24 @@ The function provides callers with a modifiable copy of the attribute tuple that
 - Combines the convenience of automatic dropped-attribute filtering with the safety of tuple copying
 - Widely used in DDL operations that modify attribute properties
 - The function eliminates the need for callers to manually handle both the dropped-attribute check and tuple copying
+
+## Simplified Source
+
+```c
+HeapTuple
+SearchSysCacheCopyAttName(Oid relid, const char *attname)
+{
+    // Search for attribute, filtering out dropped attributes
+    HeapTuple tuple = SearchSysCacheAttName(relid, attname);
+
+    // Return NULL if not found
+    if (!HeapTupleIsValid(tuple))
+        return tuple;
+
+    // Make a copy of the tuple that caller can modify
+    HeapTuple newtuple = heap_copytuple(tuple);
+    ReleaseSysCache(tuple);
+
+    return newtuple;
+}
+```

@@ -41,3 +41,28 @@ The function handles several compatibility scenarios:
 - Located in src/backend/executor/execExprInterp.c:2037-2083
 - Part of PostgreSQL's expression evaluation infrastructure
 - Helps maintain type safety during tuple slot operations in the executor
+
+## Simplified Source
+
+```c
+static void CheckOpSlotCompatibility(ExprEvalStep *op, TupleTableSlot *slot)
+{
+#ifdef USE_ASSERT_CHECKING
+    // Skip validation for non-fixed operations
+    if (!op->d.fetch.fixed)
+        return;
+
+    // Allow buffer and heap tuples to be used interchangeably
+    if ((slot->tts_ops == &TTSOpsBufferHeapTuple && op->d.fetch.kind == &TTSOpsHeapTuple) ||
+        (slot->tts_ops == &TTSOpsHeapTuple && op->d.fetch.kind == &TTSOpsBufferHeapTuple))
+        return;
+
+    // Virtual slots are always OK since they don't need deformation
+    if (slot->tts_ops == &TTSOpsVirtual)
+        return;
+
+    // Assert exact type match for all other cases
+    Assert(op->d.fetch.kind == slot->tts_ops);
+#endif
+}
+```

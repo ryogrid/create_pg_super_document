@@ -49,3 +49,36 @@ Key behaviors include:
 - The function preserves the pathkeys from the caller, allowing for ordered subquery scans
 - Cost calculation considers whether the target is trivial to optimize for simple column projections
 - Used extensively in set operations (UNION, INTERSECT, EXCEPT) and general subquery processing
+
+## Simplified Source
+
+```c
+SubqueryScanPath *
+create_subqueryscan_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                         bool trivial_pathtarget,
+                         List *pathkeys, Relids required_outer)
+{
+    SubqueryScanPath *pathnode = makeNode(SubqueryScanPath);
+
+    // Initialize path properties
+    pathnode->path.pathtype = T_SubqueryScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // Set parallel execution properties
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Link to subquery path
+    pathnode->subpath = subpath;
+
+    // Calculate costs
+    cost_subqueryscan(pathnode, root, rel, pathnode->path.param_info,
+                      trivial_pathtarget);
+
+    return pathnode;
+}
+```

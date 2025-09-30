@@ -51,3 +51,62 @@ The function supports a comprehensive set of subscription options including conn
 - "slot_name = NONE" requires "enabled = false" and "create_slot = false" to prevent invalid subscription states
 - The function validates LSN format and rejects invalid WAL location specifications
 - Origin parameter currently supports only "none" and "any" values but is designed for future extensibility
+
+## Simplified Source
+
+```c
+static void
+parse_subscription_options(ParseState *pstate, List *stmt_options,
+                           bits32 supported_opts, SubOpts *opts)
+{
+    ListCell *lc;
+
+    // Initialize output structure with defaults
+    memset(opts, 0, sizeof(SubOpts));
+
+    // Set defaults for supported options
+    if (IsSet(supported_opts, SUBOPT_CONNECT)) opts->connect = true;
+    if (IsSet(supported_opts, SUBOPT_ENABLED)) opts->enabled = true;
+    if (IsSet(supported_opts, SUBOPT_CREATE_SLOT)) opts->create_slot = true;
+    if (IsSet(supported_opts, SUBOPT_COPY_DATA)) opts->copy_data = true;
+    if (IsSet(supported_opts, SUBOPT_BINARY)) opts->binary = false;
+    if (IsSet(supported_opts, SUBOPT_STREAMING)) opts->streaming = LOGICALREP_STREAM_OFF;
+    // ... other defaults ...
+
+    // Parse each user-provided option
+    foreach(lc, stmt_options) {
+        DefElem *defel = (DefElem *) lfirst(lc);
+
+        // Check for duplicate option specifications
+        if (option_already_specified(opts, defel->defname)) {
+            errorConflictingDefElem(defel, pstate);
+        }
+
+        // Parse specific options
+        if (strcmp(defel->defname, "connect") == 0) {
+            opts->connect = defGetBoolean(defel);
+            opts->specified_opts |= SUBOPT_CONNECT;
+        }
+        else if (strcmp(defel->defname, "enabled") == 0) {
+            opts->enabled = defGetBoolean(defel);
+            opts->specified_opts |= SUBOPT_ENABLED;
+        }
+        else if (strcmp(defel->defname, "slot_name") == 0) {
+            opts->slot_name = defGetString(defel);
+            // Handle "none" as NULL slot name
+            if (strcmp(opts->slot_name, "none") == 0)
+                opts->slot_name = NULL;
+            else
+                ReplicationSlotValidateName(opts->slot_name, ERROR);
+            opts->specified_opts |= SUBOPT_SLOT_NAME;
+        }
+        // ... handle other options (binary, streaming, etc.) ...
+        else {
+            ereport(ERROR, "unrecognized subscription parameter");
+        }
+    }
+
+    // Validate option combinations and handle conflicts
+    validate_option_combinations(opts, supported_opts);
+}
+```

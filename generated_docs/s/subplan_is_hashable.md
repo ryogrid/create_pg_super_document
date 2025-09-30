@@ -31,3 +31,24 @@ The memory estimation uses heap tuple overhead even though the actual storage us
 
 ## Notes and Other Information
 This function is part of PostgreSQL's subplan optimization strategy for ANY/IN subqueries. Hash-based execution can provide significant performance improvements when the subquery result is small enough to fit in memory, as it eliminates the need for repeated subquery execution. The memory calculation includes safety margins through the use of heap tuple overhead and alignment, ensuring the actual memory usage doesn't exceed limits. This check is performed during query planning to decide between different subplan execution strategies.
+
+## Simplified Source
+
+```c
+static bool
+subplan_is_hashable(Plan *plan)
+{
+    double subquery_size;
+
+    // Calculate estimated memory usage for subquery result
+    // Uses heap tuple overhead for safety margin even though actual storage uses MinimalTuples
+    subquery_size = plan->plan_rows *
+        (MAXALIGN(plan->plan_width) + MAXALIGN(SizeofHeapTupleHeader));
+
+    // Check if estimated size fits within hash_mem limit
+    if (subquery_size > get_hash_memory_limit())
+        return false;
+
+    return true;
+}
+```

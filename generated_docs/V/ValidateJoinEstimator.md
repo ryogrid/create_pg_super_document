@@ -43,3 +43,58 @@ The function handles signature ambiguity by preferring the 5-argument form when 
 - Return value is the OID of the validated estimator function
 - Reports ambiguity error if both 4-arg and 5-arg versions exist
 - Estimator functions must return float8 values representing join selectivity
+
+## Simplified Source
+
+```c
+static Oid
+ValidateJoinEstimator(List *joinName)
+{
+    Oid typeId[5];
+    Oid joinOid;
+    Oid joinOid2;
+    AclResult aclresult;
+
+    // Define expected signature parameters
+    typeId[0] = INTERNALOID;    // PlannerInfo
+    typeId[1] = OIDOID;         // operator OID
+    typeId[2] = INTERNALOID;    // args list
+    typeId[3] = INT2OID;        // jointype
+    typeId[4] = INTERNALOID;    // SpecialJoinInfo
+
+    // Look for both 5-argument (modern) and 4-argument (legacy) signatures
+    joinOid = LookupFuncName(joinName, 5, typeId, true);
+    joinOid2 = LookupFuncName(joinName, 4, typeId, true);
+
+    // Handle signature preference and ambiguity
+    if (OidIsValid(joinOid))
+    {
+        if (OidIsValid(joinOid2))
+            ereport(ERROR,
+                    (errcode(ERRCODE_AMBIGUOUS_FUNCTION),
+                     errmsg("join estimator function %s has multiple matches",
+                            NameListToString(joinName))));
+    }
+    else
+    {
+        joinOid = joinOid2;
+        // If neither found, use 5-argument signature for error message
+        if (!OidIsValid(joinOid))
+            joinOid = LookupFuncName(joinName, 5, typeId, false);
+    }
+
+    // Verify function returns float8
+    if (get_func_rettype(joinOid) != FLOAT8OID)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("join estimator function %s must return type %s",
+                        NameListToString(joinName), "float8")));
+
+    // Check EXECUTE permission
+    aclresult = object_aclcheck(ProcedureRelationId, joinOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, NameListToString(joinName));
+
+    return joinOid;
+}
+```

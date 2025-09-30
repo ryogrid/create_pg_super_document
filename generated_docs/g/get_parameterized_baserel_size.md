@@ -49,3 +49,30 @@ The key difference from  is that this function includes additional parameter cla
 - Essential for accurate costing of parameterized index scans and other parameterized access methods
 - The result represents row count after applying both parameter constraints and base restrictions
 - Located in src/backend/optimizer/path/costsize.c:5272-5320
+
+## Simplified Source
+
+```c
+double
+get_parameterized_baserel_size(PlannerInfo *root, RelOptInfo *rel,
+                               List *param_clauses)
+{
+    List *allclauses;
+    double nrows;
+
+    // Combine parameter clauses with base restriction clauses
+    allclauses = list_concat_copy(param_clauses, rel->baserestrictinfo);
+
+    // Calculate selectivity treating all clauses as non-join clauses
+    nrows = rel->tuples *
+        clauselist_selectivity(root, allclauses, rel->relid,
+                              JOIN_INNER, NULL);
+
+    // Clamp result and ensure it doesn't exceed base estimate
+    nrows = clamp_row_est(nrows);
+    if (nrows > rel->rows)
+        nrows = rel->rows;
+
+    return nrows;
+}
+```

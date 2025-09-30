@@ -42,3 +42,62 @@ The function uses a switch statement to handle different SQLValueFunction operat
 - Maps SVFOP_* operation codes to appropriate system function calls
 - Ensures proper NULL handling for each function type
 - Located in src/backend/executor/execExprInterp.c:2639-2705
+
+## Simplified Source
+
+```c
+void ExecEvalSQLValueFunction(ExprState *state, ExprEvalStep *op)
+{
+    LOCAL_FCINFO(fcinfo, 0);
+    SQLValueFunction *svf = op->d.sqlvaluefunction.svf;
+
+    *op->resnull = false;  // Most functions return non-NULL
+
+    switch (svf->op) {
+        // Date/time functions
+        case SVFOP_CURRENT_DATE:
+            *op->resvalue = DateADTGetDatum(GetSQLCurrentDate());
+            break;
+        case SVFOP_CURRENT_TIME:
+        case SVFOP_CURRENT_TIME_N:
+            *op->resvalue = TimeTzADTPGetDatum(GetSQLCurrentTime(svf->typmod));
+            break;
+        case SVFOP_CURRENT_TIMESTAMP:
+        case SVFOP_CURRENT_TIMESTAMP_N:
+            *op->resvalue = TimestampTzGetDatum(GetSQLCurrentTimestamp(svf->typmod));
+            break;
+        case SVFOP_LOCALTIME:
+        case SVFOP_LOCALTIME_N:
+            *op->resvalue = TimeADTGetDatum(GetSQLLocalTime(svf->typmod));
+            break;
+        case SVFOP_LOCALTIMESTAMP:
+        case SVFOP_LOCALTIMESTAMP_N:
+            *op->resvalue = TimestampGetDatum(GetSQLLocalTimestamp(svf->typmod));
+            break;
+
+        // User/session functions
+        case SVFOP_CURRENT_ROLE:
+        case SVFOP_CURRENT_USER:
+        case SVFOP_USER:
+            InitFunctionCallInfoData(*fcinfo, NULL, 0, InvalidOid, NULL, NULL);
+            *op->resvalue = current_user(fcinfo);
+            *op->resnull = fcinfo->isnull;
+            break;
+        case SVFOP_SESSION_USER:
+            InitFunctionCallInfoData(*fcinfo, NULL, 0, InvalidOid, NULL, NULL);
+            *op->resvalue = session_user(fcinfo);
+            *op->resnull = fcinfo->isnull;
+            break;
+        case SVFOP_CURRENT_CATALOG:
+            InitFunctionCallInfoData(*fcinfo, NULL, 0, InvalidOid, NULL, NULL);
+            *op->resvalue = current_database(fcinfo);
+            *op->resnull = fcinfo->isnull;
+            break;
+        case SVFOP_CURRENT_SCHEMA:
+            InitFunctionCallInfoData(*fcinfo, NULL, 0, InvalidOid, NULL, NULL);
+            *op->resvalue = current_schema(fcinfo);
+            *op->resnull = fcinfo->isnull;  // Can return NULL
+            break;
+    }
+}
+```

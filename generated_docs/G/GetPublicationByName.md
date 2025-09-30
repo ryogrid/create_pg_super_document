@@ -35,3 +35,19 @@ This is a common pattern in PostgreSQL where both name-based and OID-based acces
 - The returned Publication structure is allocated with palloc and must be freed by the caller
 - Commonly used in DDL commands and replication setup where publications are specified by name
 - Part of the standard PostgreSQL pattern of providing both name-based and OID-based catalog access functions
+
+## Simplified Source
+
+```c
+Publication *
+GetPublicationByName(const char *pubname, bool missing_ok)
+{
+    Oid oid;
+
+    // Get publication OID by name
+    oid = get_publication_oid(pubname, missing_ok);
+
+    // Return publication structure or NULL
+    return OidIsValid(oid) ? GetPublication(oid) : NULL;
+}
+```

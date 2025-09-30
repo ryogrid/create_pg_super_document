@@ -37,3 +37,26 @@ This function is used when a schema-qualified object specification returns that 
 - Returns early if no schema is specified (rel->schemaname == NULL)
 - Provides user-friendly error messages when schemas are missing
 - Helps distinguish between missing schemas vs. missing objects within existing schemas
+
+## Simplified Source
+
+```c
+static bool
+schema_does_not_exist_skipping(List *object, const char **msg, char **name)
+{
+    // Convert object name list to RangeVar to extract schema info
+    RangeVar *rel = makeRangeVarFromNameList(object);
+
+    // Check if schema was specified and doesn't exist
+    if (rel->schemaname != NULL &&
+        !OidIsValid(LookupNamespaceNoError(rel->schemaname))) {
+
+        // Set error message for missing schema
+        *msg = gettext_noop("schema \"%s\" does not exist, skipping");
+        *name = rel->schemaname;
+        return true;  // Skip because schema is missing
+    }
+
+    return false;  // Object itself is missing, not the schema
+}
+```

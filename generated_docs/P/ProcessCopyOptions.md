@@ -49,3 +49,76 @@ ProcessCopyOptions is the central option processing function for COPY statements
 - Validates character conflicts: delimiter cannot appear in null/default strings, quote character restrictions
 - Contains undocumented 'convert_selectively' option for internal use in binary format processing
 - Performs both individual option validation and cross-option compatibility checking to ensure operational consistency
+
+## Simplified Source
+```c
+void ProcessCopyOptions(ParseState *pstate, CopyFormatOptions *opts_out,
+                       bool is_from, List *options) {
+    bool format_specified = false;
+    bool freeze_specified = false;
+    bool header_specified = false;
+    bool on_error_specified = false;
+    bool log_verbosity_specified = false;
+    ListCell *option;
+
+    // Initialize output structure if needed
+    if (opts_out == NULL) {
+        opts_out = (CopyFormatOptions *) palloc0(sizeof(CopyFormatOptions));
+    }
+    opts_out->file_encoding = -1;
+
+    // Process each option in the list
+    foreach(option, options) {
+        DefElem *defel = lfirst_node(DefElem, option);
+
+        if (strcmp(defel->defname, "format") == 0) {
+            // Handle format option (text, csv, binary)
+            if (format_specified) errorConflictingDefElem(defel, pstate);
+            format_specified = true;
+            char *fmt = defGetString(defel);
+            if (strcmp(fmt, "csv") == 0) opts_out->csv_mode = true;
+            else if (strcmp(fmt, "binary") == 0) opts_out->binary = true;
+            // ... other format processing
+        }
+        else if (strcmp(defel->defname, "delimiter") == 0) {
+            // Handle delimiter option
+            if (opts_out->delim) errorConflictingDefElem(defel, pstate);
+            opts_out->delim = defGetString(defel);
+        }
+        else if (strcmp(defel->defname, "null") == 0) {
+            // Handle null representation option
+            if (opts_out->null_print) errorConflictingDefElem(defel, pstate);
+            opts_out->null_print = defGetString(defel);
+        }
+        // ... process other options (quote, escape, force_quote, etc.)
+        else {
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("option \"%s\" not recognized", defel->defname),
+                           parser_errposition(pstate, defel->location)));
+        }
+    }
+
+    // Validate option compatibility
+    if (opts_out->binary && opts_out->delim) {
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("cannot specify %s in BINARY mode", "DELIMITER")));
+    }
+    // ... other compatibility checks
+
+    // Set defaults for omitted options
+    if (!opts_out->delim) {
+        opts_out->delim = opts_out->csv_mode ? "," : "\t";
+    }
+    if (!opts_out->null_print) {
+        opts_out->null_print = opts_out->csv_mode ? "" : "\\N";
+    }
+    opts_out->null_print_len = strlen(opts_out->null_print);
+
+    // Validate character constraints (single-byte, no newlines, etc.)
+    if (strlen(opts_out->delim) != 1) {
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("COPY delimiter must be a single one-byte character")));
+    }
+    // ... additional validation checks
+}
+```

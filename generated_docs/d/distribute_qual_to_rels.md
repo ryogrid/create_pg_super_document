@@ -70,3 +70,85 @@ This function implements sophisticated logic for handling different types of qua
 - **Pseudoconstant clauses** are marked for potential gating Result node creation
 - **Mergejoinable clauses** are routed through equivalence class processing when appropriate
 - The function handles the complex interplay between syntactic scope, semantic requirements, and optimization opportunities in PostgreSQL's cost-based optimizer.
+
+## Simplified Source
+
+```c
+static void
+distribute_qual_to_rels(PlannerInfo *root, Node *clause, JoinTreeItem *jtitem,
+                        SpecialJoinInfo *sjinfo, Index security_level,
+                        Relids qualscope, Relids ojscope,
+                        Relids outerjoin_nonnullable, Relids incompatible_relids,
+                        bool allow_equivalence, bool has_clone, bool is_clone,
+                        List **postponed_oj_qual_list)
+{
+    Relids relids;
+    bool is_pushed_down;
+    bool pseudoconstant = false;
+    RestrictInfo *restrictinfo;
+
+    // Get all relations referenced in the clause
+    relids = pull_varnos(root, clause);
+
+    // Handle LATERAL reference scope violations
+    if (!bms_is_subset(relids, qualscope))
+    {
+        postpone_lateral_clause(root, clause, jtitem, relids);
+        return;
+    }
+
+    // Handle variable-free clauses (constants)
+    if (bms_is_empty(relids))
+    {
+        relids = handle_constant_clause(clause, ojscope, qualscope, jtitem, &pseudoconstant);
+    }
+
+    // Determine if clause is pushed down or stays at outer join level
+    if (bms_overlap(relids, outerjoin_nonnullable))
+    {
+        // Non-degenerate outer join clause
+        if (postponed_oj_qual_list != NULL)
+        {
+            *postponed_oj_qual_list = lappend(*postponed_oj_qual_list, clause);
+            return;
+        }
+        is_pushed_down = false;
+        relids = ojscope;  // Force evaluation at outer join level
+    }
+    else
+    {
+        // Normal clause or degenerate outer join clause
+        is_pushed_down = true;
+        if (check_redundant_nullability_qual(root, clause))
+            return;  // Redundant, discard it
+    }
+
+    // Create RestrictInfo node
+    restrictinfo = make_restrictinfo(root, (Expr *) clause, is_pushed_down,
+                                   has_clone, is_clone, pseudoconstant,
+                                   security_level, relids, incompatible_relids,
+                                   outerjoin_nonnullable);
+
+    // Add variables to targetlists for join processing
+    if (bms_membership(relids) == BMS_MULTIPLE)
+        add_join_vars_to_targetlist(root, clause, relids, is_clone);
+
+    // Check for mergejoinable clauses and handle equivalence classes
+    check_mergejoinable(restrictinfo);
+
+    if (restrictinfo->mergeopfamilies)
+    {
+        if (allow_equivalence && process_equivalence(root, &restrictinfo, jtitem->jdomain))
+            return;  // Converted to equivalence class
+
+        // Handle outer join mergejoinable clauses
+        if (sjinfo && restrictinfo->can_join && handle_outer_join_clause(root, restrictinfo, sjinfo, outerjoin_nonnullable))
+            return;
+
+        initialize_mergeclause_eclasses(root, restrictinfo);
+    }
+
+    // Distribute to appropriate relation lists
+    distribute_restrictinfo_to_rels(root, restrictinfo);
+}
+```

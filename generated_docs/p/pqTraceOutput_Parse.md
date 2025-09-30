@@ -57,3 +57,21 @@ The message format includes:
 - When regress mode is enabled, OIDs may be formatted differently for reproducible test output
 - This message type is followed by Bind and Execute messages in the extended query flow
 - The function properly handles variable numbers of parameters by reading the count first
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_Parse(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Output message type and statement details
+    fprintf(f, "Parse\t");
+    pqTraceOutputString(f, message, cursor, false);    // Statement name
+    pqTraceOutputString(f, message, cursor, false);    // Query string
+    int nparams = pqTraceOutputInt16(f, message, cursor);
+
+    // Output parameter type OIDs
+    for (int i = 0; i < nparams; i++)
+        pqTraceOutputInt32(f, message, cursor, regress);
+}
+```

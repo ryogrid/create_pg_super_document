@@ -56,3 +56,130 @@ The function is access method (AM) agnostic, delegating the actual copying to AM
 - Preserves TOAST value OIDs when doing content-based TOAST swapping
 - Provides detailed logging of the operation's progress and results
 - Critical for maintaining data consistency during table reorganization operations
+
+## Simplified Source
+
+```c
+static void
+copy_table_data(Oid OIDNewHeap, Oid OIDOldHeap, Oid OIDOldIndex, bool verbose,
+                bool *pSwapToastByContent, TransactionId *pFreezeXid,
+                MultiXactId *pCutoffMulti)
+{
+    Relation NewHeap, OldHeap, OldIndex;
+    Relation relRelation;
+    HeapTuple reltup;
+    Form_pg_class relform;
+    struct VacuumCutoffs cutoffs;
+    VacuumParams params;
+    bool use_sort;
+    double num_tuples = 0, tups_vacuumed = 0, tups_recently_dead = 0;
+    BlockNumber num_pages;
+    int elevel = verbose ? INFO : DEBUG2;
+
+    // Open relations with exclusive locks
+    NewHeap = table_open(OIDNewHeap, AccessExclusiveLock);
+    OldHeap = table_open(OIDOldHeap, AccessExclusiveLock);
+    if (OidIsValid(OIDOldIndex))
+        OldIndex = index_open(OIDOldIndex, AccessExclusiveLock);
+    else
+        OldIndex = NULL;
+
+    // Lock TOAST table to prevent autovacuum interference
+    if (OldHeap->rd_rel->reltoastrelid)
+        LockRelationOid(OldHeap->rd_rel->reltoastrelid, AccessExclusiveLock);
+
+    // Determine TOAST swap strategy
+    if (OldHeap->rd_rel->reltoastrelid && NewHeap->rd_rel->reltoastrelid) {
+        *pSwapToastByContent = true;
+        // Set new heap to use old toast table OID for content swap
+        NewHeap->rd_toastoid = OldHeap->rd_rel->reltoastrelid;
+    } else {
+        *pSwapToastByContent = false;
+    }
+
+    // Compute freeze cutoffs for aggressive cleanup
+    memset(&params, 0, sizeof(VacuumParams));
+    vacuum_get_cutoffs(OldHeap, &params, &cutoffs);
+
+    // Ensure freeze XID doesn't go backwards
+    TransactionId relfrozenxid = OldHeap->rd_rel->relfrozenxid;
+    if (TransactionIdIsValid(relfrozenxid) &&
+        TransactionIdPrecedes(cutoffs.FreezeLimit, relfrozenxid))
+        cutoffs.FreezeLimit = relfrozenxid;
+
+    // Ensure MultiXact cutoff doesn't go backwards
+    MultiXactId relminmxid = OldHeap->rd_rel->relminmxid;
+    if (MultiXactIdIsValid(relminmxid) &&
+        MultiXactIdPrecedes(cutoffs.MultiXactCutoff, relminmxid))
+        cutoffs.MultiXactCutoff = relminmxid;
+
+    // Choose scan method: index scan vs sequential scan with sort
+    if (OldIndex != NULL && OldIndex->rd_rel->relam == BTREE_AM_OID)
+        use_sort = plan_cluster_use_sort(OIDOldHeap, OIDOldIndex);
+    else
+        use_sort = false;
+
+    // Log the chosen strategy
+    char *nspname = get_namespace_name(RelationGetNamespace(OldHeap));
+    if (OldIndex != NULL && !use_sort)
+        ereport(elevel, (errmsg("clustering \"%s.%s\" using index scan on \"%s\"",
+                               nspname, RelationGetRelationName(OldHeap),
+                               RelationGetRelationName(OldIndex))));
+    else if (use_sort)
+        ereport(elevel, (errmsg("clustering \"%s.%s\" using sequential scan and sort",
+                               nspname, RelationGetRelationName(OldHeap))));
+    else
+        ereport(elevel, (errmsg("vacuuming \"%s.%s\"",
+                               nspname, RelationGetRelationName(OldHeap))));
+
+    // Delegate actual copying to access method specific function
+    table_relation_copy_for_cluster(OldHeap, NewHeap, OldIndex, use_sort,
+                                   cutoffs.OldestXmin, &cutoffs.FreezeLimit,
+                                   &cutoffs.MultiXactCutoff,
+                                   &num_tuples, &tups_vacuumed,
+                                   &tups_recently_dead);
+
+    // Return freeze cutoffs to caller
+    *pFreezeXid = cutoffs.FreezeLimit;
+    *pCutoffMulti = cutoffs.MultiXactCutoff;
+
+    // Reset TOAST OID
+    NewHeap->rd_toastoid = InvalidOid;
+
+    // Update pg_class statistics
+    num_pages = RelationGetNumberOfBlocks(NewHeap);
+
+    relRelation = table_open(RelationRelationId, RowExclusiveLock);
+    reltup = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(OIDNewHeap));
+    if (!HeapTupleIsValid(reltup))
+        elog(ERROR, "cache lookup failed for relation %u", OIDNewHeap);
+
+    relform = (Form_pg_class) GETSTRUCT(reltup);
+    relform->relpages = num_pages;
+    relform->reltuples = num_tuples;
+
+    // Update catalog (except for pg_class itself)
+    if (OIDOldHeap != RelationRelationId)
+        CatalogTupleUpdate(relRelation, &reltup->t_self, reltup);
+    else
+        CacheInvalidateRelcacheByTuple(reltup);
+
+    // Cleanup and close relations
+    heap_freetuple(reltup);
+    table_close(relRelation, RowExclusiveLock);
+
+    if (OldIndex != NULL)
+        index_close(OldIndex, NoLock);
+    table_close(OldHeap, NoLock);
+    table_close(NewHeap, NoLock);
+
+    // Log operation results
+    ereport(elevel,
+            (errmsg("\"%s.%s\": found %.0f removable, %.0f nonremovable row versions in %u pages",
+                   nspname, RelationGetRelationName(OldHeap),
+                   tups_vacuumed, num_tuples,
+                   RelationGetNumberOfBlocks(OldHeap))));
+
+    CommandCounterIncrement();
+}
+```

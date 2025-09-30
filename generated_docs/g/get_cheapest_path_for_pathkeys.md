@@ -45,3 +45,35 @@ The algorithm iterates through all provided paths, filtering based on parallel-s
 - Returns NULL if no suitable path is found
 - The function assumes pathkeys are in canonical form
 - Part of the pathkey-based optimization infrastructure in PostgreSQL's query planner
+
+## Simplified Source
+
+```c
+Path *get_cheapest_path_for_pathkeys(List *paths, List *pathkeys,
+                                    Relids required_outer,
+                                    CostSelector cost_criterion,
+                                    bool require_parallel_safe) {
+    Path *matched_path = NULL;
+    ListCell *l;
+
+    foreach(l, paths) {
+        Path *path = (Path *) lfirst(l);
+
+        // Skip non-parallel-safe paths if required
+        if (require_parallel_safe && !path->parallel_safe)
+            continue;
+
+        // Skip if more expensive than current best (cost comparison is cheaper than pathkey comparison)
+        if (matched_path != NULL &&
+            compare_path_costs(matched_path, path, cost_criterion) <= 0)
+            continue;
+
+        // Check if path satisfies pathkeys and parameterization requirements
+        if (pathkeys_contained_in(pathkeys, path->pathkeys) &&
+            bms_is_subset(PATH_REQ_OUTER(path), required_outer))
+            matched_path = path;
+    }
+
+    return matched_path;
+}
+```

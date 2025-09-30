@@ -52,3 +52,24 @@ The function sets up the NumericVar structure's buffer pointers correctly, with 
 - Essential for NumericVar memory management throughout numeric operations
 - Uses PostgreSQL's palloc() memory allocation system via digitbuf_alloc macro
 - Part of the internal numeric arithmetic infrastructure
+
+## Simplified Source
+
+```c
+static void
+alloc_var(NumericVar *var, int ndigits)
+{
+    // Free any existing buffer
+    digitbuf_free(var->buf);
+
+    // Allocate new buffer with extra digit for rounding
+    var->buf = digitbuf_alloc(ndigits + 1);
+
+    // Initialize spare digit for rounding operations
+    var->buf[0] = 0;
+
+    // Set digit pointer after spare digit
+    var->digits = var->buf + 1;
+    var->ndigits = ndigits;
+}
+```

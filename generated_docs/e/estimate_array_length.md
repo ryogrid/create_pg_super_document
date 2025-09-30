@@ -51,3 +51,63 @@ The function is designed to work even when the planner info () is NULL, though t
 - The default estimate of 10 elements is chosen to match the behavior in scalararraysel
 - Results are clamped using clamp_row_est to ensure reasonable bounds for planning purposes
 - The function is critical for cost estimation in operations involving arrays, particularly in index scans and function calls
+
+## Simplified Source
+
+```c
+double
+estimate_array_length(PlannerInfo *root, Node *arrayexpr)
+{
+    // Strip any array coercion wrapping
+    arrayexpr = strip_array_coercion(arrayexpr);
+
+    // Case 1: Constant array - get actual element count
+    if (arrayexpr && IsA(arrayexpr, Const))
+    {
+        Datum arraydatum = ((Const *) arrayexpr)->constvalue;
+        bool arrayisnull = ((Const *) arrayexpr)->constisnull;
+
+        if (arrayisnull)
+            return 0;
+        ArrayType *arrayval = DatumGetArrayTypeP(arraydatum);
+        return ArrayGetNItems(ARR_NDIM(arrayval), ARR_DIMS(arrayval));
+    }
+
+    // Case 2: Single-dimensional ArrayExpr - count elements
+    else if (arrayexpr && IsA(arrayexpr, ArrayExpr) &&
+             !((ArrayExpr *) arrayexpr)->multidims)
+    {
+        return list_length(((ArrayExpr *) arrayexpr)->elements);
+    }
+
+    // Case 3: Use statistics if available
+    else if (arrayexpr && root)
+    {
+        VariableStatData vardata;
+        AttStatsSlot sslot;
+        double nelem = 0;
+
+        // Examine variable statistics
+        examine_variable(root, arrayexpr, 0, &vardata);
+        if (HeapTupleIsValid(vardata.statsTuple))
+        {
+            // Get average element count from DECHIST statistics
+            if (get_attstatsslot(&sslot, vardata.statsTuple,
+                                 STATISTIC_KIND_DECHIST, InvalidOid,
+                                 ATTSTATSSLOT_NUMBERS))
+            {
+                if (sslot.nnumbers > 0)
+                    nelem = clamp_row_est(sslot.numbers[sslot.nnumbers - 1]);
+                free_attstatsslot(&sslot);
+            }
+        }
+        ReleaseVariableStats(vardata);
+
+        if (nelem > 0)
+            return nelem;
+    }
+
+    // Default fallback estimate
+    return 10;
+}
+```

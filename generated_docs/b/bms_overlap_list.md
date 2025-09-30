@@ -36,3 +36,37 @@ The function performs validation to ensure negative integers are not allowed as 
 - Uses efficient bit manipulation to check membership by computing word and bit positions
 - Provides early termination - returns true immediately upon finding the first overlap
 - Located in src/backend/nodes/bitmapset.c:608-640
+
+## Simplified Source
+
+```c
+bool
+bms_overlap_list(const Bitmapset *a, const List *b)
+{
+    ListCell *lc;
+
+    // Early exit for empty inputs
+    if (a == NULL || b == NIL)
+        return false;
+
+    // Check each integer in the list
+    foreach(lc, b)
+    {
+        int x = lfirst_int(lc);
+
+        // Validate non-negative member
+        if (x < 0)
+            elog(ERROR, "negative bitmapset member not allowed");
+
+        // Check if this bit is set in the bitmapset
+        int wordnum = WORDNUM(x);
+        int bitnum = BITNUM(x);
+
+        if (wordnum < a->nwords)
+            if ((a->words[wordnum] & ((bitmapword) 1 << bitnum)) != 0)
+                return true;
+    }
+
+    return false;
+}
+```

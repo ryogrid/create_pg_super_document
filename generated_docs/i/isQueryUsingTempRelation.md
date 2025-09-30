@@ -29,3 +29,14 @@ bool isQueryUsingTempRelation(Query *query)
 - The function uses a tree walker pattern to recursively examine all parts of the query structure
 - Temporary relation detection is based on checking the `relpersistence` field of relations, specifically looking for `RELPERSISTENCE_TEMP`
 - The function is used to ensure that operations involving temporary relations are handled appropriately, particularly in contexts where the temporary nature of relations affects the operation's semantics
+
+## Simplified Source
+
+```c
+bool
+isQueryUsingTempRelation(Query *query)
+{
+    // Delegate to walker function for recursive traversal
+    return isQueryUsingTempRelation_walker((Node *) query, NULL);
+}
+```

@@ -44,3 +44,37 @@ The function performs case-sensitive string comparison using strcmp() to match t
 - Handles three distinct filtering strategies through list_type field
 - Essential for selective schema import functionality in foreign data wrappers
 - Default case returns false as safety measure (though shouldn't be reached)
+
+## Simplified Source
+
+```c
+bool IsImportableForeignTable(const char *tablename, ImportForeignSchemaStmt *stmt) {
+    switch (stmt->list_type) {
+        case FDW_IMPORT_SCHEMA_ALL:
+            // Import all tables
+            return true;
+
+        case FDW_IMPORT_SCHEMA_LIMIT_TO:
+            // Import only tables in the list (whitelist)
+            foreach(ListCell *lc, stmt->table_list) {
+                RangeVar *rv = (RangeVar *) lfirst(lc);
+                if (strcmp(tablename, rv->relname) == 0) {
+                    return true;
+                }
+            }
+            return false;
+
+        case FDW_IMPORT_SCHEMA_EXCEPT:
+            // Import all except tables in the list (blacklist)
+            foreach(ListCell *lc, stmt->table_list) {
+                RangeVar *rv = (RangeVar *) lfirst(lc);
+                if (strcmp(tablename, rv->relname) == 0) {
+                    return false;
+                }
+            }
+            return true;
+    }
+
+    return false;  // Safety fallback
+}
+```

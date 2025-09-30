@@ -75,3 +75,138 @@ The function handles several complex scenarios:
 - The cross-partition update logic ensures that foreign key constraints work correctly when rows move between partitions
 - Statement-level triggers are designed to fire exactly once per statement, after all row-level triggers have been processed
 - Transition tables are built immediately to support AFTER ROW triggers that need to query transition data
+
+## Simplified Source
+
+```c
+static void
+AfterTriggerSaveEvent(EState *estate, ResultRelInfo *relinfo,
+                     ResultRelInfo *src_partinfo, ResultRelInfo *dst_partinfo,
+                     int event, bool row_trigger,
+                     TupleTableSlot *oldslot, TupleTableSlot *newslot,
+                     List *recheckIndexes, Bitmapset *modifiedCols,
+                     TransitionCaptureState *transition_capture,
+                     bool is_crosspart_update)
+{
+    Relation rel = relinfo->ri_RelationDesc;
+    TriggerDesc *trigdesc = relinfo->ri_TrigDesc;
+    AfterTriggerEventData new_event;
+    AfterTriggerSharedData new_shared;
+
+    // Validate query depth
+    if (afterTriggers.query_depth < 0)
+        elog(ERROR, "AfterTriggerSaveEvent() called outside of query");
+
+    // Ensure adequate storage for current query depth
+    if (afterTriggers.query_depth >= afterTriggers.maxquerydepth)
+        AfterTriggerEnlargeQueryState();
+
+    // Capture transition tuples if needed
+    if (row_trigger && transition_capture != NULL) {
+        if (!TupIsNull(oldslot)) {
+            Tuplestorestate *old_tuplestore = GetAfterTriggersTransitionTable(event,
+                                                                             oldslot, NULL,
+                                                                             transition_capture);
+            TransitionTableAddTuple(estate, transition_capture, relinfo,
+                                  oldslot, NULL, old_tuplestore);
+        }
+
+        if (!TupIsNull(newslot)) {
+            Tuplestorestate *new_tuplestore = GetAfterTriggersTransitionTable(event,
+                                                                             NULL, newslot,
+                                                                             transition_capture);
+            TransitionTableAddTuple(estate, transition_capture, relinfo,
+                                  newslot, transition_capture->tcs_original_insert_tuple,
+                                  new_tuplestore);
+        }
+
+        // Return early if only transition tables needed
+        if (trigdesc == NULL || !trigdesc->trig_insert_after_row)
+            return;
+    }
+
+    // Set up event data based on trigger type
+    switch (event) {
+        case TRIGGER_EVENT_INSERT:
+            if (row_trigger) {
+                ItemPointerCopy(&(newslot->tts_tid), &(new_event.ate_ctid1));
+                ItemPointerSetInvalid(&(new_event.ate_ctid2));
+            } else {
+                cancel_prior_stmt_triggers(RelationGetRelid(rel), CMD_INSERT, event);
+            }
+            break;
+
+        case TRIGGER_EVENT_DELETE:
+            if (row_trigger) {
+                ItemPointerCopy(&(oldslot->tts_tid), &(new_event.ate_ctid1));
+                ItemPointerSetInvalid(&(new_event.ate_ctid2));
+            } else {
+                cancel_prior_stmt_triggers(RelationGetRelid(rel), CMD_DELETE, event);
+            }
+            break;
+
+        case TRIGGER_EVENT_UPDATE:
+            if (row_trigger) {
+                ItemPointerCopy(&(oldslot->tts_tid), &(new_event.ate_ctid1));
+                ItemPointerCopy(&(newslot->tts_tid), &(new_event.ate_ctid2));
+                // Handle cross-partition updates
+                if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+                    new_event.ate_src_part = RelationGetRelid(src_partinfo->ri_RelationDesc);
+                    new_event.ate_dst_part = RelationGetRelid(dst_partinfo->ri_RelationDesc);
+                }
+            } else {
+                cancel_prior_stmt_triggers(RelationGetRelid(rel), CMD_UPDATE, event);
+            }
+            break;
+    }
+
+    // Set event flags
+    if (row_trigger && event == TRIGGER_EVENT_UPDATE) {
+        new_event.ate_flags = (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) ?
+                             AFTER_TRIGGER_CP_UPDATE : AFTER_TRIGGER_2CTID;
+    } else {
+        new_event.ate_flags = AFTER_TRIGGER_1CTID;
+    }
+
+    // Process each trigger
+    for (int i = 0; i < trigdesc->numtriggers; i++) {
+        Trigger *trigger = &trigdesc->triggers[i];
+
+        // Check if trigger matches event type and is enabled
+        if (!TRIGGER_TYPE_MATCHES(trigger->tgtype,
+                                 row_trigger ? TRIGGER_TYPE_ROW : TRIGGER_TYPE_STATEMENT,
+                                 TRIGGER_TYPE_AFTER, event) ||
+            !TriggerEnabled(estate, relinfo, trigger, event, modifiedCols, oldslot, newslot))
+            continue;
+
+        // Skip foreign key triggers that don't need to fire
+        if (TRIGGER_FIRED_BY_UPDATE(event) || TRIGGER_FIRED_BY_DELETE(event)) {
+            switch (RI_FKey_trigger_type(trigger->tgfoid)) {
+                case RI_TRIGGER_PK:
+                    if (!RI_FKey_pk_upd_check_required(trigger, rel, oldslot, newslot))
+                        continue;
+                    break;
+                case RI_TRIGGER_FK:
+                    if (!RI_FKey_fk_upd_check_required(trigger, rel, oldslot, newslot))
+                        continue;
+                    break;
+            }
+        }
+
+        // Set up shared event data and add to queue
+        new_shared.ats_event = (event & TRIGGER_EVENT_OPMASK) |
+                              (row_trigger ? TRIGGER_EVENT_ROW : 0) |
+                              (trigger->tgdeferrable ? AFTER_TRIGGER_DEFERRABLE : 0) |
+                              (trigger->tginitdeferred ? AFTER_TRIGGER_INITDEFERRED : 0);
+        new_shared.ats_tgoid = trigger->tgoid;
+        new_shared.ats_relid = RelationGetRelid(rel);
+        new_shared.ats_firing_id = 0;
+        new_shared.ats_table = (trigger->tgoldtable || trigger->tgnewtable) ?
+                              transition_capture->tcs_private : NULL;
+        new_shared.ats_modifiedcols = modifiedCols;
+
+        afterTriggerAddEvent(&afterTriggers.query_stack[afterTriggers.query_depth].events,
+                           &new_event, &new_shared);
+    }
+}
+```

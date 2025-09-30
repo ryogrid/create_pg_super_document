@@ -33,3 +33,16 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 - Common parameters include server_version, server_encoding, client_encoding, etc.
 - Output format follows tab-delimited structure for easy parsing by analysis tools
 - The cursor is advanced twice as both parameter name and value are read from the message
+
+## Simplified Source
+
+```c
+static void
+pqTraceOutput_ParameterStatus(FILE *f, const char *message, int *cursor)
+{
+    // Output message type and parameter name/value pair
+    fprintf(f, "ParameterStatus\t");
+    pqTraceOutputString(f, message, cursor, false);  // Parameter name
+    pqTraceOutputString(f, message, cursor, false);  // Parameter value
+}
+```

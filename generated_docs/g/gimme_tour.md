@@ -40,3 +40,36 @@ This function creates a new tour (offspring) by constructing a path through all 
 - Returns edge failure count as quality metric for the crossover operation
 - Random starting city selection ensures diversity in offspring generation
 - Part of the ERX (Edge Recombination Crossover) implementation in GEQO
+
+## Simplified Source
+
+```c
+int gimme_tour(PlannerInfo *root, Edge *edge_table, Gene *new_gene, int num_gene) {
+    int i;
+    int edge_failures = 0;
+
+    // Start with random city
+    new_gene[0] = (Gene) geqo_randint(root, num_gene, 1);
+
+    // Build tour by following edges
+    for (i = 1; i < num_gene; i++) {
+        // Remove current city from edge table
+        remove_gene(root, new_gene[i - 1], edge_table[(int) new_gene[i - 1]], edge_table);
+
+        // Find next city
+        if (edge_table[new_gene[i - 1]].unused_edges > 0) {
+            // Use available edge
+            new_gene[i] = gimme_gene(root, edge_table[(int) new_gene[i - 1]], edge_table);
+        } else {
+            // Handle edge failure when no valid edges available
+            edge_failures++;
+            new_gene[i] = edge_failure(root, new_gene, i - 1, edge_table, num_gene);
+        }
+
+        // Mark city as incorporated
+        edge_table[(int) new_gene[i - 1]].unused_edges = -1;
+    }
+
+    return edge_failures;
+}
+```

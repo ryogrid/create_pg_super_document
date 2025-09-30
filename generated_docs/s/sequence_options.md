@@ -49,3 +49,47 @@ All numeric values are converted to string format using INT64_FORMAT and wrapped
 - Memory management follows PostgreSQL conventions with proper cache tuple release
 - Error handling includes cache lookup failure detection with appropriate error logging
 - Located in src/backend/commands/sequence.c:1707-1740
+
+## Simplified Source
+
+```c
+List *sequence_options(Oid relid) {
+    // Look up the sequence in the system catalog
+    HeapTuple tuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for sequence %u", relid);
+
+    Form_pg_sequence seq_form = (Form_pg_sequence) GETSTRUCT(tuple);
+    List *options = NIL;
+
+    // Build list of sequence parameters as DefElem nodes
+    // Use Float nodes for 64-bit integers to match parser behavior
+    options = lappend(options,
+                     makeDefElem("cache",
+                                (Node *) makeFloat(psprintf(INT64_FORMAT, seq_form->seqcache)),
+                                -1));
+    options = lappend(options,
+                     makeDefElem("cycle",
+                                (Node *) makeBoolean(seq_form->seqcycle),
+                                -1));
+    options = lappend(options,
+                     makeDefElem("increment",
+                                (Node *) makeFloat(psprintf(INT64_FORMAT, seq_form->seqincrement)),
+                                -1));
+    options = lappend(options,
+                     makeDefElem("maxvalue",
+                                (Node *) makeFloat(psprintf(INT64_FORMAT, seq_form->seqmax)),
+                                -1));
+    options = lappend(options,
+                     makeDefElem("minvalue",
+                                (Node *) makeFloat(psprintf(INT64_FORMAT, seq_form->seqmin)),
+                                -1));
+    options = lappend(options,
+                     makeDefElem("start",
+                                (Node *) makeFloat(psprintf(INT64_FORMAT, seq_form->seqstart)),
+                                -1));
+
+    ReleaseSysCache(tuple);
+    return options;
+}
+```

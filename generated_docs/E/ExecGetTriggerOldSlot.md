@@ -42,3 +42,26 @@ The slot is created in the query's memory context to ensure it persists for the 
 - Commonly used in UPDATE and DELETE triggers where the old tuple values need to be accessible
 - Part of PostgreSQL's trigger infrastructure that supports BEFORE, AFTER, and INSTEAD OF triggers
 - The tuple descriptor and slot callbacks are obtained from the relation to ensure compatibility with the table's storage format
+
+## Simplified Source
+
+```c
+TupleTableSlot *ExecGetTriggerOldSlot(EState *estate, ResultRelInfo *relInfo) {
+    // Create OLD slot if not already initialized
+    if (relInfo->ri_TrigOldSlot == NULL) {
+        Relation rel = relInfo->ri_RelationDesc;
+
+        // Switch to query context for proper slot lifetime
+        MemoryContext oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+        // Initialize slot with relation's tuple descriptor and callbacks
+        relInfo->ri_TrigOldSlot =
+            ExecInitExtraTupleSlot(estate, RelationGetDescr(rel),
+                                   table_slot_callbacks(rel));
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    return relInfo->ri_TrigOldSlot;
+}
+```

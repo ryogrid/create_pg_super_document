@@ -78,3 +78,154 @@ The function also handles security considerations by checking whether the curren
 - Security checks ensure that statistical information is only used when the current user has appropriate table access permissions
 - The caller is responsible for calling ReleaseVariableStats() to clean up any allocated statistical data
 - The function handles inheritance hierarchies correctly by checking permissions on the appropriate parent relation
+
+## Simplified Source
+
+```c
+void examine_variable(PlannerInfo *root, Node *node, int varRelid,
+                     VariableStatData *vardata) {
+    Node *basenode;
+    Relids varnos, basevarnos;
+    RelOptInfo *onerel;
+
+    // Initialize vardata structure
+    MemSet(vardata, 0, sizeof(VariableStatData));
+    vardata->vartype = exprType(node);
+
+    // Strip binary relabeling if present
+    if (IsA(node, RelabelType))
+        basenode = (Node *) ((RelabelType *) node)->arg;
+    else
+        basenode = node;
+
+    // Fast path for simple Var nodes
+    if (IsA(basenode, Var) &&
+        (varRelid == 0 || varRelid == ((Var *) basenode)->varno)) {
+        Var *var = (Var *) basenode;
+
+        vardata->var = basenode;
+        vardata->rel = find_base_rel(root, var->varno);
+        vardata->atttype = var->vartype;
+        vardata->atttypmod = var->vartypmod;
+        vardata->isunique = has_unique_index(vardata->rel, var->varattno);
+
+        examine_simple_variable(root, var, vardata);
+        return;
+    }
+
+    // Handle more complex expressions
+    varnos = pull_varnos(root, basenode);
+    basevarnos = bms_difference(varnos, root->outer_join_rels);
+    onerel = NULL;
+
+    if (!bms_is_empty(basevarnos)) {
+        int relid;
+
+        // Check if expression involves single base relation
+        if (bms_get_singleton_member(basevarnos, &relid)) {
+            if (varRelid == 0 || varRelid == relid) {
+                onerel = find_base_rel(root, relid);
+                vardata->rel = onerel;
+                node = basenode; // strip relabeling
+            }
+        } else {
+            // Multiple relations involved
+            if (varRelid == 0) {
+                vardata->rel = find_join_rel(root, varnos);
+                node = basenode;
+            } else if (bms_is_member(varRelid, varnos)) {
+                vardata->rel = find_base_rel(root, varRelid);
+                node = basenode;
+            }
+        }
+    }
+
+    bms_free(basevarnos);
+
+    vardata->var = node;
+    vardata->atttype = exprType(node);
+    vardata->atttypmod = exprTypmod(node);
+
+    // Try to find statistics for single-relation expressions
+    if (onerel) {
+        // Strip nulling relids for better matching
+        if (bms_overlap(varnos, root->outer_join_rels))
+            node = remove_nulling_relids(node, root->outer_join_rels, NULL);
+
+        // Search expressional indexes
+        ListCell *ilist;
+        foreach(ilist, onerel->indexlist) {
+            IndexOptInfo *index = (IndexOptInfo *) lfirst(ilist);
+            ListCell *indexpr_item = list_head(index->indexprs);
+
+            if (!indexpr_item) continue;
+
+            for (int pos = 0; pos < index->ncolumns; pos++) {
+                if (index->indexkeys[pos] == 0) {
+                    Node *indexkey = (Node *) lfirst(indexpr_item);
+                    if (indexkey && IsA(indexkey, RelabelType))
+                        indexkey = (Node *) ((RelabelType *) indexkey)->arg;
+
+                    if (equal(node, indexkey)) {
+                        // Check for uniqueness
+                        if (index->unique && index->nkeycolumns == 1 && pos == 0 &&
+                            (index->indpred == NIL || index->predOK))
+                            vardata->isunique = true;
+
+                        // Get statistics if available
+                        if (index->indpred == NIL) {
+                            vardata->statsTuple = SearchSysCache3(STATRELATTINH,
+                                ObjectIdGetDatum(index->indexoid),
+                                Int16GetDatum(pos + 1),
+                                BoolGetDatum(false));
+                            vardata->freefunc = ReleaseSysCache;
+
+                            if (HeapTupleIsValid(vardata->statsTuple)) {
+                                vardata->acl_ok = all_rows_selectable(root,
+                                    index->rel->relid, NULL);
+                            } else {
+                                vardata->acl_ok = true;
+                            }
+                        }
+                        if (vardata->statsTuple) break;
+                    }
+                    indexpr_item = lnext(index->indexprs, indexpr_item);
+                }
+            }
+            if (vardata->statsTuple) break;
+        }
+
+        // Search extended statistics for expressions
+        if (!vardata->statsTuple) {
+            ListCell *slist;
+            foreach(slist, onerel->statlist) {
+                StatisticExtInfo *info = (StatisticExtInfo *) lfirst(slist);
+                RangeTblEntry *rte = planner_rt_fetch(onerel->relid, root);
+
+                if (info->kind != STATS_EXT_EXPRESSIONS || info->inherit != rte->inh)
+                    continue;
+
+                int pos = 0;
+                ListCell *expr_item;
+                foreach(expr_item, info->exprs) {
+                    Node *expr = (Node *) lfirst(expr_item);
+                    if (expr && IsA(expr, RelabelType))
+                        expr = (Node *) ((RelabelType *) expr)->arg;
+
+                    if (equal(node, expr)) {
+                        vardata->statsTuple = statext_expressions_load(info->statOid,
+                                                                      rte->inh, pos);
+                        vardata->freefunc = ReleaseDummy;
+                        vardata->acl_ok = all_rows_selectable(root, onerel->relid, NULL);
+                        break;
+                    }
+                    pos++;
+                }
+                if (vardata->statsTuple) break;
+            }
+        }
+    }
+
+    bms_free(varnos);
+}
+```

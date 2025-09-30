@@ -43,3 +43,28 @@ The generated paths are added to the relation's pathlist, where the query optimi
 - The function represents the core access path generation for regular tables, excluding specialized relation types
 - Generated paths will be costed and compared during the path selection phase
 - TID scans are considered for relations that might be accessed via tuple ID equality conditions
+
+## Simplified Source
+
+```c
+static void set_plain_rel_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte) {
+    Relids required_outer;
+
+    // Check for LATERAL parameterization requirements
+    required_outer = rel->lateral_relids;
+
+    // Always create sequential scan path as baseline
+    add_path(rel, create_seqscan_path(root, rel, required_outer, 0));
+
+    // Create parallel scan paths if eligible
+    if (rel->consider_parallel && required_outer == NULL) {
+        create_plain_partial_paths(root, rel);
+    }
+
+    // Generate index scan paths
+    create_index_paths(root, rel);
+
+    // Generate TID scan paths
+    create_tidscan_paths(root, rel);
+}
+```

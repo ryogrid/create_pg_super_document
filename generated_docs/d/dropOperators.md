@@ -42,3 +42,43 @@ This function handles the removal of operator entries from an existing operator 
 - The amoid parameter is present for API consistency but not actively used in the current implementation
 - Each operator deletion is performed individually through performDeletion() with appropriate ObjectAddress setup
 - This function is specifically designed for "loose" operator family members that can be safely removed without affecting the structural integrity of the operator family
+
+## Simplified Source
+
+```c
+static void dropOperators(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+                          List *operators) {
+    ListCell *l;
+
+    // Process each operator to be dropped
+    foreach(l, operators) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(l);
+        Oid amopid;
+        ObjectAddress object;
+
+        // Look up operator in pg_amop by family, types, and strategy number
+        amopid = GetSysCacheOid4(AMOPSTRATEGY, Anum_pg_amop_oid,
+                                ObjectIdGetDatum(opfamilyoid),
+                                ObjectIdGetDatum(op->lefttype),
+                                ObjectIdGetDatum(op->righttype),
+                                Int16GetDatum(op->number));
+
+        // Error if operator doesn't exist in the family
+        if (!OidIsValid(amopid))
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("operator %d(%s,%s) does not exist in operator family \"%s\"",
+                            op->number,
+                            format_type_be(op->lefttype),
+                            format_type_be(op->righttype),
+                            NameListToString(opfamilyname))));
+
+        // Set up object address and perform deletion
+        object.classId = AccessMethodOperatorRelationId;
+        object.objectId = amopid;
+        object.objectSubId = 0;
+
+        performDeletion(&object, DROP_RESTRICT, 0);
+    }
+}
+```

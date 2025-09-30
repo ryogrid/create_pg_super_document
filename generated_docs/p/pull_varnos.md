@@ -40,3 +40,26 @@ This function is designed to work with not-yet-planned expressions and handles s
 - The function must handle both Query nodes and bare expression trees appropriately
 - Special handling for SubLinks vs SubPlans reflects different stages of query planning
 - The inclusion of nulling relations is important for proper outer join semantics
+
+## Simplified Source
+
+```c
+Relids
+pull_varnos(PlannerInfo *root, Node *node)
+{
+    pull_varnos_context context;
+
+    // Initialize walker context
+    context.varnos = NULL;
+    context.root = root;
+    context.sublevels_up = 0;
+
+    // Walk the expression tree to collect varnos
+    query_or_expression_tree_walker(node,
+                                    pull_varnos_walker,
+                                    (void *) &context,
+                                    0);
+
+    return context.varnos;
+}
+```

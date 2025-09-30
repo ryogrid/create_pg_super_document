@@ -39,3 +39,15 @@ The function accesses the object property metadata and returns the `attnum_name`
 - The name column typically contains the primary identifier by which users reference the object
 - Column numbering follows PostgreSQL convention starting from 1
 - Critical for maintaining consistency in name-based operations across different catalog table structures
+
+## Simplified Source
+
+```c
+AttrNumber get_object_attnum_name(Oid class_id) {
+    // Get object property metadata for the catalog class
+    const ObjectPropertyType *prop = get_object_property_data(class_id);
+
+    // Return the attribute number for the name column
+    return prop->attnum_name;
+}
+```

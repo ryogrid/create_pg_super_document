@@ -43,3 +43,19 @@ This aggregation capability is particularly important in parallel query executio
   - : Time spent on code optimization
   - : Time spent emitting final machine code
 - Located in src/backend/jit/jit.c:182-190
+
+## Simplified Source
+
+```c
+void InstrJitAgg(JitInstrumentation *dst, JitInstrumentation *add) {
+    // Aggregate function count
+    dst->created_functions += add->created_functions;
+
+    // Aggregate timing counters for all JIT compilation phases
+    INSTR_TIME_ADD(dst->generation_counter, add->generation_counter);
+    INSTR_TIME_ADD(dst->deform_counter, add->deform_counter);
+    INSTR_TIME_ADD(dst->inlining_counter, add->inlining_counter);
+    INSTR_TIME_ADD(dst->optimization_counter, add->optimization_counter);
+    INSTR_TIME_ADD(dst->emission_counter, add->emission_counter);
+}
+```

@@ -57,3 +57,115 @@ This comprehensive function processes support procedures being added to operator
 - Automatically infers data types from procedure signatures when possible
 - Requires explicit type specification when inference is not possible
 - Part of the operator class/family validation and setup infrastructure
+
+## Simplified Source
+
+```c
+static void
+assignProcTypes(OpFamilyMember *member, Oid amoid, Oid typeoid, int opclassOptsProcNum)
+{
+    HeapTuple proctup;
+    Form_pg_proc procform;
+
+    // Fetch procedure definition
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(member->object));
+    if (!HeapTupleIsValid(proctup))
+        elog(ERROR, "cache lookup failed for function %u", member->object);
+    procform = (Form_pg_proc) GETSTRUCT(proctup);
+
+    // Validate operator class options parsing function
+    if (member->number == opclassOptsProcNum) {
+        if (OidIsValid(typeoid)) {
+            if ((OidIsValid(member->lefttype) && member->lefttype != typeoid) ||
+                (OidIsValid(member->righttype) && member->righttype != typeoid))
+                ereport(ERROR, "data types must match opclass input type");
+        } else {
+            if (member->lefttype != member->righttype)
+                ereport(ERROR, "left and right data types must match");
+        }
+
+        if (procform->prorettype != VOIDOID || procform->pronargs != 1 ||
+            procform->proargtypes.values[0] != INTERNALOID)
+            ereport(ERROR, "invalid operator class options parsing function");
+    }
+    // Access method specific validation
+    else if (amoid == BTREE_AM_OID) {
+        if (member->number == BTORDER_PROC) {
+            // Btree comparison function: 2 args returning int4
+            if (procform->pronargs != 2)
+                ereport(ERROR, "btree comparison functions must have two arguments");
+            if (procform->prorettype != INT4OID)
+                ereport(ERROR, "btree comparison functions must return integer");
+
+            // Infer types from procedure arguments
+            if (!OidIsValid(member->lefttype))
+                member->lefttype = procform->proargtypes.values[0];
+            if (!OidIsValid(member->righttype))
+                member->righttype = procform->proargtypes.values[1];
+        }
+        else if (member->number == BTSORTSUPPORT_PROC) {
+            // Sort support: (internal) returns void
+            if (procform->pronargs != 1 || procform->proargtypes.values[0] != INTERNALOID)
+                ereport(ERROR, "btree sort support functions must accept internal");
+            if (procform->prorettype != VOIDOID)
+                ereport(ERROR, "btree sort support functions must return void");
+        }
+        else if (member->number == BTINRANGE_PROC) {
+            // In-range function: 5 args returning bool
+            if (procform->pronargs != 5)
+                ereport(ERROR, "btree in_range functions must have five arguments");
+            if (procform->prorettype != BOOLOID)
+                ereport(ERROR, "btree in_range functions must return boolean");
+
+            // Infer types from test-value and offset arguments
+            if (!OidIsValid(member->lefttype))
+                member->lefttype = procform->proargtypes.values[0];
+            if (!OidIsValid(member->righttype))
+                member->righttype = procform->proargtypes.values[2];
+        }
+        else if (member->number == BTEQUALIMAGE_PROC) {
+            // Equal image function: 1 arg returning bool, no cross-type
+            if (procform->pronargs != 1)
+                ereport(ERROR, "btree equal image functions must have one argument");
+            if (procform->prorettype != BOOLOID)
+                ereport(ERROR, "btree equal image functions must return boolean");
+            if (member->lefttype != member->righttype)
+                ereport(ERROR, "btree equal image functions must not be cross-type");
+        }
+    }
+    else if (amoid == HASH_AM_OID) {
+        if (member->number == HASHSTANDARD_PROC) {
+            // Hash function 1: 1 arg returning int4
+            if (procform->pronargs != 1)
+                ereport(ERROR, "hash function 1 must have one argument");
+            if (procform->prorettype != INT4OID)
+                ereport(ERROR, "hash function 1 must return integer");
+        }
+        else if (member->number == HASHEXTENDED_PROC) {
+            // Hash function 2: 2 args returning int8
+            if (procform->pronargs != 2)
+                ereport(ERROR, "hash function 2 must have two arguments");
+            if (procform->prorettype != INT8OID)
+                ereport(ERROR, "hash function 2 must return bigint");
+        }
+
+        // For hash, use first argument type for both left and right
+        if (!OidIsValid(member->lefttype))
+            member->lefttype = procform->proargtypes.values[0];
+        if (!OidIsValid(member->righttype))
+            member->righttype = procform->proargtypes.values[0];
+    }
+
+    // Default fallback to opclass input type
+    if (!OidIsValid(member->lefttype))
+        member->lefttype = typeoid;
+    if (!OidIsValid(member->righttype))
+        member->righttype = typeoid;
+
+    // Ensure types are specified
+    if (!OidIsValid(member->lefttype) || !OidIsValid(member->righttype))
+        ereport(ERROR, "associated data types must be specified");
+
+    ReleaseSysCache(proctup);
+}
+```

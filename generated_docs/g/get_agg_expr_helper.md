@@ -57,3 +57,88 @@ The function extracts argument types, resolves function names, formats arguments
 - Manages variadic aggregate functions with proper VARIADIC keyword placement
 - The aggstar field handles COUNT(*) syntax for zero-argument aggregates
 - Filter conditions are formatted with FILTER (WHERE ...) syntax when present
+
+## Simplified Source
+
+```c
+static void
+get_agg_expr_helper(Aggref *aggref, deparse_context *context,
+                    Aggref *original_aggref, const char *funcname,
+                    const char *options, bool is_json_objectagg)
+{
+    StringInfo buf = context->buf;
+    Oid argtypes[FUNC_MAX_ARGS];
+    int nargs;
+    bool use_variadic = false;
+
+    // Handle combining aggregates for parallel queries
+    if (DO_AGGSPLIT_COMBINE(aggref->aggsplit)) {
+        TargetEntry *tle = linitial_node(TargetEntry, aggref->args);
+        resolve_special_varno((Node *) tle->expr, context,
+                              get_agg_combine_expr, original_aggref);
+        return;
+    }
+
+    // Mark as PARTIAL if needed for parallel processing
+    if (DO_AGGSPLIT_SKIPFINAL(original_aggref->aggsplit))
+        appendStringInfoString(buf, "PARTIAL ");
+
+    // Get function name and argument info
+    nargs = get_aggregate_argtypes(aggref, argtypes);
+    if (!funcname)
+        funcname = generate_function_name(aggref->aggfnoid, nargs, NIL,
+                                          argtypes, aggref->aggvariadic,
+                                          &use_variadic, context->inGroupBy);
+
+    // Start function call with DISTINCT if needed
+    appendStringInfo(buf, "%s(%s", funcname,
+                     (aggref->aggdistinct != NIL) ? "DISTINCT " : "");
+
+    if (AGGKIND_IS_ORDERED_SET(aggref->aggkind)) {
+        // Ordered-set aggregate: func(direct_args) WITHIN GROUP (ORDER BY ...)
+        get_rule_expr((Node *) aggref->aggdirectargs, context, true);
+        appendStringInfoString(buf, ") WITHIN GROUP (ORDER BY ");
+        get_rule_orderby(aggref->aggorder, aggref->args, false, context);
+    } else {
+        // Standard aggregate arguments
+        if (aggref->aggstar) {
+            appendStringInfoChar(buf, '*');
+        } else {
+            // Process each argument
+            ListCell *l;
+            int i = 0;
+            foreach(l, aggref->args) {
+                TargetEntry *tle = (TargetEntry *) lfirst(l);
+                if (tle->resjunk) continue;
+
+                if (i++ > 0) {
+                    if (is_json_objectagg && i <= 2)
+                        appendStringInfoString(buf, " : ");
+                    else
+                        appendStringInfoString(buf, ", ");
+                }
+
+                if (use_variadic && i == nargs)
+                    appendStringInfoString(buf, "VARIADIC ");
+                get_rule_expr((Node *) tle->expr, context, true);
+            }
+        }
+
+        // Add ORDER BY if present
+        if (aggref->aggorder != NIL) {
+            appendStringInfoString(buf, " ORDER BY ");
+            get_rule_orderby(aggref->aggorder, aggref->args, false, context);
+        }
+    }
+
+    // Add options and filter clause
+    if (options)
+        appendStringInfoString(buf, options);
+    if (aggref->aggfilter != NULL) {
+        appendStringInfoString(buf, ") FILTER (WHERE ");
+        get_rule_expr((Node *) aggref->aggfilter, context, false);
+    }
+
+    appendStringInfoChar(buf, ')');
+}
+```

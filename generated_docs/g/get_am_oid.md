@@ -33,3 +33,12 @@ get_am_oid provides a type-agnostic wrapper for access method lookup operations.
 - Suitable for cases where access method type is irrelevant or validated elsewhere
 - Primarily used in generic object management contexts
 - Location: src/backend/commands/amcmds.c:183-191
+
+## Simplified Source
+
+```c
+Oid get_am_oid(const char *amname, bool missing_ok) {
+    // Look up access method OID by name without type constraints
+    return get_am_type_oid(amname, '\0', missing_ok);
+}
+```

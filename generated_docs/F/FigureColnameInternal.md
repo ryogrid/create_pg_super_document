@@ -52,3 +52,135 @@ The function handles a comprehensive set of SQL expression types including colum
 - JSON and XML functions are given descriptive names based on their operation type
 - The confidence scoring system allows callers to prefer higher-confidence naming choices
 - Recursive calls are used for wrapped expressions like TypeCast and CollateClause to unwrap and find the underlying meaningful name
+
+## Simplified Source
+
+```c
+static int
+FigureColnameInternal(Node *node, char **name)
+{
+    int strength = 0;
+
+    if (node == NULL)
+        return strength;
+
+    switch (nodeTag(node))
+    {
+        case T_ColumnRef:
+            // Extract last field name from column reference
+            foreach(l, ((ColumnRef *) node)->fields) {
+                if (IsA(lfirst(l), String))
+                    fname = strVal(lfirst(l));
+            }
+            if (fname) {
+                *name = fname;
+                return 2;  // Good confidence
+            }
+            break;
+
+        case T_A_Indirection:
+            // Handle array/field access - get last field name
+            foreach(l, ((A_Indirection *) node)->indirection) {
+                if (IsA(lfirst(l), String))
+                    fname = strVal(lfirst(l));
+            }
+            if (fname) {
+                *name = fname;
+                return 2;
+            }
+            // Recurse into base expression
+            return FigureColnameInternal(((A_Indirection *) node)->arg, name);
+
+        case T_FuncCall:
+            // Use function name as column name
+            *name = strVal(llast(((FuncCall *) node)->funcname));
+            return 2;
+
+        case T_TypeCast:
+            // Try to get name from casted expression first
+            strength = FigureColnameInternal(((TypeCast *) node)->arg, name);
+            if (strength <= 1 && ((TypeCast *) node)->typeName != NULL) {
+                // Fall back to type name
+                *name = strVal(llast(((TypeCast *) node)->typeName->names));
+                return 1;  // Lower confidence
+            }
+            break;
+
+        case T_SubLink:
+            // Handle subqueries
+            switch (((SubLink *) node)->subLinkType) {
+                case EXISTS_SUBLINK:
+                    *name = "exists";
+                    return 2;
+                case ARRAY_SUBLINK:
+                    *name = "array";
+                    return 2;
+                case EXPR_SUBLINK:
+                    // Get column name from subquery's target
+                    if (IsA(query, Query)) {
+                        TargetEntry *te = (TargetEntry *) linitial(query->targetList);
+                        if (te->resname) {
+                            *name = te->resname;
+                            return 2;
+                        }
+                    }
+                    break;
+            }
+            break;
+
+        // Built-in function-like expressions
+        case T_CoalesceExpr:
+            *name = "coalesce";
+            return 2;
+        case T_A_ArrayExpr:
+            *name = "array";
+            return 2;
+        case T_RowExpr:
+            *name = "row";
+            return 2;
+        case T_GroupingFunc:
+            *name = "grouping";
+            return 2;
+
+        // SQL value functions (CURRENT_DATE, etc.)
+        case T_SQLValueFunction:
+            switch (((SQLValueFunction *) node)->op) {
+                case SVFOP_CURRENT_DATE:
+                    *name = "current_date";
+                    return 2;
+                case SVFOP_CURRENT_TIMESTAMP:
+                case SVFOP_CURRENT_TIMESTAMP_N:
+                    *name = "current_timestamp";
+                    return 2;
+                // ... other SQL value functions
+            }
+            break;
+
+        // JSON functions
+        case T_JsonFuncExpr:
+            switch (((JsonFuncExpr *) node)->op) {
+                case JSON_EXISTS_OP:
+                    *name = "json_exists";
+                    return 2;
+                case JSON_QUERY_OP:
+                    *name = "json_query";
+                    return 2;
+                case JSON_VALUE_OP:
+                    *name = "json_value";
+                    return 2;
+            }
+            break;
+
+        case T_CaseExpr:
+            // Try to get name from default result, fall back to "case"
+            strength = FigureColnameInternal((Node *) ((CaseExpr *) node)->defresult, name);
+            if (strength <= 1) {
+                *name = "case";
+                return 1;
+            }
+            break;
+    }
+
+    return strength;
+}
+```

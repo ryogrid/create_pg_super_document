@@ -40,3 +40,65 @@ This static function resolves a reference to a column's default value into an Ob
 - The opened relation is returned via the relp parameter and must be closed by the caller
 - No support for missing_ok when the relation itself doesn't exist (marked with XXX comment)
 - Uses GetAttrDefaultOid helper function to retrieve the pg_attrdef OID for the specified column
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_attrdef(ObjectType objtype, List *object,
+                          Relation *relp, LOCKMODE lockmode,
+                          bool missing_ok)
+{
+    ObjectAddress address;
+    List *relname;
+    Oid reloid;
+    Relation relation;
+    const char *attname;
+    AttrNumber attnum;
+    TupleDesc tupdesc;
+    Oid defoid;
+
+    // Extract column name and relation name from object list
+    if (list_length(object) < 2)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("column name must be qualified")));
+
+    attname = strVal(llast(object));
+    relname = list_copy_head(object, list_length(object) - 1);
+
+    // Open relation and get descriptor
+    relation = relation_openrv(makeRangeVarFromNameList(relname), lockmode);
+    reloid = RelationGetRelid(relation);
+    tupdesc = RelationGetDescr(relation);
+
+    // Look up attribute number and default OID
+    attnum = get_attnum(reloid, attname);
+    defoid = InvalidOid;
+    if (attnum != InvalidAttrNumber && tupdesc->constr != NULL)
+        defoid = GetAttrDefaultOid(reloid, attnum);
+
+    if (!OidIsValid(defoid)) {
+        if (!missing_ok)
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     errmsg("default value for column \"%s\" of relation \"%s\" does not exist",
+                            attname, NameListToString(relname))));
+
+        // Return invalid address for missing default
+        address.classId = AttrDefaultRelationId;
+        address.objectId = InvalidOid;
+        address.objectSubId = InvalidAttrNumber;
+        relation_close(relation, lockmode);
+        return address;
+    }
+
+    // Return valid address for found default
+    address.classId = AttrDefaultRelationId;
+    address.objectId = defoid;
+    address.objectSubId = 0;
+
+    *relp = relation;
+    return address;
+}
+```

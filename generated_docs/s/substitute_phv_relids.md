@@ -41,3 +41,24 @@ This function is typically used during query optimization when append relations 
 - Part of the append relation processing system in PostgreSQL query optimization
 - The actual tree modification is performed by substitute_phv_relids_walker
 - Used during query rewriting phases where table references need to be updated due to inheritance or partitioning expansion
+
+## Simplified Source
+
+```c
+static void
+substitute_phv_relids(Node *node, int varno, Relids subrelids)
+{
+    substitute_phv_relids_context context;
+
+    // Initialize context for walker
+    context.varno = varno;
+    context.sublevels_up = 0;
+    context.subrelids = subrelids;
+
+    // Invoke tree walker to perform substitution
+    query_or_expression_tree_walker(node,
+                                  substitute_phv_relids_walker,
+                                  (void *) &context,
+                                  0);
+}
+```

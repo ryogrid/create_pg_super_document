@@ -41,3 +41,23 @@ The resulting data structure provides a complete mapping from each base relation
 - The actual analysis work is delegated to `get_nullingrels_recurse`, making this function primarily a setup and initialization routine
 - The returned structure is essential for maintaining correct NULL semantics during subquery flattening and other query transformations
 - Memory allocation uses PostgreSQL's memory management functions (palloc_object, palloc0_array)
+
+## Simplified Source
+
+```c
+// Simplified version of get_nullingrels
+static nullingrel_info *
+get_nullingrels(Query *parse)
+{
+    nullingrel_info *result = palloc_object(nullingrel_info);
+
+    // Setup data structure for range table length
+    result->rtlength = list_length(parse->rtable);
+    result->nullingrels = palloc0_array(Relids, result->rtlength + 1);
+
+    // Recursively analyze the join tree to collect nulling relationships
+    get_nullingrels_recurse((Node *) parse->jointree, NULL, result);
+
+    return result;
+}
+```

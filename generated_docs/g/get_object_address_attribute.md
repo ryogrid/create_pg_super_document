@@ -40,3 +40,55 @@ This static function resolves a column reference into an ObjectAddress structure
 - When missing_ok is true and the column doesn't exist, returns an ObjectAddress with InvalidOid and InvalidAttrNumber
 - The opened relation is returned via the relp parameter and must be closed by the caller
 - No support for missing_ok when the relation itself doesn't exist (marked with XXX comment)
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_attribute(ObjectType objtype, List *object,
+                            Relation *relp, LOCKMODE lockmode,
+                            bool missing_ok)
+{
+    ObjectAddress address;
+    List *relname;
+    Relation relation;
+    const char *attname;
+    AttrNumber attnum;
+
+    // Validate input: need at least relation.column
+    if (list_length(object) < 2)
+        ereport(ERROR, "column name must be qualified");
+
+    // Extract column name and relation name
+    attname = strVal(llast(object));
+    relname = list_copy_head(object, list_length(object) - 1);
+
+    // Open the relation and get its OID
+    relation = relation_openrv(makeRangeVarFromNameList(relname), lockmode);
+    Oid reloid = RelationGetRelid(relation);
+
+    // Look up the attribute number by name
+    attnum = get_attnum(reloid, attname);
+
+    if (attnum == InvalidAttrNumber) {
+        // Column doesn't exist - handle based on missing_ok
+        if (!missing_ok)
+            ereport(ERROR, "column does not exist");
+
+        // Return invalid address and close relation
+        address.classId = RelationRelationId;
+        address.objectId = InvalidOid;
+        address.objectSubId = InvalidAttrNumber;
+        relation_close(relation, lockmode);
+        return address;
+    }
+
+    // Build valid ObjectAddress for the column
+    address.classId = RelationRelationId;
+    address.objectId = reloid;
+    address.objectSubId = attnum;
+
+    *relp = relation;  // Return opened relation to caller
+    return address;
+}
+```

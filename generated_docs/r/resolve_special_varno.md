@@ -55,3 +55,75 @@ The recursion continues until either a non-Var node is encountered or a regular 
 - The function is tail-recursive in most paths, with the callback invocation as the final step
 - Error checking ensures that special variable references have valid target list entries
 - Context saving/restoring ensures that nested subplan traversal doesn't affect outer contexts
+
+## Simplified Source
+
+```c
+static void resolve_special_varno(Node *node, deparse_context *context,
+                                  rsv_callback callback, void *callback_arg) {
+    Var *var;
+    deparse_namespace *dpns;
+
+    // Recursion safety check
+    check_stack_depth();
+
+    // If not a Var, invoke callback directly
+    if (!IsA(node, Var)) {
+        (*callback)(node, context, callback_arg);
+        return;
+    }
+
+    // Find appropriate nesting depth
+    var = (Var *) node;
+    dpns = (deparse_namespace *) list_nth(context->namespaces, var->varlevelsup);
+
+    // Handle OUTER_VAR references
+    if (var->varno == OUTER_VAR && dpns->outer_tlist) {
+        TargetEntry *tle = get_tle_by_resno(dpns->outer_tlist, var->varattno);
+        if (!tle)
+            elog(ERROR, "bogus varattno for OUTER_VAR var: %d", var->varattno);
+
+        // Update appendparents for Append/MergeAppend plans
+        Bitmapset *save_appendparents = context->appendparents;
+        if (IsA(dpns->plan, Append))
+            context->appendparents = bms_union(context->appendparents,
+                                             ((Append *) dpns->plan)->apprelids);
+        else if (IsA(dpns->plan, MergeAppend))
+            context->appendparents = bms_union(context->appendparents,
+                                             ((MergeAppend *) dpns->plan)->apprelids);
+
+        deparse_namespace save_dpns;
+        push_child_plan(dpns, dpns->outer_plan, &save_dpns);
+        resolve_special_varno((Node *) tle->expr, context, callback, callback_arg);
+        pop_child_plan(dpns, &save_dpns);
+        context->appendparents = save_appendparents;
+        return;
+    }
+    // Handle INNER_VAR references
+    else if (var->varno == INNER_VAR && dpns->inner_tlist) {
+        TargetEntry *tle = get_tle_by_resno(dpns->inner_tlist, var->varattno);
+        if (!tle)
+            elog(ERROR, "bogus varattno for INNER_VAR var: %d", var->varattno);
+
+        deparse_namespace save_dpns;
+        push_child_plan(dpns, dpns->inner_plan, &save_dpns);
+        resolve_special_varno((Node *) tle->expr, context, callback, callback_arg);
+        pop_child_plan(dpns, &save_dpns);
+        return;
+    }
+    // Handle INDEX_VAR references
+    else if (var->varno == INDEX_VAR && dpns->index_tlist) {
+        TargetEntry *tle = get_tle_by_resno(dpns->index_tlist, var->varattno);
+        if (!tle)
+            elog(ERROR, "bogus varattno for INDEX_VAR var: %d", var->varattno);
+
+        resolve_special_varno((Node *) tle->expr, context, callback, callback_arg);
+        return;
+    }
+    else if (var->varno < 1 || var->varno > list_length(dpns->rtable))
+        elog(ERROR, "bogus varno: %d", var->varno);
+
+    // Not special - invoke callback
+    (*callback)(node, context, callback_arg);
+}
+```

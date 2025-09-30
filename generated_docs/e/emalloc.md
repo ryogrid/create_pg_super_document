@@ -35,3 +35,12 @@ The `emalloc` function is a safe wrapper around the standard library `malloc()` 
 - Part of a comprehensive memory management strategy that includes size_product for overflow checking
 - The function either returns a valid pointer or terminates the program - never returns NULL
 - Follows the common naming convention of prefixing error-checking wrappers with "e"
+
+## Simplified Source
+
+```c
+static void *emalloc(size_t size) {
+    // Allocate memory and check for failure
+    return memcheck(malloc(size));
+}
+```

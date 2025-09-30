@@ -37,3 +37,17 @@ This function is typically called when the predicate testing operation is comple
 - Simpler than arrayconst_cleanup_fn as it only needs to free the copied arguments list and state structure
 - Works in conjunction with arrayexpr_startup_fn and arrayexpr_next_fn as part of the complete iterator lifecycle
 - Location: src/backend/optimizer/util/predtest.c:1081-1097
+
+## Simplified Source
+
+```c
+static void
+arrayexpr_cleanup_fn(PredIterInfo info)
+{
+    ArrayExprIterState *state = (ArrayExprIterState *) info->state;
+
+    // Free allocated resources
+    list_free(state->opexpr.args);
+    pfree(state);
+}
+```

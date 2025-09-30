@@ -55,3 +55,82 @@ The function maintains efficiency by checking for existing clauses before genera
 - Single-member ECs are ignored as they generate no useful join clauses
 - Part of PostgreSQL's cost-based query optimizer infrastructure
 - Results are cached and reused to improve planning performance for complex join trees
+
+## Simplified Source
+
+```c
+List *
+generate_join_implied_equalities(PlannerInfo *root,
+                                  Relids join_relids,
+                                  Relids outer_relids,
+                                  RelOptInfo *inner_rel,
+                                  SpecialJoinInfo *sjinfo)
+{
+    List *result = NIL;
+    Relids inner_relids = inner_rel->relids;
+    Relids nominal_inner_relids;
+    Relids nominal_join_relids;
+    Bitmapset *matching_ecs;
+    int i;
+
+    // Handle appendrel children by using parent relids for EC matching
+    if (IS_OTHER_REL(inner_rel))
+    {
+        Assert(!bms_is_empty(inner_rel->top_parent_relids));
+        nominal_inner_relids = inner_rel->top_parent_relids;
+        nominal_join_relids = bms_union(outer_relids, nominal_inner_relids);
+        nominal_join_relids = add_outer_joins_to_relids(root,
+                                                        nominal_join_relids,
+                                                        sjinfo, NULL);
+    }
+    else
+    {
+        nominal_inner_relids = inner_relids;
+        nominal_join_relids = join_relids;
+    }
+
+    // Find relevant equivalence classes
+    // For outer joins: consider all ECs mentioning join relations
+    // For inner joins: consider only ECs mentioning both input relations
+    if (sjinfo && sjinfo->ojrelid != 0)
+        matching_ecs = get_eclass_indexes_for_relids(root, nominal_join_relids);
+    else
+        matching_ecs = get_common_eclass_indexes(root, nominal_inner_relids,
+                                                 outer_relids);
+
+    // Process each relevant equivalence class
+    i = -1;
+    while ((i = bms_next_member(matching_ecs, i)) >= 0)
+    {
+        EquivalenceClass *ec = (EquivalenceClass *) list_nth(root->eq_classes, i);
+        List *sublist = NIL;
+
+        // Skip ECs with constants (no additional enforcement needed)
+        if (ec->ec_has_const)
+            continue;
+
+        // Skip single-member ECs (no useful join clauses)
+        if (list_length(ec->ec_members) <= 1)
+            continue;
+
+        // Generate join clauses for this equivalence class
+        if (!ec->ec_broken)
+            sublist = generate_join_implied_equalities_normal(root, ec,
+                                                              join_relids,
+                                                              outer_relids,
+                                                              inner_relids);
+
+        // Fallback for broken equivalence classes
+        if (ec->ec_broken)
+            sublist = generate_join_implied_equalities_broken(root, ec,
+                                                              nominal_join_relids,
+                                                              outer_relids,
+                                                              nominal_inner_relids,
+                                                              inner_rel);
+
+        result = list_concat(result, sublist);
+    }
+
+    return result;
+}
+```

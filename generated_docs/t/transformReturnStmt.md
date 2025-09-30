@@ -42,3 +42,38 @@ This transformation allows RETURN statements to be processed through the same ex
 
 ## Notes and Other Information
 The function specifically handles RETURN statements found in PostgreSQL stored procedures and functions. The resulting Query has its isReturn flag set to distinguish it from regular SELECT statements during execution. The function ensures proper type resolution and collation assignment, which is critical for return value handling. The transformation maintains all parse state information that might be relevant for later processing phases, including sublinks, window functions, and aggregates detection.
+
+## Simplified Source
+
+```c
+static Query *
+transformReturnStmt(ParseState *pstate, ReturnStmt *stmt)
+{
+    Query *qry = makeNode(Query);
+
+    qry->commandType = CMD_SELECT;
+    qry->isReturn = true;
+
+    // Transform return expression into target list
+    qry->targetList = list_make1(makeTargetEntry(
+        (Expr *) transformExpr(pstate, stmt->returnval, EXPR_KIND_SELECT_TARGET),
+        1, NULL, false));
+
+    // Resolve unknown types if needed
+    if (pstate->p_resolve_unknowns)
+        resolveTargetListUnknowns(pstate, qry->targetList);
+
+    // Copy parse state information to query
+    qry->rtable = pstate->p_rtable;
+    qry->rteperminfos = pstate->p_rteperminfos;
+    qry->jointree = makeFromExpr(pstate->p_joinlist, NULL);
+    qry->hasSubLinks = pstate->p_hasSubLinks;
+    qry->hasWindowFuncs = pstate->p_hasWindowFuncs;
+    qry->hasTargetSRFs = pstate->p_hasTargetSRFs;
+    qry->hasAggs = pstate->p_hasAggs;
+
+    assign_query_collations(pstate, qry);
+
+    return qry;
+}
+```

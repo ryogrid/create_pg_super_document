@@ -43,3 +43,17 @@ The threshold-based flushing in pipeline mode allows multiple small commands to 
 - Essential component of the pipeline mode implementation in libpq
 - Automatically called by various PQsend* functions to manage buffer flushing
 - The conditional logic ensures optimal behavior in both pipeline and traditional modes
+
+## Simplified Source
+```c
+static int pqPipelineFlush(PGconn *conn) {
+    // Flush if not in pipeline mode OR buffer reached threshold
+    if ((conn->pipelineStatus != PQ_PIPELINE_ON) ||
+        (conn->outCount >= OUTBUFFER_THRESHOLD)) {
+        return pqFlush(conn);
+    }
+
+    // In pipeline mode with buffer below threshold: don't flush yet
+    return 0;
+}
+```

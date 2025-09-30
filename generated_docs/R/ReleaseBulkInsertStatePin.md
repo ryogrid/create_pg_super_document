@@ -35,3 +35,19 @@ Beyond simply releasing the buffer pin, this function also resets the bulk relat
 - Does not free the BulkInsertState itself - use FreeBulkInsertState for full cleanup
 - Commonly used when switching between partitions during bulk operations
 - The function maintains the access strategy while resetting buffer and block tracking state
+
+## Simplified Source
+
+```c
+void ReleaseBulkInsertStatePin(BulkInsertState bistate) {
+    // Release any currently held buffer
+    if (bistate->current_buf != InvalidBuffer)
+        ReleaseBuffer(bistate->current_buf);
+    bistate->current_buf = InvalidBuffer;
+
+    // Reset bulk relation extension state to prevent
+    // cross-partition contamination
+    bistate->next_free = InvalidBlockNumber;
+    bistate->last_free = InvalidBlockNumber;
+}
+```

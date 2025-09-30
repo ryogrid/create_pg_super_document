@@ -41,3 +41,33 @@ The CoerceToDomainValue node is copied from the parser state's hook context (set
 - Part of the domain constraint expression parsing infrastructure
 - Enables the special VALUE keyword functionality in domain check constraints
 - Maintains compatibility by treating VALUE as an identifier, not a reserved keyword
+
+## Simplified Source
+
+```c
+static Node *
+replace_domain_constraint_value(ParseState *pstate, ColumnRef *cref)
+{
+    // Check for a reference to "value" and replace with CoerceToDomainValue
+    // Handle VALUE as a name, not a keyword, for backward compatibility
+
+    if (list_length(cref->fields) == 1)
+    {
+        Node *field1 = (Node *) linitial(cref->fields);
+        char *colname = strVal(field1);
+
+        if (strcmp(colname, "value") == 0)
+        {
+            // Replace "value" with prepared CoerceToDomainValue node
+            CoerceToDomainValue *domVal = copyObject(pstate->p_ref_hook_state);
+
+            // Preserve location for error reporting
+            domVal->location = cref->location;
+            return (Node *) domVal;
+        }
+    }
+
+    // Return NULL for all other references to continue normal parsing
+    return NULL;
+}
+```

@@ -38,3 +38,14 @@ The `aclitemsort` function arranges ACL entries in a deterministic order using t
 - Typically called after ACL construction or modification to ensure consistent state
 - The consistent ordering helps with debugging and reduces false differences in ACL comparisons
 - Performance: O(n log n) where n is the number of ACL entries
+
+## Simplified Source
+
+```c
+void aclitemsort(Acl *acl) {
+    // Only sort if ACL exists and has multiple items
+    if (acl != NULL && ACL_NUM(acl) > 1) {
+        qsort(ACL_DAT(acl), ACL_NUM(acl), sizeof(AclItem), aclitemComparator);
+    }
+}
+```

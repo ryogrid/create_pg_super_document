@@ -35,3 +35,50 @@ This function creates a new entry in the pg_parameter_acl catalog for the specif
 - Maintains catalog locks until transaction commit for consistency
 - Returns the newly created entry's OID for further reference
 - Part of PostgreSQL's parameter-level access control infrastructure introduced for fine-grained security
+
+## Simplified Source
+
+```c
+Oid
+ParameterAclCreate(const char *parameter)
+{
+    Oid parameterId;
+    char *parname;
+    Relation rel;
+    TupleDesc tupDesc;
+    HeapTuple tuple;
+    Datum values[Natts_pg_parameter_acl] = {0};
+    bool nulls[Natts_pg_parameter_acl] = {0};
+
+    // Validate parameter name for ACL entry
+    check_GUC_name_for_parameter_acl(parameter);
+
+    // Convert name to standardized form
+    parname = convert_GUC_name_for_parameter_acl(parameter);
+
+    // Open parameter ACL catalog for insertion
+    rel = table_open(ParameterAclRelationId, RowExclusiveLock);
+    tupDesc = RelationGetDescr(rel);
+
+    // Generate new OID for this parameter ACL entry
+    parameterId = GetNewOidWithIndex(rel,
+                                     ParameterAclOidIndexId,
+                                     Anum_pg_parameter_acl_oid);
+
+    // Build tuple with parameter name and null ACL
+    values[Anum_pg_parameter_acl_oid - 1] = ObjectIdGetDatum(parameterId);
+    values[Anum_pg_parameter_acl_parname - 1] =
+        PointerGetDatum(cstring_to_text(parname));
+    nulls[Anum_pg_parameter_acl_paracl - 1] = true;
+
+    // Insert new ACL entry
+    tuple = heap_form_tuple(tupDesc, values, nulls);
+    CatalogTupleInsert(rel, tuple);
+
+    // Cleanup
+    heap_freetuple(tuple);
+    table_close(rel, NoLock);
+
+    return parameterId;
+}
+```

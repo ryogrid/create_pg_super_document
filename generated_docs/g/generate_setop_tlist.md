@@ -53,3 +53,70 @@ The function sets all non-resjunk columns to have ressortgroupref equal to their
 - All non-resjunk columns get ressortgroupref set to their resno for set-operation planning consistency
 - The flag column, when added, is always marked as resjunk and contains a constant integer value
 - Type coercions use coerce_to_common_type while collation adjustments use applyRelabelType with RelabelType nodes
+
+## Simplified Source
+
+```c
+static List *
+generate_setop_tlist(List *colTypes, List *colCollations, int flag,
+                     Index varno, bool hack_constants,
+                     List *input_tlist, List *refnames_tlist,
+                     bool *trivial_tlist)
+{
+    List *tlist = NIL;
+    int resno = 1;
+    ListCell *ctlc, *cclc, *itlc, *rtlc;
+
+    *trivial_tlist = true;
+
+    // Process each column type, collation, input and reference entry together
+    forfour(ctlc, colTypes, cclc, colCollations, itlc, input_tlist, rtlc, refnames_tlist)
+    {
+        Oid colType = lfirst_oid(ctlc);
+        Oid colColl = lfirst_oid(cclc);
+        TargetEntry *inputtle = (TargetEntry *) lfirst(itlc);
+        TargetEntry *reftle = (TargetEntry *) lfirst(rtlc);
+        Node *expr;
+
+        // Create expression: either copy constant or create variable reference
+        if (hack_constants && inputtle->expr && IsA(inputtle->expr, Const))
+            expr = (Node *) inputtle->expr;
+        else
+            expr = (Node *) makeVar(varno, inputtle->resno,
+                                  exprType((Node *) inputtle->expr),
+                                  exprTypmod((Node *) inputtle->expr),
+                                  exprCollation((Node *) inputtle->expr), 0);
+
+        // Add type coercion if needed
+        if (exprType(expr) != colType) {
+            expr = coerce_to_common_type(NULL, expr, colType, "UNION/INTERSECT/EXCEPT");
+            *trivial_tlist = false;
+        }
+
+        // Add collation relabeling if needed
+        if (exprCollation(expr) != colColl) {
+            expr = applyRelabelType(expr, exprType(expr), exprTypmod(expr), colColl,
+                                  COERCE_IMPLICIT_CAST, -1, false);
+            *trivial_tlist = false;
+        }
+
+        // Create target entry with sort group reference
+        TargetEntry *tle = makeTargetEntry((Expr *) expr, (AttrNumber) resno++,
+                                         pstrdup(reftle->resname), false);
+        tle->ressortgroupref = tle->resno;
+        tlist = lappend(tlist, tle);
+    }
+
+    // Add optional flag column
+    if (flag >= 0) {
+        Node *expr = (Node *) makeConst(INT4OID, -1, InvalidOid, sizeof(int32),
+                                       Int32GetDatum(flag), false, true);
+        TargetEntry *tle = makeTargetEntry((Expr *) expr, (AttrNumber) resno++,
+                                         pstrdup("flag"), true);
+        tlist = lappend(tlist, tle);
+        *trivial_tlist = false;
+    }
+
+    return tlist;
+}
+```

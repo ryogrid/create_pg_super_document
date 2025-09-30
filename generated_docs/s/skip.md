@@ -42,3 +42,38 @@ The function continues this process in a loop until no more whitespace or commen
 - Leaves newline characters to be processed by the whitespace loop in the next iteration
 - Widely used throughout PostgreSQL codebase beyond just regex parsing, suggesting it may be a general utility function
 - Records usage of expanded syntax for compatibility tracking and potential warnings
+
+## Simplified Source
+
+```c
+static void
+skip(struct vars *v)
+{
+    const chr *start = v->now;
+
+    // Only skip in expanded mode
+    assert(v->cflags & REG_EXPANDED);
+
+    // Loop to skip whitespace and comments
+    for (;;) {
+        // Skip consecutive whitespace characters
+        while (!ATEOS() && iscspace(*v->now))
+            v->now++;
+
+        // Check for comment start '#'
+        if (ATEOS() || *v->now != CHR('#'))
+            break; // No more whitespace or comments
+
+        // Skip comment line until newline
+        assert(NEXT1('#'));
+        while (!ATEOS() && *v->now != CHR('\n'))
+            v->now++;
+
+        // Leave newline for next whitespace loop iteration
+    }
+
+    // Record non-POSIX feature usage if we skipped anything
+    if (v->now != start)
+        NOTE(REG_UNONPOSIX);
+}
+```

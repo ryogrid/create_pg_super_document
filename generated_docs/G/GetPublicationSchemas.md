@@ -44,3 +44,38 @@ Each tuple found in the scan represents a publication-namespace relationship, fr
 - Properly manages catalog relation lifecycle with table_open/table_close
 - The returned schema OIDs can be used to determine which tables are implicitly included through schema membership
 - Essential for schema-based publication operations and determining publication scope in replication contexts
+
+## Simplified Source
+
+```c
+List *GetPublicationSchemas(Oid pubid) {
+    List *result = NIL;
+    Relation pubschsrel;
+    ScanKeyData scankey;
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open publication-namespace catalog with shared lock
+    pubschsrel = table_open(PublicationNamespaceRelationId, AccessShareLock);
+
+    // Set up scan to find all schemas for this publication
+    ScanKeyInit(&scankey, Anum_pg_publication_namespace_pnpubid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(pubid));
+
+    // Begin indexed scan for efficiency
+    scan = systable_beginscan(pubschsrel, PublicationNamespacePnnspidPnpubidIndexId,
+                              true, NULL, 1, &scankey);
+
+    // Collect all schema OIDs for this publication
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_publication_namespace pubsch = (Form_pg_publication_namespace) GETSTRUCT(tup);
+        result = lappend_oid(result, pubsch->pnnspid);
+    }
+
+    // Clean up catalog access
+    systable_endscan(scan);
+    table_close(pubschsrel, AccessShareLock);
+
+    return result;
+}
+```

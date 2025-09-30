@@ -36,3 +36,27 @@ The function performs a linear search through the join_domains list and returns 
 - The function includes a comment noting that the search could be avoided by complicating other APIs, but this approach was chosen for simplicity
 - The function will always either return a valid JoinDomain pointer or throw an ERROR - it never returns NULL in normal operation
 - The ERROR condition indicates a bug in the optimizer logic, as there should always be an appropriate JoinDomain available for any valid relid set
+
+## Simplified Source
+
+```c
+static JoinDomain *
+find_join_domain(PlannerInfo *root, Relids relids)
+{
+    ListCell   *lc;
+
+    // Search through all join domains
+    foreach(lc, root->join_domains)
+    {
+        JoinDomain *jdomain = (JoinDomain *) lfirst(lc);
+
+        // Return first domain that is subset of given relids
+        if (bms_is_subset(jdomain->jd_relids, relids))
+            return jdomain;
+    }
+
+    // Should never happen - indicates optimizer bug
+    elog(ERROR, "failed to find appropriate JoinDomain");
+    return NULL;
+}
+```

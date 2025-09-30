@@ -39,3 +39,24 @@ The function handles the complexity of partitioned tables where child tables may
 - For child relations in partitioned tables, applies attribute mapping to ensure column references match the child's schema
 - The returned bitmap uses child table's attribute numbers when conversion is performed
 - This function is essential for constraint checking and security enforcement during INSERT operations in partitioned table environments
+
+## Simplified Source
+
+```c
+Bitmapset *ExecGetInsertedCols(ResultRelInfo *relinfo, EState *estate) {
+    // Get permission info for this relation
+    RTEPermissionInfo *perminfo = GetResultRTEPermissionInfo(relinfo, estate);
+    if (perminfo == NULL)
+        return NULL;
+
+    // Handle column mapping for child relations in partitioned tables
+    if (relinfo->ri_RootResultRelInfo) {
+        TupleConversionMap *map = ExecGetRootToChildMap(relinfo, estate);
+        if (map)
+            return execute_attr_map_cols(map->attrMap, perminfo->insertedCols);
+    }
+
+    // For non-partitioned tables, return original bitmap
+    return perminfo->insertedCols;
+}
+```

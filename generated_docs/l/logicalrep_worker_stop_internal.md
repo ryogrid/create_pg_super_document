@@ -45,3 +45,60 @@ The function uses WaitLatch with timeouts to avoid indefinite blocking, and incl
 - Implements proper signal handling and graceful shutdown semantics
 - Includes timeout-based waiting to prevent indefinite blocking
 - Critical for maintaining consistency during logical replication worker lifecycle management
+
+## Simplified Source
+
+```c
+static void logicalrep_worker_stop_internal(LogicalRepWorker *worker, int signo) {
+    Assert(LWLockHeldByMeInMode(LogicalRepWorkerLock, LW_SHARED));
+
+    // Remember worker generation to detect slot reuse
+    uint16 generation = worker->generation;
+
+    // Phase 1: Wait for worker to finish starting if not yet fully initialized
+    while (worker->in_use && !worker->proc) {
+        LWLockRelease(LogicalRepWorkerLock);
+
+        // Wait briefly for worker startup
+        int rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                          10L, WAIT_EVENT_BGWORKER_STARTUP);
+
+        if (rc & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+        // Check if worker exited or slot was reused
+        if (!worker->in_use || worker->generation != generation)
+            return;
+
+        if (worker->proc)
+            break;  // Worker fully started
+    }
+
+    // Phase 2: Send termination signal
+    kill(worker->proc->pid, signo);
+
+    // Phase 3: Wait for worker to exit
+    for (;;) {
+        // Check if worker has exited
+        if (!worker->proc || worker->generation != generation)
+            break;
+
+        LWLockRelease(LogicalRepWorkerLock);
+
+        // Wait briefly for worker shutdown
+        int rc = WaitLatch(MyLatch, WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH,
+                          10L, WAIT_EVENT_BGWORKER_SHUTDOWN);
+
+        if (rc & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+    }
+}
+```

@@ -50,3 +50,42 @@ This function is essential for extension management operations that need to unde
 - Essential for operations that need to understand the namespace context of extension objects
 - Part of PostgreSQL's extension management system and used internally by extension creation and maintenance functions
 - The extnamespace field in pg_extension corresponds to the schema where the extension's objects are created
+
+## Simplified Source
+
+```c
+Oid get_extension_schema(Oid ext_oid) {
+    Oid result;
+    Relation rel;
+    SysScanDesc scandesc;
+    HeapTuple tuple;
+    ScanKeyData entry[1];
+
+    // Open pg_extension catalog with shared lock
+    rel = table_open(ExtensionRelationId, AccessShareLock);
+
+    // Set up scan key to find extension by OID
+    ScanKeyInit(&entry[0], Anum_pg_extension_oid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(ext_oid));
+
+    // Start indexed scan
+    scandesc = systable_beginscan(rel, ExtensionOidIndexId, true,
+                                  NULL, 1, entry);
+
+    // Get the tuple (should be at most one)
+    tuple = systable_getnext(scandesc);
+
+    // Extract schema OID if extension exists
+    if (HeapTupleIsValid(tuple)) {
+        result = ((Form_pg_extension) GETSTRUCT(tuple))->extnamespace;
+    } else {
+        result = InvalidOid;  // Extension not found
+    }
+
+    // Clean up
+    systable_endscan(scandesc);
+    table_close(rel, AccessShareLock);
+
+    return result;
+}
+```

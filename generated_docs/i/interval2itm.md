@@ -44,3 +44,33 @@ The function performs no validation or overflow checking since the pg_itm struct
 - Time component extraction uses systematic division to avoid precision loss
 - The pg_itm structure uses separate fields for each time component, making it ideal for formatting and extraction operations
 - This function is the complement to itm2interval and is essential for interval display and manipulation
+
+## Simplified Source
+
+```c
+void
+interval2itm(Interval span, struct pg_itm *itm) {
+    // Extract years and months from total month count
+    itm->tm_year = span.month / MONTHS_PER_YEAR;
+    itm->tm_mon = span.month % MONTHS_PER_YEAR;
+    itm->tm_mday = span.day;
+
+    // Break down time (microseconds) into components
+    TimeOffset time = span.time;
+
+    // Extract hours
+    itm->tm_hour = time / USECS_PER_HOUR;
+    time %= USECS_PER_HOUR;
+
+    // Extract minutes
+    itm->tm_min = time / USECS_PER_MINUTE;
+    time %= USECS_PER_MINUTE;
+
+    // Extract seconds
+    itm->tm_sec = time / USECS_PER_SEC;
+    time %= USECS_PER_SEC;
+
+    // Remaining microseconds
+    itm->tm_usec = time;
+}
+```

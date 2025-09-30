@@ -47,3 +47,59 @@ Like other similar relcache functions, RelationGetStatExtList carefully manages 
 - Memory management prevents leaks by using appropriate memory contexts for building and caching
 - Handles creation or deletion of statistics objects through shared cache invalidation mechanism
 - Used primarily by the query optimizer to gather extended statistics for planning purposes
+
+## Simplified Source
+
+```c
+List *
+RelationGetStatExtList(Relation relation)
+{
+    Relation indrel;
+    SysScanDesc indscan;
+    ScanKeyData skey;
+    HeapTuple htup;
+    List *result;
+    List *oldlist;
+    MemoryContext oldcxt;
+
+    // Return cached list if already computed
+    if (relation->rd_statvalid != 0)
+        return list_copy(relation->rd_statlist);
+
+    // Build result list in caller's context during scan
+    result = NIL;
+
+    // Scan pg_statistic_ext for entries with matching relation OID
+    ScanKeyInit(&skey, Anum_pg_statistic_ext_stxrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationGetRelid(relation)));
+
+    indrel = table_open(StatisticExtRelationId, AccessShareLock);
+    indscan = systable_beginscan(indrel, StatisticExtRelidIndexId, true,
+                                 NULL, 1, &skey);
+
+    // Collect OIDs of all matching statistics objects
+    while (HeapTupleIsValid(htup = systable_getnext(indscan))) {
+        Oid oid = ((Form_pg_statistic_ext) GETSTRUCT(htup))->oid;
+        result = lappend_oid(result, oid);
+    }
+
+    systable_endscan(indscan);
+    table_close(indrel, AccessShareLock);
+
+    // Sort result list by OID for consistency
+    list_sort(result, list_oid_cmp);
+
+    // Cache the completed list in relcache entry
+    oldcxt = MemoryContextSwitchTo(CacheMemoryContext);
+    oldlist = relation->rd_statlist;
+    relation->rd_statlist = list_copy(result);
+    relation->rd_statvalid = true;
+    MemoryContextSwitchTo(oldcxt);
+
+    // Clean up old cached list
+    list_free(oldlist);
+
+    return result;
+}
+```

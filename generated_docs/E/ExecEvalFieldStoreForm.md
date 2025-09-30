@@ -36,3 +36,26 @@ The function retrieves the cached tuple descriptor for the result type, then use
 - The tuple descriptor is assumed to be valid and cached from a previous lookup
 - The function always sets the result as non-null since a composite value is being constructed
 - Part of PostgreSQL's expression evaluation framework for handling composite type field modifications
+
+## Simplified Source
+
+```c
+void ExecEvalFieldStoreForm(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+{
+    TupleDesc tupDesc;
+    HeapTuple tuple;
+
+    // Get tuple descriptor for the result type (should be cached already)
+    tupDesc = get_cached_rowtype(op->d.fieldstore.fstore->resulttype, -1,
+                                op->d.fieldstore.rowcache, NULL);
+
+    // Form new tuple from the modified field values and null flags
+    tuple = heap_form_tuple(tupDesc,
+                           op->d.fieldstore.values,
+                           op->d.fieldstore.nulls);
+
+    // Store result as Datum
+    *op->resvalue = HeapTupleGetDatum(tuple);
+    *op->resnull = false;
+}
+```

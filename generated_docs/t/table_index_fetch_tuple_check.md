@@ -38,3 +38,27 @@ This function performs a simplified index fetch operation to verify tuple existe
 - The tid parameter modification supports HOT chain following for heap access methods
 - Part of PostgreSQL's table access method abstraction layer for storage engine independence
 - Primary use case is B-tree unique index constraint validation during insertions
+
+## Simplified Source
+
+```c
+bool table_index_fetch_tuple_check(Relation rel, ItemPointer tid,
+                                   Snapshot snapshot, bool *all_dead) {
+    // Create temporary slot for tuple data
+    TupleTableSlot *slot = table_slot_create(rel, NULL);
+
+    // Begin index fetch operation
+    IndexFetchTableData *scan = table_index_fetch_begin(rel);
+
+    // Check if tuple exists and is visible according to snapshot
+    bool call_again = false;
+    bool found = table_index_fetch_tuple(scan, tid, snapshot, slot,
+                                         &call_again, all_dead);
+
+    // Clean up resources
+    table_index_fetch_end(scan);
+    ExecDropSingleTupleTableSlot(slot);
+
+    return found;
+}
+```

@@ -37,3 +37,23 @@ The function operates on the assumption that the caller has already verified the
 - Callers must ensure the buffer is not full before calling this function
 - Tuple slots are created lazily to avoid unnecessary memory allocation
 - Part of the multi-insert optimization mechanism that batches tuple insertions for better performance
+
+## Simplified Source
+
+```c
+static inline TupleTableSlot *
+CopyMultiInsertInfoNextFreeSlot(CopyMultiInsertInfo *miinfo,
+                               ResultRelInfo *rri) {
+    CopyMultiInsertBuffer *buffer = rri->ri_CopyMultiInsertBuffer;
+    int nused = buffer->nused;
+
+    Assert(buffer != NULL);
+    Assert(nused < MAX_BUFFERED_TUPLES);
+
+    // Create slot if it doesn't exist yet (lazy allocation)
+    if (buffer->slots[nused] == NULL)
+        buffer->slots[nused] = table_slot_create(rri->ri_RelationDesc, NULL);
+
+    return buffer->slots[nused];
+}
+```

@@ -47,3 +47,37 @@ Each validation failure triggers an ERROR with ERRCODE_INVALID_PARAMETER_VALUE, 
 - Version names are used in extension update paths and must be safe for file system operations
 - All error messages are specifically tailored to version name context (vs generic extension name errors)
 - Essential component of PostgreSQL's extension security model, preventing malicious version specifications
+
+## Simplified Source
+
+```c
+static void
+check_valid_version_name(const char *versionname)
+{
+    int namelen = strlen(versionname);
+
+    // Disallow empty names
+    if (namelen == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension version name: \"%s\"", versionname),
+                       errdetail("Version names must not be empty.")));
+
+    // No double dashes (would make script filenames ambiguous)
+    if (strstr(versionname, "--"))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension version name: \"%s\"", versionname),
+                       errdetail("Version names must not contain \"--\".")));
+
+    // No leading or trailing dash
+    if (versionname[0] == '-' || versionname[namelen - 1] == '-')
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension version name: \"%s\"", versionname),
+                       errdetail("Version names must not begin or end with \"-\".")));
+
+    // No directory separators (prevents path traversal attacks)
+    if (first_dir_separator(versionname) != NULL)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("invalid extension version name: \"%s\"", versionname),
+                       errdetail("Version names must not contain directory separator characters.")));
+}
+```

@@ -7,28 +7,10 @@
 LogicalTapeRead is a function that reads data from a logical tape, providing buffered sequential access to data stored in temporary files during sorting operations.
 
 ## Definition
-
 ```c
-structive read.
-	 */
-	if (lt->dirty)
-	{
-		/*
-		 * As long as we've filled the buffer at least once, its contents are
-		 * entirely defined from valgrind's point of view, even though
-		 * contents beyond the current end point may be stale.  But it's
-		 * possible - at least in the case of a parallel sort - to sort such
-		 * small amount of data that we do not fill the buffer even once. Tell
-		 * valgrind that its contents are defined, so it doesn't bleat.
-		 */
-		VALGRIND_MAKE_MEM_DEFINED(lt->buffer + lt->nbytes,
-								  lt->buffer_size - lt->nbytes);
-
-		TapeBlockSetNBytes(lt->buffer, lt->nbytes);
-		ltsWriteBlock(lt->tapeSet, lt->curBlockNumber, lt->buffer);
-	}
-	lt->writing = false;
+size_t LogicalTapeRead(LogicalTape *lt, void *ptr, size_t size)
 ```
+
 ## Detailed Description
 LogicalTapeRead performs buffered reading from a logical tape data structure. It ensures the tape is in read mode (not writing), initializes the read buffer if necessary, and then reads the requested amount of data into the provided buffer. The function handles partial reads and EOF conditions gracefully, returning the actual number of bytes read which may be less than requested if EOF is encountered.
 
@@ -40,9 +22,10 @@ The function works by:
 5. Copying data to the caller's buffer until the request is satisfied or EOF is reached
 
 ## Parameters / Member Variables
-- `lt->nbytes)`: Pointer to the LogicalTape structure representing the tape to read from
-- `lt->nbytes)`: Destination buffer where the read data will be stored
-- `lt->buffer)`: Number of bytes requested to read
+- `lt`: Pointer to the LogicalTape structure representing the tape to read from
+- `ptr`: Destination buffer where the read data will be stored
+- `size`: Number of bytes requested to read
+
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalTape](LogicalTape.md) (structure type)
@@ -59,3 +42,45 @@ The function works by:
 - The function maintains internal buffering for efficient I/O operations
 - Must not be called on a tape that is currently in writing mode
 - Part of PostgreSQL's external sorting infrastructure used during large sort operations
+
+## Simplified Source
+
+```c
+size_t LogicalTapeRead(LogicalTape *lt, void *ptr, size_t size)
+{
+    size_t bytes_read = 0;
+    size_t chunk_size;
+
+    // Ensure tape is in read mode
+    Assert(!lt->writing);
+
+    // Initialize read buffer if needed
+    if (lt->buffer == NULL)
+        ltsInitReadBuffer(lt);
+
+    // Read data in chunks until request is satisfied or EOF
+    while (size > 0) {
+        // Refill buffer if empty
+        if (lt->pos >= lt->nbytes) {
+            if (!ltsReadFillBuffer(lt))
+                break; // End of file reached
+        }
+
+        // Calculate how much to read from current buffer
+        chunk_size = lt->nbytes - lt->pos;
+        if (chunk_size > size)
+            chunk_size = size;
+
+        // Copy data from buffer to destination
+        memcpy(ptr, lt->buffer + lt->pos, chunk_size);
+
+        // Update positions and counters
+        lt->pos += chunk_size;
+        ptr = (char *) ptr + chunk_size;
+        size -= chunk_size;
+        bytes_read += chunk_size;
+    }
+
+    return bytes_read;
+}
+```

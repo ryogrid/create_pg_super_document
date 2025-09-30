@@ -46,3 +46,25 @@ The function advances the cursor by 4 bytes and returns the converted integer va
 - Used extensively throughout the protocol tracing system for parsing 32-bit integer fields
 - Always outputs the value prefixed with a space for consistent formatting
 - The function modifies the cursor position as a side effect, enabling sequential parsing of protocol messages
+
+## Simplified Source
+
+```c
+static int
+pqTraceOutputInt32(FILE *pfdebug, const char *data, int *cursor, bool suppress)
+{
+    // Extract 4-byte integer and convert from network byte order
+    int result;
+    memcpy(&result, data + *cursor, 4);
+    *cursor += 4;
+    result = (int) pg_ntoh32(result);
+
+    // Output value or placeholder for security
+    if (suppress)
+        fprintf(pfdebug, " NNNN");
+    else
+        fprintf(pfdebug, " %d", result);
+
+    return result;
+}
+```

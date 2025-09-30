@@ -34,3 +34,24 @@ This function establishes a proper snapshot for accessing TOAST data by using th
 - Uses assertion checking to ensure proper snapshot registration, helping catch development-time bugs
 - The oldest snapshot is chosen to maximize the likelihood of seeing the TOAST data that was referenced
 - Part of PostgreSQL's defensive programming approach to prevent unsafe TOAST data access patterns
+
+## Simplified Source
+
+```c
+void
+init_toast_snapshot(Snapshot toast_snapshot)
+{
+    // Get the oldest available snapshot for TOAST access
+    Snapshot snapshot = GetOldestSnapshot();
+
+    // Error if no active snapshot - prevents unsafe TOAST access
+    if (snapshot == NULL)
+        elog(ERROR, "cannot fetch toast data without an active snapshot");
+
+    // Ensure we have a proper registered/active snapshot
+    Assert(HaveRegisteredOrActiveSnapshot());
+
+    // Initialize the TOAST snapshot with oldest snapshot's data
+    InitToastSnapshot(*toast_snapshot, snapshot->lsn, snapshot->whenTaken);
+}
+```

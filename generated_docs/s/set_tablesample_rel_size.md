@@ -39,3 +39,30 @@ The function assumes that only a SampleScan path will be considered for the samp
 - Partial index checking is performed first since it can impact size estimates
 - Currently designed assuming only SampleScan paths will be used for sampled relations
 - The function directly overwrites rel->pages and rel->tuples with the sampling estimates
+
+## Simplified Source
+
+```c
+static void
+set_tablesample_rel_size(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    TableSampleClause *tsc = rte->tablesample;
+    TsmRoutine *tsm;
+    BlockNumber pages;
+    double tuples;
+
+    // Check partial indexes first since they affect size estimates
+    check_index_predicates(root, rel);
+
+    // Get the sampling method and call its estimation function
+    tsm = GetTsmRoutine(tsc->tsmhandler);
+    tsm->SampleScanGetSampleSize(root, rel, tsc->args, &pages, &tuples);
+
+    // Update relation estimates with sampling method results
+    rel->pages = pages;
+    rel->tuples = tuples;
+
+    // Finalize size estimates for the relation
+    set_baserel_size_estimates(root, rel);
+}
+```

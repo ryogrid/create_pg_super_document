@@ -40,3 +40,66 @@ The function recursively processes nested joinlists, converting RangeTblRef node
 - The initial_rels list is stored in PlannerInfo for use by has_legal_joinclause()
 - Handles error cases for unrecognized joinlist node types
 - Critical function in PostgreSQL's cost-based optimizer architecture
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+make_rel_from_joinlist(PlannerInfo *root, List *joinlist)
+{
+    int levels_needed;
+    List *initial_rels;
+    ListCell *jl;
+
+    // Count joinlist nodes to determine join depth
+    levels_needed = list_length(joinlist);
+
+    if (levels_needed <= 0)
+        return NULL;
+
+    // Convert joinlist nodes to RelOptInfo structures
+    initial_rels = NIL;
+    foreach(jl, joinlist)
+    {
+        Node *jlnode = (Node *) lfirst(jl);
+        RelOptInfo *thisrel;
+
+        if (IsA(jlnode, RangeTblRef))
+        {
+            // Base table reference
+            int varno = ((RangeTblRef *) jlnode)->rtindex;
+            thisrel = find_base_rel(root, varno);
+        }
+        else if (IsA(jlnode, List))
+        {
+            // Nested joinlist - recurse
+            thisrel = make_rel_from_joinlist(root, (List *) jlnode);
+        }
+        else
+        {
+            elog(ERROR, "unrecognized joinlist node type: %d", (int) nodeTag(jlnode));
+            thisrel = NULL;
+        }
+
+        initial_rels = lappend(initial_rels, thisrel);
+    }
+
+    if (levels_needed == 1)
+    {
+        // Single relation - return directly
+        return (RelOptInfo *) linitial(initial_rels);
+    }
+    else
+    {
+        // Multiple relations - choose join search algorithm
+        root->initial_rels = initial_rels;
+
+        if (join_search_hook)
+            return (*join_search_hook)(root, levels_needed, initial_rels);
+        else if (enable_geqo && levels_needed >= geqo_threshold)
+            return geqo(root, levels_needed, initial_rels);
+        else
+            return standard_join_search(root, levels_needed, initial_rels);
+    }
+}
+```

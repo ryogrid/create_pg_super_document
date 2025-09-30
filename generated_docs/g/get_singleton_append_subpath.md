@@ -34,3 +34,25 @@ This helper function is used in the PostgreSQL query optimizer to unwrap single-
 - The function includes an assertion that the input path must not be parallel-aware
 - Located in src/backend/optimizer/path/allpaths.c at lines 2132-2165
 - Used primarily in path optimization scenarios where single-element append operations can be simplified
+
+## Simplified Source
+
+```c
+static Path *get_singleton_append_subpath(Path *path) {
+    // Check for single-subpath AppendPath
+    if (IsA(path, AppendPath)) {
+        AppendPath *apath = (AppendPath *) path;
+        if (list_length(apath->subpaths) == 1)
+            return (Path *) linitial(apath->subpaths);
+    }
+    // Check for single-subpath MergeAppendPath
+    else if (IsA(path, MergeAppendPath)) {
+        MergeAppendPath *mpath = (MergeAppendPath *) path;
+        if (list_length(mpath->subpaths) == 1)
+            return (Path *) linitial(mpath->subpaths);
+    }
+
+    // Return original path if not a singleton append
+    return path;
+}
+```

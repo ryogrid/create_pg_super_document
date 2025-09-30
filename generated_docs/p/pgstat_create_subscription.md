@@ -31,3 +31,18 @@ The function ensures proper ACID compliance by using the transactional statistic
 
 ## Notes and Other Information
 This function is typically called during the execution of a CREATE SUBSCRIPTION SQL command. The transactional nature ensures that incomplete subscription creations don't leave orphaned statistics entries. The function works in conjunction with the overall PostgreSQL statistics system to provide monitoring capabilities for logical replication subscriptions from the moment they are created.
+
+## Simplified Source
+
+```c
+void
+pgstat_create_subscription(Oid subid)
+{
+    // Ensure stats are cleaned up if transaction rolls back
+    pgstat_create_transactional(PGSTAT_KIND_SUBSCRIPTION, InvalidOid, subid);
+
+    // Create and initialize the subscription stats entry with reset counters
+    pgstat_get_entry_ref(PGSTAT_KIND_SUBSCRIPTION, InvalidOid, subid, true, NULL);
+    pgstat_reset_entry(PGSTAT_KIND_SUBSCRIPTION, InvalidOid, subid, 0);
+}
+```

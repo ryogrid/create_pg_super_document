@@ -54,3 +54,35 @@ The function follows the PostgreSQL FunctionCall message format:
 - The trace output format begins with "FunctionCall" followed by the parsed message components
 - Parameter values are output as raw binary data using pqTraceOutputNchar
 - The function properly advances the cursor through the message buffer to maintain synchronization with the protocol format
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_FunctionCall(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Output message type identifier
+    fprintf(f, "FunctionCall\t");
+
+    // Extract function OID
+    pqTraceOutputInt32(f, message, cursor, regress);
+
+    // Extract parameter format codes
+    int nfields = pqTraceOutputInt16(f, message, cursor);
+    for (int i = 0; i < nfields; i++) {
+        pqTraceOutputInt16(f, message, cursor);
+    }
+
+    // Extract parameter values
+    nfields = pqTraceOutputInt16(f, message, cursor);
+    for (int i = 0; i < nfields; i++) {
+        int nbytes = pqTraceOutputInt32(f, message, cursor, false);
+        // Skip NULL parameters (-1 length)
+        if (nbytes != -1) {
+            pqTraceOutputNchar(f, nbytes, message, cursor);
+        }
+    }
+
+    // Extract result format code
+    pqTraceOutputInt16(f, message, cursor);
+}
+```

@@ -43,3 +43,34 @@ The tuplestore is stored in the global afterTriggers structure, indexed by the c
 - Supports nested query execution by maintaining separate tuplestores per query depth
 - The tuplestore lifetime is tied to the subtransaction, ensuring automatic cleanup
 - Specifically designed for FDW operations within trigger contexts
+
+## Simplified Source
+
+```c
+static Tuplestorestate *
+GetCurrentFDWTuplestore(void)
+{
+    Tuplestorestate *ret;
+
+    // Get existing tuplestore for current query level
+    ret = afterTriggers.query_stack[afterTriggers.query_depth].fdw_tuplestore;
+
+    if (ret == NULL) {
+        // Create new tuplestore in transaction context
+        MemoryContext oldcxt = MemoryContextSwitchTo(CurTransactionContext);
+        ResourceOwner saveResourceOwner = CurrentResourceOwner;
+        CurrentResourceOwner = CurTransactionResourceOwner;
+
+        ret = tuplestore_begin_heap(false, false, work_mem);
+
+        // Restore context
+        CurrentResourceOwner = saveResourceOwner;
+        MemoryContextSwitchTo(oldcxt);
+
+        // Store for future use
+        afterTriggers.query_stack[afterTriggers.query_depth].fdw_tuplestore = ret;
+    }
+
+    return ret;
+}
+```

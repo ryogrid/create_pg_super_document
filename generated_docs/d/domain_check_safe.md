@@ -40,3 +40,17 @@ The function directly delegates to `domain_check_internal` with the provided err
 - The function is primarily used in JSON processing functions where constraint violations should not halt processing
 - Returns `true` if the value passes domain constraints, `false` if it fails (with error details stored in escontext)
 - Located at src/backend/utils/adt/domains.c:355-370
+
+## Simplified Source
+
+```c
+bool
+domain_check_safe(Datum value, bool isnull, Oid domainType,
+                  void **extra, MemoryContext mcxt,
+                  Node *escontext)
+{
+    // Error-safe wrapper around domain_check_internal
+    return domain_check_internal(value, isnull, domainType, extra, mcxt,
+                                 escontext);
+}
+```

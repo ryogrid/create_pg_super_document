@@ -31,3 +31,20 @@ This function serves as a comparator for qsort() when building a lookup table th
 - Returns -1 if first opcode is less than second, 1 if greater, 0 if equal
 - Used specifically for threaded dispatch optimization in expression evaluation
 - The comparison is based on the opcode field rather than the memory address
+
+## Simplified Source
+
+```c
+static int dispatch_compare_ptr(const void *a, const void *b)
+{
+    const ExprEvalOpLookup *la = (const ExprEvalOpLookup *) a;
+    const ExprEvalOpLookup *lb = (const ExprEvalOpLookup *) b;
+
+    // Simple integer comparison for qsort
+    if (la->opcode < lb->opcode)
+        return -1;
+    else if (la->opcode > lb->opcode)
+        return 1;
+    return 0;
+}
+```

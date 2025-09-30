@@ -53,3 +53,110 @@ The function accepts conditions in two formats: RestrictInfo nodes (for join-der
 - The restrictlist parameter is destructively modified during processing
 - Returns true if any unique index has all its key columns constrained by the provided conditions
 - File location: src/backend/optimizer/path/indxpath.c:3440-3613
+
+## Simplified Source
+
+```c
+bool
+relation_has_unique_index_for(PlannerInfo *root, RelOptInfo *rel,
+                              List *restrictlist, List *exprlist, List *oprlist)
+{
+    ListCell *ic;
+
+    Assert(list_length(exprlist) == list_length(oprlist));
+
+    // No indexes = no uniqueness guarantee
+    if (rel->indexlist == NIL)
+        return false;
+
+    // Add usable base restriction clauses to restrictlist
+    foreach(ic, rel->baserestrictinfo) {
+        RestrictInfo *restrictinfo = (RestrictInfo *) lfirst(ic);
+
+        if (restrictinfo->mergeopfamilies == NIL)
+            continue; // Not mergejoinable
+
+        // Check if either side is pseudoconstant
+        if (bms_is_empty(restrictinfo->left_relids)) {
+            restrictinfo->outer_is_left = true;
+        }
+        else if (bms_is_empty(restrictinfo->right_relids)) {
+            restrictinfo->outer_is_left = false;
+        }
+        else
+            continue;
+
+        restrictlist = lappend(restrictlist, restrictinfo);
+    }
+
+    // No conditions = no uniqueness possible
+    if (restrictlist == NIL && exprlist == NIL)
+        return false;
+
+    // Check each unique index
+    foreach(ic, rel->indexlist) {
+        IndexOptInfo *ind = (IndexOptInfo *) lfirst(ic);
+        int c;
+
+        // Skip non-unique, deferred, or partial indexes
+        if (!ind->unique || !ind->immediate || ind->indpred != NIL)
+            continue;
+
+        // Check if all index key columns are constrained
+        for (c = 0; c < ind->nkeycolumns; c++) {
+            bool matched = false;
+            ListCell *lc, *lc2;
+
+            // Check restrictlist conditions
+            foreach(lc, restrictlist) {
+                RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+                Node *rexpr;
+
+                // Operator must be in index opfamily
+                if (!list_member_oid(rinfo->mergeopfamilies, ind->opfamily[c]))
+                    continue;
+
+                // Extract the operand for this relation
+                if (rinfo->outer_is_left)
+                    rexpr = get_rightop(rinfo->clause);
+                else
+                    rexpr = get_leftop(rinfo->clause);
+
+                // Check if operand matches this index column
+                if (match_index_to_operand(rexpr, c, ind)) {
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (matched)
+                continue;
+
+            // Check expression/operator list
+            forboth(lc, exprlist, lc2, oprlist) {
+                Node *expr = (Node *) lfirst(lc);
+                Oid opr = lfirst_oid(lc2);
+
+                if (!match_index_to_operand(expr, c, ind))
+                    continue;
+
+                // Operator must be in index opfamily
+                if (!op_in_opfamily(opr, ind->opfamily[c]))
+                    continue;
+
+                matched = true;
+                break;
+            }
+
+            if (!matched)
+                break; // This index can't help
+        }
+
+        // All key columns matched for this index
+        if (c == ind->nkeycolumns)
+            return true;
+    }
+
+    return false;
+}
+```

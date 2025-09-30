@@ -44,3 +44,55 @@ The function uses bitwise operations to efficiently remove bits, applying the bi
 - The right operand (b) is never modified (marked const)
 - Supports conditional reallocation based on REALLOCATE_BITMAPSETS compile flag
 - Extensively used in PostgreSQL's query optimization and join planning
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_del_members(Bitmapset *a, const Bitmapset *b)
+{
+    int i;
+
+    // Handle NULL cases
+    if (a == NULL)
+        return NULL;
+    if (b == NULL)
+        return a;
+
+    // Remove b's bits from a using bitwise AND with complement
+    if (a->nwords > b->nwords)
+    {
+        // a is longer than b, no need to trim trailing zeros
+        for (i = 0; i < b->nwords; i++)
+        {
+            a->words[i] &= ~b->words[i];  // Remove bits present in b
+        }
+    }
+    else
+    {
+        // a is same size or smaller, may need to trim trailing zeros
+        int lastnonzero = -1;
+
+        for (i = 0; i < a->nwords; i++)
+        {
+            a->words[i] &= ~b->words[i];  // Remove bits present in b
+
+            // Track last non-zero word for trimming
+            if (a->words[i] != 0)
+                lastnonzero = i;
+        }
+
+        // Check if result became empty
+        if (lastnonzero == -1)
+        {
+            pfree(a);
+            return NULL;
+        }
+
+        // Trim trailing zero words
+        a->nwords = lastnonzero + 1;
+    }
+
+    return a;
+}
+```

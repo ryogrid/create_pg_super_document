@@ -41,3 +41,44 @@ This function provides a comprehensive initialization of a deparse_namespace str
 - Uses recursive processing for USING names via set_using_names
 - Processes RTEs in linear rtable order to handle all relations including NEW.* and INSERT targets
 - Ensures JOIN RTEs are processed after their children due to rtable ordering
+
+## Simplified Source
+
+```c
+static void set_deparse_for_query(deparse_namespace *dpns, Query *query, List *parent_namespaces) {
+    // Initialize deparse namespace structure
+    memset(dpns, 0, sizeof(deparse_namespace));
+    dpns->rtable = query->rtable;
+    dpns->ctes = query->cteList;
+    dpns->subplans = NIL;
+    dpns->appendrels = NULL;
+
+    // Assign unique aliases to each relation table entry
+    set_rtable_names(dpns, parent_namespaces, NULL);
+
+    // Create column info structures for each RTE
+    dpns->rtable_columns = NIL;
+    while (list_length(dpns->rtable_columns) < list_length(dpns->rtable))
+        dpns->rtable_columns = lappend(dpns->rtable_columns, palloc0(sizeof(deparse_columns)));
+
+    // Process query jointure if it exists (not utility queries)
+    if (query->jointree) {
+        // Check for dangerous USING name conflicts
+        dpns->unique_using = has_dangerous_join_using(dpns, (Node *) query->jointree);
+
+        // Set column names for USING clauses
+        set_using_names(dpns, (Node *) query->jointree, NIL);
+    }
+
+    // Assign column names for all RTEs (including non-jointree relations)
+    forboth(lc, dpns->rtable, lc2, dpns->rtable_columns) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(lc);
+        deparse_columns *colinfo = (deparse_columns *) lfirst(lc2);
+
+        if (rte->rtekind == RTE_JOIN)
+            set_join_column_names(dpns, rte, colinfo);
+        else
+            set_relation_column_names(dpns, rte, colinfo);
+    }
+}
+```

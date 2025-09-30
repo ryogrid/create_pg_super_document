@@ -36,3 +36,27 @@ The preservation of existing counters is important because truncation doesn't ne
 - All tuple operation counters (tuples_inserted, tuples_updated, tuples_deleted) are reset to zero after truncation
 - The `save_truncdrop_counters` call with `false` parameter indicates this is a truncate operation (not a drop operation)
 - Only relations that should have statistics collected will have their counters processed
+
+## Simplified Source
+
+```c
+void pgstat_count_truncate(Relation rel)
+{
+    // Only collect stats for relations that should be tracked
+    if (pgstat_should_count_relation(rel))
+    {
+        PgStat_TableStatus *pgstat_info = rel->pgstat_info;
+
+        // Ensure transaction-level statistics tracking is initialized
+        ensure_tabstat_xact_level(pgstat_info);
+
+        // Save current counters before resetting (for rollback scenarios)
+        save_truncdrop_counters(pgstat_info->trans, false);
+
+        // Reset all tuple operation counters to zero after truncation
+        pgstat_info->trans->tuples_inserted = 0;
+        pgstat_info->trans->tuples_updated = 0;
+        pgstat_info->trans->tuples_deleted = 0;
+    }
+}
+```

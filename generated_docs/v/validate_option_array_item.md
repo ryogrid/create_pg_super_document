@@ -45,3 +45,51 @@ For known parameters, the function checks both the parameter context (USERSET vs
 - Custom variables with invalid names are only allowed in reset contexts for cleanup purposes
 - Permission checking considers both superuser status and explicit ACL_SET privileges on parameters
 - Essential component of PostgreSQL's GUC security model for array-based configuration management
+
+## Simplified Source
+
+```c
+static bool
+validate_option_array_item(const char *name, const char *value, bool skipIfNoPermissions) {
+    struct config_generic *gconf;
+    bool reset_custom;
+
+    // Check if this is a reset operation for a custom variable
+    reset_custom = (!value && valid_custom_variable_name(name));
+
+    // Find the configuration option, allowing placeholders if needed
+    gconf = find_option(name, true, skipIfNoPermissions || reset_custom, ERROR);
+    if (!gconf && !reset_custom) {
+        // Unknown parameter and can't create placeholder
+        return false;
+    }
+
+    // Handle custom/placeholder variables
+    if (!gconf || gconf->flags & GUC_CUSTOM_PLACEHOLDER) {
+        // Only superusers or users with ACL_SET can modify custom variables
+        if (superuser() || pg_parameter_aclcheck(name, GetUserId(), ACL_SET) == ACLCHECK_OK)
+            return true;
+        if (skipIfNoPermissions)
+            return false;
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied to set parameter \"%s\"", name)));
+    }
+
+    // Check permissions for known parameters
+    if (gconf->context == PGC_USERSET) {
+        // User-settable parameters are always OK
+    } else if (gconf->context == PGC_SUSET &&
+               (superuser() || pg_parameter_aclcheck(name, GetUserId(), ACL_SET) == ACLCHECK_OK)) {
+        // Superuser-only parameters require proper privileges
+    } else if (skipIfNoPermissions) {
+        return false;
+    }
+
+    // Test the parameter value for validity
+    (void) set_config_option(name, value,
+                            superuser() ? PGC_SUSET : PGC_USERSET,
+                            PGC_S_TEST, GUC_ACTION_SET, false, 0, false);
+
+    return true;
+}
+```

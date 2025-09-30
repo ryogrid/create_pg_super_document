@@ -36,3 +36,49 @@ This static function transforms a linked list of DefElem structures (representin
 - The array elements are stored in text format with each element being "name=value"
 - This is an internal static function used exclusively within the foreign data wrapper command processing module
 - The function properly handles empty option lists by returning NULL datum
+
+## Simplified Source
+
+```c
+static Datum
+optionListToArray(List *options)
+{
+    ArrayBuildState *astate = NULL;
+    ListCell *cell;
+
+    // Convert list of DefElem structures to text array format
+    // Used for storing FDW options in system catalogs
+    foreach(cell, options)
+    {
+        DefElem *def = lfirst(cell);
+        const char *name = def->defname;
+        const char *value = defGetString(def);
+        Size len;
+        text *t;
+
+        // Validate option name doesn't contain "=" to avoid ambiguous parsing
+        if (strchr(name, '=') != NULL)
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("invalid option name \"%s\": must not contain \"=\"",
+                            name)));
+
+        // Create text datum in "name=value" format
+        len = VARHDRSZ + strlen(name) + 1 + strlen(value);
+        t = palloc(len + 1); // +1 for sprintf's trailing null
+        SET_VARSIZE(t, len);
+        sprintf(VARDATA(t), "%s=%s", name, value);
+
+        // Accumulate into array result
+        astate = accumArrayResult(astate, PointerGetDatum(t),
+                                false, TEXTOID,
+                                CurrentMemoryContext);
+    }
+
+    // Return completed array or NULL if empty
+    if (astate)
+        return makeArrayResult(astate, CurrentMemoryContext);
+
+    return PointerGetDatum(NULL);
+}
+```

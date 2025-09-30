@@ -47,3 +47,59 @@ The function includes special handling for lateral references in the FROM clause
 
 ## Notes and Other Information
 The function supports PostgreSQL's non-standard FROM clause in UPDATE statements, which is maintained for compatibility with historical POSTQUEL syntax. The lateral access control mechanism ensures proper name resolution by temporarily restricting the target relation's visibility during FROM clause processing. This prevents ambiguous column references when the same table appears in both the target and FROM clauses. The transformation maintains all necessary query properties for execution planning, including sublinks and target SRFs detection.
+
+## Simplified Source
+
+```c
+static Query *
+transformUpdateStmt(ParseState *pstate, UpdateStmt *stmt)
+{
+    Query *qry = makeNode(Query);
+    ParseNamespaceItem *nsitem;
+    Node *qual;
+
+    // Set up basic UPDATE query structure
+    qry->commandType = CMD_UPDATE;
+    pstate->p_is_insert = false;
+
+    // Process WITH clause for CTEs
+    if (stmt->withClause) {
+        qry->hasRecursive = stmt->withClause->recursive;
+        qry->cteList = transformWithClause(pstate, stmt->withClause);
+        qry->hasModifyingCTE = pstate->p_hasModifyingCTE;
+    }
+
+    // Set target relation with UPDATE permissions
+    qry->resultRelation = setTargetTable(pstate, stmt->relation,
+                                         stmt->relation->inh, true, ACL_UPDATE);
+    nsitem = pstate->p_target_nsitem;
+
+    // Restrict lateral access during FROM clause processing
+    nsitem->p_lateral_only = true;
+    nsitem->p_lateral_ok = false;
+
+    // Process FROM clause (non-standard SQL feature)
+    transformFromClause(pstate, stmt->fromClause);
+
+    // Restore normal lateral access
+    nsitem->p_lateral_only = false;
+    nsitem->p_lateral_ok = true;
+
+    // Transform WHERE and RETURNING clauses
+    qual = transformWhereClause(pstate, stmt->whereClause, EXPR_KIND_WHERE, "WHERE");
+    qry->returningList = transformReturningList(pstate, stmt->returningList, EXPR_KIND_RETURNING);
+
+    // Transform target list for SET clause
+    qry->targetList = transformUpdateTargetList(pstate, stmt->targetList);
+
+    // Assemble final query structure
+    qry->rtable = pstate->p_rtable;
+    qry->rteperminfos = pstate->p_rteperminfos;
+    qry->jointree = makeFromExpr(pstate->p_joinlist, qual);
+    qry->hasTargetSRFs = pstate->p_hasTargetSRFs;
+    qry->hasSubLinks = pstate->p_hasSubLinks;
+
+    assign_query_collations(pstate, qry);
+    return qry;
+}
+```

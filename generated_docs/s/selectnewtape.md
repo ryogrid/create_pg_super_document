@@ -47,3 +47,24 @@ This function is crucial for both the initial run generation phase (when sorting
 - Critical for managing the polyphase merge sort algorithm used by PostgreSQL
 - The tape selection strategy affects the efficiency of subsequent merge operations
 - Works with the logical tape abstraction, which handles the underlying temporary file management
+
+## Simplified Source
+
+```c
+static void selectnewtape(Tuplesortstate *state)
+{
+    // Create new tapes until we reach the maximum limit
+    if (state->nOutputTapes < state->maxTapes) {
+        // Create a new logical tape
+        state->destTape = LogicalTapeCreate(state->tapeset);
+        state->outputTapes[state->nOutputTapes] = state->destTape;
+        state->nOutputTapes++;
+        state->nOutputRuns++;
+    } else {
+        // Use round-robin assignment to existing tapes
+        int tape_index = state->nOutputRuns % state->nOutputTapes;
+        state->destTape = state->outputTapes[tape_index];
+        state->nOutputRuns++;
+    }
+}
+```

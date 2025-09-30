@@ -53,3 +53,80 @@ The function handles RelabelType nodes by unwrapping them to access the underlyi
 - The function assumes that equivalence class merging has been completed (ec_merging_done)
 - Ignores child equivalence members, focusing on parent-level relationships
 - Used primarily in foreign key optimization during query planning
+
+## Simplified Source
+
+```c
+EquivalenceClass *
+match_eclasses_to_foreign_key_col(PlannerInfo *root,
+                                   ForeignKeyOptInfo *fkinfo,
+                                   int colno)
+{
+    Index var1varno = fkinfo->con_relid;
+    AttrNumber var1attno = fkinfo->conkey[colno];
+    Index var2varno = fkinfo->ref_relid;
+    AttrNumber var2attno = fkinfo->confkey[colno];
+    Oid eqop = fkinfo->conpfeqop[colno];
+    RelOptInfo *rel1 = root->simple_rel_array[var1varno];
+    RelOptInfo *rel2 = root->simple_rel_array[var2varno];
+    List *opfamilies = NIL;
+    Bitmapset *matching_ecs;
+    int i;
+
+    // Find equivalence classes that mention both FK relations
+    matching_ecs = bms_intersect(rel1->eclass_indexes, rel2->eclass_indexes);
+
+    // Examine each matching equivalence class
+    i = -1;
+    while ((i = bms_next_member(matching_ecs, i)) >= 0)
+    {
+        EquivalenceClass *ec = (EquivalenceClass *) list_nth(root->eq_classes, i);
+        EquivalenceMember *item1_em = NULL;
+        EquivalenceMember *item2_em = NULL;
+        ListCell *lc2;
+
+        // Skip volatile equivalence classes
+        if (ec->ec_has_volatile)
+            continue;
+
+        // Search for both FK column and referenced PK column in this EC
+        foreach(lc2, ec->ec_members)
+        {
+            EquivalenceMember *em = (EquivalenceMember *) lfirst(lc2);
+            Var *var;
+
+            if (em->em_is_child)
+                continue;
+
+            // Extract Var from potential RelabelType wrapper
+            var = (Var *) em->em_expr;
+            while (var && IsA(var, RelabelType))
+                var = (Var *) ((RelabelType *) var)->arg;
+            if (!(var && IsA(var, Var)))
+                continue;
+
+            // Check if this matches either FK or PK column
+            if (var->varno == var1varno && var->varattno == var1attno)
+                item1_em = em;
+            else if (var->varno == var2varno && var->varattno == var2attno)
+                item2_em = em;
+
+            // If both columns found, check operator compatibility
+            if (item1_em && item2_em)
+            {
+                if (opfamilies == NIL)
+                    opfamilies = get_mergejoin_opfamilies(eqop);
+                if (equal(opfamilies, ec->ec_opfamilies))
+                {
+                    // Success: record the match and return
+                    fkinfo->eclass[colno] = ec;
+                    fkinfo->fk_eclass_member[colno] = item2_em;
+                    return ec;
+                }
+                break;
+            }
+        }
+    }
+    return NULL;
+}
+```

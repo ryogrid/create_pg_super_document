@@ -45,3 +45,35 @@ This design prevents privilege escalation attacks where a less-privileged user c
 - The SECURITY_RESTRICTED_OPERATION flag prevents certain dangerous operations while running as the target user
 - GUC nest level creation ensures any configuration changes made by the target user can be rolled back
 - Throws ERROR if the current user lacks permission to SET ROLE to the target user
+
+## Simplified Source
+
+```c
+void SwitchToUntrustedUser(Oid userid, UserContext *context)
+{
+    // Save current user ID and security context
+    GetUserIdAndSecContext(&context->save_userid, &context->save_sec_context);
+
+    // Check permission to assume target role
+    if (!member_can_set_role(context->save_userid, userid))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("role \"%s\" cannot SET ROLE to \"%s\"",
+                              GetUserNameFromId(context->save_userid, false),
+                              GetUserNameFromId(userid, false))));
+
+    // Handle privilege escalation protection
+    if (member_can_set_role(userid, context->save_userid))
+    {
+        // Both users can SET ROLE to each other - no restrictions needed
+        SetUserIdAndSecContext(userid, context->save_sec_context);
+        context->save_nestlevel = -1;
+    }
+    else
+    {
+        // Target user cannot SET ROLE back - apply security restrictions
+        int sec_context = context->save_sec_context | SECURITY_RESTRICTED_OPERATION;
+        SetUserIdAndSecContext(userid, sec_context);
+        context->save_nestlevel = NewGUCNestLevel();
+    }
+}
+```

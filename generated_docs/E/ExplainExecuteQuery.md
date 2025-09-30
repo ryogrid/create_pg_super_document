@@ -62,3 +62,93 @@ The function supports both regular EXPLAIN EXECUTE and EXPLAIN CREATE TABLE AS E
 - The function acquires and releases a transient refcount on the cached plan to ensure proper resource management
 - Performance metrics (planning time, memory usage, buffer usage) are collected and passed to the individual plan explanation functions
 - Multiple statements in a plan list are separated with appropriate separators in the output
+
+## Simplified Source
+
+```c
+void
+ExplainExecuteQuery(ExecuteStmt *execstmt, IntoClause *into, ExplainState *es,
+                   const char *queryString, ParamListInfo params,
+                   QueryEnvironment *queryEnv)
+{
+    PreparedStatement *entry;
+    const char *query_string;
+    CachedPlan *cplan;
+    List *plan_list;
+    ListCell *p;
+    ParamListInfo paramLI = NULL;
+    EState *estate = NULL;
+    instr_time planstart, planduration;
+    BufferUsage bufusage_start, bufusage;
+    MemoryContextCounters mem_counters;
+    MemoryContext planner_ctx = NULL, saved_ctx = NULL;
+
+    // Set up memory and buffer tracking if requested
+    if (es->memory) {
+        planner_ctx = AllocSetContextCreate(CurrentMemoryContext,
+                                           "explain analyze planner context",
+                                           ALLOCSET_DEFAULT_SIZES);
+        saved_ctx = MemoryContextSwitchTo(planner_ctx);
+    }
+
+    if (es->buffers)
+        bufusage_start = pgBufferUsage;
+    INSTR_TIME_SET_CURRENT(planstart);
+
+    // Look up the prepared statement
+    entry = FetchPreparedStatement(execstmt->name, true);
+    if (!entry->plansource->fixed_result)
+        elog(ERROR, "EXPLAIN EXECUTE does not support variable-result cached plans");
+
+    query_string = entry->plansource->query_string;
+
+    // Evaluate parameters if the statement has them
+    if (entry->plansource->num_params) {
+        ParseState *pstate = make_parsestate(NULL);
+        pstate->p_sourcetext = queryString;
+
+        estate = CreateExecutorState();
+        estate->es_param_list_info = params;
+        paramLI = EvaluateParams(pstate, entry, execstmt->params, estate);
+    }
+
+    // Get the cached plan and measure planning time
+    cplan = GetCachedPlan(entry->plansource, paramLI, CurrentResourceOwner, queryEnv);
+    INSTR_TIME_SET_CURRENT(planduration);
+    INSTR_TIME_SUBTRACT(planduration, planstart);
+
+    // Collect memory and buffer usage metrics
+    if (es->memory) {
+        MemoryContextSwitchTo(saved_ctx);
+        MemoryContextMemConsumed(planner_ctx, &mem_counters);
+    }
+    if (es->buffers) {
+        memset(&bufusage, 0, sizeof(BufferUsage));
+        BufferUsageAccumDiff(&bufusage, &pgBufferUsage, &bufusage_start);
+    }
+
+    plan_list = cplan->stmt_list;
+
+    // Explain each statement in the plan
+    foreach(p, plan_list) {
+        PlannedStmt *pstmt = lfirst_node(PlannedStmt, p);
+
+        if (pstmt->commandType != CMD_UTILITY)
+            ExplainOnePlan(pstmt, into, es, query_string, paramLI, queryEnv,
+                          &planduration, es->buffers ? &bufusage : NULL,
+                          es->memory ? &mem_counters : NULL);
+        else
+            ExplainOneUtility(pstmt->utilityStmt, into, es, query_string,
+                             paramLI, queryEnv);
+
+        // Separate multiple plans with appropriate separator
+        if (lnext(plan_list, p) != NULL)
+            ExplainSeparatePlans(es);
+    }
+
+    // Cleanup
+    if (estate)
+        FreeExecutorState(estate);
+    ReleaseCachedPlan(cplan, CurrentResourceOwner);
+}
+```

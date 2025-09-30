@@ -46,3 +46,44 @@ The function includes a special validation case for "SELECT *;" (a SELECT with n
 - The function supports zero-column tables, allowing "SELECT * FROM zero_column_table" to succeed
 - Error messages include precise location information for better user experience
 - This function is specifically designed for bare "*" expansion, while qualified "relation.*" expansion is handled by ExpandColumnRefStar()
+
+## Simplified Source
+
+```c
+static List *
+ExpandAllTables(ParseState *pstate, int location)
+{
+    List *target = NIL;
+    bool found_table = false;
+    ListCell *l;
+
+    // Iterate through all namespace items
+    foreach(l, pstate->p_namespace)
+    {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(l);
+
+        // Skip table-only items (no visible columns)
+        if (!nsitem->p_cols_visible)
+            continue;
+
+        // Should not have lateral-only items in target list
+        Assert(!nsitem->p_lateral_only);
+
+        // Remember we found a table with visible columns
+        found_table = true;
+
+        // Expand all attributes of this namespace item
+        target = list_concat(target,
+                           expandNSItemAttrs(pstate, nsitem, 0, true, location));
+    }
+
+    // Check for invalid "SELECT *;" with no tables
+    if (!found_table)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("SELECT * with no tables specified is not valid"),
+                 parser_errposition(pstate, location)));
+
+    return target;
+}
+```

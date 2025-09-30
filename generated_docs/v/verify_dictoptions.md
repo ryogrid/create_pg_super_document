@@ -42,3 +42,49 @@ A special case exists for standalone backend mode (during initdb) where validati
 - Memory leaks from init method calls are not a concern since command execution ends soon after
 - Templates without init methods cannot accept any options
 - Function does not return a value; validation failure results in an error being thrown
+
+## Simplified Source
+
+```c
+static void
+verify_dictoptions(Oid tmplId, List *dictoptions)
+{
+    HeapTuple tup;
+    Form_pg_ts_template tform;
+    Oid initmethod;
+
+    // Skip validation during initdb (standalone backend mode)
+    // Allows creation of dictionaries that might not work in template1's encoding
+    if (!IsUnderPostmaster)
+        return;
+
+    // Look up the text search template
+    tup = SearchSysCache1(TSTEMPLATEOID, ObjectIdGetDatum(tmplId));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for text search template %u", tmplId);
+
+    tform = (Form_pg_ts_template) GETSTRUCT(tup);
+    initmethod = tform->tmplinit;
+
+    if (!OidIsValid(initmethod))
+    {
+        // Template has no init method, so no options allowed
+        if (dictoptions)
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("text search template \"%s\" does not accept options",
+                            NameStr(tform->tmplname))));
+    }
+    else
+    {
+        // Copy options to prevent modification by init method
+        dictoptions = copyObject(dictoptions);
+
+        // Call init method to validate options
+        // Method will throw error if options are invalid
+        (void) OidFunctionCall1(initmethod, PointerGetDatum(dictoptions));
+    }
+
+    ReleaseSysCache(tup);
+}
+```

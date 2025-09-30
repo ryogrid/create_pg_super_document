@@ -38,3 +38,51 @@ The `pg_strncoll_libc` function handles string collation for strings that may no
 - Includes Windows-specific optimization for UTF-8 encoding
 - Properly manages memory by freeing dynamically allocated buffers
 - Part of the collation abstraction layer that handles both null-terminated and length-specified strings
+
+## Simplified Source
+
+```c
+static int
+pg_strncoll_libc(const char *arg1, size_t len1, const char *arg2, size_t len2,
+                 pg_locale_t locale)
+{
+    char sbuf[TEXTBUFLEN];
+    char *buf = sbuf;
+    size_t bufsize1 = len1 + 1;
+    size_t bufsize2 = len2 + 1;
+    char *arg1n;
+    char *arg2n;
+    int result;
+
+    Assert(!locale || locale->provider == COLLPROVIDER_LIBC);
+
+#ifdef WIN32
+    // Windows UTF-8 optimization - avoid null-termination overhead
+    if (GetDatabaseEncoding() == PG_UTF8)
+        return pg_strncoll_libc_win32_utf8(arg1, len1, arg2, len2, locale);
+#endif
+
+    // Use heap allocation if strings are too large for stack buffer
+    if (bufsize1 + bufsize2 > TEXTBUFLEN)
+        buf = palloc(bufsize1 + bufsize2);
+
+    // Set up null-terminated string pointers
+    arg1n = buf;
+    arg2n = buf + bufsize1;
+
+    // Create null-terminated copies of input strings
+    memcpy(arg1n, arg1, len1);
+    arg1n[len1] = '\0';
+    memcpy(arg2n, arg2, len2);
+    arg2n[len2] = '\0';
+
+    // Perform actual collation comparison
+    result = pg_strcoll_libc(arg1n, arg2n, locale);
+
+    // Clean up heap allocation if used
+    if (buf != sbuf)
+        pfree(buf);
+
+    return result;
+}
+```

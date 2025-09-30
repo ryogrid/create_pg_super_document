@@ -42,3 +42,34 @@ The function maintains sync with relation_has_unique_index_for() regarding what 
 - The function returns false for relation types like functions, values, CTE, etc., as there are no proof rules for these
 - This pre-check can significantly improve performance by avoiding unnecessary distinctness computations
 - Located in src/backend/optimizer/plan/analyzejoins.c at lines 806-860
+
+## Simplified Source
+
+```c
+static bool rel_supports_distinctness(PlannerInfo *root, RelOptInfo *rel)
+{
+    // Only base relations are supported
+    if (rel->reloptkind != RELOPT_BASEREL)
+        return false;
+
+    if (rel->rtekind == RTE_RELATION) {
+        // For plain relations, check for suitable unique indexes
+        foreach(lc, rel->indexlist) {
+            IndexOptInfo *ind = (IndexOptInfo *) lfirst(lc);
+
+            // Must be unique, immediate, and not partial
+            if (ind->unique && ind->immediate && ind->indpred == NIL)
+                return true;
+        }
+    }
+    else if (rel->rtekind == RTE_SUBQUERY) {
+        // Check if subquery supports distinctness
+        Query *subquery = root->simple_rte_array[rel->relid]->subquery;
+        if (query_supports_distinctness(subquery))
+            return true;
+    }
+
+    // No proof rules for other relation types
+    return false;
+}
+```

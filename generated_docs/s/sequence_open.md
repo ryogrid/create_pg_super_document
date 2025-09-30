@@ -33,4 +33,20 @@ The function follows PostgreSQL's standard pattern of opening relations with app
 - This function is part of the sequence access API and should be used instead of direct  calls when working with sequences
 - The validation step ensures type safety and prevents operations on non-sequence relations
 - Located in src/backend/access/sequence/sequence.c, part of the sequence access subsystem
-- The function acquires the specified lock on the relation, which must be released by the caller using  or 
+- The function acquires the specified lock on the relation, which must be released by the caller using  or
+
+## Simplified Source
+
+```c
+Relation sequence_open(Oid relationId, LOCKMODE lockmode) {
+    Relation r;
+
+    // Open relation with specified lock
+    r = relation_open(relationId, lockmode);
+
+    // Verify it's actually a sequence
+    validate_relation_kind(r);
+
+    return r;
+}
+``` 

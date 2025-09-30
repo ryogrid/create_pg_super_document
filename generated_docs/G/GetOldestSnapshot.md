@@ -38,3 +38,32 @@ The function prioritizes active snapshots over registered snapshots when they ha
 - Essential for TOAST operations that require consistency with older snapshot states
 - The LSN-based ordering ensures proper chronological snapshot selection
 - Part of PostgreSQLs snapshot management system for maintaining MVCC consistency
+
+## Simplified Source
+
+```c
+Snapshot
+GetOldestSnapshot(void)
+{
+    Snapshot OldestRegisteredSnapshot = NULL;
+    XLogRecPtr RegisteredLSN = InvalidXLogRecPtr;
+
+    // Check if there are any registered snapshots
+    if (!pairingheap_is_empty(&RegisteredSnapshots)) {
+        OldestRegisteredSnapshot = pairingheap_container(SnapshotData, ph_node,
+                                                         pairingheap_first(&RegisteredSnapshots));
+        RegisteredLSN = OldestRegisteredSnapshot->lsn;
+    }
+
+    // Compare with active snapshot if it exists
+    if (OldestActiveSnapshot != NULL) {
+        XLogRecPtr ActiveLSN = OldestActiveSnapshot->as_snap->lsn;
+
+        // Return active snapshot if it's older or no registered snapshot exists
+        if (XLogRecPtrIsInvalid(RegisteredLSN) || RegisteredLSN > ActiveLSN)
+            return OldestActiveSnapshot->as_snap;
+    }
+
+    return OldestRegisteredSnapshot;
+}
+```

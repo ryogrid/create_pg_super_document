@@ -51,3 +51,70 @@ The function bypasses the normal relcache and heap scan infrastructure since it'
 - Requires careful snapshot management to ensure consistent view of committed transactions
 - Returns a list of CreateDBRelInfo structures representing relations to be copied
 - Located at src/backend/commands/dbcommands.c:250-327
+
+## Simplified Source
+
+```c
+static List *
+ScanSourceDatabasePgClass(Oid tbid, Oid dbid, char *srcpath)
+{
+    RelFileLocator rlocator;
+    BlockNumber nblocks;
+    BlockNumber blkno;
+    Buffer buf;
+    RelFileNumber relfilenumber;
+    Page page;
+    List *rlocatorlist = NIL;
+    LockRelId relid;
+    Snapshot snapshot;
+    SMgrRelation smgr;
+    BufferAccessStrategy bstrategy;
+
+    // Get pg_class relfilenumber for source database
+    relfilenumber = RelationMapOidToFilenumberForDatabase(srcpath, RelationRelationId);
+
+    // Lock pg_class relation to prevent concurrent modifications
+    relid.dbId = dbid;
+    relid.relId = RelationRelationId;
+    LockRelationId(&relid, AccessShareLock);
+
+    // Setup storage manager access
+    rlocator.spcOid = tbid;
+    rlocator.dbOid = dbid;
+    rlocator.relNumber = relfilenumber;
+
+    smgr = smgropen(rlocator, INVALID_PROC_NUMBER);
+    nblocks = smgrnblocks(smgr, MAIN_FORKNUM);
+    smgrclose(smgr);
+
+    // Use bulk read strategy for performance
+    bstrategy = GetAccessStrategy(BAS_BULKREAD);
+    snapshot = GetLatestSnapshot();
+
+    // Scan each block of pg_class
+    for (blkno = 0; blkno < nblocks; blkno++) {
+        CHECK_FOR_INTERRUPTS();
+
+        buf = ReadBufferWithoutRelcache(rlocator, MAIN_FORKNUM, blkno,
+                                        RBM_NORMAL, bstrategy, true);
+
+        LockBuffer(buf, BUFFER_LOCK_SHARE);
+        page = BufferGetPage(buf);
+
+        if (PageIsNew(page) || PageIsEmpty(page)) {
+            UnlockReleaseBuffer(buf);
+            continue;
+        }
+
+        // Extract relevant tuples from current page
+        rlocatorlist = ScanSourceDatabasePgClassPage(page, buf, tbid, dbid,
+                                                     srcpath, rlocatorlist, snapshot);
+
+        UnlockReleaseBuffer(buf);
+    }
+
+    // Release lock and return list of relations to copy
+    UnlockRelationId(&relid, AccessShareLock);
+    return rlocatorlist;
+}
+```

@@ -47,3 +47,37 @@ The collected data includes the specific operator family being modified (identif
 - Stores both the operators and procedures lists directly (not deep copied) since they are assumed to have appropriate lifetime
 - Part of PostgreSQL's operator class and operator family management system
 - Enables event triggers to monitor changes to the operator infrastructure used by indexes and other database operations
+
+## Simplified Source
+
+```c
+void EventTriggerCollectAlterOpFam(AlterOpFamilyStmt *stmt, Oid opfamoid,
+                                   List *operators, List *procedures) {
+    // Skip if event triggers disabled or collection inhibited
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context for persistence
+    MemoryContext oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create command structure for ALTER OPERATOR FAMILY
+    CollectedCommand *command = palloc(sizeof(CollectedCommand));
+    command->type = SCT_AlterOpFamily;
+    command->in_extension = creating_extension;
+
+    // Set operator family address
+    ObjectAddressSet(command->d.opfam.address, OperatorFamilyRelationId, opfamoid);
+
+    // Store operators and procedures lists
+    command->d.opfam.operators = operators;
+    command->d.opfam.procedures = procedures;
+    command->parsetree = (Node *) copyObject(stmt);
+
+    // Add to command collection
+    currentEventTriggerState->commandList =
+        lappend(currentEventTriggerState->commandList, command);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

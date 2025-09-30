@@ -50,3 +50,110 @@ For joins with USING clauses, the function selects appropriate column names by p
 - For unnamed joins, name requirements are pushed down to children rather than being resolved at the current level
 - The function maintains parent-child relationships in the deparse_columns structures for proper name inheritance
 - System columns (attribute numbers ≤ 0) are handled specially and not assigned names
+
+## Simplified Source
+```c
+static void set_using_names(deparse_namespace *dpns, Node *jtnode, List *parentUsing) {
+    if (IsA(jtnode, RangeTblRef)) {
+        // Base case: nothing to do for simple table references
+        return;
+    }
+    else if (IsA(jtnode, FromExpr)) {
+        // Recursively process all items in FROM list
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *lc;
+
+        foreach(lc, f->fromlist)
+            set_using_names(dpns, (Node *) lfirst(lc), parentUsing);
+    }
+    else if (IsA(jtnode, JoinExpr)) {
+        JoinExpr *j = (JoinExpr *) jtnode;
+        RangeTblEntry *rte = rt_fetch(j->rtindex, dpns->rtable);
+        deparse_columns *colinfo = deparse_columns_fetch(j->rtindex, dpns);
+
+        // Get join shape information
+        identify_join_columns(j, rte, colinfo);
+        int *leftattnos = colinfo->leftattnos;
+        int *rightattnos = colinfo->rightattnos;
+
+        // Get child column info structures
+        deparse_columns *leftcolinfo = deparse_columns_fetch(colinfo->leftrti, dpns);
+        deparse_columns *rightcolinfo = deparse_columns_fetch(colinfo->rightrti, dpns);
+
+        // For unnamed joins, push down any required names to children
+        if (rte->alias == NULL) {
+            for (int i = 0; i < colinfo->num_cols; i++) {
+                char *colname = colinfo->colnames[i];
+                if (colname == NULL)
+                    continue;
+
+                // Push down to left child (if not system column)
+                if (leftattnos[i] > 0) {
+                    expand_colnames_array_to(leftcolinfo, leftattnos[i]);
+                    leftcolinfo->colnames[leftattnos[i] - 1] = colname;
+                }
+
+                // Push down to right child (if not system column)
+                if (rightattnos[i] > 0) {
+                    expand_colnames_array_to(rightcolinfo, rightattnos[i]);
+                    rightcolinfo->colnames[rightattnos[i] - 1] = colname;
+                }
+            }
+        }
+
+        // Handle USING clause column name selection
+        if (j->usingClause) {
+            parentUsing = list_copy(parentUsing);  // Don't modify input list
+
+            expand_colnames_array_to(colinfo, list_length(j->usingClause));
+            int i = 0;
+            ListCell *lc;
+
+            foreach(lc, j->usingClause) {
+                char *colname = strVal(lfirst(lc));
+
+                // Use pushed-down name if available
+                if (colinfo->colnames[i] != NULL) {
+                    colname = colinfo->colnames[i];
+                } else {
+                    // Prefer user-written alias if available
+                    if (rte->alias && i < list_length(rte->alias->colnames))
+                        colname = strVal(list_nth(rte->alias->colnames, i));
+
+                    // Make unique according to strategy
+                    colname = make_colname_unique(colname, dpns, colinfo);
+
+                    // For global strategy, track all USING names
+                    if (dpns->unique_using)
+                        dpns->using_names = lappend(dpns->using_names, colname);
+
+                    colinfo->colnames[i] = colname;
+                }
+
+                // Remember for later use and add to parent list
+                colinfo->usingNames = lappend(colinfo->usingNames, colname);
+                parentUsing = lappend(parentUsing, colname);
+
+                // Push down to child columns
+                if (leftattnos[i] > 0) {
+                    expand_colnames_array_to(leftcolinfo, leftattnos[i]);
+                    leftcolinfo->colnames[leftattnos[i] - 1] = colname;
+                }
+                if (rightattnos[i] > 0) {
+                    expand_colnames_array_to(rightcolinfo, rightattnos[i]);
+                    rightcolinfo->colnames[rightattnos[i] - 1] = colname;
+                }
+
+                i++;
+            }
+        }
+
+        // Set parent context and recurse
+        leftcolinfo->parentUsing = parentUsing;
+        rightcolinfo->parentUsing = parentUsing;
+
+        set_using_names(dpns, j->larg, parentUsing);
+        set_using_names(dpns, j->rarg, parentUsing);
+    }
+}
+```

@@ -50,3 +50,80 @@ This function queries the publisher database to obtain a comprehensive list of a
 - Automatically handles partition hierarchy filtering in PostgreSQL 16+ to avoid duplicate table entries
 - Column list support is conditional based on server version capabilities (PostgreSQL 15+)
 - Validates that identical tables don't have conflicting column specifications across different publications
+
+## Simplified Source
+
+```c
+static List *
+fetch_table_list(WalReceiverConn *wrconn, List *publications)
+{
+    WalRcvExecResult *res;
+    StringInfoData cmd;
+    TupleTableSlot *slot;
+    List *tablelist = NIL;
+    int server_version = walrcv_server_version(wrconn);
+    bool check_columnlist = (server_version >= 150000);
+
+    initStringInfo(&cmd);
+
+    // Build version-specific query for table list
+    if (server_version >= 160000) {
+        // PostgreSQL 16+: Use enhanced pg_get_publication_tables
+        StringInfoData pub_names;
+        initStringInfo(&pub_names);
+        get_publications_str(publications, &pub_names, true);
+
+        appendStringInfo(&cmd,
+            "SELECT DISTINCT n.nspname, c.relname, gpt.attrs "
+            "FROM pg_class c "
+            "  JOIN pg_namespace n ON n.oid = c.relnamespace "
+            "  JOIN ( SELECT (pg_get_publication_tables(VARIADIC array_agg(pubname::text))).* "
+            "         FROM pg_publication WHERE pubname IN ( %s )) AS gpt "
+            "       ON gpt.relid = c.oid",
+            pub_names.data);
+
+        pfree(pub_names.data);
+    } else {
+        // Older versions: Query pg_publication_tables directly
+        appendStringInfoString(&cmd, "SELECT DISTINCT t.schemaname, t.tablename");
+
+        if (check_columnlist)
+            appendStringInfoString(&cmd, ", t.attnames");
+
+        appendStringInfoString(&cmd, " FROM pg_catalog.pg_publication_tables t WHERE t.pubname IN (");
+        get_publications_str(publications, &cmd, true);
+        appendStringInfoChar(&cmd, ')');
+    }
+
+    // Execute query
+    Oid tableRow[3] = {TEXTOID, TEXTOID, server_version >= 160000 ? INT2VECTOROID : NAMEARRAYOID};
+    res = walrcv_exec(wrconn, cmd.data, check_columnlist ? 3 : 2, tableRow);
+    pfree(cmd.data);
+
+    if (res->status != WALRCV_OK_TUPLES)
+        ereport(ERROR, (errmsg("could not receive list of replicated tables from the publisher")));
+
+    // Process result rows into RangeVar list
+    slot = MakeSingleTupleTableSlot(res->tupledesc, &TTSOpsMinimalTuple);
+    while (tuplestore_gettupleslot(res->tuplestore, true, false, slot)) {
+        char *nspname = TextDatumGetCString(slot_getattr(slot, 1, &isnull));
+        char *relname = TextDatumGetCString(slot_getattr(slot, 2, &isnull));
+        RangeVar *rv = makeRangeVar(nspname, relname, -1);
+
+        // Check for column list conflicts across publications
+        if (check_columnlist && list_member(tablelist, rv))
+            ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot use different column lists for table \"%s.%s\" in different publications",
+                        nspname, relname)));
+        else
+            tablelist = lappend(tablelist, rv);
+
+        ExecClearTuple(slot);
+    }
+
+    ExecDropSingleTupleTableSlot(slot);
+    walrcv_clear_result(res);
+    return tablelist;
+}
+```

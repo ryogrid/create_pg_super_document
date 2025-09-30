@@ -35,3 +35,33 @@ The leapadd function manages leap second data within PostgreSQL's timezone compi
 - Updates three global arrays: trans[] (timestamps), corr[] (corrections), roll[] (rolling flags)
 - Increments the global leapcnt counter to track total leap second entries
 - Essential for accurate time calculations that must account for leap second adjustments
+
+## Simplified Source
+
+```c
+static void leapadd(zic_t t, int correction, int rolling) {
+    int i;
+
+    // Check maximum leap seconds limit
+    if (TZ_MAX_LEAPS <= leapcnt) {
+        error(_("too many leap seconds"));
+        exit(EXIT_FAILURE);
+    }
+
+    // Find insertion point to maintain chronological order
+    for (i = 0; i < leapcnt; ++i)
+        if (t <= trans[i])
+            break;
+
+    // Shift existing entries to make room for new leap second
+    memmove(&trans[i + 1], &trans[i], (leapcnt - i) * sizeof *trans);
+    memmove(&corr[i + 1], &corr[i], (leapcnt - i) * sizeof *corr);
+    memmove(&roll[i + 1], &roll[i], (leapcnt - i) * sizeof *roll);
+
+    // Insert new leap second data
+    trans[i] = t;
+    corr[i] = correction;
+    roll[i] = rolling;
+    ++leapcnt;
+}
+```

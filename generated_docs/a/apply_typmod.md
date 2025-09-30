@@ -50,3 +50,59 @@ The function only applies to normal finite values and uses PostgreSQL's internal
 - Leading zeros are stripped during the overflow calculation to determine the true significant digit count
 - The function handles different DEC_DIGITS configurations (1, 2, or 4 digits per storage unit)
 - Type modifier validation ensures the function gracefully handles invalid typmod values
+
+## Simplified Source
+
+```c
+static bool
+apply_typmod(NumericVar *var, int32 typmod, Node *escontext)
+{
+    int precision, scale, maxdigits;
+    int actual_digits, i;
+
+    // Skip if typmod is invalid
+    if (!is_valid_numeric_typmod(typmod))
+        return true;
+
+    // Extract precision and scale from typmod
+    precision = numeric_typmod_precision(typmod);
+    scale = numeric_typmod_scale(typmod);
+    maxdigits = precision - scale;  // Max digits before decimal point
+
+    // Round to target scale
+    round_var(var, scale);
+    if (var->dscale < 0)
+        var->dscale = 0;
+
+    // Check for overflow by counting actual significant digits
+    actual_digits = (var->weight + 1) * DEC_DIGITS;
+
+    if (actual_digits > maxdigits) {
+        // Find first non-zero digit to get true count
+        for (i = 0; i < var->ndigits; i++) {
+            NumericDigit digit = var->digits[i];
+
+            if (digit) {
+                // Adjust for leading zeros within the digit
+                if (digit < 10)
+                    actual_digits -= (DEC_DIGITS - 1);
+                else if (digit < 100 && DEC_DIGITS >= 3)
+                    actual_digits -= (DEC_DIGITS - 2);
+                else if (digit < 1000 && DEC_DIGITS >= 4)
+                    actual_digits -= (DEC_DIGITS - 3);
+
+                // Check if still overflows
+                if (actual_digits > maxdigits) {
+                    return ereturn(escontext, false,
+                                 (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                                  errmsg("numeric field overflow")));
+                }
+                break;
+            }
+            actual_digits -= DEC_DIGITS;
+        }
+    }
+
+    return true;
+}
+```

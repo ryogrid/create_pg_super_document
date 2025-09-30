@@ -40,3 +40,71 @@ The function performs header line validation if configured, ensuring that column
 - Returns false when EOF is encountered at the start of a line (no more data)
 - The number of fields returned may differ from the number of relation columns
 - Does not apply force_not_null transformations - fields remain in raw parsed state
+
+## Simplified Source
+
+```c
+bool
+NextCopyFromRawFields(CopyFromState cstate, char ***fields, int *nfields)
+{
+    int fldct;
+    bool done;
+
+    // Only for text/CSV mode (not binary)
+    Assert(!cstate->opts.binary);
+
+    // Handle header line validation on first line
+    if (cstate->cur_lineno == 0 && cstate->opts.header_line) {
+        TupleDesc tupDesc = RelationGetDescr(cstate->rel);
+        cstate->cur_lineno++;
+        done = CopyReadLine(cstate);
+
+        // Validate header if matching is required
+        if (cstate->opts.header_line == COPY_HEADER_MATCH) {
+            // Parse header line
+            if (cstate->opts.csv_mode)
+                fldct = CopyReadAttributesCSV(cstate);
+            else
+                fldct = CopyReadAttributesText(cstate);
+
+            // Check field count matches expected columns
+            if (fldct != list_length(cstate->attnumlist))
+                ereport(ERROR, (errmsg("wrong number of fields in header line")));
+
+            // Validate each column name
+            int fldnum = 0;
+            ListCell *cur;
+            foreach(cur, cstate->attnumlist) {
+                int attnum = lfirst_int(cur);
+                Form_pg_attribute attr = TupleDescAttr(tupDesc, attnum - 1);
+                char *colName = cstate->raw_fields[fldnum++];
+
+                if (colName == NULL || namestrcmp(&attr->attname, colName) != 0)
+                    ereport(ERROR, (errmsg("column name mismatch in header")));
+            }
+        }
+
+        if (done)
+            return false;
+    }
+
+    // Read next data line
+    cstate->cur_lineno++;
+    done = CopyReadLine(cstate);
+
+    // EOF at start of line means we're done
+    if (done && cstate->line_buf.len == 0)
+        return false;
+
+    // Parse line into fields based on format
+    if (cstate->opts.csv_mode)
+        fldct = CopyReadAttributesCSV(cstate);
+    else
+        fldct = CopyReadAttributesText(cstate);
+
+    // Return parsed fields
+    *fields = cstate->raw_fields;
+    *nfields = fldct;
+    return true;
+}
+```

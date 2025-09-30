@@ -88,3 +88,122 @@ The function distinguishes between different base node contexts:
 - Adjacent A_Indices nodes are treated as a single multidimensional subscript operation
 - The function provides different error messages for subscripting vs field assignment failures
 - Critical for implementing PostgreSQL's complex assignment semantics for composite types and arrays
+
+## Simplified Source
+
+```c
+Node *
+transformAssignmentIndirection(ParseState *pstate,
+                               Node *basenode,
+                               const char *targetName,
+                               bool targetIsSubscripting,
+                               Oid targetTypeId,
+                               int32 targetTypMod,
+                               Oid targetCollation,
+                               List *indirection,
+                               ListCell *indirection_cell,
+                               Node *rhs,
+                               CoercionContext ccontext,
+                               int location)
+{
+    Node *result;
+    List *subscripts = NIL;
+    ListCell *i;
+
+    if (indirection_cell && !basenode) {
+        // Set up a substitution using CaseTestExpr as placeholder
+        CaseTestExpr *ctest = makeNode(CaseTestExpr);
+        ctest->typeId = targetTypeId;
+        ctest->typeMod = targetTypMod;
+        ctest->collation = targetCollation;
+        basenode = (Node *) ctest;
+    }
+
+    // Split field-selection operations from subscripting
+    for_each_cell(i, indirection, indirection_cell) {
+        Node *n = lfirst(i);
+
+        if (IsA(n, A_Indices))
+            subscripts = lappend(subscripts, n);
+        else if (IsA(n, A_Star)) {
+            ereport(ERROR, /* row expansion not supported */);
+        }
+        else {
+            // Field selection
+            Assert(IsA(n, String));
+
+            // Process any pending subscripts first
+            if (subscripts) {
+                return transformAssignmentSubscripts(pstate,
+                                                     basenode, targetName,
+                                                     targetTypeId, targetTypMod, targetCollation,
+                                                     subscripts, indirection, i,
+                                                     rhs, ccontext, location);
+            }
+
+            // Look up the composite type
+            int32 baseTypeMod = targetTypMod;
+            Oid baseTypeId = getBaseTypeAndTypmod(targetTypeId, &baseTypeMod);
+            Oid typrelid = typeidTypeRelid(baseTypeId);
+
+            if (!typrelid)
+                ereport(ERROR, /* not a composite type */);
+
+            // Look up field
+            AttrNumber attnum = get_attnum(typrelid, strVal(n));
+            if (attnum == InvalidAttrNumber)
+                ereport(ERROR, /* field does not exist */);
+            if (attnum < 0)
+                ereport(ERROR, /* cannot assign to system column */);
+
+            Oid fieldTypeId;
+            int32 fieldTypMod;
+            Oid fieldCollation;
+            get_atttypetypmodcoll(typrelid, attnum,
+                                  &fieldTypeId, &fieldTypMod, &fieldCollation);
+
+            // Recurse for nested indirection
+            rhs = transformAssignmentIndirection(pstate, NULL, strVal(n), false,
+                                                 fieldTypeId, fieldTypMod, fieldCollation,
+                                                 indirection, lnext(indirection, i),
+                                                 rhs, ccontext, location);
+
+            // Build FieldStore node
+            FieldStore *fstore = makeNode(FieldStore);
+            fstore->arg = (Expr *) basenode;
+            fstore->newvals = list_make1(rhs);
+            fstore->fieldnums = list_make1_int(attnum);
+            fstore->resulttype = baseTypeId;
+
+            // Apply domain constraints if needed
+            if (baseTypeId != targetTypeId)
+                return coerce_to_domain((Node *) fstore, baseTypeId, baseTypeMod,
+                                        targetTypeId, COERCION_IMPLICIT,
+                                        COERCE_IMPLICIT_CAST, location, false);
+
+            return (Node *) fstore;
+        }
+    }
+
+    // Process trailing subscripts if any
+    if (subscripts) {
+        return transformAssignmentSubscripts(pstate, basenode, targetName,
+                                             targetTypeId, targetTypMod, targetCollation,
+                                             subscripts, indirection, NULL,
+                                             rhs, ccontext, location);
+    }
+
+    // Base case: coerce RHS to match target type
+    result = coerce_to_target_type(pstate, rhs, exprType(rhs),
+                                   targetTypeId, targetTypMod,
+                                   ccontext, COERCE_IMPLICIT_CAST, -1);
+    if (result == NULL) {
+        if (targetIsSubscripting)
+            ereport(ERROR, /* subscripted assignment type mismatch */);
+        else
+            ereport(ERROR, /* subfield assignment type mismatch */);
+    }
+
+    return result;
+}
+```

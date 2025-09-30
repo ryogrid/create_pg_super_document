@@ -41,3 +41,27 @@ The function includes a special check to never match dummy PGPROCs (those with P
 - The returned PGPROC pointer may become invalid if the target process terminates
 - Callers are responsible for ensuring the meaningfulness of the query over time
 - The function is declared in src/include/storage/procarray.h
+
+## Simplified Source
+
+```c
+PGPROC *
+BackendPidGetProc(int pid)
+{
+    PGPROC *result;
+
+    // Never match dummy PGPROCs (PID 0)
+    if (pid == 0)
+        return NULL;
+
+    // Acquire shared lock on process array
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Delegate to function that does actual search
+    result = BackendPidGetProcWithLock(pid);
+
+    // Release lock and return result
+    LWLockRelease(ProcArrayLock);
+    return result;
+}
+```

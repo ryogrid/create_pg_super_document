@@ -46,3 +46,27 @@ The original input list structure is preserved (not modified), and a new flatten
 - Works recursively to handle arbitrarily deep nesting of AND clauses
 - Part of the boolean expression flattening system that also includes  for OR clauses
 - The flattening helps subsequent optimization passes work more effectively on simplified structures
+
+## Simplified Source
+
+```c
+static List *pull_ands(List *andlist) {
+    List *out_list = NIL;
+    ListCell *arg;
+
+    // Iterate through each argument in the AND list
+    foreach(arg, andlist) {
+        Node *subexpr = (Node *) lfirst(arg);
+
+        // If it's a nested AND clause, recursively flatten it
+        if (is_andclause(subexpr))
+            out_list = list_concat(out_list,
+                                  pull_ands(((BoolExpr *) subexpr)->args));
+        else
+            // Otherwise, just add the expression to the output
+            out_list = lappend(out_list, subexpr);
+    }
+
+    return out_list;
+}
+```

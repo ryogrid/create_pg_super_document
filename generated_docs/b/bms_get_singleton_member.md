@@ -41,3 +41,35 @@ This function combines singleton testing and member retrieval into a single oper
 - Commonly used in query optimization for singleton relation checks
 - Uses the same bit manipulation techniques as bms_singleton_member but with graceful failure handling
 - Located in src/backend/nodes/bitmapset.c:715-750
+
+## Simplified Source
+
+```c
+bool bms_get_singleton_member(const Bitmapset *a, int *member)
+{
+    int result = -1;
+    int wordnum = 0;
+
+    // Empty set case
+    if (a == NULL)
+        return false;
+
+    // Check each word in the bitmapset
+    do {
+        bitmapword w = a->words[wordnum];
+
+        if (w != 0) {
+            // If we already found bits or this word has multiple bits
+            if (result >= 0 || HAS_MULTIPLE_ONES(w))
+                return false;
+
+            // Calculate bit position: word index * bits per word + rightmost bit
+            result = wordnum * BITS_PER_BITMAPWORD + bmw_rightmost_one_pos(w);
+        }
+    } while (++wordnum < a->nwords);
+
+    // Store the singleton member and return success
+    *member = result;
+    return true;
+}
+```

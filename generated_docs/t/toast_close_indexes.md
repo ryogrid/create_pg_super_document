@@ -36,3 +36,16 @@ This function provides proper cleanup for indexes opened by toast_open_indexes. 
 - Usually called with NoLock since the indexes were opened for read operations and cleanup doesn't require additional locking
 - Part of PostgreSQL's resource management discipline where every open operation has a corresponding close operation
 - Simple but critical function that prevents memory leaks in TOAST operations
+
+## Simplified Source
+
+```c
+void
+toast_close_indexes(Relation *toastidxs, int num_indexes, LOCKMODE lock)
+{
+    // Close each index and free the array
+    for (int i = 0; i < num_indexes; i++)
+        index_close(toastidxs[i], lock);
+    pfree(toastidxs);
+}
+```

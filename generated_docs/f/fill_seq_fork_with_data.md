@@ -69,3 +69,63 @@ The function performs these operations:
 - Critical section ensures atomicity of buffer modifications and WAL logging
 - Init fork operations are always WAL-logged even for unlogged sequences
 - Proper error handling ensures sequence creation fails cleanly if page operations fail
+
+## Simplified Source
+
+```c
+static void fill_seq_fork_with_data(Relation rel, HeapTuple tuple, ForkNumber forkNum) {
+    Buffer buf;
+    Page page;
+    sequence_magic *sm;
+    OffsetNumber offnum;
+
+    // Extend relation to create first page (block 0)
+    buf = ExtendBufferedRel(BMR_REL(rel), forkNum, NULL,
+                           EB_LOCK_FIRST | EB_SKIP_EXTENSION_LOCK);
+    page = BufferGetPage(buf);
+
+    // Initialize page with sequence magic number in special space
+    PageInit(page, BufferGetPageSize(buf), sizeof(sequence_magic));
+    sm = (sequence_magic *) PageGetSpecialPointer(page);
+    sm->magic = SEQ_MAGIC;
+
+    // Prepare tuple for insertion: sequences bypass normal VACUUM
+    // so we freeze the tuple to prevent visibility issues
+    HeapTupleHeaderSetXmin(tuple->t_data, FrozenTransactionId);
+    HeapTupleHeaderSetXminFrozen(tuple->t_data);
+    HeapTupleHeaderSetCmin(tuple->t_data, FirstCommandId);
+    HeapTupleHeaderSetXmax(tuple->t_data, InvalidTransactionId);
+    tuple->t_data->t_infomask |= HEAP_XMAX_INVALID;
+    ItemPointerSet(&tuple->t_data->t_ctid, 0, FirstOffsetNumber);
+
+    // Get transaction ID for WAL if needed
+    if (RelationNeedsWAL(rel))
+        GetTopTransactionId();
+
+    START_CRIT_SECTION();
+
+    // Insert tuple into page
+    MarkBufferDirty(buf);
+    offnum = PageAddItem(page, (Item) tuple->t_data, tuple->t_len,
+                        InvalidOffsetNumber, false, false);
+    if (offnum != FirstOffsetNumber)
+        elog(ERROR, "failed to add sequence tuple to page");
+
+    // WAL logging for durability
+    if (RelationNeedsWAL(rel) || forkNum == INIT_FORKNUM) {
+        xl_seq_rec xlrec;
+        XLogRecPtr recptr;
+
+        XLogBeginInsert();
+        XLogRegisterBuffer(0, buf, REGBUF_WILL_INIT);
+        xlrec.locator = rel->rd_locator;
+        XLogRegisterData((char *) &xlrec, sizeof(xl_seq_rec));
+        XLogRegisterData((char *) tuple->t_data, tuple->t_len);
+        recptr = XLogInsert(RM_SEQ_ID, XLOG_SEQ_LOG);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+    UnlockReleaseBuffer(buf);
+}
+```

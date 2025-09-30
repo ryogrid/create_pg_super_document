@@ -39,3 +39,30 @@ The function works by obtaining a fresh catalog snapshot and using it to test tu
 - Specifically designed for use in dependency tracking and object management scenarios where concurrent modifications need to be detected
 - Part of PostgreSQL's concurrency control system for maintaining consistency during catalog operations
 - Only supports MVCC snapshot visibility checking, not other snapshot types
+
+## Simplified Source
+
+```c
+bool
+systable_recheck_tuple(SysScanDesc sysscan, HeapTuple tup)
+{
+    Snapshot freshsnap;
+    bool result;
+
+    // Validate that tuple matches the scan's current tuple
+    Assert(tup == ExecFetchSlotHeapTuple(sysscan->slot, false, NULL));
+
+    // Get a fresh catalog snapshot for current visibility check
+    freshsnap = GetCatalogSnapshot(RelationGetRelid(sysscan->heap_rel));
+
+    // Test if tuple satisfies current snapshot
+    result = table_tuple_satisfies_snapshot(sysscan->heap_rel,
+                                           sysscan->slot,
+                                           freshsnap);
+
+    // Handle concurrent abort scenarios during logical streaming
+    HandleConcurrentAbort();
+
+    return result;
+}
+```

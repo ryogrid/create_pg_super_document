@@ -36,3 +36,25 @@ pqWaitTimed provides timed socket waiting functionality for PostgreSQL client co
 - On timeout, appends "timeout expired" error message to the connection
 - The end_time parameter uses microsecond precision for fine-grained timeout control
 - File location: src/interfaces/libpq/fe-misc.c:1020-1042
+
+## Simplified Source
+
+```c
+int pqWaitTimed(int forRead, int forWrite, PGconn *conn, pg_usec_time_t end_time)
+{
+    // Check socket readiness with timeout
+    int result = pqSocketCheck(conn, forRead, forWrite, end_time);
+
+    // Handle socket check failure
+    if (result < 0)
+        return -1;  // Error already set in connection
+
+    // Handle timeout case
+    if (result == 0) {
+        libpq_append_conn_error(conn, "timeout expired");
+        return 1;   // Timeout occurred
+    }
+
+    return 0;       // Socket is ready
+}
+```

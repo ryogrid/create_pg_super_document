@@ -45,3 +45,54 @@ The jsonb_build_object_worker function is the core implementation for building J
 - Uses the add_jsonb helper function to convert and add each key-value pair
 - The function is central to PostgreSQL's jsonb_build_object() SQL function and JSON constructor expressions
 - Handles complex logic around null value processing and key uniqueness validation
+
+## Simplified Source
+
+```c
+Datum
+jsonb_build_object_worker(int nargs, const Datum *args, const bool *nulls, const Oid *types,
+                          bool absent_on_null, bool unique_keys)
+{
+    JsonbInState result;
+
+    // Validate even number of arguments (key-value pairs)
+    if (nargs % 2 != 0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("argument list must have even number of elements")));
+    }
+
+    // Initialize JSONB construction state
+    memset(&result, 0, sizeof(JsonbInState));
+
+    // Start building object with configuration
+    result.res = pushJsonbValue(&result.parseState, WJB_BEGIN_OBJECT, NULL);
+    result.parseState->unique_keys = unique_keys;
+    result.parseState->skip_nulls = absent_on_null;
+
+    // Process key-value pairs
+    for (int i = 0; i < nargs; i += 2) {
+        // Keys cannot be null
+        if (nulls[i]) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("argument %d: key must not be null", i + 1)));
+        }
+
+        // Skip null values if absent_on_null is enabled
+        bool skip = absent_on_null && nulls[i + 1];
+        if (skip && !unique_keys)
+            continue;
+
+        // Add key-value pair
+        add_jsonb(args[i], false, &result, types[i], true);        // key
+        add_jsonb(args[i + 1], nulls[i + 1], &result, types[i + 1], false); // value
+    }
+
+    // Complete object construction
+    result.res = pushJsonbValue(&result.parseState, WJB_END_OBJECT, NULL);
+
+    // Convert to final JSONB datum
+    return JsonbPGetDatum(JsonbValueToJsonb(result.res));
+}
+```

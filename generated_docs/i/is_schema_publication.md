@@ -36,3 +36,40 @@ This function checks if a publication (identified by its OID) has any schemas as
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's logical replication system to differentiate between publications that publish specific tables versus those that publish entire schemas. It uses the standard PostgreSQL system catalog scanning pattern with proper locking (AccessShareLock for read-only access). The function's boolean return value is used in various publication management operations to determine the appropriate handling strategy for different types of publications.
+
+## Simplified Source
+
+```c
+bool
+is_schema_publication(Oid pubid)
+{
+    Relation    pubschsrel;
+    ScanKeyData scankey;
+    SysScanDesc scan;
+    HeapTuple   tup;
+    bool        result = false;
+
+    // Open pg_publication_namespace relation
+    pubschsrel = table_open(PublicationNamespaceRelationId, AccessShareLock);
+
+    // Setup scan key to find schemas for this publication
+    ScanKeyInit(&scankey,
+                Anum_pg_publication_namespace_pnpubid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(pubid));
+
+    // Scan for any namespace entries for this publication
+    scan = systable_beginscan(pubschsrel,
+                              PublicationNamespacePnnspidPnpubidIndexId,
+                              true, NULL, 1, &scankey);
+
+    // Check if any tuple exists (means schemas are associated)
+    tup = systable_getnext(scan);
+    result = HeapTupleIsValid(tup);
+
+    systable_endscan(scan);
+    table_close(pubschsrel, AccessShareLock);
+
+    return result;
+}
+```

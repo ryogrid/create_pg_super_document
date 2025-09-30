@@ -43,3 +43,44 @@ The function performs the intersection by ANDing corresponding words from both b
 - The right operand (b) is never modified (marked const)
 - Uses bitwise AND operation for efficient intersection computation
 - Supports conditional reallocation based on REALLOCATE_BITMAPSETS compile flag
+
+## Simplified Source
+
+```c
+Bitmapset *bms_int_members(Bitmapset *a, const Bitmapset *b)
+{
+    int lastnonzero;
+    int shortlen;
+    int i;
+
+    // Handle NULL inputs
+    if (a == NULL)
+        return NULL;
+    if (b == NULL) {
+        pfree(a);
+        return NULL;
+    }
+
+    // Intersect b into a (reuse a's memory)
+    shortlen = Min(a->nwords, b->nwords);
+    lastnonzero = -1;
+    i = 0;
+    do {
+        a->words[i] &= b->words[i];  // AND operation for intersection
+
+        if (a->words[i] != 0)
+            lastnonzero = i;
+    } while (++i < shortlen);
+
+    // Return NULL if intersection is empty
+    if (lastnonzero == -1) {
+        pfree(a);
+        return NULL;
+    }
+
+    // Trim trailing zero words
+    a->nwords = lastnonzero + 1;
+
+    return a;
+}
+```

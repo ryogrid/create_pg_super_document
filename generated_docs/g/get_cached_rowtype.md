@@ -45,6 +45,57 @@ The function is designed to be called multiple times during expression evaluatio
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExprInterp.c:2084-2149
+
+## Simplified Source
+
+```c
+static TupleDesc
+get_cached_rowtype(Oid type_id, int32 typmod,
+                   ExprEvalRowtypeCache *rowcache,
+                   bool *changed)
+{
+    if (type_id != RECORDOID) {
+        // Named composite type - use type cache
+        TypeCacheEntry *typentry = (TypeCacheEntry *) rowcache->cacheptr;
+
+        // Check if cache is invalid or outdated
+        if (unlikely(typentry == NULL ||
+                     rowcache->tupdesc_id == 0 ||
+                     typentry->tupDesc_identifier != rowcache->tupdesc_id)) {
+            // Refresh cache
+            typentry = lookup_type_cache(type_id, TYPECACHE_TUPDESC);
+            if (typentry->tupDesc == NULL)
+                ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                               errmsg("type %s is not composite",
+                                      format_type_be(type_id))));
+
+            rowcache->cacheptr = (void *) typentry;
+            rowcache->tupdesc_id = typentry->tupDesc_identifier;
+            if (changed)
+                *changed = true;
+        }
+        return typentry->tupDesc;
+    } else {
+        // RECORD type - doesn't change once registered
+        TupleDesc tupDesc = (TupleDesc) rowcache->cacheptr;
+
+        // Check if cache needs refresh
+        if (unlikely(tupDesc == NULL ||
+                     rowcache->tupdesc_id != 0 ||
+                     type_id != tupDesc->tdtypeid ||
+                     typmod != tupDesc->tdtypmod)) {
+            tupDesc = lookup_rowtype_tupdesc(type_id, typmod);
+            ReleaseTupleDesc(tupDesc);  // Drop pin from lookup
+
+            rowcache->cacheptr = (void *) tupDesc;
+            rowcache->tupdesc_id = 0;  // Special marker for RECORD
+            if (changed)
+                *changed = true;
+        }
+        return tupDesc;
+    }
+}
+```
 - The returned TupleDesc is not guaranteed pinned; caller must pin it for operations that might trigger cache invalidation
 - [TupleDesc](../T/TupleDesc.md) is always refcounted, so use IncrTupleDescRefCount for pinning
 - Must handle the possibility of composite type content changes during execution

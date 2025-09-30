@@ -43,3 +43,117 @@ The function extracts parser function specifications from the parameters list, v
 - Supports qualified naming (schema.parser_name) with proper namespace resolution
 - Integrates with extension system and object dependency framework
 - Uses row-exclusive locking on pg_ts_parser during creation
+
+## Simplified Source
+
+```c
+ObjectAddress
+DefineTSParser(List *names, List *parameters)
+{
+    char       *parser_name;
+    ListCell   *param_cell;
+    Relation    parser_rel;
+    HeapTuple   tuple;
+    Datum       values[Natts_pg_ts_parser];
+    bool        nulls[Natts_pg_ts_parser];
+    NameData    pname;
+    Oid         parser_oid;
+    Oid         namespace_oid;
+    ObjectAddress address;
+
+    // Require superuser privileges
+    if (!superuser())
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("must be superuser to create text search parsers")));
+
+    // Open parser catalog for insertion
+    parser_rel = table_open(TSParserRelationId, RowExclusiveLock);
+
+    // Extract namespace and parser name from qualified name
+    namespace_oid = QualifiedNameGetCreationNamespace(names, &parser_name);
+
+    // Initialize tuple data
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    // Set basic parser attributes
+    parser_oid = GetNewOidWithIndex(parser_rel, TSParserOidIndexId, Anum_pg_ts_parser_oid);
+    values[Anum_pg_ts_parser_oid - 1] = ObjectIdGetDatum(parser_oid);
+    namestrcpy(&pname, parser_name);
+    values[Anum_pg_ts_parser_prsname - 1] = NameGetDatum(&pname);
+    values[Anum_pg_ts_parser_prsnamespace - 1] = ObjectIdGetDatum(namespace_oid);
+
+    // Parse and validate required parser functions
+    foreach(param_cell, parameters)
+    {
+        DefElem *def_elem = (DefElem *) lfirst(param_cell);
+
+        if (strcmp(def_elem->defname, "start") == 0)
+        {
+            values[Anum_pg_ts_parser_prsstart - 1] =
+                get_ts_parser_func(def_elem, Anum_pg_ts_parser_prsstart);
+        }
+        else if (strcmp(def_elem->defname, "gettoken") == 0)
+        {
+            values[Anum_pg_ts_parser_prstoken - 1] =
+                get_ts_parser_func(def_elem, Anum_pg_ts_parser_prstoken);
+        }
+        else if (strcmp(def_elem->defname, "end") == 0)
+        {
+            values[Anum_pg_ts_parser_prsend - 1] =
+                get_ts_parser_func(def_elem, Anum_pg_ts_parser_prsend);
+        }
+        else if (strcmp(def_elem->defname, "headline") == 0)
+        {
+            values[Anum_pg_ts_parser_prsheadline - 1] =
+                get_ts_parser_func(def_elem, Anum_pg_ts_parser_prsheadline);
+        }
+        else if (strcmp(def_elem->defname, "lextypes") == 0)
+        {
+            values[Anum_pg_ts_parser_prslextype - 1] =
+                get_ts_parser_func(def_elem, Anum_pg_ts_parser_prslextype);
+        }
+        else
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("text search parser parameter \"%s\" not recognized",
+                            def_elem->defname)));
+    }
+
+    // Validate required functions are provided
+    if (!OidIsValid(DatumGetObjectId(values[Anum_pg_ts_parser_prsstart - 1])))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("text search parser start method is required")));
+
+    if (!OidIsValid(DatumGetObjectId(values[Anum_pg_ts_parser_prstoken - 1])))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("text search parser gettoken method is required")));
+
+    if (!OidIsValid(DatumGetObjectId(values[Anum_pg_ts_parser_prsend - 1])))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("text search parser end method is required")));
+
+    if (!OidIsValid(DatumGetObjectId(values[Anum_pg_ts_parser_prslextype - 1])))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                 errmsg("text search parser lextypes method is required")));
+
+    // Create and insert catalog tuple
+    tuple = heap_form_tuple(parser_rel->rd_att, values, nulls);
+    CatalogTupleInsert(parser_rel, tuple);
+
+    // Establish dependencies and trigger hooks
+    address = makeParserDependencies(tuple);
+    InvokeObjectPostCreateHook(TSParserRelationId, parser_oid, 0);
+
+    // Cleanup
+    heap_freetuple(tuple);
+    table_close(parser_rel, RowExclusiveLock);
+
+    return address;
+}
+```

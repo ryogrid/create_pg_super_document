@@ -36,3 +36,35 @@ CountDBSubscriptions performs a system table scan on the pg_subscription catalog
 - Critical for maintaining referential integrity when dropping databases
 - Part of PostgreSQL's logical replication subscription management system
 - The scan uses BTEqualStrategyNumber and F_OIDEQ for efficient OID-based lookups
+
+## Simplified Source
+
+```c
+int CountDBSubscriptions(Oid dbid) {
+    int nsubs = 0;
+    Relation rel;
+    ScanKeyData scankey;
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open subscription catalog for counting
+    rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+
+    // Set up scan key to filter by database ID
+    ScanKeyInit(&scankey, Anum_pg_subscription_subdbid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(dbid));
+
+    // Begin scan of subscription table
+    scan = systable_beginscan(rel, InvalidOid, false, NULL, 1, &scankey);
+
+    // Count matching subscriptions
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+        nsubs++;
+
+    // Clean up
+    systable_endscan(scan);
+    table_close(rel, NoLock);
+
+    return nsubs;
+}
+```

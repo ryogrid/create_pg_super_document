@@ -42,3 +42,41 @@ The function includes careful error checking and uses `copyObject` to avoid crea
 
 ## Notes and Other Information
 This function is critical for PostgreSQL's subquery processing pipeline. The special handling of nested SubLinks is important because PARAM_SUBLINKs are only unique per SubLink, not globally across the query. The conversion to globally unique parameters (Vars or PARAM_EXEC nodes) must happen before parameters escape from their originating SubLink's testexpr. The function can be called from different contexts: during SS_process_sublinks (where inner SubLinks are processed first) or from convert_ANY_sublink_to_join (where nested SubLinks might be encountered).
+
+## Simplified Source
+
+```c
+static Node *
+convert_testexpr_mutator(Node *node, convert_testexpr_context *context)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Handle PARAM_SUBLINK parameters
+    if (IsA(node, Param))
+    {
+        Param *param = (Param *) node;
+
+        if (param->paramkind == PARAM_SUBLINK)
+        {
+            // Validate parameter ID range
+            if (param->paramid <= 0 ||
+                param->paramid > list_length(context->subst_nodes))
+                elog(ERROR, "unexpected PARAM_SUBLINK ID: %d", param->paramid);
+
+            // Replace with substitute node (copy to avoid double-linking)
+            return (Node *) copyObject(list_nth(context->subst_nodes,
+                                              param->paramid - 1));
+        }
+    }
+
+    // Don't recurse into nested SubLinks
+    if (IsA(node, SubLink))
+        return node;
+
+    // Continue recursion for other node types
+    return expression_tree_mutator(node,
+                                 convert_testexpr_mutator,
+                                 (void *) context);
+}
+```

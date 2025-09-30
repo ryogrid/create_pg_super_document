@@ -39,3 +39,20 @@ The function is commonly used in publication-related operations where changes to
 - Used extensively throughout the publication system to maintain cache consistency
 - Critical for ensuring that relation metadata changes are properly propagated to all backend processes
 - The optimization helps prevent network/IPC overhead when dealing with large numbers of relations
+
+## Simplified Source
+
+```c
+void InvalidatePublicationRels(List *relids) {
+    // Optimization: use targeted invalidation for small lists, bulk reset for large lists
+    if (list_length(relids) < MAX_RELCACHE_INVAL_MSGS) {
+        // Individual invalidation for each relation
+        ListCell *lc;
+        foreach(lc, relids)
+            CacheInvalidateRelcacheByRelid(lfirst_oid(lc));
+    } else {
+        // Bulk reset for efficiency with large lists
+        CacheInvalidateRelcacheAll();
+    }
+}
+```

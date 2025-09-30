@@ -49,3 +49,73 @@ The function performs several optimizations:
 - Uses bit manipulation techniques for optimal performance
 - Supports conditional reallocation based on REALLOCATE_BITMAPSETS compile flag
 - The function is extensively used in PostgreSQL's partition pruning system
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_add_range(Bitmapset *a, int lower, int upper)
+{
+    int lwordnum, lbitnum, uwordnum, ushiftbits, wordnum;
+
+    Assert(bms_is_valid_set(a));
+
+    // Early return for empty range
+    if (upper < lower)
+        return a;
+
+    // Validate lower bound
+    if (lower < 0)
+        elog(ERROR, "negative bitmapset member not allowed");
+
+    uwordnum = WORDNUM(upper);
+
+    // Allocate or expand bitmapset as needed
+    if (a == NULL)
+    {
+        a = (Bitmapset *) palloc0(BITMAPSET_SIZE(uwordnum + 1));
+        a->type = T_Bitmapset;
+        a->nwords = uwordnum + 1;
+    }
+    else if (uwordnum >= a->nwords)
+    {
+        // Expand to accommodate upper bound
+        int oldnwords = a->nwords;
+        a = (Bitmapset *) repalloc(a, BITMAPSET_SIZE(uwordnum + 1));
+        a->nwords = uwordnum + 1;
+
+        // Zero out new words
+        for (int i = oldnwords; i < a->nwords; i++)
+            a->words[i] = 0;
+    }
+
+    lwordnum = WORDNUM(lower);
+    lbitnum = BITNUM(lower);
+    ushiftbits = BITS_PER_BITMAPWORD - (BITNUM(upper) + 1);
+
+    // Set bits efficiently at word level
+    if (lwordnum == uwordnum)
+    {
+        // Range within single word - apply both masks
+        a->words[lwordnum] |= ~((bitmapword) ((1 << lbitnum) - 1)) &
+                              (~(bitmapword) 0) >> ushiftbits;
+    }
+    else
+    {
+        // Range spans multiple words
+        wordnum = lwordnum;
+
+        // Set lower partial word
+        a->words[wordnum++] |= ~((bitmapword) ((1 << lbitnum) - 1));
+
+        // Set all intermediate words
+        while (wordnum < uwordnum)
+            a->words[wordnum++] = ~(bitmapword) 0;
+
+        // Set upper partial word
+        a->words[uwordnum] |= (~(bitmapword) 0) >> ushiftbits;
+    }
+
+    return a;
+}
+```

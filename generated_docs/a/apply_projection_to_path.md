@@ -36,3 +36,59 @@ This function applies a projection target to a path, with the key difference fro
 
 ## Notes and Other Information
 This function is more invasive than create_projection_path as it modifies the input path in-place, so it should only be used when the caller knows the path isn't referenced elsewhere. For parallel paths, it creates separate projection paths for subpaths to enable worker participation in projection. The function carefully manages parallel safety flags when non-parallel-safe expressions are introduced.
+
+## Simplified Source
+```c
+Path *
+apply_projection_to_path(PlannerInfo *root,
+                        RelOptInfo *rel,
+                        Path *path,
+                        PathTarget *target)
+{
+    QualCost oldcost;
+
+    // If path can't project, create a separate ProjectionPath
+    if (!is_projection_capable_path(path))
+        return (Path *) create_projection_path(root, rel, path, target);
+
+    // Apply target directly to existing path and update costs
+    oldcost = path->pathtarget->cost;
+    path->pathtarget = target;
+
+    path->startup_cost += target->cost.startup - oldcost.startup;
+    path->total_cost += target->cost.startup - oldcost.startup +
+        (target->cost.per_tuple - oldcost.per_tuple) * path->rows;
+
+    // For parallel paths, push projection to workers if possible
+    if ((IsA(path, GatherPath) || IsA(path, GatherMergePath)) &&
+        is_parallel_safe(root, (Node *) target->exprs))
+    {
+        if (IsA(path, GatherPath))
+        {
+            GatherPath *gpath = (GatherPath *) path;
+            gpath->subpath = (Path *)
+                create_projection_path(root,
+                                     gpath->subpath->parent,
+                                     gpath->subpath,
+                                     target);
+        }
+        else
+        {
+            GatherMergePath *gmpath = (GatherMergePath *) path;
+            gmpath->subpath = (Path *)
+                create_projection_path(root,
+                                     gmpath->subpath->parent,
+                                     gmpath->subpath,
+                                     target);
+        }
+    }
+    else if (path->parallel_safe &&
+             !is_parallel_safe(root, (Node *) target->exprs))
+    {
+        // Mark path as no longer parallel-safe
+        path->parallel_safe = false;
+    }
+
+    return path;
+}
+```

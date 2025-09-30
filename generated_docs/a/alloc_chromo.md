@@ -30,7 +30,25 @@ The allocated chromosome includes space for  genes, with the extra slot likely u
   -  function in geqo_main.c (multiple locations)
 
 ## Notes and Other Information
-- The function allocates  gene slots, suggesting space for a terminator or buffer
-- Memory is allocated using , which means it will be automatically freed when the current memory context is reset
+- The function allocates gene slots, suggesting space for a terminator or buffer
+- Memory is allocated using palloc, which means it will be automatically freed when the current memory context is reset
 - This is a core utility function for the GEQO genetic algorithm implementation
-- The function is declared in 
+- The function is declared in geqo.h
+
+## Simplified Source
+
+```c
+Chromosome *
+alloc_chromo(PlannerInfo *root, int string_length)
+{
+    Chromosome *chromo;
+
+    // Allocate chromosome structure
+    chromo = (Chromosome *) palloc(sizeof(Chromosome));
+
+    // Allocate gene string with extra space for terminator
+    chromo->string = (Gene *) palloc((string_length + 1) * sizeof(Gene));
+
+    return chromo;
+}
+``` 

@@ -47,3 +47,52 @@ The function must be called within a valid transaction context and maintains pro
 - Maintains the lock on pg_replication_origin until transaction commit
 - If the origin is already dropped, locks are released early and the function returns gracefully
 - The function is atomic - either the entire drop operation succeeds or it fails without partial state
+
+## Simplified Source
+
+```c
+void replorigin_drop_by_name(const char *name, bool missing_ok, bool nowait)
+{
+    RepOriginId roident;
+    Relation rel;
+    HeapTuple tuple;
+
+    Assert(IsTransactionState());
+
+    // Open replication origin catalog
+    rel = table_open(ReplicationOriginRelationId, RowExclusiveLock);
+
+    // Get origin ID from name (may error if not found and !missing_ok)
+    roident = replorigin_by_name(name, missing_ok);
+
+    // Lock origin to prevent concurrent drops
+    LockSharedObject(ReplicationOriginRelationId, roident, 0, AccessExclusiveLock);
+
+    // Look up catalog entry
+    tuple = SearchSysCache1(REPLORIGIDENT, ObjectIdGetDatum(roident));
+    if (!HeapTupleIsValid(tuple))
+    {
+        // Origin already dropped
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for replication origin with ID %d", roident);
+
+        // Release locks and return - nothing to do
+        UnlockSharedObject(ReplicationOriginRelationId, roident, 0, AccessExclusiveLock);
+        table_close(rel, RowExclusiveLock);
+        return;
+    }
+
+    // Clear replication state for this origin
+    replorigin_state_clear(roident, nowait);
+
+    // Delete the catalog entry
+    CatalogTupleDelete(rel, &tuple->t_self);
+    ReleaseSysCache(tuple);
+
+    // Make changes visible within transaction
+    CommandCounterIncrement();
+
+    // Keep lock on pg_replication_origin until commit
+    table_close(rel, NoLock);
+}
+```

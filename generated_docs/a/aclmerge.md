@@ -43,3 +43,38 @@ The `aclmerge` function provides sophisticated ACL combination logic that goes b
 - The `ownerId` parameter is essential for proper permission validation and conflict resolution
 - More computationally expensive than `aclconcat` but produces cleaner, more consistent results
 - Preferred function for combining ACLs when logical correctness is more important than performance
+
+## Simplified Source
+
+```c
+Acl *aclmerge(const Acl *left_acl, const Acl *right_acl, Oid ownerId) {
+    // Handle empty/NULL cases - return appropriate ACL copy or NULL
+    if (left_acl == NULL || ACL_NUM(left_acl) == 0) {
+        if (right_acl == NULL || ACL_NUM(right_acl) == 0) {
+            return NULL;
+        }
+        return aclcopy(right_acl);
+    }
+
+    if (right_acl == NULL || ACL_NUM(right_acl) == 0) {
+        return aclcopy(left_acl);
+    }
+
+    // Start with copy of left ACL as base
+    Acl *result_acl = aclcopy(left_acl);
+
+    // Merge each item from right ACL into result
+    AclItem *items = ACL_DAT(right_acl);
+    int num_items = ACL_NUM(right_acl);
+
+    for (int i = 0; i < num_items; i++) {
+        // Update result ACL with current item (merges permissions)
+        Acl *new_acl = aclupdate(result_acl, &items[i], ACL_MODECHG_ADD,
+                                 ownerId, DROP_RESTRICT);
+        pfree(result_acl);
+        result_acl = new_acl;
+    }
+
+    return result_acl;
+}
+```

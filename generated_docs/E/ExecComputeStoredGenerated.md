@@ -57,3 +57,85 @@ Key behaviors:
 - Memory management is critical - computed values are copied using datumCopy to ensure they persist beyond expression evaluation
 - The function materializes the slot after updating to ensure the computed values are properly stored
 - Early exit optimization for UPDATE operations when no generated columns need recomputation
+
+## Simplified Source
+
+```c
+void
+ExecComputeStoredGenerated(ResultRelInfo *resultRelInfo, EState *estate,
+                          TupleTableSlot *slot, CmdType cmdtype)
+{
+    Relation rel = resultRelInfo->ri_RelationDesc;
+    TupleDesc tupdesc = RelationGetDescr(rel);
+    int natts = tupdesc->natts;
+    ExprContext *econtext = GetPerTupleExprContext(estate);
+    ExprState **ri_GeneratedExprs;
+    MemoryContext oldContext;
+    Datum *values;
+    bool *nulls;
+
+    // Must have stored generated columns
+    Assert(tupdesc->constr && tupdesc->constr->has_generated_stored);
+
+    // Initialize expressions if needed and check for early exit
+    if (cmdtype == CMD_UPDATE)
+    {
+        if (resultRelInfo->ri_GeneratedExprsU == NULL)
+            ExecInitStoredGenerated(resultRelInfo, estate, cmdtype);
+        if (resultRelInfo->ri_NumGeneratedNeededU == 0)
+            return;
+        ri_GeneratedExprs = resultRelInfo->ri_GeneratedExprsU;
+    }
+    else
+    {
+        if (resultRelInfo->ri_GeneratedExprsI == NULL)
+            ExecInitStoredGenerated(resultRelInfo, estate, cmdtype);
+        ri_GeneratedExprs = resultRelInfo->ri_GeneratedExprsI;
+    }
+
+    // Switch to per-tuple memory context
+    oldContext = MemoryContextSwitchTo(GetPerTupleMemoryContext(estate));
+
+    // Allocate arrays for computed values
+    values = palloc(sizeof(*values) * natts);
+    nulls = palloc(sizeof(*nulls) * natts);
+
+    // Get current tuple data
+    slot_getallattrs(slot);
+    memcpy(nulls, slot->tts_isnull, sizeof(*nulls) * natts);
+
+    // Compute generated columns
+    for (int i = 0; i < natts; i++)
+    {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+        if (ri_GeneratedExprs[i])
+        {
+            // Compute generated column value
+            econtext->ecxt_scantuple = slot;
+            Datum val = ExecEvalExpr(ri_GeneratedExprs[i], econtext, &nulls[i]);
+
+            // Copy value to ensure it persists
+            if (!nulls[i])
+                val = datumCopy(val, attr->attbyval, attr->attlen);
+
+            values[i] = val;
+        }
+        else
+        {
+            // Copy existing non-generated value
+            if (!nulls[i])
+                values[i] = datumCopy(slot->tts_values[i], attr->attbyval, attr->attlen);
+        }
+    }
+
+    // Update slot with computed values
+    ExecClearTuple(slot);
+    memcpy(slot->tts_values, values, sizeof(*values) * natts);
+    memcpy(slot->tts_isnull, nulls, sizeof(*nulls) * natts);
+    ExecStoreVirtualTuple(slot);
+    ExecMaterializeSlot(slot);
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

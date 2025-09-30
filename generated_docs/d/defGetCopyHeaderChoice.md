@@ -35,3 +35,40 @@ This function parses and validates the HEADER option value for COPY statements. 
 - Accepts the same string values as the grammar's opt_boolean_or_string production
 - Provides comprehensive error reporting for invalid parameter values
 - Returns COPY_HEADER_FALSE as a fallback to keep the compiler quiet, though this should never be reached due to error reporting
+
+## Simplified Source
+
+```c
+static CopyHeaderChoice defGetCopyHeaderChoice(DefElem *def, bool is_from) {
+    // Default to true if no parameter value given
+    if (def->arg == NULL)
+        return COPY_HEADER_TRUE;
+
+    // Handle integer values (0/1)
+    if (nodeTag(def->arg) == T_Integer) {
+        switch (intVal(def->arg)) {
+            case 0: return COPY_HEADER_FALSE;
+            case 1: return COPY_HEADER_TRUE;
+        }
+    } else {
+        // Handle string values
+        char *sval = defGetString(def);
+
+        if (pg_strcasecmp(sval, "true") == 0 || pg_strcasecmp(sval, "on") == 0)
+            return COPY_HEADER_TRUE;
+        if (pg_strcasecmp(sval, "false") == 0 || pg_strcasecmp(sval, "off") == 0)
+            return COPY_HEADER_FALSE;
+        if (pg_strcasecmp(sval, "match") == 0) {
+            if (!is_from)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("cannot use \"%s\" with HEADER in COPY TO", sval)));
+            return COPY_HEADER_MATCH;
+        }
+    }
+
+    // Error for invalid values
+    ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                   errmsg("%s requires a Boolean value or \"match\"", def->defname)));
+    return COPY_HEADER_FALSE;
+}
+```

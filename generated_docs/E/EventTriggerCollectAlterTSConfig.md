@@ -43,3 +43,46 @@ The function operates within the event trigger collection framework and respects
 - Memory allocation is performed in the event trigger context to ensure proper lifetime management
 - The function creates a deep copy of the parse tree using copyObject to ensure data persistence
 - Early return behavior when event triggers are disabled or collection is inhibited prevents unnecessary overhead
+
+## Simplified Source
+
+```c
+void
+EventTriggerCollectAlterTSConfig(AlterTSConfigurationStmt *stmt, Oid cfgId,
+                                Oid *dictIds, int ndicts)
+{
+    MemoryContext oldcxt;
+    CollectedCommand *command;
+
+    // Skip if event triggers not active or collection disabled
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create command structure to collect ALTER TS CONFIG info
+    command = palloc0(sizeof(CollectedCommand));
+    command->type = SCT_AlterTSConfig;
+    command->in_extension = creating_extension;
+
+    // Set object address for the text search configuration
+    ObjectAddressSet(command->d.atscfg.address,
+                     TSConfigRelationId, cfgId);
+
+    // Copy dictionary IDs array
+    command->d.atscfg.dictIds = palloc(sizeof(Oid) * ndicts);
+    memcpy(command->d.atscfg.dictIds, dictIds, sizeof(Oid) * ndicts);
+    command->d.atscfg.ndicts = ndicts;
+
+    // Store copy of the parse tree
+    command->parsetree = (Node *) copyObject(stmt);
+
+    // Add to event trigger command list
+    currentEventTriggerState->commandList =
+        lappend(currentEventTriggerState->commandList, command);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

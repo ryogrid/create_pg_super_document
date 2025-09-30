@@ -42,3 +42,32 @@ This function is conditionally compiled and only available when the CX (Cycle Cr
 - The implementation is derived from the Genitor genetic algorithm system and maintains the original copyright attribution
 - [Gene](../G/Gene.md) is defined as a simple int typedef in geqo_gene.h, representing relation identifiers
 - The random number generation uses PostgreSQL's internal PRNG system via geqo_randint, ensuring reproducible results when needed
+
+## Simplified Source
+
+```c
+void geqo_mutation(PlannerInfo *root, Gene *tour, int num_gene) {
+    int swap1, swap2;
+    int num_swaps = geqo_randint(root, num_gene / 3, 0);
+    Gene temp;
+
+    // Perform random number of swaps to mutate the tour
+    while (num_swaps > 0) {
+        // Select two different random positions
+        swap1 = geqo_randint(root, num_gene - 1, 0);
+        swap2 = geqo_randint(root, num_gene - 1, 0);
+
+        // Ensure positions are different
+        while (swap1 == swap2) {
+            swap2 = geqo_randint(root, num_gene - 1, 0);
+        }
+
+        // Swap the genes
+        temp = tour[swap1];
+        tour[swap1] = tour[swap2];
+        tour[swap2] = temp;
+
+        num_swaps--;
+    }
+}
+```

@@ -46,3 +46,24 @@ The algorithm iterates through each character of the source string, and for char
 - The SQL_STR_DOUBLE macro is called with escape_backslash=true, meaning both single quotes and backslashes are escaped
 - This is a utility function in the PostgreSQL port library (src/port/) making it available across different PostgreSQL components
 - The function assumes ASCII input and does not consider multi-byte character encodings
+
+## Simplified Source
+
+```c
+char *escape_single_quotes_ascii(const char *src) {
+    int len = strlen(src);
+    char *result = malloc(len * 2 + 1);  // Worst case: every char needs escaping
+
+    if (!result)
+        return NULL;
+
+    // Copy each character, doubling quotes and backslashes
+    for (int i = 0, j = 0; i < len; i++) {
+        if (SQL_STR_DOUBLE(src[i], true))  // Check if char needs escaping
+            result[j++] = src[i];          // Add escape character first
+        result[j++] = src[i];              // Add actual character
+    }
+    result[j] = '\0';
+    return result;
+}
+```

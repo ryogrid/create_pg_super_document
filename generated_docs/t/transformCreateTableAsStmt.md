@@ -50,3 +50,48 @@ The function also preserves a copy of the parsed query for materialized views, w
 - Temporary objects are disallowed in materialized view definitions for refresh reliability
 - The preserved query copy is used by intorel_startup() to create the view's ON SELECT rule
 - Bound parameters are forbidden in materialized views since they would complicate refresh operations
+
+## Simplified Source
+
+```c
+static Query *
+transformCreateTableAsStmt(ParseState *pstate, CreateTableAsStmt *stmt)
+{
+    Query *result;
+    Query *query;
+
+    // Transform the contained query
+    query = transformStmt(pstate, stmt->query);
+    stmt->query = (Node *) query;
+
+    // Additional validation for materialized views
+    if (stmt->objtype == OBJECT_MATVIEW)
+    {
+        // Check for modifying CTEs
+        if (query->hasModifyingCTE)
+            ereport(ERROR, "materialized views must not use data-modifying statements in WITH");
+
+        // Check for temporary objects
+        if (isQueryUsingTempRelation(query))
+            ereport(ERROR, "materialized views must not use temporary tables or views");
+
+        // Check for bound parameters
+        if (query_contains_extern_params(query))
+            ereport(ERROR, "materialized views may not be defined using bound parameters");
+
+        // Disallow unlogged materialized views
+        if (stmt->into->rel->relpersistence == RELPERSISTENCE_UNLOGGED)
+            ereport(ERROR, "materialized views cannot be unlogged");
+
+        // Store copy of query for ON SELECT rule creation
+        stmt->into->viewQuery = (Node *) copyObject(query);
+    }
+
+    // Return as utility command
+    result = makeNode(Query);
+    result->commandType = CMD_UTILITY;
+    result->utilityStmt = (Node *) stmt;
+
+    return result;
+}
+```

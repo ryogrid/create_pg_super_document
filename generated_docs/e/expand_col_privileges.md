@@ -43,3 +43,40 @@ The function performs column name validation and converts column names to attrib
 - Uses FirstLowInvalidHeapAttributeNumber as the base offset for array indexing to handle system columns
 - Throws an error if a specified column name does not exist in the relation
 - The privileges are applied using bitwise OR, allowing multiple privilege operations to accumulate
+
+## Simplified Source
+
+```c
+static void
+expand_col_privileges(List *colnames, Oid table_oid,
+                      AclMode this_privileges,
+                      AclMode *col_privileges,
+                      int num_col_privileges)
+{
+    ListCell *cell;
+
+    // Process each specified column name
+    foreach(cell, colnames) {
+        char *colname = strVal(lfirst(cell));
+        AttrNumber attnum;
+
+        // Convert column name to attribute number
+        attnum = get_attnum(table_oid, colname);
+        if (attnum == InvalidAttrNumber)
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     errmsg("column \"%s\" of relation \"%s\" does not exist",
+                           colname, get_rel_name(table_oid))));
+
+        // Adjust for array indexing (account for system columns)
+        attnum -= FirstLowInvalidHeapAttributeNumber;
+
+        // Safety check: ensure attribute number is within array bounds
+        if (attnum <= 0 || attnum >= num_col_privileges)
+            elog(ERROR, "column number out of range");
+
+        // Apply privileges to this column using bitwise OR
+        col_privileges[attnum] |= this_privileges;
+    }
+}
+```

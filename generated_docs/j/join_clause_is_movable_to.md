@@ -42,3 +42,33 @@ Key safety conditions checked:
 
 ## Notes and Other Information
 The function is part of PostgreSQL's query optimization infrastructure for creating parameterized paths. It works in conjunction with join_clause_is_movable_into to determine optimal clause placement. The rejection of is_clone versions prevents the optimizer from generating multiple parameterized paths that differ only in which outer joins null the parameterization relations, as one path from the minimally-parameterized has_clone version is sufficient for optimization purposes.
+
+## Simplified Source
+
+```c
+bool
+join_clause_is_movable_to(RestrictInfo *rinfo, RelOptInfo *baserel)
+{
+    // Clause must physically reference the target relation
+    if (!bms_is_member(baserel->relid, rinfo->clause_relids))
+        return false;
+
+    // Cannot move outer-join clause into the join's outer side
+    if (bms_is_member(baserel->relid, rinfo->outer_relids))
+        return false;
+
+    // Target rel's Vars must not be nulled by any outer join
+    if (bms_overlap(rinfo->clause_relids, baserel->nulling_relids))
+        return false;
+
+    // Clause must not use rels with LATERAL references to this rel
+    if (bms_overlap(baserel->lateral_referencers, rinfo->clause_relids))
+        return false;
+
+    // Ignore clone clauses
+    if (rinfo->is_clone)
+        return false;
+
+    return true;
+}
+```

@@ -41,3 +41,27 @@ If parsing fails, the xml_parse function will report appropriate errors. If pars
 - Falls back to NO_XML_SUPPORT() error when libxml2 is not available
 - The preserve_whitespace parameter is passed through to xml_parse
 - Located in src/backend/utils/adt/xml.c at lines 993-1010
+
+## Simplified Source
+
+```c
+xmltype *xmlparse(text *data, XmlOptionType xmloption_arg, bool preserve_whitespace)
+{
+#ifdef USE_LIBXML
+    xmlDocPtr doc;
+
+    // Parse and validate the XML according to specified options
+    doc = xml_parse(data, xmloption_arg, preserve_whitespace,
+                    GetDatabaseEncoding(), NULL, NULL, NULL);
+
+    // Clean up parsed document (validation only)
+    xmlFreeDoc(doc);
+
+    // Return original input data (binary compatible with xmltype)
+    return (xmltype *) data;
+#else
+    NO_XML_SUPPORT();
+    return NULL;
+#endif
+}
+```

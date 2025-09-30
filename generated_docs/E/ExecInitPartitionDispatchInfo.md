@@ -47,3 +47,93 @@ The function manages the partition directory for tracking partition metadata and
 
 ## Notes and Other Information
 This is a static function that handles the complex initialization of partition dispatch infrastructure. It implements sophisticated memory management with dynamically growing arrays using a doubling strategy for efficient scaling. The function handles tuple format conversion between parent and child partitioned tables when their tuple descriptors differ, which is essential for correct partition key evaluation in hierarchical partitioning schemes. The partition directory integration helps optimize partition metadata lookup and handles concurrency scenarios involving partition detachment operations.
+
+## Simplified Source
+
+```c
+static PartitionDispatch
+ExecInitPartitionDispatchInfo(EState *estate,
+                              PartitionTupleRouting *proute, Oid partoid,
+                              PartitionDispatch parent_pd, int partidx,
+                              ResultRelInfo *rootResultRelInfo)
+{
+    Relation        rel;
+    PartitionDesc   partdesc;
+    PartitionDispatch pd;
+    int             dispatchidx;
+    MemoryContext   oldcxt;
+
+    // Initialize partition directory if needed
+    if (estate->es_partition_directory == NULL)
+        estate->es_partition_directory =
+            CreatePartitionDirectory(estate->es_query_cxt, !IsolationUsesXactSnapshot());
+
+    oldcxt = MemoryContextSwitchTo(proute->memcxt);
+
+    // Open the partitioned table (lock sub-partitions, root already locked)
+    if (partoid != RelationGetRelid(proute->partition_root))
+        rel = table_open(partoid, RowExclusiveLock);
+    else
+        rel = proute->partition_root;
+
+    partdesc = PartitionDirectoryLookup(estate->es_partition_directory, rel);
+
+    // Allocate and initialize PartitionDispatch structure
+    pd = (PartitionDispatch) palloc(offsetof(PartitionDispatchData, indexes) +
+                                    partdesc->nparts * sizeof(int));
+    pd->reldesc = rel;
+    pd->key = RelationGetPartitionKey(rel);
+    pd->keystate = NIL;
+    pd->partdesc = partdesc;
+
+    // Set up tuple conversion for sub-partitioned tables
+    if (parent_pd != NULL) {
+        TupleDesc tupdesc = RelationGetDescr(rel);
+        pd->tupmap = build_attrmap_by_name_if_req(RelationGetDescr(parent_pd->reldesc),
+                                                  tupdesc, false);
+        pd->tupslot = pd->tupmap ? MakeSingleTupleTableSlot(tupdesc, &TTSOpsVirtual) : NULL;
+    } else {
+        pd->tupmap = NULL;
+        pd->tupslot = NULL;
+    }
+
+    // Initialize partition indexes array
+    memset(pd->indexes, -1, sizeof(int) * partdesc->nparts);
+
+    // Grow dispatch arrays if needed
+    dispatchidx = proute->num_dispatch++;
+    if (proute->num_dispatch >= proute->max_dispatch) {
+        if (proute->max_dispatch == 0) {
+            proute->max_dispatch = 4;
+            proute->partition_dispatch_info = (PartitionDispatch *)
+                palloc(sizeof(PartitionDispatch) * proute->max_dispatch);
+            proute->nonleaf_partitions = (ResultRelInfo **)
+                palloc(sizeof(ResultRelInfo *) * proute->max_dispatch);
+        } else {
+            proute->max_dispatch *= 2;
+            proute->partition_dispatch_info = (PartitionDispatch *)
+                repalloc(proute->partition_dispatch_info,
+                         sizeof(PartitionDispatch) * proute->max_dispatch);
+            proute->nonleaf_partitions = (ResultRelInfo **)
+                repalloc(proute->nonleaf_partitions,
+                         sizeof(ResultRelInfo *) * proute->max_dispatch);
+        }
+    }
+    proute->partition_dispatch_info[dispatchidx] = pd;
+
+    // Create ResultRelInfo for non-leaf partitions
+    if (parent_pd) {
+        ResultRelInfo *rri = makeNode(ResultRelInfo);
+        InitResultRelInfo(rri, rel, 0, rootResultRelInfo, 0);
+        proute->nonleaf_partitions[dispatchidx] = rri;
+
+        // Link parent to child for quick descent
+        parent_pd->indexes[partidx] = dispatchidx;
+    } else {
+        proute->nonleaf_partitions[dispatchidx] = NULL;
+    }
+
+    MemoryContextSwitchTo(oldcxt);
+    return pd;
+}
+```

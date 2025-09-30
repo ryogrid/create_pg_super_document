@@ -35,8 +35,33 @@ The function implements a conservative approach, returning false whenever any co
 ## Notes and Other Information
 - Returns true only when all conditions for safe parallel aggregation are satisfied
 - The function is deliberately conservative to ensure correctness over performance
-- Key flags checked: hasAggs, groupClause, groupingSets, hasNonPartialAggs, hasNonSerialAggs  
+- Key flags checked: hasAggs, groupClause, groupingSets, hasNonPartialAggs, hasNonSerialAggs
 - This check prevents the creation of partial aggregation paths that would fail during execution
 - Essential for determining whether to create UPPERREL_PARTIAL_GROUP_AGG relations
 - Part of PostgreSQL's broader parallel query execution framework
 - Location: src/backend/optimizer/plan/planner.c:7663-7704
+
+## Simplified Source
+
+```c
+static bool
+can_partial_agg(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+
+    // Must have aggregates or GROUP BY clause for parallel aggregation
+    if (!parse->hasAggs && parse->groupClause == NIL)
+        return false;
+
+    // GROUPING SETS not supported in parallel
+    if (parse->groupingSets)
+        return false;
+
+    // All aggregates must support partial/serial modes
+    if (root->hasNonPartialAggs || root->hasNonSerialAggs)
+        return false;
+
+    // All conditions satisfied
+    return true;
+}
+```

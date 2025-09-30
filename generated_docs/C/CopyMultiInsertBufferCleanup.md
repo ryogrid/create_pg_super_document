@@ -40,3 +40,38 @@ The function handles both regular tables (with BulkInsertState) and foreign tabl
 
 ## Notes and Other Information
 The function includes assertions to ensure proper usage - the buffer must be flushed (nused == 0) before cleanup. It creates slots on demand during normal operation, so cleanup only needs to handle non-null slots. The cleanup is essential for preventing memory leaks and ensuring proper resource management during COPY operations, especially when dealing with partitioned tables that may have multiple buffers.
+
+## Simplified Source
+
+```c
+static inline void
+CopyMultiInsertBufferCleanup(CopyMultiInsertInfo *miinfo,
+                            CopyMultiInsertBuffer *buffer)
+{
+    ResultRelInfo *resultRelInfo = buffer->resultRelInfo;
+    int i;
+
+    // Ensure buffer was flushed
+    Assert(buffer->nused == 0);
+
+    // Remove back-link to prevent dangling pointer
+    resultRelInfo->ri_CopyMultiInsertBuffer = NULL;
+
+    // Clean up bulk insert state for regular tables
+    if (resultRelInfo->ri_FdwRoutine == NULL) {
+        Assert(buffer->bistate != NULL);
+        FreeBulkInsertState(buffer->bistate);
+    }
+
+    // Drop all non-null tuple slots
+    for (i = 0; i < MAX_BUFFERED_TUPLES && buffer->slots[i] != NULL; i++)
+        ExecDropSingleTupleTableSlot(buffer->slots[i]);
+
+    // Finish bulk insert for regular tables
+    if (resultRelInfo->ri_FdwRoutine == NULL)
+        table_finish_bulk_insert(resultRelInfo->ri_RelationDesc, miinfo->ti_options);
+
+    // Free the buffer structure
+    pfree(buffer);
+}
+```

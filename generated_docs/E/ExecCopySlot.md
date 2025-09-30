@@ -60,3 +60,21 @@ Key characteristics:
 - **System Attributes**: When system attributes need to be accessed in the target slot, both source and destination slot types must match exactly to ensure proper handling of system columns.
 
 - **Implementation Flexibility**: The actual copying logic is implemented by the slot's specific copyslot callback, allowing different slot types (HeapTupleTableSlot, VirtualTupleTableSlot, etc.) to optimize the copy operation according to their internal data structures.
+
+## Simplified Source
+
+```c
+static inline TupleTableSlot *ExecCopySlot(TupleTableSlot *dstslot,
+                                           TupleTableSlot *srcslot) {
+    // Validate slots are compatible for copying
+    Assert(!TTS_EMPTY(srcslot));
+    Assert(srcslot != dstslot);
+    Assert(dstslot->tts_tupleDescriptor->natts ==
+           srcslot->tts_tupleDescriptor->natts);
+
+    // Delegate to slot-specific copy implementation
+    dstslot->tts_ops->copyslot(dstslot, srcslot);
+
+    return dstslot;
+}
+```

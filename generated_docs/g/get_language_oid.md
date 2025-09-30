@@ -41,3 +41,25 @@ The function leverages the LANGNAME system cache for fast lookups and follows Po
 - Commonly used in DDL operations and object address resolution
 - Part of the standard PostgreSQL pattern for name-to-OID resolution functions
 - Function is located in src/backend/commands/proclang.c:226-237
+
+## Simplified Source
+
+```c
+Oid
+get_language_oid(const char *langname, bool missing_ok)
+{
+    Oid oid;
+
+    // Look up language OID in system cache
+    oid = GetSysCacheOid1(LANGNAME, Anum_pg_language_oid,
+                          CStringGetDatum(langname));
+
+    // Handle missing language based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("language \"%s\" does not exist", langname)));
+
+    return oid;
+}
+```

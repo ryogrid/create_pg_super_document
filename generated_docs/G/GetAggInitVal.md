@@ -35,3 +35,27 @@ This static function is responsible for parsing and converting text-based initia
 - The function properly manages memory by freeing the string representation after conversion
 - It's used during both regular aggregate initialization and window aggregate processing
 - The conversion process uses PostgreSQL's standard type input mechanisms for type safety
+
+## Simplified Source
+
+```c
+static Datum GetAggInitVal(Datum textInitVal, Oid transtype) {
+    Oid typinput, typioparam;
+    char *strInitVal;
+    Datum initVal;
+
+    // Get type input function for the transition type
+    getTypeInputInfo(transtype, &typinput, &typioparam);
+
+    // Convert text datum to C string
+    strInitVal = TextDatumGetCString(textInitVal);
+
+    // Parse string into proper datum format
+    initVal = OidInputFunctionCall(typinput, strInitVal, typioparam, -1);
+
+    // Clean up memory
+    pfree(strInitVal);
+
+    return initVal;
+}
+```

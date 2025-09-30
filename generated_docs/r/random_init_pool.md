@@ -43,3 +43,43 @@ The function includes robust error handling with a safety mechanism that prevent
 - Includes debug logging to track the number of invalid tours encountered during initialization
 - Critical for providing a good starting population for the genetic algorithm to evolve from
 - The quality of initial random population can significantly impact the final optimization results
+
+## Simplified Source
+
+```c
+void
+random_init_pool(PlannerInfo *root, Pool *pool)
+{
+    Chromosome *chromo = (Chromosome *) pool->data;
+    int i;
+    int bad = 0;
+
+    // Generate valid chromosomes for the pool
+    i = 0;
+    while (i < pool->size)
+    {
+        // Create random tour and evaluate its fitness
+        init_tour(root, chromo[i].string, pool->string_length);
+        pool->data[i].worth = geqo_eval(root, chromo[i].string, pool->string_length);
+
+        if (pool->data[i].worth < DBL_MAX)
+        {
+            // Valid chromosome - keep it
+            i++;
+        }
+        else
+        {
+            // Invalid chromosome - discard and try again
+            bad++;
+            if (i == 0 && bad >= 10000)
+                elog(ERROR, "geqo failed to make a valid plan");
+        }
+    }
+
+#ifdef GEQO_DEBUG
+    if (bad > 0)
+        elog(DEBUG1, "%d invalid tours found while selecting %d pool entries",
+             bad, pool->size);
+#endif
+}
+```

@@ -45,3 +45,93 @@ The function performs comprehensive validation including privilege checks, relat
 - Supports foreign table analysis through FDW-specific hooks
 - For partitioned tables, performs recursive analysis of child partitions when  is true
 - Maintains locks until transaction commit to ensure consistency of statistics updates
+
+## Simplified Source
+
+```c
+void analyze_rel(Oid relid, RangeVar *relation,
+                VacuumParams *params, List *va_cols, bool in_outer_xact,
+                BufferAccessStrategy bstrategy) {
+    Relation onerel;
+    int elevel;
+    AcquireSampleRowsFunc acquirefunc = NULL;
+    BlockNumber relpages = 0;
+
+    // Set logging level based on verbose option
+    elevel = (params->options & VACOPT_VERBOSE) ? INFO : DEBUG2;
+    vac_strategy = bstrategy;
+
+    CHECK_FOR_INTERRUPTS();
+
+    // Open relation with ShareUpdateExclusiveLock to prevent concurrent ANALYZE
+    onerel = vacuum_open_relation(relid, relation, params->options & ~(VACOPT_VACUUM),
+                                 params->log_min_duration >= 0,
+                                 ShareUpdateExclusiveLock);
+    if (!onerel)
+        return;
+
+    // Check privileges for analysis operation
+    if (!vacuum_is_permitted_for_relation(RelationGetRelid(onerel),
+                                         onerel->rd_rel,
+                                         params->options & ~VACOPT_VACUUM)) {
+        relation_close(onerel, ShareUpdateExclusiveLock);
+        return;
+    }
+
+    // Skip temp tables of other backends and pg_statistic table
+    if (RELATION_IS_OTHER_TEMP(onerel) ||
+        RelationGetRelid(onerel) == StatisticRelationId) {
+        relation_close(onerel, ShareUpdateExclusiveLock);
+        return;
+    }
+
+    // Set up analysis function based on relation type
+    if (onerel->rd_rel->relkind == RELKIND_RELATION ||
+        onerel->rd_rel->relkind == RELKIND_MATVIEW) {
+        // Regular table or materialized view
+        acquirefunc = acquire_sample_rows;
+        relpages = RelationGetNumberOfBlocks(onerel);
+    } else if (onerel->rd_rel->relkind == RELKIND_FOREIGN_TABLE) {
+        // Foreign table: check if FDW supports analysis
+        FdwRoutine *fdwroutine = GetFdwRoutineForRelation(onerel, false);
+        bool ok = false;
+
+        if (fdwroutine->AnalyzeForeignTable != NULL)
+            ok = fdwroutine->AnalyzeForeignTable(onerel, &acquirefunc, &relpages);
+
+        if (!ok) {
+            ereport(WARNING, (errmsg("skipping \"%s\" --- cannot analyze this foreign table",
+                                   RelationGetRelationName(onerel))));
+            relation_close(onerel, ShareUpdateExclusiveLock);
+            return;
+        }
+    } else if (onerel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        // Partitioned table: will do recursive analysis below
+    } else {
+        // Unsupported relation type
+        if (!(params->options & VACOPT_VACUUM))
+            ereport(WARNING, (errmsg("skipping \"%s\" --- cannot analyze non-tables",
+                                   RelationGetRelationName(onerel))));
+        relation_close(onerel, ShareUpdateExclusiveLock);
+        return;
+    }
+
+    // Initialize progress reporting
+    pgstat_progress_start_command(PROGRESS_COMMAND_ANALYZE,
+                                 RelationGetRelid(onerel));
+
+    // Perform non-recursive analysis (skip for partitioned tables)
+    if (onerel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE)
+        do_analyze_rel(onerel, params, va_cols, acquirefunc,
+                      relpages, false, in_outer_xact, elevel);
+
+    // Perform recursive analysis if relation has child tables
+    if (onerel->rd_rel->relhassubclass)
+        do_analyze_rel(onerel, params, va_cols, acquirefunc, relpages,
+                      true, in_outer_xact, elevel);
+
+    // Close relation but keep lock until commit
+    relation_close(onerel, NoLock);
+    pgstat_progress_end_command();
+}
+```

@@ -41,3 +41,67 @@ The function navigates up the planner hierarchy to find the CTE's definition and
 - Uses plan_id to locate the corresponding path and plan from the global subpaths and subplans lists
 - Includes extensive error checking to ensure the referenced CTE exists and has been properly planned
 - Located in src/backend/optimizer/path/allpaths.c:2860-2938
+
+## Simplified Source
+
+```c
+static void
+set_cte_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+{
+    Path *ctepath;
+    Plan *cteplan;
+    PlannerInfo *cteroot;
+    Index levelsup;
+    List *pathkeys;
+    int ndx;
+    ListCell *lc;
+    int plan_id;
+    Relids required_outer;
+
+    // Find the referenced CTE by walking up the planner hierarchy
+    levelsup = rte->ctelevelsup;
+    cteroot = root;
+    while (levelsup-- > 0)
+    {
+        cteroot = cteroot->parent_root;
+        if (!cteroot)
+            elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+    }
+
+    // Search for the CTE by name in the CTE list
+    ndx = 0;
+    foreach(lc, cteroot->parse->cteList)
+    {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(lc);
+        if (strcmp(cte->ctename, rte->ctename) == 0)
+            break;
+        ndx++;
+    }
+
+    // Verify CTE was found and has a valid plan
+    if (lc == NULL)
+        elog(ERROR, "could not find CTE \"%s\"", rte->ctename);
+    if (ndx >= list_length(cteroot->cte_plan_ids))
+        elog(ERROR, "could not find plan for CTE \"%s\"", rte->ctename);
+
+    plan_id = list_nth_int(cteroot->cte_plan_ids, ndx);
+    if (plan_id <= 0)
+        elog(ERROR, "no plan was made for CTE \"%s\"", rte->ctename);
+
+    // Retrieve the CTE's path and plan from global lists
+    ctepath = (Path *) list_nth(root->glob->subpaths, plan_id - 1);
+    cteplan = (Plan *) list_nth(root->glob->subplans, plan_id - 1);
+
+    // Set size estimates for the relation
+    set_cte_size_estimates(root, rel, cteplan->plan_rows);
+
+    // Convert CTE pathkeys to outer query representation
+    pathkeys = convert_subquery_pathkeys(root, rel, ctepath->pathkeys, cteplan->targetlist);
+
+    // Handle LATERAL references as required parameterization
+    required_outer = rel->lateral_relids;
+
+    // Create and add the CTE scan path
+    add_path(rel, create_ctescan_path(root, rel, pathkeys, required_outer));
+}
+```

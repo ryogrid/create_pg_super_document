@@ -47,3 +47,84 @@ The function uses different semantics based on the top_level parameter: at top l
 - Special handling for array coercion expressions that are strict at array level but not element level
 - Supports PlaceHolderVar nodes for handling placeholder variables in query planning
 - The recursive nature allows deep analysis of nested expressions while maintaining proper strictness contexts
+
+## Simplified Source
+
+```c
+static List *
+find_nonnullable_vars_walker(Node *node, bool top_level)
+{
+    List *result = NIL;
+    ListCell *l;
+
+    if (node == NULL)
+        return NIL;
+
+    // Variables: add to multibitmapset using relation/attribute
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+        if (var->varlevelsup == 0)
+            result = mbms_add_member(result, var->varno,
+                                   var->varattno - FirstLowInvalidHeapAttributeNumber);
+    }
+    // Lists: union all variable sets from arms
+    else if (IsA(node, List))
+    {
+        foreach(l, (List *) node)
+        {
+            result = mbms_add_members(result,
+                                    find_nonnullable_vars_walker(lfirst(l), top_level));
+        }
+    }
+    // Strict functions: arguments must be nonnullable
+    else if (IsA(node, FuncExpr))
+    {
+        FuncExpr *expr = (FuncExpr *) node;
+        if (func_strict(expr->funcid))
+            result = find_nonnullable_vars_walker((Node *) expr->args, false);
+    }
+    // Boolean expressions: handle AND/OR semantics
+    else if (IsA(node, BoolExpr))
+    {
+        BoolExpr *expr = (BoolExpr *) node;
+        switch (expr->boolop)
+        {
+            case AND_EXPR:
+                if (top_level)
+                {
+                    // At top level: union of all arms
+                    result = find_nonnullable_vars_walker((Node *) expr->args, top_level);
+                    break;
+                }
+                // Fall through to OR logic
+            case OR_EXPR:
+                // Intersection of all arms
+                foreach(l, expr->args)
+                {
+                    List *subresult = find_nonnullable_vars_walker(lfirst(l), top_level);
+                    if (result == NIL)
+                        result = subresult;
+                    else
+                        result = mbms_int_members(result, subresult);
+
+                    if (result == NIL)
+                        break;
+                }
+                break;
+            case NOT_EXPR:
+                result = find_nonnullable_vars_walker((Node *) expr->args, false);
+                break;
+        }
+    }
+    // PlaceHolderVars: recurse into expression
+    else if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+        result = find_nonnullable_vars_walker((Node *) phv->phexpr, top_level);
+    }
+    // [Additional node types handling omitted for brevity]
+
+    return result;
+}
+```

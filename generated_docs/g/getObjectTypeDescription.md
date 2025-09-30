@@ -41,3 +41,85 @@ The function supports all major PostgreSQL object classes including relations, f
 - For complex object types, delegates to specialized functions for detailed type information
 - Located in src/backend/catalog/objectaddress.c:4413-4602
 - Supports all major PostgreSQL object types including tables, indexes, functions, types, operators, etc.
+
+## Simplified Source
+```c
+char *
+getObjectTypeDescription(const ObjectAddress *object, bool missing_ok)
+{
+    StringInfoData buffer;
+    initStringInfo(&buffer);
+
+    switch (object->classId)
+    {
+        // Complex types with specialized handling
+        case RelationRelationId:
+            getRelationTypeDescription(&buffer, object->objectId, object->objectSubId, missing_ok);
+            break;
+
+        case ProcedureRelationId:
+            getProcedureTypeDescription(&buffer, object->objectId, missing_ok);
+            break;
+
+        case ConstraintRelationId:
+            getConstraintTypeDescription(&buffer, object->objectId, missing_ok);
+            break;
+
+        // Simple static descriptions
+        case TypeRelationId:            appendStringInfoString(&buffer, "type"); break;
+        case CastRelationId:            appendStringInfoString(&buffer, "cast"); break;
+        case CollationRelationId:       appendStringInfoString(&buffer, "collation"); break;
+        case ConversionRelationId:      appendStringInfoString(&buffer, "conversion"); break;
+        case AttrDefaultRelationId:     appendStringInfoString(&buffer, "default value"); break;
+        case LanguageRelationId:        appendStringInfoString(&buffer, "language"); break;
+        case LargeObjectRelationId:     appendStringInfoString(&buffer, "large object"); break;
+        case OperatorRelationId:        appendStringInfoString(&buffer, "operator"); break;
+        case OperatorClassRelationId:   appendStringInfoString(&buffer, "operator class"); break;
+        case OperatorFamilyRelationId:  appendStringInfoString(&buffer, "operator family"); break;
+        case AccessMethodRelationId:    appendStringInfoString(&buffer, "access method"); break;
+        case AccessMethodOperatorRelationId: appendStringInfoString(&buffer, "operator of access method"); break;
+        case AccessMethodProcedureRelationId: appendStringInfoString(&buffer, "function of access method"); break;
+        case RewriteRelationId:         appendStringInfoString(&buffer, "rule"); break;
+        case TriggerRelationId:         appendStringInfoString(&buffer, "trigger"); break;
+        case NamespaceRelationId:       appendStringInfoString(&buffer, "schema"); break;
+        case StatisticExtRelationId:    appendStringInfoString(&buffer, "statistics object"); break;
+
+        // Text search objects
+        case TSParserRelationId:        appendStringInfoString(&buffer, "text search parser"); break;
+        case TSDictionaryRelationId:    appendStringInfoString(&buffer, "text search dictionary"); break;
+        case TSTemplateRelationId:      appendStringInfoString(&buffer, "text search template"); break;
+        case TSConfigRelationId:        appendStringInfoString(&buffer, "text search configuration"); break;
+
+        // Security and user objects
+        case AuthIdRelationId:          appendStringInfoString(&buffer, "role"); break;
+        case AuthMemRelationId:         appendStringInfoString(&buffer, "role membership"); break;
+        case ParameterAclRelationId:    appendStringInfoString(&buffer, "parameter ACL"); break;
+        case PolicyRelationId:          appendStringInfoString(&buffer, "policy"); break;
+        case DefaultAclRelationId:      appendStringInfoString(&buffer, "default acl"); break;
+
+        // Infrastructure objects
+        case DatabaseRelationId:        appendStringInfoString(&buffer, "database"); break;
+        case TableSpaceRelationId:      appendStringInfoString(&buffer, "tablespace"); break;
+        case ExtensionRelationId:       appendStringInfoString(&buffer, "extension"); break;
+        case EventTriggerRelationId:    appendStringInfoString(&buffer, "event trigger"); break;
+
+        // Foreign data objects
+        case ForeignDataWrapperRelationId: appendStringInfoString(&buffer, "foreign-data wrapper"); break;
+        case ForeignServerRelationId:   appendStringInfoString(&buffer, "server"); break;
+        case UserMappingRelationId:     appendStringInfoString(&buffer, "user mapping"); break;
+
+        // Replication objects
+        case PublicationRelationId:         appendStringInfoString(&buffer, "publication"); break;
+        case PublicationNamespaceRelationId: appendStringInfoString(&buffer, "publication namespace"); break;
+        case PublicationRelRelationId:       appendStringInfoString(&buffer, "publication relation"); break;
+        case SubscriptionRelationId:        appendStringInfoString(&buffer, "subscription"); break;
+        case TransformRelationId:            appendStringInfoString(&buffer, "transform"); break;
+
+        default:
+            elog(ERROR, "unsupported object class: %u", object->classId);
+    }
+
+    Assert(buffer.len > 0);
+    return buffer.data;
+}
+```

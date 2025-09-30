@@ -55,3 +55,86 @@ GS>: The GroupingSet node to expand, containing:
 - ROLLUP generates n+1 groupings for n input expressions (including the empty grouping)
 - The function handles arbitrarily nested combinations through the SETS case and recursive calls
 - Memory efficiency is maintained by reusing list operations rather than creating temporary structures
+
+## Simplified Source
+
+```c
+static List *
+expand_groupingset_node(GroupingSet *gs)
+{
+    List *result = NIL;
+
+    switch (gs->kind) {
+        case GROUPING_SET_EMPTY:
+            result = list_make1(NIL);
+            break;
+
+        case GROUPING_SET_SIMPLE:
+            result = list_make1(gs->content);
+            break;
+
+        case GROUPING_SET_ROLLUP:
+            {
+                List *rollup_val = gs->content;
+                int curgroup_size = list_length(gs->content);
+
+                // Generate groupings from full size down to 0
+                while (curgroup_size > 0) {
+                    List *current_result = NIL;
+                    ListCell *lc;
+                    int i = curgroup_size;
+
+                    // Build current grouping level
+                    foreach(lc, rollup_val) {
+                        GroupingSet *gs_current = (GroupingSet *) lfirst(lc);
+                        current_result = list_concat(current_result, gs_current->content);
+                        if (--i == 0) break;
+                    }
+
+                    result = lappend(result, current_result);
+                    --curgroup_size;
+                }
+
+                result = lappend(result, NIL);  // Empty grouping
+            }
+            break;
+
+        case GROUPING_SET_CUBE:
+            {
+                List *cube_list = gs->content;
+                int number_bits = list_length(cube_list);
+                uint32 num_sets = (1U << number_bits);
+
+                // Generate all 2^n combinations using bit patterns
+                for (uint32 i = 0; i < num_sets; i++) {
+                    List *current_result = NIL;
+                    ListCell *lc;
+                    uint32 mask = 1U;
+
+                    foreach(lc, cube_list) {
+                        GroupingSet *gs_current = (GroupingSet *) lfirst(lc);
+                        if (mask & i)
+                            current_result = list_concat(current_result, gs_current->content);
+                        mask <<= 1;
+                    }
+
+                    result = lappend(result, current_result);
+                }
+            }
+            break;
+
+        case GROUPING_SET_SETS:
+            {
+                ListCell *lc;
+                // Recursively expand each nested grouping set
+                foreach(lc, gs->content) {
+                    List *current_result = expand_groupingset_node(lfirst(lc));
+                    result = list_concat(result, current_result);
+                }
+            }
+            break;
+    }
+
+    return result;
+}
+```

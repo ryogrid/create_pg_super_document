@@ -59,3 +59,82 @@ This static function handles the detailed processing of GRANT/REVOKE operations 
 - Maintains shared dependency information to track role relationships with column privileges
 - Records initial privileges for extension objects for proper privilege restoration during upgrades
 - The function assumes that the default ACL state for columns is empty (no explicit entries)
+
+## Simplified Source
+
+```c
+static void
+ExecGrant_Attribute(InternalGrant *istmt, Oid relOid, const char *relname,
+                   AttrNumber attnum, Oid ownerId, AclMode col_privileges,
+                   Relation attRelation, const Acl *old_rel_acl)
+{
+    HeapTuple attr_tuple;
+    Form_pg_attribute pg_attribute_tuple;
+    Acl *old_acl, *new_acl, *merged_acl;
+    Datum aclDatum;
+    bool isNull;
+    Oid grantorId;
+    AclMode avail_goptions;
+    bool need_update;
+
+    // Lookup the attribute in pg_attribute
+    attr_tuple = SearchSysCache2(ATTNUM, ObjectIdGetDatum(relOid), Int16GetDatum(attnum));
+    if (!HeapTupleIsValid(attr_tuple))
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u", attnum, relOid);
+
+    pg_attribute_tuple = (Form_pg_attribute) GETSTRUCT(attr_tuple);
+
+    // Get existing ACL or use default
+    aclDatum = SysCacheGetAttr(ATTNUM, attr_tuple, Anum_pg_attribute_attacl, &isNull);
+    if (isNull) {
+        old_acl = acldefault(OBJECT_COLUMN, ownerId);
+    } else {
+        old_acl = DatumGetAclPCopy(aclDatum);
+    }
+
+    // Merge table-level and column-level ACLs for grantor validation
+    merged_acl = aclconcat(old_rel_acl, old_acl);
+
+    // Determine what privileges can actually be granted
+    select_best_grantor(GetUserId(), col_privileges, merged_acl, ownerId,
+                       &grantorId, &avail_goptions);
+    pfree(merged_acl);
+
+    // Restrict privileges and validate according to SQL standards
+    col_privileges = restrict_and_check_grant(istmt->is_grant, avail_goptions,
+                                             (col_privileges == ACL_ALL_RIGHTS_COLUMN),
+                                             col_privileges, relOid, grantorId,
+                                             OBJECT_COLUMN, relname, attnum,
+                                             NameStr(pg_attribute_tuple->attname));
+
+    // Generate new ACL by applying the grant/revoke operation
+    new_acl = merge_acl_with_grant(old_acl, istmt->is_grant, istmt->grant_option,
+                                  istmt->behavior, istmt->grantees, col_privileges,
+                                  grantorId, ownerId);
+
+    // Update pg_attribute if needed
+    if (ACL_NUM(new_acl) > 0) {
+        need_update = true;
+        // Update with new ACL
+    } else {
+        need_update = !isNull;
+        // Set ACL to NULL (default state)
+    }
+
+    if (need_update) {
+        // Create modified tuple and update catalog
+        HeapTuple newtuple = heap_modify_tuple(attr_tuple, RelationGetDescr(attRelation),
+                                              values, nulls, replaces);
+        CatalogTupleUpdate(attRelation, &newtuple->t_self, newtuple);
+
+        // Update extension privileges and dependency tracking
+        recordExtensionInitPriv(relOid, RelationRelationId, attnum,
+                               ACL_NUM(new_acl) > 0 ? new_acl : NULL);
+        updateAclDependencies(RelationRelationId, relOid, attnum, ownerId,
+                             noldmembers, oldmembers, nnewmembers, newmembers);
+    }
+
+    pfree(new_acl);
+    ReleaseSysCache(attr_tuple);
+}
+```

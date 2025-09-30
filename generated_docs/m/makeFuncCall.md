@@ -39,3 +39,30 @@ The makeFuncCall function constructs a FuncCall node, which represents function 
 - Callers must modify specific fields after creation for specialized function call types (aggregates, window functions, etc.)
 - The function name is stored as a List to support qualified names with schema specifications
 - This is the standard constructor for most function call scenarios in query parsing and transformation
+
+## Simplified Source
+
+```c
+FuncCall *makeFuncCall(List *name, List *args, CoercionForm funcformat, int location) {
+    FuncCall *funcall = makeNode(FuncCall);
+
+    // Set the essential function call fields
+    funcall->funcname = name;
+    funcall->args = args;
+    funcall->funcformat = funcformat;
+    funcall->location = location;
+
+    // Initialize aggregate-related fields to defaults
+    funcall->agg_order = NIL;
+    funcall->agg_filter = NULL;
+    funcall->agg_within_group = false;
+    funcall->agg_star = false;
+    funcall->agg_distinct = false;
+
+    // Initialize other optional fields
+    funcall->over = NULL;
+    funcall->func_variadic = false;
+
+    return funcall;
+}
+```

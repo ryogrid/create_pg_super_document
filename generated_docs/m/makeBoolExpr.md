@@ -36,3 +36,23 @@ The `makeBoolExpr` function creates a BoolExpr node that represents boolean expr
 - The location parameter helps with error reporting by tracking where the expression appeared in the original query
 - Arguments list can contain multiple expressions for AND/OR operations, typically one expression for NOT operations
 - Essential for query optimization and execution planning of boolean logic
+
+## Simplified Source
+
+```c
+Expr *makeBoolExpr(BoolExprType boolop, List *args, int location) {
+    // Create new BoolExpr node
+    BoolExpr *b = makeNode(BoolExpr);
+
+    // Set boolean operation type (AND_EXPR, OR_EXPR, NOT_EXPR)
+    b->boolop = boolop;
+
+    // Set list of argument expressions
+    b->args = args;
+
+    // Set source location for error reporting
+    b->location = location;
+
+    return (Expr *) b;
+}
+```

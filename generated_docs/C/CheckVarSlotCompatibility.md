@@ -52,3 +52,42 @@ The function is essential for handling scenarios where:
 - Part of PostgreSQL's defensive programming approach to handle schema evolution gracefully
 - The validation occurs only once per expression evaluation, not on every tuple access
 - Critical for maintaining data integrity and preventing crashes when schemas change unexpectedly
+
+## Simplified Source
+
+```c
+static void
+CheckVarSlotCompatibility(TupleTableSlot *slot, int attnum, Oid vartype)
+{
+    // System attributes (attnum <= 0) never change, so skip validation
+    if (attnum <= 0)
+        return;
+
+    TupleDesc slot_tupdesc = slot->tts_tupleDescriptor;
+    Form_pg_attribute attr;
+
+    // Check that attribute number is within valid range
+    if (attnum > slot_tupdesc->natts)
+        elog(ERROR, "attribute number %d exceeds number of columns %d",
+             attnum, slot_tupdesc->natts);
+
+    attr = TupleDescAttr(slot_tupdesc, attnum - 1);
+
+    // Check if the attribute has been dropped
+    if (attr->attisdropped)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_COLUMN),
+                 errmsg("attribute %d of type %s has been dropped",
+                        attnum, format_type_be(slot_tupdesc->tdtypeid))));
+
+    // Check for type mismatch between expected and actual types
+    if (vartype != attr->atttypid)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("attribute %d of type %s has wrong type",
+                        attnum, format_type_be(slot_tupdesc->tdtypeid)),
+                 errdetail("Table has type %s, but query expects %s.",
+                           format_type_be(attr->atttypid),
+                           format_type_be(vartype))));
+}
+```

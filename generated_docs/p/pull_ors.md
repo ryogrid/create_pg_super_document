@@ -51,3 +51,27 @@ The original input list structure is preserved (not modified), and a new flatten
 - Companion function to  for handling AND clause flattening
 - The flattening helps subsequent optimization passes work more effectively on simplified structures
 - Particularly important for duplicate detection and removal in OR expressions
+
+## Simplified Source
+
+```c
+static List *pull_ors(List *orlist) {
+    List *out_list = NIL;
+    ListCell *arg;
+
+    // Iterate through each argument in the OR list
+    foreach(arg, orlist) {
+        Node *subexpr = (Node *) lfirst(arg);
+
+        // If it's a nested OR clause, recursively flatten it
+        if (is_orclause(subexpr))
+            out_list = list_concat(out_list,
+                                  pull_ors(((BoolExpr *) subexpr)->args));
+        else
+            // Otherwise, just add the expression to the output
+            out_list = lappend(out_list, subexpr);
+    }
+
+    return out_list;
+}
+```

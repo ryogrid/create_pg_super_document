@@ -35,3 +35,39 @@ This static function resolves a type name into an ObjectAddress structure, handl
 - When missing_ok is true and the type doesn't exist, returns an ObjectAddress with InvalidOid
 - Handles both simple and qualified type names through the TypeName structure
 - Domain validation ensures type system integrity by preventing non-domains from being treated as domains
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_type(ObjectType objtype, TypeName *typename, bool missing_ok)
+{
+    ObjectAddress address;
+    Type tup;
+
+    // Initialize address with TypeRelationId
+    address.classId = TypeRelationId;
+    address.objectId = InvalidOid;
+    address.objectSubId = 0;
+
+    // Look up the type by name
+    tup = LookupTypeName(NULL, typename, NULL, missing_ok);
+    if (!HeapTupleIsValid(tup)) {
+        if (!missing_ok)
+            ereport(ERROR, "type does not exist");
+        return address;
+    }
+
+    // Get the type OID
+    address.objectId = typeTypeId(tup);
+
+    // Validate that domains are actually domain types
+    if (objtype == OBJECT_DOMAIN) {
+        if (((Form_pg_type) GETSTRUCT(tup))->typtype != TYPTYPE_DOMAIN)
+            ereport(ERROR, "object is not a domain");
+    }
+
+    ReleaseSysCache(tup);
+    return address;
+}
+```

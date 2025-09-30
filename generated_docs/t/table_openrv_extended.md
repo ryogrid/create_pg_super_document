@@ -41,3 +41,23 @@ This function combines the flexibility of name-based relation specification with
 - Raises an error when missing_ok=false and the relation does not exist
 - Part of the table access method interface providing maximum flexibility for table opening
 - Most flexible table opening function, suitable for conditional operations
+
+## Simplified Source
+
+```c
+Relation
+table_openrv_extended(const RangeVar *relation, LOCKMODE lockmode,
+                     bool missing_ok)
+{
+    Relation r;
+
+    // Open relation with optional missing handling
+    r = relation_openrv_extended(relation, lockmode, missing_ok);
+
+    // Validate relation type if it exists
+    if (r)
+        validate_relation_kind(r);
+
+    return r;
+}
+```

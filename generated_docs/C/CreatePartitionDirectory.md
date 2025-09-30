@@ -42,3 +42,32 @@ The partition directory is particularly useful in scenarios where multiple parti
 - The hash table uses OID as the key and PartitionDirectoryEntry as the entry type
 - The directory maintains the omit_detached setting for consistent behavior across lookups
 - [Hash](../H/Hash.md) table flags include HASH_ELEM (for fixed-size elements), HASH_BLOBS (for simple key comparison), and HASH_CONTEXT (for memory context allocation)
+
+## Simplified Source
+
+```c
+PartitionDirectory
+CreatePartitionDirectory(MemoryContext mcxt, bool omit_detached)
+{
+    MemoryContext oldcontext = MemoryContextSwitchTo(mcxt);
+    PartitionDirectory pdir;
+    HASHCTL ctl;
+
+    // Allocate partition directory structure
+    pdir = palloc(sizeof(PartitionDirectoryData));
+    pdir->pdir_mcxt = mcxt;
+    pdir->omit_detached = omit_detached;
+
+    // Configure hash table for partition lookups
+    ctl.keysize = sizeof(Oid);  // Key: relation OID
+    ctl.entrysize = sizeof(PartitionDirectoryEntry);
+    ctl.hcxt = mcxt;
+
+    // Create hash table with 256 initial buckets
+    pdir->pdir_hash = hash_create("partition directory", 256, &ctl,
+                                 HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+
+    MemoryContextSwitchTo(oldcontext);
+    return pdir;
+}
+```

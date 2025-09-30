@@ -37,3 +37,35 @@ This internal validation function performs comprehensive checks before allowing 
 - Function uses Form_pg_publication to access publication catalog data
 - Error codes used: ERRCODE_INSUFFICIENT_PRIVILEGE, ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE
 - Part of PostgreSQL's logical replication publication management system
+
+## Simplified Source
+
+```c
+static void CheckAlterPublication(AlterPublicationStmt *stmt, HeapTuple tup,
+                                 List *tables, List *schemaidlist) {
+    Form_pg_publication pubform = (Form_pg_publication) GETSTRUCT(tup);
+
+    // Check superuser privilege for schema operations
+    if ((stmt->action == AP_AddObjects || stmt->action == AP_SetObjects) &&
+        schemaidlist && !superuser()) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("must be superuser to add or set schemas")));
+    }
+
+    // Prevent schema operations on FOR ALL TABLES publications
+    if (schemaidlist && pubform->puballtables) {
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("publication \"%s\" is defined as FOR ALL TABLES",
+                              NameStr(pubform->pubname)),
+                       errdetail("Schemas cannot be added to or dropped from FOR ALL TABLES publications.")));
+    }
+
+    // Prevent table operations on FOR ALL TABLES publications
+    if (tables && pubform->puballtables) {
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("publication \"%s\" is defined as FOR ALL TABLES",
+                              NameStr(pubform->pubname)),
+                       errdetail("Tables cannot be added to or dropped from FOR ALL TABLES publications.")));
+    }
+}
+```

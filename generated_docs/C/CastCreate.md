@@ -45,3 +45,84 @@ CastCreate is responsible for creating a new cast entry in the PostgreSQL system
 
 ## Notes and Other Information
 The function performs duplicate checking before insertion using SearchSysCache2 to provide user-friendly error messages. It creates dependencies not only on the primary objects (source/target types, cast function) but also on any intermediate casts that may be required for binary coercibility. Extension dependencies are automatically recorded, and post-creation hooks are invoked for proper system integration. Memory cleanup is handled through heap_freetuple and proper relation closing.
+
+## Simplified Source
+```c
+ObjectAddress
+CastCreate(Oid sourcetypeid, Oid targettypeid,
+           Oid funcid, Oid incastid, Oid outcastid,
+           char castcontext, char castmethod, DependencyType behavior)
+{
+    Relation relation;
+    HeapTuple tuple;
+    Oid castid;
+    Datum values[Natts_pg_cast];
+    bool nulls[Natts_pg_cast] = {0};
+    ObjectAddress myself, referenced;
+    ObjectAddresses *addrs;
+
+    // Open pg_cast catalog for modification
+    relation = table_open(CastRelationId, RowExclusiveLock);
+
+    // Check if cast already exists
+    tuple = SearchSysCache2(CASTSOURCETARGET,
+                           ObjectIdGetDatum(sourcetypeid),
+                           ObjectIdGetDatum(targettypeid));
+    if (HeapTupleIsValid(tuple))
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                       errmsg("cast from type %s to type %s already exists",
+                             format_type_be(sourcetypeid),
+                             format_type_be(targettypeid))));
+
+    // Assign new OID and prepare tuple values
+    castid = GetNewOidWithIndex(relation, CastOidIndexId, Anum_pg_cast_oid);
+    values[Anum_pg_cast_oid - 1] = ObjectIdGetDatum(castid);
+    values[Anum_pg_cast_castsource - 1] = ObjectIdGetDatum(sourcetypeid);
+    values[Anum_pg_cast_casttarget - 1] = ObjectIdGetDatum(targettypeid);
+    values[Anum_pg_cast_castfunc - 1] = ObjectIdGetDatum(funcid);
+    values[Anum_pg_cast_castcontext - 1] = CharGetDatum(castcontext);
+    values[Anum_pg_cast_castmethod - 1] = CharGetDatum(castmethod);
+
+    // Create and insert catalog tuple
+    tuple = heap_form_tuple(RelationGetDescr(relation), values, nulls);
+    CatalogTupleInsert(relation, tuple);
+
+    // Set up dependency tracking
+    addrs = new_object_addresses();
+    ObjectAddressSet(myself, CastRelationId, castid);
+
+    // Add dependencies on source and target types
+    ObjectAddressSet(referenced, TypeRelationId, sourcetypeid);
+    add_exact_object_address(&referenced, addrs);
+    ObjectAddressSet(referenced, TypeRelationId, targettypeid);
+    add_exact_object_address(&referenced, addrs);
+
+    // Add dependency on cast function if present
+    if (OidIsValid(funcid)) {
+        ObjectAddressSet(referenced, ProcedureRelationId, funcid);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Add dependencies on required intermediate casts
+    if (OidIsValid(incastid)) {
+        ObjectAddressSet(referenced, CastRelationId, incastid);
+        add_exact_object_address(&referenced, addrs);
+    }
+    if (OidIsValid(outcastid)) {
+        ObjectAddressSet(referenced, CastRelationId, outcastid);
+        add_exact_object_address(&referenced, addrs);
+    }
+
+    // Record all dependencies and cleanup
+    record_object_address_dependencies(&myself, addrs, behavior);
+    free_object_addresses(addrs);
+
+    recordDependencyOnCurrentExtension(&myself, false);
+    InvokeObjectPostCreateHook(CastRelationId, castid, 0);
+
+    heap_freetuple(tuple);
+    table_close(relation, RowExclusiveLock);
+
+    return myself;
+}
+```

@@ -39,3 +39,22 @@ The function calculates the size needed to store the SharedAggInfo structure plu
 - This is part of the cleanup process for parallel aggregate execution
 - The instrumentation data includes performance metrics that can be used for query optimization
 - Memory is allocated using palloc, making it subject to PostgreSQL's memory context management
+
+## Simplified Source
+
+```c
+void ExecAggRetrieveInstrumentation(AggState *node) {
+    // Skip if no shared instrumentation data
+    if (node->shared_info == NULL)
+        return;
+
+    // Calculate total size needed for SharedAggInfo + all worker data
+    Size size = offsetof(SharedAggInfo, sinstrument) +
+                node->shared_info->num_workers * sizeof(AggregateInstrumentation);
+
+    // Copy shared memory data to private memory for persistence
+    SharedAggInfo *private_copy = palloc(size);
+    memcpy(private_copy, node->shared_info, size);
+    node->shared_info = private_copy;
+}
+```

@@ -44,3 +44,64 @@ The function includes special logic to handle cases where unsigned long is wider
 - Used extensively for parsing PostgreSQL OID and transaction ID types
 - Validates results on platforms where unsigned long exceeds uint32 range
 - Allows trailing whitespace when endloc is NULL
+
+## Simplified Source
+
+```c
+uint32
+uint32in_subr(const char *s, char **endloc,
+              const char *typname, Node *escontext)
+{
+    uint32 result;
+    unsigned long cvt;
+    char *endptr;
+
+    // Parse string using standard library function
+    errno = 0;
+    cvt = strtoul(s, &endptr, 0);
+
+    // Handle parsing errors (EINVAL treated same as no input parsed)
+    if ((errno && errno != ERANGE) || endptr == s)
+        ereturn(escontext, 0,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"",
+                        typname, s)));
+
+    // Handle range errors
+    if (errno == ERANGE)
+        ereturn(escontext, 0,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("value \"%s\" is out of range for type %s",
+                        s, typname)));
+
+    // Handle end-of-string parsing
+    if (endloc) {
+        // Caller wants to parse rest of string separately
+        *endloc = endptr;
+    } else {
+        // Skip trailing whitespace and ensure nothing else remains
+        while (*endptr && isspace((unsigned char) *endptr))
+            endptr++;
+        if (*endptr)
+            ereturn(escontext, 0,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("invalid input syntax for type %s: \"%s\"",
+                            typname, s)));
+    }
+
+    result = (uint32) cvt;
+
+    // Cross-platform validation: handle cases where unsigned long > uint32
+    // Accept inputs with minus signs for backwards compatibility
+#if PG_UINT32_MAX != ULONG_MAX
+    if (cvt != (unsigned long) result &&
+        cvt != (unsigned long) ((int) result))
+        ereturn(escontext, 0,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("value \"%s\" is out of range for type %s",
+                        s, typname)));
+#endif
+
+    return result;
+}
+```

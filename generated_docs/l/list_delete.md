@@ -38,3 +38,21 @@ If a matching datum is found, the cell is removed using `list_delete_cell()` and
 - The `equal()` function provides deep structural comparison suitable for PostgreSQL node types
 - Returns the original list unchanged if no matching datum is found
 - Part of PostgreSQL's generic list API used throughout the codebase
+
+## Simplified Source
+
+```c
+List *
+list_delete(List *list, void *datum)
+{
+    // Search through list for matching datum
+    foreach(ListCell *cell, list)
+    {
+        if (equal(lfirst(cell), datum))
+            return list_delete_cell(list, cell);
+    }
+
+    // No match found - return original list
+    return list;
+}
+```

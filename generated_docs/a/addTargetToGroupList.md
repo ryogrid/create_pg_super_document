@@ -44,3 +44,57 @@ The function performs the same type coercion for UNKNOWN literals as addTargetTo
 - Sets nulls_first to false by default for grouping operations
 - Location parameter is crucial since tle->expr location might point to SELECT item rather than GROUP BY item
 - Handles UNKNOWN literal type coercion automatically like addTargetToSortList
+
+## Simplified Source
+
+```c
+static List *
+addTargetToGroupList(ParseState *pstate, TargetEntry *tle,
+                     List *grouplist, List *targetlist, int location)
+{
+    Oid restype = exprType((Node *) tle->expr);
+
+    // Convert UNKNOWN literals to TEXT type
+    if (restype == UNKNOWNOID)
+    {
+        tle->expr = (Expr *) coerce_type(pstate, (Node *) tle->expr,
+                                       restype, TEXTOID, -1,
+                                       COERCION_IMPLICIT,
+                                       COERCE_IMPLICIT_CAST,
+                                       -1);
+        restype = TEXTOID;
+    }
+
+    // Avoid duplicate entries in group list
+    if (!targetIsInSortList(tle, InvalidOid, grouplist))
+    {
+        SortGroupClause *grpcl = makeNode(SortGroupClause);
+        Oid sortop;
+        Oid eqop;
+        bool hashable;
+        ParseCallbackState pcbstate;
+
+        // Set up error reporting context
+        setup_parser_errposition_callback(&pcbstate, pstate, location);
+
+        // Get equality operator (required) and sort operator (optional)
+        get_sort_group_operators(restype,
+                               false, true, false,  // sortable, groupable, less_than
+                               &sortop, &eqop, NULL,
+                               &hashable);
+
+        cancel_parser_errposition_callback(&pcbstate);
+
+        // Create SortGroupClause for this grouping column
+        grpcl->tleSortGroupRef = assignSortGroupRef(tle, targetlist);
+        grpcl->eqop = eqop;
+        grpcl->sortop = sortop;
+        grpcl->nulls_first = false;  // Default for grouping
+        grpcl->hashable = hashable;
+
+        grouplist = lappend(grouplist, grpcl);
+    }
+
+    return grouplist;
+}
+```

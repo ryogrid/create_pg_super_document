@@ -37,3 +37,34 @@ This function is used when a rule or trigger specification returns that the obje
 - Uses hierarchical checking: first checks schema, then relation existence
 - Part of the missing_ok logic that allows graceful handling of non-existent objects
 - Returns appropriate error messages for user feedback when objects are skipped
+
+## Simplified Source
+
+```c
+static bool
+owningrel_does_not_exist_skipping(List *object, const char **msg, char **name)
+{
+    List       *parent_object;
+    RangeVar   *parent_rel;
+
+    // Extract parent object name (all but the last element)
+    parent_object = list_copy_head(object, list_length(object) - 1);
+
+    // First check if the schema exists
+    if (schema_does_not_exist_skipping(parent_object, msg, name))
+        return true;
+
+    // Convert parent object to RangeVar and check if relation exists
+    parent_rel = makeRangeVarFromNameList(parent_object);
+
+    if (!OidIsValid(RangeVarGetRelid(parent_rel, NoLock, true)))
+    {
+        // Relation doesn't exist - report it as missing
+        *msg = gettext_noop("relation \"%s\" does not exist, skipping");
+        *name = NameListToString(parent_object);
+        return true;
+    }
+
+    return false;  // Relation exists, so the rule/trigger itself is missing
+}
+```

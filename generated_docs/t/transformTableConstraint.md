@@ -40,3 +40,57 @@ For foreign tables, the function enforces PostgreSQL's design decision that cert
 
 ## Notes and Other Information
 The function enforces that column-level constraint types (NULL, NOT NULL, DEFAULT, and constraint attributes like DEFERRABLE) cannot appear as table-level constraints, throwing internal errors if encountered. This separation ensures proper constraint processing order and prevents logical inconsistencies. Foreign tables have significant constraint limitations - they cannot have PRIMARY KEY, UNIQUE, EXCLUSION, or FOREIGN KEY constraints since these require local enforcement capabilities that don't exist for external data sources. The constraint categorization performed here enables later processing phases to handle each constraint type with the appropriate logic and in the correct sequence.
+
+## Simplified Source
+
+```c
+static void transformTableConstraint(CreateStmtContext *cxt, Constraint *constraint) {
+    switch (constraint->contype) {
+        case CONSTR_PRIMARY:
+            if (cxt->isforeign)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("primary key constraints are not supported on foreign tables")));
+            cxt->ixconstraints = lappend(cxt->ixconstraints, constraint);
+            break;
+
+        case CONSTR_UNIQUE:
+            if (cxt->isforeign)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("unique constraints are not supported on foreign tables")));
+            cxt->ixconstraints = lappend(cxt->ixconstraints, constraint);
+            break;
+
+        case CONSTR_EXCLUSION:
+            if (cxt->isforeign)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("exclusion constraints are not supported on foreign tables")));
+            cxt->ixconstraints = lappend(cxt->ixconstraints, constraint);
+            break;
+
+        case CONSTR_CHECK:
+            cxt->ckconstraints = lappend(cxt->ckconstraints, constraint);
+            break;
+
+        case CONSTR_FOREIGN:
+            if (cxt->isforeign)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                               errmsg("foreign key constraints are not supported on foreign tables")));
+            cxt->fkconstraints = lappend(cxt->fkconstraints, constraint);
+            break;
+
+        case CONSTR_NULL:
+        case CONSTR_NOTNULL:
+        case CONSTR_DEFAULT:
+        case CONSTR_ATTR_DEFERRABLE:
+        case CONSTR_ATTR_NOT_DEFERRABLE:
+        case CONSTR_ATTR_DEFERRED:
+        case CONSTR_ATTR_IMMEDIATE:
+            elog(ERROR, "invalid context for constraint type %d", constraint->contype);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized constraint type: %d", constraint->contype);
+            break;
+    }
+}
+```

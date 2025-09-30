@@ -42,3 +42,26 @@ The function assumes the caller has already acquired the necessary SLRU bank loc
 - The CommitTimestampEntry structure contains both timestamp and replication origin information
 - Critical low-level function for the commit timestamp subsystem
 - Location: src/backend/access/transam/commit_ts.c:249-273
+
+## Simplified Source
+
+```c
+static void TransactionIdSetCommitTs(TransactionId xid, TimestampTz ts,
+                                   RepOriginId nodeid, int slotno) {
+    // Calculate position of entry within the page
+    int entryno = TransactionIdToCTsEntry(xid);
+
+    // Validate transaction ID is normal
+    Assert(TransactionIdIsNormal(xid));
+
+    // Create commit timestamp entry
+    CommitTimestampEntry entry;
+    entry.time = ts;
+    entry.nodeid = nodeid;
+
+    // Write entry to page buffer at calculated position
+    memcpy(CommitTsCtl->shared->page_buffer[slotno] +
+           SizeOfCommitTimestampEntry * entryno,
+           &entry, SizeOfCommitTimestampEntry);
+}
+```

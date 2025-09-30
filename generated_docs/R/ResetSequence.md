@@ -50,3 +50,54 @@ The function requires AccessExclusiveLock and assumes the caller has proper perm
 - Ensures relfrozenxid and relminmxid are properly set for the new storage
 - The transactional nature means the old storage file remains until transaction commit
 - Caller must hold AccessExclusiveLock until end of transaction
+
+## Simplified Source
+
+```c
+void
+ResetSequence(Oid seq_relid)
+{
+    Relation seq_rel;
+    SeqTable elm;
+    Form_pg_sequence_data seq;
+    Buffer buf;
+    HeapTupleData seqdatatuple;
+    HeapTuple tuple;
+    HeapTuple pgstuple;
+    Form_pg_sequence pgsform;
+    int64 startv;
+
+    // Initialize sequence and read current data
+    init_sequence(seq_relid, &elm, &seq_rel);
+    (void) read_seq_tuple(seq_rel, &buf, &seqdatatuple);
+
+    // Get start value from pg_sequence catalog
+    pgstuple = SearchSysCache1(SEQRELID, ObjectIdGetDatum(seq_relid));
+    if (!HeapTupleIsValid(pgstuple))
+        elog(ERROR, "cache lookup failed for sequence %u", seq_relid);
+    pgsform = (Form_pg_sequence) GETSTRUCT(pgstuple);
+    startv = pgsform->seqstart;
+    ReleaseSysCache(pgstuple);
+
+    // Copy existing sequence tuple and modify it
+    tuple = heap_copytuple(&seqdatatuple);
+    UnlockReleaseBuffer(buf);
+
+    // Reset sequence values to initial state
+    seq = (Form_pg_sequence_data) GETSTRUCT(tuple);
+    seq->last_value = startv;
+    seq->is_called = false;
+    seq->log_cnt = 0;
+
+    // Create new storage file for sequence
+    RelationSetNewRelfilenumber(seq_rel, seq_rel->rd_rel->relpersistence);
+
+    // Insert reset data into new storage
+    fill_seq_with_data(seq_rel, tuple);
+
+    // Clear local cache but preserve currval() state
+    elm->cached = elm->last;
+
+    sequence_close(seq_rel, NoLock);
+}
+```

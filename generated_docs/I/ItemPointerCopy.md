@@ -39,3 +39,18 @@ The function uses simple structure assignment (*toPointer = *fromPointer) which 
 - Commonly used in tuple manipulation, index operations, and trigger processing
 - Essential for maintaining tuple reference integrity during complex operations
 - Performs atomic copy of both block number and offset number components
+
+## Simplified Source
+
+```c
+static inline void
+ItemPointerCopy(const ItemPointerData *fromPointer, ItemPointerData *toPointer)
+{
+    // Validate both pointers are non-null
+    Assert(PointerIsValid(toPointer));
+    Assert(PointerIsValid(fromPointer));
+
+    // Copy entire structure - copies both block ID and offset atomically
+    *toPointer = *fromPointer;
+}
+```

@@ -36,3 +36,13 @@ The function works by registering a special invalidation message with InvalidOid
 - The InvalidOid parameters to RegisterRelcacheInvalidation signal a global invalidation
 - Should be used sparingly due to performance implications of rebuilding all relation cache entries
 - The invalidation is deferred until command end to maintain consistency during complex operations
+
+## Simplified Source
+
+```c
+void CacheInvalidateRelcacheAll(void)
+{
+    PrepareInvalidationState();
+    RegisterRelcacheInvalidation(InvalidOid, InvalidOid);
+}
+```

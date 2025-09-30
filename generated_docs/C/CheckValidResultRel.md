@@ -58,3 +58,82 @@ For MERGE operations, the function ensures the result relation supports all poss
 - Error messages are user-friendly and include the relation name for better diagnostics
 - The function assumes the ResultRelInfo structure is fully initialized by InitResultRelInfo()
 - MERGE operations require the most comprehensive validation since they may perform multiple operation types
+
+## Simplified Source
+
+```c
+void CheckValidResultRel(ResultRelInfo *resultRelInfo, CmdType operation, List *mergeActions) {
+    Relation resultRel = resultRelInfo->ri_RelationDesc;
+    FdwRoutine *fdwroutine;
+
+    // Validate that ResultRelInfo is properly initialized
+    Assert(resultRelInfo->ri_needLockTagTuple == IsInplaceUpdateRelation(resultRel));
+
+    switch (resultRel->rd_rel->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_PARTITIONED_TABLE:
+            // Check replica identity requirements for regular tables
+            CheckCmdReplicaIdentity(resultRel, operation);
+            break;
+
+        case RELKIND_SEQUENCE:
+        case RELKIND_TOASTVALUE:
+            // Sequences and TOAST tables cannot be modified
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("cannot change %s \"%s\"",
+                    (resultRel->rd_rel->relkind == RELKIND_SEQUENCE) ? "sequence" : "TOAST relation",
+                    RelationGetRelationName(resultRel))));
+            break;
+
+        case RELKIND_VIEW:
+            // Views require INSTEAD OF triggers to be updatable
+            if (!view_has_instead_trigger(resultRel, operation, mergeActions))
+                error_view_not_updatable(resultRel, operation, mergeActions, NULL);
+            break;
+
+        case RELKIND_MATVIEW:
+            // Materialized views require incremental maintenance
+            if (!MatViewIncrementalMaintenanceIsEnabled())
+                ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                    errmsg("cannot change materialized view \"%s\"",
+                        RelationGetRelationName(resultRel))));
+            break;
+
+        case RELKIND_FOREIGN_TABLE:
+            // Check FDW capabilities for each operation type
+            fdwroutine = resultRelInfo->ri_FdwRoutine;
+
+            if (operation == CMD_INSERT && !fdwroutine->ExecForeignInsert)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("cannot insert into foreign table \"%s\"",
+                        RelationGetRelationName(resultRel))));
+
+            if (operation == CMD_UPDATE && !fdwroutine->ExecForeignUpdate)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("cannot update foreign table \"%s\"",
+                        RelationGetRelationName(resultRel))));
+
+            if (operation == CMD_DELETE && !fdwroutine->ExecForeignDelete)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("cannot delete from foreign table \"%s\"",
+                        RelationGetRelationName(resultRel))));
+
+            // Check FDW-specific permissions if available
+            if (fdwroutine->IsForeignRelUpdatable) {
+                int allowed_ops = fdwroutine->IsForeignRelUpdatable(resultRel);
+                if ((allowed_ops & (1 << operation)) == 0)
+                    ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("foreign table \"%s\" does not allow this operation",
+                            RelationGetRelationName(resultRel))));
+            }
+            break;
+
+        default:
+            // Unsupported relation type
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("cannot change relation \"%s\"",
+                    RelationGetRelationName(resultRel))));
+            break;
+    }
+}
+```

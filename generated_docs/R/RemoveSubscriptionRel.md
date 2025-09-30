@@ -44,3 +44,56 @@ The function includes important safety checks to prevent removal of relation map
 - Uses catalog scanning to efficiently locate and remove matching entries
 - Critical for maintaining consistency when dropping tables or subscriptions in logical replication
 - Located in src/backend/catalog/pg_subscription.c:416-490
+
+## Simplified Source
+
+```c
+void
+RemoveSubscriptionRel(Oid subid, Oid relid)
+{
+    Relation rel;
+    TableScanDesc scan;
+    ScanKeyData skey[2];
+    HeapTuple tup;
+    int nkeys = 0;
+
+    // Open subscription relation catalog table
+    rel = table_open(SubscriptionRelRelationId, RowExclusiveLock);
+
+    // Set up scan keys based on provided parameters
+    if (OidIsValid(subid)) {
+        ScanKeyInit(&skey[nkeys++], Anum_pg_subscription_rel_srsubid,
+                   BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(subid));
+    }
+
+    if (OidIsValid(relid)) {
+        ScanKeyInit(&skey[nkeys++], Anum_pg_subscription_rel_srrelid,
+                   BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relid));
+    }
+
+    // Scan and delete matching entries
+    scan = table_beginscan_catalog(rel, nkeys, skey);
+    while (HeapTupleIsValid(tup = heap_getnext(scan, ForwardScanDirection))) {
+        Form_pg_subscription_rel subrel = (Form_pg_subscription_rel) GETSTRUCT(tup);
+
+        // Safety check: prevent removal during active table synchronization
+        // unless the entire subscription is being updated
+        if (!OidIsValid(subid) && subrel->srsubstate != SUBREL_STATE_READY) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("could not drop relation mapping for subscription \"%s\"",
+                                  get_subscription_name(subrel->srsubid, false)),
+                           errdetail("Table synchronization for relation \"%s\" is in progress and is in state \"%c\".",
+                                    get_rel_name(relid), subrel->srsubstate),
+                           errhint("Use %s to enable subscription if not already enabled or use %s to drop the subscription.",
+                                  "ALTER SUBSCRIPTION ... ENABLE",
+                                  "DROP SUBSCRIPTION ...")));
+        }
+
+        // Delete the tuple
+        CatalogTupleDelete(rel, &tup->t_self);
+    }
+
+    table_endscan(scan);
+    table_close(rel, RowExclusiveLock);
+}
+```

@@ -33,3 +33,17 @@ The function only needs to account for required parameterization due to LATERAL 
 - Required parameterization can still occur due to LATERAL references in the values expressions
 - The function generates a single, straightforward access path using create_valuesscan_path
 - Located in src/backend/optimizer/path/allpaths.c:2816-2835
+
+## Simplified Source
+
+```c
+static void set_values_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte) {
+    Relids required_outer;
+
+    // VALUES scans only support LATERAL parameterization
+    required_outer = rel->lateral_relids;
+
+    // Create single VALUES scan path
+    add_path(rel, create_valuesscan_path(root, rel, required_outer));
+}
+```

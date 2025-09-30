@@ -43,3 +43,42 @@ The inheritance count tracking is crucial for PostgreSQL's constraint management
 - Uses deep comparison of constraint expressions via the equal() function to detect true duplicates vs naming conflicts
 - Critical for maintaining constraint consistency in PostgreSQL's inheritance hierarchy
 - The returned list may be the same as the input (if merging occurred) or a new list (if a constraint was added)
+
+## Simplified Source
+```c
+static List *MergeCheckConstraint(List *constraints, const char *name, Node *expr) {
+    ListCell *lc;
+    CookedConstraint *newcon;
+
+    // Search through existing constraints
+    foreach(lc, constraints) {
+        CookedConstraint *ccon = (CookedConstraint *) lfirst(lc);
+
+        // Skip constraints with different names
+        if (strcmp(ccon->name, name) != 0)
+            continue;
+
+        // Found matching name - check if expressions are identical
+        if (equal(expr, ccon->expr)) {
+            // Merge: increment inheritance count
+            ccon->inhcount++;
+            if (ccon->inhcount < 0)
+                ereport(ERROR, "too many inheritance parents");
+            return constraints;
+        }
+
+        // Same name, different expression - conflict error
+        ereport(ERROR, "check constraint name \"%s\" appears multiple times "
+                      "but with different expressions", name);
+    }
+
+    // No match found - create new constraint
+    newcon = palloc0_object(CookedConstraint);
+    newcon->contype = CONSTR_CHECK;
+    newcon->name = pstrdup(name);
+    newcon->expr = expr;
+    newcon->inhcount = 1;
+
+    return lappend(constraints, newcon);
+}
+```

@@ -46,3 +46,126 @@ The optimization is valid because if both sides can be constrained to the same c
 - Assumes COALESCE arguments appear in the same order as the join clause variables
 - Each COALESCE expression is expected to appear in at most one equivalence class
 - Generates separate constraints within the appropriate JoinDomain for each side of the full join
+
+## Simplified Source
+
+```c
+static bool
+reconsider_full_join_clause(PlannerInfo *root, OuterJoinClauseInfo *ojcinfo)
+{
+    RestrictInfo *rinfo = ojcinfo->rinfo;
+    SpecialJoinInfo *sjinfo = ojcinfo->sjinfo;
+    Relids fjrelids = bms_make_singleton(sjinfo->ojrelid);
+    Expr *leftvar, *rightvar;
+    Oid opno, collation, left_type, right_type;
+    Relids left_relids, right_relids;
+    ListCell *lc1;
+
+    // Extract join clause information
+    Assert(is_opclause(rinfo->clause));
+    opno = ((OpExpr *) rinfo->clause)->opno;
+    collation = ((OpExpr *) rinfo->clause)->inputcollid;
+    op_input_types(opno, &left_type, &right_type);
+    leftvar = (Expr *) get_leftop(rinfo->clause);
+    rightvar = (Expr *) get_rightop(rinfo->clause);
+    left_relids = rinfo->left_relids;
+    right_relids = rinfo->right_relids;
+
+    // Search equivalence classes for COALESCE expressions
+    foreach(lc1, root->eq_classes)
+    {
+        EquivalenceClass *cur_ec = (EquivalenceClass *) lfirst(lc1);
+        EquivalenceMember *coal_em = NULL;
+        bool match = false;
+        bool matchleft, matchright;
+        ListCell *lc2;
+        int coal_idx = -1;
+
+        // Skip non-constant or volatile ECs
+        if (!cur_ec->ec_has_const || cur_ec->ec_has_volatile)
+            continue;
+        // Check semantic compatibility
+        if (collation != cur_ec->ec_collation ||
+            !equal(rinfo->mergeopfamilies, cur_ec->ec_opfamilies))
+            continue;
+
+        // Look for COALESCE(leftvar, rightvar) in this EC
+        foreach(lc2, cur_ec->ec_members)
+        {
+            coal_em = (EquivalenceMember *) lfirst(lc2);
+            if (IsA(coal_em->em_expr, CoalesceExpr))
+            {
+                CoalesceExpr *cexpr = (CoalesceExpr *) coal_em->em_expr;
+                Node *cfirst, *csecond;
+
+                if (list_length(cexpr->args) != 2)
+                    continue;
+                cfirst = (Node *) linitial(cexpr->args);
+                csecond = (Node *) lsecond(cexpr->args);
+
+                // Strip nulling effects from COALESCE arguments
+                cfirst = remove_nulling_relids(cfirst, fjrelids, NULL);
+                csecond = remove_nulling_relids(csecond, fjrelids, NULL);
+
+                if (equal(leftvar, cfirst) && equal(rightvar, csecond))
+                {
+                    coal_idx = foreach_current_index(lc2);
+                    match = true;
+                    break;
+                }
+            }
+        }
+        if (!match)
+            continue;
+
+        // Try to generate constant constraints for both sides
+        matchleft = matchright = false;
+        foreach(lc2, cur_ec->ec_members)
+        {
+            EquivalenceMember *cur_em = (EquivalenceMember *) lfirst(lc2);
+            Oid eq_op;
+            RestrictInfo *newrinfo;
+            JoinDomain *jdomain;
+
+            if (!cur_em->em_is_const)
+                continue;
+
+            // Generate left side constraint
+            eq_op = select_equality_operator(cur_ec, left_type, cur_em->em_datatype);
+            if (OidIsValid(eq_op))
+            {
+                newrinfo = build_implied_join_equality(root, eq_op, cur_ec->ec_collation,
+                                                       leftvar, cur_em->em_expr,
+                                                       bms_copy(left_relids),
+                                                       cur_ec->ec_min_security);
+                jdomain = find_join_domain(root, sjinfo->syn_lefthand);
+                if (process_equivalence(root, &newrinfo, jdomain))
+                    matchleft = true;
+            }
+
+            // Generate right side constraint
+            eq_op = select_equality_operator(cur_ec, right_type, cur_em->em_datatype);
+            if (OidIsValid(eq_op))
+            {
+                newrinfo = build_implied_join_equality(root, eq_op, cur_ec->ec_collation,
+                                                       rightvar, cur_em->em_expr,
+                                                       bms_copy(right_relids),
+                                                       cur_ec->ec_min_security);
+                jdomain = find_join_domain(root, sjinfo->syn_righthand);
+                if (process_equivalence(root, &newrinfo, jdomain))
+                    matchright = true;
+            }
+        }
+
+        // Success if both sides constrained
+        if (matchleft && matchright)
+        {
+            cur_ec->ec_members = list_delete_nth_cell(cur_ec->ec_members, coal_idx);
+            return true;
+        }
+        break;  // COALESCE appears in at most one EC
+    }
+
+    return false;
+}
+```

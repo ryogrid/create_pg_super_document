@@ -34,3 +34,13 @@ ErrorResponse messages are sent by the PostgreSQL server to indicate errors that
 - ErrorResponse messages contain various fields like severity, SQLSTATE, message text, detail, hint, position, etc.
 - The function maintains the same parameter interface as other message-specific tracing functions for consistency
 - Part of PostgreSQL's libpq library which provides the C API for client applications
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_ErrorResponse(FILE *f, const char *message, int *cursor, bool regress)
+{
+    // Delegate to shared notification/response tracing function
+    pqTraceOutputNR(f, "ErrorResponse", message, cursor, regress);
+}
+```

@@ -43,3 +43,35 @@ For unknown types or types with unlimited width (like 'text'), the function retu
 - The function shares type modifier encoding knowledge with , suggesting potential for code refactoring
 - Critical for PostgreSQL's storage management and query optimization systems
 - Used in determining whether tables need TOAST (The Oversized-Attribute Storage Technique) for large values
+
+## Simplified Source
+
+```c
+int32
+type_maximum_size(Oid type_oid, int32 typemod) {
+    // Return -1 for negative typemod (unlimited size)
+    if (typemod < 0)
+        return -1;
+
+    switch (type_oid) {
+        case BPCHAROID:
+        case VARCHAROID:
+            // Character types: typemod includes varlena header
+            // Account for multi-byte character encodings
+            return (typemod - VARHDRSZ) * pg_encoding_max_length(GetDatabaseEncoding()) + VARHDRSZ;
+
+        case NUMERICOID:
+            // Numeric type: delegate to specialized function
+            return numeric_maximum_size(typemod);
+
+        case VARBITOID:
+        case BITOID:
+            // Bit string types: convert bits to bytes with overhead
+            return (typemod + (BITS_PER_BYTE - 1)) / BITS_PER_BYTE + 2 * sizeof(int32);
+
+        default:
+            // Unknown type or unlimited-width type (e.g., 'text')
+            return -1;
+    }
+}
+```

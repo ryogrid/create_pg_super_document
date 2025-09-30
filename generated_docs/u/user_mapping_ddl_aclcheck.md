@@ -36,3 +36,33 @@ This static function implements a centralized permission checking mechanism for 
 
 ## Notes and Other Information
 This function serves as a security gate for all user mapping DDL operations, centralizing the access control logic to ensure consistency across different commands. The function uses PostgreSQL's standard ACL (Access Control List) checking mechanisms and follows the principle of least privilege by allowing users to modify only their own mappings unless they own the entire server.
+
+## Simplified Source
+
+```c
+static void
+user_mapping_ddl_aclcheck(Oid umuserid, Oid serverid, const char *servername)
+{
+    Oid curuserid = GetUserId();
+
+    // Check if current user owns the foreign server
+    if (!object_ownercheck(ForeignServerRelationId, serverid, curuserid))
+    {
+        // Non-owner can only operate on their own mapping
+        if (umuserid == curuserid)
+        {
+            // Check if user has USAGE privilege on the server
+            AclResult aclresult = object_aclcheck(ForeignServerRelationId, serverid,
+                                                curuserid, ACL_USAGE);
+            if (aclresult != ACLCHECK_OK)
+                aclcheck_error(aclresult, OBJECT_FOREIGN_SERVER, servername);
+        }
+        else
+        {
+            // Cannot operate on other users' mappings
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_FOREIGN_SERVER, servername);
+        }
+    }
+    // Server owners can operate on any mapping - no additional checks needed
+}
+```

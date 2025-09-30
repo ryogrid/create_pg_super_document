@@ -35,3 +35,34 @@ This function serves as a dispatcher that applies default Access Control List (A
 - Schema name resolution is performed with 'missing_ok = false', meaning an error will be thrown if a schema doesn't exist
 - The InternalDefaultACL structure is modified in-place by setting the nspid field before delegating to SetDefaultACL
 - Each schema is processed independently, allowing for fine-grained control over default privileges per schema
+
+## Simplified Source
+
+```c
+static void
+SetDefaultACLsInSchemas(InternalDefaultACL *iacls, List *nspnames)
+{
+    if (nspnames == NIL)
+    {
+        // Set database-wide permissions when no schema specified
+        iacls->nspid = InvalidOid;
+        SetDefaultACL(iacls);
+    }
+    else
+    {
+        // Apply permissions to each specified schema
+        ListCell *nspcell;
+
+        foreach(nspcell, nspnames)
+        {
+            char *nspname = strVal(lfirst(nspcell));
+
+            // Resolve schema name to OID
+            iacls->nspid = get_namespace_oid(nspname, false);
+
+            // Apply ACL to this schema
+            SetDefaultACL(iacls);
+        }
+    }
+}
+```

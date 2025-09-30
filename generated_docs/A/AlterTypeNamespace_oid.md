@@ -39,3 +39,32 @@ AlterTypeNamespace_oid is an intermediate-level function that handles type names
 - Prevents direct manipulation of array types, guiding users to alter the element type instead
 - Returns the type's old namespace OID on successful completion, or InvalidOid if no action was taken
 - Acts as a permission and validation layer before delegating to AlterTypeNamespaceInternal
+
+## Simplified Source
+
+```c
+Oid AlterTypeNamespace_oid(Oid typeOid, Oid nspOid, bool ignoreDependent, ObjectAddresses *objsMoved)
+{
+    Oid elemOid;
+
+    // Check ownership permission
+    if (!object_ownercheck(TypeRelationId, typeOid, GetUserId()))
+        aclcheck_error_type(ACLCHECK_NOT_OWNER, typeOid);
+
+    // Prevent direct alteration of array types
+    elemOid = get_element_type(typeOid);
+    if (OidIsValid(elemOid) && get_array_type(elemOid) == typeOid)
+    {
+        if (ignoreDependent)
+            return InvalidOid;
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("cannot alter array type %s", format_type_be(typeOid)),
+                 errhint("You can alter type %s, which will alter the array type as well.",
+                         format_type_be(elemOid))));
+    }
+
+    // Delegate to internal function for actual namespace change
+    return AlterTypeNamespaceInternal(typeOid, nspOid, false, ignoreDependent, true, objsMoved);
+}
+```

@@ -41,3 +41,36 @@ For objects that do have namespace ownership, the function uses the appropriate 
 - The function is used in dependency tracking and object resolution scenarios
 - Essential for implementing schema-qualified object names and namespace-aware operations
 - Provides proper error reporting for objects that should exist but are not found in the cache
+
+## Simplified Source
+
+```c
+Oid get_object_namespace(const ObjectAddress *address) {
+    int cache;
+    HeapTuple tuple;
+    Oid namespace_oid;
+    const ObjectPropertyType *property;
+
+    // Check if object type has namespace ownership
+    property = get_object_property_data(address->classId);
+    if (property->attnum_namespace == InvalidAttrNumber)
+        return InvalidOid; // Object doesn't belong to any namespace
+
+    // Get the system cache ID for this object type
+    cache = property->oid_catcache_id;
+    Assert(cache != -1);
+
+    // Look up object in system cache
+    tuple = SearchSysCache1(cache, ObjectIdGetDatum(address->objectId));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for cache %d oid %u",
+             cache, address->objectId);
+
+    // Extract namespace OID from the tuple
+    namespace_oid = DatumGetObjectId(SysCacheGetAttrNotNull(cache, tuple,
+                                                           property->attnum_namespace));
+    ReleaseSysCache(tuple);
+
+    return namespace_oid;
+}
+```

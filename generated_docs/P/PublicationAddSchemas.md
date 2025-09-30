@@ -40,3 +40,34 @@ The function also manages event trigger collection and post-creation hooks when 
 - Event trigger collection and post-creation hooks are only invoked when stmt parameter is not NULL
 - Each schema addition creates an ObjectAddress that is used for event trigger notifications
 - The function operates on publication-namespace relationships stored in the pg_publication_namespace system catalog
+
+## Simplified Source
+
+```c
+static void
+PublicationAddSchemas(Oid pubid, List *schemas, bool if_not_exists,
+                      AlterPublicationStmt *stmt)
+{
+    ListCell *lc;
+
+    // Ensure not conflicting with FOR ALL TABLES publications
+    Assert(!stmt || !stmt->for_all_tables);
+
+    // Add each schema to the publication
+    foreach(lc, schemas)
+    {
+        Oid schemaid = lfirst_oid(lc);
+        ObjectAddress obj;
+
+        // Create publication-schema relationship
+        obj = publication_add_schema(pubid, schemaid, if_not_exists);
+
+        // Handle event triggers if called from ALTER PUBLICATION
+        if (stmt)
+        {
+            EventTriggerCollectSimpleCommand(obj, InvalidObjectAddress, (Node *) stmt);
+            InvokeObjectPostCreateHook(PublicationNamespaceRelationId, obj.objectId, 0);
+        }
+    }
+}
+```

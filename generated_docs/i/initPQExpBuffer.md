@@ -44,3 +44,24 @@ This function is one of two standard ways to create a PQExpBuffer. Use this when
 - This function is part of the public libpq API
 - Use  to clean up the data buffer when done (but not the structure itself)
 - Widely used throughout PostgreSQL tooling for string buffer management
+
+## Simplified Source
+
+```c
+void initPQExpBuffer(PQExpBuffer str) {
+    // Attempt to allocate initial buffer
+    str->data = malloc(INITIAL_EXPBUFFER_SIZE);
+
+    if (str->data == NULL) {
+        // Handle allocation failure - set to broken state
+        str->data = oom_buffer_ptr;
+        str->maxlen = 0;
+        str->len = 0;
+    } else {
+        // Successful allocation - initialize buffer
+        str->maxlen = INITIAL_EXPBUFFER_SIZE;
+        str->len = 0;
+        str->data[0] = '\0';  // Null terminate
+    }
+}
+```

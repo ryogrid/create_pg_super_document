@@ -45,3 +45,73 @@ The function follows PostgreSQL's standard pattern for catalog object creation: 
 - Uses proper locking (RowExclusiveLock) to ensure concurrent safety during catalog modifications
 - Returns an ObjectAddress structure that can be used for further operations on the created operator family
 - The function ensures ACID properties by properly managing the catalog transaction and error handling
+
+## Simplified Source
+
+```c
+static ObjectAddress
+CreateOpFamily(CreateOpFamilyStmt *stmt, const char *opfname,
+               Oid namespaceoid, Oid amoid)
+{
+    Oid opfamilyoid;
+    Relation rel;
+    HeapTuple tup;
+    Datum values[Natts_pg_opfamily];
+    bool nulls[Natts_pg_opfamily];
+    NameData opfName;
+    ObjectAddress myself, referenced;
+
+    rel = table_open(OperatorFamilyRelationId, RowExclusiveLock);
+
+    // Check for existing operator family with same name
+    if (SearchSysCacheExists3(OPFAMILYAMNAMENSP,
+                              ObjectIdGetDatum(amoid),
+                              CStringGetDatum(opfname),
+                              ObjectIdGetDatum(namespaceoid)))
+        ereport(ERROR, "operator family already exists");
+
+    // Create pg_opfamily entry
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    opfamilyoid = GetNewOidWithIndex(rel, OpfamilyOidIndexId, Anum_pg_opfamily_oid);
+    values[Anum_pg_opfamily_oid - 1] = ObjectIdGetDatum(opfamilyoid);
+    values[Anum_pg_opfamily_opfmethod - 1] = ObjectIdGetDatum(amoid);
+    namestrcpy(&opfName, opfname);
+    values[Anum_pg_opfamily_opfname - 1] = NameGetDatum(&opfName);
+    values[Anum_pg_opfamily_opfnamespace - 1] = ObjectIdGetDatum(namespaceoid);
+    values[Anum_pg_opfamily_opfowner - 1] = ObjectIdGetDatum(GetUserId());
+
+    tup = heap_form_tuple(rel->rd_att, values, nulls);
+    CatalogTupleInsert(rel, tup);
+    heap_freetuple(tup);
+
+    // Create dependencies
+    myself.classId = OperatorFamilyRelationId;
+    myself.objectId = opfamilyoid;
+    myself.objectSubId = 0;
+
+    // Depend on access method
+    referenced.classId = AccessMethodRelationId;
+    referenced.objectId = amoid;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_AUTO);
+
+    // Depend on namespace
+    referenced.classId = NamespaceRelationId;
+    referenced.objectId = namespaceoid;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    // Record ownership and extension dependencies
+    recordDependencyOnOwner(OperatorFamilyRelationId, opfamilyoid, GetUserId());
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    // Notify event triggers and invoke creation hooks
+    EventTriggerCollectSimpleCommand(myself, InvalidObjectAddress, (Node *) stmt);
+    InvokeObjectPostCreateHook(OperatorFamilyRelationId, opfamilyoid, 0);
+
+    table_close(rel, RowExclusiveLock);
+    return myself;
+}
+```

@@ -58,3 +58,46 @@ The function returns NULL rather than throwing errors directly, allowing callers
 - For fixed-length types requiring both type and length coercion, the inner coercion node is forced to implicit display form
 - Returns NULL on coercion failure rather than reporting errors, enabling context-specific error handling by callers
 - Located in src/backend/parser/parse_coerce.c:78-156
+
+## Simplified Source
+
+```c
+Node *coerce_to_target_type(ParseState *pstate, Node *expr, Oid exprtype,
+                          Oid targettype, int32 targettypmod,
+                          CoercionContext ccontext,
+                          CoercionForm cformat,
+                          int location) {
+    // Check if coercion is possible before attempting
+    if (!can_coerce_type(1, &exprtype, &targettype, ccontext))
+        return NULL;
+
+    // Handle CollateExpr: strip it off before coercion
+    Node *origexpr = expr;
+    while (expr && IsA(expr, CollateExpr))
+        expr = (Node *) ((CollateExpr *) expr)->arg;
+
+    // Perform the main type coercion
+    Node *result = coerce_type(pstate, expr, exprtype,
+                              targettype, targettypmod,
+                              ccontext, cformat, location);
+
+    // Apply additional length/precision coercion for fixed-length types
+    result = coerce_type_typmod(result,
+                               targettype, targettypmod,
+                               ccontext, cformat, location,
+                               (result != expr && !IsA(result, Const)));
+
+    // Reinstall CollateExpr if original had one and target type is collatable
+    if (expr != origexpr && type_is_collatable(targettype)) {
+        CollateExpr *coll = (CollateExpr *) origexpr;
+        CollateExpr *newcoll = makeNode(CollateExpr);
+
+        newcoll->arg = (Expr *) result;
+        newcoll->collOid = coll->collOid;
+        newcoll->location = coll->location;
+        result = (Node *) newcoll;
+    }
+
+    return result;
+}
+```

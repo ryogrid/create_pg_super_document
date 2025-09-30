@@ -56,3 +56,84 @@ This static function implements the recursive logic for inserting RestrictInfo n
 - Required relations handling: The top-level required_relids parameter is preserved for the final RestrictInfo, but OR constituents are allowed to default to their contained relations (passed as NULL)
 - Uniform flag propagation: All boolean flags (is_pushed_down, has_clone, etc.) and metadata (security_level, incompatible_relids, outer_relids) are propagated uniformly to all created RestrictInfo nodes
 - Expression tree reconstruction: The function carefully reconstructs the boolean expression structure while inserting RestrictInfo nodes at semantically appropriate locations
+
+## Simplified Source
+
+```c
+static Expr *
+make_sub_restrictinfos(PlannerInfo *root, Expr *clause,
+                      bool is_pushed_down, bool has_clone, bool is_clone,
+                      bool pseudoconstant, Index security_level,
+                      Relids required_relids, Relids incompatible_relids,
+                      Relids outer_relids)
+{
+    if (is_orclause(clause))
+    {
+        List       *orlist = NIL;
+        ListCell   *temp;
+
+        // Recursively process each OR argument
+        foreach(temp, ((BoolExpr *) clause)->args)
+            orlist = lappend(orlist,
+                           make_sub_restrictinfos(root,
+                                                lfirst(temp),
+                                                is_pushed_down,
+                                                has_clone,
+                                                is_clone,
+                                                pseudoconstant,
+                                                security_level,
+                                                NULL, /* OR constituents default to contained rels */
+                                                incompatible_relids,
+                                                outer_relids));
+
+        // Create RestrictInfo wrapping both original and processed OR clause
+        return (Expr *) make_restrictinfo_internal(root,
+                                                  clause,
+                                                  make_orclause(orlist),
+                                                  is_pushed_down,
+                                                  has_clone,
+                                                  is_clone,
+                                                  pseudoconstant,
+                                                  security_level,
+                                                  required_relids,
+                                                  incompatible_relids,
+                                                  outer_relids);
+    }
+    else if (is_andclause(clause))
+    {
+        List       *andlist = NIL;
+        ListCell   *temp;
+
+        // Recursively process each AND argument, but don't wrap the AND itself
+        foreach(temp, ((BoolExpr *) clause)->args)
+            andlist = lappend(andlist,
+                            make_sub_restrictinfos(root,
+                                                 lfirst(temp),
+                                                 is_pushed_down,
+                                                 has_clone,
+                                                 is_clone,
+                                                 pseudoconstant,
+                                                 security_level,
+                                                 required_relids,
+                                                 incompatible_relids,
+                                                 outer_relids));
+
+        return make_andclause(andlist);
+    }
+    else
+    {
+        // Simple clause: wrap directly in RestrictInfo
+        return (Expr *) make_restrictinfo_internal(root,
+                                                  clause,
+                                                  NULL,
+                                                  is_pushed_down,
+                                                  has_clone,
+                                                  is_clone,
+                                                  pseudoconstant,
+                                                  security_level,
+                                                  required_relids,
+                                                  incompatible_relids,
+                                                  outer_relids);
+    }
+}
+```

@@ -41,3 +41,26 @@ The slot is allocated in the query's memory context to ensure proper lifetime ma
 - The implementation is nearly identical to ExecGetTriggerOldSlot, differing only in the slot field used (ri_TrigNewSlot vs ri_TrigOldSlot)
 - Part of PostgreSQL's trigger infrastructure supporting BEFORE, AFTER, and INSTEAD OF triggers
 - The tuple descriptor and slot callbacks are obtained from the relation to ensure compatibility with the table's storage format
+
+## Simplified Source
+
+```c
+TupleTableSlot *ExecGetTriggerNewSlot(EState *estate, ResultRelInfo *relInfo) {
+    // Create NEW slot if not already initialized
+    if (relInfo->ri_TrigNewSlot == NULL) {
+        Relation rel = relInfo->ri_RelationDesc;
+
+        // Switch to query context for proper slot lifetime
+        MemoryContext oldcontext = MemoryContextSwitchTo(estate->es_query_cxt);
+
+        // Initialize slot with relation's tuple descriptor and callbacks
+        relInfo->ri_TrigNewSlot =
+            ExecInitExtraTupleSlot(estate, RelationGetDescr(rel),
+                                   table_slot_callbacks(rel));
+
+        MemoryContextSwitchTo(oldcontext);
+    }
+
+    return relInfo->ri_TrigNewSlot;
+}
+```

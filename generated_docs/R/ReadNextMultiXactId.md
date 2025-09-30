@@ -49,3 +49,24 @@ Key characteristics:
 - Handles wraparound state by ensuring returned value is at least FirstMultiXactId
 - Safe for concurrent access - multiple processes can call this simultaneously
 - Does not modify any global state or advance counters
+
+## Simplified Source
+
+```c
+MultiXactId
+ReadNextMultiXactId(void)
+{
+    MultiXactId mxid;
+
+    // Get shared lock to safely read the next MultiXactId
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+    mxid = MultiXactState->nextMXact;
+    LWLockRelease(MultiXactGenLock);
+
+    // Handle wraparound by ensuring minimum valid value
+    if (mxid < FirstMultiXactId)
+        mxid = FirstMultiXactId;
+
+    return mxid;
+}
+```

@@ -38,3 +38,30 @@ For example, in GROUP BY GROUPING SETS ((a,b), (a), ()), calling GROUPING(a,b) w
 - Each bit position corresponds to the argument position in the GROUPING function call
 - Essential for implementing SQL:1999 OLAP extensions like GROUPING SETS
 - The function assumes the parent node is always an AggState when called
+
+## Simplified Source
+
+```c
+void ExecEvalGroupingFunc(ExprState *state, ExprEvalStep *op)
+{
+    // Get the aggregate state and initialize result
+    AggState *aggstate = castNode(AggState, state->parent);
+    int result = 0;
+    Bitmapset *grouped_cols = aggstate->grouped_cols;
+
+    // Build bitmask by checking each clause
+    foreach(lc, op->d.grouping_func.clauses)
+    {
+        int attnum = lfirst_int(lc);
+        result <<= 1;  // Shift left for next bit
+
+        // Set bit if column is NOT in current grouping set
+        if (!bms_is_member(attnum, grouped_cols))
+            result |= 1;
+    }
+
+    // Return the computed bitmask
+    *op->resvalue = Int32GetDatum(result);
+    *op->resnull = false;
+}
+```

@@ -42,3 +42,45 @@ The function creates a Name-type constant node that can be used in JSON-related 
 - Memory is allocated for the name structure using palloc
 - The resulting Const node has type NAMEOID and uses standard name data format
 - Used in JSON processing functionality for encoding specification
+
+## Simplified Source
+
+```c
+static Const *getJsonEncodingConst(JsonFormat *format) {
+    JsonEncoding encoding;
+    const char *enc;
+    Name encname = palloc(sizeof(NameData));
+
+    // Default to UTF8 if no format or default format/encoding specified
+    if (!format ||
+        format->format_type == JS_FORMAT_DEFAULT ||
+        format->encoding == JS_ENC_DEFAULT) {
+        encoding = JS_ENC_UTF8;
+    } else {
+        encoding = format->encoding;
+    }
+
+    // Map encoding enum to string representation
+    switch (encoding) {
+        case JS_ENC_UTF16:
+            enc = "UTF16";
+            break;
+        case JS_ENC_UTF32:
+            enc = "UTF32";
+            break;
+        case JS_ENC_UTF8:
+            enc = "UTF8";
+            break;
+        default:
+            elog(ERROR, "invalid JSON encoding: %d", encoding);
+            break;
+    }
+
+    // Copy encoding string to Name structure
+    namestrcpy(encname, enc);
+
+    // Create and return Const node with encoding name
+    return makeConst(NAMEOID, -1, InvalidOid, NAMEDATALEN,
+                     NameGetDatum(encname), false, false);
+}
+```

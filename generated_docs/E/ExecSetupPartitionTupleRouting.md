@@ -36,3 +36,22 @@ The function allocates the main PartitionTupleRouting structure and initializes 
 
 ## Notes and Other Information
 The function uses the current memory context (typically estate->es_query_cxt) for all allocations, ensuring proper memory lifecycle management. The lazy initialization strategy significantly improves performance for single-partition INSERT operations, which represent a common use case in partitioned table scenarios.
+
+## Simplified Source
+```c
+PartitionTupleRouting *ExecSetupPartitionTupleRouting(EState *estate, Relation rel) {
+    // Allocate main routing structure with lazy initialization approach
+    // Only build partition ResultRelInfo on demand for optimal performance
+    PartitionTupleRouting *proute = (PartitionTupleRouting *) palloc0(sizeof(PartitionTupleRouting));
+
+    // Initialize core fields
+    proute->partition_root = rel;
+    proute->memcxt = CurrentMemoryContext;
+    // Other members zeroed by palloc0
+
+    // Initialize dispatch info for root partitioned table
+    ExecInitPartitionDispatchInfo(estate, proute, RelationGetRelid(rel), NULL, 0, NULL);
+
+    return proute;
+}
+```

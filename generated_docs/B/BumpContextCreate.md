@@ -45,3 +45,60 @@ The function performs extensive validation of input parameters, allocates the in
 - The function calculates allocChunkLimit to ensure efficient space utilization, limiting chunk sizes to fit at least Bump_CHUNK_FRACTION chunks per maximum block
 - All size parameters must be MAXALIGNED and the function enforces minimum sizes and maximum limits for memory safety
 - The context uses a doubly-linked list to manage blocks for efficient traversal during reset operations
+
+## Simplified Source
+
+```c
+MemoryContext
+BumpContextCreate(MemoryContext parent, const char *name, Size minContextSize,
+                  Size initBlockSize, Size maxBlockSize)
+{
+    Size allocSize;
+    BumpContext *set;
+    BumpBlock *block;
+
+    // Validate parameters (assertions simplified)
+    Assert(initBlockSize >= 1024 && maxBlockSize >= initBlockSize);
+    Assert(maxBlockSize <= MEMORYCHUNK_MAX_BLOCKOFFSET);
+
+    // Calculate initial allocation size
+    allocSize = MAXALIGN(sizeof(BumpContext)) + Bump_BLOCKHDRSZ + Bump_CHUNKHDRSZ;
+    if (minContextSize != 0)
+        allocSize = Max(allocSize, minContextSize);
+    else
+        allocSize = Max(allocSize, initBlockSize);
+
+    // Allocate initial block
+    set = (BumpContext *) malloc(allocSize);
+    if (set == NULL) {
+        // Error handling for out of memory
+        ereport(ERROR, (errcode(ERRCODE_OUT_OF_MEMORY),
+                        errmsg("out of memory")));
+    }
+
+    // Initialize block management
+    dlist_init(&set->blocks);
+    block = KeeperBlock(set);
+    Size firstBlockSize = allocSize - MAXALIGN(sizeof(BumpContext));
+    BumpBlockInit(set, block, firstBlockSize);
+    dlist_push_head(&set->blocks, &block->node);
+
+    // Set context configuration
+    set->initBlockSize = (uint32) initBlockSize;
+    set->maxBlockSize = (uint32) maxBlockSize;
+    set->nextBlockSize = (uint32) initBlockSize;
+
+    // Calculate allocation chunk limit
+    set->allocChunkLimit = Min(maxBlockSize, MEMORYCHUNK_MAX_VALUE);
+    while ((Size)(set->allocChunkLimit + Bump_CHUNKHDRSZ) >
+           (Size)((maxBlockSize - Bump_BLOCKHDRSZ) / Bump_CHUNK_FRACTION))
+        set->allocChunkLimit >>= 1;
+
+    // Create the memory context
+    MemoryContextCreate((MemoryContext) set, T_BumpContext, MCTX_BUMP_ID,
+                        parent, name);
+    ((MemoryContext) set)->mem_allocated = allocSize;
+
+    return (MemoryContext) set;
+}
+```

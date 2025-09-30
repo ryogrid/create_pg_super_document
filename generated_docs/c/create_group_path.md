@@ -48,3 +48,43 @@ The function initializes the path structure, sets up grouping-specific fields, c
 - HAVING qualifications are applied during the grouping process to filter groups
 - The pathtype is set to T_Group to distinguish it from aggregation operations
 - This is typically used when grouping without aggregation or with simple aggregation that can be handled by the Group node
+
+## Simplified Source
+
+```c
+GroupPath *
+create_group_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                  List *groupClause, List *qual, double numGroups) {
+    GroupPath *pathnode = makeNode(GroupPath);
+    PathTarget *target = rel->reltarget;
+
+    // Initialize path structure
+    pathnode->path.pathtype = T_Group;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+
+    // Group preserves input ordering
+    pathnode->path.pathkeys = subpath->pathkeys;
+
+    // Set group-specific fields
+    pathnode->subpath = subpath;
+    pathnode->groupClause = groupClause;
+    pathnode->qual = qual;
+
+    // Calculate grouping costs
+    cost_group(&pathnode->path, root,
+               list_length(groupClause), numGroups, qual,
+               subpath->startup_cost, subpath->total_cost, subpath->rows);
+
+    // Add target list evaluation costs
+    pathnode->path.startup_cost += target->cost.startup;
+    pathnode->path.total_cost += target->cost.startup +
+                                target->cost.per_tuple * pathnode->path.rows;
+
+    return pathnode;
+}
+```

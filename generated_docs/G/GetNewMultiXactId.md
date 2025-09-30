@@ -45,3 +45,120 @@ The function implements sophisticated wraparound protection by monitoring severa
 - Implements safety checks to prevent catastrophic data loss
 - Returns offset 1 instead of 0 to avoid issues with invalid offset values
 - The caller must end the critical section after writing SLRU data
+
+## Simplified Source
+
+```c
+static MultiXactId
+GetNewMultiXactId(int nmembers, MultiXactOffset *offset)
+{
+    MultiXactId result;
+    MultiXactOffset nextOffset;
+
+    debug_elog3(DEBUG2, "GetNew: for %d xids", nmembers);
+
+    // Safety check: no MultiXact assignment during recovery
+    if (RecoveryInProgress())
+        elog(ERROR, "cannot assign MultiXactIds during recovery");
+
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+
+    // Handle counter wraparound
+    if (MultiXactState->nextMXact < FirstMultiXactId)
+        MultiXactState->nextMXact = FirstMultiXactId;
+
+    result = MultiXactState->nextMXact;
+
+    // Comprehensive wraparound protection checks
+    if (!MultiXactIdPrecedes(result, MultiXactState->multiVacLimit))
+    {
+        // Copy shared values before releasing lock
+        MultiXactId multiWarnLimit = MultiXactState->multiWarnLimit;
+        MultiXactId multiStopLimit = MultiXactState->multiStopLimit;
+        MultiXactId multiWrapLimit = MultiXactState->multiWrapLimit;
+        Oid oldest_datoid = MultiXactState->oldestMultiXactDB;
+
+        LWLockRelease(MultiXactGenLock);
+
+        // STOP limit check - refuse new assignments
+        if (IsUnderPostmaster && !MultiXactIdPrecedes(result, multiStopLimit))
+        {
+            char *oldest_datname = get_database_name(oldest_datoid);
+            SendPostmasterSignal(PMSIGNAL_START_AUTOVAC_LAUNCHER);
+
+            if (oldest_datname)
+                ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                                errmsg("database is not accepting commands that assign new MultiXactIds to avoid wraparound data loss in database \"%s\"", oldest_datname),
+                                errhint("Execute a database-wide VACUUM in that database.")));
+            else
+                ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                                errmsg("database is not accepting commands that assign new MultiXactIds to avoid wraparound data loss in database with OID %u", oldest_datoid),
+                                errhint("Execute a database-wide VACUUM in that database.")));
+        }
+
+        // Trigger autovacuum periodically
+        if (IsUnderPostmaster && (result % 65536) == 0)
+            SendPostmasterSignal(PMSIGNAL_START_AUTOVAC_LAUNCHER);
+
+        // WARNING limit check
+        if (!MultiXactIdPrecedes(result, multiWarnLimit))
+        {
+            char *oldest_datname = get_database_name(oldest_datoid);
+            if (oldest_datname)
+                ereport(WARNING, (errmsg_plural("database \"%s\" must be vacuumed before %u more MultiXactId is used",
+                                                "database \"%s\" must be vacuumed before %u more MultiXactIds are used",
+                                                multiWrapLimit - result, oldest_datname, multiWrapLimit - result),
+                                  errhint("Execute a database-wide VACUUM in that database.")));
+            else
+                ereport(WARNING, (errmsg_plural("database with OID %u must be vacuumed before %u more MultiXactId is used",
+                                                "database with OID %u must be vacuumed before %u more MultiXactIds are used",
+                                                multiWrapLimit - result, oldest_datoid, multiWrapLimit - result),
+                                  errhint("Execute a database-wide VACUUM in that database.")));
+        }
+
+        // Re-acquire lock and refresh result
+        LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+        result = MultiXactState->nextMXact;
+        if (result < FirstMultiXactId)
+            result = FirstMultiXactId;
+    }
+
+    // Ensure SLRU file space for the new MultiXactId
+    ExtendMultiXactOffset(result);
+
+    // Reserve member space (avoid returning offset 0)
+    nextOffset = MultiXactState->nextOffset;
+    if (nextOffset == 0)
+    {
+        *offset = 1;
+        nmembers++;  // Allocate member slot 0 too
+    }
+    else
+        *offset = nextOffset;
+
+    // Check for member space wraparound
+    if (MultiXactOffsetWouldWrap(MultiXactState->nextOffset, nmembers))
+    {
+        LWLockRelease(MultiXactGenLock);
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                        errmsg("cannot acquire additional MultiXactId locks now"),
+                        errhint("Retry after committing or rolling back the transaction.")));
+    }
+
+    // Ensure SLRU file space for members
+    ExtendMultiXactMember(nextOffset, nmembers);
+
+    // Start critical section before updating shared counters
+    START_CRIT_SECTION();
+
+    // Update counters atomically
+    MultiXactState->nextMXact = result + 1;
+    MultiXactState->nextOffset += nmembers;
+
+    debug_elog4(DEBUG2, "GetNew: assigned %u offset %u", result, *offset);
+
+    LWLockRelease(MultiXactGenLock);
+
+    return result;
+}
+```

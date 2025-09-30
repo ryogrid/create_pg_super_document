@@ -33,3 +33,14 @@ The function is implemented as a static inline function in the header file, maki
 - LSNs (Log Sequence Numbers) are fundamental to PostgreSQL's WAL (Write-Ahead Logging) system
 - The function assumes the input Datum contains a valid 64-bit integer representation of an LSN
 - Being an inline function, it has no runtime overhead when optimizations are enabled
+
+## Simplified Source
+
+```c
+static inline XLogRecPtr
+DatumGetLSN(Datum X)
+{
+    // Convert Datum to 64-bit integer, then cast to LSN type
+    return (XLogRecPtr) DatumGetInt64(X);
+}
+```

@@ -36,3 +36,34 @@ The lock level determination is crucial for PostgreSQL's MVCC system, as differe
 - Returns `NoLock` initially and upgrades to higher lock modes as more restrictive options are encountered
 - The lock mode determination follows PostgreSQL's principle of using the minimum necessary lock level while ensuring data integrity
 - This is part of PostgreSQL's lock escalation system that balances concurrency with consistency requirements
+
+## Simplified Source
+
+```c
+LOCKMODE AlterTableGetRelOptionsLockLevel(List *defList) {
+    LOCKMODE lockmode = NoLock;
+
+    // Return most restrictive lock for safety if no options provided
+    if (defList == NIL)
+        return AccessExclusiveLock;
+
+    // Initialize relation options if needed
+    if (need_initialization)
+        initialize_reloptions();
+
+    // Find the most restrictive lock mode among all options
+    foreach(cell, defList) {
+        DefElem *def = (DefElem *) lfirst(cell);
+
+        // Check each option definition against known relation options
+        for (int i = 0; relOpts[i]; i++) {
+            if (strcmp(relOpts[i]->name, def->defname) == 0) {
+                if (lockmode < relOpts[i]->lockmode)
+                    lockmode = relOpts[i]->lockmode;
+            }
+        }
+    }
+
+    return lockmode;
+}
+```

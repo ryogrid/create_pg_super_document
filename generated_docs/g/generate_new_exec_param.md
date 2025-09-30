@@ -38,3 +38,28 @@ The created parameter has its location set to -1, indicating it is not associate
 
 ## Notes and Other Information
 This function is widely used throughout the optimizer for creating internal parameters. It is particularly important for subplan implementation and NestLoop parameterization. The automatic ID assignment ensures no conflicts with existing parameters, and the registration in paramExecTypes ensures proper runtime slot allocation.
+
+## Simplified Source
+
+```c
+Param *generate_new_exec_param(PlannerInfo *root, Oid paramtype,
+                              int32 paramtypmod, Oid paramcollation) {
+    // Create new execution parameter
+    Param *param = makeNode(Param);
+    param->paramkind = PARAM_EXEC;
+
+    // Assign unique ID based on current parameter count
+    param->paramid = list_length(root->glob->paramExecTypes);
+
+    // Register type for slot allocation
+    root->glob->paramExecTypes = lappend_oid(root->glob->paramExecTypes, paramtype);
+
+    // Set parameter properties
+    param->paramtype = paramtype;
+    param->paramtypmod = paramtypmod;
+    param->paramcollid = paramcollation;
+    param->location = -1;  // Internal parameter, no source location
+
+    return param;
+}
+```

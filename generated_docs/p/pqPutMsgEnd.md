@@ -48,3 +48,41 @@ The function includes special handling for Unix domain socket connections where 
 - Includes safety assertions for SSL and GSSAPI connections on Unix sockets
 - In non-blocking mode, does not complain if unable to send all data immediately
 - This function is part of the core PostgreSQL wire protocol implementation in libpq
+
+## Simplified Source
+```c
+int pqPutMsgEnd(PGconn *conn) {
+    // Fill in message length field if needed
+    if (conn->outMsgStart >= 0) {
+        uint32 msgLen = conn->outMsgEnd - conn->outMsgStart;
+        msgLen = pg_hton32(msgLen);
+        memcpy(conn->outBuffer + conn->outMsgStart, &msgLen, 4);
+    }
+
+    // Debug tracing if enabled
+    if (conn->Pfdebug) {
+        if (conn->outCount < conn->outMsgStart)
+            pqTraceOutputMessage(conn, conn->outBuffer + conn->outCount, true);
+        else
+            pqTraceOutputNoTypeByteMessage(conn, conn->outBuffer + conn->outMsgStart);
+    }
+
+    // Make message eligible to send
+    conn->outCount = conn->outMsgEnd;
+
+    // Auto-send if buffer has >= 8K data
+    if (conn->outCount >= 8192) {
+        int toSend = conn->outCount;
+
+        // For Unix sockets: prefer pipe-buffer-sized packets
+        if (conn->raddr.addr.ss_family == AF_UNIX) {
+            toSend -= toSend % 8192;
+        }
+
+        if (pqSendSome(conn, toSend) < 0)
+            return EOF;
+    }
+
+    return 0;
+}
+```

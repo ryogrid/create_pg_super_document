@@ -53,3 +53,58 @@ The function raises errors with appropriate error codes when invalid combination
 - The validation is designed to be independent for each attribute, allowing ALTER OPERATOR to only validate attributes being modified
 - Unary operators (prefix or postfix) are identified by having either leftTypeId or rightTypeId as InvalidOid
 - All advanced operator features (selectivity, join algorithms) require the operator to return boolean values since they're used in query optimization for WHERE clauses and joins
+
+## Simplified Source
+
+```c
+void OperatorValidateParams(Oid leftTypeId, Oid rightTypeId, Oid operResultType,
+                           bool hasCommutator, bool hasNegator,
+                           bool hasRestrictionSelectivity, bool hasJoinSelectivity,
+                           bool canMerge, bool canHash) {
+
+    // Check if this is a unary operator (missing left or right operand)
+    bool is_unary = !(OidIsValid(leftTypeId) && OidIsValid(rightTypeId));
+
+    // Validate binary operator constraints
+    if (is_unary) {
+        if (hasCommutator)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only binary operators can have commutators")));
+
+        if (hasJoinSelectivity)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only binary operators can have join selectivity")));
+
+        if (canMerge)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only binary operators can merge join")));
+
+        if (canHash)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only binary operators can hash")));
+    }
+
+    // Validate boolean result type constraints
+    if (operResultType != BOOLOID) {
+        if (hasNegator)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only boolean operators can have negators")));
+
+        if (hasRestrictionSelectivity)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only boolean operators can have restriction selectivity")));
+
+        if (hasJoinSelectivity)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only boolean operators can have join selectivity")));
+
+        if (canMerge)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only boolean operators can merge join")));
+
+        if (canHash)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                           errmsg("only boolean operators can hash")));
+    }
+}
+```

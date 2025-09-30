@@ -47,3 +47,48 @@ The evaluation placement logic for PlaceHolderVars is sophisticated:
 - [PlaceHolderVar](../P/PlaceHolderVar.md) creation includes proper level adjustment (phlevelsup) and nullingrels copying (phnullingrels)
 - [Variable](../V/Variable.md)-free expressions require special handling to determine appropriate evaluation placement
 - The function assumes that standard join alias expressions can always accommodate direct nullingrels integration
+
+## Simplified Source
+
+```c
+static Node *
+add_nullingrels_if_needed(PlannerInfo *root, Node *newnode, Var *oldvar)
+{
+    // Nothing to do if oldvar has no nullingrels
+    if (oldvar->varnullingrels == NULL)
+        return newnode;
+
+    // Try direct integration for standard join alias expressions
+    if (is_standard_join_alias_expression(newnode, oldvar)) {
+        adjust_standard_join_alias_expression(newnode, oldvar);
+    }
+    // Use PlaceHolderVar wrapper for complex expressions
+    else if (root) {
+        PlaceHolderVar *newphv;
+        Index levelsup = oldvar->varlevelsup;
+        Relids phrels = pull_varnos_of_level(root, newnode, levelsup);
+
+        // For variable-free expressions, evaluate at join level
+        if (bms_is_empty(phrels)) {
+            if (levelsup != 0)
+                elog(ERROR, "unsupported join alias expression");
+            phrels = get_relids_for_join(root->parse, oldvar->varno);
+            // Evaluate below outer join, not above
+            phrels = bms_del_member(phrels, oldvar->varno);
+            Assert(!bms_is_empty(phrels));
+        }
+
+        // Create PlaceHolderVar with proper nullingrels
+        newphv = make_placeholder_expr(root, (Expr *) newnode, phrels);
+        newphv->phlevelsup = levelsup;
+        newphv->phnullingrels = bms_copy(oldvar->varnullingrels);
+        newnode = (Node *) newphv;
+    }
+    else {
+        // Parser context - missing support
+        elog(ERROR, "unsupported join alias expression");
+    }
+
+    return newnode;
+}
+```

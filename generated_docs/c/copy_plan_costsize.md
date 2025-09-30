@@ -37,3 +37,21 @@ Most callers modify the cost information after copying it, using this function a
 - The comment indicates most callers alter the copied information after calling this function
 - Typically used when inserting intermediate processing nodes that don't change the fundamental data characteristics
 - The parallel_aware flag is always set to false, reflecting that most inserted nodes are passive data transformers rather than parallel coordinators
+
+## Simplified Source
+
+```c
+static void
+copy_plan_costsize(Plan *dest, Plan *src)
+{
+    // Copy basic execution cost and size information
+    dest->startup_cost = src->startup_cost;
+    dest->total_cost = src->total_cost;
+    dest->plan_rows = src->plan_rows;
+    dest->plan_width = src->plan_width;
+
+    // Set conservative parallel execution assumptions for inserted nodes
+    dest->parallel_aware = false;  // Cannot coordinate parallel execution
+    dest->parallel_safe = src->parallel_safe;  // Inherit safety from child
+}
+```

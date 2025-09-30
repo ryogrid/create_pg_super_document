@@ -39,3 +39,43 @@ This function is part of PostgreSQL's logical replication system, which allows p
 - Part of PostgreSQL's logical replication system for tracking which schemas are included in publications
 - Supports the "FOR ALL TABLES IN SCHEMA" feature of logical replication publications
 - Unlike the publication relation variant, this function does not need to open or return any additional objects
+
+## Simplified Source
+
+```c
+static ObjectAddress
+get_object_address_publication_schema(List *object, bool missing_ok)
+{
+    ObjectAddress address;
+    Publication *pub;
+    char *pubname, *schemaname;
+    Oid schemaid;
+
+    ObjectAddressSet(address, PublicationNamespaceRelationId, InvalidOid);
+
+    // Extract schema and publication names from input list
+    schemaname = strVal(linitial(object));
+    pubname = strVal(lsecond(object));
+
+    // Look up schema OID by name
+    schemaid = get_namespace_oid(schemaname, missing_ok);
+    if (!OidIsValid(schemaid))
+        return address;
+
+    // Look up publication by name
+    pub = GetPublicationByName(pubname, missing_ok);
+    if (!pub)
+        return address;
+
+    // Find the publication-schema mapping
+    address.objectId = GetSysCacheOid2(PUBLICATIONNAMESPACEMAP,
+                                      Anum_pg_publication_namespace_oid,
+                                      ObjectIdGetDatum(schemaid),
+                                      ObjectIdGetDatum(pub->oid));
+
+    if (!OidIsValid(address.objectId) && !missing_ok)
+        ereport(ERROR, "publication schema does not exist");
+
+    return address;
+}
+```

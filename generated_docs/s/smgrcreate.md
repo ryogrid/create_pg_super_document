@@ -45,3 +45,14 @@ The isRedo parameter indicates whether this creation is being performed as part 
 - Works in conjunction with relation catalog entries but handles only the physical storage aspect
 - Part of the storage manager abstraction that supports different storage implementations
 - Located in src/backend/storage/smgr/smgr.c:411-425
+
+## Simplified Source
+
+```c
+void
+smgrcreate(SMgrRelation reln, ForkNumber forknum, bool isRedo)
+{
+    // Delegate creation to the appropriate storage manager implementation
+    smgrsw[reln->smgr_which].smgr_create(reln, forknum, isRedo);
+}
+```

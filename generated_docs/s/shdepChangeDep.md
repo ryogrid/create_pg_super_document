@@ -53,3 +53,88 @@ This is a core internal function that handles updating pg_shdepend entries when 
 - Uses heap_copytuple to make modifiable copies of catalog tuples
 - Properly locks referenced objects to prevent them from being dropped during the operation
 - Located in src/backend/catalog/pg_shdepend.c:206-315
+
+## Simplified Source
+
+```c
+static void
+shdepChangeDep(Relation sdepRel,
+               Oid classid, Oid objid, int32 objsubid,
+               Oid refclassid, Oid refobjid,
+               SharedDependencyType deptype)
+{
+    Oid         dbid = classIdGetDbId(classid);
+    HeapTuple   oldtup = NULL;
+    HeapTuple   scantup;
+    ScanKeyData key[4];
+    SysScanDesc scan;
+
+    // Lock the new referenced object to prevent it from being dropped
+    shdepLockAndCheckObject(refclassid, refobjid);
+
+    // Setup scan keys to find existing dependency entry
+    ScanKeyInit(&key[0], Anum_pg_shdepend_dbid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(dbid));
+    ScanKeyInit(&key[1], Anum_pg_shdepend_classid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classid));
+    ScanKeyInit(&key[2], Anum_pg_shdepend_objid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objid));
+    ScanKeyInit(&key[3], Anum_pg_shdepend_objsubid,
+                BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(objsubid));
+
+    scan = systable_beginscan(sdepRel, SharedDependDependerIndexId, true,
+                              NULL, 4, key);
+
+    // Find existing entry of the specified dependency type
+    while ((scantup = systable_getnext(scan)) != NULL)
+    {
+        if (((Form_pg_shdepend) GETSTRUCT(scantup))->deptype != deptype)
+            continue;
+
+        // Should only be one entry
+        if (oldtup)
+            elog(ERROR, "multiple pg_shdepend entries for object %u/%u/%d deptype %c",
+                 classid, objid, objsubid, deptype);
+        oldtup = heap_copytuple(scantup);
+    }
+
+    systable_endscan(scan);
+
+    if (IsPinnedObject(refclassid, refobjid))
+    {
+        // Delete existing entry for pinned objects (no dependency needed)
+        if (oldtup)
+            CatalogTupleDelete(sdepRel, &oldtup->t_self);
+    }
+    else if (oldtup)
+    {
+        // Update existing entry
+        Form_pg_shdepend shForm = (Form_pg_shdepend) GETSTRUCT(oldtup);
+        shForm->refclassid = refclassid;
+        shForm->refobjid = refobjid;
+        CatalogTupleUpdate(sdepRel, &oldtup->t_self, oldtup);
+    }
+    else
+    {
+        // Insert new entry
+        Datum       values[Natts_pg_shdepend];
+        bool        nulls[Natts_pg_shdepend];
+
+        memset(nulls, false, sizeof(nulls));
+
+        values[Anum_pg_shdepend_dbid - 1] = ObjectIdGetDatum(dbid);
+        values[Anum_pg_shdepend_classid - 1] = ObjectIdGetDatum(classid);
+        values[Anum_pg_shdepend_objid - 1] = ObjectIdGetDatum(objid);
+        values[Anum_pg_shdepend_objsubid - 1] = Int32GetDatum(objsubid);
+        values[Anum_pg_shdepend_refclassid - 1] = ObjectIdGetDatum(refclassid);
+        values[Anum_pg_shdepend_refobjid - 1] = ObjectIdGetDatum(refobjid);
+        values[Anum_pg_shdepend_deptype - 1] = CharGetDatum(deptype);
+
+        oldtup = heap_form_tuple(RelationGetDescr(sdepRel), values, nulls);
+        CatalogTupleInsert(sdepRel, oldtup);
+    }
+
+    if (oldtup)
+        heap_freetuple(oldtup);
+}
+```

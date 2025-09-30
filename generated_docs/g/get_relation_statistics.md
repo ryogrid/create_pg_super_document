@@ -49,3 +49,76 @@ The function handles both column-based and expression-based extended statistics,
 - Uses 1-based column indexing consistent with PostgreSQL conventions
 - The function assumes statistics objects exist but may not have actual data built
 - Expression processing includes opfuncid fixing for optimization purposes
+
+## Simplified Source
+
+```c
+static List *
+get_relation_statistics(RelOptInfo *rel, Relation relation)
+{
+    Index varno = rel->relid;
+    List *statoidlist;
+    List *stainfos = NIL;
+    ListCell *l;
+
+    // Get list of extended statistics objects for this relation
+    statoidlist = RelationGetStatExtList(relation);
+
+    foreach(l, statoidlist) {
+        Oid statOid = lfirst_oid(l);
+        Form_pg_statistic_ext staForm;
+        HeapTuple htup;
+        Bitmapset *keys = NULL;
+        List *exprs = NIL;
+        int i;
+
+        // Look up the statistics object in system catalog
+        htup = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statOid));
+        if (!HeapTupleIsValid(htup))
+            elog(ERROR, "cache lookup failed for statistics object %u", statOid);
+        staForm = (Form_pg_statistic_ext) GETSTRUCT(htup);
+
+        // Build bitmapset of covered columns
+        for (i = 0; i < staForm->stxkeys.dim1; i++)
+            keys = bms_add_member(keys, staForm->stxkeys.values[i]);
+
+        // Process expressions if any exist
+        {
+            bool isnull;
+            Datum datum;
+
+            // Get expression text from catalog
+            datum = SysCacheGetAttr(STATEXTOID, htup,
+                                    Anum_pg_statistic_ext_stxexprs, &isnull);
+
+            if (!isnull) {
+                char *exprsString;
+
+                // Parse and process expressions
+                exprsString = TextDatumGetCString(datum);
+                exprs = (List *) stringToNode(exprsString);
+                pfree(exprsString);
+
+                // Normalize expressions for planner compatibility
+                exprs = (List *) eval_const_expressions(NULL, (Node *) exprs);
+                fix_opfuncids((Node *) exprs);
+
+                // Adjust variable numbers to match current query context
+                if (varno != 1)
+                    ChangeVarNodes((Node *) exprs, 1, varno, 0);
+            }
+        }
+
+        // Create StatisticExtInfo entries for both inherited and non-inherited stats
+        get_relation_statistics_worker(&stainfos, rel, statOid, true, keys, exprs);
+        get_relation_statistics_worker(&stainfos, rel, statOid, false, keys, exprs);
+
+        // Clean up
+        ReleaseSysCache(htup);
+        bms_free(keys);
+    }
+
+    list_free(statoidlist);
+    return stainfos;
+}
+```

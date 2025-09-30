@@ -31,3 +31,21 @@ This function is part of PostgreSQL expression evaluation infrastructure and spe
 - Includes an unlikely error check to catch cases where system attributes unexpectedly return null values
 - Part of the expression evaluation step execution framework used in PostgreSQL tuple processing
 - Located in src/backend/executor/execExprInterp.c at lines 4997-5016
+
+## Simplified Source
+
+```c
+void ExecEvalSysVar(ExprState *state, ExprEvalStep *op, ExprContext *econtext,
+                    TupleTableSlot *slot)
+{
+    // Fetch system attribute from slot using attribute number
+    Datum value = slot_getsysattr(slot, op->d.var.attnum, op->resnull);
+
+    // Store result value
+    *op->resvalue = value;
+
+    // Verify attribute was successfully fetched
+    if (unlikely(*op->resnull))
+        elog(ERROR, "failed to fetch attribute from slot");
+}
+```

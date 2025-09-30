@@ -46,3 +46,76 @@ The function includes comprehensive error handling for undefined columns and pro
 
 ## Notes and Other Information
 This function is central to UPDATE operation processing across multiple statement types including standard UPDATE, MERGE, and INSERT...ON CONFLICT UPDATE. It ensures that resjunk entries (system-generated columns) receive result numbers that don't conflict with actual table columns, which is critical for the rewriter and planner. The permission tracking through updatedCols bitmap is essential for PostgreSQL's security model, ensuring proper column-level UPDATE privileges are enforced. The function provides detailed error reporting with location information and helpful hints for common user mistakes like qualifying SET target columns with relation names.
+
+## Simplified Source
+
+```c
+List *
+transformUpdateTargetList(ParseState *pstate, List *origTlist)
+{
+    List *tlist = NIL;
+    RTEPermissionInfo *target_perminfo;
+    ListCell *orig_tl;
+    ListCell *tl;
+
+    // Transform the target list using UPDATE_SOURCE context
+    tlist = transformTargetList(pstate, origTlist, EXPR_KIND_UPDATE_SOURCE);
+
+    // Prepare to assign non-conflicting resnos to resjunk attributes
+    if (pstate->p_next_resno <= RelationGetNumberOfAttributes(pstate->p_target_relation))
+        pstate->p_next_resno = RelationGetNumberOfAttributes(pstate->p_target_relation) + 1;
+
+    // Prepare non-junk columns for assignment to target table
+    target_perminfo = pstate->p_target_nsitem->p_perminfo;
+    orig_tl = list_head(origTlist);
+
+    foreach(tl, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(tl);
+        ResTarget *origTarget;
+        int attrno;
+
+        if (tle->resjunk) {
+            // Resjunk nodes need non-conflicting resnos
+            tle->resno = (AttrNumber) pstate->p_next_resno++;
+            tle->resname = NULL;
+            continue;
+        }
+
+        if (orig_tl == NULL)
+            elog(ERROR, "UPDATE target count mismatch --- internal error");
+
+        origTarget = lfirst_node(ResTarget, orig_tl);
+
+        // Look up column name
+        attrno = attnameAttNum(pstate->p_target_relation, origTarget->name, true);
+        if (attrno == InvalidAttrNumber) {
+            ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_COLUMN),
+                 errmsg("column \"%s\" of relation \"%s\" does not exist",
+                        origTarget->name,
+                        RelationGetRelationName(pstate->p_target_relation)),
+                 /* Special hint for qualified column names */
+                 (origTarget->indirection != NIL &&
+                  strcmp(origTarget->name, pstate->p_target_nsitem->p_names->aliasname) == 0) ?
+                 errhint("SET target columns cannot be qualified with the relation name.") : 0,
+                 parser_errposition(pstate, origTarget->location)));
+        }
+
+        // Update target list entry with column info
+        updateTargetListEntry(pstate, tle, origTarget->name,
+                              attrno, origTarget->indirection,
+                              origTarget->location);
+
+        // Mark column as requiring update permissions
+        target_perminfo->updatedCols = bms_add_member(target_perminfo->updatedCols,
+                                                      attrno - FirstLowInvalidHeapAttributeNumber);
+
+        orig_tl = lnext(origTlist, orig_tl);
+    }
+
+    if (orig_tl != NULL)
+        elog(ERROR, "UPDATE target count mismatch --- internal error");
+
+    return tlist;
+}
+```

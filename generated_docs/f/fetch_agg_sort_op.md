@@ -41,3 +41,22 @@ MIN and MAX aggregates have associated sort operators (< for MIN, > for MAX) tha
 - This is a critical function for identifying which aggregates are eligible for index-based optimization
 - The function assumes the aggregate function OID is valid and exists in the system
 - Uses the PostgreSQL system cache for efficient repeated lookups
+
+## Simplified Source
+
+```c
+static Oid fetch_agg_sort_op(Oid aggfnoid) {
+    // Look up aggregate in system catalog
+    HeapTuple agg_tuple = SearchSysCache1(AGGFNOID, ObjectIdGetDatum(aggfnoid));
+    if (!HeapTupleIsValid(agg_tuple))
+        return InvalidOid;  // Aggregate not found
+
+    // Extract sort operator from pg_aggregate row
+    Form_pg_aggregate agg_form = (Form_pg_aggregate) GETSTRUCT(agg_tuple);
+    Oid sort_op = agg_form->aggsortop;
+
+    // Clean up and return result
+    ReleaseSysCache(agg_tuple);
+    return sort_op;  // InvalidOid for non-MIN/MAX aggregates
+}
+```

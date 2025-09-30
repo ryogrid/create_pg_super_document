@@ -59,3 +59,53 @@ This function is critical for supporting mixed authentication modes where users 
 - Logs detailed error messages for invalid SCRAM secrets
 - Critical for enabling plaintext authentication methods (like LDAP, PAM) with SCRAM-stored passwords
 - The function validates the SCRAM secret format before attempting cryptographic operations
+
+## Simplified Source
+
+```c
+bool scram_verify_plain_password(const char *username, const char *password,
+                                 const char *secret) {
+    char *encoded_salt;
+    int iterations, key_length = 0;
+    pg_cryptohash_type hash_type;
+    uint8 stored_key[SCRAM_MAX_KEY_LEN];
+    uint8 server_key[SCRAM_MAX_KEY_LEN];
+    uint8 computed_key[SCRAM_MAX_KEY_LEN];
+
+    // Parse the SCRAM secret to extract parameters
+    if (!parse_scram_secret(secret, &iterations, &hash_type, &key_length,
+                           &encoded_salt, stored_key, server_key)) {
+        ereport(LOG, (errmsg("invalid SCRAM secret for user \"%s\"", username)));
+        return false;
+    }
+
+    // Decode the base64 salt
+    int saltlen = pg_b64_dec_len(strlen(encoded_salt));
+    char *salt = palloc(saltlen);
+    saltlen = pg_b64_decode(encoded_salt, strlen(encoded_salt), salt, saltlen);
+    if (saltlen < 0) {
+        ereport(LOG, (errmsg("invalid SCRAM secret for user \"%s\"", username)));
+        return false;
+    }
+
+    // Normalize password with SASLprep
+    char *prep_password = NULL;
+    if (pg_saslprep(password, &prep_password) == SASLPREP_SUCCESS)
+        password = prep_password;
+
+    // Compute server key from plaintext password using same parameters
+    uint8 salted_password[SCRAM_MAX_KEY_LEN];
+    const char *errstr = NULL;
+    if (scram_SaltedPassword(password, hash_type, key_length, salt, saltlen,
+                            iterations, salted_password, &errstr) < 0 ||
+        scram_ServerKey(salted_password, hash_type, key_length, computed_key, &errstr) < 0) {
+        elog(ERROR, "could not compute server key: %s", errstr);
+    }
+
+    if (prep_password)
+        pfree(prep_password);
+
+    // Compare computed server key with stored one
+    return memcmp(computed_key, server_key, key_length) == 0;
+}
+```

@@ -44,3 +44,46 @@ The function ensures data integrity by validating that only valid operations are
 - Leverages pg_publication_rel catalog (PUBLICATIONRELMAP) to verify table membership
 - Error handling distinguishes between syntax errors and missing table scenarios
 - Essential for maintaining publication consistency when tables are removed from logical replication setup
+
+## Simplified Source
+
+```c
+static void PublicationDropTables(Oid pubid, List *rels, bool missing_ok) {
+    ObjectAddress obj;
+    ListCell *lc;
+
+    foreach(lc, rels) {
+        PublicationRelInfo *pubrel = (PublicationRelInfo *) lfirst(lc);
+        Relation rel = pubrel->relation;
+        Oid relid = RelationGetRelid(rel);
+
+        // Validate syntax: DROP operations cannot specify column lists
+        if (pubrel->columns)
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                    errmsg("column list must not be specified in ALTER PUBLICATION ... DROP")));
+
+        // Validate syntax: DROP operations cannot specify WHERE clauses
+        if (pubrel->whereClause)
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                    errmsg("cannot use a WHERE clause when removing a table from a publication")));
+
+        // Look up publication-relation mapping
+        Oid prid = GetSysCacheOid2(PUBLICATIONRELMAP, Anum_pg_publication_rel_oid,
+                                   ObjectIdGetDatum(relid), ObjectIdGetDatum(pubid));
+
+        // Handle missing table mapping
+        if (!OidIsValid(prid)) {
+            if (missing_ok)
+                continue;  // Skip missing tables silently
+
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                    errmsg("relation \"%s\" is not part of the publication",
+                           RelationGetRelationName(rel))));
+        }
+
+        // Remove the publication-relation mapping
+        ObjectAddressSet(obj, PublicationRelRelationId, prid);
+        performDeletion(&obj, DROP_CASCADE, 0);
+    }
+}
+```

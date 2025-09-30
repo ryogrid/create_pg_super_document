@@ -33,3 +33,20 @@ The function maintains SQL standard compliance by using the transaction start ti
 - Ensures transaction-level consistency for CURRENT_TIMESTAMP calls
 - The typmod parameter follows PostgreSQL's standard type modifier conventions for timestamp precision
 - Part of PostgreSQL's SQL standard timestamp function implementation
+
+## Simplified Source
+
+```c
+TimestampTz GetSQLCurrentTimestamp(int32 typmod) {
+    TimestampTz ts;
+
+    // Get transaction start timestamp for consistency
+    ts = GetCurrentTransactionStartTimestamp();
+
+    // Apply precision adjustment if specified
+    if (typmod >= 0)
+        AdjustTimestampForTypmod(&ts, typmod, NULL);
+
+    return ts;
+}
+```

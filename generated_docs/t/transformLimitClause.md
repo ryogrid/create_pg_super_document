@@ -109,3 +109,36 @@ This function is responsible for processing LIMIT and OFFSET clauses in SQL SELE
 - The constructName parameter is used purely for error reporting
 - This function is declared in parse_clause.h and used throughout the parser for various SELECT-related constructs
 - The checkExprIsVarFree call ensures LIMIT values are deterministic and don't depend on query results
+
+## Simplified Source
+
+```c
+Node *
+transformLimitClause(ParseState *pstate, Node *clause,
+                     ParseExprKind exprKind, const char *constructName,
+                     LimitOption limitOption)
+{
+    Node *qual;
+
+    if (clause == NULL)
+        return NULL;
+
+    // Transform the expression
+    qual = transformExpr(pstate, clause, exprKind);
+
+    // Coerce to INT8 (bigint) type
+    qual = coerce_to_specific_type(pstate, qual, INT8OID, constructName);
+
+    // LIMIT can't refer to any variables of the current query
+    checkExprIsVarFree(pstate, qual, constructName);
+
+    // Special check for FETCH FIRST ... WITH TIES - don't allow NULL literals
+    if (exprKind == EXPR_KIND_LIMIT && limitOption == LIMIT_OPTION_WITH_TIES &&
+        IsA(clause, A_Const) && castNode(A_Const, clause)->isnull)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_ROW_COUNT_IN_LIMIT_CLAUSE),
+                 errmsg("row count cannot be null in FETCH FIRST ... WITH TIES clause")));
+
+    return qual;
+}
+```

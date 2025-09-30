@@ -33,3 +33,23 @@ SetReindexPending is a static function that establishes a list of indexes that a
 - Makes a copy of the input list rather than storing a reference, assuming the current memory context remains valid
 - Sets the reindexing transaction nesting level for proper cleanup on transaction abort
 - This is a static function within src/backend/catalog/index.c and is not exposed outside this module
+
+## Simplified Source
+
+```c
+static void
+SetReindexPending(List *indexes)
+{
+    // Prevent re-entrant reindexing operations
+    if (pendingReindexedIndexes)
+        elog(ERROR, "cannot reindex while reindexing");
+
+    // Safety check: prevent modification during parallel operations
+    if (IsInParallelMode())
+        elog(ERROR, "cannot modify reindex state during a parallel operation");
+
+    // Copy the list and set up global state
+    pendingReindexedIndexes = list_copy(indexes);
+    reindexingNestLevel = GetCurrentTransactionNestLevel();
+}
+```

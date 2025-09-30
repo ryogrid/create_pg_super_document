@@ -41,3 +41,52 @@ The function will raise errors with appropriate error codes and position informa
 - Only UTF-8 encoding is currently supported for JSON format types
 - Error messages include parser position information to help users identify problematic syntax
 - The function distinguishes between BYTEA, JSON/JSONB, and string category types for format applicability
+
+## Simplified Source
+
+```c
+static void
+checkJsonOutputFormat(ParseState *pstate, const JsonFormat *format,
+                      Oid targettype, bool allow_format_for_non_strings)
+{
+    // Check if format is allowed for non-string types
+    if (!allow_format_for_non_strings &&
+        format->format_type != JS_FORMAT_DEFAULT &&
+        (targettype != BYTEAOID &&
+         targettype != JSONOID &&
+         targettype != JSONBOID)) {
+
+        char typcategory;
+        bool typispreferred;
+
+        get_type_category_preferred(targettype, &typcategory, &typispreferred);
+
+        if (typcategory != TYPCATEGORY_STRING)
+            ereport(ERROR,
+                    errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    parser_errposition(pstate, format->location),
+                    errmsg("cannot use JSON format with non-string output types"));
+    }
+
+    // Validate JSON format encoding settings
+    if (format->format_type == JS_FORMAT_JSON) {
+        JsonEncoding enc = format->encoding != JS_ENC_DEFAULT ?
+            format->encoding : JS_ENC_UTF8;
+
+        // Encoding can only be set for BYTEA types
+        if (targettype != BYTEAOID && format->encoding != JS_ENC_DEFAULT)
+            ereport(ERROR,
+                    errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    parser_errposition(pstate, format->location),
+                    errmsg("cannot set JSON encoding for non-bytea output types"));
+
+        // Only UTF-8 encoding is supported
+        if (enc != JS_ENC_UTF8)
+            ereport(ERROR,
+                    errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("unsupported JSON encoding"),
+                    errhint("Only UTF8 JSON encoding is supported."),
+                    parser_errposition(pstate, format->location));
+    }
+}
+```

@@ -62,3 +62,144 @@ Key processing aspects:
 - The function assumes the query is a valid MERGE query with proper MergeAction list structure
 - Part of the broader query deparsing infrastructure used for rule definitions, view definitions, and query display
 - MERGE is a relatively recent addition to PostgreSQL (version 15+) and represents one of the most complex SQL statement types
+
+## Simplified Source
+```c
+static void get_merge_query_def(Query *query, deparse_context *context) {
+    StringInfo buf = context->buf;
+    RangeTblEntry *rte;
+    ListCell *lc;
+    bool haveNotMatchedBySource = false;
+
+    // Add WITH clause if present
+    get_with_clause(query, context);
+
+    // Start with MERGE INTO target_table
+    rte = rt_fetch(query->resultRelation, query->rtable);
+
+    if (PRETTY_INDENT(context)) {
+        appendStringInfoChar(buf, ' ');
+        context->indentLevel += PRETTYINDENT_STD;
+    }
+
+    appendStringInfo(buf, "MERGE INTO %s%s",
+                     only_marker(rte),
+                     generate_relation_name(rte->relid, NIL));
+
+    // Add relation alias if needed
+    get_rte_alias(rte, query->resultRelation, false, context);
+
+    // Add USING clause and ON condition
+    get_from_clause(query, " USING ", context);
+    appendContextKeyword(context, " ON ",
+                       -PRETTYINDENT_STD, PRETTYINDENT_STD, 2);
+    get_rule_expr(query->mergeJoinCondition, context, false);
+
+    // Check if we have NOT MATCHED BY SOURCE actions (affects syntax)
+    foreach(lc, query->mergeActionList) {
+        MergeAction *action = lfirst_node(MergeAction, lc);
+        if (action->matchKind == MERGE_WHEN_NOT_MATCHED_BY_SOURCE) {
+            haveNotMatchedBySource = true;
+            break;
+        }
+    }
+
+    // Process each WHEN clause
+    foreach(lc, query->mergeActionList) {
+        MergeAction *action = lfirst_node(MergeAction, lc);
+
+        appendContextKeyword(context, " WHEN ",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 2);
+
+        // Add match condition type
+        switch (action->matchKind) {
+            case MERGE_WHEN_MATCHED:
+                appendStringInfoString(buf, "MATCHED");
+                break;
+            case MERGE_WHEN_NOT_MATCHED_BY_SOURCE:
+                appendStringInfoString(buf, "NOT MATCHED BY SOURCE");
+                break;
+            case MERGE_WHEN_NOT_MATCHED_BY_TARGET:
+                if (haveNotMatchedBySource)
+                    appendStringInfoString(buf, "NOT MATCHED BY TARGET");
+                else
+                    appendStringInfoString(buf, "NOT MATCHED");
+                break;
+        }
+
+        // Add optional AND condition
+        if (action->qual) {
+            appendContextKeyword(context, " AND ",
+                               -PRETTYINDENT_STD, PRETTYINDENT_STD, 3);
+            get_rule_expr(action->qual, context, false);
+        }
+
+        appendContextKeyword(context, " THEN ",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 3);
+
+        // Add the action
+        if (action->commandType == CMD_INSERT) {
+            List *strippedexprs = NIL;
+            const char *sep = "";
+
+            appendStringInfoString(buf, "INSERT");
+
+            // Add column list
+            if (action->targetList)
+                appendStringInfoString(buf, " (");
+
+            ListCell *lc2;
+            foreach(lc2, action->targetList) {
+                TargetEntry *tle = (TargetEntry *) lfirst(lc2);
+
+                appendStringInfoString(buf, sep);
+                sep = ", ";
+
+                appendStringInfoString(buf,
+                    quote_identifier(get_attname(rte->relid, tle->resno, false)));
+                strippedexprs = lappend(strippedexprs,
+                                      processIndirection((Node *) tle->expr, context));
+            }
+
+            if (action->targetList)
+                appendStringInfoChar(buf, ')');
+
+            // Add OVERRIDING clause
+            if (action->override) {
+                if (action->override == OVERRIDING_SYSTEM_VALUE)
+                    appendStringInfoString(buf, " OVERRIDING SYSTEM VALUE");
+                else if (action->override == OVERRIDING_USER_VALUE)
+                    appendStringInfoString(buf, " OVERRIDING USER VALUE");
+            }
+
+            // Add VALUES or DEFAULT VALUES
+            if (strippedexprs) {
+                appendContextKeyword(context, " VALUES (",
+                                   -PRETTYINDENT_STD, PRETTYINDENT_STD, 4);
+                get_rule_list_toplevel(strippedexprs, context, false);
+                appendStringInfoChar(buf, ')');
+            }
+            else {
+                appendStringInfoString(buf, " DEFAULT VALUES");
+            }
+        }
+        else if (action->commandType == CMD_UPDATE) {
+            appendStringInfoString(buf, "UPDATE SET ");
+            get_update_query_targetlist_def(query, action->targetList, context, rte);
+        }
+        else if (action->commandType == CMD_DELETE) {
+            appendStringInfoString(buf, "DELETE");
+        }
+        else if (action->commandType == CMD_NOTHING) {
+            appendStringInfoString(buf, "DO NOTHING");
+        }
+    }
+
+    // Add RETURNING clause if present
+    if (query->returningList) {
+        appendContextKeyword(context, " RETURNING",
+                           -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_target_list(query->returningList, context);
+    }
+}
+```
