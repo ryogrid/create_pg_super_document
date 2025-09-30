@@ -36,3 +36,14 @@ pqWait is a convenience wrapper function that provides socket waiting functional
 - Exception conditions on the socket will cause the function to return, with the actual error detected on subsequent read/write attempts
 - The function is primarily used internally by libpq for managing connection I/O operations
 - File location: src/interfaces/libpq/fe-misc.c:1004-1019
+
+## Simplified Source
+
+```c
+int
+pqWait(int forRead, int forWrite, PGconn *conn)
+{
+    // Wait indefinitely for socket readiness
+    return pqWaitTimed(forRead, forWrite, conn, -1);
+}
+```

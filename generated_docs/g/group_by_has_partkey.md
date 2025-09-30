@@ -42,3 +42,66 @@ The algorithm iterates through each partition key attribute, then through all al
 - Enforces strict collation matching when both partition and group expressions have valid collations
 - All partition keys must be matched for the function to return true - even one missing key causes failure
 - This check is essential for determining whether full partitionwise aggregation is possible versus requiring partial partitionwise aggregation
+
+## Simplified Source
+
+```c
+static bool
+group_by_has_partkey(RelOptInfo *input_rel, List *targetList, List *groupClause)
+{
+    // Get expressions from GROUP BY clause
+    List *groupexprs = get_sortgrouplist_exprs(groupClause, targetList);
+
+    // Early exit if no partition expressions exist
+    if (!input_rel->partexprs)
+        return false;
+
+    int partnatts = input_rel->part_scheme->partnatts;
+
+    // Check each partition key attribute
+    for (int cnt = 0; cnt < partnatts; cnt++)
+    {
+        List *partexprs = input_rel->partexprs[cnt];
+        bool found = false;
+
+        // Try to match any partition expression for this key
+        foreach(lc, partexprs)
+        {
+            Expr *partexpr = lfirst(lc);
+            Oid partcoll = input_rel->part_scheme->partcollation[cnt];
+
+            // Compare against each GROUP BY expression
+            foreach(lg, groupexprs)
+            {
+                Expr *groupexpr = lfirst(lg);
+                Oid groupcoll = exprCollation((Node *) groupexpr);
+
+                // Handle RelabelType wrapper
+                if (IsA(groupexpr, RelabelType))
+                    groupexpr = ((RelabelType *) groupexpr)->arg;
+
+                // Check for expression match
+                if (equal(groupexpr, partexpr))
+                {
+                    // Verify collations match if both are valid
+                    if (OidIsValid(partcoll) && OidIsValid(groupcoll) &&
+                        partcoll != groupcoll)
+                        return false;
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found)
+                break;
+        }
+
+        // If any partition key is not found in GROUP BY, fail
+        if (!found)
+            return false;
+    }
+
+    return true;
+}
+```

@@ -45,3 +45,66 @@ This function manages shared tuple descriptors in a multi-process PostgreSQL env
 - Uses atomic operations for typmod generation to ensure uniqueness
 - Implements proper cleanup in error scenarios to prevent memory leaks
 - The function is static and only used within the typcache.c module
+
+## Simplified Source
+
+```c
+static TupleDesc find_or_make_matching_shared_tupledesc(TupleDesc tupdesc) {
+    // Check if attached to shared registry
+    if (CurrentSession->shared_typmod_registry == NULL)
+        return NULL;
+
+    // Try to find existing matching tuple descriptor
+    SharedRecordTableKey key = {.shared = false, .u.local_tupdesc = tupdesc};
+    SharedRecordTableEntry *record_entry = dshash_find(CurrentSession->shared_record_table, &key, false);
+
+    if (record_entry) {
+        // Found existing shared descriptor
+        dshash_release_lock(CurrentSession->shared_record_table, record_entry);
+        TupleDesc result = dsa_get_address(CurrentSession->area, record_entry->key.u.shared_tupdesc);
+        return result;
+    }
+
+    // Allocate new typmod and create shared copy
+    uint32 typmod = pg_atomic_fetch_add_u32(&CurrentSession->shared_typmod_registry->next_typmod, 1);
+    dsa_pointer shared_dp = share_tupledesc(CurrentSession->area, tupdesc, typmod);
+
+    // Register in typmod table
+    PG_TRY();
+    {
+        SharedTypmodTableEntry *typmod_entry =
+            dshash_find_or_insert(CurrentSession->shared_typmod_table, &typmod, &found);
+        if (found)
+            elog(ERROR, "cannot create duplicate shared record typmod");
+
+        typmod_entry->typmod = typmod;
+        typmod_entry->shared_tupdesc = shared_dp;
+        dshash_release_lock(CurrentSession->shared_typmod_table, typmod_entry);
+    }
+    PG_CATCH();
+    {
+        dsa_free(CurrentSession->area, shared_dp);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Register in record table (handle race conditions)
+    record_entry = dshash_find_or_insert(CurrentSession->shared_record_table, &key, &found);
+    if (found) {
+        // Someone else created one concurrently - use theirs
+        dshash_release_lock(CurrentSession->shared_record_table, record_entry);
+        dshash_delete_key(CurrentSession->shared_typmod_table, &typmod);
+        dsa_free(CurrentSession->area, shared_dp);
+
+        TupleDesc result = dsa_get_address(CurrentSession->area, record_entry->key.u.shared_tupdesc);
+        return result;
+    }
+
+    // Store our new descriptor
+    record_entry->key.shared = true;
+    record_entry->key.u.shared_tupdesc = shared_dp;
+    dshash_release_lock(CurrentSession->shared_record_table, record_entry);
+
+    return dsa_get_address(CurrentSession->area, shared_dp);
+}
+```

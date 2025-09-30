@@ -47,3 +47,50 @@ The function initializes extensive merge-specific metadata including merge famil
 - Merge joins are often chosen when both relations are large and already sorted, or when the cost of sorting is justified by the join efficiency
 - The algorithm maintains position markers in both input streams and can handle duplicate values by using mark/restore operations to backtrack when necessary
 - NULL handling is critical in merge joins and is controlled by the mergeNullsFirst array to ensure consistent ordering
+
+## Simplified Source
+
+```c
+static MergeJoin *
+make_mergejoin(List *tlist,
+               List *joinclauses,
+               List *otherclauses,
+               List *mergeclauses,
+               Oid *mergefamilies,
+               Oid *mergecollations,
+               int *mergestrategies,
+               bool *mergenullsfirst,
+               Plan *lefttree,
+               Plan *righttree,
+               JoinType jointype,
+               bool inner_unique,
+               bool skip_mark_restore)
+{
+    // Create a new MergeJoin plan node
+    MergeJoin *node = makeNode(MergeJoin);
+    Plan *plan = &node->join.plan;
+
+    // Set basic plan properties
+    plan->targetlist = tlist;
+    plan->qual = otherclauses;
+    plan->lefttree = lefttree;
+    plan->righttree = righttree;
+
+    // Set merge-specific properties
+    node->mergeclauses = mergeclauses;
+    node->mergeFamilies = mergefamilies;
+    node->mergeCollations = mergecollations;
+    node->mergeStrategies = mergestrategies;
+    node->mergeNullsFirst = mergenullsfirst;
+
+    // Set join properties
+    node->join.jointype = jointype;
+    node->join.inner_unique = inner_unique;
+    node->join.joinqual = joinclauses;
+
+    // Set optimization flag
+    node->skip_mark_restore = skip_mark_restore;
+
+    return node;
+}
+```

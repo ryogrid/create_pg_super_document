@@ -60,3 +60,39 @@ The algorithm guarantees that a unique name will eventually be found, as the num
 - Critical for preventing naming conflicts that would cause SQL parsing errors when rules/views are reloaded
 - The algorithm is deterministic - the same input will always produce the same unique output name
 - Used extensively throughout the column naming subsystem to resolve conflicts at various scopes (RTE-local, USING columns, parent joins)
+
+## Simplified Source
+
+```c
+static char *make_colname_unique(char *colname, deparse_namespace *dpns, deparse_columns *colinfo) {
+    // Return original name if already unique
+    if (!colname_is_unique(colname, dpns, colinfo)) {
+        int colnamelen = strlen(colname);
+        char *modname = palloc(colnamelen + 16);  // Extra space for suffix
+        int i = 0;
+
+        // Try numeric suffixes until we find a unique name
+        do {
+            i++;
+
+            // Keep trying to fit within NAMEDATALEN limit
+            for (;;) {
+                // Build name with suffix
+                memcpy(modname, colname, colnamelen);
+                sprintf(modname + colnamelen, "_%d", i);
+
+                // Check if it fits within PostgreSQL name length limit
+                if (strlen(modname) < NAMEDATALEN)
+                    break;
+
+                // Truncate base name to make room for suffix
+                colnamelen = pg_mbcliplen(colname, colnamelen, colnamelen - 1);
+            }
+        } while (!colname_is_unique(modname, dpns, colinfo));
+
+        colname = modname;  // Use the modified unique name
+    }
+
+    return colname;
+}
+```

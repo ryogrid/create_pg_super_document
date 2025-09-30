@@ -33,3 +33,13 @@ This is a simple wrapper function that determines if the currently connected use
 - The function is a simple one-liner that abstracts the privilege checking logic
 - CREATEROLE is one of the fundamental superuser-like privileges in PostgreSQL
 - Used as a security gate before allowing role management operations
+
+## Simplified Source
+
+```c
+static bool
+have_createrole_privilege(void)
+{
+    return has_createrole_privilege(GetUserId());
+}
+```

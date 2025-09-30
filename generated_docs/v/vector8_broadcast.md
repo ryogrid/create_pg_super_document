@@ -43,3 +43,20 @@ This function is essential for vectorized comparison and search operations where
 - Heavily used in comparison operations where a single target byte needs to be compared against multiple data bytes simultaneously
 - Critical component of PostgreSQL's SIMD-accelerated search and validation algorithms
 - The function works with both 128-bit SIMD registers (SSE2/NEON) and falls back gracefully to scalar operations
+
+## Simplified Source
+
+```c
+static inline Vector8
+vector8_broadcast(const uint8 c)
+{
+    // Create vector with all elements set to same value c
+    #if defined(USE_SSE2)
+        return _mm_set1_epi8(c);        // SSE2: replicate byte across 128-bit register
+    #elif defined(USE_NEON)
+        return vdupq_n_u8(c);           // NEON: duplicate byte across 128-bit register
+    #else
+        return ~UINT64CONST(0) / 0xFF * c;  // Fallback: arithmetic broadcast trick
+    #endif
+}
+```

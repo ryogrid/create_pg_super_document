@@ -40,3 +40,28 @@ This function follows the standard walker function pattern in PostgreSQL, return
 - Located in src/backend/optimizer/util/clauses.c at lines 5428-5441
 - Follows the expression tree walker pattern used throughout PostgreSQL for systematic tree traversal
 - The recursive call through expression_tree_walker ensures all child nodes are properly visited
+
+## Simplified Source
+
+```c
+static bool
+pull_paramids_walker(Node *node, Bitmapset **context)
+{
+    // Handle NULL nodes
+    if (node == NULL)
+        return false;
+
+    // Check if this node is a Param
+    if (IsA(node, Param))
+    {
+        Param *param = (Param *) node;
+
+        // Add the parameter ID to our result set
+        *context = bms_add_member(*context, param->paramid);
+        return false;
+    }
+
+    // Continue traversing the expression tree
+    return expression_tree_walker(node, pull_paramids_walker, (void *) context);
+}
+```

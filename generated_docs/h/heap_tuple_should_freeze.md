@@ -57,3 +57,95 @@ The function handles several special cases:
 - The NoFreezePageRelfrozenXid and NoFreezePageRelminMxid parameters are updated only when the assumption is that the tuple won't be frozen
 - pg_upgrade'd MultiXacts are always considered for freezing regardless of their age
 - xvac fields in HEAP_MOVED tuples always trigger freezing when they contain normal transaction IDs
+
+## Simplified Source
+
+```c
+bool
+heap_tuple_should_freeze(HeapTupleHeader tuple,
+                        const struct VacuumCutoffs *cutoffs,
+                        TransactionId *NoFreezePageRelfrozenXid,
+                        MultiXactId *NoFreezePageRelminMxid)
+{
+    TransactionId xid;
+    MultiXactId multi;
+    bool freeze = false;
+
+    // Check xmin
+    xid = HeapTupleHeaderGetXmin(tuple);
+    if (TransactionIdIsNormal(xid))
+    {
+        if (TransactionIdPrecedes(xid, *NoFreezePageRelfrozenXid))
+            *NoFreezePageRelfrozenXid = xid;
+        if (TransactionIdPrecedes(xid, cutoffs->FreezeLimit))
+            freeze = true;
+    }
+
+    // Check xmax (either XID or MultiXactId)
+    xid = InvalidTransactionId;
+    multi = InvalidMultiXactId;
+
+    if (tuple->t_infomask & HEAP_XMAX_IS_MULTI)
+        multi = HeapTupleHeaderGetRawXmax(tuple);
+    else
+        xid = HeapTupleHeaderGetRawXmax(tuple);
+
+    if (TransactionIdIsNormal(xid))
+    {
+        // Simple XID case
+        if (TransactionIdPrecedes(xid, *NoFreezePageRelfrozenXid))
+            *NoFreezePageRelfrozenXid = xid;
+        if (TransactionIdPrecedes(xid, cutoffs->FreezeLimit))
+            freeze = true;
+    }
+    else if (MultiXactIdIsValid(multi))
+    {
+        if (HEAP_LOCKED_UPGRADED(tuple->t_infomask))
+        {
+            // pg_upgrade'd MultiXact always needs freezing
+            if (MultiXactIdPrecedes(multi, *NoFreezePageRelminMxid))
+                *NoFreezePageRelminMxid = multi;
+            freeze = true;
+        }
+        else
+        {
+            // Regular MultiXactId - check age and members
+            if (MultiXactIdPrecedes(multi, *NoFreezePageRelminMxid))
+                *NoFreezePageRelminMxid = multi;
+            if (MultiXactIdPrecedes(multi, cutoffs->MultiXactCutoff))
+                freeze = true;
+
+            // Check individual member XIDs
+            MultiXactMember *members;
+            int nmembers = GetMultiXactIdMembers(multi, &members, false,
+                                               HEAP_XMAX_IS_LOCKED_ONLY(tuple->t_infomask));
+
+            for (int i = 0; i < nmembers; i++)
+            {
+                xid = members[i].xid;
+                if (TransactionIdPrecedes(xid, *NoFreezePageRelfrozenXid))
+                    *NoFreezePageRelfrozenXid = xid;
+                if (TransactionIdPrecedes(xid, cutoffs->FreezeLimit))
+                    freeze = true;
+            }
+
+            if (nmembers > 0)
+                pfree(members);
+        }
+    }
+
+    // Check xvac for HEAP_MOVED tuples
+    if (tuple->t_infomask & HEAP_MOVED)
+    {
+        xid = HeapTupleHeaderGetXvac(tuple);
+        if (TransactionIdIsNormal(xid))
+        {
+            if (TransactionIdPrecedes(xid, *NoFreezePageRelfrozenXid))
+                *NoFreezePageRelfrozenXid = xid;
+            freeze = true;  // Always freeze HEAP_MOVED with normal xvac
+        }
+    }
+
+    return freeze;
+}
+```

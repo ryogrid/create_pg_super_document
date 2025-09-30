@@ -39,3 +39,39 @@ The function assumes the attribute map has already been validated and is non-NUL
 - The output workspace is sized based on outdesc->natts, while input workspace includes +1 for NULL
 - Memory allocation occurs in the caller's memory context
 - The map references the provided descriptors and attribute map, so they must remain valid for the map's lifetime
+
+## Simplified Source
+
+```c
+TupleConversionMap *
+convert_tuples_by_name_attrmap(TupleDesc indesc,
+                               TupleDesc outdesc,
+                               AttrMap *attrMap)
+{
+    TupleConversionMap *map;
+    int n = outdesc->natts;
+
+    Assert(attrMap != NULL);
+
+    // Allocate and initialize the conversion map structure
+    map = (TupleConversionMap *) palloc(sizeof(TupleConversionMap));
+    map->indesc = indesc;
+    map->outdesc = outdesc;
+    map->attrMap = attrMap;
+
+    // Preallocate output workspace arrays
+    map->outvalues = (Datum *) palloc(n * sizeof(Datum));
+    map->outisnull = (bool *) palloc(n * sizeof(bool));
+
+    // Preallocate input workspace arrays (+1 for NULL entry)
+    n = indesc->natts + 1;
+    map->invalues = (Datum *) palloc(n * sizeof(Datum));
+    map->inisnull = (bool *) palloc(n * sizeof(bool));
+
+    // Initialize NULL entry at position 0
+    map->invalues[0] = (Datum) 0;
+    map->inisnull[0] = true;
+
+    return map;
+}
+```

@@ -32,4 +32,24 @@ This function is a crucial step in query planning that ensures all PlaceHolderVa
 - Does not process the targetlist as it is handled by build_base_rel_tlists()
 - Assumes the jointree root is a FromExpr node type
 - Acts as a wrapper that validates preconditions before starting recursive search
+
+## Simplified Source
+
+```c
+void find_placeholders_in_jointree(PlannerInfo *root)
+{
+    // Must be done before freezing the set of PlaceHolderInfos
+    Assert(!root->placeholdersFrozen);
+
+    // Skip processing if no PlaceHolderVars exist in the query
+    if (root->glob->lastPHId != 0) {
+        // Validate that we have a proper jointree structure
+        Assert(root->parse->jointree != NULL &&
+               IsA(root->parse->jointree, FromExpr));
+
+        // Start recursive search from the top of the jointree
+        find_placeholders_recurse(root, (Node *) root->parse->jointree);
+    }
+}
+```
 - Critical for ensuring all PlaceHolderVars are discovered before join optimization begins

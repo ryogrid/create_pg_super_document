@@ -46,3 +46,109 @@ movedb performs a complete database tablespace relocation operation involving fi
 - Validates that target tablespace doesn't already contain database objects
 - Logs both file copy and directory removal operations to WAL for crash recovery
 - Splits operation across transaction boundaries to minimize lock duration while maintaining consistency
+
+## Simplified Source
+
+```c
+static void
+movedb(const char *dbname, const char *tblspcname)
+{
+    Oid db_id, src_tblspcoid, dst_tblspcoid;
+    char *src_dbpath, *dst_dbpath;
+
+    // Get database info and acquire exclusive session lock
+    if (!get_db_info(dbname, AccessExclusiveLock, &db_id, NULL, NULL, NULL,
+                     NULL, NULL, NULL, NULL, &src_tblspcoid, NULL, NULL, NULL, NULL, NULL, NULL))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_DATABASE),
+                        errmsg("database \"%s\" does not exist", dbname)));
+
+    LockSharedObjectForSession(DatabaseRelationId, db_id, 0, AccessExclusiveLock);
+
+    // Validate permissions and constraints
+    if (!object_ownercheck(DatabaseRelationId, db_id, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, dbname);
+
+    if (db_id == MyDatabaseId)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_IN_USE),
+                        errmsg("cannot change the tablespace of the currently open database")));
+
+    // Get and validate target tablespace
+    dst_tblspcoid = get_tablespace_oid(tblspcname, false);
+
+    if (object_aclcheck(TableSpaceRelationId, dst_tblspcoid, GetUserId(), ACL_CREATE) != ACLCHECK_OK)
+        aclcheck_error(ACLCHECK_NO_PRIV, OBJECT_TABLESPACE, tblspcname);
+
+    if (dst_tblspcoid == GLOBALTABLESPACE_OID)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                        errmsg("pg_global cannot be used as default tablespace")));
+
+    // Early return if same tablespace
+    if (src_tblspcoid == dst_tblspcoid)
+        return;
+
+    // Check for active backends
+    if (CountOtherDBBackends(db_id, &notherbackends, &npreparedxacts))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_IN_USE),
+                        errmsg("database \"%s\" is being accessed by other users", dbname)));
+
+    // Prepare file paths
+    src_dbpath = GetDatabasePath(db_id, src_tblspcoid);
+    dst_dbpath = GetDatabasePath(db_id, dst_tblspcoid);
+
+    // Force checkpoint and clear buffers
+    RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE | CHECKPOINT_WAIT | CHECKPOINT_FLUSH_ALL);
+    DropDatabaseBuffers(db_id);
+
+    // Validate target directory is empty
+    if (directory_has_files(dst_dbpath))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("some relations of database \"%s\" are already in tablespace \"%s\"",
+                               dbname, tblspcname)));
+
+    // Copy files and update catalog
+    PG_ENSURE_ERROR_CLEANUP(movedb_failure_callback, PointerGetDatum(&fparms));
+    {
+        // Copy database files
+        copydir(src_dbpath, dst_dbpath, false);
+
+        // Log file copy operation
+        xl_dbase_create_file_copy_rec xlrec;
+        xlrec.db_id = db_id;
+        xlrec.tablespace_id = dst_tblspcoid;
+        xlrec.src_db_id = db_id;
+        xlrec.src_tablespace_id = src_tblspcoid;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, sizeof(xl_dbase_create_file_copy_rec));
+        XLogInsert(RM_DBASE_ID, XLOG_DBASE_CREATE_FILE_COPY | XLR_SPECIAL_REL_UPDATE);
+
+        // Update pg_database catalog entry
+        update_database_tablespace(dbname, dst_tblspcoid);
+
+        // Force checkpoint and sync commit
+        RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE | CHECKPOINT_WAIT);
+        ForceSyncCommit();
+    }
+    PG_END_ENSURE_ERROR_CLEANUP(movedb_failure_callback, PointerGetDatum(&fparms));
+
+    // Commit transaction and start new one
+    CommitTransactionCommand();
+    StartTransactionCommand();
+
+    // Remove old files and log removal
+    rmtree(src_dbpath, true);
+
+    xl_dbase_drop_rec xlrec2;
+    xlrec2.db_id = db_id;
+    xlrec2.ntablespaces = 1;
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec2, sizeof(xl_dbase_drop_rec));
+    XLogRegisterData((char *) &src_tblspcoid, sizeof(Oid));
+    XLogInsert(RM_DBASE_ID, XLOG_DBASE_DROP | XLR_SPECIAL_REL_UPDATE);
+
+    // Release lock and cleanup
+    UnlockSharedObjectForSession(DatabaseRelationId, db_id, 0, AccessExclusiveLock);
+    pfree(src_dbpath);
+    pfree(dst_dbpath);
+}
+```

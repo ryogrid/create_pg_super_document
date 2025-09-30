@@ -50,3 +50,21 @@ The function handles both named composite types and transient record types trans
 - Always throws errors on failure, making it suitable for user-facing operations
 - Used extensively throughout PostgreSQL for record/composite type operations
 - Part of the type cache system that provides efficient lookup of type metadata
+
+## Simplified Source
+
+```c
+TupleDesc
+lookup_rowtype_tupdesc(Oid type_id, int32 typmod)
+{
+    TupleDesc tupDesc;
+
+    // Get the tuple descriptor using internal lookup
+    tupDesc = lookup_rowtype_tupdesc_internal(type_id, typmod, false);
+
+    // Pin the descriptor to increment reference count and register with resource owner
+    PinTupleDesc(tupDesc);
+
+    return tupDesc;
+}
+```

@@ -38,3 +38,26 @@ This function retrieves the variadic type information for a specified function b
 - Used primarily in aggregate function processing and parser collation assignment
 - The variadic type determines how multiple trailing arguments are interpreted
 - Essential for PostgreSQL's support of SQL functions with VARIADIC parameters
+
+## Simplified Source
+
+```c
+Oid get_func_variadictype(Oid funcid) {
+    HeapTuple tp;
+    Oid result;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp)) {
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+    }
+
+    // Extract variadic type from pg_proc entry
+    result = ((Form_pg_proc) GETSTRUCT(tp))->provariadic;
+
+    // Release cache entry
+    ReleaseSysCache(tp);
+
+    return result;  // Returns InvalidOid for non-variadic functions
+}
+```

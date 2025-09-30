@@ -50,3 +50,78 @@ The resulting structure enables efficient hash value to partition mapping during
 - Validates that all bound specifications use PARTITION_STRATEGY_HASH strategy
 - The remainder values are distributed across the indexes array using modular arithmetic
 - Ensures no hash value overlaps between partitions through assertions
+
+## Simplified Source
+
+```c
+static PartitionBoundInfo
+create_hash_bounds(PartitionBoundSpec **boundspecs, int nparts,
+                   PartitionKey key, int **mapping)
+{
+    PartitionBoundInfo boundinfo;
+    PartitionHashBound *hbounds;
+    int i;
+    int greatest_modulus;
+    Datum *boundDatums;
+
+    // Initialize bound info structure
+    boundinfo = (PartitionBoundInfoData *) palloc0(sizeof(PartitionBoundInfoData));
+    boundinfo->strategy = key->strategy;
+    boundinfo->null_index = -1;  // No special hash partitions
+    boundinfo->default_index = -1;
+
+    // Convert specifications to internal hash bounds
+    hbounds = (PartitionHashBound *) palloc(nparts * sizeof(PartitionHashBound));
+    for (i = 0; i < nparts; i++)
+    {
+        PartitionBoundSpec *spec = boundspecs[i];
+
+        if (spec->strategy != PARTITION_STRATEGY_HASH)
+            elog(ERROR, "invalid strategy in partition bound spec");
+
+        hbounds[i].modulus = spec->modulus;
+        hbounds[i].remainder = spec->remainder;
+        hbounds[i].index = i;
+    }
+
+    // Sort bounds by modulus/remainder
+    qsort(hbounds, nparts, sizeof(PartitionHashBound), qsort_partition_hbound_cmp);
+
+    // Set up bound info arrays
+    greatest_modulus = hbounds[nparts - 1].modulus;
+    boundinfo->ndatums = nparts;
+    boundinfo->datums = (Datum **) palloc0(nparts * sizeof(Datum *));
+    boundinfo->nindexes = greatest_modulus;
+    boundinfo->indexes = (int *) palloc(greatest_modulus * sizeof(int));
+
+    // Initialize indexes array
+    for (i = 0; i < greatest_modulus; i++)
+        boundinfo->indexes[i] = -1;
+
+    // Allocate and populate datums and index mapping
+    boundDatums = (Datum *) palloc(nparts * 2 * sizeof(Datum));
+    for (i = 0; i < nparts; i++)
+    {
+        int modulus = hbounds[i].modulus;
+        int remainder = hbounds[i].remainder;
+
+        // Store modulus/remainder pair
+        boundinfo->datums[i] = &boundDatums[i * 2];
+        boundinfo->datums[i][0] = Int32GetDatum(modulus);
+        boundinfo->datums[i][1] = Int32GetDatum(remainder);
+
+        // Map hash values to partition indexes
+        while (remainder < greatest_modulus)
+        {
+            Assert(boundinfo->indexes[remainder] == -1);
+            boundinfo->indexes[remainder] = i;
+            remainder += modulus;
+        }
+
+        (*mapping)[hbounds[i].index] = i;
+    }
+
+    pfree(hbounds);
+    return boundinfo;
+}
+```

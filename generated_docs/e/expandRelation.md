@@ -54,3 +54,23 @@ This design encapsulates the relation access logic and provides a clean interfac
 - The '0' parameter in the expandTupleDesc call indicates starting from the first column (no offset)
 - Critical for ensuring that relation column expansion is done safely with proper concurrency control
 - Part of the relation expansion pipeline that connects high-level RTE processing with low-level tuple descriptor analysis
+
+## Simplified Source
+
+```c
+static void expandRelation(Oid relid, Alias *eref, int rtindex, int sublevels_up,
+                          int location, bool include_dropped,
+                          List **colnames, List **colvars) {
+    // Open the relation to access its metadata
+    Relation rel = relation_open(relid, AccessShareLock);
+
+    // Delegate to expandTupleDesc to process the columns
+    expandTupleDesc(rel->rd_att, eref, rel->rd_att->natts, 0,
+                   rtindex, sublevels_up,
+                   location, include_dropped,
+                   colnames, colvars);
+
+    // Clean up by closing the relation
+    relation_close(rel, AccessShareLock);
+}
+```

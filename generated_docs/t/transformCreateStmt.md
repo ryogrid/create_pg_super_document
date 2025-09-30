@@ -45,3 +45,93 @@ The function separates different types of table elements (columns, constraints, 
 
 ## Notes and Other Information
 The function maintains a strict execution order for different types of constraints and table elements. LIKE clauses are processed after index creation but before foreign key creation to handle cases where LIKE clauses generate primary keys that might conflict with explicitly defined primary keys. The function returns a list that may contain the original CreateStmt plus additional utility statements like AlterTableStmt and IndexStmt that need to be executed to fully create the table and its associated objects.
+
+## Simplified Source
+
+```c
+List *
+transformCreateStmt(CreateStmt *stmt, const char *queryString)
+{
+    ParseState *pstate;
+    CreateStmtContext cxt;
+    List *result;
+    Oid namespaceid;
+    Oid existing_relid;
+
+    // Set up parse state for error reporting
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+
+    // Look up creation namespace and check permissions
+    namespaceid = RangeVarGetAndCheckCreationNamespace(stmt->relation, NoLock, &existing_relid);
+
+    // Handle IF NOT EXISTS case - skip if relation already exists
+    if (stmt->if_not_exists && OidIsValid(existing_relid)) {
+        // Security check for extensions
+        checkMembershipInCurrentExtension(&address);
+
+        // Report notice and return empty list
+        ereport(NOTICE, (errcode(ERRCODE_DUPLICATE_TABLE),
+                errmsg("relation \"%s\" already exists, skipping", stmt->relation->relname)));
+        return NIL;
+    }
+
+    // Qualify relation name if needed (except temp tables)
+    if (stmt->relation->schemaname == NULL && stmt->relation->relpersistence != RELPERSISTENCE_TEMP)
+        stmt->relation->schemaname = get_namespace_name(namespaceid);
+
+    // Initialize transformation context
+    cxt.pstate = pstate;
+    cxt.stmtType = IsA(stmt, CreateForeignTableStmt) ? "CREATE FOREIGN TABLE" : "CREATE TABLE";
+    cxt.isforeign = IsA(stmt, CreateForeignTableStmt);
+    cxt.relation = stmt->relation;
+    cxt.ispartitioned = (stmt->partspec != NULL);
+    // ... initialize other context fields to NIL/NULL
+
+    // Handle OF TYPE clause if present
+    if (stmt->ofTypename)
+        transformOfType(&cxt, stmt->ofTypename);
+
+    // Process each table element (columns, constraints, LIKE clauses)
+    foreach(elements, stmt->tableElts) {
+        Node *element = lfirst(elements);
+
+        switch (nodeTag(element)) {
+            case T_ColumnDef:
+                transformColumnDefinition(&cxt, (ColumnDef *) element);
+                break;
+            case T_Constraint:
+                transformTableConstraint(&cxt, (Constraint *) element);
+                break;
+            case T_TableLikeClause:
+                transformTableLikeClause(&cxt, (TableLikeClause *) element);
+                break;
+            default:
+                elog(ERROR, "unrecognized node type: %d", (int) nodeTag(element));
+        }
+    }
+
+    // Process constraints in specific order:
+    // 1. Index constraints (PRIMARY KEY, UNIQUE)
+    transformIndexConstraints(&cxt);
+
+    // 2. LIKE clauses (after indexes, before foreign keys)
+    cxt.alist = list_concat(cxt.alist, cxt.likeclauses);
+
+    // 3. Foreign key constraints
+    transformFKConstraints(&cxt, true, false);
+
+    // 4. Check constraints (marked valid for regular tables, not foreign)
+    transformCheckConstraints(&cxt, !cxt.isforeign);
+
+    // Prepare final output
+    stmt->tableElts = cxt.columns;
+    stmt->constraints = cxt.ckconstraints;
+
+    // Build result list: before-statements + main statement + after-statements
+    result = lappend(cxt.blist, stmt);
+    result = list_concat(result, cxt.alist);
+
+    return result;
+}
+```

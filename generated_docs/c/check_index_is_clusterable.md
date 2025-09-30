@@ -45,3 +45,52 @@ The function is designed to be defensive, preventing clustering operations that 
 - Invalid indexes from failed CREATE INDEX CONCURRENTLY operations are rejected to prevent data integrity issues
 - The indcheckxmin flag is intentionally not checked since the worst-case scenario (out-of-order recently-dead tuples) is considered acceptable
 - Access method clustering support is determined by the amclusterable flag in the index's access method structure
+
+## Simplified Source
+
+```c
+void check_index_is_clusterable(Relation OldHeap, Oid indexOid, LOCKMODE lockmode)
+{
+    Relation OldIndex;
+
+    // Open and lock the index
+    OldIndex = index_open(indexOid, lockmode);
+
+    // Verify index belongs to the specified table
+    if (OldIndex->rd_index == NULL ||
+        OldIndex->rd_index->indrelid != RelationGetRelid(OldHeap)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not an index for table \"%s\"",
+                        RelationGetRelationName(OldIndex),
+                        RelationGetRelationName(OldHeap))));
+    }
+
+    // Check if access method supports clustering
+    if (!OldIndex->rd_indam->amclusterable) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot cluster on index \"%s\" because access method does not support clustering",
+                        RelationGetRelationName(OldIndex))));
+    }
+
+    // Reject partial indexes (incomplete coverage)
+    if (!heap_attisnull(OldIndex->rd_indextuple, Anum_pg_index_indpred, NULL)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot cluster on partial index \"%s\"",
+                        RelationGetRelationName(OldIndex))));
+    }
+
+    // Reject invalid indexes (from failed CREATE INDEX CONCURRENTLY)
+    if (!OldIndex->rd_index->indisvalid) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot cluster on invalid index \"%s\"",
+                        RelationGetRelationName(OldIndex))));
+    }
+
+    // Close index but keep the lock
+    index_close(OldIndex, NoLock);
+}
+```

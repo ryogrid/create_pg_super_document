@@ -31,3 +31,12 @@ The aclitem_match function performs a comparison between two AclItem structures 
 - Used primarily for finding existing ACL entries that need to be updated or replaced
 - Simple equality check on two OID fields (ai_grantee and ai_grantor)
 - Essential for ACL consolidation and update operations where multiple privileges may exist for the same grantee-grantor pair
+
+## Simplified Source
+```c
+static bool aclitem_match(const AclItem *a1, const AclItem *a2) {
+    // Check if both items have the same grantee and grantor
+    return a1->ai_grantee == a2->ai_grantee &&
+           a1->ai_grantor == a2->ai_grantor;
+}
+```

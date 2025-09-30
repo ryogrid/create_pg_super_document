@@ -31,3 +31,20 @@ This function serves as a secondary comparator for breaking ties in datum-based 
 
 ## Notes and Other Information
 This function is critical for maintaining sort stability when using abbreviated comparison keys. The abbreviation optimization can result in hash collisions where different values produce the same abbreviated key, so this tiebreaker ensures correct ordering by comparing the full original values. When no abbreviation converter is present, the function returns 0, indicating that the tuples are considered equal for sorting purposes.
+
+## Simplified Source
+
+```c
+static int comparetup_datum_tiebreak(const SortTuple *a, const SortTuple *b, Tuplesortstate *state) {
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    int32 compare = 0;
+
+    // If abbreviations are used, compare full original values for tiebreaking
+    if (base->sortKeys->abbrev_converter)
+        compare = ApplySortAbbrevFullComparator(PointerGetDatum(a->tuple), a->isnull1,
+                                                PointerGetDatum(b->tuple), b->isnull1,
+                                                base->sortKeys);
+
+    return compare;
+}
+```

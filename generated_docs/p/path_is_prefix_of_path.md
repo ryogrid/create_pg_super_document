@@ -43,3 +43,20 @@ This prevents false positives where a path like '/tmp' would incorrectly match '
 - Commonly used in security contexts to verify that file paths remain within allowed directory hierarchies
 - The function is deliberately simple and focuses on correctness rather than performance for this fundamental path operation
 - Used extensively in PostgreSQL's path validation logic, particularly in tablespace and file access controls
+
+## Simplified Source
+
+```c
+bool path_is_prefix_of_path(const char *path1, const char *path2) {
+    int path1_len = strlen(path1);
+
+    // Check if path1 matches the beginning of path2
+    // and that the match ends at a proper path boundary
+    if (strncmp(path1, path2, path1_len) == 0 &&
+        (IS_DIR_SEP(path2[path1_len]) || path2[path1_len] == '\0')) {
+        return true;
+    }
+
+    return false;
+}
+```

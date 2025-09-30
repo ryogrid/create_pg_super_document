@@ -44,3 +44,21 @@ If no suitable name can be determined, the function returns the default PostgreS
 - Column name generation follows a hierarchy of preferences, with direct column references being most preferred
 - The function handles a comprehensive set of PostgreSQL expression types, including modern additions like JSON functions
 - Performance is generally good since it only examines the syntax tree structure rather than performing semantic analysis
+
+## Simplified Source
+
+```c
+char *FigureColname(Node *node) {
+    char *name = NULL;
+
+    // Try to determine a suitable column name
+    FigureColnameInternal(node, &name);
+
+    // Return derived name or default fallback
+    if (name != NULL) {
+        return name;
+    }
+
+    return "?column?";  // Default PostgreSQL convention
+}
+```

@@ -32,3 +32,12 @@ MultiXactIdGetDatum performs a simple type cast from a MultiXactId to a Datum. T
 - The function assumes the input MultiXactId is valid - no validation is performed
 - Essential for storing multixact information in system catalogs and passing it through function interfaces
 - Related to PostgreSQL's ability to handle complex concurrent access patterns efficiently
+
+## Simplified Source
+
+```c
+static inline Datum MultiXactIdGetDatum(MultiXactId X) {
+    // Direct cast from MultiXactId to Datum
+    return (Datum) X;
+}
+```

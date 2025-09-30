@@ -31,3 +31,67 @@ This function implements the DROP USER MAPPING SQL command by removing an entry 
 
 ## Notes and Other Information
 The function supports graceful degradation with the IF EXISTS clause, issuing notices instead of errors when the specified user mapping, server, or role does not exist. It uses CASCADE deletion semantics to ensure proper cleanup of any dependent objects. The function returns the OID of the deleted mapping on success, or InvalidOid when the operation is skipped due to missing objects in conditional mode. Access control is enforced through the same user_mapping_ddl_aclcheck function used by other user mapping operations.
+
+## Simplified Source
+
+```c
+Oid
+RemoveUserMapping(DropUserMappingStmt *stmt)
+{
+    ObjectAddress object;
+    Oid useId;
+    Oid umId;
+    ForeignServer *srv;
+    RoleSpec *role = (RoleSpec *) stmt->user;
+
+    // Determine user ID - handle PUBLIC role specially
+    if (role->roletype == ROLESPEC_PUBLIC)
+        useId = ACL_ID_PUBLIC;
+    else {
+        useId = get_rolespec_oid(stmt->user, stmt->missing_ok);
+        if (!OidIsValid(useId)) {
+            // IF EXISTS: role not found, skip with notice
+            elog(NOTICE, "role \"%s\" does not exist, skipping", role->rolename);
+            return InvalidOid;
+        }
+    }
+
+    // Look up foreign server
+    srv = GetForeignServerByName(stmt->servername, true);
+    if (!srv) {
+        if (!stmt->missing_ok)
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                    errmsg("server \"%s\" does not exist", stmt->servername)));
+        // IF EXISTS: server not found, skip with notice
+        ereport(NOTICE, (errmsg("server \"%s\" does not exist, skipping", stmt->servername)));
+        return InvalidOid;
+    }
+
+    // Find the user mapping entry
+    umId = GetSysCacheOid2(USERMAPPINGUSERSERVER, Anum_pg_user_mapping_oid,
+                          ObjectIdGetDatum(useId), ObjectIdGetDatum(srv->serverid));
+
+    if (!OidIsValid(umId)) {
+        if (!stmt->missing_ok)
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                    errmsg("user mapping for \"%s\" does not exist for server \"%s\"",
+                           MappingUserName(useId), stmt->servername)));
+        // IF EXISTS: mapping not found, skip with notice
+        ereport(NOTICE, (errmsg("user mapping for \"%s\" does not exist for server \"%s\", skipping",
+                               MappingUserName(useId), stmt->servername)));
+        return InvalidOid;
+    }
+
+    // Check permissions for the operation
+    user_mapping_ddl_aclcheck(useId, srv->serverid, srv->servername);
+
+    // Perform the deletion with CASCADE semantics
+    object.classId = UserMappingRelationId;
+    object.objectId = umId;
+    object.objectSubId = 0;
+
+    performDeletion(&object, DROP_CASCADE, 0);
+
+    return umId;
+}
+```

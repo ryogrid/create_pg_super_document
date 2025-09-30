@@ -36,3 +36,27 @@ The function first extends List a with NULL elements if it's shorter than List b
 - The forboth macro stops at the end of the shorter list, but since a is extended to match b's length, all elements in b are processed
 - This is a fundamental operation for combining multibitmapsets in PostgreSQL's query optimizer
 - Used extensively in outer join reduction and null variable analysis
+
+## Simplified Source
+
+```c
+List *mbms_add_members(List *a, const List *b)
+{
+    // Extend list a with NULL elements if shorter than b
+    while (list_length(a) < list_length(b))
+        a = lappend(a, NULL);
+
+    // Union each corresponding pair of bitmapsets
+    forboth(lca, a, lcb, b)
+    {
+        Bitmapset *bmsa = lfirst_node(Bitmapset, lca);
+        const Bitmapset *bmsb = lfirst_node(Bitmapset, lcb);
+
+        // Add all members from bmsb to bmsa
+        bmsa = bms_add_members(bmsa, bmsb);
+        lfirst(lca) = bmsa;
+    }
+
+    return a;
+}
+```

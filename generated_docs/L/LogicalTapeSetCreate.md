@@ -48,3 +48,41 @@ The tape set is initially empty and requires `LogicalTapeCreate()` calls to add 
 - In parallel scenarios, the leader does not create its own tapes but imports worker tapes using `LogicalTapeImport()`
 - The underlying BufFile handles the actual I/O operations while LogicalTapeSet provides the logical abstraction
 - Free block tracking uses a dynamically sized array that starts with 32 entries and grows as needed
+
+## Simplified Source
+
+```c
+LogicalTapeSet *LogicalTapeSetCreate(bool preallocate, SharedFileSet *fileset, int worker) {
+    LogicalTapeSet *lts;
+
+    // Allocate and initialize the tape set structure
+    lts = (LogicalTapeSet *) palloc(sizeof(LogicalTapeSet));
+    lts->nBlocksAllocated = 0L;
+    lts->nBlocksWritten = 0L;
+    lts->nHoleBlocks = 0L;
+    lts->forgetFreeSpace = false;
+    lts->freeBlocksLen = 32;  // Initial free block array size
+    lts->freeBlocks = (int64 *) palloc(lts->freeBlocksLen * sizeof(int64));
+    lts->nFreeBlocks = 0;
+    lts->enable_prealloc = preallocate;
+
+    lts->fileset = fileset;
+    lts->worker = worker;
+
+    // Create underlying BufFile based on usage pattern
+    if (fileset && worker == -1) {
+        // Parallel leader - will import worker tapes later
+        lts->pfile = NULL;
+    } else if (fileset) {
+        // Parallel worker - create worker-specific file
+        char filename[MAXPGPATH];
+        pg_itoa(worker, filename);
+        lts->pfile = BufFileCreateFileSet(&fileset->fs, filename);
+    } else {
+        // Single-process sort - create temporary file
+        lts->pfile = BufFileCreateTemp(false);
+    }
+
+    return lts;
+}
+```

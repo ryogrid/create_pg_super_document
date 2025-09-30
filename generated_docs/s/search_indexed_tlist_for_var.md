@@ -48,3 +48,61 @@ The function includes cross-checking of varnullingrels between the input Var and
 - Skips varnullingrels validation for system columns (varattno <= 0) and whole-row Vars due to complexities with row identity Vars
 - The function is part of PostgreSQL's plan tree reference fixing mechanism during query optimization
 - Located in src/backend/optimizer/plan/setrefs.c at lines 2797-2861
+
+## Simplified Source
+
+```c
+// Simplified version of search_indexed_tlist_for_var
+static Var *
+search_indexed_tlist_for_var(Var *search_var, indexed_tlist *target_list,
+                             int new_varno, int rt_offset,
+                             NullingRelsMatch match_type) {
+    int relation_id = search_var->varno;
+    AttrNumber attribute_num = search_var->varattno;
+    tlist_vinfo *var_info = target_list->vars;
+    int i = target_list->num_vars;
+
+    // Search through indexed variable information
+    while (i-- > 0) {
+        if (var_info->varno == relation_id && var_info->varattno == attribute_num) {
+            // Found matching variable - create modified copy
+            Var *new_var = copyVar(search_var);
+
+            // Validate nulling relations (skip for system columns)
+            if (attribute_num > 0) {
+                bool nulling_rels_valid = false;
+                if (match_type == NRM_SUBSET)
+                    nulling_rels_valid = bms_is_subset(search_var->varnullingrels,
+                                                       var_info->varnullingrels);
+                else if (match_type == NRM_SUPERSET)
+                    nulling_rels_valid = bms_is_subset(var_info->varnullingrels,
+                                                       search_var->varnullingrels);
+                else
+                    nulling_rels_valid = bms_equal(var_info->varnullingrels,
+                                                   search_var->varnullingrels);
+
+                if (!nulling_rels_valid)
+                    elog(ERROR, "wrong varnullingrels for Var %d/%d",
+                         relation_id, attribute_num);
+            }
+
+            // Update variable references
+            new_var->varno = new_varno;
+            new_var->varattno = var_info->resno;
+            if (new_var->varnosyn > 0)
+                new_var->varnosyn += rt_offset;
+
+            return new_var;
+        }
+        var_info++;
+    }
+
+    return NULL;  // No match found
+}
+```
+
+Key simplifications made:
+- Used more descriptive parameter and variable names for clarity
+- Added comments explaining the search and validation logic
+- Simplified the nulling relations validation while preserving all checks
+- Focused on the core variable matching and reference updating logic

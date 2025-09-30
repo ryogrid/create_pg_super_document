@@ -65,3 +65,56 @@ The function returns true if invalidation succeeded (buffer can be reused) or fa
 - The function handles the race condition where a buffer becomes dirty or gains additional pins between selection and invalidation
 - Essential component of PostgreSQL's buffer replacement strategy implementation
 - Optimized for performance as it's called frequently during buffer replacement operations
+
+## Simplified Source
+
+```c
+static bool InvalidateVictimBuffer(BufferDesc *buf_hdr) {
+    uint32 buf_state;
+    uint32 hash;
+    LWLock *partition_lock;
+    BufferTag tag;
+
+    // Verify we have exclusive pin on this buffer
+    Assert(GetPrivateRefCount(BufferDescriptorGetBuffer(buf_hdr)) == 1);
+
+    // Save buffer tag (safe to read while pinned)
+    tag = buf_hdr->tag;
+
+    // Get hash table partition lock for this buffer
+    hash = BufTableHashCode(&tag);
+    partition_lock = BufMappingPartitionLock(hash);
+    LWLockAcquire(partition_lock, LW_EXCLUSIVE);
+
+    // Lock buffer header to check state atomically
+    buf_state = LockBufHdr(buf_hdr);
+
+    // Verify buffer still has valid tag and is pinned
+    Assert(buf_state & BM_TAG_VALID);
+    Assert(BUF_STATE_GET_REFCOUNT(buf_state) > 0);
+    Assert(BufferTagsEqual(&buf_hdr->tag, &tag));
+
+    // Check if buffer is still suitable for replacement
+    if (BUF_STATE_GET_REFCOUNT(buf_state) != 1 || (buf_state & BM_DIRTY)) {
+        // Buffer gained additional pins or became dirty - can't use it
+        UnlockBufHdr(buf_hdr, buf_state);
+        LWLockRelease(partition_lock);
+        return false;
+    }
+
+    // Clear buffer tag and flags to mark as invalid
+    ClearBufferTag(&buf_hdr->tag);
+    buf_state &= ~(BUF_FLAG_MASK | BUF_USAGECOUNT_MASK);
+    UnlockBufHdr(buf_hdr, buf_state);
+
+    // Remove buffer from hash table
+    BufTableDelete(&tag, hash);
+    LWLockRelease(partition_lock);
+
+    // Verify buffer is properly invalidated
+    Assert(!(buf_state & (BM_DIRTY | BM_VALID | BM_TAG_VALID)));
+    Assert(BUF_STATE_GET_REFCOUNT(buf_state) > 0);
+
+    return true; // Buffer successfully invalidated and ready for reuse
+}
+```

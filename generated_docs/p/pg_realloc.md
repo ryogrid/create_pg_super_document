@@ -43,3 +43,25 @@ This function is used throughout PostgreSQL frontend utilities when dynamic data
 - The original memory contents are preserved up to the minimum of the old and new sizes
 - Unlike the pg_malloc family, there is no extended version with configurable flags
 - Located in src/common/fe_memutils.c:65-84
+
+## Simplified Source
+
+```c
+void *pg_realloc(void *ptr, size_t size) {
+    // Handle edge case: avoid unportable realloc(NULL, 0)
+    if (ptr == NULL && size == 0) {
+        size = 1;
+    }
+
+    // Attempt reallocation
+    void *tmp = realloc(ptr, size);
+
+    // Exit program if reallocation fails
+    if (!tmp) {
+        fprintf(stderr, _("out of memory\n"));
+        exit(EXIT_FAILURE);
+    }
+
+    return tmp;
+}
+```

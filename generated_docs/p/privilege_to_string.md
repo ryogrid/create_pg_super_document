@@ -49,3 +49,59 @@ The function returns uppercase string literals for display purposes. Note that A
 - ACL_CREATE_TEMP maps to "TEMP" rather than "TEMPORARY" for conciseness
 - Function will not return on invalid input - it raises an ERROR instead
 - Complementary function to string_to_privilege but note the case difference (lowercase input vs uppercase output)
+
+## Simplified Source
+
+```c
+static const char *privilege_to_string(AclMode privilege) {
+    // Convert privilege constant to uppercase string representation
+    switch (privilege) {
+        // Table privileges
+        case ACL_INSERT:
+            return "INSERT";
+        case ACL_SELECT:
+            return "SELECT";
+        case ACL_UPDATE:
+            return "UPDATE";
+        case ACL_DELETE:
+            return "DELETE";
+        case ACL_TRUNCATE:
+            return "TRUNCATE";
+        case ACL_REFERENCES:
+            return "REFERENCES";
+        case ACL_TRIGGER:
+            return "TRIGGER";
+
+        // Function privileges
+        case ACL_EXECUTE:
+            return "EXECUTE";
+
+        // Schema and general privileges
+        case ACL_USAGE:
+            return "USAGE";
+        case ACL_CREATE:
+            return "CREATE";
+
+        // Database privileges
+        case ACL_CREATE_TEMP:
+            return "TEMP";
+        case ACL_CONNECT:
+            return "CONNECT";
+
+        // Configuration privileges
+        case ACL_SET:
+            return "SET";
+        case ACL_ALTER_SYSTEM:
+            return "ALTER SYSTEM";
+
+        // Maintenance privileges
+        case ACL_MAINTAIN:
+            return "MAINTAIN";
+
+        default:
+            elog(ERROR, "unrecognized privilege: %d", (int) privilege);
+    }
+
+    return NULL; // Never reached
+}
+```

@@ -44,3 +44,37 @@ This static function initializes operator class information for an index by iter
 - Only copies support procedures if maxSupportNumber > 0 (some access methods don't use support functions)
 - Validates operator class OIDs to detect corrupted pg_index entries
 - Part of the index access method initialization infrastructure in PostgreSQL's relation cache system
+
+## Simplified Source
+
+```c
+static void IndexSupportInitialize(oidvector *indclass,
+                                   RegProcedure *indexSupport,
+                                   Oid *opFamily,
+                                   Oid *opcInType,
+                                   StrategyNumber maxSupportNumber,
+                                   AttrNumber maxAttributeNumber) {
+    // Initialize operator class info for each index attribute
+    for (int attIndex = 0; attIndex < maxAttributeNumber; attIndex++) {
+        // Validate operator class OID
+        if (!OidIsValid(indclass->values[attIndex])) {
+            elog(ERROR, "bogus pg_index tuple");
+        }
+
+        // Look up cached operator class information
+        OpClassCacheEnt *opcentry = LookupOpclassInfo(indclass->values[attIndex],
+                                                       maxSupportNumber);
+
+        // Copy operator family and input type
+        opFamily[attIndex] = opcentry->opcfamily;
+        opcInType[attIndex] = opcentry->opcintype;
+
+        // Copy support procedures if access method uses them
+        if (maxSupportNumber > 0) {
+            memcpy(&indexSupport[attIndex * maxSupportNumber],
+                   opcentry->supportProcs,
+                   maxSupportNumber * sizeof(RegProcedure));
+        }
+    }
+}
+```

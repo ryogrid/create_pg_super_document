@@ -38,3 +38,26 @@ This function constructs a BitmapHeapScan plan node, which is the second stage o
 - The bitmap scan strategy is most effective for queries with moderate selectivity (not too few, not too many result tuples)
 - Recheck conditions in qpqual handle cases where bitmap conditions may produce false positives
 - The righttree is always NULL as bitmap heap scans only have one child providing the bitmap
+
+## Simplified Source
+
+```c
+static BitmapHeapScan *make_bitmap_heapscan(List *qptlist, List *qpqual, Plan *lefttree,
+                                             List *bitmapqualorig, Index scanrelid) {
+    // Create new BitmapHeapScan node
+    BitmapHeapScan *node = makeNode(BitmapHeapScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set up basic plan fields
+    plan->targetlist = qptlist;
+    plan->qual = qpqual;
+    plan->lefttree = lefttree;  // Child provides bitmap
+    plan->righttree = NULL;     // No right child needed
+
+    // Set BitmapHeapScan specific fields
+    node->scan.scanrelid = scanrelid;
+    node->bitmapqualorig = bitmapqualorig;
+
+    return node;
+}
+```

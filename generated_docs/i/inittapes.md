@@ -47,3 +47,40 @@ This static function transitions a tuplesort operation from in-memory sorting to
 - The distinction between mergeruns true/false affects tape count: full merge planning vs. minimal worker setup
 - Output tape allocation is done upfront while input tapes are allocated dynamically during merge phases
 - The function marks a critical transition point where the sort strategy changes from internal to external
+
+## Simplified Source
+
+```c
+static void inittapes(Tuplesortstate *state, bool mergeruns) {
+    Assert(!LEADER(state));
+
+    // Determine number of tapes based on merge requirements
+    if (mergeruns) {
+        // Calculate optimal merge order based on available memory
+        state->maxTapes = tuplesort_merge_order(state->allowedMem);
+    } else {
+        // Worker producing single run needs minimal tapes
+        Assert(WORKER(state));
+        state->maxTapes = MINORDER;
+    }
+
+    // Create logical tape infrastructure
+    inittapestate(state, state->maxTapes);
+    state->tapeset = LogicalTapeSetCreate(false,
+                                          state->shared ? &state->shared->fileset : NULL,
+                                          state->worker);
+
+    // Initialize tape arrays and counters
+    state->currentRun = 0;
+    state->inputTapes = NULL;
+    state->nInputTapes = 0;
+    state->nInputRuns = 0;
+    state->outputTapes = palloc0(state->maxTapes * sizeof(LogicalTape *));
+    state->nOutputTapes = 0;
+    state->nOutputRuns = 0;
+
+    // Transition to run building phase
+    state->status = TSS_BUILDRUNS;
+    selectnewtape(state);
+}
+```

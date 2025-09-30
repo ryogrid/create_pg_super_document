@@ -56,3 +56,33 @@ The function uses a switch statement to categorize trigger function OIDs based o
 - The classification enables proper handling of cascade operations and constraint validation
 - Located in src/backend/utils/adt/ri_triggers.c at lines 3001-3023
 - Returns integer values representing different trigger types: RI_TRIGGER_PK, RI_TRIGGER_FK, or RI_TRIGGER_NONE
+
+## Simplified Source
+
+```c
+int RI_FKey_trigger_type(Oid tgfoid) {
+    switch (tgfoid) {
+        // Primary key table triggers (action triggers)
+        case F_RI_FKEY_CASCADE_DEL:
+        case F_RI_FKEY_CASCADE_UPD:
+        case F_RI_FKEY_RESTRICT_DEL:
+        case F_RI_FKEY_RESTRICT_UPD:
+        case F_RI_FKEY_SETNULL_DEL:
+        case F_RI_FKEY_SETNULL_UPD:
+        case F_RI_FKEY_SETDEFAULT_DEL:
+        case F_RI_FKEY_SETDEFAULT_UPD:
+        case F_RI_FKEY_NOACTION_DEL:
+        case F_RI_FKEY_NOACTION_UPD:
+            return RI_TRIGGER_PK;
+
+        // Foreign key table triggers (check triggers)
+        case F_RI_FKEY_CHECK_INS:
+        case F_RI_FKEY_CHECK_UPD:
+            return RI_TRIGGER_FK;
+
+        // Not a recognized RI trigger
+        default:
+            return RI_TRIGGER_NONE;
+    }
+}
+```

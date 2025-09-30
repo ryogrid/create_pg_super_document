@@ -66,3 +66,25 @@ The function handles all the same conversions as make_result_opt_error, includin
 - All the complex logic for format selection, zero handling, and special value processing is delegated to make_result_opt_error
 - Used extensively throughout the numeric module for final result generation in arithmetic operations, conversions, and aggregate functions
 - The function is essentially a one-liner wrapper that simplifies the API for the majority of use cases where error handling through exceptions is desired
+
+## Simplified Source
+
+```c
+static Result *
+make_result(List *tlist, Node *resconstantqual, Plan *subplan)
+{
+    Result *node = makeNode(Result);
+    Plan *plan = &node->plan;
+
+    // Initialize the plan structure
+    plan->targetlist = tlist;
+    plan->qual = NIL;
+    plan->lefttree = subplan;
+    plan->righttree = NULL;
+
+    // Set the result-specific qualification
+    node->resconstantqual = resconstantqual;
+
+    return node;
+}
+```

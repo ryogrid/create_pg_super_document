@@ -31,3 +31,41 @@ This function serializes a datum-based SortTuple to persistent storage via a Log
 
 ## Notes and Other Information
 The function implements a space-efficient serialization format by only writing the actual data size rather than a fixed-size buffer. For pass-by-reference datums, it uses datumGetSize() to determine the correct number of bytes to write. The trailing length word is only written when TUPLESORT_RANDOMACCESS option is enabled, allowing backward traversal of the tape. This function is part of the external sorting mechanism that allows PostgreSQL to sort datasets larger than available memory.
+
+## Simplified Source
+
+```c
+static void writetup_datum(Tuplesortstate *state, LogicalTape *tape, SortTuple *stup) {
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortDatumArg *arg = (TuplesortDatumArg *) base->arg;
+    void *write_data;
+    unsigned int data_length;
+    unsigned int total_length;
+
+    // Determine what data to write based on tuple type
+    if (stup->isnull1) {
+        // NULL value - write nothing
+        write_data = NULL;
+        data_length = 0;
+    } else if (!base->tuples) {
+        // Pass-by-value datum - write the datum directly
+        write_data = &stup->datum1;
+        data_length = sizeof(Datum);
+    } else {
+        // Pass-by-reference datum - write the pointed-to data
+        write_data = stup->tuple;
+        data_length = datumGetSize(PointerGetDatum(stup->tuple), false, arg->datumTypeLen);
+    }
+
+    // Calculate total length including length prefix
+    total_length = data_length + sizeof(unsigned int);
+
+    // Write length prefix, then data
+    LogicalTapeWrite(tape, &total_length, sizeof(total_length));
+    LogicalTapeWrite(tape, write_data, data_length);
+
+    // Write trailing length for random access support
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeWrite(tape, &total_length, sizeof(total_length));
+}
+```

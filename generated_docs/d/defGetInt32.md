@@ -44,3 +44,30 @@ The function performs a simple extraction and cast from the internal integer rep
 - Commonly used in DDL commands where integer parameters with specific size requirements are needed
 - Performs explicit cast from internal integer representation to ensure int32 type
 - Less commonly used compared to other defGet functions due to its restrictive nature
+
+## Simplified Source
+
+```c
+int32
+defGetInt32(DefElem *def)
+{
+    // Error if no argument provided
+    if (def->arg == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("%s requires an integer value",
+                        def->defname)));
+
+    // Extract integer value based on node type
+    switch (nodeTag(def->arg)) {
+        case T_Integer:
+            return (int32) intVal(def->arg);
+        default:
+            ereport(ERROR,
+                    (errcode(ERRCODE_SYNTAX_ERROR),
+                     errmsg("%s requires an integer value",
+                            def->defname)));
+    }
+    return 0; // unreachable
+}
+```

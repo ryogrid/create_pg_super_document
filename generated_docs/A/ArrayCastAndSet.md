@@ -45,3 +45,38 @@ The function assumes the caller has already handled NULL values and provides the
 - The function is static, meaning it's only accessible within the arrayfuncs.c compilation unit
 - Critical for maintaining proper memory layout in PostgreSQL arrays
 - Handles the complexity of PostgreSQL's diverse type system in a unified interface
+
+## Simplified Source
+
+```c
+static int ArrayCastAndSet(Datum src, int typlen, bool typbyval, char typalign, char *dest) {
+    int inc;
+
+    if (typlen > 0) {
+        // Fixed-length type
+        if (typbyval) {
+            // Store by-value type directly
+            store_att_byval(dest, src, typlen);
+        } else {
+            // Copy by-reference type data
+            memmove(dest, DatumGetPointer(src), typlen);
+        }
+        // Calculate aligned size for fixed-length type
+        inc = att_align_nominal(typlen, typalign);
+    } else {
+        // Variable-length type (must be by-reference)
+        Assert(!typbyval);
+
+        // Calculate actual length of variable-length data
+        inc = att_addlength_datum(0, typlen, src);
+
+        // Copy the variable-length data
+        memmove(dest, DatumGetPointer(src), inc);
+
+        // Apply alignment padding
+        inc = att_align_nominal(inc, typalign);
+    }
+
+    return inc;  // Total bytes used including padding
+}
+```

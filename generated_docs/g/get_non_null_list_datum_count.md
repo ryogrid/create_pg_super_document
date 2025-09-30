@@ -35,3 +35,25 @@ For each partition specification, the function examines every Const node in the 
 - Part of the list partition bounds creation pipeline
 - Does not modify any input data, purely a counting utility
 - Essential for memory management optimization in partition bound creation
+
+## Simplified Source
+
+```c
+static int get_non_null_list_datum_count(PartitionBoundSpec **boundspecs, int nparts) {
+    int count = 0;
+
+    // Iterate through each partition specification
+    for (int i = 0; i < nparts; i++) {
+        // Examine each datum in the list partition
+        foreach(lc, boundspecs[i]->listdatums) {
+            Const *val = lfirst_node(Const, lc);
+
+            // Count only non-null values
+            if (!val->constisnull)
+                count++;
+        }
+    }
+
+    return count;
+}
+```

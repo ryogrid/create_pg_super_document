@@ -41,3 +41,41 @@ For all other parameter types, the function simply creates a copy of the origina
 - Critical for resolving complex subquery expressions that have been parameterized during planning
 - Part of PostgreSQL's parameter resolution system for handling correlated subqueries and complex expressions
 - Uses 1-based indexing when accessing the multiexpr_params lists, requiring adjustment for 0-based list_nth calls
+
+## Simplified Source
+
+```c
+// Simplified version of fix_param_node
+static Node *
+fix_param_node(PlannerInfo *root, Param *param) {
+    if (param->paramkind == PARAM_MULTIEXPR) {
+        // Decode parameter ID: upper 16 bits = subquery, lower 16 bits = column
+        int subquery_id = param->paramid >> 16;
+        int column_number = param->paramid & 0xFFFF;
+        List *param_list;
+
+        // Validate subquery ID bounds
+        if (subquery_id <= 0 || subquery_id > list_length(root->multiexpr_params))
+            elog(ERROR, "unexpected PARAM_MULTIEXPR ID: %d", param->paramid);
+
+        // Get parameter list for this subquery
+        param_list = (List *) list_nth(root->multiexpr_params, subquery_id - 1);
+
+        // Validate column number bounds
+        if (column_number <= 0 || column_number > list_length(param_list))
+            elog(ERROR, "unexpected PARAM_MULTIEXPR ID: %d", param->paramid);
+
+        // Return the resolved parameter
+        return copyObject(list_nth(param_list, column_number - 1));
+    }
+
+    // For all other parameter types, just return a copy
+    return (Node *) copyObject(param);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names for clarity
+- Added comments explaining the bit manipulation for parameter ID decoding
+- Simplified the bounds checking logic while preserving error handling
+- Focused on the core parameter resolution algorithm

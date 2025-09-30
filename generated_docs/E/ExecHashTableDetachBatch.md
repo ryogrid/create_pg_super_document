@@ -56,3 +56,54 @@ The function also tracks peak memory usage statistics that can be reported by EX
 - Tracks peak memory usage for performance reporting
 - Maintains phase transition invariants for parallel hash join execution
 - Closes temporary files for both inner and outer tuple storage
+
+## Simplified Source
+
+```c
+void ExecHashTableDetachBatch(HashJoinTable hashtable) {
+    // Only proceed if we have parallel state and are attached to a batch
+    if (hashtable->parallel_state != NULL && hashtable->curbatch >= 0) {
+        int curbatch = hashtable->curbatch;
+        ParallelHashJoinBatch *batch = hashtable->batches[curbatch].shared;
+        bool attached = true;
+
+        // Close temporary files for this batch
+        sts_end_parallel_scan(hashtable->batches[curbatch].inner_tuples);
+        sts_end_parallel_scan(hashtable->batches[curbatch].outer_tuples);
+
+        // Handle early query termination: skip unmatched tuples if needed
+        if (BarrierPhase(&batch->batch_barrier) == PHJ_BATCH_PROBE &&
+            !hashtable->batches[curbatch].outer_eof) {
+            batch->skip_unmatched = true;
+        }
+
+        // Coordinate with other processes through barrier phases
+        if (BarrierPhase(&batch->batch_barrier) == PHJ_BATCH_PROBE)
+            attached = BarrierArriveAndDetachExceptLast(&batch->batch_barrier);
+
+        // If we're the last to detach, clean up shared memory
+        if (attached && BarrierArriveAndDetach(&batch->batch_barrier)) {
+            // Free all memory chunks
+            while (DsaPointerIsValid(batch->chunks)) {
+                HashMemoryChunk chunk = dsa_get_address(hashtable->area, batch->chunks);
+                dsa_pointer next = chunk->next.shared;
+                dsa_free(hashtable->area, batch->chunks);
+                batch->chunks = next;
+            }
+
+            // Free bucket array
+            if (DsaPointerIsValid(batch->buckets)) {
+                dsa_free(hashtable->area, batch->buckets);
+                batch->buckets = InvalidDsaPointer;
+            }
+        }
+
+        // Track peak memory usage for statistics
+        hashtable->spacePeak = Max(hashtable->spacePeak,
+                                 batch->size + sizeof(dsa_pointer_atomic) * hashtable->nbuckets);
+
+        // Mark as no longer attached to any batch
+        hashtable->curbatch = -1;
+    }
+}
+```

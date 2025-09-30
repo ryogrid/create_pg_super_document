@@ -42,3 +42,39 @@ The function performs several key operations: it looks up the type cache entry f
 - When need_exprstate is false, the function simply references the cached constraint list without copying
 - When need_exprstate is true, it calls prep_domain_constraints to create executable expression states
 - The type cache entry is assumed to survive indefinitely, making it safe to hold references to it
+
+## Simplified Source
+
+```c
+void InitDomainConstraintRef(Oid type_id, DomainConstraintRef *ref,
+                            MemoryContext refctx, bool need_exprstate) {
+    // Look up domain constraint information in type cache
+    ref->tcache = lookup_type_cache(type_id, TYPECACHE_DOMAIN_CONSTR_INFO);
+    ref->need_exprstate = need_exprstate;
+
+    // Set up memory context callback for automatic cleanup
+    ref->refctx = refctx;
+    ref->dcc = NULL;
+    ref->callback.func = dccref_deletion_callback;
+    ref->callback.arg = (void *) ref;
+    MemoryContextRegisterResetCallback(refctx, &ref->callback);
+
+    // Set up constraint references if domain has constraints
+    if (ref->tcache->domainData) {
+        // Get constraint data and increment reference count
+        ref->dcc = ref->tcache->domainData;
+        ref->dcc->dccRefCount++;
+
+        if (ref->need_exprstate) {
+            // Prepare executable expression states for constraint checking
+            ref->constraints = prep_domain_constraints(ref->dcc->constraints, ref->refctx);
+        } else {
+            // Use cached constraint list directly
+            ref->constraints = ref->dcc->constraints;
+        }
+    } else {
+        // No constraints for this domain
+        ref->constraints = NIL;
+    }
+}
+```

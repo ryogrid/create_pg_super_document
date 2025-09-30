@@ -40,3 +40,43 @@ This function creates a ValuesScan plan node for executing a VALUES clause scan.
 - Handles nestloop parameter substitution for both scan clauses and VALUES lists when parameterized paths are involved
 - The restriction clauses are optimized by sorting them into the best execution order before being processed
 - Pseudoconstant clauses are filtered out during clause extraction to improve execution efficiency
+
+## Simplified Source
+
+```c
+static ValuesScan *
+create_valuesscan_plan(PlannerInfo *root, Path *best_path,
+                       List *tlist, List *scan_clauses)
+{
+    ValuesScan *scan_plan;
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte;
+    List *values_lists;
+
+    // Validate that we have a VALUES relation
+    Assert(scan_relid > 0);
+    rte = planner_rt_fetch(scan_relid, root);
+    Assert(rte->rtekind == RTE_VALUES);
+    values_lists = rte->values_lists;
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths: replace params in both scan clauses and VALUES lists
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+        values_lists = (List *) replace_nestloop_params(root, (Node *) values_lists);
+    }
+
+    // Create the ValuesScan plan node
+    scan_plan = make_valuesscan(tlist, scan_clauses, scan_relid, values_lists);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

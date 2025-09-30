@@ -52,3 +52,65 @@ Key processing steps include:
 - Supports parameterized plans through nestloop parameter replacement
 - The resulting plan can directly access specific table rows without index lookups
 - TID scans are particularly efficient for queries using CTID predicates or similar direct row addressing
+
+## Simplified Source
+
+```c
+static TidScan *
+create_tidscan_plan(PlannerInfo *root, TidPath *best_path,
+                    List *tlist, List *scan_clauses)
+{
+    TidScan *scan_plan;
+    Index scan_relid = best_path->path.parent->relid;
+    List *tidquals = best_path->tidquals;
+
+    // Validate that we have a base relation
+    Assert(scan_relid > 0);
+    Assert(best_path->path.parent->rtekind == RTE_RELATION);
+
+    // Handle single TID qualification case: filter redundant scan clauses
+    if (list_length(tidquals) == 1) {
+        List *qpqual = NIL;
+        ListCell *l;
+
+        foreach(l, scan_clauses) {
+            RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+            if (rinfo->pseudoconstant)
+                continue;  // Drop pseudoconstants
+            if (list_member_ptr(tidquals, rinfo))
+                continue;  // Simple duplicate
+            if (is_redundant_derived_clause(rinfo, tidquals))
+                continue;  // Derived from same EquivalenceClass
+            qpqual = lappend(qpqual, rinfo);
+        }
+        scan_clauses = qpqual;
+    }
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    tidquals = extract_actual_clauses(tidquals, false);
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle multiple TID qualifications: create OR clause and filter duplicates
+    if (list_length(tidquals) > 1) {
+        scan_clauses = list_difference(scan_clauses, list_make1(make_orclause(tidquals)));
+    }
+
+    // Handle parameterized paths by replacing outer variables with nestloop params
+    if (best_path->path.param_info) {
+        tidquals = (List *) replace_nestloop_params(root, (Node *) tidquals);
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the TidScan plan node
+    scan_plan = make_tidscan(tlist, scan_clauses, scan_relid, tidquals);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, &best_path->path);
+
+    return scan_plan;
+}
+```

@@ -30,3 +30,12 @@ The function serves as the counterpart to PreventInTransactionBlock - while Prev
 
 ## Notes and Other Information
 This function implements a 'soft' approach to transaction block validation, using warnings instead of hard errors. It's typically used for commands like transaction control statements (BEGIN/COMMIT/ABORT) and certain SET operations that don't have lasting effects. The warning behavior helps guide users toward better transaction management practices while still allowing the commands to execute successfully.
+
+## Simplified Source
+
+```c
+void WarnNoTransactionBlock(bool isTopLevel, const char *stmtType) {
+    // Issue warning (not error) if command executed outside transaction block
+    CheckTransactionBlock(isTopLevel, false, stmtType);
+}
+```

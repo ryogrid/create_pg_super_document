@@ -40,3 +40,23 @@ This function provides a clean interface for removing shared dependency records 
 - Works with both shared objects (accessible across databases) and local objects (database-specific)
 - Used extensively throughout the system whenever objects with potential shared dependencies are modified or removed
 - Helps maintain referential integrity by ensuring orphaned dependency records are not left behind
+
+## Simplified Source
+
+```c
+void deleteSharedDependencyRecordsFor(Oid classId, Oid objectId, int32 objectSubId) {
+    Relation sdepRel;
+
+    // Open shared dependency catalog with exclusive lock
+    sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    // Remove dependency records
+    shdepDropDependency(sdepRel, classId, objectId, objectSubId,
+                       (objectSubId == 0),  // Drop sub-objects if whole object
+                       InvalidOid, InvalidOid,
+                       SHARED_DEPENDENCY_INVALID);
+
+    // Close the catalog
+    table_close(sdepRel, RowExclusiveLock);
+}
+```

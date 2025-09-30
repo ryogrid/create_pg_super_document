@@ -53,3 +53,39 @@ The cleanup process follows this sequence:
 - Provides comprehensive cleanup of all parallel execution resources including shared memory, dynamic shared areas, and worker contexts
 - Critical for preventing memory leaks and ensuring proper resource management in parallel query execution
 - The final pfree(pei) invalidates the ParallelExecutorInfo pointer, so it should not be used after this call
+
+## Simplified Source
+
+```c
+void ExecParallelCleanup(ParallelExecutorInfo *pei)
+{
+    // Collect performance data from worker processes
+    if (pei->instrumentation)
+        ExecParallelRetrieveInstrumentation(pei->planstate, pei->instrumentation);
+
+    // Collect JIT compilation performance data
+    if (pei->jit_instrumentation)
+        ExecParallelRetrieveJitInstrumentation(pei->planstate, pei->jit_instrumentation);
+
+    // Free shared memory parameters
+    if (DsaPointerIsValid(pei->param_exec)) {
+        dsa_free(pei->area, pei->param_exec);
+        pei->param_exec = InvalidDsaPointer;
+    }
+
+    // Clean up shared memory area
+    if (pei->area != NULL) {
+        dsa_detach(pei->area);
+        pei->area = NULL;
+    }
+
+    // Destroy parallel execution context
+    if (pei->pcxt != NULL) {
+        DestroyParallelContext(pei->pcxt);
+        pei->pcxt = NULL;
+    }
+
+    // Free the parallel executor info structure
+    pfree(pei);
+}
+```

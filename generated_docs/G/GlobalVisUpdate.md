@@ -35,3 +35,15 @@ The function is used when the system determines that the current visibility boun
 - The horizons variable is local and not used after ComputeXidHorizons() returns
 - Part of the global visibility infrastructure for maintaining MVCC correctness
 - Called when heuristics determine that boundary updates would be beneficial
+
+## Simplified Source
+
+```c
+static void GlobalVisUpdate(void)
+{
+    ComputeXidHorizonsResult horizons;
+
+    // Recompute and update all global visibility boundaries
+    ComputeXidHorizons(&horizons);
+}
+```

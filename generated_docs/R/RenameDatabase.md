@@ -39,3 +39,72 @@ RenameDatabase performs a complete database rename operation with comprehensive 
 - Includes regression testing name validation when built with appropriate flags
 - Returns ObjectAddress pointing to the renamed database for dependency tracking
 - Maintains lock until transaction commit to ensure consistency
+
+## Simplified Source
+
+```c
+ObjectAddress RenameDatabase(const char *oldname, const char *newname)
+{
+    // Open database catalog and find the target database
+    Relation rel = table_open(DatabaseRelationId, RowExclusiveLock);
+    Oid db_id;
+
+    if (!get_db_info(oldname, AccessExclusiveLock, &db_id, NULL, NULL, NULL,
+                     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_DATABASE),
+                errmsg("database \"%s\" does not exist", oldname)));
+
+    // Validate permissions
+    if (!object_ownercheck(DatabaseRelationId, db_id, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, oldname);
+
+    if (!have_createdb_privilege())
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("permission denied to rename database")));
+
+    // Validate rename constraints
+    validate_database_rename_constraints(db_id, oldname, newname);
+
+    // Perform the actual rename
+    HeapTuple newtup = SearchSysCacheLockedCopy1(DATABASEOID,
+                                                 ObjectIdGetDatum(db_id));
+    if (!HeapTupleIsValid(newtup))
+        elog(ERROR, "cache lookup failed for database %u", db_id);
+
+    ItemPointerData otid = newtup->t_self;
+    namestrcpy(&(((Form_pg_database) GETSTRUCT(newtup))->datname), newname);
+    CatalogTupleUpdate(rel, &otid, newtup);
+    UnlockTuple(rel, &otid, InplaceUpdateTupleLock);
+
+    // Fire hooks and build return value
+    InvokeObjectPostAlterHook(DatabaseRelationId, db_id, 0);
+
+    ObjectAddress address;
+    ObjectAddressSet(address, DatabaseRelationId, db_id);
+
+    table_close(rel, NoLock);
+    return address;
+}
+
+static void validate_database_rename_constraints(Oid db_id,
+                                                 const char *oldname,
+                                                 const char *newname)
+{
+    // Check for name conflicts
+    if (OidIsValid(get_database_oid(newname, true)))
+        ereport(ERROR, (errcode(ERRCODE_DUPLICATE_DATABASE),
+                errmsg("database \"%s\" already exists", newname)));
+
+    // Cannot rename current database
+    if (db_id == MyDatabaseId)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("current database cannot be renamed")));
+
+    // Check for active sessions
+    int notherbackends, npreparedxacts;
+    if (CountOtherDBBackends(db_id, &notherbackends, &npreparedxacts))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_IN_USE),
+                errmsg("database \"%s\" is being accessed by other users", oldname),
+                errdetail_busy_db(notherbackends, npreparedxacts)));
+}
+```

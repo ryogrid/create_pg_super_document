@@ -34,3 +34,28 @@ This function is used within ereport() calls to provide cursor position informat
 - Gracefully handles cases where source text or location information is unavailable
 - Optimized for performance - avoids character counting during normal execution, only does it during error conditions
 - Part of PostgreSQL's comprehensive error reporting infrastructure for user-friendly diagnostics
+
+## Simplified Source
+
+```c
+int executor_errposition(EState *estate, int location) {
+    int pos;
+
+    // No-op if location was not provided
+    if (location < 0) {
+        return 0;
+    }
+
+    // Can't do anything if source text is not available
+    if (estate == NULL || estate->es_sourceText == NULL) {
+        return 0;
+    }
+
+    // Convert byte offset to 1-based character position
+    // Uses multibyte-aware string length function for proper character counting
+    pos = pg_mbstrlen_with_len(estate->es_sourceText, location) + 1;
+
+    // Pass character position to error reporting mechanism
+    return errposition(pos);
+}
+```

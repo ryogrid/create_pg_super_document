@@ -33,3 +33,28 @@ The beginmerge function prepares for a merge pass by reading the first tuple fro
 - Only processes active tapes up to the minimum of nInputTapes and nInputRuns
 - Each tuple inserted into the heap is tagged with its source tape index for tracking during merge
 - This is a static function internal to tuplesort.c, not exposed in the public API
+
+## Simplified Source
+
+```c
+static void beginmerge(Tuplesortstate *state) {
+    int activeTapes;
+    int srcTapeIndex;
+
+    // Verify heap is empty before starting
+    Assert(state->memtupcount == 0);
+
+    // Determine number of active tapes for this merge pass
+    activeTapes = Min(state->nInputTapes, state->nInputRuns);
+
+    // Read first tuple from each active tape and add to merge heap
+    for (srcTapeIndex = 0; srcTapeIndex < activeTapes; srcTapeIndex++) {
+        SortTuple tup;
+
+        if (mergereadnext(state, state->inputTapes[srcTapeIndex], &tup)) {
+            tup.srctape = srcTapeIndex;  // Tag tuple with source tape
+            tuplesort_heap_insert(state, &tup);
+        }
+    }
+}
+```

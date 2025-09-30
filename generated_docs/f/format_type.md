@@ -45,3 +45,35 @@ For standard types, it returns canonical SQL format names. For custom types, it 
 - Critical for pg_dump functionality to ensure DDL statements can recreate original table structures
 - Extensively used in JSON processing and expression handling throughout PostgreSQL
 - Example:  with NULL typemod returns "character", while typemod -1 returns "bpchar"
+
+## Simplified Source
+
+```c
+Datum format_type(PG_FUNCTION_ARGS)
+{
+    Oid type_oid;
+    int32 typemod;
+    char *result;
+    bits16 flags = FORMAT_TYPE_ALLOW_INVALID;
+
+    // Handle null type_oid argument
+    if (PG_ARGISNULL(0))
+        PG_RETURN_NULL();
+
+    type_oid = PG_GETARG_OID(0);
+
+    // Handle typemod parameter - NULL vs -1 has different meaning
+    if (PG_ARGISNULL(1)) {
+        typemod = -1;  // NULL typemod for "prettier" formatting
+    } else {
+        typemod = PG_GETARG_INT32(1);
+        flags |= FORMAT_TYPE_TYPEMOD_GIVEN;  // Exact typemod preservation
+    }
+
+    // Format the type using extended formatter
+    result = format_type_extended(type_oid, typemod, flags);
+
+    // Convert C string to PostgreSQL text and return
+    PG_RETURN_TEXT_P(cstring_to_text(result));
+}
+```

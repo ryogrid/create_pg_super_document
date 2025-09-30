@@ -50,3 +50,36 @@ After detachment, the function nullifies the parallel state reference, effective
 - Sets parallel_state to NULL after detachment to prevent further parallel operations
 - Uses barrier synchronization to ensure proper coordination between all worker processes
 - Late-joining processes will see PHJ_BUILD_FREE state and abandon execution immediately
+
+## Simplified Source
+
+```c
+void ExecHashTableDetach(HashJoinTable hashtable) {
+    ParallelHashJoinState *pstate = hashtable->parallel_state;
+
+    // Only proceed if we have parallel state and are in proper phase
+    if (pstate && BarrierPhase(&pstate->build_barrier) == PHJ_BUILD_RUN) {
+
+        // Close temporary files for all batches
+        if (hashtable->batches) {
+            for (int i = 0; i < hashtable->nbatch; ++i) {
+                sts_end_write(hashtable->batches[i].inner_tuples);
+                sts_end_write(hashtable->batches[i].outer_tuples);
+                sts_end_parallel_scan(hashtable->batches[i].inner_tuples);
+                sts_end_parallel_scan(hashtable->batches[i].outer_tuples);
+            }
+        }
+
+        // If we're the last to detach, clean up shared memory
+        if (BarrierArriveAndDetach(&pstate->build_barrier)) {
+            if (DsaPointerIsValid(pstate->batches)) {
+                dsa_free(hashtable->area, pstate->batches);
+                pstate->batches = InvalidDsaPointer;
+            }
+        }
+    }
+
+    // Disconnect from parallel state
+    hashtable->parallel_state = NULL;
+}
+```

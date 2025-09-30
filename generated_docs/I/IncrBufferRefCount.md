@@ -40,3 +40,30 @@ This function provides a way to increment the reference count (pin count) on a b
 - Integrates with PostgreSQL's resource owner system for proper cleanup tracking
 - Essential for scenarios where code needs multiple references to the same buffer
 - More efficient than acquiring a new pin since it bypasses shared state modifications
+
+## Simplified Source
+
+```c
+void IncrBufferRefCount(Buffer buffer)
+{
+    // Must already be pinned
+    Assert(BufferIsPinned(buffer));
+
+    // Ensure resource tracking capacity
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Increment appropriate reference count
+    if (BufferIsLocal(buffer)) {
+        // Local buffer: use simple array
+        LocalRefCount[-buffer - 1]++;
+    } else {
+        // Shared buffer: use reference count table
+        PrivateRefCountEntry *ref = GetPrivateRefCountEntry(buffer, true);
+        Assert(ref != NULL);
+        ref->refcount++;
+    }
+
+    // Track with resource owner for cleanup
+    ResourceOwnerRememberBuffer(CurrentResourceOwner, buffer);
+}
+```

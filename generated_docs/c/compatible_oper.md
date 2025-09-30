@@ -41,3 +41,39 @@ The `compatible_oper` function provides stricter operator resolution than the st
 - Critical for scenarios where performance or semantic requirements mandate exact type matching
 - Located in src/backend/parser/parse_oper.c:450-486
 - Used when binary compatibility is specifically required over general coercion compatibility
+
+## Simplified Source
+
+```c
+Operator
+compatible_oper(ParseState *pstate, List *op, Oid arg1, Oid arg2,
+                bool noError, int location)
+{
+    Operator optup;
+    Form_pg_operator opform;
+
+    // First find the best available operator match
+    optup = oper(pstate, op, arg1, arg2, noError, location);
+    if (optup == (Operator) NULL)
+        return (Operator) NULL;  // No operator found
+
+    // Check if operator accepts input types without coercion
+    opform = (Form_pg_operator) GETSTRUCT(optup);
+    if (IsBinaryCoercible(arg1, opform->oprleft) &&
+        IsBinaryCoercible(arg2, opform->oprright))
+        return optup;  // Compatible operator found
+
+    // Operator requires coercion - reject it
+    ReleaseSysCache(optup);
+
+    // Report error if requested
+    if (!noError)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                 errmsg("operator requires run-time type coercion: %s",
+                        op_signature_string(op, arg1, arg2)),
+                 parser_errposition(pstate, location)));
+
+    return (Operator) NULL;
+}
+```

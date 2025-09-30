@@ -50,3 +50,58 @@ Key behaviors include:
 - Validates that the new name doesn't conflict with existing schemas or reserved names
 - Triggers post-alter hooks for potential extension or trigger processing
 - Performs proper memory management by freeing the copied heap tuple
+
+## Simplified Source
+
+```c
+ObjectAddress
+RenameSchema(const char *oldname, const char *newname)
+{
+    Oid nspOid;
+    HeapTuple tup;
+    Relation rel;
+    AclResult aclresult;
+    ObjectAddress address;
+    Form_pg_namespace nspform;
+
+    // Open pg_namespace catalog for modification
+    rel = table_open(NamespaceRelationId, RowExclusiveLock);
+
+    // Find the existing schema
+    tup = SearchSysCacheCopy1(NAMESPACENAME, CStringGetDatum(oldname));
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, "schema does not exist");
+
+    nspform = (Form_pg_namespace) GETSTRUCT(tup);
+    nspOid = nspform->oid;
+
+    // Check if new name already exists
+    if (OidIsValid(get_namespace_oid(newname, true)))
+        ereport(ERROR, "schema with new name already exists");
+
+    // Verify ownership
+    if (!object_ownercheck(NamespaceRelationId, nspOid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SCHEMA, oldname);
+
+    // Check CREATE privilege on database
+    aclresult = object_aclcheck(DatabaseRelationId, MyDatabaseId, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_DATABASE, get_database_name(MyDatabaseId));
+
+    // Check reserved name restrictions
+    if (!allowSystemTableMods && IsReservedName(newname))
+        ereport(ERROR, "schema name with pg_ prefix is reserved");
+
+    // Update the schema name
+    namestrcpy(&nspform->nspname, newname);
+    CatalogTupleUpdate(rel, &tup->t_self, tup);
+
+    // Cleanup and return
+    InvokeObjectPostAlterHook(NamespaceRelationId, nspOid, 0);
+    ObjectAddressSet(address, NamespaceRelationId, nspOid);
+    table_close(rel, NoLock);
+    heap_freetuple(tup);
+
+    return address;
+}
+```

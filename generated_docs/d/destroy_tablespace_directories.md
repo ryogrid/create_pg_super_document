@@ -47,3 +47,103 @@ Special handling addresses potential race conditions during directory removal an
 - Provides detailed error messages distinguishing between different failure modes
 - Designed to be retryable - partial failures don't leave inconsistent state
 - Protected by TablespaceCreateLock held by caller to prevent concurrent modifications
+
+## Simplified Source
+
+```c
+static bool destroy_tablespace_directories(Oid tablespaceoid, bool redo) {
+    char *linkloc_with_version_dir;
+    DIR *dirdesc;
+    struct dirent *de;
+    char *subfile;
+    struct stat st;
+
+    // Step 1: Build path to tablespace version directory
+    linkloc_with_version_dir = psprintf("pg_tblspc/%u/%s", tablespaceoid,
+                                       TABLESPACE_VERSION_DIRECTORY);
+
+    // Step 2: Open tablespace directory for scanning
+    dirdesc = AllocateDir(linkloc_with_version_dir);
+    if (dirdesc == NULL) {
+        if (errno == ENOENT) {
+            // Directory doesn't exist - warn and proceed to symlink removal
+            if (!redo) {
+                ereport(WARNING, (errmsg("could not open directory \"%s\"",
+                                        linkloc_with_version_dir)));
+            }
+            goto remove_symlink;
+        } else if (redo) {
+            // In WAL replay, log error and return failure
+            ereport(LOG, (errmsg("could not open directory \"%s\"",
+                                 linkloc_with_version_dir)));
+            return false;
+        }
+        // Normal operation - let ReadDir report the error
+    }
+
+    // Step 3: Remove all database subdirectories
+    while ((de = ReadDir(dirdesc, linkloc_with_version_dir)) != NULL) {
+        if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+            continue;
+
+        subfile = psprintf("%s/%s", linkloc_with_version_dir, de->d_name);
+
+        // Check if subdirectory is empty before attempting removal
+        if (!redo && !directory_is_empty(subfile)) {
+            FreeDir(dirdesc);
+            pfree(subfile);
+            pfree(linkloc_with_version_dir);
+            return false;  // Cannot remove non-empty directory
+        }
+
+        // Remove the empty database subdirectory
+        if (rmdir(subfile) < 0) {
+            ereport(redo ? LOG : ERROR, (errmsg("could not remove directory \"%s\"", subfile)));
+        }
+
+        pfree(subfile);
+    }
+
+    FreeDir(dirdesc);
+
+    // Step 4: Remove the version directory itself
+    if (rmdir(linkloc_with_version_dir) < 0) {
+        ereport(redo ? LOG : ERROR, (errmsg("could not remove directory \"%s\"",
+                                           linkloc_with_version_dir)));
+        pfree(linkloc_with_version_dir);
+        return false;
+    }
+
+remove_symlink:
+    // Step 5: Remove the tablespace symlink or directory
+    char *linkloc = pstrdup(linkloc_with_version_dir);
+    get_parent_directory(linkloc);
+
+    if (lstat(linkloc, &st) < 0) {
+        int saved_errno = errno;
+        ereport(redo ? LOG : (saved_errno == ENOENT ? WARNING : ERROR),
+                (errmsg("could not stat file \"%s\"", linkloc)));
+    } else if (S_ISDIR(st.st_mode)) {
+        // Remove directory
+        if (rmdir(linkloc) < 0) {
+            ereport(redo ? LOG : (errno == ENOENT ? WARNING : ERROR),
+                    (errmsg("could not remove directory \"%s\"", linkloc)));
+        }
+    } else if (S_ISLNK(st.st_mode)) {
+        // Remove symlink
+        if (unlink(linkloc) < 0) {
+            ereport(redo ? LOG : (errno == ENOENT ? WARNING : ERROR),
+                    (errmsg("could not remove symbolic link \"%s\"", linkloc)));
+        }
+    } else {
+        // Neither directory nor symlink - error
+        ereport(redo ? LOG : ERROR,
+                (errmsg("\"%s\" is not a directory or symbolic link", linkloc)));
+    }
+
+    pfree(linkloc_with_version_dir);
+    pfree(linkloc);
+
+    return true;
+}
+```

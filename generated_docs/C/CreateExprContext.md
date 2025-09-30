@@ -30,7 +30,7 @@ The function delegates all initialization work to CreateExprContextInternal() wi
 
 - Called from (representative examples):
   - [ExecuteCallStmt](../E/ExecuteCallStmt.md)
-  - [MakePerTupleExprContext](../M/MakePerTupleExprContext.md)  
+  - [MakePerTupleExprContext](../M/MakePerTupleExprContext.md)
   - [ExecAssignExprContext](../E/ExecAssignExprContext.md)
   - [ExecInitMergeJoin](../E/ExecInitMergeJoin.md)
   - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
@@ -38,3 +38,13 @@ The function delegates all initialization work to CreateExprContextInternal() wi
 
 ## Notes and Other Information
 This is the standard public interface for creating ExprContexts in PostgreSQL's executor. It provides a simple, one-parameter interface while hiding the complexity of memory management parameter tuning. For scenarios requiring custom memory allocation behavior, callers would use CreateWorkExprContext() instead. The function is commonly used throughout the executor infrastructure, with many Plan node initialization routines calling it to set up expression evaluation contexts. Each ExprContext created gets its own per-tuple memory context that can be reset between tuple evaluations to manage memory usage efficiently.
+
+## Simplified Source
+
+```c
+ExprContext *
+CreateExprContext(EState *estate)
+{
+    return CreateExprContextInternal(estate, ALLOCSET_DEFAULT_SIZES);
+}
+```

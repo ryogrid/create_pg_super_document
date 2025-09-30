@@ -40,3 +40,44 @@ The function includes a special optimization for PL/pgSQL: if the cursor name ma
 - Silently ignores false matches that don't resolve to REFCURSOR parameters
 - Modifies the input CurrentOfExpr node in place
 - Located in src/backend/parser/parse_expr.c:2568-2619
+
+## Simplified Source
+
+```c
+static Node *
+transformCurrentOfExpr(ParseState *pstate, CurrentOfExpr *cexpr)
+{
+    // CURRENT OF can only appear at top level of UPDATE/DELETE
+    Assert(pstate->p_target_nsitem != NULL);
+    cexpr->cvarno = pstate->p_target_nsitem->p_rtindex;
+
+    // Check if cursor name matches a REFCURSOR parameter (PL/pgSQL compatibility)
+    if (cexpr->cursor_name != NULL)
+    {
+        // Create a temporary ColumnRef for the cursor name
+        ColumnRef *cref = makeNode(ColumnRef);
+        cref->fields = list_make1(makeString(cexpr->cursor_name));
+        cref->location = -1;
+
+        // Try to resolve through parser hooks
+        Node *node = NULL;
+        if (pstate->p_pre_columnref_hook != NULL)
+            node = pstate->p_pre_columnref_hook(pstate, cref);
+        if (node == NULL && pstate->p_post_columnref_hook != NULL)
+            node = pstate->p_post_columnref_hook(pstate, cref, NULL);
+
+        // If resolved to a REFCURSOR parameter, convert to parameter reference
+        if (node != NULL && IsA(node, Param))
+        {
+            Param *p = (Param *) node;
+            if (p->paramkind == PARAM_EXTERN && p->paramtype == REFCURSOROID)
+            {
+                cexpr->cursor_name = NULL;
+                cexpr->cursor_param = p->paramid;
+            }
+        }
+    }
+
+    return (Node *) cexpr;
+}
+```

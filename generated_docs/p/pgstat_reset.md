@@ -42,3 +42,23 @@ The function includes safety assertions to ensure it's not called on fixed-amoun
 - Database timestamp updating only occurs for statistics kinds that are not accessed across databases
 - This provides the granular reset capability that complements the broader pgstat_reset_counters() function
 - The function is essential for administrative operations that need to reset statistics for specific objects without affecting the entire database
+
+## Simplified Source
+```c
+void pgstat_reset(PgStat_Kind kind, Oid dboid, Oid objoid) {
+    // Get metadata about this statistics kind
+    const PgStat_KindInfo *kind_info = pgstat_get_kind_info(kind);
+    TimestampTz ts = GetCurrentTimestamp();
+
+    // Assert this isn't a fixed-amount kind (unsupported with current signature)
+    Assert(!kind_info->fixed_amount);
+
+    // Reset the specific statistics entry
+    pgstat_reset_entry(kind, dboid, objoid, ts);
+
+    // Update database timestamp if this is database-scoped statistics
+    if (!kind_info->accessed_across_databases) {
+        pgstat_reset_database_timestamp(dboid, ts);
+    }
+}
+```

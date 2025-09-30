@@ -41,3 +41,14 @@ This function is designed to be used as a callback with PostgreSQL's function ch
 - Returns true for both STABLE and VOLATILE functions (any non-IMMUTABLE function)
 - Part of the expression analysis system that prevents incorrect constant folding
 - The context parameter is unused but maintained for callback compatibility
+
+## Simplified Source
+
+```c
+static bool
+contain_mutable_functions_checker(Oid func_id, void *context)
+{
+    // Return true if function is not immutable (i.e., is mutable)
+    return (func_volatile(func_id) != PROVOLATILE_IMMUTABLE);
+}
+```

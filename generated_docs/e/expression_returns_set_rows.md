@@ -43,3 +43,36 @@ For both types, it delegates to  to obtain the estimated row count and applies  
 - Only examines top-level expressions to avoid double-counting nested SRF multipliers
 - Uses  to ensure row estimates remain within sane bounds
 - Part of PostgreSQL's cost estimation framework for query optimization
+
+## Simplified Source
+
+```c
+double
+expression_returns_set_rows(PlannerInfo *root, Node *clause)
+{
+    if (clause == NULL)
+        return 1.0;
+
+    // Handle set-returning function expressions
+    if (IsA(clause, FuncExpr))
+    {
+        FuncExpr *expr = (FuncExpr *) clause;
+        if (expr->funcretset)
+            return clamp_row_est(get_function_rows(root, expr->funcid, clause));
+    }
+
+    // Handle set-returning operator expressions
+    if (IsA(clause, OpExpr))
+    {
+        OpExpr *expr = (OpExpr *) clause;
+        if (expr->opretset)
+        {
+            set_opfuncid(expr);
+            return clamp_row_est(get_function_rows(root, expr->opfuncid, clause));
+        }
+    }
+
+    // Default: non-set-returning expressions return 1 row
+    return 1.0;
+}
+```

@@ -41,3 +41,87 @@ This function performs a comprehensive check for dependencies on a shared databa
 - Immediately errors for pinned objects that are required by the database system
 - Uses dynamic memory allocation for dependency arrays, starting with 128 objects and doubling as needed
 - Distinguishes between LOCAL_OBJECT, SHARED_OBJECT, and REMOTE_OBJECT dependency types
+
+## Simplified Source
+
+```c
+bool checkSharedDependencies(Oid classId, Oid objectId,
+                           char **detail_msg, char **detail_log_msg) {
+    Relation sdepRel;
+    SysScanDesc scan;
+    HeapTuple tup;
+    int numReportedDeps = 0;
+    int numNotReportedDeps = 0;
+    ObjectAddress object;
+    ShDependObjectInfo *objects;
+    StringInfoData descs, alldescs;
+
+    // Quick check: if object is pinned (required by system), error immediately
+    if (IsPinnedObject(classId, objectId)) {
+        object.classId = classId;
+        object.objectId = objectId;
+        object.objectSubId = 0;
+        ereport(ERROR, (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                       errmsg("cannot drop %s because it is required by the database system",
+                              getObjectDescription(&object, false))));
+    }
+
+    // Step 1: Scan pg_shdepend catalog for dependencies
+    sdepRel = table_open(SharedDependRelationId, AccessShareLock);
+
+    ScanKeyInit(&key[0], Anum_pg_shdepend_refclassid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1], Anum_pg_shdepend_refobjid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objectId));
+
+    scan = systable_beginscan(sdepRel, SharedDependReferenceIndexId, true, NULL, 2, key);
+
+    // Step 2: Collect and categorize dependencies
+    initStringInfo(&descs);
+    initStringInfo(&alldescs);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_shdepend shdepForm = (Form_pg_shdepend) GETSTRUCT(tup);
+
+        // Categorize dependency: LOCAL_OBJECT, SHARED_OBJECT, or REMOTE_OBJECT
+        if (shdepForm->dbid == MyDatabaseId) {
+            // Local object dependency - get description
+            collect_local_dependency(shdepForm, &objects, &numReportedDeps);
+        } else if (shdepForm->dbid == InvalidOid) {
+            // Shared object dependency - get description
+            collect_shared_dependency(shdepForm, &objects, &numReportedDeps);
+        } else {
+            // Remote database dependency - just count
+            numNotReportedDeps++;
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(sdepRel, AccessShareLock);
+
+    // Step 3: Format dependency descriptions
+    if (numReportedDeps > 0) {
+        // Sort objects for consistent output
+        qsort(objects, numReportedDeps, sizeof(ShDependObjectInfo), shared_dependency_comparator);
+
+        // Build description strings (limited for client, complete for log)
+        for (int i = 0; i < numReportedDeps; i++) {
+            char *objdesc = getObjectDescription(&objects[i].object, false);
+
+            if (i < MAX_REPORTED_DEPS) {
+                appendStringInfo(&descs, "%s\n", objdesc);
+            }
+            appendStringInfo(&alldescs, "%s\n", objdesc);
+        }
+    }
+
+    // Step 4: Add remote dependency summary if any
+    if (numNotReportedDeps > 0) {
+        appendStringInfo(&alldescs, "%d dependencies from other databases\n", numNotReportedDeps);
+    }
+
+    // Step 5: Set output parameters and return result
+    *detail_msg = (descs.len > 0) ? descs.data : NULL;
+    *detail_log_msg = (alldescs.len > 0) ? alldescs.data : NULL;
+
+    return (numReportedDeps > 0 || numNotReportedDeps > 0);
+}
+```

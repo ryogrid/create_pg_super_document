@@ -56,3 +56,61 @@ The function uses AccessExclusiveLock to ensure exclusive access during the sche
 - Performs standard namespace change validations via CheckSetNamespace
 - Returns an ObjectAddress pointing to the moved relation for dependency tracking
 - If oldschema parameter is provided, it receives the OID of the original schema
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterTableNamespace(AlterObjectSchemaStmt *stmt, Oid *oldschema)
+{
+    // Get relation OID with exclusive lock
+    Oid relid = RangeVarGetRelidExtended(stmt->relation, AccessExclusiveLock,
+                                        stmt->missing_ok ? RVR_MISSING_OK : 0,
+                                        RangeVarCallbackForAlterRelation, stmt);
+
+    // Handle missing relation case
+    if (!OidIsValid(relid)) {
+        ereport(NOTICE, "relation does not exist, skipping");
+        return InvalidObjectAddress;
+    }
+
+    // Open relation and get current namespace
+    Relation rel = relation_open(relid, NoLock);
+    Oid oldNspOid = RelationGetNamespace(rel);
+
+    // Special check: prevent moving owned sequences independently
+    if (rel->rd_rel->relkind == RELKIND_SEQUENCE) {
+        Oid tableId;
+        int32 colId;
+        if (sequenceIsOwned(relid, DEPENDENCY_AUTO, &tableId, &colId) ||
+            sequenceIsOwned(relid, DEPENDENCY_INTERNAL, &tableId, &colId)) {
+            ereport(ERROR, "cannot move an owned sequence into another schema");
+        }
+    }
+
+    // Get target namespace and check permissions
+    RangeVar *newrv = makeRangeVar(stmt->newschema, RelationGetRelationName(rel), -1);
+    Oid nspOid = RangeVarGetAndCheckCreationNamespace(newrv, NoLock, NULL);
+
+    // Validate namespace change is allowed
+    CheckSetNamespace(oldNspOid, nspOid);
+
+    // Perform the actual namespace change
+    ObjectAddresses *objsMoved = new_object_addresses();
+    AlterTableNamespaceInternal(rel, oldNspOid, nspOid, objsMoved);
+    free_object_addresses(objsMoved);
+
+    // Set up return value
+    ObjectAddress myself;
+    ObjectAddressSet(myself, RelationRelationId, relid);
+
+    // Return old schema if requested
+    if (oldschema)
+        *oldschema = oldNspOid;
+
+    // Keep lock until commit
+    relation_close(rel, NoLock);
+
+    return myself;
+}
+```

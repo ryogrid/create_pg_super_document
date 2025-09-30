@@ -42,3 +42,36 @@ This prevents errors in cases like  while ensuring that single-argument ordered-
 - The decision is based on having exactly one aggregated argument AND the function being non-variadic
 - This approach ensures backward compatibility while supporting complex ordered-set aggregates with multiple sort columns
 - Examples of ordered-set aggregates include percentile_cont, percentile_disc, and mode functions
+
+## Simplified Source
+
+```c
+static void
+assign_ordered_set_collations(Aggref *aggref,
+                              assign_collations_context *loccontext)
+{
+    bool merge_sort_collations;
+    ListCell *lc;
+
+    // Determine if sort collations should merge to parent
+    // Only merge if exactly one argument and function is non-variadic
+    merge_sort_collations = (list_length(aggref->args) == 1 &&
+                            get_func_variadictype(aggref->aggfnoid) == InvalidOid);
+
+    // Process direct arguments normally
+    assign_collations_walker((Node *) aggref->aggdirectargs, loccontext);
+
+    // Process aggregated arguments based on merge decision
+    foreach(lc, aggref->args)
+    {
+        TargetEntry *tle = lfirst_node(TargetEntry, lc);
+
+        if (merge_sort_collations)
+            // Single argument: contribute to aggregate's collation
+            assign_collations_walker((Node *) tle, loccontext);
+        else
+            // Multiple arguments: treat as independent sort columns
+            assign_expr_collations(loccontext->pstate, (Node *) tle);
+    }
+}
+```

@@ -39,3 +39,26 @@ This is particularly important for access methods that implement custom truncati
 - Works with the pending sync system to track truncated relations
 - Must be called before any reduction in table size occurs
 - The function is designed to be access method-independent, providing a common interface for truncation preparation
+
+## Simplified Source
+
+```c
+void
+RelationPreTruncate(Relation rel)
+{
+    PendingRelSync *pending;
+
+    // Exit early if no pending sync hash exists
+    if (!pendingSyncHash)
+        return;
+
+    // Look for this relation in the pending sync hash
+    pending = hash_search(pendingSyncHash,
+                         &(RelationGetSmgr(rel)->smgr_rlocator.locator),
+                         HASH_FIND, NULL);
+
+    // Mark as truncated if found
+    if (pending)
+        pending->is_truncated = true;
+}
+```

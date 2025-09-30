@@ -39,3 +39,17 @@ The function is static and serves as an internal utility within the fileset.c mo
 - Used as a fundamental building block for FileSet file operations throughout PostgreSQL
 - The resulting path includes both the FileSet directory structure and the specific file name
 - Provides abstraction over the underlying distributed file storage implementation
+
+## Simplified Source
+
+```c
+static void FilePath(char *path, FileSet *fileset, const char *name) {
+    char dirpath[MAXPGPATH];
+
+    // Get the directory path for the chosen tablespace
+    FileSetPath(dirpath, fileset, ChooseTablespace(fileset, name));
+
+    // Combine directory path with file name
+    snprintf(path, MAXPGPATH, "%s/%s", dirpath, name);
+}
+```

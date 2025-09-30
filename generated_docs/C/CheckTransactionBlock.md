@@ -36,3 +36,26 @@ The function implements a hierarchical check system: it first verifies if the co
 
 ## Notes and Other Information
 This static function is the shared implementation that enables the distinction between warning and error behaviors for transaction block validation. The function design allows for graceful handling of different execution contexts - it silently returns when appropriate contexts are detected (transaction blocks, subtransactions, or function calls), only reporting issues when commands are executed in inappropriate contexts at the top level. The error message format is consistent across all callers, providing clear guidance to users about transaction block requirements.
+
+## Simplified Source
+
+```c
+static void CheckTransactionBlock(bool isTopLevel, bool throwError, const char *stmtType) {
+    // Already in a transaction block? OK to proceed
+    if (IsTransactionBlock())
+        return;
+
+    // In a subtransaction? OK to proceed
+    if (IsSubTransaction())
+        return;
+
+    // Inside a function call? OK to proceed
+    if (!isTopLevel)
+        return;
+
+    // Statement is at top level and not in transaction - report issue
+    ereport(throwError ? ERROR : WARNING,
+            (errcode(ERRCODE_NO_ACTIVE_SQL_TRANSACTION),
+             errmsg("%s can only be used in transaction blocks", stmtType)));
+}
+```

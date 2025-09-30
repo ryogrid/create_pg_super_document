@@ -43,3 +43,43 @@ The classification is particularly important for determining return value handli
 - Domain types are resolved to their base types, with special classification if the base is composite
 - The function is static (internal to funcapi.c) and serves as a utility for other type-handling functions
 - Critical for proper function return value processing in PostgreSQL's type system
+
+## Simplified Source
+
+```c
+static TypeFuncClass get_type_func_class(Oid typid, Oid *base_typeid) {
+    *base_typeid = typid;
+
+    // Classify based on type category
+    switch (get_typtype(typid)) {
+        case TYPTYPE_COMPOSITE:
+            return TYPEFUNC_COMPOSITE;
+
+        case TYPTYPE_BASE:
+        case TYPTYPE_ENUM:
+        case TYPTYPE_RANGE:
+        case TYPTYPE_MULTIRANGE:
+            return TYPEFUNC_SCALAR;
+
+        case TYPTYPE_DOMAIN:
+            // Resolve domain to base type
+            *base_typeid = typid = getBaseType(typid);
+            if (get_typtype(typid) == TYPTYPE_COMPOSITE)
+                return TYPEFUNC_COMPOSITE_DOMAIN;
+            else
+                return TYPEFUNC_SCALAR;
+
+        case TYPTYPE_PSEUDO:
+            if (typid == RECORDOID)
+                return TYPEFUNC_RECORD;
+
+            // Special cases: VOID and CSTRING treated as scalars
+            if (typid == VOIDOID || typid == CSTRINGOID)
+                return TYPEFUNC_SCALAR;
+
+            return TYPEFUNC_OTHER;
+    }
+
+    return TYPEFUNC_OTHER;
+}
+```

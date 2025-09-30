@@ -46,3 +46,22 @@ Key characteristics:
 - Used in various contexts where plan nodes need to be adapted to produce different target lists than originally planned
 - The parallel_safe parameter must be carefully set based on analysis of the target list expressions, as parallel-unsafe expressions cannot be safely executed in parallel workers
 - Common usage scenarios include Append/MergeAppend plans where child plans need unified target lists, and sort preparation where additional expressions need to be computed
+
+## Simplified Source
+
+```c
+static Plan *
+inject_projection_plan(Plan *subplan, List *tlist, bool parallel_safe)
+{
+    // Create Result node to perform the projection
+    Plan *plan = (Plan *) make_result(tlist, NULL, subplan);
+
+    // Copy cost estimates from subplan (projection costs not separately tracked)
+    copy_plan_costsize(plan, subplan);
+
+    // Set parallel safety based on target list expressions
+    plan->parallel_safe = parallel_safe;
+
+    return plan;
+}
+```

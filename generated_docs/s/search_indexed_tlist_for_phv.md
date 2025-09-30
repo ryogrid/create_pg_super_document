@@ -52,3 +52,57 @@ The function includes validation of phnullingrels between the input PlaceHolderV
 - Matching is performed on phid only, not complete equality, for both performance and correctness reasons
 - Part of PostgreSQL's plan tree reference fixing mechanism during query optimization
 - Located in src/backend/optimizer/plan/setrefs.c at lines 2862-2914
+
+## Simplified Source
+
+```c
+// Simplified version of search_indexed_tlist_for_phv
+static Var *
+search_indexed_tlist_for_phv(PlaceHolderVar *placeholder,
+                             indexed_tlist *target_list, int new_varno,
+                             NullingRelsMatch match_type) {
+    ListCell *cell;
+
+    // Search through target list for matching PlaceHolderVar
+    foreach(cell, target_list->tlist) {
+        TargetEntry *entry = (TargetEntry *) lfirst(cell);
+
+        if (entry->expr && IsA(entry->expr, PlaceHolderVar)) {
+            PlaceHolderVar *subplan_phv = (PlaceHolderVar *) entry->expr;
+
+            // Match on placeholder ID only
+            if (placeholder->phid != subplan_phv->phid)
+                continue;
+
+            // Validate nulling relations based on match type
+            bool nulling_rels_valid = false;
+            if (match_type == NRM_SUBSET)
+                nulling_rels_valid = bms_is_subset(placeholder->phnullingrels,
+                                                   subplan_phv->phnullingrels);
+            else if (match_type == NRM_SUPERSET)
+                nulling_rels_valid = bms_is_subset(subplan_phv->phnullingrels,
+                                                   placeholder->phnullingrels);
+            else
+                nulling_rels_valid = bms_equal(subplan_phv->phnullingrels,
+                                               placeholder->phnullingrels);
+
+            if (!nulling_rels_valid)
+                elog(ERROR, "wrong phnullingrels for PlaceHolderVar %d", placeholder->phid);
+
+            // Create new Var referencing the target list entry
+            Var *new_var = makeVarFromTargetEntry(new_varno, entry);
+            new_var->varnosyn = 0;     // Mark as synthetic
+            new_var->varattnosyn = 0;
+            return new_var;
+        }
+    }
+
+    return NULL;  // No match found
+}
+```
+
+Key simplifications made:
+- Used more descriptive parameter names for clarity
+- Simplified the nulling relations validation logic
+- Added comments explaining the matching strategy
+- Focused on the core PlaceHolderVar matching and Var creation logic

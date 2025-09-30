@@ -42,3 +42,32 @@ This design allows the CLUSTER command to process multiple tables safely while m
 - Each relation is processed independently, allowing partial success if some relations fail
 - [Snapshot](../S/Snapshot.md) management is crucial for ensuring consistent reads within each transaction
 - This pattern is similar to the approach used by VACUUM for processing multiple relations
+
+## Simplified Source
+
+```c
+static void cluster_multiple_rels(List *rtcs, ClusterParams *params)
+{
+    ListCell *lc;
+
+    // Exit the starting transaction
+    PopActiveSnapshot();
+    CommitTransactionCommand();
+
+    // Process each relation in its own transaction
+    foreach(lc, rtcs) {
+        RelToCluster *rtc = (RelToCluster *) lfirst(lc);
+
+        // Start new transaction for this relation
+        StartTransactionCommand();
+        PushActiveSnapshot(GetTransactionSnapshot());
+
+        // Perform the clustering operation
+        cluster_rel(rtc->tableOid, rtc->indexOid, params);
+
+        // Clean up and commit transaction
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+    }
+}
+```

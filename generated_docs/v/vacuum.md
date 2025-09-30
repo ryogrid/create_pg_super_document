@@ -54,3 +54,135 @@ The function implements sophisticated transaction handling logic: VACUUM operati
 - Uses PG_TRY/PG_FINALLY blocks to ensure proper cleanup of vacuum state variables
 - Handles both single-relation and multi-relation operations with appropriate transaction boundaries
 - Updates system-wide frozen transaction ID tracking after vacuum operations complete
+
+## Simplified Source
+
+```c
+void
+vacuum(List *relations, VacuumParams *params, BufferAccessStrategy bstrategy,
+       MemoryContext vac_context, bool isTopLevel)
+{
+    static bool in_vacuum = false;
+    const char *stmttype = (params->options & VACOPT_VACUUM) ? "VACUUM" : "ANALYZE";
+    bool in_outer_xact, use_own_xacts;
+
+    // Transaction validation for VACUUM operations
+    if (params->options & VACOPT_VACUUM) {
+        PreventInTransactionBlock(isTopLevel, stmttype);
+        in_outer_xact = false;
+    } else {
+        in_outer_xact = IsInTransactionBlock(isTopLevel);
+    }
+
+    // Prevent recursive vacuum calls
+    if (in_vacuum)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("%s cannot be executed from VACUUM or ANALYZE", stmttype)));
+
+    // Build relation list
+    if (params->options & VACOPT_ONLY_DATABASE_STATS) {
+        // Database stats only, no table processing
+        Assert(relations == NIL);
+    } else if (relations != NIL) {
+        // Expand provided relation list
+        List *newrels = NIL;
+        ListCell *lc;
+        foreach(lc, relations) {
+            VacuumRelation *vrel = lfirst_node(VacuumRelation, lc);
+            List *sublist = expand_vacuum_rel(vrel, vac_context, params->options);
+            MemoryContext old_context = MemoryContextSwitchTo(vac_context);
+            newrels = list_concat(newrels, sublist);
+            MemoryContextSwitchTo(old_context);
+        }
+        relations = newrels;
+    } else {
+        // Get all vacuum-eligible relations
+        relations = get_all_vacuum_rels(vac_context, params->options);
+    }
+
+    // Decide on transaction strategy
+    if (params->options & VACOPT_VACUUM) {
+        use_own_xacts = true;  // VACUUM always uses separate transactions
+    } else {
+        // ANALYZE transaction strategy depends on context
+        if (AmAutoVacuumWorkerProcess())
+            use_own_xacts = true;
+        else if (in_outer_xact)
+            use_own_xacts = false;
+        else if (list_length(relations) > 1)
+            use_own_xacts = true;
+        else
+            use_own_xacts = false;
+    }
+
+    // Start transaction management
+    if (use_own_xacts) {
+        Assert(!in_outer_xact);
+        if (ActiveSnapshotSet())
+            PopActiveSnapshot();
+        CommitTransactionCommand();
+    }
+
+    // Main vacuum/analyze processing
+    PG_TRY();
+    {
+        ListCell *cur;
+
+        in_vacuum = true;
+        VacuumFailsafeActive = false;
+        VacuumUpdateCosts();
+        VacuumCostBalance = 0;
+
+        // Process each relation
+        foreach(cur, relations) {
+            VacuumRelation *vrel = lfirst_node(VacuumRelation, cur);
+
+            if (params->options & VACOPT_VACUUM) {
+                VacuumParams params_copy;
+                memcpy(&params_copy, params, sizeof(VacuumParams));
+                if (!vacuum_rel(vrel->oid, vrel->relation, &params_copy, bstrategy))
+                    continue;
+            }
+
+            if (params->options & VACOPT_ANALYZE) {
+                if (use_own_xacts) {
+                    StartTransactionCommand();
+                    PushActiveSnapshot(GetTransactionSnapshot());
+                }
+
+                analyze_rel(vrel->oid, vrel->relation, params,
+                           vrel->va_cols, in_outer_xact, bstrategy);
+
+                if (use_own_xacts) {
+                    PopActiveSnapshot();
+                    CommandCounterIncrement();
+                    CommitTransactionCommand();
+                } else {
+                    CommandCounterIncrement();
+                }
+            }
+
+            VacuumFailsafeActive = false;
+        }
+    }
+    PG_FINALLY();
+    {
+        in_vacuum = false;
+        VacuumCostActive = false;
+        VacuumFailsafeActive = false;
+        VacuumCostBalance = 0;
+    }
+    PG_END_TRY();
+
+    // Finish transaction management
+    if (use_own_xacts) {
+        StartTransactionCommand();
+    }
+
+    // Update database-wide statistics if needed
+    if ((params->options & VACOPT_VACUUM) &&
+        !(params->options & VACOPT_SKIP_DATABASE_STATS)) {
+        vac_update_datfrozenxid();
+    }
+}
+```

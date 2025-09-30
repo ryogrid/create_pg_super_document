@@ -51,3 +51,100 @@ The function supports PostgreSQL's inheritance hierarchy by recursively processi
 - Temporary tables from other backends are silently skipped during inheritance processing to avoid buffering conflicts
 - All relations remain locked with AccessExclusiveLock until the entire operation completes to ensure consistency
 - Logical decoding support ensures that truncation operations can be properly replicated when needed
+
+## Simplified Source
+
+```c
+void ExecuteTruncate(TruncateStmt *stmt)
+{
+    List *rels = NIL;
+    List *relids = NIL;
+    List *relids_logged = NIL;
+    ListCell *cell;
+
+    // Process all explicitly-specified relations
+    foreach(cell, stmt->relations)
+    {
+        RangeVar *rv = lfirst(cell);
+        Relation rel;
+        bool recurse = rv->inh;
+        Oid myrelid;
+        LOCKMODE lockmode = AccessExclusiveLock;
+
+        // Get relation OID with exclusive lock
+        myrelid = RangeVarGetRelidExtended(rv, lockmode, 0,
+                                          RangeVarCallbackForTruncate, NULL);
+
+        // Skip duplicates (e.g., "TRUNCATE foo, foo")
+        if (list_member_oid(relids, myrelid))
+            continue;
+
+        // Open relation (already locked)
+        rel = table_open(myrelid, NoLock);
+
+        // Perform relation-specific checks
+        truncate_check_activity(rel);
+
+        // Add to lists for processing
+        rels = lappend(rels, rel);
+        relids = lappend_oid(relids, myrelid);
+
+        // Track for logical decoding if needed
+        if (RelationIsLogicallyLogged(rel))
+            relids_logged = lappend_oid(relids_logged, myrelid);
+
+        // Handle inheritance (include child tables)
+        if (recurse)
+        {
+            ListCell *child;
+            List *children = find_all_inheritors(myrelid, lockmode, NULL);
+
+            foreach(child, children)
+            {
+                Oid childrelid = lfirst_oid(child);
+
+                // Skip if already processed
+                if (list_member_oid(relids, childrelid))
+                    continue;
+
+                // Open child relation
+                rel = table_open(childrelid, NoLock);
+
+                // Skip temp tables from other backends
+                if (RELATION_IS_OTHER_TEMP(rel))
+                {
+                    table_close(rel, lockmode);
+                    continue;
+                }
+
+                // Check child relation
+                truncate_check_rel(RelationGetRelid(rel), rel->rd_rel);
+                truncate_check_activity(rel);
+
+                // Add child to processing lists
+                rels = lappend(rels, rel);
+                relids = lappend_oid(relids, childrelid);
+
+                if (RelationIsLogicallyLogged(rel))
+                    relids_logged = lappend_oid(relids_logged, childrelid);
+            }
+        }
+        else if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        {
+            // Cannot truncate only parent of partitioned table
+            ereport(ERROR, /* cannot truncate only a partitioned table */);
+        }
+    }
+
+    // Perform the actual truncation
+    ExecuteTruncateGuts(rels, relids, relids_logged,
+                       stmt->behavior, stmt->restart_seqs, false);
+
+    // Close all relations
+    foreach(cell, rels)
+    {
+        Relation rel = (Relation) lfirst(cell);
+        table_close(rel, NoLock);
+    }
+}
+```

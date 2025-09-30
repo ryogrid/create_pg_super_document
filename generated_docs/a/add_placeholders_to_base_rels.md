@@ -36,3 +36,36 @@ The function iterates through all placeholders and checks if the evaluation can 
 - The function copies the PlaceHolderVar when adding it to the target list for safety
 - Target list cost and width fields are updated later in the planning process
 - Similar logic exists in add_placeholders_to_joinrel for handling join-level placeholder additions
+
+## Simplified Source
+
+```c
+void add_placeholders_to_base_rels(PlannerInfo *root)
+{
+    ListCell *lc;
+
+    // Process each placeholder in the query
+    foreach(lc, root->placeholder_list)
+    {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(lc);
+        Relids eval_at = phinfo->ph_eval_at;
+        int varno;
+
+        // Check if placeholder can be computed at exactly one base relation
+        // and is needed at higher levels
+        if (bms_get_singleton_member(eval_at, &varno) &&
+            bms_nonempty_difference(phinfo->ph_needed, eval_at))
+        {
+            RelOptInfo *rel = find_base_rel(root, varno);
+
+            // Placeholder at scan level should not have nulling relations
+            Assert(phinfo->ph_var->phnullingrels == NULL);
+
+            // Add placeholder to base relation's target list
+            rel->reltarget->exprs = lappend(rel->reltarget->exprs,
+                                            copyObject(phinfo->ph_var));
+            // Cost and width fields will be updated later
+        }
+    }
+}
+```

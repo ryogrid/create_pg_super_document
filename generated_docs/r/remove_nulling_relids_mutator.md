@@ -53,3 +53,66 @@ The function includes sophisticated logic for PlaceHolderVars, ensuring that bot
 - Uses bms_difference for safe removal of relation IDs from bitmapsets
 - Includes Assert to verify that phrels remains non-empty after processing
 - Critical component of outer join optimization and nulling relation cleanup in PostgreSQL's query planner
+
+## Simplified Source
+
+```c
+static Node *remove_nulling_relids_mutator(Node *node,
+                                          remove_nulling_relids_context *context)
+{
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) node;
+
+        // Check if this Var should be modified
+        if (var->varlevelsup == context->sublevels_up &&
+            !bms_is_member(var->varno, context->except_relids) &&
+            bms_overlap(var->varnullingrels, context->removable_relids))
+        {
+            // Copy the Var and remove specified nulling relations
+            var = copyObject(var);
+            var->varnullingrels = bms_difference(var->varnullingrels,
+                                               context->removable_relids);
+            return (Node *) var;
+        }
+    }
+    else if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Check if this PHV should be modified
+        if (phv->phlevelsup == context->sublevels_up &&
+            !bms_overlap(phv->phrels, context->except_relids))
+        {
+            // Recursively process the PHV contents
+            phv = (PlaceHolderVar *)
+                expression_tree_mutator(node, remove_nulling_relids_mutator,
+                                      (void *) context);
+
+            // Update both nulling relations and underlying relations
+            phv->phnullingrels = bms_difference(phv->phnullingrels,
+                                              context->removable_relids);
+            phv->phrels = bms_difference(phv->phrels, context->removable_relids);
+
+            return (Node *) phv;
+        }
+    }
+    else if (IsA(node, Query))
+    {
+        // Handle subqueries by adjusting sublevel counter
+        context->sublevels_up++;
+        Query *newnode = query_tree_mutator((Query *) node,
+                                          remove_nulling_relids_mutator,
+                                          (void *) context, 0);
+        context->sublevels_up--;
+        return (Node *) newnode;
+    }
+
+    // Default: recursively process other node types
+    return expression_tree_mutator(node, remove_nulling_relids_mutator,
+                                 (void *) context);
+}
+```

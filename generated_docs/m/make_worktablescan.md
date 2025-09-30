@@ -36,3 +36,34 @@ This function constructs a WorkTableScan plan node, which is specifically design
 - Working tables are essential for implementing recursive CTEs efficiently by providing a mechanism to store and iterate over intermediate results
 - The wtParam allows the executor to distinguish between different working tables when multiple recursive operations are nested or running concurrently
 - Like other scan nodes, this is a leaf node in the plan tree with no child nodes
+
+## Simplified Source
+
+```c
+// Simplified version of make_worktablescan
+static WorkTableScan *
+make_worktablescan(List *target_list, List *qualifiers,
+                   Index scan_relation_id, int working_table_param) {
+    // Create new WorkTableScan node
+    WorkTableScan *work_scan = makeNode(WorkTableScan);
+    Plan *plan = &work_scan->scan.plan;
+
+    // Initialize basic plan structure
+    plan->targetlist = target_list;
+    plan->qual = qualifiers;
+    plan->lefttree = NULL;  // Leaf node
+    plan->righttree = NULL; // Leaf node
+
+    // Set working table specific properties
+    work_scan->scan.scanrelid = scan_relation_id;
+    work_scan->wtParam = working_table_param;
+
+    return work_scan;
+}
+```
+
+Key simplifications made:
+- Used more descriptive parameter names for clarity
+- Added comments explaining the core logic steps
+- Maintained the essential structure initialization pattern
+- Preserved all functional behavior while improving readability

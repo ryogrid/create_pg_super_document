@@ -34,3 +34,22 @@ The `count_nonjunk_tlist_entries` function iterates through a target list and co
 - Used in parser transformations and rule utilities
 - Helps distinguish between internal processing columns and user-visible output columns
 - Essential for proper query result formatting and tuple structure determination
+
+## Simplified Source
+
+```c
+int count_nonjunk_tlist_entries(List *tlist) {
+    int len = 0;
+    ListCell *l;
+
+    // Iterate through target list entries
+    foreach(l, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        // Count only non-junk entries (user-visible columns)
+        if (!tle->resjunk)
+            len++;
+    }
+    return len;
+}
+```

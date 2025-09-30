@@ -44,3 +44,33 @@ The validation process walks down the jointree hierarchy, ensuring that each Fro
 - An alternative implementation could use get_relids_in_jointree() to check for singleton sets, but the WHERE clause check requires the current traversal approach
 - The function is related to fix_append_rel_relids() in terms of coding patterns
 - Located in src/backend/optimizer/prep/prepjointree.c:2143-2190
+
+## Simplified Source
+
+```c
+static bool
+is_safe_append_member(Query *subquery)
+{
+    FromExpr *jtnode = subquery->jointree;
+
+    // Check for empty jointree (safe case)
+    if (jtnode->fromlist == NIL && jtnode->quals == NULL)
+        return true;
+
+    // Traverse down FromExpr hierarchy
+    while (IsA(jtnode, FromExpr)) {
+        // Must have no WHERE quals at any level
+        if (jtnode->quals != NULL)
+            return false;
+
+        // Must have exactly one child in fromlist
+        if (list_length(jtnode->fromlist) != 1)
+            return false;
+
+        jtnode = linitial(jtnode->fromlist);
+    }
+
+    // Final node must be a RangeTblRef
+    return IsA(jtnode, RangeTblRef);
+}
+```

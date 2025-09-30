@@ -37,3 +37,26 @@ This function constructs a TidRangeScan plan node, which implements a specialize
 - The tidrangequals parameter contains range conditions that define the TID boundaries to scan
 - No child plan nodes are needed since TID range scans access tuples directly based on physical address ranges
 - Provides a middle ground between single-TID access (TidScan) and full table access (SeqScan)
+
+## Simplified Source
+
+```c
+static TidRangeScan *make_tidrangescan(List *qptlist, List *qpqual,
+                                      Index scanrelid, List *tidrangequals) {
+    // Create new TidRangeScan node
+    TidRangeScan *node = makeNode(TidRangeScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure TID range scan specifics
+    node->scan.scanrelid = scanrelid;    // Table to scan
+    node->tidrangequals = tidrangequals; // TID range conditions
+
+    return node;
+}
+```

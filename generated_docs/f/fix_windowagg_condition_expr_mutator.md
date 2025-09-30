@@ -51,3 +51,41 @@ The function is designed to be lightweight and efficient, focusing solely on thi
 - It's designed to handle only WindowFunc nodes specifically, making it very focused and efficient
 - The error message provides clear diagnostic information when window functions cannot be resolved
 - This function represents PostgreSQL's optimization strategy of computing window functions once and referencing them multiple times rather than recomputing them
+
+## Simplified Source
+
+```c
+// Simplified version of fix_windowagg_condition_expr_mutator
+static Node *
+fix_windowagg_condition_expr_mutator(Node *node,
+                                     fix_windowagg_cond_context *context) {
+    if (node == NULL)
+        return NULL;
+
+    // Replace WindowFunc nodes with target list variable references
+    if (IsA(node, WindowFunc)) {
+        Var *replacement_var;
+
+        // Search for matching WindowFunc in subplan target list
+        replacement_var = search_indexed_tlist_for_non_var((Expr *) node,
+                                                           context->subplan_itlist,
+                                                           context->newvarno);
+        if (replacement_var)
+            return (Node *) replacement_var;
+
+        // Error if WindowFunc not found in target list
+        elog(ERROR, "WindowFunc not found in subplan target lists");
+    }
+
+    // Recursively process other node types
+    return expression_tree_mutator(node,
+                                   fix_windowagg_condition_expr_mutator,
+                                   (void *) context);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names for clarity
+- Added comments explaining the WindowFunc replacement logic
+- Simplified the control flow while preserving all functionality
+- Focused on the core window function reference transformation

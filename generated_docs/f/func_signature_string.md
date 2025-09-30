@@ -43,3 +43,16 @@ The function internally converts the qualified name list to a string using  and 
 - Returns a palloc'd string that should be freed by the caller when no longer needed
 - The most commonly used function signature formatting function in PostgreSQL, as many parts of the system work with qualified name lists rather than pre-formatted strings
 - Supports the same named argument formatting as its underlying  function
+
+## Simplified Source
+
+```c
+const char *
+func_signature_string(List *funcname, int nargs,
+                      List *argnames, const Oid *argtypes)
+{
+    // Convert qualified name list to string and delegate to core function
+    return funcname_signature_string(NameListToString(funcname),
+                                     nargs, argnames, argtypes);
+}
+```

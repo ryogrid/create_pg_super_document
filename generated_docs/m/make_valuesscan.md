@@ -39,3 +39,34 @@ This scan type is commonly used for queries that provide literal data inline, ta
 - The values_lists parameter contains the actual data expressions that will be evaluated at execution time
 - VALUES scans are often used in INSERT statements, but can also appear in SELECT queries for generating test data or small lookup tables
 - Part of PostgreSQL's query planner infrastructure that handles literal data specified directly in SQL queries
+
+## Simplified Source
+
+```c
+// Simplified version of make_valuesscan
+static ValuesScan *
+make_valuesscan(List *target_list, List *qualifiers,
+                Index scan_relation_id, List *values_lists) {
+    // Create new ValuesScan node
+    ValuesScan *values_scan = makeNode(ValuesScan);
+    Plan *plan = &values_scan->scan.plan;
+
+    // Initialize basic plan structure
+    plan->targetlist = target_list;
+    plan->qual = qualifiers;
+    plan->lefttree = NULL;  // Leaf node
+    plan->righttree = NULL; // Leaf node
+
+    // Set VALUES-specific properties
+    values_scan->scan.scanrelid = scan_relation_id;
+    values_scan->values_lists = values_lists;
+
+    return values_scan;
+}
+```
+
+Key simplifications made:
+- Used more descriptive parameter names for clarity
+- Added comments explaining the core logic steps
+- Maintained the essential structure initialization pattern
+- Preserved all functional behavior while improving readability

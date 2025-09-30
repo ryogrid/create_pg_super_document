@@ -38,3 +38,73 @@ This function is called after DefineRelation() to complete the creation of a for
 
 ## Notes and Other Information
 The function is designed to be called as a second phase after the basic relation has been created, requiring a command counter increment to ensure visibility of any previous tuple updates. Currently, the table owner is always set to the effective user ID and cannot be specified during creation. The function establishes a normal dependency on the foreign server, ensuring that foreign tables are properly dropped when their associated server is removed.
+
+## Simplified Source
+
+```c
+void
+CreateForeignTable(CreateForeignTableStmt *stmt, Oid relid)
+{
+    Relation ftrel;
+    Datum ftoptions;
+    Datum values[Natts_pg_foreign_table];
+    bool nulls[Natts_pg_foreign_table];
+    HeapTuple tuple;
+    AclResult aclresult;
+    ObjectAddress myself, referenced;
+    Oid ownerId;
+    ForeignDataWrapper *fdw;
+    ForeignServer *server;
+
+    // Ensure pg_attribute tuple is visible from previous operations
+    CommandCounterIncrement();
+
+    ftrel = table_open(ForeignTableRelationId, RowExclusiveLock);
+    ownerId = GetUserId();
+
+    // Validate foreign server exists and check USAGE permission
+    server = GetForeignServerByName(stmt->servername, false);
+    aclresult = object_aclcheck(ForeignServerRelationId, server->serverid, ownerId, ACL_USAGE);
+    if (aclresult != ACLCHECK_OK) {
+        aclcheck_error(aclresult, OBJECT_FOREIGN_SERVER, server->servername);
+    }
+
+    // Get associated FDW for option validation
+    fdw = GetForeignDataWrapper(server->fdwid);
+
+    // Prepare tuple for pg_foreign_table
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    values[Anum_pg_foreign_table_ftrelid - 1] = ObjectIdGetDatum(relid);
+    values[Anum_pg_foreign_table_ftserver - 1] = ObjectIdGetDatum(server->serverid);
+
+    // Transform and validate table options using FDW validator
+    ftoptions = transformGenericOptions(ForeignTableRelationId,
+                                       PointerGetDatum(NULL),
+                                       stmt->options,
+                                       fdw->fdwvalidator);
+
+    if (PointerIsValid(DatumGetPointer(ftoptions)))
+        values[Anum_pg_foreign_table_ftoptions - 1] = ftoptions;
+    else
+        nulls[Anum_pg_foreign_table_ftoptions - 1] = true;
+
+    // Insert catalog entry
+    tuple = heap_form_tuple(ftrel->rd_att, values, nulls);
+    CatalogTupleInsert(ftrel, tuple);
+    heap_freetuple(tuple);
+
+    // Record dependency on foreign server
+    myself.classId = RelationRelationId;
+    myself.objectId = relid;
+    myself.objectSubId = 0;
+
+    referenced.classId = ForeignServerRelationId;
+    referenced.objectId = server->serverid;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    table_close(ftrel, RowExclusiveLock);
+}
+```

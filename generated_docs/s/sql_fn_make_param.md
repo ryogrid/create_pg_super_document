@@ -38,3 +38,28 @@ This function creates a Param node representing a function parameter () with the
 - Handles collation inheritance where function input collation can override type-derived collation
 - The location field enables accurate error reporting when parameter issues occur during execution
 - All created parameters are properly typed using the function's declared argument types from pinfo->argtypes
+
+## Simplified Source
+
+```c
+static Node *sql_fn_make_param(SQLFunctionParseInfoPtr pinfo, int paramno, int location) {
+    Param *param;
+
+    // Create a new Param node
+    param = makeNode(Param);
+    param->paramkind = PARAM_EXTERN;
+    param->paramid = paramno;
+
+    // Set type information from function arguments (convert 1-based to 0-based)
+    param->paramtype = pinfo->argtypes[paramno - 1];
+    param->paramtypmod = -1;
+    param->paramcollid = get_typcollation(param->paramtype);
+    param->location = location;
+
+    // Override collation with function's input collation if both are valid
+    if (OidIsValid(pinfo->collation) && OidIsValid(param->paramcollid))
+        param->paramcollid = pinfo->collation;
+
+    return (Node *) param;
+}
+```

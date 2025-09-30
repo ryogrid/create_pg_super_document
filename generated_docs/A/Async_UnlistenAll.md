@@ -37,3 +37,20 @@ Async_UnlistenAll handles the UNLISTEN * command which removes all notification 
 - Defers actual listen list clearing until transaction commit
 - Part of PostgreSQL's asynchronous notification system cleanup mechanism
 - Public interface function declared in async.h header
+
+## Simplified Source
+
+```c
+void Async_UnlistenAll(void) {
+    // Optional debug logging
+    if (Trace_notify)
+        elog(DEBUG1, "Async_UnlistenAll(%d)", MyProcPid);
+
+    // Optimization: skip if we couldn't possibly be listening
+    if (pendingActions == NULL && !unlistenExitRegistered)
+        return;
+
+    // Queue the unlisten-all operation for transaction commit
+    queue_listen(LISTEN_UNLISTEN_ALL, "");
+}
+```

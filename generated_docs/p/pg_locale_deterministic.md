@@ -35,3 +35,16 @@ This function checks whether a PostgreSQL locale is deterministic. A determinist
 - Deterministic behavior is crucial for hash-based operations and index consistency
 - Non-deterministic locales can cause issues with hash joins, hash aggregation, and unique indexes
 - The deterministic flag is stored within the pg_locale_t structure for custom locales
+
+## Simplified Source
+
+```c
+bool pg_locale_deterministic(pg_locale_t locale) {
+    // Default locale (NULL) is always deterministic
+    if (locale == NULL)
+        return true;
+
+    // Return the deterministic flag from the locale structure
+    return locale->deterministic;
+}
+```

@@ -56,3 +56,68 @@ The function includes an optimization where it returns immediately if the statem
 - Race condition safety is achieved by using the relid parameter instead of stmt->relation
 - The function validates that expressions only reference the target table, though this check is noted as potentially dead code
 - Proper collation handling is crucial for both WHERE clauses and index expressions
+
+## Simplified Source
+
+```c
+IndexStmt *
+transformIndexStmt(Oid relid, IndexStmt *stmt, const char *queryString)
+{
+    ParseState *pstate;
+    ParseNamespaceItem *nsitem;
+    ListCell *l;
+    Relation rel;
+
+    // Skip if already transformed
+    if (stmt->transformed)
+        return stmt;
+
+    // Set up parse state for expression processing
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+
+    // Open target relation and add to parse context
+    rel = relation_open(relid, NoLock);
+    nsitem = addRangeTableEntryForRelation(pstate, rel, AccessShareLock, NULL, false, true);
+    addNSItemToQuery(pstate, nsitem, false, true, true);
+
+    // Transform WHERE clause (index predicate) if present
+    if (stmt->whereClause) {
+        stmt->whereClause = transformWhereClause(pstate, stmt->whereClause,
+                                               EXPR_KIND_INDEX_PREDICATE, "WHERE");
+        // Fix collations for the predicate
+        assign_expr_collations(pstate, stmt->whereClause);
+    }
+
+    // Transform index expressions (for functional indexes)
+    foreach(l, stmt->indexParams) {
+        IndexElem *ielem = (IndexElem *) lfirst(l);
+
+        if (ielem->expr) {
+            // Generate column name if not provided
+            if (ielem->indexcolname == NULL)
+                ielem->indexcolname = FigureIndexColname(ielem->expr);
+
+            // Transform the expression
+            ielem->expr = transformExpr(pstate, ielem->expr, EXPR_KIND_INDEX_EXPRESSION);
+
+            // Fix collations for the expression
+            assign_expr_collations(pstate, ielem->expr);
+        }
+    }
+
+    // Validate that only base relation is referenced
+    if (list_length(pstate->p_rtable) != 1)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                errmsg("index expressions and predicates can refer only to the table being indexed")));
+
+    // Clean up
+    free_parsestate(pstate);
+    table_close(rel, NoLock);
+
+    // Mark as transformed to avoid reprocessing
+    stmt->transformed = true;
+
+    return stmt;
+}
+```

@@ -52,7 +52,7 @@ The function efficiently handles tape exhaustion by removing empty tapes from th
   - : During each merge pass to process runs from input tapes
 
 ## Notes and Other Information
-- This is a static function within tuplesort.c, internal to the sorting implementation  
+- This is a static function within tuplesort.c, internal to the sorting implementation
 - Implements the k-way merge component of external merge sort algorithm
 - Uses heap data structure for O(log k) tuple selection where k is the number of input tapes
 - Requires slab allocator to be active for efficient tuple memory management
@@ -61,3 +61,48 @@ The function efficiently handles tape exhaustion by removing empty tapes from th
 - Critical for maintaining sorted order during multi-pass external sorting
 - Memory management uses slab allocation for consistent performance with many small allocations
 - Works in conjunction with  (from the related processed symbols) to properly delimit runs on output tapes
+
+## Simplified Source
+
+```c
+static void mergeonerun(Tuplesortstate *state) {
+    int srcTapeIndex;
+    LogicalTape *srcTape;
+
+    // Initialize merge heap with one tuple from each input tape
+    beginmerge(state);
+
+    Assert(state->slabAllocatorUsed);
+
+    // Main merge loop: process until all tapes exhausted
+    while (state->memtupcount > 0) {
+        SortTuple stup;
+
+        // Get source tape of the smallest tuple (heap root)
+        srcTapeIndex = state->memtuples[0].srctape;
+        srcTape = state->inputTapes[srcTapeIndex];
+
+        // Write smallest tuple to output tape
+        WRITETUP(state, state->destTape, &state->memtuples[0]);
+
+        // Free memory used by the written tuple
+        if (state->memtuples[0].tuple) {
+            RELEASE_SLAB_SLOT(state, state->memtuples[0].tuple);
+        }
+
+        // Try to read next tuple from same source tape
+        if (mergereadnext(state, srcTape, &stup)) {
+            // Replace heap root with new tuple
+            stup.srctape = srcTapeIndex;
+            tuplesort_heap_replace_top(state, &stup);
+        } else {
+            // Tape exhausted - remove from heap
+            tuplesort_heap_delete_top(state);
+            state->nInputRuns--;
+        }
+    }
+
+    // Mark end of merged run on output tape
+    markrunend(state->destTape);
+}
+```

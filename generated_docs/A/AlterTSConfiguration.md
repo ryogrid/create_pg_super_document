@@ -38,3 +38,56 @@ AlterTSConfiguration implements the ALTER TEXT SEARCH CONFIGURATION SQL command 
 - Returns ObjectAddress for use in dependency tracking and event triggers
 - Part of the PostgreSQL text search infrastructure
 - Generates detailed error messages using configuration names for better user experience
+
+## Simplified Source
+
+```c
+ObjectAddress AlterTSConfiguration(AlterTSConfigurationStmt *stmt) {
+    HeapTuple tup;
+    Oid cfgId;
+    Relation relMap;
+    ObjectAddress address;
+
+    // Find the text search configuration
+    tup = GetTSConfigTuple(stmt->cfgname);
+    if (!HeapTupleIsValid(tup)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("text search configuration \"%s\" does not exist",
+                        NameListToString(stmt->cfgname))));
+    }
+
+    cfgId = ((Form_pg_ts_config) GETSTRUCT(tup))->oid;
+
+    // Check ownership permission
+    if (!object_ownercheck(TSConfigRelationId, cfgId, GetUserId())) {
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_TSCONFIGURATION,
+                       NameListToString(stmt->cfgname));
+    }
+
+    // Open configuration mapping relation
+    relMap = table_open(TSConfigMapRelationId, RowExclusiveLock);
+
+    // Add or drop token-dictionary mappings
+    if (stmt->dicts) {
+        // ADD MAPPING operation
+        MakeConfigurationMapping(stmt, tup, relMap);
+    } else if (stmt->tokentype) {
+        // DROP MAPPING operation
+        DropConfigurationMapping(stmt, tup, relMap);
+    }
+
+    // Update all dependency relationships
+    makeConfigurationDependencies(tup, true, relMap);
+
+    // Trigger post-alter hooks
+    InvokeObjectPostAlterHook(TSConfigRelationId, cfgId, 0);
+
+    // Cleanup and return
+    ObjectAddressSet(address, TSConfigRelationId, cfgId);
+    table_close(relMap, RowExclusiveLock);
+    ReleaseSysCache(tup);
+
+    return address;
+}
+```

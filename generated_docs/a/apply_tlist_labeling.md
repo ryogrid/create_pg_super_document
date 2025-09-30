@@ -41,3 +41,33 @@ Both target lists must have the same length and corresponding entries must have 
 - Essential for maintaining proper column names in query results
 - Used during plan finalization to ensure output has correct metadata
 - The function assumes the expressions in both lists are equivalent, as verified by other functions like tlist_same_exprs
+
+## Simplified Source
+
+```c
+void apply_tlist_labeling(List *dest_tlist, List *src_tlist)
+{
+    // Verify lists have same length
+    Assert(list_length(dest_tlist) == list_length(src_tlist));
+
+    // Iterate through both lists simultaneously
+    ListCell *dest_cell, *src_cell;
+    forboth(dest_cell, dest_tlist, src_cell, src_tlist)
+    {
+        TargetEntry *dest_entry = (TargetEntry *) lfirst(dest_cell);
+        TargetEntry *src_entry = (TargetEntry *) lfirst(src_cell);
+
+        // Verify corresponding entries have same position number
+        Assert(dest_entry->resno == src_entry->resno);
+
+        // Copy all labeling attributes from source to destination
+        dest_entry->resname = src_entry->resname;           // Column name
+        dest_entry->ressortgroupref = src_entry->ressortgroupref; // Sort/group ref
+        dest_entry->resorigtbl = src_entry->resorigtbl;     // Original table OID
+        dest_entry->resorigcol = src_entry->resorigcol;     // Original column number
+        dest_entry->resjunk = src_entry->resjunk;           // Junk column flag
+    }
+}
+```
+
+This function transfers metadata (names, references, origin info) from one target list to another without changing the actual expressions. Essential for maintaining proper column labeling in query results.

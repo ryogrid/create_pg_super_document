@@ -39,3 +39,38 @@ The function skips lossy index clauses since they don't enforce conditions exact
 - Optimized to avoid checking derived clauses in indexquals when parent clause doesn't match
 - Used extensively in index scan planning to eliminate redundant filter conditions
 - Part of the query optimization process to reduce unnecessary condition evaluation
+
+## Simplified Source
+
+```c
+bool is_redundant_with_indexclauses(RestrictInfo *rinfo, List *indexclauses) {
+    EquivalenceClass *parent_ec = rinfo->parent_ec;
+    ListCell *lc;
+
+    // Check each IndexClause for redundancy
+    foreach(lc, indexclauses) {
+        IndexClause *iclause = lfirst_node(IndexClause, lc);
+        RestrictInfo *otherrinfo = iclause->rinfo;
+
+        // Skip lossy clauses (don't enforce condition exactly)
+        if (iclause->lossy) {
+            continue;
+        }
+
+        // Check for same clause (pointer equality)
+        if (rinfo == otherrinfo) {
+            return true;
+        }
+
+        // Check if derived from same equivalence class
+        if (parent_ec && otherrinfo->parent_ec == parent_ec) {
+            return true;
+        }
+
+        // Note: No need to check derived clauses in indexquals
+        // if parent clause doesn't match
+    }
+
+    return false;
+}
+```

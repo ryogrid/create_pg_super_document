@@ -42,3 +42,32 @@ The isfixed parameter is set to indicate whether the tuple slot uses a fixed tup
 - Returns virtual slot operations as a safe default when no result slot exists
 - Critical for proper slot management and optimization in PostgreSQL's execution engine
 - The caching mechanism (resultopsset, resultops, resultopsfixed) improves performance for repeated accesses
+
+## Simplified Source
+
+```c
+const TupleTableSlotOps *ExecGetResultSlotOps(PlanState *planstate, bool *isfixed) {
+    // Return cached operations if available
+    if (planstate->resultopsset && planstate->resultops) {
+        if (isfixed)
+            *isfixed = planstate->resultopsfixed;
+        return planstate->resultops;
+    }
+
+    // Set isfixed output parameter based on available information
+    if (isfixed) {
+        if (planstate->resultopsset)
+            *isfixed = planstate->resultopsfixed;
+        else if (planstate->ps_ResultTupleSlot)
+            *isfixed = TTS_FIXED(planstate->ps_ResultTupleSlot);
+        else
+            *isfixed = false;
+    }
+
+    // Return slot operations or virtual default
+    if (!planstate->ps_ResultTupleSlot)
+        return &TTSOpsVirtual;
+
+    return planstate->ps_ResultTupleSlot->tts_ops;
+}
+```

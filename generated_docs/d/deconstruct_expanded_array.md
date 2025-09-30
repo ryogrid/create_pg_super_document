@@ -37,3 +37,35 @@ The function is designed with error safety in mind - it only updates the header 
 - Updates to the header fields (dvalues, dnulls, dvalueslen, nelems) happen atomically after successful deconstruction
 - This lazy initialization approach saves memory and processing time when element-wise access isn't needed
 - The deconstructed representation coexists with the flat representation, providing different access patterns for different use cases
+
+## Simplified Source
+
+```c
+void deconstruct_expanded_array(ExpandedArrayHeader *eah) {
+    // Only create Datum representation if not already done
+    if (eah->dvalues == NULL) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(eah->hdr.eoh_context);
+        Datum *dvalues;
+        bool *dnulls;
+        int nelems;
+
+        dnulls = NULL;
+
+        // Break down flat array into individual Datum values
+        deconstruct_array(eah->fvalue,
+                         eah->element_type,
+                         eah->typlen, eah->typbyval, eah->typalign,
+                         &dvalues,
+                         ARR_HASNULL(eah->fvalue) ? &dnulls : NULL,
+                         &nelems);
+
+        // Update header only after successful completion
+        // This ensures atomicity and prevents partial corruption
+        eah->dvalues = dvalues;
+        eah->dnulls = dnulls;
+        eah->dvalueslen = eah->nelems = nelems;
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+}
+```

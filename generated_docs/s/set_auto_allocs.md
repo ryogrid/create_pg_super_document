@@ -36,3 +36,12 @@ The function is typically called when adding new memory blocks to the list (sett
 - Assumes that `auto_mem_key` has been properly initialized via `auto_mem_key_init()`
 - Each thread maintains its own separate storage, so this only affects the current thread
 - Commonly used to update the list head when adding new allocations or to clear the list entirely
+
+## Simplified Source
+
+```c
+static void set_auto_allocs(struct auto_mem *am) {
+    // Set thread-specific automatic memory list head
+    pthread_setspecific(auto_mem_key, am);
+}
+```

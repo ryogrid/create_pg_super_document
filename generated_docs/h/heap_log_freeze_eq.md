@@ -36,3 +36,15 @@ This optimization is particularly important during vacuum operations where many 
 - If operations don't match, the caller must call heap_log_freeze_new_plan to create a new plan
 - Critical for reducing WAL volume during vacuum operations with many similar freeze requests
 - The comparison is exact - all four fields must match precisely for plans to be considered equivalent
+
+## Simplified Source
+
+```c
+static inline bool heap_log_freeze_eq(xlhp_freeze_plan *plan, HeapTupleFreeze *frz) {
+    // Compare all critical freeze operation fields
+    return (plan->xmax == frz->xmax &&
+            plan->t_infomask2 == frz->t_infomask2 &&
+            plan->t_infomask == frz->t_infomask &&
+            plan->frzflags == frz->frzflags);
+}
+```

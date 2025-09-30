@@ -46,3 +46,65 @@ Async_Notify is the core function that implements PostgreSQL's asynchronous noti
 - Validates channel name length against NAMEDATALEN limit
 - Validates payload length against NOTIFY_PAYLOAD_MAX_LENGTH limit
 - Actual notification delivery is deferred until transaction commit
+
+## Simplified Source
+
+```c
+void Async_Notify(const char *channel, const char *payload) {
+    int my_level = GetCurrentTransactionNestLevel();
+    size_t channel_len = channel ? strlen(channel) : 0;
+    size_t payload_len = payload ? strlen(payload) : 0;
+
+    // Validation checks
+    if (IsParallelWorker())
+        elog(ERROR, "cannot send notifications from a parallel worker");
+
+    if (channel_len == 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("channel name cannot be empty")));
+
+    if (channel_len >= NAMEDATALEN)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("channel name too long")));
+
+    if (payload_len >= NOTIFY_PAYLOAD_MAX_LENGTH)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("payload string too long")));
+
+    // Create notification entry in transaction context
+    MemoryContext oldcontext = MemoryContextSwitchTo(CurTransactionContext);
+
+    Notification *n = palloc(offsetof(Notification, data) +
+                            channel_len + payload_len + 2);
+    n->channel_len = channel_len;
+    n->payload_len = payload_len;
+    strcpy(n->data, channel);
+
+    if (payload)
+        strcpy(n->data + channel_len + 1, payload);
+    else
+        n->data[channel_len + 1] = '\0';
+
+    // Add to pending notifications list
+    if (pendingNotifies == NULL || my_level > pendingNotifies->nestingLevel) {
+        // First notify in current transaction level
+        NotificationList *notifies = MemoryContextAlloc(TopTransactionContext,
+                                                       sizeof(NotificationList));
+        notifies->nestingLevel = my_level;
+        notifies->events = list_make1(n);
+        notifies->hashtab = NULL;
+        notifies->upper = pendingNotifies;
+        pendingNotifies = notifies;
+    } else {
+        // Check for duplicates before adding
+        if (AsyncExistsPendingNotify(n)) {
+            pfree(n);
+            MemoryContextSwitchTo(oldcontext);
+            return;
+        }
+        AddEventToPendingNotifies(n);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

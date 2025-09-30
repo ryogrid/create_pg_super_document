@@ -30,3 +30,11 @@ This function serves as a convenience wrapper around get_sortgroupref_tle(). It 
 
 ## Notes and Other Information
 This function is a simple wrapper that provides a more convenient interface when working with SortGroupClause structures. It's widely used throughout the PostgreSQL optimizer and executor for operations involving sorting and grouping.
+
+## Simplified Source
+
+```c
+TargetEntry *get_sortgroupclause_tle(SortGroupClause *sgClause, List *targetList) {
+    return get_sortgroupref_tle(sgClause->tleSortGroupRef, targetList);
+}
+```

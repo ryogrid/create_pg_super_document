@@ -38,3 +38,15 @@ This is a crucial part of the adaptive abbreviated key optimization system in Po
 - This function is part of the abbreviated key optimization system that dynamically adapts sorting strategies based on data characteristics
 - The function modifies SortTuple structures in-place, updating their datum1 fields with the original comparison values
 - This fallback mechanism ensures robust sorting performance across diverse data distributions and types
+
+## Simplified Source
+
+```c
+static void removeabbrev_datum(Tuplesortstate *state, SortTuple *stups, int count) {
+    int i;
+
+    // Restore original datum values from tuple pointers
+    for (i = 0; i < count; i++)
+        stups[i].datum1 = PointerGetDatum(stups[i].tuple);
+}
+```

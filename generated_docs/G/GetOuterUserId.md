@@ -35,3 +35,15 @@ This function takes no parameters and returns:
 - This value is used by GetCurrentRoleId() when SET ROLE is active
 - OuterUserId is synchronized with the is_superuser GUC parameter
 - The naming is somewhat confusing - it might be better named CurrentRoleId as noted in the source comments
+
+## Simplified Source
+
+```c
+Oid GetOuterUserId(void) {
+    // Ensure OuterUserId contains a valid OID
+    Assert(OidIsValid(OuterUserId));
+
+    // Return the outer-level user ID (current role after SET ROLE)
+    return OuterUserId;
+}
+```

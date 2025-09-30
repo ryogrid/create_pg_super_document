@@ -47,7 +47,147 @@ The function enforces security restrictions, preventing non-superusers from modi
 ## Notes and Other Information
 - Requires exclusive lock on the subscription to prevent concurrent modifications
 - Enforces ownership checks and superuser restrictions for security-sensitive options
-- Handles complex state validations for two-phase commit and failover scenarios  
+- Handles complex state validations for two-phase commit and failover scenarios
 - Some operations like failover changes cannot be rolled back and must be prevented in transaction blocks
 - Automatically wakes up replication workers when changes require immediate processing
 - Connection to publisher is established only when necessary (e.g., for slot alteration)
+
+## Simplified Source
+
+```c
+ObjectAddress AlterSubscription(ParseState *pstate, AlterSubscriptionStmt *stmt, bool isTopLevel) {
+    Relation rel;
+    ObjectAddress myself;
+    HeapTuple tup;
+    Oid subid;
+    bool update_tuple = false;
+    Subscription *sub;
+    SubOpts opts = {0};
+
+    // Open subscription catalog and find existing subscription
+    rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+    tup = SearchSysCacheCopy2(SUBSCRIPTIONNAME, MyDatabaseId, CStringGetDatum(stmt->subname));
+
+    if (!HeapTupleIsValid(tup)) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("subscription \"%s\" does not exist", stmt->subname)));
+    }
+
+    // Get subscription info and check permissions
+    subid = ((Form_pg_subscription) GETSTRUCT(tup))->oid;
+    if (!object_ownercheck(SubscriptionRelationId, subid, GetUserId())) {
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SUBSCRIPTION, stmt->subname);
+    }
+
+    sub = GetSubscription(subid, false);
+
+    // Check superuser requirements for password_required=false
+    if (!sub->passwordrequired && !superuser()) {
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                errmsg("password_required=false is superuser-only")));
+    }
+
+    // Lock subscription for exclusive access
+    LockSharedObject(SubscriptionRelationId, subid, 0, AccessExclusiveLock);
+
+    // Handle different alteration types
+    switch (stmt->kind) {
+        case ALTER_SUBSCRIPTION_OPTIONS:
+            // Parse and apply subscription option changes
+            parse_subscription_options(pstate, stmt->options, supported_opts, &opts);
+            // Update individual options like slot_name, binary, streaming, etc.
+            update_tuple = true;
+            break;
+
+        case ALTER_SUBSCRIPTION_ENABLED:
+            // Enable or disable subscription
+            parse_subscription_options(pstate, stmt->options, SUBOPT_ENABLED, &opts);
+            if (!sub->slotname && opts.enabled) {
+                ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("cannot enable subscription that does not have a slot name")));
+            }
+            if (opts.enabled) {
+                ApplyLauncherWakeupAtCommit();
+            }
+            update_tuple = true;
+            break;
+
+        case ALTER_SUBSCRIPTION_CONNECTION:
+            // Update connection string
+            load_file("libpqwalreceiver", false);
+            walrcv_check_conninfo(stmt->conninfo, sub->passwordrequired && !sub->ownersuperuser);
+            update_tuple = true;
+            break;
+
+        case ALTER_SUBSCRIPTION_SET_PUBLICATION:
+            // Replace publication list
+            parse_subscription_options(pstate, stmt->options, supported_opts, &opts);
+            if (opts.refresh) {
+                if (!sub->enabled) {
+                    ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                            errmsg("ALTER SUBSCRIPTION with refresh is not allowed for disabled subscriptions")));
+                }
+                PreventInTransactionBlock(isTopLevel, "ALTER SUBSCRIPTION with refresh");
+                AlterSubscription_refresh(sub, opts.copy_data, stmt->publication);
+            }
+            update_tuple = true;
+            break;
+
+        case ALTER_SUBSCRIPTION_ADD_PUBLICATION:
+        case ALTER_SUBSCRIPTION_DROP_PUBLICATION:
+            // Add or remove publications from list
+            parse_subscription_options(pstate, stmt->options, supported_opts, &opts);
+            if (opts.refresh) {
+                PreventInTransactionBlock(isTopLevel, "ALTER SUBSCRIPTION with refresh");
+                AlterSubscription_refresh(sub, opts.copy_data, validate_publications);
+            }
+            update_tuple = true;
+            break;
+
+        case ALTER_SUBSCRIPTION_REFRESH:
+            // Refresh subscription table list
+            if (!sub->enabled) {
+                ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("ALTER SUBSCRIPTION ... REFRESH is not allowed for disabled subscriptions")));
+            }
+            PreventInTransactionBlock(isTopLevel, "ALTER SUBSCRIPTION ... REFRESH");
+            AlterSubscription_refresh(sub, opts.copy_data, NULL);
+            break;
+
+        case ALTER_SUBSCRIPTION_SKIP:
+            // Set LSN to skip problematic transactions
+            parse_subscription_options(pstate, stmt->options, SUBOPT_LSN, &opts);
+            // Validate LSN is reasonable
+            update_tuple = true;
+            break;
+    }
+
+    // Update catalog if changes were made
+    if (update_tuple) {
+        tup = heap_modify_tuple(tup, RelationGetDescr(rel), values, nulls, replaces);
+        CatalogTupleUpdate(rel, &tup->t_self, tup);
+        heap_freetuple(tup);
+    }
+
+    // Handle failover slot changes (requires publisher connection)
+    if (replaces[Anum_pg_subscription_subfailover - 1]) {
+        // Connect to publisher and alter slot
+        WalReceiverConn *wrconn = walrcv_connect(sub->conninfo, true, true, must_use_password, sub->name, &err);
+        if (!wrconn) {
+            ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                    errmsg("could not connect to the publisher: %s", err)));
+        }
+        walrcv_alter_slot(wrconn, sub->slotname, opts.failover);
+        walrcv_disconnect(wrconn);
+    }
+
+    table_close(rel, RowExclusiveLock);
+    ObjectAddressSet(myself, SubscriptionRelationId, subid);
+
+    // Wake up workers and invoke hooks
+    InvokeObjectPostAlterHook(SubscriptionRelationId, subid, 0);
+    LogicalRepWorkersWakeupAtCommit(subid);
+
+    return myself;
+}
+```

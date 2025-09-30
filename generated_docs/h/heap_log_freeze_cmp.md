@@ -37,3 +37,36 @@ The function is specifically designed to work with heap_log_freeze_eq for identi
 - Critical for WAL logging optimization by enabling efficient grouping of similar freeze operations
 - The assertion at the end indicates that true equality should not occur after proper deduplication
 - Works in conjunction with heap_log_freeze_eq to identify equivalent operations that can share freeze plans
+
+## Simplified Source
+
+```c
+static int heap_log_freeze_cmp(const void *arg1, const void *arg2) {
+    HeapTupleFreeze *frz1 = (HeapTupleFreeze *) arg1;
+    HeapTupleFreeze *frz2 = (HeapTupleFreeze *) arg2;
+
+    // Compare xmax (transaction ID)
+    if (frz1->xmax != frz2->xmax)
+        return (frz1->xmax < frz2->xmax) ? -1 : 1;
+
+    // Compare t_infomask2
+    if (frz1->t_infomask2 != frz2->t_infomask2)
+        return (frz1->t_infomask2 < frz2->t_infomask2) ? -1 : 1;
+
+    // Compare t_infomask
+    if (frz1->t_infomask != frz2->t_infomask)
+        return (frz1->t_infomask < frz2->t_infomask) ? -1 : 1;
+
+    // Compare frzflags
+    if (frz1->frzflags != frz2->frzflags)
+        return (frz1->frzflags < frz2->frzflags) ? -1 : 1;
+
+    // Final tiebreaker: page offset number
+    if (frz1->offset != frz2->offset)
+        return (frz1->offset < frz2->offset) ? -1 : 1;
+
+    // Should never reach here after proper deduplication
+    Assert(false);
+    return 0;
+}
+```

@@ -34,3 +34,28 @@ The function uses ceiling division to ensure that any fractional space requireme
 - Caps the maximum category at 255 (uint8 maximum value)
 - Throws an ERROR if the requested size exceeds MaxFSMRequestSize
 - This is a static function internal to the freespace.c module
+
+## Simplified Source
+
+```c
+static uint8 fsm_space_needed_to_cat(Size needed) {
+    int cat;
+
+    // Validate request size
+    if (needed > MaxFSMRequestSize)
+        elog(ERROR, "invalid FSM request size %zu", needed);
+
+    // Special case: no space needed
+    if (needed == 0)
+        return 1;
+
+    // Ceiling division to round up to next category
+    cat = (needed + FSM_CAT_STEP - 1) / FSM_CAT_STEP;
+
+    // Cap at maximum category value
+    if (cat > 255)
+        cat = 255;
+
+    return (uint8) cat;
+}
+```

@@ -38,3 +38,48 @@ The to_jsonb_is_immutable function evaluates whether a PostgreSQL data type prod
 - Currently returns false for arrays and composite types with TODO comments indicating future plans to recurse into their elements/fields
 - For numeric, cast, and other types, delegates to func_volatile() to check the output function's volatility
 - This function is essential for PostgreSQL's query optimization, particularly for determining when JSONB expressions can be treated as constants
+
+## Simplified Source
+
+```c
+bool
+to_jsonb_is_immutable(Oid typoid)
+{
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Categorize the type for JSONB processing (with is_jsonb=true)
+    json_categorize_type(typoid, true, &tcategory, &outfuncoid);
+
+    switch (tcategory)
+    {
+        case JSONTYPE_NULL:
+        case JSONTYPE_BOOL:
+        case JSONTYPE_JSON:
+        case JSONTYPE_JSONB:
+            return true;
+
+        case JSONTYPE_DATE:
+        case JSONTYPE_TIMESTAMP:
+        case JSONTYPE_TIMESTAMPTZ:
+            // Date/time types depend on timezone settings
+            return false;
+
+        case JSONTYPE_ARRAY:
+            // TODO: recursively check array elements
+            return false;
+
+        case JSONTYPE_COMPOSITE:
+            // TODO: recursively check composite fields
+            return false;
+
+        case JSONTYPE_NUMERIC:
+        case JSONTYPE_CAST:
+        case JSONTYPE_OTHER:
+            // Check if output function is immutable
+            return func_volatile(outfuncoid) == PROVOLATILE_IMMUTABLE;
+    }
+
+    return false;
+}
+```

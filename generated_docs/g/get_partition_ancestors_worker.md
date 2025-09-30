@@ -38,3 +38,23 @@ The recursion terminates when either no parent is found (topmost level reached) 
 - Terminates recursion when parentOid is InvalidOid or when detach_pending is true
 - Located at src/backend/catalog/partition.c:153-175
 - The function modifies the ancestors list passed by reference
+
+## Simplified Source
+
+```c
+static void get_partition_ancestors_worker(Relation inhRel, Oid relid, List **ancestors) {
+    Oid parentOid;
+    bool detach_pending;
+
+    // Find the immediate parent of the current relation
+    parentOid = get_partition_parent_worker(inhRel, relid, &detach_pending);
+
+    // Stop recursion if no parent or partition is being detached
+    if (parentOid == InvalidOid || detach_pending)
+        return;
+
+    // Add parent to ancestors list and recurse up the hierarchy
+    *ancestors = lappend_oid(*ancestors, parentOid);
+    get_partition_ancestors_worker(inhRel, parentOid, ancestors);
+}
+```

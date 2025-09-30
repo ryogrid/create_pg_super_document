@@ -57,3 +57,83 @@ The function is crucial for SQL constructs like CASE expressions, UNION queries,
 - The function determines type compatibility but does not guarantee that all inputs can be coerced to the selected type - callers should verify with `verify_common_type`
 - Default resolution for all-UNKNOWN input is TEXT type to avoid runtime coercion issues
 - Critical component of PostgreSQL's type system for SQL standard compliance in type unification scenarios
+
+## Simplified Source
+
+```c
+Oid
+select_common_type(ParseState *pstate, List *exprs, const char *context,
+                   Node **which_expr) {
+    Node *pexpr;
+    Oid ptype;
+    TYPCATEGORY pcategory;
+    bool pispreferred;
+    ListCell *lc;
+
+    // Start with the first expression
+    pexpr = (Node *) linitial(exprs);
+    ptype = exprType(pexpr);
+
+    // Quick check: if all types are exactly the same, use that type
+    if (ptype != UNKNOWNOID) {
+        lc = list_second_cell(exprs);
+        for_each_cell(lc, exprs, lc) {
+            Node *nexpr = (Node *) lfirst(lc);
+            Oid ntype = exprType(nexpr);
+
+            if (ntype != ptype) {
+                break;  // Found different type, need full algorithm
+            }
+        }
+        if (lc == NULL) {  // All types match exactly
+            if (which_expr) *which_expr = pexpr;
+            return ptype;
+        }
+    }
+
+    // Full algorithm: compare base types and categories
+    ptype = getBaseType(ptype);
+    get_type_category_preferred(ptype, &pcategory, &pispreferred);
+
+    // Compare each remaining expression
+    for_each_cell(lc, exprs, lc) {
+        Node *nexpr = (Node *) lfirst(lc);
+        Oid ntype = getBaseType(exprType(nexpr));
+
+        if (ntype != UNKNOWNOID && ntype != ptype) {
+            TYPCATEGORY ncategory;
+            bool nispreferred;
+
+            get_type_category_preferred(ntype, &ncategory, &nispreferred);
+
+            if (ptype == UNKNOWNOID) {
+                // First non-unknown type becomes candidate
+                pexpr = nexpr;
+                ptype = ntype;
+                pcategory = ncategory;
+                pispreferred = nispreferred;
+            } else if (ncategory != pcategory) {
+                // Different categories cannot be matched
+                if (context == NULL) return InvalidOid;
+                ereport(ERROR, "types cannot be matched");
+            } else if (!pispreferred &&
+                      can_coerce_type(1, &ptype, &ntype, COERCION_IMPLICIT) &&
+                      !can_coerce_type(1, &ntype, &ptype, COERCION_IMPLICIT)) {
+                // Switch to new type if it's more general
+                pexpr = nexpr;
+                ptype = ntype;
+                pcategory = ncategory;
+                pispreferred = nispreferred;
+            }
+        }
+    }
+
+    // Default unknown literals to TEXT type
+    if (ptype == UNKNOWNOID) {
+        ptype = TEXTOID;
+    }
+
+    if (which_expr) *which_expr = pexpr;
+    return ptype;
+}
+```

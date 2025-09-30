@@ -48,3 +48,98 @@ AlterRole implements the ALTER ROLE, ALTER USER, and ALTER GROUP SQL statements 
 - Bootstrap superuser cannot have superuser privilege revoked
 - Validates connection limits and password formats
 - Uses heap_modify_tuple for atomic updates to the catalog
+
+## Simplified Source
+
+```c
+Oid AlterRole(ParseState *pstate, AlterRoleStmt *stmt) {
+    char *password = NULL;
+    int connlimit = -1;
+    char *validUntil = NULL;
+    DefElem *dpassword = NULL, *dissuper = NULL, *dinherit = NULL,
+            *dcreaterole = NULL, *dcreatedb = NULL, *dcanlogin = NULL,
+            *disreplication = NULL, *dconnlimit = NULL, *drolemembers = NULL,
+            *dvalidUntil = NULL, *dbypassRLS = NULL;
+    Oid roleid, currentUserId = GetUserId();
+
+    check_rolespec_name(stmt->role, "Cannot alter reserved roles.");
+
+    // Parse statement options
+    foreach(option, stmt->options) {
+        DefElem *defel = (DefElem *) lfirst(option);
+
+        if (strcmp(defel->defname, "password") == 0)
+            dpassword = defel;
+        else if (strcmp(defel->defname, "superuser") == 0)
+            dissuper = defel;
+        // ... other options
+    }
+
+    // Extract option values
+    if (dpassword && dpassword->arg)
+        password = strVal(dpassword->arg);
+    if (dconnlimit)
+        connlimit = intVal(dconnlimit->arg);
+
+    // Find the role in pg_authid
+    pg_authid_rel = table_open(AuthIdRelationId, RowExclusiveLock);
+    tuple = get_rolespec_tuple(stmt->role);
+    authform = (Form_pg_authid) GETSTRUCT(tuple);
+    roleid = authform->oid;
+
+    // Extensive permission checks
+    if (!superuser() && authform->rolsuper)
+        ereport(ERROR, "permission denied to alter role");
+
+    if (!have_createrole_privilege() || !is_admin_of_role(GetUserId(), roleid)) {
+        // Allow user to change own password
+        if (dpassword && roleid != currentUserId)
+            ereport(ERROR, "permission denied to alter role");
+    }
+
+    // Additional privilege checks for specific attributes
+    if (!superuser()) {
+        if (dcreatedb && !have_createdb_privilege())
+            ereport(ERROR, "permission denied");
+        if (disreplication && !has_rolreplication(currentUserId))
+            ereport(ERROR, "permission denied");
+        if (dbypassRLS && !has_bypassrls_privilege(currentUserId))
+            ereport(ERROR, "permission denied");
+    }
+
+    // Call password checking hook if defined
+    if (check_password_hook && password)
+        (*check_password_hook)(rolename, password, ...);
+
+    // Build updated tuple
+    if (dissuper) {
+        new_record[Anum_pg_authid_rolsuper - 1] = BoolGetDatum(should_be_super);
+        new_record_repl[Anum_pg_authid_rolsuper - 1] = true;
+    }
+    // ... other attributes
+
+    // Handle password encryption
+    if (password) {
+        shadow_pass = encrypt_password(Password_encryption, rolename, password);
+        new_record[Anum_pg_authid_rolpassword - 1] = CStringGetTextDatum(shadow_pass);
+        new_record_repl[Anum_pg_authid_rolpassword - 1] = true;
+    }
+
+    // Update catalog
+    new_tuple = heap_modify_tuple(tuple, pg_authid_dsc, new_record, nulls, replaces);
+    CatalogTupleUpdate(pg_authid_rel, &tuple->t_self, new_tuple);
+
+    // Handle role membership changes
+    if (drolemembers) {
+        if (stmt->action == +1)
+            AddRoleMems(currentUserId, rolename, roleid, rolemembers, ...);
+        else if (stmt->action == -1)
+            DelRoleMems(currentUserId, rolename, roleid, rolemembers, ...);
+    }
+
+    InvokeObjectPostAlterHook(AuthIdRelationId, roleid, 0);
+    table_close(pg_authid_rel, NoLock);
+
+    return roleid;
+}
+```

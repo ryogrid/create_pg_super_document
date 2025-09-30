@@ -35,3 +35,18 @@ ecpg_deallocate_all_conn(int lineno, enum COMPAT_MODE c, struct connection *con)
 - The loop continues until con->prep_stmts becomes NULL, indicating all statements have been removed
 - Each successful call to deallocate_one automatically updates con->prep_stmts to point to the next statement in the list
 - Essential for preventing memory leaks when closing connections or resetting connection state
+
+## Simplified Source
+
+```c
+bool ecpg_deallocate_all_conn(int lineno, enum COMPAT_MODE c, struct connection *con) {
+    // Deallocate all prepared statements in the connection
+    while (con->prep_stmts) {
+        // Deallocate one statement at a time
+        if (!deallocate_one(lineno, c, con, NULL, con->prep_stmts))
+            return false;
+    }
+
+    return true;
+}
+```

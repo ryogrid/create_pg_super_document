@@ -44,3 +44,43 @@ The function is fundamental to query planning as it establishes the basic relati
 - Appendrel members are handled separately in later processing phases
 - Error handling includes checking for unrecognized node types
 - Located in src/backend/optimizer/plan/initsplan.c at lines 157-194
+
+## Simplified Source
+
+```c
+void add_base_rels_to_query(PlannerInfo *root, Node *jtnode)
+{
+    // Base case: null node
+    if (jtnode == NULL)
+        return;
+
+    if (IsA(jtnode, RangeTblRef))
+    {
+        // Direct table reference: create base relation
+        int varno = ((RangeTblRef *) jtnode)->rtindex;
+        (void) build_simple_rel(root, varno, NULL);
+    }
+    else if (IsA(jtnode, FromExpr))
+    {
+        // FROM clause: recursively process all items in the fromlist
+        FromExpr *f = (FromExpr *) jtnode;
+        ListCell *l;
+
+        foreach(l, f->fromlist)
+            add_base_rels_to_query(root, lfirst(l));
+    }
+    else if (IsA(jtnode, JoinExpr))
+    {
+        // JOIN expression: recursively process left and right sides
+        JoinExpr *j = (JoinExpr *) jtnode;
+
+        add_base_rels_to_query(root, j->larg);
+        add_base_rels_to_query(root, j->rarg);
+    }
+    else
+    {
+        // Unrecognized node type
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(jtnode));
+    }
+}
+```

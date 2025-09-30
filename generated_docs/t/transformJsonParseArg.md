@@ -40,3 +40,44 @@ This function processes JSON document arguments used in JSON parsing operations.
 - Performs implicit type coercion for string-category and unknown types to TEXTOID
 - Part of the JSON parsing infrastructure that ensures consistent input formatting
 - Error reporting includes parser location information for better diagnostics
+
+## Simplified Source
+
+```c
+static Node *
+transformJsonParseArg(ParseState *pstate, Node *jsexpr, JsonFormat *format, Oid *exprtype) {
+    Node *raw_expr = transformExprRecurse(pstate, jsexpr);
+    Node *expr = raw_expr;
+
+    *exprtype = exprType(expr);
+
+    // Handle BYTEA input - convert to text and wrap in JsonValueExpr
+    if (*exprtype == BYTEAOID) {
+        expr = makeJsonByteaToTextConversion(expr, format, exprLocation(expr));
+        *exprtype = TEXTOID;
+
+        JsonValueExpr *jve = makeJsonValueExpr((Expr *) raw_expr, (Expr *) expr, format);
+        expr = (Node *) jve;
+    } else {
+        char typcategory;
+        bool typispreferred;
+
+        get_type_category_preferred(*exprtype, &typcategory, &typispreferred);
+
+        // Coerce string-category or unknown types to TEXT
+        if (*exprtype == UNKNOWNOID || typcategory == TYPCATEGORY_STRING) {
+            expr = coerce_to_target_type(pstate, (Node *) expr, *exprtype,
+                                       TEXTOID, -1,
+                                       COERCION_IMPLICIT,
+                                       COERCE_IMPLICIT_CAST, -1);
+            *exprtype = TEXTOID;
+        }
+
+        // Validate encoding clause usage
+        if (format->encoding != JS_ENC_DEFAULT)
+            ereport(ERROR, ..., "cannot use JSON FORMAT ENCODING clause for non-bytea input types");
+    }
+
+    return expr;
+}
+```

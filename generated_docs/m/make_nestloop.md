@@ -40,3 +40,38 @@ This join method is typically chosen when one of the relations is small, when th
 - The `nestParams` field enables efficient parameterized nested loops where inner scans can use parameters from the current outer row
 - The `inner_unique` flag can enable optimizations during execution when the planner knows the inner relation will produce unique matches
 - [NestLoop](../N/NestLoop.md) joins are often chosen when suitable indexes exist on the inner relation's join columns
+
+## Simplified Source
+
+```c
+static NestLoop *
+make_nestloop(List *tlist,
+              List *joinclauses,
+              List *otherclauses,
+              List *nestParams,
+              Plan *lefttree,
+              Plan *righttree,
+              JoinType jointype,
+              bool inner_unique)
+{
+    // Create a new NestLoop plan node
+    NestLoop *node = makeNode(NestLoop);
+    Plan *plan = &node->join.plan;
+
+    // Set basic plan properties
+    plan->targetlist = tlist;
+    plan->qual = otherclauses;
+    plan->lefttree = lefttree;
+    plan->righttree = righttree;
+
+    // Set join properties
+    node->join.jointype = jointype;
+    node->join.inner_unique = inner_unique;
+    node->join.joinqual = joinclauses;
+
+    // Set nested loop specific parameters
+    node->nestParams = nestParams;
+
+    return node;
+}
+```

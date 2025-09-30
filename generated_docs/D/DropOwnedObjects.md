@@ -35,3 +35,32 @@ The function serves as a security wrapper around the shared dependency system's 
 - Objects are dropped across all databases where the roles have ownership
 - This is a potentially destructive operation that should be used with caution
 - Related to the already documented shdepDropOwned function which performs the lower-level dropping logic
+
+## Simplified Source
+
+```c
+void
+DropOwnedObjects(DropOwnedStmt *stmt)
+{
+    List *role_ids;
+    ListCell *cell;
+
+    // Convert role specifications to OID list
+    role_ids = roleSpecsToIds(stmt->roles);
+
+    // Check privileges for each role
+    foreach(cell, role_ids) {
+        Oid roleid = lfirst_oid(cell);
+
+        if (!has_privs_of_role(GetUserId(), roleid))
+            ereport(ERROR,
+                   (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                    errmsg("permission denied to drop objects"),
+                    errdetail("Only roles with privileges of role \"%s\" may drop objects owned by it.",
+                             GetUserNameFromId(roleid, false))));
+    }
+
+    // Perform the actual object dropping
+    shdepDropOwned(role_ids, stmt->behavior);
+}
+```

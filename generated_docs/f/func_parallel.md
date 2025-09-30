@@ -43,3 +43,24 @@ This information is essential for PostgreSQL's parallel query execution feature,
 - The parallel safety level affects whether parallel workers can be used for query execution
 - Introduced as part of PostgreSQL's parallel query execution infrastructure
 - Located in src/backend/utils/cache/lsyscache.c:1799-1817
+
+## Simplified Source
+
+```c
+char func_parallel(Oid funcid) {
+    HeapTuple tp;
+    char result;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract parallel safety flag from pg_proc tuple
+    result = ((Form_pg_proc) GETSTRUCT(tp))->proparallel;
+
+    // Clean up cache reference
+    ReleaseSysCache(tp);
+    return result;
+}
+```

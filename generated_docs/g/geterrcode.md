@@ -31,3 +31,19 @@ This function takes no parameters.
 - Located in src/backend/utils/error/elog.c:1561-1577
 - Part of PostgreSQL's error handling system for providing access to error state information
 - Should not be used outside of error handling contexts where the concept is meaningful
+
+## Simplified Source
+
+```c
+int
+geterrcode(void)
+{
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Validate stack depth (no recursion tracking needed)
+    CHECK_STACK_DEPTH();
+
+    // Return the SQLSTATE error code from current error context
+    return edata->sqlerrcode;
+}
+```

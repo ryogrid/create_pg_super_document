@@ -60,3 +60,61 @@ The LATERAL reference checking is particularly sophisticated, ensuring that late
 - The LATERAL reference analysis includes sophisticated logic to handle outer join interactions and prevent qual-postponement issues
 - Future PostgreSQL versions might relax some restrictions (like WITH clauses) as indicated by XXX comments in the code
 - The volatile function check prevents subtle bugs that could arise from multiple function evaluations after pullup
+
+## Simplified Source
+
+```c
+static bool
+is_simple_subquery(PlannerInfo *root, Query *subquery, RangeTblEntry *rte,
+                   JoinExpr *lowest_outer_join)
+{
+    // Basic validity check
+    if (!IsA(subquery, Query) || subquery->commandType != CMD_SELECT)
+        return false;
+
+    // Reject set operations (handled elsewhere)
+    if (subquery->setOperations)
+        return false;
+
+    // Reject complex operations that prevent pullup
+    if (subquery->hasAggs || subquery->hasWindowFuncs ||
+        subquery->hasTargetSRFs || subquery->groupClause ||
+        subquery->groupingSets || subquery->havingQual ||
+        subquery->sortClause || subquery->distinctClause ||
+        subquery->limitOffset || subquery->limitCount ||
+        subquery->hasForUpdate || subquery->cteList)
+        return false;
+
+    // Security barrier views cannot be pulled up
+    if (rte->security_barrier)
+        return false;
+
+    // Handle LATERAL reference restrictions
+    if (rte->lateral) {
+        Relids safe_upper_varnos = NULL;
+        bool restricted = (lowest_outer_join != NULL);
+
+        if (restricted) {
+            safe_upper_varnos = get_relids_in_jointree(lowest_outer_join, true, true);
+        }
+
+        // Check for problematic lateral references
+        if (jointree_contains_lateral_outer_refs(root, subquery->jointree,
+                                                restricted, safe_upper_varnos))
+            return false;
+
+        // Check target list lateral references under outer joins
+        if (lowest_outer_join != NULL) {
+            Relids lvarnos = pull_varnos_of_level(root, subquery->targetList, 1);
+            if (!bms_is_subset(lvarnos, safe_upper_varnos))
+                return false;
+        }
+    }
+
+    // Reject volatile functions in target list
+    if (contain_volatile_functions(subquery->targetList))
+        return false;
+
+    return true;
+}
+```

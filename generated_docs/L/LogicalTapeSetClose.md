@@ -38,3 +38,18 @@ The function performs three key cleanup operations: closes the underlying file s
 - This is typically called as part of larger cleanup routines in sorting and aggregation operations
 - The function does not perform any validation - caller must ensure the LogicalTapeSet is valid
 - Free block tracking memory (`freeBlocks` array) is explicitly freed to prevent memory leaks
+
+## Simplified Source
+
+```c
+void LogicalTapeSetClose(LogicalTapeSet *lts) {
+    // Close the underlying buffered file that stores tape data
+    BufFileClose(lts->pfile);
+
+    // Free the free blocks tracking array
+    pfree(lts->freeBlocks);
+
+    // Free the LogicalTapeSet structure itself
+    pfree(lts);
+}
+```

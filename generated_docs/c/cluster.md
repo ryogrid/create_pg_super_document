@@ -49,3 +49,97 @@ To avoid deadlocks during multi-table operations, each relation is processed in 
 - Automatically finds the clustered index if no index is specified for single-table operations
 - Rejects clustering of remote temporary tables due to buffer manager limitations
 - Uses separate memory contexts to manage data across multiple transactions in multi-table scenarios
+
+## Simplified Source
+
+```c
+void cluster(ParseState *pstate, ClusterStmt *stmt, bool isTopLevel) {
+    ClusterParams params = {0};
+    bool verbose = false;
+    Relation rel = NULL;
+    Oid indexOid = InvalidOid;
+    MemoryContext cluster_context;
+
+    // Parse command options
+    foreach(lc, stmt->params) {
+        DefElem *opt = (DefElem *) lfirst(lc);
+        if (strcmp(opt->defname, "verbose") == 0)
+            verbose = defGetBoolean(opt);
+        else
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("unrecognized CLUSTER option \"%s\"",
+                                  opt->defname)));
+    }
+
+    params.options = (verbose ? CLUOPT_VERBOSE : 0);
+
+    if (stmt->relation != NULL) {
+        // Single-relation case
+        Oid tableOid = RangeVarGetRelidExtended(stmt->relation,
+                                               AccessExclusiveLock, 0,
+                                               RangeVarCallbackMaintainsTable,
+                                               NULL);
+        rel = table_open(tableOid, NoLock);
+
+        // Check for remote temp table restriction
+        if (RELATION_IS_OTHER_TEMP(rel))
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("cannot cluster temporary tables of other sessions")));
+
+        // Find the index to cluster on
+        if (stmt->indexname == NULL) {
+            // Look for previously clustered index
+            foreach(index, RelationGetIndexList(rel)) {
+                indexOid = lfirst_oid(index);
+                if (get_index_isclustered(indexOid))
+                    break;
+                indexOid = InvalidOid;
+            }
+            if (!OidIsValid(indexOid))
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                               errmsg("there is no previously clustered index for table \"%s\"",
+                                      stmt->relation->relname)));
+        } else {
+            // Use specified index
+            indexOid = get_relname_relid(stmt->indexname,
+                                        rel->rd_rel->relnamespace);
+            if (!OidIsValid(indexOid))
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                               errmsg("index \"%s\" for table \"%s\" does not exist",
+                                      stmt->indexname, stmt->relation->relname)));
+        }
+
+        // Handle regular table vs partitioned table
+        if (rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+            table_close(rel, NoLock);
+            cluster_rel(tableOid, indexOid, &params);
+            return;
+        }
+    }
+
+    // Multi-table case: prevent transaction block and setup memory context
+    PreventInTransactionBlock(isTopLevel, "CLUSTER");
+    cluster_context = AllocSetContextCreate(PortalContext, "Cluster",
+                                           ALLOCSET_DEFAULT_SIZES);
+
+    // Get list of tables to cluster
+    params.options |= CLUOPT_RECHECK;
+    if (rel != NULL) {
+        // Partitioned table case
+        check_index_is_clusterable(rel, indexOid, AccessShareLock);
+        rtcs = get_tables_to_cluster_partitioned(cluster_context, indexOid);
+        table_close(rel, AccessExclusiveLock);
+    } else {
+        // Cluster all tables with clustered indexes
+        rtcs = get_tables_to_cluster(cluster_context);
+        params.options |= CLUOPT_RECHECK_ISCLUSTERED;
+    }
+
+    // Process all tables
+    cluster_multiple_rels(rtcs, &params);
+
+    // Cleanup
+    StartTransactionCommand();
+    MemoryContextDelete(cluster_context);
+}
+```

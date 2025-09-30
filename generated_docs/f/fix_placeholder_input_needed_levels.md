@@ -35,3 +35,31 @@ The function iterates through all placeholders in the planner's placeholder list
 - This function can have side-effects on the ph_needed sets of other PlaceHolderInfos, but this is acceptable because the function doesn't examine ph_needed itself, avoiding ordering issues
 - The function handles scan-level evaluations even though they might seem uninteresting, because LATERAL references require proper variable marking
 - The loop processes placeholders without ordering concerns due to the design of not examining ph_needed within the function
+
+## Simplified Source
+
+```c
+void fix_placeholder_input_needed_levels(PlannerInfo *root)
+{
+    ListCell *lc;
+
+    // Process each placeholder in the planner's placeholder list
+    foreach(lc, root->placeholder_list) {
+        PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(lc);
+
+        // Extract all variables from the placeholder's expression
+        // Include aggregates, window functions, and nested placeholders
+        List *vars = pull_var_clause((Node *) phinfo->ph_var->phexpr,
+                                    PVC_RECURSE_AGGREGATES |
+                                    PVC_RECURSE_WINDOWFUNCS |
+                                    PVC_INCLUDE_PLACEHOLDERS);
+
+        // Add these variables to target lists at the placeholder's evaluation level
+        // This ensures they'll be available when the placeholder is evaluated
+        add_vars_to_targetlist(root, vars, phinfo->ph_eval_at);
+
+        // Clean up the extracted variable list
+        list_free(vars);
+    }
+}
+```

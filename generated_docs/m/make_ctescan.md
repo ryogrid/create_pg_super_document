@@ -40,3 +40,27 @@ The `make_ctescan` function is a factory function that constructs a CteScan plan
 - The ctePlanId and cteParam work together to uniquely identify and access the correct materialized CTE data
 - [CteScan](../C/CteScan.md) nodes are essential for implementing recursive CTEs and for optimizing queries with multiple CTE references
 - Part of PostgreSQL's query planner infrastructure that handles WITH clause functionality and CTE materialization
+
+## Simplified Source
+
+```c
+static CteScan *make_ctescan(List *qptlist, List *qpqual, Index scanrelid,
+                             int ctePlanId, int cteParam) {
+    // Create new CteScan node
+    CteScan *node = makeNode(CteScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set up basic plan fields
+    plan->targetlist = qptlist;
+    plan->qual = qpqual;
+    plan->lefttree = NULL;   // Leaf scan node
+    plan->righttree = NULL;  // Leaf scan node
+
+    // Set CTE specific fields
+    node->scan.scanrelid = scanrelid;
+    node->ctePlanId = ctePlanId;     // Identifies which CTE plan
+    node->cteParam = cteParam;       // Parameter for CTE access
+
+    return node;
+}
+```

@@ -43,3 +43,37 @@ The function performs the standard pattern for PostgreSQL object ownership chang
 - The actual ownership change logic is delegated to AlterEventTriggerOwner_internal() for code reuse
 - Memory management includes proper cleanup of the tuple copy obtained from the system cache
 - This function is typically called as part of the SQL command processing pipeline for ALTER EVENT TRIGGER ... OWNER TO statements
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterEventTriggerOwner(const char *name, Oid newOwnerId)
+{
+    // Open event trigger catalog with exclusive lock
+    Relation rel = table_open(EventTriggerRelationId, RowExclusiveLock);
+
+    // Look up event trigger by name
+    HeapTuple tup = SearchSysCacheCopy1(EVENTTRIGGERNAME, CStringGetDatum(name));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, "event trigger \"%s\" does not exist", name);
+
+    // Extract event trigger OID from tuple
+    Form_pg_event_trigger evtForm = (Form_pg_event_trigger) GETSTRUCT(tup);
+    Oid evtOid = evtForm->oid;
+
+    // Delegate to internal function for actual ownership change
+    AlterEventTriggerOwner_internal(rel, tup, newOwnerId);
+
+    // Create return address
+    ObjectAddress address;
+    ObjectAddressSet(address, EventTriggerRelationId, evtOid);
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

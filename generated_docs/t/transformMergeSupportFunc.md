@@ -53,3 +53,30 @@ The MERGE_ACTION() function is a special PostgreSQL function that returns inform
 - MERGE_ACTION() is a PostgreSQL-specific extension for MERGE statement introspection
 - The validation ensures type safety and prevents misuse of the special function
 - Located in src/backend/parser/parse_expr.c:1378-1402
+
+## Simplified Source
+
+```c
+static Node *transformMergeSupportFunc(ParseState *pstate, MergeSupportFunc *f) {
+    // Check if we're in the correct context (MERGE RETURNING clause)
+    if (pstate->p_expr_kind != EXPR_KIND_MERGE_RETURNING) {
+        ParseState *parent_pstate = pstate->parentParseState;
+
+        // Search up the parent chain for valid MERGE RETURNING context
+        while (parent_pstate &&
+               parent_pstate->p_expr_kind != EXPR_KIND_MERGE_RETURNING) {
+            parent_pstate = parent_pstate->parentParseState;
+        }
+
+        // If no valid context found, report error
+        if (!parent_pstate) {
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("MERGE_ACTION() can only be used in the RETURNING list of a MERGE command"),
+                           parser_errposition(pstate, f->location)));
+        }
+    }
+
+    // Return the node unchanged - actual processing happens at execution
+    return (Node *) f;
+}
+```

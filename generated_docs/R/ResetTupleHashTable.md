@@ -35,3 +35,13 @@ This function efficiently clears all entries from a TupleHashTable while maintai
 - Much more efficient than destroying and recreating the hash table
 - Commonly used in scenarios where the same hash table structure is reused across multiple iterations or rescans
 - Essential for operations that need to clear and repopulate hash tables during query execution
+
+## Simplified Source
+
+```c
+void ResetTupleHashTable(TupleHashTable hashtable) {
+    // Reset the underlying hash table, clearing all entries
+    // while preserving structure and configuration
+    tuplehash_reset(hashtable->hashtab);
+}
+```

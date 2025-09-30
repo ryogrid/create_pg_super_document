@@ -47,3 +47,50 @@ The created trigger inherits deferability settings from the foreign key constrai
 - Automatically calls CommandCounterIncrement() to make trigger definition visible to subsequent operations
 - Part of the foreign key constraint implementation infrastructure
 - Returns the OID of the newly created trigger for further reference
+
+## Simplified Source
+
+```c
+static Oid CreateFKCheckTrigger(Oid myRelOid, Oid refRelOid, Constraint *fkconstraint,
+                               Oid constraintOid, Oid indexOid, Oid parentTrigOid,
+                               bool on_insert) {
+    // Create trigger statement structure
+    CreateTrigStmt *fk_trigger = makeNode(CreateTrigStmt);
+    fk_trigger->replace = false;
+    fk_trigger->isconstraint = true;
+    fk_trigger->trigname = "RI_ConstraintTrigger_c";  // 'c' for check triggers
+    fk_trigger->relation = NULL;
+
+    // Configure trigger function and event type
+    if (on_insert) {
+        fk_trigger->funcname = SystemFuncName("RI_FKey_check_ins");
+        fk_trigger->events = TRIGGER_TYPE_INSERT;
+    } else {
+        fk_trigger->funcname = SystemFuncName("RI_FKey_check_upd");
+        fk_trigger->events = TRIGGER_TYPE_UPDATE;
+    }
+
+    // Set trigger properties
+    fk_trigger->args = NIL;
+    fk_trigger->row = true;           // Row-level trigger
+    fk_trigger->timing = TRIGGER_TYPE_AFTER;
+    fk_trigger->columns = NIL;
+    fk_trigger->whenClause = NULL;
+    fk_trigger->transitionRels = NIL;
+
+    // Inherit constraint properties
+    fk_trigger->deferrable = fkconstraint->deferrable;
+    fk_trigger->initdeferred = fkconstraint->initdeferred;
+    fk_trigger->constrrel = NULL;
+
+    // Create the actual trigger
+    ObjectAddress trigAddress = CreateTrigger(fk_trigger, NULL, myRelOid, refRelOid,
+                                            constraintOid, indexOid, InvalidOid,
+                                            parentTrigOid, NULL, true, false);
+
+    // Make trigger visible to subsequent operations
+    CommandCounterIncrement();
+
+    return trigAddress.objectId;
+}
+```

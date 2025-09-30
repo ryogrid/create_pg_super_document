@@ -45,3 +45,45 @@ For each matching dependency, the function adds the extension's OID (`refobjid`)
 - The DEPENDENCY_AUTO_EXTENSION dependency type represents a weaker form of extension association compared to regular extension membership
 - This function is particularly important for the ALTER ... DEPENDS ON EXTENSION functionality
 - Uses AccessShareLock when accessing the pg_depend catalog for consistent reads
+
+## Simplified Source
+
+```c
+List *getAutoExtensionsOfObject(Oid classId, Oid objectId) {
+    List *result = NIL;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Step 1: Open pg_depend catalog for reading
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Step 2: Set up scan keys to find dependencies for the specified object
+    ScanKeyInit(&key[0], Anum_pg_depend_classid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objectId));
+
+    // Step 3: Begin indexed scan using DependDependerIndexId
+    scan = systable_beginscan(depRel, DependDependerIndexId, true, NULL, 2, key);
+
+    // Step 4: Scan through all dependency records for this object
+    while (HeapTupleIsValid((tup = systable_getnext(scan)))) {
+        Form_pg_depend depform = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Step 5: Check if this is an automatic extension dependency
+        if (depform->refclassid == ExtensionRelationId &&
+            depform->deptype == DEPENDENCY_AUTO_EXTENSION) {
+            // Add extension OID to result list
+            result = lappend_oid(result, depform->refobjid);
+        }
+    }
+
+    // Step 6: Clean up scan and close catalog
+    systable_endscan(scan);
+    table_close(depRel, AccessShareLock);
+
+    return result;
+}
+```

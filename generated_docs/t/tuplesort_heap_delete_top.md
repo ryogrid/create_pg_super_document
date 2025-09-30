@@ -47,3 +47,20 @@ The time complexity is O(log n) due to the sift-down operation performed by the 
 - This is a safe operation that maintains heap integrity regardless of the heap's current state
 - Commonly used in heap-based algorithms like heapsort and in merge operations for external sorting
 - The function does not return the deleted element; caller must retrieve it beforehand if needed
+
+## Simplified Source
+
+```c
+static void tuplesort_heap_delete_top(Tuplesortstate *state) {
+    SortTuple *memtuples = state->memtuples;
+    SortTuple *lastTuple;
+
+    // Decrease heap size; return if heap becomes empty
+    if (--state->memtupcount <= 0)
+        return;
+
+    // Move last element to replace the top element
+    lastTuple = &memtuples[state->memtupcount];
+    tuplesort_heap_replace_top(state, lastTuple);
+}
+```

@@ -62,3 +62,40 @@ This function is recursion-safe and handles nested indirect datums by recursivel
 - For short header datums, it normalizes the header size to the standard VARHDRSZ
 - The function is widely used throughout PostgreSQL for memory management, statistics collection, and data comparison operations
 - Return value includes the VARHDRSZ header size for consistency across all datum types
+
+## Simplified Source
+
+```c
+Size toast_raw_datum_size(Datum value) {
+    struct varlena *attr = (struct varlena *) DatumGetPointer(value);
+
+    if (VARATT_IS_EXTERNAL_ONDISK(attr)) {
+        // External TOAST data - get size from stored metadata
+        struct varatt_external toast_pointer;
+        VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+        return toast_pointer.va_rawsize;
+    }
+    else if (VARATT_IS_EXTERNAL_INDIRECT(attr)) {
+        // Indirect pointer - recursively get size from target datum
+        struct varatt_indirect toast_pointer;
+        VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+        return toast_raw_datum_size(PointerGetDatum(toast_pointer.pointer));
+    }
+    else if (VARATT_IS_EXTERNAL_EXPANDED(attr)) {
+        // Expanded object - get flat size from header
+        return EOH_get_flat_size(DatumGetEOHP(value));
+    }
+    else if (VARATT_IS_COMPRESSED(attr)) {
+        // Compressed data - add header size to payload size
+        return VARDATA_COMPRESSED_GET_EXTSIZE(attr) + VARHDRSZ;
+    }
+    else if (VARATT_IS_SHORT(attr)) {
+        // Short header format - normalize to standard header size
+        return VARSIZE_SHORT(attr) - VARHDRSZ_SHORT + VARHDRSZ;
+    }
+    else {
+        // Plain untoasted datum
+        return VARSIZE(attr);
+    }
+}
+```

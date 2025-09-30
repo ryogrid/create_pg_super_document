@@ -29,3 +29,14 @@ This function provides a simple boolean check to determine if a PostgreSQL type 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's system cache utilities (lsyscache.c) and provides a clean abstraction for type checking. It's commonly used in contexts where range-specific operations need to be performed or where type coercion rules need to be applied differently for range types.
+
+## Simplified Source
+
+```c
+bool
+type_is_range(Oid typid)
+{
+    // Check if type category is range
+    return (get_typtype(typid) == TYPTYPE_RANGE);
+}
+```

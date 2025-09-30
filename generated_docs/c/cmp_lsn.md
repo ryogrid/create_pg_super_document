@@ -38,3 +38,17 @@ This function is specifically designed to support quorum-based synchronous repli
 - Used exclusively for sorting LSN arrays in quorum-based synchronous replication logic
 - The function signature follows the standard qsort comparator convention
 - Function location: src/backend/replication/syncrep.c:738-753
+
+## Simplified Source
+
+```c
+static int
+cmp_lsn(const void *a, const void *b)
+{
+    XLogRecPtr lsn1 = *((const XLogRecPtr *) a);
+    XLogRecPtr lsn2 = *((const XLogRecPtr *) b);
+
+    // Sort in descending order (largest LSN first)
+    return pg_cmp_u64(lsn2, lsn1);
+}
+```

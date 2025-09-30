@@ -42,3 +42,60 @@ This function creates a WorkTableScan plan node for accessing the working table 
 - Self-referencing CTEs require special handling as they reference themselves in their recursive definition
 - Includes comprehensive error checking for missing CTE definitions, invalid level specifications, and missing worktable parameters
 - The working table is populated iteratively during recursive CTE execution, with each iteration adding new rows until no more rows are generated
+
+## Simplified Source
+
+```c
+static WorkTableScan *
+create_worktablescan_plan(PlannerInfo *root, Path *best_path,
+                          List *tlist, List *scan_clauses)
+{
+    WorkTableScan *scan_plan;
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte;
+    Index levelsup;
+    PlannerInfo *cteroot;
+
+    // Validate that we have a self-referencing CTE
+    Assert(scan_relid > 0);
+    rte = planner_rt_fetch(scan_relid, root);
+    Assert(rte->rtekind == RTE_CTE);
+    Assert(rte->self_reference);
+
+    // Find worktable param ID by traversing to recursive UNION processing level
+    levelsup = rte->ctelevelsup;
+    if (levelsup == 0)
+        elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+    levelsup--;
+
+    // Traverse up the planner hierarchy to find the CTE root
+    cteroot = root;
+    while (levelsup-- > 0) {
+        cteroot = cteroot->parent_root;
+        if (!cteroot)
+            elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+    }
+
+    if (cteroot->wt_param_id < 0)
+        elog(ERROR, "could not find param ID for CTE \"%s\"", rte->ctename);
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths by replacing outer variables with nestloop params
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the WorkTableScan plan node with worktable parameter ID
+    scan_plan = make_worktablescan(tlist, scan_clauses, scan_relid, cteroot->wt_param_id);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

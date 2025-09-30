@@ -35,3 +35,24 @@ When anymultirange_type is valid, the function extracts the range type that the 
 - Only works when anymultirange_type is already resolved
 - The design reflects PostgreSQL's type system where multiple range types can have the same subtype
 - Located in src/backend/utils/fmgr/funcapi.c:681-709
+
+## Simplified Source
+
+```c
+static void resolve_anyrange_from_others(polymorphic_actuals *actuals) {
+    // Can only resolve from anymultirange type (not from element/array types
+    // due to potential ambiguity - multiple ranges can have same subtype)
+    if (OidIsValid(actuals->anymultirange_type)) {
+        Oid multirange_base_type = getBaseType(actuals->anymultirange_type);
+        Oid range_typeid = get_multirange_range(multirange_base_type);
+
+        if (!OidIsValid(range_typeid)) {
+            ereport(ERROR, "argument declared anymultirange is not a multirange type");
+        }
+
+        actuals->anyrange_type = range_typeid;
+    } else {
+        elog(ERROR, "could not determine polymorphic type");
+    }
+}
+```

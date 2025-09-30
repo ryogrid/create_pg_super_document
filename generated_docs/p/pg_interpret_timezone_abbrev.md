@@ -41,3 +41,62 @@ The abbreviation matching is case-sensitive and should be provided in all-upper-
 - Uses binary search for efficient time transition lookup
 - Does not require handling of extrapolation zones (goback/goahead) since finding newest/oldest meanings suffices
 - Located in src/timezone/localtime.c:1757-1850
+
+## Simplified Source
+
+```c
+bool pg_interpret_timezone_abbrev(const char *abbrev,
+                                const pg_time_t *timep,
+                                long int *gmtoff,
+                                int *isdst,
+                                const pg_tz *tz) {
+    const struct state *sp = &tz->state;
+    const char *abbrs = sp->chars;
+    int abbrind = 0;
+    const pg_time_t t = *timep;
+
+    // Find the abbreviation in the timezone's abbreviation list
+    while (abbrind < sp->charcnt) {
+        if (strcmp(abbrev, abbrs + abbrind) == 0)
+            break;
+        while (abbrs[abbrind] != '\0')
+            abbrind++;
+        abbrind++;
+    }
+    if (abbrind >= sp->charcnt)
+        return false;  // Abbreviation not found
+
+    // Binary search to find the cutoff time position
+    int lo = 0, hi = sp->timecnt;
+    while (lo < hi) {
+        int mid = (lo + hi) >> 1;
+        if (t < sp->ats[mid])
+            hi = mid;
+        else
+            lo = mid + 1;
+    }
+    int cutoff = lo;
+
+    // Search backwards for the latest use of this abbreviation before cutoff
+    for (int i = cutoff - 1; i >= 0; i--) {
+        const struct ttinfo *ttisp = &sp->ttis[sp->types[i]];
+        if (ttisp->tt_desigidx == abbrind) {
+            *gmtoff = ttisp->tt_utoff;
+            *isdst = ttisp->tt_isdst;
+            return true;
+        }
+    }
+
+    // Not found before cutoff, search forward for first use after cutoff
+    for (int i = cutoff; i < sp->timecnt; i++) {
+        const struct ttinfo *ttisp = &sp->ttis[sp->types[i]];
+        if (ttisp->tt_desigidx == abbrind) {
+            *gmtoff = ttisp->tt_utoff;
+            *isdst = ttisp->tt_isdst;
+            return true;
+        }
+    }
+
+    return false;  // Abbreviation not used in any interval
+}
+```

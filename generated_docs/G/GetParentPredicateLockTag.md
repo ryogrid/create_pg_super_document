@@ -47,3 +47,35 @@ The lock hierarchy follows this pattern:
 - Essential for lock escalation and promotion in the predicate locking system
 - Uses assertion to ensure all valid lock types are handled
 - Part of PostgreSQL's serializable snapshot isolation implementation
+
+## Simplified Source
+
+```c
+static bool GetParentPredicateLockTag(const PREDICATELOCKTARGETTAG *tag,
+                                      PREDICATELOCKTARGETTAG *parent) {
+    switch (GET_PREDICATELOCKTARGETTAG_TYPE(*tag)) {
+        case PREDLOCKTAG_RELATION:
+            // Relation locks are top-level, no parent
+            return false;
+
+        case PREDLOCKTAG_PAGE:
+            // Parent of page lock is relation lock
+            SET_PREDICATELOCKTARGETTAG_RELATION(*parent,
+                                                GET_PREDICATELOCKTARGETTAG_DB(*tag),
+                                                GET_PREDICATELOCKTARGETTAG_RELATION(*tag));
+            return true;
+
+        case PREDLOCKTAG_TUPLE:
+            // Parent of tuple lock is page lock
+            SET_PREDICATELOCKTARGETTAG_PAGE(*parent,
+                                            GET_PREDICATELOCKTARGETTAG_DB(*tag),
+                                            GET_PREDICATELOCKTARGETTAG_RELATION(*tag),
+                                            GET_PREDICATELOCKTARGETTAG_PAGE(*tag));
+            return true;
+    }
+
+    // Should never reach here
+    Assert(false);
+    return false;
+}
+```

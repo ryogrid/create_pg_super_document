@@ -57,3 +57,99 @@ The function ensures that all variable references in join expressions correctly 
 - Error handling includes an elog(ERROR) when a variable cannot be found in subplan target lists
 - The function is static, indicating it's only used within the setrefs.c compilation unit
 - It integrates with PostgreSQL's expression tree mutator framework for efficient tree traversal
+
+## Simplified Source
+
+```c
+static Node *fix_join_expr_mutator(Node *node, fix_join_expr_context *context) {
+    Var *newvar;
+
+    if (node == NULL)
+        return NULL;
+
+    // Handle Variable nodes
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Search outer input target list first
+        if (context->outer_itlist) {
+            newvar = search_indexed_tlist_for_var(var, context->outer_itlist,
+                                                  OUTER_VAR, context->rtoffset, context->nrm_match);
+            if (newvar)
+                return (Node *) newvar;
+        }
+
+        // Then search inner input target list
+        if (context->inner_itlist) {
+            newvar = search_indexed_tlist_for_var(var, context->inner_itlist,
+                                                  INNER_VAR, context->rtoffset, context->nrm_match);
+            if (newvar)
+                return (Node *) newvar;
+        }
+
+        // Handle acceptable_rel case
+        if (var->varno == context->acceptable_rel) {
+            var = copyVar(var);
+            var->varno += context->rtoffset;
+            if (var->varnosyn > 0)
+                var->varnosyn += context->rtoffset;
+            return (Node *) var;
+        }
+
+        elog(ERROR, "variable not found in subplan target lists");
+    }
+
+    // Handle PlaceHolderVar nodes
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Try to find in outer target list
+        if (context->outer_itlist && context->outer_itlist->has_ph_vars) {
+            newvar = search_indexed_tlist_for_phv(phv, context->outer_itlist,
+                                                  OUTER_VAR, context->nrm_match);
+            if (newvar)
+                return (Node *) newvar;
+        }
+
+        // Try to find in inner target list
+        if (context->inner_itlist && context->inner_itlist->has_ph_vars) {
+            newvar = search_indexed_tlist_for_phv(phv, context->inner_itlist,
+                                                  INNER_VAR, context->nrm_match);
+            if (newvar)
+                return (Node *) newvar;
+        }
+
+        // Process contained expression if not found
+        return fix_join_expr_mutator((Node *) phv->phexpr, context);
+    }
+
+    // Try matching complex expressions in target lists
+    if (context->outer_itlist && context->outer_itlist->has_non_vars) {
+        newvar = search_indexed_tlist_for_non_var((Expr *) node,
+                                                  context->outer_itlist, OUTER_VAR);
+        if (newvar)
+            return (Node *) newvar;
+    }
+
+    if (context->inner_itlist && context->inner_itlist->has_non_vars) {
+        newvar = search_indexed_tlist_for_non_var((Expr *) node,
+                                                  context->inner_itlist, INNER_VAR);
+        if (newvar)
+            return (Node *) newvar;
+    }
+
+    // Handle special node types
+    if (IsA(node, Param))
+        return fix_param_node(context->root, (Param *) node);
+
+    if (IsA(node, AlternativeSubPlan))
+        return fix_join_expr_mutator(fix_alternative_subplan(context->root,
+                                                            (AlternativeSubPlan *) node,
+                                                            context->num_exec),
+                                    context);
+
+    // Apply common expression fixes and recurse
+    fix_expr_common(context->root, node);
+    return expression_tree_mutator(node, fix_join_expr_mutator, (void *) context);
+}
+```

@@ -38,3 +38,18 @@ This is part of PostgreSQL's support for SQL standard array comparison operation
 - The resulting node will be further processed during query planning and optimization
 - Location information is preserved for error reporting and debugging
 - Complement to `transformAExprOpAny` - together they provide complete ANY/ALL array operation support
+
+## Simplified Source
+
+```c
+static Node *
+transformAExprOpAll(ParseState *pstate, A_Expr *a)
+{
+    // Transform both operands recursively
+    Node *lexpr = transformExprRecurse(pstate, a->lexpr);
+    Node *rexpr = transformExprRecurse(pstate, a->rexpr);
+
+    // Create scalar array operation with ALL semantics (false = ALL, not ANY)
+    return make_scalar_array_op(pstate, a->name, false, lexpr, rexpr, a->location);
+}
+```

@@ -43,3 +43,25 @@ After externalization, the attribute is marked as TOASTCOL_IGNORE since no furth
 - Marks the attribute as TOASTCOL_IGNORE to prevent further processing
 - Part of PostgreSQL's strategy to keep the main table rows reasonably sized while supporting very large attribute values
 - The options parameter can control aspects like compression of externalized data
+
+## Simplified Source
+
+```c
+void toast_tuple_externalize(ToastTupleContext *ttc, int attribute, int options) {
+    Datum *value = &ttc->ttc_values[attribute];
+    Datum old_value = *value;
+    ToastAttrInfo *attr = &ttc->ttc_attr[attribute];
+
+    // Mark attribute as processed and save to external storage
+    attr->tai_colflags |= TOASTCOL_IGNORE;
+    *value = toast_save_datum(ttc->ttc_rel, old_value, attr->tai_oldexternal, options);
+
+    // Clean up the old value if needed
+    if ((attr->tai_colflags & TOASTCOL_NEEDS_FREE) != 0)
+        pfree(DatumGetPointer(old_value));
+
+    // Update flags to reflect changes
+    attr->tai_colflags |= TOASTCOL_NEEDS_FREE;
+    ttc->ttc_flags |= (TOAST_NEEDS_CHANGE | TOAST_NEEDS_FREE);
+}
+```

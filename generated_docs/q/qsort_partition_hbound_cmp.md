@@ -31,3 +31,17 @@ This function serves as a qsort comparison callback for sorting PartitionHashBou
 - Used specifically for sorting hash partition bounds during partition boundary processing
 - The sorting order (modulus first, then remainder) ensures consistent ordering of hash partitions
 - Returns negative, zero, or positive value following standard qsort comparison conventions
+
+## Simplified Source
+
+```c
+static int32 qsort_partition_hbound_cmp(const void *a, const void *b) {
+    // Cast void pointers to hash bound structures
+    const PartitionHashBound *h1 = (const PartitionHashBound *) a;
+    const PartitionHashBound *h2 = (const PartitionHashBound *) b;
+
+    // Compare by modulus first, then remainder
+    return partition_hbound_cmp(h1->modulus, h1->remainder,
+                               h2->modulus, h2->remainder);
+}
+```

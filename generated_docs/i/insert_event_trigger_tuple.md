@@ -53,3 +53,71 @@ insert_event_trigger_tuple is the core function responsible for physically creat
 - Returns the newly assigned OID for the event trigger
 - Part of PostgreSQL's dependency tracking system to ensure proper cleanup during DROP operations
 - The function is transactional - if any step fails, the entire operation will be rolled back
+
+## Simplified Source
+
+```c
+static Oid insert_event_trigger_tuple(const char *trigname, const char *eventname,
+                                     Oid evtOwner, Oid funcoid, List *taglist) {
+    Relation tgrel;
+    Oid trigoid;
+    HeapTuple tuple;
+    Datum values[Natts_pg_trigger];
+    bool nulls[Natts_pg_trigger];
+    NameData evtnamedata, evteventdata;
+    ObjectAddress myself, referenced;
+
+    // Open pg_event_trigger catalog table
+    tgrel = table_open(EventTriggerRelationId, RowExclusiveLock);
+
+    // Generate new OID and build tuple values
+    trigoid = GetNewOidWithIndex(tgrel, EventTriggerOidIndexId, Anum_pg_event_trigger_oid);
+    values[Anum_pg_event_trigger_oid - 1] = ObjectIdGetDatum(trigoid);
+    memset(nulls, false, sizeof(nulls));
+
+    // Set trigger name and event name
+    namestrcpy(&evtnamedata, trigname);
+    values[Anum_pg_event_trigger_evtname - 1] = NameGetDatum(&evtnamedata);
+    namestrcpy(&evteventdata, eventname);
+    values[Anum_pg_event_trigger_evtevent - 1] = NameGetDatum(&evteventdata);
+
+    // Set owner, function, and enabled status
+    values[Anum_pg_event_trigger_evtowner - 1] = ObjectIdGetDatum(evtOwner);
+    values[Anum_pg_event_trigger_evtfoid - 1] = ObjectIdGetDatum(funcoid);
+    values[Anum_pg_event_trigger_evtenabled - 1] = CharGetDatum(TRIGGER_FIRES_ON_ORIGIN);
+
+    // Handle tag filtering
+    if (taglist == NIL)
+        nulls[Anum_pg_event_trigger_evttags - 1] = true;
+    else
+        values[Anum_pg_event_trigger_evttags - 1] = filter_list_to_array(taglist);
+
+    // Insert the tuple into catalog
+    tuple = heap_form_tuple(tgrel->rd_att, values, nulls);
+    CatalogTupleInsert(tgrel, tuple);
+    heap_freetuple(tuple);
+
+    // Special handling for login event triggers
+    if (strcmp(eventname, "login") == 0)
+        SetDatabaseHasLoginEventTriggers();
+
+    // Record dependencies
+    recordDependencyOnOwner(EventTriggerRelationId, trigoid, evtOwner);
+
+    myself.classId = EventTriggerRelationId;
+    myself.objectId = trigoid;
+    myself.objectSubId = 0;
+    referenced.classId = ProcedureRelationId;
+    referenced.objectId = funcoid;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    // Invoke post-creation hooks and cleanup
+    InvokeObjectPostCreateHook(EventTriggerRelationId, trigoid, 0);
+    table_close(tgrel, RowExclusiveLock);
+
+    return trigoid;
+}
+```

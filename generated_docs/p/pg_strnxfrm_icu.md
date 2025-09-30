@@ -67,3 +67,45 @@ LC_ALL=: ICU locale specification with collation rules
 - Memory management automatically handles cleanup for heap-allocated Unicode buffers
 - The result is a binary sort key that maintains collation ordering through memcmp comparison
 - Located in src/backend/utils/adt/pg_locale.c:2226-2272
+
+## Simplified Source
+```c
+static size_t
+pg_strnxfrm_icu(char *dest, const char *src, int32_t srclen, int32_t destsize,
+                pg_locale_t locale)
+{
+    char sbuf[TEXTBUFLEN];
+    char *buf = sbuf;
+    UChar *uchar;
+    int32_t ulen;
+    size_t result_bsize;
+
+    // Initialize ICU converter
+    init_icu_converter();
+
+    // Get Unicode length and allocate buffer if needed
+    ulen = uchar_length(icu_converter, src, srclen);
+    size_t uchar_bsize = (ulen + 1) * sizeof(UChar);
+
+    if (uchar_bsize > TEXTBUFLEN)
+        buf = palloc(uchar_bsize);
+
+    // Convert to Unicode
+    uchar = (UChar *) buf;
+    ulen = uchar_convert(icu_converter, uchar, ulen + 1, src, srclen);
+
+    // Generate ICU sort key
+    result_bsize = ucol_getSortKey(locale->info.icu.ucol,
+                                   uchar, ulen,
+                                   (uint8_t *) dest, destsize);
+
+    // Exclude null terminator from result size
+    result_bsize--;
+
+    // Cleanup heap allocation if used
+    if (buf != sbuf)
+        pfree(buf);
+
+    return result_bsize;
+}
+```

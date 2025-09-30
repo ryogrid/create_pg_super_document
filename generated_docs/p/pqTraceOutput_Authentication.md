@@ -31,3 +31,13 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 - The function advances the cursor position through the message buffer as it reads the authentication type
 - Authentication type codes correspond to various authentication methods (e.g., OK, MD5, GSSAPI, etc.)
 - Output format follows tab-delimited structure for easy parsing by analysis tools
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_Authentication(FILE *f, const char *message, int *cursor) {
+    // Output authentication message type and authentication code
+    fprintf(f, "Authentication\t");
+    pqTraceOutputInt32(f, message, cursor, false);
+}
+```

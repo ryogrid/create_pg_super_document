@@ -50,3 +50,43 @@ The function handles two distinct scenarios for EPQ state management: simple sca
 - The function maintains EPQ correctness by ensuring that previously blocked relations remain blocked after rescan
 - Error handling ensures that only expected scan node types (including foreign and custom scans) are processed
 - The relation ID handling distinguishes between simple scans (scanrelid > 0) and complex multi-relation scans (scanrelid = 0)
+
+## Simplified Source
+
+```c
+void ExecScanReScan(ScanState *node) {
+    EState *estate = node->ps.state;
+
+    // Clear scan tuple slot to indicate scan not positioned on a tuple
+    ExecClearTuple(node->ss_ScanTupleSlot);
+
+    // Handle EvalPlanQual state reset if inside EPQ recheck
+    if (estate->es_epq_active != NULL) {
+        EPQState *epqstate = estate->es_epq_active;
+        Index scanrelid = ((Scan *) node->ps.plan)->scanrelid;
+
+        if (scanrelid > 0) {
+            // Simple scan: reset EPQ done status while preserving blocked status
+            epqstate->relsubs_done[scanrelid - 1] =
+                epqstate->relsubs_blocked[scanrelid - 1];
+        } else {
+            // Complex scan (foreign/custom): handle multiple relation IDs
+            Bitmapset *relids;
+
+            if (IsA(node->ps.plan, ForeignScan))
+                relids = ((ForeignScan *) node->ps.plan)->fs_base_relids;
+            else if (IsA(node->ps.plan, CustomScan))
+                relids = ((CustomScan *) node->ps.plan)->custom_relids;
+            else
+                elog(ERROR, "unexpected scan node: %d", (int) nodeTag(node->ps.plan));
+
+            // Reset EPQ state for all relations involved in the scan
+            int rtindex = -1;
+            while ((rtindex = bms_next_member(relids, rtindex)) >= 0) {
+                epqstate->relsubs_done[rtindex - 1] =
+                    epqstate->relsubs_blocked[rtindex - 1];
+            }
+        }
+    }
+}
+```

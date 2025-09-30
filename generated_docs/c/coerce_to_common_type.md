@@ -9,21 +9,17 @@ Coerces an expression node to a specified target type, used after select_common_
 ## Definition
 
 ```c
-struct, eg CASE */
-				 errmsg("%s could not convert type %s to %s",
-						context,
-						format_type_be(inputTypeId),
-						format_type_be(targetTypeId)),
-				 parser_errposition(pstate, exprLocation(node))));
+Node *coerce_to_common_type(ParseState *pstate, Node *node, Oid targetTypeId, const char *context)
 ```
+
 ## Detailed Description
 This function performs type coercion on an expression node to convert it to a target type that was previously determined by select_common_type(). It first checks if the input type matches the target type, returning the node unchanged if they're the same. If coercion is needed, it uses can_coerce_type() to verify that implicit coercion is possible, then calls coerce_type() to perform the actual conversion. If coercion is not possible, it reports an error with a descriptive message including the context.
 
 ## Parameters / Member Variables
-- : ParseState pointer for error reporting and unknown parameter processing (may be NULL)
-- : The expression node to be coerced
-- : OID of the target type to coerce to
-- : Descriptive string used in error messages (e.g., "CASE", "UNION")
+- `pstate`: ParseState pointer for error reporting and unknown parameter processing (may be NULL)
+- `node`: The expression node to be coerced
+- `targetTypeId`: OID of the target type to coerce to
+- `context`: Descriptive string used in error messages (e.g., "CASE", "UNION")
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -50,3 +46,39 @@ This function performs type coercion on an expression node to convert it to a ta
 - The context parameter provides user-friendly error messages specific to the SQL construct being processed
 - Part of PostgreSQL's type coercion system that ensures type consistency in expressions
 - Located in src/backend/parser/parse_coerce.c:1574-1607
+
+## Simplified Source
+
+```c
+Node *
+coerce_to_common_type(ParseState *pstate, Node *node,
+                      Oid targetTypeId, const char *context)
+{
+    Oid inputTypeId = exprType(node);
+
+    // No coercion needed if types match
+    if (inputTypeId == targetTypeId)
+        return node;
+
+    // Check if implicit coercion is possible
+    if (can_coerce_type(1, &inputTypeId, &targetTypeId, COERCION_IMPLICIT))
+    {
+        // Perform the coercion
+        node = coerce_type(pstate, node, inputTypeId, targetTypeId, -1,
+                          COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+    }
+    else
+    {
+        // Report coercion failure
+        ereport(ERROR,
+                (errcode(ERRCODE_CANNOT_COERCE),
+                 errmsg("%s could not convert type %s to %s",
+                       context,
+                       format_type_be(inputTypeId),
+                       format_type_be(targetTypeId)),
+                 parser_errposition(pstate, exprLocation(node))));
+    }
+
+    return node;
+}
+```

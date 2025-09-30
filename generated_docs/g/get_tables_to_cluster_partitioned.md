@@ -38,3 +38,43 @@ The function is similar to expand_vacuum_rel but is specifically designed for cl
 - Handles permission checking per partition, allowing partial clustering
 - Returns NIL if no leaf partitions are found or user lacks privileges on all partitions
 - Memory allocation is done in the specified cluster_context for proper cleanup
+
+## Simplified Source
+
+```c
+static List *get_tables_to_cluster_partitioned(MemoryContext cluster_context, Oid indexOid)
+{
+    List *inhoids;
+    ListCell *lc;
+    List *rtcs = NIL;
+    MemoryContext old_context;
+
+    // Find all inheriting indexes (including partitioned index itself)
+    inhoids = find_all_inheritors(indexOid, NoLock, NULL);
+
+    // Process each child index
+    foreach(lc, inhoids) {
+        Oid indexrelid = lfirst_oid(lc);
+        Oid relid = IndexGetRelation(indexrelid, false);
+        RelToCluster *rtc;
+
+        // Only consider leaf indexes (not partitioned indexes)
+        if (get_rel_relkind(indexrelid) != RELKIND_INDEX)
+            continue;
+
+        // Check if user has clustering privileges on this partition
+        if (!cluster_is_permitted_for_relation(relid, GetUserId()))
+            continue;
+
+        // Create RelToCluster entry in specified memory context
+        old_context = MemoryContextSwitchTo(cluster_context);
+        rtc = (RelToCluster *) palloc(sizeof(RelToCluster));
+        rtc->tableOid = relid;
+        rtc->indexOid = indexrelid;
+        rtcs = lappend(rtcs, rtc);
+        MemoryContextSwitchTo(old_context);
+    }
+
+    return rtcs;
+}
+```

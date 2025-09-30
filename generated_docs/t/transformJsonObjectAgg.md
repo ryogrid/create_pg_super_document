@@ -57,3 +57,50 @@ The transformation process includes:
 - Key expressions are transformed normally while value expressions receive special JSON formatting treatment
 - All location and error context information is preserved through the transformation chain
 - The function handles both regular aggregates and window function contexts through the common aggregate constructor
+
+## Simplified Source
+
+```c
+static Node *transformJsonObjectAgg(ParseState *pstate, JsonObjectAgg *agg) {
+    // Transform key and value expressions
+    Node *key = transformExprRecurse(pstate, (Node *) agg->arg->key);
+    Node *val = transformJsonValueExpr(pstate, "JSON_OBJECTAGG()",
+                                      agg->arg->value, JS_FORMAT_DEFAULT,
+                                      InvalidOid, false);
+    List *args = list_make2(key, val);
+
+    // Determine output format and type
+    JsonReturning *returning = transformJsonConstructorOutput(pstate,
+                                                             agg->constructor->output, args);
+
+    // Select appropriate aggregate function based on format and options
+    Oid aggfnoid, aggtype;
+    if (returning->format->format_type == JS_FORMAT_JSONB) {
+        // Choose JSONB variant based on unique/strict flags
+        if (agg->absent_on_null) {
+            aggfnoid = agg->unique ? F_JSONB_OBJECT_AGG_UNIQUE_STRICT
+                                   : F_JSONB_OBJECT_AGG_STRICT;
+        } else {
+            aggfnoid = agg->unique ? F_JSONB_OBJECT_AGG_UNIQUE
+                                   : F_JSONB_OBJECT_AGG;
+        }
+        aggtype = JSONBOID;
+    } else {
+        // Choose JSON variant based on unique/strict flags
+        if (agg->absent_on_null) {
+            aggfnoid = agg->unique ? F_JSON_OBJECT_AGG_UNIQUE_STRICT
+                                   : F_JSON_OBJECT_AGG_STRICT;
+        } else {
+            aggfnoid = agg->unique ? F_JSON_OBJECT_AGG_UNIQUE
+                                   : F_JSON_OBJECT_AGG;
+        }
+        aggtype = JSONOID;
+    }
+
+    // Create the aggregate constructor node
+    return transformJsonAggConstructor(pstate, agg->constructor, returning,
+                                      args, aggfnoid, aggtype,
+                                      JSCTOR_JSON_OBJECTAGG,
+                                      agg->unique, agg->absent_on_null);
+}
+```

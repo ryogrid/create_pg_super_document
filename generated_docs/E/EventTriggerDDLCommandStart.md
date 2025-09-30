@@ -42,3 +42,34 @@ The function follows a standard pattern: setup eligible triggers, invoke them, c
 - Uses a superuser-controllable GUC (event_triggers) as an additional safety mechanism
 - Changes made by event triggers are made visible to the main command through CommandCounterIncrement
 - Part of PostgreSQL's comprehensive event trigger system for DDL monitoring and customization
+
+## Simplified Source
+
+```c
+void EventTriggerDDLCommandStart(Node *parsetree)
+{
+    List *runlist;
+    EventTriggerData trigdata;
+
+    // Skip if event triggers disabled (standalone mode or GUC setting)
+    if (!IsUnderPostmaster || !event_triggers)
+        return;
+
+    // Find applicable ddl_command_start triggers
+    runlist = EventTriggerCommonSetup(parsetree,
+                                      EVT_DDLCommandStart,
+                                      "ddl_command_start",
+                                      &trigdata, false);
+    if (runlist == NIL)
+        return;
+
+    // Execute the triggers
+    EventTriggerInvoke(runlist, &trigdata);
+
+    // Cleanup
+    list_free(runlist);
+
+    // Make trigger changes visible to main command
+    CommandCounterIncrement();
+}
+```

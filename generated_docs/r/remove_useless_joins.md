@@ -44,3 +44,43 @@ The optimization is particularly important for queries with views or subqueries 
 - Uses a restart mechanism to ensure all possible removals are found, as removing one join may enable removal of others
 - The function modifies both the joinlist parameter and the root->join_info_list structure
 - This optimization can significantly improve query performance by reducing the number of relations that need to be processed during execution
+
+## Simplified Source
+
+```c
+List *remove_useless_joins(PlannerInfo *root, List *joinlist) {
+    ListCell *lc;
+
+    // Restart here when we remove a join (removal may enable others)
+restart:
+    foreach(lc, root->join_info_list) {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+        int innerrelid;
+        int nremoved;
+
+        // Check if this join can be safely removed
+        if (!join_is_removable(root, sjinfo))
+            continue;
+
+        // Get the single base relation from the right-hand side
+        innerrelid = bms_singleton_member(sjinfo->min_righthand);
+
+        // Remove the relation from query structures
+        remove_rel_from_query(root, innerrelid, sjinfo);
+
+        // Remove relation from the joinlist (should remove exactly one)
+        nremoved = 0;
+        joinlist = remove_rel_from_joinlist(joinlist, innerrelid, &nremoved);
+        if (nremoved != 1)
+            elog(ERROR, "failed to find relation %d in joinlist", innerrelid);
+
+        // Remove the SpecialJoinInfo since it's no longer needed
+        root->join_info_list = list_delete_cell(root->join_info_list, lc);
+
+        // Restart scan to find all removable joins
+        goto restart;
+    }
+
+    return joinlist;
+}
+```

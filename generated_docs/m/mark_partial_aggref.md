@@ -39,3 +39,24 @@ The function updates both the aggregation split mode and adjusts the result type
 - The original aggsplit value must be AGGSPLIT_SIMPLE when this function is called
 - For partial aggregates that serialize INTERNAL transition values, the result type is changed to BYTEA to enable proper serialization/deserialization across process boundaries
 - This function is essential for PostgreSQL's parallel aggregation infrastructure, enabling efficient distribution of aggregation work across multiple processes
+
+## Simplified Source
+
+```c
+void mark_partial_aggref(Aggref *agg, AggSplit aggsplit) {
+    // Verify prerequisites
+    Assert(OidIsValid(agg->aggtranstype));
+    Assert(agg->aggsplit == AGGSPLIT_SIMPLE);
+
+    // Set the partial aggregation mode
+    agg->aggsplit = aggsplit;
+
+    // Adjust result type for partial aggregates
+    if (DO_AGGSPLIT_SKIPFINAL(aggsplit)) {
+        if (agg->aggtranstype == INTERNALOID && DO_AGGSPLIT_SERIALIZE(aggsplit))
+            agg->aggtype = BYTEAOID; // Use BYTEA for serialized INTERNAL types
+        else
+            agg->aggtype = agg->aggtranstype; // Use transition type
+    }
+}
+```

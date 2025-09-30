@@ -43,3 +43,90 @@ The function creates an InlineCodeBlock structure containing the source code and
 - Part of PostgreSQL's procedural language infrastructure
 - Provides helpful error hints when language extensions are not loaded
 - Used for one-time code execution without creating permanent database objects
+
+## Simplified Source
+
+```c
+void ExecuteDoStmt(ParseState *pstate, DoStmt *stmt, bool atomic)
+{
+    InlineCodeBlock *codeblock = makeNode(InlineCodeBlock);
+    DefElem *as_item = NULL;
+    DefElem *language_item = NULL;
+    char *language;
+    Oid laninline;
+    HeapTuple languageTuple;
+    Form_pg_language languageStruct;
+    ListCell *arg;
+
+    // Process DO statement options (AS and LANGUAGE)
+    foreach(arg, stmt->args)
+    {
+        DefElem *defel = (DefElem *) lfirst(arg);
+
+        if (strcmp(defel->defname, "as") == 0)
+        {
+            if (as_item)
+                errorConflictingDefElem(defel, pstate);
+            as_item = defel;
+        }
+        else if (strcmp(defel->defname, "language") == 0)
+        {
+            if (language_item)
+                errorConflictingDefElem(defel, pstate);
+            language_item = defel;
+        }
+        else
+            elog(ERROR, "option \"%s\" not recognized", defel->defname);
+    }
+
+    // Extract source code from AS clause
+    if (as_item)
+        codeblock->source_text = strVal(as_item->arg);
+    else
+        ereport(ERROR, /* no inline code specified */);
+
+    // Use specified language or default to plpgsql
+    if (language_item)
+        language = strVal(language_item->arg);
+    else
+        language = "plpgsql";
+
+    // Look up procedural language in system catalog
+    languageTuple = SearchSysCache1(LANGNAME, PointerGetDatum(language));
+    if (!HeapTupleIsValid(languageTuple))
+        ereport(ERROR, /* language does not exist */);
+
+    // Extract language information
+    languageStruct = (Form_pg_language) GETSTRUCT(languageTuple);
+    codeblock->langOid = languageStruct->oid;
+    codeblock->langIsTrusted = languageStruct->lanpltrusted;
+    codeblock->atomic = atomic;
+
+    // Check permissions based on language trust level
+    if (languageStruct->lanpltrusted)
+    {
+        // Trusted language: need USAGE privilege
+        AclResult aclresult = object_aclcheck(LanguageRelationId, codeblock->langOid,
+                                            GetUserId(), ACL_USAGE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_LANGUAGE, NameStr(languageStruct->lanname));
+    }
+    else
+    {
+        // Untrusted language: must be superuser
+        if (!superuser())
+            aclcheck_error(ACLCHECK_NO_PRIV, OBJECT_LANGUAGE,
+                          NameStr(languageStruct->lanname));
+    }
+
+    // Verify language supports inline code execution
+    laninline = languageStruct->laninline;
+    if (!OidIsValid(laninline))
+        ereport(ERROR, /* language does not support inline code execution */);
+
+    ReleaseSysCache(languageTuple);
+
+    // Execute the inline code via language handler
+    OidFunctionCall1(laninline, PointerGetDatum(codeblock));
+}
+```

@@ -42,3 +42,53 @@ The function uses critical sections and WAL logging to ensure crash safety durin
 - WAL logs the changes using log_newpage_buffer when appropriate to maintain consistency
 - The caller is responsible for actually truncating the FSM pages using smgrtruncate() and updating upper-level FSM pages using FreeSpaceMapVacuumRange()
 - Located in src/backend/storage/freespace/freespace.c:263-349
+
+## Simplified Source
+
+```c
+BlockNumber
+FreeSpaceMapPrepareTruncateRel(Relation rel, BlockNumber nblocks)
+{
+    BlockNumber new_nfsmblocks;
+    FSMAddress first_removed_address;
+    uint16 first_removed_slot;
+    Buffer buf;
+
+    // Exit if no FSM exists
+    if (!smgrexists(RelationGetSmgr(rel), FSM_FORKNUM))
+        return InvalidBlockNumber;
+
+    // Find location of first removed heap block in FSM
+    first_removed_address = fsm_get_location(nblocks, &first_removed_slot);
+
+    // Zero out tail of last remaining FSM page if not at page boundary
+    if (first_removed_slot > 0) {
+        buf = fsm_readbuf(rel, first_removed_address, false);
+        if (!BufferIsValid(buf))
+            return InvalidBlockNumber;
+
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        START_CRIT_SECTION();
+
+        // Clear slots for truncated heap blocks
+        fsm_truncate_avail(BufferGetPage(buf), first_removed_slot);
+        MarkBufferDirty(buf);
+
+        // WAL log for crash recovery
+        if (!InRecovery && RelationNeedsWAL(rel) && XLogHintBitIsNeeded())
+            log_newpage_buffer(buf, false);
+
+        END_CRIT_SECTION();
+        UnlockReleaseBuffer(buf);
+
+        new_nfsmblocks = fsm_logical_to_physical(first_removed_address) + 1;
+    } else {
+        // Truncation is at page boundary
+        new_nfsmblocks = fsm_logical_to_physical(first_removed_address);
+        if (smgrnblocks(RelationGetSmgr(rel), FSM_FORKNUM) <= new_nfsmblocks)
+            return InvalidBlockNumber;
+    }
+
+    return new_nfsmblocks;
+}
+```

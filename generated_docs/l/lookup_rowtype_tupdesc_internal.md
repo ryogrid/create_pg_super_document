@@ -51,3 +51,55 @@ For transient record types, the function first checks the local cache, then quer
 - Handles both error-throwing and no-error variants through the noError parameter
 - For shared tuple descriptors, tdrefcount is set to -1 to indicate non-reference-counted storage
 - Local tupdesc identifiers are assigned uniquely per process, not shared across processes
+
+## Simplified Source
+```c
+static TupleDesc
+lookup_rowtype_tupdesc_internal(Oid type_id, int32 typmod, bool noError)
+{
+    if (type_id != RECORDOID) {
+        // Named composite type - use regular type cache
+        TypeCacheEntry *typentry = lookup_type_cache(type_id, TYPECACHE_TUPDESC);
+
+        if (typentry->tupDesc == NULL && !noError)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("type %s is not composite", format_type_be(type_id))));
+
+        return typentry->tupDesc;
+    }
+    else {
+        // Transient record type - check local cache first
+        if (typmod >= 0) {
+            // Check local cache
+            if (typmod < RecordCacheArrayLen &&
+                RecordCacheArray[typmod].tupdesc != NULL)
+                return RecordCacheArray[typmod].tupdesc;
+
+            // Check shared typmod registry if available
+            if (CurrentSession->shared_typmod_registry != NULL) {
+                SharedTypmodTableEntry *entry = dshash_find(CurrentSession->shared_typmod_table,
+                                                           &typmod, false);
+                if (entry != NULL) {
+                    // Get tuple descriptor from shared memory
+                    TupleDesc tupdesc = (TupleDesc) dsa_get_address(CurrentSession->area,
+                                                                   entry->shared_tupdesc);
+
+                    // Set up local cache entry
+                    ensure_record_cache_typmod_slot_exists(typmod);
+                    RecordCacheArray[typmod].tupdesc = tupdesc;
+                    RecordCacheArray[typmod].id = ++tupledesc_id_counter;
+
+                    dshash_release_lock(CurrentSession->shared_typmod_table, entry);
+                    return tupdesc;
+                }
+            }
+        }
+
+        // Not found
+        if (!noError)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("record type has not been registered")));
+        return NULL;
+    }
+}
+```

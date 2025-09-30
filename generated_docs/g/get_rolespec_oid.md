@@ -58,3 +58,42 @@ This design enforces that PUBLIC must be handled separately by calling code, pre
 - SESSION_USER differs from CURRENT_USER when SET ROLE has been used to change the effective user
 - The missing_ok parameter only affects ROLESPEC_CSTRING lookups; other role types either succeed or throw errors
 - This function is essential for processing DDL commands that accept role specifications in their syntax
+
+## Simplified Source
+
+```c
+Oid get_rolespec_oid(const RoleSpec *role, bool missing_ok) {
+    Oid oid;
+
+    switch (role->roletype) {
+        case ROLESPEC_CSTRING:
+            // Regular role name - look it up in catalog
+            oid = get_role_oid(role->rolename, missing_ok);
+            break;
+
+        case ROLESPEC_CURRENT_ROLE:
+        case ROLESPEC_CURRENT_USER:
+            // Current effective user
+            oid = GetUserId();
+            break;
+
+        case ROLESPEC_SESSION_USER:
+            // Original login user (before any SET ROLE)
+            oid = GetSessionUserId();
+            break;
+
+        case ROLESPEC_PUBLIC:
+            // PUBLIC is not allowed - must be handled separately
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("role \"%s\" does not exist", "public")));
+            oid = InvalidOid; // Never reached
+            break;
+
+        default:
+            elog(ERROR, "unexpected role type %d", role->roletype);
+    }
+
+    return oid;
+}
+```

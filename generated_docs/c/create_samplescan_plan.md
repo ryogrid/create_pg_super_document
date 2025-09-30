@@ -47,3 +47,44 @@ This function supports various sampling methods like BERNOULLI and SYSTEM, as sp
 - Table sampling is particularly useful for large tables where a representative sample is sufficient
 - The sampling method and percentage are determined by the TableSampleClause parsed from the SQL query
 - Unlike sequential scans, sample scans may not return the same rows on repeated executions due to their random nature
+
+## Simplified Source
+
+```c
+static SampleScan *
+create_samplescan_plan(PlannerInfo *root, Path *best_path,
+                       List *tlist, List *scan_clauses)
+{
+    SampleScan *scan_plan;
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte;
+    TableSampleClause *tsc;
+
+    // Validate that we have a base relation with table sampling
+    Assert(scan_relid > 0);
+    rte = planner_rt_fetch(scan_relid, root);
+    Assert(rte->rtekind == RTE_RELATION);
+    tsc = rte->tablesample;
+    Assert(tsc != NULL);
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths by replacing outer variables with nestloop params
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+        tsc = (TableSampleClause *) replace_nestloop_params(root, (Node *) tsc);
+    }
+
+    // Create the SampleScan plan node with sampling clause
+    scan_plan = make_samplescan(tlist, scan_clauses, scan_relid, tsc);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

@@ -39,3 +39,27 @@ The function sets the scan status to `SUBQUERY_SCAN_UNKNOWN` initially, indicati
 - The function follows PostgreSQL's pattern of setting lefttree and righttree to NULL for leaf scan nodes
 - The scanstatus field allows the execution engine to optimize subquery scanning based on runtime characteristics
 - Part of PostgreSQL's query planner infrastructure that transforms logical query plans into executable physical plans
+
+## Simplified Source
+
+```c
+static SubqueryScan *make_subqueryscan(List *qptlist, List *qpqual,
+                                      Index scanrelid, Plan *subplan) {
+    // Create new SubqueryScan node
+    SubqueryScan *node = makeNode(SubqueryScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No left child (scan node)
+    plan->righttree = NULL;      // No right child
+
+    // Configure subquery scan specifics
+    node->scan.scanrelid = scanrelid;              // Relation ID
+    node->subplan = subplan;                       // Child subquery plan
+    node->scanstatus = SUBQUERY_SCAN_UNKNOWN;      // Initial scan status
+
+    return node;
+}
+```

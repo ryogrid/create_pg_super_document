@@ -35,3 +35,14 @@ The function is designed for use with commands that require guaranteed durabilit
 - The forceSyncCommit flag affects only the current top-level transaction
 - Two-phase commit operations do not preserve the forceSyncCommit state across transaction boundaries
 - Critical for operations that cannot tolerate data loss, such as DDL operations on databases and tablespaces
+
+## Simplified Source
+
+```c
+void
+ForceSyncCommit(void)
+{
+    // Force the current transaction to commit synchronously to disk
+    forceSyncCommit = true;
+}
+```

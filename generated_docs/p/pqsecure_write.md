@@ -45,3 +45,31 @@ The function implements a sophisticated error handling strategy:
 - Error handling strategy differs from read operations: write errors may be deferred to allow server error messages to take precedence
 - The precedence order is SSL → GSS → raw, ensuring encrypted connections take priority
 - Callers should inspect errno on failure but only for retry logic, as error messages are handled internally
+
+## Simplified Source
+
+```c
+ssize_t pqsecure_write(PGconn *conn, const void *ptr, size_t len) {
+    ssize_t n;
+
+    // Dispatch to appropriate write function based on security mode
+#ifdef USE_SSL
+    if (conn->ssl_in_use) {
+        n = pgtls_write(conn, ptr, len);
+    }
+    else
+#endif
+#ifdef ENABLE_GSS
+    if (conn->gssenc) {
+        n = pg_GSS_write(conn, ptr, len);
+    }
+    else
+#endif
+    {
+        // Default to raw socket write
+        n = pqsecure_raw_write(conn, ptr, len);
+    }
+
+    return n;
+}
+```

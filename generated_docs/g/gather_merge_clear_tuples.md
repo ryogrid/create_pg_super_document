@@ -38,3 +38,24 @@ The function is critical for memory management during rescans and cleanup operat
 - Worker slots are indexed as i+1 in gm_slots array (slot 0 is reserved for leader)
 - Called during both normal cleanup operations and rescan preparation to maintain clean state
 - The pfree operations are safe because the tuples are MinimalTuples allocated with palloc
+
+## Simplified Source
+
+```c
+static void gather_merge_clear_tuples(GatherMergeState *gm_state) {
+    int i;
+
+    // Process each worker's tuple buffer
+    for (i = 0; i < gm_state->nreaders; i++) {
+        GMReaderTupleBuffer *tuple_buffer = &gm_state->gm_tuple_buffers[i];
+
+        // Free all unread tuples in the buffer
+        while (tuple_buffer->readCounter < tuple_buffer->nTuples) {
+            pfree(tuple_buffer->tuple[tuple_buffer->readCounter++]);
+        }
+
+        // Clear the worker's tuple slot (slot 0 is for leader, workers start at slot 1)
+        ExecClearTuple(gm_state->gm_slots[i + 1]);
+    }
+}
+```

@@ -38,3 +38,50 @@ This function takes no parameters.
 - The text domain is bound to "libpq" for message translation
 - Supports both PGLOCALEDIR environment variable and compile-time LOCALEDIR fallback
 - Critical for proper internationalization support in libpq client library
+
+## Simplified Source
+
+```c
+static void
+libpq_binddomain(void)
+{
+    // Thread-safe one-time initialization using double-checked locking
+    static volatile bool already_bound = false;
+    static pthread_mutex_t binddomain_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+    if (!already_bound) {
+        // Save error state to avoid side effects
+#ifdef WIN32
+        int save_errno = GetLastError();
+#else
+        int save_errno = errno;
+#endif
+
+        // Lock mutex for thread safety
+        pthread_mutex_lock(&binddomain_mutex);
+
+        // Double-check pattern - test again inside lock
+        if (!already_bound) {
+            const char *ldir;
+
+            // Determine locale directory
+            ldir = getenv("PGLOCALEDIR");
+            if (!ldir)
+                ldir = LOCALEDIR;
+
+            // Bind text domain for libpq translations
+            bindtextdomain(PG_TEXTDOMAIN("libpq"), ldir);
+            already_bound = true;
+        }
+
+        pthread_mutex_unlock(&binddomain_mutex);
+
+        // Restore error state
+#ifdef WIN32
+        SetLastError(save_errno);
+#else
+        errno = save_errno;
+#endif
+    }
+}
+```

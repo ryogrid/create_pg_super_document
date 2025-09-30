@@ -34,3 +34,23 @@ DefineRule acts as the primary interface for CREATE RULE command execution in Po
 - The function performs minimal processing itself, acting primarily as a coordinator between parsing and rule definition phases
 - Returns an ObjectAddress identifying the newly created rule object
 - Part of the DDL (Data Definition Language) command processing infrastructure
+
+## Simplified Source
+
+```c
+ObjectAddress DefineRule(RuleStmt *stmt, const char *queryString) {
+    List *actions;
+    Node *whereClause;
+    Oid relId;
+
+    // Parse and transform the rule statement
+    transformRuleStmt(stmt, queryString, &actions, &whereClause);
+
+    // Find and lock the target relation with exclusive access
+    relId = RangeVarGetRelid(stmt->relation, AccessExclusiveLock, false);
+
+    // Create the rule using the low-level interface
+    return DefineQueryRewrite(stmt->rulename, relId, whereClause,
+                             stmt->event, stmt->instead, stmt->replace, actions);
+}
+```

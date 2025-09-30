@@ -52,3 +52,32 @@ This function provides a comprehensive lookup of an operator's properties within
 - Strategy numbers and data types are essential for proper operator resolution and type checking
 - Commonly used during query execution planning and index scan key building
 - The data types returned represent the declared input types for the operator, which may differ from the actual runtime types due to implicit casting
+
+## Simplified Source
+
+```c
+void get_op_opfamily_properties(Oid opno, Oid opfamily, bool ordering_op,
+                               int *strategy, Oid *lefttype, Oid *righttype)
+{
+    HeapTuple tp;
+    Form_pg_amop amop_tuple;
+
+    // Look up operator in pg_amop catalog by opno, operation type, and opfamily
+    tp = SearchSysCache3(AMOPOPID,
+                        ObjectIdGetDatum(opno),
+                        CharGetDatum(ordering_op ? AMOP_ORDER : AMOP_SEARCH),
+                        ObjectIdGetDatum(opfamily));
+
+    // Error if operator not found (caller should have verified membership)
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "operator %u is not a member of opfamily %u", opno, opfamily);
+
+    // Extract operator properties from catalog tuple
+    amop_tuple = (Form_pg_amop) GETSTRUCT(tp);
+    *strategy = amop_tuple->amopstrategy;
+    *lefttype = amop_tuple->amoplefttype;
+    *righttype = amop_tuple->amoprighttype;
+
+    ReleaseSysCache(tp);
+}
+```

@@ -43,3 +43,14 @@ The function takes an expression state (containing the compiled evaluation funct
 - The ExprContext parameter provides access to inner/outer tuple slots, scan slots, parameters, and other evaluation context
 - The uniform interface allows the same function to be used for WHERE clauses, SELECT targets, function arguments, and any other expression evaluation needs
 - Performance is critical for this function as it's called for every expression evaluation in query execution
+
+## Simplified Source
+
+```c
+static inline Datum ExecEvalExpr(ExprState *state,
+                                ExprContext *econtext,
+                                bool *isNull) {
+    // Delegate to the compiled evaluation function
+    return state->evalfunc(state, econtext, isNull);
+}
+```

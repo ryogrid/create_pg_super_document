@@ -43,3 +43,34 @@ This cleanup ensures that plan tree optimizations don't lose critical execution 
 
 ## Notes and Other Information
 The function is essential for maintaining query execution correctness during plan optimization. The initplan transfer logic is particularly important because initplans represent subqueries that must execute exactly once before the main query, and losing them would cause incorrect results. The cost adjustment ensures that query planning decisions remain accurate after node elimination. The column labeling transfer is critical for client applications that depend on proper column metadata - without this step, eliminated top-level nodes would cause columns to appear with internal names rather than the expected user-visible names. The ordering preservation in initplan concatenation is conservative but safe, ensuring that any subtle dependencies between initialization subqueries are maintained.
+
+## Simplified Source
+
+```c
+static Plan *clean_up_removed_plan_level(Plan *parent, Plan *child) {
+    // Transfer initplans from parent to child
+    if (parent->initPlan) {
+        Cost initplan_cost;
+        bool unsafe_initplans;
+
+        // Calculate cost and safety impact of initplans
+        SS_compute_initplan_cost(parent->initPlan, &initplan_cost, &unsafe_initplans);
+
+        // Add costs to child
+        child->startup_cost += initplan_cost;
+        child->total_cost += initplan_cost;
+
+        // Update parallel safety if needed
+        if (unsafe_initplans)
+            child->parallel_safe = false;
+
+        // Attach parent's initplans before child's existing ones
+        child->initPlan = list_concat(parent->initPlan, child->initPlan);
+    }
+
+    // Transfer column labeling information for proper client output
+    apply_tlist_labeling(child->targetlist, parent->targetlist);
+
+    return child;
+}
+```

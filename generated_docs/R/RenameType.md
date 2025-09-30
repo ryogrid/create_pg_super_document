@@ -44,3 +44,64 @@ The function first resolves the type name and validates permissions, then applie
 - Handles composite types specially by delegating to relation renaming infrastructure
 - Uses RowExclusiveLock on the TypeRelationId catalog to prevent concurrent modifications
 - Includes comprehensive error reporting with appropriate error codes and hints for alternative approaches
+
+## Simplified Source
+
+```c
+ObjectAddress
+RenameType(RenameStmt *stmt)
+{
+    List *names = castNode(List, stmt->object);
+    const char *newTypeName = stmt->newname;
+    TypeName *typename;
+    Oid typeOid;
+    Relation rel;
+    HeapTuple tup;
+    Form_pg_type typTup;
+    ObjectAddress address;
+
+    // Resolve the type name to get its OID
+    typename = makeTypeNameFromNameList(names);
+    typeOid = typenameTypeId(NULL, typename);
+
+    // Open type catalog and look up the type
+    rel = table_open(TypeRelationId, RowExclusiveLock);
+    tup = SearchSysCacheCopy1(TYPEOID, ObjectIdGetDatum(typeOid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", typeOid);
+
+    typTup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Check ownership permission
+    if (!object_ownercheck(TypeRelationId, typeOid, GetUserId()))
+        aclcheck_error_type(ACLCHECK_NOT_OWNER, typeOid);
+
+    // Validate ALTER DOMAIN used only on domain types
+    if (stmt->renameType == OBJECT_DOMAIN && typTup->typtype != TYPTYPE_DOMAIN)
+        ereport(ERROR, "object is not a domain");
+
+    // Check composite types - must be standalone, not table row types
+    if (typTup->typtype == TYPTYPE_COMPOSITE &&
+        get_rel_relkind(typTup->typrelid) != RELKIND_COMPOSITE_TYPE)
+        ereport(ERROR, "cannot rename table row type, use ALTER TABLE");
+
+    // Prevent direct alteration of array types
+    if (IsTrueArrayType(typTup))
+        ereport(ERROR, "cannot alter array type directly, alter base type instead");
+
+    // Perform the actual rename
+    if (typTup->typtype == TYPTYPE_COMPOSITE) {
+        // Composite types need relation renaming too
+        RenameRelationInternal(typTup->typrelid, newTypeName, false, false);
+    } else {
+        // Regular types use type-specific renaming
+        RenameTypeInternal(typeOid, newTypeName, typTup->typnamespace);
+    }
+
+    // Cleanup and return
+    ObjectAddressSet(address, TypeRelationId, typeOid);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

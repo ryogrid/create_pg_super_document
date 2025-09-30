@@ -39,3 +39,15 @@ This simplicity reflects the nature of redirect line pointers as metadata rather
 - The most minimal of the heap_prune_record_unchanged_lp_* family of functions
 - Redirect line pointers are created during UPDATE operations that don't require index updates
 - The target of the redirect will be processed separately with appropriate tuple counting and visibility tracking
+
+## Simplified Source
+
+```c
+static void heap_prune_record_unchanged_lp_redirect(PruneState *prstate, OffsetNumber offnum) {
+    // Redirect line pointers don't count as live tuples
+    // The actual tuple they point to will be processed separately
+    // Just mark this line pointer as processed
+    Assert(!prstate->processed[offnum]);
+    prstate->processed[offnum] = true;
+}
+```

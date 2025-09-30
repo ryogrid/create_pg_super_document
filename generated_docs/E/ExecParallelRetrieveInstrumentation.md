@@ -51,3 +51,67 @@ The function recursively traverses the entire plan tree using planstate_tree_wal
 - The function will error if a plan node's instrumentation cannot be found in the shared memory structure
 - Critical for providing detailed performance analysis of parallel query execution
 - Preserves both aggregated statistics and individual worker details for comprehensive performance profiling
+
+## Simplified Source
+
+```c
+static bool ExecParallelRetrieveInstrumentation(PlanState *planstate,
+                                               SharedExecutorInstrumentation *instrumentation) {
+    Instrumentation *worker_instruments;
+    int plan_node_id = planstate->plan->plan_node_id;
+    int i, n, ibytes;
+    MemoryContext oldcontext;
+
+    // Find instrumentation data for this plan node
+    for (i = 0; i < instrumentation->num_plan_nodes; ++i) {
+        if (instrumentation->plan_node_id[i] == plan_node_id) {
+            break;
+        }
+    }
+    if (i >= instrumentation->num_plan_nodes) {
+        elog(ERROR, "plan node %d not found", plan_node_id);
+    }
+
+    // Aggregate statistics from all workers into main instrumentation
+    worker_instruments = GetInstrumentationArray(instrumentation);
+    worker_instruments += i * instrumentation->num_workers;
+    for (n = 0; n < instrumentation->num_workers; ++n) {
+        InstrAggNode(planstate->instrument, &worker_instruments[n]);
+    }
+
+    // Store per-worker detail in query memory context
+    oldcontext = MemoryContextSwitchTo(planstate->state->es_query_cxt);
+    ibytes = mul_size(instrumentation->num_workers, sizeof(Instrumentation));
+    planstate->worker_instrument = palloc(ibytes + offsetof(WorkerInstrumentation, instrument));
+    MemoryContextSwitchTo(oldcontext);
+
+    // Copy worker instrumentation data
+    planstate->worker_instrument->num_workers = instrumentation->num_workers;
+    memcpy(&planstate->worker_instrument->instrument, worker_instruments, ibytes);
+
+    // Handle node-specific instrumentation retrieval
+    switch (nodeTag(planstate)) {
+        case T_SortState:
+            ExecSortRetrieveInstrumentation((SortState *) planstate);
+            break;
+        case T_IncrementalSortState:
+            ExecIncrementalSortRetrieveInstrumentation((IncrementalSortState *) planstate);
+            break;
+        case T_HashState:
+            ExecHashRetrieveInstrumentation((HashState *) planstate);
+            break;
+        case T_AggState:
+            ExecAggRetrieveInstrumentation((AggState *) planstate);
+            break;
+        case T_MemoizeState:
+            ExecMemoizeRetrieveInstrumentation((MemoizeState *) planstate);
+            break;
+        default:
+            break;
+    }
+
+    // Recursively process child nodes
+    return planstate_tree_walker(planstate, ExecParallelRetrieveInstrumentation,
+                                instrumentation);
+}
+```

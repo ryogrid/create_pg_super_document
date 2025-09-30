@@ -39,3 +39,17 @@ The function handles buffer expansion automatically and maintains proper null te
 - Maintains proper null termination of the buffer contents
 - Widely used throughout PostgreSQL frontend utilities for string building operations
 - Located in src/interfaces/libpq/pqexpbuffer.c:378-396
+
+## Simplified Source
+```c
+void appendPQExpBufferChar(PQExpBuffer str, char ch) {
+    // Ensure buffer has space for one more character
+    if (!enlargePQExpBuffer(str, 1))
+        return;
+
+    // Add character and maintain null termination
+    str->data[str->len] = ch;
+    str->len++;
+    str->data[str->len] = '\0';
+}
+```

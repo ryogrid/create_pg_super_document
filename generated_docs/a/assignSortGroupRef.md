@@ -39,3 +39,28 @@ The function uses a simple strategy to ensure uniqueness: it scans the entire ta
 - Used extensively throughout the planner to correlate target list entries with sort/group clauses
 - Performance is O(n) where n is the size of the target list, but target lists are typically small
 - Critical for proper execution of ORDER BY, GROUP BY, and DISTINCT operations
+
+## Simplified Source
+
+```c
+Index
+assignSortGroupRef(TargetEntry *tle, List *tlist)
+{
+    // Return existing reference if already assigned
+    if (tle->ressortgroupref)
+        return tle->ressortgroupref;
+
+    // Find the maximum reference number in the target list
+    Index maxRef = 0;
+    foreach(cell, tlist)
+    {
+        Index ref = ((TargetEntry *) lfirst(cell))->ressortgroupref;
+        if (ref > maxRef)
+            maxRef = ref;
+    }
+
+    // Assign next available reference number
+    tle->ressortgroupref = maxRef + 1;
+    return tle->ressortgroupref;
+}
+```

@@ -36,3 +36,19 @@ This function serves as a qsort comparison callback for sorting PartitionListVal
 - Uses the partition key's collation (partcollation[0]) for collation-sensitive data types
 - Returns negative, zero, or positive value following standard qsort comparison conventions
 - The function signature includes a void *arg parameter to accommodate qsort_r style sorting with context
+
+## Simplified Source
+
+```c
+static int32 qsort_partition_list_value_cmp(const void *a, const void *b, void *arg) {
+    // Extract Datum values from list value structures
+    Datum val1 = ((const PartitionListValue *) a)->value;
+    Datum val2 = ((const PartitionListValue *) b)->value;
+    PartitionKey key = (PartitionKey) arg;
+
+    // Compare using partition key's comparison function and collation
+    return DatumGetInt32(FunctionCall2Coll(&key->partsupfunc[0],
+                                          key->partcollation[0],
+                                          val1, val2));
+}
+```

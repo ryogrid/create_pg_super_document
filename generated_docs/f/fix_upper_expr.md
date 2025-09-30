@@ -59,3 +59,28 @@ The function is designed to work with subplans whose target lists were generated
 - It's specifically designed for upper-level plan nodes and index-only scans, not for join operations
 - The function integrates with PostgreSQL's cost-based optimization by accepting execution count estimates
 - The static modifier indicates this function is internal to the setrefs.c module
+
+## Simplified Source
+
+```c
+static Node *fix_upper_expr(PlannerInfo *root,
+                           Node *node,
+                           indexed_tlist *subplan_itlist,
+                           int newvarno,
+                           int rtoffset,
+                           NullingRelsMatch nrm_match,
+                           double num_exec) {
+    fix_upper_expr_context context;
+
+    // Set up context for the mutator
+    context.root = root;
+    context.subplan_itlist = subplan_itlist;
+    context.newvarno = newvarno;
+    context.rtoffset = rtoffset;
+    context.nrm_match = nrm_match;
+    context.num_exec = num_exec;
+
+    // Delegate to the actual mutator function
+    return fix_upper_expr_mutator(node, &context);
+}
+```

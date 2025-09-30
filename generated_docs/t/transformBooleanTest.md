@@ -36,3 +36,44 @@ The function ensures type safety by converting the argument to a boolean-compati
 - Uses the clause name for informative error messages during type coercion
 - The function ensures the argument can be evaluated as a boolean value
 - Located in src/backend/parser/parse_expr.c:2528-2567
+
+## Simplified Source
+
+```c
+static Node *
+transformBooleanTest(ParseState *pstate, BooleanTest *b)
+{
+    const char *clausename;
+
+    // Determine clause name for error messages
+    switch (b->booltesttype) {
+        case IS_TRUE:
+            clausename = "IS TRUE";
+            break;
+        case IS_NOT_TRUE:
+            clausename = "IS NOT TRUE";
+            break;
+        case IS_FALSE:
+            clausename = "IS FALSE";
+            break;
+        case IS_NOT_FALSE:
+            clausename = "IS NOT FALSE";
+            break;
+        case IS_UNKNOWN:
+            clausename = "IS UNKNOWN";
+            break;
+        case IS_NOT_UNKNOWN:
+            clausename = "IS NOT UNKNOWN";
+            break;
+        default:
+            elog(ERROR, "unrecognized booltesttype: %d", (int) b->booltesttype);
+            clausename = NULL;
+    }
+
+    // Transform and coerce argument to boolean
+    b->arg = (Expr *) transformExprRecurse(pstate, (Node *) b->arg);
+    b->arg = (Expr *) coerce_to_boolean(pstate, (Node *) b->arg, clausename);
+
+    return (Node *) b;
+}
+```

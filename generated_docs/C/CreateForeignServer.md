@@ -55,3 +55,106 @@ This function implements the CREATE SERVER SQL command by creating a new foreign
 - Triggers object creation hooks for extensibility
 - Returns InvalidObjectAddress when IF NOT EXISTS is used and server already exists
 - Part of PostgreSQL's Foreign Data Wrapper infrastructure enabling logical organization of external data sources
+
+## Simplified Source
+
+```c
+ObjectAddress
+CreateForeignServer(CreateForeignServerStmt *stmt)
+{
+    Relation rel;
+    Datum srvoptions;
+    Datum values[Natts_pg_foreign_server];
+    bool nulls[Natts_pg_foreign_server];
+    HeapTuple tuple;
+    Oid srvId, ownerId;
+    AclResult aclresult;
+    ObjectAddress myself, referenced;
+    ForeignDataWrapper *fdw;
+
+    rel = table_open(ForeignServerRelationId, RowExclusiveLock);
+    ownerId = GetUserId();
+
+    // Check for duplicate server name with IF NOT EXISTS support
+    srvId = get_foreign_server_oid(stmt->servername, true);
+    if (OidIsValid(srvId)) {
+        if (stmt->if_not_exists) {
+            // Security check for extension membership
+            ObjectAddressSet(myself, ForeignServerRelationId, srvId);
+            checkMembershipInCurrentExtension(&myself);
+
+            ereport(NOTICE, "server already exists, skipping");
+            table_close(rel, RowExclusiveLock);
+            return InvalidObjectAddress;
+        } else {
+            ereport(ERROR, "server already exists");
+        }
+    }
+
+    // Validate FDW exists and check USAGE permission
+    fdw = GetForeignDataWrapperByName(stmt->fdwname, false);
+    aclresult = object_aclcheck(ForeignDataWrapperRelationId, fdw->fdwid, ownerId, ACL_USAGE);
+    if (aclresult != ACLCHECK_OK) {
+        aclcheck_error(aclresult, OBJECT_FDW, fdw->fdwname);
+    }
+
+    // Prepare tuple values
+    memset(values, 0, sizeof(values));
+    memset(nulls, false, sizeof(nulls));
+
+    srvId = GetNewOidWithIndex(rel, ForeignServerOidIndexId, Anum_pg_foreign_server_oid);
+    values[Anum_pg_foreign_server_oid - 1] = ObjectIdGetDatum(srvId);
+    values[Anum_pg_foreign_server_srvname - 1] =
+        DirectFunctionCall1(namein, CStringGetDatum(stmt->servername));
+    values[Anum_pg_foreign_server_srvowner - 1] = ObjectIdGetDatum(ownerId);
+    values[Anum_pg_foreign_server_srvfdw - 1] = ObjectIdGetDatum(fdw->fdwid);
+
+    // Add optional server type and version
+    if (stmt->servertype)
+        values[Anum_pg_foreign_server_srvtype - 1] = CStringGetTextDatum(stmt->servertype);
+    else
+        nulls[Anum_pg_foreign_server_srvtype - 1] = true;
+
+    if (stmt->version)
+        values[Anum_pg_foreign_server_srvversion - 1] = CStringGetTextDatum(stmt->version);
+    else
+        nulls[Anum_pg_foreign_server_srvversion - 1] = true;
+
+    nulls[Anum_pg_foreign_server_srvacl - 1] = true;
+
+    // Transform and validate server options
+    srvoptions = transformGenericOptions(ForeignServerRelationId,
+                                        PointerGetDatum(NULL),
+                                        stmt->options,
+                                        fdw->fdwvalidator);
+
+    if (PointerIsValid(DatumGetPointer(srvoptions)))
+        values[Anum_pg_foreign_server_srvoptions - 1] = srvoptions;
+    else
+        nulls[Anum_pg_foreign_server_srvoptions - 1] = true;
+
+    // Insert catalog entry
+    tuple = heap_form_tuple(rel->rd_att, values, nulls);
+    CatalogTupleInsert(rel, tuple);
+    heap_freetuple(tuple);
+
+    // Record dependencies
+    myself.classId = ForeignServerRelationId;
+    myself.objectId = srvId;
+    myself.objectSubId = 0;
+
+    referenced.classId = ForeignDataWrapperRelationId;
+    referenced.objectId = fdw->fdwid;
+    referenced.objectSubId = 0;
+    recordDependencyOn(&myself, &referenced, DEPENDENCY_NORMAL);
+
+    recordDependencyOnOwner(ForeignServerRelationId, srvId, ownerId);
+    recordDependencyOnCurrentExtension(&myself, false);
+
+    // Invoke creation hook
+    InvokeObjectPostCreateHook(ForeignServerRelationId, srvId, 0);
+
+    table_close(rel, RowExclusiveLock);
+    return myself;
+}
+```

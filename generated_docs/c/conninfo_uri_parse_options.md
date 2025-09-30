@@ -58,3 +58,130 @@ The parsing process involves:
 - Avoids setting dbname to empty string to preserve default behavior
 - All parsed values are URL-decoded before storage
 - Memory cleanup is handled through a goto cleanup pattern
+
+## Simplified Source
+
+```c
+static bool conninfo_uri_parse_options(PQconninfoOption *options, const char *uri,
+                                       PQExpBuffer errorMessage) {
+    char *uri_copy = strdup(uri);
+    char *start, *p;
+    char *user = NULL, *host = NULL;
+    bool success = false;
+    PQExpBufferData hostbuf, portbuf;
+
+    if (!uri_copy) {
+        libpq_append_error(errorMessage, "out of memory");
+        return false;
+    }
+
+    // Initialize host and port buffers
+    initPQExpBuffer(&hostbuf);
+    initPQExpBuffer(&portbuf);
+
+    // Skip URI prefix (postgresql://)
+    int prefix_len = uri_prefix_length(uri);
+    start = uri_copy + prefix_len;
+    p = start;
+
+    // Parse user credentials if present (user[:password]@)
+    while (*p && *p != '@' && *p != '/') p++;
+    if (*p == '@') {
+        user = start;
+
+        // Extract username
+        while (*p != ':' && *p != '@') p++;
+        char saved_char = *p;
+        *p = '\0';
+
+        if (*user && !conninfo_storeval(options, "user", user, errorMessage, false, true)) {
+            goto cleanup;
+        }
+
+        // Extract password if present
+        if (saved_char == ':') {
+            char *password = p + 1;
+            while (*p != '@') p++;
+            *p = '\0';
+            if (*password && !conninfo_storeval(options, "password", password, errorMessage, false, true)) {
+                goto cleanup;
+            }
+        }
+        p++;  // Skip past '@'
+    } else {
+        p = start;  // Reset if no credentials found
+    }
+
+    // Parse host specifications (may be multiple, comma-separated)
+    while (true) {
+        // Handle IPv6 addresses in brackets
+        if (*p == '[') {
+            host = ++p;
+            while (*p && *p != ']') p++;
+            if (!*p || p == host) {
+                libpq_append_error(errorMessage, "Invalid IPv6 address in URI");
+                goto cleanup;
+            }
+            *p++ = '\0';  // Terminate hostname and skip bracket
+        } else {
+            // Regular hostname or IPv4
+            host = p;
+            while (*p && *p != ':' && *p != '/' && *p != '?' && *p != ',') p++;
+        }
+
+        char terminator = *p;
+        *p = '\0';
+        appendPQExpBufferStr(&hostbuf, host);
+
+        // Parse port if present
+        if (terminator == ':') {
+            char *port = ++p;
+            while (*p && *p != '/' && *p != '?' && *p != ',') p++;
+            terminator = *p;
+            *p = '\0';
+            appendPQExpBufferStr(&portbuf, port);
+        }
+
+        // Continue with next host or break
+        if (terminator != ',') break;
+        p++;
+        appendPQExpBufferChar(&hostbuf, ',');
+        appendPQExpBufferChar(&portbuf, ',');
+    }
+
+    // Store host and port values
+    if (hostbuf.data[0] && !conninfo_storeval(options, "host", hostbuf.data, errorMessage, false, true)) {
+        goto cleanup;
+    }
+    if (portbuf.data[0] && !conninfo_storeval(options, "port", portbuf.data, errorMessage, false, true)) {
+        goto cleanup;
+    }
+
+    // Parse database name if present
+    if (terminator && terminator != '?') {
+        char *dbname = ++p;
+        while (*p && *p != '?') p++;
+        terminator = *p;
+        *p = '\0';
+        if (*dbname && !conninfo_storeval(options, "dbname", dbname, errorMessage, false, true)) {
+            goto cleanup;
+        }
+    }
+
+    // Parse query parameters if present
+    if (terminator) {
+        p++;
+        if (!conninfo_uri_parse_params(p, options, errorMessage)) {
+            goto cleanup;
+        }
+    }
+
+    success = true;
+
+cleanup:
+    termPQExpBuffer(&hostbuf);
+    termPQExpBuffer(&portbuf);
+    free(uri_copy);
+    return success;
+}
+```

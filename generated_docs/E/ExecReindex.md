@@ -47,3 +47,81 @@ The function enforces transaction block restrictions for concurrent operations a
 - When specifying a tablespace, the function validates CREATE permissions on the target tablespace
 - The function builds a ReindexParams structure to pass configuration to the actual reindex implementations
 - Error handling includes both syntax errors for invalid options and permission errors for tablespace access
+
+## Simplified Source
+
+```c
+void
+ExecReindex(ParseState *pstate, const ReindexStmt *stmt, bool isTopLevel)
+{
+    ReindexParams params = {0};
+    bool concurrently = false;
+    bool verbose = false;
+    char *tablespacename = NULL;
+
+    // Parse command options
+    foreach(lc, stmt->params)
+    {
+        DefElem *opt = (DefElem *) lfirst(lc);
+
+        if (strcmp(opt->defname, "verbose") == 0)
+            verbose = defGetBoolean(opt);
+        else if (strcmp(opt->defname, "concurrently") == 0)
+            concurrently = defGetBoolean(opt);
+        else if (strcmp(opt->defname, "tablespace") == 0)
+            tablespacename = defGetString(opt);
+        else
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("unrecognized REINDEX option \"%s\"", opt->defname)));
+    }
+
+    // Prevent concurrent reindex in transaction blocks
+    if (concurrently)
+        PreventInTransactionBlock(isTopLevel, "REINDEX CONCURRENTLY");
+
+    // Set up parameters
+    params.options = (verbose ? REINDEXOPT_VERBOSE : 0) |
+                    (concurrently ? REINDEXOPT_CONCURRENTLY : 0);
+
+    // Handle tablespace option and permissions
+    if (tablespacename != NULL)
+    {
+        params.tablespaceOid = get_tablespace_oid(tablespacename, false);
+
+        // Check permissions for non-default tablespace
+        if (OidIsValid(params.tablespaceOid) &&
+            params.tablespaceOid != MyDatabaseTableSpace)
+        {
+            AclResult aclresult = object_aclcheck(TableSpaceRelationId,
+                                                 params.tablespaceOid,
+                                                 GetUserId(), ACL_CREATE);
+            if (aclresult != ACLCHECK_OK)
+                aclcheck_error(aclresult, OBJECT_TABLESPACE,
+                              get_tablespace_name(params.tablespaceOid));
+        }
+    }
+    else
+        params.tablespaceOid = InvalidOid;
+
+    // Dispatch to appropriate reindex function
+    switch (stmt->kind)
+    {
+        case REINDEX_OBJECT_INDEX:
+            ReindexIndex(stmt, &params, isTopLevel);
+            break;
+        case REINDEX_OBJECT_TABLE:
+            ReindexTable(stmt, &params, isTopLevel);
+            break;
+        case REINDEX_OBJECT_SCHEMA:
+        case REINDEX_OBJECT_SYSTEM:
+        case REINDEX_OBJECT_DATABASE:
+            // Prevent multi-object reindex in transaction blocks
+            PreventInTransactionBlock(isTopLevel, "REINDEX [SCHEMA|SYSTEM|DATABASE]");
+            ReindexMultipleTables(stmt, &params);
+            break;
+        default:
+            elog(ERROR, "unrecognized object type: %d", (int) stmt->kind);
+            break;
+    }
+}
+```

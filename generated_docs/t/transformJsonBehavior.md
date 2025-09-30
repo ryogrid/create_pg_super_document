@@ -45,3 +45,81 @@ The function performs runtime coercion using json_populate_type() for NULL, json
 
 ## Notes and Other Information
 The function performs extensive validation for DEFAULT behavior expressions, ensuring they do not contain column references or return sets. It uses different coercion strategies based on the source and target types, with special handling for string types using assignment casts to preserve length constraints. The coerce_at_runtime flag is set when json_populate_type() should be used for runtime type conversion.
+
+## Simplified Source
+
+```c
+static JsonBehavior *
+transformJsonBehavior(ParseState *pstate, JsonBehavior *behavior,
+                      JsonBehaviorType default_behavior,
+                      JsonReturning *returning) {
+    JsonBehaviorType btype = default_behavior;
+    Node *expr = NULL;
+    bool coerce_at_runtime = false;
+    int location = -1;
+
+    // Extract behavior type and location if provided
+    if (behavior) {
+        btype = behavior->btype;
+        location = behavior->location;
+
+        if (btype == JSON_BEHAVIOR_DEFAULT) {
+            // Transform and validate DEFAULT expression
+            expr = transformExprRecurse(pstate, behavior->expr);
+
+            // Validate DEFAULT expression constraints
+            if (!ValidJsonBehaviorDefaultExpr(expr, NULL) ||
+                contain_var_clause(expr) ||
+                expression_returns_set(expr)) {
+                // Report appropriate error with location
+                ereport(ERROR, ...);
+            }
+        }
+    }
+
+    // Generate constant expression for non-DEFAULT behaviors
+    if (expr == NULL && btype != JSON_BEHAVIOR_ERROR)
+        expr = GetJsonBehaviorConst(btype, location);
+
+    // Handle type coercion if needed
+    if (expr && exprType(expr) != returning->typid) {
+        bool isnull = (IsA(expr, Const) && ((Const *) expr)->constisnull);
+
+        if (isnull || exprType(expr) == JSONBOID ||
+            (exprType(expr) == BOOLOID && getBaseType(returning->typid) != INT4OID)) {
+            // Use runtime coercion via json_populate_type()
+            coerce_at_runtime = true;
+
+            // Convert boolean to jsonb constant if needed
+            if (exprType(expr) == BOOLOID) {
+                char *val = btype == JSON_BEHAVIOR_TRUE ? "true" : "false";
+                expr = (Node *) makeConst(JSONBOID, -1, InvalidOid, -1,
+                                        DirectFunctionCall1(jsonb_in, CStringGetDatum(val)),
+                                        false, false);
+            }
+        } else {
+            // Attempt explicit coercion
+            Node *coerced_expr = coerce_to_target_type(pstate, expr, exprType(expr),
+                                                     returning->typid, returning->typmod,
+                                                     /* coercion_context */,
+                                                     COERCE_EXPLICIT_CAST,
+                                                     exprLocation((Node *) behavior));
+
+            if (coerced_expr == NULL) {
+                // Report coercion failure with helpful hints
+                ereport(ERROR, ...);
+            }
+            expr = coerced_expr;
+        }
+    }
+
+    // Create or update behavior node
+    if (behavior)
+        behavior->expr = expr;
+    else
+        behavior = makeJsonBehavior(btype, expr, location);
+
+    behavior->coerce = coerce_at_runtime;
+    return behavior;
+}
+```

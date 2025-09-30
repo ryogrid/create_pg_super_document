@@ -39,3 +39,27 @@ The function conservatively assumes that the prepared transaction performed writ
 - The temporary setting of MySerializableXact allows ReleasePredicateLocks to operate on the correct transaction context
 - This function handles both commit and abort cases - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md) handles the different behaviors based on the isCommit parameter
 - Critical for maintaining serializable isolation guarantees across two-phase commit boundaries
+
+## Simplified Source
+```c
+void PredicateLockTwoPhaseFinish(TransactionId xid, bool isCommit) {
+    SERIALIZABLEXID *sxid;
+    SERIALIZABLEXIDTAG sxidtag;
+
+    sxidtag.xid = xid;
+
+    // Look up the serializable transaction by its XID
+    LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+    sxid = (SERIALIZABLEXID *) hash_search(SerializableXidHash, &sxidtag, HASH_FIND, NULL);
+    LWLockRelease(SerializableXactHashLock);
+
+    // If not found, it wasn't a serializable transaction
+    if (sxid == NULL)
+        return;
+
+    // Set up context and release predicate locks
+    MySerializableXact = sxid->myXact;
+    MyXactDidWrite = true;  // Conservative assumption for proper conflict handling
+    ReleasePredicateLocks(isCommit, false);
+}
+```

@@ -59,3 +59,151 @@ The function intelligently determines whether partial aggregation is beneficial 
 - The created relation requires subsequent gather_grouping_paths and set_cheapest calls to finalize path lists
 - All generated paths use AGGSPLIT_INITIAL_SERIAL aggregation mode, expecting later AGGSPLIT_FINAL_DESERIAL finalization
 - Location: src/backend/optimizer/plan/planner.c:7279-7577
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+create_partial_grouping_paths(PlannerInfo *root, RelOptInfo *grouped_rel,
+                              RelOptInfo *input_rel, grouping_sets_data *gd,
+                              GroupPathExtraData *extra, bool force_rel_creation)
+{
+    Query *parse = root->parse;
+    AggClauseCosts *agg_partial_costs = &extra->agg_partial_costs;
+    AggClauseCosts *agg_final_costs = &extra->agg_final_costs;
+    Path *cheapest_partial_path = NULL;
+    Path *cheapest_total_path = NULL;
+    bool can_hash = (extra->flags & GROUPING_CAN_USE_HASH) != 0;
+    bool can_sort = (extra->flags & GROUPING_CAN_USE_SORT) != 0;
+
+    // Determine available input paths for partial aggregation
+    if (input_rel->pathlist != NIL &&
+        extra->patype == PARTITIONWISE_AGGREGATE_PARTIAL)
+        cheapest_total_path = input_rel->cheapest_total_path;
+
+    if (grouped_rel->consider_parallel && input_rel->partial_pathlist != NIL)
+        cheapest_partial_path = linitial(input_rel->partial_pathlist);
+
+    // Exit early if no suitable paths and not forced
+    if (cheapest_total_path == NULL && cheapest_partial_path == NULL && !force_rel_creation)
+        return NULL;
+
+    // Create new relation for partial aggregation results
+    RelOptInfo *partially_grouped_rel = fetch_upper_rel(root, UPPERREL_PARTIAL_GROUP_AGG,
+                                                        grouped_rel->relids);
+
+    // Copy basic properties from grouped relation
+    partially_grouped_rel->consider_parallel = grouped_rel->consider_parallel;
+    partially_grouped_rel->reloptkind = grouped_rel->reloptkind;
+    partially_grouped_rel->serverid = grouped_rel->serverid;
+    partially_grouped_rel->userid = grouped_rel->userid;
+    partially_grouped_rel->useridiscurrent = grouped_rel->useridiscurrent;
+    partially_grouped_rel->fdwroutine = grouped_rel->fdwroutine;
+
+    // Build specialized target list for partial aggregation
+    partially_grouped_rel->reltarget = make_partial_grouping_target(root, grouped_rel->reltarget,
+                                                                   extra->havingQual);
+
+    // Set up cost structures for partial and final aggregation phases
+    if (!extra->partial_costs_set) {
+        MemSet(agg_partial_costs, 0, sizeof(AggClauseCosts));
+        MemSet(agg_final_costs, 0, sizeof(AggClauseCosts));
+        if (parse->hasAggs) {
+            get_agg_clause_costs(root, AGGSPLIT_INITIAL_SERIAL, agg_partial_costs);
+            get_agg_clause_costs(root, AGGSPLIT_FINAL_DESERIAL, agg_final_costs);
+        }
+        extra->partial_costs_set = true;
+    }
+
+    // Estimate number of partial groups
+    double dNumPartialGroups = 0;
+    double dNumPartialPartialGroups = 0;
+    if (cheapest_total_path != NULL)
+        dNumPartialGroups = get_number_of_groups(root, cheapest_total_path->rows, gd, extra->targetList);
+    if (cheapest_partial_path != NULL)
+        dNumPartialPartialGroups = get_number_of_groups(root, cheapest_partial_path->rows, gd, extra->targetList);
+
+    // Create sort-based partial aggregation paths from non-partial inputs
+    if (can_sort && cheapest_total_path != NULL) {
+        foreach(lc, input_rel->pathlist) {
+            Path *path = lfirst(lc);
+            List *pathkey_orderings = get_useful_group_keys_orderings(root, path);
+
+            foreach(lc2, pathkey_orderings) {
+                GroupByOrdering *info = lfirst(lc2);
+                path = make_ordered_path(root, partially_grouped_rel, path,
+                                       cheapest_total_path, info->pathkeys);
+                if (path == NULL) continue;
+
+                if (parse->hasAggs) {
+                    add_path(partially_grouped_rel, (Path *)
+                            create_agg_path(root, partially_grouped_rel, path,
+                                          partially_grouped_rel->reltarget,
+                                          parse->groupClause ? AGG_SORTED : AGG_PLAIN,
+                                          AGGSPLIT_INITIAL_SERIAL, info->clauses, NIL,
+                                          agg_partial_costs, dNumPartialGroups));
+                } else {
+                    add_path(partially_grouped_rel, (Path *)
+                            create_group_path(root, partially_grouped_rel, path,
+                                            info->clauses, NIL, dNumPartialGroups));
+                }
+            }
+        }
+    }
+
+    // Create sort-based partial aggregation paths from partial inputs
+    if (can_sort && cheapest_partial_path != NULL) {
+        foreach(lc, input_rel->partial_pathlist) {
+            Path *path = lfirst(lc);
+            List *pathkey_orderings = get_useful_group_keys_orderings(root, path);
+
+            foreach(lc2, pathkey_orderings) {
+                GroupByOrdering *info = lfirst(lc2);
+                path = make_ordered_path(root, partially_grouped_rel, path,
+                                       cheapest_partial_path, info->pathkeys);
+                if (path == NULL) continue;
+
+                if (parse->hasAggs) {
+                    add_partial_path(partially_grouped_rel, (Path *)
+                                    create_agg_path(root, partially_grouped_rel, path,
+                                                  partially_grouped_rel->reltarget,
+                                                  parse->groupClause ? AGG_SORTED : AGG_PLAIN,
+                                                  AGGSPLIT_INITIAL_SERIAL, info->clauses, NIL,
+                                                  agg_partial_costs, dNumPartialPartialGroups));
+                } else {
+                    add_partial_path(partially_grouped_rel, (Path *)
+                                    create_group_path(root, partially_grouped_rel, path,
+                                                    info->clauses, NIL, dNumPartialPartialGroups));
+                }
+            }
+        }
+    }
+
+    // Add hash-based partial aggregation paths
+    if (can_hash && cheapest_total_path != NULL) {
+        add_path(partially_grouped_rel, (Path *)
+                create_agg_path(root, partially_grouped_rel, cheapest_total_path,
+                              partially_grouped_rel->reltarget, AGG_HASHED,
+                              AGGSPLIT_INITIAL_SERIAL, root->processed_groupClause,
+                              NIL, agg_partial_costs, dNumPartialGroups));
+    }
+
+    if (can_hash && cheapest_partial_path != NULL) {
+        add_partial_path(partially_grouped_rel, (Path *)
+                        create_agg_path(root, partially_grouped_rel, cheapest_partial_path,
+                                      partially_grouped_rel->reltarget, AGG_HASHED,
+                                      AGGSPLIT_INITIAL_SERIAL, root->processed_groupClause,
+                                      NIL, agg_partial_costs, dNumPartialPartialGroups));
+    }
+
+    // Allow FDW to add custom partial grouping paths
+    if (partially_grouped_rel->fdwroutine &&
+        partially_grouped_rel->fdwroutine->GetForeignUpperPaths) {
+        FdwRoutine *fdwroutine = partially_grouped_rel->fdwroutine;
+        fdwroutine->GetForeignUpperPaths(root, UPPERREL_PARTIAL_GROUP_AGG,
+                                        input_rel, partially_grouped_rel, extra);
+    }
+
+    return partially_grouped_rel;
+}
+```

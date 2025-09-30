@@ -55,3 +55,95 @@ The function uses the expression_tree_mutator framework for efficient tree trave
 - The isTopQual context is preserved through AND/OR clause processing but reset to false for other node types
 - Special handling ensures that AND/OR clause flattening is maintained throughout the transformation process
 - Critical for PostgreSQL subquery optimization as it enables the planner to properly cost and execute subqueries
+
+## Simplified Source
+
+```c
+static Node *
+process_sublinks_mutator(Node *node, process_sublinks_context *context)
+{
+    process_sublinks_context locContext;
+    locContext.root = context->root;
+
+    if (node == NULL)
+        return NULL;
+
+    // Handle SubLink nodes - convert to SubPlan
+    if (IsA(node, SubLink))
+    {
+        SubLink *sublink = (SubLink *) node;
+
+        // Recursively process left-hand side expressions first
+        locContext.isTopQual = false;
+        Node *testexpr = process_sublinks_mutator(sublink->testexpr, &locContext);
+
+        // Create SubPlan node
+        return make_subplan(context->root,
+                           (Query *) sublink->subselect,
+                           sublink->subLinkType,
+                           sublink->subLinkId,
+                           testexpr,
+                           context->isTopQual);
+    }
+
+    // Don't recurse into outer-level constructs
+    if (IsA(node, PlaceHolderVar) && ((PlaceHolderVar *) node)->phlevelsup > 0)
+        return node;
+    if (IsA(node, Aggref) && ((Aggref *) node)->agglevelsup > 0)
+        return node;
+    if (IsA(node, GroupingFunc) && ((GroupingFunc *) node)->agglevelsup > 0)
+        return node;
+
+    // Should never see SubPlan/Query nodes in input
+    Assert(!IsA(node, SubPlan));
+    Assert(!IsA(node, AlternativeSubPlan));
+    Assert(!IsA(node, Query));
+
+    // Special handling for AND clauses - preserve flatness
+    if (is_andclause(node))
+    {
+        List *newargs = NIL;
+        ListCell *l;
+
+        locContext.isTopQual = context->isTopQual;
+
+        foreach(l, ((BoolExpr *) node)->args)
+        {
+            Node *newarg = process_sublinks_mutator(lfirst(l), &locContext);
+
+            // Flatten nested AND clauses
+            if (is_andclause(newarg))
+                newargs = list_concat(newargs, ((BoolExpr *) newarg)->args);
+            else
+                newargs = lappend(newargs, newarg);
+        }
+        return (Node *) make_andclause(newargs);
+    }
+
+    // Special handling for OR clauses - preserve flatness
+    if (is_orclause(node))
+    {
+        List *newargs = NIL;
+        ListCell *l;
+
+        locContext.isTopQual = context->isTopQual;
+
+        foreach(l, ((BoolExpr *) node)->args)
+        {
+            Node *newarg = process_sublinks_mutator(lfirst(l), &locContext);
+
+            // Flatten nested OR clauses
+            if (is_orclause(newarg))
+                newargs = list_concat(newargs, ((BoolExpr *) newarg)->args);
+            else
+                newargs = lappend(newargs, newarg);
+        }
+        return (Node *) make_orclause(newargs);
+    }
+
+    // For other nodes, no longer at top qualifier level
+    locContext.isTopQual = false;
+
+    return expression_tree_mutator(node, process_sublinks_mutator, &locContext);
+}
+```

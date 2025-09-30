@@ -47,3 +47,43 @@ This function is particularly important in PostgreSQL's type system because doma
 - Does not provide information about the typmod of the array
 - The test `IsTrueArrayType(typTup)` must match the logic used in `get_element_type` for consistency
 - Essential for handling domains over array types, which are common in PostgreSQL applications
+
+## Simplified Source
+
+```c
+Oid get_base_element_type(Oid typid) {
+    // Loop through domain layers to find the base type
+    for (;;) {
+        HeapTuple tup;
+        Form_pg_type typTup;
+
+        // Look up the type in the system catalog
+        tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+        if (!HeapTupleIsValid(tup))
+            break;
+
+        typTup = (Form_pg_type) GETSTRUCT(tup);
+
+        // If we've reached a non-domain type, check if it's an array
+        if (typTup->typtype != TYPTYPE_DOMAIN) {
+            Oid result;
+
+            // Return element type if it's a true array, InvalidOid otherwise
+            if (IsTrueArrayType(typTup))
+                result = typTup->typelem;
+            else
+                result = InvalidOid;
+
+            ReleaseSysCache(tup);
+            return result;
+        }
+
+        // Continue traversing through domain to its base type
+        typid = typTup->typbasetype;
+        ReleaseSysCache(tup);
+    }
+
+    // Return InvalidOid for invalid input
+    return InvalidOid;
+}
+```

@@ -50,3 +50,27 @@ This deferred execution model ensures that statistics drops are atomic with resp
 - Part of PostgreSQL's transactional statistics system, ensuring drops are atomic with transactions
 - Used in both normal operation and recovery scenarios, providing consistent behavior
 - The is_redo parameter allows for potential future differentiation between normal and recovery processing
+
+## Simplified Source
+```c
+void pgstat_execute_transactional_drops(int ndrops, struct xl_xact_stats_item *items, bool is_redo) {
+    int not_freed_count = 0;
+
+    // Early return if no drops to process
+    if (ndrops == 0)
+        return;
+
+    // Process each drop item in the array
+    for (int i = 0; i < ndrops; i++) {
+        xl_xact_stats_item *item = &items[i];
+
+        // Attempt to drop the statistics entry
+        if (!pgstat_drop_entry(item->kind, item->dboid, item->objoid))
+            not_freed_count++;
+    }
+
+    // Request garbage collection if some entries couldn't be freed
+    if (not_freed_count > 0)
+        pgstat_request_entry_refs_gc();
+}
+```

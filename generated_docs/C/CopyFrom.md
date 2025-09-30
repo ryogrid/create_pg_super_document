@@ -70,3 +70,129 @@ The function supports various advanced features including:
 - Maintains detailed progress reporting through pgstat_progress_update_param calls
 - Handles memory management by switching between per-tuple and query contexts as needed
 - Integrates with PostgreSQL's trigger system, constraint checking, and partition pruning mechanisms
+
+## Simplified Source
+
+```c
+uint64 CopyFrom(CopyFromState cstate) {
+    ResultRelInfo *resultRelInfo;
+    EState *estate = CreateExecutorState();
+    int64 processed = 0;
+    bool has_before_insert_row_trig;
+    CopyInsertMethod insertMethod;
+    CopyMultiInsertInfo multiInsertInfo;
+
+    // Validate target relation type
+    validate_copy_target_relation(cstate->rel);
+
+    // Set up executor state and result relation info
+    ExecInitRangeTable(estate, cstate->range_table, cstate->rteperminfos);
+    resultRelInfo = setup_result_relation(estate);
+
+    // Configure FREEZE optimization if requested
+    if (cstate->opts.freeze) {
+        validate_freeze_conditions(cstate);
+        ti_options |= TABLE_INSERT_FROZEN;
+    }
+
+    // Set up partition routing for partitioned tables
+    if (cstate->rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        proute = ExecSetupPartitionTupleRouting(estate, cstate->rel);
+    }
+
+    // Determine insert method (single, multi, or conditional)
+    insertMethod = determine_insert_method(cstate, resultRelInfo, proute);
+
+    // Set up multi-insert buffer if using batch mode
+    if (insertMethod != CIM_SINGLE) {
+        CopyMultiInsertInfoInit(&multiInsertInfo, resultRelInfo, cstate,
+                                estate, mycid, ti_options);
+    }
+
+    // Execute BEFORE STATEMENT triggers
+    ExecBSInsertTriggers(estate, resultRelInfo);
+
+    // Main processing loop
+    for (;;) {
+        TupleTableSlot *myslot;
+        bool skip_tuple = false;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Read next tuple from input source
+        if (!NextCopyFrom(cstate, econtext, myslot->tts_values, myslot->tts_isnull)) {
+            break; // End of input
+        }
+
+        // Handle soft errors (ON_ERROR modes)
+        if (handle_copy_errors(cstate)) {
+            continue; // Skip this tuple
+        }
+
+        // Apply WHERE clause filtering
+        if (cstate->whereClause && !ExecQual(cstate->qualexpr, econtext)) {
+            excluded++;
+            continue;
+        }
+
+        // Handle partition routing for partitioned tables
+        if (proute) {
+            resultRelInfo = ExecFindPartition(mtstate, target_resultRelInfo,
+                                              proute, myslot, estate);
+            handle_partition_mapping(myslot, resultRelInfo, map);
+        }
+
+        // Execute BEFORE ROW INSERT triggers
+        if (has_before_insert_row_trig) {
+            if (!ExecBRInsertTriggers(estate, resultRelInfo, myslot)) {
+                skip_tuple = true;
+            }
+        }
+
+        if (!skip_tuple) {
+            // Handle INSTEAD OF triggers or regular insertion
+            if (has_instead_insert_row_trig) {
+                ExecIRInsertTriggers(estate, resultRelInfo, myslot);
+            } else {
+                // Compute stored generated columns
+                compute_stored_generated_columns(resultRelInfo, estate, myslot);
+
+                // Check constraints and partition constraints
+                validate_constraints_and_partitions(resultRelInfo, myslot, estate, proute);
+
+                // Insert tuple (either batched or single)
+                if (insertMethod == CIM_MULTI || leafpart_use_multi_insert) {
+                    // Add to multi-insert buffer
+                    CopyMultiInsertInfoStore(&multiInsertInfo, resultRelInfo, myslot,
+                                             cstate->line_buf.len, cstate->cur_lineno);
+
+                    // Flush buffer if full
+                    if (CopyMultiInsertInfoIsFull(&multiInsertInfo)) {
+                        CopyMultiInsertInfoFlush(&multiInsertInfo, resultRelInfo, &processed);
+                    }
+                } else {
+                    // Single tuple insert
+                    insert_single_tuple(resultRelInfo, myslot, estate, mycid, ti_options, bistate);
+
+                    // Execute AFTER ROW INSERT triggers
+                    ExecARInsertTriggers(estate, resultRelInfo, myslot,
+                                         recheckIndexes, cstate->transition_capture);
+                }
+            }
+
+            processed++;
+        }
+    }
+
+    // Flush any remaining buffered tuples
+    if (insertMethod != CIM_SINGLE && !CopyMultiInsertInfoIsEmpty(&multiInsertInfo)) {
+        CopyMultiInsertInfoFlush(&multiInsertInfo, NULL, &processed);
+    }
+
+    // Execute AFTER STATEMENT triggers and cleanup
+    ExecASInsertTriggers(estate, target_resultRelInfo, cstate->transition_capture);
+    cleanup_copy_state(estate, bistate, &multiInsertInfo, proute, mtstate);
+
+    return processed;
+}
+```

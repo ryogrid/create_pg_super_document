@@ -37,3 +37,39 @@ The function iterates through the provided names list in parallel with the tuple
 - Skips assignment for empty alias strings or dropped columns
 - The function modifies the tuple descriptor in place, making it a mutating operation
 - This is typically used in contexts where dynamic column naming is required, such as in function return types or complex expressions
+
+## Simplified Source
+
+```c
+void
+ExecTypeSetColNames(TupleDesc typeInfo, List *namesList)
+{
+    int colno = 0;
+    ListCell *lc;
+
+    // Verify this is a modifiable RECORD type
+    Assert(typeInfo->tdtypeid == RECORDOID);
+    Assert(typeInfo->tdtypmod < 0);
+
+    // Assign names from the list to tuple descriptor attributes
+    foreach(lc, namesList)
+    {
+        char *cname = strVal(lfirst(lc));
+        Form_pg_attribute attr;
+
+        // Stop if we've processed all attributes
+        if (colno >= typeInfo->natts)
+            break;
+
+        attr = TupleDescAttr(typeInfo, colno);
+        colno++;
+
+        // Skip empty names or dropped columns
+        if (cname[0] == '\0' || attr->attisdropped)
+            continue;
+
+        // Assign the column name
+        namestrcpy(&(attr->attname), cname);
+    }
+}
+```

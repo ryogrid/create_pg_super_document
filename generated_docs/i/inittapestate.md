@@ -43,3 +43,22 @@ The function calculates tape space as  and only decreases available memory if th
 - Memory management is conservative to ensure sufficient space remains for actual tuple data
 - The function is designed to work safely in both sequential and parallel sorting contexts
 - Part of PostgreSQL's external merge sort algorithm that handles datasets larger than available memory
+
+## Simplified Source
+
+```c
+static void inittapestate(Tuplesortstate *state, int maxTapes) {
+    int64 tapeSpace;
+
+    // Calculate memory needed for all tape buffers
+    tapeSpace = (int64) maxTapes * TAPE_BUFFER_OVERHEAD;
+
+    // Reserve tape buffer memory if enough memory remains for tuples
+    if (tapeSpace + GetMemoryChunkSpace(state->memtuples) < state->allowedMem) {
+        USEMEM(state, tapeSpace);
+    }
+
+    // Ensure temporary tablespaces are ready for tape files
+    PrepareTempTablespaces();
+}
+```

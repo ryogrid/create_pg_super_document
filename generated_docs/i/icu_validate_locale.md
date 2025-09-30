@@ -51,3 +51,75 @@ The function is only available when PostgreSQL is compiled with ICU support. Wit
 - Uses `ULOC_LANG_CAPACITY` for language string buffer allocation
 - Provides helpful hints on how to disable validation when errors occur
 - Part of PostgreSQL's ICU integration for locale validation and internationalization support
+
+## Simplified Source
+
+```c
+void
+icu_validate_locale(const char *loc_str)
+{
+#ifdef USE_ICU
+    UCollator *collator;
+    UErrorCode status;
+    char lang[ULOC_LANG_CAPACITY];
+    bool found = false;
+    int elevel = icu_validation_level;
+
+    // Skip validation if disabled
+    if (elevel < 0)
+        return;
+
+    // Downgrade to warning during pg_upgrade
+    if (IsBinaryUpgrade && elevel > WARNING)
+        elevel = WARNING;
+
+    // Extract and validate language component
+    status = U_ZERO_ERROR;
+    uloc_getLanguage(loc_str, lang, ULOC_LANG_CAPACITY, &status);
+    if (U_FAILURE(status) || status == U_STRING_NOT_TERMINATED_WARNING) {
+        ereport(elevel,
+               (errmsg("could not get language from ICU locale \"%s\": %s",
+                      loc_str, u_errorName(status)),
+                errhint("To disable ICU locale validation, set the parameter \"%s\" to \"%s\".",
+                       "icu_validation_level", "disabled")));
+        return;
+    }
+
+    // Check for special language names
+    if (strcmp(lang, "") == 0 ||
+        strcmp(lang, "root") == 0 || strcmp(lang, "und") == 0)
+        found = true;
+
+    // Search for matching language in available ICU locales
+    for (int32_t i = 0; !found && i < uloc_countAvailable(); i++) {
+        const char *otherloc = uloc_getAvailable(i);
+        char otherlang[ULOC_LANG_CAPACITY];
+
+        status = U_ZERO_ERROR;
+        uloc_getLanguage(otherloc, otherlang, ULOC_LANG_CAPACITY, &status);
+        if (U_SUCCESS(status) && status != U_STRING_NOT_TERMINATED_WARNING) {
+            if (strcmp(lang, otherlang) == 0)
+                found = true;
+        }
+    }
+
+    // Report error if language not found
+    if (!found) {
+        ereport(elevel,
+               (errmsg("ICU locale \"%s\" has unknown language \"%s\"",
+                      loc_str, lang),
+                errhint("To disable ICU locale validation, set the parameter \"%s\" to \"%s\".",
+                       "icu_validation_level", "disabled")));
+    }
+
+    // Test that collator can be opened
+    collator = pg_ucol_open(loc_str);
+    ucol_close(collator);
+#else
+    // ICU not supported
+    ereport(ERROR,
+           (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+            errmsg("ICU is not supported in this build")));
+#endif
+}
+```

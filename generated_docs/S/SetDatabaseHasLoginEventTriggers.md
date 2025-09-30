@@ -43,3 +43,42 @@ This function takes no parameters and operates on the current database (MyDataba
 - The function operates on the current database context (MyDatabaseId)
 - This flag serves as a performance optimization to avoid checking for login triggers when none exist in a database
 - Memory management is handled properly with heap_freetuple() to prevent memory leaks
+
+## Simplified Source
+
+```c
+void
+SetDatabaseHasLoginEventTriggers(void)
+{
+    Form_pg_database db;
+    Relation pg_db;
+    ItemPointerData otid;
+    HeapTuple tuple;
+
+    // Open pg_database catalog with exclusive lock
+    pg_db = table_open(DatabaseRelationId, RowExclusiveLock);
+
+    // Acquire custom lock to prevent conflicts with EventTriggerOnLogin()
+    LockSharedObject(DatabaseRelationId, MyDatabaseId, 0, AccessExclusiveLock);
+
+    // Find and lock the current database tuple
+    tuple = SearchSysCacheLockedCopy1(DATABASEOID, ObjectIdGetDatum(MyDatabaseId));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for database %u", MyDatabaseId);
+
+    otid = tuple->t_self;
+    db = (Form_pg_database) GETSTRUCT(tuple);
+
+    // Set the login event trigger flag if not already set
+    if (!db->dathasloginevt) {
+        db->dathasloginevt = true;
+        CatalogTupleUpdate(pg_db, &otid, tuple);
+        CommandCounterIncrement();
+    }
+
+    // Cleanup and unlock
+    UnlockTuple(pg_db, &otid, InplaceUpdateTupleLock);
+    table_close(pg_db, RowExclusiveLock);
+    heap_freetuple(tuple);
+}
+```

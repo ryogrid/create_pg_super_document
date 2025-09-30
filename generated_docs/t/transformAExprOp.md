@@ -48,3 +48,66 @@ The function preserves location information for error reporting and maintains pr
 - CaseTestExpr nodes are exempt from NULL equality transformation to preserve CASE-WHEN semantics
 - Row operations require special handling due to their multi-element nature
 - Location information is preserved for all transformed expressions to support accurate error reporting
+
+## Simplified Source
+
+```c
+static Node *
+transformAExprOp(ParseState *pstate, A_Expr *a)
+{
+    Node *lexpr = a->lexpr;
+    Node *rexpr = a->rexpr;
+    Node *result;
+
+    // Special case: Convert "foo = NULL" to "foo IS NULL" for compatibility
+    if (Transform_null_equals &&
+        list_length(a->name) == 1 &&
+        strcmp(strVal(linitial(a->name)), "=") == 0 &&
+        (exprIsNullConstant(lexpr) || exprIsNullConstant(rexpr)) &&
+        (!IsA(lexpr, CaseTestExpr) && !IsA(rexpr, CaseTestExpr))) {
+
+        NullTest *n = makeNode(NullTest);
+        n->nulltesttype = IS_NULL;
+        n->location = a->location;
+        n->arg = (Expr *) (exprIsNullConstant(lexpr) ? rexpr : lexpr);
+
+        result = transformExprRecurse(pstate, (Node *) n);
+    }
+    // Special case: "row op subselect" -> ROWCOMPARE sublink
+    else if (lexpr && IsA(lexpr, RowExpr) &&
+             rexpr && IsA(rexpr, SubLink) &&
+             ((SubLink *) rexpr)->subLinkType == EXPR_SUBLINK) {
+
+        SubLink *s = (SubLink *) rexpr;
+        s->subLinkType = ROWCOMPARE_SUBLINK;
+        s->testexpr = lexpr;
+        s->operName = a->name;
+        s->location = a->location;
+
+        result = transformExprRecurse(pstate, (Node *) s);
+    }
+    // Special case: "ROW() op ROW()" comparison
+    else if (lexpr && IsA(lexpr, RowExpr) &&
+             rexpr && IsA(rexpr, RowExpr)) {
+
+        lexpr = transformExprRecurse(pstate, lexpr);
+        rexpr = transformExprRecurse(pstate, rexpr);
+
+        result = make_row_comparison_op(pstate, a->name,
+                                        castNode(RowExpr, lexpr)->args,
+                                        castNode(RowExpr, rexpr)->args,
+                                        a->location);
+    }
+    // Default case: ordinary scalar operator
+    else {
+        Node *last_srf = pstate->p_last_srf;
+
+        lexpr = transformExprRecurse(pstate, lexpr);
+        rexpr = transformExprRecurse(pstate, rexpr);
+
+        result = make_op(pstate, a->name, lexpr, rexpr, last_srf, a->location);
+    }
+
+    return result;
+}
+```

@@ -44,3 +44,75 @@ This function creates a pg_locale_t object from a collation OID, implementing a 
 - Memory allocation is done in TopMemoryContext for session-lifetime persistence
 - Default collation (DEFAULT_COLLATION_OID) receives special handling for performance optimization
 - Includes comprehensive error handling for various failure scenarios including locale creation failures and version mismatches
+
+## Simplified Source
+
+```c
+pg_locale_t pg_newlocale_from_collation(Oid collid) {
+    collation_cache_entry *cache_entry;
+
+    Assert(OidIsValid(collid));
+
+    // Handle default collation specially
+    if (collid == DEFAULT_COLLATION_OID) {
+        if (default_locale.provider == COLLPROVIDER_LIBC)
+            return (pg_locale_t) 0;  // Optimization for default libc
+        else
+            return &default_locale;
+    }
+
+    // Look up in cache
+    cache_entry = lookup_collation_cache(collid, false);
+
+    // If not cached, create new locale
+    if (cache_entry->locale == 0) {
+        HeapTuple tp;
+        Form_pg_collation collform;
+        struct pg_locale_struct result;
+        pg_locale_t resultp;
+
+        // Get collation info from catalog
+        tp = SearchSysCache1(COLLOID, ObjectIdGetDatum(collid));
+        if (!HeapTupleIsValid(tp))
+            elog(ERROR, "cache lookup failed for collation %u", collid);
+        collform = (Form_pg_collation) GETSTRUCT(tp);
+
+        // Initialize result structure
+        memset(&result, 0, sizeof(result));
+        result.provider = collform->collprovider;
+        result.deterministic = collform->collisdeterministic;
+
+        // Handle different collation providers
+        if (collform->collprovider == COLLPROVIDER_BUILTIN) {
+            // Set up builtin locale
+            Datum datum = SysCacheGetAttrNotNull(COLLOID, tp, Anum_pg_collation_colllocale);
+            const char *locstr = TextDatumGetCString(datum);
+            builtin_validate_locale(GetDatabaseEncoding(), locstr);
+            result.info.builtin.locale = MemoryContextStrdup(TopMemoryContext, locstr);
+
+        } else if (collform->collprovider == COLLPROVIDER_LIBC) {
+            // Create libc locale using newlocale/create_locale
+            // Handle platform differences and collate/ctype combinations
+            // (Platform-specific locale creation logic)
+
+        } else if (collform->collprovider == COLLPROVIDER_ICU) {
+            // Set up ICU collator
+            const char *iculocstr = /* get locale string */;
+            const char *icurules = /* get optional rules */;
+            make_icu_collator(iculocstr, icurules, &result);
+        }
+
+        // Validate collation version if present
+        // (Version checking and warning logic)
+
+        ReleaseSysCache(tp);
+
+        // Allocate and cache the result
+        resultp = MemoryContextAlloc(TopMemoryContext, sizeof(*resultp));
+        *resultp = result;
+        cache_entry->locale = resultp;
+    }
+
+    return cache_entry->locale;
+}
+```

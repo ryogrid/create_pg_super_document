@@ -40,3 +40,33 @@ The function implements a priority system where disk usage is considered more im
 - Disk space is measured in bytes (blocks * BLCKSZ) while memory usage is tracked directly
 - Used for performance monitoring and debugging to understand resource consumption patterns
 - The priority system ensures that transitioning from memory to disk always updates the maximum, even if disk usage is initially lower than peak memory usage
+
+## Simplified Source
+
+```c
+static void
+tuplesort_updatemax(Tuplesortstate *state)
+{
+    int64 spaceUsed;
+    bool isSpaceDisk;
+
+    // Determine current space usage type and amount
+    if (state->tapeset) {
+        // Using disk: measure tape blocks
+        isSpaceDisk = true;
+        spaceUsed = LogicalTapeSetBlocks(state->tapeset) * BLCKSZ;
+    } else {
+        // Using memory: calculate from available memory
+        isSpaceDisk = false;
+        spaceUsed = state->allowedMem - state->availMem;
+    }
+
+    // Update maximum if this is higher or switched to disk
+    if ((isSpaceDisk && !state->isMaxSpaceDisk) ||
+        (isSpaceDisk == state->isMaxSpaceDisk && spaceUsed > state->maxSpace)) {
+        state->maxSpace = spaceUsed;
+        state->isMaxSpaceDisk = isSpaceDisk;
+        state->maxSpaceStatus = state->status;
+    }
+}
+```

@@ -49,3 +49,117 @@ The function performs comprehensive syntax validation, handles typmod constraint
 - Integrates with the soft error reporting system for better error handling in contexts like COPY
 - Performs thorough input validation including trailing whitespace checks
 - The function is registered in the system catalogs and called automatically during numeric type input conversion
+
+## Simplified Source
+
+```c
+Datum numeric_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    int32 typmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+
+    const char *cp = str;
+    const char *numstart;
+    int sign = NUMERIC_POS;
+    Numeric res;
+
+    // Skip leading whitespace
+    while (*cp && isspace((unsigned char) *cp)) {
+        cp++;
+    }
+
+    // Process sign
+    numstart = cp;
+    if (*cp == '+') {
+        cp++;
+    } else if (*cp == '-') {
+        sign = NUMERIC_NEG;
+        cp++;
+    }
+
+    // Check for special values (NaN, Infinity)
+    if (!isdigit((unsigned char) *cp) && *cp != '.') {
+        if (pg_strncasecmp(numstart, "NaN", 3) == 0) {
+            res = make_result(&const_nan);
+            cp = numstart + 3;
+        } else if (pg_strncasecmp(cp, "Infinity", 8) == 0) {
+            res = make_result(sign == NUMERIC_POS ? &const_pinf : &const_ninf);
+            cp += 8;
+        } else if (pg_strncasecmp(cp, "inf", 3) == 0) {
+            res = make_result(sign == NUMERIC_POS ? &const_pinf : &const_ninf);
+            cp += 3;
+        } else {
+            goto invalid_syntax;
+        }
+
+        // Check for trailing whitespace only
+        while (*cp) {
+            if (!isspace((unsigned char) *cp)) {
+                goto invalid_syntax;
+            }
+            cp++;
+        }
+
+        // Apply type modifier to special values
+        if (!apply_typmod_special(res, typmod, escontext)) {
+            PG_RETURN_NULL();
+        }
+    } else {
+        // Parse normal numeric value
+        NumericVar value;
+        int base = 10;
+        bool have_error;
+
+        init_var(&value);
+
+        // Check for non-decimal base prefixes (0x, 0o, 0b)
+        if (cp[0] == '0') {
+            switch (cp[1]) {
+                case 'x': case 'X': base = 16; break;
+                case 'o': case 'O': base = 8; break;
+                case 'b': case 'B': base = 2; break;
+                default: base = 10;
+            }
+        }
+
+        // Parse the numeric value
+        if (base == 10) {
+            if (!set_var_from_str(str, cp, &value, &cp, escontext)) {
+                PG_RETURN_NULL();
+            }
+            value.sign = sign;
+        } else {
+            if (!set_var_from_non_decimal_integer_str(str, cp + 2, sign, base,
+                                                     &value, &cp, escontext)) {
+                PG_RETURN_NULL();
+            }
+        }
+
+        // Check for trailing whitespace only
+        while (*cp) {
+            if (!isspace((unsigned char) *cp)) {
+                goto invalid_syntax;
+            }
+            cp++;
+        }
+
+        // Apply type modifier constraints
+        if (!apply_typmod(&value, typmod, escontext)) {
+            PG_RETURN_NULL();
+        }
+
+        // Create final result
+        res = make_result_opt_error(&value, &have_error);
+        if (have_error) {
+            ereturn(escontext, (Datum) 0, /* value overflow error */);
+        }
+
+        free_var(&value);
+    }
+
+    PG_RETURN_NUMERIC(res);
+
+invalid_syntax:
+    ereturn(escontext, (Datum) 0, /* invalid syntax error */);
+}
+```

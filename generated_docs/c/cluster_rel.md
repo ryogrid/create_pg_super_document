@@ -54,3 +54,91 @@ When indexOid is InvalidOid, this function implements VACUUM FULL functionality 
 - Promotes predicate locks to relation level since tuple locations change during clustering
 - Uses security-restricted operations to prevent privilege escalation during index function execution
 - The table is closed by rebuild_relation(), not by this function directly
+
+## Simplified Source
+
+```c
+void cluster_rel(Oid tableOid, Oid indexOid, ClusterParams *params)
+{
+    Relation OldHeap;
+    Oid save_userid;
+    int save_sec_context;
+    int save_nestlevel;
+    bool verbose = ((params->options & CLUOPT_VERBOSE) != 0);
+    bool recheck = ((params->options & CLUOPT_RECHECK) != 0);
+
+    // Initialize progress reporting
+    pgstat_progress_start_command(PROGRESS_COMMAND_CLUSTER, tableOid);
+
+    // Open table with exclusive lock
+    OldHeap = try_relation_open(tableOid, AccessExclusiveLock);
+    if (!OldHeap) {
+        pgstat_progress_end_command();
+        return;  // Table has gone away
+    }
+
+    // Switch to table owner's privileges for security
+    GetUserIdAndSecContext(&save_userid, &save_sec_context);
+    SetUserIdAndSecContext(OldHeap->rd_rel->relowner,
+                          save_sec_context | SECURITY_RESTRICTED_OPERATION);
+    save_nestlevel = NewGUCNestLevel();
+    RestrictSearchPath();
+
+    // Perform recheck validations if needed
+    if (recheck) {
+        // Check user privileges
+        if (!cluster_is_permitted_for_relation(tableOid, save_userid))
+            goto cleanup;
+
+        // Skip temp tables from other sessions
+        if (RELATION_IS_OTHER_TEMP(OldHeap))
+            goto cleanup;
+
+        // Validate index still exists and is clustered if required
+        if (OidIsValid(indexOid)) {
+            if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(indexOid)))
+                goto cleanup;
+            if ((params->options & CLUOPT_RECHECK_ISCLUSTERED) != 0 &&
+                !get_index_isclustered(indexOid))
+                goto cleanup;
+        }
+    }
+
+    // Validate operation constraints
+    if (OidIsValid(indexOid) && OldHeap->rd_rel->relisshared)
+        ereport(ERROR, /* cannot cluster shared catalog */);
+
+    if (RELATION_IS_OTHER_TEMP(OldHeap))
+        ereport(ERROR, /* cannot cluster temp tables of other sessions */);
+
+    // Check table is not currently in use
+    CheckTableNotInUse(OldHeap, OidIsValid(indexOid) ? "CLUSTER" : "VACUUM");
+
+    // Validate index is suitable for clustering
+    if (OidIsValid(indexOid))
+        check_index_is_clusterable(OldHeap, indexOid, AccessExclusiveLock);
+
+    // Skip unpopulated materialized views
+    if (OldHeap->rd_rel->relkind == RELKIND_MATVIEW &&
+        !RelationIsPopulated(OldHeap))
+        goto cleanup;
+
+    // Transfer predicate locks (tuples will move)
+    TransferPredicateLocksToHeapRelation(OldHeap);
+
+    // Perform the actual clustering operation
+    rebuild_relation(OldHeap, indexOid, verbose);
+    // Note: rebuild_relation() closes OldHeap
+
+    goto out;
+
+cleanup:
+    relation_close(OldHeap, AccessExclusiveLock);
+
+out:
+    // Restore security context and GUC settings
+    AtEOXact_GUC(false, save_nestlevel);
+    SetUserIdAndSecContext(save_userid, save_sec_context);
+    pgstat_progress_end_command();
+}
+```

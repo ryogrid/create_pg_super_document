@@ -33,3 +33,16 @@ The function uses RecoveryInProgress() to determine if the database is currently
 - Essential component of Hot Standby safety mechanisms in PostgreSQL replication
 - Complements the related processed symbol RecoveryInProgress by providing the enforcement layer for recovery-mode restrictions
 - Bridges the gap between read-only transaction checks and Hot Standby operational requirements
+
+## Simplified Source
+
+```c
+void PreventCommandDuringRecovery(const char *cmdname) {
+    // Check if database is in recovery mode (Hot Standby)
+    if (RecoveryInProgress()) {
+        ereport(ERROR,
+                (errcode(ERRCODE_READ_ONLY_SQL_TRANSACTION),
+                 errmsg("cannot execute %s during recovery", cmdname)));
+    }
+}
+```

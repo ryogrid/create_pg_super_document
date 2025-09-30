@@ -49,3 +49,52 @@ The deletion process maintains proper locking semantics, keeping locks until tra
 - Supports both speculative and regular deletion modes for different transaction scenarios
 - Uses init_toast_snapshot() to ensure proper visibility semantics during chunk scanning
 - Keeps locks until commit to prevent concurrent reindex operations from interfering
+
+## Simplified Source
+
+```c
+void toast_delete_datum(Relation rel, Datum value, bool is_speculative) {
+    struct varlena *attr = (struct varlena *) DatumGetPointer(value);
+    struct varatt_external toast_pointer;
+    Relation toastrel;
+    Relation *toastidxs;
+    ScanKeyData toastkey;
+    SysScanDesc toastscan;
+    HeapTuple toasttup;
+    int num_indexes, validIndex;
+    SnapshotData SnapshotToast;
+
+    // Only handle external on-disk values
+    if (!VARATT_IS_EXTERNAL_ONDISK(attr))
+        return;
+
+    // Extract toast pointer information
+    VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+
+    // Open toast relation and its indexes
+    toastrel = table_open(toast_pointer.va_toastrelid, RowExclusiveLock);
+    validIndex = toast_open_indexes(toastrel, RowExclusiveLock, &toastidxs, &num_indexes);
+
+    // Set up scan key to find chunks with matching value ID
+    ScanKeyInit(&toastkey, (AttrNumber) 1, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(toast_pointer.va_valueid));
+
+    // Scan and delete all chunks belonging to this value
+    init_toast_snapshot(&SnapshotToast);
+    toastscan = systable_beginscan_ordered(toastrel, toastidxs[validIndex],
+                                          &SnapshotToast, 1, &toastkey);
+
+    while ((toasttup = systable_getnext_ordered(toastscan, ForwardScanDirection)) != NULL) {
+        // Delete the chunk (speculative or regular)
+        if (is_speculative)
+            heap_abort_speculative(toastrel, &toasttup->t_self);
+        else
+            simple_heap_delete(toastrel, &toasttup->t_self);
+    }
+
+    // Clean up, keeping locks until commit
+    systable_endscan_ordered(toastscan);
+    toast_close_indexes(toastidxs, num_indexes, NoLock);
+    table_close(toastrel, NoLock);
+}
+```

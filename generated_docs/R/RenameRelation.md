@@ -41,3 +41,54 @@ The function uses ShareUpdateExclusiveLock for index operations and AccessExclus
 - Uses different callback function (RangeVarCallbackForAlterRelation) than attribute renaming
 - Returns InvalidObjectAddress if the relation does not exist and missing_ok is true
 - Part of the broader relation management infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+ObjectAddress RenameRelation(RenameStmt *stmt)
+{
+    bool is_index_stmt = stmt->renameType == OBJECT_INDEX;
+    Oid relid;
+
+    // Adaptive locking loop to handle statement/object type mismatches
+    for (;;)
+    {
+        // Choose lock mode based on current assumption about object type
+        LOCKMODE lockmode = is_index_stmt ? ShareUpdateExclusiveLock : AccessExclusiveLock;
+
+        // Get relation with appropriate lock
+        relid = RangeVarGetRelidExtended(stmt->relation, lockmode,
+                                         stmt->missing_ok ? RVR_MISSING_OK : 0,
+                                         RangeVarCallbackForAlterRelation,
+                                         (void *) stmt);
+
+        if (!OidIsValid(relid)) {
+            ereport(NOTICE, (errmsg("relation \"%s\" does not exist, skipping",
+                                    stmt->relation->relname)));
+            return InvalidObjectAddress;
+        }
+
+        // Check if we used the correct lock mode
+        char relkind = get_rel_relkind(relid);
+        bool obj_is_index = (relkind == RELKIND_INDEX ||
+                             relkind == RELKIND_PARTITIONED_INDEX);
+
+        // If assumption was correct, proceed
+        if (obj_is_index || is_index_stmt == obj_is_index)
+            break;
+
+        // Wrong lock mode - retry with correct assumption
+        UnlockRelationOid(relid, lockmode);
+        is_index_stmt = obj_is_index;
+    }
+
+    // Perform the actual rename
+    RenameRelationInternal(relid, stmt->newname, false, is_index_stmt);
+
+    // Build return address
+    ObjectAddress address;
+    ObjectAddressSet(address, RelationRelationId, relid);
+
+    return address;
+}
+```

@@ -41,3 +41,37 @@ When advancing, the function unlinks the head element, updates queue pointers, a
 - Automatically resets queue tail pointer when queue becomes empty
 - Recycles removed queue entries to avoid memory allocation overhead
 - Critical for maintaining command/response synchronization in pipeline mode
+
+## Simplified Source
+
+```c
+void
+pqCommandQueueAdvance(PGconn *conn, bool isReadyForQuery, bool gotSync)
+{
+    PGcmdQueueEntry *prevquery;
+
+    // Nothing to advance if queue is empty
+    if (conn->cmd_queue_head == NULL)
+        return;
+
+    // For simple queries, wait for ReadyForQuery message
+    if (conn->cmd_queue_head->queryclass == PGQUERY_SIMPLE && !isReadyForQuery)
+        return;
+
+    // For SYNC operations, wait for corresponding SYNC response
+    if (conn->cmd_queue_head->queryclass == PGQUERY_SYNC && !gotSync)
+        return;
+
+    // Remove head element from queue
+    prevquery = conn->cmd_queue_head;
+    conn->cmd_queue_head = conn->cmd_queue_head->next;
+
+    // Reset tail if queue becomes empty
+    if (conn->cmd_queue_head == NULL)
+        conn->cmd_queue_tail = NULL;
+
+    // Recycle the removed queue entry
+    prevquery->next = NULL;
+    pqRecycleCmdQueueEntry(conn, prevquery);
+}
+```

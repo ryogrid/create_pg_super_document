@@ -42,3 +42,66 @@ The core logic involves a loop that examines each node type and either processes
 - Returns the final subexpression that represents the value to be assigned
 - Critical component of PostgreSQL's rule system for decompiling complex assignment expressions
 - The function assumes that the caller has already printed the base column name
+
+## Simplified Source
+
+```c
+static Node *
+processIndirection(Node *node, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    CoerceToDomain *cdomain = NULL;
+
+    // Process assignment operations by stripping off field stores and subscripts
+    for (;;)
+    {
+        if (node == NULL)
+            break;
+
+        if (IsA(node, FieldStore))
+        {
+            FieldStore *fstore = (FieldStore *) node;
+
+            // Get field name and append to output
+            Oid typrelid = get_typ_typrelid(fstore->resulttype);
+            char *fieldname = get_attname(typrelid, linitial_int(fstore->fieldnums), false);
+            appendStringInfo(buf, ".%s", quote_identifier(fieldname));
+
+            // Move to the new value being assigned
+            node = (Node *) linitial(fstore->newvals);
+        }
+        else if (IsA(node, SubscriptingRef))
+        {
+            SubscriptingRef *sbsref = (SubscriptingRef *) node;
+
+            if (sbsref->refassgnexpr == NULL)
+                break;
+
+            // Print array subscripts
+            printSubscripts(sbsref, context);
+
+            // Move to the assignment expression
+            node = (Node *) sbsref->refassgnexpr;
+        }
+        else if (IsA(node, CoerceToDomain))
+        {
+            cdomain = (CoerceToDomain *) node;
+
+            // Stop if explicit domain coercion
+            if (cdomain->coercionformat != COERCE_IMPLICIT_CAST)
+                break;
+
+            // Continue past implicit coercion
+            node = (Node *) cdomain->arg;
+        }
+        else
+            break;
+    }
+
+    // Handle case where we stepped past a coercion incorrectly
+    if (cdomain && node == (Node *) cdomain->arg)
+        node = (Node *) cdomain;
+
+    return node;
+}
+```

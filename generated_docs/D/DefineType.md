@@ -67,3 +67,75 @@ The function follows PostgreSQL's type creation protocol where I/O functions mus
 - Type OIDs must be preserved during binary upgrades
 - The function handles backwards compatibility for various parameter synonyms
 - Storage alignment is automatically adjusted for array types (INT or DOUBLE only)
+
+## Simplified Source
+
+```c
+ObjectAddress
+DefineType(ParseState *pstate, List *names, List *parameters)
+{
+    char *typeName;
+    Oid typeNamespace, typoid, array_oid;
+    ObjectAddress address;
+
+    // Check superuser permissions
+    if (!superuser())
+        ereport(ERROR, "must be superuser to create a base type");
+
+    // Parse qualified name
+    typeNamespace = QualifiedNameGetCreationNamespace(names, &typeName);
+
+    // Check if type already exists
+    typoid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                            CStringGetDatum(typeName),
+                            ObjectIdGetDatum(typeNamespace));
+
+    // Handle existing type or array type conflicts
+    if (OidIsValid(typoid) && get_typisdefined(typoid)) {
+        if (moveArrayTypeName(typoid, typeName, typeNamespace))
+            typoid = InvalidOid;
+        else
+            ereport(ERROR, "type already exists");
+    }
+
+    // Handle shell type creation (no parameters)
+    if (parameters == NIL) {
+        if (OidIsValid(typoid))
+            ereport(ERROR, "type already exists");
+        address = TypeShellMake(typeName, typeNamespace, GetUserId());
+        return address;
+    }
+
+    // Validate shell type exists for full definition
+    if (!OidIsValid(typoid))
+        ereport(ERROR, "type does not exist - create shell type first");
+
+    // Parse all parameters (input, output, storage properties, etc.)
+    // Set defaults and extract parameter values
+    parseTypeParameters(parameters, &inputName, &outputName,
+                       &internalLength, &byValue, &alignment, etc.);
+
+    // Validate required functions
+    if (inputName == NIL || outputName == NIL)
+        ereport(ERROR, "type input/output functions must be specified");
+
+    // Convert function names to OIDs
+    inputOid = findTypeInputFunction(inputName, typoid);
+    outputOid = findTypeOutputFunction(outputName, typoid);
+    // ... other function lookups
+
+    // Create the base type
+    array_oid = AssignTypeArrayOid();
+    address = TypeCreate(InvalidOid, typeName, typeNamespace,
+                        internalLength, TYPTYPE_BASE, category,
+                        inputOid, outputOid, byValue, alignment, etc.);
+
+    // Create corresponding array type
+    array_type = makeArrayTypeName(typeName, typeNamespace);
+    TypeCreate(array_oid, array_type, typeNamespace,
+               -1, TYPTYPE_BASE, TYPCATEGORY_ARRAY,
+               F_ARRAY_IN, F_ARRAY_OUT, etc.);
+
+    return address;
+}
+```

@@ -59,3 +59,51 @@ This optimization is particularly valuable because it eliminates the overhead of
 - The optimization assumes no outer joins, appendrels, or PlaceHolderVars exist in the context, which is appropriate for simple VALUES usage
 - Returns the original jtnode since the RTE replacement occurs in-place in the range table
 - This is part of PostgreSQL's broader strategy to eliminate unnecessary query structure layers where semantically safe
+
+## Simplified Source
+
+```c
+static Node *
+pull_up_simple_values(PlannerInfo *root, Node *jtnode, RangeTblEntry *rte)
+{
+    Query *parse = root->parse;
+    int varno = ((RangeTblRef *) jtnode)->rtindex;
+    List *values_list;
+    List *tlist;
+    AttrNumber attrno;
+    pullup_replace_vars_context rvcontext;
+    ListCell *lc;
+
+    // Get modifiable copy of the single VALUES row
+    values_list = copyObject(linitial(rte->values_lists));
+
+    // Convert VALUES list to target list format
+    tlist = NIL;
+    attrno = 1;
+    foreach(lc, values_list) {
+        tlist = lappend(tlist, makeTargetEntry(lfirst(lc), attrno, NULL, false));
+        attrno++;
+    }
+
+    // Set up variable replacement context
+    rvcontext.root = root;
+    rvcontext.targetlist = tlist;
+    rvcontext.target_rte = rte;
+    rvcontext.relids = NULL;
+    rvcontext.nullinfo = NULL;
+    rvcontext.outer_hasSubLinks = &parse->hasSubLinks;
+    rvcontext.varno = varno;
+    rvcontext.wrap_non_vars = false;
+
+    // Replace all references with VALUES expressions
+    perform_pullup_replace_vars(root, &rvcontext, NULL);
+
+    // Replace VALUES RTE with RESULT RTE
+    rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RESULT;
+    rte->eref = makeAlias("*RESULT*", NIL);
+    parse->rtable = list_make1(rte);
+
+    return jtnode;
+}
+```

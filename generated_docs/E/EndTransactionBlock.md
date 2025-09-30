@@ -44,3 +44,100 @@ This complex function handles the execution of COMMIT commands across all possib
 - Comprehensive state validation with fatal errors for invalid transitions
 - Sets the chain flag in transaction state for later use by CommitTransactionCommand()
 - Actual transaction commit/abort work is deferred to avoid Portal execution issues
+
+## Simplified Source
+
+```c
+bool EndTransactionBlock(bool chain) {
+    TransactionState s = CurrentTransactionState;
+    bool result = false;
+
+    switch (s->blockState) {
+        // Normal transaction in progress - prepare for commit
+        case TBLOCK_INPROGRESS:
+            s->blockState = TBLOCK_END;
+            result = true;
+            break;
+
+        // Implicit transaction - warn if no explicit BEGIN
+        case TBLOCK_IMPLICIT_INPROGRESS:
+            if (chain) {
+                ereport(ERROR, "COMMIT AND CHAIN can only be used in transaction blocks");
+            } else {
+                ereport(WARNING, "there is no transaction in progress");
+            }
+            s->blockState = TBLOCK_END;
+            result = true;
+            break;
+
+        // Failed transaction - prepare for rollback
+        case TBLOCK_ABORT:
+            s->blockState = TBLOCK_ABORT_END;
+            break;
+
+        // Active subtransaction - commit all subtransactions and main transaction
+        case TBLOCK_SUBINPROGRESS:
+            while (s->parent != NULL) {
+                if (s->blockState == TBLOCK_SUBINPROGRESS) {
+                    s->blockState = TBLOCK_SUBCOMMIT;
+                } else {
+                    elog(FATAL, "unexpected state in subtransaction");
+                }
+                s = s->parent;
+            }
+            if (s->blockState == TBLOCK_INPROGRESS) {
+                s->blockState = TBLOCK_END;
+            } else {
+                elog(FATAL, "unexpected main transaction state");
+            }
+            result = true;
+            break;
+
+        // Aborted subtransaction - treat COMMIT as ROLLBACK
+        case TBLOCK_SUBABORT:
+            while (s->parent != NULL) {
+                if (s->blockState == TBLOCK_SUBINPROGRESS) {
+                    s->blockState = TBLOCK_SUBABORT_PENDING;
+                } else if (s->blockState == TBLOCK_SUBABORT) {
+                    s->blockState = TBLOCK_SUBABORT_END;
+                } else {
+                    elog(FATAL, "unexpected subtransaction state");
+                }
+                s = s->parent;
+            }
+            if (s->blockState == TBLOCK_INPROGRESS) {
+                s->blockState = TBLOCK_ABORT_PENDING;
+            } else if (s->blockState == TBLOCK_ABORT) {
+                s->blockState = TBLOCK_ABORT_END;
+            } else {
+                elog(FATAL, "unexpected main transaction state");
+            }
+            break;
+
+        // No transaction in progress
+        case TBLOCK_STARTED:
+            if (chain) {
+                ereport(ERROR, "COMMIT AND CHAIN can only be used in transaction blocks");
+            } else {
+                ereport(WARNING, "there is no transaction in progress");
+            }
+            result = true;
+            break;
+
+        // Parallel worker context - not allowed
+        case TBLOCK_PARALLEL_INPROGRESS:
+            ereport(FATAL, "cannot commit during a parallel operation");
+            break;
+
+        // Invalid states
+        default:
+            elog(FATAL, "EndTransactionBlock: unexpected state");
+            break;
+    }
+
+    // Store chain flag for later use
+    s->chain = chain;
+
+    return result; // true for COMMIT, false for ROLLBACK
+}
+```

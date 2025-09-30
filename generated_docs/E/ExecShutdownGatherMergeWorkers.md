@@ -40,3 +40,19 @@ The function is designed to be safe even when called multiple times or when work
 - This function is part of the layered cleanup approach where worker-specific resources are cleaned up before the overall parallel context
 - Can be called during both normal termination and error recovery without causing issues
 - The cleanup is idempotent - multiple calls will not cause problems or double-free errors
+
+## Simplified Source
+
+```c
+static void ExecShutdownGatherMergeWorkers(GatherMergeState *node)
+{
+    // Stop all parallel workers
+    if (node->pei != NULL)
+        ExecParallelFinish(node->pei);
+
+    // Clean up reader array for worker communication
+    if (node->reader)
+        pfree(node->reader);
+    node->reader = NULL;
+}
+```

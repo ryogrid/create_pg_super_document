@@ -34,3 +34,24 @@ This function provides a thread-safe mechanism for assigning unique worker ident
 - Follows PostgreSQL convention of using -1 for non-worker processes
 - The assignment order is deliberately undefined and should not be relied upon by callers
 - Only callable for worker processes as verified by the WORKER() assertion
+
+## Simplified Source
+
+```c
+static int
+worker_get_identifier(Tuplesortstate *state)
+{
+    Sharedsort *shared = state->shared;
+    int worker;
+
+    // Ensure this is called from a worker process
+    Assert(WORKER(state));
+
+    // Thread-safe assignment of unique worker ID
+    SpinLockAcquire(&shared->mutex);
+    worker = shared->currentWorker++;
+    SpinLockRelease(&shared->mutex);
+
+    return worker;
+}
+```

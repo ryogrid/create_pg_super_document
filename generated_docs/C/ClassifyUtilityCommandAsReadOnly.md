@@ -39,3 +39,83 @@ Key classification categories include:
 - Lock statements with modes stronger than RowExclusiveLock are restricted during recovery
 - Transaction control statements have nuanced classifications based on their specific type
 - Used by the utility command processing framework to enforce appropriate execution restrictions
+
+## Simplified Source
+
+```c
+static int ClassifyUtilityCommandAsReadOnly(Node *parsetree) {
+    switch (nodeTag(parsetree)) {
+        // DDL commands - not read-only
+        case T_AlterTableStmt:
+        case T_CreateStmt:
+        case T_DropStmt:
+        case T_IndexStmt:
+        case T_TruncateStmt:
+        // ... (many other DDL command types)
+            return COMMAND_IS_NOT_READ_ONLY;
+
+        // ALTER SYSTEM - special case, considered read-only
+        case T_AlterSystemStmt:
+            // Writes config file but doesn't affect WAL or pg_dump
+            return COMMAND_IS_STRICTLY_READ_ONLY;
+
+        // Commands that only affect backend-local state
+        case T_DeallocateStmt:
+        case T_DiscardStmt:
+        case T_VariableSetStmt:
+        // ... (other local state commands)
+            // OK in read-only transactions but not parallel mode
+            return COMMAND_OK_IN_RECOVERY | COMMAND_OK_IN_READ_ONLY_TXN;
+
+        // Maintenance commands that write WAL
+        case T_ClusterStmt:
+        case T_ReindexStmt:
+        case T_VacuumStmt:
+            // Write WAL but don't change logical database state
+            return COMMAND_OK_IN_READ_ONLY_TXN;
+
+        // COPY command - depends on direction
+        case T_CopyStmt:
+            CopyStmt *stmt = (CopyStmt *) parsetree;
+            if (stmt->is_from)
+                return COMMAND_OK_IN_READ_ONLY_TXN;  // COPY FROM (to temp tables)
+            else
+                return COMMAND_IS_STRICTLY_READ_ONLY;  // COPY TO
+
+        // Query and display commands
+        case T_ExplainStmt:
+        case T_VariableShowStmt:
+            return COMMAND_IS_STRICTLY_READ_ONLY;
+
+        // Lock commands - depends on lock strength
+        case T_LockStmt:
+            LockStmt *stmt = (LockStmt *) parsetree;
+            if (stmt->mode > RowExclusiveLock)
+                return COMMAND_OK_IN_READ_ONLY_TXN;
+            else
+                return COMMAND_IS_STRICTLY_READ_ONLY;
+
+        // Transaction control - varies by type
+        case T_TransactionStmt:
+            TransactionStmt *stmt = (TransactionStmt *) parsetree;
+            switch (stmt->kind) {
+                case TRANS_STMT_BEGIN:
+                case TRANS_STMT_COMMIT:
+                case TRANS_STMT_ROLLBACK:
+                case TRANS_STMT_SAVEPOINT:
+                    return COMMAND_IS_STRICTLY_READ_ONLY;
+
+                case TRANS_STMT_PREPARE:
+                case TRANS_STMT_COMMIT_PREPARED:
+                case TRANS_STMT_ROLLBACK_PREPARED:
+                    return COMMAND_OK_IN_READ_ONLY_TXN;
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", nodeTag(parsetree));
+    }
+
+    return 0;
+}
+```

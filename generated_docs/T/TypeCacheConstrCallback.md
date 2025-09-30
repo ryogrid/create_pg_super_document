@@ -35,3 +35,22 @@ The function cannot distinguish between domain constraint updates and table cons
 - Called frequently, so performance optimization is important
 - Cannot distinguish between domain and table constraint invalidations, leading to some unnecessary work
 - Part of PostgreSQL's type cache invalidation mechanism for maintaining constraint data consistency
+
+## Simplified Source
+
+```c
+static void
+TypeCacheConstrCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    TypeCacheEntry *typentry;
+
+    // Efficiently traverse only domain-type entries using threaded list
+    for (typentry = firstDomainTypeEntry;
+         typentry != NULL;
+         typentry = typentry->nextDomain)
+    {
+        // Reset domain constraint validity information
+        typentry->flags &= ~TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS;
+    }
+}
+```

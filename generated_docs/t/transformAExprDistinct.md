@@ -47,3 +47,44 @@ The function recursively transforms both left and right expressions before apply
 - Row expressions require special handling because they involve component-wise comparison
 - The transformation preserves the original expression's location information for error reporting
 - Located in src/backend/parser/parse_expr.c:1032-1082
+
+## Simplified Source
+
+```c
+static Node *
+transformAExprDistinct(ParseState *pstate, A_Expr *a)
+{
+    Node *lexpr = a->lexpr;
+    Node *rexpr = a->rexpr;
+    Node *result;
+
+    // Optimization: Convert NULL comparisons to simpler NullTest
+    if (exprIsNullConstant(rexpr))
+        return make_nulltest_from_distinct(pstate, a, lexpr);
+    if (exprIsNullConstant(lexpr))
+        return make_nulltest_from_distinct(pstate, a, rexpr);
+
+    // Transform both operands recursively
+    lexpr = transformExprRecurse(pstate, lexpr);
+    rexpr = transformExprRecurse(pstate, rexpr);
+
+    // Handle row expressions vs scalar expressions
+    if (lexpr && IsA(lexpr, RowExpr) && rexpr && IsA(rexpr, RowExpr)) {
+        // ROW() DISTINCT ROW() - component-wise comparison
+        result = make_row_distinct_op(pstate, a->name,
+                                      (RowExpr *) lexpr,
+                                      (RowExpr *) rexpr,
+                                      a->location);
+    } else {
+        // Ordinary scalar DISTINCT operation
+        result = (Node *) make_distinct_op(pstate, a->name,
+                                           lexpr, rexpr, a->location);
+    }
+
+    // Handle NOT DISTINCT by wrapping with NOT
+    if (a->kind == AEXPR_NOT_DISTINCT)
+        result = (Node *) makeBoolExpr(NOT_EXPR, list_make1(result), a->location);
+
+    return result;
+}
+```

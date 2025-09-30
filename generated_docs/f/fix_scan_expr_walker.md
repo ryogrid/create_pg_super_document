@@ -40,3 +40,23 @@ The walker pattern allows the function to visit all nodes in the expression tree
 - Returns a boolean value as required by the expression_tree_walker interface, but the return value is used only for controlling traversal
 - The function primarily serves to apply fix_expr_common processing (operator function ID resolution) to all nodes in the tree
 - Located in src/backend/optimizer/plan/setrefs.c:2261-2281
+
+## Simplified Source
+
+```c
+static bool fix_scan_expr_walker(Node *node, fix_scan_expr_context *context) {
+    if (node == NULL)
+        return false;
+
+    // Ensure no special nodes that require complex processing
+    Assert(!(IsA(node, Var) && ((Var *) node)->varno == ROWID_VAR));
+    Assert(!IsA(node, PlaceHolderVar));
+    Assert(!IsA(node, AlternativeSubPlan));
+
+    // Apply common expression fixes (mainly opcode lookup)
+    fix_expr_common(context->root, node);
+
+    // Continue traversing the expression tree
+    return expression_tree_walker(node, fix_scan_expr_walker, (void *) context);
+}
+```

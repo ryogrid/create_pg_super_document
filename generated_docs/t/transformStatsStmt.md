@@ -54,3 +54,56 @@ The function includes the same race condition safety measures as transformIndexS
 - Proper collation assignment is essential for expression-based statistics
 - The validation check for single table reference is noted as potentially dead code
 - Used for extended statistics objects that can collect multi-column statistics or statistics on expressions
+
+## Simplified Source
+
+```c
+CreateStatsStmt *
+transformStatsStmt(Oid relid, CreateStatsStmt *stmt, const char *queryString)
+{
+    ParseState *pstate;
+    ParseNamespaceItem *nsitem;
+    ListCell *l;
+    Relation rel;
+
+    // Skip if already transformed
+    if (stmt->transformed)
+        return stmt;
+
+    // Set up parse state for expression processing
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+
+    // Open target relation and add to parse context
+    rel = relation_open(relid, NoLock);
+    nsitem = addRangeTableEntryForRelation(pstate, rel, AccessShareLock, NULL, false, true);
+    addNSItemToQuery(pstate, nsitem, false, true, true);
+
+    // Transform statistics expressions
+    foreach(l, stmt->exprs) {
+        StatsElem *selem = (StatsElem *) lfirst(l);
+
+        if (selem->expr) {
+            // Transform the expression for statistics use
+            selem->expr = transformExpr(pstate, selem->expr, EXPR_KIND_STATS_EXPRESSION);
+
+            // Fix collations for the expression
+            assign_expr_collations(pstate, selem->expr);
+        }
+    }
+
+    // Validate that only base relation is referenced
+    if (list_length(pstate->p_rtable) != 1)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                errmsg("statistics expressions can refer only to the table being referenced")));
+
+    // Clean up
+    free_parsestate(pstate);
+    table_close(rel, NoLock);
+
+    // Mark as transformed to avoid reprocessing
+    stmt->transformed = true;
+
+    return stmt;
+}
+```

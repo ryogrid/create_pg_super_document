@@ -38,3 +38,36 @@ The function implements careful length management to respect PostgreSQL's NAMEDA
 - The underscore separator convention matches PostgreSQL's standard naming patterns for multi-column constraints
 - Essential for automatic constraint naming when users don't specify explicit constraint names
 - Helps ensure generated constraint names are both meaningful and unique within the namespace
+
+## Simplified Source
+
+```c
+static char *ChooseForeignKeyConstraintNameAddition(List *colnames) {
+    char buf[NAMEDATALEN * 2];
+    int buflen = 0;
+    ListCell *lc;
+
+    buf[0] = '\0';
+
+    // Concatenate column names with underscores
+    foreach(lc, colnames) {
+        const char *name = strVal(lfirst(lc));
+
+        // Add underscore separator between names
+        if (buflen > 0) {
+            buf[buflen++] = '_';
+        }
+
+        // Copy column name, respecting length limits
+        strlcpy(buf + buflen, name, NAMEDATALEN);
+        buflen += strlen(buf + buflen);
+
+        // Stop if we reach the length limit
+        if (buflen >= NAMEDATALEN) {
+            break;
+        }
+    }
+
+    return pstrdup(buf);
+}
+```

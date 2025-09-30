@@ -64,3 +64,68 @@ The function includes sophisticated logic to minimize redundant condition checki
 - The qualification logic differs from regular index scans because bitmap scans must handle predicate conditions in bitmapqualorig for potential lossy rechecking
 - Eliminates duplicate conditions between qpqual and bitmapqualorig to avoid redundant runtime checks
 - Particularly effective for queries with multiple AND/OR index conditions that would be expensive to evaluate with separate index scans
+
+## Simplified Source
+
+```c
+static BitmapHeapScan *
+create_bitmap_scan_plan(PlannerInfo *root, BitmapHeapPath *best_path,
+                       List *tlist, List *scan_clauses) {
+    Index baserelid = best_path->path.parent->relid;
+    Plan *bitmapqualplan;
+    List *bitmapqualorig, *indexquals, *indexECs, *qpqual;
+
+    // Validate this is a base relation
+    Assert(baserelid > 0);
+    Assert(best_path->path.parent->rtekind == RTE_RELATION);
+
+    // Convert bitmap qualification tree into executable plan
+    bitmapqualplan = create_bitmap_subplan(root, best_path->bitmapqual,
+                                          &bitmapqualorig, &indexquals, &indexECs);
+
+    // Mark for parallel execution if needed
+    if (best_path->path.parallel_aware)
+        bitmap_subplan_mark_shared(bitmapqualplan);
+
+    // Determine which scan clauses need runtime checking (qpqual)
+    // Exclude conditions already handled by index operations
+    qpqual = NIL;
+    foreach(l, scan_clauses) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+        Node *clause = (Node *) rinfo->clause;
+
+        // Skip pseudoconstants, duplicates, and implied conditions
+        if (rinfo->pseudoconstant)
+            continue;
+        if (list_member(indexquals, clause))
+            continue;
+        if (rinfo->parent_ec && list_member_ptr(indexECs, rinfo->parent_ec))
+            continue;
+        if (!contain_mutable_functions(clause) &&
+            predicate_implied_by(list_make1(clause), indexquals, false))
+            continue;
+
+        qpqual = lappend(qpqual, rinfo);
+    }
+
+    // Optimize qualification order and extract clauses
+    qpqual = order_qual_clauses(root, qpqual);
+    qpqual = extract_actual_clauses(qpqual, false);
+
+    // Remove duplicates between qpqual and bitmapqualorig
+    bitmapqualorig = list_difference_ptr(bitmapqualorig, qpqual);
+
+    // Replace outer relation variables with nestloop params if needed
+    if (best_path->path.param_info) {
+        qpqual = (List *) replace_nestloop_params(root, (Node *) qpqual);
+        bitmapqualorig = (List *) replace_nestloop_params(root, (Node *) bitmapqualorig);
+    }
+
+    // Create the final bitmap heap scan plan node
+    BitmapHeapScan *scan_plan = make_bitmap_heapscan(tlist, qpqual, bitmapqualplan,
+                                                    bitmapqualorig, baserelid);
+    copy_generic_path_info(&scan_plan->scan.plan, &best_path->path);
+
+    return scan_plan;
+}
+```

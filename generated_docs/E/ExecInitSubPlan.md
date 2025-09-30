@@ -57,3 +57,92 @@ The function includes extensive logic for hash table setup when subplan.useHashT
 - Memory contexts are carefully structured: hashtablecxt for main storage, hashtempcxt for temporary operations
 - Column indexing uses 1-based numbering (keyColIdx) consistent with PostgreSQL conventions
 - Cross-type equality functions are set up separately from same-type hash table functions to support type coercion scenarios
+
+## Simplified Source
+
+```c
+SubPlanState *
+ExecInitSubPlan(SubPlan *subplan, PlanState *parent)
+{
+    SubPlanState *sstate = makeNode(SubPlanState);
+    EState *estate = parent->state;
+
+    sstate->subplan = subplan;
+
+    // Link to already-initialized subplan
+    sstate->planstate = (PlanState *) list_nth(estate->es_subplanstates,
+                                              subplan->plan_id - 1);
+
+    if (sstate->planstate == NULL)
+        elog(ERROR, "subplan \"%s\" was not initialized", subplan->plan_name);
+
+    sstate->parent = parent;
+
+    // Initialize subexpressions
+    sstate->testexpr = ExecInitExpr((Expr *) subplan->testexpr, parent);
+    sstate->args = ExecInitExprList(subplan->args, parent);
+
+    // Initialize state variables to NULL/default values
+    initialize_subplan_state_variables(sstate);
+
+    // Handle InitPlan output parameters
+    if (subplan->setParam != NIL && subplan->parParam == NIL &&
+        subplan->subLinkType != CTE_SUBLINK)
+    {
+        foreach(lst, subplan->setParam)
+        {
+            int paramid = lfirst_int(lst);
+            ParamExecData *prm = &(estate->es_param_exec_vals[paramid]);
+            prm->execPlan = sstate;
+        }
+    }
+
+    // Initialize hash table infrastructure if needed
+    if (subplan->useHashTable)
+    {
+        // Create memory contexts for hash operations
+        sstate->hashtablecxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                    "Subplan HashTable Context",
+                                                    ALLOCSET_DEFAULT_SIZES);
+        sstate->hashtempcxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                   "Subplan HashTable Temp Context",
+                                                   ALLOCSET_SMALL_SIZES);
+        sstate->innerecontext = CreateExprContext(estate);
+
+        // Extract operator list from test expression
+        List *oplist = extract_operator_list(subplan->testexpr);
+        int ncols = list_length(oplist);
+
+        // Allocate arrays for hash/equality functions
+        allocate_function_arrays(sstate, ncols);
+
+        // Process each operator to build target lists and function info
+        List *lefttlist = NIL, *righttlist = NIL;
+        int i = 1;
+        foreach(l, oplist)
+        {
+            OpExpr *opexpr = lfirst_node(OpExpr, l);
+
+            // Build target entries for left and right sides
+            build_target_entries(opexpr, &lefttlist, &righttlist, i);
+
+            // Set up equality and hash functions
+            setup_hash_and_equality_functions(sstate, opexpr, i - 1);
+
+            i++;
+        }
+
+        // Create projection nodes and tuple descriptors
+        setup_projection_nodes(sstate, estate, parent, lefttlist, righttlist);
+
+        // Create cross-type comparator
+        sstate->cur_eq_comp = ExecBuildGroupingEqual(tupDescLeft, tupDescRight,
+                                                    &TTSOpsVirtual, &TTSOpsMinimalTuple,
+                                                    ncols, sstate->keyColIdx,
+                                                    cross_eq_funcoids,
+                                                    sstate->tab_collations, parent);
+    }
+
+    return sstate;
+}
+```

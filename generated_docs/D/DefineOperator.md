@@ -51,3 +51,139 @@ The function processes various operator attributes including:
 - Legacy sort operator attributes (sort1, sort2, ltcmp, gtcmp) are converted to canMerge=true
 - Unknown operator attributes generate warnings rather than errors for backward compatibility
 - Both "function" and "procedure" keywords are accepted for specifying the implementation function
+
+## Simplified Source
+
+```c
+ObjectAddress DefineOperator(List *names, List *parameters) {
+    char *oprName;
+    Oid oprNamespace;
+    bool canMerge = false, canHash = false;
+    List *functionName = NIL;
+    TypeName *typeName1 = NULL, *typeName2 = NULL;
+    Oid typeId1 = InvalidOid, typeId2 = InvalidOid;
+    Oid rettype, functionOid, restrictionOid, joinOid;
+    List *commutatorName = NIL, *negatorName = NIL;
+    List *restrictionName = NIL, *joinName = NIL;
+    Oid typeId[2];
+    int nargs;
+
+    // Parse qualified operator name and get namespace
+    oprNamespace = QualifiedNameGetCreationNamespace(names, &oprName);
+
+    // Check creation permissions in target namespace
+    aclresult = object_aclcheck(NamespaceRelationId, oprNamespace, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(oprNamespace));
+
+    // Parse operator definition parameters
+    foreach(pl, parameters) {
+        DefElem *defel = (DefElem *) lfirst(pl);
+
+        if (strcmp(defel->defname, "leftarg") == 0) {
+            typeName1 = defGetTypeName(defel);
+            if (typeName1->setof)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                               errmsg("SETOF type not allowed for operator argument")));
+        }
+        else if (strcmp(defel->defname, "rightarg") == 0) {
+            typeName2 = defGetTypeName(defel);
+            if (typeName2->setof)
+                ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                               errmsg("SETOF type not allowed for operator argument")));
+        }
+        else if (strcmp(defel->defname, "function") == 0 ||
+                 strcmp(defel->defname, "procedure") == 0)
+            functionName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "commutator") == 0)
+            commutatorName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "negator") == 0)
+            negatorName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "restrict") == 0)
+            restrictionName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "join") == 0)
+            joinName = defGetQualifiedName(defel);
+        else if (strcmp(defel->defname, "hashes") == 0)
+            canHash = defGetBoolean(defel);
+        else if (strcmp(defel->defname, "merges") == 0)
+            canMerge = defGetBoolean(defel);
+        // Legacy sort operators map to canMerge
+        else if (strcmp(defel->defname, "sort1") == 0 ||
+                 strcmp(defel->defname, "sort2") == 0 ||
+                 strcmp(defel->defname, "ltcmp") == 0 ||
+                 strcmp(defel->defname, "gtcmp") == 0)
+            canMerge = true;
+        else
+            ereport(WARNING, (errcode(ERRCODE_SYNTAX_ERROR),
+                             errmsg("operator attribute \"%s\" not recognized", defel->defname)));
+    }
+
+    // Validate required function specification
+    if (functionName == NIL)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                       errmsg("operator function must be specified")));
+
+    // Convert type names to OIDs
+    if (typeName1)
+        typeId1 = typenameTypeId(NULL, typeName1);
+    if (typeName2)
+        typeId2 = typenameTypeId(NULL, typeName2);
+
+    // Validate argument types (postfix operators not supported)
+    if (!OidIsValid(typeId1) && !OidIsValid(typeId2))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                       errmsg("operator argument types must be specified")));
+    if (!OidIsValid(typeId2))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_FUNCTION_DEFINITION),
+                       errmsg("operator right argument type must be specified"),
+                       errdetail("Postfix operators are not supported.")));
+
+    // Check USAGE permissions on argument types
+    if (typeName1) {
+        aclresult = object_aclcheck(TypeRelationId, typeId1, GetUserId(), ACL_USAGE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error_type(aclresult, typeId1);
+    }
+    if (typeName2) {
+        aclresult = object_aclcheck(TypeRelationId, typeId2, GetUserId(), ACL_USAGE);
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error_type(aclresult, typeId2);
+    }
+
+    // Set up function argument types for lookup
+    if (!OidIsValid(typeId1)) {
+        typeId[0] = typeId2;
+        nargs = 1;  // Unary operator
+    } else if (!OidIsValid(typeId2)) {
+        typeId[0] = typeId1;
+        nargs = 1;  // Unary operator
+    } else {
+        typeId[0] = typeId1;
+        typeId[1] = typeId2;
+        nargs = 2;  // Binary operator
+    }
+
+    // Lookup implementation function
+    functionOid = LookupFuncName(functionName, nargs, typeId, false);
+
+    // Check EXECUTE permission on implementation function
+    aclresult = object_aclcheck(ProcedureRelationId, functionOid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, NameListToString(functionName));
+
+    // Check USAGE permission on return type
+    rettype = get_func_rettype(functionOid);
+    aclresult = object_aclcheck(TypeRelationId, rettype, GetUserId(), ACL_USAGE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error_type(aclresult, rettype);
+
+    // Validate optional selectivity estimator functions
+    restrictionOid = restrictionName ? ValidateRestrictionEstimator(restrictionName) : InvalidOid;
+    joinOid = joinName ? ValidateJoinEstimator(joinName) : InvalidOid;
+
+    // Create the operator
+    return OperatorCreate(oprName, oprNamespace, typeId1, typeId2, functionOid,
+                         commutatorName, negatorName, restrictionOid, joinOid,
+                         canMerge, canHash);
+}
+```

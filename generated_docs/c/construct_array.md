@@ -49,3 +49,22 @@ The function assumes that NULL element values are not supported - all elements m
 - The function creates arrays with lower bound of 1 (standard PostgreSQL convention)
 - Memory for the array is allocated using palloc and must be freed appropriately by the caller
 - This is the most commonly used array construction function for simple 1D arrays in PostgreSQL internals
+
+## Simplified Source
+
+```c
+ArrayType *construct_array(Datum *elems, int nelems,
+                          Oid elmtype,
+                          int elmlen, bool elmbyval, char elmalign) {
+    int dims[1];
+    int lbs[1];
+
+    // Set up 1D array dimensions
+    dims[0] = nelems;    // Number of elements
+    lbs[0] = 1;          // Lower bound starts at 1
+
+    // Delegate to multi-dimensional array constructor
+    return construct_md_array(elems, NULL, 1, dims, lbs,
+                            elmtype, elmlen, elmbyval, elmalign);
+}
+```

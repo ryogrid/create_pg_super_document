@@ -41,3 +41,86 @@ This function handles both setting and dropping NOT NULL constraints on domain t
 - Validates existing table data when adding NOT NULL constraints
 - Properly handles cleanup of catalog tuples and relation locks
 - Triggers post-alter hooks for proper event notification
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterDomainNotNull(List *names, bool notNull)
+{
+    TypeName *typename;
+    Oid domainoid;
+    Relation typrel;
+    HeapTuple tup;
+    Form_pg_type typTup;
+    ObjectAddress address = InvalidObjectAddress;
+
+    // Convert name list to typename and resolve domain OID
+    typename = makeTypeNameFromNameList(names);
+    domainoid = typenameTypeId(NULL, typename);
+
+    // Open type catalog and get domain tuple
+    typrel = table_open(TypeRelationId, RowExclusiveLock);
+    tup = SearchSysCacheCopy1(TYPEOID, ObjectIdGetDatum(domainoid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", domainoid);
+
+    typTup = (Form_pg_type) GETSTRUCT(tup);
+
+    // Check domain ownership permissions
+    checkDomainOwner(tup);
+
+    // Early return if domain already has desired constraint state
+    if (typTup->typnotnull == notNull) {
+        table_close(typrel, RowExclusiveLock);
+        return address;
+    }
+
+    if (notNull) {
+        // SET NOT NULL case: create and add constraint
+        Constraint *constr;
+
+        constr = makeNode(Constraint);
+        constr->contype = CONSTR_NOTNULL;
+        constr->initially_valid = true;
+        constr->location = -1;
+
+        // Add the NOT NULL constraint
+        domainAddNotNullConstraint(domainoid, typTup->typnamespace,
+                                 typTup->typbasetype, typTup->typtypmod,
+                                 constr, NameStr(typTup->typname), NULL);
+
+        // Validate existing data
+        validateDomainNotNullConstraint(domainoid);
+
+    } else {
+        // DROP NOT NULL case: find and remove constraint
+        HeapTuple conTup;
+        ObjectAddress conobj;
+
+        conTup = findDomainNotNullConstraint(domainoid);
+        if (conTup == NULL)
+            elog(ERROR, "could not find not-null constraint on domain \"%s\"",
+                 NameStr(typTup->typname));
+
+        ObjectAddressSet(conobj, ConstraintRelationId,
+                        ((Form_pg_constraint) GETSTRUCT(conTup))->oid);
+        performDeletion(&conobj, DROP_RESTRICT, 0);
+    }
+
+    // Update pg_type row with new constraint state
+    typTup->typnotnull = notNull;
+    CatalogTupleUpdate(typrel, &tup->t_self, tup);
+
+    // Trigger post-alter hooks
+    InvokeObjectPostAlterHook(TypeRelationId, domainoid, 0);
+
+    ObjectAddressSet(address, TypeRelationId, domainoid);
+
+    // Clean up
+    heap_freetuple(tup);
+    table_close(typrel, RowExclusiveLock);
+
+    return address;
+}
+```

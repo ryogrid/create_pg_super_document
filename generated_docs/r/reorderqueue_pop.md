@@ -39,3 +39,33 @@ The function is responsible for memory management of the ReorderTuple structure 
 - The function is static, indicating it's only used within the nodeIndexscan.c file
 - Properly handles memory management to prevent memory leaks during query execution
 - Works in conjunction with reorderqueue_push to maintain an ordered queue of tuples
+
+## Simplified Source
+
+```c
+static HeapTuple reorderqueue_pop(IndexScanState *node) {
+    HeapTuple result;
+    ReorderTuple *topmost;
+    int i;
+
+    // Remove the first tuple from the pairing heap queue
+    topmost = (ReorderTuple *) pairingheap_remove_first(node->iss_ReorderQueue);
+
+    // Extract the heap tuple
+    result = topmost->htup;
+
+    // Free memory for order-by values (only for pass-by-reference types)
+    for (i = 0; i < node->iss_NumOrderByKeys; i++) {
+        if (!node->iss_OrderByTypByVals[i] && !topmost->orderbynulls[i]) {
+            pfree(DatumGetPointer(topmost->orderbyvals[i]));
+        }
+    }
+
+    // Clean up the ReorderTuple structure
+    pfree(topmost->orderbyvals);
+    pfree(topmost->orderbynulls);
+    pfree(topmost);
+
+    return result;
+}
+```

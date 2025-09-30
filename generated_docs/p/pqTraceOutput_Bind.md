@@ -43,3 +43,35 @@ The function follows the PostgreSQL frontend/backend protocol specification for 
 - Parameter values of length -1 are treated as NULL values and are skipped during output
 - The function maintains the cursor position to enable sequential parsing of the message components
 - Part of PostgreSQL's debugging and development tools for analyzing client-server protocol communication
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_Bind(FILE *f, const char *message, int *cursor) {
+    int nparams;
+
+    // Output Bind message header and names
+    fprintf(f, "Bind\t");
+    pqTraceOutputString(f, message, cursor, false);  // Portal name
+    pqTraceOutputString(f, message, cursor, false);  // Statement name
+
+    // Output parameter format codes
+    nparams = pqTraceOutputInt16(f, message, cursor);
+    for (int i = 0; i < nparams; i++)
+        pqTraceOutputInt16(f, message, cursor);
+
+    // Output parameter values
+    nparams = pqTraceOutputInt16(f, message, cursor);
+    for (int i = 0; i < nparams; i++) {
+        int nbytes = pqTraceOutputInt32(f, message, cursor, false);
+        if (nbytes == -1)
+            continue;  // NULL parameter
+        pqTraceOutputNchar(f, nbytes, message, cursor);
+    }
+
+    // Output result format codes
+    nparams = pqTraceOutputInt16(f, message, cursor);
+    for (int i = 0; i < nparams; i++)
+        pqTraceOutputInt16(f, message, cursor);
+}
+```

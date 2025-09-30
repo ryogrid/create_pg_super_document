@@ -39,3 +39,23 @@ The function accesses the path target's width through src->pathtarget->width, wh
 - Parallel flags are crucial for the executor's parallel query execution logic
 - The function performs shallow copying of scalar values - no deep copying of complex structures is needed
 - Part of the standard pattern for converting Path nodes to Plan nodes during query planning
+
+## Simplified Source
+
+```c
+static void
+copy_generic_path_info(Plan *dest, Path *src)
+{
+    // Copy cost estimates (for EXPLAIN output)
+    dest->startup_cost = src->startup_cost;
+    dest->total_cost = src->total_cost;
+
+    // Copy size estimates
+    dest->plan_rows = src->rows;
+    dest->plan_width = src->pathtarget->width;
+
+    // Copy parallel execution flags (used by executor)
+    dest->parallel_aware = src->parallel_aware;
+    dest->parallel_safe = src->parallel_safe;
+}
+```

@@ -45,3 +45,33 @@ This is primarily used in type coercion scenarios where PostgreSQL needs to dete
 - It follows PostgreSQL's pattern of using system cache lookups for efficient access to catalog information
 - The function is part of PostgreSQL's type coercion infrastructure, which is critical for SQL type compatibility and conversions
 - Typed tables are a PostgreSQL feature that allows creating tables based on user-defined composite types
+
+## Simplified Source
+
+```c
+static bool
+typeIsOfTypedTable(Oid reltypeId, Oid reloftypeId)
+{
+    Oid relid = typeOrDomainTypeRelid(reltypeId);
+    bool result = false;
+
+    if (relid)
+    {
+        // Look up the relation in pg_class
+        HeapTuple tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+        if (!HeapTupleIsValid(tp))
+            elog(ERROR, "cache lookup failed for relation %u", relid);
+
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+
+        // Check if relation is typed with the specified type
+        if (reltup->reloftype == reloftypeId)
+            result = true;
+
+        ReleaseSysCache(tp);
+    }
+
+    return result;
+}
+```

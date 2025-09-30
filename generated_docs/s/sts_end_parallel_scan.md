@@ -37,3 +37,17 @@ The function includes a comment noting that in SHARED_TUPLESTORE_SINGLE_PASS mod
 - In single-pass mode, there is potential for file cleanup optimization that is not currently implemented
 - Part of PostgreSQLs parallel hash join infrastructure cleanup routines
 - Essential for proper resource management in parallel query execution
+
+## Simplified Source
+```c
+void sts_end_parallel_scan(SharedTuplestoreAccessor *accessor) {
+    // Close read file handle if one exists
+    if (accessor->read_file != NULL) {
+        BufFileClose(accessor->read_file);
+        accessor->read_file = NULL;
+    }
+
+    // Note: In SHARED_TUPLESTORE_SINGLE_PASS mode, we could delete all files
+    // here, but would need reference counting to know when safe to do so
+}
+```

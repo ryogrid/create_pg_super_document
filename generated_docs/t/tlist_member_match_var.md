@@ -31,3 +31,34 @@ The `tlist_member_match_var` function is a specialized version of `tlist_member`
 - More flexible than full equality matching but maintains type safety by requiring vartype match
 - Used when typmod differences should be ignored but logical column identity is preserved
 - Internal function (static) used within the optimizer's target list utilities
+
+## Simplified Source
+
+```c
+static TargetEntry *
+tlist_member_match_var(Var *var, List *targetlist)
+{
+    ListCell *temp;
+
+    // Search through each target list entry
+    foreach(temp, targetlist)
+    {
+        TargetEntry *tlentry = (TargetEntry *) lfirst(temp);
+        Var *tlvar = (Var *) tlentry->expr;
+
+        // Skip non-Var entries
+        if (!tlvar || !IsA(tlvar, Var))
+            continue;
+
+        // Check if this Var matches on key attributes
+        if (var->varno == tlvar->varno &&
+            var->varattno == tlvar->varattno &&
+            var->varlevelsup == tlvar->varlevelsup &&
+            var->vartype == tlvar->vartype)
+            return tlentry;
+    }
+
+    // No match found
+    return NULL;
+}
+```

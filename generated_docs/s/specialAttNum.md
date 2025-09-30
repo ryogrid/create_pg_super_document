@@ -33,3 +33,21 @@ The  function determines whether a given attribute name is a special system attr
 - System attributes have negative attribute numbers (e.g., ctid = -1, xmin = -4)
 - The function only validates the name pattern, not whether the attribute exists in a specific relation
 - Added by Thomas Lockhart in 2000 to support system attribute recognition
+
+## Simplified Source
+
+```c
+static int
+specialAttNum(const char *attname)
+{
+    const FormData_pg_attribute *sysatt;
+
+    // Look up system attribute by name
+    sysatt = SystemAttributeByName(attname);
+
+    if (sysatt != NULL)
+        return sysatt->attnum;  // Return system attribute number
+
+    return InvalidAttrNumber;   // Not a system attribute
+}
+```

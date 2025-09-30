@@ -46,3 +46,49 @@ The function is more complex than other event trigger functions due to the need 
 - Object collection is automatically disabled when no sql_drop triggers are defined for performance
 - Part of PostgreSQL's event trigger system specifically designed for object lifecycle monitoring
 - The SQLDropList validation prevents unnecessary execution when no objects are being dropped
+
+## Simplified Source
+
+```c
+void EventTriggerSQLDrop(Node *parsetree)
+{
+    List *runlist;
+    EventTriggerData trigdata;
+
+    // Skip if event triggers disabled or not in postmaster mode
+    if (!IsUnderPostmaster || !event_triggers)
+        return;
+
+    // Skip if no trigger state or no dropped objects
+    if (!currentEventTriggerState ||
+        slist_is_empty(&currentEventTriggerState->SQLDropList))
+        return;
+
+    // Find applicable sql_drop triggers
+    runlist = EventTriggerCommonSetup(parsetree,
+                                      EVT_SQLDrop, "sql_drop",
+                                      &trigdata, false);
+    if (runlist == NIL)
+        return;
+
+    // Make main command changes visible to triggers
+    CommandCounterIncrement();
+
+    // Enable pg_event_trigger_dropped_objects function
+    currentEventTriggerState->in_sql_drop = true;
+
+    // Execute triggers with proper cleanup
+    PG_TRY();
+    {
+        EventTriggerInvoke(runlist, &trigdata);
+    }
+    PG_FINALLY();
+    {
+        currentEventTriggerState->in_sql_drop = false;
+    }
+    PG_END_TRY();
+
+    // Cleanup
+    list_free(runlist);
+}
+```

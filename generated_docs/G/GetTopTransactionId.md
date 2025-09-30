@@ -43,3 +43,17 @@ This function takes no parameters.
 - The returned TransactionId is used for visibility checks, WAL logging, and transaction isolation
 - Works with the global transaction state and is part of PostgreSQL's transaction ID management system
 - Used extensively in sequence manipulation functions where transaction identity is important for concurrency control
+
+## Simplified Source
+
+```c
+TransactionId GetTopTransactionId(void) {
+    // Check if top transaction ID is already assigned
+    if (!FullTransactionIdIsValid(XactTopFullTransactionId))
+        // Assign new transaction ID if not valid
+        AssignTransactionId(&TopTransactionStateData);
+
+    // Convert full transaction ID to regular transaction ID and return
+    return XidFromFullTransactionId(XactTopFullTransactionId);
+}
+```

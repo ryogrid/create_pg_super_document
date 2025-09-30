@@ -33,3 +33,24 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 - The caller is responsible for filling in cost and width information from the corresponding Path node
 - Follows PostgreSQL's convention of not performing cost calculations within plan building functions
 - The created SeqScan node will be used during execution to perform actual table scanning
+
+## Simplified Source
+
+```c
+static SeqScan *make_seqscan(List *qptlist, List *qpqual, Index scanrelid) {
+    // Create new SeqScan node
+    SeqScan *node = makeNode(SeqScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure sequential scan specifics
+    node->scan.scanrelid = scanrelid;  // Table to scan
+
+    return node;
+}
+```

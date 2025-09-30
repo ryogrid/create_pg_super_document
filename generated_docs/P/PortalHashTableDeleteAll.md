@@ -43,3 +43,32 @@ None - this function takes no parameters.
 - The function is safe to call even when the portal hash table doesn't exist
 - Each portal drop uses isTopCommit=false, treating each drop as a non-top-level operation
 - Located in src/backend/utils/mmgr/portalmem.c:607-635
+
+## Simplified Source
+```c
+void PortalHashTableDeleteAll(void) {
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Early return if no portal hash table exists
+    if (PortalHashTable == NULL)
+        return;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+    while ((hentry = hash_seq_search(&status)) != NULL) {
+        Portal portal = hentry->portal;
+
+        // Skip the currently active portal (can't close it)
+        if (portal->status == PORTAL_ACTIVE)
+            continue;
+
+        // Drop the portal
+        PortalDrop(portal, false);
+
+        // Restart iteration to handle potential cascading drops
+        hash_seq_term(&status);
+        hash_seq_init(&status, PortalHashTable);
+    }
+}
+```

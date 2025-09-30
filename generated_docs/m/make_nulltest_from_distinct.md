@@ -38,3 +38,28 @@ The function determines the null test type by examining the kind of the A_Expr: 
 - The function handles the semantic conversion from DISTINCT FROM NULL syntax to internal NullTest representation
 - The argisrow field is always set to false, which correctly handles both scalar and composite argument types
 - Location information is preserved from the original expression for error reporting
+
+## Simplified Source
+
+```c
+static Node *
+make_nulltest_from_distinct(ParseState *pstate, A_Expr *distincta, Node *arg)
+{
+    NullTest *nt = makeNode(NullTest);
+
+    // Transform the argument expression
+    nt->arg = (Expr *) transformExprRecurse(pstate, arg);
+
+    // Set null test type based on DISTINCT expression kind
+    if (distincta->kind == AEXPR_NOT_DISTINCT)
+        nt->nulltesttype = IS_NULL;      // NOT DISTINCT FROM NULL -> IS NULL
+    else
+        nt->nulltesttype = IS_NOT_NULL;  // DISTINCT FROM NULL -> IS NOT NULL
+
+    // Set standard fields
+    nt->argisrow = false;  // Correct for both scalar and composite types
+    nt->location = distincta->location;
+
+    return (Node *) nt;
+}
+```

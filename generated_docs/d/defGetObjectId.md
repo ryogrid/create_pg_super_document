@@ -42,3 +42,32 @@ The function includes comprehensive error handling, reporting syntax errors when
 - Handles the lexer's representation of large numeric values as Float nodes
 - Part of PostgreSQL's DDL (Data Definition Language) command processing infrastructure
 - Located in src/backend/commands/define.c:219-251
+
+## Simplified Source
+
+```c
+Oid defGetObjectId(DefElem *def) {
+    // Check if argument is present
+    if (def->arg == NULL)
+        ereport(ERROR, "requires a numeric value", def->defname);
+
+    // Extract OID based on argument type
+    switch (nodeTag(def->arg)) {
+        case T_Integer:
+            // Direct conversion from integer to OID
+            return (Oid) intVal(def->arg);
+
+        case T_Float:
+            // Handle large values represented as Float by lexer
+            // Convert float string to OID using oidin function
+            return DatumGetObjectId(DirectFunctionCall1(oidin,
+                CStringGetDatum(castNode(Float, def->arg)->fval)));
+
+        default:
+            // Invalid argument type
+            ereport(ERROR, "requires a numeric value", def->defname);
+    }
+
+    return 0;  // Never reached, keeps compiler quiet
+}
+```

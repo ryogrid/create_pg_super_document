@@ -42,3 +42,113 @@ LookupTypeNameExtended performs comprehensive type name resolution in PostgreSQL
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:73-231. This function requires callers to check typisdefined before assuming the type is fully valid, and successful calls must ReleaseSysCache the returned tuple when done. The function handles complex %TYPE syntax for referencing column types and supports array type decoration. Most code should use the higher-level typenameType or typenameTypeId functions instead of calling this directly.
+
+## Simplified Source
+
+```c
+Type
+LookupTypeNameExtended(ParseState *pstate,
+                       const TypeName *typeName, int32 *typmod_p,
+                       bool temp_ok, bool missing_ok)
+{
+    Oid typoid;
+    HeapTuple tup;
+    int32 typmod;
+
+    if (typeName->names == NIL)
+    {
+        // Internal TypeName with OID already set
+        typoid = typeName->typeOid;
+    }
+    else if (typeName->pct_type)
+    {
+        // Handle %TYPE reference to existing field
+        RangeVar *rel = makeRangeVar(NULL, NULL, typeName->location);
+        char *field = NULL;
+        Oid relid;
+        AttrNumber attnum;
+
+        // Parse dotted name (relation.column, schema.relation.column, etc.)
+        switch (list_length(typeName->names))
+        {
+            case 2:
+                rel->relname = strVal(linitial(typeName->names));
+                field = strVal(lsecond(typeName->names));
+                break;
+            case 3:
+                rel->schemaname = strVal(linitial(typeName->names));
+                rel->relname = strVal(lsecond(typeName->names));
+                field = strVal(lthird(typeName->names));
+                break;
+            // Additional cases for 4-part names...
+            default:
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                               errmsg("improper %%TYPE reference")));
+        }
+
+        // Look up the field and get its type
+        relid = RangeVarGetRelid(rel, NoLock, missing_ok);
+        attnum = get_attnum(relid, field);
+        if (attnum == InvalidAttrNumber)
+        {
+            if (missing_ok)
+                typoid = InvalidOid;
+            else
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                               errmsg("column \"%s\" does not exist", field)));
+        }
+        else
+        {
+            typoid = get_atttype(relid, attnum);
+        }
+    }
+    else
+    {
+        // Normal type name lookup
+        char *schemaname;
+        char *typname;
+
+        DeconstructQualifiedName(typeName->names, &schemaname, &typname);
+
+        if (schemaname)
+        {
+            // Schema-qualified lookup
+            Oid namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+            if (OidIsValid(namespaceId))
+                typoid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                                        PointerGetDatum(typname),
+                                        ObjectIdGetDatum(namespaceId));
+            else
+                typoid = InvalidOid;
+        }
+        else
+        {
+            // Search path lookup
+            typoid = TypenameGetTypidExtended(typname, temp_ok);
+        }
+
+        // Handle array type decoration
+        if (typeName->arrayBounds != NIL)
+            typoid = get_array_type(typoid);
+    }
+
+    if (!OidIsValid(typoid))
+    {
+        if (typmod_p)
+            *typmod_p = -1;
+        return NULL;
+    }
+
+    // Get type tuple and compute typmod
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typoid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", typoid);
+
+    typmod = typenameTypeMod(pstate, typeName, (Type) tup);
+
+    if (typmod_p)
+        *typmod_p = typmod;
+
+    return (Type) tup;
+}
+```

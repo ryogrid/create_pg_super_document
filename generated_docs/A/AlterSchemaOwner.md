@@ -42,3 +42,36 @@ Key behaviors include:
 - Provides error handling for non-existent schemas with appropriate error codes
 - Serves as the name-based interface to the schema ownership change infrastructure
 - Part of the standard ALTER OWNER command processing pipeline
+
+## Simplified Source
+
+```c
+ObjectAddress AlterSchemaOwner(const char *name, Oid newOwnerId)
+{
+    // Open namespace catalog
+    Relation rel = table_open(NamespaceRelationId, RowExclusiveLock);
+
+    // Find schema by name
+    HeapTuple tup = SearchSysCache1(NAMESPACENAME, CStringGetDatum(name));
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_SCHEMA),
+                errmsg("schema \"%s\" does not exist", name)));
+
+    // Get schema OID
+    Form_pg_namespace nspform = (Form_pg_namespace) GETSTRUCT(tup);
+    Oid schema_oid = nspform->oid;
+
+    // Delegate to internal function for ownership change
+    AlterSchemaOwner_internal(tup, rel, newOwnerId);
+
+    // Build return address
+    ObjectAddress address;
+    ObjectAddressSet(address, NamespaceRelationId, schema_oid);
+
+    // Cleanup
+    ReleaseSysCache(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

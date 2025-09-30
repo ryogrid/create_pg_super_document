@@ -45,3 +45,72 @@ enum
 - Handles both leading and trailing subscripts correctly in complex indirection chains
 - Critical for supporting PostgreSQL's flexible field access syntax including nested composite types and arrays
 - The function preserves the p_last_srf context to maintain proper set-returning function tracking during transformation
+
+## Simplified Source
+
+```c
+static Node *
+transformIndirection(ParseState *pstate, A_Indirection *ind)
+{
+    Node *last_srf = pstate->p_last_srf;
+    Node *result = transformExprRecurse(pstate, ind->arg);
+    List *subscripts = NIL;
+    int location = exprLocation(result);
+
+    // Process each indirection operation (subscripts and field selections)
+    foreach(i, ind->indirection)
+    {
+        Node *n = lfirst(i);
+
+        if (IsA(n, A_Indices))
+        {
+            // Accumulate adjacent subscripts for multidimensional access
+            subscripts = lappend(subscripts, n);
+        }
+        else if (IsA(n, A_Star))
+        {
+            // Row expansion not supported in this context
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("row expansion via \"*\" is not supported here"),
+                     parser_errposition(pstate, location)));
+        }
+        else
+        {
+            // Field selection - process any pending subscripts first
+            Assert(IsA(n, String));
+
+            if (subscripts)
+            {
+                result = (Node *) transformContainerSubscripts(pstate, result,
+                                                               exprType(result),
+                                                               exprTypmod(result),
+                                                               subscripts, false);
+                subscripts = NIL;
+            }
+
+            // Try to resolve field access via function/column resolution
+            Node *newresult = ParseFuncOrColumn(pstate,
+                                                list_make1(n),
+                                                list_make1(result),
+                                                last_srf,
+                                                NULL,
+                                                false,
+                                                location);
+            if (newresult == NULL)
+                unknown_attribute(pstate, result, strVal(n), location);
+
+            result = newresult;
+        }
+    }
+
+    // Process any trailing subscripts
+    if (subscripts)
+        result = (Node *) transformContainerSubscripts(pstate, result,
+                                                       exprType(result),
+                                                       exprTypmod(result),
+                                                       subscripts, false);
+
+    return result;
+}
+```

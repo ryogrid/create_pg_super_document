@@ -45,3 +45,37 @@ For each set of variables found, it calls add_vars_to_targetlist() with a bitmap
 - Memory management includes explicit list_free() calls for extracted variable lists
 - Part of the target list management section in the query planner
 - Located in src/backend/optimizer/plan/initsplan.c at lines 234-278
+
+## Simplified Source
+
+```c
+void build_base_rel_tlists(PlannerInfo *root, List *final_tlist)
+{
+    // Extract all variables from the final target list
+    // Include aggregates, window functions, and placeholders
+    List *tlist_vars = pull_var_clause((Node *) final_tlist,
+                                      PVC_RECURSE_AGGREGATES |
+                                      PVC_RECURSE_WINDOWFUNCS |
+                                      PVC_INCLUDE_PLACEHOLDERS);
+
+    // Add these variables to base relation target lists
+    // Mark them as needed by "relation 0" for propagation
+    if (tlist_vars != NIL) {
+        add_vars_to_targetlist(root, tlist_vars, bms_make_singleton(0));
+        list_free(tlist_vars);
+    }
+
+    // Process HAVING clause variables if present
+    // HAVING can contain aggregates but not window functions
+    if (root->parse->havingQual) {
+        List *having_vars = pull_var_clause(root->parse->havingQual,
+                                          PVC_RECURSE_AGGREGATES |
+                                          PVC_INCLUDE_PLACEHOLDERS);
+
+        if (having_vars != NIL) {
+            add_vars_to_targetlist(root, having_vars, bms_make_singleton(0));
+            list_free(having_vars);
+        }
+    }
+}
+```

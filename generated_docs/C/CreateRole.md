@@ -47,3 +47,131 @@ CreateRole is the core implementation function for the CREATE ROLE, CREATE USER,
 - Implements createrole_self_grant feature for automatic role inheritance
 - Performs extensive privilege validation before allowing role creation
 - Uses binary upgrade mode support for pg_upgrade operations
+
+## Simplified Source
+
+```c
+Oid CreateRole(ParseState *pstate, CreateRoleStmt *stmt) {
+    Relation pg_authid_rel;
+    HeapTuple tuple;
+    Datum new_record[Natts_pg_authid] = {0};
+    bool new_record_nulls[Natts_pg_authid] = {0};
+    Oid currentUserId = GetUserId();
+    Oid roleid;
+
+    // Default role attributes
+    char *password = NULL;
+    bool issuper = false;
+    bool inherit = true;
+    bool createrole = false;
+    bool createdb = false;
+    bool canlogin = false;
+    bool isreplication = false;
+    bool bypassrls = false;
+    int connlimit = -1;
+    char *validUntil = NULL;
+
+    // Set defaults based on statement type
+    switch (stmt->stmt_type) {
+        case ROLESTMT_USER:
+            canlogin = true;  // Users can login by default
+            break;
+        // ROLE and GROUP keep default values
+    }
+
+    // Parse options from the statement
+    foreach(option, stmt->options) {
+        DefElem *defel = (DefElem *) lfirst(option);
+
+        if (strcmp(defel->defname, "password") == 0)
+            password = strVal(defel->arg);
+        else if (strcmp(defel->defname, "superuser") == 0)
+            issuper = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "inherit") == 0)
+            inherit = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "createrole") == 0)
+            createrole = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "createdb") == 0)
+            createdb = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "canlogin") == 0)
+            canlogin = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "isreplication") == 0)
+            isreplication = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "bypassrls") == 0)
+            bypassrls = boolVal(defel->arg);
+        else if (strcmp(defel->defname, "connectionlimit") == 0)
+            connlimit = intVal(defel->arg);
+        else if (strcmp(defel->defname, "validUntil") == 0)
+            validUntil = strVal(defel->arg);
+        // Handle role membership options...
+    }
+
+    // Permission checks
+    if (!superuser_arg(currentUserId)) {
+        if (!has_createrole_privilege(currentUserId))
+            ereport(ERROR, "permission denied to create role");
+        if (issuper)
+            ereport(ERROR, "only superusers can create superuser roles");
+        if (createdb && !have_createdb_privilege())
+            ereport(ERROR, "only users with CREATEDB can create CREATEDB roles");
+        // Additional privilege checks...
+    }
+
+    // Validate role name (no "pg_" prefix)
+    if (IsReservedName(stmt->role))
+        ereport(ERROR, "role name \"%s\" is reserved", stmt->role);
+
+    // Check for duplicate role
+    pg_authid_rel = table_open(AuthIdRelationId, RowExclusiveLock);
+    if (OidIsValid(get_role_oid(stmt->role, true)))
+        ereport(ERROR, "role \"%s\" already exists", stmt->role);
+
+    // Allocate new role OID
+    roleid = GetNewOidWithIndex(pg_authid_rel, AuthIdOidIndexId, Anum_pg_authid_oid);
+
+    // Build catalog tuple
+    new_record[Anum_pg_authid_rolname - 1] =
+        DirectFunctionCall1(namein, CStringGetDatum(stmt->role));
+    new_record[Anum_pg_authid_rolsuper - 1] = BoolGetDatum(issuper);
+    new_record[Anum_pg_authid_rolinherit - 1] = BoolGetDatum(inherit);
+    new_record[Anum_pg_authid_rolcreaterole - 1] = BoolGetDatum(createrole);
+    new_record[Anum_pg_authid_rolcreatedb - 1] = BoolGetDatum(createdb);
+    new_record[Anum_pg_authid_rolcanlogin - 1] = BoolGetDatum(canlogin);
+    new_record[Anum_pg_authid_rolreplication - 1] = BoolGetDatum(isreplication);
+    new_record[Anum_pg_authid_rolconnlimit - 1] = Int32GetDatum(connlimit);
+    new_record[Anum_pg_authid_rolbypassrls - 1] = BoolGetDatum(bypassrls);
+    new_record[Anum_pg_authid_oid - 1] = ObjectIdGetDatum(roleid);
+
+    // Handle password encryption
+    if (password) {
+        if (password[0] == '\0') {
+            // Empty password - clear it
+            new_record_nulls[Anum_pg_authid_rolpassword - 1] = true;
+        } else {
+            char *shadow_pass = encrypt_password(Password_encryption, stmt->role, password);
+            new_record[Anum_pg_authid_rolpassword - 1] = CStringGetTextDatum(shadow_pass);
+        }
+    } else {
+        new_record_nulls[Anum_pg_authid_rolpassword - 1] = true;
+    }
+
+    // Insert new role into catalog
+    tuple = heap_form_tuple(RelationGetDescr(pg_authid_rel), new_record, new_record_nulls);
+    CatalogTupleInsert(pg_authid_rel, tuple);
+
+    // Handle role memberships
+    // ... (process addroleto, rolemembers, adminmembers)
+
+    // Grant admin privileges to non-superuser creators
+    if (!superuser()) {
+        // Make creator an admin of the new role
+        // ... (automatic role grants)
+    }
+
+    // Post-creation hook
+    InvokeObjectPostCreateHook(AuthIdRelationId, roleid, 0);
+
+    table_close(pg_authid_rel, NoLock);
+    return roleid;
+}
+```

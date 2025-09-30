@@ -39,3 +39,70 @@ This static function serves as the central implementation for PostgreSQL's funct
 
 ## Notes and Other Information
 This function implements PostgreSQL's function overloading resolution by examining both argument types and object kinds. It distinguishes between functions, procedures, and aggregates using the prokind system catalog field. The function is designed to be called by higher-level lookup functions that handle user-facing error messages and missing_ok semantics. Error handling is deferred to callers through the lookupError parameter, allowing for customized error messages based on context.
+
+## Simplified Source
+
+```c
+static Oid
+LookupFuncNameInternal(ObjectType objtype, List *funcname,
+                       int nargs, const Oid *argtypes,
+                       bool include_out_arguments, bool missing_ok,
+                       FuncLookupError *lookupError)
+{
+    Oid result = InvalidOid;
+    FuncCandidateList clist;
+
+    // Initialize error state
+    *lookupError = FUNCLOOKUP_NOSUCHFUNC;
+
+    // Get candidate functions matching name and argument count
+    clist = FuncnameGetCandidates(funcname, nargs, NIL, false, false,
+                                  include_out_arguments, missing_ok);
+
+    // Scan candidates for exact match
+    for (; clist != NULL; clist = clist->next)
+    {
+        // Check argument type match if specified
+        if (nargs > 0 &&
+            memcmp(argtypes, clist->args, nargs * sizeof(Oid)) != 0)
+            continue;
+
+        // Check for ambiguous result from FuncnameGetCandidates
+        if (!OidIsValid(clist->oid))
+        {
+            *lookupError = FUNCLOOKUP_AMBIGUOUS;
+            return InvalidOid;
+        }
+
+        // Filter by object type (function/procedure/aggregate)
+        switch (objtype)
+        {
+            case OBJECT_FUNCTION:
+            case OBJECT_AGGREGATE:
+                // Skip procedures
+                if (get_func_prokind(clist->oid) == PROKIND_PROCEDURE)
+                    continue;
+                break;
+            case OBJECT_PROCEDURE:
+                // Skip non-procedures
+                if (get_func_prokind(clist->oid) != PROKIND_PROCEDURE)
+                    continue;
+                break;
+            case OBJECT_ROUTINE:
+                // Accept all types
+                break;
+        }
+
+        // Check for multiple matches
+        if (OidIsValid(result))
+        {
+            *lookupError = FUNCLOOKUP_AMBIGUOUS;
+            return InvalidOid;
+        }
+
+        result = clist->oid;
+    }
+
+    return result;
+}
+```

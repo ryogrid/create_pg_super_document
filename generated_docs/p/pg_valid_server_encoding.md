@@ -30,3 +30,23 @@ This function validates an encoding name string to determine if it represents a 
 - Used for validating database encoding settings during CREATE DATABASE operations
 - Also used by initdb and extension loading to validate encoding specifications
 - Located in src/common/encnames.c:499-512
+
+## Simplified Source
+
+```c
+int
+pg_valid_server_encoding(const char *name)
+{
+    int enc;
+
+    // Convert encoding name to internal encoding ID
+    if ((enc = pg_char_to_encoding(name)) < 0)
+        return -1;
+
+    // Check if this encoding is valid for backend/server use
+    if (!PG_VALID_BE_ENCODING(enc))
+        return -1;
+
+    return enc;
+}
+```

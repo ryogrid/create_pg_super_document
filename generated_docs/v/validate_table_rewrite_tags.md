@@ -34,3 +34,24 @@ validate_table_rewrite_tags is a static helper function specifically designed to
 - More restrictive than validate_ddl_tags as it only allows commands that can actually cause table rewrites
 - Part of the specialized validation for table_rewrite event triggers introduced to help track table restructuring operations
 - Helps database administrators and tools monitor when tables are being physically rewritten, which can be expensive operations
+
+## Simplified Source
+
+```c
+static void validate_table_rewrite_tags(const char *filtervar, List *taglist) {
+    ListCell *lc;
+
+    // Iterate through each tag in the list
+    foreach(lc, taglist) {
+        const char *tagstr = strVal(lfirst(lc));
+        CommandTag commandTag = GetCommandTagEnum(tagstr);
+
+        // Check if this command can trigger table rewrites
+        if (!command_tag_table_rewrite_ok(commandTag)) {
+            ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("event triggers are not supported for %s", tagstr)));
+        }
+    }
+}
+```

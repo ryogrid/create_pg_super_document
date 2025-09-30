@@ -37,3 +37,23 @@ The function enforces that precision values are non-negative and do not exceed M
 - The function is used both during type declaration parsing and during runtime operations involving timestamp precision
 - Error and warning messages are context-aware, including "WITH TIME ZONE" in messages when istz is true
 - Returns the validated (and possibly adjusted) precision value as an int32
+
+## Simplified Source
+
+```c
+int32 anytimestamp_typmod_check(bool istz, int32 typmod) {
+    // Check for negative precision - this is an error
+    if (typmod < 0) {
+        ereport(ERROR, "TIMESTAMP precision must not be negative");
+    }
+
+    // Check if precision exceeds maximum allowed
+    if (typmod > MAX_TIMESTAMP_PRECISION) {
+        // Issue warning and clamp to maximum
+        ereport(WARNING, "TIMESTAMP precision reduced to maximum allowed");
+        typmod = MAX_TIMESTAMP_PRECISION;
+    }
+
+    return typmod;
+}
+```

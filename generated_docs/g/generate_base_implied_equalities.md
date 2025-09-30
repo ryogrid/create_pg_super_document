@@ -44,3 +44,57 @@ The function also handles fallback scenarios when cross-type operators are incom
 - Must be called after initial scanning of quals and before Path construction begins
 - Falls back to ec_broken strategy when cross-type operators are incomplete
 - Located in src/backend/optimizer/path/equivclass.c:1028-1107
+
+## Simplified Source
+
+```c
+void generate_base_implied_equalities(PlannerInfo *root) {
+    int ec_index;
+    ListCell *lc;
+
+    // Mark that EC merging phase is complete
+    root->ec_merging_done = true;
+
+    // Process each equivalence class
+    ec_index = 0;
+    foreach(lc, root->eq_classes) {
+        EquivalenceClass *ec = (EquivalenceClass *) lfirst(lc);
+        bool can_generate_joinclause = false;
+        int i;
+
+        // Skip single-member ECs (no equalities to generate)
+        if (list_length(ec->ec_members) > 1) {
+            // Generate base restriction clauses
+            if (ec->ec_has_const)
+                generate_base_implied_equalities_const(root, ec);
+            else
+                generate_base_implied_equalities_no_const(root, ec);
+
+            // Handle broken ECs (missing cross-type operators)
+            if (ec->ec_broken)
+                generate_base_implied_equalities_broken(root, ec);
+
+            // Check if this EC can generate join clauses
+            can_generate_joinclause = (bms_membership(ec->ec_relids) == BMS_MULTIPLE);
+        }
+
+        // Mark base relations with eclass information for optimization
+        i = -1;
+        while ((i = bms_next_member(ec->ec_relids, i)) > 0) {
+            RelOptInfo *rel = root->simple_rel_array[i];
+
+            if (rel == NULL) // outer join relation
+                continue;
+
+            // Add this EC index to relation's eclass_indexes
+            rel->eclass_indexes = bms_add_member(rel->eclass_indexes, ec_index);
+
+            // Mark if relation has potential eclass joins
+            if (can_generate_joinclause)
+                rel->has_eclass_joins = true;
+        }
+
+        ec_index++;
+    }
+}
+```

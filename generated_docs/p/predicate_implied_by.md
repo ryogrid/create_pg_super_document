@@ -43,3 +43,24 @@ The function assumes that both input lists represent AND-ed conditions at the to
 - Relies on immutability assumptions for correctness across plan creation and execution
 - Used extensively in query optimization for index selection and constraint checking
 - Strong implication can prove WHERE clause implies CHECK constraint, but may miss some valid cases
+
+## Simplified Source
+
+```c
+bool predicate_implied_by(List *predicate_list, List *clause_list, bool weak) {
+    // Handle trivial cases
+    if (predicate_list == NIL)
+        return true;    // No predicate to prove - vacuous implication
+    if (clause_list == NIL)
+        return false;   // No assumptions - cannot prove anything
+
+    // Optimize single-element lists to avoid unnecessary AND-recursion
+    Node *predicate = (list_length(predicate_list) == 1) ?
+                      linitial(predicate_list) : (Node *) predicate_list;
+    Node *clauses = (list_length(clause_list) == 1) ?
+                    linitial(clause_list) : (Node *) clause_list;
+
+    // Delegate to recursive implication checker
+    return predicate_implied_by_recurse(clauses, predicate, weak);
+}
+```

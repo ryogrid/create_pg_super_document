@@ -53,3 +53,70 @@ The cursor is not actually executed until PerformPortalFetch is called, allowing
 - Cursors with row marks (FOR UPDATE/SHARE) are always non-scrollable
 - The portal strategy is always PORTAL_ONE_SELECT for cursors
 - Parameter values are preserved in the portal's memory context for later execution
+
+## Simplified Source
+
+```c
+void PerformCursorOpen(ParseState *pstate, DeclareCursorStmt *cstmt,
+                      ParamListInfo params, bool isTopLevel) {
+    Query *query = castNode(Query, cstmt->query);
+    List *rewritten;
+    PlannedStmt *plan;
+    Portal portal;
+    MemoryContext oldContext;
+    char *queryString;
+
+    // Validate cursor name - must not be empty
+    if (!cstmt->portalname || cstmt->portalname[0] == '\0') {
+        ereport(ERROR, "invalid cursor name: must not be empty");
+    }
+
+    // Check transaction requirements for non-holdable cursors
+    if (!(cstmt->options & CURSOR_OPT_HOLD)) {
+        RequireTransactionBlock(isTopLevel, "DECLARE CURSOR");
+    } else if (InSecurityRestrictedOperation()) {
+        ereport(ERROR, "cannot create a cursor WITH HOLD within security-restricted operation");
+    }
+
+    // Rewrite the query using rule system
+    rewritten = QueryRewrite(query);
+
+    // Ensure we have exactly one SELECT query
+    if (list_length(rewritten) != 1 || query->commandType != CMD_SELECT) {
+        elog(ERROR, "non-SELECT statement in DECLARE CURSOR");
+    }
+
+    query = linitial_node(Query, rewritten);
+
+    // Plan the query with cursor options
+    plan = pg_plan_query(query, pstate->p_sourcetext, cstmt->options, params);
+
+    // Create portal and copy plan/query into portal memory
+    portal = CreatePortal(cstmt->portalname, false, false);
+    oldContext = MemoryContextSwitchTo(portal->portalContext);
+
+    plan = copyObject(plan);
+    queryString = pstrdup(pstate->p_sourcetext);
+
+    PortalDefineQuery(portal, NULL, queryString, CMDTAG_SELECT,
+                     list_make1(plan), NULL);
+
+    // Copy parameters for later cursor execution
+    params = copyParamList(params);
+    MemoryContextSwitchTo(oldContext);
+
+    // Set cursor scrolling options
+    portal->cursorOptions = cstmt->options;
+    if (!(portal->cursorOptions & (CURSOR_OPT_SCROLL | CURSOR_OPT_NO_SCROLL))) {
+        // Auto-determine scroll capability based on query structure
+        if (plan->rowMarks == NIL && ExecSupportsBackwardScan(plan->planTree)) {
+            portal->cursorOptions |= CURSOR_OPT_SCROLL;
+        } else {
+            portal->cursorOptions |= CURSOR_OPT_NO_SCROLL;
+        }
+    }
+
+    // Start portal execution (query runs lazily on fetch)
+    PortalStart(portal, params, 0, GetActiveSnapshot());
+}
+```

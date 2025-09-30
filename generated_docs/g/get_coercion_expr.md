@@ -41,3 +41,34 @@ This function creates string representations of type coercion expressions, which
 
 ## Notes and Other Information
 The function includes sophisticated logic to avoid redundant type casting for constants that already have the correct type. It considers the interaction between parse_coerce.c's behavior and constant folding, ensuring that length coercion functions applied to constants are handled appropriately. The comment explains that collation information for constants would appear above the coercion node rather than below it, affecting how collation clauses are handled in the output. The function standardizes on PostgreSQL's '::' cast notation rather than SQL standard CAST() syntax for consistency with PostgreSQL conventions.
+
+## Simplified Source
+
+```c
+static void get_coercion_expr(Node *arg, deparse_context *context,
+                              Oid resulttype, int32 resulttypmod,
+                              Node *parentNode) {
+    StringInfo buf = context->buf;
+
+    // Optimization: avoid redundant cast for constants already matching target type
+    if (arg && IsA(arg, Const) &&
+        ((Const *) arg)->consttype == resulttype &&
+        ((Const *) arg)->consttypmod == -1) {
+        // Show constant without cast decoration
+        get_const_expr((Const *) arg, context, -1);
+    } else {
+        // Add parentheses if not in pretty mode
+        if (!PRETTY_PAREN(context))
+            appendStringInfoChar(buf, '(');
+
+        get_rule_expr_paren(arg, context, false, parentNode);
+
+        if (!PRETTY_PAREN(context))
+            appendStringInfoChar(buf, ')');
+    }
+
+    // Always append PostgreSQL's :: cast notation
+    appendStringInfo(buf, "::%s",
+                     format_type_with_typemod(resulttype, resulttypmod));
+}
+```

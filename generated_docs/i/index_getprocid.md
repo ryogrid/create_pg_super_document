@@ -51,3 +51,24 @@ As of PostgreSQL 8.3, support routines are further categorized by left and right
 - Essential for index access method implementations to locate their required support functions
 - Different index types use different sets of support procedures: B-tree uses comparison functions, GiST uses consistent/union/penalty functions, etc.
 - The function includes assertions to validate that procedure numbers are within valid ranges
+
+## Simplified Source
+
+```c
+RegProcedure index_getprocid(Relation irel,
+                            AttrNumber attnum,
+                            uint16 procnum) {
+    int nproc = irel->rd_indam->amsupport;
+
+    // Validate procedure number is within valid range
+    Assert(procnum > 0 && procnum <= (uint16) nproc);
+
+    // Calculate index into support procedure array
+    int procindex = (nproc * (attnum - 1)) + (procnum - 1);
+
+    RegProcedure *loc = irel->rd_support;
+    Assert(loc != NULL);
+
+    return loc[procindex];
+}
+```

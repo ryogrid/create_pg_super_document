@@ -42,3 +42,37 @@ The function performs comprehensive validation to catch bugs in HOT pruning logi
 - The verification happens after pruning operations to ensure page consistency
 - All redirect items must point to heap-only tuples that are properly marked and have storage
 - This is a critical debugging tool for maintaining heap page integrity during tuple pruning operations
+
+## Simplified Source
+
+```c
+static void page_verify_redirects(Page page)
+{
+#ifdef USE_ASSERT_CHECKING
+    OffsetNumber offnum, maxoff;
+
+    // Iterate through all line pointers on the page
+    maxoff = PageGetMaxOffsetNumber(page);
+    for (offnum = FirstOffsetNumber; offnum <= maxoff; offnum = OffsetNumberNext(offnum))
+    {
+        ItemId itemid = PageGetItemId(page, offnum);
+
+        // Skip non-redirect items
+        if (!ItemIdIsRedirected(itemid))
+            continue;
+
+        // Get the target of the redirect
+        OffsetNumber targoff = ItemIdGetRedirect(itemid);
+        ItemId targitem = PageGetItemId(page, targoff);
+
+        // Verify target item is valid and points to a heap-only tuple
+        Assert(ItemIdIsUsed(targitem));
+        Assert(ItemIdIsNormal(targitem));
+        Assert(ItemIdHasStorage(targitem));
+
+        HeapTupleHeader htup = (HeapTupleHeader) PageGetItem(page, targitem);
+        Assert(HeapTupleHeaderIsHeapOnly(htup));
+    }
+#endif
+}
+```

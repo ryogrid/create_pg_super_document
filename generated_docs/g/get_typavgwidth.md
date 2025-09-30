@@ -49,3 +49,40 @@ Special handling exists for BPCHAR (blank-padded character) types, which always 
 - Critical for memory management in operations like sorting, hashing, and temporary file creation
 - The heuristics are based on empirical observations of typical data distribution patterns in PostgreSQL databases
 - Located in lsyscache.c as part of the system catalog caching infrastructure
+
+## Simplified Source
+
+```c
+int32
+get_typavgwidth(Oid typid, int32 typmod)
+{
+    int typlen = get_typlen(typid);
+
+    // Fixed-width types: return exact length
+    if (typlen > 0)
+        return typlen;
+
+    // Variable-width types: estimate based on maximum size
+    int32 maxwidth = type_maximum_size(typid, typmod);
+    if (maxwidth > 0)
+    {
+        // BPCHAR always uses full width
+        if (typid == BPCHAROID)
+            return maxwidth;
+
+        // Small types: assume full utilization
+        if (maxwidth <= 32)
+            return maxwidth;
+
+        // Medium types: assume 50% utilization beyond first 32 bytes
+        if (maxwidth < 1000)
+            return 32 + (maxwidth - 32) / 2;
+
+        // Large types: fixed estimate assuming limit rarely reached
+        return 32 + (1000 - 32) / 2;
+    }
+
+    // Unknown types: conservative default
+    return 32;
+}
+```

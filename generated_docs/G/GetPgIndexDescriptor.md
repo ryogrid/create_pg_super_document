@@ -38,3 +38,19 @@ None - this is a parameter-less function.
 - Widely used throughout relcache for index information retrieval
 - The returned descriptor has the same limitations as BuildHardcodedDescriptor (incorrect rowtype OID, missing TupleConstr)
 - Critical for accessing pg_index catalog entries during index access info initialization and expression/predicate extraction
+
+## Simplified Source
+
+```c
+static TupleDesc GetPgIndexDescriptor(void)
+{
+    static TupleDesc pgindexdesc = NULL;
+
+    // Build descriptor once and cache it
+    if (pgindexdesc == NULL) {
+        pgindexdesc = BuildHardcodedDescriptor(Natts_pg_index, Desc_pg_index);
+    }
+
+    return pgindexdesc;
+}
+```

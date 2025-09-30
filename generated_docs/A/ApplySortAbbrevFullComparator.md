@@ -41,3 +41,44 @@ The function is typically used in tiebreaker scenarios during abbreviated sortin
 
 ## Notes and Other Information
 This function is a critical component of PostgreSQL's abbreviated sorting optimization. Abbreviated sorting uses shorter representations of values for initial comparisons to improve performance, but when these abbreviated comparisons are inconclusive (i.e., the abbreviated keys are equal but the full values might not be), this function provides the definitive comparison using the full authoritative comparator. The function is primarily used in tiebreaker scenarios across various tuple sorting variants to ensure correct ordering when abbreviated comparisons are insufficient.
+
+## Simplified Source
+
+```c
+static inline int
+ApplySortAbbrevFullComparator(Datum datum1, bool isNull1,
+                              Datum datum2, bool isNull2,
+                              SortSupport ssup)
+{
+    int compare;
+
+    // Handle NULL values first
+    if (isNull1)
+    {
+        if (isNull2)
+            compare = 0;  // NULL = NULL
+        else if (ssup->ssup_nulls_first)
+            compare = -1; // NULL < NOT_NULL
+        else
+            compare = 1;  // NULL > NOT_NULL
+    }
+    else if (isNull2)
+    {
+        if (ssup->ssup_nulls_first)
+            compare = 1;  // NOT_NULL > NULL
+        else
+            compare = -1; // NOT_NULL < NULL
+    }
+    else
+    {
+        // Use full authoritative comparator for definitive comparison
+        compare = ssup->abbrev_full_comparator(datum1, datum2, ssup);
+
+        // Invert result for reverse sorting
+        if (ssup->ssup_reverse)
+            INVERT_COMPARE_RESULT(compare);
+    }
+
+    return compare;
+}
+```

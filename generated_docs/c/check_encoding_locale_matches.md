@@ -40,3 +40,36 @@ Both LC_COLLATE and LC_CTYPE are validated separately against the chosen encodin
 - SQL_ASCII encoding exception for superusers is maintained for historical compatibility and regression test requirements
 - The restriction exists because libc locale functions fail with unexpected encodings, potentially causing crashes or data corruption
 - Returns detailed error messages specifying both the conflicting locale and the required encoding for that locale
+
+## Simplified Source
+
+```c
+void check_encoding_locale_matches(int encoding, const char *collate, const char *ctype) {
+    // Get encoding requirements from locale settings
+    int ctype_encoding = pg_get_encoding_from_locale(ctype, true);
+    int collate_encoding = pg_get_encoding_from_locale(collate, true);
+
+    // Check if LC_CTYPE encoding matches selected encoding
+    // Allow exceptions: SQL_ASCII locale, unknown encoding (-1), UTF8 on Windows, SQL_ASCII for superuser
+    if (!(ctype_encoding == encoding ||
+          ctype_encoding == PG_SQL_ASCII ||
+          ctype_encoding == -1 ||
+#ifdef WIN32
+          encoding == PG_UTF8 ||
+#endif
+          (encoding == PG_SQL_ASCII && superuser()))) {
+        ereport(ERROR, "encoding does not match LC_CTYPE locale");
+    }
+
+    // Check if LC_COLLATE encoding matches selected encoding with same exceptions
+    if (!(collate_encoding == encoding ||
+          collate_encoding == PG_SQL_ASCII ||
+          collate_encoding == -1 ||
+#ifdef WIN32
+          encoding == PG_UTF8 ||
+#endif
+          (encoding == PG_SQL_ASCII && superuser()))) {
+        ereport(ERROR, "encoding does not match LC_COLLATE locale");
+    }
+}
+```

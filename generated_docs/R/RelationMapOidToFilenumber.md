@@ -37,3 +37,45 @@ This design ensures that uncommitted mapping changes are visible during transact
 - The caller is expected to handle the InvalidRelFileNumber case and provide meaningful error reporting
 - The function is optimized to check active updates first, ensuring transactional consistency
 - Shared and local relation OIDs should never overlap, but the caller must specify which type is expected
+
+## Simplified Source
+
+```c
+RelFileNumber RelationMapOidToFilenumber(Oid relationId, bool shared) {
+    const RelMapFile *map;
+    int32 i;
+
+    if (shared) {
+        // Check active shared updates first
+        map = &active_shared_updates;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (relationId == map->mappings[i].mapoid)
+                return map->mappings[i].mapfilenumber;
+        }
+
+        // Fall back to main shared map
+        map = &shared_map;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (relationId == map->mappings[i].mapoid)
+                return map->mappings[i].mapfilenumber;
+        }
+    } else {
+        // Check active local updates first
+        map = &active_local_updates;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (relationId == map->mappings[i].mapoid)
+                return map->mappings[i].mapfilenumber;
+        }
+
+        // Fall back to main local map
+        map = &local_map;
+        for (i = 0; i < map->num_mappings; i++) {
+            if (relationId == map->mappings[i].mapoid)
+                return map->mappings[i].mapfilenumber;
+        }
+    }
+
+    // OID not found in any mapping
+    return InvalidRelFileNumber;
+}
+```

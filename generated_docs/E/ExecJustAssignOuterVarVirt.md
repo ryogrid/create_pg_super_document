@@ -38,3 +38,14 @@ In join operations, the outer tuple typically represents the tuple from the oute
 - The optimization is possible because virtual slots store values in arrays that can be directly accessed and copied
 - Used in join operations where the outer relation's tuples are guaranteed to be in virtual slot format
 - Always returns the result from ExecJustAssignVarVirtImpl (typically 0 for assignment operations)
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustAssignOuterVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Assign outer tuple variable to result slot using virtual slot optimization
+    return ExecJustAssignVarVirtImpl(state, econtext->ecxt_outertuple, isnull);
+}
+```

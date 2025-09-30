@@ -37,3 +37,26 @@ This function constructs a TidScan plan node, which implements a highly speciali
 - The tidquals parameter contains conditions that evaluate to specific TID values
 - No child plan nodes are needed since TID scans access tuples directly based on their physical addresses
 - Very efficient for accessing a small number of known tuple locations
+
+## Simplified Source
+
+```c
+static TidScan *make_tidscan(List *qptlist, List *qpqual,
+                            Index scanrelid, List *tidquals) {
+    // Create new TidScan node
+    TidScan *node = makeNode(TidScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure TID scan specifics
+    node->scan.scanrelid = scanrelid;  // Table to scan
+    node->tidquals = tidquals;         // TID qualification conditions
+
+    return node;
+}
+```

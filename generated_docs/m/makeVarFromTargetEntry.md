@@ -41,3 +41,17 @@ The makeVarFromTargetEntry function is a convenience utility that constructs a V
 - Automatically derives type information from the TargetEntry's expression rather than requiring explicit type parameters
 - Particularly useful in subquery processing and target list transformations
 - Part of the makefuncs.c utility collection for node construction
+
+## Simplified Source
+
+```c
+Var *makeVarFromTargetEntry(int varno, TargetEntry *tle) {
+    // Create a Var node using the TargetEntry's information
+    return makeVar(varno,                               // relation index
+                   tle->resno,                          // attribute number
+                   exprType((Node *) tle->expr),        // type OID
+                   exprTypmod((Node *) tle->expr),      // type modifier
+                   exprCollation((Node *) tle->expr),   // collation OID
+                   0);                                  // same level (varlevelsup = 0)
+}
+```

@@ -35,3 +35,24 @@ When anyrange_type is valid, the function uses get_range_multirange() to find th
 - Only works when anyrange_type is already resolved
 - Complements resolve_anyrange_from_others which works in the reverse direction (multirange → range)
 - Located in src/backend/utils/fmgr/funcapi.c:710-743
+
+## Simplified Source
+
+```c
+static void resolve_anymultirange_from_others(polymorphic_actuals *actuals) {
+    // Can only resolve from anyrange type (not from element/array types
+    // due to potential ambiguity - multiple ranges can have same subtype)
+    if (OidIsValid(actuals->anyrange_type)) {
+        Oid range_base_type = getBaseType(actuals->anyrange_type);
+        Oid multirange_typeid = get_range_multirange(range_base_type);
+
+        if (!OidIsValid(multirange_typeid)) {
+            ereport(ERROR, "could not find multirange type for range type");
+        }
+
+        actuals->anymultirange_type = multirange_typeid;
+    } else {
+        elog(ERROR, "could not determine polymorphic type");
+    }
+}
+```

@@ -41,3 +41,45 @@ The function handles different message types based on their length:
 - The function specifically handles messages without type bytes, which are special cases in the PostgreSQL protocol
 - Network byte order conversion is performed using pg_ntoh32() for proper message length interpretation
 - Output is directed to conn->Pfdebug file stream
+
+## Simplified Source
+
+```c
+void pqTraceOutputNoTypeByteMessage(PGconn *conn, const char *message) {
+    int length;
+    int logCursor = 0;
+
+    // Print timestamp if not suppressed
+    if ((conn->traceFlags & PQTRACE_SUPPRESS_TIMESTAMPS) == 0) {
+        char timestr[128];
+        pqTraceFormatTimestamp(timestr, sizeof(timestr));
+        fprintf(conn->Pfdebug, "%s\t", timestr);
+    }
+
+    // Extract message length (no type byte for these special messages)
+    memcpy(&length, message + logCursor, 4);
+    length = (int) pg_ntoh32(length);
+    logCursor += 4;
+
+    // Print message header with frontend prefix and length
+    fprintf(conn->Pfdebug, "F\t%d\t", length);
+
+    // Identify message type by length
+    switch (length) {
+        case 16:  // CancelRequest message
+            fprintf(conn->Pfdebug, "CancelRequest\t");
+            // Output the three 32-bit integers in CancelRequest
+            pqTraceOutputInt32(conn->Pfdebug, message, &logCursor, false);  // Cancel code
+            pqTraceOutputInt32(conn->Pfdebug, message, &logCursor, false);  // Process ID
+            pqTraceOutputInt32(conn->Pfdebug, message, &logCursor, false);  // Secret key
+            break;
+
+        case 8:   // GSSENCRequest or SSLRequest (usually don't reach here)
+        default:  // Unknown message type
+            fprintf(conn->Pfdebug, "Unknown message: length is %d", length);
+            break;
+    }
+
+    fputc('\n', conn->Pfdebug);
+}
+```

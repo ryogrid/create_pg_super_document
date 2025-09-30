@@ -46,3 +46,41 @@ Unlike automatic file deletion in FileClose, this function tolerates non-existen
 - The stat-then-delete approach ensures that temporary file usage accounting remains accurate
 - Designed to work with PostgreSQL's temporary file management and monitoring systems
 - The tolerance for missing files makes it suitable for cleanup operations where files may have already been removed by other processes
+
+## Simplified Source
+
+```c
+bool PathNameDeleteTemporaryFile(const char *path, bool error_on_failure)
+{
+    struct stat filestats;
+
+    // Get file size for usage reporting
+    bool file_exists = (stat(path, &filestats) == 0);
+
+    // Tolerate non-existent files (return false = file didn't exist)
+    if (!file_exists && errno == ENOENT)
+        return false;
+
+    // Try to delete the file
+    if (unlink(path) < 0) {
+        if (errno != ENOENT) {
+            // Report error based on caller preference
+            ereport(error_on_failure ? ERROR : LOG,
+                    (errcode_for_file_access(),
+                     errmsg("could not unlink temporary file \"%s\": %m", path)));
+        }
+        return false;
+    }
+
+    // Report usage statistics if we had valid file info
+    if (file_exists) {
+        ReportTemporaryFileUsage(path, filestats.st_size);
+    } else {
+        // Log stat failure but continue
+        ereport(LOG, (errcode_for_file_access(),
+                     errmsg("could not stat file \"%s\": %m", path)));
+    }
+
+    return true; // Successfully deleted
+}
+```

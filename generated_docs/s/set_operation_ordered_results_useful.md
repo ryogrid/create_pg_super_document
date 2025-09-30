@@ -38,3 +38,21 @@ This optimization decision impacts how the query planner builds execution paths,
 - The function directly examines the  flag and  field of the SetOperationStmt to make its determination
 - This is a relatively simple but important optimization decision that can significantly impact query performance for large set operations
 - The MergeAppend + Unique optimization for UNION can be much more efficient than hash-based approaches when dealing with pre-sorted data
+
+## Simplified Source
+
+```c
+bool
+set_operation_ordered_results_useful(SetOperationStmt *setop)
+{
+    // UNION (without ALL) can benefit from sorted paths
+    // - Use MergeAppend on sorted paths followed by Unique
+    // - Much more efficient than hash-based duplicate removal
+    if (!setop->all && setop->op == SETOP_UNION)
+        return true;
+
+    // UNION ALL doesn't need duplicate removal, so sorting provides no benefit
+    // EXCEPT/INTERSECT operations cannot currently utilize sorted input paths
+    return false;
+}
+```

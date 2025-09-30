@@ -37,9 +37,80 @@ Like CreateComments, it treats empty strings as NULL comments for deletion, and 
   - [CommentObject](CommentObject.md): Routes shared object comments to this function
 
 ## Notes and Other Information
-- Uses SharedDescriptionObjIndexId for efficient lookups by (objoid, classoid) 
+- Uses SharedDescriptionObjIndexId for efficient lookups by (objoid, classoid)
 - Only handles cluster-wide objects: databases, tablespaces, and roles
 - Does not use sub-object IDs since shared objects don't have sub-components
 - Acquires RowExclusiveLock on pg_shdescription to prevent concurrent modifications
 - Follows same empty-string-to-NULL normalization as CreateComments
 - Memory management includes proper cleanup of temporary heap tuples
+
+## Simplified Source
+
+```c
+void
+CreateSharedComments(Oid oid, Oid classoid, const char *comment)
+{
+    Relation shdescription;
+    ScanKeyData skey[2];
+    SysScanDesc sd;
+    HeapTuple oldtuple;
+    HeapTuple newtuple = NULL;
+    Datum values[Natts_pg_shdescription];
+    bool nulls[Natts_pg_shdescription];
+    bool replaces[Natts_pg_shdescription];
+
+    // Normalize empty string to NULL
+    if (comment != NULL && strlen(comment) == 0)
+        comment = NULL;
+
+    // Prepare tuple data if we have a comment to insert/update
+    if (comment != NULL) {
+        for (int i = 0; i < Natts_pg_shdescription; i++) {
+            nulls[i] = false;
+            replaces[i] = true;
+        }
+        values[Anum_pg_shdescription_objoid - 1] = ObjectIdGetDatum(oid);
+        values[Anum_pg_shdescription_classoid - 1] = ObjectIdGetDatum(classoid);
+        values[Anum_pg_shdescription_description - 1] = CStringGetTextDatum(comment);
+    }
+
+    // Set up search keys for (objoid, classoid) lookup
+    ScanKeyInit(&skey[0], Anum_pg_shdescription_objoid,
+               BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(oid));
+    ScanKeyInit(&skey[1], Anum_pg_shdescription_classoid,
+               BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classoid));
+
+    // Open catalog and search for existing comment
+    shdescription = table_open(SharedDescriptionRelationId, RowExclusiveLock);
+    sd = systable_beginscan(shdescription, SharedDescriptionObjIndexId, true,
+                           NULL, 2, skey);
+
+    while ((oldtuple = systable_getnext(sd)) != NULL) {
+        if (comment == NULL) {
+            // Delete existing comment
+            CatalogTupleDelete(shdescription, &oldtuple->t_self);
+        } else {
+            // Update existing comment
+            newtuple = heap_modify_tuple(oldtuple, RelationGetDescr(shdescription),
+                                        values, nulls, replaces);
+            CatalogTupleUpdate(shdescription, &oldtuple->t_self, newtuple);
+        }
+        break; // Assume only one match possible
+    }
+
+    systable_endscan(sd);
+
+    // Insert new comment if none existed
+    if (newtuple == NULL && comment != NULL) {
+        newtuple = heap_form_tuple(RelationGetDescr(shdescription),
+                                  values, nulls);
+        CatalogTupleInsert(shdescription, newtuple);
+    }
+
+    // Cleanup
+    if (newtuple != NULL)
+        heap_freetuple(newtuple);
+
+    table_close(shdescription, NoLock);
+}
+```

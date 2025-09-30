@@ -42,3 +42,47 @@ This static function constructs a Unique plan node that removes duplicate rows f
 - No qualification conditions (WHERE clauses) are applied - the node only performs deduplication
 - The right child plan node is always set to NULL as uniqueness filtering is a unary operation
 - Commonly used to implement DISTINCT clauses in SQL queries when sort-based deduplication is chosen over hash-based approaches
+
+## Simplified Source
+
+```c
+static Unique *
+make_unique_from_sortclauses(Plan *lefttree, List *distinctList)
+{
+    Unique *node = makeNode(Unique);
+    Plan *plan = &node->plan;
+
+    // Set up basic plan structure
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+
+    // Convert SortGroupClause list to arrays for executor
+    int numCols = list_length(distinctList);
+    AttrNumber *uniqColIdx = palloc(sizeof(AttrNumber) * numCols);
+    Oid *uniqOperators = palloc(sizeof(Oid) * numCols);
+    Oid *uniqCollations = palloc(sizeof(Oid) * numCols);
+
+    // Extract column information from each sort clause
+    int keyno = 0;
+    foreach(cell, distinctList)
+    {
+        SortGroupClause *sortcl = lfirst(cell);
+        TargetEntry *tle = get_sortgroupclause_tle(sortcl, plan->targetlist);
+
+        uniqColIdx[keyno] = tle->resno;
+        uniqOperators[keyno] = sortcl->eqop;
+        uniqCollations[keyno] = exprCollation(tle->expr);
+        keyno++;
+    }
+
+    // Configure Unique node parameters
+    node->numCols = numCols;
+    node->uniqColIdx = uniqColIdx;
+    node->uniqOperators = uniqOperators;
+    node->uniqCollations = uniqCollations;
+
+    return node;
+}
+```

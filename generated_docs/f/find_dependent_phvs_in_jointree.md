@@ -46,3 +46,42 @@ Like its counterpart function, it includes an early optimization check for the e
 - Two-phase approach: checks join qualifiers first, then individual RTEs
 - Part of the query optimization process for identifying and removing unused result relations
 - The jointree fragment check handles join conditions, while the RTE check handles individual table expressions
+
+## Simplified Source
+
+```c
+static bool find_dependent_phvs_in_jointree(PlannerInfo *root, Node *node, int varno)
+{
+    find_dependent_phvs_context context;
+    Relids subrelids;
+    int relid;
+
+    // Early exit if no PlaceHolderVars exist
+    if (root->glob->lastPHId == 0)
+        return false;
+
+    // Set up search context
+    context.relids = bms_make_singleton(varno);
+    context.sublevels_up = 0;
+
+    // First, check the jointree fragment itself (join quals)
+    if (find_dependent_phvs_walker(node, &context))
+        return true;
+
+    // Then check each RTE referenced by this jointree fragment
+    subrelids = get_relids_in_jointree(node, false, false);
+    relid = -1;
+    while ((relid = bms_next_member(subrelids, relid)) >= 0)
+    {
+        RangeTblEntry *rte = rt_fetch(relid, root->parse->rtable);
+
+        // Only check LATERAL RTEs (non-LATERAL can't have cross-references)
+        if (rte->lateral &&
+            range_table_entry_walker(rte, find_dependent_phvs_walker,
+                                   (void *) &context, 0))
+            return true;
+    }
+
+    return false;
+}
+```

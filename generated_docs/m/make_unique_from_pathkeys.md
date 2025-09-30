@@ -47,3 +47,79 @@ This static function constructs a Unique plan node using pathkeys to determine w
 - Includes comprehensive error checking with descriptive error messages for missing operators
 - The right child plan node is always set to NULL as uniqueness filtering is a unary operation
 - Commonly used in upper-level query plan nodes where pathkey-based uniqueness is needed
+
+## Simplified Source
+
+```c
+static Unique *
+make_unique_from_pathkeys(Plan *lefttree, List *pathkeys, int numCols)
+{
+    Unique *node = makeNode(Unique);
+    Plan *plan = &node->plan;
+
+    // Set up basic plan structure
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+
+    // Allocate arrays for unique column specification
+    AttrNumber *uniqColIdx = palloc(sizeof(AttrNumber) * numCols);
+    Oid *uniqOperators = palloc(sizeof(Oid) * numCols);
+    Oid *uniqCollations = palloc(sizeof(Oid) * numCols);
+
+    // Process each pathkey up to numCols limit
+    int keyno = 0;
+    foreach(cell, pathkeys)
+    {
+        if (keyno >= numCols)
+            break;
+
+        PathKey *pathkey = lfirst(cell);
+        EquivalenceClass *ec = pathkey->pk_eclass;
+        TargetEntry *tle = NULL;
+        Oid pk_datatype = InvalidOid;
+
+        // Handle volatile equivalence classes (from ORDER BY)
+        if (ec->ec_has_volatile)
+        {
+            tle = get_sortgroupref_tle(ec->ec_sortref, plan->targetlist);
+            pk_datatype = ((EquivalenceMember *) linitial(ec->ec_members))->em_datatype;
+        }
+        else
+        {
+            // Find matching expression in targetlist
+            foreach(tcell, plan->targetlist)
+            {
+                TargetEntry *candidate = lfirst(tcell);
+                EquivalenceMember *em = find_ec_member_matching_expr(ec, candidate->expr, NULL);
+                if (em)
+                {
+                    tle = candidate;
+                    pk_datatype = em->em_datatype;
+                    break;
+                }
+            }
+        }
+
+        // Find equality operator for this pathkey
+        Oid eqop = get_opfamily_member(pathkey->pk_opfamily,
+                                       pk_datatype, pk_datatype,
+                                       BTEqualStrategyNumber);
+
+        // Store column information
+        uniqColIdx[keyno] = tle->resno;
+        uniqOperators[keyno] = eqop;
+        uniqCollations[keyno] = ec->ec_collation;
+        keyno++;
+    }
+
+    // Configure Unique node parameters
+    node->numCols = numCols;
+    node->uniqColIdx = uniqColIdx;
+    node->uniqOperators = uniqOperators;
+    node->uniqCollations = uniqCollations;
+
+    return node;
+}
+```

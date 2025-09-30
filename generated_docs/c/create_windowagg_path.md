@@ -51,3 +51,47 @@ This function creates a WindowAggPath node that represents the execution of wind
 - Cost calculation assumes no redundant partitioning or ordering columns for simplicity
 - The function adds target evaluation costs on top of the base window aggregation costs
 - Run conditions allow for potential short-circuiting of WindowAgg execution to improve performance
+
+## Simplified Source
+
+```c
+WindowAggPath *
+create_windowagg_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                      PathTarget *target, List *windowFuncs, List *runCondition,
+                      WindowClause *winclause, List *qual, bool topwindow)
+{
+    // Create new WindowAggPath node
+    WindowAggPath *pathnode = makeNode(WindowAggPath);
+
+    // Validate qual parameter (only allowed for top-level windows)
+    Assert(qual == NIL || topwindow);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_WindowAgg;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;  // Assume above joins
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = subpath->pathkeys;  // Preserves input sort
+
+    // Set WindowAgg-specific properties
+    pathnode->subpath = subpath;
+    pathnode->winclause = winclause;
+    pathnode->qual = qual;
+    pathnode->runCondition = runCondition;
+    pathnode->topwindow = topwindow;
+
+    // Calculate window aggregation costs
+    cost_windowagg(&pathnode->path, root, windowFuncs, winclause,
+                   subpath->startup_cost, subpath->total_cost, subpath->rows);
+
+    // Add target evaluation costs
+    pathnode->path.startup_cost += target->cost.startup;
+    pathnode->path.total_cost += target->cost.startup +
+                                 target->cost.per_tuple * pathnode->path.rows;
+
+    return pathnode;
+}
+```

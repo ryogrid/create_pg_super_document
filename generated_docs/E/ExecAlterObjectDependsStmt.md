@@ -47,3 +47,54 @@ This function handles SQL statements that establish or remove dependency relatio
 - Part of PostgreSQL's extension dependency management system
 - Maintains proper locking protocol: acquires locks during resolution, releases relation locks but retains others until commit
 - The dependency type DEPENDENCY_AUTO_EXTENSION allows automatic cleanup when extensions are dropped
+
+## Simplified Source
+
+```c
+ObjectAddress ExecAlterObjectDependsStmt(AlterObjectDependsStmt *stmt, ObjectAddress *refAddress) {
+    ObjectAddress address;
+    ObjectAddress refAddr;
+    Relation rel;
+
+    // Resolve the target object (table, function, etc.)
+    address = get_object_address_rv(stmt->objectType, stmt->relation,
+                                   (List *) stmt->object, &rel,
+                                   AccessExclusiveLock, false);
+
+    // Check that user owns the object
+    check_object_ownership(GetUserId(), stmt->objectType, address, stmt->object, rel);
+
+    // Close relation if one was opened (but keep lock until commit)
+    if (rel) {
+        table_close(rel, NoLock);
+    }
+
+    // Resolve the extension object
+    refAddr = get_object_address(OBJECT_EXTENSION, (Node *) stmt->extname,
+                                &rel, AccessExclusiveLock, false);
+    Assert(rel == NULL);
+
+    // Return extension address to caller if requested
+    if (refAddress) {
+        *refAddress = refAddr;
+    }
+
+    if (stmt->remove) {
+        // Remove the dependency: ALTER OBJECT NO DEPENDS ON EXTENSION
+        deleteDependencyRecordsForSpecific(address.classId, address.objectId,
+                                          DEPENDENCY_AUTO_EXTENSION,
+                                          refAddr.classId, refAddr.objectId);
+    } else {
+        // Add the dependency: ALTER OBJECT DEPENDS ON EXTENSION
+        List *currexts;
+
+        // Check for existing dependencies to avoid duplicates
+        currexts = getAutoExtensionsOfObject(address.classId, address.objectId);
+        if (!list_member_oid(currexts, refAddr.objectId)) {
+            recordDependencyOn(&address, &refAddr, DEPENDENCY_AUTO_EXTENSION);
+        }
+    }
+
+    return address;
+}
+```

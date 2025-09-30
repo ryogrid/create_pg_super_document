@@ -59,3 +59,80 @@ For types not covered by hardwired rules, it searches pg_cast for an implicit, b
 - The castoid output parameter allows callers to know which pg_cast entry was used
 - Fast-path optimizations avoid expensive catalog lookups for common type relationships
 - Composite arrays are handled specially for RECORD[] coercion compatibility
+
+## Simplified Source
+
+```c
+bool
+IsBinaryCoercibleWithCast(Oid srctype, Oid targettype,
+                          Oid *castoid)
+{
+    HeapTuple   tuple;
+    Form_pg_cast castForm;
+    bool        result;
+
+    *castoid = InvalidOid;
+
+    // Fast path: same type
+    if (srctype == targettype)
+        return true;
+
+    // Handle polymorphic ANY* types
+    if (targettype == ANYOID || targettype == ANYELEMENTOID ||
+        targettype == ANYCOMPATIBLEOID)
+        return true;
+
+    // Reduce domain to base type
+    if (OidIsValid(srctype))
+        srctype = getBaseType(srctype);
+
+    // Check again after domain reduction
+    if (srctype == targettype)
+        return true;
+
+    // Handle specific polymorphic type families
+    if ((targettype == ANYARRAYOID || targettype == ANYCOMPATIBLEARRAYOID) &&
+        type_is_array(srctype))
+        return true;
+
+    if ((targettype == ANYNONARRAYOID || targettype == ANYCOMPATIBLENONARRAYOID) &&
+        !type_is_array(srctype))
+        return true;
+
+    if (targettype == ANYENUMOID && type_is_enum(srctype))
+        return true;
+
+    if ((targettype == ANYRANGEOID || targettype == ANYCOMPATIBLERANGEOID) &&
+        type_is_range(srctype))
+        return true;
+
+    if ((targettype == ANYMULTIRANGEOID || targettype == ANYCOMPATIBLEMULTIRANGEOID) &&
+        type_is_multirange(srctype))
+        return true;
+
+    if (targettype == RECORDOID && ISCOMPLEX(srctype))
+        return true;
+
+    if (targettype == RECORDARRAYOID && is_complex_array(srctype))
+        return true;
+
+    // Look up in pg_cast catalog
+    tuple = SearchSysCache2(CASTSOURCETARGET,
+                            ObjectIdGetDatum(srctype),
+                            ObjectIdGetDatum(targettype));
+    if (!HeapTupleIsValid(tuple))
+        return false;
+
+    castForm = (Form_pg_cast) GETSTRUCT(tuple);
+
+    // Check if it's an implicit binary cast
+    result = (castForm->castmethod == COERCION_METHOD_BINARY &&
+              castForm->castcontext == COERCION_CODE_IMPLICIT);
+
+    if (result)
+        *castoid = castForm->oid;
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

@@ -51,3 +51,38 @@ The function is essential for handling composite value construction in SQL, enab
 - The `row_format` is set to `COERCE_IMPLICIT_CAST` to allow flexible type coercion during usage
 - Column names are generated sequentially and stored as String nodes in the colnames list
 - Location information is preserved from the original parse tree for debugging and error reporting
+
+## Simplified Source
+
+```c
+static Node *
+transformRowExpr(ParseState *pstate, RowExpr *r, bool allowDefault)
+{
+    RowExpr *newr = makeNode(RowExpr);
+
+    // Transform all field expressions in the ROW
+    newr->args = transformExpressionList(pstate, r->args,
+                                        pstate->p_expr_kind, allowDefault);
+
+    // Check column count limit
+    if (list_length(newr->args) > MaxTupleAttributeNumber)
+        ereport(ERROR, (errcode(ERRCODE_TOO_MANY_COLUMNS),
+                       errmsg("ROW expressions can have at most %d entries",
+                              MaxTupleAttributeNumber)));
+
+    // Set up as generic record type
+    newr->row_typeid = RECORDOID;
+    newr->row_format = COERCE_IMPLICIT_CAST;
+
+    // Generate anonymous column names: f1, f2, f3, etc.
+    newr->colnames = NIL;
+    for (int fnum = 1; fnum <= list_length(newr->args); fnum++) {
+        char fname[16];
+        snprintf(fname, sizeof(fname), "f%d", fnum);
+        newr->colnames = lappend(newr->colnames, makeString(pstrdup(fname)));
+    }
+
+    newr->location = r->location;
+    return (Node *) newr;
+}
+```

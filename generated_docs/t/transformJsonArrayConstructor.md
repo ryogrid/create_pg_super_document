@@ -35,3 +35,35 @@ This function processes SQL JSON_ARRAY() constructor expressions during the pars
 - Element expressions are wrapped in JsonValueExpr nodes
 - The resulting expression includes null handling behavior controlled by ctor->absent_on_null
 - Part of PostgreSQL's JSON constructor infrastructure introduced for SQL/JSON standard compliance
+
+## Simplified Source
+
+```c
+static Node *
+transformJsonArrayConstructor(ParseState *pstate, JsonArrayConstructor *ctor)
+{
+    JsonReturning *returning;
+    List *args = NIL;
+
+    // Transform element expressions if any are provided
+    if (ctor->exprs)
+    {
+        foreach(lc, ctor->exprs)
+        {
+            JsonValueExpr *jsval = castNode(JsonValueExpr, lfirst(lc));
+            Node *val = transformJsonValueExpr(pstate, "JSON_ARRAY()",
+                                               jsval, JS_FORMAT_DEFAULT,
+                                               InvalidOid, false);
+            args = lappend(args, val);
+        }
+    }
+
+    // Process output formatting and return type
+    returning = transformJsonConstructorOutput(pstate, ctor->output, args);
+
+    // Create the JSON array constructor expression
+    return makeJsonConstructorExpr(pstate, JSCTOR_JSON_ARRAY, args, NULL,
+                                   returning, false, ctor->absent_on_null,
+                                   ctor->location);
+}
+```

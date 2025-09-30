@@ -39,3 +39,21 @@ This addressing scheme ensures that child pages are laid out contiguously in log
 - Includes an assertion to ensure the parent is not at the bottom level (FSM_BOTTOM_LEVEL)
 - The function assumes that the slot number is valid for the parent page
 - Critical for FSM tree traversal operations during space allocation and vacuum processing
+
+## Simplified Source
+
+```c
+static FSMAddress fsm_get_child(FSMAddress parent, uint16 slot) {
+    FSMAddress child;
+
+    Assert(parent.level > FSM_BOTTOM_LEVEL);
+
+    // Move down one level in the tree
+    child.level = parent.level - 1;
+
+    // Calculate child's logical page number
+    child.logpageno = parent.logpageno * SlotsPerFSMPage + slot;
+
+    return child;
+}
+```

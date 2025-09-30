@@ -52,3 +52,75 @@ The function ensures proper error handling for queries that return multiple colu
 - The transformation creates a complete executable subquery that can be processed by the query executor
 - All location information is preserved for accurate error reporting
 - The function handles both formatted and unformatted JSON value expressions appropriately
+
+## Simplified Source
+
+```c
+static Node *
+transformJsonArrayQueryConstructor(ParseState *pstate,
+                                   JsonArrayQueryConstructor *ctor)
+{
+    // Create nodes for the transformed subquery structure
+    SubLink *sublink = makeNode(SubLink);
+    SelectStmt *select = makeNode(SelectStmt);
+    RangeSubselect *range = makeNode(RangeSubselect);
+    Alias *alias = makeNode(Alias);
+    ResTarget *target = makeNode(ResTarget);
+    JsonArrayAgg *agg = makeNode(JsonArrayAgg);
+    ColumnRef *colref = makeNode(ColumnRef);
+
+    // Validate that the query returns exactly one column
+    ParseState *qpstate = make_parsestate(pstate);
+    Query *query = transformStmt(qpstate, copyObject(ctor->query));
+
+    if (count_nonjunk_tlist_entries(query->targetList) != 1)
+        ereport(ERROR,
+                errcode(ERRCODE_SYNTAX_ERROR),
+                errmsg("subquery must return only one column"),
+                parser_errposition(pstate, ctor->location));
+
+    free_parsestate(qpstate);
+
+    // Create column reference q.a for the aggregation
+    colref->fields = list_make2(makeString(pstrdup("q")),
+                                makeString(pstrdup("a")));
+    colref->location = ctor->location;
+
+    // Build JsonArrayAgg expression
+    agg->arg = makeJsonValueExpr((Expr *) colref, (Expr *) colref, ctor->format);
+    agg->absent_on_null = ctor->absent_on_null;
+    agg->constructor = makeNode(JsonAggConstructor);
+    agg->constructor->agg_order = NIL;
+    agg->constructor->output = ctor->output;
+    agg->constructor->location = ctor->location;
+
+    // Build SELECT target
+    target->name = NULL;
+    target->indirection = NIL;
+    target->val = (Node *) agg;
+    target->location = ctor->location;
+
+    // Set up subquery alias (table 'q', column 'a')
+    alias->aliasname = pstrdup("q");
+    alias->colnames = list_make1(makeString(pstrdup("a")));
+
+    // Create range subselect
+    range->lateral = false;
+    range->subquery = ctor->query;
+    range->alias = alias;
+
+    // Build the SELECT statement
+    select->targetList = list_make1(target);
+    select->fromClause = list_make1(range);
+
+    // Wrap in SubLink
+    sublink->subLinkType = EXPR_SUBLINK;
+    sublink->subLinkId = 0;
+    sublink->testexpr = NULL;
+    sublink->operName = NIL;
+    sublink->subselect = (Node *) select;
+    sublink->location = ctor->location;
+
+    return transformExprRecurse(pstate, (Node *) sublink);
+}
+```

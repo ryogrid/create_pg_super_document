@@ -40,3 +40,44 @@ If multiple possibilities exist, the function returns the first valid one found,
 - Handles cross-type equality operators by allowing selection of either left or right operand type
 - Returns the first valid match found, as exact choice doesn't matter for sorting purposes
 - Specifically looks for BTLessStrategyNumber operators ("<" operators) rather than greater-than operators
+
+## Simplified Source
+
+```c
+Oid
+get_ordering_op_for_equality_op(Oid opno, bool use_lhs_type)
+{
+    Oid result = InvalidOid;
+    CatCList *catlist;
+
+    // Search for equality operator in btree operator families
+    catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(opno));
+
+    for (int i = 0; i < catlist->n_members; i++)
+    {
+        HeapTuple tuple = &catlist->members[i]->tuple;
+        Form_pg_amop aform = (Form_pg_amop) GETSTRUCT(tuple);
+
+        // Only consider btree operators
+        if (aform->amopmethod != BTREE_AM_OID)
+            continue;
+
+        // Check if this is an equality operator
+        if (aform->amopstrategy == BTEqualStrategyNumber)
+        {
+            // Get the appropriate data type (LHS or RHS)
+            Oid typid = use_lhs_type ? aform->amoplefttype : aform->amoprighttype;
+
+            // Find the corresponding less-than operator in the same family
+            result = get_opfamily_member(aform->amopfamily,
+                                         typid, typid,
+                                         BTLessStrategyNumber);
+            if (OidIsValid(result))
+                break;
+        }
+    }
+
+    ReleaseSysCacheList(catlist);
+    return result;
+}
+```

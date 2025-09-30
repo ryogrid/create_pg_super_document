@@ -46,3 +46,142 @@ The `make_row_comparison_op` function handles row comparison operations where tw
 - For ambiguous operator interpretations, arbitrarily selects the lowest strategy number
 - Handles operator coercions that may be inserted by make_op by reconstructing argument lists
 - The function guarantees that the output always returns boolean type
+
+## Simplified Source
+
+```c
+static Node *
+make_row_comparison_op(ParseState *pstate, List *opname,
+                       List *largs, List *rargs, int location)
+{
+    RowCompareExpr *rcexpr;
+    RowCompareType rctype;
+    List *opexprs;
+    List *opnos;
+    List *opfamilies;
+    ListCell *l, *r;
+    int nopers;
+
+    nopers = list_length(largs);
+
+    // Validate equal length and non-zero length
+    if (nopers != list_length(rargs))
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("unequal number of entries in row expressions"),
+                       parser_errposition(pstate, location)));
+
+    if (nopers == 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot compare rows of zero length"),
+                       parser_errposition(pstate, location)));
+
+    // Create pairwise operator expressions
+    opexprs = NIL;
+    forboth(l, largs, r, rargs)
+    {
+        Node *larg = (Node *) lfirst(l);
+        Node *rarg = (Node *) lfirst(r);
+        OpExpr *cmp;
+
+        cmp = castNode(OpExpr, make_op(pstate, opname, larg, rarg,
+                                      pstate->p_last_srf, location));
+
+        // Validate operator returns boolean
+        if (cmp->opresulttype != BOOLOID)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("row comparison operator must yield type boolean, not type %s",
+                                 format_type_be(cmp->opresulttype)),
+                           parser_errposition(pstate, location)));
+
+        opexprs = lappend(opexprs, cmp);
+    }
+
+    // Single column: return the operator directly
+    if (nopers == 1)
+        return (Node *) linitial(opexprs);
+
+    // Determine row comparison semantics from btree operator families
+    Bitmapset *strats = NULL;
+    List **opinfo_lists = (List **) palloc(nopers * sizeof(List *));
+
+    // Find common btree interpretations across all operators
+    int i = 0;
+    foreach(l, opexprs)
+    {
+        Oid opno = ((OpExpr *) lfirst(l))->opno;
+        Bitmapset *this_strats = NULL;
+        ListCell *j;
+
+        opinfo_lists[i] = get_op_btree_interpretation(opno);
+
+        foreach(j, opinfo_lists[i])
+        {
+            OpBtreeInterpretation *opinfo = lfirst(j);
+            this_strats = bms_add_member(this_strats, opinfo->strategy);
+        }
+
+        if (i == 0)
+            strats = this_strats;
+        else
+            strats = bms_int_members(strats, this_strats);
+        i++;
+    }
+
+    // Pick the lowest common strategy number
+    i = bms_next_member(strats, -1);
+    if (i < 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("could not determine interpretation of row comparison operator %s",
+                             strVal(llast(opname))),
+                       parser_errposition(pstate, location)));
+
+    rctype = (RowCompareType) i;
+
+    // For equality/inequality, combine with AND/OR
+    if (rctype == ROWCOMPARE_EQ)
+        return (Node *) makeBoolExpr(AND_EXPR, opexprs, location);
+    if (rctype == ROWCOMPARE_NE)
+        return (Node *) makeBoolExpr(OR_EXPR, opexprs, location);
+
+    // For ordering operators, create RowCompareExpr
+    opfamilies = NIL;
+    for (i = 0; i < nopers; i++)
+    {
+        Oid opfamily = InvalidOid;
+        ListCell *j;
+
+        foreach(j, opinfo_lists[i])
+        {
+            OpBtreeInterpretation *opinfo = lfirst(j);
+            if (opinfo->strategy == rctype)
+            {
+                opfamily = opinfo->opfamily_id;
+                break;
+            }
+        }
+        opfamilies = lappend_oid(opfamilies, opfamily);
+    }
+
+    // Build final RowCompareExpr
+    opnos = NIL;
+    largs = NIL;
+    rargs = NIL;
+    foreach(l, opexprs)
+    {
+        OpExpr *cmp = (OpExpr *) lfirst(l);
+        opnos = lappend_oid(opnos, cmp->opno);
+        largs = lappend(largs, linitial(cmp->args));
+        rargs = lappend(rargs, lsecond(cmp->args));
+    }
+
+    rcexpr = makeNode(RowCompareExpr);
+    rcexpr->rctype = rctype;
+    rcexpr->opnos = opnos;
+    rcexpr->opfamilies = opfamilies;
+    rcexpr->inputcollids = NIL;
+    rcexpr->largs = largs;
+    rcexpr->rargs = rargs;
+
+    return (Node *) rcexpr;
+}
+```

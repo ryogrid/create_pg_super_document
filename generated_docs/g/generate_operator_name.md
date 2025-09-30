@@ -43,3 +43,63 @@ The result includes all necessary quoting and schema-prefixing, plus the OPERATO
 - Only handles binary (b) and left unary (l) operators; right unary operators would cause an error
 - Memory management is handled through StringInfo buffer that caller must free
 - Part of the rule decompilation system used for displaying stored rules, views, and constraints
+
+## Simplified Source
+
+```c
+static char *generate_operator_name(Oid operid, Oid arg1, Oid arg2) {
+    StringInfoData buf;
+    HeapTuple opertup;
+    Form_pg_operator operform;
+    char *oprname;
+    char *nspname;
+    Operator p_result;
+
+    initStringInfo(&buf);
+
+    // Look up operator information in system cache
+    opertup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operid));
+    if (!HeapTupleIsValid(opertup))
+        elog(ERROR, "cache lookup failed for operator %u", operid);
+
+    operform = (Form_pg_operator) GETSTRUCT(opertup);
+    oprname = NameStr(operform->oprname);
+
+    // Test if parser can resolve unqualified operator with these arg types
+    switch (operform->oprkind) {
+        case 'b':  // Binary operator
+            p_result = oper(NULL, list_make1(makeString(oprname)), arg1, arg2, true, -1);
+            break;
+        case 'l':  // Left unary operator
+            p_result = left_oper(NULL, list_make1(makeString(oprname)), arg2, true, -1);
+            break;
+        default:
+            elog(ERROR, "unrecognized oprkind: %d", operform->oprkind);
+            p_result = NULL;
+            break;
+    }
+
+    // If parser resolves to the same operator, no schema qualification needed
+    if (p_result != NULL && oprid(p_result) == operid) {
+        nspname = NULL;
+    } else {
+        // Schema qualification needed - use OPERATOR() syntax
+        nspname = get_namespace_name_or_temp(operform->oprnamespace);
+        appendStringInfo(&buf, "OPERATOR(%s.", quote_identifier(nspname));
+    }
+
+    // Add operator name
+    appendStringInfoString(&buf, oprname);
+
+    // Close OPERATOR() if schema-qualified
+    if (nspname)
+        appendStringInfoChar(&buf, ')');
+
+    // Clean up cache references
+    if (p_result != NULL)
+        ReleaseSysCache(p_result);
+    ReleaseSysCache(opertup);
+
+    return buf.data;
+}
+```

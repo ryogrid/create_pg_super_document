@@ -52,3 +52,40 @@ The function ensures that GREATEST/LEAST expressions follow SQL standard semanti
 - The resulting expression will perform comparison operations at runtime using the common type
 - All arguments are coerced to the common type regardless of the actual comparison outcome
 - The common type must support comparison operations (have appropriate btree operator classes)
+
+## Simplified Source
+
+```c
+static Node *transformMinMaxExpr(ParseState *pstate, MinMaxExpr *m) {
+    MinMaxExpr *newm = makeNode(MinMaxExpr);
+    List *newargs = NIL;
+    List *newcoercedargs = NIL;
+    const char *funcname = (m->op == IS_GREATEST) ? "GREATEST" : "LEAST";
+
+    // Copy operation type and transform all arguments
+    newm->op = m->op;
+    ListCell *args;
+    foreach(args, m->args) {
+        Node *e = (Node *) lfirst(args);
+        Node *newe = transformExprRecurse(pstate, e);
+        newargs = lappend(newargs, newe);
+    }
+
+    // Determine common type for all arguments
+    newm->minmaxtype = select_common_type(pstate, newargs, funcname, NULL);
+
+    // Convert all arguments to the common type
+    foreach(args, newargs) {
+        Node *e = (Node *) lfirst(args);
+        Node *newe = coerce_to_common_type(pstate, e, newm->minmaxtype, funcname);
+        newcoercedargs = lappend(newcoercedargs, newe);
+    }
+
+    // Set final properties and return
+    newm->args = newcoercedargs;
+    newm->location = m->location;
+    // Note: minmaxcollid and inputcollid will be set by parse_collate.c
+
+    return (Node *) newm;
+}
+```

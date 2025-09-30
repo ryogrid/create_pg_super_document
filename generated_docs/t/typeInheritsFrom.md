@@ -50,3 +50,84 @@ The algorithm:
 - The function is primarily used in type coercion logic to determine if one type can be safely converted to another
 - Only works with complex types (class types), not scalar types
 - Location: src/backend/catalog/pg_inherits.c:406-507
+
+## Simplified Source
+
+```c
+bool
+typeInheritsFrom(Oid subclassTypeId, Oid superclassTypeId)
+{
+    bool result = false;
+    Oid subclassRelid, superclassRelid;
+    List *visited, *queue;
+
+    // Convert type OIDs to relation OIDs
+    subclassRelid = typeOrDomainTypeRelid(subclassTypeId);
+    if (subclassRelid == InvalidOid)
+        return false;  // Not a complex type or domain
+
+    superclassRelid = typeidTypeRelid(superclassTypeId);
+    if (superclassRelid == InvalidOid)
+        return false;  // Not a complex type
+
+    // Optimization: early exit if superclass has no subclasses
+    if (!has_subclass(superclassRelid))
+        return false;
+
+    // Initialize breadth-first search
+    queue = list_make1_oid(subclassRelid);
+    visited = NIL;
+
+    Relation inhrel = table_open(InheritsRelationId, AccessShareLock);
+
+    // Breadth-first traversal of inheritance hierarchy
+    foreach(queue_item, queue)
+    {
+        Oid this_relid = lfirst_oid(queue_item);
+
+        // Skip if already visited (handles cycles and multiple inheritance)
+        if (list_member_oid(visited, this_relid))
+            continue;
+
+        visited = lappend_oid(visited, this_relid);
+
+        // Scan pg_inherits for parents of this relation
+        ScanKeyData skey;
+        ScanKeyInit(&skey, Anum_pg_inherits_inhrelid,
+                   BTEqualStrategyNumber, F_OIDEQ,
+                   ObjectIdGetDatum(this_relid));
+
+        SysScanDesc inhscan = systable_beginscan(inhrel, InheritsRelidSeqnoIndexId,
+                                               true, NULL, 1, &skey);
+
+        HeapTuple inhtup;
+        while ((inhtup = systable_getnext(inhscan)) != NULL)
+        {
+            Form_pg_inherits inh = (Form_pg_inherits) GETSTRUCT(inhtup);
+            Oid parent_oid = inh->inhparent;
+
+            // Found the target superclass
+            if (parent_oid == superclassRelid)
+            {
+                result = true;
+                break;
+            }
+
+            // Add parent to search queue
+            queue = lappend_oid(queue, parent_oid);
+        }
+
+        systable_endscan(inhscan);
+
+        if (result)
+            break;
+    }
+
+    // Cleanup
+    table_close(inhrel, AccessShareLock);
+    list_free(visited);
+    list_free(queue);
+
+    return result;
+}
+```

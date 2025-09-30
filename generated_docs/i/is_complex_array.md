@@ -41,3 +41,15 @@ This function is used internally within the type coercion system to make decisio
 - Used primarily in type coercion logic to determine valid conversion pathways for complex array types
 - Composite types include user-defined types, table row types, and other structured data types
 - The distinction between complex arrays and simple arrays is crucial for PostgreSQL's type coercion system
+
+## Simplified Source
+
+```c
+static bool is_complex_array(Oid typid) {
+    // Get the element type of the array
+    Oid elemtype = get_element_type(typid);
+
+    // Return true if it's a valid element type and the element is composite
+    return (OidIsValid(elemtype) && ISCOMPLEX(elemtype));
+}
+```

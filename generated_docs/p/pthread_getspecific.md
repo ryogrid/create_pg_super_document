@@ -35,3 +35,12 @@ This function provides a Windows-compatible stub implementation of the POSIX pth
 - Part of PostgreSQL's threading compatibility layer for Windows platforms
 - Callers must be designed to handle NULL return values gracefully
 - Works as a pair with pthread_setspecific, both providing no-op thread-local storage functionality
+
+## Simplified Source
+
+```c
+void *pthread_getspecific(pthread_key_t key) {
+    // Windows stub implementation - always returns NULL
+    return NULL;
+}
+```

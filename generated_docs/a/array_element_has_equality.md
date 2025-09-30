@@ -34,3 +34,18 @@ The function uses a caching mechanism through the type cache entry flags to avoi
 - Caching is used to optimize performance since these checks may be called repeatedly on the same types
 - The comprehensive property caching approach assumes that multiple properties will typically be needed together
 - The function specifically supports the functionality of array_eq and related array comparison operations
+
+## Simplified Source
+
+```c
+static bool
+array_element_has_equality(TypeCacheEntry *typentry)
+{
+    // Ensure element properties are cached
+    if (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))
+        cache_array_element_properties(typentry);
+
+    // Return whether element type has equality support
+    return (typentry->flags & TCFLAGS_HAVE_ELEM_EQUALITY) != 0;
+}
+```

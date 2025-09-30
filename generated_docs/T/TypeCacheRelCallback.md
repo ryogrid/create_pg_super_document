@@ -44,3 +44,45 @@ The function also handles domain types over composite types by resetting their o
 - Handles both direct composite types and domain types over composite types
 - Design trades callback registration complexity for runtime scanning cost
 - Alternative designs (second hashtable, syscache callbacks) were considered but deemed not worthwhile
+
+## Simplified Source
+
+```c
+static void
+TypeCacheRelCallback(Datum arg, Oid relid)
+{
+    HASH_SEQ_STATUS status;
+    TypeCacheEntry *typentry;
+
+    // Scan all type cache entries to find affected composite types
+    hash_seq_init(&status, TypeCacheHash);
+    while ((typentry = (TypeCacheEntry *) hash_seq_search(&status)) != NULL)
+    {
+        if (typentry->typtype == TYPTYPE_COMPOSITE)
+        {
+            // Skip if no match, unless we're zapping all composite types
+            if (relid != typentry->typrelid && relid != InvalidOid)
+                continue;
+
+            // Clean up cached tuple descriptor
+            if (typentry->tupDesc != NULL)
+            {
+                // Decrement reference count and free if last reference
+                if (--typentry->tupDesc->tdrefcount == 0)
+                    FreeTupleDesc(typentry->tupDesc);
+                typentry->tupDesc = NULL;
+                typentry->tupDesc_identifier = 0;
+            }
+
+            // Reset operator validity flags
+            typentry->flags &= ~TCFLAGS_OPERATOR_FLAGS;
+        }
+        else if (typentry->typtype == TYPTYPE_DOMAIN)
+        {
+            // Reset flags for domains over composite types
+            if (typentry->flags & TCFLAGS_DOMAIN_BASE_IS_COMPOSITE)
+                typentry->flags &= ~TCFLAGS_OPERATOR_FLAGS;
+        }
+    }
+}
+```

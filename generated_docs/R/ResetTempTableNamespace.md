@@ -38,3 +38,15 @@ This function is typically used in scenarios where a complete reset of temporary
 - Uses the global variable myTempNamespace to identify the current session's temporary namespace
 - Part of PostgreSQL's DISCARD command infrastructure, allowing users to explicitly clean up temporary objects
 - Much simpler than the callback version since it doesn't need to handle transaction management - assumes it's called within an existing transaction context
+
+## Simplified Source
+
+```c
+void ResetTempTableNamespace(void) {
+    // Check if current session has a temporary namespace
+    if (OidIsValid(myTempNamespace)) {
+        // Remove all temporary tables from the namespace
+        RemoveTempRelations(myTempNamespace);
+    }
+}
+```

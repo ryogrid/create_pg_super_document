@@ -45,3 +45,46 @@ This function serves as the inverse operation to , allowing for round-trip conve
 - Supports multibyte character encodings through proper use of 
 - The function assumes the input was previously processed by  or follows the same escape sequence format
 - Characters that don't match the escape pattern are copied unchanged, making the function safe to use on strings that may not contain escape sequences
+
+## Simplified Source
+
+```c
+char *map_xml_name_to_sql_identifier(const char *name)
+{
+    StringInfoData buf;
+    const char *p;
+
+    initStringInfo(&buf);
+
+    // Process each character/multibyte sequence
+    for (p = name; *p; p += pg_mblen(p)) {
+        // Check for Unicode escape sequence: _xNNNN_
+        if (*p == '_' && *(p + 1) == 'x' &&
+            isxdigit((unsigned char) *(p + 2)) &&
+            isxdigit((unsigned char) *(p + 3)) &&
+            isxdigit((unsigned char) *(p + 4)) &&
+            isxdigit((unsigned char) *(p + 5)) &&
+            *(p + 6) == '_') {
+
+            // Decode the Unicode escape sequence
+            char cbuf[MAX_UNICODE_EQUIVALENT_STRING + 1];
+            unsigned int u;
+
+            // Parse the 4-digit hex value
+            sscanf(p + 2, "%X", &u);
+
+            // Convert Unicode to server encoding
+            pg_unicode_to_server(u, (unsigned char *) cbuf);
+            appendStringInfoString(&buf, cbuf);
+
+            // Skip past the entire escape sequence
+            p += 6;
+        } else {
+            // Copy character as-is (no escape sequence)
+            appendBinaryStringInfo(&buf, p, pg_mblen(p));
+        }
+    }
+
+    return buf.data;
+}
+```

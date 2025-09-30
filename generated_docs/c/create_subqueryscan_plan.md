@@ -50,3 +50,44 @@ Key processing steps include:
 - The subquery plan becomes a child of the SubqueryScan node
 - Essential for handling correlated subqueries and lateral joins
 - Supports parameterized subqueries through careful nestloop parameter management
+
+## Simplified Source
+
+```c
+static SubqueryScan *
+create_subqueryscan_plan(PlannerInfo *root, SubqueryScanPath *best_path,
+                         List *tlist, List *scan_clauses)
+{
+    SubqueryScan *scan_plan;
+    RelOptInfo *rel = best_path->path.parent;
+    Index scan_relid = rel->relid;
+    Plan *subplan;
+
+    // Validate that we have a subquery relation
+    Assert(scan_relid > 0);
+    Assert(rel->rtekind == RTE_SUBQUERY);
+
+    // Recursively create plan for the subquery (different planner context)
+    subplan = create_plan(rel->subroot, best_path->subpath);
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths: process subquery params first, then scan clauses
+    if (best_path->path.param_info) {
+        process_subquery_nestloop_params(root, rel->subplan_params);
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the SubqueryScan plan node wrapping the subquery plan
+    scan_plan = make_subqueryscan(tlist, scan_clauses, scan_relid, subplan);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, &best_path->path);
+
+    return scan_plan;
+}
+```

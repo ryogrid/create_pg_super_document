@@ -52,3 +52,84 @@ The function iterates through all attributes in the tuple descriptor and:
 - External values that haven't changed can be reused, avoiding the need to re-externalize them
 - Sets up flags that guide later stages of the toasting process
 - Part of PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system for handling large attribute values
+
+## Simplified Source
+
+```c
+void toast_tuple_init(ToastTupleContext *ttc) {
+    TupleDesc tupleDesc = ttc->ttc_rel->rd_att;
+    int numAttrs = tupleDesc->natts;
+    int i;
+
+    ttc->ttc_flags = 0;
+
+    for (i = 0; i < numAttrs; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupleDesc, i);
+        struct varlena *old_value;
+        struct varlena *new_value;
+
+        // Initialize attribute metadata
+        ttc->ttc_attr[i].tai_colflags = 0;
+        ttc->ttc_attr[i].tai_oldexternal = NULL;
+        ttc->ttc_attr[i].tai_compression = att->attcompression;
+
+        if (ttc->ttc_oldvalues != NULL) {
+            // Handle UPDATE case - compare old and new values
+            old_value = (struct varlena *) DatumGetPointer(ttc->ttc_oldvalues[i]);
+            new_value = (struct varlena *) DatumGetPointer(ttc->ttc_values[i]);
+
+            // Check if old external value needs deletion
+            if (att->attlen == -1 && !ttc->ttc_oldisnull[i] &&
+                VARATT_IS_EXTERNAL_ONDISK(old_value)) {
+
+                if (ttc->ttc_isnull[i] ||
+                    !VARATT_IS_EXTERNAL_ONDISK(new_value) ||
+                    memcmp((char *) old_value, (char *) new_value,
+                           VARSIZE_EXTERNAL(old_value)) != 0) {
+                    // Old value is no longer needed
+                    ttc->ttc_attr[i].tai_colflags |= TOASTCOL_NEEDS_DELETE_OLD;
+                    ttc->ttc_flags |= TOAST_NEEDS_DELETE_OLD;
+                } else {
+                    // Reuse unchanged external value
+                    ttc->ttc_attr[i].tai_colflags |= TOASTCOL_IGNORE;
+                    continue;
+                }
+            }
+        } else {
+            // Handle INSERT case - just get new value
+            new_value = (struct varlena *) DatumGetPointer(ttc->ttc_values[i]);
+        }
+
+        // Handle NULL attributes
+        if (ttc->ttc_isnull[i]) {
+            ttc->ttc_attr[i].tai_colflags |= TOASTCOL_IGNORE;
+            ttc->ttc_flags |= TOAST_HAS_NULLS;
+            continue;
+        }
+
+        // Process varlena attributes
+        if (att->attlen == -1) {
+            if (att->attstorage == TYPSTORAGE_PLAIN)
+                ttc->ttc_attr[i].tai_colflags |= TOASTCOL_IGNORE;
+
+            // Handle external values that need to be fetched
+            if (VARATT_IS_EXTERNAL(new_value)) {
+                ttc->ttc_attr[i].tai_oldexternal = new_value;
+                if (att->attstorage == TYPSTORAGE_PLAIN)
+                    new_value = detoast_attr(new_value);
+                else
+                    new_value = detoast_external_attr(new_value);
+                ttc->ttc_values[i] = PointerGetDatum(new_value);
+                ttc->ttc_attr[i].tai_colflags |= TOASTCOL_NEEDS_FREE;
+                ttc->ttc_flags |= (TOAST_NEEDS_CHANGE | TOAST_NEEDS_FREE);
+            }
+
+            // Record attribute size
+            ttc->ttc_attr[i].tai_size = VARSIZE_ANY(new_value);
+        } else {
+            // Fixed-length attribute - no toasting needed
+            ttc->ttc_attr[i].tai_colflags |= TOASTCOL_IGNORE;
+        }
+    }
+}
+```

@@ -67,3 +67,87 @@ The transformation process:
 - All transformations preserve the original expression's location information for error reporting
 - The final result is recursively transformed to handle any nested expressions
 - Located in src/backend/parser/parse_expr.c:1284-1377
+
+## Simplified Source
+
+```c
+static Node *transformAExprBetween(ParseState *pstate, A_Expr *a) {
+    Node *aexpr;  // Test expression
+    Node *bexpr;  // Lower bound
+    Node *cexpr;  // Upper bound
+    Node *result;
+    List *args;
+
+    // Extract the three subexpressions
+    aexpr = a->lexpr;
+    args = castNode(List, a->rexpr);
+    Assert(list_length(args) == 2);
+    bexpr = (Node *) linitial(args);
+    cexpr = (Node *) lsecond(args);
+
+    // Transform based on BETWEEN variant
+    switch (a->kind) {
+        case AEXPR_BETWEEN:
+            // expr BETWEEN low AND high → (expr >= low) AND (expr <= high)
+            args = list_make2(
+                makeSimpleA_Expr(AEXPR_OP, ">=", aexpr, bexpr, a->location),
+                makeSimpleA_Expr(AEXPR_OP, "<=", copyObject(aexpr), cexpr, a->location)
+            );
+            result = (Node *) makeBoolExpr(AND_EXPR, args, a->location);
+            break;
+
+        case AEXPR_NOT_BETWEEN:
+            // expr NOT BETWEEN low AND high → (expr < low) OR (expr > high)
+            args = list_make2(
+                makeSimpleA_Expr(AEXPR_OP, "<", aexpr, bexpr, a->location),
+                makeSimpleA_Expr(AEXPR_OP, ">", copyObject(aexpr), cexpr, a->location)
+            );
+            result = (Node *) makeBoolExpr(OR_EXPR, args, a->location);
+            break;
+
+        case AEXPR_BETWEEN_SYM:
+            // expr BETWEEN SYMMETRIC low AND high
+            // → ((expr >= low) AND (expr <= high)) OR ((expr >= high) AND (expr <= low))
+            Node *sub1 = makeBoolExpr(AND_EXPR,
+                list_make2(
+                    makeSimpleA_Expr(AEXPR_OP, ">=", aexpr, bexpr, a->location),
+                    makeSimpleA_Expr(AEXPR_OP, "<=", copyObject(aexpr), cexpr, a->location)
+                ), a->location);
+
+            Node *sub2 = makeBoolExpr(AND_EXPR,
+                list_make2(
+                    makeSimpleA_Expr(AEXPR_OP, ">=", copyObject(aexpr), copyObject(cexpr), a->location),
+                    makeSimpleA_Expr(AEXPR_OP, "<=", copyObject(aexpr), copyObject(bexpr), a->location)
+                ), a->location);
+
+            result = (Node *) makeBoolExpr(OR_EXPR, list_make2(sub1, sub2), a->location);
+            break;
+
+        case AEXPR_NOT_BETWEEN_SYM:
+            // expr NOT BETWEEN SYMMETRIC low AND high
+            // → ((expr < low) OR (expr > high)) AND ((expr < high) OR (expr > low))
+            Node *sub1 = makeBoolExpr(OR_EXPR,
+                list_make2(
+                    makeSimpleA_Expr(AEXPR_OP, "<", aexpr, bexpr, a->location),
+                    makeSimpleA_Expr(AEXPR_OP, ">", copyObject(aexpr), cexpr, a->location)
+                ), a->location);
+
+            Node *sub2 = makeBoolExpr(OR_EXPR,
+                list_make2(
+                    makeSimpleA_Expr(AEXPR_OP, "<", copyObject(aexpr), copyObject(cexpr), a->location),
+                    makeSimpleA_Expr(AEXPR_OP, ">", copyObject(aexpr), copyObject(bexpr), a->location)
+                ), a->location);
+
+            result = (Node *) makeBoolExpr(AND_EXPR, list_make2(sub1, sub2), a->location);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized A_Expr kind: %d", a->kind);
+            result = NULL;
+            break;
+    }
+
+    // Recursively transform the resulting expression
+    return transformExprRecurse(pstate, result);
+}
+```

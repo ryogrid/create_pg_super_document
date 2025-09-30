@@ -39,3 +39,42 @@ The tuplesort_rescan function enables rescanning of a completed tuple sort by re
 - Throws error if called on sort in invalid state
 - This is a public function exposed through tuplesort.h interface
 - Essential for aggregate functions and operations requiring multiple result set traversals
+
+## Simplified Source
+
+```c
+void tuplesort_rescan(Tuplesortstate *state) {
+    // Switch to sort memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+
+    // Verify random access is enabled
+    Assert(state->base.sortopt & TUPLESORT_RANDOMACCESS);
+
+    // Reset based on storage type
+    switch (state->status) {
+        case TSS_SORTEDINMEM:
+            // Reset in-memory sort position
+            state->current = 0;
+            state->eof_reached = false;
+            state->markpos_offset = 0;
+            state->markpos_eof = false;
+            break;
+
+        case TSS_SORTEDONTAPE:
+            // Rewind tape-based sort
+            LogicalTapeRewindForRead(state->result_tape, 0);
+            state->eof_reached = false;
+            state->markpos_block = 0L;
+            state->markpos_offset = 0;
+            state->markpos_eof = false;
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+            break;
+    }
+
+    // Restore original memory context
+    MemoryContextSwitchTo(oldcontext);
+}
+```

@@ -45,3 +45,40 @@ The function ensures that all base relations and outer-join relations in the que
 - Has a known limitation with self-joins being counted multiple times
 - Includes assertion to verify the result joins all and only the query's base + outer-join relations
 - Critical function in the PostgreSQL query optimization pipeline
+
+## Simplified Source
+
+```c
+RelOptInfo *make_one_rel(PlannerInfo *root, List *joinlist) {
+    RelOptInfo *rel;
+    Index rti;
+    double total_pages;
+
+    // Configure base relations for startup cost considerations
+    set_base_rel_consider_startup(root);
+
+    // Compute size estimates and parallel flags for base relations
+    set_base_rel_sizes(root);
+
+    // Calculate total pages across all base relations
+    total_pages = 0;
+    for (rti = 1; rti < root->simple_rel_array_size; rti++) {
+        RelOptInfo *base_rel = root->simple_rel_array[rti];
+
+        if (base_rel == NULL || IS_DUMMY_REL(base_rel))
+            continue;
+
+        if (IS_SIMPLE_REL(base_rel))
+            total_pages += (double) base_rel->pages;
+    }
+    root->total_table_pages = total_pages;
+
+    // Generate access paths for each base relation
+    set_base_rel_pathlists(root);
+
+    // Generate access paths for the complete join tree
+    rel = make_rel_from_joinlist(root, joinlist);
+
+    return rel;
+}
+```

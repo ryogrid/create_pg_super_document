@@ -27,3 +27,18 @@ This function checks if the array element type associated with a given type cach
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as part of the type caching system. It ensures lazy evaluation of element properties - the properties are only cached when first needed. The function is primarily used by the type cache lookup functionality to determine capabilities of array element types for comparison operations.
+
+## Simplified Source
+
+```c
+static bool
+array_element_has_compare(TypeCacheEntry *typentry)
+{
+    // Ensure element properties are cached
+    if (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))
+        cache_array_element_properties(typentry);
+
+    // Return whether element type has comparison support
+    return (typentry->flags & TCFLAGS_HAVE_ELEM_COMPARE) != 0;
+}
+```

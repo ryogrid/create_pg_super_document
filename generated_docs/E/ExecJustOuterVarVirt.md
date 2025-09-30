@@ -35,3 +35,14 @@ The function delegates the actual work to ExecJustVarVirtImpl, passing the outer
 - Works in conjunction with join execution nodes that maintain inner and outer tuple contexts
 - The "Virt" suffix indicates this is the virtual slot optimized version, contrasting with the general ExecJustOuterVar function
 - Complements ExecJustInnerVarVirt to provide complete coverage of join relation variable access patterns
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustOuterVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Extract variable value from outer tuple using virtual slot optimization
+    return ExecJustVarVirtImpl(state, econtext->ecxt_outertuple, isnull);
+}
+```

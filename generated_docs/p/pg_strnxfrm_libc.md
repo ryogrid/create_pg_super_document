@@ -64,3 +64,33 @@ LC_ALL=: Locale specification for transformation rules
 - The function ensures the destination buffer is null-terminated when result fits
 - Memory management is handled automatically with cleanup for heap-allocated buffers
 - Located in src/backend/utils/adt/pg_locale.c:2194-2225
+
+## Simplified Source
+```c
+static size_t
+pg_strnxfrm_libc(char *dest, const char *src, size_t srclen, size_t destsize,
+                 pg_locale_t locale)
+{
+    char sbuf[TEXTBUFLEN];
+    char *buf = sbuf;
+    size_t bufsize = srclen + 1;
+    size_t result;
+
+    // Use heap buffer for large strings
+    if (bufsize > TEXTBUFLEN)
+        buf = palloc(bufsize);
+
+    // Create null-terminated copy
+    memcpy(buf, src, srclen);
+    buf[srclen] = '\0';
+
+    // Transform using libc function
+    result = pg_strxfrm_libc(dest, buf, destsize, locale);
+
+    // Cleanup heap allocation if used
+    if (buf != sbuf)
+        pfree(buf);
+
+    return result;
+}
+```

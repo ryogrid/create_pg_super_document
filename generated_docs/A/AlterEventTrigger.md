@@ -51,3 +51,47 @@ The function supports different enabling modes including completely disabled, en
 - Supports all standard trigger firing modes: disabled, normal, always, and replica-only
 - Post-alter hooks are invoked to allow other subsystems to respond to the change
 - Memory management includes proper cleanup of the tuple copy
+
+## Simplified Source
+
+```c
+Oid AlterEventTrigger(AlterEventTrigStmt *stmt) {
+    Relation tgrel;
+    HeapTuple tup;
+    Oid trigoid;
+    Form_pg_event_trigger evtForm;
+    char tgenabled = stmt->tgenabled;
+
+    // Open pg_event_trigger catalog
+    tgrel = table_open(EventTriggerRelationId, RowExclusiveLock);
+
+    // Find the event trigger by name
+    tup = SearchSysCacheCopy1(EVENTTRIGGERNAME, CStringGetDatum(stmt->trigname));
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, "event trigger \"%s\" does not exist", stmt->trigname);
+
+    evtForm = (Form_pg_event_trigger) GETSTRUCT(tup);
+    trigoid = evtForm->oid;
+
+    // Check ownership permissions
+    if (!object_ownercheck(EventTriggerRelationId, trigoid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_EVENT_TRIGGER, stmt->trigname);
+
+    // Update the enabled status
+    evtForm->evtenabled = tgenabled;
+    CatalogTupleUpdate(tgrel, &tup->t_self, tup);
+
+    // Special handling for login event triggers
+    if (namestrcmp(&evtForm->evtevent, "login") == 0 &&
+        tgenabled != TRIGGER_DISABLED) {
+        SetDatabaseHasLoginEventTriggers();
+    }
+
+    // Invoke post-alter hooks and cleanup
+    InvokeObjectPostAlterHook(EventTriggerRelationId, trigoid, 0);
+    heap_freetuple(tup);
+    table_close(tgrel, RowExclusiveLock);
+
+    return trigoid;
+}
+```

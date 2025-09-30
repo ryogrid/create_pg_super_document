@@ -49,3 +49,73 @@ The function ensures data consistency by acquiring exclusive locks and maintaini
 - Uses system catalog scans with appropriate indexes for efficient trigger lookup
 - Returns an ObjectAddress pointing to the renamed trigger for dependency tracking
 - Maintains trigger name consistency across partition hierarchies to ensure pg_dump compatibility
+
+## Simplified Source
+
+```c
+ObjectAddress
+renametrig(RenameStmt *stmt)
+{
+    Oid tgoid;
+    Relation targetrel;
+    Relation tgrel;
+    HeapTuple tuple;
+    SysScanDesc tgscan;
+    ScanKeyData key[2];
+    Oid relid;
+    ObjectAddress address;
+
+    // Get relation OID with exclusive lock and permission checks
+    relid = RangeVarGetRelidExtended(stmt->relation, AccessExclusiveLock, 0,
+                                     RangeVarCallbackForRenameTrigger, NULL);
+
+    // Open the target relation
+    targetrel = relation_open(relid, NoLock);
+
+    // For partitioned tables, lock all partitions upfront
+    if (targetrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        (void) find_all_inheritors(relid, AccessExclusiveLock, NULL);
+
+    // Open trigger catalog
+    tgrel = table_open(TriggerRelationId, RowExclusiveLock);
+
+    // Search for the trigger to rename
+    ScanKeyInit(&key[0], Anum_pg_trigger_tgrelid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relid));
+    ScanKeyInit(&key[1], Anum_pg_trigger_tgname, BTEqualStrategyNumber, F_NAMEEQ, PointerGetDatum(stmt->subname));
+
+    tgscan = systable_beginscan(tgrel, TriggerRelidNameIndexId, true, NULL, 2, key);
+
+    if (HeapTupleIsValid(tuple = systable_getnext(tgscan))) {
+        Form_pg_trigger trigform = (Form_pg_trigger) GETSTRUCT(tuple);
+        tgoid = trigform->oid;
+
+        // Check if this is a partition trigger (cannot rename independently)
+        if (OidIsValid(trigform->tgparentid))
+            ereport(ERROR, "cannot rename partition trigger, rename parent trigger instead");
+
+        // Rename the trigger on this relation
+        renametrig_internal(tgrel, targetrel, tuple, stmt->newname, stmt->subname);
+
+        // If partitioned table, recursively rename triggers on all partitions
+        if (targetrel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+            PartitionDesc partdesc = RelationGetPartitionDesc(targetrel, true);
+
+            for (int i = 0; i < partdesc->nparts; i++) {
+                Oid partitionId = partdesc->oids[i];
+                renametrig_partition(tgrel, partitionId, trigform->oid,
+                                   stmt->newname, stmt->subname);
+            }
+        }
+    } else {
+        ereport(ERROR, "trigger does not exist");
+    }
+
+    // Cleanup and return
+    ObjectAddressSet(address, TriggerRelationId, tgoid);
+    systable_endscan(tgscan);
+    table_close(tgrel, RowExclusiveLock);
+    relation_close(targetrel, NoLock);
+
+    return address;
+}
+```

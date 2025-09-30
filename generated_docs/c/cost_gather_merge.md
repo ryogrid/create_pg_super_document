@@ -44,3 +44,53 @@ The costing model accounts for the algorithmic complexity of merging multiple so
 
 ## Notes and Other Information
 The function implements a sophisticated costing model that reflects the O(N log N) complexity of heap-based merge operations. The 5% communication cost penalty acknowledges that gather merge requires more coordination than regular gather since it must wait for tuples from all workers to maintain sort order. The algorithm assumes each tuple comparison costs twice the standard CPU operator cost to account for the overhead of heap maintenance operations.
+
+## Simplified Source
+
+```c
+void
+cost_gather_merge(GatherMergePath *path, PlannerInfo *root,
+                  RelOptInfo *rel, ParamPathInfo *param_info,
+                  Cost input_startup_cost, Cost input_total_cost,
+                  double *rows)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+
+    // Set row estimate
+    if (rows)
+        path->path.rows = *rows;
+    else if (param_info)
+        path->path.rows = param_info->ppi_rows;
+    else
+        path->path.rows = rel->rows;
+
+    // Add penalty if gather merge is disabled
+    if (!enable_gathermerge)
+        startup_cost += disable_cost;
+
+    // Calculate merge complexity: N workers + 1 leader
+    double N = (double) path->num_workers + 1;
+    double logN = LOG2(N);
+
+    // Cost per tuple comparison (heap operations)
+    Cost comparison_cost = 2.0 * cpu_operator_cost;
+
+    // Heap creation: N*log(N) comparisons
+    startup_cost += comparison_cost * N * logN;
+
+    // Per-tuple maintenance: log(N) comparisons per tuple
+    run_cost += path->path.rows * comparison_cost * logN;
+
+    // Additional heap management overhead
+    run_cost += cpu_operator_cost * path->path.rows;
+
+    // Parallel coordination costs (5% penalty vs regular gather)
+    startup_cost += parallel_setup_cost;
+    run_cost += parallel_tuple_cost * path->path.rows * 1.05;
+
+    // Final cost calculation
+    path->path.startup_cost = startup_cost + input_startup_cost;
+    path->path.total_cost = startup_cost + run_cost + input_total_cost;
+}
+```

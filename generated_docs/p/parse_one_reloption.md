@@ -43,3 +43,60 @@ This function is the core parsing logic for individual relation options, called 
 - Provides detailed error messages including valid value ranges for out-of-bounds errors
 - Uses PostgreSQL's standard error reporting system with appropriate error codes
 - Memory management includes conditional freeing based on option type (strings are not freed)
+
+## Simplified Source
+
+```c
+static void parse_one_reloption(relopt_value *option, char *text_str, int text_len, bool validate) {
+    // Check for duplicate option
+    if (option->isset && validate)
+        ereport(ERROR, "parameter specified more than once");
+
+    // Extract value string from "name=value" format
+    value_len = text_len - option->gen->namelen - 1;
+    value = palloc(value_len + 1);
+    memcpy(value, text_str + option->gen->namelen + 1, value_len);
+    value[value_len] = '\0';
+
+    // Parse based on option type
+    switch (option->gen->type) {
+        case RELOPT_TYPE_BOOL:
+            parsed = parse_bool(value, &option->values.bool_val);
+            break;
+
+        case RELOPT_TYPE_INT:
+            parsed = parse_int(value, &option->values.int_val, 0, NULL);
+            // Validate range if specified
+            if (validate && parsed && out_of_bounds)
+                ereport(ERROR, "value out of bounds");
+            break;
+
+        case RELOPT_TYPE_REAL:
+            parsed = parse_real(value, &option->values.real_val, 0, NULL);
+            // Validate range if specified
+            break;
+
+        case RELOPT_TYPE_ENUM:
+            // Search enum members for matching value
+            for (elt = optenum->members; elt->string_val; elt++) {
+                if (pg_strcasecmp(value, elt->string_val) == 0) {
+                    option->values.enum_val = elt->symbol_val;
+                    parsed = true;
+                    break;
+                }
+            }
+            break;
+
+        case RELOPT_TYPE_STRING:
+            option->values.string_val = value;
+            nofree = true;  // Don't free string values
+            parsed = true;
+            break;
+    }
+
+    if (parsed)
+        option->isset = true;
+    if (!nofree)
+        pfree(value);
+}
+```

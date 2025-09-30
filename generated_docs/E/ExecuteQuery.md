@@ -50,3 +50,85 @@ ExecuteQuery retrieves and executes a prepared statement by name, handling param
 - Handles WITH NO DATA option for CREATE TABLE ... AS EXECUTE by setting fetch count to 0
 - Manages plan reference counts carefully to prevent memory leaks between GetCachedPlan and PortalDefineQuery
 - Uses portal interface for consistent query execution and resource management
+
+## Simplified Source
+
+```c
+void ExecuteQuery(ParseState *pstate, ExecuteStmt *stmt, IntoClause *intoClause,
+                 ParamListInfo params, DestReceiver *dest, QueryCompletion *qc)
+{
+    PreparedStatement *entry;
+    CachedPlan *cplan;
+    List *plan_list;
+    ParamListInfo paramLI = NULL;
+    EState *estate = NULL;
+    Portal portal;
+    char *query_string;
+    int eflags;
+    long count;
+
+    // Look up prepared statement by name
+    entry = FetchPreparedStatement(stmt->name, true);
+
+    // Validate prepared statement supports EXECUTE
+    if (!entry->plansource->fixed_result)
+        elog(ERROR, "EXECUTE does not support variable-result cached plans");
+
+    // Evaluate parameters if the prepared statement has them
+    if (entry->plansource->num_params > 0)
+    {
+        estate = CreateExecutorState();
+        estate->es_param_list_info = params;
+        paramLI = EvaluateParams(pstate, entry, stmt->params, estate);
+    }
+
+    // Create portal for execution
+    portal = CreateNewPortal();
+    portal->visible = false;  // Internal use only
+
+    // Copy query string to portal memory context
+    query_string = MemoryContextStrdup(portal->portalContext,
+                                      entry->plansource->query_string);
+
+    // Get cached plan and statement list
+    cplan = GetCachedPlan(entry->plansource, paramLI, NULL, NULL);
+    plan_list = cplan->stmt_list;
+
+    // Define query in portal (critical: no errors between GetCachedPlan and here)
+    PortalDefineQuery(portal, NULL, query_string, entry->plansource->commandTag,
+                     plan_list, cplan);
+
+    // Handle CREATE TABLE ... AS EXECUTE special case
+    if (intoClause)
+    {
+        PlannedStmt *pstmt;
+
+        // Validate it's a single SELECT statement
+        if (list_length(plan_list) != 1)
+            ereport(ERROR, /* prepared statement is not a SELECT */);
+
+        pstmt = linitial_node(PlannedStmt, plan_list);
+        if (pstmt->commandType != CMD_SELECT)
+            ereport(ERROR, /* prepared statement is not a SELECT */);
+
+        // Set appropriate execution flags
+        eflags = GetIntoRelEFlags(intoClause);
+        count = intoClause->skipData ? 0 : FETCH_ALL;
+    }
+    else
+    {
+        // Regular EXECUTE
+        eflags = 0;
+        count = FETCH_ALL;
+    }
+
+    // Execute the query through portal interface
+    PortalStart(portal, paramLI, eflags, GetActiveSnapshot());
+    (void) PortalRun(portal, count, false, true, dest, dest, qc);
+
+    // Cleanup
+    PortalDrop(portal, false);
+    if (estate)
+        FreeExecutorState(estate);
+}
+```

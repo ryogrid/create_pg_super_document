@@ -41,3 +41,28 @@ Unlike LookupExplicitNamespace (which checks for USAGE rights), this function sp
 - Throws an error via aclcheck_error if the user lacks CREATE privileges on the target namespace
 - Returns the namespace OID on successful validation
 - Part of PostgreSQL's namespace resolution and permission checking infrastructure
+
+## Simplified Source
+
+```c
+Oid
+LookupCreationNamespace(const char *nspname)
+{
+    // Handle special case of pg_temp temporary namespace
+    if (strcmp(nspname, "pg_temp") == 0) {
+        // Initialize temp namespace if needed
+        AccessTempTableNamespace(false);
+        return myTempNamespace;
+    }
+
+    // Look up namespace by name
+    Oid namespaceId = get_namespace_oid(nspname, false);
+
+    // Check CREATE privilege on the namespace
+    AclResult aclresult = object_aclcheck(NamespaceRelationId, namespaceId, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, nspname);
+
+    return namespaceId;
+}
+```

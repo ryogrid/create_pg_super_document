@@ -41,3 +41,40 @@ The transformation process involves:
 - Preserves the original location information for error reporting
 - All operands are coerced to boolean type regardless of their original type
 - The function is static, indicating it's only used within the parse_expr.c module
+
+## Simplified Source
+
+```c
+static Node *
+transformBoolExpr(ParseState *pstate, BoolExpr *a)
+{
+    List *args = NIL;
+    const char *opname;
+
+    // Determine operation name for error reporting
+    switch (a->boolop) {
+        case AND_EXPR:
+            opname = "AND";
+            break;
+        case OR_EXPR:
+            opname = "OR";
+            break;
+        case NOT_EXPR:
+            opname = "NOT";
+            break;
+        default:
+            elog(ERROR, "unrecognized boolop: %d", (int) a->boolop);
+            opname = NULL;
+    }
+
+    // Transform and coerce each argument to boolean
+    foreach(lc, a->args) {
+        Node *arg = lfirst(lc);
+        arg = transformExprRecurse(pstate, arg);
+        arg = coerce_to_boolean(pstate, arg, opname);
+        args = lappend(args, arg);
+    }
+
+    return makeBoolExpr(a->boolop, args, a->location);
+}
+```

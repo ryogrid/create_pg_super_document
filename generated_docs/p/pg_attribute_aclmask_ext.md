@@ -57,3 +57,72 @@ The function performs proper memory management for potentially large ACL objects
 - Performs proper ACL detoasting and memory cleanup
 - Does not include superuser bypass logic - this must be handled by callers
 - Provides detailed error messages for different failure scenarios (undefined column, undefined table)
+
+## Simplified Source
+
+```c
+static AclMode pg_attribute_aclmask_ext(Oid table_oid, AttrNumber attnum, Oid roleid,
+                                        AclMode mask, AclMaskHow how, bool *is_missing) {
+    // Look up the column in pg_attribute
+    HeapTuple attTuple = SearchSysCache2(ATTNUM,
+                                        ObjectIdGetDatum(table_oid),
+                                        Int16GetDatum(attnum));
+
+    // Handle missing column
+    if (!HeapTupleIsValid(attTuple)) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return 0;
+        }
+        ereport(ERROR, "attribute does not exist");
+    }
+
+    Form_pg_attribute attributeForm = (Form_pg_attribute) GETSTRUCT(attTuple);
+
+    // Handle dropped column
+    if (attributeForm->attisdropped) {
+        if (is_missing != NULL) {
+            *is_missing = true;
+            ReleaseSysCache(attTuple);
+            return 0;
+        }
+        ereport(ERROR, "attribute does not exist");
+    }
+
+    // Get column's ACL
+    bool isNull;
+    Datum aclDatum = SysCacheGetAttr(ATTNUM, attTuple, Anum_pg_attribute_attacl, &isNull);
+
+    // Quick return if no explicit column ACL (common case)
+    if (isNull) {
+        ReleaseSysCache(attTuple);
+        return 0;
+    }
+
+    // Get table owner from pg_class
+    HeapTuple classTuple = SearchSysCache1(RELOID, ObjectIdGetDatum(table_oid));
+    if (!HeapTupleIsValid(classTuple)) {
+        ReleaseSysCache(attTuple);
+        if (is_missing != NULL) {
+            *is_missing = true;
+            return 0;
+        }
+        ereport(ERROR, "relation does not exist");
+    }
+
+    Form_pg_class classForm = (Form_pg_class) GETSTRUCT(classTuple);
+    Oid ownerId = classForm->relowner;
+    ReleaseSysCache(classTuple);
+
+    // Evaluate ACL permissions
+    Acl *acl = DatumGetAclP(aclDatum);
+    AclMode result = aclmask(acl, roleid, ownerId, mask, how);
+
+    // Clean up detoasted ACL if needed
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+        pfree(acl);
+
+    ReleaseSysCache(attTuple);
+    return result;
+}
+```

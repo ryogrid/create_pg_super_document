@@ -39,3 +39,41 @@ This function iterates through all blocks of a relation's visibility map to coun
 - Race conditions with concurrent table extensions are explicitly ignored as they don't affect accuracy significantly
 - Uses bitwise masking with VISIBLE_MASK8 and FROZEN_MASK8 to count specific bit patterns
 - Part of PostgreSQL's visibility map system for tracking page-level visibility information
+
+## Simplified Source
+
+```c
+void visibilitymap_count(Relation rel, BlockNumber *all_visible, BlockNumber *all_frozen) {
+    BlockNumber nvisible = 0;
+    BlockNumber nfrozen = 0;
+
+    // all_visible parameter is required
+    Assert(all_visible);
+
+    // Iterate through all visibility map blocks
+    for (BlockNumber mapBlock = 0;; mapBlock++) {
+        // Read the visibility map buffer
+        Buffer mapBuffer = vm_readbuf(rel, mapBlock, false);
+        if (!BufferIsValid(mapBuffer)) {
+            break;  // End of map reached
+        }
+
+        // Get the map data (no locking for approximate count)
+        uint64 *map = (uint64 *) PageGetContents(BufferGetPage(mapBuffer));
+
+        // Count visible and frozen bits
+        nvisible += pg_popcount_masked((const char *) map, MAPSIZE, VISIBLE_MASK8);
+        if (all_frozen) {
+            nfrozen += pg_popcount_masked((const char *) map, MAPSIZE, FROZEN_MASK8);
+        }
+
+        ReleaseBuffer(mapBuffer);
+    }
+
+    // Return the counts
+    *all_visible = nvisible;
+    if (all_frozen) {
+        *all_frozen = nfrozen;
+    }
+}
+```

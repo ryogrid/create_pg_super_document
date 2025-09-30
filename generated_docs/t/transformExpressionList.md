@@ -49,3 +49,51 @@ This function performs expression transformation similar to transformTargetList,
 - Does not handle multiassign constructs since they are not expected in expression-only contexts
 - Star expansion behavior is identical to transformTargetList but produces bare expressions instead of TargetEntry nodes
 - When allowDefault is true, SetToDefault nodes pass through unmodified; otherwise they are processed by transformExpr which may generate appropriate errors
+
+## Simplified Source
+
+```c
+List *
+transformExpressionList(ParseState *pstate, List *exprlist,
+                       ParseExprKind exprKind, bool allowDefault) {
+    List *result = NIL;
+    ListCell *lc;
+
+    foreach(lc, exprlist) {
+        Node *e = (Node *) lfirst(lc);
+
+        // Handle "something.*" expansion
+        if (IsA(e, ColumnRef)) {
+            ColumnRef *cref = (ColumnRef *) e;
+            if (IsA(llast(cref->fields), A_Star)) {
+                // Expand column reference star into multiple items
+                result = list_concat(result,
+                                   ExpandColumnRefStar(pstate, cref, false));
+                continue;
+            }
+        } else if (IsA(e, A_Indirection)) {
+            A_Indirection *ind = (A_Indirection *) e;
+            if (IsA(llast(ind->indirection), A_Star)) {
+                // Expand indirection star into multiple items
+                result = list_concat(result,
+                                   ExpandIndirectionStar(pstate, ind,
+                                                       false, exprKind));
+                continue;
+            }
+        }
+
+        // Transform single expression
+        if (allowDefault && IsA(e, SetToDefault)) {
+            // Pass SetToDefault through unmodified when allowed
+            /* do nothing */
+        } else {
+            // Transform the expression normally
+            e = transformExpr(pstate, e, exprKind);
+        }
+
+        result = lappend(result, e);
+    }
+
+    return result;
+}
+```

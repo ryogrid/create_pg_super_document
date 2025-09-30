@@ -31,3 +31,18 @@ The function ensures that the returned name includes proper identifier quoting a
 - Returns a pointer to the buffer data starting from position 1 to skip the leading space that get_opclass_name prepends
 - The returned string includes proper schema qualification and identifier quoting
 - Primarily used when a standalone operator class name string is needed rather than appending to an existing buffer
+
+## Simplified Source
+
+```c
+char *generate_opclass_name(Oid opclass) {
+    StringInfoData buf;
+
+    // Initialize string buffer and get opclass name
+    initStringInfo(&buf);
+    get_opclass_name(opclass, InvalidOid, &buf);
+
+    // Return buffer data, skipping leading space added by get_opclass_name
+    return &buf.data[1];
+}
+```

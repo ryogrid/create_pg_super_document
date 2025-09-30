@@ -41,3 +41,32 @@ The function may return a different pointer than the input if reallocation occur
 - Maintains the state object in the same memory context as the original allocation
 - The function handles both the growth management and the actual data insertion
 - Each trigger state tracks both the trigger OID and its current deferred status
+
+## Simplified Source
+
+```c
+static SetConstraintState SetConstraintStateAddItem(SetConstraintState state,
+                                                   Oid tgoid, bool tgisdeferred) {
+    // Check if we need to expand the array capacity
+    if (state->numstates >= state->numalloc) {
+        int newalloc = state->numalloc * 2;
+
+        // Ensure minimum allocation of 8 entries
+        newalloc = Max(newalloc, 8);
+
+        // Reallocate with new capacity
+        state = (SetConstraintState)
+            repalloc(state,
+                    offsetof(SetConstraintStateData, trigstates) +
+                    newalloc * sizeof(SetConstraintTriggerData));
+        state->numalloc = newalloc;
+    }
+
+    // Add the new trigger state entry
+    state->trigstates[state->numstates].sct_tgoid = tgoid;
+    state->trigstates[state->numstates].sct_tgisdeferred = tgisdeferred;
+    state->numstates++;
+
+    return state; // May be different pointer due to reallocation
+}
+```

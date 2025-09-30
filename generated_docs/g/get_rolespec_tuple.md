@@ -58,3 +58,54 @@ This function is typically used when role DDL operations need access to complete
 - Internal system cache lookups for user/session user should never fail, so elog() is used instead of ereport()
 - The returned tuple provides access to all pg_authid columns including rolname, rolsuper, rolinherit, rolcreaterole, etc.
 - Essential for DDL operations that need to examine or modify role attributes beyond just identity
+
+## Simplified Source
+
+```c
+HeapTuple
+get_rolespec_tuple(const RoleSpec *role)
+{
+    HeapTuple   tuple;
+
+    switch (role->roletype)
+    {
+        case ROLESPEC_CSTRING:
+            // Look up role by name
+            Assert(role->rolename);
+            tuple = SearchSysCache1(AUTHNAME, CStringGetDatum(role->rolename));
+            if (!HeapTupleIsValid(tuple))
+                ereport(ERROR,
+                        (errcode(ERRCODE_UNDEFINED_OBJECT),
+                         errmsg("role \"%s\" does not exist", role->rolename)));
+            break;
+
+        case ROLESPEC_CURRENT_ROLE:
+        case ROLESPEC_CURRENT_USER:
+            // Look up current user by OID
+            tuple = SearchSysCache1(AUTHOID, ObjectIdGetDatum(GetUserId()));
+            if (!HeapTupleIsValid(tuple))
+                elog(ERROR, "cache lookup failed for role %u", GetUserId());
+            break;
+
+        case ROLESPEC_SESSION_USER:
+            // Look up session user by OID
+            tuple = SearchSysCache1(AUTHOID, ObjectIdGetDatum(GetSessionUserId()));
+            if (!HeapTupleIsValid(tuple))
+                elog(ERROR, "cache lookup failed for role %u", GetSessionUserId());
+            break;
+
+        case ROLESPEC_PUBLIC:
+            // PUBLIC is not a real role
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_OBJECT),
+                     errmsg("role \"%s\" does not exist", "public")));
+            tuple = NULL;  // keep compiler happy
+            break;
+
+        default:
+            elog(ERROR, "unexpected role type %d", role->roletype);
+    }
+
+    return tuple;
+}
+```

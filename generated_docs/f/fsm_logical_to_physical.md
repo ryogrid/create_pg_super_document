@@ -40,3 +40,32 @@ The function handles pages at different levels of the FSM tree correctly by adju
 - The calculation accounts for all levels from leaf to root, then adjusts for the actual target level
 - Returns a 0-based block number suitable for physical I/O operations
 - Critical for FSM page access and maintenance operations
+
+## Simplified Source
+
+```c
+static BlockNumber fsm_logical_to_physical(FSMAddress addr)
+{
+    BlockNumber pages;
+    int leafno;
+    int l;
+
+    // Calculate first leaf page number below given page
+    leafno = addr.logpageno;
+    for (l = 0; l < addr.level; l++)
+        leafno *= SlotsPerFSMPage;
+
+    // Count upper level nodes needed to address leaf page
+    pages = 0;
+    for (l = 0; l < FSM_TREE_DEPTH; l++) {
+        pages += leafno + 1;
+        leafno /= SlotsPerFSMPage;
+    }
+
+    // Adjust for actual target level
+    pages -= addr.level;
+
+    // Convert to 0-based block number
+    return pages - 1;
+}
+```

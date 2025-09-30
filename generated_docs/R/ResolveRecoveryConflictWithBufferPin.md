@@ -44,3 +44,53 @@ The function includes deadlock detection logic because deadlocks can occur when 
 - Assumes only UnpinBuffer() and established timeouts can wake up the waiting process
 - Clears all timeouts on exit to avoid interference with other timeout mechanisms
 - Deadlock checks are expensive so they're only performed after deadlock_timeout expires
+
+## Simplified Source
+
+```c
+void ResolveRecoveryConflictWithBufferPin(void) {
+    Assert(InHotStandby);
+
+    TimestampTz limit_time = GetStandbyLimitTime();
+
+    if (GetCurrentTimestamp() >= limit_time && limit_time != 0) {
+        // We're already past the limit - resolve conflicts immediately
+        SendRecoveryConflictWithBufferPin(PROCSIG_RECOVERY_CONFLICT_BUFFERPIN);
+    } else {
+        // Set up timeouts for waiting
+        EnableTimeoutParams timeouts[2];
+        int timeout_count = 0;
+
+        // Set standby timeout if we have a limit time
+        if (limit_time != 0) {
+            timeouts[timeout_count].id = STANDBY_TIMEOUT;
+            timeouts[timeout_count].type = TMPARAM_AT;
+            timeouts[timeout_count].fin_time = limit_time;
+            timeout_count++;
+        }
+
+        // Set deadlock detection timeout
+        got_standby_deadlock_timeout = false;
+        timeouts[timeout_count].id = STANDBY_DEADLOCK_TIMEOUT;
+        timeouts[timeout_count].type = TMPARAM_AFTER;
+        timeouts[timeout_count].delay_ms = DeadlockTimeout;
+        timeout_count++;
+
+        enable_timeouts(timeouts, timeout_count);
+    }
+
+    // Wait for buffer to be unpinned or for timeout
+    ProcWaitForSignal(WAIT_EVENT_BUFFER_PIN);
+
+    // Handle timeout results
+    if (got_standby_delay_timeout)
+        SendRecoveryConflictWithBufferPin(PROCSIG_RECOVERY_CONFLICT_BUFFERPIN);
+    else if (got_standby_deadlock_timeout)
+        SendRecoveryConflictWithBufferPin(PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK);
+
+    // Clean up timeouts
+    disable_all_timeouts(false);
+    got_standby_delay_timeout = false;
+    got_standby_deadlock_timeout = false;
+}
+```

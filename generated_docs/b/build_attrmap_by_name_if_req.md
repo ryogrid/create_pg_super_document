@@ -43,3 +43,26 @@ This function is particularly useful in scenarios where tuple conversion might n
 - Especially useful in partitioning, constraint checking, and replication contexts
 - The "if_req" suffix indicates the conditional nature - map only returned if required
 - Located in `src/backend/access/common/attmap.c:263-289`
+
+## Simplified Source
+
+```c
+AttrMap *build_attrmap_by_name_if_req(TupleDesc indesc,
+                                      TupleDesc outdesc,
+                                      bool missing_ok) {
+    AttrMap *attrMap;
+
+    // Create the attribute mapping by name
+    attrMap = build_attrmap_by_name(indesc, outdesc, missing_ok);
+
+    // Check if the mapping represents a one-to-one match
+    if (check_attrmap_match(indesc, outdesc, attrMap)) {
+        // No conversion needed - free the map and return NULL
+        free_attrmap(attrMap);
+        return NULL;
+    }
+
+    // Conversion is required - return the mapping
+    return attrMap;
+}
+```

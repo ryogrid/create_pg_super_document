@@ -43,3 +43,57 @@ Currently, windowing is implemented using sorting only. In the future, hashing m
 - The function assumes that windowing will always use sorting (no hashing implementation yet)
 - Uses make_pathkeys_for_sortclauses_extended for PARTITION BY to allow redundancy removal
 - Uses regular make_pathkeys_for_sortclauses for ORDER BY to preserve all clauses
+
+## Simplified Source
+
+```c
+static List *
+make_pathkeys_for_window(PlannerInfo *root, WindowClause *wc, List *tlist)
+{
+    List *window_pathkeys = NIL;
+
+    // Validate that partition and order columns are sortable
+    if (!grouping_is_sortable(wc->partitionClause))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not implement window PARTITION BY"),
+                 errdetail("Window partitioning columns must be of sortable datatypes.")));
+
+    if (!grouping_is_sortable(wc->orderClause))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not implement window ORDER BY"),
+                 errdetail("Window ordering columns must be of sortable datatypes.")));
+
+    // First, create pathkeys for PARTITION BY clause
+    if (wc->partitionClause != NIL)
+    {
+        bool sortable;
+
+        // Use extended version that can remove redundant clauses
+        window_pathkeys = make_pathkeys_for_sortclauses_extended(root,
+                                                                &wc->partitionClause,
+                                                                tlist,
+                                                                true,
+                                                                &sortable,
+                                                                false);
+        Assert(sortable);
+    }
+
+    // Then append pathkeys for ORDER BY clause
+    if (wc->orderClause != NIL)
+    {
+        List *orderby_pathkeys = make_pathkeys_for_sortclauses(root,
+                                                               wc->orderClause,
+                                                               tlist);
+
+        // Combine PARTITION BY and ORDER BY pathkeys
+        if (window_pathkeys != NIL)
+            window_pathkeys = append_pathkeys(window_pathkeys, orderby_pathkeys);
+        else
+            window_pathkeys = orderby_pathkeys;
+    }
+
+    return window_pathkeys;
+}
+```

@@ -49,3 +49,66 @@ Key validation steps include:
 - The MIN_ARRAY_SIZE_FOR_HASHED_SAOP threshold prevents hash table overhead for small arrays
 - Critical for performance optimization of large IN/NOT IN clauses in SQL queries
 - Sets up executor-specific fields (hashfuncid, negfuncid) that enable hash-based array evaluation
+
+## Simplified Source
+
+```c
+static bool
+convert_saop_to_hashed_saop_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, ScalarArrayOpExpr))
+    {
+        ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) node;
+        Expr *arrayarg = (Expr *) lsecond(saop->args);
+        Oid lefthashfunc, righthashfunc;
+
+        // Check if array argument is a non-null constant
+        if (arrayarg && IsA(arrayarg, Const) &&
+            !((Const *) arrayarg)->constisnull)
+        {
+            if (saop->useOr)  // Handle IN operations
+            {
+                // Check if operator has compatible hash functions
+                if (get_op_hash_functions(saop->opno, &lefthashfunc, &righthashfunc) &&
+                    lefthashfunc == righthashfunc)
+                {
+                    // Get array size to determine if hashing is worthwhile
+                    ArrayType *arr = (ArrayType *) DatumGetPointer(((Const *) arrayarg)->constvalue);
+                    int nitems = ArrayGetNItems(ARR_NDIM(arr), ARR_DIMS(arr));
+
+                    // Only use hash table for large arrays
+                    if (nitems >= MIN_ARRAY_SIZE_FOR_HASHED_SAOP)
+                        saop->hashfuncid = lefthashfunc;
+                }
+            }
+            else  // Handle NOT IN operations
+            {
+                Oid negator = get_negator(saop->opno);
+
+                // Check if negator operator is hashable
+                if (OidIsValid(negator) &&
+                    get_op_hash_functions(negator, &lefthashfunc, &righthashfunc) &&
+                    lefthashfunc == righthashfunc)
+                {
+                    // Get array size and set up hash functions for NOT IN
+                    ArrayType *arr = (ArrayType *) DatumGetPointer(((Const *) arrayarg)->constvalue);
+                    int nitems = ArrayGetNItems(ARR_NDIM(arr), ARR_DIMS(arr));
+
+                    if (nitems >= MIN_ARRAY_SIZE_FOR_HASHED_SAOP)
+                    {
+                        saop->hashfuncid = lefthashfunc;
+                        saop->negfuncid = get_opcode(negator);  // For executor lookups
+                    }
+                }
+            }
+        }
+        return false;  // Don't recurse into SAOP arguments
+    }
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, convert_saop_to_hashed_saop_walker, NULL);
+}
+```

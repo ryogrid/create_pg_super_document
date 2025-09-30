@@ -64,3 +64,82 @@ The function ensures that all variable references are properly mapped and includ
 - Uses PostgreSQL's expression tree mutator framework for efficient and safe tree traversal
 - Includes paranoia-based copying of objects to prevent unintended side effects
 - The XXX comment indicates areas where the developers noted potential future improvements or clarifications needed
+
+## Simplified Source
+
+```c
+// Simplified version of fix_upper_expr_mutator
+static Node *
+fix_upper_expr_mutator(Node *node, fix_upper_expr_context *context) {
+    Var *replacement_var;
+
+    if (node == NULL)
+        return NULL;
+
+    // Handle variable references
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+        replacement_var = search_indexed_tlist_for_var(var,
+                                                       context->subplan_itlist,
+                                                       context->newvarno,
+                                                       context->rtoffset,
+                                                       context->nrm_match);
+        if (!replacement_var)
+            elog(ERROR, "variable not found in subplan target list");
+        return (Node *) replacement_var;
+    }
+
+    // Handle PlaceHolderVar nodes
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+
+        // Try to find PHV in subplan target list
+        if (context->subplan_itlist->has_ph_vars) {
+            replacement_var = search_indexed_tlist_for_phv(phv,
+                                                           context->subplan_itlist,
+                                                           context->newvarno,
+                                                           context->nrm_match);
+            if (replacement_var)
+                return (Node *) replacement_var;
+        }
+        // If not found, process the contained expression
+        return fix_upper_expr_mutator((Node *) phv->phexpr, context);
+    }
+
+    // Try matching complex expressions
+    if (context->subplan_itlist->has_non_vars) {
+        replacement_var = search_indexed_tlist_for_non_var((Expr *) node,
+                                                           context->subplan_itlist,
+                                                           context->newvarno);
+        if (replacement_var)
+            return (Node *) replacement_var;
+    }
+
+    // Handle special node types
+    if (IsA(node, Param))
+        return fix_param_node(context->root, (Param *) node);
+
+    if (IsA(node, Aggref)) {
+        // Check for min/max aggregate replacement
+        Param *agg_param = find_minmax_agg_replacement_param(context->root, (Aggref *) node);
+        if (agg_param != NULL)
+            return (Node *) copyObject(agg_param);
+    }
+
+    if (IsA(node, AlternativeSubPlan))
+        return fix_upper_expr_mutator(fix_alternative_subplan(context->root,
+                                                              (AlternativeSubPlan *) node,
+                                                              context->num_exec),
+                                      context);
+
+    // Apply common expression fixes and recurse
+    fix_expr_common(context->root, node);
+    return expression_tree_mutator(node, fix_upper_expr_mutator, (void *) context);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names for clarity
+- Added comments explaining each major processing step
+- Simplified the conditional logic flow while preserving all functionality
+- Focused on the core expression transformation algorithm

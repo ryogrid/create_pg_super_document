@@ -38,7 +38,7 @@ The function includes extensive safety checks and can abort the pull-up if condi
 
 ## Parameters / Member Variables
 - : PlannerInfo structure for the parent query
-- : RangeTblRef node representing the subquery in the jointree  
+- : RangeTblRef node representing the subquery in the jointree
 - : RangeTblEntry for the subquery being pulled up
 - : Reference to lowest containing outer join, or NULL
 - : Reference to containing append relation, or NULL
@@ -64,10 +64,90 @@ The function includes extensive safety checks and can abort the pull-up if condi
   -  - During recursive subquery processing
 
 ## Notes and Other Information
-- The function creates a complete PlannerInfo structure for the subquery, duplicating setup from 
+- The function creates a complete PlannerInfo structure for the subquery, duplicating setup from
 - [Variable](../V/Variable.md) replacement requires careful handling of PlaceHolderVars, especially for appendrel members and queries with grouping sets
 - LATERAL subqueries require special handling to propagate lateral markers to child RTEs
 - The function performs extensive validation and can abort pull-up if the subquery becomes non-simple during processing
 - [Range](../R/Range.md) table combination preserves all metadata including row marks and permission info
 - The original subquery is nulled out in the RTE to avoid waste when the query is later pulled up again
 - Returns either the subquery's jointree or a single member if the FromExpr is degenerate
+
+## Simplified Source
+
+```c
+static Node *
+pull_up_simple_subquery(PlannerInfo *root, Node *jtnode, RangeTblEntry *rte,
+                        JoinExpr *lowest_outer_join,
+                        AppendRelInfo *containing_appendrel)
+{
+    Query *parse = root->parse;
+    int varno = ((RangeTblRef *) jtnode)->rtindex;
+    Query *subquery = copyObject(rte->subquery);
+    PlannerInfo *subroot;
+    int rtoffset;
+    pullup_replace_vars_context rvcontext;
+
+    // Create PlannerInfo for subquery and process it
+    subroot = makeNode(PlannerInfo);
+    subroot->parse = subquery;
+    subroot->glob = root->glob;
+    // ... initialize other subroot fields ...
+
+    replace_empty_jointree(subquery);
+
+    if (subquery->hasSubLinks)
+        pull_up_sublinks(subroot);
+
+    preprocess_function_rtes(subroot);
+    pull_up_subqueries(subroot);
+
+    // Re-validate simplicity after processing
+    if (!is_simple_subquery(root, subquery, rte, lowest_outer_join) ||
+        (containing_appendrel != NULL && !is_safe_append_member(subquery)))
+        return jtnode;
+
+    // Flatten join alias vars and adjust variable references
+    subquery->targetList = flatten_join_alias_vars(subroot, subroot->parse,
+                                                   subquery->targetList);
+
+    rtoffset = list_length(parse->rtable);
+    OffsetVarNodes((Node *) subquery, rtoffset, 0);
+    IncrementVarSublevelsUp((Node *) subquery, -1, 1);
+
+    // Set up variable replacement context
+    rvcontext.root = root;
+    rvcontext.targetlist = subquery->targetList;
+    rvcontext.target_rte = rte;
+    rvcontext.varno = varno;
+    rvcontext.wrap_non_vars = (containing_appendrel != NULL || parse->groupingSets);
+
+    // Replace variables throughout parent query
+    perform_pullup_replace_vars(root, &rvcontext, containing_appendrel);
+
+    // Handle LATERAL propagation
+    if (rte->lateral) {
+        // Propagate LATERAL to child RTEs that might have lateral refs
+        foreach(lc, subquery->rtable) {
+            RangeTblEntry *child_rte = lfirst(lc);
+            if (child_rte->rtekind != RTE_JOIN && child_rte->rtekind != RTE_CTE)
+                child_rte->lateral = true;
+        }
+    }
+
+    // Merge range tables and update metadata
+    CombineRangeTables(&parse->rtable, &parse->rteperminfos,
+                       subquery->rtable, subquery->rteperminfos);
+
+    // Update flags and clean up
+    parse->hasSubLinks |= subquery->hasSubLinks;
+    parse->hasRowSecurity |= subquery->hasRowSecurity;
+    rte->subquery = NULL;
+
+    // Return appropriate jointree node
+    if (subquery->jointree->quals == NULL &&
+        list_length(subquery->jointree->fromlist) == 1)
+        return linitial(subquery->jointree->fromlist);
+
+    return (Node *) subquery->jointree;
+}
+```

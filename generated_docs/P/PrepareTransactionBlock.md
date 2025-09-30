@@ -39,3 +39,39 @@ This function handles the execution of a PREPARE TRANSACTION command, which is p
 - Part of PostgreSQL's two-phase commit protocol implementation
 - Handles edge cases where no transaction is active by returning false without error
 - The function design separates state transition from actual prepare logic for architectural reasons
+
+## Simplified Source
+
+```c
+bool PrepareTransactionBlock(const char *gid) {
+    TransactionState s;
+    bool result;
+
+    // End the current transaction block first
+    result = EndTransactionBlock(false);
+
+    // If successful, transition to PREPARE state
+    if (result) {
+        s = CurrentTransactionState;
+
+        // Find the outermost transaction state
+        while (s->parent != NULL) {
+            s = s->parent;
+        }
+
+        if (s->blockState == TBLOCK_END) {
+            // Save GID for PrepareTransaction to find later
+            prepareGID = MemoryContextStrdup(TopTransactionContext, gid);
+
+            // Change state to indicate prepare is pending
+            s->blockState = TBLOCK_PREPARE;
+        } else {
+            // Not in a proper transaction block
+            // EndTransactionBlock already issued a warning
+            result = false;
+        }
+    }
+
+    return result;
+}
+```

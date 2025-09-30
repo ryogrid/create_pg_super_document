@@ -52,3 +52,49 @@ The function returns the array index of the largest qualifying attribute, enabli
 - The minimum size threshold (TOAST_POINTER_SIZE) ensures that compression/externalization will actually save space
 - Different storage types correspond to different TOAST strategies: MAIN (prefer compression), EXTENDED (prefer externalization), EXTERNAL (externalization only)
 - Used multiple times during the TOAST process to iteratively find the next best candidate for processing
+
+## Simplified Source
+
+```c
+int toast_tuple_find_biggest_attribute(ToastTupleContext *ttc,
+                                     bool for_compression, bool check_main) {
+    TupleDesc tupleDesc = ttc->ttc_rel->rd_att;
+    int numAttrs = tupleDesc->natts;
+    int biggest_attno = -1;
+    int32 biggest_size = MAXALIGN(TOAST_POINTER_SIZE);
+    int32 skip_colflags = TOASTCOL_IGNORE;
+    int i;
+
+    // Skip incompressible attributes if searching for compression candidates
+    if (for_compression)
+        skip_colflags |= TOASTCOL_INCOMPRESSIBLE;
+
+    for (i = 0; i < numAttrs; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupleDesc, i);
+
+        // Skip attributes that shouldn't be processed
+        if ((ttc->ttc_attr[i].tai_colflags & skip_colflags) != 0)
+            continue;
+        if (VARATT_IS_EXTERNAL(DatumGetPointer(ttc->ttc_values[i])))
+            continue;
+        if (for_compression &&
+            VARATT_IS_COMPRESSED(DatumGetPointer(ttc->ttc_values[i])))
+            continue;
+
+        // Check storage type requirements
+        if (check_main && att->attstorage != TYPSTORAGE_MAIN)
+            continue;
+        if (!check_main && att->attstorage != TYPSTORAGE_EXTENDED &&
+            att->attstorage != TYPSTORAGE_EXTERNAL)
+            continue;
+
+        // Track the biggest suitable attribute
+        if (ttc->ttc_attr[i].tai_size > biggest_size) {
+            biggest_attno = i;
+            biggest_size = ttc->ttc_attr[i].tai_size;
+        }
+    }
+
+    return biggest_attno;
+}
+```

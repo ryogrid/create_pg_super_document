@@ -49,3 +49,124 @@ The function supports type inference between related polymorphic types (e.g., de
 - Collation handling differs between type families - [range](range.md) types don't use collations
 - The function assumes the parser has already validated argument type consistency
 - Located in src/backend/utils/fmgr/funcapi.c:744-1063
+
+## Simplified Source
+
+```c
+static bool resolve_polymorphic_tupdesc(TupleDesc tupdesc, oidvector *declared_args, Node *call_expr) {
+    int natts = tupdesc->natts;
+    int nargs = declared_args->dim1;
+    bool have_polymorphic_result = false;
+    polymorphic_actuals poly_actuals, anyc_actuals;
+    Oid anycollation = InvalidOid, anycompatcollation = InvalidOid;
+
+    // Check if output has any polymorphic types
+    for (int i = 0; i < natts; i++) {
+        Oid typid = TupleDescAttr(tupdesc, i)->atttypid;
+        if (IsPolymorphicType(typid)) {
+            have_polymorphic_result = true;
+            break;
+        }
+    }
+
+    if (!have_polymorphic_result)
+        return true;
+
+    if (!call_expr)
+        return false;  // No way to resolve types
+
+    // Extract actual types from input arguments
+    memset(&poly_actuals, 0, sizeof(poly_actuals));
+    memset(&anyc_actuals, 0, sizeof(anyc_actuals));
+
+    for (int i = 0; i < nargs; i++) {
+        Oid declared_type = declared_args->values[i];
+        Oid actual_type = get_call_expr_argtype(call_expr, i);
+
+        if (!OidIsValid(actual_type))
+            return false;
+
+        // Store actual types for each polymorphic family
+        switch (declared_type) {
+            case ANYELEMENTOID:
+            case ANYNONARRAYOID:
+            case ANYENUMOID:
+                if (!OidIsValid(poly_actuals.anyelement_type))
+                    poly_actuals.anyelement_type = actual_type;
+                break;
+
+            case ANYARRAYOID:
+                if (!OidIsValid(poly_actuals.anyarray_type))
+                    poly_actuals.anyarray_type = actual_type;
+                break;
+
+            case ANYCOMPATIBLEOID:
+            case ANYCOMPATIBLENONARRAYOID:
+                if (!OidIsValid(anyc_actuals.anyelement_type))
+                    anyc_actuals.anyelement_type = actual_type;
+                break;
+
+            // ... (similar for other polymorphic types)
+        }
+    }
+
+    // Resolve missing types from known ones
+    resolve_missing_polymorphic_types(&poly_actuals);
+    resolve_missing_polymorphic_types(&anyc_actuals);
+
+    // Determine collations
+    if (OidIsValid(poly_actuals.anyelement_type))
+        anycollation = get_typcollation(poly_actuals.anyelement_type);
+    if (OidIsValid(anyc_actuals.anyelement_type))
+        anycompatcollation = get_typcollation(anyc_actuals.anyelement_type);
+
+    // Apply input collation if available
+    Oid inputcollation = exprInputCollation(call_expr);
+    if (OidIsValid(inputcollation)) {
+        if (OidIsValid(anycollation))
+            anycollation = inputcollation;
+        if (OidIsValid(anycompatcollation))
+            anycompatcollation = inputcollation;
+    }
+
+    // Replace polymorphic types in tuple descriptor
+    for (int i = 0; i < natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+        Oid resolved_type = InvalidOid;
+        Oid collation = InvalidOid;
+
+        switch (att->atttypid) {
+            case ANYELEMENTOID:
+            case ANYNONARRAYOID:
+            case ANYENUMOID:
+                resolved_type = poly_actuals.anyelement_type;
+                collation = anycollation;
+                break;
+
+            case ANYARRAYOID:
+                resolved_type = poly_actuals.anyarray_type;
+                collation = anycollation;
+                break;
+
+            case ANYCOMPATIBLEOID:
+            case ANYCOMPATIBLENONARRAYOID:
+                resolved_type = anyc_actuals.anyelement_type;
+                collation = anycompatcollation;
+                break;
+
+            // ... (similar for other polymorphic types)
+
+            default:
+                continue;  // Not a polymorphic type
+        }
+
+        if (OidIsValid(resolved_type)) {
+            TupleDescInitEntry(tupdesc, i + 1, NameStr(att->attname), resolved_type, -1, 0);
+            if (OidIsValid(collation))
+                TupleDescInitEntryCollation(tupdesc, i + 1, collation);
+        }
+    }
+
+    return true;
+}
+```

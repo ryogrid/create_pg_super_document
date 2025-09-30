@@ -46,3 +46,49 @@ A key design consideration is the delayed cleanup of SSL system resources. The f
 - Sets conn->crypto_loaded = false after system cleanup to track callback state
 - Safe to call multiple times on the same connection
 - Critical for preventing memory leaks and callback function pointer issues during library unload
+
+## Simplified Source
+
+```c
+void pgtls_close(PGconn *conn)
+{
+    bool destroy_needed = false;
+
+    if (conn->ssl_in_use) {
+        // Clean up SSL connection
+        if (conn->ssl) {
+            SSL_shutdown(conn->ssl);
+            SSL_free(conn->ssl);
+            conn->ssl = NULL;
+            conn->ssl_in_use = false;
+            conn->ssl_handshake_started = false;
+            destroy_needed = true;
+        }
+
+        // Clean up peer certificate
+        if (conn->peer) {
+            X509_free(conn->peer);
+            conn->peer = NULL;
+        }
+
+#ifdef USE_SSL_ENGINE
+        // Clean up SSL engine if used
+        if (conn->engine) {
+            ENGINE_finish(conn->engine);
+            ENGINE_free(conn->engine);
+            conn->engine = NULL;
+        }
+#endif
+    } else {
+        // Non-SSL case - still need crypto cleanup if loaded
+        if (conn->crypto_loaded)
+            destroy_needed = true;
+    }
+
+    // Remove crypto callbacks after all SSL operations complete
+    if (destroy_needed) {
+        destroy_ssl_system();
+        conn->crypto_loaded = false;
+    }
+}
+```

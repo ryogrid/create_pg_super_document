@@ -51,3 +51,112 @@ The function handles various parsing scenarios including:
 - Nested service specifications are explicitly forbidden and result in error
 - The parser ignores comments (lines starting with #) and empty lines
 - Leading and trailing whitespace is automatically trimmed from each line
+
+## Simplified Source
+
+```c
+static int parseServiceFile(const char *serviceFile, const char *service,
+                           PQconninfoOption *options, PQExpBuffer errorMessage,
+                           bool *group_found) {
+    FILE *file;
+    char line_buffer[1024];
+    char *line;
+    int line_number = 0;
+    bool in_target_section = false;
+    *group_found = false;
+
+    // Open service file
+    file = fopen(serviceFile, "r");
+    if (!file) {
+        libpq_append_error(errorMessage, "service file \"%s\" not found", serviceFile);
+        return 1;
+    }
+
+    // Process each line
+    while ((line = fgets(line_buffer, sizeof(line_buffer), file)) != NULL) {
+        line_number++;
+
+        // Check for overly long lines
+        if (strlen(line) >= sizeof(line_buffer) - 1) {
+            libpq_append_error(errorMessage, "line %d too long in service file \"%s\"",
+                             line_number, serviceFile);
+            fclose(file);
+            return 2;
+        }
+
+        // Trim whitespace
+        int len = strlen(line);
+        while (len > 0 && isspace(line[len - 1])) line[--len] = '\0';
+        while (*line && isspace(*line)) line++;
+
+        // Skip empty lines and comments
+        if (line[0] == '\0' || line[0] == '#') continue;
+
+        // Handle section headers [servicename]
+        if (line[0] == '[') {
+            if (in_target_section) {
+                // Found end of our section
+                break;
+            }
+            // Check if this is our target section
+            if (strncmp(line + 1, service, strlen(service)) == 0 &&
+                line[strlen(service) + 1] == ']') {
+                in_target_section = true;
+                *group_found = true;
+            } else {
+                in_target_section = false;
+            }
+        }
+        // Handle key=value pairs within target section
+        else if (in_target_section) {
+            char *key = line;
+            char *value = strchr(line, '=');
+
+            if (!value) {
+                libpq_append_error(errorMessage, "syntax error in service file \"%s\", line %d",
+                                 serviceFile, line_number);
+                fclose(file);
+                return 3;
+            }
+
+            *value++ = '\0';  // Split key and value
+
+            // Reject nested service specifications
+            if (strcmp(key, "service") == 0) {
+                libpq_append_error(errorMessage,
+                    "nested service specifications not supported in service file \"%s\", line %d",
+                    serviceFile, line_number);
+                fclose(file);
+                return 3;
+            }
+
+            // Store the parameter value if it's a valid option
+            bool found_option = false;
+            for (int i = 0; options[i].keyword; i++) {
+                if (strcmp(options[i].keyword, key) == 0) {
+                    if (options[i].val == NULL) {  // Don't override existing values
+                        options[i].val = strdup(value);
+                        if (!options[i].val) {
+                            libpq_append_error(errorMessage, "out of memory");
+                            fclose(file);
+                            return 3;
+                        }
+                    }
+                    found_option = true;
+                    break;
+                }
+            }
+
+            if (!found_option) {
+                libpq_append_error(errorMessage, "syntax error in service file \"%s\", line %d",
+                                 serviceFile, line_number);
+                fclose(file);
+                return 3;
+            }
+        }
+    }
+
+    fclose(file);
+    return 0;  // Success
+}
+```

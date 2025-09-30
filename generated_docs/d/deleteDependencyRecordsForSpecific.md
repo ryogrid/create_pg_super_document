@@ -45,3 +45,46 @@ The function scans the pg_depend catalog table using the depender object as the 
 - Uses the same scanning strategy as deleteDependencyRecordsForClass but with additional filtering on the specific dependee object
 - Particularly useful in scenarios involving ALTER ... [NO] DEPENDS ON commands where precise dependency relationships need to be established or removed
 - The function's precision makes it suitable for operations that modify specific object-to-object relationships without affecting broader dependency patterns
+
+## Simplified Source
+
+```c
+long deleteDependencyRecordsForSpecific(Oid classId, Oid objectId, char deptype,
+                                       Oid refclassId, Oid refobjectId) {
+    long count = 0;
+    Relation depRel;
+    ScanKeyData key[2];
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open the dependency catalog table
+    depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Set up scan keys for the depender object
+    ScanKeyInit(&key[0], Anum_pg_depend_classid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(objectId));
+
+    // Scan for dependency records from this object
+    scan = systable_beginscan(depRel, DependDependerIndexId, true, NULL, 2, key);
+
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_depend depform = (Form_pg_depend) GETSTRUCT(tup);
+
+        // Check if this dependency matches our specific target
+        if (depform->refclassid == refclassId &&
+            depform->refobjid == refobjectId &&
+            depform->deptype == deptype) {
+            // Delete this specific dependency record
+            CatalogTupleDelete(depRel, &tup->t_self);
+            count++;
+        }
+    }
+
+    systable_endscan(scan);
+    table_close(depRel, RowExclusiveLock);
+
+    return count;
+}
+```

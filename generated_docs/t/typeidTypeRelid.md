@@ -37,3 +37,27 @@ The function performs a system cache lookup on the TYPEOID cache to efficiently 
 - Throws an ERROR if the type OID is not found in the system catalog
 - Uses system cache for efficient lookup
 - The typrelid field in pg_type points to the pg_class entry for composite types
+
+## Simplified Source
+
+```c
+Oid
+typeidTypeRelid(Oid type_id)
+{
+    HeapTuple typeTuple;
+    Form_pg_type type;
+    Oid result;
+
+    // Look up type in system catalog
+    typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type_id));
+    if (!HeapTupleIsValid(typeTuple))
+        elog(ERROR, "cache lookup failed for type %u", type_id);
+
+    // Extract relation OID from type structure
+    type = (Form_pg_type) GETSTRUCT(typeTuple);
+    result = type->typrelid;
+
+    ReleaseSysCache(typeTuple);
+    return result;
+}
+```

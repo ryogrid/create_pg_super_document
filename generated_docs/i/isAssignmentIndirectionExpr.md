@@ -34,3 +34,43 @@ The function handles several expression types including FieldStore (for record f
 - Recursively processes CoerceToDomain and RelabelType to look through type coercions
 - CaseTestExpr typically appears directly at the top level rather than deeply nested
 - Essential for optimizing assignment operations by avoiding unnecessary old value fetches
+
+## Simplified Source
+
+```c
+static bool
+isAssignmentIndirectionExpr(Expr *expr)
+{
+    if (expr == NULL)
+        return false;
+
+    // Check for FieldStore with CaseTestExpr argument
+    if (IsA(expr, FieldStore))
+    {
+        FieldStore *fstore = (FieldStore *) expr;
+        if (fstore->arg && IsA(fstore->arg, CaseTestExpr))
+            return true;
+    }
+    // Check for SubscriptingRef with CaseTestExpr reference
+    else if (IsA(expr, SubscriptingRef))
+    {
+        SubscriptingRef *sbsRef = (SubscriptingRef *) expr;
+        if (sbsRef->refexpr && IsA(sbsRef->refexpr, CaseTestExpr))
+            return true;
+    }
+    // Look through domain coercion
+    else if (IsA(expr, CoerceToDomain))
+    {
+        CoerceToDomain *cd = (CoerceToDomain *) expr;
+        return isAssignmentIndirectionExpr(cd->arg);
+    }
+    // Look through type relabeling
+    else if (IsA(expr, RelabelType))
+    {
+        RelabelType *r = (RelabelType *) expr;
+        return isAssignmentIndirectionExpr(r->arg);
+    }
+
+    return false;
+}
+```

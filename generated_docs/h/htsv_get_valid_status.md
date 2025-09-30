@@ -37,3 +37,15 @@ The function is designed to catch programming errors during development where vi
 - Guards against accessing uninitialized visibility status values
 - Essential for maintaining the integrity of the once-per-tuple visibility calculation optimization
 - Return type conversion from int to HTSV_Result enum provides type safety
+
+## Simplified Source
+
+```c
+static inline HTSV_Result htsv_get_valid_status(int status) {
+    // Validate that the cached visibility status is within valid range
+    Assert(status >= HEAPTUPLE_DEAD && status <= HEAPTUPLE_DELETE_IN_PROGRESS);
+
+    // Convert integer status back to proper enum type
+    return (HTSV_Result) status;
+}
+```

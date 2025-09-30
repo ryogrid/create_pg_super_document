@@ -87,3 +87,116 @@ The function carefully manages jump targets and implements complex control flow 
 - Manages complex control flow with multiple jump targets for efficient evaluation
 - Pre-loads constant arguments (typioparam and typmod) for I/O coercion function calls
 - Essential for PostgreSQL's JSON/SQL standard compliance, supporting JSON_VALUE, JSON_QUERY, and JSON_EXISTS operations
+
+## Simplified Source
+
+```c
+static void
+ExecInitJsonExpr(JsonExpr *jsexpr, ExprState *state,
+                 Datum *resv, bool *resnull,
+                 ExprEvalStep *scratch)
+{
+    JsonExprState *jsestate = palloc0(sizeof(JsonExprState));
+    List *jumps_return_null = NIL;
+    List *jumps_to_end = NIL;
+    bool returning_domain = get_typtype(jsexpr->returning->typid) == TYPTYPE_DOMAIN;
+
+    jsestate->jsexpr = jsexpr;
+
+    // Initialize formatted_expr evaluation
+    ExecInitExprRec((Expr *) jsexpr->formatted_expr, state,
+                    &jsestate->formatted_expr.value,
+                    &jsestate->formatted_expr.isnull);
+
+    // Add jump to return NULL if formatted_expr is NULL
+    jumps_return_null = lappend_int(jumps_return_null, state->steps_len);
+    scratch->opcode = EEOP_JUMP_IF_NULL;
+    scratch->resnull = &jsestate->formatted_expr.isnull;
+    ExprEvalPushStep(state, scratch);
+
+    // Initialize pathspec evaluation
+    ExecInitExprRec((Expr *) jsexpr->path_spec, state,
+                    &jsestate->pathspec.value,
+                    &jsestate->pathspec.isnull);
+
+    // Add jump to return NULL if pathspec is NULL
+    jumps_return_null = lappend_int(jumps_return_null, state->steps_len);
+    scratch->opcode = EEOP_JUMP_IF_NULL;
+    scratch->resnull = &jsestate->pathspec.isnull;
+    ExprEvalPushStep(state, scratch);
+
+    // Initialize PASSING arguments
+    jsestate->args = NIL;
+    foreach(argexprlc, jsexpr->passing_values)
+    {
+        Expr *argexpr = (Expr *) lfirst(argexprlc);
+        String *argname = lfirst_node(String, argnamelc);
+        JsonPathVariable *var = palloc(sizeof(*var));
+
+        var->name = argname->sval;
+        var->namelen = strlen(var->name);
+        var->typid = exprType((Node *) argexpr);
+        var->typmod = exprTypmod((Node *) argexpr);
+
+        ExecInitExprRec((Expr *) argexpr, state, &var->value, &var->isnull);
+        jsestate->args = lappend(jsestate->args, var);
+    }
+
+    // Main JSONPath evaluation step
+    scratch->opcode = EEOP_JSONEXPR_PATH;
+    scratch->resvalue = resv;
+    scratch->resnull = resnull;
+    scratch->d.jsonexpr.jsestate = jsestate;
+    ExprEvalPushStep(state, scratch);
+
+    // Set up NULL return step for NULL inputs
+    foreach(lc, jumps_return_null)
+    {
+        ExprEvalStep *as = &state->steps[lfirst_int(lc)];
+        as->d.jump.jumpdone = state->steps_len;
+    }
+    scratch->opcode = EEOP_CONST;
+    scratch->d.constval.isnull = true;
+    ExprEvalPushStep(state, scratch);
+
+    // Initialize coercion handling
+    if (jsexpr->use_json_coercion)
+    {
+        jsestate->jump_eval_coercion = state->steps_len;
+        ExecInitJsonCoercion(state, jsexpr->returning, escontext,
+                            jsexpr->omit_quotes,
+                            jsexpr->op == JSON_EXISTS_OP,
+                            resv, resnull);
+    }
+    else if (jsexpr->use_io_coercion)
+    {
+        // Setup I/O coercion function call info
+        getTypeInputInfo(jsexpr->returning->typid, &typinput, &typioparam);
+        // Initialize function call with constant arguments
+        jsestate->input_fcinfo = setup_fcinfo_for_input_function();
+    }
+
+    // Initialize ON ERROR behavior
+    if (jsexpr->on_error->btype != JSON_BEHAVIOR_ERROR && needs_error_handling)
+    {
+        jsestate->jump_error = state->steps_len;
+        setup_error_handling_steps();
+    }
+
+    // Initialize ON EMPTY behavior
+    if (jsexpr->on_empty != NULL && needs_empty_handling)
+    {
+        jsestate->jump_empty = state->steps_len;
+        setup_empty_handling_steps();
+    }
+
+    // Finalize all jump targets
+    foreach(lc, jumps_to_end)
+    {
+        ExprEvalStep *as = &state->steps[lfirst_int(lc)];
+        as->d.jump.jumpdone = state->steps_len;
+    }
+
+    jsestate->jump_end = state->steps_len;
+}
+```

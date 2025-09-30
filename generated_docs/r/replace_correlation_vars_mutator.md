@@ -48,3 +48,52 @@ For each type of uplevel reference, it delegates to a specialized replacement fu
 - Part of the correlation variable resolution system that enables proper subquery parameter passing
 - The mutator pattern ensures that all nodes in complex expression trees are properly processed
 - Critical for converting correlated subqueries into parameterized subplans that can be executed efficiently
+
+## Simplified Source
+
+```c
+static Node *
+replace_correlation_vars_mutator(Node *node, PlannerInfo *root)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Replace outer-level variables with Param nodes
+    if (IsA(node, Var))
+    {
+        if (((Var *) node)->varlevelsup > 0)
+            return (Node *) replace_outer_var(root, (Var *) node);
+    }
+
+    // Replace outer-level placeholder variables
+    if (IsA(node, PlaceHolderVar))
+    {
+        if (((PlaceHolderVar *) node)->phlevelsup > 0)
+            return (Node *) replace_outer_placeholdervar(root, (PlaceHolderVar *) node);
+    }
+
+    // Replace outer-level aggregate references
+    if (IsA(node, Aggref))
+    {
+        if (((Aggref *) node)->agglevelsup > 0)
+            return (Node *) replace_outer_agg(root, (Aggref *) node);
+    }
+
+    // Replace outer-level grouping functions
+    if (IsA(node, GroupingFunc))
+    {
+        if (((GroupingFunc *) node)->agglevelsup > 0)
+            return (Node *) replace_outer_grouping(root, (GroupingFunc *) node);
+    }
+
+    // Replace merge support functions (outside MERGE commands)
+    if (IsA(node, MergeSupportFunc))
+    {
+        if (root->parse->commandType != CMD_MERGE)
+            return (Node *) replace_outer_merge_support(root, (MergeSupportFunc *) node);
+    }
+
+    // Continue tree traversal for other node types
+    return expression_tree_mutator(node, replace_correlation_vars_mutator, (void *) root);
+}
+```

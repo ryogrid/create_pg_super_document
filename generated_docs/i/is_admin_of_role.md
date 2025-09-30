@@ -47,3 +47,25 @@ The function uses `roles_is_member_of` to traverse the role hierarchy and check 
 - This function is crucial for PostgreSQL's role-based security model and administrative operations
 - The admin role tracking allows for precise privilege attribution in complex role hierarchies
 - Located in `src/backend/utils/adt/acl.c:5281-5305`
+
+## Simplified Source
+
+```c
+bool
+is_admin_of_role(Oid member, Oid role)
+{
+    Oid         admin_role;
+
+    // Superusers have admin rights over all roles
+    if (superuser_arg(member))
+        return true;
+
+    // A role cannot have admin option on itself (policy restriction)
+    if (member == role)
+        return false;
+
+    // Check if member has admin privileges through role membership
+    (void) roles_is_member_of(member, ROLERECURSE_MEMBERS, role, &admin_role);
+    return OidIsValid(admin_role);
+}
+```

@@ -45,3 +45,60 @@ This function generates a display-ready relation name by looking up the relation
 - Uses system cache lookups for efficient relation metadata retrieval
 - Part of the broader ruleutils.c infrastructure for generating readable SQL from internal representations
 - The returned string is palloc'd and must be freed by the caller
+
+## Simplified Source
+
+```c
+static char *generate_relation_name(Oid relid, List *namespaces) {
+    HeapTuple tp;
+    Form_pg_class reltup;
+    bool need_qual;
+    ListCell *nslist;
+    char *relname;
+    char *nspname;
+    char *result;
+
+    // Look up relation information in system cache
+    tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    reltup = (Form_pg_class) GETSTRUCT(tp);
+    relname = NameStr(reltup->relname);
+
+    // Check for conflicting CTE names in all namespaces
+    need_qual = false;
+    foreach(nslist, namespaces) {
+        deparse_namespace *dpns = (deparse_namespace *) lfirst(nslist);
+        ListCell *ctlist;
+
+        foreach(ctlist, dpns->ctes) {
+            CommonTableExpr *cte = (CommonTableExpr *) lfirst(ctlist);
+
+            if (strcmp(cte->ctename, relname) == 0) {
+                need_qual = true;
+                break;
+            }
+        }
+        if (need_qual)
+            break;
+    }
+
+    // If no CTE conflict, check if relation is visible in search path
+    if (!need_qual)
+        need_qual = !RelationIsVisible(relid);
+
+    // Get schema name if qualification is needed
+    if (need_qual)
+        nspname = get_namespace_name_or_temp(reltup->relnamespace);
+    else
+        nspname = NULL;
+
+    // Create properly quoted and qualified identifier
+    result = quote_qualified_identifier(nspname, relname);
+
+    ReleaseSysCache(tp);
+
+    return result;
+}
+```

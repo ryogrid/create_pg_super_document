@@ -41,3 +41,22 @@ This approach trades some performance (lseek overhead) for correctness, ensuring
 - The cached nblocks optimization avoids expensive system calls for most common cases
 - Critical for maintaining FSM accuracy during crash recovery operations
 - The trade-off between performance and correctness favors correctness to prevent FSM inconsistencies
+
+## Simplified Source
+
+```c
+static bool fsm_does_block_exist(Relation rel, BlockNumber blknumber)
+{
+    SMgrRelation smgr = RelationGetSmgr(rel);
+
+    // Fast path: check cached block count first
+    if (BlockNumberIsValid(smgr->smgr_cached_nblocks[MAIN_FORKNUM]) &&
+        blknumber < smgr->smgr_cached_nblocks[MAIN_FORKNUM]) {
+        return true; // Block definitely exists
+    }
+
+    // Fallback: get fresh block count (incurs lseek overhead)
+    // This ensures we don't miss blocks that were recently extended
+    return blknumber < RelationGetNumberOfBlocks(rel);
+}
+```

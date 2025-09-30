@@ -41,3 +41,46 @@ When parallel execution is involved, the function can enforce parallel-safe requ
 - Optimizes list handling by returning the original query_pathkeys pointer when possible
 - Future enhancements may consider pathkeys useful for merge joins beyond query ordering
 - Critical for enabling parallelized incremental sorts under Gather Merge nodes
+
+## Simplified Source
+
+```c
+static List *
+get_useful_pathkeys_for_relation(PlannerInfo *root, RelOptInfo *rel,
+                                 bool require_parallel_safe)
+{
+    List *useful_pathkeys_list = NIL;
+
+    // Check if query has ordering requirements
+    if (root->query_pathkeys) {
+        int valid_pathkeys = 0;
+
+        // Examine each pathkey in the query's ordering requirements
+        foreach(lc, root->query_pathkeys) {
+            PathKey *pathkey = lfirst(lc);
+            EquivalenceClass *pathkey_ec = pathkey->pk_eclass;
+
+            // Verify pathkey can be computed early and safely from relation
+            if (!relation_can_be_sorted_early(root, rel, pathkey_ec,
+                                              require_parallel_safe))
+                break;  // Stop at first invalid pathkey
+
+            valid_pathkeys++;
+        }
+
+        // Return appropriate pathkey list based on validation results
+        if (valid_pathkeys == list_length(root->query_pathkeys)) {
+            // All pathkeys valid - return original list
+            useful_pathkeys_list = lappend(useful_pathkeys_list,
+                                          root->query_pathkeys);
+        } else if (valid_pathkeys > 0) {
+            // Some pathkeys valid - return prefix for incremental sort
+            useful_pathkeys_list = lappend(useful_pathkeys_list,
+                                          list_copy_head(root->query_pathkeys,
+                                                        valid_pathkeys));
+        }
+    }
+
+    return useful_pathkeys_list;
+}
+```

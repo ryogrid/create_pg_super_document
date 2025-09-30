@@ -28,3 +28,25 @@ This function determines if the element type of a range type has extended hashin
 
 ## Notes and Other Information
 This is a static helper function within the type cache system. The function follows a lazy evaluation pattern - it only computes and caches the element properties when they haven't been checked before. The extended hashing capability is important for performance optimizations in hash-based operations like hash joins and hash partitioning.
+
+## Simplified Source
+
+```c
+// Simplified version of range_element_has_extended_hashing
+static bool
+range_element_has_extended_hashing(TypeCacheEntry *typentry)
+{
+    // Ensure element properties are cached
+    if (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))
+        cache_range_element_properties(typentry);
+
+    // Return whether extended hashing is available
+    return (typentry->flags & TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) != 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved the exact logic and flag checking
+- No complex error handling to remove in this simple function
+- Maintained the lazy evaluation pattern that is core to the function's purpose

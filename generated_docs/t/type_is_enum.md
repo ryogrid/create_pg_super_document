@@ -42,3 +42,14 @@ Enum types have special properties in PostgreSQL:
 - Much simpler than type_is_rowtype() as it doesn't need to handle domain unwrapping (domains over enums are still domains, not enums)
 - Essential for polymorphic type resolution where enum types have specific coercion rules
 - The function assumes the type OID is valid; invalid types would cause get_typtype() to return '\0'
+
+## Simplified Source
+
+```c
+bool
+type_is_enum(Oid typid)
+{
+    // Check if type category is ENUM
+    return (get_typtype(typid) == TYPTYPE_ENUM);
+}
+```

@@ -33,3 +33,40 @@ Additionally, the function updates the dataLength property of dependent items to
 - Debug logging is provided to track dependency transfers for troubleshooting
 - This optimization is particularly important for large databases with many tables and complex dependency relationships
 - The dataLength adjustment helps balance workload distribution in parallel restore scenarios
+
+## Simplified Source
+
+```c
+static void repoint_table_dependencies(ArchiveHandle *AH) {
+    TocEntry *te;
+    int i;
+    DumpId olddep;
+
+    // Iterate through all TOC entries
+    for (te = AH->toc->next; te != AH->toc; te = te->next) {
+        // Only process POST_DATA items
+        if (te->section != SECTION_POST_DATA)
+            continue;
+
+        // Check each dependency
+        for (i = 0; i < te->nDeps; i++) {
+            olddep = te->dependencies[i];
+
+            // If this dependency has corresponding table data
+            if (olddep <= AH->maxDumpId && AH->tableDataId[olddep] != 0) {
+                DumpId tabledataid = AH->tableDataId[olddep];
+                TocEntry *tabledatate = AH->tocsByDumpId[tabledataid];
+
+                // Repoint dependency to table data item
+                te->dependencies[i] = tabledataid;
+
+                // Update data length for job prioritization
+                te->dataLength = Max(te->dataLength, tabledatate->dataLength);
+
+                pg_log_debug("transferring dependency %d -> %d to %d",
+                           te->dumpId, olddep, tabledataid);
+            }
+        }
+    }
+}
+```

@@ -60,3 +60,102 @@ The function includes special handling for RECORD types in row expressions and c
 - Handles RECORD-type constants that appear in EXPLAIN queries with SEARCH/CYCLE clauses by extracting typmod information
 - Located in src/backend/utils/fmgr/funcapi.c at lines 299-409
 - Part of PostgreSQL's function manager API for expression type introspection
+
+## Simplified Source
+
+```c
+TypeFuncClass
+get_expr_result_type(Node *expr, Oid *resultTypeId, TupleDesc *resultTupleDesc)
+{
+    TypeFuncClass result;
+
+    if (expr && IsA(expr, FuncExpr))
+    {
+        // Handle function call expressions
+        FuncExpr *funcexpr = (FuncExpr *) expr;
+        result = internal_get_result_type(funcexpr->funcid, expr, NULL,
+                                        resultTypeId, resultTupleDesc);
+    }
+    else if (expr && IsA(expr, OpExpr))
+    {
+        // Handle operator expressions (convert to underlying function)
+        OpExpr *opexpr = (OpExpr *) expr;
+        Oid funcid = get_opcode(opexpr->opno);
+        result = internal_get_result_type(funcid, expr, NULL,
+                                        resultTypeId, resultTupleDesc);
+    }
+    else if (expr && IsA(expr, RowExpr) &&
+             ((RowExpr *) expr)->row_typeid == RECORDOID)
+    {
+        // Handle row constructor expressions - build tupdesc directly
+        RowExpr *rexpr = (RowExpr *) expr;
+        TupleDesc tupdesc = CreateTemplateTupleDesc(list_length(rexpr->args));
+        AttrNumber i = 1;
+
+        // Initialize each column from row expression
+        forboth(lcc, rexpr->args, lcn, rexpr->colnames)
+        {
+            Node *col = (Node *) lfirst(lcc);
+            char *colname = strVal(lfirst(lcn));
+
+            TupleDescInitEntry(tupdesc, i, colname,
+                             exprType(col), exprTypmod(col), 0);
+            TupleDescInitEntryCollation(tupdesc, i, exprCollation(col));
+            i++;
+        }
+
+        if (resultTypeId)
+            *resultTypeId = rexpr->row_typeid;
+        if (resultTupleDesc)
+            *resultTupleDesc = BlessTupleDesc(tupdesc);
+        return TYPEFUNC_COMPOSITE;
+    }
+    else if (expr && IsA(expr, Const) &&
+             ((Const *) expr)->consttype == RECORDOID &&
+             !((Const *) expr)->constisnull)
+    {
+        // Handle RECORD-type constants (e.g., from EXPLAIN with SEARCH/CYCLE)
+        HeapTupleHeader rec = DatumGetHeapTupleHeader(((Const *) expr)->constvalue);
+        Oid tupType = HeapTupleHeaderGetTypeId(rec);
+        int32 tupTypmod = HeapTupleHeaderGetTypMod(rec);
+
+        if (resultTypeId)
+            *resultTypeId = tupType;
+
+        if (tupType != RECORDOID || tupTypmod >= 0)
+        {
+            // Can look up the tuple descriptor
+            if (resultTupleDesc)
+                *resultTupleDesc = lookup_rowtype_tupdesc_copy(tupType, tupTypmod);
+            return TYPEFUNC_COMPOSITE;
+        }
+        else
+        {
+            // Anonymous record type
+            if (resultTupleDesc)
+                *resultTupleDesc = NULL;
+            return TYPEFUNC_RECORD;
+        }
+    }
+    else
+    {
+        // Generic expression handling - use expression type utilities
+        Oid typid = exprType(expr);
+        Oid base_typid;
+
+        if (resultTypeId)
+            *resultTypeId = typid;
+        if (resultTupleDesc)
+            *resultTupleDesc = NULL;
+
+        result = get_type_func_class(typid, &base_typid);
+
+        // For composite types, get the tuple descriptor
+        if ((result == TYPEFUNC_COMPOSITE || result == TYPEFUNC_COMPOSITE_DOMAIN) &&
+            resultTupleDesc)
+            *resultTupleDesc = lookup_rowtype_tupdesc_copy(base_typid, -1);
+    }
+
+    return result;
+}
+```

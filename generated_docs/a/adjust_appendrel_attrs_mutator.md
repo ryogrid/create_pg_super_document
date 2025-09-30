@@ -41,3 +41,134 @@ This function implements a comprehensive expression tree walker that handles the
 - Includes extensive assertions to prevent processing of inappropriate node types
 - Maintains varnullingrels information for outer join semantics
 - Returns NULL constants when child relations cannot provide requested row identity values
+
+## Simplified Source
+
+```c
+static Node *
+adjust_appendrel_attrs_mutator(Node *node,
+                              adjust_appendrel_attrs_context *context)
+{
+    if (node == NULL)
+        return NULL;
+
+    // Handle Var nodes - main case for column references
+    if (IsA(node, Var))
+    {
+        Var *var = (Var *) copyObject(node);
+        AppendRelInfo *appinfo = NULL;
+
+        // Skip if not at current query level
+        if (var->varlevelsup != 0)
+            return (Node *) var;
+
+        // Find matching AppendRelInfo for this relation
+        for (int cnt = 0; cnt < context->nappinfos; cnt++)
+        {
+            if (var->varno == context->appinfos[cnt]->parent_relid)
+            {
+                appinfo = context->appinfos[cnt];
+                break;
+            }
+        }
+
+        if (appinfo)
+        {
+            // Update relation ID to child
+            var->varno = appinfo->child_relid;
+            var->varnosyn = 0;
+            var->varattnosyn = 0;
+
+            if (var->varattno > 0)
+            {
+                // Translate attribute using translated_vars mapping
+                Node *newnode = copyObject(list_nth(appinfo->translated_vars,
+                                                   var->varattno - 1));
+
+                // Preserve nulling relations for outer joins
+                if (IsA(newnode, Var))
+                    ((Var *) newnode)->varnullingrels = var->varnullingrels;
+
+                return newnode;
+            }
+            else if (var->varattno == 0)
+            {
+                // Handle whole-row references with type conversion if needed
+                if (OidIsValid(appinfo->child_reltype) &&
+                    appinfo->parent_reltype != appinfo->child_reltype)
+                {
+                    // Create row type conversion expression
+                    ConvertRowtypeExpr *r = makeNode(ConvertRowtypeExpr);
+                    r->arg = (Expr *) var;
+                    r->resulttype = appinfo->parent_reltype;
+                    r->convertformat = COERCE_IMPLICIT_CAST;
+                    var->vartype = appinfo->child_reltype;
+                    return (Node *) r;
+                }
+            }
+        }
+
+        return (Node *) var;
+    }
+
+    // Handle CurrentOfExpr nodes
+    if (IsA(node, CurrentOfExpr))
+    {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) copyObject(node);
+
+        // Update cursor variable relation ID
+        for (int cnt = 0; cnt < context->nappinfos; cnt++)
+        {
+            if (cexpr->cvarno == context->appinfos[cnt]->parent_relid)
+            {
+                cexpr->cvarno = context->appinfos[cnt]->child_relid;
+                break;
+            }
+        }
+        return (Node *) cexpr;
+    }
+
+    // Handle PlaceHolderVar nodes
+    if (IsA(node, PlaceHolderVar))
+    {
+        PlaceHolderVar *phv = (PlaceHolderVar *)
+            expression_tree_mutator(node, adjust_appendrel_attrs_mutator,
+                                   (void *) context);
+
+        // Adjust relation ID sets
+        if (phv->phlevelsup == 0)
+            phv->phrels = adjust_child_relids(phv->phrels,
+                                            context->nappinfos,
+                                            context->appinfos);
+        return (Node *) phv;
+    }
+
+    // Handle RestrictInfo nodes with special optimizer metadata
+    if (IsA(node, RestrictInfo))
+    {
+        RestrictInfo *oldinfo = (RestrictInfo *) node;
+        RestrictInfo *newinfo = makeNode(RestrictInfo);
+
+        // Copy all fields and recursively process clauses
+        memcpy(newinfo, oldinfo, sizeof(RestrictInfo));
+        newinfo->clause = (Expr *)
+            adjust_appendrel_attrs_mutator((Node *) oldinfo->clause, context);
+        newinfo->orclause = (Expr *)
+            adjust_appendrel_attrs_mutator((Node *) oldinfo->orclause, context);
+
+        // Adjust all relation ID sets
+        newinfo->clause_relids = adjust_child_relids(oldinfo->clause_relids,
+                                                    context->nappinfos,
+                                                    context->appinfos);
+        // Reset cached values that need recalculation
+        newinfo->eval_cost.startup = -1;
+        newinfo->norm_selec = -1;
+
+        return (Node *) newinfo;
+    }
+
+    // Recursively process all other expression nodes
+    return expression_tree_mutator(node, adjust_appendrel_attrs_mutator,
+                                  (void *) context);
+}
+```

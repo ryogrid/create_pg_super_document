@@ -45,3 +45,37 @@ The actual row fetching is delegated to PortalRunFetch, which handles the comple
 - [Query](../Q/Query.md) completion status includes the number of rows processed, which is useful for client applications
 - The actual fetch direction and count validation is handled by lower-level portal functions
 - Empty cursor names are explicitly rejected to avoid conflicts with protocol-level unnamed portals
+
+## Simplified Source
+
+```c
+void PerformPortalFetch(FetchStmt *stmt, DestReceiver *dest, QueryCompletion *qc) {
+    Portal portal;
+    uint64 nprocessed;
+
+    // Validate cursor name - must not be empty
+    if (!stmt->portalname || stmt->portalname[0] == '\0') {
+        ereport(ERROR, "invalid cursor name: must not be empty");
+    }
+
+    // Find the portal by name
+    portal = GetPortalByName(stmt->portalname);
+    if (!PortalIsValid(portal)) {
+        ereport(ERROR, "cursor \"%s\" does not exist", stmt->portalname);
+        return;
+    }
+
+    // MOVE operations discard results, only advance cursor position
+    if (stmt->ismove) {
+        dest = None_Receiver;
+    }
+
+    // Execute the fetch operation
+    nprocessed = PortalRunFetch(portal, stmt->direction, stmt->howMany, dest);
+
+    // Update query completion status if requested
+    if (qc) {
+        SetQueryCompletion(qc, stmt->ismove ? CMDTAG_MOVE : CMDTAG_FETCH, nprocessed);
+    }
+}
+```

@@ -51,3 +51,17 @@ This design allows libpq to maintain error information even under memory pressur
 - **Error propagation**: Provides a robust mechanism for error propagation in complex asynchronous scenarios
 - **Protocol handling**: Extensively used in protocol processing where immediate error reporting might disrupt message parsing
 - **Thread safety**: Used in conjunction with thread locking mechanisms (pgunlock_thread)
+
+## Simplified Source
+
+```c
+void
+pqSaveErrorResult(PGconn *conn)
+{
+    // Clear any pending results
+    pqClearAsyncResult(conn);
+
+    // Mark that an error result should be created later
+    conn->error_result = true;
+}
+```

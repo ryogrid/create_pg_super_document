@@ -33,3 +33,13 @@ This utility function serves as an adapter between the generic boolean value ext
 - Part of the vacuum option parsing infrastructure
 - Simple one-line conditional expression implementation
 - Used for processing various boolean vacuum options in the VACUUM command
+
+## Simplified Source
+
+```c
+static VacOptValue
+get_vacoptval_from_boolean(DefElem *def)
+{
+    return defGetBoolean(def) ? VACOPTVALUE_ENABLED : VACOPTVALUE_DISABLED;
+}
+```

@@ -56,3 +56,50 @@ LC_ALL=: The locale name string to validate
 - The canonical name is useful for resolving environment-based locale specifications
 - Issues warnings for invalid locales and restoration failures
 - Memory management: caller is responsible for freeing canonname if returned
+
+## Simplified Source
+
+```c
+bool check_locale(int category, const char *locale, char **canonname) {
+    char *save;
+    char *res;
+
+    // Reject non-ASCII locale names (Windows compatibility)
+    if (!pg_is_ascii(locale)) {
+        ereport(WARNING, "locale name contains non-ASCII characters");
+        return false;
+    }
+
+    // Initialize output parameter
+    if (canonname)
+        *canonname = NULL;
+
+    // Save current locale setting
+    save = setlocale(category, NULL);
+    if (!save)
+        return false;
+    save = pstrdup(save);
+
+    // Test if the new locale is valid by trying to set it
+    res = setlocale(category, locale);
+
+    // Save canonical name if requested and successful
+    if (res && canonname)
+        *canonname = pstrdup(res);
+
+    // Restore original locale
+    if (!setlocale(category, save))
+        elog(WARNING, "failed to restore old locale");
+    pfree(save);
+
+    // Reject canonical names with non-ASCII characters
+    if (canonname && *canonname && !pg_is_ascii(*canonname)) {
+        ereport(WARNING, "canonical locale name contains non-ASCII characters");
+        pfree(*canonname);
+        *canonname = NULL;
+        return false;
+    }
+
+    return (res != NULL);
+}
+```

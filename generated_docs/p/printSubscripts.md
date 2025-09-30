@@ -37,3 +37,34 @@ The function formats each subscript as [lower:upper] when both bounds are presen
 - Part of PostgreSQL's array subscripting syntax decompilation system
 - Used in rule decompilation and query plan explanation contexts
 - Formats output with square brackets and colon separators following SQL array syntax
+
+## Simplified Source
+
+```c
+static void printSubscripts(SubscriptingRef *sbsref, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    ListCell *lowlist_item;
+    ListCell *uplist_item;
+
+    // Start at the beginning of lower index list (may be NULL)
+    lowlist_item = list_head(sbsref->reflowerindexpr);
+
+    // Process each upper index expression
+    foreach(uplist_item, sbsref->refupperindexpr) {
+        appendStringInfoChar(buf, '[');
+
+        // If we have a corresponding lower index, print it first
+        if (lowlist_item) {
+            // Print lower bound (get_rule_expr handles NULL gracefully)
+            get_rule_expr((Node *) lfirst(lowlist_item), context, false);
+            appendStringInfoChar(buf, ':');
+            lowlist_item = lnext(sbsref->reflowerindexpr, lowlist_item);
+        }
+
+        // Print upper bound (get_rule_expr handles NULL gracefully)
+        get_rule_expr((Node *) lfirst(uplist_item), context, false);
+        appendStringInfoChar(buf, ']');
+    }
+}
+```

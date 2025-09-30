@@ -41,3 +41,94 @@ This function iterates through a list of schema names and collects all objects o
 - OBJECT_ROUTINE includes both functions and procedures without filtering by prokind
 - Error handling includes an elog(ERROR) for unrecognized object types
 - The function concatenates results from multiple schemas into a single list
+
+## Simplified Source
+
+```c
+static List *objectsInSchemaToOids(ObjectType objtype, List *nspnames) {
+    List *objects = NIL;
+    ListCell *cell;
+
+    // Process each schema name
+    foreach(cell, nspnames) {
+        char *nspname = strVal(lfirst(cell));
+        Oid namespaceId;
+        List *objs;
+
+        // Look up schema and check USAGE privilege
+        namespaceId = LookupExplicitNamespace(nspname, false);
+
+        // Collect objects based on type
+        switch (objtype) {
+            case OBJECT_TABLE:
+                // Get all table-like objects (tables, views, etc.)
+                objs = getRelationsInNamespace(namespaceId, RELKIND_RELATION);
+                objects = list_concat(objects, objs);
+                objs = getRelationsInNamespace(namespaceId, RELKIND_VIEW);
+                objects = list_concat(objects, objs);
+                objs = getRelationsInNamespace(namespaceId, RELKIND_MATVIEW);
+                objects = list_concat(objects, objs);
+                objs = getRelationsInNamespace(namespaceId, RELKIND_FOREIGN_TABLE);
+                objects = list_concat(objects, objs);
+                objs = getRelationsInNamespace(namespaceId, RELKIND_PARTITIONED_TABLE);
+                objects = list_concat(objects, objs);
+                break;
+
+            case OBJECT_SEQUENCE:
+                // Get sequences
+                objs = getRelationsInNamespace(namespaceId, RELKIND_SEQUENCE);
+                objects = list_concat(objects, objs);
+                break;
+
+            case OBJECT_FUNCTION:
+            case OBJECT_PROCEDURE:
+            case OBJECT_ROUTINE:
+                {
+                    // Scan pg_proc catalog with appropriate filtering
+                    ScanKeyData key[2];
+                    int keycount = 0;
+                    Relation rel;
+                    TableScanDesc scan;
+                    HeapTuple tuple;
+
+                    // Filter by namespace
+                    ScanKeyInit(&key[keycount++], Anum_pg_proc_pronamespace,
+                              BTEqualStrategyNumber, F_OIDEQ,
+                              ObjectIdGetDatum(namespaceId));
+
+                    // Add prokind filter if needed
+                    if (objtype == OBJECT_FUNCTION) {
+                        // Exclude procedures (include functions, aggregates, window functions)
+                        ScanKeyInit(&key[keycount++], Anum_pg_proc_prokind,
+                                  BTEqualStrategyNumber, F_CHARNE,
+                                  CharGetDatum(PROKIND_PROCEDURE));
+                    } else if (objtype == OBJECT_PROCEDURE) {
+                        // Include only procedures
+                        ScanKeyInit(&key[keycount++], Anum_pg_proc_prokind,
+                                  BTEqualStrategyNumber, F_CHAREQ,
+                                  CharGetDatum(PROKIND_PROCEDURE));
+                    }
+                    // OBJECT_ROUTINE includes both functions and procedures
+
+                    // Perform catalog scan
+                    rel = table_open(ProcedureRelationId, AccessShareLock);
+                    scan = table_beginscan_catalog(rel, keycount, key);
+
+                    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+                        Oid oid = ((Form_pg_proc) GETSTRUCT(tuple))->oid;
+                        objects = lappend_oid(objects, oid);
+                    }
+
+                    table_endscan(scan);
+                    table_close(rel, AccessShareLock);
+                }
+                break;
+
+            default:
+                elog(ERROR, "unrecognized GrantStmt.objtype: %d", (int) objtype);
+        }
+    }
+
+    return objects;
+}
+```

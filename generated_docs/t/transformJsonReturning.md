@@ -41,3 +41,39 @@ This function processes RETURNING clauses in JSON expressions such as JSON_VALUE
 - Uses function name in error messages for better user diagnostics
 - Part of the SQL/JSON standard implementation ensuring consistent return type handling
 - Default typmod is set to -1 (no specific type modifier)
+
+## Simplified Source
+
+```c
+static JsonReturning *
+transformJsonReturning(ParseState *pstate, JsonOutput *output, const char *fname) {
+    JsonReturning *returning;
+
+    if (output) {
+        // Process provided output specification
+        returning = transformJsonOutput(pstate, output, false);
+
+        Assert(OidIsValid(returning->typid));
+
+        // Validate return type is JSON or JSONB
+        if (returning->typid != JSONOID && returning->typid != JSONBOID)
+            ereport(ERROR,
+                   (errcode(ERRCODE_DATATYPE_MISMATCH),
+                    errmsg("cannot use type %s in RETURNING clause of %s",
+                           format_type_be(returning->typid), fname),
+                    errhint("Try returning json or jsonb."),
+                    parser_errposition(pstate, output->typeName->location)));
+    } else {
+        // Create default JSON output specification
+        Oid targettype = JSONOID;
+        JsonFormatType format = JS_FORMAT_JSON;
+
+        returning = makeNode(JsonReturning);
+        returning->format = makeJsonFormat(format, JS_ENC_DEFAULT, -1);
+        returning->typid = targettype;
+        returning->typmod = -1;
+    }
+
+    return returning;
+}
+```

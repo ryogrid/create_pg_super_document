@@ -55,3 +55,96 @@ The function distinguishes between prefix operators (when ltree is NULL) and bin
 - Tracks set-returning functions for proper placement validation
 - The opcollid and inputcollid fields are set later by parse_collate.c
 - Must release the syscache entry for the operator tuple when done
+
+## Simplified Source
+
+```c
+Expr *
+make_op(ParseState *pstate, List *opname, Node *ltree, Node *rtree,
+        Node *last_srf, int location)
+{
+    Oid ltypeId, rtypeId;
+    Operator tup;
+    Form_pg_operator opform;
+    Oid actual_arg_types[2];
+    Oid declared_arg_types[2];
+    int nargs;
+    List *args;
+    Oid rettype;
+    OpExpr *result;
+
+    // Reject postfix operators
+    if (rtree == NULL)
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("postfix operators are not supported")));
+
+    // Resolve operator based on argument types
+    if (ltree == NULL)
+    {
+        // Prefix operator
+        rtypeId = exprType(rtree);
+        ltypeId = InvalidOid;
+        tup = left_oper(pstate, opname, rtypeId, false, location);
+        args = list_make1(rtree);
+        actual_arg_types[0] = rtypeId;
+        nargs = 1;
+    }
+    else
+    {
+        // Binary operator
+        ltypeId = exprType(ltree);
+        rtypeId = exprType(rtree);
+        tup = oper(pstate, opname, ltypeId, rtypeId, false, location);
+        args = list_make2(ltree, rtree);
+        actual_arg_types[0] = ltypeId;
+        actual_arg_types[1] = rtypeId;
+        nargs = 2;
+    }
+
+    opform = (Form_pg_operator) GETSTRUCT(tup);
+
+    // Validate operator is not a shell
+    if (!RegProcedureIsValid(opform->oprcode))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_FUNCTION),
+                       errmsg("operator is only a shell: %s",
+                             op_signature_string(opname, opform->oprleft, opform->oprright)),
+                       parser_errposition(pstate, location)));
+
+    // Set up declared argument types
+    if (ltree == NULL)
+    {
+        declared_arg_types[0] = opform->oprright;
+    }
+    else
+    {
+        declared_arg_types[0] = opform->oprleft;
+        declared_arg_types[1] = opform->oprright;
+    }
+
+    // Handle polymorphic types
+    rettype = enforce_generic_type_consistency(actual_arg_types, declared_arg_types,
+                                              nargs, opform->oprresult, false);
+
+    // Perform necessary type coercions
+    make_fn_arguments(pstate, args, actual_arg_types, declared_arg_types);
+
+    // Build the OpExpr node
+    result = makeNode(OpExpr);
+    result->opno = oprid(tup);
+    result->opfuncid = opform->oprcode;
+    result->opresulttype = rettype;
+    result->opretset = get_func_retset(opform->oprcode);
+    result->args = args;
+    result->location = location;
+
+    // Handle set-returning functions
+    if (result->opretset)
+    {
+        check_srf_call_placement(pstate, last_srf, location);
+        pstate->p_last_srf = (Node *) result;
+    }
+
+    ReleaseSysCache(tup);
+    return (Expr *) result;
+}
+```

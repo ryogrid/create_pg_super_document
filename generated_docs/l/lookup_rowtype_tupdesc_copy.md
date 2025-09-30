@@ -48,3 +48,15 @@ This function is particularly useful when callers need to modify the tuple descr
 - Always throws errors on failure, making it unsuitable for tentative lookups
 - More expensive than reference-counted variants due to the deep copy operation
 - Part of the type cache system's flexible memory management interface
+
+## Simplified Source
+
+```c
+TupleDesc lookup_rowtype_tupdesc_copy(Oid type_id, int32 typmod) {
+    // Get the cached tuple descriptor
+    TupleDesc tmp = lookup_rowtype_tupdesc_internal(type_id, typmod, false);
+
+    // Create an independent copy in current memory context
+    return CreateTupleDescCopyConstr(tmp);
+}
+```

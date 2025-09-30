@@ -38,3 +38,40 @@ Additionally, the function assigns a unique identifier to the cached tuple descr
 - Assigns a unique identifier to detect descriptor changes in the future
 - The function assumes the composite type's relation exists and is accessible
 - Holds AccessShareLock on the relation during descriptor extraction
+
+## Simplified Source
+
+```c
+// Simplified version of load_typcache_tupdesc
+static void
+load_typcache_tupdesc(TypeCacheEntry *typentry)
+{
+    Relation composite_relation;
+
+    // Validate that we have a valid relation OID
+    if (!OidIsValid(typentry->typrelid))
+        elog(ERROR, "invalid typrelid for composite type %u", typentry->type_id);
+
+    // Open the relation for the composite type
+    composite_relation = relation_open(typentry->typrelid, AccessShareLock);
+    Assert(composite_relation->rd_rel->reltype == typentry->type_id);
+
+    // Get and reference the tuple descriptor
+    typentry->tupDesc = RelationGetDescr(composite_relation);
+    Assert(typentry->tupDesc->tdrefcount > 0);
+    typentry->tupDesc->tdrefcount++;  // Manual reference count increment
+
+    // Assign unique identifier for change detection
+    typentry->tupDesc_identifier = ++tupledesc_id_counter;
+
+    // Clean up the relation
+    relation_close(composite_relation, AccessShareLock);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name (composite_relation instead of rel)
+- Added clear comments explaining each step
+- Preserved all error checking and assertions as they're essential
+- Simplified the explanation of reference counting with a comment
+- Maintained the exact same logic in a more readable format

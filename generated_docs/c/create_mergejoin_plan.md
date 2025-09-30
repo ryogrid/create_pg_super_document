@@ -76,3 +76,147 @@ This function creates a MergeJoin execution plan node from a MergePath. Merge jo
 - The pathkey matching logic handles cases where merge clauses may reference the same pathkey multiple times
 - Located at src/backend/optimizer/plan/createplan.c:4440-4746
 - Part of the JOIN METHODS section of the planner
+
+## Simplified Source
+
+```c
+static MergeJoin *create_mergejoin_plan(PlannerInfo *root, MergePath *best_path) {
+    List *tlist = build_path_tlist(root, &best_path->jpath.path);
+
+    // Create input plans, requesting small tlists if sorting needed
+    Plan *outer_plan = create_plan_recurse(root, best_path->jpath.outerjoinpath,
+                                          (best_path->outersortkeys != NIL) ? CP_SMALL_TLIST : 0);
+    Plan *inner_plan = create_plan_recurse(root, best_path->jpath.innerjoinpath,
+                                          (best_path->innersortkeys != NIL) ? CP_SMALL_TLIST : 0);
+
+    // Process join clauses
+    List *joinclauses = order_qual_clauses(root, best_path->jpath.joinrestrictinfo);
+    List *otherclauses = NIL;
+
+    if (IS_OUTER_JOIN(best_path->jpath.jointype)) {
+        extract_actual_join_clauses(joinclauses, best_path->jpath.path.parent->relids,
+                                   &joinclauses, &otherclauses);
+    } else {
+        joinclauses = extract_actual_clauses(joinclauses, false);
+    }
+
+    // Extract merge clauses and remove from join clauses
+    List *mergeclauses = get_actual_clauses(best_path->path_mergeclauses);
+    joinclauses = list_difference(joinclauses, mergeclauses);
+
+    // Handle nested loop parameters if needed
+    if (best_path->jpath.path.param_info) {
+        joinclauses = (List *) replace_nestloop_params(root, (Node *) joinclauses);
+        otherclauses = (List *) replace_nestloop_params(root, (Node *) otherclauses);
+    }
+
+    // Arrange merge clauses with outer variable on left
+    mergeclauses = get_switched_clauses(best_path->path_mergeclauses,
+                                       best_path->jpath.outerjoinpath->parent->relids);
+
+    // Create sort nodes if needed for outer plan
+    List *outerpathkeys;
+    if (best_path->outersortkeys) {
+        Sort *sort = make_sort_from_pathkeys(outer_plan, best_path->outersortkeys,
+                                           best_path->jpath.outerjoinpath->parent->relids);
+        label_sort_with_costsize(root, sort, -1.0);
+        outer_plan = (Plan *) sort;
+        outerpathkeys = best_path->outersortkeys;
+    } else {
+        outerpathkeys = best_path->jpath.outerjoinpath->pathkeys;
+    }
+
+    // Create sort nodes if needed for inner plan
+    List *innerpathkeys;
+    if (best_path->innersortkeys) {
+        Sort *sort = make_sort_from_pathkeys(inner_plan, best_path->innersortkeys,
+                                           best_path->jpath.innerjoinpath->parent->relids);
+        label_sort_with_costsize(root, sort, -1.0);
+        inner_plan = (Plan *) sort;
+        innerpathkeys = best_path->innersortkeys;
+    } else {
+        innerpathkeys = best_path->jpath.innerjoinpath->pathkeys;
+    }
+
+    // Add materialize node if needed for mark/restore support
+    if (best_path->materialize_inner) {
+        Plan *matplan = (Plan *) make_material(inner_plan);
+        copy_plan_costsize(matplan, inner_plan);
+        matplan->total_cost += cpu_operator_cost * matplan->plan_rows;
+        inner_plan = matplan;
+    }
+
+    // Build merge operation arrays for executor
+    int nClauses = list_length(mergeclauses);
+    Oid *mergefamilies = palloc(nClauses * sizeof(Oid));
+    Oid *mergecollations = palloc(nClauses * sizeof(Oid));
+    int *mergestrategies = palloc(nClauses * sizeof(int));
+    bool *mergenullsfirst = palloc(nClauses * sizeof(bool));
+
+    // Match pathkeys with merge clauses to extract sort information
+    PathKey *opathkey = NULL;
+    EquivalenceClass *opeclass = NULL;
+    ListCell *lop = list_head(outerpathkeys);
+    ListCell *lip = list_head(innerpathkeys);
+
+    int i = 0;
+    foreach(cell, best_path->path_mergeclauses) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, cell);
+
+        // Extract equivalence classes from merge clause
+        EquivalenceClass *oeclass = rinfo->outer_is_left ? rinfo->left_ec : rinfo->right_ec;
+        EquivalenceClass *ieclass = rinfo->outer_is_left ? rinfo->right_ec : rinfo->left_ec;
+
+        // Match outer pathkey
+        if (oeclass != opeclass) {
+            if (lop == NULL)
+                elog(ERROR, "outer pathkeys do not match mergeclauses");
+            opathkey = (PathKey *) lfirst(lop);
+            opeclass = opathkey->pk_eclass;
+            lop = lnext(outerpathkeys, lop);
+            if (oeclass != opeclass)
+                elog(ERROR, "outer pathkeys do not match mergeclauses");
+        }
+
+        // Match inner pathkey (handling redundant pathkeys)
+        PathKey *ipathkey = NULL;
+        bool first_inner_match = false;
+
+        if (lip) {
+            ipathkey = (PathKey *) lfirst(lip);
+            if (ieclass == ipathkey->pk_eclass) {
+                lip = lnext(innerpathkeys, lip);
+                first_inner_match = true;
+            }
+        }
+
+        if (!first_inner_match) {
+            // Find matching pathkey in earlier positions
+            foreach(cell2, innerpathkeys) {
+                if (cell2 == lip) break;
+                ipathkey = (PathKey *) lfirst(cell2);
+                if (ieclass == ipathkey->pk_eclass) break;
+            }
+            if (ieclass != ipathkey->pk_eclass)
+                elog(ERROR, "inner pathkeys do not match mergeclauses");
+        }
+
+        // Extract merge operation info
+        mergefamilies[i] = opathkey->pk_opfamily;
+        mergecollations[i] = opathkey->pk_eclass->ec_collation;
+        mergestrategies[i] = opathkey->pk_strategy;
+        mergenullsfirst[i] = opathkey->pk_nulls_first;
+        i++;
+    }
+
+    // Create MergeJoin node
+    MergeJoin *join_plan = make_mergejoin(tlist, joinclauses, otherclauses, mergeclauses,
+                                         mergefamilies, mergecollations, mergestrategies,
+                                         mergenullsfirst, outer_plan, inner_plan,
+                                         best_path->jpath.jointype, best_path->jpath.inner_unique,
+                                         best_path->skip_mark_restore);
+
+    copy_generic_path_info(&join_plan->join.plan, &best_path->jpath.path);
+    return join_plan;
+}
+```

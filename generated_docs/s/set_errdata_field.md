@@ -33,3 +33,15 @@ The set_errdata_field function is a low-level utility function used internally w
 - Located in src/backend/utils/error/elog.c:1548-1560
 - Part of PostgreSQL's memory-safe error handling infrastructure
 - Ensures consistent memory management for error data string fields
+
+## Simplified Source
+
+```c
+static void set_errdata_field(MemoryContextData *cxt, char **ptr, const char *str) {
+    // Ensure field is not already set
+    Assert(*ptr == NULL);
+
+    // Duplicate string into specified memory context
+    *ptr = MemoryContextStrdup(cxt, str);
+}
+```

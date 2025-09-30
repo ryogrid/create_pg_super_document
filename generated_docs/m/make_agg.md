@@ -51,3 +51,42 @@ This function constructs an Agg plan node that represents aggregation operations
 - Uses `clamp_cardinality_to_long` to handle potential overflow when converting double to long for group count estimates
 - The right child plan node is always set to NULL as aggregation is a unary operation
 - Part of PostgreSQLs cost-based query optimizer infrastructure for creating execution plans
+
+## Simplified Source
+
+```c
+Agg *
+make_agg(List *tlist, List *qual,
+         AggStrategy aggstrategy, AggSplit aggsplit,
+         int numGroupCols, AttrNumber *grpColIdx, Oid *grpOperators, Oid *grpCollations,
+         List *groupingSets, List *chain, double dNumGroups,
+         Size transitionSpace, Plan *lefttree)
+{
+    Agg *node = makeNode(Agg);
+    Plan *plan = &node->plan;
+
+    // Convert estimated group count to long, preventing overflow
+    long numGroups = clamp_cardinality_to_long(dNumGroups);
+
+    // Set aggregation-specific fields
+    node->aggstrategy = aggstrategy;
+    node->aggsplit = aggsplit;
+    node->numCols = numGroupCols;
+    node->grpColIdx = grpColIdx;
+    node->grpOperators = grpOperators;
+    node->grpCollations = grpCollations;
+    node->numGroups = numGroups;
+    node->transitionSpace = transitionSpace;
+    node->groupingSets = groupingSets;
+    node->chain = chain;
+    node->aggParams = NULL;  // Filled later by SS_finalize_plan()
+
+    // Set plan node fields
+    plan->qual = qual;
+    plan->targetlist = tlist;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;  // Aggregation is unary operation
+
+    return node;
+}
+```

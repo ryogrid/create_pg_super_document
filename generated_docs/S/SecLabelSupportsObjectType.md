@@ -32,3 +32,77 @@ The supported object types include core database objects like tables, views, fun
 - Supported object types include: AGGREGATE, COLUMN, DATABASE, DOMAIN, EVENT_TRIGGER, FOREIGN_TABLE, FUNCTION, LANGUAGE, LARGEOBJECT, MATVIEW, PROCEDURE, PUBLICATION, ROLE, ROUTINE, SCHEMA, SEQUENCE, SUBSCRIPTION, TABLE, TABLESPACE, TYPE, VIEW
 - Unsupported object types include: ACCESS_METHOD, AMOP, AMPROC, ATTRIBUTE, CAST, COLLATION, CONVERSION, DEFAULT, DEFACL, DOMCONSTRAINT, EXTENSION, FDW, FOREIGN_SERVER, INDEX, OPCLASS, OPERATOR, OPFAMILY, PARAMETER_ACL, POLICY, PUBLICATION_NAMESPACE, PUBLICATION_REL, RULE, STATISTIC_EXT, TABCONSTRAINT, TRANSFORM, TRIGGER, TSCONFIGURATION, TSDICTIONARY, TSPARSER, TSTEMPLATE, USER_MAPPING
 - This function acts as a central validation point for security label operations, ensuring that security labels are only applied to appropriate object types
+
+## Simplified Source
+
+```c
+static bool
+SecLabelSupportsObjectType(ObjectType objtype)
+{
+    switch (objtype)
+    {
+        // Supported object types (return true)
+        case OBJECT_AGGREGATE:
+        case OBJECT_COLUMN:
+        case OBJECT_DATABASE:
+        case OBJECT_DOMAIN:
+        case OBJECT_EVENT_TRIGGER:
+        case OBJECT_FOREIGN_TABLE:
+        case OBJECT_FUNCTION:
+        case OBJECT_LANGUAGE:
+        case OBJECT_LARGEOBJECT:
+        case OBJECT_MATVIEW:
+        case OBJECT_PROCEDURE:
+        case OBJECT_PUBLICATION:
+        case OBJECT_ROLE:
+        case OBJECT_ROUTINE:
+        case OBJECT_SCHEMA:
+        case OBJECT_SEQUENCE:
+        case OBJECT_SUBSCRIPTION:
+        case OBJECT_TABLE:
+        case OBJECT_TABLESPACE:
+        case OBJECT_TYPE:
+        case OBJECT_VIEW:
+            return true;
+
+        // Unsupported object types (return false)
+        case OBJECT_ACCESS_METHOD:
+        case OBJECT_AMOP:
+        case OBJECT_AMPROC:
+        case OBJECT_ATTRIBUTE:
+        case OBJECT_CAST:
+        case OBJECT_COLLATION:
+        case OBJECT_CONVERSION:
+        case OBJECT_DEFAULT:
+        case OBJECT_DEFACL:
+        case OBJECT_DOMCONSTRAINT:
+        case OBJECT_EXTENSION:
+        case OBJECT_FDW:
+        case OBJECT_FOREIGN_SERVER:
+        case OBJECT_INDEX:
+        case OBJECT_OPCLASS:
+        case OBJECT_OPERATOR:
+        case OBJECT_OPFAMILY:
+        case OBJECT_PARAMETER_ACL:
+        case OBJECT_POLICY:
+        case OBJECT_PUBLICATION_NAMESPACE:
+        case OBJECT_PUBLICATION_REL:
+        case OBJECT_RULE:
+        case OBJECT_STATISTIC_EXT:
+        case OBJECT_TABCONSTRAINT:
+        case OBJECT_TRANSFORM:
+        case OBJECT_TRIGGER:
+        case OBJECT_TSCONFIGURATION:
+        case OBJECT_TSDICTIONARY:
+        case OBJECT_TSPARSER:
+        case OBJECT_TSTEMPLATE:
+        case OBJECT_USER_MAPPING:
+            return false;
+
+        // No default case - compiler will warn for unhandled types
+    }
+
+    // Fallback for any unhandled cases
+    return false;
+}
+```

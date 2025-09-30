@@ -34,3 +34,24 @@ The transformJsonScalarExpr function is responsible for transforming JSON_SCALAR
 
 ## Notes and Other Information
 This function is part of PostgreSQL's SQL/JSON support implementation. It handles the transformation of JSON_SCALAR() expressions which are used to convert SQL scalar values to JSON format. The function ensures proper type coercion for unknown types and integrates with the broader JSON expression transformation framework. Located at src/backend/parser/parse_expr.c:4202-4224.
+
+## Simplified Source
+
+```c
+static Node *transformJsonScalarExpr(ParseState *pstate, JsonScalarExpr *jsexpr) {
+    // Transform the scalar expression
+    Node *arg = transformExprRecurse(pstate, (Node *) jsexpr->expr);
+
+    // Process output returning clause
+    JsonReturning *returning = transformJsonReturning(pstate, jsexpr->output, "JSON_SCALAR()");
+
+    // Coerce unknown types to TEXT
+    if (exprType(arg) == UNKNOWNOID) {
+        arg = coerce_to_specific_type(pstate, arg, TEXTOID, "JSON_SCALAR");
+    }
+
+    // Create the JSON scalar constructor expression
+    return makeJsonConstructorExpr(pstate, JSCTOR_JSON_SCALAR, list_make1(arg), NULL,
+                                  returning, false, false, jsexpr->location);
+}
+```

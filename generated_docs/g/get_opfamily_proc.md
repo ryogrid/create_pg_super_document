@@ -50,3 +50,32 @@ The function returns the OID of the procedure if found, or InvalidOid if no matc
 - The procnum parameter identifies specific support function roles (e.g., HASHSTANDARD_PROC for hash functions)
 - Widely used throughout the executor, access methods, and type system
 - Located in src/backend/utils/cache/lsyscache.c at lines 796-826
+
+## Simplified Source
+
+```c
+Oid get_opfamily_proc(Oid opfamily, Oid lefttype, Oid righttype, int16 procnum)
+{
+    HeapTuple tp;
+    Form_pg_amproc amproc_tuple;
+    RegProcedure result;
+
+    // Look up support function in pg_amproc catalog
+    tp = SearchSysCache4(AMPROCNUM,
+                        ObjectIdGetDatum(opfamily),
+                        ObjectIdGetDatum(lefttype),
+                        ObjectIdGetDatum(righttype),
+                        Int16GetDatum(procnum));
+
+    // Return InvalidOid if no matching procedure found
+    if (!HeapTupleIsValid(tp))
+        return InvalidOid;
+
+    // Extract procedure OID from catalog tuple
+    amproc_tuple = (Form_pg_amproc) GETSTRUCT(tp);
+    result = amproc_tuple->amproc;
+
+    ReleaseSysCache(tp);
+    return result;
+}
+```

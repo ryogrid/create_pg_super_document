@@ -42,3 +42,21 @@ The function is implemented as an inline function rather than a macro to properl
 - Essential for storing float4 values in PostgreSQL's internal data structures
 - Part of PostgreSQL's type conversion system for floating-point values
 - Located in src/include/postgres.h:475-493
+
+## Simplified Source
+
+```c
+static inline Datum Float4GetDatum(float4 X) {
+    // Use union to safely convert float4 bits to int32
+    union {
+        float4 value;
+        int32  retval;
+    } myunion;
+
+    // Store float value and extract as int32
+    myunion.value = X;
+
+    // Convert int32 representation to Datum
+    return Int32GetDatum(myunion.retval);
+}
+```

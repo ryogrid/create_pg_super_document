@@ -51,3 +51,76 @@ The function performs the following operations:
 - Properly handles memory management by freeing heap tuples when done
 - Maintains transactional consistency by using RowExclusiveLock on the pg_seclabel relation
 - The function is the primary entry point for the SECURITY LABEL SQL command execution
+
+## Simplified Source
+
+```c
+void
+SetSecurityLabel(const ObjectAddress *object,
+                 const char *provider, const char *label)
+{
+    // Handle shared objects separately
+    if (IsSharedRelation(object->classId)) {
+        SetSharedSecurityLabel(object, provider, label);
+        return;
+    }
+
+    // Open security label catalog
+    Relation pg_seclabel = table_open(SecLabelRelationId, RowExclusiveLock);
+
+    // Search for existing label entry
+    ScanKeyData keys[4];
+    ScanKeyInit(&keys[0], Anum_pg_seclabel_objoid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(object->objectId));
+    ScanKeyInit(&keys[1], Anum_pg_seclabel_classoid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(object->classId));
+    ScanKeyInit(&keys[2], Anum_pg_seclabel_objsubid, BTEqualStrategyNumber,
+                F_INT4EQ, Int32GetDatum(object->objectSubId));
+    ScanKeyInit(&keys[3], Anum_pg_seclabel_provider, BTEqualStrategyNumber,
+                F_TEXTEQ, CStringGetTextDatum(provider));
+
+    SysScanDesc scan = systable_beginscan(pg_seclabel, SecLabelObjectIndexId,
+                                          true, NULL, 4, keys);
+    HeapTuple oldtup = systable_getnext(scan);
+
+    if (HeapTupleIsValid(oldtup)) {
+        if (label == NULL) {
+            // Delete existing label
+            CatalogTupleDelete(pg_seclabel, &oldtup->t_self);
+        } else {
+            // Update existing label
+            Datum values[Natts_pg_seclabel];
+            bool nulls[Natts_pg_seclabel];
+            bool replaces[Natts_pg_seclabel];
+
+            memset(nulls, false, sizeof(nulls));
+            memset(replaces, false, sizeof(replaces));
+            replaces[Anum_pg_seclabel_label - 1] = true;
+            values[Anum_pg_seclabel_label - 1] = CStringGetTextDatum(label);
+
+            HeapTuple newtup = heap_modify_tuple(oldtup, RelationGetDescr(pg_seclabel),
+                                                 values, nulls, replaces);
+            CatalogTupleUpdate(pg_seclabel, &oldtup->t_self, newtup);
+            heap_freetuple(newtup);
+        }
+    } else if (label != NULL) {
+        // Insert new label entry
+        Datum values[Natts_pg_seclabel];
+        bool nulls[Natts_pg_seclabel];
+
+        memset(nulls, false, sizeof(nulls));
+        values[Anum_pg_seclabel_objoid - 1] = ObjectIdGetDatum(object->objectId);
+        values[Anum_pg_seclabel_classoid - 1] = ObjectIdGetDatum(object->classId);
+        values[Anum_pg_seclabel_objsubid - 1] = Int32GetDatum(object->objectSubId);
+        values[Anum_pg_seclabel_provider - 1] = CStringGetTextDatum(provider);
+        values[Anum_pg_seclabel_label - 1] = CStringGetTextDatum(label);
+
+        HeapTuple newtup = heap_form_tuple(RelationGetDescr(pg_seclabel), values, nulls);
+        CatalogTupleInsert(pg_seclabel, newtup);
+        heap_freetuple(newtup);
+    }
+
+    systable_endscan(scan);
+    table_close(pg_seclabel, RowExclusiveLock);
+}
+```

@@ -41,3 +41,22 @@ The calculation follows the inverse of the formula used in tuplesort_merge_order
 - Returns 0 if memory is too constrained to provide meaningful buffer space after accounting for output tape overhead
 - The calculation assumes that equal buffer sizes for all input tapes will provide optimal performance
 - Memory distribution is designed to work in conjunction with the merge order calculations from tuplesort_merge_order
+
+## Simplified Source
+
+```c
+static int64 merge_read_buffer_size(int64 avail_mem, int nInputTapes, int nInputRuns,
+                                   int maxOutputTapes) {
+    int nOutputRuns;
+    int nOutputTapes;
+
+    // Calculate number of output runs needed (ceiling division)
+    nOutputRuns = (nInputRuns + nInputTapes - 1) / nInputTapes;
+
+    // Limit output tapes to maximum allowed
+    nOutputTapes = Min(nOutputRuns, maxOutputTapes);
+
+    // Reserve memory for output tape overhead, divide remainder among input tapes
+    return Max((avail_mem - TAPE_BUFFER_OVERHEAD * nOutputTapes) / nInputTapes, 0);
+}
+```

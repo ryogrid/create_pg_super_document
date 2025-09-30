@@ -48,3 +48,44 @@ This static function is responsible for reading visibility map pages from storag
 - Implements double-checked locking for page initialization to handle concurrency
 - Safe for callers that don't inspect page headers without locks since PageGetContents() doesn't require correct headers
 - Returns InvalidBuffer if the page doesn't exist and extend is false
+
+## Simplified Source
+
+```c
+static Buffer vm_readbuf(Relation rel, BlockNumber blkno, bool extend) {
+    Buffer buf;
+    SMgrRelation reln;
+
+    // Get storage manager relation
+    reln = RelationGetSmgr(rel);
+
+    // Update cached visibility map size if needed
+    if (reln->smgr_cached_nblocks[VISIBILITYMAP_FORKNUM] == InvalidBlockNumber) {
+        if (smgrexists(reln, VISIBILITYMAP_FORKNUM))
+            smgrnblocks(reln, VISIBILITYMAP_FORKNUM);
+        else
+            reln->smgr_cached_nblocks[VISIBILITYMAP_FORKNUM] = 0;
+    }
+
+    // Read or extend the visibility map page
+    if (blkno >= reln->smgr_cached_nblocks[VISIBILITYMAP_FORKNUM]) {
+        if (extend)
+            buf = vm_extend(rel, blkno + 1);
+        else
+            return InvalidBuffer;
+    } else {
+        buf = ReadBufferExtended(rel, VISIBILITYMAP_FORKNUM, blkno,
+                               RBM_ZERO_ON_ERROR, NULL);
+    }
+
+    // Initialize page if needed (double-checked locking for concurrency)
+    if (PageIsNew(BufferGetPage(buf))) {
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        if (PageIsNew(BufferGetPage(buf)))
+            PageInit(BufferGetPage(buf), BLCKSZ, 0);
+        LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+    }
+
+    return buf;
+}
+```

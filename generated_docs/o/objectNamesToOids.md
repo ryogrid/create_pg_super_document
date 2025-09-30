@@ -68,3 +68,135 @@ This static function performs comprehensive name-to-OID resolution for all Postg
 - Types and domains share resolution logic since both use the pg_type catalog
 - The function supports all PostgreSQL object types that have ACL-based security, making it a comprehensive name resolution utility for the privilege system
 - Error handling ensures that invalid object types are detected and non-existent objects (except parameters during REVOKE) cause appropriate errors
+
+## Simplified Source
+
+```c
+static List *objectNamesToOids(ObjectType objtype, List *objnames, bool is_grant) {
+    List *objects = NIL;
+    ListCell *cell;
+
+    // Convert each object name to its OID based on object type
+    switch (objtype) {
+        case OBJECT_TABLE:
+        case OBJECT_SEQUENCE:
+            // Resolve table/sequence names to relation OIDs
+            foreach(cell, objnames) {
+                RangeVar *relvar = (RangeVar *) lfirst(cell);
+                Oid relOid = RangeVarGetRelid(relvar, NoLock, false);
+                objects = lappend_oid(objects, relOid);
+            }
+            break;
+
+        case OBJECT_DATABASE:
+            // Look up database names
+            foreach(cell, objnames) {
+                char *dbname = strVal(lfirst(cell));
+                Oid dbid = get_database_oid(dbname, false);
+                objects = lappend_oid(objects, dbid);
+            }
+            break;
+
+        case OBJECT_DOMAIN:
+        case OBJECT_TYPE:
+            // Resolve type/domain names
+            foreach(cell, objnames) {
+                List *typname = (List *) lfirst(cell);
+                Oid oid = typenameTypeId(NULL, makeTypeNameFromNameList(typname));
+                objects = lappend_oid(objects, oid);
+            }
+            break;
+
+        case OBJECT_FUNCTION:
+        case OBJECT_PROCEDURE:
+        case OBJECT_ROUTINE:
+            // Look up functions with signature matching
+            foreach(cell, objnames) {
+                ObjectWithArgs *func = (ObjectWithArgs *) lfirst(cell);
+                Oid funcid = LookupFuncWithArgs(objtype, func, false);
+                objects = lappend_oid(objects, funcid);
+            }
+            break;
+
+        case OBJECT_LANGUAGE:
+            // Look up language names
+            foreach(cell, objnames) {
+                char *langname = strVal(lfirst(cell));
+                Oid oid = get_language_oid(langname, false);
+                objects = lappend_oid(objects, oid);
+            }
+            break;
+
+        case OBJECT_LARGEOBJECT:
+            // Parse OID strings and validate existence
+            foreach(cell, objnames) {
+                Oid lobjOid = oidparse(lfirst(cell));
+                if (!LargeObjectExists(lobjOid)) {
+                    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                                  errmsg("large object %u does not exist", lobjOid)));
+                }
+                objects = lappend_oid(objects, lobjOid);
+            }
+            break;
+
+        case OBJECT_SCHEMA:
+            // Look up schema names
+            foreach(cell, objnames) {
+                char *nspname = strVal(lfirst(cell));
+                Oid oid = get_namespace_oid(nspname, false);
+                objects = lappend_oid(objects, oid);
+            }
+            break;
+
+        case OBJECT_TABLESPACE:
+            // Look up tablespace names
+            foreach(cell, objnames) {
+                char *spcname = strVal(lfirst(cell));
+                Oid spcoid = get_tablespace_oid(spcname, false);
+                objects = lappend_oid(objects, spcoid);
+            }
+            break;
+
+        case OBJECT_FDW:
+            // Look up foreign data wrapper names
+            foreach(cell, objnames) {
+                char *fdwname = strVal(lfirst(cell));
+                Oid fdwid = get_foreign_data_wrapper_oid(fdwname, false);
+                objects = lappend_oid(objects, fdwid);
+            }
+            break;
+
+        case OBJECT_FOREIGN_SERVER:
+            // Look up foreign server names
+            foreach(cell, objnames) {
+                char *srvname = strVal(lfirst(cell));
+                Oid srvid = get_foreign_server_oid(srvname, false);
+                objects = lappend_oid(objects, srvid);
+            }
+            break;
+
+        case OBJECT_PARAMETER_ACL:
+            // Special handling for configuration parameters
+            foreach(cell, objnames) {
+                char *parameter = strVal(lfirst(cell));
+                Oid parameterId = ParameterAclLookup(parameter, true);
+
+                // Create ACL entry if needed for GRANT operations
+                if (!OidIsValid(parameterId) && is_grant) {
+                    parameterId = ParameterAclCreate(parameter);
+                    CommandCounterIncrement(); // Make entry visible
+                }
+
+                if (OidIsValid(parameterId)) {
+                    objects = lappend_oid(objects, parameterId);
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "unrecognized GrantStmt.objtype: %d", (int) objtype);
+    }
+
+    return objects;
+}
+```

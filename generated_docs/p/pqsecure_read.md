@@ -40,3 +40,27 @@ The function is responsible for appending appropriate error messages to `conn->e
 - The function abstracts away the complexity of different security protocols from the caller
 - Error handling responsibility is split: this function handles error message formatting, while the caller handles errno-based retry logic
 - The precedence order is SSL → GSS → raw, ensuring encrypted connections take priority
+
+## Simplified Source
+```c
+ssize_t pqsecure_read(PGconn *conn, void *ptr, size_t len) {
+    ssize_t n;
+
+    // Choose reading method based on connection security
+#ifdef USE_SSL
+    if (conn->ssl_in_use) {
+        n = pgtls_read(conn, ptr, len);
+    } else
+#endif
+#ifdef ENABLE_GSS
+    if (conn->gssenc) {
+        n = pg_GSS_read(conn, ptr, len);
+    } else
+#endif
+    {
+        n = pqsecure_raw_read(conn, ptr, len);
+    }
+
+    return n;
+}
+```

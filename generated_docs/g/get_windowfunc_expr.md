@@ -29,3 +29,13 @@ This function serves as a simplified interface to the WindowFunc deparsing funct
 
 ## Notes and Other Information
 This function is part of PostgreSQL's rule deparsing system, which converts internal query tree structures back into SQL text. The WindowFunc node represents window function calls in the query tree, and this function is responsible for converting them back to their SQL syntax. The actual work is delegated to get_windowfunc_expr_helper, making this function a convenience wrapper for the most common deparsing scenario.
+
+## Simplified Source
+
+```c
+static void get_windowfunc_expr(WindowFunc *wfunc, deparse_context *context)
+{
+    // Delegate to helper function with default parameters
+    get_windowfunc_expr_helper(wfunc, context, NULL, NULL, false);
+}
+```

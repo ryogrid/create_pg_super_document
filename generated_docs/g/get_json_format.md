@@ -42,3 +42,28 @@ The function only outputs clauses when they differ from defaults, keeping the de
 - Only outputs FORMAT and ENCODING clauses when they differ from defaults, improving readability
 - The function assumes UTF8 as the fallback encoding name for any encoding that's not UTF16 or UTF32
 - Located in src/backend/utils/adt/ruleutils.c:11297-11321
+
+## Simplified Source
+
+```c
+static void get_json_format(JsonFormat *format, StringInfo buf) {
+    // Skip output if using default format
+    if (format->format_type == JS_FORMAT_DEFAULT)
+        return;
+
+    // Output FORMAT clause
+    appendStringInfoString(buf,
+                           format->format_type == JS_FORMAT_JSONB ?
+                           " FORMAT JSONB" : " FORMAT JSON");
+
+    // Output ENCODING clause if non-default
+    if (format->encoding != JS_ENC_DEFAULT) {
+        const char *encoding;
+
+        encoding = format->encoding == JS_ENC_UTF16 ? "UTF16" :
+                   format->encoding == JS_ENC_UTF32 ? "UTF32" : "UTF8";
+
+        appendStringInfo(buf, " ENCODING %s", encoding);
+    }
+}
+```

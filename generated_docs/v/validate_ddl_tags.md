@@ -34,3 +34,35 @@ validate_ddl_tags is a static helper function that validates a list of DDL comma
 - Reports ERRCODE_FEATURE_NOT_SUPPORTED for commands that don't support event triggers
 - Part of the event trigger validation pipeline that ensures only valid and supported DDL commands can be filtered
 - The function helps maintain the integrity of the event trigger system by preventing registration of triggers for unsupported operations
+
+## Simplified Source
+
+```c
+static void
+validate_ddl_tags(const char *filtervar, List *taglist)
+{
+    ListCell *lc;
+
+    // Iterate through each tag in the list
+    foreach(lc, taglist) {
+        const char *tagstr = strVal(lfirst(lc));
+        CommandTag commandTag = GetCommandTagEnum(tagstr);
+
+        // Check if command tag is recognized
+        if (commandTag == CMDTAG_UNKNOWN) {
+            ereport(ERROR,
+                   (errcode(ERRCODE_SYNTAX_ERROR),
+                    errmsg("filter value \"%s\" not recognized for filter variable \"%s\"",
+                          tagstr, filtervar)));
+        }
+
+        // Check if command supports event triggers
+        if (!command_tag_event_trigger_ok(commandTag)) {
+            ereport(ERROR,
+                   (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("event triggers are not supported for %s",
+                          tagstr)));
+        }
+    }
+}
+```

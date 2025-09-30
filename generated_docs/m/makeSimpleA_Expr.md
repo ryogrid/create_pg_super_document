@@ -40,3 +40,21 @@ The makeSimpleA_Expr function is a specialized constructor utility that creates 
 - Automatically handles the conversion from string to List of String nodes
 - Widely used in parser transformation functions for standard SQL operators
 - Part of the makefuncs.c utility collection for node construction
+
+## Simplified Source
+
+```c
+A_Expr *
+makeSimpleA_Expr(A_Expr_Kind kind, char *name,
+                 Node *lexpr, Node *rexpr, int location)
+{
+    A_Expr *a = makeNode(A_Expr);
+
+    a->kind = kind;
+    a->name = list_make1(makeString((char *) name));
+    a->lexpr = lexpr;
+    a->rexpr = rexpr;
+    a->location = location;
+    return a;
+}
+```

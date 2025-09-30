@@ -54,3 +54,131 @@ This public function serves as the primary interface for PostgreSQL's GRANT and 
 - Supports all PostgreSQL object types: tables, sequences, databases, functions, schemas, types, tablespaces, foreign data wrappers, foreign servers, and configuration parameters
 - The function performs privilege name validation, ensuring requested privileges are valid for the target object type
 - Acts as a facade that transforms external SQL syntax into internal representation before delegating to the core execution logic
+
+## Simplified Source
+
+```c
+void ExecuteGrantStmt(GrantStmt *stmt)
+{
+    InternalGrant istmt;
+    ListCell *cell;
+    const char *errormsg;
+    AclMode all_privileges;
+
+    // Validate grantor (currently must be current user)
+    if (stmt->grantor)
+    {
+        Oid grantor = get_rolespec_oid(stmt->grantor, false);
+        if (grantor != GetUserId())
+            ereport(ERROR, /* grantor must be current user */);
+    }
+
+    // Initialize internal grant structure
+    istmt.is_grant = stmt->is_grant;
+    istmt.objtype = stmt->objtype;
+
+    // Convert target objects to OIDs
+    switch (stmt->targtype)
+    {
+        case ACL_TARGET_OBJECT:
+            istmt.objects = objectNamesToOids(stmt->objtype, stmt->objects, stmt->is_grant);
+            break;
+        case ACL_TARGET_ALL_IN_SCHEMA:
+            istmt.objects = objectsInSchemaToOids(stmt->objtype, stmt->objects);
+            break;
+        default:
+            elog(ERROR, "unrecognized GrantStmt.targtype: %d", (int) stmt->targtype);
+    }
+
+    // Initialize other fields
+    istmt.col_privs = NIL;
+    istmt.grantees = NIL;
+    istmt.grant_option = stmt->grant_option;
+    istmt.behavior = stmt->behavior;
+
+    // Convert grantee role specifications to OIDs
+    foreach(cell, stmt->grantees)
+    {
+        RoleSpec *grantee = (RoleSpec *) lfirst(cell);
+        Oid grantee_uid;
+
+        if (grantee->roletype == ROLESPEC_PUBLIC)
+            grantee_uid = ACL_ID_PUBLIC;
+        else
+            grantee_uid = get_rolespec_oid(grantee, false);
+
+        istmt.grantees = lappend_oid(istmt.grantees, grantee_uid);
+    }
+
+    // Determine appropriate privilege set for object type
+    switch (stmt->objtype)
+    {
+        case OBJECT_TABLE:
+            all_privileges = ACL_ALL_RIGHTS_RELATION | ACL_ALL_RIGHTS_SEQUENCE;
+            errormsg = gettext_noop("invalid privilege type %s for relation");
+            break;
+        case OBJECT_SEQUENCE:
+            all_privileges = ACL_ALL_RIGHTS_SEQUENCE;
+            errormsg = gettext_noop("invalid privilege type %s for sequence");
+            break;
+        case OBJECT_DATABASE:
+            all_privileges = ACL_ALL_RIGHTS_DATABASE;
+            errormsg = gettext_noop("invalid privilege type %s for database");
+            break;
+        case OBJECT_FUNCTION:
+        case OBJECT_PROCEDURE:
+        case OBJECT_ROUTINE:
+            all_privileges = ACL_ALL_RIGHTS_FUNCTION;
+            errormsg = gettext_noop("invalid privilege type %s for function");
+            break;
+        case OBJECT_SCHEMA:
+            all_privileges = ACL_ALL_RIGHTS_SCHEMA;
+            errormsg = gettext_noop("invalid privilege type %s for schema");
+            break;
+        // ... other object types ...
+        default:
+            elog(ERROR, "unrecognized GrantStmt.objtype: %d", (int) stmt->objtype);
+    }
+
+    // Convert privilege specifications to AclMode bitmask
+    if (stmt->privileges == NIL)
+    {
+        // Grant ALL privileges
+        istmt.all_privs = true;
+        istmt.privileges = ACL_NO_RIGHTS;
+    }
+    else
+    {
+        // Convert specific privilege names to bitmask
+        istmt.all_privs = false;
+        istmt.privileges = ACL_NO_RIGHTS;
+
+        foreach(cell, stmt->privileges)
+        {
+            AccessPriv *privnode = (AccessPriv *) lfirst(cell);
+            AclMode priv;
+
+            // Handle column-level privileges separately
+            if (privnode->cols)
+            {
+                if (stmt->objtype != OBJECT_TABLE)
+                    ereport(ERROR, /* column privileges only valid for relations */);
+                istmt.col_privs = lappend(istmt.col_privs, privnode);
+                continue;
+            }
+
+            // Convert privilege name to bitmask
+            priv = string_to_privilege(privnode->priv_name);
+
+            // Validate privilege is valid for this object type
+            if (priv & ~((AclMode) all_privileges))
+                ereport(ERROR, /* invalid privilege type for object */);
+
+            istmt.privileges |= priv;
+        }
+    }
+
+    // Execute the grant/revoke operation
+    ExecGrantStmt_oids(&istmt);
+}
+```

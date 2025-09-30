@@ -36,3 +36,64 @@ This function provides a unified interface for socket polling across different p
 - Uses poll(2) when available for better performance, falls back to select(2) otherwise
 - Handles timeout conversion from microsecond precision to milliseconds (poll) or seconds/microseconds (select)
 - Part of libpq's internal socket management infrastructure
+
+## Simplified Source
+```c
+int PQsocketPoll(int sock, int forRead, int forWrite, pg_usec_time_t end_time) {
+    // Return immediately if neither read nor write requested
+    if (!forRead && !forWrite)
+        return 0;
+
+#ifdef HAVE_POLL
+    // Use poll() when available
+    struct pollfd input_fd;
+    input_fd.fd = sock;
+    input_fd.events = POLLERR;
+
+    if (forRead) input_fd.events |= POLLIN;
+    if (forWrite) input_fd.events |= POLLOUT;
+
+    // Convert timeout from microseconds to milliseconds
+    int timeout_ms;
+    if (end_time == -1)
+        timeout_ms = -1; // Infinite
+    else if (end_time == 0)
+        timeout_ms = 0;  // Immediate
+    else {
+        pg_usec_time_t now = PQgetCurrentTimeUSec();
+        timeout_ms = (end_time > now) ? (end_time - now) / 1000 : 0;
+    }
+
+    return poll(&input_fd, 1, timeout_ms);
+
+#else
+    // Fallback to select() when poll() not available
+    fd_set input_mask, output_mask, except_mask;
+    FD_ZERO(&input_mask);
+    FD_ZERO(&output_mask);
+    FD_ZERO(&except_mask);
+
+    if (forRead) FD_SET(sock, &input_mask);
+    if (forWrite) FD_SET(sock, &output_mask);
+    FD_SET(sock, &except_mask);
+
+    // Convert timeout to timeval structure
+    struct timeval timeout, *ptr_timeout;
+    if (end_time == -1) {
+        ptr_timeout = NULL; // Infinite
+    } else {
+        pg_usec_time_t now = PQgetCurrentTimeUSec();
+        if (end_time > now) {
+            timeout.tv_sec = (end_time - now) / 1000000;
+            timeout.tv_usec = (end_time - now) % 1000000;
+        } else {
+            timeout.tv_sec = 0;
+            timeout.tv_usec = 0;
+        }
+        ptr_timeout = &timeout;
+    }
+
+    return select(sock + 1, &input_mask, &output_mask, &except_mask, ptr_timeout);
+#endif
+}
+```

@@ -35,3 +35,18 @@ The  function modifies the sort direction and null handling behavior for all sor
 - Used specifically in bounded heap sorting scenarios where maintaining heap property requires direction reversal
 - Must not be used with hash-based tuple sorting operations for safety reasons
 - Both sort direction and null ordering are inverted to maintain consistent sorting behavior
+
+## Simplified Source
+
+```c
+static void reversedirection(Tuplesortstate *state) {
+    SortSupport sortKey = state->base.sortKeys;
+    int nkey;
+
+    // Reverse direction and null ordering for each sort key
+    for (nkey = 0; nkey < state->base.nKeys; nkey++, sortKey++) {
+        sortKey->ssup_reverse = !sortKey->ssup_reverse;
+        sortKey->ssup_nulls_first = !sortKey->ssup_nulls_first;
+    }
+}
+```

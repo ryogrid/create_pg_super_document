@@ -43,3 +43,36 @@ This function is essential for resolving operator family names in SQL commands a
 - Part of PostgreSQL's standard name resolution infrastructure
 - The access method constraint distinguishes this from general name resolution functions
 - Implements first-match-wins semantics following the search path order
+
+## Simplified Source
+
+```c
+Oid OpfamilynameGetOpfid(Oid amid, const char *opfname)
+{
+    Oid opfid;
+    ListCell *l;
+
+    // Ensure search path is current
+    recomputeNamespacePath();
+
+    // Search each namespace in order
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        // Skip temp namespace
+        if (namespaceId == myTempNamespace)
+            continue;
+
+        // Look for operator family with matching AM and name
+        opfid = GetSysCacheOid3(OPFAMILYAMNAMENSP, Anum_pg_opfamily_oid,
+                               ObjectIdGetDatum(amid),
+                               PointerGetDatum(opfname),
+                               ObjectIdGetDatum(namespaceId));
+
+        if (OidIsValid(opfid))
+            return opfid;
+    }
+
+    return InvalidOid; // Not found
+}
+```

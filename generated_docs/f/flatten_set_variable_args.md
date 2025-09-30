@@ -44,3 +44,79 @@ For variables with the GUC_LIST_INPUT flag, multiple arguments are joined with c
 - Special handling for TIME ZONE's INTERVAL arguments with typmod normalization
 - Static function - only used within guc_funcs.c module
 - Validates that non-list variables receive exactly one argument
+
+## Simplified Source
+
+```c
+static char *flatten_set_variable_args(const char *name, List *args) {
+    struct config_generic *record;
+    int flags;
+    StringInfoData buf;
+    ListCell *l;
+
+    // Fast path for DEFAULT (empty args)
+    if (args == NIL)
+        return NULL;
+
+    // Get variable configuration flags
+    record = find_option(name, false, true, WARNING);
+    flags = record ? record->flags : 0;
+
+    // Validate argument count for non-list variables
+    if ((flags & GUC_LIST_INPUT) == 0 && list_length(args) != 1) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("SET %s takes only one argument", name)));
+    }
+
+    initStringInfo(&buf);
+
+    // Process each argument
+    foreach(l, args) {
+        Node *arg = (Node *) lfirst(l);
+        char *val;
+        TypeName *typeName = NULL;
+        A_Const *con;
+
+        if (l != list_head(args))
+            appendStringInfoString(&buf, ", ");
+
+        // Handle TypeCast wrapper (for INTERVAL literals)
+        if (IsA(arg, TypeCast)) {
+            TypeCast *tc = (TypeCast *) arg;
+            arg = tc->arg;
+            typeName = tc->typeName;
+        }
+
+        // Extract constant value
+        con = (A_Const *) arg;
+
+        switch (nodeTag(&con->val)) {
+            case T_Integer:
+                appendStringInfo(&buf, "%d", intVal(&con->val));
+                break;
+
+            case T_Float:
+                appendStringInfoString(&buf, castNode(Float, &con->val)->fval);
+                break;
+
+            case T_String:
+                val = strVal(&con->val);
+                if (typeName != NULL) {
+                    // Special handling for INTERVAL constants
+                    // Convert to internal format and back for normalization
+                    process_interval_literal(val, typeName, &buf);
+                } else {
+                    // Regular string - quote if needed for list variables
+                    if (flags & GUC_LIST_QUOTE)
+                        appendStringInfoString(&buf, quote_identifier(val));
+                    else
+                        appendStringInfoString(&buf, val);
+                }
+                break;
+        }
+    }
+
+    return buf.data;
+}
+```

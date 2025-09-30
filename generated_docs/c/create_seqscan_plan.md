@@ -48,3 +48,38 @@ The sequential scan is the most basic access method in PostgreSQL, reading every
 - Handles both regular and parameterized sequential scans
 - The function follows PostgreSQL's pattern of separating path optimization from plan creation
 - Sequential scans are typically chosen when no suitable indexes are available or when the optimizer estimates that scanning the entire table would be more efficient than index-based access
+
+## Simplified Source
+
+```c
+static SeqScan *
+create_seqscan_plan(PlannerInfo *root, Path *best_path,
+                    List *tlist, List *scan_clauses)
+{
+    SeqScan *scan_plan;
+    Index scan_relid = best_path->parent->relid;
+
+    // Validate that we have a base relation
+    Assert(scan_relid > 0);
+    Assert(best_path->parent->rtekind == RTE_RELATION);
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths by replacing outer variables with nestloop params
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the SeqScan plan node
+    scan_plan = make_seqscan(tlist, scan_clauses, scan_relid);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

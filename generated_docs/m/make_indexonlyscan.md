@@ -45,3 +45,33 @@ This function constructs an IndexOnlyScan plan node, which is an optimization th
 - Index-only scans are a significant performance optimization as they avoid heap access
 - The function sets up both the basic Plan fields and IndexOnlyScan-specific fields
 - The recheck qualification is important for handling cases where index conditions may not be fully reliable
+
+## Simplified Source
+
+```c
+static IndexOnlyScan *make_indexonlyscan(List *qptlist, List *qpqual, Index scanrelid,
+                                          Oid indexid, List *indexqual, List *recheckqual,
+                                          List *indexorderby, List *indextlist,
+                                          ScanDirection indexscandir) {
+    // Create new IndexOnlyScan node
+    IndexOnlyScan *node = makeNode(IndexOnlyScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set up basic plan fields
+    plan->targetlist = qptlist;
+    plan->qual = qpqual;
+    plan->lefttree = NULL;   // Leaf scan node
+    plan->righttree = NULL;  // Leaf scan node
+
+    // Set IndexOnlyScan specific fields
+    node->scan.scanrelid = scanrelid;       // Relation being scanned
+    node->indexid = indexid;                // Index to use
+    node->indexqual = indexqual;            // Index qualifications
+    node->recheckqual = recheckqual;        // Conditions to recheck
+    node->indexorderby = indexorderby;      // Ordering expressions
+    node->indextlist = indextlist;          // Target list from index
+    node->indexorderdir = indexscandir;     // Scan direction
+
+    return node;
+}
+```

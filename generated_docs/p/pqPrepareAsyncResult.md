@@ -50,3 +50,49 @@ The function implements sophisticated error text tracking to avoid showing dupli
 - **Asynchronous support**: Critical component of libpq's asynchronous query processing infrastructure
 - **Error consolidation**: Ensures that internal libpq errors are properly converted to user-visible PGresult objects
 - **Thread safety**: Used in conjunction with thread unlocking mechanisms (pgunlock_thread)
+
+## Simplified Source
+
+```c
+PGresult *
+pqPrepareAsyncResult(PGconn *conn)
+{
+    PGresult *res;
+
+    // Use existing result if available
+    res = conn->result;
+    if (res) {
+        // Update error reporting position for fatal errors
+        if (res->resultStatus == PGRES_FATAL_ERROR)
+            conn->errorReported = conn->errorMessage.len;
+    } else {
+        // Create error result for internal errors
+        if (!conn->error_result)
+            libpq_append_conn_error(conn, "no error text available");
+
+        // Ensure valid error reporting position
+        if (conn->errorReported < 0 ||
+            conn->errorReported >= conn->errorMessage.len)
+            conn->errorReported = 0;
+
+        // Create new error result
+        res = PQmakeEmptyPGresult(conn, PGRES_EMPTY_QUERY);
+        if (res) {
+            // Set error status and message
+            res->resultStatus = PGRES_FATAL_ERROR;
+            pqSetResultError(res, &conn->errorMessage, conn->errorReported);
+            conn->errorReported = conn->errorMessage.len;
+        } else {
+            // Fallback to static OOM result if allocation fails
+            res = unconstify(PGresult *, &OOM_result);
+        }
+    }
+
+    // Restore saved result state
+    conn->result = conn->saved_result;
+    conn->error_result = false;
+    conn->saved_result = NULL;
+
+    return res;
+}
+```

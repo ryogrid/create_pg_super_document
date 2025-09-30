@@ -56,3 +56,80 @@ Key behaviors:
 - Automatically handles constraint inheritance in partitioned tables
 - Ensures snapshot consistency when firing retroactive triggers
 - Prevents cross-database constraint references as per PostgreSQL limitations
+
+## Simplified Source
+
+```c
+void AfterTriggerSetState(ConstraintsSetStmt *stmt) {
+    int my_level = GetCurrentTransactionNestLevel();
+
+    // Initialize state if needed
+    if (afterTriggers.state == NULL)
+        afterTriggers.state = SetConstraintStateCreate(8);
+
+    // Save current state for subtransaction rollback
+    if (my_level > 1 && afterTriggers.trans_stack[my_level].state == NULL) {
+        afterTriggers.trans_stack[my_level].state =
+            SetConstraintStateCopy(afterTriggers.state);
+    }
+
+    if (stmt->constraints == NIL) {
+        // Handle "SET CONSTRAINTS ALL ..."
+        afterTriggers.state->numstates = 0;
+        afterTriggers.state->all_isset = true;
+        afterTriggers.state->all_isdeferred = stmt->deferred;
+    } else {
+        // Handle "SET CONSTRAINTS constraint-name [, ...]"
+        List *conoidlist = NIL;
+        List *tgoidlist = NIL;
+
+        // Look up constraint names and collect constraint OIDs
+        foreach(lc, stmt->constraints) {
+            RangeVar *constraint = lfirst(lc);
+
+            // Search for constraint in appropriate schema(s)
+            // Add found deferrable constraints to conoidlist
+            // Error if constraint not found or not deferrable
+        }
+
+        // Find descendant constraints (for partitioned tables)
+        foreach(lc, conoidlist) {
+            // Scan for child constraints and add to list
+        }
+
+        // Find triggers implementing these constraints
+        foreach(lc, conoidlist) {
+            // Look up triggers for each constraint
+            // Add deferrable triggers to tgoidlist
+        }
+
+        // Update trigger states
+        foreach(lc, tgoidlist) {
+            Oid tgoid = lfirst_oid(lc);
+
+            // Find existing state or add new state
+            SetConstraintStateAddItem(state, tgoid, stmt->deferred);
+        }
+    }
+
+    // If setting to IMMEDIATE, fire any previously deferred events
+    if (!stmt->deferred) {
+        bool snapshot_set = false;
+
+        // Mark and fire events that are now immediate
+        while (afterTriggerMarkEvents(events, NULL, true)) {
+            if (!snapshot_set) {
+                PushActiveSnapshot(GetTransactionSnapshot());
+                snapshot_set = true;
+            }
+
+            // Fire the events
+            if (afterTriggerInvokeEvents(events, firing_id, NULL, !IsSubTransaction()))
+                break;
+        }
+
+        if (snapshot_set)
+            PopActiveSnapshot();
+    }
+}
+```

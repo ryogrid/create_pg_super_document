@@ -48,3 +48,99 @@ The function also includes optional raw expression coverage testing for DML stat
 - All transformed queries are marked with querySource = QSRC_ORIGINAL and canSetTag = true by default
 - The function serves as the primary entry point for recursive statement transformation throughout the parser
 - Different statement types require different levels of semantic analysis, from simple wrapping for utility statements to complex optimization preparation for DML statements
+
+## Simplified Source
+
+```c
+Query *
+transformStmt(ParseState *pstate, Node *parseTree) {
+    Query *result;
+
+    // Optional expression coverage testing for DML statements
+#ifdef RAW_EXPRESSION_COVERAGE_TEST
+    switch (nodeTag(parseTree)) {
+        case T_SelectStmt:
+        case T_InsertStmt:
+        case T_UpdateStmt:
+        case T_DeleteStmt:
+        case T_MergeStmt:
+            (void) test_raw_expression_coverage(parseTree, NULL);
+            break;
+        default:
+            break;
+    }
+#endif
+
+    // Main transformation switch statement
+    switch (nodeTag(parseTree)) {
+        // Optimizable DML statements
+        case T_InsertStmt:
+            result = transformInsertStmt(pstate, (InsertStmt *) parseTree);
+            break;
+
+        case T_DeleteStmt:
+            result = transformDeleteStmt(pstate, (DeleteStmt *) parseTree);
+            break;
+
+        case T_UpdateStmt:
+            result = transformUpdateStmt(pstate, (UpdateStmt *) parseTree);
+            break;
+
+        case T_MergeStmt:
+            result = transformMergeStmt(pstate, (MergeStmt *) parseTree);
+            break;
+
+        case T_SelectStmt: {
+            SelectStmt *n = (SelectStmt *) parseTree;
+
+            if (n->valuesLists) {
+                result = transformValuesClause(pstate, n);
+            } else if (n->op == SETOP_NONE) {
+                result = transformSelectStmt(pstate, n);
+            } else {
+                result = transformSetOperationStmt(pstate, n);
+            }
+            break;
+        }
+
+        // Procedural statements
+        case T_ReturnStmt:
+            result = transformReturnStmt(pstate, (ReturnStmt *) parseTree);
+            break;
+
+        case T_PLAssignStmt:
+            result = transformPLAssignStmt(pstate, (PLAssignStmt *) parseTree);
+            break;
+
+        // Special case statements that need transformation
+        case T_DeclareCursorStmt:
+            result = transformDeclareCursorStmt(pstate, (DeclareCursorStmt *) parseTree);
+            break;
+
+        case T_ExplainStmt:
+            result = transformExplainStmt(pstate, (ExplainStmt *) parseTree);
+            break;
+
+        case T_CreateTableAsStmt:
+            result = transformCreateTableAsStmt(pstate, (CreateTableAsStmt *) parseTree);
+            break;
+
+        case T_CallStmt:
+            result = transformCallStmt(pstate, (CallStmt *) parseTree);
+            break;
+
+        default:
+            // Utility statements - wrap the original parse tree
+            result = makeNode(Query);
+            result->commandType = CMD_UTILITY;
+            result->utilityStmt = (Node *) parseTree;
+            break;
+    }
+
+    // Mark query metadata
+    result->querySource = QSRC_ORIGINAL;
+    result->canSetTag = true;
+
+    return result;
+}
+```

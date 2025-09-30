@@ -51,3 +51,82 @@ The function enforces PostgreSQL's policy that generated columns cannot be used 
 - The function is central to PostgreSQL's COPY infrastructure and is used by both input (FROM) and output (TO) operations
 - Column validation includes checking for dropped columns (attisdropped) and generated columns (attgenerated)
 - The rel parameter being optional (can be NULL) allows the function to work with anonymous tuple descriptors for more generic use cases
+
+## Simplified Source
+
+```c
+List *CopyGetAttnums(TupleDesc tupDesc, Relation rel, List *attnamelist) {
+    List *attnums = NIL;
+
+    if (attnamelist == NIL) {
+        // Generate default column list - all non-dropped, non-generated columns
+        int attr_count = tupDesc->natts;
+
+        for (int i = 0; i < attr_count; i++) {
+            Form_pg_attribute attr = TupleDescAttr(tupDesc, i);
+
+            // Skip dropped and generated columns
+            if (attr->attisdropped || attr->attgenerated) {
+                continue;
+            }
+
+            // Add column number (1-based) to the list
+            attnums = lappend_int(attnums, i + 1);
+        }
+    } else {
+        // Validate user-specified column list
+        ListCell *l;
+
+        foreach(l, attnamelist) {
+            char *name = strVal(lfirst(l));
+            int attnum = InvalidAttrNumber;
+
+            // Search for column by name
+            for (int i = 0; i < tupDesc->natts; i++) {
+                Form_pg_attribute att = TupleDescAttr(tupDesc, i);
+
+                if (att->attisdropped) {
+                    continue;
+                }
+
+                if (namestrcmp(&(att->attname), name) == 0) {
+                    // Found the column - check if it's generated
+                    if (att->attgenerated) {
+                        ereport(ERROR,
+                                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                                 errmsg("column \"%s\" is a generated column", name),
+                                 errdetail("Generated columns cannot be used in COPY.")));
+                    }
+                    attnum = att->attnum;
+                    break;
+                }
+            }
+
+            // Column not found - report error
+            if (attnum == InvalidAttrNumber) {
+                if (rel != NULL) {
+                    ereport(ERROR,
+                            (errcode(ERRCODE_UNDEFINED_COLUMN),
+                             errmsg("column \"%s\" of relation \"%s\" does not exist",
+                                    name, RelationGetRelationName(rel))));
+                } else {
+                    ereport(ERROR,
+                            (errcode(ERRCODE_UNDEFINED_COLUMN),
+                             errmsg("column \"%s\" does not exist", name)));
+                }
+            }
+
+            // Check for duplicate columns
+            if (list_member_int(attnums, attnum)) {
+                ereport(ERROR,
+                        (errcode(ERRCODE_DUPLICATE_COLUMN),
+                         errmsg("column \"%s\" specified more than once", name)));
+            }
+
+            attnums = lappend_int(attnums, attnum);
+        }
+    }
+
+    return attnums;
+}
+```

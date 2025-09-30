@@ -44,3 +44,65 @@ This function creates a MinMaxAggPath node that represents an optimized approach
 - The Result node itself is not parallelizable, but parallel safety information is useful for outer queries in subquery scenarios
 - Cost calculation includes initplan costs, target evaluation costs, cpu_tuple_cost, and optional qualification costs
 - Rowcount estimate is always 1, regardless of qualification selectivity
+
+## Simplified Source
+
+```c
+MinMaxAggPath *create_minmaxagg_path(PlannerInfo *root,
+                                     RelOptInfo *rel,
+                                     PathTarget *target,
+                                     List *mmaggregates,
+                                     List *quals)
+{
+    MinMaxAggPath *pathnode = makeNode(MinMaxAggPath);
+    Cost initplan_cost;
+    ListCell *lc;
+
+    // Initialize path properties - this will be a Result node
+    pathnode->path.pathtype = T_Result;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;  // No parameterization
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = true;  // May change based on components
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.rows = 1;  // Always produces exactly one row
+    pathnode->path.pathkeys = NIL;  // Unordered result
+
+    pathnode->mmaggregates = mmaggregates;
+    pathnode->quals = quals;
+
+    // Calculate total cost of all initplans and check parallel safety
+    initplan_cost = 0;
+    foreach(lc, mmaggregates)
+    {
+        MinMaxAggInfo *mminfo = (MinMaxAggInfo *) lfirst(lc);
+
+        initplan_cost += mminfo->pathcost;
+        if (!mminfo->path->parallel_safe)
+            pathnode->path.parallel_safe = false;
+    }
+
+    // Calculate costs: initplans + target evaluation + base tuple cost
+    pathnode->path.startup_cost = initplan_cost + target->cost.startup;
+    pathnode->path.total_cost = initplan_cost + target->cost.startup +
+                                target->cost.per_tuple + cpu_tuple_cost;
+
+    // Add qualification costs if present
+    if (quals)
+    {
+        QualCost qual_cost;
+        cost_qual_eval(&qual_cost, quals, root);
+        pathnode->path.startup_cost += qual_cost.startup;
+        pathnode->path.total_cost += qual_cost.startup + qual_cost.per_tuple;
+    }
+
+    // Final parallel safety check for target and quals
+    if (pathnode->path.parallel_safe)
+        pathnode->path.parallel_safe =
+            is_parallel_safe(root, (Node *) target->exprs) &&
+            is_parallel_safe(root, (Node *) quals);
+
+    return pathnode;
+}
+```

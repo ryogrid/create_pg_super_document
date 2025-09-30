@@ -48,3 +48,65 @@ The function distinguishes between timezone-aware (CURRENT_TIME, CURRENT_TIMESTA
 - CURRENT_CATALOG and CURRENT_SCHEMA return the current database and schema names respectively
 - All supported functions are niladic (take no parameters) except for precision variants
 - The transformation is deterministic based solely on the operation type stored in the node
+
+## Simplified Source
+
+```c
+static Node *
+transformSQLValueFunction(ParseState *pstate, SQLValueFunction *svf)
+{
+    // Set type and validate typmod based on SQL value function type
+    switch (svf->op) {
+        case SVFOP_CURRENT_DATE:
+            svf->type = DATEOID;
+            break;
+
+        case SVFOP_CURRENT_TIME:
+            svf->type = TIMETZOID;
+            break;
+
+        case SVFOP_CURRENT_TIME_N:
+            svf->type = TIMETZOID;
+            svf->typmod = anytime_typmod_check(true, svf->typmod);
+            break;
+
+        case SVFOP_CURRENT_TIMESTAMP:
+            svf->type = TIMESTAMPTZOID;
+            break;
+
+        case SVFOP_CURRENT_TIMESTAMP_N:
+            svf->type = TIMESTAMPTZOID;
+            svf->typmod = anytimestamp_typmod_check(true, svf->typmod);
+            break;
+
+        case SVFOP_LOCALTIME:
+            svf->type = TIMEOID;
+            break;
+
+        case SVFOP_LOCALTIME_N:
+            svf->type = TIMEOID;
+            svf->typmod = anytime_typmod_check(false, svf->typmod);
+            break;
+
+        case SVFOP_LOCALTIMESTAMP:
+            svf->type = TIMESTAMPOID;
+            break;
+
+        case SVFOP_LOCALTIMESTAMP_N:
+            svf->type = TIMESTAMPOID;
+            svf->typmod = anytimestamp_typmod_check(false, svf->typmod);
+            break;
+
+        case SVFOP_CURRENT_ROLE:
+        case SVFOP_CURRENT_USER:
+        case SVFOP_USER:
+        case SVFOP_SESSION_USER:
+        case SVFOP_CURRENT_CATALOG:
+        case SVFOP_CURRENT_SCHEMA:
+            svf->type = NAMEOID;
+            break;
+    }
+
+    return (Node *) svf;
+}
+```

@@ -47,3 +47,78 @@ The function distinguishes between relations that have explicit FOR UPDATE/SHARE
 - The function assigns unique rowmarkId values using root->glob->lastRowMarkId
 - Target relations (result relations) are excluded from row marking since they are handled differently
 - Each PlanRowMark includes lock strength, wait policy, and mark type information for the executor
+
+## Simplified Source
+
+```c
+static void preprocess_rowmarks(PlannerInfo *root) {
+    Query *parse = root->parse;
+    Bitmapset *rels;
+    List *prowmarks;
+
+    // Check if we have explicit row marks (FOR UPDATE/SHARE)
+    if (parse->rowMarks) {
+        // Validate that row locking is compatible with query structure
+        CheckSelectLocking(parse, linitial_node(RowMarkClause, parse->rowMarks)->strength);
+    } else {
+        // Only need row marks for UPDATE, DELETE, MERGE commands
+        if (parse->commandType != CMD_UPDATE &&
+            parse->commandType != CMD_DELETE &&
+            parse->commandType != CMD_MERGE)
+            return;
+    }
+
+    // Get all base relations except the target relation
+    rels = get_relids_in_jointree((Node *) parse->jointree, false, false);
+    if (parse->resultRelation)
+        rels = bms_del_member(rels, parse->resultRelation);
+
+    prowmarks = NIL;
+
+    // Convert explicit RowMarkClauses to PlanRowMark structures
+    foreach(l, parse->rowMarks) {
+        RowMarkClause *rc = lfirst_node(RowMarkClause, l);
+        RangeTblEntry *rte = rt_fetch(rc->rti, parse->rtable);
+        PlanRowMark *newrc;
+
+        // Skip non-relation entries (subqueries, etc.)
+        if (rte->rtekind != RTE_RELATION)
+            continue;
+
+        rels = bms_del_member(rels, rc->rti);
+
+        // Create PlanRowMark for explicit row lock
+        newrc = makeNode(PlanRowMark);
+        newrc->rti = newrc->prti = rc->rti;
+        newrc->rowmarkId = ++(root->glob->lastRowMarkId);
+        newrc->markType = select_rowmark_type(rte, rc->strength);
+        newrc->strength = rc->strength;
+        newrc->waitPolicy = rc->waitPolicy;
+
+        prowmarks = lappend(prowmarks, newrc);
+    }
+
+    // Add row marks for remaining base relations (implicit locking)
+    i = 0;
+    foreach(l, parse->rtable) {
+        RangeTblEntry *rte = lfirst_node(RangeTblEntry, l);
+        PlanRowMark *newrc;
+
+        i++;
+        if (!bms_is_member(i, rels))
+            continue;
+
+        // Create PlanRowMark for implicit row lock
+        newrc = makeNode(PlanRowMark);
+        newrc->rti = newrc->prti = i;
+        newrc->rowmarkId = ++(root->glob->lastRowMarkId);
+        newrc->markType = select_rowmark_type(rte, LCS_NONE);
+        newrc->strength = LCS_NONE;
+        newrc->waitPolicy = LockWaitBlock;
+
+        prowmarks = lappend(prowmarks, newrc);
+    }
+
+    root->rowMarks = prowmarks;
+}
+```

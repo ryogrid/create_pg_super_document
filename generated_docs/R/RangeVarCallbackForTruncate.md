@@ -42,3 +42,29 @@ The function follows PostgreSQL's standard pattern for relation callbacks by fir
 - Properly manages system cache resources by releasing the tuple after use
 - Handles the case where relation lookup succeeds but catalog entry is missing (should not happen under normal circumstances)
 - Part of the secure relation access pattern implemented by RangeVarGetRelidExtended
+
+## Simplified Source
+
+```c
+static void RangeVarCallbackForTruncate(const RangeVar *relation,
+                                       Oid relId, Oid oldRelId, void *arg) {
+    HeapTuple tuple;
+
+    // Skip if relation not found
+    if (!OidIsValid(relId)) {
+        return;
+    }
+
+    // Look up relation catalog information
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relId));
+    if (!HeapTupleIsValid(tuple)) {
+        elog(ERROR, "cache lookup failed for relation %u", relId);
+    }
+
+    // Validate relation type and permissions for truncation
+    truncate_check_rel(relId, (Form_pg_class) GETSTRUCT(tuple));
+    truncate_check_perms(relId, (Form_pg_class) GETSTRUCT(tuple));
+
+    ReleaseSysCache(tuple);
+}
+```

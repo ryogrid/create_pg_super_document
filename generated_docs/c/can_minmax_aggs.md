@@ -48,3 +48,63 @@ For each valid aggregate, it creates a  node containing the aggregate's function
 - DISTINCT clauses in aggregates are ignored (don't affect optimization eligibility)
 - Future enhancement could support FILTER clauses by adding them to generated subquery quals
 - The ORDER BY restriction prevents optimization of aggregates where result order matters for equal values
+
+## Simplified Source
+
+```c
+static bool can_minmax_aggs(PlannerInfo *root, List **context)
+{
+    ListCell *lc;
+
+    // Iterate through all aggregates found during preprocessing
+    foreach(lc, root->agginfos)
+    {
+        AggInfo *agginfo = lfirst_node(AggInfo, lc);
+        Aggref *aggref = linitial_node(Aggref, agginfo->aggrefs);
+        Oid aggsortop;
+        TargetEntry *curTarget;
+        MinMaxAggInfo *mminfo;
+
+        // Basic validation: must have exactly one argument
+        if (list_length(aggref->args) != 1)
+            return false;  // Not MIN/MAX eligible
+
+        // Reject aggregates with ORDER BY (affects result predictability)
+        if (aggref->aggorder != NIL)
+            return false;
+
+        // Reject aggregates with FILTER clause (not yet supported)
+        if (aggref->aggfilter != NULL)
+            return false;
+
+        // Verify this is actually a MIN/MAX aggregate by checking sort operator
+        aggsortop = fetch_agg_sort_op(aggref->aggfnoid);
+        if (!OidIsValid(aggsortop))
+            return false;  // Not a MIN/MAX aggregate
+
+        curTarget = (TargetEntry *) linitial(aggref->args);
+
+        // Ensure expression is indexable (no mutable functions)
+        if (contain_mutable_functions((Node *) curTarget->expr))
+            return false;
+
+        // Reject row types (complex semantics)
+        if (type_is_rowtype(exprType((Node *) curTarget->expr)))
+            return false;
+
+        // Create MinMaxAggInfo node for this valid aggregate
+        mminfo = makeNode(MinMaxAggInfo);
+        mminfo->aggfnoid = aggref->aggfnoid;
+        mminfo->aggsortop = aggsortop;
+        mminfo->target = curTarget->expr;
+        mminfo->subroot = NULL;  // Path planning happens later
+        mminfo->path = NULL;
+        mminfo->pathcost = 0;
+        mminfo->param = NULL;
+
+        *context = lappend(*context, mminfo);
+    }
+
+    return true;  // All aggregates are MIN/MAX eligible
+}
+```

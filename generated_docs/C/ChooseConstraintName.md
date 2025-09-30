@@ -54,3 +54,56 @@ This function generates a unique constraint name following SQL specification req
 - May still encounter race conditions if concurrent transactions choose the same name
 - Designed to meet SQL standard requirements for constraint name uniqueness within namespaces
 - Essential for automatic constraint naming in DDL operations
+
+## Simplified Source
+
+```c
+char *ChooseConstraintName(const char *name1, const char *name2,
+                          const char *label, Oid namespaceid,
+                          List *others) {
+    int pass = 0;
+    char *conname = NULL;
+    char modlabel[NAMEDATALEN];
+    Relation conDesc;
+    bool found;
+
+    // Open the constraint catalog for searching
+    conDesc = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Start with the unmodified label
+    strlcpy(modlabel, label, sizeof(modlabel));
+
+    // Keep trying until we find a unique name
+    for (;;) {
+        // Generate candidate constraint name
+        conname = makeObjectName(name1, name2, modlabel);
+        found = false;
+
+        // Check against names already chosen in this command
+        foreach(lc, others) {
+            if (strcmp((char *) lfirst(lc), conname) == 0) {
+                found = true;
+                break;
+            }
+        }
+
+        // Check against existing constraints in the catalog
+        if (!found) {
+            // Search for existing constraint with this name in the namespace
+            found = constraint_exists_in_namespace(conname, namespaceid);
+        }
+
+        // If unique, we're done
+        if (!found) {
+            break;
+        }
+
+        // Try next name with numeric suffix
+        pfree(conname);
+        snprintf(modlabel, sizeof(modlabel), "%s%d", label, ++pass);
+    }
+
+    table_close(conDesc, AccessShareLock);
+    return conname;
+}
+```

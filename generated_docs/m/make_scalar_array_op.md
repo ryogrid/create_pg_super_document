@@ -58,3 +58,84 @@ The function handles polymorphic operators carefully, ensuring type consistency 
 - Uses UNKNOWNOID handling for untyped literals on the right-hand side
 - Performs automatic type coercion through make_fn_arguments when necessary
 - The hashfuncid and negfuncid fields are initialized to InvalidOid and may be set later for optimization
+
+## Simplified Source
+
+```c
+Expr *
+make_scalar_array_op(ParseState *pstate, List *opname, bool useOr,
+                     Node *ltree, Node *rtree, int location) {
+    Oid ltypeId, rtypeId, atypeId, res_atypeId;
+    Operator tup;
+    Form_pg_operator opform;
+
+    // Get types from left and right expressions
+    ltypeId = exprType(ltree);
+    atypeId = exprType(rtree);
+
+    // Extract element type from array (right side)
+    if (atypeId == UNKNOWNOID) {
+        rtypeId = UNKNOWNOID;  // Handle untyped literals
+    } else {
+        rtypeId = get_base_element_type(atypeId);
+        if (!OidIsValid(rtypeId)) {
+            ereport(ERROR, "op ANY/ALL requires array on right side");
+        }
+    }
+
+    // Find the operator
+    tup = oper(pstate, opname, ltypeId, rtypeId, false, location);
+    opform = (Form_pg_operator) GETSTRUCT(tup);
+
+    // Validate operator is not just a shell
+    if (!RegProcedureIsValid(opform->oprcode)) {
+        ereport(ERROR, "operator is only a shell");
+    }
+
+    // Build argument list and type arrays
+    List *args = list_make2(ltree, rtree);
+    Oid actual_arg_types[2] = {ltypeId, rtypeId};
+    Oid declared_arg_types[2] = {opform->oprleft, opform->oprright};
+
+    // Ensure type consistency for polymorphic operators
+    Oid rettype = enforce_generic_type_consistency(actual_arg_types,
+                                                  declared_arg_types, 2,
+                                                  opform->oprresult, false);
+
+    // Validate operator returns boolean and not a set
+    if (rettype != BOOLOID) {
+        ereport(ERROR, "op ANY/ALL requires operator to yield boolean");
+    }
+    if (get_func_retset(opform->oprcode)) {
+        ereport(ERROR, "op ANY/ALL requires operator not to return a set");
+    }
+
+    // Handle array type for polymorphic operators
+    if (IsPolymorphicType(declared_arg_types[1])) {
+        res_atypeId = atypeId;  // Use actual array type
+    } else {
+        res_atypeId = get_array_type(declared_arg_types[1]);
+        if (!OidIsValid(res_atypeId)) {
+            ereport(ERROR, "could not find array type");
+        }
+    }
+
+    // Apply necessary type casts
+    actual_arg_types[1] = atypeId;
+    declared_arg_types[1] = res_atypeId;
+    make_fn_arguments(pstate, args, actual_arg_types, declared_arg_types);
+
+    // Create the final expression node
+    ScalarArrayOpExpr *result = makeNode(ScalarArrayOpExpr);
+    result->opno = oprid(tup);
+    result->opfuncid = opform->oprcode;
+    result->hashfuncid = InvalidOid;
+    result->negfuncid = InvalidOid;
+    result->useOr = useOr;
+    result->args = args;
+    result->location = location;
+
+    ReleaseSysCache(tup);
+    return (Expr *) result;
+}
+```

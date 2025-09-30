@@ -40,6 +40,35 @@ The function returns 0 solely to satisfy the  macro requirements, as the actual 
 - The comment notes that gettext doesn't support multiple plurals in one string, explaining why different approaches are used for different scenarios
 - Returns 0 as a placeholder to satisfy ereport macro requirements - the real work is done via side effects
 - Part of PostgreSQL's comprehensive error reporting system to provide clear, actionable error messages to users
-- The function is defined in 
+- The function is defined in
 - Helps users understand exactly what is preventing their database operations from succeeding
 - Critical for user experience as it transforms technical constraints into understandable explanations
+
+## Simplified Source
+
+```c
+static int
+errdetail_busy_db(int notherbackends, int npreparedxacts)
+{
+    // Generate appropriate error message based on what's blocking the database
+    if (notherbackends > 0 && npreparedxacts > 0) {
+        // Both active sessions and prepared transactions present
+        errdetail("There are %d other session(s) and %d prepared transaction(s) using the database.",
+                 notherbackends, npreparedxacts);
+    }
+    else if (notherbackends > 0) {
+        // Only active sessions present
+        errdetail_plural("There is %d other session using the database.",
+                        "There are %d other sessions using the database.",
+                        notherbackends, notherbackends);
+    }
+    else {
+        // Only prepared transactions present
+        errdetail_plural("There is %d prepared transaction using the database.",
+                        "There are %d prepared transactions using the database.",
+                        npreparedxacts, npreparedxacts);
+    }
+
+    return 0; // Required for ereport macro compatibility
+}
+```

@@ -33,3 +33,14 @@ Clearing this flag helps maintain accurate page state information for PostgreSQL
 - Used in conjunction with PageHasFreeLinePointers and PageSetHasFreeLinePointers for complete flag management
 - Called during various page maintenance operations to maintain accurate page state
 - Often used when free line pointers have been consumed or page structure has been reorganized
+
+## Simplified Source
+
+```c
+static inline void
+PageClearHasFreeLinePointers(Page page)
+{
+    // Clear the PD_HAS_FREE_LINES flag in page header
+    ((PageHeader) page)->pd_flags &= ~PD_HAS_FREE_LINES;
+}
+```

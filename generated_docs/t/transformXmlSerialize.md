@@ -40,3 +40,50 @@ The function allows flexible target types - SQL standard supports CHAR and VARCH
 - Supports user-defined text-like data types automatically
 - Error reporting includes type information and parser position
 - The function is located in src/backend/parser/parse_expr.c:2484-2527
+
+## Simplified Source
+
+```c
+static Node *
+transformXmlSerialize(ParseState *pstate, XmlSerialize *xs)
+{
+    Node *result;
+    XmlExpr *xexpr;
+    Oid targetType;
+    int32 targetTypmod;
+
+    // Create XmlExpr node for XMLSERIALIZE operation
+    xexpr = makeNode(XmlExpr);
+    xexpr->op = IS_XMLSERIALIZE;
+
+    // Transform and coerce input expression to XML type
+    xexpr->args = list_make1(coerce_to_specific_type(pstate,
+                                                    transformExprRecurse(pstate, xs->expr),
+                                                    XMLOID,
+                                                    "XMLSERIALIZE"));
+
+    // Get target type information
+    typenameTypeIdAndMod(pstate, xs->typeName, &targetType, &targetTypmod);
+
+    // Set XML expression properties
+    xexpr->xmloption = xs->xmloption;
+    xexpr->indent = xs->indent;
+    xexpr->location = xs->location;
+    xexpr->type = targetType;
+    xexpr->typmod = targetTypmod;
+
+    // Coerce from TEXT to target type (allows flexible target types)
+    result = coerce_to_target_type(pstate, (Node *) xexpr,
+                                  TEXTOID, targetType, targetTypmod,
+                                  COERCION_IMPLICIT,
+                                  COERCE_IMPLICIT_CAST,
+                                  -1);
+
+    if (result == NULL)
+        ereport(ERROR, (errcode(ERRCODE_CANNOT_COERCE),
+                       errmsg("cannot cast XMLSERIALIZE result to %s",
+                              format_type_be(targetType))));
+
+    return result;
+}
+```

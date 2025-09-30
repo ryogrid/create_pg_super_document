@@ -50,3 +50,80 @@ For generic objects, the function resolves the object address using  with exclus
 - Role specification resolution occurs once at the beginning to get the new owner OID
 - Error handling includes elog(ERROR) for unrecognized object types
 - The function assumes the caller has appropriate permissions to execute the ownership change
+
+## Simplified Source
+
+```c
+ObjectAddress ExecAlterOwnerStmt(AlterOwnerStmt *stmt) {
+    Oid newowner = get_rolespec_oid(stmt->newowner, false);
+
+    switch (stmt->objectType) {
+        // Database objects
+        case OBJECT_DATABASE:
+            return AlterDatabaseOwner(strVal(stmt->object), newowner);
+
+        // Schema objects
+        case OBJECT_SCHEMA:
+            return AlterSchemaOwner(strVal(stmt->object), newowner);
+
+        // Type and domain objects
+        case OBJECT_TYPE:
+        case OBJECT_DOMAIN:
+            return AlterTypeOwner(castNode(List, stmt->object), newowner, stmt->objectType);
+
+        // Foreign data wrapper objects
+        case OBJECT_FDW:
+            return AlterForeignDataWrapperOwner(strVal(stmt->object), newowner);
+
+        case OBJECT_FOREIGN_SERVER:
+            return AlterForeignServerOwner(strVal(stmt->object), newowner);
+
+        // Event trigger objects
+        case OBJECT_EVENT_TRIGGER:
+            return AlterEventTriggerOwner(strVal(stmt->object), newowner);
+
+        // Publication objects
+        case OBJECT_PUBLICATION:
+            return AlterPublicationOwner(strVal(stmt->object), newowner);
+
+        // Subscription objects
+        case OBJECT_SUBSCRIPTION:
+            return AlterSubscriptionOwner(strVal(stmt->object), newowner);
+
+        // Generic objects
+        case OBJECT_AGGREGATE:
+        case OBJECT_COLLATION:
+        case OBJECT_CONVERSION:
+        case OBJECT_FUNCTION:
+        case OBJECT_LANGUAGE:
+        case OBJECT_LARGEOBJECT:
+        case OBJECT_OPERATOR:
+        case OBJECT_OPCLASS:
+        case OBJECT_OPFAMILY:
+        case OBJECT_PROCEDURE:
+        case OBJECT_ROUTINE:
+        case OBJECT_STATISTIC_EXT:
+        case OBJECT_TABLESPACE:
+        case OBJECT_TSDICTIONARY:
+        case OBJECT_TSCONFIGURATION:
+        {
+            Relation relation;
+            ObjectAddress address;
+
+            // Resolve object address
+            address = get_object_address(stmt->objectType, stmt->object,
+                                       &relation, AccessExclusiveLock, false);
+            Assert(relation == NULL);
+
+            // Change ownership
+            AlterObjectOwner_internal(address.classId, address.objectId, newowner);
+
+            return address;
+        }
+
+        default:
+            elog(ERROR, "unrecognized AlterOwnerStmt type: %d", (int) stmt->objectType);
+            return InvalidObjectAddress;
+    }
+}
+```

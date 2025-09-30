@@ -30,3 +30,12 @@ The function serves as the strict counterpart to WarnNoTransactionBlock - it's u
 
 ## Notes and Other Information
 This function implements the 'strict' approach to transaction block validation, using errors instead of warnings when commands are executed outside transaction blocks. It's typically used for commands like DECLARE CURSOR that are fundamentally meaningless outside of a transaction context. The boolean 'true' parameter passed to CheckTransactionBlock distinguishes this from the warning-only behavior of WarnNoTransactionBlock.
+
+## Simplified Source
+
+```c
+void RequireTransactionBlock(bool isTopLevel, const char *stmtType) {
+    // Enforce strict transaction block requirement - error if not in transaction
+    CheckTransactionBlock(isTopLevel, true, stmtType);
+}
+```

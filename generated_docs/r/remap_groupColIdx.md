@@ -33,3 +33,25 @@ The `remap_groupColIdx` function transforms the grouping column references from 
 - Allocates memory for the new array using palloc0, ensuring zero-initialization
 - The returned array has the same length as the input groupClause list
 - Essential for implementing SQL GROUPING SETS, ROLLUP, and CUBE operations where column references need to be remapped
+
+## Simplified Source
+
+```c
+static AttrNumber *remap_groupColIdx(PlannerInfo *root, List *groupClause) {
+    AttrNumber *grouping_map = root->grouping_map;
+
+    Assert(grouping_map);
+
+    // Allocate array for remapped column indices
+    AttrNumber *new_grpColIdx = palloc0(sizeof(AttrNumber) * list_length(groupClause));
+
+    // Map each group clause reference to actual column position
+    int i = 0;
+    foreach(cell, groupClause) {
+        SortGroupClause *clause = lfirst(cell);
+        new_grpColIdx[i++] = grouping_map[clause->tleSortGroupRef];
+    }
+
+    return new_grpColIdx;
+}
+```

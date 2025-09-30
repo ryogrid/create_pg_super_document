@@ -38,3 +38,12 @@ The function is widely used throughout PostgreSQL frontend utilities and tools a
 - Handles malloc(0) portability issues by ensuring at least 1 byte is allocated
 - For applications that need to handle allocation failures gracefully, use pg_malloc_extended() with MCXT_ALLOC_NO_OOM flag
 - Located in src/common/fe_memutils.c:47-52
+
+## Simplified Source
+
+```c
+void *pg_malloc(size_t size) {
+    // Use internal malloc with default flags (exits on failure)
+    return pg_malloc_internal(size, 0);
+}
+```

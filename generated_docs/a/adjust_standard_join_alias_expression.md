@@ -53,3 +53,57 @@ The function is designed to be called only after is_standard_join_alias_expressi
 - The Assert(false) at the end serves as a safety net for unexpected node types
 - Coercion expressions are handled transparently since they don't affect null semantics
 - COALESCE processing applies nullingrels to all arguments since any of them might contribute to the final result
+
+## Simplified Source
+
+```c
+static void adjust_standard_join_alias_expression(Node *newnode, Var *oldvar) {
+    // Handle Var nodes - add nullingrels if at matching query level
+    if (IsA(newnode, Var) && ((Var *) newnode)->varlevelsup == oldvar->varlevelsup) {
+        Var *newvar = (Var *) newnode;
+        newvar->varnullingrels = bms_add_members(newvar->varnullingrels, oldvar->varnullingrels);
+    }
+
+    // Handle PlaceHolderVar nodes - add nullingrels if at matching query level
+    else if (IsA(newnode, PlaceHolderVar) &&
+             ((PlaceHolderVar *) newnode)->phlevelsup == oldvar->varlevelsup) {
+        PlaceHolderVar *newphv = (PlaceHolderVar *) newnode;
+        newphv->phnullingrels = bms_add_members(newphv->phnullingrels, oldvar->varnullingrels);
+    }
+
+    // Handle function expressions - recurse into first argument
+    else if (IsA(newnode, FuncExpr)) {
+        FuncExpr *fexpr = (FuncExpr *) newnode;
+        adjust_standard_join_alias_expression(linitial(fexpr->args), oldvar);
+    }
+
+    // Handle type coercion expressions - recurse into argument
+    else if (IsA(newnode, RelabelType)) {
+        RelabelType *relabel = (RelabelType *) newnode;
+        adjust_standard_join_alias_expression((Node *) relabel->arg, oldvar);
+    }
+    else if (IsA(newnode, CoerceViaIO)) {
+        CoerceViaIO *iocoerce = (CoerceViaIO *) newnode;
+        adjust_standard_join_alias_expression((Node *) iocoerce->arg, oldvar);
+    }
+    else if (IsA(newnode, ArrayCoerceExpr)) {
+        ArrayCoerceExpr *acoerce = (ArrayCoerceExpr *) newnode;
+        adjust_standard_join_alias_expression((Node *) acoerce->arg, oldvar);
+    }
+
+    // Handle COALESCE expressions - recurse into all arguments
+    else if (IsA(newnode, CoalesceExpr)) {
+        CoalesceExpr *cexpr = (CoalesceExpr *) newnode;
+        ListCell *lc;
+
+        foreach(lc, cexpr->args) {
+            adjust_standard_join_alias_expression(lfirst(lc), oldvar);
+        }
+    }
+
+    // Unexpected node type - should not happen if validation was done
+    else {
+        Assert(false);
+    }
+}
+```

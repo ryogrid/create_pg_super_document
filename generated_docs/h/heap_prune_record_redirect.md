@@ -39,3 +39,30 @@ The function also maintains statistics about the pruning operation, including co
 - Only counts deletions when redirecting a normal tuple (not when changing existing redirects)
 - Sets the `hastup` flag to indicate the page contains tuples after pruning
 - Part of PostgreSQL's HOT chain pruning mechanism for efficient tuple updates
+
+## Simplified Source
+
+```c
+static void heap_prune_record_redirect(PruneState *prstate,
+                                       OffsetNumber offnum, OffsetNumber rdoffnum,
+                                       bool was_normal)
+{
+    // Mark source offset as processed
+    Assert(!prstate->processed[offnum]);
+    prstate->processed[offnum] = true;
+
+    // Record the redirect mapping (source -> target)
+    Assert(prstate->nredirected < MaxHeapTuplesPerPage);
+    prstate->redirected[prstate->nredirected * 2] = offnum;       // source
+    prstate->redirected[prstate->nredirected * 2 + 1] = rdoffnum; // target
+
+    prstate->nredirected++;
+
+    // Count as deletion if redirecting a normal tuple
+    if (was_normal)
+        prstate->ndeleted++;
+
+    // Mark that page has tuples after pruning
+    prstate->hastup = true;
+}
+```

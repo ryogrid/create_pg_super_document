@@ -41,3 +41,39 @@ The function uses a loop to traverse through domain types, checking each type's 
 - Returns InvalidOid for non-composite base types
 - Throws an ERROR if any type OID in the chain is not found in the system catalog
 - Uses system cache for efficient lookups during domain traversal
+
+## Simplified Source
+
+```c
+Oid
+typeOrDomainTypeRelid(Oid type_id)
+{
+    HeapTuple typeTuple;
+    Form_pg_type type;
+    Oid result;
+
+    // Follow domain chain to find base type
+    for (;;) {
+        // Look up type in system catalog
+        typeTuple = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type_id));
+        if (!HeapTupleIsValid(typeTuple))
+            elog(ERROR, "cache lookup failed for type %u", type_id);
+
+        type = (Form_pg_type) GETSTRUCT(typeTuple);
+
+        // If not a domain, we found the base type
+        if (type->typtype != TYPTYPE_DOMAIN) {
+            break;
+        }
+
+        // Follow to underlying type
+        type_id = type->typbasetype;
+        ReleaseSysCache(typeTuple);
+    }
+
+    // Return the relation OID of the base type
+    result = type->typrelid;
+    ReleaseSysCache(typeTuple);
+    return result;
+}
+```

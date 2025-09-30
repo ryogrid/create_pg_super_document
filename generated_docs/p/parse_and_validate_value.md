@@ -59,3 +59,143 @@ Each validation path includes comprehensive error reporting with appropriate err
 - The function integrates tightly with PostgreSQL's check hook system for extensible validation
 - [Range](../R/Range.md) validation for numeric types includes proper unit formatting in error messages
 - Essential component of PostgreSQL's configuration management infrastructure
+
+## Simplified Source
+
+```c
+static bool parse_and_validate_value(struct config_generic *record,
+                                    const char *name, const char *value,
+                                    GucSource source, int elevel,
+                                    union config_var_val *newval, void **newextra)
+{
+    // Handle different parameter types
+    switch (record->vartype)
+    {
+        case PGC_BOOL:
+        {
+            struct config_bool *conf = (struct config_bool *) record;
+
+            // Parse boolean value
+            if (!parse_bool(value, &newval->boolval))
+            {
+                ereport(elevel, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("parameter \"%s\" requires a Boolean value", name)));
+                return false;
+            }
+
+            // Call validation hook
+            if (!call_bool_check_hook(conf, &newval->boolval, newextra, source, elevel))
+                return false;
+            break;
+        }
+
+        case PGC_INT:
+        {
+            struct config_int *conf = (struct config_int *) record;
+            const char *hintmsg;
+
+            // Parse integer value
+            if (!parse_int(value, &newval->intval, conf->gen.flags, &hintmsg))
+            {
+                ereport(elevel, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("invalid value for parameter \"%s\": \"%s\"", name, value),
+                               hintmsg ? errhint("%s", hintmsg) : 0));
+                return false;
+            }
+
+            // Check range constraints
+            if (newval->intval < conf->min || newval->intval > conf->max)
+            {
+                const char *unit = get_config_unit_name(conf->gen.flags);
+                ereport(elevel, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("%d%s%s is outside the valid range for parameter \"%s\" (%d%s%s .. %d%s%s)",
+                                     newval->intval, unit ? " " : "", unit ? unit : "", name,
+                                     conf->min, unit ? " " : "", unit ? unit : "",
+                                     conf->max, unit ? " " : "", unit ? unit : "")));
+                return false;
+            }
+
+            // Call validation hook
+            if (!call_int_check_hook(conf, &newval->intval, newextra, source, elevel))
+                return false;
+            break;
+        }
+
+        case PGC_REAL:
+        {
+            struct config_real *conf = (struct config_real *) record;
+            const char *hintmsg;
+
+            // Parse real value and validate range (similar to integer)
+            if (!parse_real(value, &newval->realval, conf->gen.flags, &hintmsg))
+            {
+                ereport(elevel, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("invalid value for parameter \"%s\": \"%s\"", name, value),
+                               hintmsg ? errhint("%s", hintmsg) : 0));
+                return false;
+            }
+
+            if (newval->realval < conf->min || newval->realval > conf->max)
+            {
+                const char *unit = get_config_unit_name(conf->gen.flags);
+                ereport(elevel, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("%g%s%s is outside the valid range for parameter \"%s\" (%g%s%s .. %g%s%s)",
+                                     newval->realval, unit ? " " : "", unit ? unit : "", name,
+                                     conf->min, unit ? " " : "", unit ? unit : "",
+                                     conf->max, unit ? " " : "", unit ? unit : "")));
+                return false;
+            }
+
+            if (!call_real_check_hook(conf, &newval->realval, newextra, source, elevel))
+                return false;
+            break;
+        }
+
+        case PGC_STRING:
+        {
+            struct config_string *conf = (struct config_string *) record;
+
+            // Duplicate the string value
+            newval->stringval = guc_strdup(elevel, value);
+            if (newval->stringval == NULL)
+                return false;
+
+            // Apply identifier truncation if needed
+            if (conf->gen.flags & GUC_IS_NAME)
+                truncate_identifier(newval->stringval, strlen(newval->stringval), true);
+
+            // Call validation hook
+            if (!call_string_check_hook(conf, &newval->stringval, newextra, source, elevel))
+            {
+                guc_free(newval->stringval);
+                newval->stringval = NULL;
+                return false;
+            }
+            break;
+        }
+
+        case PGC_ENUM:
+        {
+            struct config_enum *conf = (struct config_enum *) record;
+
+            // Look up enum value
+            if (!config_enum_lookup_by_name(conf, value, &newval->enumval))
+            {
+                char *hintmsg = config_enum_get_options(conf, "Available values: ", ".", ", ");
+                ereport(elevel, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                               errmsg("invalid value for parameter \"%s\": \"%s\"", name, value),
+                               hintmsg ? errhint("%s", hintmsg) : 0));
+                if (hintmsg) pfree(hintmsg);
+                return false;
+            }
+
+            // Call validation hook
+            if (!call_enum_check_hook(conf, &newval->enumval, newextra, source, elevel))
+                return false;
+            break;
+        }
+    }
+
+    return true;
+}
+```

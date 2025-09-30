@@ -43,3 +43,43 @@ Upon receiving the result from heap_delete, it translates all non-success outcom
 - The function provides no mechanism for graceful handling of concurrent modification scenarios
 - Uses InvalidSnapshot for crosscheck, meaning no additional snapshot-based validation is performed
 - Always sets wait=true, meaning it will wait for concurrent transactions rather than failing immediately
+
+## Simplified Source
+
+```c
+void
+simple_heap_delete(Relation relation, ItemPointer tid)
+{
+    TM_Result result;
+    TM_FailureData tmfd;
+
+    // Attempt to delete the tuple with standard parameters
+    result = heap_delete(relation, tid,
+                        GetCurrentCommandId(true), InvalidSnapshot,
+                        true /* wait for commit */,
+                        &tmfd, false /* changingPart */);
+
+    // Handle all possible outcomes - failures become errors
+    switch (result) {
+        case TM_SelfModified:
+            elog(ERROR, "tuple already updated by self");
+            break;
+
+        case TM_Ok:
+            // Success - nothing more to do
+            break;
+
+        case TM_Updated:
+            elog(ERROR, "tuple concurrently updated");
+            break;
+
+        case TM_Deleted:
+            elog(ERROR, "tuple concurrently deleted");
+            break;
+
+        default:
+            elog(ERROR, "unrecognized heap_delete status: %u", result);
+            break;
+    }
+}
+```

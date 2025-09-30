@@ -35,3 +35,20 @@ The function is designed as a separate validation step because it requires an al
 - The function is split from other truncation checks because it requires an open Relation, while callback-based checks like RangeVarCallbackForTruncate() cannot open Relations yet
 - Errors thrown by this function will abort the truncation operation with appropriate error codes and messages
 - The function is part of PostgreSQL's comprehensive safety framework for DDL operations
+
+## Simplified Source
+
+```c
+static void truncate_check_activity(Relation rel) {
+    // Don't allow truncating temp tables from other sessions
+    if (RELATION_IS_OTHER_TEMP(rel)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot truncate temporary tables of other sessions")));
+    }
+
+    // Check for active uses in current transaction
+    // (open scans, pending AFTER triggers, etc.)
+    CheckTableNotInUse(rel, "TRUNCATE");
+}
+```

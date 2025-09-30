@@ -39,3 +39,31 @@ This function is called by worker processes after they have completed their sort
 - Stores tape metadata in shared memory at the worker's designated index
 - Essential for coordinating the transition from worker sorting to leader merging phase
 - Each worker must have exactly one result tape when this function is called
+
+## Simplified Source
+
+```c
+static void worker_freeze_result_tape(Tuplesortstate *state) {
+    Sharedsort *shared = state->shared;
+    TapeShare output;
+
+    // Validate worker state
+    Assert(WORKER(state));
+    Assert(state->result_tape != NULL);
+    Assert(state->memtupcount == 0);
+
+    // Free memory no longer needed after sorting
+    pfree(state->memtuples);
+    state->memtuples = NULL;
+    state->memtupsize = 0;
+
+    // Freeze the result tape for persistent storage
+    LogicalTapeFreeze(state->result_tape, &output);
+
+    // Update shared state - notify leader this worker is done
+    SpinLockAcquire(&shared->mutex);
+    shared->tapes[state->worker] = output;  // Store tape metadata
+    shared->workersFinished++;              // Increment finished count
+    SpinLockRelease(&shared->mutex);
+}
+```

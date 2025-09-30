@@ -109,3 +109,126 @@ Key architectural features include comprehensive object address tracking for eve
 - Object address tracking enables event triggers to access detailed information about created, modified, or dropped objects
 - Supports transaction-level operations like DETACH PARTITION CONCURRENTLY with appropriate transaction block restrictions
 - Event trigger integration allows extensions and monitoring tools to intercept and customize DDL operations throughout the PostgreSQL ecosystem
+
+## Simplified Source
+
+```c
+static void ProcessUtilitySlow(ParseState *pstate, PlannedStmt *pstmt,
+                              const char *queryString, ProcessUtilityContext context,
+                              ParamListInfo params, QueryEnvironment *queryEnv,
+                              DestReceiver *dest, QueryCompletion *qc) {
+    Node *parsetree = pstmt->utilityStmt;
+    bool isTopLevel = (context == PROCESS_UTILITY_TOPLEVEL);
+    bool isCompleteQuery = (context != PROCESS_UTILITY_SUBCOMMAND);
+    bool needCleanup;
+    bool commandCollected = false;
+    ObjectAddress address;
+    ObjectAddress secondaryObject = InvalidObjectAddress;
+
+    // Begin event trigger processing for complete queries
+    needCleanup = isCompleteQuery && EventTriggerBeginCompleteQuery();
+
+    PG_TRY();
+    {
+        // Fire DDL command start event trigger
+        if (isCompleteQuery) {
+            EventTriggerDDLCommandStart(parsetree);
+        }
+
+        // Main command dispatch switch
+        switch (nodeTag(parsetree)) {
+            case T_CreateSchemaStmt:
+                CreateSchemaCommand((CreateSchemaStmt *) parsetree,
+                                  queryString, pstmt->stmt_location, pstmt->stmt_len);
+                commandCollected = true;
+                break;
+
+            case T_CreateStmt:
+            case T_CreateForeignTableStmt:
+                // Transform and execute table creation statements
+                // Handle multiple sub-statements from transformCreateStmt
+                // Create tables, foreign tables, process LIKE clauses
+                commandCollected = true;
+                break;
+
+            case T_AlterTableStmt:
+                // Check for transaction restrictions (DETACH CONCURRENTLY)
+                // Determine lock mode and acquire relation lock
+                // Execute table alteration with event trigger support
+                commandCollected = true;
+                break;
+
+            case T_AlterDomainStmt:
+                // Handle domain alterations: DEFAULT, NOT NULL, constraints
+                // Dispatch to appropriate AlterDomain* function
+                break;
+
+            case T_DefineStmt:
+                // Handle CREATE statements for various object types
+                switch (((DefineStmt *) parsetree)->kind) {
+                    case OBJECT_AGGREGATE:
+                        address = DefineAggregate(/* parameters */);
+                        break;
+                    case OBJECT_OPERATOR:
+                        address = DefineOperator(/* parameters */);
+                        break;
+                    case OBJECT_TYPE:
+                        address = DefineType(/* parameters */);
+                        break;
+                    // ... other object types
+                    default:
+                        elog(ERROR, "unrecognized define stmt type");
+                        break;
+                }
+                break;
+
+            case T_IndexStmt:
+                // Handle CREATE INDEX with concurrency checks
+                // Lock relation and validate partitioning constraints
+                // Transform and execute index creation
+                commandCollected = true;
+                break;
+
+            case T_CreateFunctionStmt:
+                address = CreateFunction(pstate, (CreateFunctionStmt *) parsetree);
+                break;
+
+            case T_ViewStmt:
+                address = DefineView(/* parameters */);
+                commandCollected = true;
+                break;
+
+            case T_DropStmt:
+                ExecDropStmt((DropStmt *) parsetree, isTopLevel);
+                commandCollected = true;
+                break;
+
+            // ... many other DDL statement types (extension, FDW, triggers,
+            // publications, subscriptions, statistics, etc.)
+
+            default:
+                elog(ERROR, "unrecognized node type: %d", (int) nodeTag(parsetree));
+                break;
+        }
+
+        // Collect command for event triggers if not already done
+        if (!commandCollected) {
+            EventTriggerCollectSimpleCommand(address, secondaryObject, parsetree);
+        }
+
+        // Fire end event triggers for complete queries
+        if (isCompleteQuery) {
+            EventTriggerSQLDrop(parsetree);
+            EventTriggerDDLCommandEnd(parsetree);
+        }
+    }
+    PG_FINALLY();
+    {
+        // Ensure event trigger cleanup even on errors
+        if (needCleanup) {
+            EventTriggerEndCompleteQuery();
+        }
+    }
+    PG_END_TRY();
+}
+```

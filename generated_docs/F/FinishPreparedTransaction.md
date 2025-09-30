@@ -41,3 +41,136 @@ This function performs the complete finalization of a prepared transaction ident
 - Processes relation cache invalidation messages only for commits, with pre/post invalidation phases
 - Manages automatic cleanup of relation files that should be dropped as part of the transaction
 - Acquires TwoPhaseStateLock during callback processing to prevent conflicts with other transactions
+
+## Simplified Source
+
+```c
+void FinishPreparedTransaction(const char *gid, bool isCommit)
+{
+    GlobalTransaction gxact;
+    PGPROC *proc;
+    TransactionId xid;
+    bool ondisk;
+    char *buf;
+    char *bufptr;
+    TwoPhaseFileHeader *hdr;
+    TransactionId latestXid;
+    TransactionId *children;
+    RelFileLocator *commitrels;
+    RelFileLocator *abortrels;
+    RelFileLocator *delrels;
+    int ndelrels;
+    xl_xact_stats_item *commitstats;
+    xl_xact_stats_item *abortstats;
+    SharedInvalidationMessage *invalmsgs;
+
+    // Lock the global transaction for this GID
+    gxact = LockGXact(gid, GetUserId());
+    proc = GetPGProcByNumber(gxact->pgprocno);
+    xid = gxact->xid;
+
+    // Read 2PC state data (from disk or WAL)
+    if (gxact->ondisk)
+        buf = ReadTwoPhaseFile(xid, false);
+    else
+        XlogReadTwoPhaseData(gxact->prepare_start_lsn, &buf, NULL);
+
+    // Parse the 2PC state data header and components
+    hdr = (TwoPhaseFileHeader *) buf;
+    Assert(TransactionIdEquals(hdr->xid, xid));
+
+    bufptr = buf + MAXALIGN(sizeof(TwoPhaseFileHeader));
+    bufptr += MAXALIGN(hdr->gidlen);
+    children = (TransactionId *) bufptr;
+    bufptr += MAXALIGN(hdr->nsubxacts * sizeof(TransactionId));
+    commitrels = (RelFileLocator *) bufptr;
+    bufptr += MAXALIGN(hdr->ncommitrels * sizeof(RelFileLocator));
+    abortrels = (RelFileLocator *) bufptr;
+    bufptr += MAXALIGN(hdr->nabortrels * sizeof(RelFileLocator));
+    commitstats = (xl_xact_stats_item *) bufptr;
+    bufptr += MAXALIGN(hdr->ncommitstats * sizeof(xl_xact_stats_item));
+    abortstats = (xl_xact_stats_item *) bufptr;
+    bufptr += MAXALIGN(hdr->nabortstats * sizeof(xl_xact_stats_item));
+    invalmsgs = (SharedInvalidationMessage *) bufptr;
+
+    // Find latest XID among all child transactions
+    latestXid = TransactionIdLatest(xid, hdr->nsubxacts, children);
+
+    // Critical section: prevent interrupts during cleanup
+    HOLD_INTERRUPTS();
+
+    // Step 1: Write commit/abort WAL record
+    if (isCommit)
+        RecordTransactionCommitPrepared(xid, hdr->nsubxacts, children,
+                                       hdr->ncommitrels, commitrels,
+                                       hdr->ncommitstats, commitstats,
+                                       hdr->ninvalmsgs, invalmsgs,
+                                       hdr->initfileinval, gid);
+    else
+        RecordTransactionAbortPrepared(xid, hdr->nsubxacts, children,
+                                      hdr->nabortrels, abortrels,
+                                      hdr->nabortstats, abortstats, gid);
+
+    // Step 2: Remove from process array (makes transaction no longer "in progress")
+    ProcArrayRemove(proc, latestXid);
+
+    // Step 3: Mark transaction invalid for safety
+    gxact->valid = false;
+
+    // Step 4: Drop relation files that should be dropped
+    if (isCommit)
+    {
+        delrels = commitrels;
+        ndelrels = hdr->ncommitrels;
+    }
+    else
+    {
+        delrels = abortrels;
+        ndelrels = hdr->nabortrels;
+    }
+
+    DropRelationFiles(delrels, ndelrels, false);
+
+    // Step 5: Execute statistics drops
+    if (isCommit)
+        pgstat_execute_transactional_drops(hdr->ncommitstats, commitstats, false);
+    else
+        pgstat_execute_transactional_drops(hdr->nabortstats, abortstats, false);
+
+    // Step 6: Handle cache invalidation (only for commits)
+    if (isCommit)
+    {
+        if (hdr->initfileinval)
+            RelationCacheInitFilePreInvalidate();
+        SendSharedInvalidMessages(invalmsgs, hdr->ninvalmsgs);
+        if (hdr->initfileinval)
+            RelationCacheInitFilePostInvalidate();
+    }
+
+    // Step 7: Execute callbacks while holding two-phase lock
+    LWLockAcquire(TwoPhaseStateLock, LW_EXCLUSIVE);
+
+    if (isCommit)
+        ProcessRecords(bufptr, xid, twophase_postcommit_callbacks);
+    else
+        ProcessRecords(bufptr, xid, twophase_postabort_callbacks);
+
+    PredicateLockTwoPhaseFinish(xid, isCommit);
+
+    // Clean up shared memory state
+    ondisk = gxact->ondisk;
+    RemoveGXact(gxact);
+
+    LWLockRelease(TwoPhaseStateLock);
+
+    // Final cleanup
+    AtEOXact_PgStat(isCommit, false);
+
+    if (ondisk)
+        RemoveTwoPhaseFile(xid, true);
+
+    MyLockedGxact = NULL;
+    RESUME_INTERRUPTS();
+    pfree(buf);
+}
+```

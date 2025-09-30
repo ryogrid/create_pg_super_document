@@ -47,3 +47,50 @@ This design allows the leader to seamlessly continue with the merge phase of ext
 - The function assumes exactly one run per worker, which is guaranteed by the parallel tuplesort design
 - After this function completes, the leader can proceed with the merge phase as if it had performed serial external sorting
 - The number of tapes created equals the number of participants, making this suitable for parallel merging operations
+
+## Simplified Source
+
+```c
+static void leader_takeover_tapes(Tuplesortstate *state) {
+    Sharedsort *shared = state->shared;
+    int nParticipants = state->nParticipants;
+    int workersFinished;
+    int j;
+
+    Assert(LEADER(state));
+    Assert(nParticipants >= 1);
+
+    // Verify all workers have completed
+    SpinLockAcquire(&shared->mutex);
+    workersFinished = shared->workersFinished;
+    SpinLockRelease(&shared->mutex);
+
+    if (nParticipants != workersFinished)
+        elog(ERROR, "cannot take over tapes before all workers finish");
+
+    // Create tapeset for all participant runs
+    inittapestate(state, nParticipants);
+    state->tapeset = LogicalTapeSetCreate(false, &shared->fileset, -1);
+
+    // Set run count to match participant count
+    state->currentRun = nParticipants;
+
+    // Initialize tape arrays - no input tapes initially
+    state->inputTapes = NULL;
+    state->nInputTapes = 0;
+    state->nInputRuns = 0;
+
+    // Setup output tapes from worker results
+    state->outputTapes = palloc0(nParticipants * sizeof(LogicalTape *));
+    state->nOutputTapes = nParticipants;
+    state->nOutputRuns = nParticipants;
+
+    // Import each worker's tape into our tapeset
+    for (j = 0; j < nParticipants; j++) {
+        state->outputTapes[j] = LogicalTapeImport(state->tapeset, j, &shared->tapes[j]);
+    }
+
+    // Ready for merge phase
+    state->status = TSS_BUILDRUNS;
+}
+```

@@ -40,3 +40,25 @@ This function is used when the planner determines that the input data is already
 - The function may modify the input plan tree by adding Result nodes if projection is needed
 - Part of the planner's optimization strategy to leverage existing sort order in the data
 - Located at src/backend/optimizer/plan/createplan.c:6382-6415
+
+## Simplified Source
+
+```c
+static IncrementalSort *make_incrementalsort_from_pathkeys(Plan *lefttree, List *pathkeys,
+                                                          Relids relids, int nPresortedCols) {
+    int numsortkeys;
+    AttrNumber *sortColIdx;
+    Oid *sortOperators;
+    Oid *collations;
+    bool *nullsFirst;
+
+    // Prepare sort specification from pathkeys and adjust input plan
+    lefttree = prepare_sort_from_pathkeys(lefttree, pathkeys, relids, NULL, false,
+                                         &numsortkeys, &sortColIdx, &sortOperators,
+                                         &collations, &nullsFirst);
+
+    // Create and return IncrementalSort node
+    return make_incrementalsort(lefttree, numsortkeys, nPresortedCols,
+                               sortColIdx, sortOperators, collations, nullsFirst);
+}
+```

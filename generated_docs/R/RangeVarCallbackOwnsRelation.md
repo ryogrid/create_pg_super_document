@@ -40,3 +40,31 @@ The function first validates that a relation ID was found, then retrieves the re
 - System catalog protection is enforced only when allowSystemTableMods is false, providing flexibility for administrative operations
 - Uses PostgreSQL's standard error reporting mechanisms (elog, ereport) for consistent error handling
 - Part of the table command infrastructure in src/backend/commands/tablecmds.c (lines 17815-17846)
+
+## Simplified Source
+```c
+void RangeVarCallbackOwnsRelation(const RangeVar *relation, Oid relId, Oid oldRelId, void *arg) {
+    HeapTuple tuple;
+
+    // Early return if relation not found
+    if (!OidIsValid(relId))
+        return;
+
+    // Look up relation in system catalog
+    tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(relId));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relId);
+
+    // Check if user owns the relation or is superuser
+    if (!object_ownercheck(RelationRelationId, relId, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER,
+                      get_relkind_objtype(get_rel_relkind(relId)),
+                      relation->relname);
+
+    // Prevent modifications to system catalogs unless explicitly allowed
+    if (!allowSystemTableMods && IsSystemClass(relId, (Form_pg_class) GETSTRUCT(tuple)))
+        ereport(ERROR, "permission denied: system catalog cannot be modified");
+
+    ReleaseSysCache(tuple);
+}
+```

@@ -53,3 +53,63 @@ The function serves as a gatekeeper for the optimization where nullingrels can b
 - The restriction to implicit coercions helps ensure null-preservation semantics
 - COALESCE expressions require all arguments to be standard expressions for the entire expression to qualify
 - The function's coverage is designed to handle anything the parser would put into joinaliasvars
+
+## Simplified Source
+
+```c
+static bool is_standard_join_alias_expression(Node *newnode, Var *oldvar) {
+    if (newnode == NULL)
+        return false;
+
+    // Handle Var nodes - accept if at matching query level
+    if (IsA(newnode, Var) && ((Var *) newnode)->varlevelsup == oldvar->varlevelsup)
+        return true;
+
+    // Handle PlaceHolderVar nodes - accept if at matching query level
+    else if (IsA(newnode, PlaceHolderVar) &&
+             ((PlaceHolderVar *) newnode)->phlevelsup == oldvar->varlevelsup)
+        return true;
+
+    // Handle function expressions - only implicit coercions allowed
+    else if (IsA(newnode, FuncExpr)) {
+        FuncExpr *fexpr = (FuncExpr *) newnode;
+
+        // Only accept implicit coercions with arguments
+        if (fexpr->funcformat != COERCE_IMPLICIT_CAST || fexpr->args == NIL)
+            return false;
+
+        // Recursively check first argument (additional args are typically constants)
+        return is_standard_join_alias_expression(linitial(fexpr->args), oldvar);
+    }
+
+    // Handle type coercion expressions - these preserve null behavior
+    else if (IsA(newnode, RelabelType)) {
+        RelabelType *relabel = (RelabelType *) newnode;
+        return is_standard_join_alias_expression((Node *) relabel->arg, oldvar);
+    }
+    else if (IsA(newnode, CoerceViaIO)) {
+        CoerceViaIO *iocoerce = (CoerceViaIO *) newnode;
+        return is_standard_join_alias_expression((Node *) iocoerce->arg, oldvar);
+    }
+    else if (IsA(newnode, ArrayCoerceExpr)) {
+        ArrayCoerceExpr *acoerce = (ArrayCoerceExpr *) newnode;
+        return is_standard_join_alias_expression((Node *) acoerce->arg, oldvar);
+    }
+
+    // Handle COALESCE expressions - all arguments must be standard
+    else if (IsA(newnode, CoalesceExpr)) {
+        CoalesceExpr *cexpr = (CoalesceExpr *) newnode;
+        ListCell *lc;
+
+        foreach(lc, cexpr->args) {
+            if (!is_standard_join_alias_expression(lfirst(lc), oldvar))
+                return false;
+        }
+        return true;
+    }
+
+    // Unrecognized node type
+    else
+        return false;
+}
+```

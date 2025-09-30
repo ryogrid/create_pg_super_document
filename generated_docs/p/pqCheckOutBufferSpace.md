@@ -37,3 +37,52 @@ The function first attempts to double the buffer size repeatedly until it can ac
 - Memory allocation failures result in an error message being added to the connection's error buffer
 - Critical for maintaining buffer integrity during protocol message construction
 - Part of the libpq internal memory management infrastructure
+
+## Simplified Source
+
+```c
+int pqCheckOutBufferSpace(size_t bytes_needed, PGconn *conn) {
+    int newsize = conn->outBufSize;
+    char *newbuf;
+
+    // Quick exit if current buffer is already sufficient
+    if (bytes_needed <= (size_t) newsize)
+        return 0;
+
+    // Phase 1: Try doubling buffer size until it's large enough
+    do {
+        newsize *= 2;
+    } while (newsize > 0 && bytes_needed > (size_t) newsize);
+
+    if (newsize > 0 && bytes_needed <= (size_t) newsize) {
+        newbuf = realloc(conn->outBuffer, newsize);
+        if (newbuf) {
+            // Successfully doubled the buffer
+            conn->outBuffer = newbuf;
+            conn->outBufSize = newsize;
+            return 0;
+        }
+    }
+
+    // Phase 2: If doubling failed, try growing in 8KB increments
+    newsize = conn->outBufSize;
+    do {
+        newsize += 8192;  // Add 8KB
+    } while (newsize > 0 && bytes_needed > (size_t) newsize);
+
+    if (newsize > 0 && bytes_needed <= (size_t) newsize) {
+        newbuf = realloc(conn->outBuffer, newsize);
+        if (newbuf) {
+            // Successfully grew buffer incrementally
+            conn->outBuffer = newbuf;
+            conn->outBufSize = newsize;
+            return 0;
+        }
+    }
+
+    // Both allocation strategies failed - out of memory
+    appendPQExpBufferStr(&conn->errorMessage,
+                         "cannot allocate memory for output buffer\n");
+    return EOF;
+}
+```

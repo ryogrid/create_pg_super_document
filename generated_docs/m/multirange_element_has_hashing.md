@@ -27,3 +27,25 @@ This function determines if the element type of a multirange type has basic hash
 
 ## Notes and Other Information
 This is a static helper function within the type cache system, specifically for multirange types. Like its range counterpart, it follows a lazy evaluation pattern to avoid unnecessary computations. The function is parallel to range_element_has_hashing but operates on multirange types, which are collections of non-overlapping ranges. Regular hashing capability is essential for basic hash operations like hash tables and simple hash-based comparisons.
+
+## Simplified Source
+
+```c
+// Simplified version of multirange_element_has_hashing
+static bool
+multirange_element_has_hashing(TypeCacheEntry *typentry)
+{
+    // Ensure element properties are cached
+    if (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))
+        cache_multirange_element_properties(typentry);
+
+    // Return whether hashing is available
+    return (typentry->flags & TCFLAGS_HAVE_ELEM_HASHING) != 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved the exact logic and flag checking
+- No complex error handling to remove in this simple function
+- Maintained the lazy evaluation pattern that is core to the function's purpose

@@ -39,3 +39,25 @@ The function performs two levels of filtering: first, it checks whether each Res
 - The function is extensively used throughout the plan creation process, appearing in most scan and join plan creation functions
 - Constant-TRUE clause elimination helps optimize the final execution plan by removing redundant always-true conditions
 - The selective extraction capability allows different parts of the planner to work with appropriate subsets of available clauses
+
+## Simplified Source
+
+```c
+List *
+extract_actual_clauses(List *restrictinfo_list, bool pseudoconstant)
+{
+    List *result = NIL;
+
+    // Filter RestrictInfo wrappers to extract bare clauses
+    foreach(l, restrictinfo_list)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+        // Include clause if it matches the requested type and is not constant TRUE
+        if (rinfo->pseudoconstant == pseudoconstant &&
+            !rinfo_is_constant_true(rinfo))
+            result = lappend(result, rinfo->clause);
+    }
+    return result;
+}
+```

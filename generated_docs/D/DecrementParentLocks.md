@@ -35,3 +35,48 @@ The function walks up the lock hierarchy starting from the given target tag, fin
 - Includes defensive programming with assertions to handle cases where parent locks might be missing due to index splits
 - The function handles edge cases where parent lock refcounts might be zero or negative
 - Uses hash table operations for efficient parent lock lookup and removal
+
+## Simplified Source
+
+```c
+static void DecrementParentLocks(const PREDICATELOCKTARGETTAG *targettag) {
+    PREDICATELOCKTARGETTAG parenttag, nexttag;
+
+    parenttag = *targettag;
+
+    // Walk up the lock hierarchy, decrementing child counts
+    while (GetParentPredicateLockTag(&parenttag, &nexttag)) {
+        uint32 targettaghash;
+        LOCALPREDICATELOCK *parentlock;
+
+        parenttag = nexttag;
+        targettaghash = PredicateLockTargetTagHashCode(&parenttag);
+
+        // Find the parent lock in hash table
+        parentlock = (LOCALPREDICATELOCK *)
+            hash_search_with_hash_value(LocalPredicateLockHash,
+                                         &parenttag, targettaghash,
+                                         HASH_FIND, NULL);
+
+        // Parent might not exist due to index splits
+        if (parentlock == NULL)
+            continue;
+
+        // Decrement child count
+        parentlock->childLocks--;
+
+        // Handle negative counts (can occur due to index splits)
+        if (parentlock->childLocks < 0) {
+            Assert(parentlock->held);
+            parentlock->childLocks = 0;
+        }
+
+        // Remove parent lock if no children and not held
+        if ((parentlock->childLocks == 0) && (!parentlock->held)) {
+            hash_search_with_hash_value(LocalPredicateLockHash,
+                                         &parenttag, targettaghash,
+                                         HASH_REMOVE, NULL);
+        }
+    }
+}
+```

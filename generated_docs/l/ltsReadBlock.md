@@ -35,3 +35,18 @@ Unlike ltsWriteBlock, this function is straightforward - it seeks to the specifi
 - No return value - errors are handled via ereport() calls
 - Simpler than ltsWriteBlock as it doesn't need to handle gaps or update counters
 - Critical for tape rewinding and seeking operations in the logical tape system
+
+## Simplified Source
+
+```c
+static void ltsReadBlock(LogicalTapeSet *lts, int64 blocknum, void *buffer) {
+    // Seek to the specified block position
+    if (BufFileSeekBlock(lts->pfile, blocknum) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not seek to block %lld of temporary file",
+                              (long long) blocknum)));
+
+    // Read exactly one block of data
+    BufFileReadExact(lts->pfile, buffer, BLCKSZ);
+}
+```

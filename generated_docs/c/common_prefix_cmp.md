@@ -44,3 +44,46 @@ The strategic ordering by highest tleSortGroupRef first is designed to align wit
 - Returns standard qsort comparison values: -1 (a < b), 0 (a == b), 1 (a > b)
 - Static function scope indicates it's a specialized utility for window clause sorting within the planner module
 - The function assumes that both input structures have valid uniqueOrder lists for comparison
+
+## Simplified Source
+
+```c
+static int common_prefix_cmp(const void *a, const void *b) {
+    const WindowClauseSortData *wcsa = a;
+    const WindowClauseSortData *wcsb = b;
+    ListCell *item_a;
+    ListCell *item_b;
+
+    // Compare corresponding sort clauses element by element
+    forboth(item_a, wcsa->uniqueOrder, item_b, wcsb->uniqueOrder) {
+        SortGroupClause *sca = lfirst_node(SortGroupClause, item_a);
+        SortGroupClause *scb = lfirst_node(SortGroupClause, item_b);
+
+        // Compare by tleSortGroupRef (higher refs first)
+        if (sca->tleSortGroupRef > scb->tleSortGroupRef)
+            return -1;
+        else if (sca->tleSortGroupRef < scb->tleSortGroupRef)
+            return 1;
+
+        // Compare by sort operator
+        else if (sca->sortop > scb->sortop)
+            return -1;
+        else if (sca->sortop < scb->sortop)
+            return 1;
+
+        // Compare by null ordering preference
+        else if (sca->nulls_first && !scb->nulls_first)
+            return -1;
+        else if (!sca->nulls_first && scb->nulls_first)
+            return 1;
+    }
+
+    // If one is prefix of another, longer list comes first
+    if (list_length(wcsa->uniqueOrder) > list_length(wcsb->uniqueOrder))
+        return -1;
+    else if (list_length(wcsa->uniqueOrder) < list_length(wcsb->uniqueOrder))
+        return 1;
+
+    return 0; // Equal
+}
+```

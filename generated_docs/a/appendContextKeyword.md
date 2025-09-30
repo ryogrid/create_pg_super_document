@@ -48,3 +48,47 @@ The indentation algorithm includes a wraparound mechanism when indentation excee
 - When pretty printing is disabled, the function simply appends the keyword without any formatting
 - The function maintains the invariant that indentLevel never goes negative by clamping to 0
 - Location: src/backend/utils/adt/ruleutils.c:8786-8839
+
+## Simplified Source
+
+```c
+static void appendContextKeyword(deparse_context *context, const char *str,
+                                int indentBefore, int indentAfter, int indentPlus) {
+    StringInfo buf = context->buf;
+
+    if (PRETTY_INDENT(context)) {
+        int indentAmount;
+
+        // Adjust indentation level before processing
+        context->indentLevel += indentBefore;
+
+        // Clean up current line and start new one
+        removeStringInfoSpaces(buf);
+        appendStringInfoChar(buf, '\n');
+
+        // Calculate appropriate indentation amount
+        if (context->indentLevel < PRETTYINDENT_LIMIT) {
+            // Normal case: use current indent level plus extra
+            indentAmount = Max(context->indentLevel, 0) + indentPlus;
+        } else {
+            // Deep nesting case: scale down to prevent excessive indentation
+            indentAmount = PRETTYINDENT_LIMIT +
+                          (context->indentLevel - PRETTYINDENT_LIMIT) / (PRETTYINDENT_STD / 2);
+            indentAmount %= PRETTYINDENT_LIMIT;
+            indentAmount += indentPlus;
+        }
+
+        // Add calculated indentation and the keyword
+        appendStringInfoSpaces(buf, indentAmount);
+        appendStringInfoString(buf, str);
+
+        // Adjust indentation level after processing
+        context->indentLevel += indentAfter;
+        if (context->indentLevel < 0)
+            context->indentLevel = 0;
+    } else {
+        // No pretty printing: just append the keyword
+        appendStringInfoString(buf, str);
+    }
+}
+```

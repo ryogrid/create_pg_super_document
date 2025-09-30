@@ -53,3 +53,19 @@ The function includes debug support by flushing the debug output stream when tra
 - **Connection mode changes**: Used when switching connection properties (like blocking mode) to ensure all pending data is transmitted first
 - Part of the public libpq API through `PQflush` wrapper function
 - Widely used throughout libpq for ensuring timely transmission of critical protocol messages
+
+## Simplified Source
+```c
+int pqFlush(PGconn *conn) {
+    // Send any buffered data to the server
+    if (conn->outCount > 0) {
+        // Flush debug output if enabled
+        if (conn->Pfdebug)
+            fflush(conn->Pfdebug);
+
+        return pqSendSome(conn, conn->outCount);
+    }
+
+    return 0; // No data to send
+}
+```

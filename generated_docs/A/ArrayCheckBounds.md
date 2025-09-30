@@ -43,3 +43,13 @@ This is a convenience wrapper around ArrayCheckBoundsSafe that throws exceptions
 - Prevents arrays with last subscript equal to INT_MAX to avoid overflow
 - Critical for preventing subscript calculation overflow in array operations
 - Used during array creation and modification to ensure safe bounds
+
+## Simplified Source
+
+```c
+void ArrayCheckBounds(int ndim, const int *dims, const int *lb) {
+    // Delegate to the safe version which does the actual bounds checking
+    // This wrapper throws exceptions on validation failures
+    (void) ArrayCheckBoundsSafe(ndim, dims, lb, NULL);
+}
+```

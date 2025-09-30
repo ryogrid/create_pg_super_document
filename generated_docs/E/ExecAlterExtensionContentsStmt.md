@@ -47,3 +47,64 @@ Key operations include:
 - Returns the ObjectAddress of the modified extension
 - Maintains proper lock ordering and cleanup to prevent deadlocks and resource leaks
 - The function is part of the DDL utility command processing pipeline
+
+## Simplified Source
+
+```c
+ObjectAddress ExecAlterExtensionContentsStmt(AlterExtensionContentsStmt *stmt,
+                                            ObjectAddress *objAddr)
+{
+    ObjectAddress extension;
+    ObjectAddress object;
+    Relation relation;
+
+    // Validate object type can be added to extensions
+    switch (stmt->objtype)
+    {
+        case OBJECT_DATABASE:
+        case OBJECT_EXTENSION:
+        case OBJECT_INDEX:
+        case OBJECT_PUBLICATION:
+        case OBJECT_ROLE:
+        case OBJECT_STATISTIC_EXT:
+        case OBJECT_SUBSCRIPTION:
+        case OBJECT_TABLESPACE:
+            ereport(ERROR, (errmsg("cannot add an object of this type to an extension")));
+            break;
+        default:
+            break;
+    }
+
+    // Get extension and acquire lock
+    extension = get_object_address(OBJECT_EXTENSION,
+                                   (Node *) makeString(stmt->extname),
+                                   &relation, AccessShareLock, false);
+
+    // Check extension ownership
+    if (!object_ownercheck(ExtensionRelationId, extension.objectId, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_EXTENSION, stmt->extname);
+
+    // Get target object and acquire lock
+    object = get_object_address(stmt->objtype, stmt->object,
+                                &relation, ShareUpdateExclusiveLock, false);
+
+    if (objAddr)
+        *objAddr = object;
+
+    // Check target object ownership
+    check_object_ownership(GetUserId(), stmt->objtype, object,
+                           stmt->object, relation);
+
+    // Perform the add/drop operation recursively
+    ExecAlterExtensionContentsRecurse(stmt, extension, object);
+
+    // Fire post-alter hook
+    InvokeObjectPostAlterHook(ExtensionRelationId, extension.objectId, 0);
+
+    // Cleanup: close relation if opened
+    if (relation != NULL)
+        relation_close(relation, NoLock);
+
+    return extension;
+}
+```

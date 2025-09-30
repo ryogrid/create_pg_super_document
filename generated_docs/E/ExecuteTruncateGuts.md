@@ -68,3 +68,189 @@ The function handles both regular tables and foreign tables, supports inheritanc
 - The function maintains transactional safety by using subtransaction IDs to determine the appropriate truncation strategy
 - Sequence restarting permissions are checked early to avoid partial execution failures
 - [Trigger](../T/Trigger.md) execution can optionally run with table owner privileges for security purposes
+
+## Simplified Source
+
+```c
+void ExecuteTruncateGuts(List *explicit_rels, List *relids, List *relids_logged,
+                        DropBehavior behavior, bool restart_seqs, bool run_as_table_owner) {
+    List *rels = list_copy(explicit_rels);
+    List *seq_relids = NIL;
+    HTAB *ft_htab = NULL;
+    EState *estate;
+    ResultRelInfo *resultRelInfos;
+
+    // CASCADE mode: find all referenced tables through foreign keys
+    if (behavior == DROP_CASCADE) {
+        for (;;) {
+            List *newrelids = heap_truncate_find_FKs(relids);
+            if (newrelids == NIL)
+                break;  // No more dependencies found
+
+            foreach(cell, newrelids) {
+                Oid relid = lfirst_oid(cell);
+                Relation rel = table_open(relid, AccessExclusiveLock);
+
+                // Validate permissions and activity
+                truncate_check_rel(relid, rel->rd_rel);
+                truncate_check_perms(relid, rel->rd_rel);
+                truncate_check_activity(rel);
+
+                // Add to processing lists
+                rels = lappend(rels, rel);
+                relids = lappend_oid(relids, relid);
+                if (RelationIsLogicallyLogged(rel))
+                    relids_logged = lappend_oid(relids_logged, relid);
+            }
+        }
+    }
+
+    // Validate foreign key constraints
+    if (behavior == DROP_RESTRICT)
+        heap_truncate_check_FKs(rels, false);
+
+    // Handle sequence restart: lock sequences and check permissions
+    if (restart_seqs) {
+        foreach(cell, rels) {
+            Relation rel = (Relation) lfirst(cell);
+            List *seqlist = getOwnedSequences(RelationGetRelid(rel));
+
+            foreach(seqcell, seqlist) {
+                Oid seq_relid = lfirst_oid(seqcell);
+                Relation seq_rel = relation_open(seq_relid, AccessExclusiveLock);
+
+                // Check ownership permissions
+                if (!object_ownercheck(RelationRelationId, seq_relid, GetUserId()))
+                    aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SEQUENCE,
+                                 RelationGetRelationName(seq_rel));
+
+                seq_relids = lappend_oid(seq_relids, seq_relid);
+                relation_close(seq_rel, NoLock);
+            }
+        }
+    }
+
+    // Setup trigger execution environment
+    AfterTriggerBeginQuery();
+    estate = CreateExecutorState();
+    resultRelInfos = (ResultRelInfo *) palloc(list_length(rels) * sizeof(ResultRelInfo));
+
+    // Initialize result relation info for each table
+    foreach(cell, rels) {
+        Relation rel = (Relation) lfirst(cell);
+        InitResultRelInfo(resultRelInfo, rel, 0, NULL, 0);
+        estate->es_opened_result_relations = lappend(estate->es_opened_result_relations, resultRelInfo);
+        resultRelInfo++;
+    }
+
+    // Execute BEFORE STATEMENT TRUNCATE triggers
+    resultRelInfo = resultRelInfos;
+    foreach(cell, rels) {
+        if (run_as_table_owner)
+            SwitchToUntrustedUser(resultRelInfo->ri_RelationDesc->rd_rel->relowner, &ucxt);
+        ExecBSTruncateTriggers(estate, resultRelInfo);
+        if (run_as_table_owner)
+            RestoreUserContext(&ucxt);
+        resultRelInfo++;
+    }
+
+    // Truncate each table
+    SubTransactionId mySubid = GetCurrentSubTransactionId();
+    foreach(cell, rels) {
+        Relation rel = (Relation) lfirst(cell);
+
+        // Skip partitioned tables
+        if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+            continue;
+
+        // Handle foreign tables through FDW callbacks
+        if (rel->rd_rel->relkind == RELKIND_FOREIGN_TABLE) {
+            // Group foreign tables by server for bulk operations
+            Oid serverid = GetForeignServerIdByRelId(RelationGetRelid(rel));
+            // Add to hash table for later processing
+            continue;
+        }
+
+        // Choose truncation strategy based on transaction context
+        if (rel->rd_createSubid == mySubid || rel->rd_newRelfilelocatorSubid == mySubid) {
+            // Fast path: immediate truncation for new tables
+            heap_truncate_one_rel(rel);
+        } else {
+            // Safe path: create new storage files
+            CheckTableForSerializableConflictIn(rel);
+            RelationSetNewRelfilenumber(rel, rel->rd_rel->relpersistence);
+
+            // Handle toast table if exists
+            Oid toast_relid = rel->rd_rel->reltoastrelid;
+            if (OidIsValid(toast_relid)) {
+                Relation toastrel = relation_open(toast_relid, AccessExclusiveLock);
+                RelationSetNewRelfilenumber(toastrel, toastrel->rd_rel->relpersistence);
+                table_close(toastrel, NoLock);
+            }
+
+            // Rebuild indexes
+            reindex_relation(NULL, RelationGetRelid(rel), REINDEX_REL_PROCESS_TOAST, &reindex_params);
+        }
+
+        pgstat_count_truncate(rel);
+    }
+
+    // Process foreign tables through FDW callbacks
+    if (ft_htab) {
+        hash_seq_init(&seq, ft_htab);
+        while ((ft_info = hash_seq_search(&seq)) != NULL) {
+            FdwRoutine *routine = GetFdwRoutineByServerId(ft_info->serverid);
+            routine->ExecForeignTruncate(ft_info->rels, behavior, restart_seqs);
+        }
+        hash_destroy(ft_htab);
+    }
+
+    // Restart sequences if requested
+    foreach(cell, seq_relids) {
+        Oid seq_relid = lfirst_oid(cell);
+        ResetSequence(seq_relid);
+    }
+
+    // Create WAL record for logical decoding
+    if (relids_logged != NIL) {
+        xl_heap_truncate xlrec;
+        Oid *logrelids = palloc(list_length(relids_logged) * sizeof(Oid));
+
+        // Setup WAL record
+        xlrec.dbId = MyDatabaseId;
+        xlrec.nrelids = list_length(relids_logged);
+        xlrec.flags = 0;
+        if (behavior == DROP_CASCADE)
+            xlrec.flags |= XLH_TRUNCATE_CASCADE;
+        if (restart_seqs)
+            xlrec.flags |= XLH_TRUNCATE_RESTART_SEQS;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHeapTruncate);
+        XLogRegisterData((char *) logrelids, list_length(relids_logged) * sizeof(Oid));
+        XLogInsert(RM_HEAP_ID, XLOG_HEAP_TRUNCATE);
+    }
+
+    // Execute AFTER STATEMENT TRUNCATE triggers
+    resultRelInfo = resultRelInfos;
+    foreach(cell, rels) {
+        if (run_as_table_owner)
+            SwitchToUntrustedUser(resultRelInfo->ri_RelationDesc->rd_rel->relowner, &ucxt);
+        ExecASTruncateTriggers(estate, resultRelInfo);
+        if (run_as_table_owner)
+            RestoreUserContext(&ucxt);
+        resultRelInfo++;
+    }
+
+    // Cleanup
+    AfterTriggerEndQuery(estate);
+    FreeExecutorState(estate);
+
+    // Close cascade-opened relations
+    rels = list_difference_ptr(rels, explicit_rels);
+    foreach(cell, rels) {
+        Relation rel = (Relation) lfirst(cell);
+        table_close(rel, NoLock);
+    }
+}
+```

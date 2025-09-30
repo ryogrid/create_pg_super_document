@@ -43,3 +43,24 @@ This function releases a lock that was previously acquired on a shared database 
 - Does not return a value (void function)
 - The function is located in src/backend/storage/lmgr/lmgr.c:1138-1158
 - Commonly used in error cleanup scenarios and normal transaction completion
+
+## Simplified Source
+
+```c
+void
+UnlockSharedObject(Oid classid, Oid objid, uint16 objsubid,
+                   LOCKMODE lockmode)
+{
+    LOCKTAG tag;
+
+    // Set up lock tag for the shared object
+    SET_LOCKTAG_OBJECT(tag,
+                       InvalidOid,
+                       classid,
+                       objid,
+                       objsubid);
+
+    // Release the lock
+    LockRelease(&tag, lockmode, false);
+}
+```

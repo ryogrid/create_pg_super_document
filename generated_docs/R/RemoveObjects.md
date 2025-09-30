@@ -45,3 +45,60 @@ RemoveObjects processes DROP statements by looking up all specified objects firs
 - Tracks temporary namespace access for transaction flags
 - Maintains exclusive locks until transaction commit
 - Uses batch deletion to handle inter-object dependencies correctly
+
+## Simplified Source
+
+```c
+void RemoveObjects(DropStmt *stmt)
+{
+    // Initialize object collection
+    ObjectAddresses *objects = new_object_addresses();
+
+    // Process each object in the DROP statement
+    foreach(cell, stmt->objects)
+    {
+        Node *object = lfirst(cell);
+        Relation relation = NULL;
+
+        // Resolve object name to address
+        ObjectAddress address = get_object_address(stmt->removeType, object,
+                                                   &relation, AccessExclusiveLock,
+                                                   stmt->missing_ok);
+
+        // Handle missing objects if allowed
+        if (!OidIsValid(address.objectId)) {
+            if (stmt->missing_ok) {
+                does_not_exist_skipping(stmt->removeType, object);
+                continue;
+            }
+        }
+
+        // Special validation: prevent DROP FUNCTION on aggregates
+        if (stmt->removeType == OBJECT_FUNCTION &&
+            get_func_prokind(address.objectId) == PROKIND_AGGREGATE) {
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                    errmsg("cannot drop aggregate with DROP FUNCTION"),
+                    errhint("Use DROP AGGREGATE instead.")));
+        }
+
+        // Check permissions
+        validate_drop_permissions(stmt->removeType, &address, object, relation);
+
+        // Track temporary namespace access
+        track_temp_namespace_access(&address);
+
+        // Release relation but keep lock
+        if (relation)
+            table_close(relation, NoLock);
+
+        // Add to deletion list
+        add_exact_object_address(&address, objects);
+    }
+
+    // Perform batch deletion
+    performMultipleDeletions(objects, stmt->behavior, 0);
+
+    // Cleanup
+    free_object_addresses(objects);
+}
+```

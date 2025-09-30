@@ -32,3 +32,12 @@ The function operates by updating shared statistics directly, which is acceptabl
 - Checksum failures are considered rare events, so direct shared memory updates are used rather than buffering
 - The function updates both the failure count and the timestamp of the last checksum failure
 - This is part of PostgreSQL's database-level statistics collection system for monitoring data integrity
+
+## Simplified Source
+
+```c
+void pgstat_report_checksum_failure(void) {
+    // Report one checksum failure in the current database
+    pgstat_report_checksum_failures_in_db(MyDatabaseId, 1);
+}
+```

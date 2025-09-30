@@ -45,3 +45,37 @@ The transformation process involves:
 - The function respects constructor flags like unique key constraints, null handling behavior, and absent value handling
 - All transformations maintain proper location information for error reporting
 - The result is automatically coerced to the target type specified in the constructor's output specification
+
+## Simplified Source
+
+```c
+static Node *transformJsonObjectConstructor(ParseState *pstate, JsonObjectConstructor *ctor) {
+    List *args = NIL;
+
+    // Transform key-value pairs if any exist
+    if (ctor->exprs) {
+        ListCell *lc;
+        foreach(lc, ctor->exprs) {
+            JsonKeyValue *kv = castNode(JsonKeyValue, lfirst(lc));
+
+            // Transform key and value expressions
+            Node *key = transformExprRecurse(pstate, (Node *) kv->key);
+            Node *val = transformJsonValueExpr(pstate, "JSON_OBJECT()",
+                                              kv->value, JS_FORMAT_DEFAULT,
+                                              InvalidOid, false);
+
+            // Add key-value pair to arguments list
+            args = lappend(args, key);
+            args = lappend(args, val);
+        }
+    }
+
+    // Apply output transformation and formatting
+    JsonReturning *returning = transformJsonConstructorOutput(pstate, ctor->output, args);
+
+    // Create the JSON constructor expression
+    return makeJsonConstructorExpr(pstate, JSCTOR_JSON_OBJECT, args, NULL,
+                                  returning, ctor->unique,
+                                  ctor->absent_on_null, ctor->location);
+}
+```

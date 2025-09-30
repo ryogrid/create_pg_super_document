@@ -39,3 +39,30 @@ This function is essential for preventing resource leaks and ensures that extern
 - Memory cleanup is handled by deleting the entire copy context rather than individual deallocations
 - This approach ensures complete cleanup even if individual components were not fully initialized
 - The cstate structure itself is freed with pfree after the context deletion
+
+## Simplified Source
+
+```c
+void EndCopyFrom(CopyFromState cstate) {
+    // Close input source based on type
+    if (cstate->is_program) {
+        // Close pipe from executed program
+        ClosePipeFromProgram(cstate);
+    } else {
+        // Close regular file if it was opened
+        if (cstate->filename != NULL && FreeFile(cstate->copy_file)) {
+            ereport(ERROR,
+                    (errcode_for_file_access(),
+                     errmsg("could not close file \"%s\": %m",
+                            cstate->filename)));
+        }
+    }
+
+    // End progress reporting
+    pgstat_progress_end_command();
+
+    // Free all memory allocated for the COPY operation
+    MemoryContextDelete(cstate->copycontext);
+    pfree(cstate);
+}
+```

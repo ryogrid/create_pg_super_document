@@ -41,3 +41,26 @@ This function takes no parameters.
 - The static counter may wrap around on very long-running sessions with many portals
 - Essential for SPI and prepared statement operations that need temporary portals
 - Provides thread-safe portal creation for unnamed use cases
+
+## Simplified Source
+
+```c
+Portal CreateNewPortal(void) {
+    static unsigned int unnamed_portal_count = 0;
+    char portalname[MAX_PORTALNAME_LEN];
+
+    // Generate unique portal name
+    for (;;) {
+        unnamed_portal_count++;
+        sprintf(portalname, "<unnamed portal %u>", unnamed_portal_count);
+
+        // Check if name is already in use
+        if (GetPortalByName(portalname) == NULL) {
+            break; // Found unique name
+        }
+    }
+
+    // Create portal with generated unique name
+    return CreatePortal(portalname, false, false);
+}
+```

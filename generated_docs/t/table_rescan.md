@@ -41,3 +41,12 @@ This function is commonly used in executor nodes that need to rescan their input
 - Part of PostgreSQL's table access method (TAM) abstraction layer
 - Can change scan keys mid-scan, allowing for dynamic filtering during rescans
 - Used extensively in executor nodes that implement rescan functionality
+
+## Simplified Source
+
+```c
+static inline void table_rescan(TableScanDesc scan, struct ScanKeyData *key) {
+    // Delegate to table access method's rescan implementation
+    scan->rs_rd->rd_tableam->scan_rescan(scan, key, false, false, false, false);
+}
+```

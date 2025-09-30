@@ -34,3 +34,18 @@ This function manages the state transition for grouping sets in aggregate operat
 
 ## Notes and Other Information
 The function includes a comment noting that changes to this function should also be reflected in ExecAggPlainTransByVal() and ExecAggPlainTransByRef(), indicating tight coupling with the aggregate transition functions. This function is static and internal to the nodeAgg.c file, serving as a utility for managing grouping set state transitions.
+
+## Simplified Source
+
+```c
+static void select_current_set(AggState *aggstate, int setno, bool is_hash) {
+    // Select memory context based on aggregation type
+    if (is_hash)
+        aggstate->curaggcontext = aggstate->hashcontext;
+    else
+        aggstate->curaggcontext = aggstate->aggcontexts[setno];
+
+    // Update current grouping set number
+    aggstate->current_set = setno;
+}
+```

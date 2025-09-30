@@ -60,3 +60,166 @@ The function performs several key operations:
 - Contains recursive call to itself when processing join alias variables
 - Includes special logic for ORDER BY clauses to add table prefixes when needed to avoid ambiguity with SELECT list items
 - Critical for maintaining SQL standard compliance and readability in rule decompilation
+
+## Simplified Source
+
+```c
+static char *get_variable(Var *var, int levelsup, bool istoplevel, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    RangeTblEntry *rte;
+    AttrNumber attnum;
+    int netlevelsup;
+    deparse_namespace *dpns;
+    int varno;
+    AttrNumber varattno;
+    deparse_columns *colinfo;
+    char *refname;
+    char *attname;
+    bool need_prefix;
+
+    // Find appropriate nesting depth
+    netlevelsup = var->varlevelsup + levelsup;
+    if (netlevelsup >= list_length(context->namespaces))
+        elog(ERROR, "bogus varlevelsup: %d offset %d", var->varlevelsup, levelsup);
+    dpns = (deparse_namespace *) list_nth(context->namespaces, netlevelsup);
+
+    // Choose between syntactic and semantic referent
+    if (var->varnosyn > 0 && dpns->plan == NULL) {
+        varno = var->varnosyn;
+        varattno = var->varattnosyn;
+    } else {
+        varno = var->varno;
+        varattno = var->varattno;
+    }
+
+    // Handle normal range table entries
+    if (varno >= 1 && varno <= list_length(dpns->rtable)) {
+        // Map child vars to parent relations if needed (inheritance)
+        if (context->appendparents && dpns->appendrels) {
+            int pvarno = varno;
+            AttrNumber pvarattno = varattno;
+            AppendRelInfo *appinfo = dpns->appendrels[pvarno];
+            bool found = false;
+
+            // Walk up inheritance hierarchy
+            while (appinfo && rt_fetch(appinfo->parent_relid, dpns->rtable)->rtekind == RTE_RELATION) {
+                found = false;
+                if (pvarattno > 0) {  // system columns stay as-is
+                    if (pvarattno > appinfo->num_child_cols)
+                        break;
+                    pvarattno = appinfo->parent_colnos[pvarattno - 1];
+                    if (pvarattno == 0)
+                        break;  // Var is local to child
+                }
+                pvarno = appinfo->parent_relid;
+                found = true;
+                appinfo = dpns->appendrels[pvarno];
+            }
+
+            if (found && bms_is_member(pvarno, context->appendparents)) {
+                varno = pvarno;
+                varattno = pvarattno;
+            }
+        }
+
+        rte = rt_fetch(varno, dpns->rtable);
+        refname = (char *) list_nth(dpns->rtable_names, varno - 1);
+        colinfo = deparse_columns_fetch(varno, dpns);
+        attnum = varattno;
+    } else {
+        // Handle special variable numbers (OUTER_VAR, INNER_VAR, etc.)
+        resolve_special_varno((Node *) var, context, get_special_variable, NULL);
+        return NULL;
+    }
+
+    // Handle resjunk elements in subqueries
+    if ((rte->rtekind == RTE_SUBQUERY || rte->rtekind == RTE_CTE) &&
+        attnum > list_length(rte->eref->colnames) && dpns->inner_plan) {
+        TargetEntry *tle;
+        deparse_namespace save_dpns;
+
+        tle = get_tle_by_resno(dpns->inner_tlist, attnum);
+        if (!tle)
+            elog(ERROR, "invalid attnum %d for relation \"%s\"", attnum, rte->eref->aliasname);
+
+        push_child_plan(dpns, dpns->inner_plan, &save_dpns);
+
+        // Add parentheses for non-Var expressions
+        if (!IsA(tle->expr, Var))
+            appendStringInfoChar(buf, '(');
+        get_rule_expr((Node *) tle->expr, context, true);
+        if (!IsA(tle->expr, Var))
+            appendStringInfoChar(buf, ')');
+
+        pop_child_plan(dpns, &save_dpns);
+        return NULL;
+    }
+
+    // Handle unnamed joins
+    if (rte->rtekind == RTE_JOIN && rte->alias == NULL) {
+        if (rte->joinaliasvars == NIL)
+            elog(ERROR, "cannot decompile join alias var in plan tree");
+        if (attnum > 0) {
+            Var *aliasvar = (Var *) list_nth(rte->joinaliasvars, attnum - 1);
+            if (aliasvar && IsA(aliasvar, Var)) {
+                return get_variable(aliasvar, var->varlevelsup + levelsup,
+                                  istoplevel, context);
+            }
+        }
+        refname = NULL;  // Unnamed join has no refname
+    }
+
+    // Get attribute name
+    if (attnum == InvalidAttrNumber)
+        attname = NULL;
+    else if (attnum > 0) {
+        if (attnum > colinfo->num_cols)
+            elog(ERROR, "invalid attnum %d for relation \"%s\"", attnum, rte->eref->aliasname);
+        attname = colinfo->colnames[attnum - 1];
+        if (attname == NULL)
+            attname = "?dropped?column?";  // Handle dropped columns
+    } else {
+        attname = get_rte_attribute_name(rte, attnum);  // System column
+    }
+
+    need_prefix = (context->varprefix || attname == NULL);
+
+    // Check if we need prefix in ORDER BY to avoid ambiguity
+    if (context->varInOrderBy && !context->inGroupBy && !need_prefix) {
+        int colno = 0;
+        foreach_node(TargetEntry, tle, context->targetList) {
+            char *colname;
+            if (tle->resjunk)
+                continue;
+            colno++;
+
+            if (context->resultDesc && colno <= context->resultDesc->natts)
+                colname = NameStr(TupleDescAttr(context->resultDesc, colno - 1)->attname);
+            else
+                colname = tle->resname;
+
+            if (colname && strcmp(colname, attname) == 0 && !equal(var, tle->expr)) {
+                need_prefix = true;
+                break;
+            }
+        }
+    }
+
+    // Output the variable
+    if (refname && need_prefix) {
+        appendStringInfoString(buf, quote_identifier(refname));
+        appendStringInfoChar(buf, '.');
+    }
+    if (attname)
+        appendStringInfoString(buf, quote_identifier(attname));
+    else {
+        appendStringInfoChar(buf, '*');
+        if (istoplevel)  // Special handling for top-level whole-row vars
+            appendStringInfo(buf, "::%s",
+                           format_type_with_typemod(var->vartype, var->vartypmod));
+    }
+
+    return attname;
+}
+```

@@ -46,3 +46,33 @@ The  function performs immediate truncation of multiple forks of a storage manag
 - Updates local cached block counts after successful truncation
 - The cached size is invalidated first to handle potential errors during truncation
 - Located in src/backend/storage/smgr/smgr.c:727-782
+
+## Simplified Source
+
+```c
+void
+smgrtruncate2(SMgrRelation reln, ForkNumber *forknum, int nforks,
+              BlockNumber *old_nblocks, BlockNumber *nblocks)
+{
+    int i;
+
+    // Drop buffers for blocks about to be deleted
+    DropRelationBuffers(reln, forknum, nforks, nblocks);
+
+    // Send invalidation message to other backends
+    CacheInvalidateSmgr(reln->smgr_rlocator);
+
+    // Truncate each fork
+    for (i = 0; i < nforks; i++) {
+        // Invalidate cached size in case of error
+        reln->smgr_cached_nblocks[forknum[i]] = InvalidBlockNumber;
+
+        // Perform the actual truncation
+        smgrsw[reln->smgr_which].smgr_truncate(reln, forknum[i],
+                                               old_nblocks[i], nblocks[i]);
+
+        // Update cached size after successful truncation
+        reln->smgr_cached_nblocks[forknum[i]] = nblocks[i];
+    }
+}
+```

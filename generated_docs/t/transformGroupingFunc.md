@@ -29,3 +29,38 @@ This function processes GROUPING() expressions which are used in GROUP BY querie
 - The function defers acceptability checking of expressions to later phases
 - GROUPING() expressions are treated as aggregates for the purpose of query nesting validation
 - The location information is preserved for error reporting purposes
+
+## Simplified Source
+
+```c
+Node *
+transformGroupingFunc(ParseState *pstate, GroupingFunc *p)
+{
+    List *args = p->args;
+    List *result_list = NIL;
+    GroupingFunc *result = makeNode(GroupingFunc);
+
+    // Check argument count limit (bitmask representation requires < 32 args)
+    if (list_length(args) > 31)
+        ereport(ERROR,
+                (errcode(ERRCODE_TOO_MANY_ARGUMENTS),
+                 errmsg("GROUPING must have fewer than 32 arguments"),
+                 parser_errposition(pstate, p->location)));
+
+    // Transform each argument expression
+    foreach(lc, args)
+    {
+        Node *current_result = transformExpr(pstate, (Node *) lfirst(lc), pstate->p_expr_kind);
+        result_list = lappend(result_list, current_result);
+    }
+
+    // Build the transformed GROUPING function
+    result->args = result_list;
+    result->location = p->location;
+
+    // Apply aggregate-like nesting and level constraints
+    check_agglevels_and_constraints(pstate, (Node *) result);
+
+    return (Node *) result;
+}
+```

@@ -39,3 +39,27 @@ The callback checks if the current error is a syntax error by examining the erro
 - The callback mechanism allows PostgreSQL's error system to provide meaningful stack traces even when errors occur in dynamically processed code
 - The conversion from external to internal error positions ensures that error messages point to the correct location in the original function source rather than processed/inlined code
 - The function is typically registered as an error callback before attempting inlining operations and unregistered afterward
+
+## Simplified Source
+
+```c
+static void
+sql_inline_error_callback(void *arg)
+{
+    inline_error_callback_arg *callback_arg = (inline_error_callback_arg *) arg;
+    int syntaxerrposition;
+
+    // Check if this is a syntax error and get its position
+    syntaxerrposition = geterrposition();
+    if (syntaxerrposition > 0)
+    {
+        // Convert external syntax error to internal error format
+        errposition(0);                                    // Clear external position
+        internalerrposition(syntaxerrposition);           // Set internal position
+        internalerrquery(callback_arg->prosrc);           // Associate with function source
+    }
+
+    // Add context about which function was being inlined
+    errcontext("SQL function \"%s\" during inlining", callback_arg->proname);
+}
+```

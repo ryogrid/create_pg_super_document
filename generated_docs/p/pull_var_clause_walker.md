@@ -74,3 +74,98 @@ The function maintains the invariant that upper-level references (levelsup > 0) 
 - When INCLUDE flags are used, the function stops recursing into that node type
 - When RECURSE flags are used, traversal continues to find Vars within the node's arguments
 - The "fall through" pattern allows RECURSE flags to continue to the general expression_tree_walker call
+
+## Simplified Source
+
+```c
+static bool
+pull_var_clause_walker(Node *node, pull_var_clause_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Var))
+    {
+        // Check for upper-level variables
+        if (((Var *) node)->varlevelsup != 0)
+            elog(ERROR, "Upper-level Var found where not expected");
+
+        // Add Var to result list
+        context->varlist = lappend(context->varlist, node);
+        return false;
+    }
+    else if (IsA(node, Aggref))
+    {
+        // Validate level and handle based on flags
+        if (((Aggref *) node)->agglevelsup != 0)
+            elog(ERROR, "Upper-level Aggref found where not expected");
+
+        if (context->flags & PVC_INCLUDE_AGGREGATES)
+        {
+            context->varlist = lappend(context->varlist, node);
+            return false;  // Don't recurse into aggregate
+        }
+        else if (context->flags & PVC_RECURSE_AGGREGATES)
+        {
+            // Fall through to recurse into arguments
+        }
+        else
+            elog(ERROR, "Aggref found where not expected");
+    }
+    else if (IsA(node, GroupingFunc))
+    {
+        // Handle GROUPING() functions like aggregates
+        if (((GroupingFunc *) node)->agglevelsup != 0)
+            elog(ERROR, "Upper-level GROUPING found where not expected");
+
+        if (context->flags & PVC_INCLUDE_AGGREGATES)
+        {
+            context->varlist = lappend(context->varlist, node);
+            return false;
+        }
+        else if (context->flags & PVC_RECURSE_AGGREGATES)
+        {
+            // Fall through to recurse
+        }
+        else
+            elog(ERROR, "GROUPING found where not expected");
+    }
+    else if (IsA(node, WindowFunc))
+    {
+        // Handle window functions
+        if (context->flags & PVC_INCLUDE_WINDOWFUNCS)
+        {
+            context->varlist = lappend(context->varlist, node);
+            return false;
+        }
+        else if (context->flags & PVC_RECURSE_WINDOWFUNCS)
+        {
+            // Fall through to recurse
+        }
+        else
+            elog(ERROR, "WindowFunc found where not expected");
+    }
+    else if (IsA(node, PlaceHolderVar))
+    {
+        // Handle placeholder variables
+        if (((PlaceHolderVar *) node)->phlevelsup != 0)
+            elog(ERROR, "Upper-level PlaceHolderVar found where not expected");
+
+        if (context->flags & PVC_INCLUDE_PLACEHOLDERS)
+        {
+            context->varlist = lappend(context->varlist, node);
+            return false;
+        }
+        else if (context->flags & PVC_RECURSE_PLACEHOLDERS)
+        {
+            // Fall through to recurse
+        }
+        else
+            elog(ERROR, "PlaceHolderVar found where not expected");
+    }
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, pull_var_clause_walker,
+                                  (void *) context);
+}
+```

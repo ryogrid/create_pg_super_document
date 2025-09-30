@@ -39,3 +39,35 @@ The `make_distinct_op` function constructs a DistinctExpr node to handle IS DIST
 - IS DISTINCT FROM treats NULL values specially: NULL IS DISTINCT FROM NULL is false, unlike NULL = NULL which is NULL
 - The function reuses existing equality operator resolution through make_op for consistency
 - Error messages are marked for translation and specifically mention "IS DISTINCT FROM" construct
+
+## Simplified Source
+
+```c
+static Expr *
+make_distinct_op(ParseState *pstate, List *opname, Node *ltree, Node *rtree,
+                 int location)
+{
+    Expr *result;
+
+    // Create regular operator expression
+    result = make_op(pstate, opname, ltree, rtree, pstate->p_last_srf, location);
+
+    // Validate operator returns boolean
+    if (((OpExpr *) result)->opresulttype != BOOLOID)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("%s requires = operator to yield boolean",
+                             "IS DISTINCT FROM"),
+                       parser_errposition(pstate, location)));
+
+    // Validate operator doesn't return a set
+    if (((OpExpr *) result)->opretset)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("%s must not return a set", "IS DISTINCT FROM"),
+                       parser_errposition(pstate, location)));
+
+    // Convert OpExpr to DistinctExpr (same structure, different semantics)
+    NodeSetTag(result, T_DistinctExpr);
+
+    return result;
+}
+```

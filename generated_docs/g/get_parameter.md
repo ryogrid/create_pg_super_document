@@ -43,3 +43,92 @@ This function is responsible for converting a Param node into its appropriate te
 - Qualifies parameter names when multiple namespaces exist to avoid ambiguity
 - Falls back to simple $N format when other methods fail
 - Contains an assertion that non-external parameters should be resolvable
+
+## Simplified Source
+
+```c
+static void get_parameter(Param *param, deparse_context *context)
+{
+    Node *expr;
+    deparse_namespace *dpns;
+    ListCell *ancestor_cell;
+    SubPlan *subplan;
+    int column;
+
+    // First, try to find the expression this parameter represents
+    expr = find_param_referent(param, context, &dpns, &ancestor_cell);
+    if (expr) {
+        // Found the original expression - display it
+        deparse_namespace save_dpns;
+        bool save_varprefix;
+        bool need_paren;
+
+        // Switch to ancestor plan context
+        push_ancestor_plan(dpns, ancestor_cell, &save_dpns);
+
+        // Force variable prefixing for clarity
+        save_varprefix = context->varprefix;
+        context->varprefix = true;
+
+        // Add parentheses for complex expressions
+        need_paren = !(IsA(expr, Var) || IsA(expr, Aggref) ||
+                      IsA(expr, GroupingFunc) || IsA(expr, Param));
+        if (need_paren)
+            appendStringInfoChar(context->buf, '(');
+
+        get_rule_expr(expr, context, false);
+
+        if (need_paren)
+            appendStringInfoChar(context->buf, ')');
+
+        // Restore context
+        context->varprefix = save_varprefix;
+        pop_ancestor_plan(dpns, &save_dpns);
+        return;
+    }
+
+    // Check if it's a subplan output parameter
+    subplan = find_param_generator(param, context, &column);
+    if (subplan) {
+        appendStringInfo(context->buf, "(%s%s).col%d",
+                        subplan->useHashTable ? "hashed " : "",
+                        subplan->plan_name, column + 1);
+        return;
+    }
+
+    // Try to use function argument names for external parameters
+    if (param->paramkind == PARAM_EXTERN && context->namespaces != NIL) {
+        dpns = llast(context->namespaces);
+        if (dpns->argnames && param->paramid > 0 &&
+            param->paramid <= dpns->numargs) {
+            char *argname = dpns->argnames[param->paramid - 1];
+
+            if (argname) {
+                bool should_qualify = false;
+                ListCell *lc;
+
+                // Check if we need to qualify the parameter name
+                foreach(lc, context->namespaces) {
+                    deparse_namespace *depns = lfirst(lc);
+                    if (depns->rtable_names != NIL) {
+                        should_qualify = true;
+                        break;
+                    }
+                }
+
+                if (should_qualify) {
+                    appendStringInfoString(context->buf,
+                                         quote_identifier(dpns->funcname));
+                    appendStringInfoChar(context->buf, '.');
+                }
+
+                appendStringInfoString(context->buf, quote_identifier(argname));
+                return;
+            }
+        }
+    }
+
+    // Default: display as $N
+    appendStringInfo(context->buf, "$%d", param->paramid);
+}
+```

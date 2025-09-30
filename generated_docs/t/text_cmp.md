@@ -39,3 +39,18 @@ text_cmp(text *arg1, text *arg2, Oid collid)
 - Handles varlena data format abstraction for text comparison operations
 - Returns standard comparison result: -1 (less), 0 (equal), or 1 (greater)
 - Central hub for all PostgreSQL text comparison operators and functions
+
+## Simplified Source
+
+```c
+static int text_cmp(text *arg1, text *arg2, Oid collid) {
+    // Extract string data and lengths from text objects
+    char *a1p = VARDATA_ANY(arg1);
+    char *a2p = VARDATA_ANY(arg2);
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Delegate to varstr_cmp for actual comparison
+    return varstr_cmp(a1p, len1, a2p, len2, collid);
+}
+```

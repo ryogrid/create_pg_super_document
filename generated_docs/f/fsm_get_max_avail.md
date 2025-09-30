@@ -35,3 +35,14 @@ This is an extremely efficient operation as it requires only a single array acce
 - This function enables quick elimination of pages that cannot satisfy a space request
 - Extremely fast operation making it suitable for frequent calls during space searches
 - The value represents the largest amount of free space available in any single slot on the page
+
+## Simplified Source
+
+```c
+uint8 fsm_get_max_avail(Page page) {
+    FSMPage fsmpage = (FSMPage) PageGetContents(page);
+
+    // Return value at root node (maximum across all slots)
+    return fsmpage->fp_nodes[0];
+}
+```

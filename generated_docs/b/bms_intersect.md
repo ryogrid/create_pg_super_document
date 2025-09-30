@@ -44,3 +44,49 @@ This function performs a bitwise intersection operation on two Bitmapsets, creat
 - The result is either NULL or a newly allocated Bitmapset that must be freed by the caller
 - Essential for query optimization operations that need to find common relation sets or parameter dependencies
 - Used extensively in join planning, parameter analysis, and constraint processing
+
+## Simplified Source
+
+```c
+Bitmapset *bms_intersect(const Bitmapset *a, const Bitmapset *b) {
+    Bitmapset *result;
+    const Bitmapset *other;
+    int lastnonzero;
+    int resultlen;
+    int i;
+
+    // Handle NULL inputs (treat as empty set)
+    if (a == NULL || b == NULL)
+        return NULL;
+
+    // Copy the shorter set for efficiency
+    if (a->nwords <= b->nwords) {
+        result = bms_copy(a);
+        other = b;
+    } else {
+        result = bms_copy(b);
+        other = a;
+    }
+
+    // Perform bitwise AND operation
+    resultlen = result->nwords;
+    lastnonzero = -1;
+    i = 0;
+    do {
+        result->words[i] &= other->words[i];
+
+        if (result->words[i] != 0)
+            lastnonzero = i;
+    } while (++i < resultlen);
+
+    // If intersection is empty, return NULL
+    if (lastnonzero == -1) {
+        pfree(result);
+        return NULL;
+    }
+
+    // Trim trailing zero words
+    result->nwords = lastnonzero + 1;
+    return result;
+}
+```

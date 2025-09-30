@@ -49,3 +49,61 @@ The function ensures optimal parallel result collection by balancing sorting cos
 - Trims pathkeys to exclude ORDER BY/DISTINCT aggregate keys that are handled post-aggregation
 - Creates Gather Merge paths with proper total_groups estimation for accurate parallel cost calculation
 - Location: src/backend/optimizer/plan/planner.c:7578-7662
+
+## Simplified Source
+
+```c
+static void
+gather_grouping_paths(PlannerInfo *root, RelOptInfo *rel)
+{
+    Path *cheapest_partial_path;
+    List *groupby_pathkeys;
+
+    // Trim pathkeys to remove ORDER BY/DISTINCT aggregate keys
+    if (list_length(root->group_pathkeys) > root->num_groupby_pathkeys)
+        groupby_pathkeys = list_copy_head(root->group_pathkeys, root->num_groupby_pathkeys);
+    else
+        groupby_pathkeys = root->group_pathkeys;
+
+    // Generate standard gather paths for existing partial paths
+    generate_useful_gather_paths(root, rel, true);
+
+    cheapest_partial_path = linitial(rel->partial_pathlist);
+
+    // Create Gather Merge paths with intelligent sorting
+    foreach(lc, rel->partial_pathlist) {
+        Path *path = lfirst(lc);
+        bool is_sorted;
+        int presorted_keys;
+        double total_groups;
+
+        // Check if path is already sorted by group keys
+        is_sorted = pathkeys_count_contained_in(groupby_pathkeys, path->pathkeys, &presorted_keys);
+        if (is_sorted)
+            continue;  // Already sorted, skip
+
+        // Only consider paths worth sorting
+        if (path != cheapest_partial_path &&
+            (presorted_keys == 0 || !enable_incremental_sort))
+            continue;
+
+        total_groups = path->rows * path->parallel_workers;
+
+        // Choose between full sort and incremental sort
+        if (presorted_keys == 0 || !enable_incremental_sort) {
+            // Full sort needed
+            path = (Path *) create_sort_path(root, rel, path, groupby_pathkeys, -1.0);
+        } else {
+            // Incremental sort possible
+            path = (Path *) create_incremental_sort_path(root, rel, path, groupby_pathkeys,
+                                                        presorted_keys, -1.0);
+        }
+
+        // Create Gather Merge path to collect sorted results from workers
+        path = (Path *) create_gather_merge_path(root, rel, path, rel->reltarget,
+                                                groupby_pathkeys, NULL, &total_groups);
+
+        add_path(rel, path);
+    }
+}
+```

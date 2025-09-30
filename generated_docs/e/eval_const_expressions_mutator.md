@@ -65,3 +65,152 @@ The function respects context settings to determine whether unsafe optimizations
 - Handles over 20 different PostgreSQL expression node types with specialized logic for each
 - The function's behavior is controlled by context flags, allowing different optimization strategies for planning vs. execution
 - Critical for eliminating redundant computation and enabling further optimizations in the query planner
+
+## Simplified Source
+
+```c
+static Node *
+eval_const_expressions_mutator(Node *node, eval_const_expressions_context *context)
+{
+    check_stack_depth();  // Prevent stack overflow in deep recursion
+
+    if (node == NULL)
+        return NULL;
+
+    switch (nodeTag(node))
+    {
+        case T_Param:
+            // Try to substitute parameter with constant value if available
+            if (parameter_is_available_and_const(param, context))
+                return create_const_from_param(param, context);
+            return copyObject(node);
+
+        case T_FuncExpr:
+            // Simplify function calls - may evaluate to constants
+            simple = simplify_function(expr->funcid, expr->args, context);
+            if (simple)
+                return simple;
+            return create_new_funcexpr_with_simplified_args(expr, context);
+
+        case T_OpExpr:
+            // Simplify operators (like +, -, =, etc.)
+            set_opfuncid(expr);  // Get underlying function
+            simple = simplify_function(expr->opfuncid, expr->args, context);
+            if (simple)
+                return simple;
+
+            // Special handling for boolean equality/inequality
+            if (expr->opno == BooleanEqualOperator || expr->opno == BooleanNotEqualOperator)
+                return simplify_boolean_equality(expr->opno, expr->args);
+
+            return create_new_opexpr_with_simplified_args(expr, context);
+
+        case T_BoolExpr:
+            // Optimize AND/OR/NOT expressions
+            switch (expr->boolop)
+            {
+                case OR_EXPR:
+                    // Remove FALSE constants, short-circuit on TRUE
+                    newargs = simplify_or_arguments(expr->args, context);
+                    if (all_false) return makeBoolConst(false, false);
+                    if (found_true) return makeBoolConst(true, false);
+                    if (single_arg) return single_arg;
+                    return make_orclause(newargs);
+
+                case AND_EXPR:
+                    // Remove TRUE constants, short-circuit on FALSE
+                    newargs = simplify_and_arguments(expr->args, context);
+                    if (any_false) return makeBoolConst(false, false);
+                    if (all_true) return makeBoolConst(true, false);
+                    if (single_arg) return single_arg;
+                    return make_andclause(newargs);
+
+                case NOT_EXPR:
+                    // Use logical negation rules
+                    arg = eval_const_expressions_mutator(expr->arg, context);
+                    return negate_clause(arg);
+            }
+
+        case T_CaseExpr:
+            // Optimize CASE expressions by eliminating unreachable branches
+            newarg = eval_const_expressions_mutator(caseexpr->arg, context);
+
+            // Process WHEN clauses, eliminating constant FALSE conditions
+            foreach(when_clause, caseexpr->args)
+            {
+                condition = eval_const_expressions_mutator(when_clause->expr, context);
+
+                if (is_constant_false(condition))
+                    continue;  // Skip this branch
+
+                if (is_constant_true(condition))
+                {
+                    // This branch always matches - use its result as default
+                    defresult = eval_const_expressions_mutator(when_clause->result, context);
+                    break;
+                }
+
+                // Keep this branch
+                newargs = lappend(newargs, create_new_when_clause(condition, result));
+            }
+
+            if (no_branches_left)
+                return defresult;
+
+            return create_new_case_expr(newarg, newargs, defresult);
+
+        case T_CoalesceExpr:
+            // Optimize COALESCE by removing NULL constants
+            foreach(arg, coalesceexpr->args)
+            {
+                e = eval_const_expressions_mutator(arg, context);
+
+                if (is_null_const(e))
+                    continue;  // Skip NULL arguments
+
+                if (is_non_null_const(e))
+                {
+                    if (first_arg)
+                        return e;  // First non-null constant is the result
+                    newargs = lappend(newargs, e);
+                    break;  // No need to check further args
+                }
+
+                newargs = lappend(newargs, e);
+            }
+
+            if (all_null)
+                return makeNullConst(coalesceexpr->coalescetype);
+
+            return create_new_coalesce(newargs);
+
+        case T_NullTest:
+            // Optimize IS NULL / IS NOT NULL tests
+            arg = eval_const_expressions_mutator(ntest->arg, context);
+
+            if (IsA(arg, Const))
+            {
+                // Can determine result immediately for constants
+                bool result = (ntest->nulltesttype == IS_NULL) ?
+                             ((Const *)arg)->constisnull :
+                             !((Const *)arg)->constisnull;
+                return makeBoolConst(result, false);
+            }
+
+            return create_new_nulltest(arg, ntest->nulltesttype);
+
+        case T_RelabelType:
+            // Simplify type relabeling - may be eliminable
+            arg = eval_const_expressions_mutator(relabel->arg, context);
+            return applyRelabelType(arg, relabel->resulttype, relabel->resulttypmod,
+                                  relabel->resultcollid, relabel->relabelformat,
+                                  relabel->location, true);
+
+        // ... other expression types handled similarly ...
+
+        default:
+            // For unknown types, just recursively simplify subexpressions
+            return ece_generic_processing(node);
+    }
+}
+```

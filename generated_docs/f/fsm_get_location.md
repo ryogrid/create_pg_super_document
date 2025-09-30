@@ -40,3 +40,21 @@ The mapping is straightforward: heap blocks are distributed across FSM leaf page
 - The slot output parameter is set to a value between 0 and SlotsPerFSMPage-1
 - This mapping is the foundation for all FSM operations that need to locate heap block information
 - Used extensively throughout FSM maintenance and query operations
+
+## Simplified Source
+
+```c
+static FSMAddress fsm_get_location(BlockNumber heapblk, uint16 *slot)
+{
+    FSMAddress addr;
+
+    // Always target bottom level of FSM tree
+    addr.level = FSM_BOTTOM_LEVEL;
+
+    // Map heap block to FSM coordinates
+    addr.logpageno = heapblk / SlotsPerFSMPage;  // Which FSM page
+    *slot = heapblk % SlotsPerFSMPage;           // Which slot in page
+
+    return addr;
+}
+```

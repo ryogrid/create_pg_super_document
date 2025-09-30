@@ -42,3 +42,57 @@ The function implements a cost-benefit analysis by requiring that compressed dat
 - Uses VAR{SIZE,DATA}_ANY macros to handle short varlenas efficiently without unnecessary copying
 - Returns NULL for incompressible data, requiring callers to handle this case appropriately
 - The compression method selection supports fallback to system default when an invalid method is specified
+
+## Simplified Source
+
+```c
+Datum toast_compress_datum(Datum value, char cmethod) {
+    struct varlena *compressed_data = NULL;
+    int32 original_size;
+    ToastCompressionId compression_id = TOAST_INVALID_COMPRESSION_ID;
+
+    // Validate input: must not be external or already compressed
+    Assert(!VARATT_IS_EXTERNAL(DatumGetPointer(value)));
+    Assert(!VARATT_IS_COMPRESSED(DatumGetPointer(value)));
+
+    // Get original data size (excluding header)
+    original_size = VARSIZE_ANY_EXHDR(DatumGetPointer(value));
+
+    // Use default compression method if invalid one specified
+    if (!CompressionMethodIsValid(cmethod)) {
+        cmethod = default_toast_compression;
+    }
+
+    // Apply compression based on method
+    switch (cmethod) {
+        case TOAST_PGLZ_COMPRESSION:
+            compressed_data = pglz_compress_datum((const struct varlena *) value);
+            compression_id = TOAST_PGLZ_COMPRESSION_ID;
+            break;
+        case TOAST_LZ4_COMPRESSION:
+            compressed_data = lz4_compress_datum((const struct varlena *) value);
+            compression_id = TOAST_LZ4_COMPRESSION_ID;
+            break;
+        default:
+            elog(ERROR, "invalid compression method %c", cmethod);
+    }
+
+    // Check if compression failed
+    if (compressed_data == NULL) {
+        return PointerGetDatum(NULL);
+    }
+
+    // Verify compression provides sufficient savings (more than 2 bytes)
+    // This accounts for header and alignment overhead
+    if (VARSIZE(compressed_data) < original_size - 2) {
+        // Compression successful - set size and method in header
+        TOAST_COMPRESS_SET_SIZE_AND_COMPRESS_METHOD(compressed_data,
+                                                    original_size, compression_id);
+        return PointerGetDatum(compressed_data);
+    } else {
+        // Compression not worthwhile - clean up and return NULL
+        pfree(compressed_data);
+        return PointerGetDatum(NULL);
+    }
+}
+```

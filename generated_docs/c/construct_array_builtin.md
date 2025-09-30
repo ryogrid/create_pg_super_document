@@ -52,3 +52,86 @@ The function uses a switch statement to map common built-in type OIDs to their c
 - This is commonly used when manipulating arrays in system catalog operations where type information is predictable
 - Provides better performance than looking up type information from system catalogs for known built-in types
 - The hardcoded type information matches the definitions in PostgreSQL's type system
+
+## Simplified Source
+
+```c
+ArrayType *
+construct_array_builtin(Datum *elems, int nelems, Oid elmtype)
+{
+    int elmlen;
+    bool elmbyval;
+    char elmalign;
+
+    // Set type properties based on built-in type OID
+    switch (elmtype)
+    {
+        case CHAROID:
+            elmlen = 1;
+            elmbyval = true;
+            elmalign = TYPALIGN_CHAR;
+            break;
+
+        case CSTRINGOID:
+            elmlen = -2;  // Variable length, null-terminated
+            elmbyval = false;
+            elmalign = TYPALIGN_CHAR;
+            break;
+
+        case FLOAT4OID:
+            elmlen = sizeof(float4);
+            elmbyval = true;
+            elmalign = TYPALIGN_INT;
+            break;
+
+        case INT2OID:
+            elmlen = sizeof(int16);
+            elmbyval = true;
+            elmalign = TYPALIGN_SHORT;
+            break;
+
+        case INT4OID:
+            elmlen = sizeof(int32);
+            elmbyval = true;
+            elmalign = TYPALIGN_INT;
+            break;
+
+        case INT8OID:
+            elmlen = sizeof(int64);
+            elmbyval = FLOAT8PASSBYVAL;  // Platform dependent
+            elmalign = TYPALIGN_DOUBLE;
+            break;
+
+        case NAMEOID:
+            elmlen = NAMEDATALEN;
+            elmbyval = false;
+            elmalign = TYPALIGN_CHAR;
+            break;
+
+        case OIDOID:
+        case REGTYPEOID:
+            elmlen = sizeof(Oid);
+            elmbyval = true;
+            elmalign = TYPALIGN_INT;
+            break;
+
+        case TEXTOID:
+            elmlen = -1;  // Variable length
+            elmbyval = false;
+            elmalign = TYPALIGN_INT;
+            break;
+
+        case TIDOID:
+            elmlen = sizeof(ItemPointerData);
+            elmbyval = false;
+            elmalign = TYPALIGN_SHORT;
+            break;
+
+        default:
+            elog(ERROR, "type %u not supported by construct_array_builtin()", elmtype);
+    }
+
+    // Delegate to standard array construction
+    return construct_array(elems, nelems, elmtype, elmlen, elmbyval, elmalign);
+}
+```

@@ -62,3 +62,104 @@ This function implements the ALTER DEFAULT PRIVILEGES SQL command, which allows 
 - The function validates that specified privileges are valid for the target object type
 - Privilege validation ensures the current user has 'privs of role' for any target roles specified
 - The actual application of default privileges is delegated to SetDefaultACLsInSchemas for each schema/role combination
+
+## Simplified Source
+
+```c
+void ExecAlterDefaultPrivilegesStmt(ParseState *pstate, AlterDefaultPrivilegesStmt *stmt)
+{
+    GrantStmt *action = stmt->action;
+    InternalDefaultACL iacls;
+    List *rolespecs = NIL;
+    List *nspnames = NIL;
+    AclMode all_privileges;
+
+    // Parse statement options (schemas and roles)
+    foreach(cell, stmt->options)
+    {
+        DefElem *defel = (DefElem *) lfirst(cell);
+
+        if (strcmp(defel->defname, "schemas") == 0)
+            nspnames = (List *) defel->arg;
+        else if (strcmp(defel->defname, "roles") == 0)
+            rolespecs = (List *) defel->arg;
+    }
+
+    // Setup internal ACL structure
+    iacls.is_grant = action->is_grant;
+    iacls.objtype = action->objtype;
+    iacls.grant_option = action->grant_option;
+    iacls.behavior = action->behavior;
+
+    // Convert grantee role specs to OIDs
+    foreach(cell, action->grantees)
+    {
+        RoleSpec *grantee = (RoleSpec *) lfirst(cell);
+        Oid grantee_uid = (grantee->roletype == ROLESPEC_PUBLIC) ?
+                          ACL_ID_PUBLIC : get_rolespec_oid(grantee, false);
+        iacls.grantees = lappend_oid(iacls.grantees, grantee_uid);
+    }
+
+    // Determine privilege mask based on object type
+    switch (action->objtype)
+    {
+        case OBJECT_TABLE:
+            all_privileges = ACL_ALL_RIGHTS_RELATION;
+            break;
+        case OBJECT_SEQUENCE:
+            all_privileges = ACL_ALL_RIGHTS_SEQUENCE;
+            break;
+        case OBJECT_FUNCTION:
+        case OBJECT_PROCEDURE:
+        case OBJECT_ROUTINE:
+            all_privileges = ACL_ALL_RIGHTS_FUNCTION;
+            break;
+        case OBJECT_TYPE:
+            all_privileges = ACL_ALL_RIGHTS_TYPE;
+            break;
+        case OBJECT_SCHEMA:
+            all_privileges = ACL_ALL_RIGHTS_SCHEMA;
+            break;
+    }
+
+    // Process privileges
+    if (action->privileges == NIL)
+    {
+        iacls.all_privs = true;
+        iacls.privileges = ACL_NO_RIGHTS;
+    }
+    else
+    {
+        iacls.all_privs = false;
+        iacls.privileges = ACL_NO_RIGHTS;
+
+        foreach(cell, action->privileges)
+        {
+            AccessPriv *privnode = (AccessPriv *) lfirst(cell);
+            AclMode priv = string_to_privilege(privnode->priv_name);
+            iacls.privileges |= priv;
+        }
+    }
+
+    // Apply to specified roles or current user
+    if (rolespecs == NIL)
+    {
+        iacls.roleid = GetUserId();
+        SetDefaultACLsInSchemas(&iacls, nspnames);
+    }
+    else
+    {
+        foreach(rolecell, rolespecs)
+        {
+            RoleSpec *rolespec = lfirst(rolecell);
+            iacls.roleid = get_rolespec_oid(rolespec, false);
+
+            // Check permission to modify this role's default privileges
+            if (!has_privs_of_role(GetUserId(), iacls.roleid))
+                ereport(ERROR, (errmsg("permission denied to change default privileges")));
+
+            SetDefaultACLsInSchemas(&iacls, nspnames);
+        }
+    }
+}
+```

@@ -27,3 +27,33 @@ TypenameGetTypidExtended searches for a type by name through all namespaces in t
 
 ## Notes and Other Information
 This function follows the same pattern as other namespace resolution functions in PostgreSQL. It ensures the namespace search path is current by calling recomputeNamespacePath() first. The temp_ok parameter allows callers to control whether temporary types should be considered, which is important for certain contexts where temporary objects should be excluded. The function uses TYPENAMENSP cache for efficient lookups.
+
+## Simplified Source
+
+```c
+Oid TypenameGetTypidExtended(const char *typname, bool temp_ok) {
+    // Ensure namespace search path is current
+    recomputeNamespacePath();
+
+    // Search through each namespace in the active search path
+    foreach(l, activeSearchPath) {
+        Oid namespaceId = lfirst_oid(l);
+
+        // Skip temporary namespace if not allowed
+        if (!temp_ok && namespaceId == myTempNamespace)
+            continue;
+
+        // Look up type in this namespace using system cache
+        typid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                               PointerGetDatum(typname),
+                               ObjectIdGetDatum(namespaceId));
+
+        // Return immediately if type found
+        if (OidIsValid(typid))
+            return typid;
+    }
+
+    // Type not found in any namespace
+    return InvalidOid;
+}
+```

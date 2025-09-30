@@ -40,3 +40,43 @@ This low-level function extracts relation options from a pg_class heap tuple and
 - This is preferred over accessing rd_options when relcache entry is not available
 - Each relation kind has its own specific options parser to handle different option sets
 - Function is defined in src/backend/access/common/reloptions.c:1388-1435
+
+## Simplified Source
+
+```c
+bytea *extractRelOptions(HeapTuple tuple, TupleDesc tupdesc, amoptions_function amoptions) {
+    // Extract reloptions field from pg_class tuple
+    bool isnull;
+    Datum datum = fastgetattr(tuple, Anum_pg_class_reloptions, tupdesc, &isnull);
+
+    if (isnull)
+        return NULL;
+
+    // Get relation kind to determine which parser to use
+    Form_pg_class classForm = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Parse options based on relation type
+    switch (classForm->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_TOASTVALUE:
+        case RELKIND_MATVIEW:
+            return heap_reloptions(classForm->relkind, datum, false);
+
+        case RELKIND_PARTITIONED_TABLE:
+            return partitioned_table_reloptions(datum, false);
+
+        case RELKIND_VIEW:
+            return view_reloptions(datum, false);
+
+        case RELKIND_INDEX:
+        case RELKIND_PARTITIONED_INDEX:
+            return index_reloptions(amoptions, datum, false);
+
+        case RELKIND_FOREIGN_TABLE:
+            return NULL;  // Foreign tables don't use reloptions
+
+        default:
+            return NULL;
+    }
+}
+```

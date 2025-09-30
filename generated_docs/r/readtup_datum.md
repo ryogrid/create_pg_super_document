@@ -32,3 +32,37 @@ This function deserializes a datum-based SortTuple from persistent storage via a
 
 ## Notes and Other Information
 The function carefully handles memory allocation for pass-by-reference datums using tuplesort_readtup_alloc(), which provides efficient memory management during the merge phase. The tuplen calculation (len - sizeof(unsigned int)) accounts for the length prefix written by writetup_datum(). When TUPLESORT_RANDOMACCESS is enabled, it also reads the trailing length word to maintain tape positioning consistency. This function is essential for the external sorting algorithm that enables PostgreSQL to sort datasets exceeding available memory.
+
+## Simplified Source
+
+```c
+static void readtup_datum(Tuplesortstate *state, SortTuple *stup,
+                         LogicalTape *tape, unsigned int len) {
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    unsigned int data_length = len - sizeof(unsigned int);
+
+    if (data_length == 0) {
+        // NULL value
+        stup->datum1 = (Datum) 0;
+        stup->isnull1 = true;
+        stup->tuple = NULL;
+    } else if (!base->tuples) {
+        // Pass-by-value datum
+        LogicalTapeReadExact(tape, &stup->datum1, data_length);
+        stup->isnull1 = false;
+        stup->tuple = NULL;
+    } else {
+        // Pass-by-reference datum - allocate memory and read data
+        void *data_buffer = tuplesort_readtup_alloc(state, data_length);
+
+        LogicalTapeReadExact(tape, data_buffer, data_length);
+        stup->datum1 = PointerGetDatum(data_buffer);
+        stup->isnull1 = false;
+        stup->tuple = data_buffer;
+    }
+
+    // Read trailing length for random access support
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeReadExact(tape, &data_length, sizeof(data_length));
+}
+```

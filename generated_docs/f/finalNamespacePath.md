@@ -37,3 +37,37 @@ This function takes a list of namespace OIDs and produces the final search path 
 - Must be recalculated if object_access_hook is present due to potential hook result variations
 - Returns a newly-allocated list that must be freed by the caller
 - The firstNS parameter helps distinguish explicit from implicit mention of pg_catalog
+
+## Simplified Source
+
+```c
+static List *finalNamespacePath(List *oidlist, Oid *firstNS) {
+    List *finalPath = NIL;
+
+    // Process explicit namespaces, removing duplicates and applying hooks
+    foreach(lc, oidlist) {
+        Oid namespaceId = lfirst_oid(lc);
+
+        if (!list_member_oid(finalPath, namespaceId)) {
+            if (InvokeNamespaceSearchHook(namespaceId, false))
+                finalPath = lappend_oid(finalPath, namespaceId);
+        }
+    }
+
+    // Remember first explicitly mentioned namespace
+    if (finalPath == NIL)
+        *firstNS = InvalidOid;
+    else
+        *firstNS = linitial_oid(finalPath);
+
+    // Add implicitly searched namespaces to front
+    if (!list_member_oid(finalPath, PG_CATALOG_NAMESPACE))
+        finalPath = lcons_oid(PG_CATALOG_NAMESPACE, finalPath);
+
+    if (OidIsValid(myTempNamespace) &&
+        !list_member_oid(finalPath, myTempNamespace))
+        finalPath = lcons_oid(myTempNamespace, finalPath);
+
+    return finalPath;
+}
+```

@@ -36,3 +36,45 @@ The copyParamList function creates a deep copy of a ParamListInfo structure, wit
 - The paramValuesStr field from the source is not copied to the destination
 - All parameter values are forcibly instantiated, even if they were originally dynamic
 - The function is located in src/backend/nodes/params.c at lines 78-119
+
+## Simplified Source
+```c
+ParamListInfo copyParamList(ParamListInfo from) {
+    ParamListInfo retval;
+
+    // Return NULL for empty or null parameter lists
+    if (from == NULL || from->numParams <= 0)
+        return NULL;
+
+    // Create new parameter list with same number of parameters
+    retval = makeParamList(from->numParams);
+
+    // Copy each parameter
+    for (int i = 0; i < from->numParams; i++) {
+        ParamExternData *oprm;
+        ParamExternData *nprm = &retval->params[i];
+        ParamExternData prmdata;
+        int16 typLen;
+        bool typByVal;
+
+        // Get parameter data, calling fetch hook if present
+        if (from->paramFetch != NULL)
+            oprm = from->paramFetch(from, i + 1, false, &prmdata);
+        else
+            oprm = &from->params[i];
+
+        // Flat copy the parameter info
+        *nprm = *oprm;
+
+        // Skip null parameters or parameters without valid type
+        if (nprm->isnull || !OidIsValid(nprm->ptype))
+            continue;
+
+        // Deep copy parameter value for pass-by-reference types
+        get_typlenbyval(nprm->ptype, &typLen, &typByVal);
+        nprm->value = datumCopy(nprm->value, typByVal, typLen);
+    }
+
+    return retval;
+}
+```

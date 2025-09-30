@@ -42,3 +42,25 @@ This function creates two check triggers on the referencing table that validate 
 - Creates triggers that fire before INSERT/UPDATE to validate foreign key references
 - Uses CreateFKCheckTrigger with different parameters for INSERT (true) vs UPDATE (false) operations
 - Part of the complete foreign key constraint implementation in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+createForeignKeyCheckTriggers(Oid myRelOid, Oid refRelOid,
+                             Constraint *fkconstraint, Oid constraintOid,
+                             Oid indexOid,
+                             Oid parentInsTrigger, Oid parentUpdTrigger,
+                             Oid *insertTrigOid, Oid *updateTrigOid)
+{
+    // Create INSERT check trigger
+    *insertTrigOid = CreateFKCheckTrigger(myRelOid, refRelOid, fkconstraint,
+                                         constraintOid, indexOid,
+                                         parentInsTrigger, true);
+
+    // Create UPDATE check trigger
+    *updateTrigOid = CreateFKCheckTrigger(myRelOid, refRelOid, fkconstraint,
+                                         constraintOid, indexOid,
+                                         parentUpdTrigger, false);
+}
+```

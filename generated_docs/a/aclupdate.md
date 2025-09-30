@@ -43,3 +43,91 @@ This function is the core mechanism for modifying ACL arrays in PostgreSQL. It c
 - Cannot handle cascading revoke for PUBLIC grantees
 - Maintains ACL array structure and proper memory management
 - Located in src/backend/utils/adt/acl.c:992-1118
+
+## Simplified Source
+
+```c
+Acl *aclupdate(const Acl *old_acl, const AclItem *mod_aip,
+               int modechg, Oid ownerId, DropBehavior behavior) {
+    Acl *new_acl = NULL;
+    AclItem *new_aip = NULL;
+    int dst, num;
+
+    // Validate input ACL
+    check_acl(old_acl);
+
+    // Check for circular grants when adding grant options
+    if (modechg != ACL_MODECHG_DEL &&
+        ACLITEM_GET_GOPTIONS(*mod_aip) != ACL_NO_RIGHTS) {
+        check_circularity(old_acl, mod_aip, ownerId);
+    }
+
+    num = ACL_NUM(old_acl);
+
+    // Search for existing entry matching grantee/grantor
+    for (dst = 0; dst < num; ++dst) {
+        if (aclitem_match(mod_aip, old_aip + dst)) {
+            // Found match: create copy and modify in place
+            new_acl = allocacl(num);
+            new_aip = ACL_DAT(new_acl);
+            memcpy(new_acl, old_acl, ACL_SIZE(old_acl));
+            break;
+        }
+    }
+
+    if (dst == num) {
+        // No match found: append new item
+        new_acl = allocacl(num + 1);
+        new_aip = ACL_DAT(new_acl);
+        memcpy(new_aip, old_aip, num * sizeof(AclItem));
+
+        // Initialize new entry with no permissions
+        new_aip[dst].ai_grantee = mod_aip->ai_grantee;
+        new_aip[dst].ai_grantor = mod_aip->ai_grantor;
+        ACLITEM_SET_PRIVS_GOPTIONS(new_aip[dst], ACL_NO_RIGHTS, ACL_NO_RIGHTS);
+        num++;
+    }
+
+    // Apply privilege change based on operation type
+    AclMode old_rights = ACLITEM_GET_RIGHTS(new_aip[dst]);
+    AclMode old_goptions = ACLITEM_GET_GOPTIONS(new_aip[dst]);
+
+    switch (modechg) {
+        case ACL_MODECHG_ADD:
+            // Add specified rights to existing
+            ACLITEM_SET_RIGHTS(new_aip[dst],
+                              old_rights | ACLITEM_GET_RIGHTS(*mod_aip));
+            break;
+        case ACL_MODECHG_DEL:
+            // Remove specified rights
+            ACLITEM_SET_RIGHTS(new_aip[dst],
+                              old_rights & ~ACLITEM_GET_RIGHTS(*mod_aip));
+            break;
+        case ACL_MODECHG_EQL:
+            // Set rights to exact value
+            ACLITEM_SET_RIGHTS(new_aip[dst], ACLITEM_GET_RIGHTS(*mod_aip));
+            break;
+    }
+
+    // Remove entry if no privileges remain
+    AclMode new_rights = ACLITEM_GET_RIGHTS(new_aip[dst]);
+    if (new_rights == ACL_NO_RIGHTS) {
+        // Shift remaining entries down
+        memmove(new_aip + dst, new_aip + dst + 1,
+                (num - dst - 1) * sizeof(AclItem));
+        // Adjust ACL size
+        ARR_DIMS(new_acl)[0] = num - 1;
+        SET_VARSIZE(new_acl, ACL_N_SIZE(num - 1));
+    }
+
+    // Handle cascading revoke for removed grant options
+    AclMode new_goptions = ACLITEM_GET_GOPTIONS(new_aip[dst]);
+    if ((old_goptions & ~new_goptions) != 0) {
+        new_acl = recursive_revoke(new_acl, mod_aip->ai_grantee,
+                                   (old_goptions & ~new_goptions),
+                                   ownerId, behavior);
+    }
+
+    return new_acl;
+}
+```

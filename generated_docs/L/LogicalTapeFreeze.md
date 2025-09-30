@@ -47,3 +47,59 @@ The frozen state ensures tape contents remain available until the LogicalTapeSet
 - The share parameter enables coordination in parallel sorts by exporting file metadata
 - Once frozen, tape contents are preserved until the entire LogicalTapeSet is destroyed
 - Includes Valgrind memory validation for debugging builds
+
+## Simplified Source
+
+```c
+void LogicalTapeFreeze(LogicalTape *lt, TapeShare *share) {
+    LogicalTapeSet *lts = lt->tapeSet;
+
+    // Validation: must be in write mode
+    Assert(lt->writing);
+    Assert(lt->offsetBlockNumber == 0L);
+
+    // Flush any pending write data
+    if (lt->dirty) {
+        // Set block size and write final block
+        TapeBlockSetNBytes(lt->buffer, lt->nbytes);
+        ltsWriteBlock(lt->tapeSet, lt->curBlockNumber, lt->buffer);
+    }
+
+    // Switch from write to frozen read mode
+    lt->writing = false;
+    lt->frozen = true;
+
+    // Resize buffer to single block for optimal seeking
+    if (!lt->buffer || lt->buffer_size != BLCKSZ) {
+        if (lt->buffer)
+            pfree(lt->buffer);
+        lt->buffer = palloc(BLCKSZ);
+        lt->buffer_size = BLCKSZ;
+    }
+
+    // Initialize read state - start from first block
+    lt->curBlockNumber = lt->firstBlockNumber;
+    lt->pos = 0;
+    lt->nbytes = 0;
+
+    // Handle empty tape case
+    if (lt->firstBlockNumber == -1L) {
+        lt->nextBlockNumber = -1L;
+        return;
+    }
+
+    // Read first block and set up next block pointer
+    ltsReadBlock(lt->tapeSet, lt->curBlockNumber, lt->buffer);
+    if (TapeBlockIsLast(lt->buffer))
+        lt->nextBlockNumber = -1L;
+    else
+        lt->nextBlockNumber = TapeBlockGetTrailer(lt->buffer)->next;
+    lt->nbytes = TapeBlockGetNBytes(lt->buffer);
+
+    // Set up sharing info for parallel sorts
+    if (share) {
+        BufFileExportFileSet(lts->pfile);
+        share->firstblocknumber = lt->firstBlockNumber;
+    }
+}
+```

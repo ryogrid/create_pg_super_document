@@ -41,3 +41,42 @@ varstr_cmp(const char *arg1, int len1, const char *arg2, int len2, Oid collid)
 - Uses memory copying strategy for non-C locales due to lack of strncoll() function
 - Provides deterministic tie-breaking for equal strings in deterministic locales
 - Critical performance path for text indexing and sorting operations
+
+## Simplified Source
+
+```c
+int
+varstr_cmp(const char *arg1, int len1, const char *arg2, int len2, Oid collid)
+{
+    int result;
+
+    check_collation_set(collid);
+
+    // Fast path for C locale - use binary comparison
+    if (lc_collate_is_c(collid)) {
+        result = memcmp(arg1, arg2, Min(len1, len2));
+        if ((result == 0) && (len1 != len2))
+            result = (len1 < len2) ? -1 : 1;
+    }
+    else {
+        // Locale-aware comparison
+        pg_locale_t mylocale = pg_newlocale_from_collation(collid);
+
+        // Quick equality check before expensive collation comparison
+        if (len1 == len2 && memcmp(arg1, arg2, len1) == 0)
+            return 0;
+
+        // Perform collation-aware comparison
+        result = pg_strncoll(arg1, len1, arg2, len2, mylocale);
+
+        // Tie-breaking for deterministic locales
+        if (result == 0 && pg_locale_deterministic(mylocale)) {
+            result = memcmp(arg1, arg2, Min(len1, len2));
+            if ((result == 0) && (len1 != len2))
+                result = (len1 < len2) ? -1 : 1;
+        }
+    }
+
+    return result;
+}
+```

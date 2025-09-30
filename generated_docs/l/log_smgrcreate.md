@@ -38,3 +38,22 @@ log_smgrcreate performs XLogInsert of an XLOG_SMGR_CREATE record to the Write-Ah
 - The XLR_SPECIAL_REL_UPDATE flag marks this as a special relation update that may affect system catalogs
 - This logging is essential for crash recovery to ensure physical files exist when transactions are replayed
 - Called only for persistent relations that require WAL logging
+
+## Simplified Source
+
+```c
+void
+log_smgrcreate(const RelFileLocator *rlocator, ForkNumber forkNum)
+{
+    xl_smgr_create xlrec;
+
+    // Prepare WAL record structure with file location info
+    xlrec.rlocator = *rlocator;
+    xlrec.forkNum = forkNum;
+
+    // Write WAL record documenting the file creation
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, sizeof(xlrec));
+    XLogInsert(RM_SMGR_ID, XLOG_SMGR_CREATE | XLR_SPECIAL_REL_UPDATE);
+}
+```

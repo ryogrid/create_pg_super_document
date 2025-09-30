@@ -34,3 +34,18 @@ This function takes no parameters.
 - Typically called during DISCARD operations to clean up session state
 - Safe to call multiple times - checks if seqhashtab exists before attempting to destroy it
 - Essential for preventing memory leaks and ensuring clean session state transitions
+
+## Simplified Source
+
+```c
+void ResetSequenceCaches(void) {
+    // Destroy sequence hash table if it exists
+    if (seqhashtab) {
+        hash_destroy(seqhashtab);
+        seqhashtab = NULL;
+    }
+
+    // Reset last used sequence pointer
+    last_used_seq = NULL;
+}
+```

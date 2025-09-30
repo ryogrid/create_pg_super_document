@@ -39,3 +39,41 @@ The function uses the PostgreSQL expression analysis functions (exprType, exprTy
 - Each attribute is initialized with collation information in addition to basic type data
 - This is commonly used in execution contexts where type information needs to be derived from expressions during query planning or execution
 - The resulting TupleDesc can be used for creating tuples that match the types of the evaluated expressions
+
+## Simplified Source
+
+```c
+TupleDesc
+ExecTypeFromExprList(List *exprList)
+{
+    TupleDesc typeInfo;
+    ListCell *lc;
+    int cur_resno = 1;
+
+    // Create template tuple descriptor with required number of attributes
+    typeInfo = CreateTemplateTupleDesc(list_length(exprList));
+
+    // Initialize each attribute from corresponding expression
+    foreach(lc, exprList)
+    {
+        Node *e = lfirst(lc);
+
+        // Set up basic type information for this attribute
+        TupleDescInitEntry(typeInfo,
+                          cur_resno,
+                          NULL,              // no column name
+                          exprType(e),       // extract type from expression
+                          exprTypmod(e),     // extract type modifier
+                          0);                // dimension (unused)
+
+        // Set collation information
+        TupleDescInitEntryCollation(typeInfo,
+                                   cur_resno,
+                                   exprCollation(e));
+
+        cur_resno++;
+    }
+
+    return typeInfo;
+}
+```

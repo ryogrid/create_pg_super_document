@@ -45,3 +45,57 @@ Key authorization rules enforced:
 - The function is purely for authorization - it doesn't modify any catalog state
 - Uses is_admin_of_role() which respects the admin option hierarchy
 - Error messages include both the operation type and the specific privilege requirements
+
+## Simplified Source
+
+```c
+static void check_role_membership_authorization(Oid currentUserId, Oid roleid, bool is_grant) {
+    // Special case: pg_database_owner cannot have explicit members
+    if (is_grant && roleid == ROLE_PG_DATABASE_OWNER) {
+        ereport(ERROR,
+            errmsg("role \"%s\" cannot have explicit members",
+                   GetUserNameFromId(roleid, false)));
+    }
+
+    // Check if target role is a superuser
+    if (superuser_arg(roleid)) {
+        // Only superusers can modify superuser role memberships
+        if (!superuser_arg(currentUserId)) {
+            if (is_grant) {
+                ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("permission denied to grant role \"%s\"",
+                            GetUserNameFromId(roleid, false)),
+                     errdetail("Only roles with the %s attribute may grant roles with the %s attribute.",
+                               "SUPERUSER", "SUPERUSER")));
+            } else {
+                ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("permission denied to revoke role \"%s\"",
+                            GetUserNameFromId(roleid, false)),
+                     errdetail("Only roles with the %s attribute may revoke roles with the %s attribute.",
+                               "SUPERUSER", "SUPERUSER")));
+            }
+        }
+    } else {
+        // For non-superuser roles, require admin option
+        if (!is_admin_of_role(currentUserId, roleid)) {
+            if (is_grant) {
+                ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("permission denied to grant role \"%s\"",
+                            GetUserNameFromId(roleid, false)),
+                     errdetail("Only roles with the %s option on role \"%s\" may grant this role.",
+                               "ADMIN", GetUserNameFromId(roleid, false))));
+            } else {
+                ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("permission denied to revoke role \"%s\"",
+                            GetUserNameFromId(roleid, false)),
+                     errdetail("Only roles with the %s option on role \"%s\" may revoke this role.",
+                               "ADMIN", GetUserNameFromId(roleid, false))));
+            }
+        }
+    }
+}
+```

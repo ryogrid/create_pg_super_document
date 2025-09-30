@@ -49,3 +49,70 @@ For error cases, the function can provide helpful hint messages to guide users t
 - Uses errno to detect parsing errors and range overflow
 - Allows whitespace between the numeric value and unit suffix
 - Returns false for invalid input while optionally setting helpful error hints
+
+## Simplified Source
+
+```c
+bool
+parse_int(const char *value, int *result, int flags, const char **hintmsg)
+{
+    double val;
+    char *endptr;
+
+    // Initialize output parameters
+    if (result)
+        *result = 0;
+    if (hintmsg)
+        *hintmsg = NULL;
+
+    // Try parsing as integer first, then as float if needed
+    errno = 0;
+    val = strtol(value, &endptr, 0);
+    if (*endptr == '.' || *endptr == 'e' || *endptr == 'E' || errno == ERANGE) {
+        errno = 0;
+        val = strtod(value, &endptr);
+    }
+
+    // Check for parse errors
+    if (endptr == value || errno == ERANGE)
+        return false;
+
+    // Reject NaN values
+    if (isnan(val))
+        return false;
+
+    // Skip whitespace before unit
+    while (isspace((unsigned char) *endptr))
+        endptr++;
+
+    // Handle unit conversion if present
+    if (*endptr != '\0') {
+        if ((flags & GUC_UNIT) == 0)
+            return false;  // Units not allowed
+
+        if (!convert_to_base_unit(val, endptr, (flags & GUC_UNIT), &val)) {
+            // Set helpful hint for invalid units
+            if (hintmsg) {
+                if (flags & GUC_UNIT_MEMORY)
+                    *hintmsg = memory_units_hint;
+                else
+                    *hintmsg = time_units_hint;
+            }
+            return false;
+        }
+    }
+
+    // Round to integer and check range
+    val = rint(val);
+    if (val > INT_MAX || val < INT_MIN) {
+        if (hintmsg)
+            *hintmsg = gettext_noop("Value exceeds integer range.");
+        return false;
+    }
+
+    // Return successful result
+    if (result)
+        *result = (int) val;
+    return true;
+}
+```

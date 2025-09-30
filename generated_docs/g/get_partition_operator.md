@@ -37,3 +37,30 @@ This function retrieves the appropriate operator OID from the partitioning opera
 - Throws ERROR if the required operator is not found in the partition operator family
 - RECORDOID and polymorphic types are treated specially and don't require relabeling
 - Essential for building correct partition constraint expressions with proper type handling
+
+## Simplified Source
+
+```c
+static Oid get_partition_operator(PartitionKey key, int col,
+                                StrategyNumber strategy, bool *need_relabel) {
+    // Get operator from partition operator family
+    Oid operoid = get_opfamily_member(key->partopfamily[col],
+                                     key->partopcintype[col],
+                                     key->partopcintype[col],
+                                     strategy);
+
+    // Ensure operator exists
+    if (!OidIsValid(operoid)) {
+        elog(ERROR, "missing operator %d(%u,%u) in partition opfamily %u",
+             strategy, key->partopcintype[col], key->partopcintype[col],
+             key->partopfamily[col]);
+    }
+
+    // Determine if RelabelType is needed for type compatibility
+    *need_relabel = (key->parttypid[col] != key->partopcintype[col] &&
+                     key->partopcintype[col] != RECORDOID &&
+                     !IsPolymorphicType(key->partopcintype[col]));
+
+    return operoid;
+}
+```

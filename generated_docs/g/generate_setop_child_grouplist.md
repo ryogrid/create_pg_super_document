@@ -40,3 +40,50 @@ For valid matches, the function preserves the original order of the set operatio
 - Some target entries may end up with unreferenced ressortgroupref markings after processing, but this is harmless
 - The function maintains the same order as the original set operation's group clauses for consistency
 - Returns NIL if type mismatches are detected, allowing the caller to handle incompatible child queries appropriately
+
+## Simplified Source
+
+```c
+static List *
+generate_setop_child_grouplist(SetOperationStmt *op, List *targetlist)
+{
+    List *grouplist = copyObject(op->groupClauses);
+    ListCell *lg = list_head(grouplist);
+    ListCell *ct = list_head(op->colTypes);
+    ListCell *lt;
+
+    // Process each target list entry
+    foreach(lt, targetlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(lt);
+
+        // Skip resjunk columns - they may have sortgrouprefs for other purposes
+        if (tle->resjunk)
+            continue;
+
+        // Every non-resjunk target should have corresponding group clause and type
+        Assert(lg != NULL);
+        Assert(ct != NULL);
+
+        SortGroupClause *sgc = (SortGroupClause *) lfirst(lg);
+        Oid coltype = lfirst_oid(ct);
+
+        // Type must match setop's expected column type
+        if (coltype != exprType((Node *) tle->expr))
+            return NIL;  // Type mismatch - cannot use this child
+
+        // Move to next group clause and column type
+        lg = lnext(grouplist, lg);
+        ct = lnext(op->colTypes, ct);
+
+        // Assign or reuse tleSortGroupRef for this target entry
+        sgc->tleSortGroupRef = assignSortGroupRef(tle, targetlist);
+    }
+
+    // Should have processed all group clauses and column types
+    Assert(lg == NULL);
+    Assert(ct == NULL);
+
+    return grouplist;
+}
+```

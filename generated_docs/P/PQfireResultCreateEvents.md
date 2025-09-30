@@ -34,3 +34,40 @@ The function handles the case where multiple event procedures may be registered 
 - The conn parameter being NULL is explicitly supported for cases where event procedures don't need connection context
 - This is part of PostgreSQL's libpq event system that allows applications to register callbacks for various connection and result lifecycle events
 - Located in src/interfaces/libpq/libpq-events.c:185-211
+
+## Simplified Source
+
+```c
+int
+PQfireResultCreateEvents(PGconn *conn, PGresult *res)
+{
+    int result = true;
+    int i;
+
+    // Return false if no result provided
+    if (!res)
+        return false;
+
+    // Fire RESULTCREATE events for all registered procedures
+    for (i = 0; i < res->nEvents; i++) {
+        // Only fire if not already initialized
+        if (!res->events[i].resultInitialized) {
+            PGEventResultCreate evt;
+
+            // Set up event data
+            evt.conn = conn;
+            evt.result = res;
+
+            // Call the event procedure
+            if (res->events[i].proc(PGEVT_RESULTCREATE, &evt,
+                                    res->events[i].passThrough)) {
+                res->events[i].resultInitialized = true;
+            } else {
+                result = false;
+            }
+        }
+    }
+
+    return result;
+}
+```

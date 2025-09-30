@@ -47,3 +47,45 @@ The function handles both positional and named arguments, properly formatting na
 - Uses StringInfo for efficient string building and memory management
 - The formatted output includes proper comma separation and spacing for readability
 - Primarily used in error message construction when function resolution fails
+
+## Simplified Source
+
+```c
+const char *
+funcname_signature_string(const char *funcname, int nargs,
+                          List *argnames, const Oid *argtypes)
+{
+    StringInfoData argbuf;
+    int numposargs;
+    ListCell *lc;
+    int i;
+
+    // Initialize string buffer for building function signature
+    initStringInfo(&argbuf);
+    appendStringInfo(&argbuf, "%s(", funcname);
+
+    // Calculate how many arguments are positional vs named
+    numposargs = nargs - list_length(argnames);
+    lc = list_head(argnames);
+
+    // Build argument list with types
+    for (i = 0; i < nargs; i++)
+    {
+        if (i)
+            appendStringInfoString(&argbuf, ", ");
+
+        // For named arguments, add "name => " prefix
+        if (i >= numposargs)
+        {
+            appendStringInfo(&argbuf, "%s => ", (char *) lfirst(lc));
+            lc = lnext(argnames, lc);
+        }
+
+        // Add the type name
+        appendStringInfoString(&argbuf, format_type_be(argtypes[i]));
+    }
+
+    appendStringInfoChar(&argbuf, ')');
+    return argbuf.data;
+}
+```

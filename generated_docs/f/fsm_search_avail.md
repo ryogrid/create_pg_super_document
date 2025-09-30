@@ -59,3 +59,71 @@ The function includes corruption detection and recovery - if tree invariants are
 - Handles wraparound at tree level boundaries gracefully
 - Part of PostgreSQL's Free Space Map system for efficient space allocation
 - The algorithm is designed to distribute load across available slots rather than always returning the first match
+
+## Simplified Source
+
+```c
+int fsm_search_avail(Buffer buf, uint8 minvalue, bool advancenext, bool exclusive_lock_held) {
+    Page page = BufferGetPage(buf);
+    FSMPage fsmpage = (FSMPage) PageGetContents(page);
+    int nodeno, target;
+    uint16 slot;
+
+restart:
+    // Quick check: if root doesn't have enough space, nothing will
+    if (fsmpage->fp_nodes[0] < minvalue)
+        return -1;
+
+    // Start search from hint position (with bounds checking)
+    target = fsmpage->fp_next_slot;
+    if (target < 0 || target >= LeafNodesPerPage)
+        target = 0;
+    target += NonLeafNodesPerPage;  // Convert to node index
+
+    // Phase 1: Move right and climb up until finding node with enough space
+    nodeno = target;
+    while (nodeno > 0) {
+        if (fsmpage->fp_nodes[nodeno] >= minvalue)
+            break;
+        // Move right (with wraparound) then climb to parent
+        nodeno = parentof(rightneighbor(nodeno));
+    }
+
+    // Phase 2: Descend to leaf, preferring left children when both qualify
+    while (nodeno < NonLeafNodesPerPage) {
+        int childnodeno = leftchild(nodeno);
+
+        // Try left child first
+        if (childnodeno < NodesPerPage &&
+            fsmpage->fp_nodes[childnodeno] >= minvalue) {
+            nodeno = childnodeno;
+            continue;
+        }
+
+        // Try right child
+        childnodeno++;
+        if (childnodeno < NodesPerPage &&
+            fsmpage->fp_nodes[childnodeno] >= minvalue) {
+            nodeno = childnodeno;
+        } else {
+            // Corruption detected: parent promised space but children don't have it
+            if (!exclusive_lock_held) {
+                LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+                LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+                exclusive_lock_held = true;
+            }
+            fsm_rebuild_page(page);  // Fix corruption
+            MarkBufferDirtyHint(buf, false);
+            goto restart;  // Try again with rebuilt page
+        }
+    }
+
+    // Convert node index to slot number
+    slot = nodeno - NonLeafNodesPerPage;
+
+    // Update search hint for next call
+    fsmpage->fp_next_slot = slot + (advancenext ? 1 : 0);
+
+    return slot;
+}
+```

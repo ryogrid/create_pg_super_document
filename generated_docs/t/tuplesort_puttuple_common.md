@@ -64,3 +64,72 @@ The function includes sophisticated heuristics for determining when to switch fr
 - The bounded heap optimization significantly improves performance for `ORDER BY ... LIMIT` queries
 - Memory context switching ensures proper memory lifecycle management
 - Includes `CHECK_FOR_INTERRUPTS()` calls for query cancellation support in bounded mode
+
+## Simplified Source
+
+```c
+void tuplesort_puttuple_common(Tuplesortstate *state, SortTuple *tuple, bool useAbbrev, Size tuplen) {
+    MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+
+    // Track memory usage for this tuple
+    USEMEM(state, tuplen);
+    state->tupleMem += tuplen;
+
+    // Handle abbreviated key conversion
+    if (useAbbrev && !consider_abort_common(state)) {
+        // Convert to abbreviated key representation
+        tuple->datum1 = state->base.sortKeys->abbrev_converter(tuple->datum1, state->base.sortKeys);
+    } else if (useAbbrev) {
+        // Abort abbreviated keys - revert existing tuples
+        REMOVEABBREV(state, state->memtuples, state->memtupcount);
+    }
+
+    switch (state->status) {
+        case TSS_INITIAL:
+            // Add tuple to memory array
+            if (state->memtupcount >= state->memtupsize - 1) {
+                grow_memtuples(state);
+            }
+            state->memtuples[state->memtupcount++] = *tuple;
+
+            // Check if we should switch to bounded heap
+            if (state->bounded &&
+                (state->memtupcount > state->bound * 2 ||
+                 (state->memtupcount > state->bound && LACKMEM(state)))) {
+                make_bounded_heap(state);
+                MemoryContextSwitchTo(oldcontext);
+                return;
+            }
+
+            // Switch to tape-based sorting if memory is full
+            if (state->memtupcount >= state->memtupsize || LACKMEM(state)) {
+                inittapes(state, true);
+                dumptuples(state, false);
+            }
+            break;
+
+        case TSS_BOUNDED:
+            // For bounded heap, only keep best tuples
+            if (COMPARETUP(state, tuple, &state->memtuples[0]) <= 0) {
+                // New tuple is worse than heap top - discard it
+                free_sort_tuple(state, tuple);
+            } else {
+                // Replace heap top with new tuple
+                free_sort_tuple(state, &state->memtuples[0]);
+                tuplesort_heap_replace_top(state, tuple);
+            }
+            break;
+
+        case TSS_BUILDRUNS:
+            // Add tuple and dump if memory limit exceeded
+            state->memtuples[state->memtupcount++] = *tuple;
+            dumptuples(state, false);
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

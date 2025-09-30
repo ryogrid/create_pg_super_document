@@ -42,3 +42,15 @@ This function takes no parameters.
 - Uses pthread_once pattern to ensure proper initialization in multi-threaded environments
 - Each thread maintains its own separate list of allocated memory blocks
 - The returned list is managed internally and should not be modified directly by callers
+
+## Simplified Source
+
+```c
+static struct auto_mem *get_auto_allocs(void) {
+    // Initialize thread-specific key exactly once
+    pthread_once(&auto_mem_once, auto_mem_key_init);
+
+    // Get thread-specific automatic memory list
+    return (struct auto_mem *) pthread_getspecific(auto_mem_key);
+}
+```

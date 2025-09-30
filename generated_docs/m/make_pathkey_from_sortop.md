@@ -57,3 +57,37 @@ The comment indicates this function is intended to eventually be phased out once
 - Performs error checking to ensure the provided operator is a valid ordering operator
 - Maps B-tree strategy numbers to boolean reverse_sort flags for interface compatibility
 - Located in src/backend/optimizer/path/pathkeys.c:255-301
+
+## Simplified Source
+
+```c
+static PathKey *make_pathkey_from_sortop(PlannerInfo *root,
+                                         Expr *expr,
+                                         Oid ordering_op,
+                                         bool nulls_first,
+                                         Index sortref,
+                                         bool create_it) {
+    Oid opfamily, opcintype, collation;
+    int16 strategy;
+
+    // Extract operator properties from the ordering operator
+    if (!get_ordering_op_properties(ordering_op, &opfamily, &opcintype, &strategy)) {
+        elog(ERROR, "operator %u is not a valid ordering operator", ordering_op);
+    }
+
+    // Get collation from the expression (SortGroupClause doesn't carry it)
+    collation = exprCollation((Node *) expr);
+
+    // Create PathKey using the extracted properties
+    return make_pathkey_from_sortinfo(root,
+                                      expr,
+                                      opfamily,
+                                      opcintype,
+                                      collation,
+                                      (strategy == BTGreaterStrategyNumber), // reverse_sort
+                                      nulls_first,
+                                      sortref,
+                                      NULL, // rel
+                                      create_it);
+}
+```

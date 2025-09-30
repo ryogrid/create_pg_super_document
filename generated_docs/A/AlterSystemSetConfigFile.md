@@ -77,3 +77,115 @@ Key features include:
 - Handles custom variables by validating names against reserved prefixes and extension policies
 - Uses PG_TRY/PG_CATCH blocks for proper cleanup of temporary files on errors
 - The operation is non-transactional - changes persist even if the containing transaction is rolled back
+
+## Simplified Source
+
+```c
+void AlterSystemSetConfigFile(AlterSystemStmt *altersysstmt) {
+    char *name, *value;
+    bool resetall = false;
+    ConfigVariable *head = NULL, *tail = NULL;
+
+    // Extract statement arguments
+    name = altersysstmt->setstmt->name;
+
+    if (!AllowAlterSystem)
+        ereport(ERROR, "ALTER SYSTEM is not allowed in this environment");
+
+    // Determine operation type and extract value
+    switch (altersysstmt->setstmt->kind) {
+        case VAR_SET_VALUE:
+            value = ExtractSetVariableArgs(altersysstmt->setstmt);
+            break;
+        case VAR_SET_DEFAULT:
+        case VAR_RESET:
+            value = NULL;
+            break;
+        case VAR_RESET_ALL:
+            value = NULL;
+            resetall = true;
+            break;
+    }
+
+    // Permission checks
+    if (!superuser()) {
+        if (resetall)
+            ereport(ERROR, "permission denied to perform ALTER SYSTEM RESET ALL");
+        else {
+            AclResult aclresult = pg_parameter_aclcheck(name, GetUserId(), ACL_ALTER_SYSTEM);
+            if (aclresult != ACLCHECK_OK)
+                ereport(ERROR, "permission denied to set parameter");
+        }
+    }
+
+    // Parameter validation (unless RESET ALL)
+    if (!resetall) {
+        struct config_generic *record = find_option(name, false, true, DEBUG5);
+
+        if (record != NULL) {
+            // Check if parameter can be set in config files
+            if ((record->context == PGC_INTERNAL) ||
+                (record->flags & GUC_DISALLOW_IN_FILE) ||
+                (record->flags & GUC_DISALLOW_IN_AUTO_FILE))
+                ereport(ERROR, "parameter cannot be changed");
+
+            // Validate value if provided
+            if (value) {
+                if (!parse_and_validate_value(record, name, value, PGC_S_FILE, ERROR, &newval, &newextra))
+                    ereport(ERROR, "invalid value for parameter");
+            }
+        } else {
+            // Unknown parameter - validate custom variable name
+            if (value || !valid_custom_variable_name(name))
+                (void) assignable_custom_variable_name(name, false, ERROR);
+        }
+
+        // Reject values with newlines
+        if (value && strchr(value, '\n'))
+            ereport(ERROR, "parameter value must not contain a newline");
+    }
+
+    // File manipulation with locking
+    LWLockAcquire(AutoFileLock, LW_EXCLUSIVE);
+
+    // Read existing config file (unless RESET ALL)
+    if (!resetall) {
+        if (stat(AutoConfFileName, &st) == 0) {
+            FILE *infile = AllocateFile(AutoConfFileName, "r");
+            if (!ParseConfigFp(infile, AutoConfFileName, CONF_FILE_START_DEPTH, LOG, &head, &tail))
+                ereport(ERROR, "could not parse contents of file");
+            FreeFile(infile);
+        }
+
+        // Update configuration with new value
+        replace_auto_config_value(&head, &tail, name, value);
+    }
+
+    // Invoke post-alter hook
+    InvokeObjectPostAlterHookArgStr(ParameterAclRelationId, name, ACL_ALTER_SYSTEM,
+                                    altersysstmt->setstmt->kind, false);
+
+    // Atomic file update using temporary file
+    PG_TRY();
+    {
+        // Write to temporary file
+        Tmpfd = BasicOpenFile(AutoConfTmpFileName, O_CREAT | O_RDWR | O_TRUNC);
+        write_auto_conf_file(Tmpfd, AutoConfTmpFileName, head);
+        close(Tmpfd);
+
+        // Atomically replace original file
+        durable_rename(AutoConfTmpFileName, AutoConfFileName, ERROR);
+    }
+    PG_CATCH();
+    {
+        // Cleanup on error
+        if (Tmpfd >= 0) close(Tmpfd);
+        (void) unlink(AutoConfTmpFileName);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    FreeConfigVariables(head);
+    LWLockRelease(AutoFileLock);
+}
+```

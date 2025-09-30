@@ -52,3 +52,70 @@ The validation process involves:
 - Uses executor state for complex expression evaluation and partial-index predicates
 - Memory context is reset after each tuple to prevent memory leaks during long scans
 - The function would not work correctly for system catalogs where write locks are released early
+
+## Simplified Source
+
+```c
+static void
+IndexCheckExclusion(Relation heapRelation,
+                   Relation indexRelation,
+                   IndexInfo *indexInfo)
+{
+    TableScanDesc scan;
+    Datum values[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+    ExprState *predicate;
+    TupleTableSlot *slot;
+    EState *estate;
+    ExprContext *econtext;
+    Snapshot snapshot;
+
+    // Handle reindexing case - mark index as no longer being reindexed
+    if (ReindexIsCurrentlyProcessingIndex(RelationGetRelid(indexRelation)))
+        ResetReindexProcessing();
+
+    // Set up executor state for expression evaluation
+    estate = CreateExecutorState();
+    econtext = GetPerTupleExprContext(estate);
+    slot = table_slot_create(heapRelation, NULL);
+    econtext->ecxt_scantuple = slot;
+
+    // Prepare predicate for partial indexes
+    predicate = ExecPrepareQual(indexInfo->ii_Predicate, estate);
+
+    // Scan all live tuples using latest snapshot
+    snapshot = RegisterSnapshot(GetLatestSnapshot());
+    scan = table_beginscan_strat(heapRelation, snapshot, 0, NULL, true, true);
+
+    while (table_scan_getnextslot(scan, ForwardScanDirection, slot)) {
+        CHECK_FOR_INTERRUPTS();
+
+        // Skip tuples that don't satisfy partial-index predicate
+        if (predicate != NULL) {
+            if (!ExecQual(predicate, econtext))
+                continue;
+        }
+
+        // Extract index column values and compute expressions
+        FormIndexDatum(indexInfo, slot, estate, values, isnull);
+
+        // Check for exclusion constraint violations
+        check_exclusion_constraint(heapRelation, indexRelation, indexInfo,
+                                  &(slot->tts_tid), values, isnull,
+                                  estate, true);
+
+        // Reset memory context to prevent leaks
+        MemoryContextReset(econtext->ecxt_per_tuple_memory);
+    }
+
+    // Clean up scan and executor state
+    table_endscan(scan);
+    UnregisterSnapshot(snapshot);
+    ExecDropSingleTupleTableSlot(slot);
+    FreeExecutorState(estate);
+
+    // Clear expression states that pointed to the estate
+    indexInfo->ii_ExpressionsState = NIL;
+    indexInfo->ii_PredicateState = NULL;
+}
+```

@@ -49,3 +49,32 @@ The resulting FuncExpr contains all the metadata needed for proper function reso
 - Critical component in query plan generation and execution
 - Declared in src/include/nodes/makefuncs.h at line 79
 - Commonly used in parser transformations, coercion operations, and specialized query rewriting scenarios
+
+## Simplified Source
+
+```c
+FuncExpr *makeFuncExpr(Oid funcid, Oid rettype, List *args,
+                       Oid funccollid, Oid inputcollid, CoercionForm fformat) {
+    // Create new FuncExpr node
+    FuncExpr *funcexpr = makeNode(FuncExpr);
+
+    // Set function identification and return type
+    funcexpr->funcid = funcid;
+    funcexpr->funcresulttype = rettype;
+
+    // Set standard function call properties (non-set-returning, non-variadic)
+    funcexpr->funcretset = false;
+    funcexpr->funcvariadic = false;
+    funcexpr->funcformat = fformat;
+
+    // Set collation information
+    funcexpr->funccollid = funccollid;
+    funcexpr->inputcollid = inputcollid;
+
+    // Set arguments and location
+    funcexpr->args = args;
+    funcexpr->location = -1;  // Unknown source location
+
+    return funcexpr;
+}
+```

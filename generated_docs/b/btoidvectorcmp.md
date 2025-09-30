@@ -43,3 +43,30 @@ The btoidvectorcmp function is a B-tree comparison function for the oidvector da
 - The dim1 field represents the number of elements in the oidvector
 - The values array contains the actual OID values stored in the vector
 - Used by various OID vector comparison operators and B-tree indexing operations
+
+## Simplified Source
+
+```c
+Datum btoidvectorcmp(PG_FUNCTION_ARGS) {
+    oidvector *a = (oidvector *) PG_GETARG_POINTER(0);
+    oidvector *b = (oidvector *) PG_GETARG_POINTER(1);
+
+    // First compare by vector length (shorter vectors are "less than")
+    if (a->dim1 != b->dim1)
+        PG_RETURN_INT32(a->dim1 - b->dim1);
+
+    // If same length, compare element by element
+    for (int i = 0; i < a->dim1; i++) {
+        if (a->values[i] != b->values[i]) {
+            // Return comparison result for first differing element
+            if (a->values[i] > b->values[i])
+                PG_RETURN_INT32(A_GREATER_THAN_B);
+            else
+                PG_RETURN_INT32(A_LESS_THAN_B);
+        }
+    }
+
+    // All elements are equal
+    PG_RETURN_INT32(0);
+}
+```

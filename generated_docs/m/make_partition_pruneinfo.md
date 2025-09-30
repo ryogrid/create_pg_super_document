@@ -56,3 +56,77 @@ The function restricts parent partitioned relations to be either the parentrel o
 - Creates a complement bitmapset for subplans that don't belong to any partitioned relation
 - Uses 1-based indexing in the relid_subplan_map for convenience (zero represents unfilled entries)
 - Properly handles partitionwise joins of multi-level partitioning trees where parentrel may be an intermediate partitioned table
+
+## Simplified Source
+
+```c
+PartitionPruneInfo *
+make_partition_pruneinfo(PlannerInfo *root, RelOptInfo *parentrel,
+                         List *subpaths, List *prunequal)
+{
+    PartitionPruneInfo *pruneinfo;
+    Bitmapset *allmatchedsubplans = NULL;
+    List *allpartrelids = NIL;
+    List *prunerelinfos = NIL;
+    int *relid_subplan_map;
+
+    // Create mapping from relation ID to subplan index
+    relid_subplan_map = palloc0(sizeof(int) * root->simple_rel_array_size);
+
+    // Scan subpaths to identify partition child relations
+    int i = 1;
+    foreach(lc, subpaths) {
+        Path *path = (Path *) lfirst(lc);
+        RelOptInfo *pathrel = path->parent;
+
+        // Process partition member relations
+        if (pathrel->reloptkind == RELOPT_OTHER_MEMBER_REL) {
+            // Traverse up partition hierarchy to collect parent relids
+            Bitmapset *partrelids = collect_partition_parents(pathrel, parentrel, root);
+
+            if (partrelids) {
+                allpartrelids = add_part_relids(allpartrelids, partrelids);
+                relid_subplan_map[pathrel->relid] = i;
+            }
+        }
+        i++;
+    }
+
+    // Build pruning info for each partitioned relation hierarchy
+    foreach(lc, allpartrelids) {
+        Bitmapset *partrelids = (Bitmapset *) lfirst(lc);
+        List *pinfolist;
+        Bitmapset *matchedsubplans = NULL;
+
+        pinfolist = make_partitionedrel_pruneinfo(root, parentrel, prunequal,
+                                                  partrelids, relid_subplan_map,
+                                                  &matchedsubplans);
+
+        if (pinfolist != NIL) {
+            prunerelinfos = lappend(prunerelinfos, pinfolist);
+            allmatchedsubplans = bms_join(matchedsubplans, allmatchedsubplans);
+        }
+    }
+
+    pfree(relid_subplan_map);
+
+    // Return NULL if no useful pruning information found
+    if (prunerelinfos == NIL)
+        return NULL;
+
+    // Build result structure
+    pruneinfo = makeNode(PartitionPruneInfo);
+    pruneinfo->prune_infos = prunerelinfos;
+
+    // Identify subplans that don't belong to any partitioned relation
+    if (bms_num_members(allmatchedsubplans) < list_length(subpaths)) {
+        Bitmapset *other_subplans = bms_add_range(NULL, 0, list_length(subpaths) - 1);
+        other_subplans = bms_del_members(other_subplans, allmatchedsubplans);
+        pruneinfo->other_subplans = other_subplans;
+    } else {
+        pruneinfo->other_subplans = NULL;
+    }
+
+    return pruneinfo;
+}
+```

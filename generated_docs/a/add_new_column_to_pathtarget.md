@@ -33,3 +33,15 @@ The function leaves it to the caller to update the cost and width fields of the 
 - The caller cannot specify a sortgroupref when using this function, as it would be unclear how to merge that with a pre-existing column
 - Cost and width fields of the PathTarget are not automatically updated and must be handled by the caller
 - This is a utility function that prevents duplicate expressions in PathTargets during query planning
+
+## Simplified Source
+
+```c
+void
+add_new_column_to_pathtarget(PathTarget *target, Expr *expr)
+{
+    // Only add expression if it doesn't already exist
+    if (!list_member(target->exprs, expr))
+        add_column_to_pathtarget(target, expr, 0);
+}
+```

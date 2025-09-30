@@ -52,3 +52,41 @@ The function is designed to be safe from exceptions (will not throw ERROR or FAT
 - New backends that join during execution automatically have current state and don't need special handling
 - The barrier mechanism is heavyweight and should be used sparingly due to performance implications
 - Located in src/backend/storage/ipc/procsignal.c:329-388
+
+## Simplified Source
+
+```c
+uint64 EmitProcSignalBarrier(ProcSignalBarrierType type) {
+    uint32 flagbit = 1 << (uint32) type;
+    uint64 generation;
+
+    // Step 1: Set barrier check flags for all process slots
+    // Using atomic operations with full barrier semantics
+    for (int i = 0; i < NumProcSignalSlots; i++) {
+        volatile ProcSignalSlot *slot = &ProcSignal->psh_slot[i];
+
+        // Atomically set the flag bit for this barrier type
+        pg_atomic_fetch_or_u32(&slot->pss_barrierCheckMask, flagbit);
+    }
+
+    // Step 2: Increment the global barrier generation counter
+    // This creates a unique identifier for this barrier operation
+    generation = pg_atomic_add_fetch_u64(&ProcSignal->psh_barrierGeneration, 1);
+
+    // Step 3: Signal all active processes to process the barrier
+    // Process slots in reverse order for implementation efficiency
+    for (int i = NumProcSignalSlots - 1; i >= 0; i--) {
+        volatile ProcSignalSlot *slot = &ProcSignal->psh_slot[i];
+        pid_t pid = slot->pss_pid;
+
+        if (pid != 0) {
+            // Set the barrier signal flag and send SIGUSR1
+            slot->pss_signalFlags[PROCSIG_BARRIER] = true;
+            kill(pid, SIGUSR1);
+        }
+    }
+
+    // Return generation number for use with WaitForProcSignalBarrier
+    return generation;
+}
+```

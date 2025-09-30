@@ -40,3 +40,46 @@ The design assumes that the target PathTarget does not already contain duplicate
 - The function assumes that duplicate sortgrouprefs in the target are impossible unless the original target already had duplicates
 - Memory safety is ensured by copying the expression using copyObject before adding it to the PathTarget
 - The sortgrouprefs array is allocated on-demand when needed, initialized with palloc0 for proper zero-initialization
+
+## Simplified Source
+
+```c
+static void
+add_sp_item_to_pathtarget(PathTarget *target, split_pathtarget_item *item)
+{
+    int lci = 0;
+    ListCell *lc;
+
+    // Look for existing matching expression with compatible sortgroupref
+    foreach(lc, target->exprs)
+    {
+        Node *node = (Node *) lfirst(lc);
+        Index sgref = get_pathtarget_sortgroupref(target, lci);
+
+        // Check if expressions match and sortgrouprefs are compatible
+        if ((item->sortgroupref == sgref ||
+             item->sortgroupref == 0 ||
+             sgref == 0) &&
+            equal(item->expr, node))
+        {
+            // Found match - update sortgroupref if item has one
+            if (item->sortgroupref)
+            {
+                // Allocate sortgrouprefs array if needed
+                if (target->sortgrouprefs == NULL)
+                {
+                    target->sortgrouprefs = (Index *)
+                        palloc0(list_length(target->exprs) * sizeof(Index));
+                }
+                target->sortgrouprefs[lci] = item->sortgroupref;
+            }
+            return;
+        }
+        lci++;
+    }
+
+    // No match found - add as new column
+    add_column_to_pathtarget(target, (Expr *) copyObject(item->expr),
+                             item->sortgroupref);
+}
+```

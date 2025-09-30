@@ -40,3 +40,11 @@ This operation is atomic and thread-safe, ensuring consistent barrier state duri
 - Used primarily in parallel hash operations when a worker needs to leave the synchronization group
 - The underlying BarrierDetachImpl handles the complex logic of phase advancement and participant notification
 - Cannot be used with static party barriers - will trigger assertions if attempted
+
+## Simplified Source
+```c
+bool BarrierArriveAndDetach(Barrier *barrier) {
+    // Arrive at barrier and detach atomically
+    return BarrierDetachImpl(barrier, true);
+}
+```

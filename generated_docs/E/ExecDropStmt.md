@@ -40,3 +40,32 @@ For concurrent index drops (DROP INDEX CONCURRENTLY), the function enforces tran
 - Special handling for concurrent index drops prevents them from running within transaction blocks
 - The function uses a switch statement to efficiently route different object types to their respective handlers
 - Part of PostgreSQL's utility command processing infrastructure
+
+## Simplified Source
+
+```c
+static void ExecDropStmt(DropStmt *stmt, bool isTopLevel) {
+    switch (stmt->removeType) {
+        case OBJECT_INDEX:
+            // Check for concurrent index drop transaction restrictions
+            if (stmt->concurrent) {
+                PreventInTransactionBlock(isTopLevel, "DROP INDEX CONCURRENTLY");
+            }
+            // Fall through to relation handling
+
+        case OBJECT_TABLE:
+        case OBJECT_SEQUENCE:
+        case OBJECT_VIEW:
+        case OBJECT_MATVIEW:
+        case OBJECT_FOREIGN_TABLE:
+            // Handle relation-like objects
+            RemoveRelations(stmt);
+            break;
+
+        default:
+            // Handle all other database objects
+            RemoveObjects(stmt);
+            break;
+    }
+}
+```

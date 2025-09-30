@@ -38,3 +38,21 @@ The function uses the system cache for efficient lookup and will raise an ERROR 
 - Returns a HeapTuple cast to Type, providing access to the complete pg_type catalog entry
 - Located in src/backend/parser/parse_type.c:578-589
 - This is a low-level function primarily used by type coercion and validation routines
+
+## Simplified Source
+
+```c
+Type typeidType(Oid id)
+{
+    HeapTuple tup;
+
+    // Look up type in system cache
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(id));
+
+    // Error if type not found
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", id);
+
+    return (Type) tup;
+}
+```

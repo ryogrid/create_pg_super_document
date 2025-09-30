@@ -65,3 +65,69 @@ The function performs extensive error checking and provides helpful error messag
 - The function preserves the original statement structure by copying it before modifications
 - Parse analysis occurs early to ensure proper lock acquisition on referenced tables
 - Error messages are designed to be view-specific rather than exposing internal rule system details
+
+## Simplified Source
+
+```c
+ObjectAddress
+DefineView(ViewStmt *stmt, const char *queryString,
+           int stmt_location, int stmt_len)
+{
+    RawStmt *rawstmt;
+    Query *viewParse;
+    RangeVar *view;
+    ObjectAddress address;
+
+    // Parse the view query
+    rawstmt = makeNode(RawStmt);
+    rawstmt->stmt = stmt->query;
+    rawstmt->stmt_location = stmt_location;
+    rawstmt->stmt_len = stmt_len;
+
+    viewParse = parse_analyze_fixedparams(rawstmt, queryString, NULL, 0, NULL);
+
+    // Validate query type and restrictions
+    if (!IsA(viewParse, Query))
+        elog(ERROR, "unexpected parse analysis result");
+
+    if (viewParse->commandType != CMD_SELECT)
+        elog(ERROR, "unexpected parse analysis result");
+
+    if (viewParse->hasModifyingCTE)
+        ereport(ERROR, "views must not contain data-modifying statements in WITH");
+
+    // Handle WITH CHECK OPTION
+    if (stmt->withCheckOption == LOCAL_CHECK_OPTION)
+        stmt->options = lappend(stmt->options,
+                               makeDefElem("check_option", makeString("local"), -1));
+    else if (stmt->withCheckOption == CASCADED_CHECK_OPTION)
+        stmt->options = lappend(stmt->options,
+                               makeDefElem("check_option", makeString("cascaded"), -1));
+
+    // Validate auto-updatable if CHECK OPTION specified
+    if (check_option_specified(stmt->options)) {
+        const char *view_updatable_error = view_query_is_auto_updatable(viewParse, true);
+        if (view_updatable_error)
+            ereport(ERROR, "WITH CHECK OPTION is supported only on automatically updatable views");
+    }
+
+    // Assign column aliases if provided
+    if (stmt->aliases != NIL) {
+        assign_column_aliases(viewParse->targetList, stmt->aliases);
+    }
+
+    // Handle temporary view promotion
+    view = copyObject(stmt->view);
+    if (view->relpersistence == RELPERSISTENCE_PERMANENT &&
+        isQueryUsingTempRelation(viewParse)) {
+        view->relpersistence = RELPERSISTENCE_TEMP;
+        ereport(NOTICE, "view will be a temporary view");
+    }
+
+    // Create the view relation
+    address = DefineVirtualRelation(view, viewParse->targetList,
+                                   stmt->replace, stmt->options, viewParse);
+
+    return address;
+}
+```

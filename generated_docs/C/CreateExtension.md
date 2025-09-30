@@ -76,3 +76,68 @@ This function serves as the primary interface for the CREATE EXTENSION SQL comma
 - Parses and validates three main options: schema, new_version, and cascade
 - Always passes NIL as the parents list and true as the is_create flag to CreateExtensionInternal
 - Provides proper error codes and user-friendly error messages for various failure scenarios
+
+## Simplified Source
+
+```c
+ObjectAddress
+CreateExtension(ParseState *pstate, CreateExtensionStmt *stmt)
+{
+    DefElem *d_schema = NULL;
+    DefElem *d_new_version = NULL;
+    DefElem *d_cascade = NULL;
+    char *schemaName = NULL;
+    char *versionName = NULL;
+    bool cascade = false;
+    ListCell *lc;
+
+    // Validate extension name
+    check_valid_extension_name(stmt->extname);
+
+    // Check for duplicate extension name
+    if (get_extension_oid(stmt->extname, true) != InvalidOid) {
+        if (stmt->if_not_exists) {
+            ereport(NOTICE, "extension already exists, skipping");
+            return InvalidObjectAddress;
+        } else {
+            ereport(ERROR, "extension already exists");
+        }
+    }
+
+    // Prevent nested extension creation
+    if (creating_extension) {
+        ereport(ERROR, "nested CREATE EXTENSION not supported");
+    }
+
+    // Parse statement options
+    foreach(lc, stmt->options) {
+        DefElem *defel = (DefElem *) lfirst(lc);
+
+        if (strcmp(defel->defname, "schema") == 0) {
+            if (d_schema)
+                errorConflictingDefElem(defel, pstate);
+            d_schema = defel;
+            schemaName = defGetString(d_schema);
+        }
+        else if (strcmp(defel->defname, "new_version") == 0) {
+            if (d_new_version)
+                errorConflictingDefElem(defel, pstate);
+            d_new_version = defel;
+            versionName = defGetString(d_new_version);
+        }
+        else if (strcmp(defel->defname, "cascade") == 0) {
+            if (d_cascade)
+                errorConflictingDefElem(defel, pstate);
+            d_cascade = defel;
+            cascade = defGetBoolean(d_cascade);
+        }
+        else {
+            elog(ERROR, "unrecognized option: %s", defel->defname);
+        }
+    }
+
+    // Delegate to internal implementation
+    return CreateExtensionInternal(stmt->extname, schemaName, versionName,
+                                   cascade, NIL, true);
+}
+```

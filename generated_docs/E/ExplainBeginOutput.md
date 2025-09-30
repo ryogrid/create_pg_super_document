@@ -28,3 +28,34 @@ ExplainBeginOutput is responsible for generating the appropriate opening markup 
 
 ## Notes and Other Information
 This function is paired with ExplainEndOutput to provide proper opening and closing structures for each output format. The grouping_stack management is particularly important for JSON and YAML formats to track nested structures during output generation.
+
+## Simplified Source
+
+```c
+void ExplainBeginOutput(ExplainState *es) {
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+            // TEXT format needs no opening markup
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // Start XML document with namespace
+            appendStringInfoString(es->str,
+                "<explain xmlns=\"http://www.postgresql.org/2009/explain\">\n");
+            es->indent++;
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            // JSON format starts with array of plans
+            appendStringInfoChar(es->str, '[');
+            es->grouping_stack = lcons_int(0, es->grouping_stack);
+            es->indent++;
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // YAML format initializes grouping stack
+            es->grouping_stack = lcons_int(0, es->grouping_stack);
+            break;
+    }
+}
+```

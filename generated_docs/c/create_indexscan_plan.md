@@ -67,3 +67,104 @@ The function supports both forward and backward index scans and handles complex 
 - Index-only scans can provide significant performance benefits when all required columns are available in the index
 - Supports both B-tree style ordered scans and unordered index access methods
 - The function validates scan direction and ensures proper handling of outer-relation variables in nested loops
+
+## Simplified Source
+
+```c
+static Scan *
+create_indexscan_plan(PlannerInfo *root, IndexPath *best_path, List *tlist,
+                     List *scan_clauses, bool indexonly) {
+    List *indexclauses = best_path->indexclauses;
+    List *indexorderbys = best_path->indexorderbys;
+    Index baserelid = best_path->path.parent->relid;
+    IndexOptInfo *indexinfo = best_path->indexinfo;
+    Oid indexoid = indexinfo->indexoid;
+    List *qpqual, *stripped_indexquals, *fixed_indexquals, *fixed_indexorderbys;
+    List *indexorderbyops = NIL;
+
+    // Validate this is a base relation with valid scan direction
+    Assert(baserelid > 0);
+    Assert(best_path->path.parent->rtekind == RTE_RELATION);
+    Assert(best_path->indexscandir == ForwardScanDirection ||
+           best_path->indexscandir == BackwardScanDirection);
+
+    // Process index qualifications - substitute index vars for table vars
+    fix_indexqual_references(root, best_path, &stripped_indexquals, &fixed_indexquals);
+
+    // Process ORDER BY expressions for index ordering
+    fixed_indexorderbys = fix_indexorderby_references(root, best_path);
+
+    // Determine which scan clauses need runtime checking (qpqual)
+    // Exclude clauses handled automatically by the index
+    qpqual = NIL;
+    foreach(l, scan_clauses) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+        // Skip pseudoconstants, redundant clauses, and implied conditions
+        if (rinfo->pseudoconstant)
+            continue;
+        if (is_redundant_with_indexclauses(rinfo, indexclauses))
+            continue;
+        if (!contain_mutable_functions((Node *) rinfo->clause) &&
+            predicate_implied_by(list_make1(rinfo->clause), stripped_indexquals, false))
+            continue;
+
+        qpqual = lappend(qpqual, rinfo);
+    }
+
+    // Optimize qualification order and extract clauses
+    qpqual = order_qual_clauses(root, qpqual);
+    qpqual = extract_actual_clauses(qpqual, false);
+
+    // Handle nestloop parameter replacement
+    if (best_path->path.param_info) {
+        stripped_indexquals = (List *) replace_nestloop_params(root, (Node *) stripped_indexquals);
+        qpqual = (List *) replace_nestloop_params(root, (Node *) qpqual);
+        indexorderbys = (List *) replace_nestloop_params(root, (Node *) indexorderbys);
+    }
+
+    // Process ORDER BY expressions - look up sort operators
+    if (indexorderbys) {
+        forboth(pathkeyCell, best_path->path.pathkeys, exprCell, indexorderbys) {
+            PathKey *pathkey = lfirst(pathkeyCell);
+            Node *expr = lfirst(exprCell);
+            Oid exprtype = exprType(expr);
+
+            // Get sort operator from opfamily
+            Oid sortop = get_opfamily_member(pathkey->pk_opfamily, exprtype,
+                                           exprtype, pathkey->pk_strategy);
+            if (!OidIsValid(sortop))
+                elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+                     pathkey->pk_strategy, exprtype, exprtype, pathkey->pk_opfamily);
+            indexorderbyops = lappend_oid(indexorderbyops, sortop);
+        }
+    }
+
+    // For index-only scans, mark unreturnable columns as resjunk
+    if (indexonly) {
+        int i = 0;
+        foreach(l, indexinfo->indextlist) {
+            TargetEntry *indextle = lfirst(l);
+            indextle->resjunk = !indexinfo->canreturn[i];
+            i++;
+        }
+    }
+
+    // Create the appropriate scan plan node
+    Scan *scan_plan;
+    if (indexonly) {
+        scan_plan = (Scan *) make_indexonlyscan(tlist, qpqual, baserelid, indexoid,
+                                               fixed_indexquals, stripped_indexquals,
+                                               fixed_indexorderbys, indexinfo->indextlist,
+                                               best_path->indexscandir);
+    } else {
+        scan_plan = (Scan *) make_indexscan(tlist, qpqual, baserelid, indexoid,
+                                           fixed_indexquals, stripped_indexquals,
+                                           fixed_indexorderbys, indexorderbys,
+                                           indexorderbyops, best_path->indexscandir);
+    }
+
+    copy_generic_path_info(&scan_plan->plan, &best_path->path);
+    return scan_plan;
+}
+```

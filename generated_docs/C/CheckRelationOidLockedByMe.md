@@ -32,3 +32,17 @@ This function is similar to CheckRelationLockedByMe but accepts a relation OID i
 - Simpler interface than CheckRelationLockedByMe when only the relation OID is available
 - Uses SetLocktagRelationOid instead of SET_LOCKTAG_RELATION macro
 - Located in src/backend/storage/lmgr/lmgr.c:347-362
+
+## Simplified Source
+
+```c
+bool CheckRelationOidLockedByMe(Oid relid, LOCKMODE lockmode, bool orstronger) {
+    LOCKTAG tag;
+
+    // Create lock tag from relation OID
+    SetLocktagRelationOid(&tag, relid);
+
+    // Check if we hold the lock
+    return LockHeldByMe(&tag, lockmode, orstronger);
+}
+```

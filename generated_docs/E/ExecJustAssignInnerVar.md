@@ -34,3 +34,15 @@ The function serves as a thin wrapper around ExecJustAssignVarImpl, configured t
 - Returns 0 like all assignment functions, with the actual result stored in the result tuple slot
 - The function assumes that expression compilation has already validated the variable references and tuple slot compatibility
 - Marked as static and designed for inlining to minimize function call overhead in tight execution loops
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustAssignInnerVar(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Delegate to common variable assignment implementation
+    // using the inner tuple from the execution context
+    return ExecJustAssignVarImpl(state, econtext->ecxt_innertuple, isnull);
+}
+```

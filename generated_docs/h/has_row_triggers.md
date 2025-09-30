@@ -46,3 +46,55 @@ The function properly manages relation access by closing the relation after insp
 
 ## Notes and Other Information
 The function assumes that the caller already holds adequate locking on the relation, so it uses NoLock when opening and closing the relation. This is a common pattern in planner code where relations are accessed for metadata inspection. The presence of row-level triggers affects planning decisions because triggers can modify data, perform additional operations, or even prevent the operation from completing, all of which impact cost estimates and execution strategies. The function explicitly handles the MERGE command by returning false, as MERGE trigger handling is managed through the individual INSERT/UPDATE/DELETE operations that comprise the MERGE.
+
+## Simplified Source
+
+```c
+bool
+has_row_triggers(PlannerInfo *root, Index rti, CmdType event)
+{
+    // Get the range table entry and open the relation
+    RangeTblEntry *rte = planner_rt_fetch(rti, root);
+    Relation relation = table_open(rte->relid, NoLock);
+    TriggerDesc *trigDesc = relation->trigdesc;
+    bool result = false;
+
+    // Check for row-level triggers based on the command type
+    switch (event)
+    {
+        case CMD_INSERT:
+            if (trigDesc &&
+                (trigDesc->trig_insert_after_row ||
+                 trigDesc->trig_insert_before_row))
+                result = true;
+            break;
+
+        case CMD_UPDATE:
+            if (trigDesc &&
+                (trigDesc->trig_update_after_row ||
+                 trigDesc->trig_update_before_row))
+                result = true;
+            break;
+
+        case CMD_DELETE:
+            if (trigDesc &&
+                (trigDesc->trig_delete_after_row ||
+                 trigDesc->trig_delete_before_row))
+                result = true;
+            break;
+
+        case CMD_MERGE:
+            // MERGE operations don't have separate triggers
+            result = false;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized CmdType: %d", (int) event);
+            break;
+    }
+
+    // Clean up and return result
+    table_close(relation, NoLock);
+    return result;
+}
+```

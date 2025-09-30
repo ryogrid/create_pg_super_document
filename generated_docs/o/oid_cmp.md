@@ -29,3 +29,16 @@ The oid_cmp function provides a standardized comparison mechanism for Oid values
 
 ## Notes and Other Information
 This function is specifically designed as a qsort comparison callback, hence the void pointer parameters and integer return type following the standard comparison function contract. The function is used in various parts of PostgreSQL where Oid arrays need to be sorted, such as in enum value creation, inheritance hierarchy processing, and ACL member handling.
+
+## Simplified Source
+
+```c
+int
+oid_cmp(const void *p1, const void *p2)
+{
+    Oid v1 = *((const Oid *) p1);
+    Oid v2 = *((const Oid *) p2);
+
+    return pg_cmp_u32(v1, v2);
+}
+```

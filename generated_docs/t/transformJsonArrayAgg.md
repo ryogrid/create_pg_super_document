@@ -56,3 +56,42 @@ Unlike JSON_OBJECTAGG, this function doesn't support unique constraints since ar
 - Value expressions receive specialized JSON formatting treatment appropriate for array elements
 - The function handles both regular aggregates and window function contexts through the common aggregate constructor
 - All location and error context information is preserved through the transformation chain
+
+## Simplified Source
+
+```c
+static Node *
+transformJsonArrayAgg(ParseState *pstate, JsonArrayAgg *agg)
+{
+    JsonReturning *returning;
+    Node *arg;
+    Oid aggfnoid;
+    Oid aggtype;
+
+    // Transform the value argument with default JSON formatting
+    arg = transformJsonValueExpr(pstate, "JSON_ARRAYAGG()", agg->arg,
+                                 JS_FORMAT_DEFAULT, InvalidOid, false);
+
+    // Process output formatting and return type
+    returning = transformJsonConstructorOutput(pstate, agg->constructor->output,
+                                               list_make1(arg));
+
+    // Select appropriate aggregate function based on format and null handling
+    if (returning->format->format_type == JS_FORMAT_JSONB)
+    {
+        aggfnoid = agg->absent_on_null ? F_JSONB_AGG_STRICT : F_JSONB_AGG;
+        aggtype = JSONBOID;
+    }
+    else
+    {
+        aggfnoid = agg->absent_on_null ? F_JSON_AGG_STRICT : F_JSON_AGG;
+        aggtype = JSONOID;
+    }
+
+    // Build the aggregate constructor expression
+    return transformJsonAggConstructor(pstate, agg->constructor, returning,
+                                       list_make1(arg), aggfnoid, aggtype,
+                                       JSCTOR_JSON_ARRAYAGG,
+                                       false, agg->absent_on_null);
+}
+```

@@ -46,3 +46,23 @@ The function is widely used throughout PostgreSQL's query processing components,
 - The linear search approach is necessary because target lists may not maintain sorted order by resno
 - This is a fundamental utility function used extensively across PostgreSQL's query processing subsystems
 - Performance consideration: For large target lists accessed frequently, consider using indexed access if the list is known to be sorted
+
+## Simplified Source
+
+```c
+TargetEntry *get_tle_by_resno(List *tlist, AttrNumber resno) {
+    ListCell *l;
+
+    // Search through each entry in the target list
+    foreach(l, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        // Return the entry if resno matches
+        if (tle->resno == resno)
+            return tle;
+    }
+
+    // Return NULL if not found
+    return NULL;
+}
+```

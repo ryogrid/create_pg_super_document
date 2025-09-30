@@ -63,3 +63,161 @@ Key design principles:
 - Contains extensive logic for proper formatting and parenthesization
 - Critical for EXPLAIN output, view definitions, and rule reconstruction
 - Must maintain exact semantic equivalence between input and output expressions
+
+## Simplified Source
+
+```c
+static void get_rule_expr(Node *node, deparse_context *context, bool showimplicit) {
+    StringInfo buf = context->buf;
+
+    if (node == NULL)
+        return;
+
+    // Guard against excessively long or deeply-nested queries
+    CHECK_FOR_INTERRUPTS();
+    check_stack_depth();
+
+    // Main switch handling different node types
+    switch (nodeTag(node)) {
+        case T_Var:
+            get_variable((Var *) node, 0, false, context);
+            break;
+
+        case T_Const:
+            get_const_expr((Const *) node, context, 0);
+            break;
+
+        case T_Param:
+            get_parameter((Param *) node, context);
+            break;
+
+        case T_Aggref:
+            get_agg_expr((Aggref *) node, context, (Aggref *) node);
+            break;
+
+        case T_FuncExpr:
+            get_func_expr((FuncExpr *) node, context, showimplicit);
+            break;
+
+        case T_OpExpr:
+            get_oper_expr((OpExpr *) node, context);
+            break;
+
+        case T_BoolExpr:
+            {
+                BoolExpr *expr = (BoolExpr *) node;
+                switch (expr->boolop) {
+                    case AND_EXPR:
+                        // Format: arg1 AND arg2 AND ...
+                        append_bool_expr_args(buf, expr->args, " AND ", context);
+                        break;
+                    case OR_EXPR:
+                        // Format: arg1 OR arg2 OR ...
+                        append_bool_expr_args(buf, expr->args, " OR ", context);
+                        break;
+                    case NOT_EXPR:
+                        // Format: NOT arg
+                        appendStringInfoString(buf, "NOT ");
+                        get_rule_expr_paren(first_arg, context, false, node);
+                        break;
+                }
+            }
+            break;
+
+        case T_SubLink:
+            get_sublink_expr((SubLink *) node, context);
+            break;
+
+        case T_CaseExpr:
+            {
+                CaseExpr *caseexpr = (CaseExpr *) node;
+
+                appendStringInfoString(buf, "CASE");
+                if (caseexpr->arg) {
+                    appendStringInfoChar(buf, ' ');
+                    get_rule_expr((Node *) caseexpr->arg, context, true);
+                }
+
+                // Handle WHEN clauses
+                foreach(temp, caseexpr->args) {
+                    CaseWhen *when = (CaseWhen *) lfirst(temp);
+                    appendStringInfoString(buf, " WHEN ");
+                    get_rule_expr((Node *) when->expr, context, false);
+                    appendStringInfoString(buf, " THEN ");
+                    get_rule_expr((Node *) when->result, context, true);
+                }
+
+                // Handle ELSE clause
+                appendStringInfoString(buf, " ELSE ");
+                get_rule_expr((Node *) caseexpr->defresult, context, true);
+                appendStringInfoString(buf, " END");
+            }
+            break;
+
+        case T_ArrayExpr:
+            {
+                ArrayExpr *arrayexpr = (ArrayExpr *) node;
+                appendStringInfoString(buf, "ARRAY[");
+                get_rule_expr((Node *) arrayexpr->elements, context, true);
+                appendStringInfoChar(buf, ']');
+
+                // Add type cast for empty arrays
+                if (arrayexpr->elements == NIL)
+                    appendStringInfo(buf, "::%s",
+                        format_type_with_typemod(arrayexpr->array_typeid, -1));
+            }
+            break;
+
+        case T_CoalesceExpr:
+            {
+                CoalesceExpr *coalesceexpr = (CoalesceExpr *) node;
+                appendStringInfoString(buf, "COALESCE(");
+                get_rule_expr((Node *) coalesceexpr->args, context, true);
+                appendStringInfoChar(buf, ')');
+            }
+            break;
+
+        case T_NullTest:
+            {
+                NullTest *ntest = (NullTest *) node;
+                get_rule_expr_paren((Node *) ntest->arg, context, true, node);
+
+                switch (ntest->nulltesttype) {
+                    case IS_NULL:
+                        appendStringInfoString(buf, " IS NULL");
+                        break;
+                    case IS_NOT_NULL:
+                        appendStringInfoString(buf, " IS NOT NULL");
+                        break;
+                }
+            }
+            break;
+
+        case T_List:
+            {
+                // Emit comma-separated list items
+                char *sep = "";
+                ListCell *l;
+                foreach(l, (List *) node) {
+                    appendStringInfoString(buf, sep);
+                    get_rule_expr((Node *) lfirst(l), context, showimplicit);
+                    sep = ", ";
+                }
+            }
+            break;
+
+        // Type coercion nodes - handle implicit vs explicit casts
+        case T_RelabelType:
+        case T_CoerceViaIO:
+        case T_ArrayCoerceExpr:
+            handle_coercion_expr(node, context, showimplicit);
+            break;
+
+        // ... many other node types handled similarly ...
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(node));
+            break;
+    }
+}
+```

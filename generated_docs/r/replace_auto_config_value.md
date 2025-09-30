@@ -45,3 +45,61 @@ This function is essential for the ALTER SYSTEM command functionality, allowing 
 - Memory management includes freeing all allocated strings (name, value, filename) when removing entries
 - The function maintains proper linked list integrity by updating both head and tail pointers during operations
 - Uses case-insensitive parameter name comparison through guc_name_compare function
+
+## Simplified Source
+
+```c
+static void replace_auto_config_value(ConfigVariable **head_p, ConfigVariable **tail_p,
+                                     const char *name, const char *value)
+{
+    ConfigVariable *item, *next, *prev = NULL;
+
+    // Remove any existing entries with the same name
+    for (item = *head_p; item != NULL; item = next)
+    {
+        next = item->next;
+
+        if (guc_name_compare(item->name, name) == 0)
+        {
+            // Found a match - remove it from the list
+            if (prev)
+                prev->next = next;
+            else
+                *head_p = next;
+
+            if (next == NULL)
+                *tail_p = prev;
+
+            // Free the removed item
+            pfree(item->name);
+            pfree(item->value);
+            pfree(item->filename);
+            pfree(item);
+        }
+        else
+            prev = item;
+    }
+
+    // If value is NULL, we're deleting - done
+    if (value == NULL)
+        return;
+
+    // Add new entry at the end
+    item = palloc(sizeof(*item));
+    item->name = pstrdup(name);
+    item->value = pstrdup(value);
+    item->errmsg = NULL;
+    item->filename = pstrdup("");  // empty filename for new items
+    item->sourceline = 0;
+    item->ignore = false;
+    item->applied = false;
+    item->next = NULL;
+
+    // Update list pointers
+    if (*head_p == NULL)
+        *head_p = item;
+    else
+        (*tail_p)->next = item;
+    *tail_p = item;
+}
+```

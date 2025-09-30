@@ -42,3 +42,29 @@ The function uses the createdb_failure_params structure to access context inform
 - Lock release order is important: destination database lock first (if applicable), then source database lock  
 - Uses remove_dbtablespaces to clean up any partially created database directory structures
 - Registered and called automatically by PostgreSQL's error handling mechanism when exceptions occur during database creation
+
+## Simplified Source
+
+```c
+static void createdb_failure_callback(int code, Datum arg) {
+    createdb_failure_params *fparms = (createdb_failure_params *) DatumGetPointer(arg);
+
+    // For WAL_LOG strategy: clean up shared buffers and sync requests
+    if (fparms->strategy == CREATEDB_WAL_LOG) {
+        // Drop any copied pages from shared buffer cache
+        DropDatabaseBuffers(fparms->dest_dboid);
+
+        // Cancel pending fsync and unlink requests
+        ForgetDatabaseSyncRequests(fparms->dest_dboid);
+
+        // Release lock on destination database
+        UnlockSharedObject(DatabaseRelationId, fparms->dest_dboid, 0, AccessShareLock);
+    }
+
+    // Release lock on source (template) database
+    UnlockSharedObject(DatabaseRelationId, fparms->src_dboid, 0, ShareLock);
+
+    // Remove any successfully copied subdirectories
+    remove_dbtablespaces(fparms->dest_dboid);
+}
+```

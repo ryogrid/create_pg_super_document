@@ -42,3 +42,27 @@ Finally, if no existing result is available, the function creates a new empty PG
 - Creates appropriate result objects to enable COPY protocol handling
 - Essential for PostgreSQL's COPY FROM/TO functionality in libpq
 - The function ensures that applications receive proper result objects even when no data has been transferred yet
+
+## Simplified Source
+
+```c
+static PGresult *
+getCopyResult(PGconn *conn, ExecStatusType copytype)
+{
+    // Check if connection was lost
+    if (conn->status != CONNECTION_OK) {
+        // Save error state and reset to idle
+        pqSaveErrorResult(conn);
+        conn->asyncStatus = PGASYNC_IDLE;
+        return pqPrepareAsyncResult(conn);
+    }
+
+    // Return existing result if it matches the copy type
+    if (conn->result && conn->result->resultStatus == copytype) {
+        return pqPrepareAsyncResult(conn);
+    }
+
+    // Create new empty result for the copy operation
+    return PQmakeEmptyPGresult(conn, copytype);
+}
+```

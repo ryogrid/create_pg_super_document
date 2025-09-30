@@ -46,3 +46,76 @@ This function implements the ALTER TABLESPACE ... SET/RESET option functionality
 - Returns the OID of the modified tablespace for further processing
 - Part of PostgreSQL's DDL infrastructure for tablespace configuration management
 - Maintains catalog consistency through appropriate locking and transaction handling
+
+## Simplified Source
+
+```c
+Oid AlterTableSpaceOptions(AlterTableSpaceOptionsStmt *stmt) {
+    Relation rel;
+    HeapTuple tup, newtuple;
+    Oid tablespaceoid;
+    Datum newOptions;
+
+    // Open pg_tablespace catalog with exclusive lock
+    rel = table_open(TableSpaceRelationId, RowExclusiveLock);
+
+    // Find the tablespace by name
+    ScanKeyData entry[1];
+    ScanKeyInit(&entry[0], Anum_pg_tablespace_spcname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(stmt->tablespacename));
+
+    TableScanDesc scandesc = table_beginscan_catalog(rel, 1, entry);
+    tup = heap_getnext(scandesc, ForwardScanDirection);
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("tablespace \"%s\" does not exist",
+                              stmt->tablespacename)));
+
+    tablespaceoid = ((Form_pg_tablespace) GETSTRUCT(tup))->oid;
+
+    // Check ownership permissions
+    if (!object_ownercheck(TableSpaceRelationId, tablespaceoid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_TABLESPACE,
+                      stmt->tablespacename);
+
+    // Transform the options (SET or RESET)
+    Datum currentOptions = heap_getattr(tup, Anum_pg_tablespace_spcoptions,
+                                       RelationGetDescr(rel), &isnull);
+    newOptions = transformRelOptions(isnull ? (Datum) 0 : currentOptions,
+                                   stmt->options, NULL, NULL, false,
+                                   stmt->isReset);
+
+    // Validate the new options
+    tablespace_reloptions(newOptions, true);
+
+    // Build and update the catalog tuple
+    Datum repl_val[Natts_pg_tablespace];
+    bool repl_null[Natts_pg_tablespace];
+    bool repl_repl[Natts_pg_tablespace];
+
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+
+    if (newOptions != (Datum) 0)
+        repl_val[Anum_pg_tablespace_spcoptions - 1] = newOptions;
+    else
+        repl_null[Anum_pg_tablespace_spcoptions - 1] = true;
+    repl_repl[Anum_pg_tablespace_spcoptions - 1] = true;
+
+    newtuple = heap_modify_tuple(tup, RelationGetDescr(rel),
+                                repl_val, repl_null, repl_repl);
+
+    // Update the catalog and trigger hooks
+    CatalogTupleUpdate(rel, &newtuple->t_self, newtuple);
+    InvokeObjectPostAlterHook(TableSpaceRelationId, tablespaceoid, 0);
+
+    // Cleanup
+    heap_freetuple(newtuple);
+    table_endscan(scandesc);
+    table_close(rel, NoLock);
+
+    return tablespaceoid;
+}
+```

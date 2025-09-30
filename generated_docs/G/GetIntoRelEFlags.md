@@ -35,3 +35,18 @@ This function provides a centralized point for mapping  semantics to executor be
 - Currently handles only the skipData flag but designed to accommodate additional flags if needed
 - Callers still need to handle skipData logic explicitly for their specific execution suppression methods
 - Simple but important for maintaining consistency across different execution contexts
+
+## Simplified Source
+
+```c
+int GetIntoRelEFlags(IntoClause *intoClause) {
+    int flags = 0;
+
+    // Set flag to skip data population if WITH NO DATA specified
+    if (intoClause->skipData) {
+        flags |= EXEC_FLAG_WITH_NO_DATA;
+    }
+
+    return flags;
+}
+```

@@ -34,3 +34,14 @@ The function is primarily used internally by libpq to handle asynchronous messag
 - The function does not perform any network I/O operations
 - It assumes that input data is already available in the connection's input buffer
 - Part of the asynchronous query processing infrastructure in libpq
+
+## Simplified Source
+
+```c
+static void
+parseInput(PGconn *conn)
+{
+    // Parse buffered input data using protocol version 3
+    pqParseInput3(conn);
+}
+```

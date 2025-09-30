@@ -35,3 +35,21 @@ The function delegates to compare_pathkeys and returns true if the comparison re
 
 ## Notes and Other Information
 This function is frequently used in path generation and costing to determine if existing sort orders can be leveraged to avoid additional sort operations. It plays a crucial role in merge join optimization, append path generation, and general pathkey compatibility checking throughout the query planner.
+
+## Simplified Source
+
+```c
+bool
+pathkeys_contained_in(List *keys1, List *keys2)
+{
+    // Check if keys2 provides at least as good sorting as keys1
+    switch (compare_pathkeys(keys1, keys2)) {
+        case PATHKEYS_EQUAL:     // Same ordering
+        case PATHKEYS_BETTER2:   // keys2 is superset of keys1
+            return true;
+        default:
+            break;
+    }
+    return false;
+}
+```

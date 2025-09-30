@@ -41,3 +41,24 @@ The function supports optimization for standard page layouts by allowing unused 
 - The function automatically sets the page LSN as part of the WAL logging process
 - When page_std is true, unused space in standard page layouts is excluded from the WAL record for efficiency
 - This is a higher-level interface compared to log_newpage, automatically handling buffer tag extraction
+
+## Simplified Source
+
+```c
+XLogRecPtr log_newpage_buffer(Buffer buffer, bool page_std)
+{
+    Page page = BufferGetPage(buffer);
+    RelFileLocator rlocator;
+    ForkNumber forknum;
+    BlockNumber blkno;
+
+    // Must be in critical section
+    Assert(CritSectionCount > 0);
+
+    // Extract location info from buffer
+    BufferGetTag(buffer, &rlocator, &forknum, &blkno);
+
+    // Create WAL record for full page image
+    return log_newpage(&rlocator, forknum, blkno, page, page_std);
+}
+```

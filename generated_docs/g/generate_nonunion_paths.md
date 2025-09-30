@@ -53,3 +53,113 @@ The function handles both ALL and non-ALL variants of INTERSECT and EXCEPT opera
 - Row estimates are conservative worst-case calculations: non-ALL cases estimate one output row per group, ALL cases use relevant relation size
 - The generated target list includes a special flag column that must appear as a variable (not constant) to avoid confusion in later planning phases
 - [Hash](../H/Hash.md) vs. sort strategy selection considers factors like data size, available memory, and cost estimates
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+generate_nonunion_paths(SetOperationStmt *op, PlannerInfo *root,
+                        List *refnames_tlist, List **pTargetList)
+{
+    RelOptInfo *result_rel, *lrel, *rrel;
+    Path *lpath, *rpath, *path;
+    List *lpath_tlist, *rpath_tlist, *tlist_list, *tlist, *groupList, *pathlist;
+    double dLeftGroups, dRightGroups, dNumGroups, dNumOutputRows;
+    bool use_hash;
+    SetOpCmd cmd;
+    int firstFlag;
+
+    // Save and reset tuple fraction to fetch all tuples from children
+    double save_fraction = root->tuple_fraction;
+    root->tuple_fraction = 0.0;
+
+    // Process left operand
+    lrel = recurse_set_operations(op->larg, root, op->colTypes, op->colCollations,
+                                  false, 0, refnames_tlist, &lpath_tlist, NULL);
+    if (lrel->rtekind == RTE_SUBQUERY)
+        build_setop_child_paths(root, lrel, true, lpath_tlist, NIL, &dLeftGroups);
+    else
+        dLeftGroups = lrel->rows;
+    lpath = lrel->cheapest_total_path;
+
+    // Process right operand
+    rrel = recurse_set_operations(op->rarg, root, op->colTypes, op->colCollations,
+                                  false, 1, refnames_tlist, &rpath_tlist, NULL);
+    if (rrel->rtekind == RTE_SUBQUERY)
+        build_setop_child_paths(root, rrel, true, rpath_tlist, NIL, &dRightGroups);
+    else
+        dRightGroups = rrel->rows;
+    rpath = rrel->cheapest_total_path;
+
+    // Restore tuple fraction
+    root->tuple_fraction = save_fraction;
+
+    // Order inputs: EXCEPT requires left first, INTERSECT prefers smaller first
+    if (op->op == SETOP_EXCEPT || dLeftGroups <= dRightGroups) {
+        pathlist = list_make2(lpath, rpath);
+        tlist_list = list_make2(lpath_tlist, rpath_tlist);
+        firstFlag = 0;
+    } else {
+        pathlist = list_make2(rpath, lpath);
+        tlist_list = list_make2(rpath_tlist, lpath_tlist);
+        firstFlag = 1;
+    }
+
+    // Generate target list and create result relation
+    tlist = generate_append_tlist(op->colTypes, op->colCollations, true,
+                                  tlist_list, refnames_tlist);
+    *pTargetList = tlist;
+
+    result_rel = fetch_upper_rel(root, UPPERREL_SETOP,
+                                 bms_union(lrel->relids, rrel->relids));
+    result_rel->reltarget = create_pathtarget(root, tlist);
+
+    // Create append path combining both inputs
+    path = (Path *) create_append_path(root, result_rel, pathlist, NIL, NIL, NULL, 0, false, -1);
+
+    // Generate grouping information
+    groupList = generate_setop_grouplist(op, tlist);
+
+    // Estimate output characteristics
+    if (op->op == SETOP_EXCEPT) {
+        dNumGroups = dLeftGroups;
+        dNumOutputRows = op->all ? lpath->rows : dNumGroups;
+    } else {
+        dNumGroups = Min(dLeftGroups, dRightGroups);
+        dNumOutputRows = op->all ? Min(lpath->rows, rpath->rows) : dNumGroups;
+    }
+
+    // Choose hash vs sort strategy
+    use_hash = choose_hashed_setop(root, groupList, path, dNumGroups, dNumOutputRows,
+                                   (op->op == SETOP_INTERSECT) ? "INTERSECT" : "EXCEPT");
+
+    // Add sort if needed
+    if (groupList && !use_hash)
+        path = (Path *) create_sort_path(root, result_rel, path,
+                                         make_pathkeys_for_sortclauses(root, groupList, tlist), -1.0);
+
+    // Create final SetOp path
+    switch (op->op) {
+        case SETOP_INTERSECT:
+            cmd = op->all ? SETOPCMD_INTERSECT_ALL : SETOPCMD_INTERSECT;
+            break;
+        case SETOP_EXCEPT:
+            cmd = op->all ? SETOPCMD_EXCEPT_ALL : SETOPCMD_EXCEPT;
+            break;
+        default:
+            elog(ERROR, "unrecognized set op: %d", (int) op->op);
+            cmd = SETOPCMD_INTERSECT;
+            break;
+    }
+
+    path = (Path *) create_setop_path(root, result_rel, path, cmd,
+                                      use_hash ? SETOP_HASHED : SETOP_SORTED,
+                                      groupList, list_length(op->colTypes) + 1,
+                                      use_hash ? firstFlag : -1,
+                                      dNumGroups, dNumOutputRows);
+
+    result_rel->rows = path->rows;
+    add_path(result_rel, path);
+    return result_rel;
+}
+```

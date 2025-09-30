@@ -45,3 +45,24 @@ This information is critical for query optimization, determining when functions 
 - The volatility category affects whether functions can be executed at plan time vs. execution time
 - IMMUTABLE functions enable the most aggressive optimizations, while VOLATILE functions require careful handling
 - Located in src/backend/utils/cache/lsyscache.c:1780-1798
+
+## Simplified Source
+
+```c
+char func_volatile(Oid funcid) {
+    HeapTuple tp;
+    char result;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract provolatile flag from pg_proc tuple
+    result = ((Form_pg_proc) GETSTRUCT(tp))->provolatile;
+
+    // Release cache entry and return the volatility flag
+    ReleaseSysCache(tp);
+    return result;
+}
+```

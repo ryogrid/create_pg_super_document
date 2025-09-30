@@ -45,3 +45,75 @@ This function creates a CteScan plan node for executing a CTE scan operation. It
 - Locates the CTE by name matching within the cteList and retrieves the corresponding plan_id from cte_plan_ids
 - Extracts the CTE parameter ID from the SubPlan's setParam list, which is used during execution to access the CTE's materialized results
 - Includes comprehensive error checking for missing CTE definitions, plans, and parameter configurations
+
+## Simplified Source
+
+```c
+static CteScan *
+create_ctescan_plan(PlannerInfo *root, Path *best_path,
+                   List *tlist, List *scan_clauses) {
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte = planner_rt_fetch(scan_relid, root);
+
+    // Validate this is a non-self-referencing CTE
+    Assert(scan_relid > 0);
+    Assert(rte->rtekind == RTE_CTE);
+    Assert(!rte->self_reference);
+
+    // Navigate to the appropriate planner level for the CTE
+    Index levelsup = rte->ctelevelsup;
+    PlannerInfo *cteroot = root;
+    while (levelsup-- > 0) {
+        cteroot = cteroot->parent_root;
+        if (!cteroot)
+            elog(ERROR, "bad levelsup for CTE \"%s\"", rte->ctename);
+    }
+
+    // Find the CTE by name in the CTE list
+    int ndx = 0;
+    foreach(lc, cteroot->parse->cteList) {
+        CommonTableExpr *cte = lfirst(lc);
+        if (strcmp(cte->ctename, rte->ctename) == 0)
+            break;
+        ndx++;
+    }
+    if (lc == NULL)
+        elog(ERROR, "could not find CTE \"%s\"", rte->ctename);
+
+    // Get the plan ID for this CTE
+    if (ndx >= list_length(cteroot->cte_plan_ids))
+        elog(ERROR, "could not find plan for CTE \"%s\"", rte->ctename);
+    int plan_id = list_nth_int(cteroot->cte_plan_ids, ndx);
+    if (plan_id <= 0)
+        elog(ERROR, "no plan was made for CTE \"%s\"", rte->ctename);
+
+    // Find the corresponding SubPlan
+    SubPlan *ctesplan = NULL;
+    foreach(lc, cteroot->init_plans) {
+        ctesplan = lfirst(lc);
+        if (ctesplan->plan_id == plan_id)
+            break;
+    }
+    if (lc == NULL)
+        elog(ERROR, "could not find plan for CTE \"%s\"", rte->ctename);
+
+    // Extract CTE parameter ID
+    int cte_param_id = linitial_int(ctesplan->setParam);
+
+    // Process scan clauses
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle nestloop parameters if needed
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the CTE scan plan
+    CteScan *scan_plan = make_ctescan(tlist, scan_clauses, scan_relid,
+                                     plan_id, cte_param_id);
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

@@ -36,3 +36,21 @@ The heuristic checks if RecentXmin has changed since the last update. If the old
 - The function performs three checks: uninitialized state, boundary convergence, and xmin changes
 - Helps optimize performance by avoiding unnecessary horizon recomputations
 - Critical for maintaining efficiency in visibility testing operations
+
+## Simplified Source
+
+```c
+static bool GlobalVisTestShouldUpdate(GlobalVisState *state)
+{
+    // First update: no previous computation exists
+    if (!TransactionIdIsValid(ComputeXidHorizonsResultLastXmin))
+        return true;
+
+    // Skip update if boundaries have converged (no gap between maybe/definitely needed)
+    if (FullTransactionIdFollowsOrEquals(state->maybe_needed, state->definitely_needed))
+        return false;
+
+    // Update only if RecentXmin has changed since last computation
+    return RecentXmin != ComputeXidHorizonsResultLastXmin;
+}
+```

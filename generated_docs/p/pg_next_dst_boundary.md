@@ -46,3 +46,107 @@ The function is critical for PostgreSQL's timezone handling, particularly for op
 - Handles both forward and backward extrapolation for historical and future dates
 - Essential for accurate timezone calculations in PostgreSQL's datetime functionality
 - The function is part of PostgreSQL's public timezone API
+
+## Simplified Source
+
+```c
+int pg_next_dst_boundary(const pg_time_t *timep,
+                        long int *before_gmtoff,
+                        int *before_isdst,
+                        pg_time_t *boundary,
+                        long int *after_gmtoff,
+                        int *after_isdst,
+                        const pg_tz *tz) {
+    const struct state *sp = &tz->state;
+    const pg_time_t t = *timep;
+
+    // Handle DST-less zones
+    if (sp->timecnt == 0) {
+        // Find first non-DST type
+        int i = 0;
+        while (sp->ttis[i].tt_isdst && ++i < sp->typecnt);
+        if (i >= sp->typecnt) i = 0;
+
+        const struct ttinfo *ttisp = &sp->ttis[i];
+        *before_gmtoff = ttisp->tt_utoff;
+        *before_isdst = ttisp->tt_isdst;
+        return 0;  // No DST transitions
+    }
+
+    // Handle extrapolation for times outside transition table
+    if ((sp->goback && t < sp->ats[0]) || (sp->goahead && t > sp->ats[sp->timecnt - 1])) {
+        // Calculate offset for extrapolation pattern
+        pg_time_t newt = t;
+        pg_time_t seconds = (t < sp->ats[0]) ?
+                           sp->ats[0] - t : t - sp->ats[sp->timecnt - 1];
+
+        // Apply repeating cycle calculation
+        pg_time_t cycles = (seconds / YEARSPERREPEAT / AVGSECSPERYEAR) + 1;
+        seconds = cycles * YEARSPERREPEAT * AVGSECSPERYEAR;
+
+        if (t < sp->ats[0])
+            newt += seconds;
+        else
+            newt -= seconds;
+
+        // Recursive call with adjusted time
+        int result = pg_next_dst_boundary(&newt, before_gmtoff, before_isdst,
+                                        boundary, after_gmtoff, after_isdst, tz);
+        if (result == 1) {
+            if (t < sp->ats[0])
+                *boundary -= seconds;
+            else
+                *boundary += seconds;
+        }
+        return result;
+    }
+
+    // Handle time at or past last transition
+    if (t >= sp->ats[sp->timecnt - 1]) {
+        const struct ttinfo *ttisp = &sp->ttis[sp->types[sp->timecnt - 1]];
+        *before_gmtoff = ttisp->tt_utoff;
+        *before_isdst = ttisp->tt_isdst;
+        return 0;  // No more transitions
+    }
+
+    // Handle time before first transition
+    if (t < sp->ats[0]) {
+        // Use standard time for "before"
+        int i = 0;
+        while (sp->ttis[i].tt_isdst && ++i < sp->typecnt);
+        const struct ttinfo *ttisp = &sp->ttis[i];
+        *before_gmtoff = ttisp->tt_utoff;
+        *before_isdst = ttisp->tt_isdst;
+
+        // First transition is the boundary
+        *boundary = sp->ats[0];
+        ttisp = &sp->ttis[sp->types[0]];
+        *after_gmtoff = ttisp->tt_utoff;
+        *after_isdst = ttisp->tt_isdst;
+        return 1;
+    }
+
+    // Binary search for next transition
+    int lo = 1, hi = sp->timecnt - 1;
+    while (lo < hi) {
+        int mid = (lo + hi) >> 1;
+        if (t < sp->ats[mid])
+            hi = mid;
+        else
+            lo = mid + 1;
+    }
+
+    // Set up before/after states
+    const struct ttinfo *before_ttinfo = &sp->ttis[sp->types[lo - 1]];
+    *before_gmtoff = before_ttinfo->tt_utoff;
+    *before_isdst = before_ttinfo->tt_isdst;
+
+    *boundary = sp->ats[lo];
+
+    const struct ttinfo *after_ttinfo = &sp->ttis[sp->types[lo]];
+    *after_gmtoff = after_ttinfo->tt_utoff;
+    *after_isdst = after_ttinfo->tt_isdst;
+
+    return 1;
+}
+```

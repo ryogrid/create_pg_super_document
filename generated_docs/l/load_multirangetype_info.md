@@ -37,3 +37,28 @@ When called, the function:
 - The function will throw an ERROR if the multirange type lookup fails, indicating a corrupt system catalog
 - Part of PostgreSQL's type cache infrastructure that supports efficient multirange type operations
 - Multirange types were introduced in PostgreSQL 14 as arrays of ranges with specific semantics
+
+## Simplified Source
+
+```c
+// Simplified version of load_multirangetype_info
+static void
+load_multirangetype_info(TypeCacheEntry *typentry)
+{
+    Oid range_type_oid;
+
+    // Get the underlying range type for this multirange
+    range_type_oid = get_multirange_range(typentry->type_id);
+    if (!OidIsValid(range_type_oid))
+        elog(ERROR, "cache lookup failed for multirange type %u", typentry->type_id);
+
+    // Load and cache the range type information
+    typentry->rngtype = lookup_type_cache(range_type_oid, TYPECACHE_RANGE_INFO);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable name (range_type_oid instead of rangetypeOid)
+- Added clear comments explaining each step
+- Preserved all error handling as it's essential
+- Maintained the exact same logic in a more readable format

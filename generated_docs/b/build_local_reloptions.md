@@ -45,3 +45,42 @@ This function handles the processing of local relation options that are not part
 - The local_relopts structure contains both option definitions and optional validator functions
 - This function enables extensibility by allowing modules to define their own option parsing without modifying the core option registration system
 - Returns a dynamically allocated options structure that becomes the caller's responsibility to manage
+
+## Simplified Source
+
+```c
+void *build_local_reloptions(local_relopts *relopts, Datum options, bool validate) {
+    int noptions = list_length(relopts->options);
+    relopt_parse_elt *elems = palloc(sizeof(*elems) * noptions);
+
+    // Build parsing table from local option definitions
+    int i = 0;
+    foreach(ListCell *lc, relopts->options) {
+        local_relopt *opt = lfirst(lc);
+        elems[i].optname = opt->option->name;
+        elems[i].opttype = opt->option->type;
+        elems[i].offset = opt->offset;
+        i++;
+    }
+
+    // Parse options and allocate result structure
+    relopt_value *vals = parseLocalRelOptions(relopts, options, validate);
+    void *opts = allocateReloptStruct(relopts->relopt_struct_size, vals, noptions);
+
+    // Fill the structure with parsed values
+    fillRelOptions(opts, relopts->relopt_struct_size, vals, noptions, validate,
+                   elems, noptions);
+
+    // Run validation functions if requested
+    if (validate) {
+        foreach(ListCell *lc, relopts->validators) {
+            ((relopts_validator) lfirst(lc))(opts, vals, noptions);
+        }
+    }
+
+    // Clean up temporary parsing table
+    if (elems) pfree(elems);
+
+    return opts;
+}
+```

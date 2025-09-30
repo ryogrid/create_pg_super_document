@@ -36,3 +36,18 @@ The function is a fundamental building block for PostgreSQL's connection option 
 - Case-sensitive keyword matching using strcmp
 - Simple and efficient implementation for the typical small number of connection options
 - Essential utility function used throughout the connection option management code
+
+## Simplified Source
+
+```c
+static PQconninfoOption *conninfo_find(PQconninfoOption *connOptions, const char *keyword) {
+    // Search through options array for matching keyword
+    for (PQconninfoOption *option = connOptions; option->keyword != NULL; option++) {
+        if (strcmp(option->keyword, keyword) == 0)
+            return option;
+    }
+
+    // Not found
+    return NULL;
+}
+```

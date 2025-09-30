@@ -42,3 +42,27 @@ This function is particularly useful in query optimization and planning where on
 - Commonly used in query planning to extract the most relevant portion of pathkey lists
 - The copied list maintains the same type as the original
 - Memory allocation is handled by the  function
+
+## Simplified Source
+
+```c
+List *
+list_copy_head(const List *oldlist, int len)
+{
+    List *newlist;
+
+    // Return NIL for empty list or invalid length
+    if (oldlist == NIL || len <= 0)
+        return NIL;
+
+    // Don't copy more elements than exist
+    len = Min(oldlist->length, len);
+
+    // Create new list and copy first 'len' elements
+    newlist = new_list(oldlist->type, len);
+    memcpy(newlist->elements, oldlist->elements, len * sizeof(ListCell));
+
+    check_list_invariants(newlist);
+    return newlist;
+}
+```

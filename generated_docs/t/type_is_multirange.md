@@ -28,3 +28,14 @@ This function provides a simple boolean check to determine if a PostgreSQL type 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's system cache utilities (lsyscache.c) and provides a clean abstraction for type checking. Multirange types were introduced in PostgreSQL 14 as an extension of range types, allowing for collections of non-overlapping ranges. This function is commonly used in contexts where multirange-specific operations need to be performed or where type coercion rules need to be applied differently for multirange types.
+
+## Simplified Source
+
+```c
+bool
+type_is_multirange(Oid typid)
+{
+    // Check if type category is multirange
+    return (get_typtype(typid) == TYPTYPE_MULTIRANGE);
+}
+```

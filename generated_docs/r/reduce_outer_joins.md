@@ -47,3 +47,54 @@ After join reduction, the function removes nulling relation references that are 
 - Uses strictness analysis to determine when null-extended rows can never satisfy query conditions
 - The function expects that outer joins exist in the query tree (enforced by error check)
 - Declared in src/include/optimizer/prep.h as part of the query preparation phase
+
+## Simplified Source
+
+```c
+void reduce_outer_joins(PlannerInfo *root) {
+    reduce_outer_joins_pass1_state *state1;
+    reduce_outer_joins_pass2_state state2;
+    ListCell *lc;
+
+    // Pass 1: Gather information about base relations and outer joins
+    state1 = reduce_outer_joins_pass1((Node *) root->parse->jointree);
+
+    // Verify we actually have outer joins to process
+    if (state1 == NULL || !state1->contains_outer)
+        elog(ERROR, "so where are the outer joins?");
+
+    // Initialize state for pass 2
+    state2.inner_reduced = NULL;
+    state2.partial_reduced = NIL;
+
+    // Pass 2: Examine quals and reduce join types where possible
+    reduce_outer_joins_pass2((Node *) root->parse->jointree,
+                             state1, &state2,
+                             root, NULL, NIL);
+
+    // Clean up nulling relation references for fully-reduced joins
+    if (!bms_is_empty(state2.inner_reduced)) {
+        root->parse = (Query *)
+            remove_nulling_relids((Node *) root->parse,
+                                  state2.inner_reduced, NULL);
+        root->append_rel_list = (List *)
+            remove_nulling_relids((Node *) root->append_rel_list,
+                                  state2.inner_reduced, NULL);
+    }
+
+    // Handle partially-reduced full joins (each needs separate processing)
+    foreach(lc, state2.partial_reduced) {
+        reduce_outer_joins_partial_state *statep = lfirst(lc);
+        Relids full_join_relids = bms_make_singleton(statep->full_join_rti);
+
+        root->parse = (Query *)
+            remove_nulling_relids((Node *) root->parse,
+                                  full_join_relids,
+                                  statep->unreduced_side);
+        root->append_rel_list = (List *)
+            remove_nulling_relids((Node *) root->append_rel_list,
+                                  full_join_relids,
+                                  statep->unreduced_side);
+    }
+}
+```

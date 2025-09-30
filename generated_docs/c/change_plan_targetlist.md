@@ -38,3 +38,29 @@ This optimization is crucial for query performance as it avoids unnecessary Resu
 - The  parameter is typically passed from the FDW's own Path node's parallel_safe flag
 - The function maintains the parallel safety of the plan by performing a logical AND operation between the subplan's parallel safety and the new target list's parallel safety
 - Performance optimization: Avoids creating unnecessary Result nodes when direct target list replacement is possible
+
+## Simplified Source
+
+```c
+Plan *
+change_plan_targetlist(Plan *subplan, List *tlist, bool tlist_parallel_safe)
+{
+    // Check if plan can do projections and if target list is different
+    if (!is_projection_capable_plan(subplan) &&
+        !tlist_same_exprs(tlist, subplan->targetlist))
+    {
+        // Add Result node to handle projection
+        subplan = inject_projection_plan(subplan, tlist,
+                                         subplan->parallel_safe &&
+                                         tlist_parallel_safe);
+    }
+    else
+    {
+        // Direct target list replacement is sufficient
+        subplan->targetlist = tlist;
+        subplan->parallel_safe &= tlist_parallel_safe;
+    }
+
+    return subplan;
+}
+```

@@ -49,3 +49,82 @@ This function is critical for PostgreSQL's collation support system, ensuring th
 - Some expression types (BoolExpr, ScalarArrayOpExpr, etc.) assert that no collation should be set since they always return boolean results
 - Handles recursive collation setting for complex JSON expressions
 - Located in src/backend/nodes/nodeFuncs.c:1116-1315
+
+## Simplified Source
+
+```c
+void
+exprSetCollation(Node *expr, Oid collation)
+{
+    switch (nodeTag(expr))
+    {
+        // Basic expression types with collation fields
+        case T_Var:
+            ((Var *) expr)->varcollid = collation;
+            break;
+        case T_Const:
+            ((Const *) expr)->constcollid = collation;
+            break;
+        case T_Param:
+            ((Param *) expr)->paramcollid = collation;
+            break;
+        case T_Aggref:
+            ((Aggref *) expr)->aggcollid = collation;
+            break;
+        case T_WindowFunc:
+            ((WindowFunc *) expr)->wincollid = collation;
+            break;
+        case T_FuncExpr:
+            ((FuncExpr *) expr)->funccollid = collation;
+            break;
+        case T_OpExpr:
+            ((OpExpr *) expr)->opcollid = collation;
+            break;
+        case T_CaseExpr:
+            ((CaseExpr *) expr)->casecollid = collation;
+            break;
+        case T_ArrayExpr:
+            ((ArrayExpr *) expr)->array_collid = collation;
+            break;
+        case T_CoalesceExpr:
+            ((CoalesceExpr *) expr)->coalescecollid = collation;
+            break;
+        case T_MinMaxExpr:
+            ((MinMaxExpr *) expr)->minmaxcollid = collation;
+            break;
+
+        // Type coercion expressions
+        case T_RelabelType:
+            ((RelabelType *) expr)->resultcollid = collation;
+            break;
+        case T_CoerceViaIO:
+            ((CoerceViaIO *) expr)->resultcollid = collation;
+            break;
+        case T_CoerceToDomain:
+            ((CoerceToDomain *) expr)->resultcollid = collation;
+            break;
+
+        // Boolean result types - assert no collation
+        case T_BoolExpr:
+        case T_NullTest:
+        case T_BooleanTest:
+            Assert(!OidIsValid(collation));
+            break;
+
+        // JSON expressions with recursive handling
+        case T_JsonValueExpr:
+            exprSetCollation((Node *) ((JsonValueExpr *) expr)->formatted_expr, collation);
+            break;
+        case T_JsonExpr:
+            ((JsonExpr *) expr)->collation = collation;
+            break;
+
+        // Additional expression types...
+        // [Other cases follow similar pattern]
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(expr));
+            break;
+    }
+}
+```

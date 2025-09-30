@@ -36,3 +36,32 @@ This approach is particularly efficient for large caches as it avoids the overhe
 - The LRU (Least Recently Used) list is reinitialized to empty state
 - Memory usage tracking is reset to zero since all cached data has been freed
 - Current tuple tracking pointers (last_tuple, entry) are reset to NULL to prevent dangling references
+
+## Simplified Source
+
+```c
+static void cache_purge_all(MemoizeState *mstate) {
+    uint64 evictions = 0;
+
+    // Count current entries for statistics
+    if (mstate->hashtable != NULL)
+        evictions = mstate->hashtable->members;
+
+    // Reset the entire memory context - this efficiently frees all cached data
+    MemoryContextReset(mstate->tableContext);
+
+    // Clear hash table pointer (will be recreated on next use)
+    mstate->hashtable = NULL;
+
+    // Reinitialize LRU list and reset tracking pointers
+    dlist_init(&mstate->lru_list);
+    mstate->last_tuple = NULL;
+    mstate->entry = NULL;
+
+    // Reset memory usage counter
+    mstate->mem_used = 0;
+
+    // Update eviction statistics
+    mstate->stats.cache_evictions += evictions;
+}
+```

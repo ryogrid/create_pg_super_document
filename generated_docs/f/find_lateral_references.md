@@ -42,3 +42,37 @@ The design choice to process only parent baserels (not their appendrel children)
 - Ignores appendrel otherrels in favor of processing their parent baserels for join planning efficiency
 - The hasLateralRTEs flag provides an important optimization to avoid unnecessary work
 - Located in src/backend/optimizer/plan/initsplan.c at lines 358-405
+
+## Simplified Source
+
+```c
+void find_lateral_references(PlannerInfo *root)
+{
+    Index rti;
+
+    // Early exit if query contains no LATERAL RTEs
+    if (!root->hasLateralRTEs)
+        return;
+
+    // Examine all baserels in the simple_rel_array
+    for (rti = 1; rti < root->simple_rel_array_size; rti++) {
+        RelOptInfo *brel = root->simple_rel_array[rti];
+
+        // Skip empty slots corresponding to non-baserel RTEs
+        if (brel == NULL)
+            continue;
+
+        Assert(brel->relid == rti);  // sanity check on array
+
+        // Only process base relations, ignore appendrel "other rels"
+        // This design choice is deliberate: we process parent baserels
+        // rather than their children because the parent's RTE contains
+        // all lateral references needed for join planning
+        if (brel->reloptkind != RELOPT_BASEREL)
+            continue;
+
+        // Extract lateral references for this base relation
+        extract_lateral_references(root, brel, rti);
+    }
+}
+```

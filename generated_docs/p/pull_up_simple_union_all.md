@@ -54,3 +54,44 @@ Unlike other pull-up operations, this function doesn't modify the jointree struc
 - LATERAL handling ensures that any potential lateral cross-references in leaf queries are properly marked for later validation
 - The inheritance flag () is the key marker that tells the planner this RTE represents an append relation
 - Unlike simple subquery pull-up, the jointree structure remains unchanged - only the RTE semantics change
+
+## Simplified Source
+
+```c
+static Node *
+pull_up_simple_union_all(PlannerInfo *root, Node *jtnode, RangeTblEntry *rte)
+{
+    int varno = ((RangeTblRef *) jtnode)->rtindex;
+    Query *subquery = rte->subquery;
+    int rtoffset = list_length(root->parse->rtable);
+    List *rtable;
+
+    // Make modifiable copy of subquery's range table
+    rtable = copyObject(subquery->rtable);
+
+    // Adjust variable sublevels (one level closer to parent)
+    IncrementVarSublevelsUp_rtable(rtable, -1, 1);
+
+    // Propagate LATERAL marker to all child RTEs if needed
+    if (rte->lateral) {
+        ListCell *rt;
+        foreach(rt, rtable) {
+            RangeTblEntry *child_rte = lfirst(rt);
+            child_rte->lateral = true;
+        }
+    }
+
+    // Merge child range tables with parent
+    CombineRangeTables(&root->parse->rtable, &root->parse->rteperminfos,
+                       rtable, subquery->rteperminfos);
+
+    // Process set operations tree to create AppendRelInfo nodes
+    pull_up_union_leaf_queries(subquery->setOperations, root, varno,
+                               subquery, rtoffset);
+
+    // Mark as append relation
+    rte->inh = true;
+
+    return jtnode;
+}
+```

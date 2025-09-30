@@ -35,3 +35,26 @@ This function performs a validation check to ensure that all expressions in a li
 - Returns false immediately upon finding the first non-coercible expression (short-circuit evaluation)
 - Part of PostgreSQL's type coercion validation system
 - Located in src/backend/parser/parse_coerce.c:1608-1627
+
+## Simplified Source
+
+```c
+bool
+verify_common_type(Oid common_type, List *exprs)
+{
+    ListCell *lc;
+
+    // Check if each expression can be coerced to the common type
+    foreach(lc, exprs)
+    {
+        Node *nexpr = (Node *) lfirst(lc);
+        Oid ntype = exprType(nexpr);
+
+        // Test implicit coercion possibility
+        if (!can_coerce_type(1, &ntype, &common_type, COERCION_IMPLICIT))
+            return false;
+    }
+
+    return true;
+}
+```

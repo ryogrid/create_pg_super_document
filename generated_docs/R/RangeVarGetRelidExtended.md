@@ -57,3 +57,95 @@ Key features include:
 - Special logic for temporary tables ensures they are found even when pg_temp is not first in search path
 - Flags RVR_NOWAIT and RVR_SKIP_LOCKED are mutually exclusive
 - The callback mechanism allows callers to perform permission checks before the relation is locked
+
+## Simplified Source
+
+```c
+Oid RangeVarGetRelidExtended(const RangeVar *relation, LOCKMODE lockmode,
+                            uint32 flags,
+                            RangeVarGetRelidCallback callback, void *callback_arg)
+{
+    uint64 inval_count;
+    Oid relId;
+    Oid oldRelId = InvalidOid;
+    bool retry = false;
+    bool missing_ok = (flags & RVR_MISSING_OK) != 0;
+
+    // Validate conflicting flags
+    Assert(!((flags & RVR_NOWAIT) && (flags & RVR_SKIP_LOCKED)));
+
+    // Reject cross-database references
+    if (relation->catalogname) {
+        if (strcmp(relation->catalogname, get_database_name(MyDatabaseId)) != 0)
+            ereport(ERROR, /* cross-database error */);
+    }
+
+    // Retry loop to handle concurrent DDL operations
+    for (;;) {
+        // Track invalidation messages for DDL detection
+        inval_count = SharedInvalidMessageCounter;
+
+        // Resolve relation name to OID based on persistence and schema
+        if (relation->relpersistence == RELPERSISTENCE_TEMP) {
+            // Handle temporary table lookup
+            if (relation->schemaname && namespaceId != myTempNamespace)
+                ereport(ERROR, /* temp table schema error */);
+            relId = get_relname_relid(relation->relname, myTempNamespace);
+        }
+        else if (relation->schemaname) {
+            // Schema-qualified lookup
+            Oid namespaceId = LookupExplicitNamespace(relation->schemaname, missing_ok);
+            relId = get_relname_relid(relation->relname, namespaceId);
+        }
+        else {
+            // Search namespace path
+            relId = RelnameGetRelid(relation->relname);
+        }
+
+        // Invoke permission/validation callback
+        if (callback)
+            callback(relation, relId, oldRelId, callback_arg);
+
+        // Skip locking if NoLock requested
+        if (lockmode == NoLock)
+            break;
+
+        // Handle retry logic - same OID means we're done
+        if (retry && relId == oldRelId)
+            break;
+
+        // Release old lock if OID changed
+        if (retry && OidIsValid(oldRelId))
+            UnlockRelationOid(oldRelId, lockmode);
+
+        // Lock the relation (or accept invalidations if not found)
+        if (!OidIsValid(relId)) {
+            AcceptInvalidationMessages();
+        }
+        else if (!(flags & (RVR_NOWAIT | RVR_SKIP_LOCKED))) {
+            LockRelationOid(relId, lockmode);
+        }
+        else if (!ConditionalLockRelationOid(relId, lockmode)) {
+            // Handle lock failure based on flags
+            int elevel = (flags & RVR_SKIP_LOCKED) ? DEBUG1 : ERROR;
+            ereport(elevel, /* lock not available error */);
+            return InvalidOid;
+        }
+
+        // If no invalidations occurred, we're done
+        if (inval_count == SharedInvalidMessageCounter)
+            break;
+
+        // Prepare for retry
+        retry = true;
+        oldRelId = relId;
+    }
+
+    // Handle relation not found case
+    if (!OidIsValid(relId) && !missing_ok) {
+        ereport(ERROR, /* relation does not exist error */);
+    }
+
+    return relId;
+}
+```

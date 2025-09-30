@@ -36,3 +36,14 @@ The JsonPath structure represents a compiled JSON path expression used for query
 - For cases where a modifiable copy is needed, use DatumGetJsonPathPCopy instead
 - The PG_GETARG_JSONPATH_P macro is the typical way this function is used in PostgreSQL function implementations
 - This function is part of PostgreSQL's JSON path functionality introduced for SQL/JSON standard compliance
+
+## Simplified Source
+
+```c
+static inline JsonPath *
+DatumGetJsonPathP(Datum d)
+{
+    // Convert Datum to JsonPath pointer, detoasting if necessary
+    return (JsonPath *) PG_DETOAST_DATUM(d);
+}
+```

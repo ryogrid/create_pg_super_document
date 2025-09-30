@@ -46,3 +46,29 @@ The function performs important normalization by ensuring variable-length (varle
 - Used extensively throughout the system for representing literal values in expressions
 - The detoasting behavior ensures that equal constants have identical internal representation
 - Located in src/backend/nodes/makefuncs.c:348-385
+
+## Simplified Source
+
+```c
+Const *makeConst(Oid consttype, int32 consttypmod, Oid constcollid, int constlen,
+                 Datum constvalue, bool constisnull, bool constbyval) {
+    // Create new Const node
+    Const *cnst = makeNode(Const);
+
+    // Normalize variable-length values to non-toasted format for consistency
+    if (!constisnull && constlen == -1)
+        constvalue = PointerGetDatum(PG_DETOAST_DATUM(constvalue));
+
+    // Initialize all fields with provided values
+    cnst->consttype = consttype;
+    cnst->consttypmod = consttypmod;
+    cnst->constcollid = constcollid;
+    cnst->constlen = constlen;
+    cnst->constvalue = constvalue;
+    cnst->constisnull = constisnull;
+    cnst->constbyval = constbyval;
+    cnst->location = -1;  // Unknown source location
+
+    return cnst;
+}
+```

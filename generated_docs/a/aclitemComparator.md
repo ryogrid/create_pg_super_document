@@ -35,3 +35,33 @@ The comparison follows a lexicographic ordering where:
 - Returns standard qsort comparison values: -1 (less than), 0 (equal), 1 (greater than)
 - The ordering is designed to group ACL entries by grantee first, making privilege lookups more efficient
 - Uses simple integer comparison since ai_grantee, ai_grantor, and ai_privs are all numeric types (Oid and AclMode respectively)
+
+## Simplified Source
+
+```c
+static int aclitemComparator(const void *arg1, const void *arg2) {
+    const AclItem *a1 = (const AclItem *) arg1;
+    const AclItem *a2 = (const AclItem *) arg2;
+
+    // Compare by grantee (primary sort key)
+    if (a1->ai_grantee > a2->ai_grantee)
+        return 1;
+    if (a1->ai_grantee < a2->ai_grantee)
+        return -1;
+
+    // Compare by grantor (secondary sort key)
+    if (a1->ai_grantor > a2->ai_grantor)
+        return 1;
+    if (a1->ai_grantor < a2->ai_grantor)
+        return -1;
+
+    // Compare by privileges (tertiary sort key)
+    if (a1->ai_privs > a2->ai_privs)
+        return 1;
+    if (a1->ai_privs < a2->ai_privs)
+        return -1;
+
+    // Equal
+    return 0;
+}
+```

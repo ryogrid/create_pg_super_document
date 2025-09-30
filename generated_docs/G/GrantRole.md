@@ -47,3 +47,89 @@ The function supports flexible role membership management with granular control 
 - Uses AccessShareLock on pg_authid since it doesn't directly modify that catalog (modifications go through pg_auth_members)
 - Validates that column specifications are not used with role grants (invalid syntax)
 - Role membership changes are committed atomically as part of the surrounding transaction
+
+## Simplified Source
+
+```c
+void GrantRole(ParseState *pstate, GrantRoleStmt *stmt)
+{
+    Relation pg_authid_rel;
+    Oid grantor;
+    List *grantee_ids;
+    ListCell *item;
+    GrantRoleOptions popt;
+    Oid currentUserId = GetUserId();
+
+    // Parse grant role options (admin, inherit, set)
+    InitGrantRoleOptions(&popt);
+    foreach(item, stmt->opt)
+    {
+        DefElem *opt = (DefElem *) lfirst(item);
+        char *optval = defGetString(opt);
+
+        if (strcmp(opt->defname, "admin") == 0)
+        {
+            popt.specified |= GRANT_ROLE_SPECIFIED_ADMIN;
+            if (!parse_bool(optval, &popt.admin))
+                ereport(ERROR, /* invalid admin option value */);
+        }
+        else if (strcmp(opt->defname, "inherit") == 0)
+        {
+            popt.specified |= GRANT_ROLE_SPECIFIED_INHERIT;
+            if (!parse_bool(optval, &popt.inherit))
+                ereport(ERROR, /* invalid inherit option value */);
+        }
+        else if (strcmp(opt->defname, "set") == 0)
+        {
+            popt.specified |= GRANT_ROLE_SPECIFIED_SET;
+            if (!parse_bool(optval, &popt.set))
+                ereport(ERROR, /* invalid set option value */);
+        }
+        else
+            ereport(ERROR, /* unrecognized role option */);
+    }
+
+    // Resolve grantor role (if specified)
+    if (stmt->grantor)
+        grantor = get_rolespec_oid(stmt->grantor, false);
+    else
+        grantor = InvalidOid;
+
+    // Convert grantee role specifications to OIDs
+    grantee_ids = roleSpecsToIds(stmt->grantee_roles);
+
+    // Open pg_authid with shared lock (we modify pg_auth_members, not pg_authid)
+    pg_authid_rel = table_open(AuthIdRelationId, AccessShareLock);
+
+    // Process each granted role
+    foreach(item, stmt->granted_roles)
+    {
+        AccessPriv *priv = (AccessPriv *) lfirst(item);
+        char *rolename = priv->priv_name;
+        Oid roleid;
+
+        // Validate syntax (no column specifications allowed)
+        if (rolename == NULL || priv->cols != NIL)
+            ereport(ERROR, /* column names cannot be included in GRANT/REVOKE ROLE */);
+
+        // Resolve role name to OID
+        roleid = get_role_oid(rolename, false);
+
+        // Check authorization to grant/revoke this role
+        check_role_membership_authorization(currentUserId, roleid, stmt->is_grant);
+
+        // Perform the grant or revoke operation
+        if (stmt->is_grant)
+            AddRoleMems(currentUserId, rolename, roleid,
+                       stmt->grantee_roles, grantee_ids,
+                       grantor, &popt);
+        else
+            DelRoleMems(currentUserId, rolename, roleid,
+                       stmt->grantee_roles, grantee_ids,
+                       grantor, &popt, stmt->behavior);
+    }
+
+    // Close pg_authid (keep lock until commit)
+    table_close(pg_authid_rel, NoLock);
+}
+```

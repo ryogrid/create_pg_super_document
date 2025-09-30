@@ -41,3 +41,27 @@ This function is essential for query planning as it provides the collation infor
 - Works in conjunction with extract_grouping_ops and extract_grouping_cols to provide complete grouping information
 - Essential for proper handling of collation-sensitive grouping operations
 - Located in src/backend/optimizer/util/tlist.c:489-513
+
+## Simplified Source
+
+```c
+Oid *
+extract_grouping_collations(List *groupClause, List *tlist)
+{
+    int numCols = list_length(groupClause);
+    Oid *grpCollations = (Oid *) palloc(sizeof(Oid) * numCols);
+    int colno = 0;
+
+    // Extract collation from each grouping column
+    foreach(glitem, groupClause)
+    {
+        SortGroupClause *groupcl = (SortGroupClause *) lfirst(glitem);
+        TargetEntry *tle = get_sortgroupclause_tle(groupcl, tlist);
+
+        // Get collation from the target entry's expression
+        grpCollations[colno++] = exprCollation((Node *) tle->expr);
+    }
+
+    return grpCollations;
+}
+```

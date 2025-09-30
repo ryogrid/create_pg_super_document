@@ -32,3 +32,14 @@ error_duplicate_filter_variable is a simple static helper function that provides
 - Part of the input validation infrastructure for event trigger creation
 - The function does not return as ereport(ERROR, ...) throws an exception that unwinds the call stack
 - Helps users identify and fix syntax errors in their CREATE EVENT TRIGGER statements
+
+## Simplified Source
+
+```c
+static void error_duplicate_filter_variable(const char *defname) {
+    // Report error for duplicate filter variable
+    ereport(ERROR,
+        (errcode(ERRCODE_SYNTAX_ERROR),
+         errmsg("filter variable \"%s\" specified more than once", defname)));
+}
+```

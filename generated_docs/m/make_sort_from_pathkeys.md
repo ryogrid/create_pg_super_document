@@ -38,3 +38,29 @@ This function simplifies the process of creating sorts in cases where the caller
 - Commonly used when creating sorts for merge joins and explicit sort operations
 - Part of the higher-level plan creation interface that abstracts away sort array management
 - Located at src/backend/optimizer/plan/createplan.c:6347-6381
+
+## Simplified Source
+
+```c
+static Sort *
+make_sort_from_pathkeys(Plan *lefttree, List *pathkeys, Relids relids)
+{
+    int numsortkeys;
+    AttrNumber *sortColIdx;
+    Oid *sortOperators;
+    Oid *collations;
+    bool *nullsFirst;
+
+    // Convert pathkeys to sort specification arrays and adjust input plan if needed
+    lefttree = prepare_sort_from_pathkeys(lefttree, pathkeys, relids,
+                                          NULL, false,
+                                          &numsortkeys, &sortColIdx,
+                                          &sortOperators, &collations,
+                                          &nullsFirst);
+
+    // Create and return the Sort node
+    return make_sort(lefttree, numsortkeys,
+                     sortColIdx, sortOperators,
+                     collations, nullsFirst);
+}
+```

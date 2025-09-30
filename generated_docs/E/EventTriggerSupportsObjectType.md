@@ -38,3 +38,26 @@ The function serves as a gatekeeper in the event trigger system, ensuring that e
 - Referenced in the PostgreSQL documentation's event trigger support matrix
 - Used extensively in utility command processing to determine when to fire event triggers
 - The function's logic aligns with PostgreSQL's architecture where event triggers are database-scoped rather than cluster-scoped
+
+## Simplified Source
+
+```c
+bool EventTriggerSupportsObjectType(ObjectType obtype) {
+    switch (obtype) {
+        // Global objects - no event trigger support
+        case OBJECT_DATABASE:
+        case OBJECT_TABLESPACE:
+        case OBJECT_ROLE:
+        case OBJECT_PARAMETER_ACL:
+            return false;
+
+        // Event triggers on event triggers - not allowed
+        case OBJECT_EVENT_TRIGGER:
+            return false;
+
+        // All other object types support event triggers
+        default:
+            return true;
+    }
+}
+```

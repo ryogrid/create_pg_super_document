@@ -34,3 +34,23 @@ This static function initializes the IndexAmRoutine structure for an index relat
 - Memory allocation is done in the relation's index context to ensure proper lifecycle management
 - The temporary IndexAmRoutine obtained from GetIndexAmRoutine is freed after copying to prevent leaks
 - Part of PostgreSQL's relation cache infrastructure for index access method management
+
+## Simplified Source
+
+```c
+static void InitIndexAmRoutine(Relation relation) {
+    // Get IndexAmRoutine from access method handler
+    IndexAmRoutine *tmp = GetIndexAmRoutine(relation->rd_amhandler);
+
+    // Allocate memory in relation's index context
+    IndexAmRoutine *cached = (IndexAmRoutine *) MemoryContextAlloc(relation->rd_indexcxt,
+                                                                   sizeof(IndexAmRoutine));
+
+    // Copy routine information to cached location
+    memcpy(cached, tmp, sizeof(IndexAmRoutine));
+    relation->rd_indam = cached;
+
+    // Clean up temporary allocation
+    pfree(tmp);
+}
+```

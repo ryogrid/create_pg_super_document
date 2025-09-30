@@ -38,3 +38,39 @@ The algorithm uses int64 arithmetic for intermediate calculations, then validate
 - Negative dimension values indicate previous UB-LB overflow and trigger errors
 - Core safety function for preventing array size overflow vulnerabilities
 - Designed to work on platforms with int64 arithmetic support
+
+## Simplified Source
+
+```c
+int ArrayGetNItemsSafe(int ndim, const int *dims, struct Node *escontext) {
+    int32 result = 1;
+
+    // Empty array has 0 items
+    if (ndim <= 0)
+        return 0;
+
+    // Multiply all dimensions together with overflow checking
+    for (int i = 0; i < ndim; i++) {
+        // Negative dimension indicates previous overflow
+        if (dims[i] < 0) {
+            ereturn(escontext, -1, "array size exceeds maximum allowed");
+        }
+
+        // Use 64-bit arithmetic to detect overflow
+        int64 product = (int64) result * (int64) dims[i];
+        result = (int32) product;
+
+        // Check if the multiplication overflowed
+        if ((int64) result != product) {
+            ereturn(escontext, -1, "array size exceeds maximum allowed");
+        }
+    }
+
+    // Final check against PostgreSQL's maximum array size
+    if ((Size) result > MaxArraySize) {
+        ereturn(escontext, -1, "array size exceeds maximum allowed");
+    }
+
+    return result;
+}
+```

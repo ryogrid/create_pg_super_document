@@ -51,3 +51,42 @@ The function returns true if state was successfully created, false if no setup w
 - The commandCollectionInhibited flag is inherited from previous state if it exists
 - Only initializes state when sql_drop, table_rewrite, or ddl_command_end events are relevant
 - Critical for proper event trigger functionality in DDL operations
+
+## Simplified Source
+
+```c
+bool
+EventTriggerBeginCompleteQuery(void)
+{
+    EventTriggerQueryState *state;
+    MemoryContext cxt;
+
+    // Only create state if event triggers need it
+    if (!trackDroppedObjectsNeeded())
+        return false;
+
+    // Create dedicated memory context for event trigger state
+    cxt = AllocSetContextCreate(TopMemoryContext,
+                               "event trigger state",
+                               ALLOCSET_DEFAULT_SIZES);
+
+    // Allocate and initialize state structure
+    state = MemoryContextAlloc(cxt, sizeof(EventTriggerQueryState));
+    state->cxt = cxt;
+    slist_init(&(state->SQLDropList));
+    state->in_sql_drop = false;
+    state->table_rewrite_oid = InvalidOid;
+
+    // Initialize command collection fields
+    state->commandCollectionInhibited = currentEventTriggerState ?
+        currentEventTriggerState->commandCollectionInhibited : false;
+    state->currentCommand = NULL;
+    state->commandList = NIL;
+
+    // Link to previous state (stack behavior) and set as current
+    state->previous = currentEventTriggerState;
+    currentEventTriggerState = state;
+
+    return true;
+}
+```

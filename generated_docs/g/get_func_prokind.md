@@ -45,3 +45,24 @@ This information is essential for distinguishing between different types of call
 - Procedures (PROKIND_PROCEDURE) can be called with CALL statements but not in expressions
 - Functions can be called in expressions, while procedures require different handling
 - Located in src/backend/utils/cache/lsyscache.c:1818-1836
+
+## Simplified Source
+
+```c
+char
+get_func_prokind(Oid funcid)
+{
+    HeapTuple tp;
+    char result;
+
+    // Look up function in system cache
+    tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract prokind field from pg_proc tuple
+    result = ((Form_pg_proc) GETSTRUCT(tp))->prokind;
+    ReleaseSysCache(tp);
+    return result;
+}
+```

@@ -33,3 +33,27 @@ This function implements parameter name resolution for SQL functions by searchin
 - Uses 1-based parameter numbering when calling sql_fn_make_param (i + 1)
 - Performs simple string comparison to match parameter names
 - Part of the SQL function parsing hook infrastructure for resolving parameter references
+
+## Simplified Source
+
+```c
+static Node *sql_fn_resolve_param_name(SQLFunctionParseInfoPtr pinfo,
+                                       const char *paramname, int location) {
+    int i;
+
+    // Return NULL if no argument names are available
+    if (pinfo->argnames == NULL)
+        return NULL;
+
+    // Search through all function arguments for matching name
+    for (i = 0; i < pinfo->nargs; i++) {
+        if (pinfo->argnames[i] && strcmp(pinfo->argnames[i], paramname) == 0) {
+            // Found matching parameter, create Param node (convert to 1-based)
+            return sql_fn_make_param(pinfo, i + 1, location);
+        }
+    }
+
+    // No matching parameter found
+    return NULL;
+}
+```

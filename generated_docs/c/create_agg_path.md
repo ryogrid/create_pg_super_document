@@ -61,3 +61,60 @@ The function sets up pathkey handling based on the aggregation strategy - preser
 - Target list evaluation costs are added separately from the core aggregation costs
 - The aggsplit parameter enables parallel aggregation by splitting aggregate computation across workers
 - Handles both simple aggregation (COUNT(*), SUM()) and complex GROUP BY operations
+
+## Simplified Source
+
+```c
+AggPath *
+create_agg_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                PathTarget *target, AggStrategy aggstrategy, AggSplit aggsplit,
+                List *groupClause, List *qual, const AggClauseCosts *aggcosts,
+                double numGroups)
+{
+    // Create new aggregation path node
+    AggPath *pathnode = makeNode(AggPath);
+
+    // Set basic path properties
+    pathnode->path.pathtype = T_Agg;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;  // Above joins, no parameterization
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+
+    // Handle ordering based on aggregation strategy
+    if (aggstrategy == AGG_SORTED) {
+        // Preserve input order, but strip aggregate function internal pathkeys
+        if (list_length(subpath->pathkeys) > root->num_groupby_pathkeys)
+            pathnode->path.pathkeys = list_copy_head(subpath->pathkeys,
+                                                    root->num_groupby_pathkeys);
+        else
+            pathnode->path.pathkeys = subpath->pathkeys;
+    } else {
+        pathnode->path.pathkeys = NIL;  // Hashed aggregation produces unordered output
+    }
+
+    // Set aggregation-specific properties
+    pathnode->subpath = subpath;
+    pathnode->aggstrategy = aggstrategy;
+    pathnode->aggsplit = aggsplit;
+    pathnode->numGroups = numGroups;
+    pathnode->transitionSpace = aggcosts ? aggcosts->transitionSpace : 0;
+    pathnode->groupClause = groupClause;
+    pathnode->qual = qual;
+
+    // Calculate costs for the aggregation operation
+    cost_agg(&pathnode->path, root, aggstrategy, aggcosts,
+             list_length(groupClause), numGroups, qual,
+             subpath->startup_cost, subpath->total_cost,
+             subpath->rows, subpath->pathtarget->width);
+
+    // Add target list evaluation costs
+    pathnode->path.startup_cost += target->cost.startup;
+    pathnode->path.total_cost += target->cost.startup +
+        target->cost.per_tuple * pathnode->path.rows;
+
+    return pathnode;
+}
+```

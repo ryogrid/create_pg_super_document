@@ -42,3 +42,32 @@ The actual portal cleanup and resource deallocation is handled by PortalDrop, wh
 - The function reports appropriate errors for invalid or non-existent cursors
 - The second parameter to PortalDrop (false) indicates this is not an error case cleanup
 - This function is the primary interface for implementing SQL CLOSE commands
+
+## Simplified Source
+
+```c
+void PerformPortalClose(const char *name) {
+    Portal portal;
+
+    // NULL name means CLOSE ALL cursors
+    if (name == NULL) {
+        PortalHashTableDeleteAll();
+        return;
+    }
+
+    // Validate cursor name - must not be empty
+    if (name[0] == '\0') {
+        ereport(ERROR, "invalid cursor name: must not be empty");
+    }
+
+    // Find the portal by name
+    portal = GetPortalByName(name);
+    if (!PortalIsValid(portal)) {
+        ereport(ERROR, "cursor \"%s\" does not exist", name);
+        return;
+    }
+
+    // Drop the portal (PortalCleanup called automatically)
+    PortalDrop(portal, false);
+}
+```

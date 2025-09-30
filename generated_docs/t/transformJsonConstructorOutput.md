@@ -46,3 +46,46 @@ This approach ensures that JSONB "stickiness" is preserved - if any input to a J
 - The type inference scans arguments until a JSONB type is found, optimizing for the common case
 - Sets typmod to -1 (no type modifier) for inferred types
 - Part of PostgreSQL's comprehensive JSON constructor function support
+
+## Simplified Source
+
+```c
+static JsonReturning *
+transformJsonConstructorOutput(ParseState *pstate, JsonOutput *output,
+                              List *args) {
+    JsonReturning *returning = transformJsonOutput(pstate, output, true);
+
+    // If no explicit return type specified, infer from arguments
+    if (!OidIsValid(returning->typid)) {
+        ListCell *lc;
+        bool have_jsonb = false;
+
+        // Look for any JSONB arguments
+        foreach(lc, args) {
+            Node *expr = lfirst(lc);
+            Oid typid = exprType(expr);
+
+            have_jsonb |= (typid == JSONBOID);
+
+            if (have_jsonb) {
+                break;  // Found JSONB, no need to continue
+            }
+        }
+
+        // Set return type based on argument analysis
+        if (have_jsonb) {
+            // JSONB "stickiness" - any JSONB input yields JSONB output
+            returning->typid = JSONBOID;
+            returning->format->format_type = JS_FORMAT_JSONB;
+        } else {
+            // Default to JSON (PostgreSQL extension, standard specifies TEXT)
+            returning->typid = JSONOID;
+            returning->format->format_type = JS_FORMAT_JSON;
+        }
+
+        returning->typmod = -1;  // No type modifier
+    }
+
+    return returning;
+}
+```

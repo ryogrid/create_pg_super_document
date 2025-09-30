@@ -32,3 +32,20 @@ The function maintains the same semantics as its underlying function: duplicate 
 - The function assumes that the items list contains only split_pathtarget_item pointers
 - All the safety guarantees and behavior of add_sp_item_to_pathtarget apply to each item processed by this function
 - The function processes items in the order they appear in the list
+
+## Simplified Source
+
+```c
+static void
+add_sp_items_to_pathtarget(PathTarget *target, List *items)
+{
+    ListCell *lc;
+
+    // Apply add_sp_item_to_pathtarget to each element
+    foreach(lc, items)
+    {
+        split_pathtarget_item *item = lfirst(lc);
+        add_sp_item_to_pathtarget(target, item);
+    }
+}
+```

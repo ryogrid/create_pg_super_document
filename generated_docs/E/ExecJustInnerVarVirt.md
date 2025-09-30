@@ -34,3 +34,14 @@ The function delegates the actual work to ExecJustVarVirtImpl, passing the inner
 - Part of PostgreSQL's "just-in-time" expression evaluation system that provides specialized handlers for different tuple slot types
 - Works in conjunction with join execution nodes that maintain inner and outer tuple contexts
 - The "Virt" suffix indicates this is the virtual slot optimized version, contrasting with the general ExecJustInnerVar function
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustInnerVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Extract variable value from inner tuple using virtual slot optimization
+    return ExecJustVarVirtImpl(state, econtext->ecxt_innertuple, isnull);
+}
+```

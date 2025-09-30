@@ -53,3 +53,38 @@ The transformation process involves several steps:
 - Error messages are translatable and provide specific location information for debugging
 - The result type adjustment is crucial because NULLIF semantically returns the first argument's type, not boolean
 - Located in src/backend/parser/parse_expr.c:1083-1125
+
+## Simplified Source
+
+```c
+static Node *
+transformAExprNullIf(ParseState *pstate, A_Expr *a)
+{
+    // Transform both operands recursively
+    Node *lexpr = transformExprRecurse(pstate, a->lexpr);
+    Node *rexpr = transformExprRecurse(pstate, a->rexpr);
+
+    // Create equality comparison operator
+    OpExpr *result = (OpExpr *) make_op(pstate, a->name, lexpr, rexpr,
+                                        pstate->p_last_srf, a->location);
+
+    // Validate operator requirements for NULLIF
+    if (result->opresulttype != BOOLOID)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                        errmsg("NULLIF requires = operator to yield boolean"),
+                        parser_errposition(pstate, a->location)));
+
+    if (result->opretset)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                        errmsg("NULLIF must not return a set"),
+                        parser_errposition(pstate, a->location)));
+
+    // Set result type to first operand's type (not boolean)
+    result->opresulttype = exprType((Node *) linitial(result->args));
+
+    // Convert OpExpr to NullIfExpr (same structure, different tag)
+    NodeSetTag(result, T_NullIfExpr);
+
+    return (Node *) result;
+}
+```

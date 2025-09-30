@@ -43,3 +43,42 @@ The sift-up process compares the new block number with its parent nodes, moving 
 - When memory limits are reached, blocks are intentionally leaked rather than causing allocation failures
 - The `forgetFreeSpace` flag allows disabling free space tracking for memory-constrained scenarios
 - Works in conjunction with `ltsGetFreeBlock` to provide efficient block recycling in the logical tape system
+
+## Simplified Source
+
+```c
+static void ltsReleaseBlock(LogicalTapeSet *lts, int64 blocknum) {
+    // Skip if free space tracking is disabled
+    if (lts->forgetFreeSpace)
+        return;
+
+    // Expand free blocks array if needed
+    if (lts->nFreeBlocks >= lts->freeBlocksLen) {
+        // Prevent excessive memory usage by leaking this block
+        if (lts->freeBlocksLen * 2 * sizeof(int64) > MaxAllocSize)
+            return;
+
+        // Double the array size
+        lts->freeBlocksLen *= 2;
+        lts->freeBlocks = (int64 *) repalloc(lts->freeBlocks,
+                                           lts->freeBlocksLen * sizeof(int64));
+    }
+
+    // Insert new block into min-heap using sift-up
+    int64 *heap = lts->freeBlocks;
+    uint64 holepos = lts->nFreeBlocks;
+    lts->nFreeBlocks++;
+
+    // Bubble up until heap property is satisfied
+    while (holepos != 0) {
+        uint64 parent = parent_offset(holepos);
+
+        if (heap[parent] < blocknum)
+            break;
+
+        heap[holepos] = heap[parent];
+        holepos = parent;
+    }
+    heap[holepos] = blocknum;
+}
+```

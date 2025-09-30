@@ -33,3 +33,16 @@ Async_Listen is the entry point function for the SQL LISTEN command. It provides
 - Part of PostgreSQL's asynchronous notification system
 - Simple wrapper that delegates to queue_listen with LISTEN_LISTEN action
 - Public interface function declared in async.h header
+
+## Simplified Source
+
+```c
+void Async_Listen(const char *channel) {
+    // Optional debug logging
+    if (Trace_notify)
+        elog(DEBUG1, "Async_Listen(%s,%d)", channel, MyProcPid);
+
+    // Queue the listen operation for transaction commit
+    queue_listen(LISTEN_LISTEN, channel);
+}
+```

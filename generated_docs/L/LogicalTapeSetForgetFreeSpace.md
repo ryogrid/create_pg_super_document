@@ -34,3 +34,12 @@ The decision to forget free space is typically made during the transition from t
 - The flag is permanent for the lifetime of the LogicalTapeSet - there's no way to re-enable free space tracking
 - Commonly used during the merge phase of external sorting algorithms
 - Simple function with no error conditions or complex logic
+
+## Simplified Source
+
+```c
+void LogicalTapeSetForgetFreeSpace(LogicalTapeSet *lts) {
+    // Disable free space tracking for performance optimization
+    lts->forgetFreeSpace = true;
+}
+```

@@ -40,3 +40,43 @@ The function is designed to be lightweight and efficient, making it suitable for
 - Always returns a positive width value (validated by assertions)
 - Provides a uniform interface for width estimation across different expression types
 - Essential building block for PostgreSQL's cost estimation and query optimization infrastructure
+
+## Simplified Source
+
+```c
+static int32 get_expr_width(PlannerInfo *root, const Node *expr) {
+    int32 width;
+
+    // If expression is a Var (column reference)
+    if (IsA(expr, Var)) {
+        const Var *var = (const Var *) expr;
+
+        // Try to get cached width from RelOptInfo
+        if (!IS_SPECIAL_VARNO(var->varno) &&
+            var->varno < root->simple_rel_array_size) {
+
+            RelOptInfo *rel = root->simple_rel_array[var->varno];
+
+            // Check if we have cached width data for this attribute
+            if (rel != NULL &&
+                var->varattno >= rel->min_attr &&
+                var->varattno <= rel->max_attr) {
+
+                int ndx = var->varattno - rel->min_attr;
+
+                // Return cached width if available
+                if (rel->attr_widths[ndx] > 0)
+                    return rel->attr_widths[ndx];
+            }
+        }
+
+        // No cached data - use type-based estimate
+        width = get_typavgwidth(var->vartype, var->vartypmod);
+        return width;
+    }
+
+    // For non-Var expressions, use type-based estimate
+    width = get_typavgwidth(exprType(expr), exprTypmod(expr));
+    return width;
+}
+```

@@ -41,3 +41,24 @@ The `tablespace_reloptions` function is a specialized option parser for PostgreS
 - These options allow per-tablespace tuning, enabling mixed storage environments where different tablespaces can have different performance characteristics
 - The cost parameters directly influence the PostgreSQL cost-based optimizer's decisions about index usage, join methods, and scan types
 - Proper tuning of these parameters can significantly improve performance, especially in environments with mixed storage technologies
+
+## Simplified Source
+
+```c
+bytea *tablespace_reloptions(Datum reloptions, bool validate)
+{
+    // Define the options supported for tablespaces
+    static const relopt_parse_elt tab[] = {
+        {"random_page_cost", RELOPT_TYPE_REAL, offsetof(TableSpaceOpts, random_page_cost)},
+        {"seq_page_cost", RELOPT_TYPE_REAL, offsetof(TableSpaceOpts, seq_page_cost)},
+        {"effective_io_concurrency", RELOPT_TYPE_INT, offsetof(TableSpaceOpts, effective_io_concurrency)},
+        {"maintenance_io_concurrency", RELOPT_TYPE_INT, offsetof(TableSpaceOpts, maintenance_io_concurrency)}
+    };
+
+    // Use standard reloptions parser for tablespace kind
+    return (bytea *) build_reloptions(reloptions, validate,
+                                     RELOPT_KIND_TABLESPACE,
+                                     sizeof(TableSpaceOpts),
+                                     tab, lengthof(tab));
+}
+```

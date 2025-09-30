@@ -31,3 +31,33 @@ This function determines if two bitmap sets have any bits in common by performin
 
 ## Notes and Other Information
 This function is extensively used throughout PostgreSQL's query optimizer and execution engine to test for conflicts, dependencies, and relationships between sets of identifiers. Common use cases include checking if two relations share attributes, if join conditions affect overlapping column sets, if outer join conditions conflict with other constraints, and if parameter dependencies exist between different parts of a query plan. The function's efficiency is crucial since it's called frequently during query planning and execution, particularly in complex join scenarios and partitioned table operations.
+
+## Simplified Source
+
+```c
+bool
+bms_overlap(const Bitmapset *a, const Bitmapset *b)
+{
+    int shortlen;
+    int i;
+
+    Assert(bms_is_valid_set(a));
+    Assert(bms_is_valid_set(b));
+
+    // Handle NULL inputs - treat as empty sets (no overlap possible)
+    if (a == NULL || b == NULL)
+        return false;
+
+    // Only check words that exist in both sets
+    shortlen = Min(a->nwords, b->nwords);
+    i = 0;
+    do
+    {
+        // Check if any bits are common between corresponding words
+        if ((a->words[i] & b->words[i]) != 0)
+            return true;  // Found overlap - return immediately
+    } while (++i < shortlen);
+
+    return false;  // No overlap found
+}
+```

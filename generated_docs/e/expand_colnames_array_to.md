@@ -36,3 +36,23 @@ The function uses PostgreSQL's memory management functions (palloc0_array and re
 - Uses PostgreSQL's context-aware memory allocation, ensuring proper cleanup
 - Part of the larger rule decompilation subsystem that converts internal PostgreSQL structures back to SQL text
 - The function maintains the invariant that colinfo->num_cols accurately reflects the size of the colnames array
+
+## Simplified Source
+
+```c
+static void expand_colnames_array_to(deparse_columns *colinfo, int n) {
+    // Only expand if we need more slots than currently available
+    if (n > colinfo->num_cols) {
+        if (colinfo->colnames == NULL) {
+            // First-time allocation
+            colinfo->colnames = palloc0_array(char *, n);
+        } else {
+            // Expand existing array
+            colinfo->colnames = repalloc0_array(colinfo->colnames, char *,
+                                               colinfo->num_cols, n);
+        }
+        // Update size to reflect new capacity
+        colinfo->num_cols = n;
+    }
+}
+```

@@ -35,3 +35,22 @@ The function intentionally does not monitor updates to pg_amop or pg_amproc cata
 - The function assumes TypeCacheHash exists when called, as the callback wouldn't be registered otherwise
 - The design prioritizes simplicity over optimization due to the rarity of pg_opclass updates
 - Part of PostgreSQL's type cache invalidation mechanism for maintaining data consistency
+
+## Simplified Source
+
+```c
+static void
+TypeCacheOpcCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    HASH_SEQ_STATUS status;
+    TypeCacheEntry *typentry;
+
+    // Scan through all type cache entries
+    hash_seq_init(&status, TypeCacheHash);
+    while ((typentry = (TypeCacheEntry *) hash_seq_search(&status)) != NULL)
+    {
+        // Reset equality/comparison/hashing validity information
+        typentry->flags &= ~TCFLAGS_OPERATOR_FLAGS;
+    }
+}
+```

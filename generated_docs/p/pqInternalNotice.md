@@ -51,3 +51,45 @@ The function creates a temporary PGresult with PGRES_NONFATAL_ERROR status to en
 - Messages are automatically internationalized using libpq_gettext()
 - The function is designed for internal libpq use and creates notices that follow the same structure as server-generated notices
 - The primary message should not include trailing newlines and should be single-line text
+
+## Simplified Source
+
+```c
+void pqInternalNotice(const PGNoticeHooks *hooks, const char *fmt, ...) {
+    char msgBuf[1024];
+    va_list args;
+    PGresult *res;
+
+    // Early return if no notice receiver is registered
+    if (hooks->noticeRec == NULL)
+        return;
+
+    // Format the message with internationalization
+    va_start(args, fmt);
+    vsnprintf(msgBuf, sizeof(msgBuf), libpq_gettext(fmt), args);
+    va_end(args);
+    msgBuf[sizeof(msgBuf) - 1] = '\0';  // Ensure null termination
+
+    // Create a PGresult to hold the notice
+    res = PQmakeEmptyPGresult(NULL, PGRES_NONFATAL_ERROR);
+    if (!res)
+        return;
+    res->noticeHooks = *hooks;
+
+    // Set up notice fields
+    pqSaveMessageField(res, PG_DIAG_MESSAGE_PRIMARY, msgBuf);
+    pqSaveMessageField(res, PG_DIAG_SEVERITY, libpq_gettext("NOTICE"));
+    pqSaveMessageField(res, PG_DIAG_SEVERITY_NONLOCALIZED, "NOTICE");
+
+    // Create result text (primary message + newline)
+    res->errMsg = (char *) pqResultAlloc(res, strlen(msgBuf) + 2, false);
+    if (res->errMsg)
+        sprintf(res->errMsg, "%s\n", msgBuf);
+    else
+        res->errMsg = libpq_gettext("out of memory\n");
+
+    // Send notice to receiver and clean up
+    res->noticeHooks.noticeRec(res->noticeHooks.noticeRecArg, res);
+    PQclear(res);
+}
+```

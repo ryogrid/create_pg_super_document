@@ -37,3 +37,27 @@ This copying mechanism is essential for maintaining separate constraint states a
 - The memcpy operation efficiently copies the entire trigstates array in one operation
 - Essential for maintaining constraint state isolation across different execution contexts
 - The copied state is allocated in TopTransactionContext like the original
+
+## Simplified Source
+
+```c
+static SetConstraintState
+SetConstraintStateCopy(SetConstraintState origstate)
+{
+    SetConstraintState state;
+
+    // Create new state with same capacity
+    state = SetConstraintStateCreate(origstate->numstates);
+
+    // Copy global constraint flags
+    state->all_isset = origstate->all_isset;
+    state->all_isdeferred = origstate->all_isdeferred;
+    state->numstates = origstate->numstates;
+
+    // Copy all trigger state data
+    memcpy(state->trigstates, origstate->trigstates,
+           origstate->numstates * sizeof(SetConstraintTriggerData));
+
+    return state;
+}
+```

@@ -28,3 +28,33 @@ ExplainEndOutput provides the complementary closing functionality to ExplainBegi
 
 ## Notes and Other Information
 This function must be called after ExplainBeginOutput to ensure proper formatting of the output. The grouping_stack cleanup is essential for JSON and YAML formats to maintain proper nesting structure. The function handles indentation management for XML and JSON formats to ensure properly formatted output.
+
+## Simplified Source
+
+```c
+void ExplainEndOutput(ExplainState *es) {
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+            // TEXT format needs no closing markup
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // Close XML document
+            es->indent--;
+            appendStringInfoString(es->str, "</explain>");
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            // Close JSON array
+            es->indent--;
+            appendStringInfoString(es->str, "\n]");
+            es->grouping_stack = list_delete_first(es->grouping_stack);
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // Clean up YAML grouping stack
+            es->grouping_stack = list_delete_first(es->grouping_stack);
+            break;
+    }
+}
+```

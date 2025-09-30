@@ -42,3 +42,59 @@ The function first checks for a service name in the options array or the PGSERVI
 - Static function (internal to libpq) used during connection option processing
 - Part of PostgreSQL's centralized connection configuration system
 - The search stops at the first file where the service definition is found
+
+## Simplified Source
+```c
+static int parseServiceInfo(PQconninfoOption *options, PQExpBuffer errorMessage) {
+    const char *service = conninfo_getval(options, "service");
+    char serviceFile[MAXPGPATH];
+    bool group_found = false;
+
+    // Check environment variable first
+    if (service == NULL)
+        service = getenv("PGSERVICE");
+
+    // No service specified
+    if (service == NULL)
+        return 0;
+
+    // Try PGSERVICEFILE environment variable
+    char *env = getenv("PGSERVICEFILE");
+    if (env != NULL) {
+        strlcpy(serviceFile, env, sizeof(serviceFile));
+    } else {
+        // Try ~/.pg_service.conf
+        char homedir[MAXPGPATH];
+        if (pqGetHomeDirectory(homedir, sizeof(homedir))) {
+            snprintf(serviceFile, MAXPGPATH, "%s/%s", homedir, ".pg_service.conf");
+            if (stat(serviceFile, &stat_buf) != 0)
+                goto next_file;
+        } else {
+            goto next_file;
+        }
+    }
+
+    int status = parseServiceFile(serviceFile, service, options, errorMessage, &group_found);
+    if (group_found || status != 0)
+        return status;
+
+next_file:
+    // Try system-wide configuration file
+    snprintf(serviceFile, MAXPGPATH, "%s/pg_service.conf",
+             getenv("PGSYSCONFDIR") ? getenv("PGSYSCONFDIR") : SYSCONFDIR);
+
+    if (stat(serviceFile, &stat_buf) == 0) {
+        status = parseServiceFile(serviceFile, service, options, errorMessage, &group_found);
+        if (status != 0)
+            return status;
+    }
+
+    // Service not found
+    if (!group_found) {
+        libpq_append_error(errorMessage, "definition of service \"%s\" not found", service);
+        return 3;
+    }
+
+    return 0;
+}
+```

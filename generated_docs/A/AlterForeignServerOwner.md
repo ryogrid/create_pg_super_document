@@ -38,3 +38,37 @@ This function serves as the public API for changing foreign server ownership whe
 - Properly manages memory by freeing the tuple after use
 - Part of the standard DDL infrastructure for ownership changes
 - Name-based lookup provides user-friendly interface compared to OID-based variants
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterForeignServerOwner(const char *name, Oid newOwnerId)
+{
+    // Open foreign server catalog with exclusive lock
+    Relation rel = table_open(ForeignServerRelationId, RowExclusiveLock);
+
+    // Look up server by name in system cache
+    HeapTuple tup = SearchSysCacheCopy1(FOREIGNSERVERNAME, CStringGetDatum(name));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, "server \"%s\" does not exist", name);
+
+    // Extract server OID from tuple
+    Form_pg_foreign_server form = (Form_pg_foreign_server) GETSTRUCT(tup);
+    Oid servOid = form->oid;
+
+    // Delegate actual ownership change to internal function
+    AlterForeignServerOwner_internal(rel, tup, newOwnerId);
+
+    // Create return address
+    ObjectAddress address;
+    ObjectAddressSet(address, ForeignServerRelationId, servOid);
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

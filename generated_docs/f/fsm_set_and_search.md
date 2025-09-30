@@ -55,3 +55,33 @@ The search operation, when performed, takes advantage of already holding the buf
 - The search operation respects whether the page is at the bottom level of the FSM tree
 - Automatically extends the FSM file if the target page doesn't exist
 - The function ensures atomicity of both operations under a single exclusive lock
+
+## Simplified Source
+
+```c
+static int fsm_set_and_search(Relation rel, FSMAddress addr, uint16 slot,
+                             uint8 newValue, uint8 minValue) {
+    Buffer buf;
+    Page page;
+    int newslot = -1;
+
+    // Read FSM page and acquire exclusive lock
+    buf = fsm_readbuf(rel, addr, true);
+    LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+
+    page = BufferGetPage(buf);
+
+    // Set the new availability value for the specified slot
+    if (fsm_set_avail(page, slot, newValue))
+        MarkBufferDirtyHint(buf, false);
+
+    // Optionally search for available space while holding the lock
+    if (minValue != 0) {
+        newslot = fsm_search_avail(buf, minValue,
+                                  addr.level == FSM_BOTTOM_LEVEL, true);
+    }
+
+    UnlockReleaseBuffer(buf);
+    return newslot;
+}
+```

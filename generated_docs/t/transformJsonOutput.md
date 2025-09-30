@@ -48,3 +48,46 @@ The function integrates with PostgreSQL's type system and ensures that JSON outp
 - Enforces restrictions on SETOF and pseudo-types which are not supported in SQL/JSON contexts
 - The function handles both explicit output clauses and implicit default behavior
 - Part of PostgreSQL's SQL/JSON standard compliance implementation
+
+## Simplified Source
+
+```c
+static JsonReturning *
+transformJsonOutput(ParseState *pstate, const JsonOutput *output, bool allow_format) {
+    JsonReturning *ret;
+
+    // Create default output if none specified
+    if (!output) {
+        ret = makeNode(JsonReturning);
+        ret->format = makeJsonFormat(JS_FORMAT_DEFAULT, JS_ENC_DEFAULT, -1);
+        ret->typid = InvalidOid;
+        ret->typmod = -1;
+        return ret;
+    }
+
+    // Copy and process provided output specification
+    ret = copyObject(output->returning);
+
+    // Resolve type name to type OID and modifier
+    typenameTypeIdAndMod(pstate, output->typeName, &ret->typid, &ret->typmod);
+
+    // Validate type constraints
+    if (output->typeName->setof)
+        ereport(ERROR, ..., "returning SETOF types is not supported");
+
+    if (get_typtype(ret->typid) == TYPTYPE_PSEUDO)
+        ereport(ERROR, ..., "returning pseudo-types is not supported");
+
+    // Assign appropriate format
+    if (ret->format->format_type == JS_FORMAT_DEFAULT) {
+        // Use JSONB format for jsonb type, JSON format otherwise
+        ret->format->format_type =
+            ret->typid == JSONBOID ? JS_FORMAT_JSONB : JS_FORMAT_JSON;
+    } else {
+        // Validate user-specified format
+        checkJsonOutputFormat(pstate, ret->format, ret->typid, allow_format);
+    }
+
+    return ret;
+}
+```

@@ -38,3 +38,24 @@ The function includes assertions to verify these preconditions: it checks that n
 - Unlike extract_actual_clauses, this function does not perform filtering - it assumes the input is already clean
 - Commonly used during plan creation phases where index qualifications or join clauses need to be converted from their RestrictInfo wrappers to bare expressions
 - The function maintains the same order as the input list while extracting clause expressions
+
+## Simplified Source
+
+```c
+List *get_actual_clauses(List *restrictinfo_list) {
+    List *result = NIL;
+
+    // Extract clause from each RestrictInfo
+    foreach(cell, restrictinfo_list) {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, cell);
+
+        // Verify no pseudoconstant or constant TRUE clauses
+        Assert(!rinfo->pseudoconstant);
+        Assert(!rinfo_is_constant_true(rinfo));
+
+        result = lappend(result, rinfo->clause);
+    }
+
+    return result;
+}
+```

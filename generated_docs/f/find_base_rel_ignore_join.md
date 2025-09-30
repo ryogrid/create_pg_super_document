@@ -34,3 +34,30 @@ The function first performs bounds checking using an unsigned comparison to prev
 - Includes debugging validation to verify that missing relations are actually outer joins
 - Returns NULL for outer joins but raises ERROR for truly invalid relids
 - Located in src/backend/optimizer/util/relnode.c:454-485
+
+## Simplified Source
+
+```c
+RelOptInfo *
+find_base_rel_ignore_join(PlannerInfo *root, int relid)
+{
+    // Check bounds using unsigned comparison to prevent negative access
+    if ((uint32) relid < (uint32) root->simple_rel_array_size)
+    {
+        RelOptInfo *rel = root->simple_rel_array[relid];
+
+        // Return relation if found
+        if (rel)
+            return rel;
+
+        // Check if this is an outer join (return NULL if so)
+        RangeTblEntry *rte = root->simple_rte_array[relid];
+        if (rte && rte->rtekind == RTE_JOIN && rte->jointype != JOIN_INNER)
+            return NULL;
+    }
+
+    // Error for invalid relids
+    elog(ERROR, "no relation entry for relid %d", relid);
+    return NULL;
+}
+```

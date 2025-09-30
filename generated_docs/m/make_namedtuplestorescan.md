@@ -36,3 +36,26 @@ This function constructs a NamedTuplestoreScan plan node, which is used to scan 
 - Cost calculation is expected to be performed by the caller before using this node
 - The function sets both lefttree and righttree to NULL as this is a leaf node in the plan tree
 - ENRs provide a mechanism for PostgreSQL to handle temporary, named data sets efficiently during query execution
+
+## Simplified Source
+
+```c
+static NamedTuplestoreScan *make_namedtuplestorescan(List *qptlist, List *qpqual,
+                                                    Index scanrelid, char *enrname) {
+    // Create new NamedTuplestoreScan node
+    NamedTuplestoreScan *node = makeNode(NamedTuplestoreScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure ENR scan specifics
+    node->scan.scanrelid = scanrelid;  // Relation ID
+    node->enrname = enrname;           // Named tuplestore name
+
+    return node;
+}
+```

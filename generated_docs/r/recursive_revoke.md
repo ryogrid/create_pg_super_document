@@ -17,7 +17,7 @@ This function implements the cascading revocation logic that maintains the integ
 ## Parameters / Member Variables
 - `acl` (Acl *): The input ACL list to be processed (may be freed and replaced)
 - `grantee` (Oid): The user from whom grant options have been revoked
-- `revoke_privs` (AclMode): The specific grant options being revoked  
+- `revoke_privs` (AclMode): The specific grant options being revoked
 - `ownerId` (Oid): Object identifier of the object owner
 - `behavior` (DropBehavior): Either RESTRICT (error on dependencies) or CASCADE (automatically revoke dependencies)
 
@@ -42,3 +42,56 @@ This function implements the cascading revocation logic that maintains the integ
 - Essential for maintaining referential integrity in PostgreSQL's privilege grant chains
 - Prevents orphaned privileges that could persist after their grant chain is broken
 - Located in src/backend/utils/adt/acl.c:1302-1387
+
+## Simplified Source
+```c
+static Acl *recursive_revoke(Acl *acl, Oid grantee, AclMode revoke_privs,
+                           Oid ownerId, DropBehavior behavior) {
+    // Owners never lose grant options
+    if (grantee == ownerId)
+        return acl;
+
+    // Check if grantee still has grant options via other grantors
+    AclMode still_has = aclmask(acl, grantee, ownerId,
+                               ACL_GRANT_OPTION_FOR(revoke_privs), ACLMASK_ALL);
+    revoke_privs &= ~ACL_OPTION_TO_PRIVS(still_has);
+
+    if (revoke_privs == ACL_NO_RIGHTS)
+        return acl;
+
+    // Find and revoke dependent privileges
+    while (true) {
+        bool found_dependent = false;
+        AclItem *aip = ACL_DAT(acl);
+
+        for (int i = 0; i < ACL_NUM(acl); i++) {
+            if (aip[i].ai_grantor == grantee &&
+                (ACLITEM_GET_PRIVS(aip[i]) & revoke_privs) != 0) {
+
+                // Check behavior - error or cascade
+                if (behavior == DROP_RESTRICT) {
+                    ereport(ERROR, (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                                   errmsg("dependent privileges exist"),
+                                   errhint("Use CASCADE to revoke them too.")));
+                }
+
+                // Create mod item for removal
+                AclItem mod_acl;
+                mod_acl.ai_grantor = grantee;
+                mod_acl.ai_grantee = aip[i].ai_grantee;
+                ACLITEM_SET_PRIVS_GOPTIONS(mod_acl, revoke_privs, revoke_privs);
+
+                // Remove this dependent privilege
+                acl = aclupdate(acl, &mod_acl, ACL_MODECHG_DEL, ownerId, behavior);
+                found_dependent = true;
+                break;
+            }
+        }
+
+        if (!found_dependent)
+            break;
+    }
+
+    return acl;
+}
+```

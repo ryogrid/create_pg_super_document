@@ -42,3 +42,43 @@ The function is designed to handle race conditions where a relation might be dro
 - Used by multiple maintenance commands (CLUSTER, REINDEX TABLE, REFRESH MATERIALIZED VIEW)
 - Part of the RangeVarGetRelidExtended callback system for secure relation access
 - Implements the principle of least privilege by requiring specific MAINTAIN permission rather than broader privileges
+
+## Simplified Source
+
+```c
+void RangeVarCallbackMaintainsTable(const RangeVar *relation,
+                                   Oid relId, Oid oldRelId, void *arg)
+{
+    char relkind;
+    AclResult aclresult;
+
+    // Skip validation if relation not found
+    if (!OidIsValid(relId))
+        return;
+
+    // Check if relation still exists (handle race conditions)
+    relkind = get_rel_relkind(relId);
+    if (!relkind)
+        return;
+
+    // Validate relation type - must be table, materialized view, or TOAST table
+    if (relkind != RELKIND_RELATION &&
+        relkind != RELKIND_TOASTVALUE &&
+        relkind != RELKIND_MATVIEW &&
+        relkind != RELKIND_PARTITIONED_TABLE) {
+
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not a table or materialized view",
+                        relation->relname)));
+    }
+
+    // Check MAINTAIN permission
+    aclresult = pg_class_aclcheck(relId, GetUserId(), ACL_MAINTAIN);
+    if (aclresult != ACLCHECK_OK) {
+        aclcheck_error(aclresult,
+                      get_relkind_objtype(relkind),
+                      relation->relname);
+    }
+}
+```

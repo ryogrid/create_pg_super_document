@@ -45,3 +45,29 @@ This design provides extensibility for query analysis plugins while maintaining 
 - Handles the fundamental distinction between utility and plannable statements
 - The 'into' parameter is specifically for CREATE TABLE AS statement handling
 - Cursor options affect whether parallel query execution is considered during planning
+
+## Simplified Source
+
+```c
+static void ExplainOneQuery(Query *query, int cursorOptions,
+                           IntoClause *into, ExplainState *es,
+                           const char *queryString, ParamListInfo params,
+                           QueryEnvironment *queryEnv) {
+    // Utility statements can't be planned, handle separately
+    if (query->commandType == CMD_UTILITY) {
+        ExplainOneUtility(query->utilityStmt, into, es, queryString, params, queryEnv);
+        return;
+    }
+
+    // Check for advisor plugin hook first
+    if (ExplainOneQuery_hook) {
+        // Let plugin handle the query explanation
+        (*ExplainOneQuery_hook)(query, cursorOptions, into, es,
+                               queryString, params, queryEnv);
+    } else {
+        // Use standard PostgreSQL explain logic
+        standard_ExplainOneQuery(query, cursorOptions, into, es,
+                                queryString, params, queryEnv);
+    }
+}
+```

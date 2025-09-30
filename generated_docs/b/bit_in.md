@@ -54,3 +54,99 @@ For hexadecimal input, each hex digit represents 4 bits. For binary input, each 
 - Input validation ensures data integrity and prevents buffer overflows
 - Zero-padding ensures consistent internal representation regardless of input format
 - The function automatically detects input format based on prefix characters ('b'/'B' or 'x'/'X')
+
+## Simplified Source
+
+```c
+Datum bit_in(PG_FUNCTION_ARGS) {
+    char *input_string = PG_GETARG_CSTRING(0);
+    int32 atttypmod = PG_GETARG_INT32(2);
+    Node *escontext = fcinfo->context;
+
+    char *sp;
+    bool bit_not_hex;
+    int bitlen, slen;
+
+    // Determine input format based on prefix
+    if (input_string[0] == 'b' || input_string[0] == 'B') {
+        bit_not_hex = true;  // Binary format
+        sp = input_string + 1;
+    } else if (input_string[0] == 'x' || input_string[0] == 'X') {
+        bit_not_hex = false;  // Hexadecimal format
+        sp = input_string + 1;
+    } else {
+        bit_not_hex = true;  // Plain binary (no prefix)
+        sp = input_string;
+    }
+
+    // Calculate bit length from input
+    slen = strlen(sp);
+    if (bit_not_hex) {
+        bitlen = slen;  // One bit per character
+    } else {
+        // Check hex length limits
+        if (slen > VARBITMAXLEN / 4) {
+            ereturn(escontext, (Datum) 0, /* length error */);
+        }
+        bitlen = slen * 4;  // Four bits per hex character
+    }
+
+    // Validate against type modifier
+    if (atttypmod <= 0) {
+        atttypmod = bitlen;
+    } else if (bitlen != atttypmod) {
+        ereturn(escontext, (Datum) 0, /* length mismatch error */);
+    }
+
+    // Allocate result structure
+    int len = VARBITTOTALLEN(atttypmod);
+    VarBit *result = (VarBit *) palloc0(len);
+    SET_VARSIZE(result, len);
+    VARBITLEN(result) = atttypmod;
+
+    bits8 *r = VARBITS(result);
+
+    if (bit_not_hex) {
+        // Parse binary input: '0' and '1' characters
+        bits8 x = HIGHBIT;
+        for (; *sp; sp++) {
+            if (*sp == '1') {
+                *r |= x;
+            } else if (*sp != '0') {
+                ereturn(escontext, (Datum) 0, /* invalid binary digit */);
+            }
+
+            x >>= 1;
+            if (x == 0) {
+                x = HIGHBIT;
+                r++;
+            }
+        }
+    } else {
+        // Parse hexadecimal input: 0-9, A-F, a-f
+        for (int bc = 0; *sp; sp++) {
+            bits8 x;
+
+            if (*sp >= '0' && *sp <= '9') {
+                x = (bits8) (*sp - '0');
+            } else if (*sp >= 'A' && *sp <= 'F') {
+                x = (bits8) (*sp - 'A') + 10;
+            } else if (*sp >= 'a' && *sp <= 'f') {
+                x = (bits8) (*sp - 'a') + 10;
+            } else {
+                ereturn(escontext, (Datum) 0, /* invalid hex digit */);
+            }
+
+            if (bc) {
+                *r++ |= x;  // Low nibble
+                bc = 0;
+            } else {
+                *r = x << 4;  // High nibble
+                bc = 1;
+            }
+        }
+    }
+
+    PG_RETURN_VARBIT_P(result);
+}
+```

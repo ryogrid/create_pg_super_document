@@ -40,3 +40,56 @@ PrepareQuery processes a PREPARE SQL statement by creating a cached plan source 
 - Creates reusable cached plans that can improve performance for repeated executions
 - Allows parallel execution mode for compatible queries
 - Part of PostgreSQL's prepared statement infrastructure for optimizing repeated query execution
+
+## Simplified Source
+
+```c
+void PrepareQuery(ParseState *pstate, PrepareStmt *stmt,
+                 int stmt_location, int stmt_len) {
+    RawStmt *rawstmt;
+    CachedPlanSource *plansource;
+    Oid *argtypes = NULL;
+    int nargs;
+    List *query_list;
+
+    // Validate statement name - must not be empty
+    if (!stmt->name || stmt->name[0] == '\0') {
+        ereport(ERROR, "invalid statement name: must not be empty");
+    }
+
+    // Wrap the statement in a RawStmt for parse analysis
+    rawstmt = makeNode(RawStmt);
+    rawstmt->stmt = stmt->query;
+    rawstmt->stmt_location = stmt_location;
+    rawstmt->stmt_len = stmt_len;
+
+    // Create cached plan source before parse analysis
+    plansource = CreateCachedPlan(rawstmt, pstate->p_sourcetext,
+                                 CreateCommandTag(stmt->query));
+
+    // Convert parameter type names to OIDs
+    nargs = list_length(stmt->argtypes);
+    if (nargs) {
+        int i = 0;
+        ListCell *l;
+
+        argtypes = palloc_array(Oid, nargs);
+        foreach(l, stmt->argtypes) {
+            TypeName *tn = lfirst(l);
+            Oid toid = typenameTypeId(pstate, tn);
+            argtypes[i++] = toid;
+        }
+    }
+
+    // Analyze and rewrite the query with parameter types
+    query_list = pg_analyze_and_rewrite_varparams(rawstmt, pstate->p_sourcetext,
+                                                 &argtypes, &nargs, NULL);
+
+    // Complete the cached plan with query list and parameters
+    CompleteCachedPlan(plansource, query_list, NULL, argtypes, nargs,
+                      NULL, NULL, CURSOR_OPT_PARALLEL_OK, true);
+
+    // Store the prepared statement for later execution
+    StorePreparedStatement(stmt->name, plansource, true);
+}
+```

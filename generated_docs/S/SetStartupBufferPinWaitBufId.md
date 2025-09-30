@@ -36,3 +36,16 @@ The operation is atomic and doesn't require locking because:
 - The shared value allows backends to determine if they need to handle recovery conflicts
 - Setting bufid to -1 resets the startup process to "not waiting" state
 - This mechanism is part of the buffer pin conflict resolution system in PostgreSQL's Hot Standby feature
+
+## Simplified Source
+
+```c
+void SetStartupBufferPinWaitBufId(int bufid) {
+    // Use volatile pointer to prevent compiler code rearrangement
+    volatile PROC_HDR *procglobal = ProcGlobal;
+
+    // Atomically set the buffer ID that startup process is waiting on
+    // (-1 means "not waiting")
+    procglobal->startupBufferPinWaitBufId = bufid;
+}
+```

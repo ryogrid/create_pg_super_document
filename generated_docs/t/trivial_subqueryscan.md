@@ -41,3 +41,67 @@ The function supports scenarios where targetlist entries are constants rather th
 
 ## Notes and Other Information
 The caching mechanism is particularly important because the function may be called from  before plan finalization and again from  during reference adjustment. The comments explain why this is safe - the transformations that occur between these calls preserve the properties that affect triviality determination. This optimization is crucial for query performance as it can eliminate entire plan nodes from execution, reducing tuple passing overhead and simplifying the execution tree. The support for Const expressions in addition to Vars makes the function robust for set operations where constant folding may have occurred.
+
+## Simplified Source
+
+```c
+bool
+trivial_subqueryscan(SubqueryScan *plan)
+{
+    int attrno;
+
+    // Use cached result if available
+    if (plan->scanstatus == SUBQUERY_SCAN_TRIVIAL)
+        return true;
+    if (plan->scanstatus == SUBQUERY_SCAN_NONTRIVIAL)
+        return false;
+
+    // Mark as non-trivial initially (pessimistic assumption)
+    plan->scanstatus = SUBQUERY_SCAN_NONTRIVIAL;
+
+    // Cannot be trivial if there are qualification conditions
+    if (plan->scan.plan.qual != NIL)
+        return false;
+
+    // Target lists must have same length
+    if (list_length(plan->scan.plan.targetlist) !=
+        list_length(plan->subplan->targetlist))
+        return false;
+
+    // Check each target list entry pair
+    attrno = 1;
+    forboth(lp, plan->scan.plan.targetlist, lc, plan->subplan->targetlist)
+    {
+        TargetEntry *parent_tle = lfirst(lp);
+        TargetEntry *child_tle = lfirst(lc);
+
+        // Junk status must match
+        if (parent_tle->resjunk != child_tle->resjunk)
+            return false;
+
+        // Entry must be either a Var or matching Const
+        if (parent_tle->expr && IsA(parent_tle->expr, Var))
+        {
+            Var *var = (Var *) parent_tle->expr;
+
+            // Var must reference correct attribute in order
+            if (var->varattno != attrno)
+                return false;
+        }
+        else if (parent_tle->expr && IsA(parent_tle->expr, Const))
+        {
+            // Const must exactly match child expression
+            if (!equal(parent_tle->expr, child_tle->expr))
+                return false;
+        }
+        else
+            return false;
+
+        attrno++;
+    }
+
+    // All checks passed - mark as trivial
+    plan->scanstatus = SUBQUERY_SCAN_TRIVIAL;
+    return true;
+}
+```

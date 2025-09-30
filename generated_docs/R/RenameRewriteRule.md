@@ -51,3 +51,63 @@ This function implements PostgreSQL's ALTER RULE RENAME functionality by updatin
 - Invalidates relation cache to ensure all backends see the rule name change
 - Part of PostgreSQL's ALTER RULE RENAME TO command implementation
 - Uses RULERELNAME system cache for efficient rule lookup by relation and name
+
+## Simplified Source
+
+```c
+ObjectAddress
+RenameRewriteRule(RangeVar *relation, const char *oldName, const char *newName)
+{
+    Oid relid;
+    Relation targetrel;
+    Relation pg_rewrite_desc;
+    HeapTuple ruletup;
+    Form_pg_rewrite ruleform;
+    Oid ruleOid;
+    ObjectAddress address;
+
+    // Get relation OID with exclusive lock and permissions check
+    relid = RangeVarGetRelidExtended(relation, AccessExclusiveLock, 0,
+                                     RangeVarCallbackForRenameRule, NULL);
+
+    // Open the target relation
+    targetrel = relation_open(relid, NoLock);
+
+    // Open pg_rewrite catalog for modification
+    pg_rewrite_desc = table_open(RewriteRelationId, RowExclusiveLock);
+
+    // Find the existing rule
+    ruletup = SearchSysCacheCopy2(RULERELNAME,
+                                  ObjectIdGetDatum(relid),
+                                  PointerGetDatum(oldName));
+    if (!HeapTupleIsValid(ruletup))
+        ereport(ERROR, "rule does not exist");
+
+    ruleform = (Form_pg_rewrite) GETSTRUCT(ruletup);
+    ruleOid = ruleform->oid;
+
+    // Check if new name already exists
+    if (IsDefinedRewriteRule(relid, newName))
+        ereport(ERROR, "rule with new name already exists");
+
+    // Disallow renaming ON SELECT rules
+    if (ruleform->ev_type == CMD_SELECT + '0')
+        ereport(ERROR, "renaming ON SELECT rule not allowed");
+
+    // Update the rule name
+    namestrcpy(&(ruleform->rulename), newName);
+    CatalogTupleUpdate(pg_rewrite_desc, &ruletup->t_self, ruletup);
+
+    // Cleanup and cache invalidation
+    InvokeObjectPostAlterHook(RewriteRelationId, ruleOid, 0);
+    heap_freetuple(ruletup);
+    table_close(pg_rewrite_desc, RowExclusiveLock);
+    CacheInvalidateRelcache(targetrel);
+
+    // Return object address for dependency tracking
+    ObjectAddressSet(address, RewriteRelationId, ruleOid);
+    relation_close(targetrel, NoLock);
+
+    return address;
+}
+```

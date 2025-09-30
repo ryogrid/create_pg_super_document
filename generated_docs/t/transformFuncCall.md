@@ -42,3 +42,42 @@ Key processing steps:
 - The function is static, indicating it's only used within the parse_expr.c module
 - ORDER BY expressions in WITHIN GROUP are treated as additional function arguments for type resolution
 - Function overload resolution and type coercion are handled by ParseFuncOrColumn
+
+## Simplified Source
+
+```c
+static Node *
+transformFuncCall(ParseState *pstate, FuncCall *fn)
+{
+    Node *last_srf = pstate->p_last_srf;
+    List *targs = NIL;
+
+    // Transform regular function arguments
+    foreach(args, fn->args)
+    {
+        targs = lappend(targs, transformExprRecurse(pstate, (Node *) lfirst(args)));
+    }
+
+    // Handle WITHIN GROUP syntax for aggregate functions
+    if (fn->agg_within_group)
+    {
+        Assert(fn->agg_order != NIL);
+
+        // Transform ORDER BY expressions as additional arguments
+        foreach(args, fn->agg_order)
+        {
+            SortBy *arg = (SortBy *) lfirst(args);
+            targs = lappend(targs, transformExpr(pstate, arg->node, EXPR_KIND_ORDER_BY));
+        }
+    }
+
+    // Delegate to ParseFuncOrColumn for function resolution
+    return ParseFuncOrColumn(pstate,
+                             fn->funcname,
+                             targs,
+                             last_srf,
+                             fn,
+                             false,
+                             fn->location);
+}
+```

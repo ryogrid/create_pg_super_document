@@ -32,3 +32,23 @@ The `makeJsonIsPredicate` function is a constructor that creates and initializes
 
 ## Notes and Other Information
 This function is crucial for implementing SQL/JSON standard IS JSON predicates in PostgreSQL. These predicates allow users to test whether data conforms to specific JSON structural requirements before processing. The unique_keys parameter is particularly important for JSON objects, as the SQL/JSON standard requires that object keys be unique. The location parameter enables precise error reporting when predicate evaluation fails, helping users identify problematic expressions in their queries.
+
+## Simplified Source
+
+```c
+Node *
+makeJsonIsPredicate(Node *expr, JsonFormat *format, JsonValueType item_type,
+                   bool unique_keys, int location) {
+    // Create and initialize JsonIsPredicate node
+    JsonIsPredicate *n = makeNode(JsonIsPredicate);
+
+    // Set all the predicate properties
+    n->expr = expr;           // Expression to test
+    n->format = format;       // JSON format specification
+    n->item_type = item_type; // Expected JSON type (object, array, etc.)
+    n->unique_keys = unique_keys; // Whether object keys must be unique
+    n->location = location;   // Source location for error reporting
+
+    return (Node *) n;
+}
+```

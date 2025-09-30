@@ -59,3 +59,98 @@ The function includes comprehensive error handling using parser error position c
 - The function preserves the original source location from the A_Const node in the resulting Const node
 - All created constants use typmod -1 and are considered uncollatable unless specifically handled
 - Location: src/backend/parser/parse_node.c:347-480
+
+## Simplified Source
+
+```c
+Const *
+make_const(ParseState *pstate, A_Const *aconst)
+{
+    Const *con;
+    Datum val;
+    Oid typeid;
+    int typelen;
+    bool typebyval;
+
+    // Handle NULL constants
+    if (aconst->isnull) {
+        con = makeConst(UNKNOWNOID, -1, InvalidOid, -2, (Datum) 0, true, false);
+        con->location = aconst->location;
+        return con;
+    }
+
+    // Determine type and value based on constant type
+    switch (nodeTag(&aconst->val)) {
+        case T_Integer:
+            val = Int32GetDatum(intVal(&aconst->val));
+            typeid = INT4OID;
+            typelen = sizeof(int32);
+            typebyval = true;
+            break;
+
+        case T_Float:
+            // Try parsing as int64 first (for large integers)
+            ErrorSaveContext escontext = {T_ErrorSaveContext};
+            int64 val64 = pg_strtoint64_safe(aconst->val.fval.fval, (Node *) &escontext);
+
+            if (!escontext.error_occurred) {
+                // Check if it fits in int32
+                int32 val32 = (int32) val64;
+                if (val64 == (int64) val32) {
+                    val = Int32GetDatum(val32);
+                    typeid = INT4OID;
+                    typelen = sizeof(int32);
+                    typebyval = true;
+                } else {
+                    val = Int64GetDatum(val64);
+                    typeid = INT8OID;
+                    typelen = sizeof(int64);
+                    typebyval = FLOAT8PASSBYVAL;
+                }
+            } else {
+                // Parse as numeric for real floating point values
+                val = DirectFunctionCall3(numeric_in,
+                                        CStringGetDatum(aconst->val.fval.fval),
+                                        ObjectIdGetDatum(InvalidOid),
+                                        Int32GetDatum(-1));
+                typeid = NUMERICOID;
+                typelen = -1;
+                typebyval = false;
+            }
+            break;
+
+        case T_Boolean:
+            val = BoolGetDatum(boolVal(&aconst->val));
+            typeid = BOOLOID;
+            typelen = 1;
+            typebyval = true;
+            break;
+
+        case T_String:
+            // String literals typed as UNKNOWN for later coercion
+            val = CStringGetDatum(strVal(&aconst->val));
+            typeid = UNKNOWNOID;
+            typelen = -2;
+            typebyval = false;
+            break;
+
+        case T_BitString:
+            val = DirectFunctionCall3(bit_in,
+                                    CStringGetDatum(aconst->val.bsval.bsval),
+                                    ObjectIdGetDatum(InvalidOid),
+                                    Int32GetDatum(-1));
+            typeid = BITOID;
+            typelen = -1;
+            typebyval = false;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized node type: %d", (int) nodeTag(&aconst->val));
+            return NULL;
+    }
+
+    con = makeConst(typeid, -1, InvalidOid, typelen, val, false, typebyval);
+    con->location = aconst->location;
+    return con;
+}
+```

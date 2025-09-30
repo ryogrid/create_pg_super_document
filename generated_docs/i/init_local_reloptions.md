@@ -43,3 +43,16 @@ This initialization is typically the first step in setting up custom relation op
 - Both options and validators lists are initialized to NIL (empty)
 - This function is commonly used by access methods and operator classes that need custom relation options
 - The initialized structure serves as input to build_local_reloptions and related parsing functions
+
+## Simplified Source
+
+```c
+void init_local_reloptions(local_relopts *relopts, Size relopt_struct_size) {
+    // Initialize option lists to empty
+    relopts->options = NIL;
+    relopts->validators = NIL;
+
+    // Set the target structure size for parsed options
+    relopts->relopt_struct_size = relopt_struct_size;
+}
+```

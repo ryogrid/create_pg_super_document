@@ -37,3 +37,16 @@ This function is part of the freeze plan consolidation mechanism that reduces WA
 - Works in conjunction with heap_log_freeze_eq to identify when existing plans can be reused
 - Critical for reducing WAL volume by consolidating equivalent freeze operations into shared plans
 - The freeze plan will be used during WAL replay (REDO) to apply the freeze operation to all associated tuples
+
+## Simplified Source
+
+```c
+static inline void heap_log_freeze_new_plan(xlhp_freeze_plan *plan, HeapTupleFreeze *frz) {
+    // Initialize plan with freeze operation parameters
+    plan->xmax = frz->xmax;
+    plan->t_infomask2 = frz->t_infomask2;
+    plan->t_infomask = frz->t_infomask;
+    plan->frzflags = frz->frzflags;
+    plan->ntuples = 1;  // Start with one tuple, can be incremented
+}
+```

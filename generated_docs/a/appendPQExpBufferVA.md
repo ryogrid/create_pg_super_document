@@ -48,3 +48,45 @@ The function uses an optimization strategy where it only attempts formatting if 
 - Critical performance optimization: avoids repeated small buffer enlargements
 - Part of the libpq expandable string buffer core implementation
 - Handles both successful formatting and definitive failures (memory exhaustion, format errors)
+
+## Simplified Source
+```c
+bool appendPQExpBufferVA(PQExpBuffer str, const char *fmt, va_list args) {
+    size_t avail, needed;
+    int nprinted;
+
+    // If sufficient space available, try formatting directly
+    if (str->maxlen > str->len + 16) {
+        avail = str->maxlen - str->len;
+        nprinted = vsnprintf(str->data + str->len, avail, fmt, args);
+
+        // Handle formatting errors
+        if (unlikely(nprinted < 0)) {
+            markPQExpBufferBroken(str);
+            return true;
+        }
+
+        // Success - formatted text fit in available space
+        if ((size_t) nprinted < avail) {
+            str->len += nprinted;
+            return true;
+        }
+
+        // Calculate space needed based on vsnprintf result
+        if (unlikely(nprinted > INT_MAX - 1)) {
+            markPQExpBufferBroken(str);
+            return true;
+        }
+        needed = nprinted + 1;
+    } else {
+        // Too little space, guess at enlargement size
+        needed = 32;
+    }
+
+    // Enlarge buffer and signal retry needed
+    if (!enlargePQExpBuffer(str, needed))
+        return true; // Out of memory
+
+    return false; // Retry needed
+}
+```

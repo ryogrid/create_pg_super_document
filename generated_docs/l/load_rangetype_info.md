@@ -42,3 +42,64 @@ This lazy loading approach ensures that expensive range type setup only occurs w
 - Creates a circular reference by setting up the element type's cache entry
 - Uses CacheMemoryContext for function manager structures to ensure they persist across queries
 - The function assumes all required operator class support functions exist
+
+## Simplified Source
+
+```c
+// Simplified version of load_rangetype_info
+static void
+load_rangetype_info(TypeCacheEntry *typentry)
+{
+    Form_pg_range range_info;
+    HeapTuple range_tuple;
+    Oid element_type_oid;
+    Oid opclass_oid;
+    Oid canonical_oid;
+    Oid subdiff_oid;
+    Oid opfamily_oid;
+    Oid opclass_input_type;
+    Oid comparison_func_oid;
+
+    // Get range type information from pg_range catalog
+    range_tuple = SearchSysCache1(RANGETYPE, ObjectIdGetDatum(typentry->type_id));
+    if (!HeapTupleIsValid(range_tuple))
+        elog(ERROR, "cache lookup failed for range type %u", typentry->type_id);
+    range_info = (Form_pg_range) GETSTRUCT(range_tuple);
+
+    // Extract basic range properties
+    element_type_oid = range_info->rngsubtype;
+    typentry->rng_collation = range_info->rngcollation;
+    opclass_oid = range_info->rngsubopc;
+    canonical_oid = range_info->rngcanonical;
+    subdiff_oid = range_info->rngsubdiff;
+
+    ReleaseSysCache(range_tuple);
+
+    // Get operator class properties and comparison function
+    opfamily_oid = get_opclass_family(opclass_oid);
+    opclass_input_type = get_opclass_input_type(opclass_oid);
+    typentry->rng_opfamily = opfamily_oid;
+
+    comparison_func_oid = get_opfamily_proc(opfamily_oid, opclass_input_type, opclass_input_type, BTORDER_PROC);
+    if (!RegProcedureIsValid(comparison_func_oid))
+        elog(ERROR, "missing support function %d(%u,%u) in opfamily %u",
+             BTORDER_PROC, opclass_input_type, opclass_input_type, opfamily_oid);
+
+    // Set up cached function manager structs
+    fmgr_info_cxt(comparison_func_oid, &typentry->rng_cmp_proc_finfo, CacheMemoryContext);
+    if (OidIsValid(canonical_oid))
+        fmgr_info_cxt(canonical_oid, &typentry->rng_canonical_finfo, CacheMemoryContext);
+    if (OidIsValid(subdiff_oid))
+        fmgr_info_cxt(subdiff_oid, &typentry->rng_subdiff_finfo, CacheMemoryContext);
+
+    // Link to element type (marks range info as valid)
+    typentry->rngelemtype = lookup_type_cache(element_type_oid, 0);
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names throughout
+- Added clear comments for each major section
+- Preserved all error handling as it's essential for function robustness
+- Simplified the structure while maintaining all core functionality
+- Reduced complexity without losing any essential logic

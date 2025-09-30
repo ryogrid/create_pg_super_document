@@ -56,3 +56,99 @@ The function enforces PostgreSQL's subquery usage restrictions, preventing subqu
 - Validates that comparison sublinks have matching numbers of columns between left and right sides
 - The comprehensive switch statement ensures compile-time warnings when new expression contexts are added
 - The function is static, indicating it's only used within the parse_expr.c module
+
+## Simplified Source
+
+```c
+static Node *
+transformSubLink(ParseState *pstate, SubLink *sublink)
+{
+    Node *result = (Node *) sublink;
+    Query *qtree;
+    const char *err = NULL;
+
+    // Validate sublink is allowed in current expression context
+    switch (pstate->p_expr_kind) {
+        case EXPR_KIND_WHERE:
+        case EXPR_KIND_HAVING:
+        case EXPR_KIND_SELECT_TARGET:
+        // ... other allowed contexts
+            break;
+        case EXPR_KIND_CHECK_CONSTRAINT:
+            err = "cannot use subquery in check constraint";
+            break;
+        case EXPR_KIND_COLUMN_DEFAULT:
+            err = "cannot use subquery in DEFAULT expression";
+            break;
+        // ... other forbidden contexts
+    }
+
+    if (err)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg_internal("%s", err)));
+
+    pstate->p_hasSubLinks = true;
+
+    // Parse and analyze the subquery
+    qtree = parse_sub_analyze(sublink->subselect, pstate, NULL, false, true);
+
+    // Verify it's a SELECT command
+    if (!IsA(qtree, Query) || qtree->commandType != CMD_SELECT)
+        elog(ERROR, "unexpected non-SELECT command in SubLink");
+
+    sublink->subselect = (Node *) qtree;
+
+    // Handle different sublink types
+    if (sublink->subLinkType == EXISTS_SUBLINK) {
+        // EXISTS needs no test expression or operators
+        sublink->testexpr = NULL;
+        sublink->operName = NIL;
+    }
+    else if (sublink->subLinkType == EXPR_SUBLINK ||
+             sublink->subLinkType == ARRAY_SUBLINK) {
+        // Ensure single column result
+        if (count_nonjunk_tlist_entries(qtree->targetList) != 1)
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("subquery must return only one column")));
+        sublink->testexpr = NULL;
+        sublink->operName = NIL;
+    }
+    else if (sublink->subLinkType == MULTIEXPR_SUBLINK) {
+        // Multiple columns allowed
+        sublink->testexpr = NULL;
+        sublink->operName = NIL;
+    }
+    else {
+        // ALL, ANY, or ROWCOMPARE: setup row comparison
+        Node *lefthand = transformExprRecurse(pstate, sublink->testexpr);
+
+        // Convert "x IN (select)" to "x = ANY (select)"
+        if (sublink->operName == NIL)
+            sublink->operName = list_make1(makeString("="));
+
+        // Build parameter list for subquery outputs
+        List *right_list = NIL;
+        foreach(lc, qtree->targetList) {
+            TargetEntry *tent = (TargetEntry *) lfirst(lc);
+            if (tent->resjunk)
+                continue;
+
+            Param *param = makeNode(Param);
+            param->paramkind = PARAM_SUBLINK;
+            param->paramid = tent->resno;
+            param->paramtype = exprType((Node *) tent->expr);
+            // ... set other param fields
+
+            right_list = lappend(right_list, param);
+        }
+
+        // Create row comparison expression
+        sublink->testexpr = make_row_comparison_op(pstate,
+                                                  sublink->operName,
+                                                  left_list, right_list,
+                                                  sublink->location);
+    }
+
+    return result;
+}
+```

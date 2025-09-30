@@ -40,3 +40,20 @@ The structure supports various JSON format types (such as JSON, JSONB) and diffe
 - The location field enables precise error reporting when JSON format specifications are invalid
 - Used in advanced JSON operations including JSON path queries, JSON table functions, and JSON serialization
 - Supports various encoding options to ensure proper character handling across different client environments and use cases
+
+## Simplified Source
+
+```c
+JsonFormat *
+makeJsonFormat(JsonFormatType type, JsonEncoding encoding, int location) {
+    // Create and initialize JsonFormat node
+    JsonFormat *jf = makeNode(JsonFormat);
+
+    // Set format properties
+    jf->format_type = type;     // JSON format type (JSON, JSONB, etc.)
+    jf->encoding = encoding;    // Character encoding specification
+    jf->location = location;    // Source location for error reporting
+
+    return jf;
+}
+```

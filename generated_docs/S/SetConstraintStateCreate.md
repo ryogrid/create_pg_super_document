@@ -37,3 +37,27 @@ The SetConstraintState is used to track the current state of deferred constraint
 - Implements a safety check to ensure at least 1 element is allocated
 - The allocation size calculation uses offsetof to handle variable-length structure correctly
 - Zero-initialization correctly sets up the initial state for the constraint management system
+
+## Simplified Source
+
+```c
+static SetConstraintState
+SetConstraintStateCreate(int numalloc)
+{
+    SetConstraintState state;
+
+    // Ensure minimum allocation for safety
+    if (numalloc <= 0)
+        numalloc = 1;
+
+    // Allocate structure with space for trigger states array
+    state = (SetConstraintState)
+        MemoryContextAllocZero(TopTransactionContext,
+                               offsetof(SetConstraintStateData, trigstates) +
+                               numalloc * sizeof(SetConstraintTriggerData));
+
+    state->numalloc = numalloc;
+
+    return state;
+}
+```

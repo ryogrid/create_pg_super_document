@@ -51,3 +51,85 @@ The function continues traversing until either a mutable operation is detected (
 - Mutability detection focuses primarily on datetime operations and timezone-dependent comparisons
 - The walker respects LAX/STRICT mode settings which can affect mutability determination for certain operations
 - Essential for PostgreSQL's query optimization, allowing the planner to make informed decisions about expression caching and evaluation strategies
+
+## Simplified Source
+
+```c
+static enum JsonPathDatatypeStatus
+jspIsMutableWalker(JsonPathItem *jpi, struct JsonPathMutableContext *cxt)
+{
+    JsonPathItem next;
+    enum JsonPathDatatypeStatus status = jpdsNonDateTime;
+
+    // Walk through JSON path items until mutable operation found
+    while (!cxt->mutable)
+    {
+        JsonPathItem arg;
+        enum JsonPathDatatypeStatus leftStatus, rightStatus;
+
+        switch (jpi->type)
+        {
+            case jpiRoot:
+                // Root node is non-datetime
+                break;
+
+            case jpiCurrent:
+                // Current context determines status
+                status = cxt->current;
+                break;
+
+            case jpiFilter:
+                // Process filter with current context
+                cxt->current = status;
+                jspGetArg(jpi, &arg);
+                jspIsMutableWalker(&arg, cxt);
+                break;
+
+            case jpiVariable:
+                // Check variable types for datetime status
+                status = check_variable_datetime_type(jpi, cxt);
+                break;
+
+            case jpiEqual:
+            case jpiNotEqual:
+            case jpiLess:
+            case jpiGreater:
+            case jpiLessOrEqual:
+            case jpiGreaterOrEqual:
+                // Compare datetime types - different timezones = mutable
+                leftStatus = jspIsMutableWalker(left_arg, cxt);
+                rightStatus = jspIsMutableWalker(right_arg, cxt);
+                if (datetime_comparison_is_mutable(leftStatus, rightStatus))
+                    cxt->mutable = true;
+                break;
+
+            case jpiDatetime:
+                // Datetime operations are potentially mutable
+                if (has_timezone_in_template())
+                    status = jpdsDateTimeZoned;
+                else
+                    status = jpdsDateTimeNonZoned;
+                break;
+
+            case jpiTime:
+            case jpiDate:
+            case jpiTimestamp:
+            case jpiTimeTz:
+            case jpiTimestampTz:
+                // These functions depend on current time - always mutable
+                cxt->mutable = true;
+                status = jpdsDateTimeNonZoned;
+                break;
+
+            // Various other operations handled...
+        }
+
+        // Move to next item in chain
+        if (!jspGetNext(jpi, &next))
+            break;
+        jpi = &next;
+    }
+
+    return status;
+}
+```

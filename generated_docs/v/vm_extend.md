@@ -39,3 +39,21 @@ This static function extends the visibility map fork to ensure it contains at le
 - Returns a buffer for the last block in the extended range
 - All new blocks are initialized with zeros through RBM_ZERO_ON_ERROR flag
 - Part of PostgreSQL's visibility map infrastructure for efficient page visibility tracking
+
+## Simplified Source
+
+```c
+static Buffer vm_extend(Relation rel, BlockNumber vm_nblocks) {
+    Buffer buf;
+
+    // Extend visibility map fork to required size
+    buf = ExtendBufferedRelTo(BMR_REL(rel), VISIBILITYMAP_FORKNUM, NULL,
+                             EB_CREATE_FORK_IF_NEEDED | EB_CLEAR_SIZE_CACHE,
+                             vm_nblocks, RBM_ZERO_ON_ERROR);
+
+    // Invalidate smgr cache to force other backends to refresh file info
+    CacheInvalidateSmgr(RelationGetSmgr(rel)->smgr_rlocator);
+
+    return buf;
+}
+```

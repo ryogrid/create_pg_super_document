@@ -38,3 +38,25 @@ The returned string is palloc'd and must be freed by the caller.
 - Returns palloc'd memory that must be freed by caller
 - Designed to handle the complexity of converting different argument formats into consistent string values
 - Serves as an abstraction layer between SET statement parsing and GUC value assignment
+
+## Simplified Source
+
+```c
+char *ExtractSetVariableArgs(VariableSetStmt *stmt)
+{
+    switch (stmt->kind)
+    {
+        case VAR_SET_VALUE:
+            // Convert argument list to string value
+            return flatten_set_variable_args(stmt->name, stmt->args);
+
+        case VAR_SET_CURRENT:
+            // Get current value of the parameter
+            return GetConfigOptionByName(stmt->name, NULL, false);
+
+        default:
+            // RESET operations and others return NULL
+            return NULL;
+    }
+}
+```

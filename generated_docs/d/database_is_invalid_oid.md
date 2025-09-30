@@ -36,3 +36,29 @@ This function provides a convenient interface to check if a database is in an in
 - Essential for preventing operations on databases that are being dropped
 - Returns the same validity status as database_is_invalid_form() but with OID-based interface
 - Part of PostgreSQL's database lifecycle management system
+
+## Simplified Source
+
+```c
+bool database_is_invalid_oid(Oid dboid) {
+    HeapTuple dbtup;
+    Form_pg_database dbform;
+    bool invalid;
+
+    // Look up database in system catalog by OID
+    dbtup = SearchSysCache1(DATABASEOID, ObjectIdGetDatum(dboid));
+    if (!HeapTupleIsValid(dbtup))
+        elog(ERROR, "cache lookup failed for database %u", dboid);
+
+    // Get database form from tuple
+    dbform = (Form_pg_database) GETSTRUCT(dbtup);
+
+    // Check if database is invalid using form-based function
+    invalid = database_is_invalid_form(dbform);
+
+    // Clean up cache reference
+    ReleaseSysCache(dbtup);
+
+    return invalid;
+}
+```

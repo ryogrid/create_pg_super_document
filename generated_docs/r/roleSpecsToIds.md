@@ -40,3 +40,23 @@ This function serves as a critical conversion step in many role management opera
 - Widely used throughout the role management system as a standard conversion utility
 - Returns a new List that should be freed by the caller when no longer needed
 - Essential for bridging the gap between parser-level role specifications and catalog-level OID operations
+
+## Simplified Source
+
+```c
+List *roleSpecsToIds(List *memberNames) {
+    List *result = NIL;
+    ListCell *l;
+
+    foreach(l, memberNames) {
+        RoleSpec *rolespec = lfirst_node(RoleSpec, l);
+        Oid roleid;
+
+        // Convert each RoleSpec to OID (fails if role doesn't exist)
+        roleid = get_rolespec_oid(rolespec, false);
+        result = lappend_oid(result, roleid);
+    }
+
+    return result;
+}
+```

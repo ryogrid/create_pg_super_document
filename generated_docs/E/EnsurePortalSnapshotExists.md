@@ -46,3 +46,29 @@ The function is critical for maintaining PostgreSQL's MVCC semantics in complex 
 - Works in conjunction with PlannedStmtRequiresSnapshot to manage snapshot lifecycle
 - The snapshot creation uses the portal's createLevel to ensure proper snapshot management across nested transaction levels
 - Throws an error if called without an active portal, as this indicates a programming error
+
+## Simplified Source
+
+```c
+void
+EnsurePortalSnapshotExists(void)
+{
+    Portal portal;
+
+    // Fast path: if a snapshot is already set, nothing to do
+    if (ActiveSnapshotSet())
+        return;
+
+    // We must have an active portal to provide context
+    portal = ActivePortal;
+    if (unlikely(portal == NULL))
+        elog(ERROR, "cannot execute SQL without an outer snapshot or portal");
+    Assert(portal->portalSnapshot == NULL);
+
+    // Create new snapshot and associate it with the portal
+    PushActiveSnapshotWithLevel(GetTransactionSnapshot(), portal->createLevel);
+
+    // Remember the snapshot in the portal (may be a copy after PushActiveSnapshotWithLevel)
+    portal->portalSnapshot = GetActiveSnapshot();
+}
+```

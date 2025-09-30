@@ -35,3 +35,31 @@ This function handles the parsing of locally-defined relation options that are n
 - Memory allocation is based on the count of options in the local_relopts list
 - All options are initially marked as unset (isset=false) before parsing
 - Can handle the case where no options are provided (options == 0)
+
+## Simplified Source
+
+```c
+static relopt_value *parseLocalRelOptions(local_relopts *relopts, Datum options, bool validate) {
+    // Allocate array for option values
+    int nopts = list_length(relopts->options);
+    relopt_value *values = palloc(sizeof(*values) * nopts);
+
+    // Initialize each option entry
+    ListCell *lc;
+    int i = 0;
+    foreach(lc, relopts->options) {
+        local_relopt *opt = lfirst(lc);
+
+        values[i].gen = opt->option;
+        values[i].isset = false;  // Initially unset
+        i++;
+    }
+
+    // Parse actual option values if provided
+    if (options != (Datum) 0) {
+        parseRelOptionsInternal(options, validate, values, nopts);
+    }
+
+    return values;
+}
+```

@@ -38,3 +38,41 @@ This function takes no parameters but uses several key variables:
 - Sets `provider_failed_loading` to true before attempting to load to handle potential errors during loading
 - Uses DEBUG1 logging level to provide information about JIT provider loading attempts
 - The loaded provider is stored in a global `provider` variable for later use
+
+## Simplified Source
+
+```c
+static bool
+provider_init(void)
+{
+    char path[MAXPGPATH];
+    JitProviderInit init;
+
+    // Quick exit if JIT disabled or already attempted
+    if (!jit_enabled)
+        return false;
+    if (provider_failed_loading)
+        return false;
+    if (provider_successfully_loaded)
+        return true;
+
+    // Check if JIT provider library exists
+    snprintf(path, MAXPGPATH, "%s/%s%s", pkglib_path, jit_provider, DLSUFFIX);
+    if (!pg_file_exists(path)) {
+        provider_failed_loading = true;
+        return false;
+    }
+
+    // Mark as failed before attempting load (reset on success)
+    provider_failed_loading = true;
+
+    // Load and initialize the JIT provider
+    init = (JitProviderInit) load_external_function(path, "_PG_jit_provider_init", true, NULL);
+    init(&provider);
+
+    provider_successfully_loaded = true;
+    provider_failed_loading = false;
+
+    return true;
+}
+```

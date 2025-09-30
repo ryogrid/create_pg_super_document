@@ -49,3 +49,40 @@ The function is optimized for sort/group operations and is faster than search_in
 - Essential for correctly handling multiple textually-equal but volatile sort expressions
 - Part of PostgreSQL's plan tree reference fixing mechanism during query optimization
 - Located in src/backend/optimizer/plan/setrefs.c at lines 2955-3032
+
+## Simplified Source
+
+```c
+static Var *
+search_indexed_tlist_for_sortgroupref(Expr *node,
+                                     Index sortgroupref,
+                                     indexed_tlist *itlist,
+                                     int newvarno)
+{
+    ListCell *lc;
+
+    // Search through target list for matching entry
+    foreach(lc, itlist->tlist)
+    {
+        TargetEntry *tle = lfirst(lc);
+
+        // Match both sortgroupref and expression
+        // Equal check handles setop plans where ressortgroupref
+        // assignment may not perfectly match topmost level
+        if (tle->ressortgroupref == sortgroupref &&
+            equal(node, tle->expr))
+        {
+            // Create Var to reference the matching target entry
+            Var *newvar = makeVarFromTargetEntry(newvarno, tle);
+
+            // Mark as not originally a plain Var
+            newvar->varnosyn = 0;
+            newvar->varattnosyn = 0;
+
+            return newvar;
+        }
+    }
+
+    return NULL;  // No match found
+}
+```

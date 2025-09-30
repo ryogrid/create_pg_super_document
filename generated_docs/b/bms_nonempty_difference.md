@@ -36,3 +36,30 @@ This function determines whether bitmapset 'a' contains any members that are not
 - Employs bitwise operations (a->words[i] & ~b->words[i]) for efficient difference detection
 - Commonly used in query optimization to determine set relationships
 - Located in src/backend/nodes/bitmapset.c:641-671
+
+## Simplified Source
+
+```c
+bool
+bms_nonempty_difference(const Bitmapset *a, const Bitmapset *b)
+{
+    // Handle NULL cases
+    if (a == NULL)
+        return false;
+    if (b == NULL)
+        return true;
+
+    // If 'a' has more words, it must contain additional members
+    if (a->nwords > b->nwords)
+        return true;
+
+    // Check if any bits in 'a' are not set in 'b'
+    for (int i = 0; i < a->nwords; i++)
+    {
+        if ((a->words[i] & ~b->words[i]) != 0)
+            return true;
+    }
+
+    return false;
+}
+```

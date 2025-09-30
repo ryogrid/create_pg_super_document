@@ -36,3 +36,14 @@ The function serves as a thin wrapper around ExecJustAssignVarImpl, configured t
 - Marked as static and designed for inlining to minimize function call overhead in tight execution loops
 - Particularly important for sequential scans, index scans, and other scan operations where the base table data is being projected
 - Complements ExecJustScanVar which extracts values rather than assigning them to result slots
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustAssignScanVar(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Assign scan tuple variable to result slot
+    return ExecJustAssignVarImpl(state, econtext->ecxt_scantuple, isnull);
+}
+```

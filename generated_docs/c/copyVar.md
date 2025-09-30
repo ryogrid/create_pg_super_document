@@ -33,3 +33,25 @@ The function is marked as `static inline` to encourage compiler inlining for max
 - Marked as inline to minimize function call overhead during frequent usage
 - Used extensively during expression tree rewriting and reference fixing in the optimizer
 - Part of the setrefs.c module which handles plan tree reference resolution
+
+## Simplified Source
+
+```c
+// Simplified version of copyVar
+static inline Var *
+copyVar(Var *original_var) {
+    // Allocate memory for new Var node
+    Var *new_var = (Var *) palloc(sizeof(Var));
+
+    // Copy all fields from original to new Var
+    *new_var = *original_var;
+
+    return new_var;
+}
+```
+
+Key simplifications made:
+- Used more descriptive parameter names for clarity
+- Added comments explaining the allocation and copy steps
+- Maintained the inline optimization and shallow copy behavior
+- Preserved the essential performance characteristics

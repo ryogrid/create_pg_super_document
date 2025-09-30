@@ -38,3 +38,22 @@ This function builds upon `get_typsubscript()` by not only finding the subscript
 - The subscripting handler function is expected to return a pointer to a static `SubscriptRoutines` structure
 - Critical for array access operations and custom container types
 - Located in `src/backend/utils/cache/lsyscache.c:3130-3157`
+
+## Simplified Source
+
+```c
+const struct SubscriptRoutines *
+getSubscriptingRoutines(Oid typid, Oid *typelemp)
+{
+    // Get the subscripting handler function for this type
+    RegProcedure typsubscript = get_typsubscript(typid, typelemp);
+
+    // Return NULL if type doesn't support subscripting
+    if (!OidIsValid(typsubscript))
+        return NULL;
+
+    // Call the handler function to get the SubscriptRoutines structure
+    return (const struct SubscriptRoutines *)
+        DatumGetPointer(OidFunctionCall0(typsubscript));
+}
+```

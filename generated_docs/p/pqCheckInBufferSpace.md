@@ -39,3 +39,69 @@ If compaction is insufficient, the function employs the same two-phase reallocat
 - Handles the special case where the buffer is logically empty by resetting all pointers to zero
 - More complex than pqCheckOutBufferSpace due to the need to preserve existing data while optimizing space usage
 - Critical for efficient network data processing in the PostgreSQL client library
+
+## Simplified Source
+```c
+int pqCheckInBufferSpace(size_t bytes_needed, PGconn *conn) {
+    int newsize = conn->inBufSize;
+
+    // Quick exit if we already have enough space
+    if (bytes_needed <= (size_t) newsize)
+        return 0;
+
+    // Try buffer compaction first - move data to start of buffer
+    bytes_needed -= conn->inStart;
+
+    if (conn->inStart < conn->inEnd) {
+        if (conn->inStart > 0) {
+            // Move unprocessed data to beginning of buffer
+            memmove(conn->inBuffer, conn->inBuffer + conn->inStart,
+                    conn->inEnd - conn->inStart);
+            conn->inEnd -= conn->inStart;
+            conn->inCursor -= conn->inStart;
+            conn->inStart = 0;
+        }
+    } else {
+        // Buffer is empty, reset all pointers
+        conn->inStart = conn->inCursor = conn->inEnd = 0;
+    }
+
+    // Check if compaction provided enough space
+    if (bytes_needed <= (size_t) newsize)
+        return 0;
+
+    // Try doubling buffer size first
+    do {
+        newsize *= 2;
+    } while (newsize > 0 && bytes_needed > (size_t) newsize);
+
+    if (newsize > 0 && bytes_needed <= (size_t) newsize) {
+        char *newbuf = realloc(conn->inBuffer, newsize);
+        if (newbuf) {
+            conn->inBuffer = newbuf;
+            conn->inBufSize = newsize;
+            return 0;
+        }
+    }
+
+    // Fall back to 8KB incremental growth
+    newsize = conn->inBufSize;
+    do {
+        newsize += 8192;
+    } while (newsize > 0 && bytes_needed > (size_t) newsize);
+
+    if (newsize > 0 && bytes_needed <= (size_t) newsize) {
+        char *newbuf = realloc(conn->inBuffer, newsize);
+        if (newbuf) {
+            conn->inBuffer = newbuf;
+            conn->inBufSize = newsize;
+            return 0;
+        }
+    }
+
+    // Memory allocation failed
+    appendPQExpBufferStr(&conn->errorMessage,
+                         "cannot allocate memory for input buffer\n");
+    return EOF;
+}
+```

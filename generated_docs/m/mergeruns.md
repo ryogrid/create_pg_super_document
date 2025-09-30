@@ -63,3 +63,107 @@ The algorithm continues until all input runs are consumed and only one output ru
 - The function changes the sort state from  to either  or 
 - Memory management is sophisticated, transitioning from tuple-based to slab-based allocation
 - Part of PostgreSQL's highly optimized external sorting system for handling large datasets
+
+## Simplified Source
+
+```c
+static void
+mergeruns(Tuplesortstate *state)
+{
+    int tapenum;
+
+    Assert(state->status == TSS_BUILDRUNS);
+    Assert(state->memtupcount == 0);
+
+    // Disable abbreviation keys for merge phase (not stored on disk)
+    if (state->base.sortKeys != NULL && state->base.sortKeys->abbrev_converter != NULL) {
+        state->base.sortKeys->abbrev_converter = NULL;
+        state->base.sortKeys->comparator = state->base.sortKeys->abbrev_full_comparator;
+        state->base.sortKeys->abbrev_abort = NULL;
+        state->base.sortKeys->abbrev_full_comparator = NULL;
+    }
+
+    // Reset memory for merge phase
+    MemoryContextResetOnly(state->base.tuplecontext);
+
+    // Free large memtuples array, allocate smaller one for heap
+    pfree(state->memtuples);
+    state->memtuples = NULL;
+
+    // Initialize slab allocator for efficient tuple allocation
+    if (state->base.tuples)
+        init_slab_allocator(state, state->nOutputTapes + 1);
+    else
+        init_slab_allocator(state, 0);
+
+    // Allocate new memtuples array for merge heap
+    state->memtupsize = state->nOutputTapes;
+    state->memtuples = (SortTuple *) MemoryContextAlloc(state->base.maincontext,
+                                                        state->nOutputTapes * sizeof(SortTuple));
+
+    // Allocate remaining memory for tape buffers
+    state->tape_buffer_mem = state->availMem;
+
+    // Main merge loop
+    for (;;) {
+        // Start new merge pass if no input runs remain
+        if (state->nInputRuns == 0) {
+            // Close empty input tapes
+            if (state->nInputTapes > 0) {
+                for (tapenum = 0; tapenum < state->nInputTapes; tapenum++)
+                    LogicalTapeClose(state->inputTapes[tapenum]);
+                pfree(state->inputTapes);
+            }
+
+            // Previous outputs become next pass inputs
+            state->inputTapes = state->outputTapes;
+            state->nInputTapes = state->nOutputTapes;
+            state->nInputRuns = state->nOutputRuns;
+
+            // Reset output tape variables
+            state->outputTapes = palloc0(state->nInputTapes * sizeof(LogicalTape *));
+            state->nOutputTapes = 0;
+            state->nOutputRuns = 0;
+
+            // Calculate buffer sizes and prepare input tapes
+            input_buffer_size = merge_read_buffer_size(state->tape_buffer_mem,
+                                                     state->nInputTapes,
+                                                     state->nInputRuns,
+                                                     state->maxTapes);
+
+            for (tapenum = 0; tapenum < state->nInputTapes; tapenum++)
+                LogicalTapeRewindForRead(state->inputTapes[tapenum], input_buffer_size);
+
+            // Check if we can do final merge on-the-fly
+            if ((state->base.sortopt & TUPLESORT_RANDOMACCESS) == 0 &&
+                state->nInputRuns <= state->nInputTapes &&
+                !WORKER(state)) {
+                LogicalTapeSetForgetFreeSpace(state->tapeset);
+                beginmerge(state);
+                state->status = TSS_FINALMERGE;
+                return;
+            }
+        }
+
+        // Select output tape and merge one run from each input
+        selectnewtape(state);
+        mergeonerun(state);
+
+        // Check if merge is complete
+        if (state->nInputRuns == 0 && state->nOutputRuns <= 1)
+            break;
+    }
+
+    // Finalize result - single run on single tape
+    state->result_tape = state->outputTapes[0];
+    if (!WORKER(state))
+        LogicalTapeFreeze(state->result_tape, NULL);
+    else
+        worker_freeze_result_tape(state);
+    state->status = TSS_SORTEDONTAPE;
+
+    // Close all input tapes to release buffers
+    for (tapenum = 0; tapenum < state->nInputTapes; tapenum++)
+        LogicalTapeClose(state->inputTapes[tapenum]);
+}
+```

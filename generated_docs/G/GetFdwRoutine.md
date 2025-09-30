@@ -31,3 +31,28 @@ GetFdwRoutine is a critical function that interfaces with foreign data wrapper h
 
 ## Notes and Other Information
 The function performs a security check against restrict_nonsystem_relation_kind to prevent access to foreign tables when such access is administratively restricted. The returned FdwRoutine structure is the primary interface between PostgreSQL's query planner/executor and the foreign data wrapper implementation. Each FDW must implement a handler function that returns a properly initialized FdwRoutine. The function is located in src/backend/foreign/foreign.c:325-354 and is fundamental to the FDW architecture.
+
+## Simplified Source
+
+```c
+FdwRoutine *GetFdwRoutine(Oid fdwhandler) {
+    // Check if foreign table access is restricted
+    if (unlikely((restrict_nonsystem_relation_kind & RESTRICT_RELKIND_FOREIGN_TABLE) != 0)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("access to non-system foreign table is restricted")));
+    }
+
+    // Call the FDW handler function
+    Datum datum = OidFunctionCall0(fdwhandler);
+    FdwRoutine *routine = (FdwRoutine *) DatumGetPointer(datum);
+
+    // Validate the returned FdwRoutine
+    if (routine == NULL || !IsA(routine, FdwRoutine)) {
+        elog(ERROR, "foreign-data wrapper handler function %u did not return an FdwRoutine struct",
+             fdwhandler);
+    }
+
+    return routine;
+}
+```

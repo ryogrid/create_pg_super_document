@@ -58,3 +58,45 @@ This function is crucial for maintaining the integrity of the expression tree du
 - The overwrite_ok parameter should only be true when the caller knows the Const is newly generated
 - Essential for PostgreSQL's type coercion system and expression optimization
 - Located in src/backend/nodes/nodeFuncs.c:631-683
+
+## Simplified Source
+
+```c
+Node *applyRelabelType(Node *arg, Oid rtype, int32 rtypmod, Oid rcollid,
+                      CoercionForm rformat, int rlocation, bool overwrite_ok) {
+    // Strip nested RelabelType nodes to avoid stacking
+    while (arg && IsA(arg, RelabelType))
+        arg = (Node *) ((RelabelType *) arg)->arg;
+
+    if (arg && IsA(arg, Const)) {
+        // Modify Const directly to preserve const-flatness
+        Const *con = (Const *) arg;
+
+        if (!overwrite_ok)
+            con = copyObject(con);
+
+        con->consttype = rtype;
+        con->consttypmod = rtypmod;
+        con->constcollid = rcollid;
+        return (Node *) con;
+    }
+    else if (exprType(arg) == rtype &&
+             exprTypmod(arg) == rtypmod &&
+             exprCollation(arg) == rcollid) {
+        // Already has the right type/typmod/collation
+        return arg;
+    }
+    else {
+        // Create new RelabelType node
+        RelabelType *newrelabel = makeNode(RelabelType);
+
+        newrelabel->arg = (Expr *) arg;
+        newrelabel->resulttype = rtype;
+        newrelabel->resulttypmod = rtypmod;
+        newrelabel->resultcollid = rcollid;
+        newrelabel->relabelformat = rformat;
+        newrelabel->location = rlocation;
+        return (Node *) newrelabel;
+    }
+}
+```

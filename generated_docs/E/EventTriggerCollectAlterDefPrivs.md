@@ -35,3 +35,35 @@ The function operates within the event trigger collection framework and respects
 - The function creates a deep copy of the parse tree using copyObject to ensure data persistence
 - Extracts and stores the object type from stmt->action->objtype for later use by event triggers
 - Early return behavior when event triggers are disabled or collection is inhibited prevents unnecessary overhead
+
+## Simplified Source
+
+```c
+void
+EventTriggerCollectAlterDefPrivs(AlterDefaultPrivilegesStmt *stmt)
+{
+    MemoryContext oldcxt;
+    CollectedCommand *command;
+
+    // Check if event trigger context is active
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create and initialize command structure
+    command = palloc0(sizeof(CollectedCommand));
+    command->type = SCT_AlterDefaultPrivileges;
+    command->d.defprivs.objtype = stmt->action->objtype;
+    command->in_extension = creating_extension;
+    command->parsetree = (Node *) copyObject(stmt);
+
+    // Add to command list
+    currentEventTriggerState->commandList =
+        lappend(currentEventTriggerState->commandList, command);
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

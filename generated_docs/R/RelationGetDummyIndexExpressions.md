@@ -48,3 +48,50 @@ This approach is particularly useful in scenarios where you need type informatio
 - Provides type safety without expression evaluation risks
 - Essential for operations that need type information but cannot execute user code
 - Located in src/backend/utils/cache/relcache.c:5102-5155
+
+## Simplified Source
+
+```c
+List *
+RelationGetDummyIndexExpressions(Relation relation)
+{
+    List *result;
+    Datum exprsDatum;
+    bool isnull;
+    char *exprsString;
+    List *rawExprs;
+    ListCell *lc;
+
+    // Quick exit if no index expressions exist
+    if (relation->rd_indextuple == NULL ||
+        heap_attisnull(relation->rd_indextuple, Anum_pg_index_indexprs, NULL))
+        return NIL;
+
+    // Extract and parse raw expression string from index tuple
+    exprsDatum = heap_getattr(relation->rd_indextuple,
+                              Anum_pg_index_indexprs,
+                              GetPgIndexDescriptor(),
+                              &isnull);
+    Assert(!isnull);
+    exprsString = TextDatumGetCString(exprsDatum);
+    rawExprs = (List *) stringToNode(exprsString);
+    pfree(exprsString);
+
+    // Create dummy NULL constants with matching type information
+    result = NIL;
+    foreach(lc, rawExprs) {
+        Node *rawExpr = (Node *) lfirst(lc);
+
+        result = lappend(result,
+                        makeConst(exprType(rawExpr),
+                                  exprTypmod(rawExpr),
+                                  exprCollation(rawExpr),
+                                  1,              // arbitrary typlen
+                                  (Datum) 0,      // NULL value
+                                  true,           // isnull
+                                  true));         // constbyval
+    }
+
+    return result;
+}
+```

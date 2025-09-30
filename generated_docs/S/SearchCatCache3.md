@@ -38,3 +38,15 @@ Like other functions in this family, SearchCatCache3 searches a system catalog c
 - The caller must still call ReleaseCatCache() when done with the returned tuple
 - Same constraints as SearchCatCache: returned tuple must not be modified
 - Commonly used for catalog lookups that require complex compound keys, such as searches involving namespace, object name, and type information
+
+## Simplified Source
+
+```c
+HeapTuple
+SearchCatCache3(CatCache *cache,
+                Datum v1, Datum v2, Datum v3)
+{
+    // Delegate to internal search function with 3 keys
+    return SearchCatCacheInternal(cache, 3, v1, v2, v3, 0);
+}
+```

@@ -40,3 +40,36 @@ The function is typically called during the dropping of shared objects to clean 
 - Acquires RowExclusiveLock on pg_shdescription during both open and close operations
 - Simpler than DeleteComments due to lack of sub-object complexity
 - Integral part of the cascade deletion process for shared objects
+
+## Simplified Source
+
+```c
+void DeleteSharedComments(Oid oid, Oid classoid) {
+    Relation shdescription;
+    ScanKeyData skey[2];
+    SysScanDesc sd;
+    HeapTuple oldtuple;
+
+    // Step 1: Set up scan keys for object and class OIDs
+    ScanKeyInit(&skey[0], Anum_pg_shdescription_objoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(oid));
+    ScanKeyInit(&skey[1], Anum_pg_shdescription_classoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classoid));
+
+    // Step 2: Open pg_shdescription catalog for modification
+    shdescription = table_open(SharedDescriptionRelationId, RowExclusiveLock);
+
+    // Step 3: Begin indexed scan to find matching comment entries
+    sd = systable_beginscan(shdescription, SharedDescriptionObjIndexId, true,
+                           NULL, 2, skey);
+
+    // Step 4: Delete all matching comment tuples
+    while ((oldtuple = systable_getnext(sd)) != NULL) {
+        CatalogTupleDelete(shdescription, &oldtuple->t_self);
+    }
+
+    // Step 5: Clean up scan and close catalog
+    systable_endscan(sd);
+    table_close(shdescription, RowExclusiveLock);
+}
+```

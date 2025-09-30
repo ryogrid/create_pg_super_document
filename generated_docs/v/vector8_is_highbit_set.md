@@ -39,3 +39,22 @@ This function is commonly used for ASCII validation and character encoding detec
 - The NEON version leverages the maximum value intrinsic for efficient comparison
 - Critical for ASCII validation where high bit indicates extended character sets
 - Part of PostgreSQLs SIMD abstraction layer for cross-platform vectorized bit operations
+
+## Simplified Source
+
+```c
+static inline bool
+vector8_is_highbit_set(const Vector8 v)
+{
+#ifdef USE_SSE2
+    // Use SSE2 movemask to extract high bits and check if any are set
+    return _mm_movemask_epi8(v) != 0;
+#elif defined(USE_NEON)
+    // Use NEON to find max value - if > 0x7F, high bit is set
+    return vmaxvq_u8(v) > 0x7F;
+#else
+    // Fallback: bitwise AND with 0x80 mask to check high bits
+    return v & vector8_broadcast(0x80);
+#endif
+}
+```

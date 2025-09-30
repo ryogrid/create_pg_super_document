@@ -41,3 +41,32 @@ The function is relatively simple compared to DefineOpClass because operator fam
 - Access method validation ensures the specified access method exists and supports indexing
 - Namespace permission checks ensure the user can create objects in the target schema
 - Unlike operator classes, operator families don't have a default data type - they can contain operator classes for different types
+
+## Simplified Source
+
+```c
+ObjectAddress DefineOpFamily(CreateOpFamilyStmt *stmt) {
+    char *opfname;
+    Oid amoid, namespaceoid;
+    AclResult aclresult;
+
+    // Parse qualified name and get target namespace
+    namespaceoid = QualifiedNameGetCreationNamespace(stmt->opfamilyname, &opfname);
+
+    // Check creation permissions in target namespace
+    aclresult = object_aclcheck(NamespaceRelationId, namespaceoid, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(namespaceoid));
+
+    // Validate access method exists
+    amoid = get_index_am_oid(stmt->amname, false);
+
+    // Require superuser privileges
+    if (!superuser())
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("must be superuser to create an operator family")));
+
+    // Create the operator family
+    return CreateOpFamily(stmt, opfname, namespaceoid, amoid);
+}
+```

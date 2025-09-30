@@ -48,3 +48,62 @@ This function prepares the visibility map for truncation to match a new heap siz
 - Handles WAL logging for torn page protection when checksums are enabled
 - Includes detailed bit masking logic to clear unwanted bits in the last byte of the truncated map
 - Part of PostgreSQL's relation truncation process
+
+## Simplified Source
+
+```c
+BlockNumber
+visibilitymap_prepare_truncate(Relation rel, BlockNumber nheapblocks)
+{
+    BlockNumber newnblocks;
+
+    // Calculate truncation boundaries
+    BlockNumber truncBlock = HEAPBLK_TO_MAPBLOCK(nheapblocks);
+    uint32 truncByte = HEAPBLK_TO_MAPBYTE(nheapblocks);
+    uint8 truncOffset = HEAPBLK_TO_OFFSET(nheapblocks);
+
+    // Exit if no visibility map exists
+    if (!smgrexists(RelationGetSmgr(rel), VISIBILITYMAP_FORKNUM))
+        return InvalidBlockNumber;
+
+    // Clear tail bits if truncation is not at page boundary
+    if (truncByte != 0 || truncOffset != 0) {
+        Buffer mapBuffer;
+        Page page;
+        char *map;
+
+        newnblocks = truncBlock + 1;
+
+        // Read the last map page
+        mapBuffer = vm_readbuf(rel, truncBlock, false);
+        if (!BufferIsValid(mapBuffer))
+            return InvalidBlockNumber;
+
+        page = BufferGetPage(mapBuffer);
+        map = PageGetContents(page);
+
+        LockBuffer(mapBuffer, BUFFER_LOCK_EXCLUSIVE);
+        START_CRIT_SECTION();
+
+        // Clear unwanted bytes and mask last byte
+        MemSet(&map[truncByte + 1], 0, MAPSIZE - (truncByte + 1));
+        map[truncByte] &= (1 << truncOffset) - 1;
+
+        // Handle WAL logging for torn page protection
+        MarkBufferDirty(mapBuffer);
+        if (!InRecovery && RelationNeedsWAL(rel) && XLogHintBitIsNeeded())
+            log_newpage_buffer(mapBuffer, false);
+
+        END_CRIT_SECTION();
+        UnlockReleaseBuffer(mapBuffer);
+    } else {
+        newnblocks = truncBlock;
+    }
+
+    // Check if actual truncation is needed
+    if (smgrnblocks(RelationGetSmgr(rel), VISIBILITYMAP_FORKNUM) <= newnblocks)
+        return InvalidBlockNumber;
+
+    return newnblocks;
+}
+```

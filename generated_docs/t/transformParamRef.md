@@ -37,3 +37,27 @@ This design allows different parts of PostgreSQL (such as prepared statements, P
 - Parameter numbering starts from 1 (e.g., , , ...)
 - Error messages include the specific parameter number and source location for better diagnostics
 - The function is part of PostgreSQL's expression transformation pipeline during query parsing
+
+## Simplified Source
+
+```c
+static Node *transformParamRef(ParseState *pstate, ParamRef *pref) {
+    Node *result;
+
+    // Try to resolve parameter using registered hook
+    if (pstate->p_paramref_hook != NULL) {
+        result = pstate->p_paramref_hook(pstate, pref);
+    } else {
+        result = NULL;
+    }
+
+    // If no hook or hook failed to resolve parameter, report error
+    if (result == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_PARAMETER),
+                       errmsg("there is no parameter $%d", pref->number),
+                       parser_errposition(pstate, pref->location)));
+    }
+
+    return result;
+}
+```

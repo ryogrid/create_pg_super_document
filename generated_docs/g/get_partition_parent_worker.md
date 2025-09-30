@@ -42,3 +42,33 @@ The function is designed to work with an already-opened pg_inherits relation, ma
 - Returns InvalidOid if no matching tuple is found
 - Located at src/backend/catalog/partition.c:85-133
 - Static function, only accessible within partition.c
+
+## Simplified Source
+
+```c
+static Oid get_partition_parent_worker(Relation inhRel, Oid relid, bool *detach_pending) {
+    Oid result = InvalidOid;
+    *detach_pending = false;
+
+    // Set up scan keys: match child relation ID and sequence number 1 (direct parent)
+    ScanKeyInit(&key[0], Anum_pg_inherits_inhrelid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relid));
+    ScanKeyInit(&key[1], Anum_pg_inherits_inhseqno, BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(1));
+
+    // Scan pg_inherits using the index for efficiency
+    scan = systable_beginscan(inhRel, InheritsRelidSeqnoIndexId, true, NULL, 2, key);
+    tuple = systable_getnext(scan);
+
+    if (HeapTupleIsValid(tuple)) {
+        Form_pg_inherits form = (Form_pg_inherits) GETSTRUCT(tuple);
+
+        // Check if partition is being detached
+        if (form->inhdetachpending)
+            *detach_pending = true;
+
+        result = form->inhparent;
+    }
+
+    systable_endscan(scan);
+    return result;
+}
+```

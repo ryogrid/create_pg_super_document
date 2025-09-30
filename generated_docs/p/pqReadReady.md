@@ -31,3 +31,11 @@ pqReadReady provides a non-blocking check to determine if data is available for 
 - The function checks only for read readiness, not write readiness
 - Internally calls pqSocketCheck(conn, 1, 0, 0) where parameters are (conn, forRead=1, forWrite=0, timeout=0)
 - File location: src/interfaces/libpq/fe-misc.c:1043-1052
+
+## Simplified Source
+```c
+int pqReadReady(PGconn *conn) {
+    // Check if socket is ready for reading (non-blocking)
+    return pqSocketCheck(conn, 1, 0, 0);
+}
+```

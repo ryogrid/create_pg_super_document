@@ -37,3 +37,19 @@ The function is static and serves as an internal utility within the fileset.c mo
 - The path construction ensures uniqueness through the combination of process ID and FileSet number
 - The caller must ensure the path buffer is large enough (MAXPGPATH bytes)
 - Used as a building block for other FileSet path operations throughout the system
+
+## Simplified Source
+
+```c
+static void FileSetPath(char *path, FileSet *fileset, Oid tablespace) {
+    char tempdirpath[MAXPGPATH];
+
+    // Get the base temporary directory path for this tablespace
+    TempTablespacePath(tempdirpath, tablespace);
+
+    // Build unique directory path for this FileSet
+    snprintf(path, MAXPGPATH, "%s/%s%lu.%u.fileset",
+             tempdirpath, PG_TEMP_FILE_PREFIX,
+             (unsigned long) fileset->creator_pid, fileset->number);
+}
+```

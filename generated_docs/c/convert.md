@@ -37,3 +37,19 @@ This endian conversion ensures that timezone database files created by  are port
 - Used extensively throughout the timezone file writing process to ensure consistent binary format
 - Part of the timezone database binary format specification that requires big-endian integer storage
 - The bit shifting approach is efficient and works correctly on both big-endian and little-endian systems
+
+## Simplified Source
+
+```c
+static void convert(const int32 val, char *const buf)
+{
+    // Convert 32-bit integer to big-endian byte order
+    unsigned char *bytes = (unsigned char *) buf;
+
+    // Extract each byte starting from most significant
+    bytes[0] = val >> 24;  // Most significant byte
+    bytes[1] = val >> 16;
+    bytes[2] = val >> 8;
+    bytes[3] = val;        // Least significant byte
+}
+```

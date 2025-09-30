@@ -46,3 +46,59 @@ Foreign tables are explicitly excluded as they cannot have transition tables.
 - Foreign tables cannot have transition tables and will always return false
 - MERGE operations do not have separate transition table handling and return false
 - The function is part of the query planner's catalog utilities for determining trigger-related planning requirements
+
+## Simplified Source
+
+```c
+bool
+has_transition_tables(PlannerInfo *root, Index rti, CmdType event)
+{
+    // Get the range table entry
+    RangeTblEntry *rte = planner_rt_fetch(rti, root);
+    bool result = false;
+
+    Assert(rte->rtekind == RTE_RELATION);
+
+    // Foreign tables cannot have transition tables
+    if (rte->relkind == RELKIND_FOREIGN_TABLE)
+        return false;
+
+    // Open the relation and get trigger descriptor
+    Relation relation = table_open(rte->relid, NoLock);
+    TriggerDesc *trigDesc = relation->trigdesc;
+
+    // Check for transition tables based on command type
+    switch (event)
+    {
+        case CMD_INSERT:
+            if (trigDesc && trigDesc->trig_insert_new_table)
+                result = true;
+            break;
+
+        case CMD_UPDATE:
+            if (trigDesc &&
+                (trigDesc->trig_update_old_table ||
+                 trigDesc->trig_update_new_table))
+                result = true;
+            break;
+
+        case CMD_DELETE:
+            if (trigDesc && trigDesc->trig_delete_old_table)
+                result = true;
+            break;
+
+        case CMD_MERGE:
+            // MERGE uses separate INSERT/UPDATE/DELETE events
+            result = false;
+            break;
+
+        default:
+            elog(ERROR, "unrecognized CmdType: %d", (int) event);
+            break;
+    }
+
+    // Clean up and return result
+    table_close(relation, NoLock);
+    return result;
+}
+```

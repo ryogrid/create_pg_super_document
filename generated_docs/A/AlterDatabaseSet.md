@@ -43,3 +43,29 @@ The function serves as a wrapper that handles permission checking and locking fo
 - The actual parameter setting logic is delegated to AlterSetting() which handles the catalog updates
 - Database-specific settings override global settings for sessions connecting to that database
 - Part of PostgreSQL's configuration management system that allows per-database parameter customization
+
+## Simplified Source
+
+```c
+Oid AlterDatabaseSet(AlterDatabaseSetStmt *stmt) {
+    Oid datid;
+
+    // Get database OID
+    datid = get_database_oid(stmt->dbname, false);
+
+    // Lock database and verify it still exists
+    shdepLockAndCheckObject(DatabaseRelationId, datid);
+
+    // Check ownership permissions
+    if (!object_ownercheck(DatabaseRelationId, datid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, stmt->dbname);
+
+    // Delegate to AlterSetting to handle the parameter change
+    AlterSetting(datid, InvalidOid, stmt->setstmt);
+
+    // Release lock
+    UnlockSharedObject(DatabaseRelationId, datid, 0, AccessShareLock);
+
+    return datid;
+}
+```

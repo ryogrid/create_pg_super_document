@@ -37,3 +37,25 @@ The function iterates through both lists simultaneously using the forboth macro,
 - This is primarily used in PostgreSQL's outer join reduction logic to identify which sets of variables have potential conflicts
 - The result encodes positional information rather than the actual overlapping members
 - Both input multibitmapsets are read-only and not modified
+
+## Simplified Source
+
+```c
+Bitmapset *mbms_overlap_sets(const List *a, const List *b)
+{
+    Bitmapset *result = NULL;
+
+    // Check each corresponding pair of bitmapsets for overlap
+    forboth(lca, a, lcb, b)
+    {
+        const Bitmapset *bmsa = lfirst_node(Bitmapset, lca);
+        const Bitmapset *bmsb = lfirst_node(Bitmapset, lcb);
+
+        // If the two bitmapsets overlap, record the list index
+        if (bms_overlap(bmsa, bmsb))
+            result = bms_add_member(result, foreach_current_index(lca));
+    }
+
+    return result;
+}
+```

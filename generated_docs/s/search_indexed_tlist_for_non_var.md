@@ -46,3 +46,39 @@ The function includes an optimization where it avoids replacing simple Const nod
 - It's recommended to check itlist->has_non_vars before calling this function, as it's a waste of time to call it otherwise
 - Part of PostgreSQL's plan tree reference fixing mechanism during query optimization
 - Located in src/backend/optimizer/plan/setrefs.c at lines 2915-2954
+
+## Simplified Source
+
+```c
+// Simplified version of search_indexed_tlist_for_non_var
+static Var *
+search_indexed_tlist_for_non_var(Expr *expression,
+                                 indexed_tlist *target_list, int new_varno) {
+    TargetEntry *matching_entry;
+
+    // Skip simple constants - they're cheaper to execute than Vars
+    if (IsA(expression, Const))
+        return NULL;
+
+    // Search for matching expression in target list
+    matching_entry = tlist_member(expression, target_list->tlist);
+    if (matching_entry) {
+        // Create new Var referencing the target list entry
+        Var *new_var = makeVarFromTargetEntry(new_varno, matching_entry);
+
+        // Mark as synthetic (not originally a plain Var)
+        new_var->varnosyn = 0;
+        new_var->varattnosyn = 0;
+
+        return new_var;
+    }
+
+    return NULL;  // No match found
+}
+```
+
+Key simplifications made:
+- Used more descriptive parameter names for clarity
+- Added comments explaining the optimization for constants
+- Simplified the matching logic while preserving the search behavior
+- Focused on the core expression matching and Var creation logic

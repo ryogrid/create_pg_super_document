@@ -43,3 +43,47 @@ This function extracts the input collation OID from expression nodes that can in
 - Returns InvalidOid for expression types that don't store input collation or where it's not applicable
 - Important for ensuring consistent collation handling in complex expressions involving multiple collatable inputs
 - The inputcollid field is populated during the collation assignment phase of query parsing and analysis
+
+## Simplified Source
+```c
+Oid
+exprInputCollation(const Node *expr)
+{
+    Oid coll;
+
+    if (!expr)
+        return InvalidOid;
+
+    // Extract inputcollid from expression types that store it
+    switch (nodeTag(expr)) {
+        case T_Aggref:
+            coll = ((const Aggref *) expr)->inputcollid;
+            break;
+        case T_WindowFunc:
+            coll = ((const WindowFunc *) expr)->inputcollid;
+            break;
+        case T_FuncExpr:
+            coll = ((const FuncExpr *) expr)->inputcollid;
+            break;
+        case T_OpExpr:
+            coll = ((const OpExpr *) expr)->inputcollid;
+            break;
+        case T_DistinctExpr:
+            coll = ((const DistinctExpr *) expr)->inputcollid;
+            break;
+        case T_NullIfExpr:
+            coll = ((const NullIfExpr *) expr)->inputcollid;
+            break;
+        case T_ScalarArrayOpExpr:
+            coll = ((const ScalarArrayOpExpr *) expr)->inputcollid;
+            break;
+        case T_MinMaxExpr:
+            coll = ((const MinMaxExpr *) expr)->inputcollid;
+            break;
+        default:
+            coll = InvalidOid;
+            break;
+    }
+    return coll;
+}
+```

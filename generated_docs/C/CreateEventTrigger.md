@@ -41,3 +41,72 @@ CreateEventTrigger is the main function responsible for creating event triggers 
 - Prevents creation of duplicate event triggers with the same name
 - Returns the OID of the newly created event trigger
 - Part of PostgreSQL's event trigger system introduced to provide hooks for DDL auditing and replication tools
+
+## Simplified Source
+
+```c
+Oid CreateEventTrigger(CreateEventTrigStmt *stmt) {
+    HeapTuple tuple;
+    Oid funcoid;
+    Oid funcrettype;
+    Oid evtowner = GetUserId();
+    List *tags = NULL;
+
+    // Must be superuser to create event triggers
+    if (!superuser()) {
+        ereport(ERROR, "permission denied to create event trigger \"%s\"",
+                stmt->trigname);
+    }
+
+    // Validate event name
+    if (strcmp(stmt->eventname, "ddl_command_start") != 0 &&
+        strcmp(stmt->eventname, "ddl_command_end") != 0 &&
+        strcmp(stmt->eventname, "sql_drop") != 0 &&
+        strcmp(stmt->eventname, "login") != 0 &&
+        strcmp(stmt->eventname, "table_rewrite") != 0) {
+        ereport(ERROR, "unrecognized event name \"%s\"", stmt->eventname);
+    }
+
+    // Process filter conditions (WHEN clauses)
+    foreach(lc, stmt->whenclause) {
+        DefElem *def = (DefElem *) lfirst(lc);
+
+        if (strcmp(def->defname, "tag") == 0) {
+            if (tags != NULL)
+                error_duplicate_filter_variable(def->defname);
+            tags = (List *) def->arg;
+        } else {
+            ereport(ERROR, "unrecognized filter variable \"%s\"", def->defname);
+        }
+    }
+
+    // Validate tag filters based on event type
+    if ((strcmp(stmt->eventname, "ddl_command_start") == 0 ||
+         strcmp(stmt->eventname, "ddl_command_end") == 0 ||
+         strcmp(stmt->eventname, "sql_drop") == 0) && tags != NULL) {
+        validate_ddl_tags("tag", tags);
+    } else if (strcmp(stmt->eventname, "table_rewrite") == 0 && tags != NULL) {
+        validate_table_rewrite_tags("tag", tags);
+    } else if (strcmp(stmt->eventname, "login") == 0 && tags != NULL) {
+        ereport(ERROR, "tag filtering not supported for login event triggers");
+    }
+
+    // Check for duplicate trigger name
+    tuple = SearchSysCache1(EVENTTRIGGERNAME, CStringGetDatum(stmt->trigname));
+    if (HeapTupleIsValid(tuple)) {
+        ereport(ERROR, "event trigger \"%s\" already exists", stmt->trigname);
+    }
+
+    // Validate trigger function
+    funcoid = LookupFuncName(stmt->funcname, 0, NULL, false);
+    funcrettype = get_func_rettype(funcoid);
+    if (funcrettype != EVENT_TRIGGEROID) {
+        ereport(ERROR, "function %s must return type %s",
+                NameListToString(stmt->funcname), "event_trigger");
+    }
+
+    // Insert the new event trigger
+    return insert_event_trigger_tuple(stmt->trigname, stmt->eventname,
+                                     evtowner, funcoid, tags);
+}
+```

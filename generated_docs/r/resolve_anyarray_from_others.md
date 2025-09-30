@@ -34,3 +34,29 @@ The function ensures that every element type has a corresponding array type, rep
 - The function has a dependency on resolve_anyelement_from_others, creating a chain of polymorphic type resolution
 - Error occurs if the resolved element type doesn't have a corresponding array type in the system catalogs
 - Located in src/backend/utils/fmgr/funcapi.c:655-680
+
+## Simplified Source
+
+```c
+static void resolve_anyarray_from_others(polymorphic_actuals *actuals) {
+    // Step 1: Ensure we have the element type first
+    if (!OidIsValid(actuals->anyelement_type)) {
+        resolve_anyelement_from_others(actuals);
+    }
+
+    // Step 2: Get the array type for the resolved element type
+    if (OidIsValid(actuals->anyelement_type)) {
+        Oid array_typeid = get_array_type(actuals->anyelement_type);
+
+        if (!OidIsValid(array_typeid)) {
+            // Error: No array type exists for this element type
+            ereport(ERROR, "could not find array type for data type");
+        }
+
+        actuals->anyarray_type = array_typeid;
+    } else {
+        // Error: Could not determine element type
+        elog(ERROR, "could not determine polymorphic type");
+    }
+}
+```

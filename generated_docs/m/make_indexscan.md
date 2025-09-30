@@ -42,3 +42,34 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 - The distinction between indexqual and qpqual allows for optimal query execution where some conditions are evaluated via index and others after row retrieval
 - Supports various index types and scan directions for flexible query execution
 - The original forms of qualifications and orderings are preserved for debugging and plan analysis purposes
+
+## Simplified Source
+
+```c
+static IndexScan *make_indexscan(List *qptlist, List *qpqual, Index scanrelid,
+                                Oid indexid, List *indexqual, List *indexqualorig,
+                                List *indexorderby, List *indexorderbyorig,
+                                List *indexorderbyops, ScanDirection indexscandir) {
+    // Create new IndexScan node
+    IndexScan *node = makeNode(IndexScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Post-index filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure index scan specifics
+    node->scan.scanrelid = scanrelid;        // Table to scan
+    node->indexid = indexid;                 // Index to use
+    node->indexqual = indexqual;             // Index-based conditions
+    node->indexqualorig = indexqualorig;     // Original conditions
+    node->indexorderby = indexorderby;       // Index ordering
+    node->indexorderbyorig = indexorderbyorig;
+    node->indexorderbyops = indexorderbyops;
+    node->indexorderdir = indexscandir;      // Scan direction
+
+    return node;
+}
+```

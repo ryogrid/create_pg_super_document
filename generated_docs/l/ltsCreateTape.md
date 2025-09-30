@@ -40,3 +40,38 @@ The function uses lazy allocation for the I/O buffer, meaning the actual buffer 
 - The maximum buffer size is limited by MaxAllocSize to prevent allocation failures
 - The tape starts in an unfrozen, clean state (, )
 - Preallocation arrays are initially empty, allowing for dynamic expansion as needed
+
+## Simplified Source
+
+```c
+static LogicalTape *ltsCreateTape(LogicalTapeSet *lts) {
+    // Allocate memory for new logical tape
+    LogicalTape *lt = palloc(sizeof(LogicalTape));
+
+    // Initialize tape structure
+    lt->tapeSet = lts;
+    lt->writing = true;
+    lt->frozen = false;
+    lt->dirty = false;
+
+    // Initialize block tracking to invalid state
+    lt->firstBlockNumber = -1L;
+    lt->curBlockNumber = -1L;
+    lt->nextBlockNumber = -1L;
+    lt->offsetBlockNumber = 0L;
+
+    // Set up buffer management (lazy allocation)
+    lt->buffer = NULL;
+    lt->buffer_size = 0;
+    lt->max_size = MaxAllocSize;
+    lt->pos = 0;
+    lt->nbytes = 0;
+
+    // Initialize preallocation arrays
+    lt->prealloc = NULL;
+    lt->nprealloc = 0;
+    lt->prealloc_size = 0;
+
+    return lt;
+}
+```

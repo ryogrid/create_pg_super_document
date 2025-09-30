@@ -34,3 +34,12 @@ The function is used internally within the index management system to coordinate
 - Critical for preventing operations on inconsistent indexes during rebuilding
 - Used by constraint checking functions to handle special cases during reindexing
 - Ensures proper behavior when indexes are temporarily in an invalid state
+
+## Simplified Source
+
+```c
+static bool ReindexIsCurrentlyProcessingIndex(Oid indexOid) {
+    // Check if this index is currently being reindexed
+    return indexOid == currentlyReindexedIndex;
+}
+```

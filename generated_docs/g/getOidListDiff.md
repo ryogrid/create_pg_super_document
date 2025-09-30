@@ -19,7 +19,7 @@ The algorithm works by maintaining separate input and output pointers for each a
 ## Parameters / Member Variables
 - `list1`: Pointer to the first sorted OID array, modified in-place to contain elements unique to this array
 - `nlist1`: Pointer to the count of elements in list1, updated to reflect the number of unique elements remaining
-- `list2`: Pointer to the second sorted OID array, modified in-place to contain elements unique to this array  
+- `list2`: Pointer to the second sorted OID array, modified in-place to contain elements unique to this array
 - `nlist2`: Pointer to the count of elements in list2, updated to reflect the number of unique elements remaining
 
 ## Dependencies
@@ -34,3 +34,39 @@ The algorithm works by maintaining separate input and output pointers for each a
 - Uses O(n+m) time complexity where n and m are the sizes of the input arrays
 - Static function only accessible within pg_shdepend.c
 - Essential helper for ACL dependency management operations
+
+## Simplified Source
+```c
+static void getOidListDiff(Oid *list1, int *nlist1, Oid *list2, int *nlist2) {
+    int in1 = 0, in2 = 0, out1 = 0, out2 = 0;
+
+    // Compare both lists simultaneously using two pointers
+    while (in1 < *nlist1 && in2 < *nlist2) {
+        if (list1[in1] == list2[in2]) {
+            // Skip duplicates in both lists
+            in1++;
+            in2++;
+        } else if (list1[in1] < list2[in2]) {
+            // list1[in1] is unique to list1
+            list1[out1++] = list1[in1++];
+        } else {
+            // list2[in2] is unique to list2
+            list2[out2++] = list2[in2++];
+        }
+    }
+
+    // Copy remaining elements unique to list1
+    while (in1 < *nlist1) {
+        list1[out1++] = list1[in1++];
+    }
+
+    // Copy remaining elements unique to list2
+    while (in2 < *nlist2) {
+        list2[out2++] = list2[in2++];
+    }
+
+    // Update array sizes to reflect unique elements
+    *nlist1 = out1;
+    *nlist2 = out2;
+}
+```

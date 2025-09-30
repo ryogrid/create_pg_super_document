@@ -38,3 +38,26 @@ The `make_tablefuncscan` function is a factory function that constructs a TableF
 - [TableFuncScan](../T/TableFuncScan.md) is primarily used for SQL/XML and SQL/JSON functionality where structured data is extracted from documents
 - The TableFunc structure contains all the necessary information about column definitions, namespaces, and data extraction logic
 - Part of PostgreSQL's query planner infrastructure that handles advanced table function operations for document processing
+
+## Simplified Source
+
+```c
+static TableFuncScan *make_tablefuncscan(List *qptlist, List *qpqual,
+                                         Index scanrelid, TableFunc *tablefunc) {
+    // Create new TableFuncScan node
+    TableFuncScan *node = makeNode(TableFuncScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure table function scan specifics
+    node->scan.scanrelid = scanrelid;  // Relation ID
+    node->tablefunc = tablefunc;       // Table function definition
+
+    return node;
+}
+```

@@ -54,3 +54,56 @@ The function ensures that collation version tracking remains accurate after syst
 - Validates that version changes are consistent (cannot change from NULL to non-NULL or vice versa)
 - Uses InplaceUpdateTupleLock to ensure atomic updates to the catalog
 - Part of PostgreSQL's collation version tracking mechanism introduced to detect potential corruption after collation library updates
+
+## Simplified Source
+
+```c
+ObjectAddress AlterDatabaseRefreshColl(AlterDatabaseRefreshCollStmt *stmt) {
+    Relation rel;
+    Oid db_id;
+    HeapTuple tuple;
+    Form_pg_database datForm;
+    char *oldversion, *newversion;
+
+    // Find and lock the database
+    rel = table_open(DatabaseRelationId, RowExclusiveLock);
+    tuple = /* search for database by name */;
+    datForm = (Form_pg_database) GETSTRUCT(tuple);
+    db_id = datForm->oid;
+
+    // Check ownership permissions
+    if (!object_ownercheck(DatabaseRelationId, db_id, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, stmt->dbname);
+
+    // Get current stored collation version
+    oldversion = /* extract from tuple */;
+
+    // Get current system collation version
+    if (datForm->datlocprovider == COLLPROVIDER_LIBC) {
+        // Use datcollate for libc provider
+    } else {
+        // Use datlocale for other providers
+    }
+    newversion = get_collation_actual_version(datForm->datlocprovider, locale_string);
+
+    // Update if versions differ
+    if (oldversion && newversion && strcmp(newversion, oldversion) != 0) {
+        ereport(NOTICE, "changing version from %s to %s", oldversion, newversion);
+
+        // Update catalog with new version
+        values[Anum_pg_database_datcollversion - 1] = CStringGetTextDatum(newversion);
+        replaces[Anum_pg_database_datcollversion - 1] = true;
+
+        newtuple = heap_modify_tuple(tuple, RelationGetDescr(rel), values, nulls, replaces);
+        CatalogTupleUpdate(rel, &tuple->t_self, newtuple);
+    } else {
+        ereport(NOTICE, "version has not changed");
+    }
+
+    InvokeObjectPostAlterHook(DatabaseRelationId, db_id, 0);
+    table_close(rel, NoLock);
+
+    ObjectAddressSet(address, DatabaseRelationId, db_id);
+    return address;
+}
+```

@@ -35,3 +35,18 @@ The function directly accesses the pre-compiled constant value and null status f
 - The function is marked with pg_attribute_always_inline for maximum performance
 - Part of PostgreSQL's "just-in-time" expression evaluation optimization system
 - Demonstrates PostgreSQL's approach of having specialized handlers for common simple expression patterns
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustConst(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Get the first (and only) evaluation step
+    ExprEvalStep *op = &state->steps[0];
+
+    // Return the pre-compiled constant value and null status
+    *isnull = op->d.constval.isnull;
+    return op->d.constval.value;
+}
+```

@@ -37,3 +37,27 @@ This function handles error reporting for failed newlocale() system calls in a p
 - Preserves the original errno value before calling auxiliary functions that might modify it
 - Provides detailed error context when the error is ENOENT, clarifying that it means "no such locale" rather than a file system error
 - Essential for debugging locale-related issues across different operating systems
+
+## Simplified Source
+```c
+static void
+report_newlocale_failure(const char *localename)
+{
+    int save_errno;
+
+    // Default to ENOENT if errno not set (Windows/BSD compatibility)
+    if (errno == 0)
+        errno = ENOENT;
+
+    // Save errno before calling error functions
+    save_errno = errno;
+
+    // Report error with appropriate detail message
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+             errmsg("could not create locale \"%s\": %m", localename),
+             (save_errno == ENOENT ?
+              errdetail("The operating system could not find any locale data for the locale name \"%s\".",
+                        localename) : 0)));
+}
+```

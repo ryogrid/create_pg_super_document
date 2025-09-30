@@ -45,3 +45,29 @@ This static function constructs a Group plan node that performs grouping operati
 - Often used in conjunction with Sort nodes to ensure proper input ordering
 - [Group](../G/Group.md) nodes perform streaming aggregation, processing one group at a time without building large intermediate data structures
 - The grouping columns must match exactly between consecutive rows to be considered part of the same group
+
+## Simplified Source
+
+```c
+static Group *make_group(List *tlist, List *qual, int numGroupCols,
+                        AttrNumber *grpColIdx, Oid *grpOperators,
+                        Oid *grpCollations, Plan *lefttree) {
+    // Create new Group node
+    Group *node = makeNode(Group);
+    Plan *plan = &node->plan;
+
+    // Set grouping configuration
+    node->numCols = numGroupCols;
+    node->grpColIdx = grpColIdx;
+    node->grpOperators = grpOperators;
+    node->grpCollations = grpCollations;
+
+    // Configure plan node
+    plan->qual = qual;
+    plan->targetlist = tlist;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;  // Group is unary operation
+
+    return node;
+}
+```

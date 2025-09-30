@@ -70,3 +70,94 @@ This function handles the transformation of SQL IN and NOT IN expressions during
 - Type system integration ensures proper coercion and compatibility checking
 - The fallback boolean tree approach ensures compatibility with all data types
 - Located in src/backend/parser/parse_expr.c:1126-1283
+
+## Simplified Source
+
+```c
+static Node *
+transformAExprIn(ParseState *pstate, A_Expr *a)
+{
+    Node *result = NULL;
+    Node *lexpr;
+    List *rexprs;
+    List *rvars, *rnonvars;
+    bool useOr;
+
+    // Determine logic: OR for IN, AND for NOT IN (<>)
+    useOr = (strcmp(strVal(linitial(a->name)), "<>") != 0);
+
+    // Transform left expression and separate right expressions by variable content
+    lexpr = transformExprRecurse(pstate, a->lexpr);
+    rexprs = rvars = rnonvars = NIL;
+
+    foreach(l, (List *) a->rexpr) {
+        Node *rexpr = transformExprRecurse(pstate, lfirst(l));
+        rexprs = lappend(rexprs, rexpr);
+
+        if (contain_vars_of_level(rexpr, 0))
+            rvars = lappend(rvars, rexpr);
+        else
+            rnonvars = lappend(rnonvars, rexpr);
+    }
+
+    // Try ScalarArrayOpExpr optimization for multiple non-variable expressions
+    if (list_length(rnonvars) > 1) {
+        List *allexprs = list_concat(list_make1(lexpr), rnonvars);
+        Oid scalar_type = select_common_type(pstate, allexprs, NULL, NULL);
+
+        // Verify type compatibility and get array type
+        if (OidIsValid(scalar_type) && verify_common_type(scalar_type, allexprs) &&
+            scalar_type != RECORDOID) {
+            Oid array_type = get_array_type(scalar_type);
+
+            if (array_type != InvalidOid) {
+                // Create ArrayExpr with coerced elements
+                List *aexprs = NIL;
+                foreach(l, rnonvars) {
+                    Node *rexpr = coerce_to_common_type(pstate, lfirst(l),
+                                                        scalar_type, "IN");
+                    aexprs = lappend(aexprs, rexpr);
+                }
+
+                ArrayExpr *newa = makeNode(ArrayExpr);
+                newa->array_typeid = array_type;
+                newa->element_typeid = scalar_type;
+                newa->elements = aexprs;
+                newa->multidims = false;
+                newa->location = -1;
+
+                result = make_scalar_array_op(pstate, a->name, useOr,
+                                              lexpr, (Node *) newa, a->location);
+                rexprs = rvars; // Only process variables in boolean tree
+            }
+        }
+    }
+
+    // Build boolean expression tree for remaining expressions
+    foreach(l, rexprs) {
+        Node *rexpr = lfirst(l);
+        Node *cmp;
+
+        if (IsA(lexpr, RowExpr) && IsA(rexpr, RowExpr)) {
+            // Handle row comparisons
+            cmp = make_row_comparison_op(pstate, a->name,
+                                         copyObject(((RowExpr *) lexpr)->args),
+                                         ((RowExpr *) rexpr)->args, a->location);
+        } else {
+            // Scalar comparison
+            cmp = make_op(pstate, a->name, copyObject(lexpr), rexpr,
+                          pstate->p_last_srf, a->location);
+        }
+
+        cmp = coerce_to_boolean(pstate, cmp, "IN");
+
+        if (result == NULL)
+            result = cmp;
+        else
+            result = makeBoolExpr(useOr ? OR_EXPR : AND_EXPR,
+                                  list_make2(result, cmp), a->location);
+    }
+
+    return result;
+}
+```

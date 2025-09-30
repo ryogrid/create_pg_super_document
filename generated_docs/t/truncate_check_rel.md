@@ -51,3 +51,41 @@ The function raises appropriate errors for invalid relations or insufficient per
 - Foreign table truncation support depends entirely on the capabilities of the foreign data wrapper
 - System catalog protection is a critical security feature that prevents accidental data loss in PostgreSQL's internal tables
 - The function provides specific error messages to help users understand why truncation is not allowed for particular relations
+
+## Simplified Source
+
+```c
+static void truncate_check_rel(Oid relid, Form_pg_class reltuple) {
+    char *relname = NameStr(reltuple->relname);
+
+    // Check relation type - only allow tables, foreign tables, and partitioned tables
+    if (reltuple->relkind == RELKIND_FOREIGN_TABLE) {
+        // Foreign tables need FDW support for truncation
+        Oid serverid = GetForeignServerIdByRelId(relid);
+        FdwRoutine *fdwroutine = GetFdwRoutineByServerId(serverid);
+
+        if (!fdwroutine->ExecForeignTruncate) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                     errmsg("cannot truncate foreign table \"%s\"", relname)));
+        }
+    } else if (reltuple->relkind != RELKIND_RELATION &&
+               reltuple->relkind != RELKIND_PARTITIONED_TABLE) {
+        // Not a valid table type for truncation
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("\"%s\" is not a table", relname)));
+    }
+
+    // Protect system catalogs (except pg_largeobject during binary upgrade)
+    if (!allowSystemTableMods && IsSystemClass(relid, reltuple) &&
+        (!IsBinaryUpgrade || relid != LargeObjectRelationId)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied: \"%s\" is a system catalog", relname)));
+    }
+
+    // Allow extensions to add additional checks
+    InvokeObjectTruncateHook(relid);
+}
+```

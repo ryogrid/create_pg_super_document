@@ -45,3 +45,33 @@ This function is optimized for boolean queries - it only needs to determine pres
 - For PlaceHolderVar nodes, continues examining contained expressions if not at current level
 - Does not examine subqueries - must only be used after sublink reduction
 - Returns true to halt traversal (variable found), false to continue traversal
+
+## Simplified Source
+
+```c
+static bool contain_var_clause_walker(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    // Check for Var nodes at current level
+    if (IsA(node, Var)) {
+        if (((Var *) node)->varlevelsup == 0)
+            return true;  // Found variable at current level
+        return false;
+    }
+
+    // CurrentOfExpr is always considered a variable
+    if (IsA(node, CurrentOfExpr))
+        return true;
+
+    // Check PlaceHolderVar nodes at current level
+    if (IsA(node, PlaceHolderVar)) {
+        if (((PlaceHolderVar *) node)->phlevelsup == 0)
+            return true;  // Found placeholder at current level
+        // Continue checking contained expression
+    }
+
+    // Recursively examine child nodes
+    return expression_tree_walker(node, contain_var_clause_walker, context);
+}
+```

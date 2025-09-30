@@ -36,3 +36,18 @@ This static function performs the same validation as verify_common_type() but op
 - Used internally by PostgreSQL's generic type consistency checking system
 - Only checks for implicit coercion capability - does not perform actual coercion
 - Located in src/backend/parser/parse_coerce.c:1628-1645
+
+## Simplified Source
+
+```c
+static bool
+verify_common_type_from_oids(Oid common_type, int nargs, const Oid *typeids)
+{
+    // Check if all input types can be coerced to common_type
+    for (int i = 0; i < nargs; i++) {
+        if (!can_coerce_type(1, &typeids[i], &common_type, COERCION_IMPLICIT))
+            return false;  // Early exit if any type can't be coerced
+    }
+    return true;  // All types are coercible
+}
+```

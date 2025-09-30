@@ -48,3 +48,58 @@ Key processing steps include:
 - Supports parameterized plans through nestloop parameter replacement
 - Particularly useful for queries with TID range conditions like 
 - The scan can efficiently process ranges of TIDs without needing to specify each individual TID
+
+## Simplified Source
+
+```c
+static TidRangeScan *
+create_tidrangescan_plan(PlannerInfo *root, TidRangePath *best_path,
+                         List *tlist, List *scan_clauses)
+{
+    TidRangeScan *scan_plan;
+    Index scan_relid = best_path->path.parent->relid;
+    List *tidrangequals = best_path->tidrangequals;
+
+    // Validate that we have a base relation
+    Assert(scan_relid > 0);
+    Assert(best_path->path.parent->rtekind == RTE_RELATION);
+
+    // Filter scan clauses: remove duplicates found in tidrangequals (AND semantics)
+    {
+        List *qpqual = NIL;
+        ListCell *l;
+
+        foreach(l, scan_clauses) {
+            RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+            if (rinfo->pseudoconstant)
+                continue;  // Drop pseudoconstants
+            if (list_member_ptr(tidrangequals, rinfo))
+                continue;  // Remove duplicates
+            qpqual = lappend(qpqual, rinfo);
+        }
+        scan_clauses = qpqual;
+    }
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    tidrangequals = extract_actual_clauses(tidrangequals, false);
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths by replacing outer variables with nestloop params
+    if (best_path->path.param_info) {
+        tidrangequals = (List *) replace_nestloop_params(root, (Node *) tidrangequals);
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the TidRangeScan plan node
+    scan_plan = make_tidrangescan(tlist, scan_clauses, scan_relid, tidrangequals);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, &best_path->path);
+
+    return scan_plan;
+}
+```

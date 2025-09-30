@@ -40,3 +40,38 @@ This function processes SQL JSON() expressions during parsing, creating JsonCons
 - Error reporting includes specific position information for debugging
 - Part of SQL/JSON standard implementation for JSON() constructor expressions
 - The unique_keys parameter controls execution-time behavior for key validation
+
+## Simplified Source
+
+```c
+static Node *transformJsonParseExpr(ParseState *pstate, JsonParseExpr *jsexpr) {
+    // Transform output returning clause
+    JsonReturning *returning = transformJsonReturning(pstate, jsexpr->output, "JSON()");
+
+    Node *arg;
+    if (jsexpr->unique_keys) {
+        // For unique keys: require TEXT input and use special parsing
+        JsonValueExpr *jve = jsexpr->expr;
+        Oid arg_type;
+
+        arg = transformJsonParseArg(pstate, (Node *) jve->raw_expr,
+                                   jve->format, &arg_type);
+
+        // Ensure input is text type for unique key checking
+        if (arg_type != TEXTOID) {
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                           errmsg("cannot use non-string types with WITH UNIQUE KEYS clause"),
+                           parser_errposition(pstate, jsexpr->location)));
+        }
+    } else {
+        // Standard JSON parsing with type coercion
+        arg = transformJsonValueExpr(pstate, "JSON()", jsexpr->expr,
+                                    JS_FORMAT_JSON, returning->typid, false);
+    }
+
+    // Create the JSON parse constructor expression
+    return makeJsonConstructorExpr(pstate, JSCTOR_JSON_PARSE, list_make1(arg), NULL,
+                                  returning, jsexpr->unique_keys, false,
+                                  jsexpr->location);
+}
+```

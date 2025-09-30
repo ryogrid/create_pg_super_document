@@ -44,3 +44,47 @@ For soft deadlocks, the function identifies one arbitrary soft cycle and returns
 - Soft edges from detected cycles are stored in possibleConstraints array for later use by the recursive algorithm
 - Hard deadlocks indicate situations that cannot be resolved through queue rearrangement and require transaction abortion
 - The function's return value drives the decision-making in DeadLockCheckRecurse about whether to continue searching or abort
+
+## Simplified Source
+
+```c
+static int TestConfiguration(PGPROC *startProc) {
+    int softFound = 0;
+    EDGE *softEdges = possibleConstraints + nPossibleConstraints;
+    int nSoftEdges;
+
+    // Check if we have enough space for output
+    if (nPossibleConstraints + MaxBackends > maxPossibleConstraints)
+        return -1;
+
+    // Expand constraints into wait orderings
+    if (!ExpandConstraints(curConstraints, nCurConstraints))
+        return -1;  // Inconsistent constraints
+
+    // Check for cycles in all constrained processes
+    for (int i = 0; i < nCurConstraints; i++) {
+        // Check waiter process for cycles
+        if (FindLockCycle(curConstraints[i].waiter, softEdges, &nSoftEdges)) {
+            if (nSoftEdges == 0)
+                return -1;  // Hard deadlock detected
+            softFound = nSoftEdges;
+        }
+
+        // Check blocker process for cycles
+        if (FindLockCycle(curConstraints[i].blocker, softEdges, &nSoftEdges)) {
+            if (nSoftEdges == 0)
+                return -1;  // Hard deadlock detected
+            softFound = nSoftEdges;
+        }
+    }
+
+    // Finally check the starting process
+    if (FindLockCycle(startProc, softEdges, &nSoftEdges)) {
+        if (nSoftEdges == 0)
+            return -1;  // Hard deadlock detected
+        softFound = nSoftEdges;
+    }
+
+    return softFound;  // 0 = no deadlocks, >0 = soft deadlocks found
+}
+```

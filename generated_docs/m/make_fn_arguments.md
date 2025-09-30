@@ -43,3 +43,40 @@ The function handles both regular expressions and NamedArgExpr nodes specially -
 - The argument list is modified in-place, so the original list structure is altered
 - Special handling for NamedArgExpr ensures that named arguments maintain their structure while having their inner expressions coerced
 - Uses implicit coercion with COERCE_IMPLICIT_CAST format, indicating automatic type casting rather than explicit user-requested casting
+
+## Simplified Source
+
+```c
+void make_fn_arguments(ParseState *pstate,
+                       List *fargs,
+                       Oid *actual_arg_types,
+                       Oid *declared_arg_types) {
+    ListCell *current_fargs;
+    int i = 0;
+
+    foreach(current_fargs, fargs) {
+        // Check if type conversion is needed
+        if (actual_arg_types[i] != declared_arg_types[i]) {
+            Node *node = (Node *) lfirst(current_fargs);
+
+            // Handle named arguments specially
+            if (IsA(node, NamedArgExpr)) {
+                NamedArgExpr *na = (NamedArgExpr *) node;
+
+                // Coerce the inner argument, keep NamedArgExpr wrapper
+                node = coerce_type(pstate, (Node *) na->arg,
+                                 actual_arg_types[i], declared_arg_types[i], -1,
+                                 COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+                na->arg = (Expr *) node;
+            } else {
+                // Coerce regular argument directly
+                node = coerce_type(pstate, node,
+                                 actual_arg_types[i], declared_arg_types[i], -1,
+                                 COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+                lfirst(current_fargs) = node;
+            }
+        }
+        i++;
+    }
+}
+```

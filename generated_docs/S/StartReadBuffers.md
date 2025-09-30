@@ -42,3 +42,16 @@ StartReadBuffers is the primary public interface for PostgreSQL's asynchronous b
 - Currently implements synchronous I/O with optional prefetch advice, but the architecture supports future asynchronous I/O enhancements
 - This is the recommended interface for bulk buffer reading operations as opposed to individual ReadBuffer calls
 - The function is designed to be part of a two-phase operation: StartReadBuffers() to initiate and WaitReadBuffers() to complete
+
+## Simplified Source
+
+```c
+bool StartReadBuffers(ReadBuffersOperation *operation,
+                     Buffer *buffers,
+                     BlockNumber blockNum,
+                     int *nblocks,
+                     int flags) {
+    // Wrapper function - delegate to implementation
+    return StartReadBuffersImpl(operation, buffers, blockNum, nblocks, flags);
+}
+```

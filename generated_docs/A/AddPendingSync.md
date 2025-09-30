@@ -36,3 +36,29 @@ AddPendingSync is a static function that manages deferred synchronization of rel
 - The hash table is created with 16 initial buckets and uses HASH_BLOBS for key comparison
 - Memory allocation occurs in TopTransactionContext to maintain entries across subtransactions
 - The is_truncated flag is initialized to false, indicating the relation has not been truncated and requires full synchronization
+
+## Simplified Source
+
+```c
+static void AddPendingSync(const RelFileLocator *rlocator) {
+    PendingRelSync *pending;
+    bool found;
+
+    // Create hash table if not yet created
+    if (!pendingSyncHash) {
+        HASHCTL ctl;
+
+        ctl.keysize = sizeof(RelFileLocator);
+        ctl.entrysize = sizeof(PendingRelSync);
+        ctl.hcxt = TopTransactionContext;
+
+        pendingSyncHash = hash_create("pending sync hash", 16, &ctl,
+                                      HASH_ELEM | HASH_BLOBS | HASH_CONTEXT);
+    }
+
+    // Add new entry to hash table
+    pending = hash_search(pendingSyncHash, rlocator, HASH_ENTER, &found);
+    Assert(!found);  // Should not already exist
+    pending->is_truncated = false;
+}
+```

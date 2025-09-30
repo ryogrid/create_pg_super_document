@@ -37,3 +37,17 @@ This design choice reflects the typical usage pattern in external sorting operat
 - Simple cleanup function with no error handling needed
 - Current PostgreSQL usage patterns ensure tapes are fully read before closure
 - Memory cleanup is straightforward since tapes don't maintain complex internal state requiring special cleanup
+
+## Simplified Source
+
+```c
+void LogicalTapeClose(LogicalTape *lt) {
+    // Free I/O buffer if it exists
+    if (lt->buffer) {
+        pfree(lt->buffer);
+    }
+
+    // Free the tape structure itself
+    pfree(lt);
+}
+```

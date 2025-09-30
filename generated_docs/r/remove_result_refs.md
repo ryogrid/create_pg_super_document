@@ -48,3 +48,28 @@ Note that PlanRowMark cleanup is deferred to the caller (remove_useless_result_r
 - The append_rel_list doesn't need processing because RTEs in the main jointree won't be appendrel members
 - Part of the RTE_RESULT optimization cleanup infrastructure
 - Critical for maintaining query semantic correctness after RTE removal
+
+## Simplified Source
+
+```c
+static void remove_result_refs(PlannerInfo *root, int varno, Node *newjtloc)
+{
+    // Only process PlaceHolderVars if they exist in the query
+    if (root->glob->lastPHId != 0)
+    {
+        Relids subrelids;
+
+        // Get available relations at the new join tree location
+        subrelids = get_relids_in_jointree(newjtloc, true, false);
+        Assert(!bms_is_empty(subrelids));
+
+        // Update PHVs to reference new location instead of removed RTE
+        substitute_phv_relids((Node *) root->parse, varno, subrelids);
+
+        // Handle any append relation adjustments
+        fix_append_rel_relids(root, varno, subrelids);
+    }
+
+    // Note: PlanRowMark cleanup is deferred to caller
+}
+```

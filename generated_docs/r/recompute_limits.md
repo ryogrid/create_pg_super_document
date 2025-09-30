@@ -42,3 +42,52 @@ Key behaviors include:
 - Error reporting includes specific error codes for invalid row counts
 - Always calls ExecSetTupleBound even if compute_tuples_needed returns -1 to ensure child nodes are properly updated during rescans
 - The function switches expression context during evaluation to ensure proper memory management
+
+## Simplified Source
+
+```c
+static void recompute_limits(LimitState *node) {
+    ExprContext *econtext = node->ps.ps_ExprContext;
+    Datum val;
+    bool isNull;
+
+    // Evaluate OFFSET expression
+    if (node->limitOffset) {
+        val = ExecEvalExprSwitchContext(node->limitOffset, econtext, &isNull);
+        if (isNull) {
+            node->offset = 0;  // NULL OFFSET means no offset
+        } else {
+            node->offset = DatumGetInt64(val);
+            if (node->offset < 0)
+                ereport(ERROR, "OFFSET must not be negative");
+        }
+    } else {
+        node->offset = 0;  // No OFFSET clause
+    }
+
+    // Evaluate LIMIT expression
+    if (node->limitCount) {
+        val = ExecEvalExprSwitchContext(node->limitCount, econtext, &isNull);
+        if (isNull) {
+            node->count = 0;
+            node->noCount = true;  // NULL LIMIT means no limit (LIMIT ALL)
+        } else {
+            node->count = DatumGetInt64(val);
+            if (node->count < 0)
+                ereport(ERROR, "LIMIT must not be negative");
+            node->noCount = false;
+        }
+    } else {
+        node->count = 0;
+        node->noCount = true;  // No LIMIT clause
+    }
+
+    // Reset execution state for new scan
+    node->position = 0;
+    node->subSlot = NULL;
+    node->lstate = LIMIT_RESCAN;
+
+    // Notify child node about tuple bound for optimization
+    ExecSetTupleBound(compute_tuples_needed(node), outerPlanState(node));
+}
+```

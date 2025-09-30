@@ -35,3 +35,19 @@ The function directly modifies the currentCommand's objectId field, which was in
 - Only operates when event trigger context is active and collection is not inhibited
 - Assumes that EventTriggerAlterTableStart has been called previously to establish currentCommand
 - Part of the multi-step process for collecting complex ALTER TABLE commands that may contain multiple subcommands
+
+## Simplified Source
+
+```c
+void
+EventTriggerAlterTableRelid(Oid objectId)
+{
+    // Check if event trigger context is active
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Set the relation OID in the current ALTER TABLE command
+    currentEventTriggerState->currentCommand->d.alterTable.objectId = objectId;
+}
+```

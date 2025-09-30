@@ -46,3 +46,55 @@ The function is only available when PostgreSQL is compiled with ICU support (`US
 - Performs level 2 canonicalization for consistent locale representation
 - Handles buffer overflow gracefully by reallocating larger buffers
 - Part of PostgreSQL's ICU integration for internationalization support
+
+## Simplified Source
+
+```c
+char *
+icu_language_tag(const char *loc_str, int elevel)
+{
+#ifdef USE_ICU
+    UErrorCode status;
+    char *langtag;
+    size_t buflen = 32; // Start with small buffer
+    const bool strict = true;
+
+    // Allocate initial buffer and retry until conversion succeeds
+    langtag = palloc(buflen);
+    while (true) {
+        status = U_ZERO_ERROR;
+        uloc_toLanguageTag(loc_str, langtag, buflen, strict, &status);
+
+        // Check if buffer was too small and retry with larger buffer
+        if ((status == U_BUFFER_OVERFLOW_ERROR ||
+             status == U_STRING_NOT_TERMINATED_WARNING) &&
+            buflen < MaxAllocSize) {
+            buflen = Min(buflen * 2, MaxAllocSize);
+            langtag = repalloc(langtag, buflen);
+            continue;
+        }
+
+        break;
+    }
+
+    // Handle conversion failure
+    if (U_FAILURE(status)) {
+        pfree(langtag);
+        if (elevel > 0) {
+            ereport(elevel,
+                   (errmsg("could not convert locale name \"%s\" to language tag: %s",
+                          loc_str, u_errorName(status))));
+        }
+        return NULL;
+    }
+
+    return langtag;
+#else
+    // ICU not supported
+    ereport(ERROR,
+           (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+            errmsg("ICU is not supported in this build")));
+    return NULL;
+#endif
+}
+```

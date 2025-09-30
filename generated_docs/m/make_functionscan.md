@@ -41,3 +41,27 @@ FunctionScan nodes are commonly used for queries involving functions like `gener
 - The funcordinality parameter supports SQL's WITH ORDINALITY clause that adds row numbers to function output
 - Multiple functions can be specified in the functions list, allowing for lateral joins between table functions
 - Part of PostgreSQL's query planner infrastructure that handles table-valued functions in SQL queries
+
+## Simplified Source
+
+```c
+static FunctionScan *make_functionscan(List *qptlist, List *qpqual, Index scanrelid,
+                                       List *functions, bool funcordinality) {
+    // Create new FunctionScan node
+    FunctionScan *node = makeNode(FunctionScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set up basic plan fields
+    plan->targetlist = qptlist;
+    plan->qual = qpqual;
+    plan->lefttree = NULL;   // Leaf scan node
+    plan->righttree = NULL;  // Leaf scan node
+
+    // Set function scan specific fields
+    node->scan.scanrelid = scanrelid;
+    node->functions = functions;            // List of table functions
+    node->funcordinality = funcordinality;  // Include row numbers if true
+
+    return node;
+}
+```

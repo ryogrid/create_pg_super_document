@@ -37,3 +37,30 @@ pg_popcount_masked extends the functionality of pg_popcount by applying a bitwis
 - The mask parameter allows selective bit counting, essential for visibility map operations where only certain bit positions indicate tuple visibility
 - Returns uint64 to handle large bit counts without overflow
 - Primarily used in heap access methods and visibility tracking subsystems
+
+## Simplified Source
+
+```c
+static inline uint64 pg_popcount_masked(const char *buf, int bytes, bits8 mask) {
+    // Set threshold based on architecture
+#if SIZEOF_VOID_P >= 8
+    int threshold = 8;    // 64-bit systems
+#else
+    int threshold = 4;    // 32-bit systems
+#endif
+
+    // Use simple lookup table for small buffers
+    if (bytes < threshold) {
+        uint64 popcnt = 0;
+
+        while (bytes--) {
+            // Apply mask and count bits using lookup table
+            popcnt += pg_number_of_ones[(unsigned char) *buf++ & mask];
+        }
+        return popcnt;
+    }
+
+    // Use optimized implementation for larger buffers
+    return pg_popcount_masked_optimized(buf, bytes, mask);
+}
+```

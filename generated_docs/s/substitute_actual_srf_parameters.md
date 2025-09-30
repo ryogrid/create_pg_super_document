@@ -40,3 +40,24 @@ The key difference from regular parameter substitution is in the handling of sub
 - Uses the query tree mutator framework to ensure all parts of the query tree are properly traversed and modified
 - The actual substitution logic is implemented in the companion mutator function 
 - Returns a modified copy of the input query tree with all applicable Param nodes replaced by actual argument expressions
+
+## Simplified Source
+
+```c
+static Query *
+substitute_actual_srf_parameters(Query *expr, int nargs, List *args)
+{
+    substitute_actual_srf_parameters_context context;
+
+    // Set up substitution context
+    context.nargs = nargs;           // Number of parameters to substitute
+    context.args = args;             // List of actual argument expressions
+    context.sublevels_up = 1;        // Start at sublevel 1 for SRF context
+
+    // Apply parameter substitution throughout the query tree
+    return query_tree_mutator(expr,
+                              substitute_actual_srf_parameters_mutator,
+                              &context,
+                              0);
+}
+```

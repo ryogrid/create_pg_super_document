@@ -43,3 +43,51 @@ The function distinguishes between startup costs (one-time initialization) and p
 
 ## Notes and Other Information
 The function performs error checking by verifying that the function OID exists in the system catalog. It properly manages system catalog cache resources by releasing the cached tuple after use. The cost estimation mechanism is extensible, allowing custom functions to provide their own costing logic through support functions. When using the default procost method, the cost is scaled by cpu_operator_cost to maintain consistency with other planner cost calculations.
+
+## Simplified Source
+
+```c
+void
+add_function_cost(PlannerInfo *root, Oid funcid, Node *node, QualCost *cost)
+{
+    // Look up function in system catalog
+    HeapTuple proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+    if (!HeapTupleIsValid(proctup))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    Form_pg_proc procform = (Form_pg_proc) GETSTRUCT(proctup);
+
+    // Try custom support function first
+    if (OidIsValid(procform->prosupport))
+    {
+        SupportRequestCost req;
+
+        // Initialize request structure
+        req.type = T_SupportRequestCost;
+        req.root = root;
+        req.funcid = funcid;
+        req.node = node;
+        req.startup = 0;
+        req.per_tuple = 0;
+
+        // Call support function
+        SupportRequestCost *sresult = (SupportRequestCost *)
+            DatumGetPointer(OidFunctionCall1(procform->prosupport,
+                                           PointerGetDatum(&req)));
+
+        if (sresult == &req)
+        {
+            // Support function succeeded - use its estimates
+            cost->startup += req.startup;
+            cost->per_tuple += req.per_tuple;
+            ReleaseSysCache(proctup);
+            return;
+        }
+    }
+
+    // Fallback: use default procost from catalog
+    cost->per_tuple += procform->procost * cpu_operator_cost;
+
+    ReleaseSysCache(proctup);
+}
+```

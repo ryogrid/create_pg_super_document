@@ -42,3 +42,27 @@ The analysis considers factors such as datetime operations, function calls, and 
 - Returns true if any part of the JSON path expression is determined to be mutable
 - The actual mutability detection logic is implemented in the companion jspIsMutableWalker function
 - Used primarily during query planning optimization phases to determine if expressions can be safely cached or pre-computed
+
+## Simplified Source
+
+```c
+bool
+jspIsMutable(JsonPath *path, List *varnames, List *varexprs)
+{
+    struct JsonPathMutableContext cxt;
+    JsonPathItem jpi;
+
+    // Initialize mutability analysis context
+    cxt.varnames = varnames;
+    cxt.varexprs = varexprs;
+    cxt.current = jpdsNonDateTime;
+    cxt.lax = (path->header & JSONPATH_LAX) != 0;
+    cxt.mutable = false;
+
+    // Initialize path iterator and walk the expression tree
+    jspInit(&jpi, path);
+    (void) jspIsMutableWalker(&jpi, &cxt);
+
+    return cxt.mutable;
+}
+```

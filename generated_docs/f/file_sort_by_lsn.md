@@ -37,3 +37,17 @@ This ordering is essential when applying logical mappings during table rewrites,
 - The function assumes both ListCell pointers contain valid RewriteMappingFile structures
 - LSN ordering ensures that logical replication maintains transactional consistency across table structure changes
 - Used in conjunction with ApplyLogicalMappingFile to process mapping files in the correct sequence
+
+## Simplified Source
+
+```c
+static int file_sort_by_lsn(const ListCell *a_p, const ListCell *b_p)
+{
+    // Extract RewriteMappingFile structures from list cells
+    RewriteMappingFile *a = (RewriteMappingFile *) lfirst(a_p);
+    RewriteMappingFile *b = (RewriteMappingFile *) lfirst(b_p);
+
+    // Compare LSN values to determine sort order
+    return pg_cmp_u64(a->lsn, b->lsn);
+}
+```

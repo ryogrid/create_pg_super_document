@@ -53,4 +53,66 @@ RecordTransactionCommitPrepared is the final stage function for committing a pre
   - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 
 ## Notes and Other Information
-The function operates within a critical section to ensure atomicity and uses checkpoint delay flags to prevent race conditions during commit processing. Unlike regular commits, prepared transaction commits cannot be optimized out since they always have at least one WAL entry (the PREPARE record). The function handles both local and replicated transactions, managing commit timestamps and replication origin advancement appropriately. Location: src/backend/access/transam/twophase.c:2297-2394
+The function operates within a critical section to ensure atomicity and uses checkpoint delay flags to prevent race conditions during commit processing. Unlike regular commits, prepared transaction commits cannot be optimized out since they always have at least one WAL entry (the PREPARE record). The function handles both local and replicated transactions, managing commit timestamps and replication origin advancement appropriately.
+
+## Simplified Source
+
+```c
+static void RecordTransactionCommitPrepared(TransactionId xid,
+                                           int nchildren, TransactionId *children,
+                                           int nrels, RelFileLocator *rels,
+                                           int nstats, xl_xact_stats_item *stats,
+                                           int ninvalmsgs, SharedInvalidationMessage *invalmsgs,
+                                           bool initfileinval, const char *gid) {
+    XLogRecPtr recptr;
+    TimestampTz committs = GetCurrentTimestamp();
+    bool replorigin;
+
+    // Check if we're using replication origins (replaying remote actions)
+    replorigin = (replorigin_session_origin != InvalidRepOriginId &&
+                  replorigin_session_origin != DoNotReplicateId);
+
+    START_CRIT_SECTION();
+
+    // Delay checkpoint start to prevent race conditions
+    Assert((MyProc->delayChkptFlags & DELAY_CHKPT_START) == 0);
+    MyProc->delayChkptFlags |= DELAY_CHKPT_START;
+
+    // Write commit record to WAL
+    // Mark as potentially having AccessExclusiveLocks (conservative approach)
+    recptr = XactLogCommitRecord(committs,
+                                nchildren, children, nrels, rels,
+                                nstats, stats,
+                                ninvalmsgs, invalmsgs,
+                                initfileinval,
+                                MyXactFlags | XACT_FLAGS_ACQUIREDACCESSEXCLUSIVELOCK,
+                                xid, gid);
+
+    // Advance replication origin LSN if using replication
+    if (replorigin)
+        replorigin_session_advance(replorigin_session_origin_lsn, XactLastRecEnd);
+
+    // Record commit timestamp
+    if (!replorigin || replorigin_session_origin_timestamp == 0)
+        replorigin_session_origin_timestamp = committs;
+
+    TransactionTreeSetCommitTsData(xid, nchildren, children,
+                                  replorigin_session_origin_timestamp,
+                                  replorigin_session_origin);
+
+    // Flush WAL to ensure durability
+    XLogFlush(recptr);
+
+    // Mark transaction and subtransactions as committed in pg_xact
+    TransactionIdCommitTree(xid, nchildren, children);
+
+    // Allow checkpoint to proceed
+    MyProc->delayChkptFlags &= ~DELAY_CHKPT_START;
+
+    END_CRIT_SECTION();
+
+    // Wait for synchronous replication if required
+    // Note: still holding locks at this point
+    SyncRepWaitForLSN(recptr, true);
+}
+```

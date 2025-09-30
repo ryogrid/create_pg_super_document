@@ -387,3 +387,158 @@ The decision-making process considers multiple factors including transaction com
 - **Member Transaction Handling**: Distinguishes between locker and updater transactions, keeping only necessary ones
 - **Vacuum Integration**: Works closely with vacuum cutoff management to ensure safe transaction ID advancement
 - **Critical for MVCC**: Essential for maintaining PostgreSQL's MVCC (Multi-Version Concurrency Control) semantics during freezing
+
+## Simplified Source
+
+```c
+static TransactionId
+FreezeMultiXactId(MultiXactId multi, uint16 t_infomask,
+                  const struct VacuumCutoffs *cutoffs, uint16 *flags,
+                  HeapPageFreeze *pagefrz)
+{
+    TransactionId newxmax;
+    MultiXactMember *members;
+    int nmembers;
+    bool need_replace;
+
+    *flags = 0;
+
+    // Handle invalid or pg_upgrade'd MultiXacts
+    if (!MultiXactIdIsValid(multi) || HEAP_LOCKED_UPGRADED(t_infomask))
+    {
+        *flags |= FRM_INVALIDATE_XMAX;
+        pagefrz->freeze_required = true;
+        return InvalidTransactionId;
+    }
+
+    // Handle very old MultiXacts
+    if (MultiXactIdPrecedes(multi, cutoffs->OldestMxact))
+    {
+        if (HEAP_XMAX_IS_LOCKED_ONLY(t_infomask))
+        {
+            // Lock-only multi can be removed
+            *flags |= FRM_INVALIDATE_XMAX;
+            pagefrz->freeze_required = true;
+            return InvalidTransactionId;
+        }
+
+        // Extract updater XID and validate it
+        TransactionId update_xact = MultiXactIdGetUpdateXid(multi, t_infomask);
+
+        if (TransactionIdPrecedes(update_xact, cutoffs->OldestXmin))
+        {
+            // Updater has aborted, remove xmax
+            *flags |= FRM_INVALIDATE_XMAX;
+            pagefrz->freeze_required = true;
+            return InvalidTransactionId;
+        }
+
+        // Keep updater XID
+        *flags |= FRM_RETURN_IS_XID;
+        pagefrz->freeze_required = true;
+        return update_xact;
+    }
+
+    // Get MultiXact members
+    nmembers = GetMultiXactIdMembers(multi, &members, false,
+                                    HEAP_XMAX_IS_LOCKED_ONLY(t_infomask));
+    if (nmembers <= 0)
+    {
+        *flags |= FRM_INVALIDATE_XMAX;
+        pagefrz->freeze_required = true;
+        return InvalidTransactionId;
+    }
+
+    // Check if replacement is needed based on cutoffs
+    need_replace = false;
+    for (int i = 0; i < nmembers; i++)
+    {
+        TransactionId xid = members[i].xid;
+        if (TransactionIdPrecedes(xid, cutoffs->FreezeLimit))
+        {
+            need_replace = true;
+            break;
+        }
+    }
+
+    if (!need_replace)
+        need_replace = MultiXactIdPrecedes(multi, cutoffs->MultiXactCutoff);
+
+    if (!need_replace)
+    {
+        // No replacement needed - update tracking info
+        *flags |= FRM_NOOP;
+        if (MultiXactIdPrecedes(multi, pagefrz->FreezePageRelminMxid))
+            pagefrz->FreezePageRelminMxid = multi;
+        pfree(members);
+        return multi;
+    }
+
+    // Build new member list keeping only necessary transactions
+    MultiXactMember *newmembers = palloc(sizeof(MultiXactMember) * nmembers);
+    int nnewmembers = 0;
+    bool has_lockers = false;
+    TransactionId update_xid = InvalidTransactionId;
+    bool update_committed = false;
+
+    for (int i = 0; i < nmembers; i++)
+    {
+        TransactionId xid = members[i].xid;
+        MultiXactStatus mstatus = members[i].status;
+
+        if (!ISUPDATE_from_mxstatus(mstatus))
+        {
+            // Keep only running lockers
+            if (TransactionIdIsCurrentTransactionId(xid) ||
+                TransactionIdIsInProgress(xid))
+            {
+                newmembers[nnewmembers++] = members[i];
+                has_lockers = true;
+            }
+        }
+        else
+        {
+            // Handle updater XID
+            if (TransactionIdIsCurrentTransactionId(xid) ||
+                TransactionIdIsInProgress(xid))
+                update_xid = xid;
+            else if (TransactionIdDidCommit(xid))
+            {
+                update_committed = true;
+                update_xid = xid;
+            }
+            // Ignore aborted updaters
+
+            if (TransactionIdIsValid(update_xid))
+                newmembers[nnewmembers++] = members[i];
+        }
+    }
+
+    pfree(members);
+
+    // Decide final action based on surviving members
+    if (nnewmembers == 0)
+    {
+        *flags |= FRM_INVALIDATE_XMAX;
+        newxmax = InvalidTransactionId;
+    }
+    else if (TransactionIdIsValid(update_xid) && !has_lockers)
+    {
+        // Single updater without lockers
+        *flags |= FRM_RETURN_IS_XID;
+        if (update_committed)
+            *flags |= FRM_MARK_COMMITTED;
+        newxmax = update_xid;
+    }
+    else
+    {
+        // Create new MultiXact with surviving members
+        newxmax = MultiXactIdCreateFromMembers(nnewmembers, newmembers);
+        *flags |= FRM_RETURN_IS_MULTI;
+    }
+
+    pfree(newmembers);
+    pagefrz->freeze_required = true;
+    return newxmax;
+}
+```

@@ -41,3 +41,30 @@ The function is designed to handle different levels of session cleanup, allowing
 - The isTopLevel parameter is passed through to DiscardAll() for transaction safety validation
 - Located in src/backend/commands/discard.c, which is dedicated to DISCARD command implementation
 - Part of PostgreSQL's session state management system
+
+## Simplified Source
+
+```c
+void DiscardCommand(DiscardStmt *stmt, bool isTopLevel) {
+    switch (stmt->target) {
+        case DISCARD_ALL:
+            DiscardAll(isTopLevel);       // Discard all session state
+            break;
+
+        case DISCARD_PLANS:
+            ResetPlanCache();             // Reset plan cache only
+            break;
+
+        case DISCARD_SEQUENCES:
+            ResetSequenceCaches();        // Reset sequence caches only
+            break;
+
+        case DISCARD_TEMP:
+            ResetTempTableNamespace();    // Reset temp tables only
+            break;
+
+        default:
+            elog(ERROR, "unrecognized DISCARD target: %d", stmt->target);
+    }
+}
+```

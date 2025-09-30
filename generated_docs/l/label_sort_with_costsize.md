@@ -38,3 +38,32 @@ The function specifically handles Sort nodes (not IncrementalSort nodes) and cal
 - The cost calculation considers work_mem settings for memory-based sorting operations
 - The function preserves parallel safety characteristics from the input plan
 - Used primarily for labeling purposes to provide accurate cost information for EXPLAIN queries
+
+## Simplified Source
+
+```c
+static void
+label_sort_with_costsize(PlannerInfo *root, Sort *plan, double limit_tuples)
+{
+    Plan *lefttree = plan->plan.lefttree;
+    Path sort_path;  // dummy for cost_sort result
+
+    // Ensure we're dealing with a Sort node, not IncrementalSort
+    Assert(IsA(plan, Sort));
+
+    // Calculate sorting costs based on left subtree characteristics
+    cost_sort(&sort_path, root, NIL,
+              lefttree->total_cost,
+              lefttree->plan_rows,
+              lefttree->plan_width,
+              0.0, work_mem, limit_tuples);
+
+    // Apply calculated costs to the Sort plan node
+    plan->plan.startup_cost = sort_path.startup_cost;
+    plan->plan.total_cost = sort_path.total_cost;
+    plan->plan.plan_rows = lefttree->plan_rows;
+    plan->plan.plan_width = lefttree->plan_width;
+    plan->plan.parallel_aware = false;
+    plan->plan.parallel_safe = lefttree->parallel_safe;
+}
+```

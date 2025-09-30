@@ -35,3 +35,43 @@ The function is optimized for performance by being part of the "just-in-time" ex
 - Contains a TODO comment suggesting potential optimization through redesign of the CaseTestExpr mechanism
 - Implements strict function semantics where NULL inputs produce NULL output without function execution
 - Part of PostgreSQL's expression compilation/interpretation optimization system
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustApplyFuncToCase(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    ExprEvalStep *op = &state->steps[0];
+    FunctionCallInfo fcinfo;
+    NullableDatum *args;
+    int nargs;
+    Datum result;
+
+    // Copy CASE_TESTVAL to result slot
+    *op->resvalue = *op->d.casetest.value;
+    *op->resnull = *op->d.casetest.isnull;
+
+    // Move to function application step
+    op++;
+
+    // Setup function call info
+    nargs = op->d.func.nargs;
+    fcinfo = op->d.func.fcinfo_data;
+    args = fcinfo->args;
+
+    // Check for NULL arguments (strict function)
+    for (int argno = 0; argno < nargs; argno++) {
+        if (args[argno].isnull) {
+            *isnull = true;
+            return (Datum) 0;
+        }
+    }
+
+    // Call function and return result
+    fcinfo->isnull = false;
+    result = op->d.func.fn_addr(fcinfo);
+    *isnull = fcinfo->isnull;
+    return result;
+}
+```

@@ -36,3 +36,14 @@ The function serves as a thin wrapper around ExecJustVarImpl, specifically confi
 - Specifically handles variables from the scan tuple, complementing ExecJustInnerVar and ExecJustOuterVar for their respective tuple sources
 - Uses slot_getattr() internally through ExecJustVarImpl, which handles attribute number validation and fetching
 - The function assumes that expression setup has already validated the expression structure and variable references
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustScanVar(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Simple wrapper that extracts a variable from the scan tuple
+    return ExecJustVarImpl(state, econtext->ecxt_scantuple, isnull);
+}
+```

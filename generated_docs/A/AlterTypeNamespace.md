@@ -40,3 +40,37 @@ AlterTypeNamespace is the main entry point for handling ALTER TYPE SET SCHEMA SQ
 - Uses temporary ObjectAddresses structure to track moved objects during the operation
 - Returns an ObjectAddress pointing to the moved type for further processing by the caller
 - Acts as a high-level wrapper around AlterTypeNamespace_oid, handling name resolution and validation
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterTypeNamespace(List *names, const char *newschema, ObjectType objecttype, Oid *oldschema)
+{
+    // Convert name list to TypeName and resolve to type OID
+    TypeName *typename = makeTypeNameFromNameList(names);
+    Oid typeOid = typenameTypeId(NULL, typename);
+
+    // Validate domain constraint: ALTER DOMAIN only works on domains
+    if (objecttype == OBJECT_DOMAIN && get_typtype(typeOid) != TYPTYPE_DOMAIN)
+        ereport(ERROR, "%s is not a domain", format_type_be(typeOid));
+
+    // Get target namespace OID and check CREATE permissions
+    Oid nspOid = LookupCreationNamespace(newschema);
+
+    // Perform the actual namespace change
+    ObjectAddresses *objsMoved = new_object_addresses();
+    Oid oldNspOid = AlterTypeNamespace_oid(typeOid, nspOid, false, objsMoved);
+    free_object_addresses(objsMoved);
+
+    // Return old schema if requested
+    if (oldschema)
+        *oldschema = oldNspOid;
+
+    // Set up return value
+    ObjectAddress myself;
+    ObjectAddressSet(myself, TypeRelationId, typeOid);
+
+    return myself;
+}
+```

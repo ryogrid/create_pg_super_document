@@ -56,3 +56,92 @@ The function handles both simple one-dimensional arrays and complex multi-dimens
 - The function preserves the original source location for accurate error reporting
 - Type coercion behavior differs based on whether the target type was explicitly specified (hard coercion) or inferred (soft coercion)
 - The resulting ArrayExpr node will have its array_collid set later by the collation analysis phase
+
+## Simplified Source
+
+```c
+static Node *
+transformArrayExpr(ParseState *pstate, A_ArrayExpr *a,
+                   Oid array_type, Oid element_type, int32 typmod)
+{
+    ArrayExpr *newa = makeNode(ArrayExpr);
+    List *newelems = NIL;
+    List *newcoercedelems = NIL;
+    Oid coerce_type;
+    bool coerce_hard;
+
+    // Transform all elements, detecting multi-dimensional arrays
+    newa->multidims = false;
+    foreach(element, a->elements) {
+        Node *e = lfirst(element);
+        Node *newe;
+
+        if (IsA(e, A_ArrayExpr)) {
+            // Recursive transformation for nested arrays
+            newe = transformArrayExpr(pstate, (A_ArrayExpr *) e,
+                                      array_type, element_type, typmod);
+            newa->multidims = true;
+        } else {
+            newe = transformExprRecurse(pstate, e);
+
+            // Check if element is an array type (indicates multi-dimensional)
+            if (!newa->multidims) {
+                Oid newetype = exprType(newe);
+                if (newetype != INT2VECTOROID && newetype != OIDVECTOROID &&
+                    type_is_array(newetype))
+                    newa->multidims = true;
+            }
+        }
+        newelems = lappend(newelems, newe);
+    }
+
+    // Determine target type for elements
+    if (OidIsValid(array_type)) {
+        // Explicit target type provided
+        coerce_type = (newa->multidims ? array_type : element_type);
+        coerce_hard = true;
+    } else {
+        // Infer common type from elements
+        if (newelems == NIL)
+            ereport(ERROR, (errcode(ERRCODE_INDETERMINATE_DATATYPE),
+                            errmsg("cannot determine type of empty array"),
+                            errhint("Explicitly cast to the desired type, "
+                                    "for example ARRAY[]::integer[]."),
+                            parser_errposition(pstate, a->location)));
+
+        coerce_type = select_common_type(pstate, newelems, "ARRAY", NULL);
+
+        if (newa->multidims) {
+            array_type = coerce_type;
+            element_type = get_element_type(array_type);
+        } else {
+            element_type = coerce_type;
+            array_type = get_array_type(element_type);
+        }
+        coerce_hard = false;
+    }
+
+    // Coerce all elements to target type
+    foreach(element, newelems) {
+        Node *e = lfirst(element);
+        Node *newe;
+
+        if (coerce_hard) {
+            newe = coerce_to_target_type(pstate, e, exprType(e), coerce_type,
+                                         typmod, COERCION_EXPLICIT,
+                                         COERCE_EXPLICIT_CAST, -1);
+        } else {
+            newe = coerce_to_common_type(pstate, e, coerce_type, "ARRAY");
+        }
+        newcoercedelems = lappend(newcoercedelems, newe);
+    }
+
+    // Set final array properties
+    newa->array_typeid = array_type;
+    newa->element_typeid = element_type;
+    newa->elements = newcoercedelems;
+    newa->location = a->location;
+
+    return (Node *) newa;
+}
+```

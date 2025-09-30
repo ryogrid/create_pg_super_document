@@ -42,3 +42,43 @@ The function performs character-by-character validation with the following rules
 - High-bit characters are allowed to support international character sets
 - The validation helps prevent conflicts between custom variables and built-in PostgreSQL parameters
 - If this validation rule changes, the error detail in assignable_custom_variable_name() should also be updated accordingly
+
+## Simplified Source
+
+```c
+static bool valid_custom_variable_name(const char *name)
+{
+    bool saw_separator = false;
+    bool at_name_start = true;
+
+    // Iterate through each character in the name
+    for (const char *p = name; *p; p++)
+    {
+        if (*p == GUC_QUALIFIER_SEPARATOR)  // dot separator
+        {
+            if (at_name_start)
+                return false;  // empty component (e.g., "..name" or ".name")
+            saw_separator = true;
+            at_name_start = true;
+        }
+        else if (strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_", *p) ||
+                 IS_HIGHBIT_SET(*p))
+        {
+            // Valid first or continuation character
+            at_name_start = false;
+        }
+        else if (!at_name_start && strchr("0123456789$", *p))
+        {
+            // Valid continuation character only
+        }
+        else
+            return false;  // Invalid character
+    }
+
+    if (at_name_start)
+        return false;  // empty final component
+
+    // Valid only if we found at least one separator
+    return saw_separator;
+}
+```

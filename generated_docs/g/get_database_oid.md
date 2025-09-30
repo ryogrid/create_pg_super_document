@@ -59,3 +59,51 @@ The  parameter controls error handling behavior: when , the function throws an e
 - The function is defined in  and implemented in 
 - Commonly used throughout PostgreSQL for resolving database names in DDL operations, ACL checks, and administrative functions
 - Critical for database-related operations that need to validate database existence or convert names to internal identifiers
+
+## Simplified Source
+
+```c
+Oid
+get_database_oid(const char *dbname, bool missing_ok)
+{
+    Relation pg_database;
+    ScanKeyData entry[1];
+    SysScanDesc scan;
+    HeapTuple dbtuple;
+    Oid oid;
+
+    // Open pg_database catalog for scanning
+    pg_database = table_open(DatabaseRelationId, AccessShareLock);
+
+    // Set up scan key to match database name
+    ScanKeyInit(&entry[0],
+                Anum_pg_database_datname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(dbname));
+
+    // Begin indexed scan using database name index
+    scan = systable_beginscan(pg_database, DatabaseNameIndexId, true,
+                              NULL, 1, entry);
+
+    // Get the matching tuple (should be at most one)
+    dbtuple = systable_getnext(scan);
+
+    // Extract OID from tuple if found
+    if (HeapTupleIsValid(dbtuple))
+        oid = ((Form_pg_database) GETSTRUCT(dbtuple))->oid;
+    else
+        oid = InvalidOid;
+
+    // Cleanup scan and close table
+    systable_endscan(scan);
+    table_close(pg_database, AccessShareLock);
+
+    // Error handling based on missing_ok flag
+    if (!OidIsValid(oid) && !missing_ok)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_DATABASE),
+                 errmsg("database \"%s\" does not exist", dbname)));
+
+    return oid;
+}
+```

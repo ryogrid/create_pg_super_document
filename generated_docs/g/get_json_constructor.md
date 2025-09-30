@@ -51,3 +51,61 @@ The function carefully handles the syntax differences between different JSON con
 - The function includes special handling for JSON_OBJECT's key:value pair syntax vs. standard comma-separated arguments
 - Uses error handling for invalid or unrecognized constructor types
 - Located in src/backend/utils/adt/ruleutils.c:11342-11407
+
+## Simplified Source
+
+```c
+static void get_json_constructor(JsonConstructorExpr *ctor, deparse_context *context, bool showimplicit) {
+    StringInfo buf = context->buf;
+    const char *funcname;
+    bool is_json_object;
+    int curridx;
+
+    // Handle aggregation constructors separately
+    if (ctor->type == JSCTOR_JSON_OBJECTAGG) {
+        get_json_agg_constructor(ctor, context, "JSON_OBJECTAGG", true);
+        return;
+    } else if (ctor->type == JSCTOR_JSON_ARRAYAGG) {
+        get_json_agg_constructor(ctor, context, "JSON_ARRAYAGG", false);
+        return;
+    }
+
+    // Map constructor type to function name
+    switch (ctor->type) {
+        case JSCTOR_JSON_OBJECT:
+            funcname = "JSON_OBJECT";
+            break;
+        case JSCTOR_JSON_ARRAY:
+            funcname = "JSON_ARRAY";
+            break;
+        case JSCTOR_JSON_PARSE:
+            funcname = "JSON";
+            break;
+        case JSCTOR_JSON_SCALAR:
+            funcname = "JSON_SCALAR";
+            break;
+        case JSCTOR_JSON_SERIALIZE:
+            funcname = "JSON_SERIALIZE";
+            break;
+        default:
+            elog(ERROR, "invalid JsonConstructorType %d", ctor->type);
+    }
+
+    appendStringInfo(buf, "%s(", funcname);
+
+    // Format arguments with appropriate separators
+    is_json_object = (ctor->type == JSCTOR_JSON_OBJECT);
+    foreach(lc, ctor->args) {
+        curridx = foreach_current_index(lc);
+        if (curridx > 0) {
+            // JSON_OBJECT uses ":" between key-value pairs, "," between pairs
+            const char *sep = (is_json_object && (curridx % 2) != 0) ? " : " : ", ";
+            appendStringInfoString(buf, sep);
+        }
+        get_rule_expr((Node *) lfirst(lc), context, true);
+    }
+
+    get_json_constructor_options(ctor, buf);
+    appendStringInfoChar(buf, ')');
+}
+```

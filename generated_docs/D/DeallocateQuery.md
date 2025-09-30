@@ -32,3 +32,14 @@ DeallocateQuery is the main entry point for executing DEALLOCATE statements in P
 - Part of PostgreSQL's SQL utility command processing system
 - The function determines behavior based on whether stmt->name is NULL or contains a statement name
 - Integrated into the standard utility command processing pipeline
+
+## Simplified Source
+
+```c
+void DeallocateQuery(DeallocateStmt *stmt) {
+    if (stmt->name)
+        DropPreparedStatement(stmt->name, true);  // Drop specific statement
+    else
+        DropAllPreparedStatements();              // Drop all statements
+}
+```

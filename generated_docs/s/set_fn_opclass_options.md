@@ -39,3 +39,20 @@ The function creates a Const node containing the options as bytea data, allowing
 - This mechanism allows opclass implementations to receive configuration without modifying the function call interface
 - Primarily used in index access methods where opclass support functions need specific configuration parameters
 - The use of fn_expr for this purpose is safe because opclass support functions are never called through normal expression evaluation paths
+
+## Simplified Source
+
+```c
+void set_fn_opclass_options(FmgrInfo *flinfo, bytea *options) {
+    // Store options as a bytea constant in fn_expr field
+    flinfo->fn_expr = (Node *) makeConst(
+        BYTEAOID,                    // type OID
+        -1,                          // typmod
+        InvalidOid,                  // collation
+        -1,                          // typlen (variable length)
+        PointerGetDatum(options),    // value
+        options == NULL,             // isnull flag
+        false                        // byval (pass by reference)
+    );
+}
+```

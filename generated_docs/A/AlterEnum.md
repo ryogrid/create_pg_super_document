@@ -54,3 +54,44 @@ The function operates on the live enum type and immediately makes changes visibl
 - Position specification (BEFORE/AFTER) enables precise control over enum value ordering
 - Post-alter hooks enable extension and trigger integration with enum modifications
 - All changes are immediately committed to the catalogs and visible to concurrent transactions
+
+## Simplified Source
+
+```c
+ObjectAddress AlterEnum(AlterEnumStmt *stmt) {
+    Oid enum_type_oid;
+    TypeName *typename;
+    HeapTuple tup;
+    ObjectAddress address;
+
+    // Convert type name list to TypeName and resolve to OID
+    typename = makeTypeNameFromNameList(stmt->typeName);
+    enum_type_oid = typenameTypeId(NULL, typename);
+
+    // Get the type tuple and validate it exists
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(enum_type_oid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", enum_type_oid);
+
+    // Check it's an enum and user has permission
+    checkEnumOwner(tup);
+    ReleaseSysCache(tup);
+
+    // Dispatch based on operation type
+    if (stmt->oldVal) {
+        // Rename existing enum label
+        RenameEnumLabel(enum_type_oid, stmt->oldVal, stmt->newVal);
+    } else {
+        // Add new enum label with optional positioning
+        AddEnumLabel(enum_type_oid, stmt->newVal,
+                     stmt->newValNeighbor, stmt->newValIsAfter,
+                     stmt->skipIfNewValExists);
+    }
+
+    // Trigger post-alter hooks and return object address
+    InvokeObjectPostAlterHook(TypeRelationId, enum_type_oid, 0);
+    ObjectAddressSet(address, TypeRelationId, enum_type_oid);
+
+    return address;
+}
+```

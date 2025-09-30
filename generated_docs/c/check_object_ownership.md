@@ -24,7 +24,7 @@ The function handles complex ownership scenarios such as domain constraints (whi
 - `roleid`: OID of the role whose ownership privileges are being checked
 - `objtype`: Enumerated type indicating the kind of object being checked (table, function, etc.)
 - `address`: ObjectAddress structure containing classId, objectId, and objectSubId
-- `object`: Node structure containing the parsed object specification  
+- `object`: Node structure containing the parsed object specification
 - `relation`: Open relation reference (for relation-based objects), may be NULL
 
 ## Dependencies
@@ -55,3 +55,77 @@ The function handles complex ownership scenarios such as domain constraints (whi
 - For casts, the function checks ownership of either the source OR target type (not both required)
 - Domain constraint ownership is checked via the underlying domain type ownership
 - Provides context-specific error messages that help users understand required privileges
+
+## Simplified Source
+
+```c
+void
+check_object_ownership(Oid roleid, ObjectType objtype, ObjectAddress address,
+                      Node *object, Relation relation)
+{
+    switch (objtype) {
+        // Relation-based objects (tables, views, sequences, etc.)
+        case OBJECT_TABLE:
+        case OBJECT_VIEW:
+        case OBJECT_SEQUENCE:
+        case OBJECT_TRIGGER:
+        case OBJECT_RULE:
+        case OBJECT_POLICY:
+            if (!object_ownercheck(RelationRelationId, RelationGetRelid(relation), roleid))
+                aclcheck_error(ACLCHECK_NOT_OWNER, objtype,
+                              RelationGetRelationName(relation));
+            break;
+
+        // Types and domains
+        case OBJECT_TYPE:
+        case OBJECT_DOMAIN:
+            if (!object_ownercheck(address.classId, address.objectId, roleid))
+                aclcheck_error_type(ACLCHECK_NOT_OWNER, address.objectId);
+            break;
+
+        // Functions and operators
+        case OBJECT_FUNCTION:
+        case OBJECT_PROCEDURE:
+        case OBJECT_OPERATOR:
+            if (!object_ownercheck(address.classId, address.objectId, roleid))
+                aclcheck_error(ACLCHECK_NOT_OWNER, objtype,
+                              NameListToString((castNode(ObjectWithArgs, object))->objname));
+            break;
+
+        // Special case: roles have complex ownership rules
+        case OBJECT_ROLE:
+            if (superuser_arg(address.objectId)) {
+                // Superusers can only be owned by other superusers
+                if (!superuser_arg(roleid))
+                    ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                                   errmsg("permission denied"),
+                                   errdetail("The current user must have the %s attribute.",
+                                            "SUPERUSER")));
+            } else {
+                // Regular roles require CREATEROLE + admin option
+                if (!has_createrole_privilege(roleid))
+                    ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                                   errmsg("permission denied")));
+                if (!is_admin_of_role(roleid, address.objectId))
+                    ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                                   errmsg("permission denied")));
+            }
+            break;
+
+        // System objects requiring superuser
+        case OBJECT_TSPARSER:
+        case OBJECT_TSTEMPLATE:
+        case OBJECT_ACCESS_METHOD:
+            if (!superuser_arg(roleid))
+                ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                               errmsg("must be superuser")));
+            break;
+
+        // Most other objects use simple ownership check
+        default:
+            if (!object_ownercheck(address.classId, address.objectId, roleid))
+                aclcheck_error(ACLCHECK_NOT_OWNER, objtype, strVal(object));
+            break;
+    }
+}
+```

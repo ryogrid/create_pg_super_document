@@ -37,3 +37,20 @@ The `CatalogCacheCompareTuple` function performs optimized key-by-key comparison
 - The fast equality functions are set up during cache initialization by `GetCCHashEqFuncs`
 - Essential for the inner loop of catalog cache searches where performance is critical
 - Supports variable number of keys (1-4) as determined by the specific catalog cache configuration
+
+## Simplified Source
+
+```c
+static inline bool CatalogCacheCompareTuple(const CatCache *cache, int nkeys,
+                                          const Datum *cachekeys, const Datum *searchkeys) {
+    const CCFastEqualFN *cc_fastequal = cache->cc_fastequal;
+
+    // Compare each key pair using fast equality functions
+    for (int i = 0; i < nkeys; i++) {
+        if (!cc_fastequal[i](cachekeys[i], searchkeys[i]))
+            return false;  // Mismatch found
+    }
+
+    return true;  // All keys match
+}
+```

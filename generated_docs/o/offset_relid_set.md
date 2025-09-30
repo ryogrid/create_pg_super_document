@@ -45,3 +45,23 @@ This function creates a new Relids set by applying a specified offset to each re
 - Also used in rewrite manipulation when adjusting variable references
 - Returns a newly allocated Relids set, so callers are responsible for memory management
 - Part of the broader infrastructure for handling relation ID adjustments during query processing
+
+## Simplified Source
+
+```c
+static Relids offset_relid_set(Relids relids, int rtoffset) {
+    Relids result = NULL;
+    int rtindex;
+
+    // Optimization: if no offset needed, return original set
+    if (rtoffset == 0)
+        return relids;
+
+    // Iterate through all members in the input set
+    rtindex = -1;
+    while ((rtindex = bms_next_member(relids, rtindex)) >= 0)
+        result = bms_add_member(result, rtindex + rtoffset);
+
+    return result;
+}
+```

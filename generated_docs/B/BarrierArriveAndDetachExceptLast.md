@@ -41,3 +41,26 @@ This operation is atomic and does not involve waiting or condition variable sign
 - More efficient than BarrierArriveAndWait when only one participant needs to proceed
 - The function maintains barrier state consistency without the overhead of waiting and notification
 - Requires at least one participant to be attached when called (asserts participants >= 1)
+
+## Simplified Source
+
+```c
+bool BarrierArriveAndDetachExceptLast(Barrier *barrier)
+{
+    SpinLockAcquire(&barrier->mutex);
+
+    // If not the last participant, detach and return false
+    if (barrier->participants > 1) {
+        --barrier->participants;
+        SpinLockRelease(&barrier->mutex);
+        return false;
+    }
+
+    // Last participant - advance phase and return true
+    Assert(barrier->participants == 1);
+    ++barrier->phase;
+    SpinLockRelease(&barrier->mutex);
+
+    return true;
+}
+```

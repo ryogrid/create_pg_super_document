@@ -47,3 +47,79 @@ The function includes memory management optimization by creating short-lived mem
 - Part of the role management infrastructure, typically called during REASSIGN OWNED operations
 - Does not modify grants or ACLs, only ownership relationships
 - Delegates actual ownership changes to specialized helper functions for different dependency types
+
+## Simplified Source
+
+```c
+void shdepReassignOwned(List *roleids, Oid newrole) {
+    Relation sdepRel;
+    ListCell *cell;
+
+    // Open shared dependency catalog with exclusive lock
+    sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    foreach(cell, roleids) {
+        Oid roleid = lfirst_oid(cell);
+
+        // Refuse to work on system-critical pinned roles
+        if (IsPinnedObject(AuthIdRelationId, roleid)) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_DEPENDENT_OBJECTS_STILL_EXIST),
+                     errmsg("cannot reassign ownership of objects owned by %s because they are required by the database system",
+                            getObjectDescription(&obj, false))));
+        }
+
+        // Set up scan to find all dependencies for this role
+        ScanKeyData key[2];
+        ScanKeyInit(&key[0], Anum_pg_shdepend_refclassid,
+                    BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(AuthIdRelationId));
+        ScanKeyInit(&key[1], Anum_pg_shdepend_refobjid,
+                    BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(roleid));
+
+        SysScanDesc scan = systable_beginscan(sdepRel, SharedDependReferenceIndexId,
+                                            true, NULL, 2, key);
+
+        // Process each dependency entry
+        HeapTuple tuple;
+        while ((tuple = systable_getnext(scan)) != NULL) {
+            Form_pg_shdepend sdepForm = (Form_pg_shdepend) GETSTRUCT(tuple);
+
+            // Only process current database or shared objects
+            if (sdepForm->dbid != MyDatabaseId && sdepForm->dbid != InvalidOid)
+                continue;
+
+            // Use temporary memory context to prevent leaks
+            MemoryContext cxt = AllocSetContextCreate(CurrentMemoryContext,
+                                                    "shdepReassignOwned",
+                                                    ALLOCSET_DEFAULT_SIZES);
+            MemoryContext oldcxt = MemoryContextSwitchTo(cxt);
+
+            // Handle different dependency types
+            switch (sdepForm->deptype) {
+                case SHARED_DEPENDENCY_OWNER:
+                    shdepReassignOwned_Owner(sdepForm, newrole);
+                    break;
+                case SHARED_DEPENDENCY_INITACL:
+                    shdepReassignOwned_InitAcl(sdepForm, roleid, newrole);
+                    break;
+                case SHARED_DEPENDENCY_ACL:
+                case SHARED_DEPENDENCY_POLICY:
+                case SHARED_DEPENDENCY_TABLESPACE:
+                    // Nothing to do for these entry types
+                    break;
+            }
+
+            // Clean up memory and ensure changes are visible
+            MemoryContextSwitchTo(oldcxt);
+            MemoryContextDelete(cxt);
+            CommandCounterIncrement();
+        }
+
+        systable_endscan(scan);
+    }
+
+    table_close(sdepRel, RowExclusiveLock);
+}
+```

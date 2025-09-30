@@ -49,3 +49,72 @@ The function extracts argument types, handles named arguments, manages variadic 
 - Enforces a maximum limit on function arguments (FUNC_MAX_ARGS)
 - Special handling for type coercion functions that may appear as casts rather than function calls
 - Named arguments are preserved in the deparsed output when present
+
+## Simplified Source
+
+```c
+static void get_func_expr(FuncExpr *expr, deparse_context *context, bool showimplicit) {
+    StringInfo buf = context->buf;
+    Oid funcoid = expr->funcid;
+    Oid argtypes[FUNC_MAX_ARGS];
+    int nargs;
+    List *argnames;
+    bool use_variadic;
+
+    // Handle implicit coercions - show only argument unless showimplicit is true
+    if (expr->funcformat == COERCE_IMPLICIT_CAST && !showimplicit) {
+        get_rule_expr_paren((Node *) linitial(expr->args), context, false, (Node *) expr);
+        return;
+    }
+
+    // Handle explicit casts - show as cast expression
+    if (expr->funcformat == COERCE_EXPLICIT_CAST || expr->funcformat == COERCE_IMPLICIT_CAST) {
+        Node *arg = linitial(expr->args);
+        Oid rettype = expr->funcresulttype;
+        int32 coercedTypmod;
+
+        // Check if this is a length-coercion function
+        exprIsLengthCoercion((Node *) expr, &coercedTypmod);
+        get_coercion_expr(arg, context, rettype, coercedTypmod, (Node *) expr);
+        return;
+    }
+
+    // Try special SQL syntax functions first
+    if (expr->funcformat == COERCE_SQL_SYNTAX) {
+        if (get_func_sql_syntax(expr, context))
+            return;
+    }
+
+    // Normal function: extract argument types and build function call
+    if (list_length(expr->args) > FUNC_MAX_ARGS)
+        ereport(ERROR, (errcode(ERRCODE_TOO_MANY_ARGUMENTS), errmsg("too many arguments")));
+
+    // Extract argument types and names
+    nargs = 0;
+    argnames = NIL;
+    foreach(l, expr->args) {
+        Node *arg = (Node *) lfirst(l);
+        if (IsA(arg, NamedArgExpr))
+            argnames = lappend(argnames, ((NamedArgExpr *) arg)->name);
+        argtypes[nargs] = exprType(arg);
+        nargs++;
+    }
+
+    // Generate function name with proper overloading resolution
+    appendStringInfo(buf, "%s(",
+                     generate_function_name(funcoid, nargs, argnames, argtypes,
+                                           expr->funcvariadic, &use_variadic,
+                                           context->inGroupBy));
+
+    // Format arguments with proper separators and VARIADIC keyword
+    nargs = 0;
+    foreach(l, expr->args) {
+        if (nargs++ > 0)
+            appendStringInfoString(buf, ", ");
+        if (use_variadic && lnext(expr->args, l) == NULL)
+            appendStringInfoString(buf, "VARIADIC ");
+        get_rule_expr((Node *) lfirst(l), context, true);
+    }
+    appendStringInfoChar(buf, ')');
+}
+```

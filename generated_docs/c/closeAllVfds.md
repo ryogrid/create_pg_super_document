@@ -35,3 +35,22 @@ This function takes no parameters.
 - The logical state of VFDs is preserved, meaning files can be reopened later without losing their position or other metadata
 - The function assumes the VFD cache is properly initialized and maintains ring structure integrity
 - Performance impact is proportional to the number of open VFDs in the cache
+
+## Simplified Source
+
+```c
+void closeAllVfds(void) {
+    Index i;
+
+    if (SizeVfdCache > 0) {
+        // Verify ring structure integrity
+        Assert(FileIsNotOpen(0));
+
+        // Close all VFDs except the sentinel (index 0)
+        for (i = 1; i < SizeVfdCache; i++) {
+            if (!FileIsNotOpen(i))
+                LruDelete(i);
+        }
+    }
+}
+```

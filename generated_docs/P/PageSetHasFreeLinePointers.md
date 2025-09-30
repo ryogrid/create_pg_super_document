@@ -30,3 +30,14 @@ The function modifies the page header in-place and is typically called during pa
 - The function modifies the page header by setting a specific bit flag
 - Used in conjunction with PageHasFreeLinePointers and PageClearHasFreeLinePointers for complete flag management
 - Typically called during page defragmentation or cleanup operations when freed line pointers are detected
+
+## Simplified Source
+
+```c
+static inline void
+PageSetHasFreeLinePointers(Page page)
+{
+    // Set the PD_HAS_FREE_LINES flag in page header
+    ((PageHeader) page)->pd_flags |= PD_HAS_FREE_LINES;
+}
+```

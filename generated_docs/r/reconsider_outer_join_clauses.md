@@ -42,3 +42,105 @@ The function operates in a loop until no more deductions can be made, removing s
 - Any unprocessed clauses are thrown back into regular join processing via distribute_restrictinfo_to_rels
 - The optimization is safe because it only pushes constraints that cannot affect the outer join semantics
 - Critical for performance in complex queries with multiple outer joins and constant equivalences
+
+## Simplified Source
+
+```c
+void reconsider_outer_join_clauses(PlannerInfo *root) {
+    bool found;
+    ListCell *cell;
+
+    // Keep processing until no more deductions can be made
+    do {
+        found = false;
+
+        // Process LEFT JOIN clauses
+        foreach(cell, root->left_join_clauses) {
+            OuterJoinClauseInfo *ojcinfo = (OuterJoinClauseInfo *) lfirst(cell);
+
+            if (reconsider_outer_join_clause(root, ojcinfo, true)) {
+                RestrictInfo *rinfo = ojcinfo->rinfo;
+                found = true;
+
+                // Remove the processed clause from the list
+                root->left_join_clauses = foreach_delete_current(root->left_join_clauses, cell);
+
+                // Create a dummy TRUE clause to maintain join structure
+                rinfo = make_restrictinfo(root,
+                                          (Expr *) makeBoolConst(true, false),
+                                          rinfo->is_pushed_down,
+                                          rinfo->has_clone,
+                                          rinfo->is_clone,
+                                          false, // pseudoconstant
+                                          0,     // security_level
+                                          rinfo->required_relids,
+                                          rinfo->incompatible_relids,
+                                          rinfo->outer_relids);
+                distribute_restrictinfo_to_rels(root, rinfo);
+            }
+        }
+
+        // Process RIGHT JOIN clauses
+        foreach(cell, root->right_join_clauses) {
+            OuterJoinClauseInfo *ojcinfo = (OuterJoinClauseInfo *) lfirst(cell);
+
+            if (reconsider_outer_join_clause(root, ojcinfo, false)) {
+                RestrictInfo *rinfo = ojcinfo->rinfo;
+                found = true;
+
+                // Remove and replace with dummy clause
+                root->right_join_clauses = foreach_delete_current(root->right_join_clauses, cell);
+                rinfo = make_restrictinfo(root,
+                                          (Expr *) makeBoolConst(true, false),
+                                          rinfo->is_pushed_down,
+                                          rinfo->has_clone,
+                                          rinfo->is_clone,
+                                          false, 0,
+                                          rinfo->required_relids,
+                                          rinfo->incompatible_relids,
+                                          rinfo->outer_relids);
+                distribute_restrictinfo_to_rels(root, rinfo);
+            }
+        }
+
+        // Process FULL JOIN clauses
+        foreach(cell, root->full_join_clauses) {
+            OuterJoinClauseInfo *ojcinfo = (OuterJoinClauseInfo *) lfirst(cell);
+
+            if (reconsider_full_join_clause(root, ojcinfo)) {
+                RestrictInfo *rinfo = ojcinfo->rinfo;
+                found = true;
+
+                // Remove and replace with dummy clause
+                root->full_join_clauses = foreach_delete_current(root->full_join_clauses, cell);
+                rinfo = make_restrictinfo(root,
+                                          (Expr *) makeBoolConst(true, false),
+                                          rinfo->is_pushed_down,
+                                          rinfo->has_clone,
+                                          rinfo->is_clone,
+                                          false, 0,
+                                          rinfo->required_relids,
+                                          rinfo->incompatible_relids,
+                                          rinfo->outer_relids);
+                distribute_restrictinfo_to_rels(root, rinfo);
+            }
+        }
+    } while (found);
+
+    // Push any remaining unprocessed clauses to regular join processing
+    foreach(cell, root->left_join_clauses) {
+        OuterJoinClauseInfo *ojcinfo = (OuterJoinClauseInfo *) lfirst(cell);
+        distribute_restrictinfo_to_rels(root, ojcinfo->rinfo);
+    }
+
+    foreach(cell, root->right_join_clauses) {
+        OuterJoinClauseInfo *ojcinfo = (OuterJoinClauseInfo *) lfirst(cell);
+        distribute_restrictinfo_to_rels(root, ojcinfo->rinfo);
+    }
+
+    foreach(cell, root->full_join_clauses) {
+        OuterJoinClauseInfo *ojcinfo = (OuterJoinClauseInfo *) lfirst(cell);
+        distribute_restrictinfo_to_rels(root, ojcinfo->rinfo);
+    }
+}
+```

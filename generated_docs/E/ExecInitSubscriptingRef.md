@@ -43,3 +43,121 @@ For assignments, it supports nested assignment situations where the replacement 
 - Manages jump targets for conditional execution steps
 - Allocates SubscriptingRefState with space for all subscript arrays in single allocation
 - Reuses CaseTestExpr mechanism for nested assignment value passing
+
+## Simplified Source
+
+```c
+static void
+ExecInitSubscriptingRef(ExprEvalStep *scratch, SubscriptingRef *sbsref,
+                       ExprState *state, Datum *resv, bool *resnull)
+{
+    bool isAssignment = (sbsref->refassgnexpr != NULL);
+    int nupper = list_length(sbsref->refupperindexpr);
+    int nlower = list_length(sbsref->reflowerindexpr);
+    const SubscriptRoutines *sbsroutines;
+    SubscriptingRefState *sbsrefstate;
+    SubscriptExecSteps methods;
+    List *adjust_jumps = NIL;
+
+    // Get container-specific subscripting routines
+    sbsroutines = getSubscriptingRoutines(sbsref->refcontainertype, NULL);
+    if (!sbsroutines)
+        ereport(ERROR, "type does not support subscripting");
+
+    // Allocate state structure with space for subscript arrays
+    sbsrefstate = palloc0(sizeof(SubscriptingRefState) +
+                         (nupper + nlower) * subscript_arrays_size);
+
+    // Initialize state structure
+    setup_subscripting_ref_state(sbsrefstate, isAssignment, nupper, nlower);
+
+    // Let container-specific code initialize methods
+    memset(&methods, 0, sizeof(methods));
+    sbsroutines->exec_setup(sbsref, sbsrefstate, &methods);
+
+    // Evaluate the container expression
+    ExecInitExprRec(sbsref->refexpr, state, resv, resnull);
+
+    // Add strictness check for fetch operations
+    if (!isAssignment && sbsroutines->fetch_strict)
+    {
+        scratch->opcode = EEOP_JUMP_IF_NULL;
+        ExprEvalPushStep(state, scratch);
+        adjust_jumps = lappend_int(adjust_jumps, state->steps_len - 1);
+    }
+
+    // Evaluate upper subscript indices
+    for (int i = 0; i < nupper; i++)
+    {
+        Expr *expr = list_nth(sbsref->refupperindexpr, i);
+        if (expr)
+        {
+            sbsrefstate->upperprovided[i] = true;
+            ExecInitExprRec(expr, state,
+                           &sbsrefstate->upperindex[i],
+                           &sbsrefstate->upperindexnull[i]);
+        }
+        else
+        {
+            sbsrefstate->upperprovided[i] = false;
+            sbsrefstate->upperindexnull[i] = true;
+        }
+    }
+
+    // Evaluate lower subscript indices similarly
+    evaluate_lower_subscripts(sbsref, sbsrefstate, state);
+
+    // Add subscript validation step if needed
+    if (methods.sbs_check_subscripts)
+    {
+        scratch->opcode = EEOP_SBSREF_SUBSCRIPTS;
+        scratch->d.sbsref_subscript.subscriptfunc = methods.sbs_check_subscripts;
+        scratch->d.sbsref_subscript.state = sbsrefstate;
+        ExprEvalPushStep(state, scratch);
+        adjust_jumps = lappend_int(adjust_jumps, state->steps_len - 1);
+    }
+
+    if (isAssignment)
+    {
+        // Handle assignment operation
+        if (!methods.sbs_assign)
+            ereport(ERROR, "type does not support subscripted assignment");
+
+        // Handle nested assignment case
+        if (isAssignmentIndirectionExpr(sbsref->refassgnexpr))
+        {
+            // Fetch old value for nested assignment
+            setup_old_value_fetch(scratch, &methods, sbsrefstate, state);
+        }
+
+        // Evaluate replacement expression with saved context
+        Datum *save_caseval = state->innermost_caseval;
+        bool *save_casenull = state->innermost_casenull;
+        state->innermost_caseval = &sbsrefstate->prevvalue;
+        state->innermost_casenull = &sbsrefstate->prevnull;
+
+        ExecInitExprRec(sbsref->refassgnexpr, state,
+                       &sbsrefstate->replacevalue, &sbsrefstate->replacenull);
+
+        state->innermost_caseval = save_caseval;
+        state->innermost_casenull = save_casenull;
+
+        // Add assignment step
+        scratch->opcode = EEOP_SBSREF_ASSIGN;
+        scratch->d.sbsref.subscriptfunc = methods.sbs_assign;
+        scratch->d.sbsref.state = sbsrefstate;
+        ExprEvalPushStep(state, scratch);
+    }
+    else
+    {
+        // Simple fetch operation
+        scratch->opcode = EEOP_SBSREF_FETCH;
+        scratch->d.sbsref.subscriptfunc = methods.sbs_fetch;
+        scratch->d.sbsref.state = sbsrefstate;
+        ExprEvalPushStep(state, scratch);
+    }
+
+    // Fix up jump targets
+    finalize_jump_targets(adjust_jumps, state);
+}
+```

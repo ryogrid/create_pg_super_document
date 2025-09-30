@@ -61,3 +61,75 @@ The function ensures proper privilege checking and maintains referential integri
 - Updates PostgreSQL's shared dependency system to track the new ownership relationship
 - No-op if the new owner is the same as the current owner (consistent with other PostgreSQL objects)
 - Part of PostgreSQL's ownership management system integrated with the dependency tracking framework
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterDatabaseOwner(const char *dbname, Oid newOwnerId)
+{
+    // Look up database by name in pg_database catalog
+    Relation rel = table_open(DatabaseRelationId, RowExclusiveLock);
+    ScanKeyData scankey;
+    ScanKeyInit(&scankey, Anum_pg_database_datname, BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(dbname));
+
+    SysScanDesc scan = systable_beginscan(rel, DatabaseNameIndexId, true, NULL, 1, &scankey);
+    HeapTuple tuple = systable_getnext(scan);
+
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "database \"%s\" does not exist", dbname);
+
+    Form_pg_database datForm = (Form_pg_database) GETSTRUCT(tuple);
+    Oid db_id = datForm->oid;
+
+    // If new owner same as current, just return
+    if (datForm->datdba != newOwnerId) {
+        // Permission checks
+        if (!object_ownercheck(DatabaseRelationId, db_id, GetUserId()))
+            aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, dbname);
+
+        check_can_set_role(GetUserId(), newOwnerId);
+
+        // Must have CREATEDB privilege
+        if (!have_createdb_privilege())
+            ereport(ERROR, "permission denied to change owner of database");
+
+        // Update database owner in catalog
+        LockTuple(rel, &tuple->t_self, InplaceUpdateTupleLock);
+
+        Datum repl_val[Natts_pg_database];
+        bool repl_null[Natts_pg_database] = {0};
+        bool repl_repl[Natts_pg_database] = {0};
+
+        repl_repl[Anum_pg_database_datdba - 1] = true;
+        repl_val[Anum_pg_database_datdba - 1] = ObjectIdGetDatum(newOwnerId);
+
+        // Update ACL if present
+        Datum aclDatum = heap_getattr(tuple, Anum_pg_database_datacl, RelationGetDescr(rel), &isNull);
+        if (!isNull) {
+            Acl *newAcl = aclnewowner(DatumGetAclP(aclDatum), datForm->datdba, newOwnerId);
+            repl_repl[Anum_pg_database_datacl - 1] = true;
+            repl_val[Anum_pg_database_datacl - 1] = PointerGetDatum(newAcl);
+        }
+
+        HeapTuple newtuple = heap_modify_tuple(tuple, RelationGetDescr(rel), repl_val, repl_null, repl_repl);
+        CatalogTupleUpdate(rel, &newtuple->t_self, newtuple);
+        UnlockTuple(rel, &tuple->t_self, InplaceUpdateTupleLock);
+
+        heap_freetuple(newtuple);
+
+        // Update ownership dependency
+        changeDependencyOnOwner(DatabaseRelationId, db_id, newOwnerId);
+    }
+
+    InvokeObjectPostAlterHook(DatabaseRelationId, db_id, 0);
+
+    ObjectAddress address;
+    ObjectAddressSet(address, DatabaseRelationId, db_id);
+
+    systable_endscan(scan);
+    table_close(rel, NoLock);
+
+    return address;
+}
+```

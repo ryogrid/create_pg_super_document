@@ -56,3 +56,78 @@ The traversal follows the physical storage order of the FSM tree, making it I/O 
 - The function handles end-of-file conditions gracefully by clearing remaining slots
 - Buffer locking is used only when actually updating slot values to minimize lock contention
 - The next slot pointer reset is done without locking as it's considered a hint optimization
+
+## Simplified Source
+
+```c
+static uint8 fsm_vacuum_page(Relation rel, FSMAddress addr,
+                             BlockNumber start, BlockNumber end,
+                             bool *eof_p)
+{
+    Buffer buf;
+    Page page;
+    uint8 max_avail;
+
+    // Read FSM page, handle EOF case
+    buf = fsm_readbuf(rel, addr, false);
+    if (!BufferIsValid(buf)) {
+        *eof_p = true;
+        return 0;
+    }
+    *eof_p = false;
+
+    page = BufferGetPage(buf);
+
+    // If not leaf level, process children recursively
+    if (addr.level > FSM_BOTTOM_LEVEL) {
+        // Calculate which slots on this page need updating
+        FSMAddress fsm_start, fsm_end;
+        uint16 fsm_start_slot, fsm_end_slot;
+        int start_slot, end_slot;
+        bool eof = false;
+
+        // Determine slot range based on heap block range
+        fsm_start = fsm_get_location(start, &fsm_start_slot);
+        fsm_end = fsm_get_location(end - 1, &fsm_end_slot);
+
+        // Navigate up tree to current level
+        while (fsm_start.level < addr.level) {
+            fsm_start = fsm_get_parent(fsm_start, &fsm_start_slot);
+            fsm_end = fsm_get_parent(fsm_end, &fsm_end_slot);
+        }
+
+        // Calculate slot range for this page
+        start_slot = (fsm_start.logpageno == addr.logpageno) ?
+                     fsm_start_slot : 0;
+        end_slot = (fsm_end.logpageno == addr.logpageno) ?
+                   fsm_end_slot : SlotsPerFSMPage - 1;
+
+        // Process each child slot
+        for (int slot = start_slot; slot <= end_slot; slot++) {
+            CHECK_FOR_INTERRUPTS();
+
+            // Recurse to child or clear if past EOF
+            int child_avail = eof ? 0 :
+                fsm_vacuum_page(rel, fsm_get_child(addr, slot),
+                               start, end, &eof);
+
+            // Update slot if needed
+            if (fsm_get_avail(page, slot) != child_avail) {
+                LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+                fsm_set_avail(page, slot, child_avail);
+                MarkBufferDirtyHint(buf, false);
+                LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+            }
+        }
+    }
+
+    // Get maximum available space on this page
+    max_avail = fsm_get_max_avail(page);
+
+    // Reset next slot pointer to encourage low-numbered page usage
+    ((FSMPage) PageGetContents(page))->fp_next_slot = 0;
+
+    ReleaseBuffer(buf);
+    return max_avail;
+}
+```

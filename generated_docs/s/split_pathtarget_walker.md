@@ -43,3 +43,89 @@ The function maintains and updates the context structure with information about 
 - Maintains proper depth tracking for nested SRFs to ensure correct level assignment
 - Resets current_sgref to 0 for subexpressions since they are not sortgroup items
 - Critical for the proper functioning of split_pathtarget_at_srfs in creating multi-level PathTarget hierarchies
+
+## Simplified Source
+
+```c
+static bool
+split_pathtarget_walker(Node *node, split_pathtarget_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // If expression already computed in input_target, treat as Var
+    if (list_member(context->input_target_exprs, node))
+    {
+        split_pathtarget_item *item = palloc(sizeof(split_pathtarget_item));
+        item->expr = node;
+        item->sortgroupref = context->current_sgref;
+        context->current_input_vars = lappend(context->current_input_vars, item);
+        return false;
+    }
+
+    // Handle variable-like constructs - record as input variables
+    if (IsA(node, Var) || IsA(node, PlaceHolderVar) ||
+        IsA(node, Aggref) || IsA(node, GroupingFunc) || IsA(node, WindowFunc))
+    {
+        split_pathtarget_item *item = palloc(sizeof(split_pathtarget_item));
+        item->expr = node;
+        item->sortgroupref = context->current_sgref;
+        context->current_input_vars = lappend(context->current_input_vars, item);
+        return false;
+    }
+
+    // Handle set-returning functions
+    if (IS_SRF_CALL(node))
+    {
+        split_pathtarget_item *item = palloc(sizeof(split_pathtarget_item));
+        item->expr = node;
+        item->sortgroupref = context->current_sgref;
+
+        // Save current context state
+        List *save_input_vars = context->current_input_vars;
+        List *save_input_srfs = context->current_input_srfs;
+        int save_current_depth = context->current_depth;
+
+        // Reset context for SRF analysis
+        context->current_input_vars = NIL;
+        context->current_input_srfs = NIL;
+        context->current_depth = 0;
+        context->current_sgref = 0;
+
+        // Recursively analyze SRF inputs
+        expression_tree_walker(node, split_pathtarget_walker, context);
+
+        // Calculate SRF depth (one more than any nested SRF)
+        int srf_depth = context->current_depth + 1;
+
+        // Extend output lists if this is a new depth level
+        if (srf_depth >= list_length(context->level_srfs))
+        {
+            context->level_srfs = lappend(context->level_srfs, NIL);
+            context->level_input_vars = lappend(context->level_input_vars, NIL);
+            context->level_input_srfs = lappend(context->level_input_srfs, NIL);
+        }
+
+        // Record SRF and its inputs at appropriate level
+        ListCell *lc = list_nth_cell(context->level_srfs, srf_depth);
+        lfirst(lc) = lappend(lfirst(lc), item);
+
+        lc = list_nth_cell(context->level_input_vars, srf_depth);
+        lfirst(lc) = list_concat(lfirst(lc), context->current_input_vars);
+
+        lc = list_nth_cell(context->level_input_srfs, srf_depth);
+        lfirst(lc) = list_concat(lfirst(lc), context->current_input_srfs);
+
+        // Restore and update caller context
+        context->current_input_vars = save_input_vars;
+        context->current_input_srfs = lappend(save_input_srfs, item);
+        context->current_depth = Max(save_current_depth, srf_depth);
+
+        return false;
+    }
+
+    // For scalar expressions, recurse to examine inputs
+    context->current_sgref = 0;
+    return expression_tree_walker(node, split_pathtarget_walker, context);
+}
+```

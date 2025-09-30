@@ -40,3 +40,26 @@ This categorization allows the FSM to store approximate free space information i
 - The categorization is lossy compression - exact byte counts cannot be recovered
 - Essential for FSM's space-efficient storage of free space information
 - Located in src/backend/storage/freespace/freespace.c:386-411
+
+## Simplified Source
+
+```c
+static uint8 fsm_space_avail_to_cat(Size avail) {
+    int cat;
+
+    Assert(avail < BLCKSZ);
+
+    // Maximum category for largest free space amounts
+    if (avail >= MaxFSMRequestSize)
+        return 255;
+
+    // Convert bytes to category by dividing by step size
+    cat = avail / FSM_CAT_STEP;
+
+    // Cap at 254 (255 is reserved for MaxFSMRequestSize or more)
+    if (cat > 254)
+        cat = 254;
+
+    return (uint8) cat;
+}
+```

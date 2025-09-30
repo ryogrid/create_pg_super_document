@@ -54,3 +54,54 @@ The function performs several types of character escaping:
 - Returns a newly allocated string that must be freed by the caller
 - Supports multibyte character encodings through proper use of 
 - The escaping is designed to be reversible through the corresponding  function
+
+## Simplified Source
+
+```c
+char *map_sql_identifier_to_xml_name(const char *ident, bool fully_escaped,
+                                     bool escape_period) {
+#ifdef USE_LIBXML
+    StringInfoData buf;
+    initStringInfo(&buf);
+
+    // Process each character in the identifier
+    for (const char *p = ident; *p; p += pg_mblen(p)) {
+
+        // Escape colon characters
+        if (*p == ':' && (p == ident || fully_escaped)) {
+            appendStringInfoString(&buf, "_x003A_");
+        }
+        // Escape underscore-x sequences to avoid conflicts
+        else if (*p == '_' && *(p + 1) == 'x') {
+            appendStringInfoString(&buf, "_x005F_");
+        }
+        // Escape "xml" prefix to avoid XML reserved names
+        else if (fully_escaped && p == ident &&
+                 pg_strncasecmp(p, "xml", 3) == 0) {
+            appendStringInfoString(&buf, (*p == 'x') ? "_x0078_" : "_x0058_");
+        }
+        // Optionally escape periods
+        else if (escape_period && *p == '.') {
+            appendStringInfoString(&buf, "_x002E_");
+        }
+        // Handle other characters based on XML name validity
+        else {
+            pg_wchar u = sqlchar_to_unicode(p);
+            bool valid = (p == ident) ? is_valid_xml_namefirst(u)
+                                      : is_valid_xml_namechar(u);
+
+            if (valid) {
+                appendBinaryStringInfo(&buf, p, pg_mblen(p));
+            } else {
+                appendStringInfo(&buf, "_x%04X_", (unsigned int) u);
+            }
+        }
+    }
+
+    return buf.data;
+#else
+    NO_XML_SUPPORT();
+    return NULL;
+#endif
+}
+```

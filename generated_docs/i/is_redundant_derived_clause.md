@@ -33,3 +33,27 @@ The function first checks if the input clause has a parent equivalence class (if
 - Used in query optimization to eliminate redundant filter conditions
 - Part of the broader equivalence class system that identifies logically equivalent expressions
 - Helps reduce the number of redundant checks during query execution planning
+
+## Simplified Source
+
+```c
+bool is_redundant_derived_clause(RestrictInfo *rinfo, List *clauselist) {
+    EquivalenceClass *parent_ec = rinfo->parent_ec;
+
+    // Must be derived from an equivalence class to be potentially redundant
+    if (parent_ec == NULL)
+        return false;
+
+    // Check if any clause in the list has the same parent equivalence class
+    ListCell *lc;
+    foreach(lc, clauselist) {
+        RestrictInfo *otherrinfo = (RestrictInfo *) lfirst(lc);
+
+        // Same parent EC means redundant conditions
+        if (otherrinfo->parent_ec == parent_ec)
+            return true;
+    }
+
+    return false;
+}
+```

@@ -51,4 +51,60 @@ If the funcname matches a valid, non-dropped column in the tuple descriptor, the
 - Provides an optimization for whole-row Vars that avoids generating unnecessary FieldSelect nodes when possible
 - Handles both regular composite types and special RECORD types that require variable expansion
 - The generated FieldSelect expression includes proper type information (resulttype, resulttypmod) and collation details for downstream processing
-- Field numbers in PostgreSQL are 1-based, so the function adds 1 to the array index when setting 
+- Field numbers in PostgreSQL are 1-based, so the function adds 1 to the array index when setting
+
+## Simplified Source
+
+```c
+static Node *ParseComplexProjection(ParseState *pstate, const char *funcname,
+                                   Node *first_arg, int location) {
+    TupleDesc tupdesc;
+    int i;
+
+    // Special optimization for whole-row variables (foo.*)
+    if (IsA(first_arg, Var) &&
+        ((Var *) first_arg)->varattno == InvalidAttrNumber) {
+        ParseNamespaceItem *nsitem;
+
+        nsitem = GetNSItemByRangeTablePosn(pstate,
+                                         ((Var *) first_arg)->varno,
+                                         ((Var *) first_arg)->varlevelsup);
+        // Return a Var if funcname matches a column, else NULL
+        return scanNSItemForColumn(pstate, nsitem,
+                                 ((Var *) first_arg)->varlevelsup,
+                                 funcname, location);
+    }
+
+    // Get tuple descriptor for the complex type
+    if (IsA(first_arg, Var) && ((Var *) first_arg)->vartype == RECORDOID) {
+        // Special handling for RECORD types
+        tupdesc = expandRecordVariable(pstate, (Var *) first_arg, 0);
+    } else {
+        // General case for complex types
+        tupdesc = get_expr_result_tupdesc(first_arg, true);
+    }
+
+    if (!tupdesc)
+        return NULL; // Unresolvable type
+
+    // Search for matching field name in the tuple descriptor
+    for (i = 0; i < tupdesc->natts; i++) {
+        Form_pg_attribute att = TupleDescAttr(tupdesc, i);
+
+        if (strcmp(funcname, NameStr(att->attname)) == 0 && !att->attisdropped) {
+            // Found matching field - create FieldSelect expression
+            FieldSelect *fselect = makeNode(FieldSelect);
+
+            fselect->arg = (Expr *) first_arg;
+            fselect->fieldnum = i + 1; // PostgreSQL uses 1-based field numbers
+            fselect->resulttype = att->atttypid;
+            fselect->resulttypmod = att->atttypmod;
+            fselect->resultcollid = att->attcollation;
+
+            return (Node *) fselect;
+        }
+    }
+
+    return NULL; // Field name not found
+}
+``` 

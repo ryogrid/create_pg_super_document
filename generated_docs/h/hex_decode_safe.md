@@ -43,3 +43,55 @@ Each pair of hexadecimal digits is converted to a single byte by combining the h
 - Validates input thoroughly to prevent buffer overruns and invalid data
 - Part of PostgreSQL's encoding/decoding subsystem located in src/backend/utils/adt/encode.c
 - The function is designed to be memory-safe and handles multibyte character boundaries in error messages
+
+## Simplified Source
+
+```c
+uint64
+hex_decode_safe(const char *src, size_t len, char *dst, Node *escontext)
+{
+    const char *s, *srcend;
+    char v1, v2, *p;
+
+    srcend = src + len;
+    s = src;
+    p = dst;
+
+    while (s < srcend)
+    {
+        // Skip whitespace characters
+        if (*s == ' ' || *s == '\n' || *s == '\t' || *s == '\r')
+        {
+            s++;
+            continue;
+        }
+
+        // Get first hex digit
+        if (!get_hex(s, &v1))
+            ereturn(escontext, 0,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("invalid hexadecimal digit: \"%.*s\"",
+                            pg_mblen(s), s)));
+        s++;
+
+        // Check for complete pair
+        if (s >= srcend)
+            ereturn(escontext, 0,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("invalid hexadecimal data: odd number of digits")));
+
+        // Get second hex digit
+        if (!get_hex(s, &v2))
+            ereturn(escontext, 0,
+                    (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                     errmsg("invalid hexadecimal digit: \"%.*s\"",
+                            pg_mblen(s), s)));
+        s++;
+
+        // Combine high and low nibbles into byte
+        *p++ = (v1 << 4) | v2;
+    }
+
+    return p - dst;  // Return number of decoded bytes
+}
+```

@@ -47,3 +47,44 @@ The function performs a comprehensive scan of all tablespaces (except the global
 - The function is defined in 
 - Works in conjunction with OID generation logic to ensure unique database identifiers
 - Memory management includes proper cleanup with  calls in all code paths
+
+## Simplified Source
+
+```c
+static bool check_db_file_conflict(Oid db_id)
+{
+    bool result = false;
+    Relation rel;
+    TableScanDesc scan;
+    HeapTuple tuple;
+
+    // Scan all tablespaces looking for potential conflicts
+    rel = table_open(TableSpaceRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 0, NULL);
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_tablespace spcform = (Form_pg_tablespace) GETSTRUCT(tuple);
+        Oid dsttablespace = spcform->oid;
+        char *dstpath;
+        struct stat st;
+
+        // Skip global tablespace
+        if (dsttablespace == GLOBALTABLESPACE_OID)
+            continue;
+
+        // Check if database directory would conflict with existing filesystem object
+        dstpath = GetDatabasePath(db_id, dsttablespace);
+        if (lstat(dstpath, &st) == 0) {
+            // Found conflict - existing file or directory
+            pfree(dstpath);
+            result = true;
+            break;
+        }
+        pfree(dstpath);
+    }
+
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+    return result;
+}
+```

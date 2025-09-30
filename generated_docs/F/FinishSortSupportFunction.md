@@ -44,3 +44,39 @@ This design allows PostgreSQL to gradually transition from old-style comparison 
 - [Sort](../S/Sort.md) support functions have the flexibility to decline providing a comparator, allowing for conditional optimization
 - Missing BTORDER_PROC functions result in an error, as basic comparison functionality is mandatory
 - Part of PostgreSQL's extensible operator system that allows data types to provide custom sorting optimizations
+
+## Simplified Source
+
+```c
+static void
+FinishSortSupportFunction(Oid opfamily, Oid opcintype, SortSupport ssup)
+{
+    Oid sortSupportFunction;
+
+    // First try to find a dedicated sort support function
+    sortSupportFunction = get_opfamily_proc(opfamily, opcintype, opcintype,
+                                            BTSORTSUPPORT_PROC);
+    if (OidIsValid(sortSupportFunction))
+    {
+        // Call sort support function - it may or may not set up comparator
+        OidFunctionCall1(sortSupportFunction, PointerGetDatum(ssup));
+    }
+
+    // If no comparator was set up, fall back to basic btree comparator
+    if (ssup->comparator == NULL)
+    {
+        Oid sortFunction;
+
+        // Look up traditional btree comparison function
+        sortFunction = get_opfamily_proc(opfamily, opcintype, opcintype,
+                                         BTORDER_PROC);
+
+        if (!OidIsValid(sortFunction))
+            elog(ERROR, "missing support function %d(%u,%u) in opfamily %u",
+                 BTORDER_PROC, opcintype, opcintype, opfamily);
+
+        // Set up compatibility shim for old-style comparator
+        PrepareSortSupportComparisonShim(sortFunction, ssup);
+    }
+}
+```

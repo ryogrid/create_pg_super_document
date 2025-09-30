@@ -48,3 +48,38 @@ The function handles logical decoding accessibility by setting appropriate flags
 - For catalog relations accessible in logical decoding, additional flags are set to ensure proper replication
 - The snapshotConflictHorizon is crucial for generating proper recovery conflicts during WAL replay
 - This function is part of PostgreSQL's visibility map infrastructure, which tracks which pages contain only visible tuples to optimize vacuum operations
+
+## Simplified Source
+
+```c
+XLogRecPtr log_heap_visible(Relation rel, Buffer heap_buffer, Buffer vm_buffer,
+                           TransactionId snapshotConflictHorizon, uint8 vmflags) {
+    xl_heap_visible xlrec;
+    uint8 flags;
+
+    Assert(BufferIsValid(heap_buffer));
+    Assert(BufferIsValid(vm_buffer));
+
+    // Set up the WAL record data
+    xlrec.snapshotConflictHorizon = snapshotConflictHorizon;
+    xlrec.flags = vmflags;
+    if (RelationIsAccessibleInLogicalDecoding(rel))
+        xlrec.flags |= VISIBILITYMAP_XLOG_CATALOG_REL;
+
+    // Begin WAL record construction
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, SizeOfHeapVisible);
+
+    // Register the visibility map buffer
+    XLogRegisterBuffer(0, vm_buffer, 0);
+
+    // Register heap buffer with optional full-page image
+    flags = REGBUF_STANDARD;
+    if (!XLogHintBitIsNeeded())
+        flags |= REGBUF_NO_IMAGE;  // Optimize away FPI when safe
+    XLogRegisterBuffer(1, heap_buffer, flags);
+
+    // Insert the WAL record and return its LSN
+    return XLogInsert(RM_HEAP2_ID, XLOG_HEAP2_VISIBLE);
+}
+```

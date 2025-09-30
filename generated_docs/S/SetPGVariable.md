@@ -44,3 +44,23 @@ Note that this function does not support SET FROM CURRENT functionality - it onl
 - Does not support SET FROM CURRENT - only SET TO value and SET TO DEFAULT
 - Used extensively in transaction and session characteristic setting operations
 - Simplified interface that abstracts away much of the complexity of direct set_config_option calls
+
+## Simplified Source
+
+```c
+void SetPGVariable(const char *name, List *args, bool is_local) {
+    // Convert argument list to string format
+    char *argstring = flatten_set_variable_args(name, args);
+
+    // Set the configuration option
+    // Note: NULL argstring (SET DEFAULT) is equivalent to RESET
+    (void) set_config_option(name,
+                            argstring,
+                            (superuser() ? PGC_SUSET : PGC_USERSET),  // Permission level
+                            PGC_S_SESSION,                           // Source: session
+                            is_local ? GUC_ACTION_LOCAL : GUC_ACTION_SET,  // Scope
+                            true,    // allow change
+                            0,       // elevel (not used)
+                            false);  // is_reload
+}
+```

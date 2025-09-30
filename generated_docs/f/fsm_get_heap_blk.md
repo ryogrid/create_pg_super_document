@@ -37,3 +37,16 @@ The calculation is straightforward: multiply the logical page number by the numb
 - This function is the exact inverse of fsm_get_location()
 - Used primarily during FSM searches to convert found slots back to heap block numbers
 - Critical for translating FSM search results back to actionable heap block addresses
+
+## Simplified Source
+
+```c
+static BlockNumber fsm_get_heap_blk(FSMAddress addr, uint16 slot)
+{
+    // Must be at bottom level of FSM tree
+    Assert(addr.level == FSM_BOTTOM_LEVEL);
+
+    // Convert FSM coordinates to heap block number
+    return ((unsigned int) addr.logpageno) * SlotsPerFSMPage + slot;
+}
+```

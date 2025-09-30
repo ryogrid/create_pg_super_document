@@ -56,3 +56,89 @@ The function maintains transaction integrity by preserving old values on a stack
 - The function handles all GUC data types through a type-specific switch statement
 - After resetting, parameters that need client notification are added to the report list
 - The iteration uses dlist_foreach_modify to safely modify the list while iterating
+
+## Simplified Source
+
+```c
+void
+ResetAllOptions(void)
+{
+    dlist_mutable_iter iter;
+
+    // Iterate through all non-default GUC variables
+    dlist_foreach_modify(iter, &guc_nondef_list) {
+        struct config_generic *gconf = dlist_container(struct config_generic,
+                                                       nondef_link, iter.cur);
+
+        // Skip non-user-settable parameters
+        if (gconf->context != PGC_SUSET && gconf->context != PGC_USERSET)
+            continue;
+
+        // Skip parameters excluded from RESET ALL
+        if (gconf->flags & GUC_NO_RESET_ALL)
+            continue;
+
+        // Skip parameters that weren't explicitly SET
+        if (gconf->source <= PGC_S_OVERRIDE)
+            continue;
+
+        // Save old value for transaction rollback support
+        push_old_value(gconf, GUC_ACTION_SET);
+
+        // Reset based on parameter type
+        switch (gconf->vartype) {
+            case PGC_BOOL: {
+                struct config_bool *conf = (struct config_bool *) gconf;
+                if (conf->assign_hook)
+                    conf->assign_hook(conf->reset_val, conf->reset_extra);
+                *conf->variable = conf->reset_val;
+                set_extra_field(&conf->gen, &conf->gen.extra, conf->reset_extra);
+                break;
+            }
+            case PGC_INT: {
+                struct config_int *conf = (struct config_int *) gconf;
+                if (conf->assign_hook)
+                    conf->assign_hook(conf->reset_val, conf->reset_extra);
+                *conf->variable = conf->reset_val;
+                set_extra_field(&conf->gen, &conf->gen.extra, conf->reset_extra);
+                break;
+            }
+            case PGC_REAL: {
+                struct config_real *conf = (struct config_real *) gconf;
+                if (conf->assign_hook)
+                    conf->assign_hook(conf->reset_val, conf->reset_extra);
+                *conf->variable = conf->reset_val;
+                set_extra_field(&conf->gen, &conf->gen.extra, conf->reset_extra);
+                break;
+            }
+            case PGC_STRING: {
+                struct config_string *conf = (struct config_string *) gconf;
+                if (conf->assign_hook)
+                    conf->assign_hook(conf->reset_val, conf->reset_extra);
+                set_string_field(conf, conf->variable, conf->reset_val);
+                set_extra_field(&conf->gen, &conf->gen.extra, conf->reset_extra);
+                break;
+            }
+            case PGC_ENUM: {
+                struct config_enum *conf = (struct config_enum *) gconf;
+                if (conf->assign_hook)
+                    conf->assign_hook(conf->reset_val, conf->reset_extra);
+                *conf->variable = conf->reset_val;
+                set_extra_field(&conf->gen, &conf->gen.extra, conf->reset_extra);
+                break;
+            }
+        }
+
+        // Update source and context information
+        set_guc_source(gconf, gconf->reset_source);
+        gconf->scontext = gconf->reset_scontext;
+        gconf->srole = gconf->reset_srole;
+
+        // Add to report list if needed
+        if ((gconf->flags & GUC_REPORT) && !(gconf->status & GUC_NEEDS_REPORT)) {
+            gconf->status |= GUC_NEEDS_REPORT;
+            slist_push_head(&guc_report_list, &gconf->report_link);
+        }
+    }
+}
+```

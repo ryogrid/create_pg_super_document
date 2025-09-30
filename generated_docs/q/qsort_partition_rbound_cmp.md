@@ -36,3 +36,18 @@ This function serves as a qsort comparison callback for sorting PartitionRangeBo
 - The function signature includes a void *arg parameter to accommodate qsort_r style sorting with context
 - Essential for maintaining the sorted order of range bounds across multiple range partitions
 - Returns negative, zero, or positive value following standard qsort comparison conventions
+
+## Simplified Source
+
+```c
+static int32 qsort_partition_rbound_cmp(const void *a, const void *b, void *arg) {
+    // Extract range bound pointers (handle pointer-to-pointer indirection)
+    PartitionRangeBound *b1 = (*(PartitionRangeBound *const *) a);
+    PartitionRangeBound *b2 = (*(PartitionRangeBound *const *) b);
+    PartitionKey key = (PartitionKey) arg;
+
+    // Delegate to range bounds comparison function
+    return compare_range_bounds(key->partnatts, key->partsupfunc,
+                               key->partcollation, b1, b2);
+}
+```

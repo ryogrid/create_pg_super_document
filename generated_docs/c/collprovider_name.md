@@ -33,3 +33,21 @@ The  function provides a simple mapping from single-character collation provider
 - Defined as a static inline function in the header file for efficient access
 - Part of the PostgreSQL collation system infrastructure
 - The function is commonly used during database creation and locale setup operations
+
+## Simplified Source
+
+```c
+static inline const char *collprovider_name(char c) {
+    // Convert collation provider code to human-readable name
+    switch (c) {
+        case COLLPROVIDER_BUILTIN:
+            return "builtin";
+        case COLLPROVIDER_ICU:
+            return "icu";
+        case COLLPROVIDER_LIBC:
+            return "libc";
+        default:
+            return "???";  // Unknown provider
+    }
+}
+```

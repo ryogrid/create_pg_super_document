@@ -41,3 +41,36 @@ The  function performs a key-based deletion operation on a dynamic shared hash t
 - For cases where the caller already has an entry pointer,  is more efficient
 - The function includes assertions to ensure the hash table is in a valid state
 - No lock is held after the function returns, unlike find operations
+
+## Simplified Source
+```c
+bool
+dshash_delete_key(dshash_table *hash_table, const void *key)
+{
+    dshash_hash hash;
+    size_t partition;
+    bool found;
+
+    // Compute hash and determine partition
+    hash = hash_key(hash_table, key);
+    partition = PARTITION_FOR_HASH(hash);
+
+    // Acquire exclusive lock on partition
+    LWLockAcquire(PARTITION_LOCK(hash_table, partition), LW_EXCLUSIVE);
+    ensure_valid_bucket_pointers(hash_table);
+
+    // Attempt to delete from bucket
+    if (delete_key_from_bucket(hash_table, key, &BUCKET_FOR_HASH(hash_table, hash))) {
+        // Successfully deleted - update partition count
+        --hash_table->control->partitions[partition].count;
+        found = true;
+    } else {
+        found = false;
+    }
+
+    // Release lock and return result
+    LWLockRelease(PARTITION_LOCK(hash_table, partition));
+
+    return found;
+}
+```

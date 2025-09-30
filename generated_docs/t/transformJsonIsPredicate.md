@@ -35,3 +35,24 @@ This function processes SQL IS JSON predicate expressions during parsing. It val
 - The format clause from the original predicate is intentionally not passed to the final node
 - Supports item_type and unique_keys options for specific JSON validation requirements  
 - Part of SQL/JSON standard compliance for IS JSON predicates
+
+## Simplified Source
+
+```c
+static Node *transformJsonIsPredicate(ParseState *pstate, JsonIsPredicate *pred) {
+    // Parse and validate the JSON expression argument
+    Oid exprtype;
+    Node *expr = transformJsonParseArg(pstate, pred->expr, pred->format, &exprtype);
+
+    // Only allow TEXT, JSON, and JSONB types
+    if (exprtype != TEXTOID && exprtype != JSONOID && exprtype != JSONBOID) {
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("cannot use type %s in IS JSON predicate",
+                              format_type_be(exprtype))));
+    }
+
+    // Create the final JSON predicate node (format clause is intentionally dropped)
+    return makeJsonIsPredicate(expr, NULL, pred->item_type,
+                              pred->unique_keys, pred->location);
+}
+```

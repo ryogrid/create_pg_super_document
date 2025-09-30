@@ -42,3 +42,55 @@ unknown_attribute(ParseState *pstate, Node *relref, const char *attname,
 - Uses different error codes (ERRCODE_UNDEFINED_COLUMN vs ERRCODE_WRONG_OBJECT_TYPE) to distinguish between missing columns and inappropriate usage
 - Critical for providing user-friendly error messages during field access resolution
 - Part of PostgreSQL's comprehensive error reporting system that provides precise source location information
+
+## Simplified Source
+
+```c
+static void
+unknown_attribute(ParseState *pstate, Node *relref, const char *attname,
+                  int location) {
+    RangeTblEntry *rte;
+
+    // Check if this is a table/alias reference
+    if (IsA(relref, Var) && ((Var *) relref)->varattno == InvalidAttrNumber) {
+        // Get the range table entry for error context
+        rte = GetRTEByRangeTablePosn(pstate,
+                                    ((Var *) relref)->varno,
+                                    ((Var *) relref)->varlevelsup);
+
+        // Report with table/alias name
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_COLUMN),
+                 errmsg("column %s.%s does not exist",
+                        rte->eref->aliasname, attname),
+                 parser_errposition(pstate, location)));
+    } else {
+        // Handle arbitrary expression types
+        Oid relTypeId = exprType(relref);
+
+        if (ISCOMPLEX(relTypeId)) {
+            // Complex type missing column
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     errmsg("column \"%s\" not found in data type %s",
+                            attname, format_type_be(relTypeId)),
+                     parser_errposition(pstate, location)));
+        } else if (relTypeId == RECORDOID) {
+            // Record type with unidentifiable column
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     errmsg("could not identify column \"%s\" in record data type",
+                            attname),
+                     parser_errposition(pstate, location)));
+        } else {
+            // Non-composite type accessed with column notation
+            ereport(ERROR,
+                    (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                     errmsg("column notation .%s applied to type %s, "
+                            "which is not a composite type",
+                            attname, format_type_be(relTypeId)),
+                     parser_errposition(pstate, location)));
+        }
+    }
+}
+```

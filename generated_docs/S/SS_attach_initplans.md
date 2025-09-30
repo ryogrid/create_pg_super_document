@@ -34,3 +34,15 @@ The function does not modify the plan node's cost estimates or parallel_safe fla
 - Cost accounting for initplans must be handled separately through SS_charge_for_initplans or similar functions
 - The function is part of the subselect processing subsystem in PostgreSQL's optimizer
 - Declared in src/include/optimizer/subselect.h
+
+## Simplified Source
+
+```c
+void SS_attach_initplans(PlannerInfo *root, Plan *plan)
+{
+    // Simply attach all accumulated initplans to the target plan node
+    plan->initPlan = root->init_plans;
+}
+```
+
+This function performs a straightforward assignment, transferring all initialization plans from the planner context to the specified plan node. InitPlans are subqueries that must execute before the main query begins.

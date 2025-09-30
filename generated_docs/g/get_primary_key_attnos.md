@@ -45,3 +45,77 @@ The function specifically looks for constraints of type CONSTRAINT_PRIMARY and c
 - Uses AccessShareLock on pg_constraint for consistent reads
 - Early termination optimization: stops searching after finding the primary key since there can only be one per table
 - Used in query optimization contexts where knowledge of primary key columns helps with grouping and uniqueness analysis
+
+## Simplified Source
+
+```c
+Bitmapset *get_primary_key_attnos(Oid relid, bool deferrableOk, Oid *constraintOid) {
+    Bitmapset *pkattnos = NULL;
+    Relation pg_constraint;
+    HeapTuple tuple;
+    SysScanDesc scan;
+    ScanKeyData skey[1];
+
+    // Initialize output parameter
+    *constraintOid = InvalidOid;
+
+    // Open pg_constraint catalog and set up scan for this relation
+    pg_constraint = table_open(ConstraintRelationId, AccessShareLock);
+
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+
+    scan = systable_beginscan(pg_constraint, ConstraintRelidTypidNameIndexId,
+                              true, NULL, 1, skey);
+
+    // Search for primary key constraint
+    while (HeapTupleIsValid(tuple = systable_getnext(scan))) {
+        Form_pg_constraint con = (Form_pg_constraint) GETSTRUCT(tuple);
+        Datum adatum;
+        bool isNull;
+        ArrayType *arr;
+        int16 *attnums;
+        int numkeys;
+        int i;
+
+        // Only interested in primary key constraints
+        if (con->contype != CONSTRAINT_PRIMARY)
+            continue;
+
+        // Check if deferrable constraints are acceptable
+        if (con->condeferrable && !deferrableOk)
+            break;
+
+        // Extract the column attribute numbers from conkey array
+        adatum = heap_getattr(tuple, Anum_pg_constraint_conkey,
+                              RelationGetDescr(pg_constraint), &isNull);
+        if (isNull)
+            elog(ERROR, "null conkey for constraint %u", con->oid);
+
+        arr = DatumGetArrayTypeP(adatum);
+        numkeys = ARR_DIMS(arr)[0];
+
+        // Validate array format
+        if (ARR_NDIM(arr) != 1 || numkeys < 0 || ARR_HASNULL(arr) ||
+            ARR_ELEMTYPE(arr) != INT2OID)
+            elog(ERROR, "conkey is not a 1-D smallint array");
+
+        attnums = (int16 *) ARR_DATA_PTR(arr);
+
+        // Build bitmapset of primary key column numbers
+        for (i = 0; i < numkeys; i++) {
+            pkattnos = bms_add_member(pkattnos,
+                                      attnums[i] - FirstLowInvalidHeapAttributeNumber);
+        }
+
+        *constraintOid = con->oid;
+        break; // Only one primary key per table
+    }
+
+    systable_endscan(scan);
+    table_close(pg_constraint, AccessShareLock);
+
+    return pkattnos;
+}
+```

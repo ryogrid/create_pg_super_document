@@ -46,3 +46,37 @@ The function requires the input to be sorted on the grouping columns (and possib
 - The pathtype is set to T_Unique to distinguish it from other unique operations
 - Primarily used for implementing DISTINCT clauses and duplicate elimination in set operations
 - The use case is different enough from create_unique_path that they remain separate functions
+
+## Simplified Source
+
+```c
+UpperUniquePath *
+create_upper_unique_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+                        int numCols, double numGroups)
+{
+    // Create new upper unique path node
+    UpperUniquePath *pathnode = makeNode(UpperUniquePath);
+
+    // Set basic path properties
+    pathnode->path.pathtype = T_Unique;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = subpath->pathtarget;  // No projection
+    pathnode->path.param_info = NULL;  // Above joins, no parameterization
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel && subpath->parallel_safe;
+    pathnode->path.parallel_workers = subpath->parallel_workers;
+    pathnode->path.pathkeys = subpath->pathkeys;  // Preserves input ordering
+
+    // Set unique-specific properties
+    pathnode->subpath = subpath;
+    pathnode->numkeys = numCols;
+
+    // Calculate costs: comparison cost per row for duplicate detection
+    pathnode->path.startup_cost = subpath->startup_cost;
+    pathnode->path.total_cost = subpath->total_cost +
+        cpu_operator_cost * subpath->rows * numCols;
+    pathnode->path.rows = numGroups;  // Reduced to unique groups
+
+    return pathnode;
+}
+```

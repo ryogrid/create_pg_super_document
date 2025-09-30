@@ -54,3 +54,64 @@ The function maintains the tree structure while creating copies where necessary 
 - The recursive nature allows it to handle arbitrarily complex expression trees
 - For PlaceHolderVars at scan level, it always evaluates the contained expression rather than preserving the placeholder
 - Located in src/backend/optimizer/plan/setrefs.c:2195-2260
+
+## Simplified Source
+
+```c
+static Node *fix_scan_expr_mutator(Node *node, fix_scan_expr_context *context) {
+    if (node == NULL)
+        return NULL;
+
+    // Handle Variable nodes
+    if (IsA(node, Var)) {
+        Var *var = copyVar((Var *) node);
+
+        // Adjust relation numbers with range table offset
+        if (!IS_SPECIAL_VARNO(var->varno))
+            var->varno += context->rtoffset;
+        if (var->varnosyn > 0)
+            var->varnosyn += context->rtoffset;
+        return (Node *) var;
+    }
+
+    // Handle Parameter nodes
+    if (IsA(node, Param))
+        return fix_param_node(context->root, (Param *) node);
+
+    // Handle Aggregate references (min/max optimization)
+    if (IsA(node, Aggref)) {
+        Aggref *aggref = (Aggref *) node;
+        Param *aggparam;
+
+        // Check if aggregate should be replaced by a parameter
+        aggparam = find_minmax_agg_replacement_param(context->root, aggref);
+        if (aggparam != NULL)
+            return (Node *) copyObject(aggparam);
+    }
+
+    // Handle CurrentOfExpr nodes
+    if (IsA(node, CurrentOfExpr)) {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) copyObject(node);
+        cexpr->cvarno += context->rtoffset;
+        return (Node *) cexpr;
+    }
+
+    // Handle PlaceHolderVar nodes
+    if (IsA(node, PlaceHolderVar)) {
+        PlaceHolderVar *phv = (PlaceHolderVar *) node;
+        // At scan level, always evaluate the contained expression
+        return fix_scan_expr_mutator((Node *) phv->phexpr, context);
+    }
+
+    // Handle AlternativeSubPlan nodes
+    if (IsA(node, AlternativeSubPlan))
+        return fix_scan_expr_mutator(fix_alternative_subplan(context->root,
+                                                            (AlternativeSubPlan *) node,
+                                                            context->num_exec),
+                                    context);
+
+    // Apply common expression fixes and recurse
+    fix_expr_common(context->root, node);
+    return expression_tree_mutator(node, fix_scan_expr_mutator, (void *) context);
+}
+```

@@ -49,3 +49,98 @@ The function performs several key operations:
 - Table filtering is applied using IsImportableForeignTable based on the statement's options
 - All created foreign tables are placed in the schema specified by the local_schema parameter
 - [Command](../C/Command.md) counter incrementation ensures that each newly created table is visible to subsequent commands in the same transaction
+
+## Simplified Source
+
+```c
+void
+ImportForeignSchema(ImportForeignSchemaStmt *stmt)
+{
+    ForeignServer *server;
+    ForeignDataWrapper *fdw;
+    FdwRoutine *fdw_routine;
+    AclResult aclresult;
+    List *cmd_list;
+
+    // Validate foreign server exists and check USAGE permission
+    server = GetForeignServerByName(stmt->server_name, false);
+    aclresult = object_aclcheck(ForeignServerRelationId, server->serverid,
+                               GetUserId(), ACL_USAGE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FOREIGN_SERVER, server->servername);
+
+    // Validate target schema exists and check CREATE permission
+    (void) LookupCreationNamespace(stmt->local_schema);
+
+    // Get FDW and verify it supports schema import
+    fdw = GetForeignDataWrapper(server->fdwid);
+    if (!OidIsValid(fdw->fdwhandler))
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("foreign-data wrapper \"%s\" has no handler",
+                              fdw->fdwname)));
+
+    fdw_routine = GetFdwRoutine(fdw->fdwhandler);
+    if (fdw_routine->ImportForeignSchema == NULL)
+        ereport(ERROR, (errcode(ERRCODE_FDW_NO_SCHEMAS),
+                       errmsg("foreign-data wrapper \"%s\" does not support IMPORT FOREIGN SCHEMA",
+                              fdw->fdwname)));
+
+    // Get list of CREATE FOREIGN TABLE commands from FDW
+    cmd_list = fdw_routine->ImportForeignSchema(stmt, server->serverid);
+
+    // Parse and execute each command
+    foreach(lc, cmd_list)
+    {
+        char *cmd = (char *) lfirst(lc);
+        import_error_callback_arg callback_arg;
+        ErrorContextCallback sqlerrcontext;
+
+        // Setup error callback for better error reporting
+        callback_arg.tablename = NULL;
+        callback_arg.cmd = cmd;
+        sqlerrcontext.callback = import_error_callback;
+        sqlerrcontext.arg = (void *) &callback_arg;
+        sqlerrcontext.previous = error_context_stack;
+        error_context_stack = &sqlerrcontext;
+
+        // Parse SQL commands from FDW
+        List *raw_parsetree_list = pg_parse_query(cmd);
+
+        // Process each CREATE FOREIGN TABLE statement
+        foreach(lc2, raw_parsetree_list)
+        {
+            RawStmt *rs = lfirst_node(RawStmt, lc2);
+            CreateForeignTableStmt *cstmt = (CreateForeignTableStmt *) rs->stmt;
+
+            // Validate statement type
+            if (!IsA(cstmt, CreateForeignTableStmt))
+                elog(ERROR, "foreign-data wrapper \"%s\" returned incorrect statement type %d",
+                     fdw->fdwname, (int) nodeTag(cstmt));
+
+            // Apply filtering based on LIMIT TO/EXCEPT clauses
+            if (!IsImportableForeignTable(cstmt->base.relation->relname, stmt))
+                continue;
+
+            // Set schema and execute
+            callback_arg.tablename = cstmt->base.relation->relname;
+            cstmt->base.relation->schemaname = pstrdup(stmt->local_schema);
+
+            // Create planned statement and execute
+            PlannedStmt *pstmt = makeNode(PlannedStmt);
+            pstmt->commandType = CMD_UTILITY;
+            pstmt->canSetTag = false;
+            pstmt->utilityStmt = (Node *) cstmt;
+            pstmt->stmt_location = rs->stmt_location;
+            pstmt->stmt_len = rs->stmt_len;
+
+            ProcessUtility(pstmt, cmd, false, PROCESS_UTILITY_SUBCOMMAND,
+                          NULL, NULL, None_Receiver, NULL);
+
+            CommandCounterIncrement();
+            callback_arg.tablename = NULL;
+        }
+
+        error_context_stack = sqlerrcontext.previous;
+    }
+}
+```

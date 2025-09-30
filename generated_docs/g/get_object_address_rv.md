@@ -37,3 +37,29 @@ The function builds a qualified name list by prepending the relation name, schem
 
 ## Notes and Other Information
 This function is essentially a helper that transforms RangeVar-based specifications into the list format expected by . It handles the common case where object names need to be qualified with relation information, making it easier for callers to work with relation-dependent objects. All other behavior, including locking and error handling, is identical to  since it delegates to that function after name construction.
+
+## Simplified Source
+
+```c
+ObjectAddress
+get_object_address_rv(ObjectType objtype, RangeVar *rel, List *object,
+                      Relation *relp, LOCKMODE lockmode, bool missing_ok)
+{
+    // Build qualified object name by prepending relation components
+    if (rel) {
+        // Add relation name to front of object list
+        object = lcons(makeString(rel->relname), object);
+
+        // Add schema name if specified
+        if (rel->schemaname)
+            object = lcons(makeString(rel->schemaname), object);
+
+        // Add catalog name if specified
+        if (rel->catalogname)
+            object = lcons(makeString(rel->catalogname), object);
+    }
+
+    // Delegate to main object address resolution function
+    return get_object_address(objtype, (Node *) object, relp, lockmode, missing_ok);
+}
+```

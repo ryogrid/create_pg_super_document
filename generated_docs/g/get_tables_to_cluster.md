@@ -39,3 +39,48 @@ The function performs a catalog scan on the IndexRelationId relation, filtering 
 - Returns NIL if no clusterable tables are found or user lacks privileges
 - Memory allocation is done in the specified cluster_context for proper cleanup
 - Each RelToCluster structure contains both tableOid and indexOid for the clustering operation
+
+## Simplified Source
+
+```c
+static List *get_tables_to_cluster(MemoryContext cluster_context)
+{
+    Relation indRelation;
+    TableScanDesc scan;
+    ScanKeyData entry;
+    HeapTuple indexTuple;
+    Form_pg_index index;
+    MemoryContext old_context;
+    List *rtcs = NIL;
+
+    // Open pg_index catalog and scan for clustered indexes
+    indRelation = table_open(IndexRelationId, AccessShareLock);
+    ScanKeyInit(&entry,
+                Anum_pg_index_indisclustered,
+                BTEqualStrategyNumber, F_BOOLEQ,
+                BoolGetDatum(true));
+    scan = table_beginscan_catalog(indRelation, 1, &entry);
+
+    // Process each clustered index
+    while ((indexTuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        RelToCluster *rtc;
+        index = (Form_pg_index) GETSTRUCT(indexTuple);
+
+        // Check if user has clustering privileges on the table
+        if (!cluster_is_permitted_for_relation(index->indrelid, GetUserId()))
+            continue;
+
+        // Create RelToCluster entry in specified memory context
+        old_context = MemoryContextSwitchTo(cluster_context);
+        rtc = (RelToCluster *) palloc(sizeof(RelToCluster));
+        rtc->tableOid = index->indrelid;
+        rtc->indexOid = index->indexrelid;
+        rtcs = lappend(rtcs, rtc);
+        MemoryContextSwitchTo(old_context);
+    }
+
+    table_endscan(scan);
+    relation_close(indRelation, AccessShareLock);
+    return rtcs;
+}
+```

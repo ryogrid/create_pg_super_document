@@ -41,3 +41,60 @@ The function includes special handling for edge cases where constraint exclusion
 - The function ensures that the executor will have access to necessary row identification information even in complex inheritance scenarios
 - Target list costs and widths are computed later in the planning process
 - This function is a critical component for making inherited DML operations work correctly across partitioned tables and inheritance hierarchies
+
+## Simplified Source
+
+```c
+void distribute_row_identity_vars(PlannerInfo *root)
+{
+    Query *parse = root->parse;
+    int result_relation = parse->resultRelation;
+    RangeTblEntry *target_rte;
+    RelOptInfo *target_rel;
+
+    // Early exit for non-DML operations
+    if (parse->commandType != CMD_UPDATE &&
+        parse->commandType != CMD_DELETE &&
+        parse->commandType != CMD_MERGE) {
+        Assert(root->row_identity_vars == NIL);
+        return;
+    }
+
+    // Early exit for non-inherited operations
+    target_rte = rt_fetch(result_relation, parse->rtable);
+    if (!target_rte->inh) {
+        Assert(root->row_identity_vars == NIL);
+        return;
+    }
+
+    // Handle edge case: constraint exclusion suppressed all leaf relations
+    if (root->row_identity_vars == NIL) {
+        Relation target_relation;
+
+        // Re-open the top result relation and add its row identity columns
+        target_relation = table_open(target_rte->relid, NoLock);
+        add_row_identity_columns(root, result_relation, target_rte, target_relation);
+        table_close(target_relation, NoLock);
+
+        // Rebuild base relation target lists to propagate the added columns
+        build_base_rel_tlists(root, root->processed_tlist);
+        return;  // No ROWID_VAR Vars to process
+    }
+
+    // Find the target relation
+    target_rel = find_base_rel(root, result_relation);
+
+    // Copy all ROWID_VAR references to the target relation's reltarget
+    foreach(lc, root->processed_tlist) {
+        TargetEntry *tle = lfirst(lc);
+        Var *var = (Var *) tle->expr;
+
+        // Look for ROWID_VAR references
+        if (var && IsA(var, Var) && var->varno == ROWID_VAR) {
+            target_rel->reltarget->exprs =
+                lappend(target_rel->reltarget->exprs, copyObject(var));
+            // Cost and width will be computed later
+        }
+    }
+}
+```

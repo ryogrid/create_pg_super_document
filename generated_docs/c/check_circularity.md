@@ -39,3 +39,50 @@ This function implements a critical security check in PostgreSQL's privilege sys
 - The algorithm simulates privilege revocation to test for independence of grant options
 - Essential for maintaining the integrity of PostgreSQL's privilege revocation system
 - Located in src/backend/utils/adt/acl.c:1222-1301
+
+## Simplified Source
+```c
+static void check_circularity(const Acl *old_acl, const AclItem *mod_aip, Oid ownerId) {
+    // Quick exit for owner grants - owners always have grant options
+    if (mod_aip->ai_grantor == ownerId)
+        return;
+
+    // Create working copy of ACL
+    Acl *acl = allocacl(ACL_NUM(old_acl));
+    memcpy(acl, old_acl, ACL_SIZE(old_acl));
+
+    // Remove all grant options from target grantee and dependencies
+    while (true) {
+        bool found_removable = false;
+        AclItem *aip = ACL_DAT(acl);
+
+        for (int i = 0; i < ACL_NUM(acl); i++) {
+            if (aip[i].ai_grantee == mod_aip->ai_grantee &&
+                ACLITEM_GET_GOPTIONS(aip[i]) != ACL_NO_RIGHTS) {
+
+                // Remove this entry and restart
+                acl = aclupdate(acl, &aip[i], ACL_MODECHG_DEL, ownerId, DROP_CASCADE);
+                found_removable = true;
+                break;
+            }
+        }
+
+        if (!found_removable)
+            break;
+    }
+
+    // Check if grantor still has independent grant options
+    AclMode grantor_privs = aclmask(acl, mod_aip->ai_grantor, ownerId,
+                                   ACL_GRANT_OPTION_FOR(ACLITEM_GET_GOPTIONS(*mod_aip)),
+                                   ACLMASK_ALL);
+    grantor_privs = ACL_OPTION_TO_PRIVS(grantor_privs);
+
+    // Error if trying to grant back to own grantor
+    if ((ACLITEM_GET_GOPTIONS(*mod_aip) & ~grantor_privs) != 0) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_GRANT_OPERATION),
+                       errmsg("grant options cannot be granted back to your own grantor")));
+    }
+
+    pfree(acl);
+}
+```

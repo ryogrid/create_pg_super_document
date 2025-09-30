@@ -40,3 +40,23 @@ This approach ensures that only non-default collations are explicitly shown in t
 - Part of PostgreSQL's rule decompilation system which converts internal query representations back to SQL text
 - The function only outputs COLLATE when necessary, avoiding redundant collation specifications
 - Located in src/backend/utils/adt/ruleutils.c:11265-11284
+
+## Simplified Source
+
+```c
+static void get_const_collation(Const *constval, deparse_context *context) {
+    StringInfo buf = context->buf;
+
+    // Check if constant has a valid collation
+    if (OidIsValid(constval->constcollid)) {
+        // Get the default collation for this data type
+        Oid default_collation = get_typcollation(constval->consttype);
+
+        // Only append COLLATE if it differs from the type's default
+        if (constval->constcollid != default_collation) {
+            appendStringInfo(buf, " COLLATE %s",
+                           generate_collation_name(constval->constcollid));
+        }
+    }
+}
+```

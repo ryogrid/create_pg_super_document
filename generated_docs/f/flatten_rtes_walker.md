@@ -54,3 +54,40 @@ The function maintains proper context switching to ensure that rtable and rteper
 - Uses both query_tree_walker and expression_tree_walker depending on node type for comprehensive coverage
 - Essential component of the RTE flattening process, working in conjunction with 
 - The recursive nature allows handling of deeply nested subquery structures
+
+## Simplified Source
+
+```c
+static bool flatten_rtes_walker(Node *node, flatten_rtes_walker_context *cxt) {
+    if (node == NULL)
+        return false;
+
+    // Handle RangeTblEntry nodes
+    if (IsA(node, RangeTblEntry)) {
+        RangeTblEntry *rte = (RangeTblEntry *) node;
+
+        // Only process relation RTEs and former relations (subqueries with relid)
+        if (rte->rtekind == RTE_RELATION ||
+            (rte->rtekind == RTE_SUBQUERY && OidIsValid(rte->relid)))
+            add_rte_to_flat_rtable(cxt->glob, cxt->query->rteperminfos, rte);
+
+        return false; // Don't traverse into RTE substructure
+    }
+
+    // Handle Query nodes (subselects)
+    if (IsA(node, Query)) {
+        Query *save_query = cxt->query;
+        bool result;
+
+        // Update context for nested query traversal
+        cxt->query = (Query *) node;
+        result = query_tree_walker((Query *) node, flatten_rtes_walker,
+                                   (void *) cxt, QTW_EXAMINE_RTES_BEFORE);
+        cxt->query = save_query; // Restore context
+        return result;
+    }
+
+    // Handle all other expression nodes
+    return expression_tree_walker(node, flatten_rtes_walker, (void *) cxt);
+}
+```

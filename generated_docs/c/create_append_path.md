@@ -64,3 +64,85 @@ For parallel-aware append operations, the function sorts non-partial paths by de
 - Single-child Append paths are optimized to inherit child properties when parallel awareness matches
 - All child paths must have the same parameterization (required_outer)
 - For parallel-aware appends, pathkeys must be NIL to allow cost-based sorting of subpaths
+
+## Simplified Source
+
+```c
+AppendPath *
+create_append_path(PlannerInfo *root, RelOptInfo *rel,
+                  List *subpaths, List *partial_subpaths,
+                  List *pathkeys, Relids required_outer,
+                  int parallel_workers, bool parallel_aware,
+                  double rows)
+{
+    AppendPath *pathnode = makeNode(AppendPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_Append;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.parallel_aware = parallel_aware;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = parallel_workers;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Set parameter info based on relation type
+    if (rel->reloptkind == RELOPT_BASEREL && root && subpaths != NIL)
+        pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+    else
+        pathnode->path.param_info = get_appendrel_parampathinfo(rel, required_outer);
+
+    // For parallel append, sort paths for optimal execution
+    if (parallel_aware)
+    {
+        // Sort non-partial paths by descending total cost
+        list_sort(subpaths, append_total_cost_compare);
+        // Sort partial paths by descending startup cost
+        list_sort(partial_subpaths, append_startup_cost_compare);
+    }
+
+    // Combine subpaths and mark where partial paths begin
+    pathnode->first_partial_path = list_length(subpaths);
+    pathnode->subpaths = list_concat(subpaths, partial_subpaths);
+
+    // Apply query-wide LIMIT if applicable
+    if (root && bms_equal(rel->relids, root->all_query_rels))
+        pathnode->limit_tuples = root->limit_tuples;
+    else
+        pathnode->limit_tuples = -1.0;
+
+    // Verify parallel safety of all subpaths
+    foreach(l, pathnode->subpaths)
+    {
+        Path *subpath = (Path *) lfirst(l);
+        pathnode->path.parallel_safe = pathnode->path.parallel_safe &&
+                                      subpath->parallel_safe;
+    }
+
+    // Single-child optimization
+    if (list_length(pathnode->subpaths) == 1)
+    {
+        Path *child = (Path *) linitial(pathnode->subpaths);
+
+        // If parallel awareness matches, inherit child's properties
+        if (child->parallel_aware == parallel_aware)
+        {
+            pathnode->path.rows = child->rows;
+            pathnode->path.startup_cost = child->startup_cost;
+            pathnode->path.total_cost = child->total_cost;
+        }
+        else
+            cost_append(pathnode);
+
+        pathnode->path.pathkeys = child->pathkeys;
+    }
+    else
+        cost_append(pathnode);
+
+    // Override row estimate if provided
+    if (rows >= 0)
+        pathnode->path.rows = rows;
+
+    return pathnode;
+}
+```

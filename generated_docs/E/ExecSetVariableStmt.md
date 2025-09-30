@@ -44,3 +44,105 @@ The function includes safety checks for parallel operations and proper transacti
 - Distinguishes between session-level and local (transaction-level) variable settings
 - Includes comprehensive error handling for unexpected SET command variants
 - Supports both superuser and regular user permission levels through PGC_SUSET/PGC_USERSET contexts
+
+## Simplified Source
+
+```c
+void ExecSetVariableStmt(VariableSetStmt *stmt, bool isTopLevel) {
+    GucAction action = stmt->is_local ? GUC_ACTION_LOCAL : GUC_ACTION_SET;
+
+    // Prevent SET operations during parallel mode
+    if (IsInParallelMode()) {
+        ereport(ERROR, "cannot set parameters during a parallel operation");
+    }
+
+    switch (stmt->kind) {
+        case VAR_SET_VALUE:
+        case VAR_SET_CURRENT:
+            // Warn about SET LOCAL outside transaction blocks
+            if (stmt->is_local) {
+                WarnNoTransactionBlock(isTopLevel, "SET LOCAL");
+            }
+
+            // Set the configuration option
+            set_config_option(stmt->name,
+                            ExtractSetVariableArgs(stmt),
+                            (superuser() ? PGC_SUSET : PGC_USERSET),
+                            PGC_S_SESSION,
+                            action, true, 0, false);
+            break;
+
+        case VAR_SET_MULTI:
+            // Handle special multi-value settings
+            if (strcmp(stmt->name, "TRANSACTION") == 0) {
+                ListCell *head;
+                WarnNoTransactionBlock(isTopLevel, "SET TRANSACTION");
+
+                foreach(head, stmt->args) {
+                    DefElem *item = (DefElem *) lfirst(head);
+
+                    if (strcmp(item->defname, "transaction_isolation") == 0) {
+                        SetPGVariable("transaction_isolation", list_make1(item->arg), stmt->is_local);
+                    } else if (strcmp(item->defname, "transaction_read_only") == 0) {
+                        SetPGVariable("transaction_read_only", list_make1(item->arg), stmt->is_local);
+                    } else if (strcmp(item->defname, "transaction_deferrable") == 0) {
+                        SetPGVariable("transaction_deferrable", list_make1(item->arg), stmt->is_local);
+                    } else {
+                        elog(ERROR, "unexpected SET TRANSACTION element: %s", item->defname);
+                    }
+                }
+            } else if (strcmp(stmt->name, "SESSION CHARACTERISTICS") == 0) {
+                ListCell *head;
+
+                foreach(head, stmt->args) {
+                    DefElem *item = (DefElem *) lfirst(head);
+
+                    if (strcmp(item->defname, "transaction_isolation") == 0) {
+                        SetPGVariable("default_transaction_isolation", list_make1(item->arg), stmt->is_local);
+                    } else if (strcmp(item->defname, "transaction_read_only") == 0) {
+                        SetPGVariable("default_transaction_read_only", list_make1(item->arg), stmt->is_local);
+                    } else if (strcmp(item->defname, "transaction_deferrable") == 0) {
+                        SetPGVariable("default_transaction_deferrable", list_make1(item->arg), stmt->is_local);
+                    } else {
+                        elog(ERROR, "unexpected SET SESSION element: %s", item->defname);
+                    }
+                }
+            } else if (strcmp(stmt->name, "TRANSACTION SNAPSHOT") == 0) {
+                A_Const *con = linitial_node(A_Const, stmt->args);
+
+                if (stmt->is_local) {
+                    ereport(ERROR, "SET LOCAL TRANSACTION SNAPSHOT is not implemented");
+                }
+
+                WarnNoTransactionBlock(isTopLevel, "SET TRANSACTION");
+                ImportSnapshot(strVal(&con->val));
+            } else {
+                elog(ERROR, "unexpected SET MULTI element: %s", stmt->name);
+            }
+            break;
+
+        case VAR_SET_DEFAULT:
+            if (stmt->is_local) {
+                WarnNoTransactionBlock(isTopLevel, "SET LOCAL");
+            }
+            // Fall through
+
+        case VAR_RESET:
+            // Reset to default value
+            set_config_option(stmt->name, NULL,
+                            (superuser() ? PGC_SUSET : PGC_USERSET),
+                            PGC_S_SESSION,
+                            action, true, 0, false);
+            break;
+
+        case VAR_RESET_ALL:
+            // Reset all options to defaults
+            ResetAllOptions();
+            break;
+    }
+
+    // Invoke post-alter hook for auditing
+    InvokeObjectPostAlterHookArgStr(ParameterAclRelationId, stmt->name,
+                                   ACL_SET, stmt->kind, false);
+}
+```

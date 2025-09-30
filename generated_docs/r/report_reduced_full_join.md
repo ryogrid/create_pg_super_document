@@ -44,3 +44,21 @@ The function is called specifically when:
 - Each partially reduced FULL JOIN requires separate processing because the unreduced side differs for each case
 - Memory allocation uses palloc, consistent with PostgreSQLs memory management patterns
 - The function is only called during the specific case of partial FULL JOIN reduction, not for complete reductions to INNER JOIN
+
+## Simplified Source
+
+```c
+static void report_reduced_full_join(reduce_outer_joins_pass2_state *state2,
+                                    int rtindex, Relids relids)
+{
+    // Create record for partially reduced FULL JOIN
+    reduce_outer_joins_partial_state *statep;
+
+    statep = palloc(sizeof(reduce_outer_joins_partial_state));
+    statep->full_join_rti = rtindex;      // Which FULL JOIN was reduced
+    statep->unreduced_side = relids;      // Which side remains nullable
+
+    // Add to list for later processing
+    state2->partial_reduced = lappend(state2->partial_reduced, statep);
+}
+```

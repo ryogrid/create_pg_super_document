@@ -63,3 +63,56 @@ The function works for various container types including arrays, and is designed
 - Container-type-specific logic is handled through a plugin-style SubscriptRoutines interface, allowing different container types to implement their own subscripting semantics
 - The resulting SubscriptingRef node can be used for both fetch operations and as the target for assignment operations
 - Location: src/backend/parser/parse_node.c:243-346
+
+## Simplified Source
+
+```c
+SubscriptingRef *
+transformContainerSubscripts(ParseState *pstate, Node *containerBase,
+                             Oid containerType, int32 containerTypMod,
+                             List *indirection, bool isAssignment) {
+    SubscriptingRef *sbsref;
+    const SubscriptRoutines *sbsroutines;
+    Oid elementType;
+    bool isSlice = false;
+    ListCell *idx;
+
+    // Resolve domain types to base types for non-assignment cases
+    if (!isAssignment) {
+        transformContainerType(&containerType, &containerTypMod);
+    }
+
+    // Get subscripting support functions and validate subscriptability
+    sbsroutines = getSubscriptingRoutines(containerType, &elementType);
+    if (!sbsroutines) {
+        ereport(ERROR, "type does not support subscripting");
+    }
+
+    // Check if any subscripts are slice specifiers (contain ":")
+    foreach(idx, indirection) {
+        A_Indices *ai = lfirst_node(A_Indices, idx);
+        if (ai->is_slice) {
+            isSlice = true;
+            break;
+        }
+    }
+
+    // Create the SubscriptingRef node
+    sbsref = makeNode(SubscriptingRef);
+    sbsref->refcontainertype = containerType;
+    sbsref->refelemtype = elementType;
+    sbsref->reftypmod = containerTypMod;
+    sbsref->refexpr = (Expr *) containerBase;
+    sbsref->refassgnexpr = NULL;  // Filled by caller for assignments
+
+    // Let container-specific logic handle the transformation
+    sbsroutines->transform(sbsref, indirection, pstate, isSlice, isAssignment);
+
+    // Validate that we got a valid result type
+    if (!OidIsValid(sbsref->refrestype)) {
+        ereport(ERROR, "subscripting resulted in invalid type");
+    }
+
+    return sbsref;
+}
+```

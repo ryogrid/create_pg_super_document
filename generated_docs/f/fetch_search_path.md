@@ -42,3 +42,33 @@ A notable side effect is that this function may trigger a CommandCounterIncremen
 - When includeImplicit is false, removes leading namespaces until reaching the activeCreationNamespace
 - Critical for maintaining consistent namespace resolution across different PostgreSQL subsystems
 - Used extensively by schema introspection functions and object resolution routines
+
+## Simplified Source
+
+```c
+List *
+fetch_search_path(bool includeImplicit)
+{
+    List *result;
+
+    // Ensure namespace path is current
+    recomputeNamespacePath();
+
+    // Force temp namespace creation if pending
+    if (activeTempCreationPending) {
+        AccessTempTableNamespace(true);
+        recomputeNamespacePath();
+    }
+
+    // Copy the active search path
+    result = list_copy(activeSearchPath);
+
+    // Remove implicit namespaces if requested
+    if (!includeImplicit) {
+        while (result && linitial_oid(result) != activeCreationNamespace)
+            result = list_delete_first(result);
+    }
+
+    return result;
+}
+```

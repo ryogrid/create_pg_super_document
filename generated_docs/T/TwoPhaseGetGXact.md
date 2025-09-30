@@ -40,3 +40,44 @@ TwoPhaseGetGXact is a static function that searches for and returns the GlobalTr
 - Throws ERROR if the specified XID is not found in prepared transactions
 - Static function - only used internally within the two-phase commit subsystem
 - The lock_held parameter allows for optimization when caller already has the necessary lock
+
+## Simplified Source
+
+```c
+static GlobalTransaction TwoPhaseGetGXact(TransactionId xid, bool lock_held) {
+    GlobalTransaction result = NULL;
+    static TransactionId cached_xid = InvalidTransactionId;
+    static GlobalTransaction cached_gxact = NULL;
+
+    // Check cache for repeated lookups of same XID
+    if (xid == cached_xid)
+        return cached_gxact;
+
+    // Acquire lock if caller doesn't already hold it
+    if (!lock_held)
+        LWLockAcquire(TwoPhaseStateLock, LW_SHARED);
+
+    // Search through prepared transactions
+    for (int i = 0; i < TwoPhaseState->numPrepXacts; i++) {
+        GlobalTransaction gxact = TwoPhaseState->prepXacts[i];
+        if (gxact->xid == xid) {
+            result = gxact;
+            break;
+        }
+    }
+
+    // Release lock if we acquired it
+    if (!lock_held)
+        LWLockRelease(TwoPhaseStateLock);
+
+    // Error if transaction not found
+    if (result == NULL)
+        elog(ERROR, "failed to find GlobalTransaction for xid %u", xid);
+
+    // Update cache
+    cached_xid = xid;
+    cached_gxact = result;
+
+    return result;
+}
+```

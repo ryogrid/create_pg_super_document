@@ -55,3 +55,53 @@ The function uses CaseTestExpr as a creative placeholder mechanism to represent 
 - The coercion field is only set when actual type coercion is needed (coercion != placeholder)
 - Part of PostgreSQL's comprehensive SQL/JSON standard implementation
 - Handles both cases where a specific function expression is provided and where type inference is needed
+
+## Simplified Source
+
+```c
+static Node *
+makeJsonConstructorExpr(ParseState *pstate, JsonConstructorType type,
+                       List *args, Expr *fexpr, JsonReturning *returning,
+                       bool unique, bool absent_on_null, int location) {
+    JsonConstructorExpr *jsctor = makeNode(JsonConstructorExpr);
+    Node *placeholder;
+    Node *coercion;
+
+    // Initialize the JSON constructor expression
+    jsctor->args = args;
+    jsctor->func = fexpr;
+    jsctor->type = type;
+    jsctor->returning = returning;
+    jsctor->unique = unique;
+    jsctor->absent_on_null = absent_on_null;
+    jsctor->location = location;
+
+    // Create placeholder for the JSON result that will be coerced
+    if (fexpr) {
+        // Use the function expression's type information
+        CaseTestExpr *cte = makeNode(CaseTestExpr);
+        cte->typeId = exprType((Node *) fexpr);
+        cte->typeMod = exprTypmod((Node *) fexpr);
+        cte->collation = exprCollation((Node *) fexpr);
+        placeholder = (Node *) cte;
+    } else {
+        // Infer JSON type from the returning format
+        CaseTestExpr *cte = makeNode(CaseTestExpr);
+        cte->typeId = (returning->format->format_type == JS_FORMAT_JSONB)
+                      ? JSONBOID : JSONOID;
+        cte->typeMod = -1;
+        cte->collation = InvalidOid;
+        placeholder = (Node *) cte;
+    }
+
+    // Set up coercion to the target return type if needed
+    coercion = coerceJsonFuncExpr(pstate, placeholder, returning, true);
+
+    // Only store coercion if it's actually needed
+    if (coercion != placeholder) {
+        jsctor->coercion = (Expr *) coercion;
+    }
+
+    return (Node *) jsctor;
+}
+```

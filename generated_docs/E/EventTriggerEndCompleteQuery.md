@@ -42,3 +42,21 @@ The function is designed to be safe for use in error handling contexts (PG_CATCH
 - Maintains the stack-like behavior of nested event trigger states
 - The bulk memory context deletion efficiently cleans up SQLDropList items and other associated data
 - Essential for proper resource management in both success and failure cases
+
+## Simplified Source
+
+```c
+void EventTriggerEndCompleteQuery(void)
+{
+    EventTriggerQueryState *prevstate;
+
+    // Get previous state from stack
+    prevstate = currentEventTriggerState->previous;
+
+    // Delete current memory context (cleans up all associated memory)
+    MemoryContextDelete(currentEventTriggerState->cxt);
+
+    // Restore previous state
+    currentEventTriggerState = prevstate;
+}
+```

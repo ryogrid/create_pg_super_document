@@ -34,3 +34,20 @@ This function is essential for connection cleanup and memory management in libpq
 - Part of libpq's command pipelining infrastructure for managing multiple commands
 - Critical for preventing memory leaks when connections are dropped or reset
 - The function is static, indicating it's only used within the fe-connect.c file
+
+## Simplified Source
+
+```c
+static void
+pqFreeCommandQueue(PGcmdQueueEntry *queue)
+{
+    while (queue != NULL) {
+        PGcmdQueueEntry *cur = queue;
+
+        // Move to next entry before freeing current
+        queue = cur->next;
+        free(cur->query);
+        free(cur);
+    }
+}
+```

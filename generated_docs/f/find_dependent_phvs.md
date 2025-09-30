@@ -37,3 +37,34 @@ The function uses a tree walker pattern to traverse both the main query parse tr
 - The function checks both the main parse tree and append relation lists to ensure complete coverage
 - Works in conjunction with find_dependent_phvs_walker which performs the actual PHV dependency checking
 - Part of the query optimization phase where unused result relations are being identified and removed
+
+## Simplified Source
+
+```c
+static bool find_dependent_phvs(PlannerInfo *root, int varno)
+{
+    find_dependent_phvs_context context;
+
+    // Early exit if no PlaceHolderVars exist at all
+    if (root->glob->lastPHId == 0)
+        return false;
+
+    // Set up context for searching specific relation
+    context.relids = bms_make_singleton(varno);
+    context.sublevels_up = 0;
+
+    // Search the main query parse tree
+    if (query_tree_walker(root->parse,
+                         find_dependent_phvs_walker,
+                         (void *) &context, 0))
+        return true;
+
+    // Also check any append relation lists
+    if (expression_tree_walker((Node *) root->append_rel_list,
+                             find_dependent_phvs_walker,
+                             (void *) &context))
+        return true;
+
+    return false;
+}
+```

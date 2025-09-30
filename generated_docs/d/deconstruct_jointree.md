@@ -45,3 +45,59 @@ The function returns a "joinlist" - a hierarchical structure that guides make_on
 - Handles special case processing for postponed LEFT JOIN clauses when outer joins are present
 - Manages JoinTreeItem structures temporarily during processing but cleans them up before returning
 - Critical for establishing proper join order constraints that respect SQL outer join semantics
+
+## Simplified Source
+
+```c
+List *deconstruct_jointree(PlannerInfo *root)
+{
+    List *result;
+    JoinDomain *top_jdomain;
+    List *item_list = NIL;
+
+    // Freeze PlaceHolderInfo creation - no more can be made after this point
+    root->placeholdersFrozen = true;
+
+    // Get the top-level join domain for the query
+    top_jdomain = linitial_node(JoinDomain, root->join_domains);
+    top_jdomain->jd_relids = NULL;  // filled during recursive processing
+
+    // Validate jointree structure
+    Assert(root->parse->jointree != NULL && IsA(root->parse->jointree, FromExpr));
+
+    // Initialize relation sets that will be filled during scanning
+    root->all_baserels = NULL;
+    root->outer_join_rels = NULL;
+
+    // Phase 1: Recursively scan the jointree to extract clauses and structure
+    result = deconstruct_recurse(root, (Node *) root->parse->jointree,
+                                top_jdomain, NULL, &item_list);
+
+    // Complete the all_query_rels set
+    root->all_query_rels = bms_union(root->all_baserels, root->outer_join_rels);
+
+    // Verify consistency with the top join domain
+    Assert(bms_equal(root->all_query_rels, top_jdomain->jd_relids));
+
+    // Phase 2: Distribute extracted clauses to appropriate relations
+    foreach(lc, item_list) {
+        JoinTreeItem *jtitem = (JoinTreeItem *) lfirst(lc);
+        deconstruct_distribute(root, jtitem);
+    }
+
+    // Phase 3: Handle postponed LEFT JOIN clauses if any outer joins exist
+    if (root->join_info_list) {
+        foreach(lc, item_list) {
+            JoinTreeItem *jtitem = (JoinTreeItem *) lfirst(lc);
+
+            if (jtitem->oj_joinclauses != NIL)
+                deconstruct_distribute_oj_quals(root, item_list, jtitem);
+        }
+    }
+
+    // Clean up temporary JoinTreeItem structures
+    list_free_deep(item_list);
+
+    return result;
+}
+```

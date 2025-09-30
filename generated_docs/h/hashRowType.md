@@ -45,3 +45,25 @@ The function uses PostgreSQL's standard hash combining functions ( and ) to crea
 - Essential for efficient type cache lookups and record type management
 - The hash includes only , , and  fields - notably excludes attribute names, type modifiers, and collations
 - Part of PostgreSQL's type caching infrastructure for performance optimization
+
+## Simplified Source
+```c
+uint32
+hashRowType(TupleDesc desc)
+{
+    uint32 s;
+    int i;
+
+    // Start with number of attributes
+    s = hash_combine(0, hash_uint32(desc->natts));
+
+    // Add composite type ID
+    s = hash_combine(s, hash_uint32(desc->tdtypeid));
+
+    // Add each attribute's type ID
+    for (i = 0; i < desc->natts; ++i)
+        s = hash_combine(s, hash_uint32(TupleDescAttr(desc, i)->atttypid));
+
+    return s;
+}
+```

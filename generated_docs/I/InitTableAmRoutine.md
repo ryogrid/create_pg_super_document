@@ -30,3 +30,11 @@ This static function initializes the TableAmRoutine structure for a table relati
 - Part of PostgreSQL's pluggable table access method infrastructure introduced to support different storage engines
 - Essential for table operations as it provides the function pointers needed for all table access method operations
 - The rd_tableam field populated by this function is used throughout the system for table access operations
+
+## Simplified Source
+```c
+static void InitTableAmRoutine(Relation relation) {
+    // Get table access method routine from handler and assign to relation
+    relation->rd_tableam = GetTableAmRoutine(relation->rd_amhandler);
+}
+```

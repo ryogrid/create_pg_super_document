@@ -42,3 +42,52 @@ Error checking ensures that the provided types are actually arrays, ranges, or m
 - Error cases are considered internal errors that shouldn't occur with proper function signatures and parser validation
 - The function assumes at least one of anyarray, anyrange, or anymultirange is already resolved
 - Located in src/backend/utils/fmgr/funcapi.c:589-654
+
+## Simplified Source
+
+```c
+static void resolve_anyelement_from_others(polymorphic_actuals *actuals) {
+    // Option 1: Extract element type from anyarray
+    if (OidIsValid(actuals->anyarray_type)) {
+        Oid array_base_type = getBaseType(actuals->anyarray_type);
+        Oid array_element = get_element_type(array_base_type);
+
+        if (!OidIsValid(array_element)) {
+            ereport(ERROR, "argument declared anyarray is not an array");
+        }
+        actuals->anyelement_type = array_element;
+    }
+    // Option 2: Extract element type from anyrange
+    else if (OidIsValid(actuals->anyrange_type)) {
+        Oid range_base_type = getBaseType(actuals->anyrange_type);
+        Oid range_element = get_range_subtype(range_base_type);
+
+        if (!OidIsValid(range_element)) {
+            ereport(ERROR, "argument declared anyrange is not a range type");
+        }
+        actuals->anyelement_type = range_element;
+    }
+    // Option 3: Extract element type from anymultirange (via range)
+    else if (OidIsValid(actuals->anymultirange_type)) {
+        // First get the range type from multirange
+        Oid multirange_base = getBaseType(actuals->anymultirange_type);
+        Oid range_type = get_multirange_range(multirange_base);
+
+        if (!OidIsValid(range_type)) {
+            ereport(ERROR, "argument declared anymultirange is not a multirange type");
+        }
+
+        // Then get the element type from the range
+        Oid range_base = getBaseType(range_type);
+        Oid range_element = get_range_subtype(range_base);
+
+        if (!OidIsValid(range_element)) {
+            ereport(ERROR, "anymultirange does not contain a valid range type");
+        }
+        actuals->anyelement_type = range_element;
+    }
+    else {
+        elog(ERROR, "could not determine polymorphic type");
+    }
+}
+```

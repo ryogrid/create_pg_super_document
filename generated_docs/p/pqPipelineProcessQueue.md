@@ -45,3 +45,66 @@ The function first checks if the connection is in a state where it can process t
 - Generates PGRES_PIPELINE_ABORTED results for non-SYNC commands in aborted pipelines
 - Prepares connection state for next query processing by clearing error state and async results
 - Critical component of PostgreSQL's pipeline mode implementation
+
+## Simplified Source
+
+```c
+static void
+pqPipelineProcessQueue(PGconn *conn)
+{
+    // Check if we can process next query
+    switch (conn->asyncStatus) {
+        case PGASYNC_COPY_IN:
+        case PGASYNC_COPY_OUT:
+        case PGASYNC_COPY_BOTH:
+        case PGASYNC_READY:
+        case PGASYNC_READY_MORE:
+        case PGASYNC_BUSY:
+            // Client still processing current query
+            return;
+
+        case PGASYNC_IDLE:
+            // Transition to pipeline mode if commands are queued
+            if (conn->cmd_queue_head != NULL) {
+                conn->asyncStatus = PGASYNC_PIPELINE_IDLE;
+                break;
+            }
+            return;
+
+        case PGASYNC_PIPELINE_IDLE:
+            // Ready to process next query
+            break;
+    }
+
+    // Reset partial result modes for new query
+    conn->partialResMode = false;
+    conn->singleRowMode = false;
+    conn->maxChunkSize = 0;
+
+    // Return to idle if no more commands
+    if (conn->cmd_queue_head == NULL) {
+        conn->asyncStatus = PGASYNC_IDLE;
+        return;
+    }
+
+    // Prepare for next query
+    pqClearConnErrorState(conn);
+    pqClearAsyncResult(conn);
+
+    // Handle aborted pipeline
+    if (conn->pipelineStatus == PQ_PIPELINE_ABORTED &&
+        conn->cmd_queue_head->queryclass != PGQUERY_SYNC) {
+        // Generate aborted result for non-SYNC commands
+        conn->result = PQmakeEmptyPGresult(conn, PGRES_PIPELINE_ABORTED);
+        if (!conn->result) {
+            libpq_append_conn_error(conn, "out of memory");
+            pqSaveErrorResult(conn);
+            return;
+        }
+        conn->asyncStatus = PGASYNC_READY;
+    } else {
+        // Allow normal parsing to continue
+        conn->asyncStatus = PGASYNC_BUSY;
+    }
+}
+```

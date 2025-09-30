@@ -37,3 +37,31 @@ The function traverses both regular hash buckets and skew buckets (used for hand
 - Required when the same hash table is used for multiple join operations
 - Ensures correct outer join semantics when rescanning is needed
 - The operation is safe and does not affect the hash table structure or tuple storage
+
+## Simplified Source
+
+```c
+void ExecHashTableResetMatchFlags(HashJoinTable hashtable) {
+    HashJoinTuple tuple;
+    int i;
+
+    // Reset match flags in all regular hash buckets
+    for (i = 0; i < hashtable->nbuckets; i++) {
+        for (tuple = hashtable->buckets.unshared[i]; tuple != NULL;
+             tuple = tuple->next.unshared) {
+            HeapTupleHeaderClearMatch(HJTUPLE_MINTUPLE(tuple));
+        }
+    }
+
+    // Reset match flags in skew buckets (if any)
+    for (i = 0; i < hashtable->nSkewBuckets; i++) {
+        int j = hashtable->skewBucketNums[i];
+        HashSkewBucket *skewBucket = hashtable->skewBucket[j];
+
+        for (tuple = skewBucket->tuples; tuple != NULL;
+             tuple = tuple->next.unshared) {
+            HeapTupleHeaderClearMatch(HJTUPLE_MINTUPLE(tuple));
+        }
+    }
+}
+```

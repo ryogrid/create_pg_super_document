@@ -38,3 +38,23 @@ The function uses the same walker pattern as `pull_varnos` but configures the co
 - Returns a Relids bitmapset containing varnos from the specified level only
 - Used primarily in subquery transformation and lateral reference analysis
 - Shares the same walker infrastructure with `pull_varnos` but with level-specific filtering
+
+## Simplified Source
+
+```c
+Relids
+pull_varnos_of_level(PlannerInfo *root, Node *node, int levelsup)
+{
+    pull_varnos_context context;
+
+    // Initialize context for level-specific variable collection
+    context.varnos = NULL;
+    context.root = root;
+    context.sublevels_up = levelsup;
+
+    // Walk the tree and collect varnos at specified level
+    query_or_expression_tree_walker(node, pull_varnos_walker, &context, 0);
+
+    return context.varnos;
+}
+```

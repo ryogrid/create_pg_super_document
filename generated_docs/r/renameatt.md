@@ -40,3 +40,41 @@ The function returns an ObjectAddress that identifies the renamed column, making
 - Returns InvalidObjectAddress if the relation does not exist and missing_ok is true
 - The function is designed to be called from the SQL command execution path
 - Part of the broader table command infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+ObjectAddress
+renameatt(RenameStmt *stmt)
+{
+    Oid relid;
+    AttrNumber attnum;
+    ObjectAddress address;
+
+    // Get relation OID with exclusive lock and permission checks
+    relid = RangeVarGetRelidExtended(stmt->relation, AccessExclusiveLock,
+                                     stmt->missing_ok ? RVR_MISSING_OK : 0,
+                                     RangeVarCallbackForRenameAttribute,
+                                     NULL);
+
+    // Handle missing relation gracefully if requested
+    if (!OidIsValid(relid)) {
+        ereport(NOTICE, "relation does not exist, skipping");
+        return InvalidObjectAddress;
+    }
+
+    // Delegate to internal implementation
+    attnum = renameatt_internal(relid,
+                               stmt->subname,    /* old attribute name */
+                               stmt->newname,    /* new attribute name */
+                               stmt->relation->inh,  /* recursive? */
+                               false,           /* recursing? */
+                               0,               /* expected inhcount */
+                               stmt->behavior); /* drop behavior */
+
+    // Return object address for the renamed column
+    ObjectAddressSubSet(address, RelationRelationId, relid, attnum);
+
+    return address;
+}
+```

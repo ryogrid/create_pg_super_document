@@ -31,3 +31,19 @@ The `get_gating_quals` function is a utility used during query plan creation to 
 - The function is static, meaning it's only used within the createplan.c file
 - Pseudoconstant quals are important for query optimization as they can be evaluated once and used to gate further processing
 - The extracted quals are returned in actual clause form (not RestrictInfo form) for execution
+
+## Simplified Source
+
+```c
+static List *get_gating_quals(PlannerInfo *root, List *quals) {
+    // Quick exit if no pseudoconstant quals present
+    if (!root->hasPseudoConstantQuals)
+        return NIL;
+
+    // Order quals for optimal execution
+    quals = order_qual_clauses(root, quals);
+
+    // Extract only pseudoconstant quals for gating
+    return extract_actual_clauses(quals, true);
+}
+```

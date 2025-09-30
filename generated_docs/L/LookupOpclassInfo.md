@@ -41,3 +41,90 @@ This static function implements a caching mechanism for operator class informati
 - Scans pg_amproc to find only default support procedures (lefttype = righttype = opcintype)
 - Critical for index performance as it avoids repeated catalog lookups during index operations
 - The cache entries become dead but harmless if operator classes are dropped
+
+## Simplified Source
+
+```c
+static OpClassCacheEnt *LookupOpclassInfo(Oid operatorClassOid, StrategyNumber numSupport) {
+    // Initialize cache on first use
+    if (OpClassCache == NULL) {
+        HASHCTL ctl;
+        if (!CacheMemoryContext) CreateCacheMemoryContext();
+
+        ctl.keysize = sizeof(Oid);
+        ctl.entrysize = sizeof(OpClassCacheEnt);
+        OpClassCache = hash_create("Operator class cache", 64, &ctl, HASH_ELEM | HASH_BLOBS);
+    }
+
+    // Look up or create cache entry
+    bool found;
+    OpClassCacheEnt *opcentry = hash_search(OpClassCache, &operatorClassOid, HASH_ENTER, &found);
+
+    if (!found) {
+        // Initialize new entry
+        opcentry->valid = false;
+        opcentry->numSupport = numSupport;
+        opcentry->supportProcs = NULL;
+    }
+
+    // Return cached entry if valid
+    if (opcentry->valid) return opcentry;
+
+    // Allocate support procedure array
+    if (opcentry->supportProcs == NULL && numSupport > 0) {
+        opcentry->supportProcs = MemoryContextAllocZero(CacheMemoryContext,
+                                                       numSupport * sizeof(RegProcedure));
+    }
+
+    // Determine if we can use indexes (avoid bootstrap issues)
+    bool indexOK = criticalRelcachesBuilt ||
+                   (operatorClassOid != OID_BTREE_OPS_OID && operatorClassOid != INT2_BTREE_OPS_OID);
+
+    // Scan pg_opclass to get family and input type
+    ScanKeyData skey[3];
+    ScanKeyInit(&skey[0], Anum_pg_opclass_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(operatorClassOid));
+
+    Relation rel = table_open(OperatorClassRelationId, AccessShareLock);
+    SysScanDesc scan = systable_beginscan(rel, OpclassOidIndexId, indexOK, NULL, 1, skey);
+
+    HeapTuple htup = systable_getnext(scan);
+    if (HeapTupleIsValid(htup)) {
+        Form_pg_opclass opclassform = (Form_pg_opclass) GETSTRUCT(htup);
+        opcentry->opcfamily = opclassform->opcfamily;
+        opcentry->opcintype = opclassform->opcintype;
+    }
+
+    systable_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    // Scan pg_amproc for support procedures
+    if (numSupport > 0) {
+        // Set up scan keys for family and type matching
+        ScanKeyInit(&skey[0], Anum_pg_amproc_amprocfamily, BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(opcentry->opcfamily));
+        ScanKeyInit(&skey[1], Anum_pg_amproc_amproclefttype, BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(opcentry->opcintype));
+        ScanKeyInit(&skey[2], Anum_pg_amproc_amprocrighttype, BTEqualStrategyNumber, F_OIDEQ,
+                    ObjectIdGetDatum(opcentry->opcintype));
+
+        rel = table_open(AccessMethodProcedureRelationId, AccessShareLock);
+        scan = systable_beginscan(rel, AccessMethodProcedureIndexId, indexOK, NULL, 3, skey);
+
+        while (HeapTupleIsValid(htup = systable_getnext(scan))) {
+            Form_pg_amproc amprocform = (Form_pg_amproc) GETSTRUCT(htup);
+
+            // Store support procedure in array
+            if (amprocform->amprocnum > 0 && amprocform->amprocnum <= numSupport) {
+                opcentry->supportProcs[amprocform->amprocnum - 1] = amprocform->amproc;
+            }
+        }
+
+        systable_endscan(scan);
+        table_close(rel, AccessShareLock);
+    }
+
+    opcentry->valid = true;
+    return opcentry;
+}
+```

@@ -37,3 +37,18 @@ This function validates that a collation identifier (OID) is valid and properly 
 - The error message specifically suggests using the COLLATE clause to resolve ambiguity
 - Part of PostgreSQL's collation support system for internationalization and locale-specific string operations
 - Helps ensure consistent collation handling across different string comparison operations in the system
+
+## Simplified Source
+
+```c
+static void check_collation_set(Oid collid) {
+    // Check if collation ID is valid
+    if (!OidIsValid(collid)) {
+        // Report error when collation cannot be determined
+        ereport(ERROR,
+                (errcode(ERRCODE_INDETERMINATE_COLLATION),
+                 errmsg("could not determine which collation to use for string comparison"),
+                 errhint("Use the COLLATE clause to set the collation explicitly.")));
+    }
+}
+```

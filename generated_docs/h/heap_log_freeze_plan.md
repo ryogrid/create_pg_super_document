@@ -37,3 +37,43 @@ The function maintains an array of canonical freeze plans in `plans_out` and tra
 
 ## Notes and Other Information
 The function ensures that freeze plans are stored in a canonical form to minimize WAL record size and improve recovery performance. The sorting and deduplication process is critical for efficient WAL logging of freeze operations on multiple tuples within the same page. The output maintains strict ordering requirements that the REDO routine depends on during crash recovery.
+
+## Simplified Source
+
+```c
+static int heap_log_freeze_plan(HeapTupleFreeze *tuples, int ntuples,
+                              xlhp_freeze_plan *plans_out,
+                              OffsetNumber *offsets_out) {
+    int nplans = 0;
+
+    // Sort freeze plans to enable deduplication
+    qsort(tuples, ntuples, sizeof(HeapTupleFreeze), heap_log_freeze_cmp);
+
+    // Process each tuple to build deduplicated plans
+    for (int i = 0; i < ntuples; i++) {
+        HeapTupleFreeze *frz = tuples + i;
+
+        if (i == 0) {
+            // Start first canonical freeze plan
+            heap_log_freeze_new_plan(plans_out, frz);
+            nplans++;
+        } else if (heap_log_freeze_eq(plans_out, frz)) {
+            // Tuple matches current plan - add to it
+            Assert(offsets_out[i - 1] < frz->offset);
+            plans_out->ntuples++;
+        } else {
+            // Tuple needs different plan - start new one
+            plans_out++;
+            heap_log_freeze_new_plan(plans_out, frz);
+            nplans++;
+        }
+
+        // Record offset number for this tuple
+        // REDO routine needs offsets grouped by freeze plan
+        offsets_out[i] = frz->offset;
+    }
+
+    Assert(nplans > 0 && nplans <= ntuples);
+    return nplans;
+}
+```

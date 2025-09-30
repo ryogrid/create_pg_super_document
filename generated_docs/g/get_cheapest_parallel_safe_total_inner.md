@@ -36,3 +36,27 @@ This function is commonly used in join planning where the optimizer needs to sel
 - Specifically designed for parallel join planning where inner paths must be both parallel-safe and unparameterized
 - The function does not perform explicit cost comparison since it relies on pre-sorted input
 - Part of PostgreSQL's parallel query execution infrastructure
+
+## Simplified Source
+
+```c
+Path *
+get_cheapest_parallel_safe_total_inner(List *paths)
+{
+    ListCell *l;
+
+    // Search for first path that is both parallel-safe and unparameterized
+    foreach(l, paths)
+    {
+        Path *innerpath = (Path *) lfirst(l);
+
+        // Check if path is parallel-safe and has no outer dependencies
+        if (innerpath->parallel_safe &&
+            bms_is_empty(PATH_REQ_OUTER(innerpath)))
+            return innerpath;
+    }
+
+    // No suitable path found
+    return NULL;
+}
+```

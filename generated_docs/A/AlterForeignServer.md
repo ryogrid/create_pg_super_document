@@ -49,3 +49,86 @@ This function implements the ALTER SERVER SQL command by modifying an existing f
 - Returns ObjectAddress of the modified server for further reference
 - Does not modify server name or associated FDW - these are immutable after creation
 - Part of PostgreSQL's Foreign Data Wrapper infrastructure enabling dynamic reconfiguration of server properties
+
+## Simplified Source
+
+```c
+ObjectAddress AlterForeignServer(AlterForeignServerStmt *stmt) {
+    Relation rel;
+    HeapTuple tp;
+    Datum repl_val[Natts_pg_foreign_server];
+    bool repl_null[Natts_pg_foreign_server];
+    bool repl_repl[Natts_pg_foreign_server];
+    Oid srvId;
+    Form_pg_foreign_server srvForm;
+    ObjectAddress address;
+
+    // Open catalog table with exclusive lock
+    rel = table_open(ForeignServerRelationId, RowExclusiveLock);
+
+    // Find the foreign server tuple
+    tp = SearchSysCacheCopy1(FOREIGNSERVERNAME, CStringGetDatum(stmt->servername));
+    if (!HeapTupleIsValid(tp))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("server \"%s\" does not exist", stmt->servername)));
+
+    srvForm = (Form_pg_foreign_server) GETSTRUCT(tp);
+    srvId = srvForm->oid;
+
+    // Check ownership - only owner or superuser can alter
+    if (!object_ownercheck(ForeignServerRelationId, srvId, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_FOREIGN_SERVER, stmt->servername);
+
+    // Initialize update arrays
+    memset(repl_val, 0, sizeof(repl_val));
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+
+    // Update version string if specified
+    if (stmt->has_version) {
+        if (stmt->version)
+            repl_val[Anum_pg_foreign_server_srvversion - 1] = CStringGetTextDatum(stmt->version);
+        else
+            repl_null[Anum_pg_foreign_server_srvversion - 1] = true;
+
+        repl_repl[Anum_pg_foreign_server_srvversion - 1] = true;
+    }
+
+    // Update server options if specified
+    if (stmt->options) {
+        ForeignDataWrapper *fdw = GetForeignDataWrapper(srvForm->srvfdw);
+        Datum datum;
+        bool isnull;
+
+        // Get current server options
+        datum = SysCacheGetAttr(FOREIGNSERVEROID, tp,
+                               Anum_pg_foreign_server_srvoptions, &isnull);
+        if (isnull)
+            datum = PointerGetDatum(NULL);
+
+        // Transform and validate options using FDW validator
+        datum = transformGenericOptions(ForeignServerRelationId, datum,
+                                       stmt->options, fdw->fdwvalidator);
+
+        if (PointerIsValid(DatumGetPointer(datum)))
+            repl_val[Anum_pg_foreign_server_srvoptions - 1] = datum;
+        else
+            repl_null[Anum_pg_foreign_server_srvoptions - 1] = true;
+
+        repl_repl[Anum_pg_foreign_server_srvoptions - 1] = true;
+    }
+
+    // Update the catalog tuple
+    tp = heap_modify_tuple(tp, RelationGetDescr(rel), repl_val, repl_null, repl_repl);
+    CatalogTupleUpdate(rel, &tp->t_self, tp);
+
+    // Trigger post-alter hooks and cleanup
+    InvokeObjectPostAlterHook(ForeignServerRelationId, srvId, 0);
+    ObjectAddressSet(address, ForeignServerRelationId, srvId);
+
+    heap_freetuple(tp);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

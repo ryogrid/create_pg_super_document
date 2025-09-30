@@ -43,3 +43,28 @@ The function is designed to be used by parent nodes that do not naturally embrac
 - The function implements smart parentheses placement based on SQL precedence rules
 - Essential for maintaining correct SQL semantics when deparsing complex nested expressions
 - Location: src/backend/utils/adt/ruleutils.c:8859-8876
+
+## Simplified Source
+
+```c
+static void get_rule_expr_paren(Node *node, deparse_context *context,
+                               bool showimplicit, Node *parentNode)
+{
+    bool need_paren;
+
+    // Determine if parentheses are needed for pretty printing
+    need_paren = PRETTY_PAREN(context) &&
+                 !isSimpleNode(node, parentNode, context->prettyFlags);
+
+    // Add opening parenthesis if needed
+    if (need_paren)
+        appendStringInfoChar(context->buf, '(');
+
+    // Deparse the expression
+    get_rule_expr(node, context, showimplicit);
+
+    // Add closing parenthesis if needed
+    if (need_paren)
+        appendStringInfoChar(context->buf, ')');
+}
+```

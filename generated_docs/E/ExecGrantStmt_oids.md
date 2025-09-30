@@ -56,3 +56,63 @@ This static function serves as a central dispatch mechanism for PostgreSQL's int
 - Event trigger notification occurs after successful privilege modification to ensure triggers see the actual changes made
 - The function maintains PostgreSQL's extensibility by supporting event triggers for privilege operations on supported object types
 - Error handling ensures that unsupported object types are caught and reported rather than silently ignored
+
+## Simplified Source
+
+```c
+static void ExecGrantStmt_oids(InternalGrant *istmt) {
+    // Route to appropriate grant handler based on object type
+    switch (istmt->objtype) {
+        // Tables and sequences use relation-specific handler
+        case OBJECT_TABLE:
+        case OBJECT_SEQUENCE:
+            ExecGrant_Relation(istmt);
+            break;
+
+        // Most object types use common handler with type-specific parameters
+        case OBJECT_DATABASE:
+            ExecGrant_common(istmt, DatabaseRelationId, ACL_ALL_RIGHTS_DATABASE, NULL);
+            break;
+        case OBJECT_DOMAIN:
+        case OBJECT_TYPE:
+            ExecGrant_common(istmt, TypeRelationId, ACL_ALL_RIGHTS_TYPE, ExecGrant_Type_check);
+            break;
+        case OBJECT_FUNCTION:
+        case OBJECT_PROCEDURE:
+        case OBJECT_ROUTINE:
+            ExecGrant_common(istmt, ProcedureRelationId, ACL_ALL_RIGHTS_FUNCTION, NULL);
+            break;
+        case OBJECT_LANGUAGE:
+            ExecGrant_common(istmt, LanguageRelationId, ACL_ALL_RIGHTS_LANGUAGE, ExecGrant_Language_check);
+            break;
+        case OBJECT_SCHEMA:
+            ExecGrant_common(istmt, NamespaceRelationId, ACL_ALL_RIGHTS_SCHEMA, NULL);
+            break;
+        case OBJECT_TABLESPACE:
+            ExecGrant_common(istmt, TableSpaceRelationId, ACL_ALL_RIGHTS_TABLESPACE, NULL);
+            break;
+        case OBJECT_FDW:
+            ExecGrant_common(istmt, ForeignDataWrapperRelationId, ACL_ALL_RIGHTS_FDW, NULL);
+            break;
+        case OBJECT_FOREIGN_SERVER:
+            ExecGrant_common(istmt, ForeignServerRelationId, ACL_ALL_RIGHTS_FOREIGN_SERVER, NULL);
+            break;
+
+        // Special object types with dedicated handlers
+        case OBJECT_LARGEOBJECT:
+            ExecGrant_Largeobject(istmt);
+            break;
+        case OBJECT_PARAMETER_ACL:
+            ExecGrant_Parameter(istmt);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized GrantStmt.objtype: %d", (int) istmt->objtype);
+    }
+
+    // Notify event triggers about completed grant operation
+    if (EventTriggerSupportsObjectType(istmt->objtype)) {
+        EventTriggerCollectGrant(istmt);
+    }
+}
+```

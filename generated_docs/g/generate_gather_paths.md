@@ -42,3 +42,51 @@ The function handles row count estimation by scaling the partial path rows by th
 - Row count scaling accounts for parallel workers: subpath_rows × parallel_workers
 - The override_rows parameter is essential for operations like partial grouping where the base relation estimate is inadequate
 - Requires existing partial_pathlist to be non-empty to generate any paths
+
+## Simplified Source
+
+```c
+void
+generate_gather_paths(PlannerInfo *root, RelOptInfo *rel, bool override_rows)
+{
+    Path *cheapest_partial_path;
+    Path *simple_gather_path;
+    double rows;
+    double *rowsp = NULL;
+
+    // Exit early if no partial paths available
+    if (rel->partial_pathlist == NIL)
+        return;
+
+    // Set up row count override if requested
+    if (override_rows)
+        rowsp = &rows;
+
+    // Create simple Gather path using cheapest partial path
+    // (Gather output is always unsorted)
+    cheapest_partial_path = linitial(rel->partial_pathlist);
+    rows = cheapest_partial_path->rows * cheapest_partial_path->parallel_workers;
+
+    simple_gather_path = (Path *)
+        create_gather_path(root, rel, cheapest_partial_path, rel->reltarget,
+                          NULL, rowsp);
+    add_path(rel, simple_gather_path);
+
+    // Create GatherMerge paths for each ordered partial path
+    foreach(lc, rel->partial_pathlist)
+    {
+        Path *subpath = (Path *) lfirst(lc);
+        GatherMergePath *path;
+
+        // Skip unordered paths (already handled by simple Gather)
+        if (subpath->pathkeys == NIL)
+            continue;
+
+        // Create order-preserving GatherMerge path
+        rows = subpath->rows * subpath->parallel_workers;
+        path = create_gather_merge_path(root, rel, subpath, rel->reltarget,
+                                       subpath->pathkeys, NULL, rowsp);
+        add_path(rel, &path->path);
+    }
+}
+```

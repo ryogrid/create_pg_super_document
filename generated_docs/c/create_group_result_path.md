@@ -43,3 +43,43 @@ The cost calculation is specialized since it doesn't use the standard cost_resul
 - Used for queries like "SELECT COUNT(*) FROM table" or "SELECT SUM(col) FROM table HAVING SUM(col) > 0"
 - The selectivity of HAVING quals is ignored since the row count remains 1
 - Represents a plan that computes aggregate results without any input scanning
+
+## Simplified Source
+
+```c
+GroupResultPath *create_group_result_path(PlannerInfo *root, RelOptInfo *rel,
+                                         PathTarget *target, List *havingqual)
+{
+    GroupResultPath *pathnode = makeNode(GroupResultPath);
+
+    // Set up basic path properties
+    pathnode->path.pathtype = T_Result;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target;
+    pathnode->path.param_info = NULL;  // no other relations involved
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.pathkeys = NIL;
+    pathnode->quals = havingqual;
+
+    // Calculate costs for exactly one output row
+    pathnode->path.rows = 1;
+    pathnode->path.startup_cost = target->cost.startup;
+    pathnode->path.total_cost = target->cost.startup +
+                               cpu_tuple_cost + target->cost.per_tuple;
+
+    // Add cost of HAVING qualification if present
+    // Ignore selectivity since we always produce exactly one row
+    if (havingqual) {
+        QualCost qual_cost;
+        cost_qual_eval(&qual_cost, havingqual, root);
+
+        // HAVING is evaluated once at startup
+        pathnode->path.startup_cost += qual_cost.startup + qual_cost.per_tuple;
+        pathnode->path.total_cost += qual_cost.startup + qual_cost.per_tuple;
+    }
+
+    return pathnode;
+}
+```

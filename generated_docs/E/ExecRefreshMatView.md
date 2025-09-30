@@ -46,3 +46,28 @@ For concurrent refresh operations, it uses ExclusiveLock to allow other transact
 - This is a thin wrapper that primarily handles locking strategy and delegates actual work to RefreshMatViewByOid
 - The skipData field in the statement determines whether to repopulate the view or just truncate it
 - Returns an ObjectAddress identifying the refreshed materialized view
+
+## Simplified Source
+
+```c
+ObjectAddress
+ExecRefreshMatView(RefreshMatViewStmt *stmt, const char *queryString,
+                   ParamListInfo params, QueryCompletion *qc)
+{
+    Oid matviewOid;
+    LOCKMODE lockmode;
+
+    // Determine lock strength: concurrent uses ExclusiveLock, non-concurrent uses AccessExclusiveLock
+    lockmode = stmt->concurrent ? ExclusiveLock : AccessExclusiveLock;
+
+    // Get materialized view OID with appropriate lock
+    matviewOid = RangeVarGetRelidExtended(stmt->relation,
+                                         lockmode, 0,
+                                         RangeVarCallbackMaintainsTable,
+                                         NULL);
+
+    // Delegate actual refresh work to RefreshMatViewByOid
+    return RefreshMatViewByOid(matviewOid, stmt->skipData, stmt->concurrent,
+                              queryString, params, qc);
+}
+```

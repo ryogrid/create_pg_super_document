@@ -49,3 +49,103 @@ The function handles complex argument matching scenarios including variadic func
 - The returned candidate list guarantees no duplicate argument lists, but may contain multiple functions that expand to the same signature
 - Supports PostgreSQL's complex function overloading and resolution rules
 - Critical component of PostgreSQL's function resolution system used throughout the parser and type system
+
+## Simplified Source
+
+```c
+FuncCandidateList
+FuncnameGetCandidates(List *names, int nargs, List *argnames,
+                      bool expand_variadic, bool expand_defaults,
+                      bool include_out_arguments, bool missing_ok)
+{
+    FuncCandidateList resultList = NULL;
+    bool any_special = false;
+    char *schemaname;
+    char *funcname;
+    Oid namespaceId;
+    CatCList *catlist;
+
+    // Parse function name (schema.func or func)
+    DeconstructQualifiedName(names, &schemaname, &funcname);
+
+    // Determine search scope
+    if (schemaname) {
+        // Search specific schema
+        namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (!OidIsValid(namespaceId))
+            return NULL;
+    } else {
+        // Search all schemas in path
+        namespaceId = InvalidOid;
+        recomputeNamespacePath();
+    }
+
+    // Get all functions with this name
+    catlist = SearchSysCacheList1(PROCNAMEARGSNSP, CStringGetDatum(funcname));
+
+    // Examine each candidate function
+    for (int i = 0; i < catlist->n_members; i++) {
+        HeapTuple proctup = &catlist->members[i]->tuple;
+        Form_pg_proc procform = (Form_pg_proc) GETSTRUCT(proctup);
+
+        // Check if function is in target namespace(s)
+        if (!function_in_search_scope(procform, namespaceId))
+            continue;
+
+        // Get effective argument types and count
+        Oid *proargtypes = get_function_arg_types(proctup, procform,
+                                                 include_out_arguments);
+        int pronargs = get_function_arg_count(procform, include_out_arguments);
+
+        // Handle named/mixed notation calls
+        int *argnumbers = NULL;
+        if (argnames != NIL) {
+            if (!match_named_arguments(proctup, nargs, argnames,
+                                     include_out_arguments, pronargs, &argnumbers))
+                continue;
+            any_special = true;
+        }
+
+        // Check variadic and defaults expansion
+        bool variadic = false;
+        bool use_defaults = false;
+        Oid va_elem_type = InvalidOid;
+
+        if (!check_argument_compatibility(procform, nargs, argnames,
+                                        expand_variadic, expand_defaults,
+                                        &variadic, &use_defaults, &va_elem_type))
+            continue;
+
+        // Create candidate entry
+        FuncCandidateList newResult = create_func_candidate(
+            procform, proargtypes, pronargs, nargs, variadic, use_defaults,
+            va_elem_type, argnumbers);
+
+        // Handle conflicts with existing candidates
+        if (resultList != NULL && (any_special || !OidIsValid(namespaceId))) {
+            FuncCandidateList conflict = find_conflicting_candidate(resultList, newResult);
+            if (conflict) {
+                int preference = resolve_candidate_preference(newResult, conflict);
+                if (preference > 0) {
+                    pfree(newResult);
+                    continue; // Keep old
+                } else if (preference < 0) {
+                    remove_candidate_from_list(&resultList, conflict);
+                    // Add new below
+                } else {
+                    conflict->oid = InvalidOid; // Mark ambiguous
+                    pfree(newResult);
+                    continue;
+                }
+            }
+        }
+
+        // Add to result list
+        newResult->next = resultList;
+        resultList = newResult;
+    }
+
+    ReleaseSysCacheList(catlist);
+    return resultList;
+}
+```

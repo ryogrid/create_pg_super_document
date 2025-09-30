@@ -62,3 +62,56 @@ Special handling is included for large objects, where the catalog to modify is p
 - Validates that new owner has CREATE privileges on the object's namespace if applicable
 - Memory management includes proper cleanup of allocated arrays for tuple modification
 - Uses extended catalog lookup to ensure proper tuple locking behavior
+
+## Simplified Source
+
+```c
+void AlterObjectOwner_internal(Oid classId, Oid objectId, Oid new_ownerId)
+{
+    // Handle special case for large objects
+    Oid catalogId = (classId == LargeObjectRelationId) ?
+                    LargeObjectMetadataRelationId : classId;
+
+    // Get attribute numbers for key columns
+    AttrNumber owner_col = get_object_attnum_owner(catalogId);
+    AttrNumber namespace_col = get_object_attnum_namespace(catalogId);
+    AttrNumber acl_col = get_object_attnum_acl(catalogId);
+
+    // Open catalog and find object
+    Relation rel = table_open(catalogId, RowExclusiveLock);
+    HeapTuple oldtup = get_catalog_object_by_oid_extended(rel, objectId, true);
+
+    if (!oldtup)
+        elog(ERROR, "object %u not found", objectId);
+
+    // Get current owner and namespace
+    Oid old_owner = get_tuple_owner(oldtup, rel, owner_col);
+    Oid namespace_oid = get_tuple_namespace(oldtup, rel, namespace_col);
+
+    // Early exit if owner already correct
+    if (old_owner == new_ownerId) {
+        unlock_and_close(rel, oldtup);
+        return;
+    }
+
+    // Permission checks (unless superuser)
+    if (!superuser()) {
+        check_ownership_permissions(old_owner, new_ownerId, namespace_oid);
+    }
+
+    // Build modified tuple with new owner
+    HeapTuple newtup = build_owner_update_tuple(oldtup, rel,
+                                                new_ownerId, old_owner,
+                                                owner_col, acl_col);
+
+    // Update catalog
+    CatalogTupleUpdate(rel, &newtup->t_self, newtup);
+
+    // Update dependency system
+    changeDependencyOnOwner(classId, objectId, new_ownerId);
+
+    // Cleanup and fire hooks
+    unlock_and_close(rel, oldtup);
+    InvokeObjectPostAlterHook(classId, objectId, 0);
+}
+```

@@ -56,3 +56,28 @@ This function is essential for PostgreSQL's ability to handle complex nested que
 - The locked_from_parent parameter ensures consistent locking behavior in nested contexts
 - Does not perform the same level of post-processing as top-level parse functions
 - Uses transformStmt rather than transformTopLevelStmt for recursive analysis
+
+## Simplified Source
+
+```c
+Query *parse_sub_analyze(Node *parseTree, ParseState *parentParseState,
+                        CommonTableExpr *parentCTE,
+                        bool locked_from_parent,
+                        bool resolve_unknowns) {
+    // Create child parse state inheriting from parent
+    ParseState *pstate = make_parsestate(parentParseState);
+
+    // Set up context inheritance
+    pstate->p_parent_cte = parentCTE;
+    pstate->p_locked_from_parent = locked_from_parent;
+    pstate->p_resolve_unknowns = resolve_unknowns;
+
+    // Transform the sub-statement
+    Query *query = transformStmt(pstate, parseTree);
+
+    // Clean up parse state
+    free_parsestate(pstate);
+
+    return query;
+}
+```

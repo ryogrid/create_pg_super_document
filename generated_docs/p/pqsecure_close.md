@@ -30,3 +30,13 @@ This function handles the cleanup of secure connections in libpq. It is a wrappe
 - It serves as an abstraction layer over the SSL-specific cleanup functionality
 - The function is called as part of the connection teardown process in libpq
 - When SSL is not compiled in, this function effectively becomes a no-op
+
+## Simplified Source
+```c
+void pqsecure_close(PGconn *conn) {
+    // Close SSL/TLS connection if SSL support is enabled
+#ifdef USE_SSL
+    pgtls_close(conn);
+#endif
+}
+```

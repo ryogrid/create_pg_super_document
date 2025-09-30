@@ -53,3 +53,26 @@ This function is extensively used throughout PostgreSQL's array handling, type c
 - Used extensively in executor nodes dealing with arrays and complex data types
 - Essential for ensuring proper data alignment on all supported CPU architectures
 - Prefer this function over multiple separate calls when all three values are required
+
+## Simplified Source
+
+```c
+void get_typlenbyvalalign(Oid typid, int16 *typlen, bool *typbyval, char *typalign)
+{
+    HeapTuple tp;
+    Form_pg_type type_tuple;
+
+    // Look up type in pg_type catalog
+    tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for type %u", typid);
+
+    // Extract all three type attributes from catalog tuple
+    type_tuple = (Form_pg_type) GETSTRUCT(tp);
+    *typlen = type_tuple->typlen;      // Storage length (-1 for varlena)
+    *typbyval = type_tuple->typbyval;  // Pass by value flag
+    *typalign = type_tuple->typalign;  // Alignment requirement
+
+    ReleaseSysCache(tp);
+}
+```

@@ -27,3 +27,25 @@ This function checks if the array element type associated with a given type cach
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as part of the type caching system for extended hash functionality. Extended hashing is particularly important for improved hash distribution and performance in large-scale operations. This functionality represents an enhancement over traditional 32-bit hashing and provides better hash collision resistance. The function implements the same lazy evaluation pattern as its companion array element property checking functions.
+
+## Simplified Source
+
+```c
+// Simplified version of array_element_has_extended_hashing
+static bool
+array_element_has_extended_hashing(TypeCacheEntry *typentry)
+{
+    // Ensure element properties are cached
+    if (!(typentry->flags & TCFLAGS_CHECKED_ELEM_PROPERTIES))
+        cache_array_element_properties(typentry);
+
+    // Return whether extended hashing is available
+    return (typentry->flags & TCFLAGS_HAVE_ELEM_EXTENDED_HASHING) != 0;
+}
+```
+
+Key simplifications made:
+- Added descriptive comments for each major step
+- Preserved the exact logic and flag checking
+- No complex error handling to remove in this simple function
+- Maintained the lazy evaluation pattern that is core to the function's purpose

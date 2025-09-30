@@ -38,3 +38,24 @@ The `makeRelabelType` function creates a RelabelType node that represents a type
 - Essential for PostgreSQL's type system flexibility, allowing compatible types to be used interchangeably
 - Different from full type conversion operations which may require runtime computation
 - Commonly used in the parser and type coercion system
+
+## Simplified Source
+
+```c
+RelabelType *makeRelabelType(Expr *arg, Oid rtype, int32 rtypmod,
+                           Oid rcollid, CoercionForm rformat) {
+    RelabelType *node = makeNode(RelabelType);
+
+    // Set the expression being relabeled
+    node->arg = arg;
+
+    // Set target type information
+    node->resulttype = rtype;
+    node->resulttypmod = rtypmod;
+    node->resultcollid = rcollid;
+    node->relabelformat = rformat;
+    node->location = -1;  // No specific source location
+
+    return node;
+}
+```

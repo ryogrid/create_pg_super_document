@@ -59,3 +59,165 @@ The function performs several key operations:
 - Enforces PostgreSQL's function argument limit (FUNC_MAX_ARGS)
 - Special handling for procedures vs functions based on proc_call parameter
 - Performs extensive validation for different function types and their allowed syntactic decorations
+
+## Simplified Source
+
+```c
+Node *ParseFuncOrColumn(ParseState *pstate, List *funcname, List *fargs,
+                       Node *last_srf, FuncCall *fn, bool proc_call, int location) {
+    bool is_column = (fn == NULL);
+    bool could_be_projection;
+    Oid funcid, rettype;
+    int nargs = 0;
+    Oid actual_arg_types[FUNC_MAX_ARGS];
+    FuncDetailCode fdresult;
+
+    // Extract function decoration from FuncCall struct if present
+    List *agg_order = (fn ? fn->agg_order : NIL);
+    Expr *agg_filter = NULL;
+    WindowDef *over = (fn ? fn->over : NULL);
+    bool agg_within_group = (fn ? fn->agg_within_group : false);
+    // ... other decorations
+
+    // Transform aggregate filter if present
+    if (fn && fn->agg_filter != NULL)
+        agg_filter = (Expr *) transformWhereClause(pstate, fn->agg_filter,
+                                                  EXPR_KIND_FILTER, "FILTER");
+
+    // Check argument count limit
+    if (list_length(fargs) > FUNC_MAX_ARGS)
+        ereport(ERROR, (errcode(ERRCODE_TOO_MANY_ARGUMENTS),
+                       errmsg("cannot pass more than %d arguments to a function", FUNC_MAX_ARGS)));
+
+    // Extract argument types, filtering VOID Params for JDBC compatibility
+    foreach(l, fargs) {
+        Node *arg = lfirst(l);
+        Oid argtype = exprType(arg);
+
+        if (argtype == VOIDOID && IsA(arg, Param) && !is_column && !agg_within_group) {
+            fargs = foreach_delete_current(fargs, l);
+            continue;
+        }
+        actual_arg_types[nargs++] = argtype;
+    }
+
+    // Process named arguments and validate ordering
+    argnames = extract_named_arguments(fargs);
+
+    // Determine if this could be a column projection
+    could_be_projection = (nargs == 1 && !proc_call &&
+                          agg_order == NIL && agg_filter == NULL &&
+                          !agg_star && !agg_distinct && over == NULL &&
+                          !func_variadic && argnames == NIL &&
+                          list_length(funcname) == 1 &&
+                          (actual_arg_types[0] == RECORDOID || ISCOMPLEX(actual_arg_types[0])));
+
+    // Try column projection first if using column syntax
+    if (could_be_projection && is_column) {
+        retval = ParseComplexProjection(pstate, strVal(linitial(funcname)),
+                                       first_arg, location);
+        if (retval)
+            return retval;
+    }
+
+    // Main function resolution via catalog lookup
+    fdresult = func_get_detail(funcname, fargs, argnames, nargs, actual_arg_types,
+                              !func_variadic, true, proc_call,
+                              &funcid, &rettype, &retset, &nvargs, &vatype,
+                              &declared_arg_types, &argdefaults);
+
+    // Handle different resolution results
+    switch (fdresult) {
+        case FUNCDETAIL_NORMAL:
+        case FUNCDETAIL_PROCEDURE:
+            // Validate no aggregate decorations for regular functions
+            validate_not_aggregate_decorations();
+            break;
+
+        case FUNCDETAIL_AGGREGATE:
+            // Handle aggregate-specific validation and setup
+            handle_aggregate_function();
+            break;
+
+        case FUNCDETAIL_WINDOWFUNC:
+            // Validate window function requirements
+            if (!over)
+                ereport(ERROR, "window function requires OVER clause");
+            break;
+
+        case FUNCDETAIL_COERCION:
+            // Handle as type coercion
+            return coerce_type(pstate, linitial(fargs), actual_arg_types[0],
+                              rettype, -1, COERCION_EXPLICIT, COERCE_EXPLICIT_CALL, location);
+
+        case FUNCDETAIL_MULTIPLE:
+            // Handle ambiguous function matches
+            report_ambiguous_function_error();
+            break;
+
+        default:
+            // Function not found - try column projection or report error
+            if (is_column)
+                return NULL;
+            if (could_be_projection) {
+                retval = ParseComplexProjection(pstate, strVal(linitial(funcname)),
+                                               first_arg, location);
+                if (retval)
+                    return retval;
+            }
+            report_function_not_found_error();
+    }
+
+    // Enforce polymorphic type consistency
+    rettype = enforce_generic_type_consistency(actual_arg_types, declared_arg_types,
+                                             nargsplusdefs, rettype, false);
+
+    // Perform necessary argument type casting
+    make_fn_arguments(pstate, fargs, actual_arg_types, declared_arg_types);
+
+    // Handle variadic function call transformation
+    if (nvargs > 0 && vatype != ANYOID) {
+        transform_variadic_arguments();
+    }
+
+    // Validate set-returning function placement
+    if (retset)
+        check_srf_call_placement(pstate, last_srf, location);
+
+    // Build appropriate output structure based on function type
+    if (fdresult == FUNCDETAIL_NORMAL || fdresult == FUNCDETAIL_PROCEDURE) {
+        FuncExpr *funcexpr = makeNode(FuncExpr);
+        funcexpr->funcid = funcid;
+        funcexpr->funcresulttype = rettype;
+        funcexpr->funcretset = retset;
+        funcexpr->args = fargs;
+        funcexpr->location = location;
+        retval = (Node *) funcexpr;
+    }
+    else if (fdresult == FUNCDETAIL_AGGREGATE && !over) {
+        Aggref *aggref = makeNode(Aggref);
+        aggref->aggfnoid = funcid;
+        aggref->aggtype = rettype;
+        aggref->aggfilter = agg_filter;
+        aggref->location = location;
+        transformAggregateCall(pstate, aggref, fargs, agg_order, agg_distinct);
+        retval = (Node *) aggref;
+    }
+    else {
+        // Window function
+        WindowFunc *wfunc = makeNode(WindowFunc);
+        wfunc->winfnoid = funcid;
+        wfunc->wintype = rettype;
+        wfunc->args = fargs;
+        wfunc->location = location;
+        transformWindowFuncCall(pstate, wfunc, over);
+        retval = (Node *) wfunc;
+    }
+
+    // Update SRF tracking for higher-level error checks
+    if (retset)
+        pstate->p_last_srf = retval;
+
+    return retval;
+}
+```

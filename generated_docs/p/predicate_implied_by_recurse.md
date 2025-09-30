@@ -51,3 +51,80 @@ The function handles RestrictInfo nodes in the clause tree and uses predicate_cl
 - Critical for query optimization decisions involving index predicates and constraints
 - The logic applies equally to both strong and weak implication modes
 - Designed to work with flattened AND/OR expressions from eval_const_expressions()
+
+## Simplified Source
+
+```c
+static bool predicate_implied_by_recurse(Node *clause, Node *predicate, bool weak) {
+    // Strip RestrictInfo wrapper if present
+    if (IsA(clause, RestrictInfo))
+        clause = (Node *) ((RestrictInfo *) clause)->clause;
+
+    // Classify both clause and predicate as AND/OR/ATOM
+    PredClass clause_class = predicate_classify(clause, &clause_info);
+    PredClass pred_class = predicate_classify(predicate, &pred_info);
+
+    switch (clause_class) {
+        case CLASS_AND:
+            if (pred_class == CLASS_AND) {
+                // AND => AND: clause must imply each predicate component
+                foreach_predicate_component(pitem, predicate) {
+                    if (!predicate_implied_by_recurse(clause, pitem, weak))
+                        return false;
+                }
+                return true;
+            }
+            else if (pred_class == CLASS_OR) {
+                // AND => OR: clause implies any predicate component OR
+                // any clause component implies predicate
+                return (clause_implies_any_pred_component(clause, predicate, weak) ||
+                        any_clause_component_implies_pred(clause, predicate, weak));
+            }
+            else { // CLASS_ATOM
+                // AND => atom: any clause component must imply predicate
+                return any_clause_component_implies_pred(clause, predicate, weak);
+            }
+            break;
+
+        case CLASS_OR:
+            if (pred_class == CLASS_OR) {
+                // OR => OR: each clause component must imply some predicate component
+                foreach_clause_component(citem, clause) {
+                    if (!clause_component_implies_any_pred(citem, predicate, weak))
+                        return false;
+                }
+                return true;
+            }
+            else { // CLASS_AND or CLASS_ATOM
+                // OR => AND/atom: each clause component must imply predicate
+                foreach_clause_component(citem, clause) {
+                    if (!predicate_implied_by_recurse(citem, predicate, weak))
+                        return false;
+                }
+                return true;
+            }
+            break;
+
+        case CLASS_ATOM:
+            if (pred_class == CLASS_AND) {
+                // atom => AND: clause must imply each predicate component
+                foreach_predicate_component(pitem, predicate) {
+                    if (!predicate_implied_by_recurse(clause, pitem, weak))
+                        return false;
+                }
+                return true;
+            }
+            else if (pred_class == CLASS_OR) {
+                // atom => OR: clause must imply any predicate component
+                return clause_implies_any_pred_component(clause, predicate, weak);
+            }
+            else { // CLASS_ATOM
+                // atom => atom: base case
+                return predicate_implied_by_simple_clause((Expr *) predicate, clause, weak);
+            }
+            break;
+    }
+
+    return false;
+}
+```

@@ -47,3 +47,16 @@ The function generates a syntax error with the standard error code `ERRCODE_SYNT
 - The function is widely used across the codebase, appearing in over 100 different locations for consistent error handling
 - Location information from the DefElem helps provide precise error positioning in SQL statements for better user experience
 - This is part of PostgreSQL's centralized approach to error handling and reporting consistency
+
+## Simplified Source
+
+```c
+void
+errorConflictingDefElem(DefElem *defel, ParseState *pstate)
+{
+    ereport(ERROR,
+            errcode(ERRCODE_SYNTAX_ERROR),
+            errmsg("conflicting or redundant options"),
+            parser_errposition(pstate, defel->location));
+}
+```

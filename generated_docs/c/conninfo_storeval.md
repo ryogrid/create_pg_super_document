@@ -55,3 +55,51 @@ The function ensures that connection option values are properly stored with appr
 - Handles memory management carefully by freeing existing values before setting new ones
 - Returns NULL on failure with appropriate error messages, or a pointer to the updated PQconninfoOption on success
 - The function is central to PostgreSQL's connection string parsing and option management system
+
+## Simplified Source
+
+```c
+static PQconninfoOption *
+conninfo_storeval(PQconninfoOption *connOptions,
+                  const char *keyword, const char *value,
+                  PQExpBuffer errorMessage, bool ignoreMissing,
+                  bool uri_decode) {
+    PQconninfoOption *option;
+    char *value_copy;
+
+    // Handle backward compatibility for requiressl
+    if (strcmp(keyword, "requiressl") == 0) {
+        keyword = "sslmode";
+        value = (value[0] == '1') ? "require" : "prefer";
+    }
+
+    // Find the target option in the options array
+    option = conninfo_find(connOptions, keyword);
+    if (option == NULL) {
+        if (!ignoreMissing) {
+            libpq_append_error(errorMessage, "invalid connection option \"%s\"", keyword);
+        }
+        return NULL;
+    }
+
+    // Create a copy of the value (URI-decoded if requested)
+    if (uri_decode) {
+        value_copy = conninfo_uri_decode(value, errorMessage);
+        if (value_copy == NULL) {
+            return NULL;  // Error message already set
+        }
+    } else {
+        value_copy = strdup(value);
+        if (value_copy == NULL) {
+            libpq_append_error(errorMessage, "out of memory");
+            return NULL;
+        }
+    }
+
+    // Replace the existing value
+    free(option->val);
+    option->val = value_copy;
+
+    return option;
+}
+```

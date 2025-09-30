@@ -41,3 +41,27 @@ Specifically, it invalidates TCFLAGS_HAVE_PG_TYPE_DATA to force reloading of bas
 - Particularly important for domain types where constraint information might change
 - More efficient than relation-based invalidation since it can target specific types
 - Ensures that subsequent type cache lookups will refresh data from pg_type catalog
+
+## Simplified Source
+
+```c
+static void
+TypeCacheTypCallback(Datum arg, int cacheid, uint32 hashvalue)
+{
+    HASH_SEQ_STATUS status;
+    TypeCacheEntry *typentry;
+
+    // Scan all type cache entries
+    hash_seq_init(&status, TypeCacheHash);
+    while ((typentry = (TypeCacheEntry *) hash_seq_search(&status)) != NULL)
+    {
+        // Check if this entry matches the invalidated type (or total flush)
+        if (hashvalue == 0 || typentry->type_id_hash == hashvalue)
+        {
+            // Mark pg_type data as invalid and reset domain constraints
+            typentry->flags &= ~(TCFLAGS_HAVE_PG_TYPE_DATA |
+                                TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS);
+        }
+    }
+}
+```

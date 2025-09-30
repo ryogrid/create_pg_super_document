@@ -31,3 +31,15 @@ The `binaryheap_reset` function efficiently clears all data from a binary heap w
 - The heap's original capacity and comparison function are preserved
 - After reset, the heap can immediately accept new elements through normal insertion operations
 - Commonly used in scenarios where the same heap is reused across multiple operations or iterations
+
+## Simplified Source
+
+```c
+void binaryheap_reset(binaryheap *heap) {
+    // Clear all elements from the heap
+    heap->bh_size = 0;
+
+    // Mark heap as having proper heap property (empty heap always satisfies this)
+    heap->bh_has_heap_property = true;
+}
+```

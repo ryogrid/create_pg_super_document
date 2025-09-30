@@ -40,3 +40,14 @@ Note that this function does not account for open write buffers that may contain
 - The result excludes allocated but not yet written blocks, providing a conservative estimate of actual disk usage
 - In parallel sorting scenarios, this helps track the disk space consumed by worker processes
 - The function performs a simple arithmetic operation and is therefore lightweight and suitable for frequent calls during resource monitoring
+
+## Simplified Source
+
+```c
+int64 LogicalTapeSetBlocks(LogicalTapeSet *lts) {
+    // Calculate actual disk space used by subtracting holes from total written
+    // nBlocksWritten: total blocks written to underlying BufFile
+    // nHoleBlocks: unused hole blocks from worker space fragmentation
+    return lts->nBlocksWritten - lts->nHoleBlocks;
+}
+```

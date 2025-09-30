@@ -32,3 +32,27 @@ This function determines the optimal number of buckets for a hash table used in 
 - Returns at least 1 bucket to ensure the hash table can function
 - The balance between bucket count and memory usage is crucial for hash aggregation performance
 - Too many buckets reduce available space for data; too few buckets increase hash collisions
+
+## Simplified Source
+
+```c
+static long
+hash_choose_num_buckets(double hashentrysize, long ngroups, Size memory)
+{
+    long max_nbuckets;
+    long nbuckets = ngroups;
+
+    // Calculate maximum buckets based on memory and entry size
+    max_nbuckets = memory / hashentrysize;
+
+    // Conservative approach: halve to leave room for actual data
+    max_nbuckets >>= 1;
+
+    // Don't exceed memory-based limit
+    if (nbuckets > max_nbuckets)
+        nbuckets = max_nbuckets;
+
+    // Ensure at least one bucket
+    return Max(nbuckets, 1);
+}
+```

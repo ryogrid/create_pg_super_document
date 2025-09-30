@@ -43,3 +43,56 @@ This function performs selective truncation of the line pointer array by removin
 - Includes memory clobbering in debug builds (CLOBBER_FREED_MEMORY) to help detect use-after-free bugs
 - Properly manages the PD_HAS_FREE_LINES hint bit for PageAddItemExtended optimization
 - The function is located in src/backend/storage/page/bufpage.c:835-906
+
+## Simplified Source
+
+```c
+void PageTruncateLinePointerArray(Page page)
+{
+    PageHeader phdr = (PageHeader) page;
+    bool countdone = false, sethint = false;
+    int nunusedend = 0;
+
+    // Scan line pointer array backwards to find trailing unused items
+    for (int i = PageGetMaxOffsetNumber(page); i >= FirstOffsetNumber; i--)
+    {
+        ItemId lp = PageGetItemId(page, i);
+
+        if (!countdone && i > FirstOffsetNumber)
+        {
+            // Count consecutive unused items from the end
+            if (!ItemIdIsUsed(lp))
+                nunusedend++;
+            else
+                countdone = true;  // Found used item, stop counting
+        }
+        else
+        {
+            // Check if there are unused items remaining in the front part
+            if (!ItemIdIsUsed(lp))
+            {
+                sethint = true;  // Found unused item that won't be truncated
+                break;
+            }
+        }
+    }
+
+    // Truncate unused line pointers from the end
+    if (nunusedend > 0)
+    {
+        phdr->pd_lower -= sizeof(ItemIdData) * nunusedend;
+
+#ifdef CLOBBER_FREED_MEMORY
+        // Clear freed memory in debug builds
+        memset((char *) page + phdr->pd_lower, 0x7F,
+               sizeof(ItemIdData) * nunusedend);
+#endif
+    }
+
+    // Update free line pointers hint bit
+    if (sethint)
+        PageSetHasFreeLinePointers(page);
+    else
+        PageClearHasFreeLinePointers(page);
+}
+```

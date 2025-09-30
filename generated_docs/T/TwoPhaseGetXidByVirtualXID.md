@@ -43,3 +43,47 @@ TwoPhaseGetXidByVirtualXID searches through prepared transactions to find one th
 - Asserts that matching transactions are not from redo operations (!gxact->inredo)
 - Multiple matches are theoretically possible but extremely rare in practice
 - Part of PostgreSQL's transaction locking infrastructure for virtual transaction IDs
+
+## Simplified Source
+
+```c
+TransactionId
+TwoPhaseGetXidByVirtualXID(VirtualTransactionId vxid, bool *have_more)
+{
+    int i;
+    TransactionId result = InvalidTransactionId;
+
+    Assert(VirtualTransactionIdIsValid(vxid));
+    LWLockAcquire(TwoPhaseStateLock, LW_SHARED);
+
+    // Search through all prepared transactions
+    for (i = 0; i < TwoPhaseState->numPrepXacts; i++) {
+        GlobalTransaction gxact = TwoPhaseState->prepXacts[i];
+        PGPROC *proc;
+        VirtualTransactionId proc_vxid;
+
+        // Skip invalid transactions
+        if (!gxact->valid)
+            continue;
+
+        // Get process info and extract its VXID
+        proc = GetPGProcByNumber(gxact->pgprocno);
+        GET_VXID_FROM_PGPROC(proc_vxid, *proc);
+
+        // Check if this VXID matches what we're looking for
+        if (VirtualTransactionIdEquals(vxid, proc_vxid)) {
+            Assert(!gxact->inredo);  // Shouldn't be from redo
+
+            // If we already found one, mark multiple matches
+            if (result != InvalidTransactionId) {
+                *have_more = true;
+                break;
+            }
+            result = gxact->xid;
+        }
+    }
+
+    LWLockRelease(TwoPhaseStateLock);
+    return result;
+}
+```

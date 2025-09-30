@@ -40,3 +40,27 @@ The result column numbers (resnos) are essential for execution plan nodes to ide
 - Works in conjunction with extract_grouping_ops and extract_grouping_collations to provide complete grouping information
 - Essential for execution plan nodes to efficiently identify grouping columns in input tuples
 - Located in src/backend/optimizer/util/tlist.c:514-539
+
+## Simplified Source
+
+```c
+AttrNumber *
+extract_grouping_cols(List *groupClause, List *tlist)
+{
+    int numCols = list_length(groupClause);
+    AttrNumber *grpColIdx = (AttrNumber *) palloc(sizeof(AttrNumber) * numCols);
+    int colno = 0;
+
+    // Extract column number from each grouping clause
+    foreach(glitem, groupClause)
+    {
+        SortGroupClause *groupcl = (SortGroupClause *) lfirst(glitem);
+        TargetEntry *tle = get_sortgroupclause_tle(groupcl, tlist);
+
+        // Store the result column number
+        grpColIdx[colno++] = tle->resno;
+    }
+
+    return grpColIdx;
+}
+```

@@ -38,3 +38,34 @@ The function uses a pessimistic approach by assuming maximum backend concurrency
 - Critical for maintaining system stability during large batch operations
 - Accounts for both tracked and estimated untracked buffer pins by the current backend
 - Part of PostgreSQL's buffer management safety mechanisms
+
+## Simplified Source
+
+```c
+void
+LimitAdditionalPins(uint32 *additional_pins)
+{
+    uint32 max_backends;
+    int max_proportional_pins;
+
+    // Allow small requests without limitation
+    if (*additional_pins <= 1)
+        return;
+
+    // Calculate fair share of buffers per backend
+    max_backends = MaxBackends + NUM_AUXILIARY_PROCS;
+    max_proportional_pins = NBuffers / max_backends;
+
+    // Subtract buffers already pinned by this backend
+    // (Use conservative estimate for PrivateRefCountArray)
+    max_proportional_pins -= PrivateRefCountOverflowed + REFCOUNT_ARRAY_ENTRIES;
+
+    // Always allow at least one additional pin
+    if (max_proportional_pins <= 0)
+        max_proportional_pins = 1;
+
+    // Limit the request to our calculated maximum
+    if (*additional_pins > max_proportional_pins)
+        *additional_pins = max_proportional_pins;
+}
+```

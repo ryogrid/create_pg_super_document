@@ -44,3 +44,22 @@ This function is specifically tailored for ALTER TABLE operations and provides a
 - Part of PostgreSQL's layered approach to DDL safety, where different operations have different safety requirements
 - The temp table check is performed first as a quick rejection before the more expensive active usage checks
 - This function is called extensively throughout the ALTER TABLE command processing pipeline to ensure safety at each major step
+
+## Simplified Source
+
+```c
+static void
+CheckAlterTableIsSafe(Relation rel)
+{
+    // Check if table belongs to another session
+    // ALTER is not allowed on other sessions' temp tables
+    if (RELATION_IS_OTHER_TEMP(rel))
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("cannot alter temporary tables of other sessions")));
+
+    // Check if table is currently in use
+    // Prevents ALTER during active scans or pending triggers
+    CheckTableNotInUse(rel, "ALTER TABLE");
+}
+```

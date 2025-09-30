@@ -54,3 +54,78 @@ The bound can only be set between scans (after initialization or before ExecReSc
 - Conservative design ensures correctness by only propagating bounds where it's guaranteed to be safe
 - Integrates with PostgreSQL's parameter-change mechanism for dynamic query optimization
 - Stack depth checking is omitted as an optimization since earlier initialization traversals would have consumed more stack
+
+## Simplified Source
+
+```c
+void
+ExecSetTupleBound(int64 tuples_needed, PlanState *child_node)
+{
+    // Handle Sort nodes - enable bounded sorting
+    if (IsA(child_node, SortState)) {
+        SortState *sortState = (SortState *) child_node;
+
+        if (tuples_needed < 0) {
+            sortState->bounded = false;
+        } else {
+            sortState->bounded = true;
+            sortState->bound = tuples_needed;
+        }
+    }
+    // Handle IncrementalSort nodes similarly
+    else if (IsA(child_node, IncrementalSortState)) {
+        IncrementalSortState *sortState = (IncrementalSortState *) child_node;
+
+        if (tuples_needed < 0) {
+            sortState->bounded = false;
+        } else {
+            sortState->bounded = true;
+            sortState->bound = tuples_needed;
+        }
+    }
+    // Handle Append nodes - propagate to all children
+    else if (IsA(child_node, AppendState)) {
+        AppendState *aState = (AppendState *) child_node;
+        int i;
+
+        for (i = 0; i < aState->as_nplans; i++)
+            ExecSetTupleBound(tuples_needed, aState->appendplans[i]);
+    }
+    // Handle MergeAppend nodes - propagate to all children
+    else if (IsA(child_node, MergeAppendState)) {
+        MergeAppendState *maState = (MergeAppendState *) child_node;
+        int i;
+
+        for (i = 0; i < maState->ms_nplans; i++)
+            ExecSetTupleBound(tuples_needed, maState->mergeplans[i]);
+    }
+    // Handle Result nodes - propagate through if no qual
+    else if (IsA(child_node, ResultState)) {
+        if (outerPlanState(child_node))
+            ExecSetTupleBound(tuples_needed, outerPlanState(child_node));
+    }
+    // Handle SubqueryScan nodes - propagate through if no qual
+    else if (IsA(child_node, SubqueryScanState)) {
+        SubqueryScanState *subqueryState = (SubqueryScanState *) child_node;
+
+        if (subqueryState->ss.ps.qual == NULL)
+            ExecSetTupleBound(tuples_needed, subqueryState->subplan);
+    }
+    // Handle Gather nodes - set bound and propagate
+    else if (IsA(child_node, GatherState)) {
+        GatherState *gstate = (GatherState *) child_node;
+
+        gstate->tuples_needed = tuples_needed;
+        ExecSetTupleBound(tuples_needed, outerPlanState(child_node));
+    }
+    // Handle GatherMerge nodes - set bound and propagate
+    else if (IsA(child_node, GatherMergeState)) {
+        GatherMergeState *gstate = (GatherMergeState *) child_node;
+
+        gstate->tuples_needed = tuples_needed;
+        ExecSetTupleBound(tuples_needed, outerPlanState(child_node));
+    }
+
+    // For other node types, stop propagation to maintain correctness
+}
+```

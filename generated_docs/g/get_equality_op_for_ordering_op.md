@@ -38,3 +38,31 @@ The function also optionally reports whether the input operator represents a "re
 - The reverse parameter is optional and can be passed as NULL if direction information is not needed
 - Relies on btree operator family structure where equality, less-than, and greater-than operators are grouped together
 - Essential for query planning operations that need to convert between ordering and equality semantics
+
+## Simplified Source
+
+```c
+Oid get_equality_op_for_ordering_op(Oid opno, bool *reverse)
+{
+    Oid result = InvalidOid;
+    Oid opfamily;
+    Oid opcintype;
+    int16 strategy;
+
+    // Find the operator properties in the operator family system
+    if (get_ordering_op_properties(opno, &opfamily, &opcintype, &strategy))
+    {
+        // Get the equality operator from the same operator family
+        result = get_opfamily_member(opfamily,
+                                     opcintype,
+                                     opcintype,
+                                     BTEqualStrategyNumber);
+
+        // Set reverse flag: true for ">" operators, false for "<" operators
+        if (reverse)
+            *reverse = (strategy == BTGreaterStrategyNumber);
+    }
+
+    return result;  // InvalidOid if no equality operator found
+}
+```

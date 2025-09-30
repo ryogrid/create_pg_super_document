@@ -45,3 +45,16 @@ Currently, PostgreSQL supports two main types of table functions:
 - Both XMLTABLE and JSON_TABLE are relatively recent additions to SQL standard functionality
 - The function maintains consistency in the deparse interface across different table function implementations
 - Part of PostgreSQL's broader support for structured data processing (XML and JSON)
+
+## Simplified Source
+
+```c
+static void get_tablefunc(TableFunc *tf, deparse_context *context, bool showimplicit)
+{
+    // Dispatch to appropriate table function handler
+    if (tf->functype == TFT_XMLTABLE)
+        get_xmltable(tf, context, showimplicit);
+    else if (tf->functype == TFT_JSON_TABLE)
+        get_json_table(tf, context, showimplicit);
+}
+```

@@ -28,3 +28,22 @@ ExplainSeparatePlans handles the insertion of separators between multiple execut
 
 ## Notes and Other Information
 This function is primarily useful when explaining multiple statements or when EXPLAIN ANALYZE is used with queries that have multiple execution plans. The TEXT format separator improves readability by providing visual separation between plans, while structured formats rely on their native formatting.
+
+## Simplified Source
+
+```c
+void ExplainSeparatePlans(ExplainState *es) {
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+            // Add blank line to separate plans in text format
+            appendStringInfoChar(es->str, '\n');
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+        case EXPLAIN_FORMAT_JSON:
+        case EXPLAIN_FORMAT_YAML:
+            // Structured formats don't need separators
+            break;
+    }
+}
+```

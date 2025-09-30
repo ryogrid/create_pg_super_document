@@ -42,3 +42,37 @@ The function follows the pattern: safety checks, setup eligible triggers, make c
 - Changes made by the main command are made visible to event triggers before they execute
 - Part of PostgreSQL's comprehensive event trigger system, working in tandem with EventTriggerDDLCommandStart
 - The state validation ensures consistency between command start and end trigger execution
+
+## Simplified Source
+
+```c
+void EventTriggerDDLCommandEnd(Node *parsetree)
+{
+    List *runlist;
+    EventTriggerData trigdata;
+
+    // Skip if event triggers disabled or not in postmaster mode
+    if (!IsUnderPostmaster || !event_triggers)
+        return;
+
+    // Skip if no trigger state (no triggers were active at command start)
+    if (!currentEventTriggerState)
+        return;
+
+    // Find applicable ddl_command_end triggers
+    runlist = EventTriggerCommonSetup(parsetree,
+                                      EVT_DDLCommandEnd, "ddl_command_end",
+                                      &trigdata, false);
+    if (runlist == NIL)
+        return;
+
+    // Make main command changes visible to triggers
+    CommandCounterIncrement();
+
+    // Execute the triggers
+    EventTriggerInvoke(runlist, &trigdata);
+
+    // Cleanup
+    list_free(runlist);
+}
+```

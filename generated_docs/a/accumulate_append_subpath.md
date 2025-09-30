@@ -45,3 +45,48 @@ This flattening optimization reduces plan complexity and improves execution effi
 - The function preserves the semantic correctness of the append operation while optimizing the physical plan structure
 - Eliminating intermediate MergeAppend nodes removes redundant sort operations when the parent will not maintain ordering anyway
 - The `special_subpaths` parameter enables sophisticated parallel execution strategies by segregating different path types
+
+## Simplified Source
+
+```c
+static void
+accumulate_append_subpath(Path *path, List **subpaths, List **special_subpaths)
+{
+    // Handle AppendPath - flatten by extracting child subpaths
+    if (IsA(path, AppendPath))
+    {
+        AppendPath *apath = (AppendPath *) path;
+
+        // Simple case: not parallel-aware or no partial paths
+        if (!apath->path.parallel_aware || apath->first_partial_path == 0)
+        {
+            *subpaths = list_concat(*subpaths, apath->subpaths);
+            return;
+        }
+        // Complex case: parallel-aware with mixed path types
+        else if (special_subpaths != NULL)
+        {
+            // Split partial and non-partial subpaths
+            *subpaths = list_concat(*subpaths,
+                                   list_copy_tail(apath->subpaths,
+                                                 apath->first_partial_path));
+
+            List *new_special_subpaths = list_copy_head(apath->subpaths,
+                                                       apath->first_partial_path);
+            *special_subpaths = list_concat(*special_subpaths,
+                                           new_special_subpaths);
+            return;
+        }
+    }
+    // Handle MergeAppendPath - flatten by extracting child subpaths
+    else if (IsA(path, MergeAppendPath))
+    {
+        MergeAppendPath *mpath = (MergeAppendPath *) path;
+        *subpaths = list_concat(*subpaths, mpath->subpaths);
+        return;
+    }
+
+    // Default case: add path as-is (not an append type)
+    *subpaths = lappend(*subpaths, path);
+}
+```

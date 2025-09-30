@@ -42,3 +42,19 @@ The `pg_class_aclcheck_ext` function is an extended version of table-level privi
 - Returns ACLCHECK_OK if any of the requested privileges are granted, ACLCHECK_NO_PRIV otherwise
 - The extended version is particularly useful for SQL functions that should return NULL instead of throwing errors for missing objects
 - Located in src/backend/catalog/aclchk.c lines 4106-4120
+
+## Simplified Source
+
+```c
+AclResult
+pg_class_aclcheck_ext(Oid table_oid, Oid roleid,
+                      AclMode mode, bool *is_missing)
+{
+    // Check if user has any of the requested privileges
+    if (pg_class_aclmask_ext(table_oid, roleid, mode,
+                           ACLMASK_ANY, is_missing) != 0)
+        return ACLCHECK_OK;      // Has privilege
+    else
+        return ACLCHECK_NO_PRIV; // No privilege
+}
+```

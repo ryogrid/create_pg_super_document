@@ -43,3 +43,74 @@ AlterDatabase handles various ALTER DATABASE operations by parsing statement opt
 - Uses tuple locking to prevent concurrent modifications during the update process
 - Returns the database OID for most operations, InvalidOid for tablespace moves
 - Includes checks for invalid databases and proper error reporting with parser position information
+
+## Simplified Source
+
+```c
+Oid AlterDatabase(ParseState *pstate, AlterDatabaseStmt *stmt, bool isTopLevel) {
+    bool dbistemplate = false;
+    bool dballowconnections = true;
+    int dbconnlimit = DATCONNLIMIT_UNLIMITED;
+    DefElem *distemplate = NULL, *dallowconnections = NULL,
+            *dconnlimit = NULL, *dtablespace = NULL;
+
+    // Parse statement options
+    foreach(option, stmt->options) {
+        DefElem *defel = (DefElem *) lfirst(option);
+
+        if (strcmp(defel->defname, "is_template") == 0)
+            distemplate = defel;
+        else if (strcmp(defel->defname, "allow_connections") == 0)
+            dallowconnections = defel;
+        else if (strcmp(defel->defname, "connection_limit") == 0)
+            dconnlimit = defel;
+        else if (strcmp(defel->defname, "tablespace") == 0)
+            dtablespace = defel;
+        else
+            ereport(ERROR, "unrecognized option");
+    }
+
+    // Handle tablespace change specially
+    if (dtablespace) {
+        PreventInTransactionBlock(isTopLevel, "ALTER DATABASE SET TABLESPACE");
+        movedb(stmt->dbname, defGetString(dtablespace));
+        return InvalidOid;
+    }
+
+    // Extract option values
+    if (distemplate && distemplate->arg)
+        dbistemplate = defGetBoolean(distemplate);
+    if (dallowconnections && dallowconnections->arg)
+        dballowconnections = defGetBoolean(dallowconnections);
+    if (dconnlimit && dconnlimit->arg)
+        dbconnlimit = defGetInt32(dconnlimit);
+
+    // Find and lock the database tuple
+    rel = table_open(DatabaseRelationId, RowExclusiveLock);
+    tuple = /* search for database by name */;
+    dboid = datform->oid;
+
+    // Permission and safety checks
+    if (!object_ownercheck(DatabaseRelationId, dboid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, stmt->dbname);
+
+    if (!dballowconnections && dboid == MyDatabaseId)
+        ereport(ERROR, "cannot disallow connections for current database");
+
+    // Build updated tuple and update catalog
+    if (distemplate)
+        new_record[Anum_pg_database_datistemplate - 1] = BoolGetDatum(dbistemplate);
+    if (dallowconnections)
+        new_record[Anum_pg_database_datallowconn - 1] = BoolGetDatum(dballowconnections);
+    if (dconnlimit)
+        new_record[Anum_pg_database_datconnlimit - 1] = Int32GetDatum(dbconnlimit);
+
+    newtuple = heap_modify_tuple(tuple, RelationGetDescr(rel), new_record, nulls, replaces);
+    CatalogTupleUpdate(rel, &tuple->t_self, newtuple);
+
+    InvokeObjectPostAlterHook(DatabaseRelationId, dboid, 0);
+    table_close(rel, NoLock);
+
+    return dboid;
+}
+```

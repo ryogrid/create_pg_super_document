@@ -39,3 +39,37 @@ This function serves as the public interface for changing a foreign data wrapper
 - Memory management through heap_freetuple() and proper relation closing
 - This is the name-based version of ownership change, complemented by AlterForeignDataWrapperOwner_oid() for OID-based changes
 - Inherits all security restrictions from the internal function (superuser requirements)
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterForeignDataWrapperOwner(const char *name, Oid newOwnerId)
+{
+    // Open foreign data wrapper catalog with exclusive lock
+    Relation rel = table_open(ForeignDataWrapperRelationId, RowExclusiveLock);
+
+    // Look up wrapper by name in system cache
+    HeapTuple tup = SearchSysCacheCopy1(FOREIGNDATAWRAPPERNAME, CStringGetDatum(name));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, "foreign-data wrapper \"%s\" does not exist", name);
+
+    // Extract wrapper OID from tuple
+    Form_pg_foreign_data_wrapper form = (Form_pg_foreign_data_wrapper) GETSTRUCT(tup);
+    Oid fdwId = form->oid;
+
+    // Delegate actual ownership change to internal function
+    AlterForeignDataWrapperOwner_internal(rel, tup, newOwnerId);
+
+    // Create return address
+    ObjectAddress address;
+    ObjectAddressSet(address, ForeignDataWrapperRelationId, fdwId);
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

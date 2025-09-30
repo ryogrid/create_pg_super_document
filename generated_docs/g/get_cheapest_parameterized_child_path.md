@@ -42,3 +42,60 @@ The function implements an optimization by skipping paths that are already more 
 - The algorithm accounts for the fact that reparameterization costs vary across different base paths
 - The function performs cost-based pruning to avoid evaluating obviously inferior alternatives
 - Essential for creating parameterized Append paths where all children must have matching parameterization
+
+## Simplified Source
+
+```c
+static Path *
+get_cheapest_parameterized_child_path(PlannerInfo *root, RelOptInfo *rel,
+                                     Relids required_outer)
+{
+    Path *cheapest;
+
+    // First, look for existing path with no more than needed parameterization
+    cheapest = get_cheapest_path_for_pathkeys(rel->pathlist,
+                                             NIL,
+                                             required_outer,
+                                             TOTAL_COST,
+                                             false);
+
+    // If we found exact match, return it
+    if (bms_equal(PATH_REQ_OUTER(cheapest), required_outer))
+        return cheapest;
+
+    // Need to reparameterize - search all paths for best candidate
+    cheapest = NULL;
+    foreach(lc, rel->pathlist)
+    {
+        Path *path = (Path *) lfirst(lc);
+
+        // Skip if path needs more parameterization than we can provide
+        if (!bms_is_subset(PATH_REQ_OUTER(path), required_outer))
+            continue;
+
+        // Skip if already more expensive than current best
+        // (reparameterization only increases cost)
+        if (cheapest != NULL &&
+            compare_path_costs(cheapest, path, TOTAL_COST) <= 0)
+            continue;
+
+        // Reparameterize if needed
+        if (!bms_equal(PATH_REQ_OUTER(path), required_outer))
+        {
+            path = reparameterize_path(root, path, required_outer, 1.0);
+            if (path == NULL)
+                continue;  // Reparameterization failed
+
+            // Recheck cost after reparameterization
+            if (cheapest != NULL &&
+                compare_path_costs(cheapest, path, TOTAL_COST) <= 0)
+                continue;
+        }
+
+        // Update best path
+        cheapest = path;
+    }
+
+    return cheapest;
+}
+```

@@ -28,3 +28,15 @@ This function builds upon get_sortgroupclause_tle() to extract the actual expres
 
 ## Notes and Other Information
 This function provides a convenient way to extract expressions from sort/group clauses during query planning and parsing. It's commonly used when building path keys and when processing aggregate and window function calls where the system needs access to the underlying expressions for further analysis or transformation.
+
+## Simplified Source
+
+```c
+Node *get_sortgroupclause_expr(SortGroupClause *sgClause, List *targetList) {
+    // Find the target entry that matches the sort/group clause
+    TargetEntry *tle = get_sortgroupclause_tle(sgClause, targetList);
+
+    // Return the expression from the target entry
+    return (Node *) tle->expr;
+}
+```

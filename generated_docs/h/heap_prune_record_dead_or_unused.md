@@ -38,3 +38,22 @@ The function uses the `unlikely` hint to indicate that immediate unused marking 
 - The `mark_unused_now` setting depends on various factors like HOT cleanup requirements
 - Part of PostgreSQL's adaptive heap pruning mechanism that can optimize for different scenarios
 - Allows for more aggressive space reclamation when conditions permit
+
+## Simplified Source
+
+```c
+static void heap_prune_record_dead_or_unused(PruneState *prstate, OffsetNumber offnum, bool was_normal)
+{
+    // Choose marking strategy based on pruning configuration
+    if (unlikely(prstate->mark_unused_now))
+    {
+        // Immediate cleanup: mark as unused to reclaim space now
+        heap_prune_record_unused(prstate, offnum, was_normal);
+    }
+    else
+    {
+        // Deferred cleanup: mark as dead for later VACUUM processing
+        heap_prune_record_dead(prstate, offnum, was_normal);
+    }
+}
+```

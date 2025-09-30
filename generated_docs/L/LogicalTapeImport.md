@@ -45,3 +45,46 @@ Block accounting is carefully maintained to track allocated blocks, written bloc
 - The function assumes the shared fileset uses worker numbers as filenames (converted via `pg_itoa`)
 - Proper offset tracking ensures that each tape knows its position within the concatenated file structure
 - The concatenated file approach allows the leader to have a unified view of all worker tape data while maintaining logical separation
+
+## Simplified Source
+
+```c
+LogicalTape *LogicalTapeImport(LogicalTapeSet *lts, int worker, TapeShare *shared) {
+    LogicalTape *lt;
+    int64 tapeblocks;
+    char filename[MAXPGPATH];
+    BufFile *file;
+    int64 filesize;
+
+    // Create new logical tape structure
+    lt = ltsCreateTape(lts);
+
+    // Open worker's BufFile from shared fileset
+    pg_itoa(worker, filename);
+    file = BufFileOpenFileSet(&lts->fileset->fs, filename, O_RDONLY, false);
+    filesize = BufFileSize(file);
+
+    // Set tape's first block number from shared info
+    lt->firstBlockNumber = shared->firstblocknumber;
+
+    if (lts->pfile == NULL) {
+        // First import - establish as primary BufFile
+        lts->pfile = file;
+        lt->offsetBlockNumber = 0L;
+    } else {
+        // Subsequent imports - append to existing BufFile
+        lt->offsetBlockNumber = BufFileAppend(lts->pfile, file);
+    }
+
+    // Set read buffer size limit
+    lt->max_size = Min(MaxAllocSize, filesize);
+    tapeblocks = filesize / BLCKSZ;
+
+    // Update block accounting including hole blocks
+    lts->nHoleBlocks += lt->offsetBlockNumber - lts->nBlocksAllocated;
+    lts->nBlocksAllocated = lt->offsetBlockNumber + tapeblocks;
+    lts->nBlocksWritten = lts->nBlocksAllocated;
+
+    return lt;
+}
+```

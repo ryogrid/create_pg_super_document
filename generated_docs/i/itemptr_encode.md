@@ -37,3 +37,21 @@ The function extracts the block number and offset from the ItemPointer, then com
 - The encoding is designed to be significantly faster than direct TID comparisons during index validation
 - The function assumes a two's complement representation for integers
 - Block numbers occupy bits 16-47, while offset numbers occupy bits 0-15 of the resulting 64-bit value
+
+## Simplified Source
+
+```c
+static inline int64
+itemptr_encode(ItemPointer itemptr)
+{
+    BlockNumber block = ItemPointerGetBlockNumber(itemptr);
+    OffsetNumber offset = ItemPointerGetOffsetNumber(itemptr);
+    int64 encoded;
+
+    // Encode TID as 64-bit integer: block number in upper 32 bits, offset in lower 16 bits
+    // This preserves sort order while allowing faster integer comparisons
+    encoded = ((uint64) block << 16) | (uint16) offset;
+
+    return encoded;
+}
+```

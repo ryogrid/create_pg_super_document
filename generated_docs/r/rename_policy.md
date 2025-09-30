@@ -52,3 +52,67 @@ The function operates directly on the catalog tuple by copying it, modifying the
 - Returns ObjectAddress of the renamed policy for use by the event system
 - The function ensures proper cleanup of scan resources and relation locks in all code paths
 - Cache invalidation ensures that query plans using the renamed policy are recompiled
+
+## Simplified Source
+
+```c
+ObjectAddress
+rename_policy(RenameStmt *stmt)
+{
+    Relation pg_policy_rel;
+    Relation target_table;
+    Oid table_id;
+    Oid opoloid;
+    ScanKeyData skey[2];
+    SysScanDesc sscan;
+    HeapTuple policy_tuple;
+    ObjectAddress address;
+
+    // Get table ID and check permissions
+    table_id = RangeVarGetRelidExtended(stmt->relation, AccessExclusiveLock, 0,
+                                        RangeVarCallbackForPolicy, (void *) stmt);
+
+    target_table = relation_open(table_id, NoLock);
+    pg_policy_rel = table_open(PolicyRelationId, RowExclusiveLock);
+
+    // Phase 1: Check if new name already exists
+    ScanKeyInit(&skey[0], Anum_pg_policy_polrelid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(table_id));
+    ScanKeyInit(&skey[1], Anum_pg_policy_polname, BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(stmt->newname));
+
+    sscan = systable_beginscan(pg_policy_rel, PolicyPolrelidPolnameIndexId, true, NULL, 2, skey);
+
+    if (HeapTupleIsValid(systable_getnext(sscan)))
+        ereport(ERROR, "policy with new name already exists");
+
+    systable_endscan(sscan);
+
+    // Phase 2: Find existing policy and rename it
+    ScanKeyInit(&skey[0], Anum_pg_policy_polrelid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(table_id));
+    ScanKeyInit(&skey[1], Anum_pg_policy_polname, BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(stmt->subname));
+
+    sscan = systable_beginscan(pg_policy_rel, PolicyPolrelidPolnameIndexId, true, NULL, 2, skey);
+    policy_tuple = systable_getnext(sscan);
+
+    if (!HeapTupleIsValid(policy_tuple))
+        ereport(ERROR, "policy does not exist");
+
+    // Extract policy OID and copy tuple for modification
+    opoloid = ((Form_pg_policy) GETSTRUCT(policy_tuple))->oid;
+    policy_tuple = heap_copytuple(policy_tuple);
+
+    // Update the policy name
+    namestrcpy(&((Form_pg_policy) GETSTRUCT(policy_tuple))->polname, stmt->newname);
+    CatalogTupleUpdate(pg_policy_rel, &policy_tuple->t_self, policy_tuple);
+
+    // Cleanup and cache invalidation
+    InvokeObjectPostAlterHook(PolicyRelationId, opoloid, 0);
+    ObjectAddressSet(address, PolicyRelationId, opoloid);
+    CacheInvalidateRelcache(target_table);
+
+    systable_endscan(sscan);
+    table_close(pg_policy_rel, RowExclusiveLock);
+    relation_close(target_table, NoLock);
+
+    return address;
+}
+```

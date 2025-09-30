@@ -36,3 +36,19 @@ The `aclcopy` function performs a complete deep copy of an ACL structure, creati
 - The copy includes all ACL entries with their complete permission information
 - Essential for implementing copy-on-write semantics in ACL operations
 - Used extensively in permission management operations where original ACLs must be preserved
+
+## Simplified Source
+
+```c
+Acl *aclcopy(const Acl *orig_acl) {
+    // Allocate memory for new ACL with same number of entries
+    Acl *result_acl = allocacl(ACL_NUM(orig_acl));
+
+    // Copy all ACL entries from original to new ACL
+    memcpy(ACL_DAT(result_acl),
+           ACL_DAT(orig_acl),
+           ACL_NUM(orig_acl) * sizeof(AclItem));
+
+    return result_acl;
+}
+```

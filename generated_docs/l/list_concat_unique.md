@@ -40,3 +40,24 @@ This function is commonly used in PostgreSQL's query optimizer and planner compo
 - Both input lists must be pointer lists (verified by assertions)
 - Maintains list invariants through check_list_invariants()
 - Commonly used in query optimization where maintaining ordered unique collections is crucial
+
+## Simplified Source
+
+```c
+List *list_concat_unique(List *list1, const List *list2) {
+    ListCell *cell;
+
+    // Validate input lists are pointer lists
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // Add each element from list2 if not already in list1
+    foreach(cell, list2) {
+        if (!list_member(list1, lfirst(cell)))
+            list1 = lappend(list1, lfirst(cell));
+    }
+
+    check_list_invariants(list1);
+    return list1;
+}
+```

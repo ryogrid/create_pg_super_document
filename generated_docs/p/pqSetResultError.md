@@ -36,3 +36,26 @@ pqSetResultError copies an error message from a PQExpBuffer into a PGresult's er
 - Ensures res->errMsg always points to a valid string, never NULL
 - Does nothing if the input PGresult pointer is NULL
 - Located at src/interfaces/libpq/fe-exec.c:692-720
+
+## Simplified Source
+
+```c
+void pqSetResultError(PGresult *res, PQExpBuffer errorMessage, int offset) {
+    char *msg;
+
+    if (!res)
+        return;
+
+    // Try to copy error message from buffer
+    if (!PQExpBufferBroken(errorMessage))
+        msg = pqResultStrdup(res, errorMessage->data + offset);
+    else
+        msg = NULL;
+
+    // Set error message or fallback to constant string
+    if (msg)
+        res->errMsg = msg;
+    else
+        res->errMsg = libpq_gettext("out of memory\n");
+}
+```

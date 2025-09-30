@@ -33,3 +33,20 @@ This function is commonly used during expression transformation to identify NULL
 - Used primarily for optimization purposes during expression transformation
 - The function safely handles NULL input arguments by checking the pointer before type testing
 - Part of PostgreSQL's expression analysis and transformation pipeline
+
+## Simplified Source
+
+```c
+static bool
+exprIsNullConstant(Node *arg)
+{
+    if (arg && IsA(arg, A_Const))
+    {
+        A_Const *con = (A_Const *) arg;
+
+        if (con->isnull)
+            return true;
+    }
+    return false;
+}
+```

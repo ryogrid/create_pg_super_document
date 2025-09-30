@@ -35,3 +35,23 @@ This function validates the precision (type modifier) value for TIME data types 
 - The function returns the validated (and potentially adjusted) precision value
 - Error and warning messages include context about whether the type is WITH TIME ZONE or WITHOUT TIME ZONE
 - Part of PostgreSQL's type system validation infrastructure for temporal data types
+
+## Simplified Source
+
+```c
+int32 anytime_typmod_check(bool istz, int32 typmod) {
+    // Check for negative precision - this is an error
+    if (typmod < 0) {
+        ereport(ERROR, "TIME precision must not be negative");
+    }
+
+    // Check if precision exceeds maximum allowed
+    if (typmod > MAX_TIME_PRECISION) {
+        // Issue warning and clamp to maximum
+        ereport(WARNING, "TIME precision reduced to maximum allowed");
+        typmod = MAX_TIME_PRECISION;
+    }
+
+    return typmod;
+}
+```

@@ -32,3 +32,12 @@ Different table access methods may have varying requirements for when TOAST tabl
 - TOAST tables are essential for PostgreSQL's ability to handle large data values that exceed page size limits
 - The decision logic is delegated to the specific table access method implementation
 - Located in src/include/access/tableam.h:1878-1887
+
+## Simplified Source
+
+```c
+static inline bool table_relation_needs_toast_table(Relation rel) {
+    // Delegate to the table access method's implementation
+    return rel->rd_tableam->relation_needs_toast_table(rel);
+}
+```

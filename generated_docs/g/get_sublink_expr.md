@@ -54,3 +54,105 @@ The function carefully handles parentheses and operator syntax, including specia
 - Error handling is implemented for unrecognized testexpr types and sublink types
 - CTE_SUBLINK is explicitly noted as not expected to occur in SubLink contexts
 - The function supports both simple scalar subqueries and more complex row-based comparisons
+
+## Simplified Source
+
+```c
+static void get_sublink_expr(SubLink *sublink, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    Query *query = (Query *) (sublink->subselect);
+    char *opname = NULL;
+    bool need_paren;
+
+    // Start with opening parenthesis (or ARRAY for array sublinks)
+    if (sublink->subLinkType == ARRAY_SUBLINK)
+        appendStringInfoString(buf, "ARRAY(");
+    else
+        appendStringInfoChar(buf, '(');
+
+    // Process test expression to extract operator information
+    if (sublink->testexpr) {
+        if (IsA(sublink->testexpr, OpExpr)) {
+            // Single operator case
+            OpExpr *opexpr = (OpExpr *) sublink->testexpr;
+            get_rule_expr(linitial(opexpr->args), context, true);
+            opname = generate_operator_name(opexpr->opno,
+                                          exprType(linitial(opexpr->args)),
+                                          exprType(lsecond(opexpr->args)));
+        }
+        else if (IsA(sublink->testexpr, BoolExpr)) {
+            // Multiple operators for = or <> cases
+            char *sep = "";
+            ListCell *l;
+
+            appendStringInfoChar(buf, '(');
+            foreach(l, ((BoolExpr *) sublink->testexpr)->args) {
+                OpExpr *opexpr = lfirst_node(OpExpr, l);
+                appendStringInfoString(buf, sep);
+                get_rule_expr(linitial(opexpr->args), context, true);
+                if (!opname)
+                    opname = generate_operator_name(opexpr->opno,
+                                                  exprType(linitial(opexpr->args)),
+                                                  exprType(lsecond(opexpr->args)));
+                sep = ", ";
+            }
+            appendStringInfoChar(buf, ')');
+        }
+        else if (IsA(sublink->testexpr, RowCompareExpr)) {
+            // Row comparison cases
+            RowCompareExpr *rcexpr = (RowCompareExpr *) sublink->testexpr;
+            appendStringInfoChar(buf, '(');
+            get_rule_expr((Node *) rcexpr->largs, context, true);
+            opname = generate_operator_name(linitial_oid(rcexpr->opnos),
+                                          exprType(linitial(rcexpr->largs)),
+                                          exprType(linitial(rcexpr->rargs)));
+            appendStringInfoChar(buf, ')');
+        }
+    }
+
+    need_paren = true;
+
+    // Generate appropriate SQL keywords based on sublink type
+    switch (sublink->subLinkType) {
+        case EXISTS_SUBLINK:
+            appendStringInfoString(buf, "EXISTS ");
+            break;
+        case ANY_SUBLINK:
+            if (strcmp(opname, "=") == 0)  // Convert = ANY to IN
+                appendStringInfoString(buf, " IN ");
+            else
+                appendStringInfo(buf, " %s ANY ", opname);
+            break;
+        case ALL_SUBLINK:
+            appendStringInfo(buf, " %s ALL ", opname);
+            break;
+        case ROWCOMPARE_SUBLINK:
+            appendStringInfo(buf, " %s ", opname);
+            break;
+        case EXPR_SUBLINK:
+        case MULTIEXPR_SUBLINK:
+        case ARRAY_SUBLINK:
+            need_paren = false;
+            break;
+        default:
+            elog(ERROR, "unrecognized sublink type: %d", sublink->subLinkType);
+            break;
+    }
+
+    // Add inner parenthesis if needed
+    if (need_paren)
+        appendStringInfoChar(buf, '(');
+
+    // Deparse the subquery itself
+    get_query_def(query, buf, context->namespaces, NULL, false,
+                  context->prettyFlags, context->wrapColumn,
+                  context->indentLevel);
+
+    // Close parentheses
+    if (need_paren)
+        appendStringInfoString(buf, "))");
+    else
+        appendStringInfoChar(buf, ')');
+}
+```

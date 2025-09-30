@@ -47,3 +47,50 @@ The `enlargePQExpBuffer` function ensures that the specified PQExpBuffer has eno
 - The function assumes INT_MAX <= UINT_MAX/2 to prevent overflow in the doubling loop
 - Critical for the performance of all PQExpBuffer append operations
 - Part of the libpq expandable string buffer implementation
+
+## Simplified Source
+
+```c
+int enlargePQExpBuffer(PQExpBuffer str, size_t needed) {
+    size_t newlen;
+    char *newdata;
+
+    // Check if buffer is already broken
+    if (PQExpBufferBroken(str))
+        return 0;
+
+    // Guard against overflow - reject ridiculously large requests
+    if (needed >= ((size_t) INT_MAX - str->len)) {
+        markPQExpBufferBroken(str);
+        return 0;
+    }
+
+    // Calculate total space needed (current + new + null terminator)
+    needed += str->len + 1;
+
+    // Return success if we already have enough space
+    if (needed <= str->maxlen)
+        return 1;
+
+    // Calculate new buffer size using exponential growth
+    newlen = (str->maxlen > 0) ? (2 * str->maxlen) : 64;
+    while (needed > newlen)
+        newlen = 2 * newlen;
+
+    // Clamp to INT_MAX to prevent overflow
+    if (newlen > (size_t) INT_MAX)
+        newlen = (size_t) INT_MAX;
+
+    // Try to reallocate the buffer
+    newdata = (char *) realloc(str->data, newlen);
+    if (newdata != NULL) {
+        str->data = newdata;
+        str->maxlen = newlen;
+        return 1;
+    }
+
+    // Reallocation failed - mark buffer as broken
+    markPQExpBufferBroken(str);
+    return 0;
+}
+```

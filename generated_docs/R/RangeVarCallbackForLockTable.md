@@ -47,3 +47,38 @@ RangeVarCallbackForLockTable serves as a security and validation callback invoke
 - Temporary relation access is tracked for proper transaction state management
 - Permission checking is delegated to LockTableAclCheck for the specific lock mode requested
 - The callback pattern allows for consistent validation across different relation resolution contexts
+
+## Simplified Source
+```c
+static void RangeVarCallbackForLockTable(const RangeVar *rv, Oid relid, Oid oldrelid, void *arg) {
+    LOCKMODE lockmode = *(LOCKMODE *) arg;
+    char relkind;
+    char relpersistence;
+    AclResult aclresult;
+
+    // Skip validation if relation doesn't exist
+    if (!OidIsValid(relid))
+        return;
+
+    // Get relation kind, handle concurrent drops
+    relkind = get_rel_relkind(relid);
+    if (!relkind)
+        return;  // Relation was dropped concurrently
+
+    // Only allow locking of tables, partitioned tables, and views
+    if (relkind != RELKIND_RELATION &&
+        relkind != RELKIND_PARTITIONED_TABLE &&
+        relkind != RELKIND_VIEW)
+        ereport(ERROR, "cannot lock relation - wrong object type");
+
+    // Track temporary relation access for transaction flags
+    relpersistence = get_rel_persistence(relid);
+    if (relpersistence == RELPERSISTENCE_TEMP)
+        MyXactFlags |= XACT_FLAGS_ACCESSEDTEMPNAMESPACE;
+
+    // Check user permissions for the requested lock mode
+    aclresult = LockTableAclCheck(relid, lockmode, GetUserId());
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, get_relkind_objtype(relkind), rv->relname);
+}
+```

@@ -41,3 +41,24 @@ This function is typically called when write operations have failed and libpq ha
 - **Write failure handling**: Specifically designed for scenarios where network write operations to the PostgreSQL server have failed
 - **Error propagation**: Uses the standard libpq error propagation mechanism through pqSaveErrorResult()
 - **Fallback messaging**: Provides meaningful error messages even when memory allocation for specific error details fails
+
+## Simplified Source
+
+```c
+static void
+pqSaveWriteError(PGconn *conn)
+{
+    // Append write error message if available
+    if (conn->write_err_msg) {
+        appendPQExpBufferStr(&conn->errorMessage, conn->write_err_msg);
+        // Clear to prevent duplicate messages
+        conn->write_err_msg[0] = '\0';
+    } else {
+        // Fallback message if specific error unavailable
+        libpq_append_conn_error(conn, "write to server failed");
+    }
+
+    // Mark connection as having error condition
+    pqSaveErrorResult(conn);
+}
+```

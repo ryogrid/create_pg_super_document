@@ -64,3 +64,149 @@ After successful SubLink conversion, the function:
 - Stops recursion at non-AND expressions to avoid semantic changes
 - Under NOT clauses, restricts pull-up to only reference the right-hand side of newly created joins
 - Supports stacking multiple pulled-up SubLinks in encounter order, relying on subsequent optimization for reordering
+
+## Simplified Source
+
+```c
+static Node *
+pull_up_sublinks_qual_recurse(PlannerInfo *root, Node *node,
+                              Node **jtlink1, Relids available_rels1,
+                              Node **jtlink2, Relids available_rels2)
+{
+    if (node == NULL)
+        return NULL;
+
+    if (IsA(node, SubLink))
+    {
+        SubLink *sublink = (SubLink *) node;
+        JoinExpr *j;
+        Relids child_rels;
+
+        // Try to convert ANY SubLink (e.g., "expr IN (subquery)")
+        if (sublink->subLinkType == ANY_SUBLINK)
+        {
+            // Try conversion with first available relation set
+            if ((j = convert_ANY_sublink_to_join(root, sublink, available_rels1)) != NULL)
+            {
+                return handle_successful_conversion(root, j, jtlink1, available_rels1);
+            }
+            // Try conversion with second available relation set
+            if (available_rels2 != NULL &&
+                (j = convert_ANY_sublink_to_join(root, sublink, available_rels2)) != NULL)
+            {
+                return handle_successful_conversion(root, j, jtlink2, available_rels2);
+            }
+        }
+        // Try to convert EXISTS SubLink (e.g., "EXISTS (subquery)")
+        else if (sublink->subLinkType == EXISTS_SUBLINK)
+        {
+            // Try conversion with first available relation set
+            if ((j = convert_EXISTS_sublink_to_join(root, sublink, false, available_rels1)) != NULL)
+            {
+                return handle_successful_conversion(root, j, jtlink1, available_rels1);
+            }
+            // Try conversion with second available relation set
+            if (available_rels2 != NULL &&
+                (j = convert_EXISTS_sublink_to_join(root, sublink, false, available_rels2)) != NULL)
+            {
+                return handle_successful_conversion(root, j, jtlink2, available_rels2);
+            }
+        }
+
+        // Cannot convert - return unchanged
+        return node;
+    }
+
+    if (is_notclause(node))
+    {
+        // Handle "NOT EXISTS" patterns - convert to anti-semijoin
+        SubLink *sublink = (SubLink *) get_notclausearg((Expr *) node);
+        JoinExpr *j;
+
+        if (sublink && IsA(sublink, SubLink) && sublink->subLinkType == EXISTS_SUBLINK)
+        {
+            // Try anti-semijoin conversion (under_not = true)
+            if ((j = convert_EXISTS_sublink_to_join(root, sublink, true, available_rels1)) != NULL)
+            {
+                return handle_not_exists_conversion(root, j, jtlink1, available_rels1);
+            }
+            if (available_rels2 != NULL &&
+                (j = convert_EXISTS_sublink_to_join(root, sublink, true, available_rels2)) != NULL)
+            {
+                return handle_not_exists_conversion(root, j, jtlink2, available_rels2);
+            }
+        }
+
+        return node;
+    }
+
+    if (is_andclause(node))
+    {
+        // Recursively process all clauses in AND expression
+        List *newclauses = NIL;
+
+        foreach(l, ((BoolExpr *) node)->args)
+        {
+            Node *oldclause = (Node *) lfirst(l);
+            Node *newclause = pull_up_sublinks_qual_recurse(root, oldclause,
+                                                           jtlink1, available_rels1,
+                                                           jtlink2, available_rels2);
+            if (newclause)
+                newclauses = lappend(newclauses, newclause);
+        }
+
+        // Reconstruct AND clause with remaining clauses
+        if (newclauses == NIL)
+            return NULL;  // All clauses were converted
+        else if (list_length(newclauses) == 1)
+            return (Node *) linitial(newclauses);
+        else
+            return (Node *) make_andclause(newclauses);
+    }
+
+    // Not a convertible expression - return unchanged
+    return node;
+}
+
+// Helper function for successful SubLink conversion
+static Node *
+handle_successful_conversion(PlannerInfo *root, JoinExpr *j, Node **jtlink, Relids available_rels)
+{
+    Relids child_rels;
+
+    // Insert new join into jointree
+    j->larg = *jtlink;
+    *jtlink = (Node *) j;
+
+    // Process pulled-up subtree
+    j->rarg = pull_up_sublinks_jointree_recurse(root, j->rarg, &child_rels);
+
+    // Recursively process any remaining quals
+    j->quals = pull_up_sublinks_qual_recurse(root, j->quals,
+                                            &j->larg, available_rels,
+                                            &j->rarg, child_rels);
+
+    return NULL;  // SubLink converted - return constant TRUE
+}
+
+// Helper function for NOT EXISTS conversion
+static Node *
+handle_not_exists_conversion(PlannerInfo *root, JoinExpr *j, Node **jtlink, Relids available_rels)
+{
+    Relids child_rels;
+
+    // Insert new join into jointree
+    j->larg = *jtlink;
+    *jtlink = (Node *) j;
+
+    // Process pulled-up subtree
+    j->rarg = pull_up_sublinks_jointree_recurse(root, j->rarg, &child_rels);
+
+    // Under NOT, can only pull up sublinks referencing j->rarg
+    j->quals = pull_up_sublinks_qual_recurse(root, j->quals,
+                                            &j->rarg, child_rels,
+                                            NULL, NULL);
+
+    return NULL;  // SubLink converted - return constant TRUE
+}
+```

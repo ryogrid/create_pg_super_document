@@ -48,3 +48,30 @@ This design separates the high-level parsing orchestration from the detailed URI
 - The actual URI parsing logic is implemented in 
 - Supports the standard PostgreSQL URI schemes: "postgresql://" and "postgres://"
 - Memory management is handled consistently with other parsing functions: allocates result on success, cleans up on failure
+
+## Simplified Source
+
+```c
+static PQconninfoOption *conninfo_uri_parse(const char *uri, PQExpBuffer errorMessage, bool use_defaults) {
+    PQconninfoOption *options;
+
+    // Initialize connection options structure
+    options = conninfo_init(errorMessage);
+    if (options == NULL)
+        return NULL;
+
+    // Parse the URI into connection options
+    if (!conninfo_uri_parse_options(options, uri, errorMessage)) {
+        PQconninfoFree(options);
+        return NULL;
+    }
+
+    // Add defaults if requested
+    if (use_defaults && !conninfo_add_defaults(options, errorMessage)) {
+        PQconninfoFree(options);
+        return NULL;
+    }
+
+    return options;
+}
+```

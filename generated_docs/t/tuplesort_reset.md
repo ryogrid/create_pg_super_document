@@ -42,3 +42,22 @@ This approach is particularly beneficial when sorting multiple small batches of 
 - Memory slab pointers (`slabMemoryBegin`, `slabMemoryEnd`, `slabFreeHead`) are reset to NULL, indicating no allocated slab memory
 - The `lastReturnedTuple` pointer is also reset to NULL to prepare for the next sort operation
 - This optimization is crucial for performance in scenarios involving many small sorts, as it eliminates repeated setup/teardown costs
+
+## Simplified Source
+
+```c
+void tuplesort_reset(Tuplesortstate *state) {
+    // Update memory usage statistics and free per-batch resources
+    tuplesort_updatemax(state);
+    tuplesort_free(state);
+
+    // Re-initialize state for a new batch
+    tuplesort_begin_batch(state);
+
+    // Reset tuple and memory slab pointers
+    state->lastReturnedTuple = NULL;
+    state->slabMemoryBegin = NULL;
+    state->slabMemoryEnd = NULL;
+    state->slabFreeHead = NULL;
+}
+```

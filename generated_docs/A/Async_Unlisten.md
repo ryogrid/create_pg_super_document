@@ -34,3 +34,20 @@ Async_Unlisten is the entry point function for the SQL UNLISTEN command. It prov
 - Defers actual listen list modification until transaction commit
 - Part of PostgreSQL's asynchronous notification system
 - Public interface function declared in async.h header
+
+## Simplified Source
+
+```c
+void Async_Unlisten(const char *channel) {
+    // Optional debug logging
+    if (Trace_notify)
+        elog(DEBUG1, "Async_Unlisten(%s,%d)", channel, MyProcPid);
+
+    // Optimization: skip if we couldn't possibly be listening
+    if (pendingActions == NULL && !unlistenExitRegistered)
+        return;
+
+    // Queue the unlisten operation for transaction commit
+    queue_listen(LISTEN_UNLISTEN, channel);
+}
+```

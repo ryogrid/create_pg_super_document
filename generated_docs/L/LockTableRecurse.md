@@ -46,3 +46,40 @@ LockTableRecurse implements the inheritance-aware locking mechanism for LOCK TAB
 - Useless locks on concurrently dropped tables are properly released to avoid resource leaks
 - The parent table is skipped in the iteration since it should already be locked by the caller
 - The function maintains transactional consistency by verifying table existence after lock acquisition
+
+## Simplified Source
+```c
+static void LockTableRecurse(Oid reloid, LOCKMODE lockmode, bool nowait) {
+    List *children;
+    ListCell *lc;
+
+    // Find all tables in the inheritance hierarchy
+    children = find_all_inheritors(reloid, NoLock, NULL);
+
+    foreach(lc, children) {
+        Oid childreloid = lfirst_oid(lc);
+
+        // Skip the parent (already locked)
+        if (childreloid == reloid)
+            continue;
+
+        // Acquire lock on child table
+        if (!nowait) {
+            LockRelationOid(childreloid, lockmode);
+        } else if (!ConditionalLockRelationOid(childreloid, lockmode)) {
+            // Handle NOWAIT lock failure
+            char *relname = get_rel_name(childreloid);
+            if (!relname)
+                continue;  // Child was dropped concurrently
+            ereport(ERROR, "could not obtain lock on relation");
+        }
+
+        // Check if child was dropped after acquiring lock
+        if (!SearchSysCacheExists1(RELOID, ObjectIdGetDatum(childreloid))) {
+            // Release useless lock and continue
+            UnlockRelationOid(childreloid, lockmode);
+            continue;
+        }
+    }
+}
+```

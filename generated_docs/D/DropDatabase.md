@@ -32,3 +32,25 @@ DropDatabase serves as the entry point for DROP DATABASE statement execution, pa
 - Acts as a thin wrapper around the dropdb function which contains the core deletion logic
 - The 'force' option enables automatic termination of other database connections before dropping
 - Part of PostgreSQL's utility command processing infrastructure
+
+## Simplified Source
+
+```c
+void DropDatabase(ParseState *pstate, DropdbStmt *stmt) {
+    bool force = false;
+
+    // Parse options from the statement
+    foreach(lc, stmt->options) {
+        DefElem *opt = (DefElem *) lfirst(lc);
+
+        if (strcmp(opt->defname, "force") == 0)
+            force = true;
+        else
+            ereport(ERROR, "unrecognized DROP DATABASE option \"%s\"",
+                    opt->defname);
+    }
+
+    // Call the actual database drop function
+    dropdb(stmt->dbname, stmt->missing_ok, force);
+}
+```

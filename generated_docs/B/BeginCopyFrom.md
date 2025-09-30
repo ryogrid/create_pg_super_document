@@ -70,3 +70,73 @@ The function handles complex setup tasks including validating column specificati
 - Supports multiple input sources: files, stdin, executed programs, and callback functions
 - Allocates and configures input buffers based on whether encoding conversion is needed
 - Binary format requires reading and validating a binary header before processing data
+
+## Simplified Source
+
+```c
+CopyFromState BeginCopyFrom(ParseState *pstate,
+                           Relation rel,
+                           Node *whereClause,
+                           const char *filename,
+                           bool is_program,
+                           copy_data_source_cb data_source_cb,
+                           List *attnamelist,
+                           List *options) {
+    CopyFromState cstate;
+    TupleDesc tupDesc;
+
+    // Allocate and initialize copy state structure
+    cstate = palloc0(sizeof(CopyFromStateData));
+    cstate->copycontext = AllocSetContextCreate(CurrentMemoryContext, "COPY",
+                                                ALLOCSET_DEFAULT_SIZES);
+
+    // Process COPY command options (format, delimiter, etc.)
+    ProcessCopyOptions(pstate, &cstate->opts, true, options);
+
+    // Set up target relation and column mapping
+    cstate->rel = rel;
+    tupDesc = RelationGetDescr(cstate->rel);
+    cstate->attnumlist = CopyGetAttnums(tupDesc, cstate->rel, attnamelist);
+
+    // Set up FORCE_NOT_NULL and FORCE_NULL column flags
+    setup_force_flags(cstate, tupDesc);
+
+    // Configure encoding conversion if needed
+    setup_encoding_conversion(cstate);
+
+    // Set up error handling context for ON_ERROR modes
+    if (cstate->opts.on_error != COPY_ON_ERROR_STOP) {
+        cstate->escontext = makeNode(ErrorSaveContext);
+        cstate->escontext->error_occurred = false;
+    }
+
+    // Initialize input/output functions for data type conversion
+    setup_io_functions(cstate, tupDesc);
+
+    // Set up default value expressions for missing columns
+    setup_default_expressions(cstate, tupDesc);
+
+    // Allocate input buffers based on text/binary mode
+    allocate_input_buffers(cstate);
+
+    // Configure data source (file, stdin, program, or callback)
+    setup_data_source(cstate, filename, is_program, data_source_cb);
+
+    // Initialize progress reporting
+    pgstat_progress_start_command(PROGRESS_COMMAND_COPY, RelationGetRelid(rel));
+
+    // For binary format, read and validate header
+    if (cstate->opts.binary) {
+        ReceiveCopyBinaryHeader(cstate);
+    }
+
+    // Set up workspace for field parsing
+    if (!cstate->opts.binary) {
+        AttrNumber attr_count = list_length(cstate->attnumlist);
+        cstate->max_fields = attr_count;
+        cstate->raw_fields = palloc(attr_count * sizeof(char *));
+    }
+
+    return cstate;
+}
+```

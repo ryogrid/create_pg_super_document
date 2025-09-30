@@ -41,3 +41,40 @@ This function creates a NamedTuplestoreScan plan node for executing scans on eph
 - Named tuplestores are ephemeral relations that exist only during query execution and are commonly used for transition tables in triggers
 - The scan clauses are optimized by sorting them into the best execution order before processing
 - Supports nestloop parameter substitution when the path involves parameterized access patterns
+
+## Simplified Source
+
+```c
+static NamedTuplestoreScan *
+create_namedtuplestorescan_plan(PlannerInfo *root, Path *best_path,
+                                List *tlist, List *scan_clauses)
+{
+    NamedTuplestoreScan *scan_plan;
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte;
+
+    // Validate that we have a valid relation ID and fetch the range table entry
+    Assert(scan_relid > 0);
+    rte = planner_rt_fetch(scan_relid, root);
+    Assert(rte->rtekind == RTE_NAMEDTUPLESTORE);
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths by replacing outer variables with nestloop params
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+    }
+
+    // Create the actual NamedTuplestoreScan plan node
+    scan_plan = make_namedtuplestorescan(tlist, scan_clauses, scan_relid, rte->enrname);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

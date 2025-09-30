@@ -39,3 +39,30 @@ This separation ensures that expressions like  work correctly - the ORDER BY col
 - The function asserts that  is NIL since normal aggregates don't have direct arguments
 - [TargetEntry](../T/TargetEntry.md) nodes are processed rather than their contained expressions to ensure proper error reporting for ORDER BY items
 - The  and  lists don't need processing since they contain only SortGroupClause nodes without expressions
+
+## Simplified Source
+
+```c
+static void
+assign_aggregate_collations(Aggref *aggref,
+                           assign_collations_context *loccontext)
+{
+    ListCell *lc;
+
+    // Plain aggregates should not have direct args
+    Assert(aggref->aggdirectargs == NIL);
+
+    // Process aggregated arguments
+    foreach(lc, aggref->args) {
+        TargetEntry *tle = lfirst_node(TargetEntry, lc);
+
+        if (tle->resjunk) {
+            // ORDER BY expressions: process independently to avoid collation conflicts
+            assign_expr_collations(loccontext->pstate, (Node *) tle);
+        } else {
+            // Regular args: contribute to aggregate's collation
+            (void) assign_collations_walker((Node *) tle, loccontext);
+        }
+    }
+}
+```

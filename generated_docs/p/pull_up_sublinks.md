@@ -48,3 +48,23 @@ The function recursively searches through the query's jointree to find and trans
 - The transformation enables better join planning by exposing more join relationships to the optimizer
 - Critical for performance of queries with correlated subqueries that can be decorrelated
 - Works in conjunction with pull_up_sublinks_jointree_recurse for the actual transformation logic
+
+## Simplified Source
+
+```c
+void pull_up_sublinks(PlannerInfo *root) {
+    Node *jtnode;
+    Relids relids;
+
+    // Recursively process the jointree to find and transform sublinks
+    jtnode = pull_up_sublinks_jointree_recurse(root,
+                                               (Node *) root->parse->jointree,
+                                               &relids);
+
+    // Ensure the result is always wrapped in a FromExpr
+    if (IsA(jtnode, FromExpr))
+        root->parse->jointree = (FromExpr *) jtnode;
+    else
+        root->parse->jointree = makeFromExpr(list_make1(jtnode), NULL);
+}
+```

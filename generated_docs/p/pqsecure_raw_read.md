@@ -45,3 +45,56 @@ The function is used as the foundation for both encrypted reading functions (whi
 - Distinguishes between retryable errors (no error message) and permanent failures (detailed error messages)
 - Used as the foundation layer for both GSS and SSL reading implementations
 - The function handles platform-specific socket error codes and provides unified error handling
+
+## Simplified Source
+
+```c
+ssize_t pqsecure_raw_read(PGconn *conn, void *ptr, size_t len) {
+    ssize_t bytes_read;
+    int error_code = 0;
+
+    // Clear errno before socket operation
+    SOCK_ERRNO_SET(0);
+
+    // Perform raw socket read
+    bytes_read = recv(conn->sock, ptr, len, 0);
+
+    if (bytes_read < 0) {
+        error_code = SOCK_ERRNO;
+
+        // Handle different error conditions
+        switch (error_code) {
+            case EAGAIN:
+            case EWOULDBLOCK:
+            case EINTR:
+                // Retryable conditions - no error message
+                break;
+
+            case EPIPE:
+            case ECONNRESET:
+                // Connection closed by server
+                libpq_append_conn_error(conn,
+                    "server closed the connection unexpectedly\n"
+                    "\tThis probably means the server terminated abnormally\n"
+                    "\tbefore or while processing the request.");
+                break;
+
+            case 0:
+                // Errno didn't get set - treat as EOF
+                bytes_read = 0;
+                break;
+
+            default:
+                // Other socket errors
+                libpq_append_conn_error(conn,
+                    "could not receive data from server: %s",
+                    strerror(error_code));
+                break;
+        }
+    }
+
+    // Restore errno for caller
+    SOCK_ERRNO_SET(error_code);
+    return bytes_read;
+}
+```

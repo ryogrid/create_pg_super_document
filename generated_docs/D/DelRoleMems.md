@@ -57,3 +57,95 @@ The operation phases include:
 - Handles both complete tuple deletion and selective option removal through different RevokeRoleGrantAction values
 - Maintains referential integrity by removing shared dependency records when deleting membership grants
 - Plans all actions before execution to ensure consistency when handling multiple members
+
+## Simplified Source
+
+```c
+static void
+DelRoleMems(Oid currentUserId, const char *rolename, Oid roleid,
+            List *memberSpecs, List *memberIds,
+            Oid grantorId, GrantRoleOptions *popt, DropBehavior behavior)
+{
+    Relation    pg_authmem_rel;
+    TupleDesc   pg_authmem_dsc;
+    ListCell   *specitem;
+    ListCell   *iditem;
+    CatCList   *memlist;
+    RevokeRoleGrantAction *actions;
+    int         i;
+
+    // Validate grantor
+    grantorId = check_role_grantor(currentUserId, roleid, grantorId, false);
+
+    // Open catalog and acquire locks
+    pg_authmem_rel = table_open(AuthMemRelationId, RowExclusiveLock);
+    pg_authmem_dsc = RelationGetDescr(pg_authmem_rel);
+    LockSharedObject(AuthIdRelationId, roleid, 0, ShareUpdateExclusiveLock);
+
+    // Get all existing memberships for this role
+    memlist = SearchSysCacheList1(AUTHMEMROLEMEM, ObjectIdGetDatum(roleid));
+    actions = initialize_revoke_actions(memlist);
+
+    // Plan revoke actions for each member
+    forboth(specitem, memberSpecs, iditem, memberIds)
+    {
+        RoleSpec   *memberRole = lfirst(specitem);
+        Oid         memberid = lfirst_oid(iditem);
+
+        if (!plan_single_revoke(memlist, actions, memberid, grantorId,
+                                popt, behavior))
+        {
+            // Issue warning if membership doesn't exist
+            ereport(WARNING,
+                    errmsg("role \"%s\" has not been granted membership in role \"%s\" by role \"%s\"",
+                           get_rolespec_name(memberRole), rolename,
+                           GetUserNameFromId(grantorId, false)));
+            continue;
+        }
+    }
+
+    // Execute planned actions
+    for (i = 0; i < memlist->n_members; ++i)
+    {
+        HeapTuple           authmem_tuple;
+        Form_pg_auth_members authmem_form;
+
+        if (actions[i] == RRG_NOOP)
+            continue;
+
+        authmem_tuple = &memlist->members[i]->tuple;
+        authmem_form = (Form_pg_auth_members) GETSTRUCT(authmem_tuple);
+
+        if (actions[i] == RRG_DELETE_GRANT)
+        {
+            // Remove the entire membership entry
+            deleteSharedDependencyRecordsFor(AuthMemRelationId,
+                                              authmem_form->oid, 0);
+            CatalogTupleDelete(pg_authmem_rel, &authmem_tuple->t_self);
+        }
+        else
+        {
+            // Just turn off specific option (admin, inherit, or set)
+            HeapTuple   tuple;
+            Datum       new_record[Natts_pg_auth_members] = {0};
+            bool        new_record_nulls[Natts_pg_auth_members] = {0};
+            bool        new_record_repl[Natts_pg_auth_members] = {0};
+
+            // Set appropriate field to false based on action type
+            if (actions[i] == RRG_REMOVE_ADMIN_OPTION)
+            {
+                new_record[Anum_pg_auth_members_admin_option - 1] = BoolGetDatum(false);
+                new_record_repl[Anum_pg_auth_members_admin_option - 1] = true;
+            }
+            // Similar logic for inherit and set options...
+
+            tuple = heap_modify_tuple(authmem_tuple, pg_authmem_dsc,
+                                      new_record, new_record_nulls, new_record_repl);
+            CatalogTupleUpdate(pg_authmem_rel, &tuple->t_self, tuple);
+        }
+    }
+
+    ReleaseSysCacheList(memlist);
+    table_close(pg_authmem_rel, NoLock);
+}
+```

@@ -50,3 +50,79 @@ The function processes different cases:
 - The function is critical for cost-based optimization decisions regarding grouping strategies
 - For GROUPING SETS queries, it maintains separate estimates for different grouping approaches (sort-based vs hash-based)
 - The estimates are used downstream to choose between different grouping algorithms and determine memory requirements
+
+## Simplified Source
+
+```c
+static double
+get_number_of_groups(PlannerInfo *root, double path_rows,
+                     grouping_sets_data *gd, List *target_list)
+{
+    Query *parse = root->parse;
+    double dNumGroups;
+
+    if (parse->groupClause) {
+        List *groupExprs;
+
+        if (parse->groupingSets) {
+            // Handle GROUPING SETS: sum estimates for each grouping set
+            Assert(gd);
+            dNumGroups = 0;
+
+            // Process each rollup in grouping sets
+            foreach(lc, gd->rollups) {
+                RollupData *rollup = lfirst_node(RollupData, lc);
+
+                groupExprs = get_sortgrouplist_exprs(rollup->groupClause, target_list);
+                rollup->numGroups = 0.0;
+
+                // Estimate groups for each grouping set in this rollup
+                forboth(lc2, rollup->gsets, lc3, rollup->gsets_data) {
+                    List *gset = lfirst(lc2);
+                    GroupingSetData *gs = lfirst_node(GroupingSetData, lc3);
+
+                    double numGroups = estimate_num_groups(root, groupExprs, path_rows,
+                                                          &gset, NULL);
+                    gs->numGroups = numGroups;
+                    rollup->numGroups += numGroups;
+                }
+
+                dNumGroups += rollup->numGroups;
+            }
+
+            // Handle hash-based grouping sets separately
+            if (gd->hash_sets_idx) {
+                gd->dNumHashGroups = 0;
+                groupExprs = get_sortgrouplist_exprs(parse->groupClause, target_list);
+
+                forboth(lc, gd->hash_sets_idx, lc2, gd->unsortable_sets) {
+                    List *gset = lfirst(lc);
+                    GroupingSetData *gs = lfirst_node(GroupingSetData, lc2);
+
+                    double numGroups = estimate_num_groups(root, groupExprs, path_rows,
+                                                          &gset, NULL);
+                    gs->numGroups = numGroups;
+                    gd->dNumHashGroups += numGroups;
+                }
+
+                dNumGroups += gd->dNumHashGroups;
+            }
+        } else {
+            // Plain GROUP BY: estimate based on processed group clause
+            groupExprs = get_sortgrouplist_exprs(root->processed_groupClause, target_list);
+            dNumGroups = estimate_num_groups(root, groupExprs, path_rows, NULL, NULL);
+        }
+    } else if (parse->groupingSets) {
+        // Empty grouping sets: one result row for each grouping set
+        dNumGroups = list_length(parse->groupingSets);
+    } else if (parse->hasAggs || root->hasHavingQual) {
+        // Plain aggregation: single aggregated result
+        dNumGroups = 1;
+    } else {
+        // No grouping: pass-through
+        dNumGroups = 1;
+    }
+
+    return dNumGroups;
+}
+```

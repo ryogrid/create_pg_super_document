@@ -35,3 +35,48 @@ This function manages phase transitions in multi-phase aggregate operations, par
 
 ## Notes and Other Information
 The function includes strict phase transition validation via Assert() - newphase must be 0 or 1 (for reset) or exactly current_phase + 1. This enforces sequential phase processing. Phase 0 handling is special as it's used for hashing and requires dropping all open sorts. The tuplesort management is complex: existing input sorts are always cleaned up, output sorts become input sorts for the next phase (with performsort() called), and new output sorts are created for non-final phases.
+
+## Simplified Source
+
+```c
+static void initialize_phase(AggState *aggstate, int newphase) {
+    // Clean up existing input tuplesort
+    if (aggstate->sort_in) {
+        tuplesort_end(aggstate->sort_in);
+        aggstate->sort_in = NULL;
+    }
+
+    if (newphase <= 1) {
+        // Reset or phase 0/1: discard output tuplesort
+        if (aggstate->sort_out) {
+            tuplesort_end(aggstate->sort_out);
+            aggstate->sort_out = NULL;
+        }
+    } else {
+        // Advanced phase: convert output sort to input and perform sort
+        aggstate->sort_in = aggstate->sort_out;
+        aggstate->sort_out = NULL;
+        tuplesort_performsort(aggstate->sort_in);
+    }
+
+    // Create new output tuplesort for non-final phases
+    if (newphase > 0 && newphase < aggstate->numphases - 1) {
+        Sort *sortnode = aggstate->phases[newphase + 1].sortnode;
+        PlanState *outerNode = outerPlanState(aggstate);
+        TupleDesc tupDesc = ExecGetResultType(outerNode);
+
+        aggstate->sort_out = tuplesort_begin_heap(tupDesc,
+                                                 sortnode->numCols,
+                                                 sortnode->sortColIdx,
+                                                 sortnode->sortOperators,
+                                                 sortnode->collations,
+                                                 sortnode->nullsFirst,
+                                                 work_mem,
+                                                 NULL, TUPLESORT_NONE);
+    }
+
+    // Update current phase state
+    aggstate->current_phase = newphase;
+    aggstate->phase = &aggstate->phases[newphase];
+}
+```

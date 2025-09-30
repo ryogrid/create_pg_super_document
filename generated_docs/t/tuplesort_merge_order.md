@@ -41,3 +41,23 @@ The function enforces bounds with MINORDER (6) as the minimum merge order even i
 - The memtuples[] array is considered part of the MERGE_BUFFER_SIZE workspace in calculations
 - Even with abundant memory, very high merge orders can be slower than multi-pass merges due to cache effects
 - The balance point considers that additional tapes reduce memory available for building initial runs, potentially requiring more runs overall
+
+## Simplified Source
+
+```c
+int tuplesort_merge_order(int64 allowedMem) {
+    int mOrder;
+
+    // Calculate merge order based on memory needed per tape
+    // Each input tape needs: TAPE_BUFFER_OVERHEAD + MERGE_BUFFER_SIZE
+    // Each output tape needs: TAPE_BUFFER_OVERHEAD
+    // For balanced merge: M input tapes, M output tapes
+    mOrder = allowedMem / (2 * TAPE_BUFFER_OVERHEAD + MERGE_BUFFER_SIZE);
+
+    // Enforce reasonable bounds
+    mOrder = Max(mOrder, MINORDER);  // At least 6-way merge
+    mOrder = Min(mOrder, MAXORDER);  // At most 500-way merge
+
+    return mOrder;
+}
+```

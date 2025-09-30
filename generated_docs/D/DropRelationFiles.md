@@ -43,3 +43,37 @@ The function handles two distinct scenarios:
 - The actual file deletion is delegated to smgrdounlinkall() for atomic multi-relation deletion
 - All opened storage manager relations are properly closed to avoid resource leaks
 - This function is part of PostgreSQL's storage manager (md.c) and is essential for transaction cleanup and recovery operations
+
+## Simplified Source
+
+```c
+void DropRelationFiles(RelFileLocator *delrels, int ndelrels, bool isRedo) {
+    SMgrRelation *srels;
+    int i;
+
+    // Allocate array to hold storage manager relations
+    srels = palloc(sizeof(SMgrRelation) * ndelrels);
+
+    // Open each relation and prepare for deletion
+    for (i = 0; i < ndelrels; i++) {
+        SMgrRelation srel = smgropen(delrels[i], INVALID_PROC_NUMBER);
+
+        // During WAL replay, log the drop operation for each fork
+        if (isRedo) {
+            ForkNumber fork;
+            for (fork = 0; fork <= MAX_FORKNUM; fork++)
+                XLogDropRelation(delrels[i], fork);
+        }
+
+        srels[i] = srel;
+    }
+
+    // Perform atomic deletion of all relation files
+    smgrdounlinkall(srels, ndelrels, isRedo);
+
+    // Clean up: close all opened relations and free memory
+    for (i = 0; i < ndelrels; i++)
+        smgrclose(srels[i]);
+    pfree(srels);
+}
+```

@@ -36,3 +36,65 @@ The function determines if a junk filter is needed by examining the parent plan 
 - Only creates junk filters for SubqueryScan and CteScan parent nodes
 - The tupdesc field is filled at runtime during actual evaluation
 - Assumes standalone expressions without parent plans don't need junk filtering
+
+## Simplified Source
+
+```c
+static void
+ExecInitWholeRowVar(ExprEvalStep *scratch, Var *variable, ExprState *state)
+{
+    PlanState *parent = state->parent;
+
+    // Initialize the evaluation step for whole-row variable
+    scratch->opcode = EEOP_WHOLEROW;
+    scratch->d.wholerow.var = variable;
+    scratch->d.wholerow.first = true;
+    scratch->d.wholerow.slow = false;
+    scratch->d.wholerow.tupdesc = NULL;  // filled at runtime
+    scratch->d.wholerow.junkFilter = NULL;
+
+    // Check if we need to filter out junk columns
+    if (parent)
+    {
+        PlanState *subplan = NULL;
+
+        // Identify subplan based on parent type
+        switch (nodeTag(parent))
+        {
+            case T_SubqueryScanState:
+                subplan = ((SubqueryScanState *) parent)->subplan;
+                break;
+            case T_CteScanState:
+                subplan = ((CteScanState *) parent)->cteplanstate;
+                break;
+            default:
+                break;
+        }
+
+        if (subplan)
+        {
+            bool junk_filter_needed = false;
+
+            // Check if target list contains any junk columns
+            foreach(tlist, subplan->plan->targetlist)
+            {
+                TargetEntry *tle = (TargetEntry *) lfirst(tlist);
+                if (tle->resjunk)
+                {
+                    junk_filter_needed = true;
+                    break;
+                }
+            }
+
+            // Create junk filter if needed
+            if (junk_filter_needed)
+            {
+                scratch->d.wholerow.junkFilter =
+                    ExecInitJunkFilter(subplan->plan->targetlist,
+                                      ExecInitExtraTupleSlot(parent->state, NULL,
+                                                           &TTSOpsVirtual));
+            }
+        }
+    }
+}
+```

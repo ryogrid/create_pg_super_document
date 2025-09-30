@@ -32,3 +32,17 @@ The function performs a safety check by returning early if  is NULL, ensuring it
 - It works in conjunction with EventTriggerUndoInhibitCommandCollection to provide temporary inhibition of command collection
 - The inhibition affects the collection of DDL commands that would otherwise be made available to event trigger functions via pg_event_trigger_ddl_commands()
 - [Command](../C/Command.md) collection can be restored by calling EventTriggerUndoInhibitCommandCollection
+
+## Simplified Source
+
+```c
+void EventTriggerInhibitCommandCollection(void)
+{
+    // Skip if event trigger state not active
+    if (!currentEventTriggerState)
+        return;
+
+    // Disable command collection
+    currentEventTriggerState->commandCollectionInhibited = true;
+}
+```

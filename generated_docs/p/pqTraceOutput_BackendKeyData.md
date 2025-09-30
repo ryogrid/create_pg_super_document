@@ -52,3 +52,14 @@ The message format includes:
 - When regress mode is enabled, sensitive values may be masked or formatted differently for reproducible test output
 - This message type is critical for the cancellation protocol but is only sent once per connection
 - The secret key should be treated as sensitive information in production environments
+
+## Simplified Source
+
+```c
+static void pqTraceOutput_BackendKeyData(FILE *f, const char *message, int *cursor, bool regress) {
+    // Output backend key data message with process ID and secret key
+    fprintf(f, "BackendKeyData\t");
+    pqTraceOutputInt32(f, message, cursor, regress);  // Process ID
+    pqTraceOutputInt32(f, message, cursor, regress);  // Secret key
+}
+```

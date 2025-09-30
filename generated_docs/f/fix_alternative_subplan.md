@@ -41,3 +41,45 @@ The function also maintains tracking information in the PlannerInfo structure, m
 - Caller is responsible for recursively processing the returned subplan node
 - Critical for finalizing execution plans when multiple algorithmic approaches are available
 - Part of PostgreSQL's adaptive query execution strategy system
+
+## Simplified Source
+
+```c
+// Simplified version of fix_alternative_subplan
+static Node *
+fix_alternative_subplan(PlannerInfo *root, AlternativeSubPlan *alt_plan,
+                        double execution_count) {
+    SubPlan *best_subplan = NULL;
+    Cost best_cost = 0;
+    ListCell *cell;
+
+    // Evaluate each subplan alternative for lowest cost
+    foreach(cell, alt_plan->subplans) {
+        SubPlan *current_subplan = (SubPlan *) lfirst(cell);
+
+        // Calculate total cost: startup + (executions * per-call)
+        Cost total_cost = current_subplan->startup_cost +
+                         execution_count * current_subplan->per_call_cost;
+
+        // Keep cheapest plan (prefer later plans on ties)
+        if (best_subplan == NULL || total_cost <= best_cost) {
+            best_subplan = current_subplan;
+            best_cost = total_cost;
+        }
+
+        // Mark this subplan as being part of alternatives
+        root->isAltSubplan[current_subplan->plan_id - 1] = true;
+    }
+
+    // Mark the selected subplan as used
+    root->isUsedSubplan[best_subplan->plan_id - 1] = true;
+
+    return (Node *) best_subplan;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names for clarity
+- Added comments explaining the cost calculation logic
+- Simplified the cost comparison and selection logic
+- Focused on the core algorithm while preserving all functionality

@@ -63,3 +63,136 @@ The function maintains proper namespace context throughout recursive calls and h
 - Critical for proper handling of composite types in complex queries involving joins, subqueries, and CTEs
 - The logic parallels the parser's expandRecordVariable() function but operates in the reverse direction during decompilation
 - Includes extensive error checking for bogus variable references and missing target list entries
+
+## Simplified Source
+
+```c
+static const char *get_name_for_var_field(Var *var, int fieldno,
+                                          int levelsup, deparse_context *context) {
+    RangeTblEntry *rte;
+    AttrNumber attnum;
+    int netlevelsup;
+    deparse_namespace *dpns;
+    int varno;
+    AttrNumber varattno;
+    TupleDesc tupleDesc;
+    Node *expr;
+
+    // Handle RowExpr - extract column name directly
+    if (IsA(var, RowExpr)) {
+        RowExpr *r = (RowExpr *) var;
+        if (fieldno > 0 && fieldno <= list_length(r->colnames))
+            return strVal(list_nth(r->colnames, fieldno - 1));
+    }
+
+    // Handle Param of RECORD type - find what it refers to
+    if (IsA(var, Param)) {
+        Param *param = (Param *) var;
+        ListCell *ancestor_cell;
+
+        expr = find_param_referent(param, context, &dpns, &ancestor_cell);
+        if (expr) {
+            // Recurse with proper context
+            deparse_namespace save_dpns;
+            const char *result;
+
+            push_ancestor_plan(dpns, ancestor_cell, &save_dpns);
+            result = get_name_for_var_field((Var *) expr, fieldno, 0, context);
+            pop_ancestor_plan(dpns, &save_dpns);
+            return result;
+        }
+    }
+
+    // For non-RECORD types, use standard tuple descriptor
+    if (!IsA(var, Var) || var->vartype != RECORDOID) {
+        tupleDesc = get_expr_result_tupdesc((Node *) var, false);
+        Assert(fieldno >= 1 && fieldno <= tupleDesc->natts);
+        return NameStr(TupleDescAttr(tupleDesc, fieldno - 1)->attname);
+    }
+
+    // Find proper nesting level and namespace
+    netlevelsup = var->varlevelsup + levelsup;
+    dpns = (deparse_namespace *) list_nth(context->namespaces, netlevelsup);
+
+    // Use syntactic or semantic referent
+    if (var->varnosyn > 0 && dpns->plan == NULL) {
+        varno = var->varnosyn;
+        varattno = var->varattnosyn;
+    } else {
+        varno = var->varno;
+        varattno = var->varattno;
+    }
+
+    // Handle special variables (OUTER_VAR, INNER_VAR, INDEX_VAR)
+    if (varno == OUTER_VAR && dpns->outer_tlist) {
+        TargetEntry *tle = get_tle_by_resno(dpns->outer_tlist, varattno);
+        if (!tle) elog(ERROR, "bogus varattno for OUTER_VAR var: %d", varattno);
+
+        deparse_namespace save_dpns;
+        push_child_plan(dpns, dpns->outer_plan, &save_dpns);
+        const char *result = get_name_for_var_field((Var *) tle->expr, fieldno, levelsup, context);
+        pop_child_plan(dpns, &save_dpns);
+        return result;
+    }
+
+    // Similar handling for INNER_VAR and INDEX_VAR...
+
+    // Handle regular range table entries
+    if (varno >= 1 && varno <= list_length(dpns->rtable)) {
+        rte = rt_fetch(varno, dpns->rtable);
+        attnum = varattno;
+    } else {
+        elog(ERROR, "bogus varno: %d", varno);
+        return NULL;
+    }
+
+    // Handle whole-row reference
+    if (attnum == InvalidAttrNumber) {
+        return get_rte_attribute_name(rte, fieldno);
+    }
+
+    // Process different RTE types (simplified logic)
+    expr = (Node *) var; // default fallback
+
+    switch (rte->rtekind) {
+        case RTE_SUBQUERY:
+            // Extract from subquery target list
+            if (rte->subquery) {
+                TargetEntry *ste = get_tle_by_resno(rte->subquery->targetList, attnum);
+                if (ste && !ste->resjunk) {
+                    expr = (Node *) ste->expr;
+                    if (IsA(expr, Var)) {
+                        // Recurse into subquery context
+                        // (simplified - full implementation handles namespace setup)
+                        return get_name_for_var_field((Var *) expr, fieldno, 0, context);
+                    }
+                }
+            }
+            break;
+
+        case RTE_JOIN:
+            // Follow join alias variable
+            if (rte->joinaliasvars != NIL) {
+                expr = (Node *) list_nth(rte->joinaliasvars, attnum - 1);
+                if (IsA(expr, Var))
+                    return get_name_for_var_field((Var *) expr, fieldno,
+                                                  var->varlevelsup + levelsup, context);
+            }
+            break;
+
+        case RTE_CTE:
+            // Similar to subquery handling for CTEs
+            // (simplified - full implementation handles CTE lookup)
+            break;
+
+        default:
+            // Other types shouldn't have RECORD fields
+            break;
+    }
+
+    // Final fallback - try to get tuple descriptor
+    tupleDesc = get_expr_result_tupdesc(expr, false);
+    Assert(fieldno >= 1 && fieldno <= tupleDesc->natts);
+    return NameStr(TupleDescAttr(tupleDesc, fieldno - 1)->attname);
+}
+```

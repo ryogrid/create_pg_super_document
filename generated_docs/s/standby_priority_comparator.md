@@ -35,3 +35,21 @@ The tie-breaking mechanism using walsnd_index is noted as "utterly bogus" in the
 - Used specifically in priority-based synchronous replication mode
 - The tie-breaking behavior is explicitly acknowledged as suboptimal but preserved for test compatibility
 - Static function scope limits visibility to the syncrep.c compilation unit
+
+## Simplified Source
+
+```c
+static int
+standby_priority_comparator(const void *a, const void *b)
+{
+    const SyncRepStandbyData *sa = (const SyncRepStandbyData *) a;
+    const SyncRepStandbyData *sb = (const SyncRepStandbyData *) b;
+
+    // Sort by priority value (lower number = higher priority)
+    if (sa->sync_standby_priority != sb->sync_standby_priority)
+        return sa->sync_standby_priority - sb->sync_standby_priority;
+
+    // Break ties using WAL sender index
+    return sa->walsnd_index - sb->walsnd_index;
+}
+```

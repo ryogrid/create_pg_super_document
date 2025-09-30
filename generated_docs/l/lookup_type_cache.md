@@ -139,3 +139,87 @@ The function implements sophisticated lazy loading - it only computes expensive 
 - The flags parameter allows fine-grained control over what information is loaded
 - Special handling for composite types, domains, ranges, and multiranges
 - Maintains consistency between equality operators and hash functions
+
+## Simplified Source
+
+```c
+TypeCacheEntry *
+lookup_type_cache(Oid type_id, int flags)
+{
+    TypeCacheEntry *typentry;
+    bool found;
+
+    // Initialize hash table on first use
+    if (TypeCacheHash == NULL)
+    {
+        HASHCTL ctl;
+        ctl.keysize = sizeof(Oid);
+        ctl.entrysize = sizeof(TypeCacheEntry);
+        TypeCacheHash = hash_create("Type information cache", 64,
+                                   &ctl, HASH_ELEM | HASH_BLOBS);
+
+        // Register invalidation callbacks
+        register_cache_callbacks();
+
+        if (!CacheMemoryContext)
+            CreateCacheMemoryContext();
+    }
+
+    // Look up existing entry
+    typentry = (TypeCacheEntry *) hash_search(TypeCacheHash, &type_id,
+                                              HASH_FIND, NULL);
+
+    if (typentry == NULL)
+    {
+        // Create new entry by consulting pg_type
+        HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type_id));
+        if (!HeapTupleIsValid(tp))
+            ereport(ERROR, "type with OID %u does not exist", type_id);
+
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        if (!typtup->typisdefined)
+            ereport(ERROR, "type \"%s\" is only a shell", NameStr(typtup->typname));
+
+        // Create and initialize cache entry
+        typentry = (TypeCacheEntry *) hash_search(TypeCacheHash, &type_id,
+                                                  HASH_ENTER, &found);
+        memset(typentry, 0, sizeof(TypeCacheEntry));
+
+        // Copy basic type information from pg_type
+        copy_basic_type_info(typentry, typtup, type_id);
+
+        ReleaseSysCache(tp);
+    }
+    else if (!(typentry->flags & TCFLAGS_HAVE_PG_TYPE_DATA))
+    {
+        // Reload invalidated pg_type data
+        reload_pg_type_data(typentry, type_id);
+    }
+
+    // Load requested information based on flags
+    if (flags & operator_flags)
+        load_operator_info(typentry, flags);
+
+    if (flags & function_flags)
+        load_function_info(typentry, flags);
+
+    if ((flags & TYPECACHE_TUPDESC) &&
+        typentry->tupDesc == NULL &&
+        typentry->typtype == TYPTYPE_COMPOSITE)
+    {
+        load_typcache_tupdesc(typentry);
+    }
+
+    if ((flags & TYPECACHE_RANGE_INFO) && typentry->typtype == TYPTYPE_RANGE)
+    {
+        load_range_info(typentry);
+    }
+
+    if ((flags & TYPECACHE_DOMAIN_BASE_INFO) && typentry->typtype == TYPTYPE_DOMAIN)
+    {
+        load_domain_info(typentry, type_id);
+    }
+
+    return typentry;
+}
+```

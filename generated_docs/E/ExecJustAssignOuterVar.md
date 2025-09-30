@@ -35,3 +35,14 @@ The function serves as a thin wrapper around ExecJustAssignVarImpl, configured t
 - The function assumes that expression compilation has already validated the variable references and tuple slot compatibility
 - Marked as static and designed for inlining to minimize function call overhead in tight execution loops
 - Particularly important for nested loop joins and hash joins where the outer relation drives the join process
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustAssignOuterVar(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Assign outer tuple variable to result slot
+    return ExecJustAssignVarImpl(state, econtext->ecxt_outertuple, isnull);
+}
+```

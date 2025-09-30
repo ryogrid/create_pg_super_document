@@ -31,3 +31,20 @@ NewExplainState is a constructor function that allocates and initializes an Expl
 - Only the 'costs' option is enabled by default, reflecting PostgreSQL's standard EXPLAIN behavior
 - The StringInfo buffer is pre-allocated to handle output accumulation efficiently
 - Memory is allocated in the current memory context (typically the query execution context)
+
+## Simplified Source
+
+```c
+ExplainState *NewExplainState(void) {
+    // Allocate and zero-initialize ExplainState structure
+    ExplainState *es = (ExplainState *) palloc0(sizeof(ExplainState));
+
+    // Set default options - costs enabled by default
+    es->costs = true;
+
+    // Initialize output buffer for explain text
+    es->str = makeStringInfo();
+
+    return es;
+}
+```

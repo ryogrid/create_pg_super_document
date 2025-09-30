@@ -43,3 +43,31 @@ The caller is responsible for providing any surrounding decoration (such as pare
 - Maintains proper top-level variable handling through get_rule_expr_toplevel()
 - Provides consistent comma-separated formatting across the rule system
 - Essential for reconstructing multi-element expressions in SQL output
+
+## Simplified Source
+
+```c
+static void get_rule_list_toplevel(List *lst, deparse_context *context,
+                                  bool showimplicit)
+{
+    const char *sep;
+    ListCell *lc;
+
+    // Start with no separator
+    sep = "";
+
+    // Process each element in the list
+    foreach(lc, lst) {
+        Node *e = (Node *) lfirst(lc);
+
+        // Add separator before each element (except first)
+        appendStringInfoString(context->buf, sep);
+
+        // Deparse the expression with top-level handling
+        get_rule_expr_toplevel(e, context, showimplicit);
+
+        // Set separator for subsequent elements
+        sep = ", ";
+    }
+}
+```

@@ -43,3 +43,63 @@ This function handles the complete process of renaming a tablespace in PostgreSQ
 - Returns ObjectAddress for use in dependency tracking and event processing
 - Part of PostgreSQL's DDL command framework for tablespace management
 - Integrates with the object dependency system through post-alter hooks
+
+## Simplified Source
+
+```c
+ObjectAddress
+RenameTableSpace(const char *oldname, const char *newname)
+{
+    Oid tspId;
+    Relation rel;
+    ScanKeyData entry[1];
+    TableScanDesc scan;
+    HeapTuple tup;
+    HeapTuple newtuple;
+    Form_pg_tablespace newform;
+    ObjectAddress address;
+
+    // Open pg_tablespace catalog for modification
+    rel = table_open(TableSpaceRelationId, RowExclusiveLock);
+
+    // Search for existing tablespace by name
+    ScanKeyInit(&entry[0], Anum_pg_tablespace_spcname, BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(oldname));
+    scan = table_beginscan_catalog(rel, 1, entry);
+    tup = heap_getnext(scan, ForwardScanDirection);
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, "tablespace does not exist");
+
+    // Copy tuple for modification
+    newtuple = heap_copytuple(tup);
+    newform = (Form_pg_tablespace) GETSTRUCT(newtuple);
+    tspId = newform->oid;
+    table_endscan(scan);
+
+    // Check ownership
+    if (!object_ownercheck(TableSpaceRelationId, tspId, GetUserId()))
+        aclcheck_error(ACLCHECK_NO_PRIV, OBJECT_TABLESPACE, oldname);
+
+    // Validate new name - check reserved names
+    if (!allowSystemTableMods && IsReservedName(newname))
+        ereport(ERROR, "tablespace name with pg_ prefix is reserved");
+
+    // Check if new name already exists
+    ScanKeyInit(&entry[0], Anum_pg_tablespace_spcname, BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(newname));
+    scan = table_beginscan_catalog(rel, 1, entry);
+    tup = heap_getnext(scan, ForwardScanDirection);
+    if (HeapTupleIsValid(tup))
+        ereport(ERROR, "tablespace with new name already exists");
+    table_endscan(scan);
+
+    // Update the tablespace name
+    namestrcpy(&(newform->spcname), newname);
+    CatalogTupleUpdate(rel, &newtuple->t_self, newtuple);
+
+    // Cleanup and return
+    InvokeObjectPostAlterHook(TableSpaceRelationId, tspId, 0);
+    ObjectAddressSet(address, TableSpaceRelationId, tspId);
+    table_close(rel, NoLock);
+
+    return address;
+}
+```

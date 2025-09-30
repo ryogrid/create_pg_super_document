@@ -40,3 +40,25 @@ This function ensures that all written data is properly persisted and that the p
 - After calling this function, the accessor can no longer be used for writing operations
 - The write chunk buffer memory is freed, so attempts to write after this call would be invalid
 - This is part of the write-then-read pattern used in parallel execution where all workers write their data first, then collectively read and process it
+
+## Simplified Source
+```c
+void sts_end_write(SharedTuplestoreAccessor *accessor) {
+    // Clean up write state if currently writing
+    if (accessor->write_file != NULL) {
+        // Flush any remaining data in the buffer
+        sts_flush_chunk(accessor);
+
+        // Close write file handle
+        BufFileClose(accessor->write_file);
+
+        // Free write buffer memory
+        pfree(accessor->write_chunk);
+        accessor->write_chunk = NULL;
+        accessor->write_file = NULL;
+
+        // Mark participant as no longer writing
+        accessor->sts->participants[accessor->participant].writing = false;
+    }
+}
+```

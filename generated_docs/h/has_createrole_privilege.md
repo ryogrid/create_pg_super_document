@@ -35,3 +35,26 @@ This function determines if a role has the CREATEROLE privilege, which allows cr
 - The CREATEROLE privilege is stored in the `rolcreaterole` field of pg_authid
 - Essential for PostgreSQL's role-based access control system
 - Does not automatically grant permission to modify superuser roles - additional checks are needed
+
+## Simplified Source
+
+```c
+bool has_createrole_privilege(Oid roleid) {
+    bool result = false;
+    HeapTuple utup;
+
+    // Superusers automatically have all privileges
+    if (superuser_arg(roleid))
+        return true;
+
+    // Look up the role in pg_authid system catalog
+    utup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+    if (HeapTupleIsValid(utup)) {
+        // Check the rolcreaterole flag
+        result = ((Form_pg_authid) GETSTRUCT(utup))->rolcreaterole;
+        ReleaseSysCache(utup);
+    }
+
+    return result;
+}
+```

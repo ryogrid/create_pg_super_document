@@ -51,3 +51,98 @@ The function enforces transaction block restrictions when dropping replication s
 - Supports graceful degradation when publisher connection fails but subscription cleanup can continue
 - Updates event triggers and dependency system for proper DROP cascade handling
 - Cannot be rolled back when replication slots are involved due to non-transactional nature of slot operations
+
+## Simplified Source
+
+```c
+void
+DropSubscription(DropSubscriptionStmt *stmt, bool isTopLevel)
+{
+    Relation rel;
+    HeapTuple tup;
+    Oid subid, subowner;
+    char *subname, *conninfo, *slotname;
+    List *subworkers, *rstates;
+    WalReceiverConn *wrconn;
+    ObjectAddress myself;
+
+    // Open subscription catalog and find subscription
+    rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+    tup = SearchSysCache2(SUBSCRIPTIONNAME, MyDatabaseId, CStringGetDatum(stmt->subname));
+
+    if (!HeapTupleIsValid(tup)) {
+        table_close(rel, NoLock);
+        if (!stmt->missing_ok)
+            ereport(ERROR, "subscription does not exist");
+        else
+            ereport(NOTICE, "subscription does not exist, skipping");
+        return;
+    }
+
+    // Get subscription details and check ownership
+    subid = ((Form_pg_subscription) GETSTRUCT(tup))->oid;
+    subowner = ((Form_pg_subscription) GETSTRUCT(tup))->subowner;
+
+    if (!object_ownercheck(SubscriptionRelationId, subid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_SUBSCRIPTION, stmt->subname);
+
+    // Extract connection info and slot name
+    subname = extract_subscription_name(tup);
+    conninfo = extract_connection_info(tup);
+    slotname = extract_slot_name(tup);
+
+    // Prevent transaction block if dropping slots
+    if (slotname)
+        PreventInTransactionBlock(isTopLevel, "DROP SUBSCRIPTION");
+
+    // Lock subscription exclusively
+    LockSharedObject(SubscriptionRelationId, subid, 0, AccessExclusiveLock);
+
+    // Remove catalog entry
+    ObjectAddressSet(myself, SubscriptionRelationId, subid);
+    EventTriggerSQLDropAddObject(&myself, true, true);
+    CatalogTupleDelete(rel, &tup->t_self);
+
+    // Stop all workers
+    subworkers = logicalrep_workers_find(subid, false);
+    foreach(lc, subworkers) {
+        LogicalRepWorker *w = (LogicalRepWorker *) lfirst(lc);
+        logicalrep_worker_stop(w->subid, w->relid);
+    }
+
+    // Clean up replication origins
+    rstates = GetSubscriptionRelations(subid, true);
+    foreach(lc, rstates) {
+        SubscriptionRelState *rstate = (SubscriptionRelState *) lfirst(lc);
+        if (OidIsValid(rstate->relid)) {
+            ReplicationOriginNameForLogicalRep(subid, rstate->relid, originname, sizeof(originname));
+            replorigin_drop_by_name(originname, true, false);
+        }
+    }
+
+    // Remove dependencies and relation states
+    deleteSharedDependencyRecordsFor(SubscriptionRelationId, subid, 0);
+    RemoveSubscriptionRel(subid, InvalidOid);
+    replorigin_drop_by_name(main_originname, true, false);
+    pgstat_drop_subscription(subid);
+
+    // Drop replication slots on publisher if connected
+    if (slotname || rstates != NIL) {
+        wrconn = walrcv_connect(conninfo, true, true, must_use_password, subname, &err);
+        if (wrconn) {
+            PG_TRY();
+            {
+                // Drop tablesync slots and main slot
+                drop_subscription_slots(wrconn, rstates, slotname);
+            }
+            PG_FINALLY();
+            {
+                walrcv_disconnect(wrconn);
+            }
+            PG_END_TRY();
+        }
+    }
+
+    table_close(rel, NoLock);
+}
+```

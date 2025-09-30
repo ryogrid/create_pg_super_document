@@ -46,3 +46,49 @@ The cleanup process includes closing any temporary "tape" files used for externa
 - Supports both serial and parallel sort cleanup scenarios
 - Performance statistics are logged including disk blocks used and execution time
 - The function is designed to be safe even if called multiple times on the same state
+
+## Simplified Source
+
+```c
+static void tuplesort_free(Tuplesortstate *state) {
+    // Switch to sort context for safe cleanup
+    MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+
+    // Calculate space used for tracing (if enabled)
+    #ifdef TRACE_SORT
+    int64 spaceUsed;
+    if (state->tapeset)
+        spaceUsed = LogicalTapeSetBlocks(state->tapeset);
+    else
+        spaceUsed = (state->allowedMem - state->availMem + 1023) / 1024;
+    #endif
+
+    // Close temporary tape files for external sorts
+    if (state->tapeset)
+        LogicalTapeSetClose(state->tapeset);
+
+    // Log sort completion statistics (if tracing enabled)
+    #ifdef TRACE_SORT
+    if (trace_sort) {
+        if (state->tapeset)
+            elog(LOG, "%s of worker %d ended, %lld disk blocks used: %s",
+                 SERIAL(state) ? "external sort" : "parallel external sort",
+                 state->worker, (long long) spaceUsed, pg_rusage_show(&state->ru_start));
+        else
+            elog(LOG, "%s of worker %d ended, %lld KB used: %s",
+                 SERIAL(state) ? "internal sort" : "unperformed parallel sort",
+                 state->worker, (long long) spaceUsed, pg_rusage_show(&state->ru_start));
+    }
+    TRACE_POSTGRESQL_SORT_DONE(state->tapeset != NULL, spaceUsed);
+    #else
+    TRACE_POSTGRESQL_SORT_DONE(state->tapeset != NULL, 0L);
+    #endif
+
+    // Free sort state structure
+    FREESTATE(state);
+    MemoryContextSwitchTo(oldcontext);
+
+    // Release all working memory by resetting the sort context
+    MemoryContextReset(state->base.sortcontext);
+}
+```

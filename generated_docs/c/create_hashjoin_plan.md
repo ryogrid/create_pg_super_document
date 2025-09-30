@@ -74,3 +74,95 @@ This function creates a HashJoin execution plan node from a HashPath. Hash joins
 - Requests small target lists from inputs to minimize memory usage during hash table operations
 - Located at src/backend/optimizer/plan/createplan.c:4747-4935
 - Part of the JOIN METHODS section of the planner
+
+## Simplified Source
+
+```c
+static HashJoin *create_hashjoin_plan(PlannerInfo *root, HashPath *best_path) {
+    List *tlist = build_path_tlist(root, &best_path->jpath.path);
+
+    // Create input plans with appropriate target list sizes
+    Plan *outer_plan = create_plan_recurse(root, best_path->jpath.outerjoinpath,
+                                          (best_path->num_batches > 1) ? CP_SMALL_TLIST : 0);
+    Plan *inner_plan = create_plan_recurse(root, best_path->jpath.innerjoinpath, CP_SMALL_TLIST);
+
+    // Process join clauses
+    List *joinclauses = order_qual_clauses(root, best_path->jpath.joinrestrictinfo);
+    List *otherclauses = NIL;
+
+    if (IS_OUTER_JOIN(best_path->jpath.jointype)) {
+        extract_actual_join_clauses(joinclauses, best_path->jpath.path.parent->relids,
+                                   &joinclauses, &otherclauses);
+    } else {
+        joinclauses = extract_actual_clauses(joinclauses, false);
+    }
+
+    // Extract hash clauses and remove from join clauses
+    List *hashclauses = get_actual_clauses(best_path->path_hashclauses);
+    joinclauses = list_difference(joinclauses, hashclauses);
+
+    // Handle nested loop parameters if needed
+    if (best_path->jpath.path.param_info) {
+        joinclauses = (List *) replace_nestloop_params(root, (Node *) joinclauses);
+        otherclauses = (List *) replace_nestloop_params(root, (Node *) otherclauses);
+    }
+
+    // Arrange hash clauses with outer variable on left
+    hashclauses = get_switched_clauses(best_path->path_hashclauses,
+                                      best_path->jpath.outerjoinpath->parent->relids);
+
+    // Collect skew optimization info for single hash clause
+    Oid skewTable = InvalidOid;
+    AttrNumber skewColumn = InvalidAttrNumber;
+    bool skewInherit = false;
+
+    if (list_length(hashclauses) == 1) {
+        // Extract skew optimization parameters from single join clause
+        OpExpr *clause = (OpExpr *) linitial(hashclauses);
+        Node *node = (Node *) linitial(clause->args);
+        if (IsA(node, RelabelType))
+            node = (Node *) ((RelabelType *) node)->arg;
+        if (IsA(node, Var)) {
+            Var *var = (Var *) node;
+            RangeTblEntry *rte = root->simple_rte_array[var->varno];
+            if (rte->rtekind == RTE_RELATION) {
+                skewTable = rte->relid;
+                skewColumn = var->varattno;
+                skewInherit = rte->inh;
+            }
+        }
+    }
+
+    // Build hash key lists and operators
+    List *hashoperators = NIL, *hashcollations = NIL;
+    List *inner_hashkeys = NIL, *outer_hashkeys = NIL;
+
+    foreach(cell, hashclauses) {
+        OpExpr *hclause = lfirst_node(OpExpr, cell);
+        hashoperators = lappend_oid(hashoperators, hclause->opno);
+        hashcollations = lappend_oid(hashcollations, hclause->inputcollid);
+        outer_hashkeys = lappend(outer_hashkeys, linitial(hclause->args));
+        inner_hashkeys = lappend(inner_hashkeys, lsecond(hclause->args));
+    }
+
+    // Create Hash node for inner relation
+    Hash *hash_plan = make_hash(inner_plan, inner_hashkeys, skewTable, skewColumn, skewInherit);
+    copy_plan_costsize(&hash_plan->plan, inner_plan);
+    hash_plan->plan.startup_cost = hash_plan->plan.total_cost;
+
+    // Handle parallel execution
+    if (best_path->jpath.path.parallel_aware) {
+        hash_plan->plan.parallel_aware = true;
+        hash_plan->rows_total = best_path->inner_rows_total;
+    }
+
+    // Create HashJoin node
+    HashJoin *join_plan = make_hashjoin(tlist, joinclauses, otherclauses, hashclauses,
+                                       hashoperators, hashcollations, outer_hashkeys,
+                                       outer_plan, (Plan *) hash_plan,
+                                       best_path->jpath.jointype, best_path->jpath.inner_unique);
+
+    copy_generic_path_info(&join_plan->join.plan, &best_path->jpath.path);
+    return join_plan;
+}
+```

@@ -41,3 +41,34 @@ Memory management is carefully handled by distributing the available hash memory
 - All hash table data lives in a shared hashcontext for efficient memory management and bulk operations
 - The hash_ngroups_current counter is reset to 0, tracking the current number of groups across all hash tables
 - Existing hash tables are reset rather than destroyed and recreated, improving performance during rescans
+
+## Simplified Source
+
+```c
+static void build_hash_tables(AggState *aggstate) {
+    // Process each grouping set that needs hashing
+    for (int setno = 0; setno < aggstate->num_hashes; ++setno) {
+        AggStatePerHash perhash = &aggstate->perhash[setno];
+
+        // Reset existing hash table if already created
+        if (perhash->hashtable != NULL) {
+            ResetTupleHashTable(perhash->hashtable);
+            continue;
+        }
+
+        // Calculate memory allocation per hash table
+        Size memory = aggstate->hash_mem_limit / aggstate->num_hashes;
+
+        // Determine optimal bucket count for this grouping set
+        long nbuckets = hash_choose_num_buckets(aggstate->hashentrysize,
+                                               perhash->aggnode->numGroups,
+                                               memory);
+
+        // Create new hash table with calculated parameters
+        build_hash_table(aggstate, setno, nbuckets);
+    }
+
+    // Reset group counter
+    aggstate->hash_ngroups_current = 0;
+}
+```

@@ -50,3 +50,45 @@ The function uses COERCION_ASSIGNMENT context, which allows implicit casts that 
 - The constructName parameter helps users understand where the boolean requirement comes from
 - Set-returning functions are specifically prohibited in boolean contexts
 - Common use cases include WHERE clauses, JOIN conditions, CASE WHEN conditions, and logical operators
+
+## Simplified Source
+
+```c
+Node *
+coerce_to_boolean(ParseState *pstate, Node *node,
+                  const char *constructName)
+{
+    Oid inputTypeId = exprType(node);
+
+    // Convert to boolean if not already boolean type
+    if (inputTypeId != BOOLOID)
+    {
+        Node *newnode;
+
+        // Attempt assignment-level coercion to boolean
+        newnode = coerce_to_target_type(pstate, node, inputTypeId,
+                                      BOOLOID, -1,
+                                      COERCION_ASSIGNMENT,
+                                      COERCE_IMPLICIT_CAST,
+                                      -1);
+        if (newnode == NULL)
+            ereport(ERROR,
+                    (errcode(ERRCODE_DATATYPE_MISMATCH),
+                     errmsg("argument of %s must be type %s, not type %s",
+                            constructName, "boolean",
+                            format_type_be(inputTypeId)),
+                     parser_errposition(pstate, exprLocation(node))));
+        node = newnode;
+    }
+
+    // Check that expression doesn't return a set
+    if (expression_returns_set(node))
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("argument of %s must not return a set",
+                        constructName),
+                 parser_errposition(pstate, exprLocation(node))));
+
+    return node;
+}
+```

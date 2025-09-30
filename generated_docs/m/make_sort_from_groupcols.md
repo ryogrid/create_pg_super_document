@@ -40,3 +40,38 @@ The function performs similar array allocation and population as make_sort_from_
 - Includes error handling with elog(ERROR) if a target entry cannot be retrieved
 - The comment explains why this cannot be merged with make_sort_from_sortclauses despite their similarity
 - Located in src/backend/optimizer/plan/createplan.c at lines 6465-6505
+
+## Simplified Source
+
+```c
+static Sort *make_sort_from_groupcols(List *groupcls, AttrNumber *grpColIdx, Plan *lefttree) {
+    List *sub_tlist = lefttree->targetlist;
+    int numsortkeys = list_length(groupcls);
+
+    // Allocate arrays for sort specification
+    AttrNumber *sortColIdx = palloc(numsortkeys * sizeof(AttrNumber));
+    Oid *sortOperators = palloc(numsortkeys * sizeof(Oid));
+    Oid *collations = palloc(numsortkeys * sizeof(Oid));
+    bool *nullsFirst = palloc(numsortkeys * sizeof(bool));
+
+    // Extract sort information from group clauses
+    numsortkeys = 0;
+    foreach(cell, groupcls) {
+        SortGroupClause *grpcl = (SortGroupClause *) lfirst(cell);
+        TargetEntry *tle = get_tle_by_resno(sub_tlist, grpColIdx[numsortkeys]);
+
+        if (!tle)
+            elog(ERROR, "could not retrieve tle for sort-from-groupcols");
+
+        // Build sort specification from group clause and target entry
+        sortColIdx[numsortkeys] = tle->resno;
+        sortOperators[numsortkeys] = grpcl->sortop;
+        collations[numsortkeys] = exprCollation((Node *) tle->expr);
+        nullsFirst[numsortkeys] = grpcl->nulls_first;
+        numsortkeys++;
+    }
+
+    // Create and return Sort node
+    return make_sort(lefttree, numsortkeys, sortColIdx, sortOperators, collations, nullsFirst);
+}
+```

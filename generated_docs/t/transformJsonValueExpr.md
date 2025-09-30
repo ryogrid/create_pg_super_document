@@ -65,3 +65,124 @@ The function includes extensive error checking for invalid combinations of forma
 - Extensive validation ensures proper error reporting for invalid format/type combinations
 - Uses assertion to verify that returned JsonValueExpr nodes have formatted_expr set
 - Critical component of PostgreSQL's JSON processing infrastructure
+
+## Simplified Source
+
+```c
+static Node *
+transformJsonValueExpr(ParseState *pstate, const char *constructName,
+                      JsonValueExpr *ve, JsonFormatType default_format,
+                      Oid targettype, bool isarg) {
+    Node *expr = transformExprRecurse(pstate, (Node *) ve->raw_expr);
+    Node *rawexpr;
+    JsonFormatType format;
+    Oid exprtype;
+    int location;
+    char typcategory;
+    bool typispreferred;
+
+    // Handle unknown type by coercing to text
+    if (exprType(expr) == UNKNOWNOID) {
+        expr = coerce_to_specific_type(pstate, expr, TEXTOID, constructName);
+    }
+
+    rawexpr = expr;
+    exprtype = exprType(expr);
+    location = exprLocation(expr);
+    get_type_category_preferred(exprtype, &typcategory, &typispreferred);
+
+    // Determine format based on specifications and context
+    if (ve->format->format_type != JS_FORMAT_DEFAULT) {
+        // Validate encoding is only for bytea
+        if (ve->format->encoding != JS_ENC_DEFAULT && exprtype != BYTEAOID) {
+            ereport(ERROR, "JSON ENCODING clause only allowed for bytea input");
+        }
+
+        // Don't format existing JSON types
+        if (exprtype == JSONOID || exprtype == JSONBOID) {
+            format = JS_FORMAT_DEFAULT;
+        } else {
+            format = ve->format->format_type;
+        }
+    } else if (isarg) {
+        // Special handling for PASSING arguments - pass supported types directly
+        switch (exprtype) {
+            case BOOLOID:
+            case NUMERICOID:
+            case INT2OID: case INT4OID: case INT8OID:
+            case FLOAT4OID: case FLOAT8OID:
+            case TEXTOID: case VARCHAROID:
+            case DATEOID: case TIMEOID: case TIMETZOID:
+            case TIMESTAMPOID: case TIMESTAMPTZOID:
+                return expr;  // Pass through directly
+            default:
+                if (typcategory == TYPCATEGORY_STRING) {
+                    return expr;
+                }
+                // Convert to JSON for other types
+                break;
+        }
+        format = default_format;
+    } else {
+        // Don't format existing JSON types, use default for others
+        format = (exprtype == JSONOID || exprtype == JSONBOID)
+                 ? JS_FORMAT_DEFAULT : default_format;
+    }
+
+    // Apply formatting and coercion if needed
+    if (format != JS_FORMAT_DEFAULT ||
+        (OidIsValid(targettype) && exprtype != targettype)) {
+
+        Node *coerced;
+        bool only_allow_cast = OidIsValid(targettype);
+
+        // Validate non-string types with format restrictions
+        if (!isarg && !only_allow_cast &&
+            exprtype != BYTEAOID && typcategory != TYPCATEGORY_STRING) {
+            ereport(ERROR, "cannot use non-string types with FORMAT JSON clause");
+        }
+
+        // Handle bytea to text conversion for JSON
+        if (format == JS_FORMAT_JSON && exprtype == BYTEAOID) {
+            expr = makeJsonByteaToTextConversion(expr, ve->format, location);
+            exprtype = TEXTOID;
+        }
+
+        // Set target type if not specified
+        if (!OidIsValid(targettype)) {
+            targettype = (format == JS_FORMAT_JSONB) ? JSONBOID : JSONOID;
+        }
+
+        // Try direct coercion first
+        coerced = coerce_to_target_type(pstate, expr, exprtype, targettype, -1,
+                                       COERCION_EXPLICIT, COERCE_EXPLICIT_CAST,
+                                       location);
+
+        if (!coerced) {
+            // Fall back to to_json()/to_jsonb() functions
+            if (only_allow_cast) {
+                ereport(ERROR, "cannot cast type to target type");
+            }
+
+            Oid fnoid = (targettype == JSONOID) ? F_TO_JSON : F_TO_JSONB;
+            FuncExpr *fexpr = makeFuncExpr(fnoid, targettype, list_make1(expr),
+                                          InvalidOid, InvalidOid, COERCE_EXPLICIT_CALL);
+            fexpr->location = location;
+            coerced = (Node *) fexpr;
+        }
+
+        // Return appropriate result
+        if (coerced == expr) {
+            expr = rawexpr;
+        } else {
+            // Create JsonValueExpr with both raw and formatted expressions
+            ve = copyObject(ve);
+            ve->raw_expr = (Expr *) rawexpr;
+            ve->formatted_expr = (Expr *) coerced;
+            expr = (Node *) ve;
+        }
+    }
+
+    return expr;
+}
+```

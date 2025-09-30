@@ -48,3 +48,60 @@ The function modifies the argument expressions in place and updates the actual a
 - Updates both the argument expressions and the actual_arg_types array
 - Critical for proper functioning of statistical aggregates like rank(), dense_rank(), percent_rank(), etc.
 - Part of PostgreSQL's advanced aggregate function type system
+
+## Simplified Source
+
+```c
+static void unify_hypothetical_args(ParseState *pstate,
+                                   List *fargs,
+                                   int numAggregatedArgs,
+                                   Oid *actual_arg_types,
+                                   Oid *declared_arg_types) {
+    // Calculate argument positions
+    int numDirectArgs = list_length(fargs) - numAggregatedArgs;
+    int numNonHypotheticalArgs = numDirectArgs - numAggregatedArgs;
+
+    // Safety check for valid aggregate structure
+    if (numNonHypotheticalArgs < 0) {
+        elog(ERROR, "incorrect number of arguments to hypothetical-set aggregate");
+    }
+
+    // Process each hypothetical arg and its corresponding aggregated arg
+    for (int hargpos = numNonHypotheticalArgs; hargpos < numDirectArgs; hargpos++) {
+        int aargpos = numDirectArgs + (hargpos - numNonHypotheticalArgs);
+        ListCell *harg = list_nth_cell(fargs, hargpos);
+        ListCell *aarg = list_nth_cell(fargs, aargpos);
+
+        // Validate that declared types match between hypothetical and aggregated args
+        if (declared_arg_types[hargpos] != declared_arg_types[aargpos]) {
+            elog(ERROR, "hypothetical-set aggregate has inconsistent declared types");
+        }
+
+        // Skip if not ANY type (make_fn_arguments will handle coercion)
+        if (declared_arg_types[hargpos] != ANYOID) {
+            continue;
+        }
+
+        // Select common type, preferring aggregated argument type
+        Oid commontype = select_common_type(pstate,
+                                           list_make2(lfirst(aarg), lfirst(harg)),
+                                           "WITHIN GROUP", NULL);
+        int32 commontypmod = select_common_typmod(pstate,
+                                                 list_make2(lfirst(aarg), lfirst(harg)),
+                                                 commontype);
+
+        // Coerce both arguments to the common type
+        lfirst(harg) = coerce_type(pstate, (Node *) lfirst(harg),
+                                  actual_arg_types[hargpos],
+                                  commontype, commontypmod,
+                                  COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+        actual_arg_types[hargpos] = commontype;
+
+        lfirst(aarg) = coerce_type(pstate, (Node *) lfirst(aarg),
+                                  actual_arg_types[aargpos],
+                                  commontype, commontypmod,
+                                  COERCION_IMPLICIT, COERCE_IMPLICIT_CAST, -1);
+        actual_arg_types[aargpos] = commontype;
+    }
+}
+```

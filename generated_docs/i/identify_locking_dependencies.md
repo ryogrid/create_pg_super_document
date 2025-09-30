@@ -37,3 +37,48 @@ Most POST_DATA items are ALTER TABLE operations or equivalent commands that requ
 - Memory is allocated dynamically for the lockDeps array and resized to fit the actual number of locking dependencies
 - Assumes that TABLE and TABLE DATA dependencies in POST_DATA context require exclusive locks
 - Essential for preventing deadlocks and ensuring proper sequencing in parallel restore operations
+
+## Simplified Source
+
+```c
+static void identify_locking_dependencies(ArchiveHandle *AH, TocEntry *te) {
+    DumpId *lockids;
+    int nlockids;
+    int i;
+
+    // Only process POST_DATA items for parallel execution
+    if (te->section != SECTION_POST_DATA)
+        return;
+
+    // Skip if no dependencies
+    if (te->nDeps == 0)
+        return;
+
+    // CREATE INDEX doesn't need exclusive locks
+    if (strcmp(te->desc, "INDEX") == 0)
+        return;
+
+    // Allocate array for lock dependencies
+    lockids = (DumpId *) pg_malloc(te->nDeps * sizeof(DumpId));
+    nlockids = 0;
+
+    // Find TABLE or TABLE DATA dependencies that need locks
+    for (i = 0; i < te->nDeps; i++) {
+        DumpId depid = te->dependencies[i];
+
+        if (depid <= AH->maxDumpId && AH->tocsByDumpId[depid] != NULL &&
+            ((strcmp(AH->tocsByDumpId[depid]->desc, "TABLE DATA") == 0) ||
+             strcmp(AH->tocsByDumpId[depid]->desc, "TABLE") == 0)))
+            lockids[nlockids++] = depid;
+    }
+
+    // Store results or cleanup
+    if (nlockids == 0) {
+        free(lockids);
+        return;
+    }
+
+    te->lockDeps = pg_realloc(lockids, nlockids * sizeof(DumpId));
+    te->nLockDeps = nlockids;
+}
+```

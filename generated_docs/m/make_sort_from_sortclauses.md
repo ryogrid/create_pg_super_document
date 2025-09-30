@@ -36,3 +36,39 @@ The function allocates arrays to hold the sorting specification and iterates thr
 - It uses palloc() for memory allocation, which is PostgreSQL's memory management system
 - The conversion from list to arrays is necessary because the executor expects array-based sort specifications for performance reasons
 - Located in src/backend/optimizer/plan/createplan.c at lines 6416-6464
+
+## Simplified Source
+
+```c
+Sort *
+make_sort_from_sortclauses(List *sortcls, Plan *lefttree)
+{
+    List *sub_tlist = lefttree->targetlist;
+    int numsortkeys = list_length(sortcls);
+
+    // Allocate arrays for sort specification
+    AttrNumber *sortColIdx = palloc(numsortkeys * sizeof(AttrNumber));
+    Oid *sortOperators = palloc(numsortkeys * sizeof(Oid));
+    Oid *collations = palloc(numsortkeys * sizeof(Oid));
+    bool *nullsFirst = palloc(numsortkeys * sizeof(bool));
+
+    // Convert each sort clause to array elements
+    int keyno = 0;
+    foreach(cell, sortcls)
+    {
+        SortGroupClause *sortcl = lfirst(cell);
+        TargetEntry *tle = get_sortgroupclause_tle(sortcl, sub_tlist);
+
+        sortColIdx[keyno] = tle->resno;
+        sortOperators[keyno] = sortcl->sortop;
+        collations[keyno] = exprCollation(tle->expr);
+        nullsFirst[keyno] = sortcl->nulls_first;
+        keyno++;
+    }
+
+    // Create and return the Sort node
+    return make_sort(lefttree, numsortkeys,
+                     sortColIdx, sortOperators,
+                     collations, nullsFirst);
+}
+```

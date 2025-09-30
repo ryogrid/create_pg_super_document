@@ -50,3 +50,110 @@ The function performs comprehensive message validation by comparing the actual b
 - The function outputs tab-separated format suitable for parsing by analysis tools
 - CopyData messages are intentionally not fully traced to reduce logging overhead
 - Message validation helps detect protocol implementation bugs and data corruption issues
+
+## Simplified Source
+
+```c
+void pqTraceOutputMessage(PGconn *conn, const char *message, bool toServer) {
+    char id;
+    int length;
+    char *prefix = toServer ? "F" : "B";
+    int logCursor = 0;
+    bool regress = (conn->traceFlags & PQTRACE_REGRESS_MODE) != 0;
+
+    // Print timestamp if not suppressed
+    if ((conn->traceFlags & PQTRACE_SUPPRESS_TIMESTAMPS) == 0) {
+        char timestr[128];
+        pqTraceFormatTimestamp(timestr, sizeof(timestr));
+        fprintf(conn->Pfdebug, "%s\t", timestr);
+    }
+
+    // Extract message type and length
+    id = message[logCursor++];
+    memcpy(&length, message + logCursor, 4);
+    length = (int) pg_ntoh32(length);
+    logCursor += 4;
+
+    // Print message header (suppress length for certain messages in regress mode)
+    if (regress && !toServer && (id == PqMsg_ErrorResponse || id == PqMsg_NoticeResponse))
+        fprintf(conn->Pfdebug, "%s\tNN\t", prefix);
+    else
+        fprintf(conn->Pfdebug, "%s\t%d\t", prefix, length);
+
+    // Dispatch to appropriate message handler based on message type
+    switch (id) {
+        case PqMsg_ParseComplete:
+        case PqMsg_BindComplete:
+        case PqMsg_CloseComplete:
+        case PqMsg_CopyDone:
+        case PqMsg_EmptyQueryResponse:
+        case PqMsg_NoData:
+        case PqMsg_PortalSuspended:
+        case PqMsg_Terminate:
+            fprintf(conn->Pfdebug, "MessageName");  // Simple messages with no content
+            break;
+
+        case PqMsg_Query:
+            pqTraceOutput_Query(conn->Pfdebug, message, &logCursor);
+            break;
+
+        case PqMsg_Parse:
+            pqTraceOutput_Parse(conn->Pfdebug, message, &logCursor, regress);
+            break;
+
+        case PqMsg_Bind:
+            pqTraceOutput_Bind(conn->Pfdebug, message, &logCursor);
+            break;
+
+        case PqMsg_Execute:
+            // Handle shared identifier between Execute(F) and ErrorResponse(B)
+            if (toServer)
+                pqTraceOutput_Execute(conn->Pfdebug, message, &logCursor, regress);
+            else
+                pqTraceOutput_ErrorResponse(conn->Pfdebug, message, &logCursor, regress);
+            break;
+
+        case PqMsg_Describe:
+            // Handle shared identifier between Describe(F) and DataRow(B)
+            if (toServer)
+                pqTraceOutput_Describe(conn->Pfdebug, message, &logCursor);
+            else
+                pqTraceOutput_DataRow(conn->Pfdebug, message, &logCursor);
+            break;
+
+        case PqMsg_Sync:
+            // Handle shared identifier between Sync(F) and ParameterStatus(B)
+            if (toServer)
+                fprintf(conn->Pfdebug, "Sync");
+            else
+                pqTraceOutput_ParameterStatus(conn->Pfdebug, message, &logCursor);
+            break;
+
+        case PqMsg_CopyData:
+            // Intentionally skip COPY data to reduce logging overhead
+            break;
+
+        // Additional message types handled by specialized functions
+        case PqMsg_NotificationResponse:
+        case PqMsg_CommandComplete:
+        case PqMsg_AuthenticationRequest:
+        case PqMsg_RowDescription:
+        case PqMsg_ReadyForQuery:
+            // Each calls its respective pqTraceOutput_* function
+            break;
+
+        default:
+            fprintf(conn->Pfdebug, "Unknown message: %02x", id);
+            break;
+    }
+
+    fputc('\n', conn->Pfdebug);
+
+    // Validate message length consumption
+    if (logCursor - 1 != length) {
+        fprintf(conn->Pfdebug,
+                "mismatched message length: consumed %d, expected %d\n",
+                logCursor - 1, length);
+    }
+}
+```

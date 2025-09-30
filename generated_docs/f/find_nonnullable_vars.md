@@ -31,3 +31,15 @@ The function returns variable information as a multibitmapset (List of Bitmapset
 - It expects expressions to be in AND/OR flattened and implicit-AND format
 - The returned multibitmapset structure efficiently represents variable constraints across multiple relations
 - This function is part of PostgreSQL's query optimization infrastructure for handling outer join reduction and null-aware optimizations
+
+## Simplified Source
+
+```c
+List *find_nonnullable_vars(Node *clause)
+{
+    // Delegate to walker function with top_level=true
+    // Returns a multibitmapset showing which variables
+    // must be non-null for the clause to return TRUE
+    return find_nonnullable_vars_walker(clause, true);
+}
+```

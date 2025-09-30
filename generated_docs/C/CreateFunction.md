@@ -49,3 +49,152 @@ The function handles both regular functions and procedures, with special logic f
 - Coordinates with the parser state to provide accurate error locations and context
 - Returns ObjectAddress for dependency tracking and object management
 - Central orchestrator in PostgreSQL's function DDL implementation, calling multiple specialized helper functions
+
+## Simplified Source
+
+```c
+ObjectAddress
+CreateFunction(ParseState *pstate, CreateFunctionStmt *stmt)
+{
+    char *funcname;
+    Oid namespaceId, languageOid, languageValidator;
+    char *language = NULL;
+    oidvector *parameterTypes;
+    List *parameterTypes_list = NIL;
+    ArrayType *allParameterTypes, *parameterModes, *parameterNames;
+    List *inParameterNames_list = NIL;
+    List *parameterDefaults;
+    Oid variadicArgType, requiredResultType;
+    Oid prorettype;
+    bool returnsSet, isWindowFunc, isStrict, security, isLeakProof;
+    char volatility, parallel;
+    ArrayType *proconfig;
+    float4 procost = -1, prorows = -1;
+    Oid prosupport = InvalidOid;
+    List *as_clause;
+    char *prosrc_str, *probin_str;
+    Node *prosqlbody;
+
+    // Get namespace and check creation privileges
+    namespaceId = QualifiedNameGetCreationNamespace(stmt->funcname, &funcname);
+
+    AclResult aclresult = object_aclcheck(NamespaceRelationId, namespaceId, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK) {
+        aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(namespaceId));
+    }
+
+    // Set default attributes
+    isWindowFunc = false;
+    isStrict = false;
+    security = false;
+    isLeakProof = false;
+    volatility = PROVOLATILE_VOLATILE;
+    proconfig = NULL;
+    parallel = PROPARALLEL_UNSAFE;
+
+    // Parse function attributes from options
+    compute_function_attributes(pstate, stmt->is_procedure, stmt->options,
+                               &as_clause, &language, NULL,
+                               &isWindowFunc, &volatility, &isStrict,
+                               &security, &isLeakProof, &proconfig,
+                               &procost, &prorows, &prosupport, &parallel);
+
+    // Default language to SQL if SQL body provided
+    if (!language) {
+        if (stmt->sql_body)
+            language = "sql";
+        else
+            ereport(ERROR, "no language specified");
+    }
+
+    // Validate language exists and check permissions
+    HeapTuple languageTuple = SearchSysCache1(LANGNAME, PointerGetDatum(language));
+    if (!HeapTupleIsValid(languageTuple)) {
+        ereport(ERROR, "language does not exist");
+    }
+
+    Form_pg_language languageStruct = (Form_pg_language) GETSTRUCT(languageTuple);
+    languageOid = languageStruct->oid;
+
+    // Check language permissions
+    if (languageStruct->lanpltrusted) {
+        // Trusted language - need USAGE privilege
+        aclresult = object_aclcheck(LanguageRelationId, languageOid, GetUserId(), ACL_USAGE);
+        if (aclresult != ACLCHECK_OK) {
+            aclcheck_error(aclresult, OBJECT_LANGUAGE, NameStr(languageStruct->lanname));
+        }
+    } else {
+        // Untrusted language - must be superuser
+        if (!superuser()) {
+            aclcheck_error(ACLCHECK_NO_PRIV, OBJECT_LANGUAGE, NameStr(languageStruct->lanname));
+        }
+    }
+
+    languageValidator = languageStruct->lanvalidator;
+    ReleaseSysCache(languageTuple);
+
+    // Only superuser can create leakproof functions
+    if (isLeakProof && !superuser()) {
+        ereport(ERROR, "only superuser can define a leakproof function");
+    }
+
+    // Process parameter list
+    interpret_function_parameter_list(pstate, stmt->parameters, languageOid,
+                                    stmt->is_procedure ? OBJECT_PROCEDURE : OBJECT_FUNCTION,
+                                    &parameterTypes, &parameterTypes_list,
+                                    &allParameterTypes, &parameterModes, &parameterNames,
+                                    &inParameterNames_list, &parameterDefaults,
+                                    &variadicArgType, &requiredResultType);
+
+    // Determine return type
+    if (stmt->is_procedure) {
+        prorettype = requiredResultType ? requiredResultType : VOIDOID;
+        returnsSet = false;
+    } else if (stmt->returnType) {
+        compute_return_type(stmt->returnType, languageOid, &prorettype, &returnsSet);
+        if (OidIsValid(requiredResultType) && prorettype != requiredResultType) {
+            ereport(ERROR, "function result type conflicts with OUT parameters");
+        }
+    } else if (OidIsValid(requiredResultType)) {
+        prorettype = requiredResultType;
+        returnsSet = false;
+    } else {
+        ereport(ERROR, "function result type must be specified");
+    }
+
+    // Process function body (AS clause or SQL body)
+    interpret_AS_clause(languageOid, language, funcname, as_clause, stmt->sql_body,
+                       parameterTypes_list, inParameterNames_list,
+                       &prosrc_str, &probin_str, &prosqlbody,
+                       pstate->p_sourcetext);
+
+    // Set default cost and rows if not specified
+    if (procost < 0) {
+        if (languageOid == INTERNALlanguageId || languageOid == ClanguageId)
+            procost = 1;
+        else
+            procost = 100;
+    }
+
+    if (prorows < 0) {
+        if (returnsSet)
+            prorows = 1000;
+        else
+            prorows = 0;
+    } else if (!returnsSet) {
+        ereport(ERROR, "ROWS not applicable when function does not return a set");
+    }
+
+    // Create the function in the catalog
+    return ProcedureCreate(funcname, namespaceId, stmt->replace, returnsSet,
+                          prorettype, GetUserId(), languageOid, languageValidator,
+                          prosrc_str, probin_str, prosqlbody,
+                          stmt->is_procedure ? PROKIND_PROCEDURE :
+                          (isWindowFunc ? PROKIND_WINDOW : PROKIND_FUNCTION),
+                          security, isLeakProof, isStrict, volatility, parallel,
+                          parameterTypes, PointerGetDatum(allParameterTypes),
+                          PointerGetDatum(parameterModes), PointerGetDatum(parameterNames),
+                          parameterDefaults, PointerGetDatum(NULL),
+                          PointerGetDatum(proconfig), prosupport, procost, prorows);
+}
+```

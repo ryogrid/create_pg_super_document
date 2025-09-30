@@ -40,3 +40,29 @@ This optimization is particularly effective for queries like "SELECT MIN(column)
 - The MinMaxAggInfo list is populated only when a Plan is built from a MinMaxAggPath
 - Critical for the min/max aggregate optimization that can significantly improve query performance for appropriate queries
 - Part of the broader query optimization framework that transforms high-level SQL constructs into efficient execution plans
+
+## Simplified Source
+
+```c
+Param *
+find_minmax_agg_replacement_param(PlannerInfo *root, Aggref *aggref)
+{
+    // Only check single-argument aggregates with optimization list
+    if (root->minmax_aggs != NIL && list_length(aggref->args) == 1)
+    {
+        TargetEntry *target = (TargetEntry *) linitial(aggref->args);
+
+        // Search for matching aggregate in optimization list
+        foreach(lc, root->minmax_aggs)
+        {
+            MinMaxAggInfo *mminfo = (MinMaxAggInfo *) lfirst(lc);
+
+            // Check if function and target expression match
+            if (mminfo->aggfnoid == aggref->aggfnoid &&
+                equal(mminfo->target, target->expr))
+                return mminfo->param;
+        }
+    }
+    return NULL;
+}
+```

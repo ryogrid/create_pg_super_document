@@ -50,3 +50,174 @@ The function operates in a stateful manner, respecting the connection's async st
 - Includes sophisticated error recovery mechanisms for malformed messages and buffer management
 - Critical for libpq's asynchronous operation model, allowing non-blocking query processing
 - The parsing loop continues until either the input buffer is exhausted or a state change requires stopping
+
+## Simplified Source
+
+```c
+void pqParseInput3(PGconn *conn) {
+    char id;
+    int msgLength;
+    int avail;
+
+    // Main message processing loop
+    for (;;) {
+        // Read message type and length
+        conn->inCursor = conn->inStart;
+        if (pqGetc(&id, conn) || pqGetInt(&msgLength, 4, conn))
+            return;
+
+        // Validate message format
+        if (msgLength < 4 || (msgLength > 30000 && !VALID_LONG_MESSAGE_TYPE(id))) {
+            handleSyncLoss(conn, id, msgLength);
+            return;
+        }
+
+        // Check if complete message is available
+        msgLength -= 4;
+        avail = conn->inEnd - conn->inCursor;
+        if (avail < msgLength) {
+            // Ensure buffer can hold the message
+            if (pqCheckInBufferSpace(conn->inCursor + msgLength, conn))
+                handleSyncLoss(conn, id, msgLength);
+            return;
+        }
+
+        // Handle special messages that can arrive in any state
+        if (id == PqMsg_NotificationResponse) {
+            if (getNotify(conn)) return;
+        }
+        else if (id == PqMsg_NoticeResponse) {
+            if (pqGetErrorNotice3(conn, false)) return;
+        }
+        // Handle messages based on connection state
+        else if (conn->asyncStatus != PGASYNC_BUSY) {
+            if (conn->asyncStatus != PGASYNC_IDLE) return;
+
+            // Handle unexpected messages in IDLE state
+            if (id == PqMsg_ErrorResponse) {
+                if (pqGetErrorNotice3(conn, false)) return;
+            }
+            else if (id == PqMsg_ParameterStatus) {
+                if (getParameterStatus(conn)) return;
+            }
+            else {
+                // Skip unexpected message
+                pqInternalNotice(&conn->noticeHooks,
+                    "message type 0x%02x arrived from server while idle", id);
+                conn->inCursor += msgLength;
+            }
+        }
+        else {
+            // Process messages in BUSY state
+            switch (id) {
+                case PqMsg_CommandComplete:
+                    // Handle command completion
+                    if (pqGets(&conn->workBuffer, conn)) return;
+                    if (!pgHavePendingResult(conn)) {
+                        conn->result = PQmakeEmptyPGresult(conn, PGRES_COMMAND_OK);
+                        if (!conn->result) {
+                            libpq_append_conn_error(conn, "out of memory");
+                            pqSaveErrorResult(conn);
+                        }
+                    }
+                    if (conn->result)
+                        strlcpy(conn->result->cmdStatus, conn->workBuffer.data, CMDSTATUS_LEN);
+                    conn->asyncStatus = PGASYNC_READY;
+                    break;
+
+                case PqMsg_ErrorResponse:
+                    if (pqGetErrorNotice3(conn, true)) return;
+                    conn->asyncStatus = PGASYNC_READY;
+                    break;
+
+                case PqMsg_ReadyForQuery:
+                    if (getReadyForQuery(conn)) return;
+                    // Handle pipeline or normal query completion
+                    if (conn->pipelineStatus != PQ_PIPELINE_OFF) {
+                        conn->result = PQmakeEmptyPGresult(conn, PGRES_PIPELINE_SYNC);
+                        if (!conn->result) {
+                            libpq_append_conn_error(conn, "out of memory");
+                            pqSaveErrorResult(conn);
+                        } else {
+                            conn->pipelineStatus = PQ_PIPELINE_ON;
+                            conn->asyncStatus = PGASYNC_READY;
+                        }
+                    } else {
+                        pqCommandQueueAdvance(conn, true, false);
+                        conn->asyncStatus = PGASYNC_IDLE;
+                    }
+                    break;
+
+                case PqMsg_RowDescription:
+                    // Handle row description or skip if in error state
+                    if (conn->error_result ||
+                        (conn->result && conn->result->resultStatus == PGRES_FATAL_ERROR)) {
+                        conn->inCursor += msgLength;
+                    }
+                    else if (!conn->result ||
+                             (conn->cmd_queue_head &&
+                              conn->cmd_queue_head->queryclass == PGQUERY_DESCRIBE)) {
+                        if (getRowDescriptions(conn, msgLength)) return;
+                    }
+                    else {
+                        conn->asyncStatus = PGASYNC_READY;
+                        return;
+                    }
+                    break;
+
+                case PqMsg_DataRow:
+                    // Process data rows for query results
+                    if (conn->result &&
+                        (conn->result->resultStatus == PGRES_TUPLES_OK ||
+                         conn->result->resultStatus == PGRES_TUPLES_CHUNK)) {
+                        if (getAnotherTuple(conn, msgLength)) return;
+                    }
+                    else if (conn->error_result ||
+                             (conn->result && conn->result->resultStatus == PGRES_FATAL_ERROR)) {
+                        conn->inCursor += msgLength;
+                    }
+                    else {
+                        libpq_append_conn_error(conn, "server sent data without row description");
+                        pqSaveErrorResult(conn);
+                        conn->inCursor += msgLength;
+                    }
+                    break;
+
+                // Handle various COPY operations
+                case PqMsg_CopyInResponse:
+                    if (getCopyStart(conn, PGRES_COPY_IN)) return;
+                    conn->asyncStatus = PGASYNC_COPY_IN;
+                    break;
+
+                case PqMsg_CopyOutResponse:
+                    if (getCopyStart(conn, PGRES_COPY_OUT)) return;
+                    conn->asyncStatus = PGASYNC_COPY_OUT;
+                    conn->copy_already_done = 0;
+                    break;
+
+                default:
+                    // Handle other message types (ParseComplete, BindComplete, etc.)
+                    // or report unexpected messages
+                    libpq_append_conn_error(conn, "unexpected response from server");
+                    pqSaveErrorResult(conn);
+                    conn->asyncStatus = PGASYNC_READY;
+                    conn->inCursor += msgLength;
+                    break;
+            }
+        }
+
+        // Validate message consumption and advance buffer position
+        if (conn->inCursor == conn->inStart + 5 + msgLength) {
+            if (conn->Pfdebug)
+                pqTraceOutputMessage(conn, conn->inBuffer + conn->inStart, false);
+            conn->inStart = conn->inCursor;
+        }
+        else {
+            libpq_append_conn_error(conn, "message contents do not agree with length");
+            pqSaveErrorResult(conn);
+            conn->asyncStatus = PGASYNC_READY;
+            conn->inStart += 5 + msgLength;
+        }
+    }
+}
+```

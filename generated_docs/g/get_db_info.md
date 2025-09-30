@@ -78,3 +78,73 @@ The function supports extracting a comprehensive set of database properties incl
 - Properly manages locks and cache references to prevent resource leaks
 - Central point for database attribute extraction used by multiple database management commands
 - Returns false if database doesn't exist, allowing callers to handle missing databases appropriately
+
+## Simplified Source
+
+```c
+static bool
+get_db_info(const char *name, LOCKMODE lockmode, ...)
+{
+    bool result = false;
+    Relation relation;
+
+    // Open pg_database catalog for reading
+    relation = table_open(DatabaseRelationId, AccessShareLock);
+
+    // Retry loop to handle concurrent database renames
+    for (;;) {
+        ScanKeyData scanKey;
+        SysScanDesc scan;
+        HeapTuple tuple;
+        Oid dbOid;
+
+        // Search for database by name (no syscache available)
+        ScanKeyInit(&scanKey, Anum_pg_database_datname,
+                   BTEqualStrategyNumber, F_NAMEEQ, CStringGetDatum(name));
+
+        scan = systable_beginscan(relation, DatabaseNameIndexId, true,
+                                 NULL, 1, &scanKey);
+        tuple = systable_getnext(scan);
+
+        if (!HeapTupleIsValid(tuple)) {
+            // Database not found
+            systable_endscan(scan);
+            break;
+        }
+
+        dbOid = ((Form_pg_database) GETSTRUCT(tuple))->oid;
+        systable_endscan(scan);
+
+        // Lock the database if requested
+        if (lockmode != NoLock)
+            LockSharedObject(DatabaseRelationId, dbOid, 0, lockmode);
+
+        // Re-fetch tuple by OID to handle race conditions
+        tuple = SearchSysCache1(DATABASEOID, ObjectIdGetDatum(dbOid));
+        if (HeapTupleIsValid(tuple)) {
+            Form_pg_database dbform = (Form_pg_database) GETSTRUCT(tuple);
+
+            // Verify name still matches (handles renames)
+            if (strcmp(name, NameStr(dbform->datname)) == 0) {
+                // Extract all requested database attributes
+                if (dbIdP) *dbIdP = dbOid;
+                if (ownerIdP) *ownerIdP = dbform->datdba;
+                if (encodingP) *encodingP = dbform->encoding;
+                // ... (extract other attributes as needed)
+
+                ReleaseSysCache(tuple);
+                result = true;
+                break;
+            }
+            ReleaseSysCache(tuple);
+        }
+
+        // Retry if database was renamed during lookup
+        if (lockmode != NoLock)
+            UnlockSharedObject(DatabaseRelationId, dbOid, 0, lockmode);
+    }
+
+    table_close(relation, AccessShareLock);
+    return result;
+}
+```

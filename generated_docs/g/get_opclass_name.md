@@ -41,3 +41,38 @@ The function performs a system catalog lookup to retrieve operator class informa
 - Automatically handles schema qualification based on search path visibility
 - Uses system cache lookups for efficient operator class information retrieval
 - Part of the rule decompilation system used for displaying index definitions and other SQL constructs
+
+## Simplified Source
+
+```c
+static void get_opclass_name(Oid opclass, Oid actual_datatype, StringInfo buf) {
+    HeapTuple ht_opc;
+    Form_pg_opclass opcrec;
+    char *opcname;
+    char *nspname;
+
+    // Look up operator class in system cache
+    ht_opc = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclass));
+    if (!HeapTupleIsValid(ht_opc))
+        elog(ERROR, "cache lookup failed for opclass %u", opclass);
+    opcrec = (Form_pg_opclass) GETSTRUCT(ht_opc);
+
+    // Only output name if not the default for this data type
+    if (!OidIsValid(actual_datatype) ||
+        GetDefaultOpClass(actual_datatype, opcrec->opcmethod) != opclass) {
+
+        opcname = NameStr(opcrec->opcname);
+
+        // Add schema qualification if needed
+        if (OpclassIsVisible(opclass))
+            appendStringInfo(buf, " %s", quote_identifier(opcname));
+        else {
+            nspname = get_namespace_name_or_temp(opcrec->opcnamespace);
+            appendStringInfo(buf, " %s.%s",
+                             quote_identifier(nspname),
+                             quote_identifier(opcname));
+        }
+    }
+    ReleaseSysCache(ht_opc);
+}
+```

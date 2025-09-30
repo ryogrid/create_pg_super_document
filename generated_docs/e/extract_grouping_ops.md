@@ -37,3 +37,28 @@ The function allocates memory for the result array using palloc() and iterates t
 - The function assumes all SortGroupClause entries have valid equality operator OIDs
 - Used in conjunction with other grouping extraction functions to prepare complete operator and collation information for query execution plans
 - Located in src/backend/optimizer/util/tlist.c:463-488
+
+## Simplified Source
+
+```c
+Oid *
+extract_grouping_ops(List *groupClause)
+{
+    int numCols = list_length(groupClause);
+    Oid *groupOperators = (Oid *) palloc(sizeof(Oid) * numCols);
+    int colno = 0;
+
+    // Extract equality operator from each grouping clause
+    foreach(glitem, groupClause)
+    {
+        SortGroupClause *groupcl = (SortGroupClause *) lfirst(glitem);
+
+        // Store the equality operator OID
+        groupOperators[colno] = groupcl->eqop;
+        Assert(OidIsValid(groupOperators[colno]));
+        colno++;
+    }
+
+    return groupOperators;
+}
+```

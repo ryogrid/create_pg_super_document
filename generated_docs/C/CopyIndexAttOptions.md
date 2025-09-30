@@ -42,3 +42,28 @@ This ensures that modifications to the copied options won't affect the original 
 - Uses PostgreSQL's datum copying mechanism to ensure proper deep copying of variable-length data
 - The returned array should be freed appropriately when no longer needed
 - Essential for maintaining data integrity when index attribute options need to be cached or transferred between contexts
+
+## Simplified Source
+
+```c
+static bytea **CopyIndexAttOptions(bytea **srcopts, int natts) {
+    // Allocate array for copied options
+    bytea **opts = palloc(sizeof(*opts) * natts);
+
+    // Copy each option, handling NULL entries
+    for (int i = 0; i < natts; i++) {
+        bytea *opt = srcopts[i];
+
+        if (opt == NULL) {
+            opts[i] = NULL;
+        } else {
+            // Deep copy the bytea structure
+            opts[i] = (bytea *) DatumGetPointer(
+                datumCopy(PointerGetDatum(opt), false, -1)
+            );
+        }
+    }
+
+    return opts;
+}
+```

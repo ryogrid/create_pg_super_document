@@ -35,3 +35,19 @@ The function follows the same logic as the PageSetPrunable macro but operates on
 - Only updates the prunable XID if the new XID is earlier than the currently recorded one
 - Works in conjunction with the PageSetPrunable macro logic
 - Part of PostgreSQL's heap pruning mechanism for HOT (Heap-Only Tuples) cleanup
+
+## Simplified Source
+
+```c
+static void heap_prune_record_prunable(PruneState *prstate, TransactionId xid) {
+    // Record the lowest soon-prunable XID for this page
+    // This matches PageSetPrunable macro logic but uses working state
+    Assert(TransactionIdIsNormal(xid));
+
+    // Update to earlier XID if this one is smaller
+    if (!TransactionIdIsValid(prstate->new_prune_xid) ||
+        TransactionIdPrecedes(xid, prstate->new_prune_xid)) {
+        prstate->new_prune_xid = xid;
+    }
+}
+```

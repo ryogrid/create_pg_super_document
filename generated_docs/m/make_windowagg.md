@@ -59,3 +59,60 @@ This static function constructs a WindowAgg plan node that handles window functi
 - Window functions can be stacked, with `topWindow` indicating the outermost window operation
 - Frame options use bit flags to encode different frame types (ROWS, RANGE, GROUPS) and boundary specifications
 - [Range](../R/Range.md) frames require special functions (`startInRangeFunc`, `endInRangeFunc`) to compute frame boundaries based on value ranges rather than row counts
+
+## Simplified Source
+
+```c
+static WindowAgg *
+make_windowagg(List *tlist, Index winref,
+               int partNumCols, AttrNumber *partColIdx, Oid *partOperators, Oid *partCollations,
+               int ordNumCols, AttrNumber *ordColIdx, Oid *ordOperators, Oid *ordCollations,
+               int frameOptions, Node *startOffset, Node *endOffset,
+               Oid startInRangeFunc, Oid endInRangeFunc,
+               Oid inRangeColl, bool inRangeAsc, bool inRangeNullsFirst,
+               List *runCondition, List *qual, bool topWindow, Plan *lefttree)
+{
+    WindowAgg *node = makeNode(WindowAgg);
+    Plan *plan = &node->plan;
+
+    // Configure window specification
+    node->winref = winref;
+
+    // Set up partitioning information
+    node->partNumCols = partNumCols;
+    node->partColIdx = partColIdx;
+    node->partOperators = partOperators;
+    node->partCollations = partCollations;
+
+    // Set up ordering information
+    node->ordNumCols = ordNumCols;
+    node->ordColIdx = ordColIdx;
+    node->ordOperators = ordOperators;
+    node->ordCollations = ordCollations;
+
+    // Configure frame specification
+    node->frameOptions = frameOptions;
+    node->startOffset = startOffset;
+    node->endOffset = endOffset;
+
+    // Set up range frame functions
+    node->startInRangeFunc = startInRangeFunc;
+    node->endInRangeFunc = endInRangeFunc;
+    node->inRangeColl = inRangeColl;
+    node->inRangeAsc = inRangeAsc;
+    node->inRangeNullsFirst = inRangeNullsFirst;
+
+    // Configure optimization and execution options
+    node->runCondition = runCondition;
+    node->runConditionOrig = runCondition;  // Duplicate for EXPLAIN
+    node->topWindow = topWindow;
+
+    // Set up basic plan structure
+    plan->targetlist = tlist;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+    plan->qual = qual;
+
+    return node;
+}
+```

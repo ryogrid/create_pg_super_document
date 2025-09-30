@@ -36,3 +36,40 @@ On successful lookup, the function copies the username into the provided buffer 
 - Error messages are localized using the  macro for internationalization support
 - Part of PostgreSQL's portability layer, providing consistent user lookup across different platforms
 - The function handles both lookup failures (user doesn't exist) and system errors (permission issues, etc.) with distinct error messages
+
+## Simplified Source
+
+```c
+bool pg_get_user_name(uid_t user_id, char *buffer, size_t buflen) {
+    char pwd_buffer[BUFSIZ];
+    struct passwd pwd_struct;
+    struct passwd *pwd_result = NULL;
+    int error_code;
+
+    // Perform thread-safe user lookup
+    error_code = getpwuid_r(user_id, &pwd_struct, pwd_buffer,
+                           sizeof(pwd_buffer), &pwd_result);
+
+    if (pwd_result != NULL) {
+        // Success - copy username to buffer
+        strlcpy(buffer, pwd_result->pw_name, buflen);
+        return true;
+    }
+
+    // Handle lookup failure
+    if (error_code != 0) {
+        // System error occurred
+        snprintf(buffer, buflen,
+                _("could not look up local user ID %d: %s"),
+                (int) user_id,
+                strerror_r(error_code, pwd_buffer, sizeof(pwd_buffer)));
+    } else {
+        // User does not exist
+        snprintf(buffer, buflen,
+                _("local user with ID %d does not exist"),
+                (int) user_id);
+    }
+
+    return false;
+}
+```

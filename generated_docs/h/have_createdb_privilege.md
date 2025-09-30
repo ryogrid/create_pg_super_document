@@ -37,8 +37,32 @@ The function performs a system catalog lookup to retrieve the user's role inform
   -  - Role alteration command
 
 ## Notes and Other Information
-- Returns  immediately if the current user is a superuser, as superusers have all privileges
-- For regular users, performs a system catalog lookup in  to check the  attribute
+- Returns true immediately if the current user is a superuser, as superusers have all privileges
+- For regular users, performs a system catalog lookup in pg_authid to check the rolcreatedb attribute
 - Uses the system cache (syscache) for efficient access to role information
 - This privilege check is typically performed before attempting database creation operations to ensure proper authorization
-- The function is defined in 
+- The function is defined in src/backend/commands/dbcommands.c
+
+## Simplified Source
+
+```c
+bool
+have_createdb_privilege(void)
+{
+    bool        result = false;
+    HeapTuple   utup;
+
+    // Superusers can always create databases
+    if (superuser())
+        return true;
+
+    // Check the current user's rolcreatedb attribute
+    utup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(GetUserId()));
+    if (HeapTupleIsValid(utup))
+    {
+        result = ((Form_pg_authid) GETSTRUCT(utup))->rolcreatedb;
+        ReleaseSysCache(utup);
+    }
+    return result;
+}
+``` 

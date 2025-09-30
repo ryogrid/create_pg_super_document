@@ -46,3 +46,46 @@ The function includes important safety checks to prevent mapping changes in unsu
 - The immediate flag allows for context-sensitive activation timing
 - Uses apply_map_update as the low-level implementation for actually modifying the mapping structures
 - Critical for operations like relation file swapping during CLUSTER and relation recreation scenarios
+
+## Simplified Source
+
+```c
+void RelationMapUpdateMap(Oid relationId, RelFileNumber fileNumber,
+                         bool shared, bool immediate) {
+    RelMapFile *map;
+
+    if (IsBootstrapProcessingMode()) {
+        // Bootstrap mode: update permanent map directly
+        if (shared)
+            map = &shared_map;
+        else
+            map = &local_map;
+    }
+    else {
+        // Safety checks: no subtransactions or parallel mode
+        if (GetCurrentTransactionNestLevel() > 1)
+            elog(ERROR, "cannot change relation mapping within subtransaction");
+
+        if (IsInParallelMode())
+            elog(ERROR, "cannot change relation mapping in parallel mode");
+
+        if (immediate) {
+            // Make active immediately
+            if (shared)
+                map = &active_shared_updates;
+            else
+                map = &active_local_updates;
+        }
+        else {
+            // Make pending until CommandCounterIncrement
+            if (shared)
+                map = &pending_shared_updates;
+            else
+                map = &pending_local_updates;
+        }
+    }
+
+    // Apply the mapping change
+    apply_map_update(map, relationId, fileNumber, true);
+}
+```

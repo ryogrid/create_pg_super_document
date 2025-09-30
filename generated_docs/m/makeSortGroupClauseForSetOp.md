@@ -38,3 +38,31 @@ The resulting SortGroupClause has its tleSortGroupRef set to 0 initially since n
 - This function is specifically designed for set operations and may not be suitable for other sorting contexts
 - [Hash](../H/Hash.md) support determination is crucial for choosing between hash-based and sort-based set operation implementations
 - The function handles both regular data types and complex types like records, providing flexibility for various set operation scenarios
+
+## Simplified Source
+
+```c
+SortGroupClause *makeSortGroupClauseForSetOp(Oid rescoltype, bool require_hash) {
+    // Create new SortGroupClause node
+    SortGroupClause *grpcl = makeNode(SortGroupClause);
+    Oid sortop, eqop;
+    bool hashable;
+
+    // Get sorting and equality operators for the column type
+    get_sort_group_operators(rescoltype, false, true, false,
+                           &sortop, &eqop, NULL, &hashable);
+
+    // Special case: assume hash support for record types when required
+    if (require_hash && (rescoltype == RECORDOID || rescoltype == RECORDARRAYOID))
+        hashable = true;
+
+    // Initialize clause fields
+    grpcl->tleSortGroupRef = 0;     // Set later when target list is available
+    grpcl->eqop = eqop;
+    grpcl->sortop = sortop;
+    grpcl->nulls_first = false;
+    grpcl->hashable = hashable;
+
+    return grpcl;
+}
+```

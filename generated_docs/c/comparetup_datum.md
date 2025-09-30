@@ -31,3 +31,23 @@ This function performs comparison of two datum-based tuples during sorting opera
 
 ## Notes and Other Information
 This function is part of the tuple sorting framework and is registered as a comparison callback for datum-based sorts. The two-stage comparison (primary + tiebreak) ensures stable sorting behavior when primary keys are equal. The function operates on the datum1/isnull1 fields of SortTuple rather than full tuple data, making it more efficient for single-value sorting scenarios.
+
+## Simplified Source
+
+```c
+static int comparetup_datum(const SortTuple *a, const SortTuple *b, Tuplesortstate *state) {
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    int compare;
+
+    // Compare primary datum values
+    compare = ApplySortComparator(a->datum1, a->isnull1,
+                                  b->datum1, b->isnull1,
+                                  base->sortKeys);
+
+    // If equal, use tiebreaker comparison
+    if (compare != 0)
+        return compare;
+
+    return comparetup_datum_tiebreak(a, b, state);
+}
+```

@@ -40,3 +40,21 @@ Unlike clamp_row_est, this function uses Assert() to verify that negative values
 - MaxAllocSize limit ensures physical constraints are respected
 - Critical for memory management in tuple processing
 - Part of PostgreSQL's cost estimation infrastructure
+
+## Simplified Source
+
+```c
+int32
+clamp_width_est(int64 tuple_width)
+{
+    // Prevent impossible tuple sizes larger than max allocatable memory
+    if (tuple_width > MaxAllocSize)
+        return (int32) MaxAllocSize;
+
+    // Ensure width is non-negative (should never happen)
+    Assert(tuple_width >= 0);
+
+    // Safe conversion from int64 to int32
+    return (int32) tuple_width;
+}
+```

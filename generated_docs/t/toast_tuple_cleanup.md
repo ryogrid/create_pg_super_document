@@ -43,3 +43,36 @@ The function uses the flags set during the TOAST initialization and processing p
 - Uses flags set during earlier phases to determine exactly what cleanup is needed
 - The cleanup is conditional based on the flags to avoid unnecessary work when no cleanup is required
 - Handles both the case of freeing temporary values created during processing and deleting old external values that are no longer needed
+
+## Simplified Source
+
+```c
+void toast_tuple_cleanup(ToastTupleContext *ttc) {
+    TupleDesc tupleDesc = ttc->ttc_rel->rd_att;
+    int numAttrs = tupleDesc->natts;
+
+    // Free allocated temporary values
+    if ((ttc->ttc_flags & TOAST_NEEDS_FREE) != 0) {
+        int i;
+
+        for (i = 0; i < numAttrs; i++) {
+            ToastAttrInfo *attr = &ttc->ttc_attr[i];
+
+            if ((attr->tai_colflags & TOASTCOL_NEEDS_FREE) != 0)
+                pfree(DatumGetPointer(ttc->ttc_values[i]));
+        }
+    }
+
+    // Delete external values from the old tuple
+    if ((ttc->ttc_flags & TOAST_NEEDS_DELETE_OLD) != 0) {
+        int i;
+
+        for (i = 0; i < numAttrs; i++) {
+            ToastAttrInfo *attr = &ttc->ttc_attr[i];
+
+            if ((attr->tai_colflags & TOASTCOL_NEEDS_DELETE_OLD) != 0)
+                toast_delete_datum(ttc->ttc_rel, ttc->ttc_oldvalues[i], false);
+        }
+    }
+}
+```

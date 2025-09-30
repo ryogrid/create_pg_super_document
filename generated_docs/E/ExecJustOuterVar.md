@@ -35,3 +35,14 @@ The function is part of PostgreSQL's fast-path expression evaluation system, des
 - Specifically targets outer relation attributes in join contexts
 - Provides minimal overhead for the common case of simple outer variable references
 - Works in conjunction with ExecJustInnerVar and ExecJustScanVar for complete variable reference coverage
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustOuterVar(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Extract variable value from outer tuple slot
+    return ExecJustVarImpl(state, econtext->ecxt_outertuple, isnull);
+}
+```

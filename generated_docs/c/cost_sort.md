@@ -59,3 +59,35 @@ This is the primary interface used throughout the PostgreSQL query planner for e
 - Applies disable_cost penalty when enable_sort is false, allowing the planner to discourage sorting when configured
 - Primary entry point for sort costing throughout the query planner
 - Simple wrapper that delegates actual sorting cost calculation to cost_tuplesort
+
+## Simplified Source
+
+```c
+void
+cost_sort(Path *path, PlannerInfo *root,
+          List *pathkeys, Cost input_cost, double tuples, int width,
+          Cost comparison_cost, int sort_mem,
+          double limit_tuples)
+{
+    Cost startup_cost;
+    Cost run_cost;
+
+    // Calculate base sorting costs
+    cost_tuplesort(&startup_cost, &run_cost,
+                   tuples, width,
+                   comparison_cost, sort_mem,
+                   limit_tuples);
+
+    // Add penalty if sorting is disabled
+    if (!enable_sort)
+        startup_cost += disable_cost;
+
+    // Add cost of reading input data
+    startup_cost += input_cost;
+
+    // Set final costs in path
+    path->rows = tuples;
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

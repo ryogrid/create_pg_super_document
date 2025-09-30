@@ -38,3 +38,47 @@ The function handles memory management carefully, switching to the relation's in
 - Switches memory context to relation's rd_indexcxt when caching to ensure proper memory lifetime
 - The cached options are stored in relation->rd_opcoptions for subsequent access
 - Handles cleanup of temporary allocations when copy=false to prevent memory leaks
+
+## Simplified Source
+
+```c
+bytea **RelationGetIndexAttOptions(Relation relation, bool copy) {
+    bytea **opts = relation->rd_opcoptions;
+    int natts = RelationGetNumberOfAttributes(relation);
+
+    // Return cached options if available
+    if (opts) {
+        return copy ? CopyIndexAttOptions(opts, natts) : opts;
+    }
+
+    // Parse opclass options for each attribute
+    opts = palloc0(sizeof(*opts) * natts);
+    for (int i = 0; i < natts; i++) {
+        if (criticalRelcachesBuilt && RelationGetRelid(relation) != AttributeRelidNumIndexId) {
+            Datum attoptions = get_attoptions(RelationGetRelid(relation), i + 1);
+            opts[i] = index_opclass_options(relation, i + 1, attoptions, false);
+            if (attoptions != (Datum) 0) {
+                pfree(DatumGetPointer(attoptions));
+            }
+        }
+    }
+
+    // Cache the parsed options in relation context
+    MemoryContext oldcxt = MemoryContextSwitchTo(relation->rd_indexcxt);
+    relation->rd_opcoptions = CopyIndexAttOptions(opts, natts);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Return copy or cached version based on copy flag
+    if (copy) {
+        return opts;
+    }
+
+    // Clean up temporary options and return cached version
+    for (int i = 0; i < natts; i++) {
+        if (opts[i]) pfree(opts[i]);
+    }
+    pfree(opts);
+
+    return relation->rd_opcoptions;
+}
+```

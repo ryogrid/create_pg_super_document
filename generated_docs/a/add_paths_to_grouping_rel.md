@@ -56,3 +56,110 @@ The function intelligently chooses between different aggregation strategies (AGG
 - When partitionwise aggregation is enabled, the function handles fully aggregated paths from child relations
 - The function ensures optimal path selection by considering multiple grouping key orderings and aggregation strategies
 - Location: src/backend/optimizer/plan/planner.c:7044-7278
+
+## Simplified Source
+
+```c
+static void
+add_paths_to_grouping_rel(PlannerInfo *root, RelOptInfo *input_rel,
+                          RelOptInfo *grouped_rel, RelOptInfo *partially_grouped_rel,
+                          const AggClauseCosts *agg_costs, grouping_sets_data *gd,
+                          double dNumGroups, GroupPathExtraData *extra)
+{
+    Query *parse = root->parse;
+    Path *cheapest_path = input_rel->cheapest_total_path;
+    bool can_hash = (extra->flags & GROUPING_CAN_USE_HASH) != 0;
+    bool can_sort = (extra->flags & GROUPING_CAN_USE_SORT) != 0;
+    List *havingQual = (List *) extra->havingQual;
+    AggClauseCosts *agg_final_costs = &extra->agg_final_costs;
+
+    // Generate sort-based grouping paths
+    if (can_sort) {
+        // Process input relation paths with various grouping orderings
+        foreach(lc, input_rel->pathlist) {
+            Path *path = lfirst(lc);
+            List *pathkey_orderings = get_useful_group_keys_orderings(root, path);
+
+            foreach(lc2, pathkey_orderings) {
+                GroupByOrdering *info = lfirst(lc2);
+
+                // Create ordered path if needed
+                path = make_ordered_path(root, grouped_rel, path, cheapest_path, info->pathkeys);
+                if (path == NULL) continue;
+
+                // Create appropriate path based on query type
+                if (parse->groupingSets) {
+                    consider_groupingsets_paths(root, grouped_rel, path, true, can_hash,
+                                              gd, agg_costs, dNumGroups);
+                } else if (parse->hasAggs) {
+                    add_path(grouped_rel, (Path *)
+                            create_agg_path(root, grouped_rel, path, grouped_rel->reltarget,
+                                          parse->groupClause ? AGG_SORTED : AGG_PLAIN,
+                                          AGGSPLIT_SIMPLE, info->clauses, havingQual,
+                                          agg_costs, dNumGroups));
+                } else if (parse->groupClause) {
+                    add_path(grouped_rel, (Path *)
+                            create_group_path(root, grouped_rel, path, info->clauses,
+                                            havingQual, dNumGroups));
+                }
+            }
+        }
+
+        // Process partially grouped paths for finalization
+        if (partially_grouped_rel != NULL) {
+            foreach(lc, partially_grouped_rel->pathlist) {
+                Path *path = lfirst(lc);
+                List *pathkey_orderings = get_useful_group_keys_orderings(root, path);
+
+                foreach(lc2, pathkey_orderings) {
+                    GroupByOrdering *info = lfirst(lc2);
+                    path = make_ordered_path(root, grouped_rel, path,
+                                           partially_grouped_rel->cheapest_total_path,
+                                           info->pathkeys);
+                    if (path == NULL) continue;
+
+                    if (parse->hasAggs) {
+                        add_path(grouped_rel, (Path *)
+                                create_agg_path(root, grouped_rel, path, grouped_rel->reltarget,
+                                              parse->groupClause ? AGG_SORTED : AGG_PLAIN,
+                                              AGGSPLIT_FINAL_DESERIAL, info->clauses,
+                                              havingQual, agg_final_costs, dNumGroups));
+                    } else {
+                        add_path(grouped_rel, (Path *)
+                                create_group_path(root, grouped_rel, path, info->clauses,
+                                                havingQual, dNumGroups));
+                    }
+                }
+            }
+        }
+    }
+
+    // Generate hash-based grouping paths
+    if (can_hash) {
+        if (parse->groupingSets) {
+            consider_groupingsets_paths(root, grouped_rel, cheapest_path, false, true,
+                                      gd, agg_costs, dNumGroups);
+        } else {
+            // Create standard hash aggregation path
+            add_path(grouped_rel, (Path *)
+                    create_agg_path(root, grouped_rel, cheapest_path, grouped_rel->reltarget,
+                                  AGG_HASHED, AGGSPLIT_SIMPLE, root->processed_groupClause,
+                                  havingQual, agg_costs, dNumGroups));
+        }
+
+        // Create finalize hash aggregation path from partial results
+        if (partially_grouped_rel && partially_grouped_rel->pathlist) {
+            Path *path = partially_grouped_rel->cheapest_total_path;
+            add_path(grouped_rel, (Path *)
+                    create_agg_path(root, grouped_rel, path, grouped_rel->reltarget,
+                                  AGG_HASHED, AGGSPLIT_FINAL_DESERIAL,
+                                  root->processed_groupClause, havingQual,
+                                  agg_final_costs, dNumGroups));
+        }
+    }
+
+    // Handle partitionwise aggregation results
+    if (grouped_rel->partial_pathlist != NIL)
+        gather_grouping_paths(root, grouped_rel);
+}
+```

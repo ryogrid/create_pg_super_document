@@ -42,3 +42,37 @@ LockViewRecurse implements the comprehensive locking mechanism for views in Post
 - View query parsing and relation opening/closing are handled with appropriate lock levels (NoLock since view is already locked)
 - The function delegates the actual tree traversal work to LockViewRecurse_walker for separation of concerns
 - Proper cleanup of the ancestor_views list ensures the calling context remains unchanged
+
+## Simplified Source
+```c
+static void LockViewRecurse(Oid reloid, LOCKMODE lockmode, bool nowait, List *ancestor_views) {
+    LockViewRecurse_context context;
+    Relation view;
+    Query *viewquery;
+
+    // Open the view (caller already has lock)
+    view = table_open(reloid, NoLock);
+    viewquery = get_view_query(view);
+
+    // Set up context for walker function
+    context.lockmode = lockmode;
+    context.nowait = nowait;
+
+    // Use appropriate user for permission checks based on security invoker property
+    if (RelationHasSecurityInvoker(view))
+        context.check_as_user = GetUserId();  // Current user
+    else
+        context.check_as_user = view->rd_rel->relowner;  // View owner
+
+    context.viewoid = reloid;
+    context.ancestor_views = lappend_oid(ancestor_views, reloid);
+
+    // Walk the view query to lock underlying relations
+    LockViewRecurse_walker((Node *) viewquery, &context);
+
+    // Clean up ancestor list
+    context.ancestor_views = list_delete_last(context.ancestor_views);
+
+    table_close(view, NoLock);
+}
+```

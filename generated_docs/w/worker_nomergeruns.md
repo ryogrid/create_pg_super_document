@@ -33,3 +33,18 @@ This function serves as an alternative to mergeruns() for worker processes when 
 - Directly assigns destTape as the result tape before freezing
 - Part of the parallel tuplesort optimization path for simple cases
 - Always calls worker_freeze_result_tape() to coordinate with the leader process
+
+## Simplified Source
+
+```c
+static void worker_nomergeruns(Tuplesortstate *state) {
+    // Validate this is a worker process with no merging needed
+    Assert(WORKER(state));
+    Assert(state->result_tape == NULL);
+    Assert(state->nOutputRuns == 1);
+
+    // Set result tape and finalize for leader coordination
+    state->result_tape = state->destTape;
+    worker_freeze_result_tape(state);
+}
+```

@@ -49,3 +49,38 @@ All key values are allocated in the per-tuple memory context to ensure proper me
 - Assumes that pass-by-reference values from outer scans will remain valid throughout the scan
 - Sets or clears the SK_ISNULL flag appropriately based on whether the evaluated expression returns NULL
 - Critical for parameterized and nested loop index scans where key values depend on outer query execution
+
+## Simplified Source
+
+```c
+void ExecIndexEvalRuntimeKeys(ExprContext *econtext,
+                             IndexRuntimeKeyInfo *runtimeKeys, int numRuntimeKeys) {
+    // Switch to per-tuple memory context for key value storage
+    MemoryContext oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Process each runtime key
+    for (int j = 0; j < numRuntimeKeys; j++) {
+        ScanKey scan_key = runtimeKeys[j].scan_key;
+        ExprState *key_expr = runtimeKeys[j].key_expr;
+
+        // Evaluate the runtime key expression
+        bool isNull;
+        Datum scanvalue = ExecEvalExpr(key_expr, econtext, &isNull);
+
+        if (isNull) {
+            // Handle NULL result
+            scan_key->sk_argument = scanvalue;
+            scan_key->sk_flags |= SK_ISNULL;
+        } else {
+            // Handle non-NULL result, detoast if necessary
+            if (runtimeKeys[j].key_toastable)
+                scanvalue = PointerGetDatum(PG_DETOAST_DATUM(scanvalue));
+
+            scan_key->sk_argument = scanvalue;
+            scan_key->sk_flags &= ~SK_ISNULL;
+        }
+    }
+
+    MemoryContextSwitchTo(oldContext);
+}
+```

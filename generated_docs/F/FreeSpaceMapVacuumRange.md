@@ -41,3 +41,17 @@ This targeted approach is particularly useful during operations like:
 - Essential for maintaining FSM consistency during partial operations without the overhead of full tree updates
 - Uses the same recursive tree traversal approach but with range constraints
 - Located in src/backend/storage/freespace/freespace.c:368-384
+
+## Simplified Source
+
+```c
+void
+FreeSpaceMapVacuumRange(Relation rel, BlockNumber start, BlockNumber end)
+{
+    bool dummy;
+
+    // Update FSM tree for the specified range if valid
+    if (end > start)
+        (void) fsm_vacuum_page(rel, FSM_ROOT_ADDRESS, start, end, &dummy);
+}
+```

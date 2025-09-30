@@ -38,3 +38,37 @@ This function handles the insertion of individual Datum values into a sorting op
 - Memory context switching ensures proper allocation in the tuple context
 - Part of the datum-specific sorting infrastructure for single-column sorts
 - The canonical copy (stup.tuple) is used for output operations like tuplesort_getdatum
+
+## Simplified Source
+
+```c
+void
+tuplesort_putdatum(Tuplesortstate *state, Datum val, bool isNull)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->tuplecontext);
+    TuplesortDatumArg *arg = (TuplesortDatumArg *) base->arg;
+    SortTuple stup;
+
+    // Handle NULL values and pass-by-value types
+    if (isNull || !base->tuples) {
+        // Store value directly in datum1 (zero for NULLs)
+        stup.datum1 = !isNull ? val : (Datum) 0;
+        stup.isnull1 = isNull;
+        stup.tuple = NULL;  // No separate storage needed
+    }
+    else {
+        // Handle pass-by-reference types - need to copy the value
+        stup.isnull1 = false;
+        stup.datum1 = datumCopy(val, false, arg->datumTypeLen);
+        stup.tuple = DatumGetPointer(stup.datum1);  // Point to copied value
+    }
+
+    // Insert tuple into sort, with abbreviation if available
+    tuplesort_puttuple_common(state, &stup,
+                             base->tuples &&
+                             base->sortKeys->abbrev_converter && !isNull, 0);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

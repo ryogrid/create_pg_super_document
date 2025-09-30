@@ -51,3 +51,60 @@ The function is typically called for newly created MultiXactIds that are expecte
 - Always sets HEAP_XMAX_IS_MULTI bit since it's dealing with a MultiXactId
 - Tracks strongest lock mode and presence of updates to determine appropriate hint bits
 - Frees the members array obtained from GetMultiXactIdMembers
+
+## Simplified Source
+
+```c
+static void GetMultiXactIdHintBits(MultiXactId multi, uint16 *new_infomask, uint16 *new_infomask2) {
+    MultiXactMember *members;
+    int nmembers;
+    uint16 bits = HEAP_XMAX_IS_MULTI;
+    uint16 bits2 = 0;
+    bool has_update = false;
+    LockTupleMode strongest = LockTupleKeyShare;
+
+    // Get all members of this MultiXactId
+    nmembers = GetMultiXactIdMembers(multi, &members, false, false);
+
+    // Process each member to determine lock characteristics
+    for (int i = 0; i < nmembers; i++) {
+        LockTupleMode mode = TUPLOCK_from_mxstatus(members[i].status);
+
+        // Track the strongest lock mode
+        if (mode > strongest)
+            strongest = mode;
+
+        // Set appropriate bits based on member status
+        switch (members[i].status) {
+            case MultiXactStatusForUpdate:
+            case MultiXactStatusUpdate:
+                bits2 |= HEAP_KEYS_UPDATED;
+                if (members[i].status == MultiXactStatusUpdate)
+                    has_update = true;
+                break;
+            case MultiXactStatusNoKeyUpdate:
+                has_update = true;
+                break;
+        }
+    }
+
+    // Set lock type bits based on strongest lock mode
+    if (strongest == LockTupleExclusive || strongest == LockTupleNoKeyExclusive)
+        bits |= HEAP_XMAX_EXCL_LOCK;
+    else if (strongest == LockTupleShare)
+        bits |= HEAP_XMAX_SHR_LOCK;
+    else if (strongest == LockTupleKeyShare)
+        bits |= HEAP_XMAX_KEYSHR_LOCK;
+
+    // Set lock-only bit if no updates present
+    if (!has_update)
+        bits |= HEAP_XMAX_LOCK_ONLY;
+
+    // Clean up and return results
+    if (nmembers > 0)
+        pfree(members);
+
+    *new_infomask = bits;
+    *new_infomask2 = bits2;
+}
+```

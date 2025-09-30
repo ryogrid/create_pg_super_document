@@ -45,3 +45,49 @@ The dependency tracking is crucial because individual columns of a composite typ
 - Contains error handling for invalid column references
 - The function assumes that type-level dependencies are handled elsewhere in the system
 - Critical for preventing premature dropping of composite type columns that are referenced by function calls
+
+## Simplified Source
+
+```c
+static void process_function_rte_ref(RangeTblEntry *rte, AttrNumber attnum,
+                                   find_expr_references_context *context) {
+    int column_offset = 0;
+
+    // Find which function produces the requested column
+    foreach(function_list, rte->functions) {
+        RangeTblFunction *rtfunc = lfirst(function_list);
+
+        // Check if this function produces the target column
+        if (attnum > column_offset &&
+            attnum <= column_offset + rtfunc->funccolcount) {
+
+            // Skip RECORD types with explicit column definitions
+            if (rtfunc->funccolnames != NIL)
+                return;
+
+            // Get function result type descriptor
+            TupleDesc tupdesc = get_expr_result_tupdesc(rtfunc->funcexpr, true);
+
+            // Create dependency for named composite types only
+            if (tupdesc && tupdesc->tdtypeid != RECORDOID) {
+                Oid reltype = get_typ_typrelid(tupdesc->tdtypeid);
+                if (OidIsValid(reltype)) {
+                    add_object_address(RelationRelationId, reltype,
+                                     attnum - column_offset, context->addrs);
+                }
+            }
+            return;
+        }
+        column_offset += rtfunc->funccolcount;
+    }
+
+    // Handle ordinality column
+    if (rte->funcordinality && attnum == column_offset + 1)
+        return;
+
+    // Invalid column reference
+    ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                   errmsg("column %d of relation \"%s\" does not exist",
+                         attnum, rte->eref->aliasname)));
+}
+```

@@ -60,3 +60,148 @@ The function ensures that aggregates with volatile functions perform independent
 - The `aggpresorted` flag tells the executor to skip sorting for optimized aggregates
 - Works in conjunction with `create_grouping_paths` which avoids hash aggregates when ordered aggregates are present
 - Pathkey comparison results (BETTER1, BETTER2, EQUAL, DIFFERENT) determine aggregate compatibility
+
+## Simplified Source
+
+```c
+static void
+adjust_group_pathkeys_for_groupagg(PlannerInfo *root)
+{
+    List *grouppathkeys = root->group_pathkeys;
+    List *bestpathkeys = NIL;
+    Bitmapset *bestaggs = NULL;
+    Bitmapset *unprocessed_aggs = NULL;
+    ListCell *lc;
+    int i;
+
+    // Early exits
+    Assert(root->parse->groupingSets == NIL);
+    Assert(root->numOrderedAggs > 0);
+    if (!enable_presorted_aggregate)
+        return;
+
+    // Phase 1: Collect processable aggregates
+    foreach(lc, root->agginfos)
+    {
+        AggInfo *agginfo = lfirst_node(AggInfo, lc);
+        Aggref *aggref = linitial_node(Aggref, agginfo->aggrefs);
+
+        // Skip ordered sets and aggregates without ORDER BY/DISTINCT
+        if (AGGKIND_IS_ORDERED_SET(aggref->aggkind) ||
+            (aggref->aggdistinct == NIL && aggref->aggorder == NIL))
+            continue;
+
+        // Safety check for filtered aggregates
+        if (aggref->aggfilter != NULL)
+        {
+            ListCell *lc2;
+            bool allow_presort = true;
+
+            // Only allow simple expressions (Vars/Consts) in filtered aggregates
+            foreach(lc2, aggref->args)
+            {
+                TargetEntry *tle = (TargetEntry *) lfirst(lc2);
+                Expr *expr = tle->expr;
+
+                // Strip RelabelType wrappers
+                while (IsA(expr, RelabelType))
+                    expr = (Expr *) (castNode(RelabelType, expr))->arg;
+
+                if (!IsA(expr, Var) && !IsA(expr, Const))
+                {
+                    allow_presort = false;
+                    break;
+                }
+            }
+
+            if (!allow_presort)
+                continue;
+        }
+
+        unprocessed_aggs = bms_add_member(unprocessed_aggs, foreach_current_index(lc));
+    }
+
+    // Phase 2: Find best pathkeys iteratively
+    while (bms_num_members(unprocessed_aggs) > bms_num_members(bestaggs))
+    {
+        Bitmapset *aggindexes = NULL;
+        List *currpathkeys = NIL;
+
+        // Process each unprocessed aggregate
+        i = -1;
+        while ((i = bms_next_member(unprocessed_aggs, i)) >= 0)
+        {
+            AggInfo *agginfo = list_nth_node(AggInfo, root->agginfos, i);
+            Aggref *aggref = linitial_node(Aggref, agginfo->aggrefs);
+            List *sortlist = (aggref->aggdistinct != NIL) ?
+                           aggref->aggdistinct : aggref->aggorder;
+            List *pathkeys = make_pathkeys_for_sortclauses(root, sortlist, aggref->args);
+
+            // Skip aggregates with volatile functions
+            if (has_volatile_pathkey(pathkeys))
+            {
+                unprocessed_aggs = bms_del_member(unprocessed_aggs, i);
+                continue;
+            }
+
+            // Initialize or compare pathkeys
+            if (currpathkeys == NIL)
+            {
+                // First aggregate - set base pathkeys
+                currpathkeys = pathkeys;
+                if (grouppathkeys != NIL)
+                    currpathkeys = append_pathkeys(list_copy(grouppathkeys), currpathkeys);
+                aggindexes = bms_add_member(aggindexes, i);
+            }
+            else
+            {
+                // Check compatibility with current pathkeys
+                if (grouppathkeys != NIL)
+                    pathkeys = append_pathkeys(list_copy(grouppathkeys), pathkeys);
+
+                switch (compare_pathkeys(currpathkeys, pathkeys))
+                {
+                    case PATHKEYS_BETTER2:
+                        // New pathkeys are stronger - use them
+                        currpathkeys = pathkeys;
+                        /* FALLTHROUGH */
+                    case PATHKEYS_BETTER1:
+                    case PATHKEYS_EQUAL:
+                        // Compatible - include this aggregate
+                        aggindexes = bms_add_member(aggindexes, i);
+                        break;
+                    case PATHKEYS_DIFFERENT:
+                        // Incompatible - skip
+                        break;
+                }
+            }
+        }
+
+        // Update processed aggregates
+        unprocessed_aggs = bms_del_members(unprocessed_aggs, aggindexes);
+
+        // Update best solution if this one is better
+        if (bms_num_members(aggindexes) > bms_num_members(bestaggs))
+        {
+            bestaggs = aggindexes;
+            bestpathkeys = currpathkeys;
+        }
+    }
+
+    // Phase 3: Apply results
+    if (bestpathkeys != NIL)
+        root->group_pathkeys = bestpathkeys;
+
+    // Mark compatible aggregates as presorted
+    i = -1;
+    while ((i = bms_next_member(bestaggs, i)) >= 0)
+    {
+        AggInfo *agginfo = list_nth_node(AggInfo, root->agginfos, i);
+        foreach(lc, agginfo->aggrefs)
+        {
+            Aggref *aggref = lfirst_node(Aggref, lc);
+            aggref->aggpresorted = true;
+        }
+    }
+}
+```

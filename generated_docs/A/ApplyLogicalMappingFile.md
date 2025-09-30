@@ -53,3 +53,64 @@ The mappings contain both old and new relation locators and tuple identifiers, a
 - Uses assertion checks to validate that existing command ID mappings are consistent when merging
 - The relid parameter is currently not used but may be reserved for future functionality or validation
 - Critical for maintaining logical replication consistency during DDL operations that physically reorganize table data
+
+## Simplified Source
+
+```c
+static void ApplyLogicalMappingFile(HTAB *tuplecid_data, Oid relid, const char *fname)
+{
+    char path[MAXPGPATH];
+    int fd;
+    LogicalRewriteMappingData map;
+
+    // Open the mapping file
+    sprintf(path, "pg_logical/mappings/%s", fname);
+    fd = OpenTransientFile(path, O_RDONLY | PG_BINARY);
+    if (fd < 0)
+        ereport(ERROR, (errmsg("could not open file \"%s\"", path)));
+
+    // Process each mapping entry in the file
+    while (true)
+    {
+        ReorderBufferTupleCidKey key;
+        ReorderBufferTupleCidEnt *old_ent, *new_ent;
+        bool found;
+
+        // Read next mapping entry
+        int readBytes = read(fd, &map, sizeof(LogicalRewriteMappingData));
+
+        // Check for end of file or read errors
+        if (readBytes == 0) break;  // EOF
+        if (readBytes < 0 || readBytes != sizeof(LogicalRewriteMappingData))
+            ereport(ERROR, (errmsg("could not read from file \"%s\"", path)));
+
+        // Look up existing entry for old tuple location
+        memset(&key, 0, sizeof(key));
+        key.rlocator = map.old_locator;
+        ItemPointerCopy(&map.old_tid, &key.tid);
+
+        old_ent = hash_search(tuplecid_data, &key, HASH_FIND, NULL);
+        if (!old_ent)
+            continue;  // No existing mapping, skip
+
+        // Create or update entry for new tuple location
+        key.rlocator = map.new_locator;
+        ItemPointerCopy(&map.new_tid, &key.tid);
+
+        new_ent = hash_search(tuplecid_data, &key, HASH_ENTER, &found);
+
+        if (!found)
+        {
+            // Copy command ID information to new location
+            new_ent->cmin = old_ent->cmin;
+            new_ent->cmax = old_ent->cmax;
+            new_ent->combocid = old_ent->combocid;
+        }
+        // If found, validate consistency (assertions removed for simplicity)
+    }
+
+    // Close the file
+    if (CloseTransientFile(fd) != 0)
+        ereport(ERROR, (errmsg("could not close file \"%s\"", path)));
+}
+```

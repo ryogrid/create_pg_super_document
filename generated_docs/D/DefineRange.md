@@ -55,3 +55,200 @@ The function ensures proper alignment, storage characteristics, and maintains co
 - Validates that subtype supports collation when collation is specified
 - Returns ObjectAddress of the main range type created
 - Uses DEPENDENCY_INTERNAL for the range-to-multirange cast relationship
+
+## Simplified Source
+
+```c
+ObjectAddress DefineRange(ParseState *pstate, CreateRangeStmt *stmt) {
+    char *typeName, *multirangeTypeName = NULL;
+    Oid typeNamespace, multirangeNamespace = InvalidOid;
+    Oid typoid, rangeArrayOid, multirangeOid, multirangeArrayOid;
+    Oid rangeSubtype = InvalidOid, rangeSubOpclass, rangeCollation;
+    regproc rangeCanonical, rangeSubtypeDiff;
+    List *rangeSubOpclassName = NIL, *rangeCollationName = NIL;
+    List *rangeCanonicalName = NIL, *rangeSubtypeDiffName = NIL;
+    char alignment;
+    ObjectAddress address;
+    Oid castFuncOid;
+
+    // Parse qualified type name and get namespace
+    typeNamespace = QualifiedNameGetCreationNamespace(stmt->typeName, &typeName);
+
+    // Check creation permissions
+    aclresult = object_aclcheck(NamespaceRelationId, typeNamespace, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(typeNamespace));
+
+    // Check for existing type and handle conflicts
+    typoid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                            CStringGetDatum(typeName), ObjectIdGetDatum(typeNamespace));
+    if (OidIsValid(typoid) && get_typisdefined(typoid)) {
+        if (moveArrayTypeName(typoid, typeName, typeNamespace))
+            typoid = InvalidOid;
+        else
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                           errmsg("type \"%s\" already exists", typeName)));
+    }
+
+    // Parse range type parameters
+    foreach(lc, stmt->params) {
+        DefElem *defel = (DefElem *) lfirst(lc);
+
+        if (strcmp(defel->defname, "subtype") == 0) {
+            if (OidIsValid(rangeSubtype))
+                errorConflictingDefElem(defel, pstate);
+            rangeSubtype = typenameTypeId(NULL, defGetTypeName(defel));
+        }
+        else if (strcmp(defel->defname, "subtype_opclass") == 0) {
+            if (rangeSubOpclassName != NIL)
+                errorConflictingDefElem(defel, pstate);
+            rangeSubOpclassName = defGetQualifiedName(defel);
+        }
+        else if (strcmp(defel->defname, "collation") == 0) {
+            if (rangeCollationName != NIL)
+                errorConflictingDefElem(defel, pstate);
+            rangeCollationName = defGetQualifiedName(defel);
+        }
+        else if (strcmp(defel->defname, "canonical") == 0) {
+            if (rangeCanonicalName != NIL)
+                errorConflictingDefElem(defel, pstate);
+            rangeCanonicalName = defGetQualifiedName(defel);
+        }
+        else if (strcmp(defel->defname, "subtype_diff") == 0) {
+            if (rangeSubtypeDiffName != NIL)
+                errorConflictingDefElem(defel, pstate);
+            rangeSubtypeDiffName = defGetQualifiedName(defel);
+        }
+        else if (strcmp(defel->defname, "multirange_type_name") == 0) {
+            if (multirangeTypeName != NULL)
+                errorConflictingDefElem(defel, pstate);
+            multirangeNamespace = QualifiedNameGetCreationNamespace(defGetQualifiedName(defel),
+                                                                   &multirangeTypeName);
+        }
+        else
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("type attribute \"%s\" not recognized", defel->defname)));
+    }
+
+    // Validate required subtype
+    if (!OidIsValid(rangeSubtype))
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("type attribute \"subtype\" is required")));
+    if (get_typtype(rangeSubtype) == TYPTYPE_PSEUDO)
+        ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                       errmsg("range subtype cannot be %s", format_type_be(rangeSubtype))));
+
+    // Resolve subtype operator class
+    rangeSubOpclass = findRangeSubOpclass(rangeSubOpclassName, rangeSubtype);
+
+    // Determine collation
+    if (type_is_collatable(rangeSubtype)) {
+        rangeCollation = rangeCollationName ?
+                        get_collation_oid(rangeCollationName, false) :
+                        get_typcollation(rangeSubtype);
+    } else {
+        if (rangeCollationName != NIL)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("range collation specified but subtype does not support collation")));
+        rangeCollation = InvalidOid;
+    }
+
+    // Resolve optional support functions
+    if (rangeCanonicalName != NIL) {
+        if (!OidIsValid(typoid))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                           errmsg("cannot specify a canonical function without a pre-created shell type")));
+        rangeCanonical = findRangeCanonicalFunction(rangeCanonicalName, typoid);
+    } else
+        rangeCanonical = InvalidOid;
+
+    rangeSubtypeDiff = rangeSubtypeDiffName ?
+                      findRangeSubtypeDiffFunction(rangeSubtypeDiffName, rangeSubtype) :
+                      InvalidOid;
+
+    // Determine alignment from subtype
+    get_typlenbyvalalign(rangeSubtype, &subtyplen, &subtypbyval, &subtypalign);
+    alignment = (subtypalign == TYPALIGN_DOUBLE) ? TYPALIGN_DOUBLE : TYPALIGN_INT;
+
+    // Allocate OIDs for all related types
+    rangeArrayOid = AssignTypeArrayOid();
+    multirangeOid = AssignTypeMultirangeOid();
+    multirangeArrayOid = AssignTypeMultirangeArrayOid();
+
+    // Create the main range type
+    address = TypeCreate(
+        InvalidOid,           // no predetermined OID
+        typeName,             // type name
+        typeNamespace,        // namespace
+        GetUserId(),          // owner
+        -1,                   // varlena size
+        TYPTYPE_RANGE,        // range type
+        TYPCATEGORY_RANGE,    // range category
+        F_RANGE_IN,           // range I/O functions
+        F_RANGE_OUT,
+        rangeArrayOid,        // associated array type
+        false,                // not passed by value
+        alignment             // alignment
+    );
+    typoid = address.objectId;
+
+    // Handle multirange type name
+    if (!multirangeTypeName) {
+        multirangeNamespace = typeNamespace;
+        multirangeTypeName = makeMultirangeTypeName(typeName, multirangeNamespace);
+    } else {
+        // Check for conflicts with existing multirange type
+        old_typoid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                                    CStringGetDatum(multirangeTypeName),
+                                    ObjectIdGetDatum(multirangeNamespace));
+        if (OidIsValid(old_typoid) && get_typisdefined(old_typoid)) {
+            if (!moveArrayTypeName(old_typoid, multirangeTypeName, multirangeNamespace))
+                ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                               errmsg("type \"%s\" already exists", multirangeTypeName)));
+        }
+    }
+
+    // Create the multirange type
+    TypeCreate(
+        multirangeOid,        // force this OID
+        multirangeTypeName,   // type name
+        multirangeNamespace,  // namespace
+        GetUserId(),          // owner
+        -1,                   // varlena size
+        TYPTYPE_MULTIRANGE,   // multirange type
+        TYPCATEGORY_RANGE,    // range category
+        F_MULTIRANGE_IN,      // multirange I/O functions
+        F_MULTIRANGE_OUT,
+        multirangeArrayOid,   // associated array type
+        false,                // not passed by value
+        alignment             // alignment
+    );
+
+    // Create pg_range entry linking range to subtype and functions
+    RangeCreate(typoid, rangeSubtype, rangeCollation, rangeSubOpclass,
+                rangeCanonical, rangeSubtypeDiff, multirangeOid);
+
+    // Create array types for both range and multirange
+    rangeArrayName = makeArrayTypeName(typeName, typeNamespace);
+    TypeCreate(rangeArrayOid, rangeArrayName, typeNamespace,
+               typoid, true, TYPCATEGORY_ARRAY); // array of ranges
+
+    multirangeArrayName = makeArrayTypeName(multirangeTypeName, typeNamespace);
+    TypeCreate(multirangeArrayOid, multirangeArrayName, multirangeNamespace,
+               multirangeOid, true, TYPCATEGORY_ARRAY); // array of multiranges
+
+    // Create constructor functions
+    makeRangeConstructors(typeName, typeNamespace, typoid, rangeSubtype);
+    makeMultirangeConstructors(multirangeTypeName, typeNamespace,
+                              multirangeOid, typoid, rangeArrayOid, &castFuncOid);
+
+    // Create cast from range to multirange
+    CastCreate(typoid, multirangeOid, castFuncOid, InvalidOid, InvalidOid,
+               COERCION_CODE_EXPLICIT, COERCION_METHOD_FUNCTION, DEPENDENCY_INTERNAL);
+
+    pfree(rangeArrayName);
+    pfree(multirangeArrayName);
+
+    return address;
+}
+```

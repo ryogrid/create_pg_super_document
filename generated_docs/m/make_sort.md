@@ -44,3 +44,31 @@ The created Sort node inherits the target list from its child plan and has no ad
 - The caller is responsible for ensuring that all sorting arrays are properly constructed and have the correct length (numCols)
 - The Sort node created will have no right child (righttree = NULL) and no additional qualifications (qual = NIL)
 - Located at src/backend/optimizer/plan/createplan.c:6069-6098
+
+## Simplified Source
+
+```c
+static Sort *
+make_sort(Plan *lefttree, int numCols,
+          AttrNumber *sortColIdx, Oid *sortOperators,
+          Oid *collations, bool *nullsFirst)
+{
+    Sort *node = makeNode(Sort);
+    Plan *plan = &node->plan;
+
+    // Initialize the base plan structure
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+
+    // Set sort-specific parameters
+    node->numCols = numCols;
+    node->sortColIdx = sortColIdx;
+    node->sortOperators = sortOperators;
+    node->collations = collations;
+    node->nullsFirst = nullsFirst;
+
+    return node;
+}
+```

@@ -42,3 +42,16 @@ This function represents the maximum number of search keys supported by PostgreS
 - Same constraints as SearchCatCache: returned tuple must not be modified
 - Represents the most complex catalog lookup pattern, typically used for catalogs with highly specific compound keys
 - Functionally equivalent to the general SearchCatCache() when all four keys are used, but with better performance characteristics
+
+## Simplified Source
+
+```c
+HeapTuple
+SearchCatCache4(CatCache *cache,
+               Datum v1, Datum v2, Datum v3, Datum v4)
+{
+    // Optimized four-key catalog cache search
+    // Calls internal implementation with fixed key count for performance
+    return SearchCatCacheInternal(cache, 4, v1, v2, v3, v4);
+}
+```

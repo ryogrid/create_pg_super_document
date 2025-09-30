@@ -54,3 +54,106 @@ Data is stored in chunks up to TOAST_MAX_CHUNK_SIZE bytes each, with each chunk 
 - Maintains transactional locks on toast relation until commit to prevent concurrent reindex conflicts
 - The returned toast pointer contains va_toastrelid, va_valueid, va_rawsize, and va_extinfo fields
 - Optimizes storage by detecting and avoiding duplicate toast values during rewrites
+
+## Simplified Source
+
+```c
+Datum toast_save_datum(Relation rel, Datum value,
+                      struct varlena *oldexternal, int options) {
+    Relation toastrel;
+    Relation *toastidxs;
+    struct varatt_external toast_pointer;
+    char *data_p;
+    int32 data_todo, chunk_size, chunk_seq = 0;
+    int num_indexes, validIndex;
+
+    // Open toast relation and indexes
+    toastrel = table_open(rel->rd_rel->reltoastrelid, RowExclusiveLock);
+    validIndex = toast_open_indexes(toastrel, RowExclusiveLock,
+                                   &toastidxs, &num_indexes);
+
+    // Extract data pointer and size based on varlena format
+    if (VARATT_IS_SHORT(value)) {
+        data_p = VARDATA_SHORT(value);
+        data_todo = VARSIZE_SHORT(value) - VARHDRSZ_SHORT;
+        toast_pointer.va_rawsize = data_todo + VARHDRSZ;
+    } else if (VARATT_IS_COMPRESSED(value)) {
+        data_p = VARDATA(value);
+        data_todo = VARSIZE(value) - VARHDRSZ;
+        toast_pointer.va_rawsize = VARDATA_COMPRESSED_GET_EXTSIZE(value) + VARHDRSZ;
+        // Set compression info in external size field
+        VARATT_EXTERNAL_SET_SIZE_AND_COMPRESS_METHOD(toast_pointer, data_todo,
+            VARDATA_COMPRESSED_GET_COMPRESS_METHOD(value));
+    } else {
+        data_p = VARDATA(value);
+        data_todo = VARSIZE(value) - VARHDRSZ;
+        toast_pointer.va_rawsize = VARSIZE(value);
+    }
+
+    // Set toast relation ID
+    toast_pointer.va_toastrelid = OidIsValid(rel->rd_toastoid) ?
+                                 rel->rd_toastoid : RelationGetRelid(toastrel);
+
+    // Choose value ID (OID for this toast value)
+    if (!OidIsValid(rel->rd_toastoid)) {
+        // Normal case: get new unique OID
+        toast_pointer.va_valueid = GetNewOidWithIndex(toastrel,
+            RelationGetRelid(toastidxs[validIndex]), 1);
+    } else {
+        // Table rewrite case: try to preserve old OID if possible
+        toast_pointer.va_valueid = InvalidOid;
+        if (oldexternal && old_value_from_same_toast_table) {
+            toast_pointer.va_valueid = old_toast_pointer.va_valueid;
+            // Check if already exists to avoid duplicates
+            if (toastrel_valueid_exists(toastrel, toast_pointer.va_valueid)) {
+                data_todo = 0; // Skip storage, value already exists
+            }
+        }
+        if (toast_pointer.va_valueid == InvalidOid) {
+            // Get new OID that doesn't conflict with old or new toast table
+            do {
+                toast_pointer.va_valueid = GetNewOidWithIndex(toastrel,
+                    RelationGetRelid(toastidxs[validIndex]), 1);
+            } while (toastid_valueid_exists(rel->rd_toastoid,
+                                          toast_pointer.va_valueid));
+        }
+    }
+
+    // Store data in chunks
+    while (data_todo > 0) {
+        // Calculate chunk size (up to TOAST_MAX_CHUNK_SIZE)
+        chunk_size = Min(TOAST_MAX_CHUNK_SIZE, data_todo);
+
+        // Create and insert chunk tuple
+        HeapTuple chunk_tuple = create_chunk_tuple(toast_pointer.va_valueid,
+                                                  chunk_seq++, data_p, chunk_size);
+        heap_insert(toastrel, chunk_tuple, GetCurrentCommandId(true), options, NULL);
+
+        // Update all ready indexes
+        for (int i = 0; i < num_indexes; i++) {
+            if (toastidxs[i]->rd_index->indisready) {
+                index_insert(toastidxs[i], chunk_values, chunk_nulls,
+                           &(chunk_tuple->t_self), toastrel, UNIQUE_CHECK_YES,
+                           false, NULL);
+            }
+        }
+
+        heap_freetuple(chunk_tuple);
+
+        // Move to next chunk
+        data_todo -= chunk_size;
+        data_p += chunk_size;
+    }
+
+    // Close relations
+    toast_close_indexes(toastidxs, num_indexes, NoLock);
+    table_close(toastrel, NoLock);
+
+    // Create and return toast pointer
+    struct varlena *result = (struct varlena *) palloc(TOAST_POINTER_SIZE);
+    SET_VARTAG_EXTERNAL(result, VARTAG_ONDISK);
+    memcpy(VARDATA_EXTERNAL(result), &toast_pointer, sizeof(toast_pointer));
+
+    return PointerGetDatum(result);
+}
+```

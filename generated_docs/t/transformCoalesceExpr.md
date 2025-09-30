@@ -53,3 +53,48 @@ The function ensures that COALESCE expressions follow SQL standard semantics whi
 - Error messages suggest using LATERAL FROM clauses as an alternative when SRFs are needed
 - The resulting expression will evaluate arguments left-to-right at runtime, returning the first non-NULL value
 - All arguments are coerced to the common type regardless of whether they will be evaluated at runtime
+
+## Simplified Source
+
+```c
+static Node *
+transformCoalesceExpr(ParseState *pstate, CoalesceExpr *c)
+{
+    CoalesceExpr *newc = makeNode(CoalesceExpr);
+    Node *last_srf = pstate->p_last_srf;
+    List *newargs = NIL;
+    List *newcoercedargs = NIL;
+
+    // Transform each argument expression
+    foreach(args, c->args)
+    {
+        Node *e = (Node *) lfirst(args);
+        Node *newe = transformExprRecurse(pstate, e);
+        newargs = lappend(newargs, newe);
+    }
+
+    // Determine common result type for all arguments
+    newc->coalescetype = select_common_type(pstate, newargs, "COALESCE", NULL);
+
+    // Convert all arguments to the common type
+    foreach(args, newargs)
+    {
+        Node *e = (Node *) lfirst(args);
+        Node *newe = coerce_to_common_type(pstate, e, newc->coalescetype, "COALESCE");
+        newcoercedargs = lappend(newcoercedargs, newe);
+    }
+
+    // Check for set-returning functions (not allowed in COALESCE)
+    if (pstate->p_last_srf != last_srf)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("set-returning functions are not allowed in %s", "COALESCE"),
+                 errhint("You might be able to move the set-returning function into a LATERAL FROM item."),
+                 parser_errposition(pstate, exprLocation(pstate->p_last_srf))));
+
+    // Build final COALESCE expression
+    newc->args = newcoercedargs;
+    newc->location = c->location;
+    return (Node *) newc;
+}
+```

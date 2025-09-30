@@ -46,3 +46,50 @@ The function can handle both bare expression trees and complete Query structures
 - Widely used throughout the rewrite system for query transformation operations
 - Essential for operations like view rewriting, rule application, and security policy enforcement
 - The function is designed to be safe for both partial expression trees and complete query structures
+
+## Simplified Source
+
+```c
+void ChangeVarNodes(Node *node, int rt_index, int new_index, int sublevels_up) {
+    ChangeVarNodes_context context;
+
+    // Set up context with replacement parameters
+    context.rt_index = rt_index;
+    context.new_index = new_index;
+    context.sublevels_up = sublevels_up;
+
+    // Handle Query nodes specially
+    if (node && IsA(node, Query)) {
+        Query *qry = (Query *) node;
+
+        // At top level (sublevels_up == 0), update Query-specific fields
+        if (sublevels_up == 0) {
+            // Update result relation reference
+            if (qry->resultRelation == rt_index)
+                qry->resultRelation = new_index;
+
+            // Update merge target relation reference
+            if (qry->mergeTargetRelation == rt_index)
+                qry->mergeTargetRelation = new_index;
+
+            // Update exclusion constraint reference if present
+            if (qry->onConflict && qry->onConflict->exclRelIndex == rt_index)
+                qry->onConflict->exclRelIndex = new_index;
+
+            // Update row mark clause references
+            foreach(l, qry->rowMarks) {
+                RowMarkClause *rc = (RowMarkClause *) lfirst(l);
+                if (rc->rti == rt_index)
+                    rc->rti = new_index;
+            }
+        }
+
+        // Walk the query tree
+        query_tree_walker(qry, ChangeVarNodes_walker, &context, 0);
+    }
+    else {
+        // For non-Query nodes, directly walk the expression tree
+        ChangeVarNodes_walker(node, &context);
+    }
+}
+```

@@ -38,3 +38,22 @@ The calculation involves incrementing the level (moving up one level in the tree
 - The slot within the parent is child.logpageno % SlotsPerFSMPage
 - Essential for FSM tree traversal operations including search and vacuum
 - Used during upward propagation of free space information in the FSM tree
+
+## Simplified Source
+
+```c
+static FSMAddress fsm_get_parent(FSMAddress child, uint16 *slot) {
+    FSMAddress parent;
+
+    Assert(child.level < FSM_ROOT_LEVEL);
+
+    // Move up one level in the tree
+    parent.level = child.level + 1;
+
+    // Calculate parent page number and child's slot within parent
+    parent.logpageno = child.logpageno / SlotsPerFSMPage;
+    *slot = child.logpageno % SlotsPerFSMPage;
+
+    return parent;
+}
+```

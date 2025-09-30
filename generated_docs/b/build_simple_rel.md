@@ -55,3 +55,105 @@ Key responsibilities include:
 - The function can mark child relations as dummy if inherited constraints prove they will be empty
 - Must store RelOptInfo in simple_rel_array before calling apply_child_basequals due to transformation dependencies
 - Supports both regular inheritance and partitioned table hierarchies
+
+## Simplified Source
+
+```c
+RelOptInfo *build_simple_rel(PlannerInfo *root, int relid, RelOptInfo *parent)
+{
+    RelOptInfo *rel;
+    RangeTblEntry *rte;
+
+    // Validate that relation doesn't already exist
+    Assert(relid > 0 && relid < root->simple_rel_array_size);
+    if (root->simple_rel_array[relid] != NULL)
+        elog(ERROR, "rel %d already exists", relid);
+
+    // Get the range table entry for this relation
+    rte = root->simple_rte_array[relid];
+    Assert(rte != NULL);
+
+    // Create and initialize new RelOptInfo structure
+    rel = makeNode(RelOptInfo);
+    rel->reloptkind = parent ? RELOPT_OTHER_MEMBER_REL : RELOPT_BASEREL;
+    rel->relids = bms_make_singleton(relid);
+    rel->relid = relid;
+    rel->rtekind = rte->rtekind;
+
+    // Initialize optimization-related fields
+    rel->rows = 0;
+    rel->consider_startup = (root->tuple_fraction > 0);
+    rel->reltarget = create_empty_pathtarget();
+    rel->pathlist = NIL;
+    rel->cheapest_startup_path = NULL;
+    rel->cheapest_total_path = NULL;
+
+    // Set up user permissions for access control
+    if (rte->rtekind == RTE_RELATION) {
+        if (rel->reloptkind == RELOPT_BASEREL ||
+            (rel->reloptkind == RELOPT_OTHER_MEMBER_REL &&
+             parent->rtekind == RTE_SUBQUERY)) {
+            RTEPermissionInfo *perminfo = getRTEPermissionInfo(root->parse->rteperminfos, rte);
+            rel->userid = perminfo->checkAsUser;
+        } else {
+            rel->userid = parent->userid;
+        }
+    }
+
+    // Handle inheritance hierarchy propagation
+    if (parent) {
+        rel->parent = parent;
+        rel->top_parent = parent->top_parent ? parent->top_parent : parent;
+        rel->top_parent_relids = rel->top_parent->relids;
+        rel->nulling_relids = parent->nulling_relids;
+
+        // Propagate lateral reference information
+        rel->direct_lateral_relids = parent->direct_lateral_relids;
+        rel->lateral_relids = parent->lateral_relids;
+        rel->lateral_referencers = parent->lateral_referencers;
+    }
+
+    // Set up attributes based on relation type
+    switch (rte->rtekind) {
+        case RTE_RELATION:
+            // Table - get statistics from system catalogs
+            get_relation_info(root, rte->relid, rte->inh, rel);
+            break;
+
+        case RTE_SUBQUERY:
+        case RTE_FUNCTION:
+        case RTE_TABLEFUNC:
+        case RTE_VALUES:
+        case RTE_CTE:
+        case RTE_NAMEDTUPLESTORE:
+            // Set up attribute range and arrays for non-table relations
+            rel->min_attr = 0;
+            rel->max_attr = list_length(rte->eref->colnames);
+            rel->attr_needed = (Relids *) palloc0((rel->max_attr - rel->min_attr + 1) * sizeof(Relids));
+            rel->attr_widths = (int32 *) palloc0((rel->max_attr - rel->min_attr + 1) * sizeof(int32));
+            break;
+
+        case RTE_RESULT:
+            // Result relations have no columns
+            rel->min_attr = 0;
+            rel->max_attr = -1;
+            rel->attr_needed = NULL;
+            rel->attr_widths = NULL;
+            break;
+    }
+
+    // Store the relation in the simple_rel_array
+    root->simple_rel_array[relid] = rel;
+
+    // Apply parent quals to child relations
+    if (parent) {
+        AppendRelInfo *appinfo = root->append_rel_array[relid];
+        if (!apply_child_basequals(root, parent, rel, rte, appinfo)) {
+            // If quals reduce to FALSE, mark relation as dummy
+            mark_dummy_rel(rel);
+        }
+    }
+
+    return rel;
+}
+```

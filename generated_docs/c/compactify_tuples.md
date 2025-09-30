@@ -43,3 +43,128 @@ This static function performs tuple compactification to eliminate gaps caused by
 - Performance-optimized to minimize memory operations and take advantage of common access patterns
 - Updates the page header's pd_upper field to reflect the new free space boundary
 - The function is located in src/backend/storage/page/bufpage.c:474-698
+
+## Simplified Source
+
+```c
+static void
+compactify_tuples(itemIdCompact itemidbase, int nitems, Page page, bool presorted)
+{
+    PageHeader phdr = (PageHeader) page;
+    Offset upper;
+    Offset copy_tail, copy_head;
+    itemIdCompact itemidptr;
+    int i;
+
+    Assert(nitems > 0);
+
+    if (presorted)
+    {
+        // Optimized path: tuples already in reverse order by offset
+        // Can use efficient memmove operations
+
+        upper = phdr->pd_special;
+        i = 0;
+
+        // Skip tuples already at the end in correct position
+        do
+        {
+            itemidptr = &itemidbase[i];
+            if (upper != itemidptr->itemoff + itemidptr->alignedlen)
+                break;
+            upper -= itemidptr->alignedlen;
+            i++;
+        } while (i < nitems);
+
+        // Move remaining tuples with minimal memmove calls
+        copy_tail = copy_head = itemidptr->itemoff + itemidptr->alignedlen;
+        for (; i < nitems; i++)
+        {
+            ItemId lp;
+            itemidptr = &itemidbase[i];
+            lp = PageGetItemId(page, itemidptr->offsetindex + 1);
+
+            // Move when gap detected
+            if (copy_head != itemidptr->itemoff + itemidptr->alignedlen)
+            {
+                memmove((char *) page + upper, page + copy_head, copy_tail - copy_head);
+                copy_tail = itemidptr->itemoff + itemidptr->alignedlen;
+            }
+
+            upper -= itemidptr->alignedlen;
+            copy_head = itemidptr->itemoff;
+            lp->lp_off = upper;  // Update line pointer
+        }
+
+        // Move final chunk
+        memmove((char *) page + upper, page + copy_head, copy_tail - copy_head);
+    }
+    else
+    {
+        // Non-presorted path: use temporary buffer to avoid overwrites
+        PGAlignedBlock scratch;
+        char *scratchptr = scratch.data;
+
+        upper = phdr->pd_special;
+
+        // Choose copy strategy based on pruning ratio
+        if (nitems < PageGetMaxOffsetNumber(page) / 4)
+        {
+            // Heavy pruning: copy tuple by tuple
+            for (i = 0; i < nitems; i++)
+            {
+                itemidptr = &itemidbase[i];
+                memcpy(scratchptr + itemidptr->itemoff, page + itemidptr->itemoff,
+                       itemidptr->alignedlen);
+            }
+            i = 0;
+            itemidptr = &itemidbase[0];
+            upper = phdr->pd_special;
+        }
+        else
+        {
+            // Light pruning: bulk copy with skip optimization
+            i = 0;
+            do
+            {
+                itemidptr = &itemidbase[i];
+                if (upper != itemidptr->itemoff + itemidptr->alignedlen)
+                    break;
+                upper -= itemidptr->alignedlen;
+                i++;
+            } while (i < nitems);
+
+            // Copy all movable tuples to scratch buffer
+            memcpy(scratchptr + phdr->pd_upper, page + phdr->pd_upper,
+                   upper - phdr->pd_upper);
+        }
+
+        // Move tuples from scratch buffer back to correct positions
+        copy_tail = copy_head = itemidptr->itemoff + itemidptr->alignedlen;
+        for (; i < nitems; i++)
+        {
+            ItemId lp;
+            itemidptr = &itemidbase[i];
+            lp = PageGetItemId(page, itemidptr->offsetindex + 1);
+
+            // Copy when gap detected
+            if (copy_head != itemidptr->itemoff + itemidptr->alignedlen)
+            {
+                memcpy((char *) page + upper, scratchptr + copy_head,
+                       copy_tail - copy_head);
+                copy_tail = itemidptr->itemoff + itemidptr->alignedlen;
+            }
+
+            upper -= itemidptr->alignedlen;
+            copy_head = itemidptr->itemoff;
+            lp->lp_off = upper;  // Update line pointer
+        }
+
+        // Copy final chunk from scratch buffer
+        memcpy((char *) page + upper, scratchptr + copy_head, copy_tail - copy_head);
+    }
+
+    // Update page header with new upper boundary
+    phdr->pd_upper = upper;
+}
+```

@@ -49,3 +49,42 @@ Key processing steps include:
 - Used for set-returning functions that can be scanned like tables
 - Supports both simple functions and complex lateral function references
 - Essential for table functions, generate_series, unnest, and other set-returning functions
+
+## Simplified Source
+
+```c
+static FunctionScan *
+create_functionscan_plan(PlannerInfo *root, Path *best_path,
+                        List *tlist, List *scan_clauses) {
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte;
+    List *functions;
+
+    // Validate this is a function base relation
+    Assert(scan_relid > 0);
+    rte = planner_rt_fetch(scan_relid, root);
+    Assert(rte->rtekind == RTE_FUNCTION);
+    functions = rte->functions;
+
+    // Optimize scan clause order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Extract actual clauses, removing RestrictInfo wrappers
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle nestloop parameter replacement
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+        // Function expressions may also contain parameters
+        functions = (List *) replace_nestloop_params(root, (Node *) functions);
+    }
+
+    // Create the function scan plan
+    FunctionScan *scan_plan = make_functionscan(tlist, scan_clauses, scan_relid,
+                                               functions, rte->funcordinality);
+
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

@@ -41,3 +41,25 @@ This is used extensively during RTE_RESULT optimization to identify candidates f
 - Simple utility function that encapsulates the common pattern of checking for RTE_RESULT RTEs
 - Used as a guard condition before applying RTE_RESULT-specific optimizations
 - Part of the join tree optimization infrastructure in PostgreSQL's query planner
+
+## Simplified Source
+
+```c
+static int get_result_relid(PlannerInfo *root, Node *jtnode)
+{
+    int varno;
+
+    // Check if this is a simple range table reference
+    if (!IsA(jtnode, RangeTblRef))
+        return 0;
+
+    // Get the relation index
+    varno = ((RangeTblRef *) jtnode)->rtindex;
+
+    // Check if it's actually an RTE_RESULT relation
+    if (rt_fetch(varno, root->parse->rtable)->rtekind != RTE_RESULT)
+        return 0;
+
+    return varno;
+}
+```

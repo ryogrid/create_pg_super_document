@@ -42,3 +42,24 @@ After ensuring adequate capacity, the function creates a new ObjectAddress entry
 - Assert ensures 'extras' array is NULL when expanding (no metadata variant)
 - Primary workhorse function for building dependency collections during expression analysis
 - Memory management handled automatically through PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+static void add_object_address(Oid classId, Oid objectId, int32 subId,
+                              ObjectAddresses *addrs) {
+    // Expand array if needed (double the size)
+    if (addrs->numrefs >= addrs->maxrefs) {
+        addrs->maxrefs *= 2;
+        addrs->refs = repalloc(addrs->refs,
+                              addrs->maxrefs * sizeof(ObjectAddress));
+    }
+
+    // Add new object address entry
+    ObjectAddress *item = &addrs->refs[addrs->numrefs];
+    item->classId = classId;
+    item->objectId = objectId;
+    item->objectSubId = subId;
+    addrs->numrefs++;
+}
+```

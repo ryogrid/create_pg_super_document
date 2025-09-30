@@ -53,3 +53,92 @@ The function considers both btree and BRIN indexes, which support parallel build
 - Leader process participates as worker but is not counted in return value
 - Memory calculation includes leader process in total participant count
 - Safe to proceed when return value is > 0, may be unsafe when 0
+
+## Simplified Source
+
+```c
+int
+plan_create_index_workers(Oid tableOid, Oid indexOid)
+{
+    PlannerInfo *root;
+    Query *query;
+    PlannerGlobal *glob;
+    RangeTblEntry *rte;
+    Relation heap;
+    Relation index;
+    RelOptInfo *rel;
+    int parallel_workers;
+    BlockNumber heap_blocks;
+    double reltuples;
+    double allvisfrac;
+
+    // Check if parallel operations are allowed
+    if (!IsUnderPostmaster || max_parallel_maintenance_workers == 0)
+        return 0;
+
+    // Set up minimal planner state for analysis
+    query = makeNode(Query);
+    query->commandType = CMD_SELECT;
+
+    glob = makeNode(PlannerGlobal);
+
+    root = makeNode(PlannerInfo);
+    root->parse = query;
+    root->glob = glob;
+    root->query_level = 1;
+    root->planner_cxt = CurrentMemoryContext;
+    root->wt_param_id = -1;
+    root->join_domains = list_make1(makeNode(JoinDomain));
+
+    // Build minimal RTE (marked with inh=true to prevent index info fetching)
+    rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RELATION;
+    rte->relid = tableOid;
+    rte->relkind = RELKIND_RELATION;
+    rte->rellockmode = AccessShareLock;
+    rte->lateral = false;
+    rte->inh = true;
+    rte->inFromCl = true;
+    query->rtable = list_make1(rte);
+    addRTEPermissionInfo(&query->rteperminfos, rte);
+
+    // Set up relation structures
+    setup_simple_rel_arrays(root);
+    rel = build_simple_rel(root, 1, NULL);
+
+    // Open relations (caller already has locks)
+    heap = table_open(tableOid, NoLock);
+    index = index_open(indexOid, NoLock);
+
+    // Check safety: no temp tables, parallel-safe expressions/predicates
+    if (heap->rd_rel->relpersistence == RELPERSISTENCE_TEMP ||
+        !is_parallel_safe(root, (Node *) RelationGetIndexExpressions(index)) ||
+        !is_parallel_safe(root, (Node *) RelationGetIndexPredicate(index))) {
+        parallel_workers = 0;
+        goto done;
+    }
+
+    // Honor explicit parallel_workers table setting if specified
+    if (rel->rel_parallel_workers != -1) {
+        parallel_workers = Min(rel->rel_parallel_workers,
+                              max_parallel_maintenance_workers);
+        goto done;
+    }
+
+    // Estimate heap size and compute workers based on table size
+    estimate_rel_size(heap, NULL, &heap_blocks, &reltuples, &allvisfrac);
+    parallel_workers = compute_parallel_worker(rel, heap_blocks, -1,
+                                              max_parallel_maintenance_workers);
+
+    // Cap workers based on memory constraints (minimum 32MB per participant)
+    while (parallel_workers > 0 &&
+           maintenance_work_mem / (parallel_workers + 1) < 32768L)
+        parallel_workers--;
+
+done:
+    index_close(index, NoLock);
+    table_close(heap, NoLock);
+
+    return parallel_workers;
+}
+```

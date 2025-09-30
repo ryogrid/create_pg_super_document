@@ -48,3 +48,69 @@ The function uses a system catalog scan to locate existing settings and performs
 - Triggers post-alter hooks to notify other subsystems of configuration changes
 - Handles both database-specific (databaseid != InvalidOid) and role-specific (roleid != InvalidOid) settings
 - The function is transaction-safe and maintains catalog consistency through proper locking and tuple management
+
+## Simplified Source
+
+```c
+void
+AlterSetting(Oid databaseid, Oid roleid, VariableSetStmt *setstmt)
+{
+    char *valuestr;
+    HeapTuple tuple;
+    Relation rel;
+    ScanKeyData scankey[2];
+    SysScanDesc scan;
+
+    // Extract the value from the SET statement
+    valuestr = ExtractSetVariableArgs(setstmt);
+
+    // Open pg_db_role_setting catalog and scan for existing tuple
+    rel = table_open(DbRoleSettingRelationId, RowExclusiveLock);
+
+    ScanKeyInit(&scankey[0], Anum_pg_db_role_setting_setdatabase,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(databaseid));
+    ScanKeyInit(&scankey[1], Anum_pg_db_role_setting_setrole,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roleid));
+
+    scan = systable_beginscan(rel, DbRoleSettingDatidRolidIndexId, true,
+                              NULL, 2, scankey);
+    tuple = systable_getnext(scan);
+
+    // Handle three cases based on operation type and existing tuple
+    if (setstmt->kind == VAR_RESET_ALL) {
+        // RESET ALL: reset configuration array
+        if (HeapTupleIsValid(tuple)) {
+            ArrayType *new_config = reset_all_guc_settings(tuple, rel);
+            if (new_config)
+                update_catalog_tuple(rel, tuple, new_config);
+            else
+                CatalogTupleDelete(rel, &tuple->t_self);
+        }
+    }
+    else if (HeapTupleIsValid(tuple)) {
+        // Update existing tuple
+        ArrayType *current_config = get_current_config_array(tuple, rel);
+        ArrayType *new_config;
+
+        if (valuestr)
+            new_config = GUCArrayAdd(current_config, setstmt->name, valuestr);
+        else
+            new_config = GUCArrayDelete(current_config, setstmt->name);
+
+        if (new_config)
+            update_catalog_tuple(rel, tuple, new_config);
+        else
+            CatalogTupleDelete(rel, &tuple->t_self);
+    }
+    else if (valuestr) {
+        // Insert new tuple (only for non-RESET operations)
+        ArrayType *new_config = GUCArrayAdd(NULL, setstmt->name, valuestr);
+        insert_new_setting_tuple(rel, databaseid, roleid, new_config);
+    }
+
+    // Trigger post-alter hook and cleanup
+    InvokeObjectPostAlterHookArg(DbRoleSettingRelationId, databaseid, 0, roleid, false);
+    systable_endscan(scan);
+    table_close(rel, NoLock);
+}
+```

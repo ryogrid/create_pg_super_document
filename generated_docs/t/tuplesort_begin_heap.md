@@ -53,3 +53,59 @@ This function creates and configures a new tuplesort state specifically for heap
 - Memory context switching ensures proper allocation of sort-related data structures
 - Includes tracing support for debugging sort operations when TRACE_SORT is enabled
 - The function assumes the TupleDesc doesn't need to be copied and stores it directly as an argument
+
+## Simplified Source
+
+```c
+Tuplesortstate *
+tuplesort_begin_heap(TupleDesc tupDesc,
+                     int nkeys, AttrNumber *attNums,
+                     Oid *sortOperators, Oid *sortCollations,
+                     bool *nullsFirstFlags,
+                     int workMem, SortCoordinate coordinate, int sortopt)
+{
+    Tuplesortstate *state = tuplesort_begin_common(workMem, coordinate, sortopt);
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext;
+    int i;
+
+    oldcontext = MemoryContextSwitchTo(base->maincontext);
+
+    Assert(nkeys > 0);
+
+    // Set up basic sort parameters
+    base->nKeys = nkeys;
+
+    // Configure heap-specific function pointers
+    base->removeabbrev = removeabbrev_heap;
+    base->comparetup = comparetup_heap;
+    base->comparetup_tiebreak = comparetup_heap_tiebreak;
+    base->writetup = writetup_heap;
+    base->readtup = readtup_heap;
+    base->haveDatum1 = true;
+    base->arg = tupDesc;
+
+    // Initialize sort support for each key
+    base->sortKeys = (SortSupport) palloc0(nkeys * sizeof(SortSupportData));
+
+    for (i = 0; i < nkeys; i++) {
+        SortSupport sortKey = base->sortKeys + i;
+
+        sortKey->ssup_cxt = CurrentMemoryContext;
+        sortKey->ssup_collation = sortCollations[i];
+        sortKey->ssup_nulls_first = nullsFirstFlags[i];
+        sortKey->ssup_attno = attNums[i];
+        sortKey->abbreviate = (i == 0 && base->haveDatum1);
+
+        PrepareSortSupportFromOrderingOp(sortOperators[i], sortKey);
+    }
+
+    // Enable single-key optimization if possible
+    if (nkeys == 1 && !base->sortKeys->abbrev_converter)
+        base->onlyKey = base->sortKeys;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    return state;
+}
+```

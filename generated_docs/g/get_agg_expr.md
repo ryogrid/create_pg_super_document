@@ -37,3 +37,12 @@ The function acts as a thin wrapper that calls get_agg_expr_helper with NULL val
 - The wrapper design allows for a clean separation between the simple common case and more complex aggregate expression handling
 - The original_aggref parameter enables context-aware deparsing when dealing with nested or modified aggregate expressions
 - All the actual formatting work is delegated to get_agg_expr_helper with sensible defaults
+
+## Simplified Source
+
+```c
+static void get_agg_expr(Aggref *aggref, deparse_context *context, Aggref *original_aggref) {
+    // Delegate to the main helper function with default parameters
+    get_agg_expr_helper(aggref, context, original_aggref, NULL, NULL, false);
+}
+```

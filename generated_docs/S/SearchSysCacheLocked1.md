@@ -44,3 +44,52 @@ SearchSysCacheLocked1 is a specialized function that combines SearchSysCache1() 
 - Uses a loop to ensure tuple TID stability between search and lock acquisition
 - Processes invalidation messages to ensure cache consistency after lock acquisition
 - Critical for maintaining data integrity when modifying inplace-updated catalog tables
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCacheLocked1(int cacheId, Datum key1) {
+    CatCache *cache = SysCache[cacheId];
+    ItemPointerData tid;
+    LOCKTAG tag;
+
+    ItemPointerSetInvalid(&tid);
+
+    // Retry loop to handle TID changes during concurrent updates
+    for (;;) {
+        HeapTuple tuple = SearchSysCache1(cacheId, key1);
+        LOCKMODE lockmode = InplaceUpdateTupleLock;
+
+        // If we already have a lock, check if TID matches
+        if (ItemPointerIsValid(&tid)) {
+            if (!HeapTupleIsValid(tuple)) {
+                LockRelease(&tag, lockmode, false);
+                return tuple;
+            }
+            if (ItemPointerEquals(&tid, &tuple->t_self)) {
+                return tuple;  // Same tuple, return it
+            }
+            LockRelease(&tag, lockmode, false);  // TID changed, release old lock
+        } else if (!HeapTupleIsValid(tuple)) {
+            return tuple;  // No tuple found
+        }
+
+        // Remember new TID and release tuple
+        tid = tuple->t_self;
+        ReleaseSysCache(tuple);
+
+        // Acquire lock on the tuple
+        SET_LOCKTAG_TUPLE(tag,
+                         cache->cc_relisshared ? InvalidOid : MyDatabaseId,
+                         cache->cc_reloid,
+                         ItemPointerGetBlockNumber(&tid),
+                         ItemPointerGetOffsetNumber(&tid));
+        LockAcquire(&tag, lockmode, false, false);
+
+        // Process any pending invalidation messages
+        AcceptInvalidationMessages();
+
+        // Loop back to verify TID is still current
+    }
+}
+```

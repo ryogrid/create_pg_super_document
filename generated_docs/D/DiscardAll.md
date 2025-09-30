@@ -52,3 +52,39 @@ The function includes transaction safety checks to prevent DISCARD ALL from bein
 - Advisory locks are released using USER_LOCKMETHOD with the allxids parameter set to true
 - This function represents one of the most comprehensive session cleanup operations in PostgreSQL
 - The order of operations is carefully chosen to handle dependencies between different types of session state
+
+## Simplified Source
+
+```c
+static void DiscardAll(bool isTopLevel) {
+    // Prevent execution within transaction block to avoid uncommitted state
+    PreventInTransactionBlock(isTopLevel, "DISCARD ALL");
+
+    // Clean up portals first (may run user code)
+    PortalHashTableDeleteAll();
+
+    // Reset session authorization to default
+    SetPGVariable("session_authorization", NIL, false);
+
+    // Reset all configuration options
+    ResetAllOptions();
+
+    // Drop all prepared statements
+    DropAllPreparedStatements();
+
+    // Remove all LISTEN subscriptions
+    Async_UnlistenAll();
+
+    // Release all user advisory locks
+    LockReleaseAll(USER_LOCKMETHOD, true);
+
+    // Clear plan cache
+    ResetPlanCache();
+
+    // Clean up temporary tables
+    ResetTempTableNamespace();
+
+    // Reset sequence caches
+    ResetSequenceCaches();
+}
+```

@@ -46,3 +46,62 @@ The function first checks if a ParamPathInfo already exists for the given parame
 - Caches ParamPathInfo structures in the relation's ppilist to ensure consistent rowcount estimates
 - Uses both explicit join clauses and EquivalenceClass-generated clauses for parameterization
 - The function is located in src/backend/optimizer/util/relnode.c:1557-1670
+
+## Simplified Source
+
+```c
+ParamPathInfo *
+get_baserel_parampathinfo(PlannerInfo *root, RelOptInfo *baserel,
+                          Relids required_outer)
+{
+    ParamPathInfo *ppi;
+
+    // Unparameterized paths need no ParamPathInfo
+    if (bms_is_empty(required_outer))
+        return NULL;
+
+    // Return existing ParamPathInfo if available
+    if ((ppi = find_param_path_info(baserel, required_outer)))
+        return ppi;
+
+    // Find movable join clauses for this parameterization
+    Relids joinrelids = bms_union(baserel->relids, required_outer);
+    List *pclauses = NIL;
+
+    // Collect explicit join clauses
+    foreach(lc, baserel->joininfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+
+        if (join_clause_is_movable_into(rinfo, baserel->relids, joinrelids))
+            pclauses = lappend(pclauses, rinfo);
+    }
+
+    // Add EquivalenceClass-generated clauses
+    List *eqclauses = generate_join_implied_equalities(root, joinrelids,
+                                                       required_outer,
+                                                       baserel, NULL);
+    pclauses = list_concat(pclauses, eqclauses);
+
+    // Build set of clause serial numbers
+    Bitmapset *pserials = NULL;
+    foreach(lc, pclauses)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+        pserials = bms_add_member(pserials, rinfo->rinfo_serial);
+    }
+
+    // Estimate rows for parameterized scan
+    double rows = get_parameterized_baserel_size(root, baserel, pclauses);
+
+    // Create and cache new ParamPathInfo
+    ppi = makeNode(ParamPathInfo);
+    ppi->ppi_req_outer = required_outer;
+    ppi->ppi_rows = rows;
+    ppi->ppi_clauses = pclauses;
+    ppi->ppi_serials = pserials;
+    baserel->ppilist = lappend(baserel->ppilist, ppi);
+
+    return ppi;
+}
+```

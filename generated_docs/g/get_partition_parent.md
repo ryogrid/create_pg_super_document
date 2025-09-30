@@ -44,3 +44,32 @@ The function assumes that the relation whose OID is passed as an argument will h
 - If the partition is being detached and `even_if_detached` is false, it throws an error
 - Uses AccessShareLock for safe concurrent access to the pg_inherits catalog
 - Located at src/backend/catalog/partition.c:53-84
+
+## Simplified Source
+
+```c
+Oid get_partition_parent(Oid relid, bool even_if_detached) {
+    Relation catalogRelation;
+    Oid result;
+    bool detach_pending;
+
+    // Open the inheritance catalog table
+    catalogRelation = table_open(InheritsRelationId, AccessShareLock);
+
+    // Find the parent using helper function
+    result = get_partition_parent_worker(catalogRelation, relid, &detach_pending);
+
+    // Check for errors
+    if (!OidIsValid(result)) {
+        elog(ERROR, "could not find tuple for parent of relation %u", relid);
+    }
+
+    // Handle detaching partitions
+    if (detach_pending && !even_if_detached) {
+        elog(ERROR, "relation %u has no parent because it's being detached", relid);
+    }
+
+    table_close(catalogRelation, AccessShareLock);
+    return result;
+}
+```

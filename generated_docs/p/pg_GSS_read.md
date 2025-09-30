@@ -46,3 +46,102 @@ Key behaviors:
 - Returns immediately when any decrypted data is available rather than waiting for complete buffer fill
 - Validates that all incoming packets use confidentiality protection
 - Sets errno to EWOULDBLOCK for incomplete packet reception scenarios
+
+## Simplified Source
+
+```c
+ssize_t pg_GSS_read(PGconn *conn, void *ptr, size_t len)
+{
+    OM_uint32 major, minor;
+    gss_buffer_desc input = GSS_C_EMPTY_BUFFER, output = GSS_C_EMPTY_BUFFER;
+    ssize_t ret;
+    size_t bytes_returned = 0;
+    gss_ctx_id_t gctx = conn->gctx;
+
+    while (bytes_returned < len) {
+        int conf_state = 0;
+
+        // Return buffered decrypted data if available
+        if (PqGSSResultNext < PqGSSResultLength) {
+            size_t bytes_in_buffer = PqGSSResultLength - PqGSSResultNext;
+            size_t bytes_to_copy = Min(bytes_in_buffer, len - bytes_returned);
+
+            memcpy((char *) ptr + bytes_returned,
+                   PqGSSResultBuffer + PqGSSResultNext, bytes_to_copy);
+            PqGSSResultNext += bytes_to_copy;
+            bytes_returned += bytes_to_copy;
+            break;
+        }
+
+        // Reset result buffer when empty
+        PqGSSResultLength = PqGSSResultNext = 0;
+        Assert(bytes_returned == 0);
+
+        // Read packet length header (4 bytes)
+        if (PqGSSRecvLength < sizeof(uint32)) {
+            ret = pqsecure_raw_read(conn, PqGSSRecvBuffer + PqGSSRecvLength,
+                                  sizeof(uint32) - PqGSSRecvLength);
+            if (ret <= 0)
+                return ret;
+
+            PqGSSRecvLength += ret;
+            if (PqGSSRecvLength < sizeof(uint32)) {
+                errno = EWOULDBLOCK;
+                return -1;
+            }
+        }
+
+        // Decode packet length and validate size
+        input.length = pg_ntoh32(*(uint32 *) PqGSSRecvBuffer);
+        if (input.length > PQ_GSS_MAX_PACKET_SIZE - sizeof(uint32)) {
+            libpq_append_conn_error(conn, "oversize GSSAPI packet sent by the server");
+            errno = EIO;
+            return -1;
+        }
+
+        // Read encrypted packet payload
+        ret = pqsecure_raw_read(conn, PqGSSRecvBuffer + PqGSSRecvLength,
+                              input.length - (PqGSSRecvLength - sizeof(uint32)));
+        if (ret <= 0)
+            return ret;
+
+        PqGSSRecvLength += ret;
+        if (PqGSSRecvLength - sizeof(uint32) < input.length) {
+            errno = EWOULDBLOCK;
+            return -1;
+        }
+
+        // Decrypt complete packet
+        input.value = PqGSSRecvBuffer + sizeof(uint32);
+        major = gss_unwrap(&minor, gctx, &input, &output, &conf_state, NULL);
+        if (major != GSS_S_COMPLETE) {
+            pg_GSS_error("GSSAPI unwrap error", conn, major, minor);
+            ret = -1;
+            errno = EIO;
+            goto cleanup;
+        }
+
+        // Verify confidentiality was used
+        if (conf_state == 0) {
+            libpq_append_conn_error(conn, "incoming GSSAPI message did not use confidentiality");
+            ret = -1;
+            errno = EIO;
+            goto cleanup;
+        }
+
+        // Copy decrypted data to result buffer
+        memcpy(PqGSSResultBuffer, output.value, output.length);
+        PqGSSResultLength = output.length;
+        PqGSSRecvLength = 0;
+
+        gss_release_buffer(&minor, &output);
+    }
+
+    ret = bytes_returned;
+
+cleanup:
+    if (output.value != NULL)
+        gss_release_buffer(&minor, &output);
+    return ret;
+}
+```

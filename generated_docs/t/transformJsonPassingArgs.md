@@ -38,3 +38,32 @@ The transformJsonPassingArgs function processes the PASSING clause arguments use
 
 ## Notes and Other Information
 This function is essential for SQL/JSON parameter binding functionality. It enables the use of SQL expressions as parameters within JSON path expressions, allowing for dynamic JSON querying. The function maintains the order and correspondence between parameter names and values, which is crucial for correct parameter substitution during JSON path evaluation. Located at src/backend/parser/parse_expr.c:4637-4662.
+
+## Simplified Source
+
+```c
+static void
+transformJsonPassingArgs(ParseState *pstate, const char *constructName,
+                        JsonFormatType format, List *args,
+                        List **passing_values, List **passing_names) {
+    ListCell *lc;
+
+    // Initialize output lists
+    *passing_values = NIL;
+    *passing_names = NIL;
+
+    // Process each argument in the PASSING clause
+    foreach(lc, args) {
+        JsonArgument *arg = castNode(JsonArgument, lfirst(lc));
+
+        // Transform the value expression for JSON format
+        Node *expr = transformJsonValueExpr(pstate, constructName,
+                                          arg->val, format,
+                                          InvalidOid, true);
+
+        // Add transformed expression and parameter name to lists
+        *passing_values = lappend(*passing_values, expr);
+        *passing_names = lappend(*passing_names, makeString(arg->name));
+    }
+}
+```

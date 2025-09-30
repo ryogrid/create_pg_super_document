@@ -52,3 +52,51 @@ The propagation continues until it reaches the root or encounters a node that do
 - Part of PostgreSQL's Free Space Map system for tracking available space in heap pages
 - The binary tree structure ensures efficient searches while maintaining space usage information
 - Uses Max() macro to determine the maximum value between left and right children during propagation
+
+## Simplified Source
+
+```c
+bool fsm_set_avail(Page page, int slot, uint8 value) {
+    int nodeno = NonLeafNodesPerPage + slot;  // Convert slot to leaf node index
+    FSMPage fsmpage = (FSMPage) PageGetContents(page);
+    uint8 oldvalue;
+
+    Assert(slot < LeafNodesPerPage);
+
+    oldvalue = fsmpage->fp_nodes[nodeno];
+
+    // Early exit if value unchanged and doesn't exceed root
+    if (oldvalue == value && value <= fsmpage->fp_nodes[0])
+        return false;
+
+    // Set the leaf node value
+    fsmpage->fp_nodes[nodeno] = value;
+
+    // Propagate changes up the tree
+    do {
+        uint8 newvalue = 0;
+        int lchild, rchild;
+
+        nodeno = parentof(nodeno);
+        lchild = leftchild(nodeno);
+        rchild = lchild + 1;
+
+        // Calculate maximum of children
+        newvalue = fsmpage->fp_nodes[lchild];
+        if (rchild < NodesPerPage)
+            newvalue = Max(newvalue, fsmpage->fp_nodes[rchild]);
+
+        oldvalue = fsmpage->fp_nodes[nodeno];
+        if (oldvalue == newvalue)
+            break;  // No change needed at this level
+
+        fsmpage->fp_nodes[nodeno] = newvalue;
+    } while (nodeno > 0);
+
+    // Corruption check: new value shouldn't exceed root value
+    if (value > fsmpage->fp_nodes[0])
+        fsm_rebuild_page(page);
+
+    return true;
+}
+```

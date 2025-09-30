@@ -45,3 +45,38 @@ This function is typically called from the ALTER SUBSCRIPTION OWNER TO SQL comma
 - Provides standard PostgreSQL error reporting for non-existent subscriptions
 - Memory management includes proper cleanup of copied heap tuple
 - Part of the standard PostgreSQL object ownership change infrastructure
+
+## Simplified Source
+
+```c
+ObjectAddress AlterSubscriptionOwner(const char *name, Oid newOwnerId)
+{
+    // Open subscription catalog
+    Relation rel = table_open(SubscriptionRelationId, RowExclusiveLock);
+
+    // Find subscription by name (scoped to current database)
+    HeapTuple tup = SearchSysCacheCopy2(SUBSCRIPTIONNAME, MyDatabaseId,
+                                        CStringGetDatum(name));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("subscription \"%s\" does not exist", name)));
+
+    // Get subscription OID
+    Form_pg_subscription form = (Form_pg_subscription) GETSTRUCT(tup);
+    Oid subscription_oid = form->oid;
+
+    // Delegate to internal function for ownership change
+    AlterSubscriptionOwner_internal(rel, tup, newOwnerId);
+
+    // Build return address
+    ObjectAddress address;
+    ObjectAddressSet(address, SubscriptionRelationId, subscription_oid);
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

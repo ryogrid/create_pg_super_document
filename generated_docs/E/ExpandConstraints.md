@@ -35,3 +35,43 @@ The function allocates workspace in the global waitOrderProcs array and builds t
 - Each lock gets at most one reordered wait queue, even if multiple constraints affect it
 - The workspace allocation ensures total process count doesn't exceed MaxBackends
 - Critical component of PostgreSQL's deadlock resolution strategy that attempts to break cycles by reordering wait queues
+
+## Simplified Source
+
+```c
+static bool
+ExpandConstraints(EDGE *constraints, int nConstraints)
+{
+    int nWaitOrderProcs = 0;
+    int i, j;
+
+    nWaitOrders = 0;
+
+    // Process constraints backwards (most recent first)
+    for (i = nConstraints; --i >= 0;) {
+        LOCK *lock = constraints[i].lock;
+
+        // Check if we already created a wait order for this lock
+        for (j = nWaitOrders; --j >= 0;) {
+            if (waitOrders[j].lock == lock)
+                break;
+        }
+        if (j >= 0)
+            continue;  // Already have an order for this lock
+
+        // Create new wait order for this lock
+        waitOrders[nWaitOrders].lock = lock;
+        waitOrders[nWaitOrders].procs = waitOrderProcs + nWaitOrderProcs;
+        waitOrders[nWaitOrders].nProcs = dclist_count(&lock->waitProcs);
+        nWaitOrderProcs += dclist_count(&lock->waitProcs);
+        Assert(nWaitOrderProcs <= MaxBackends);
+
+        // Perform topological sort to create valid ordering
+        if (!TopoSort(lock, constraints, i + 1, waitOrders[nWaitOrders].procs))
+            return false;  // Contradictory constraints
+
+        nWaitOrders++;
+    }
+    return true;
+}
+```

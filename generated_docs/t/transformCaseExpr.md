@@ -52,3 +52,103 @@ The function handles both shorthand (simple) and full (searched) CASE syntax by 
 - Validates that set-returning functions are not used within CASE expressions
 - The default result is given priority in type resolution (though this is noted as potentially questionable behavior)
 - The function is static, indicating it's only used within the parse_expr.c module
+
+## Simplified Source
+
+```c
+static Node *
+transformCaseExpr(ParseState *pstate, CaseExpr *c)
+{
+    CaseExpr *newc = makeNode(CaseExpr);
+    Node *last_srf = pstate->p_last_srf;
+    Node *arg;
+    CaseTestExpr *placeholder;
+    List *newargs;
+    List *resultexprs;
+    Node *defresult;
+    Oid ptype;
+
+    // Transform test expression and create placeholder if needed
+    arg = transformExprRecurse(pstate, (Node *) c->arg);
+    if (arg) {
+        // Handle untyped literals by coercing to text
+        if (exprType(arg) == UNKNOWNOID)
+            arg = coerce_to_common_type(pstate, arg, TEXTOID, "CASE");
+
+        assign_expr_collations(pstate, arg);
+
+        // Create placeholder for simple CASE form
+        placeholder = makeNode(CaseTestExpr);
+        placeholder->typeId = exprType(arg);
+        placeholder->typeMod = exprTypmod(arg);
+        placeholder->collation = exprCollation(arg);
+    } else {
+        placeholder = NULL;
+    }
+    newc->arg = (Expr *) arg;
+
+    // Transform WHEN clauses
+    newargs = NIL;
+    resultexprs = NIL;
+    foreach(l, c->args) {
+        CaseWhen *w = lfirst_node(CaseWhen, l);
+        CaseWhen *neww = makeNode(CaseWhen);
+        Node *warg = (Node *) w->expr;
+
+        // For simple CASE, expand to equality comparison
+        if (placeholder) {
+            warg = (Node *) makeSimpleA_Expr(AEXPR_OP, "=",
+                                             (Node *) placeholder,
+                                             warg, w->location);
+        }
+
+        neww->expr = (Expr *) transformExprRecurse(pstate, warg);
+        neww->expr = (Expr *) coerce_to_boolean(pstate, (Node *) neww->expr,
+                                                 "CASE/WHEN");
+
+        neww->result = (Expr *) transformExprRecurse(pstate, (Node *) w->result);
+        neww->location = w->location;
+
+        newargs = lappend(newargs, neww);
+        resultexprs = lappend(resultexprs, neww->result);
+    }
+    newc->args = newargs;
+
+    // Transform default clause (create NULL if missing)
+    defresult = (Node *) c->defresult;
+    if (defresult == NULL) {
+        A_Const *n = makeNode(A_Const);
+        n->isnull = true;
+        n->location = -1;
+        defresult = (Node *) n;
+    }
+    newc->defresult = (Expr *) transformExprRecurse(pstate, defresult);
+
+    // Determine common result type
+    resultexprs = lcons(newc->defresult, resultexprs);
+    ptype = select_common_type(pstate, resultexprs, "CASE", NULL);
+    newc->casetype = ptype;
+
+    // Coerce all results to common type
+    newc->defresult = (Expr *) coerce_to_common_type(pstate,
+                                                      (Node *) newc->defresult,
+                                                      ptype, "CASE/ELSE");
+
+    foreach(l, newc->args) {
+        CaseWhen *w = (CaseWhen *) lfirst(l);
+        w->result = (Expr *) coerce_to_common_type(pstate,
+                                                   (Node *) w->result,
+                                                   ptype, "CASE/WHEN");
+    }
+
+    // Check for set-returning functions
+    if (pstate->p_last_srf != last_srf)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                        errmsg("set-returning functions are not allowed in CASE"),
+                        errhint("You might be able to move the set-returning function into a LATERAL FROM item."),
+                        parser_errposition(pstate, exprLocation(pstate->p_last_srf))));
+
+    newc->location = c->location;
+    return (Node *) newc;
+}
+```

@@ -50,3 +50,67 @@ The function ensures proper locking to prevent concurrent modifications and hand
 - Tablespace handling ensures that relations are correctly placed in appropriate tablespaces in the destination database
 - Memory cleanup is performed for allocated paths and relation lists
 - Located at src/backend/commands/dbcommands.c:148-249
+
+## Simplified Source
+
+```c
+static void CreateDatabaseUsingWalLog(Oid src_dboid, Oid dst_dboid,
+                                    Oid src_tsid, Oid dst_tsid) {
+    char *srcpath, *dstpath;
+    List *rlocatorlist = NULL;
+    ListCell *cell;
+    LockRelId srcrelid, dstrelid;
+    RelFileLocator srcrlocator, dstrlocator;
+    CreateDBRelInfo *relinfo;
+
+    // Get source and destination database paths
+    srcpath = GetDatabasePath(src_dboid, src_tsid);
+    dstpath = GetDatabasePath(dst_dboid, dst_tsid);
+
+    // Create database directory and version file
+    CreateDirAndVersionFile(dstpath, dst_dboid, dst_tsid, false);
+
+    // Copy relation mapping file from source to destination
+    RelationMapCopy(dst_dboid, dst_tsid, srcpath, dstpath);
+
+    // Get list of all relations to copy from source database
+    rlocatorlist = ScanSourceDatabasePgClass(src_tsid, src_dboid, srcpath);
+    Assert(rlocatorlist != NIL);
+
+    // Set database IDs for all relations
+    srcrelid.dbId = src_dboid;
+    dstrelid.dbId = dst_dboid;
+
+    // Copy each relation individually
+    foreach(cell, rlocatorlist) {
+        relinfo = lfirst(cell);
+        srcrlocator = relinfo->rlocator;
+
+        // Handle tablespace mapping: source default tablespace -> destination default tablespace
+        if (srcrlocator.spcOid == src_tsid)
+            dstrlocator.spcOid = dst_tsid;
+        else
+            dstrlocator.spcOid = srcrlocator.spcOid;
+
+        dstrlocator.dbOid = dst_dboid;
+        dstrlocator.relNumber = srcrlocator.relNumber;
+
+        // Acquire locks on both source and destination relations
+        dstrelid.relId = srcrelid.relId = relinfo->reloid;
+        LockRelationId(&srcrelid, AccessShareLock);
+        LockRelationId(&dstrelid, AccessShareLock);
+
+        // Copy relation data with WAL logging
+        CreateAndCopyRelationData(srcrlocator, dstrlocator, relinfo->permanent);
+
+        // Release relation locks
+        UnlockRelationId(&srcrelid, AccessShareLock);
+        UnlockRelationId(&dstrelid, AccessShareLock);
+    }
+
+    // Cleanup
+    pfree(srcpath);
+    pfree(dstpath);
+    list_free_deep(rlocatorlist);
+}
+```

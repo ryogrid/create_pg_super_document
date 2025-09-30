@@ -44,3 +44,36 @@ This function takes no parameters and operates on the global currentEventTrigger
 - Part of a paired operation with command start functions that initialize ALTER TABLE collection
 - The function properly handles the case where no subcommands were collected, preventing memory leaks
 - Supports nested command processing by maintaining a parent command stack
+
+## Simplified Source
+
+```c
+void
+EventTriggerAlterTableEnd(void)
+{
+    CollectedCommand *parent;
+
+    // Check if event trigger context is active
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    parent = currentEventTriggerState->currentCommand->parent;
+
+    // Add command to list if it has subcommands, otherwise free it
+    if (currentEventTriggerState->currentCommand->d.alterTable.subcmds != NIL) {
+        MemoryContext oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+        currentEventTriggerState->commandList =
+            lappend(currentEventTriggerState->commandList,
+                   currentEventTriggerState->currentCommand);
+
+        MemoryContextSwitchTo(oldcxt);
+    } else {
+        pfree(currentEventTriggerState->currentCommand);
+    }
+
+    // Restore parent as current command
+    currentEventTriggerState->currentCommand = parent;
+}
+```

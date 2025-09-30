@@ -41,3 +41,19 @@ The function uses  to cast away the const qualifier when assigning the static bu
 - After calling this function,  will return true
 - The oom_buffer is intentionally placed in read-only memory to catch programming errors
 - This function is part of PostgreSQL's robust error handling for memory allocation failures in the libpq client library
+
+## Simplified Source
+
+```c
+static void markPQExpBufferBroken(PQExpBuffer str) {
+    // Free any existing dynamically allocated buffer
+    if (str->data != oom_buffer) {
+        free(str->data);
+    }
+
+    // Set buffer to point to static out-of-memory buffer
+    str->data = unconstify(char *, oom_buffer_ptr);
+    str->len = 0;        // Mark as empty
+    str->maxlen = 0;     // Mark as broken (no capacity)
+}
+```

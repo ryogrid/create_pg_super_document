@@ -53,3 +53,54 @@ The function is separate from valid_custom_variable_name() because the reserved 
 - The function provides detailed error messages to help users understand naming requirements
 - Error handling is flexible: callers can choose to suppress errors or specify the appropriate error level
 - The separation from valid_custom_variable_name() allows different validation policies for file reading vs. runtime assignment
+
+## Simplified Source
+
+```c
+static bool assignable_custom_variable_name(const char *name, bool skip_errors, int elevel)
+{
+    // Check if name contains a separator (required for custom variables)
+    const char *separator = strchr(name, GUC_QUALIFIER_SEPARATOR);
+
+    if (separator != NULL)
+    {
+        size_t class_length = separator - name;
+        ListCell *lc;
+
+        // First check syntax rules
+        if (!valid_custom_variable_name(name))
+        {
+            if (!skip_errors)
+                ereport(elevel, (errcode(ERRCODE_INVALID_NAME),
+                               errmsg("invalid configuration parameter name \"%s\"", name),
+                               errdetail("Custom parameter names must be two or more simple identifiers separated by dots.")));
+            return false;
+        }
+
+        // Check against reserved prefixes
+        foreach(lc, reserved_class_prefix)
+        {
+            const char *reserved_prefix = lfirst(lc);
+
+            if (strlen(reserved_prefix) == class_length &&
+                strncmp(name, reserved_prefix, class_length) == 0)
+            {
+                if (!skip_errors)
+                    ereport(elevel, (errcode(ERRCODE_INVALID_NAME),
+                                   errmsg("invalid configuration parameter name \"%s\"", name),
+                                   errdetail("\"%s\" is a reserved prefix.", reserved_prefix)));
+                return false;
+            }
+        }
+
+        // Valid custom variable name
+        return true;
+    }
+
+    // Single-part names are not allowed for custom variables
+    if (!skip_errors)
+        ereport(elevel, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("unrecognized configuration parameter \"%s\"", name)));
+    return false;
+}
+```

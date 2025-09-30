@@ -44,3 +44,48 @@ The function supports both AGG_HASHED and AGG_MIXED strategies, selecting the ap
 - Critical for performance as expression compilation is expensive and this avoids redundant recompilation
 - Temporarily modifies the outer plan's slot operations during compilation when processing spilled data
 - The function ensures that the correct expression variant is used based on the current aggregation phase and data source
+
+## Simplified Source
+
+```c
+static void hashagg_recompile_expressions(AggState *aggstate, bool minslot, bool nullcheck) {
+    // Determine cache indices based on execution context
+    int i = minslot ? 1 : 0;
+    int j = nullcheck ? 1 : 0;
+
+    // Select appropriate phase (phase 0 for AGG_HASHED, phase 1 for AGG_MIXED)
+    AggStatePerPhase phase;
+    if (aggstate->aggstrategy == AGG_HASHED)
+        phase = &aggstate->phases[0];
+    else  // AGG_MIXED
+        phase = &aggstate->phases[1];
+
+    // Compile expression if not already cached
+    if (phase->evaltrans_cache[i][j] == NULL) {
+        // Save original outer slot operations
+        const TupleTableSlotOps *orig_outerops = aggstate->ss.ps.outerops;
+        bool orig_outerfixed = aggstate->ss.ps.outeropsfixed;
+
+        // Configure sort/hash behavior
+        bool dohash = true;
+        bool dosort = (aggstate->aggstrategy == AGG_MIXED && !minslot);
+
+        // Use minimal tuple slots when processing spilled data
+        if (minslot) {
+            aggstate->ss.ps.outerops = &TTSOpsMinimalTuple;
+            aggstate->ss.ps.outeropsfixed = true;
+        }
+
+        // Compile the expression with current context
+        phase->evaltrans_cache[i][j] = ExecBuildAggTrans(aggstate, phase,
+                                                        dosort, dohash, nullcheck);
+
+        // Restore original slot operations
+        aggstate->ss.ps.outerops = orig_outerops;
+        aggstate->ss.ps.outeropsfixed = orig_outerfixed;
+    }
+
+    // Set the current evaluation function to cached version
+    phase->evaltrans = phase->evaltrans_cache[i][j];
+}
+```

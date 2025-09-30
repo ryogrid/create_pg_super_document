@@ -47,3 +47,34 @@ The limit includes both direct and indirect descendants (e.g., for a relation lo
 - Part of PostgreSQL's lock escalation strategy to prevent memory exhaustion
 - The promotion thresholds are configurable via GUC (Grand Unified Configuration) parameters
 - Future improvements may include ratio-based limits relative to actual page/tuple counts in relations
+
+## Simplified Source
+
+```c
+static int MaxPredicateChildLocks(const PREDICATELOCKTARGETTAG *tag) {
+    switch (GET_PREDICATELOCKTARGETTAG_TYPE(*tag)) {
+        case PREDLOCKTAG_RELATION:
+            // Calculate relation lock limit based on configuration
+            if (max_predicate_locks_per_relation < 0) {
+                // Use fraction of transaction limit
+                return (max_predicate_locks_per_xact / (-max_predicate_locks_per_relation)) - 1;
+            } else {
+                // Use configured limit
+                return max_predicate_locks_per_relation;
+            }
+
+        case PREDLOCKTAG_PAGE:
+            // Use configured page lock limit (typically 2)
+            return max_predicate_locks_per_page;
+
+        case PREDLOCKTAG_TUPLE:
+            // Tuples are finest granularity - should never promote to tuple level
+            Assert(false);
+            return 0;
+    }
+
+    // Should never reach here
+    Assert(false);
+    return 0;
+}
+```

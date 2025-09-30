@@ -46,3 +46,34 @@ The make_opclause function constructs an OpExpr node, which represents operator 
 - This function is heavily used in query optimization, partitioning, pattern matching, and other internal PostgreSQL operations
 - Collation information is crucial for operators that perform text comparison or ordering operations
 - The returned expression can be used in WHERE clauses, JOIN conditions, and other contexts requiring operator evaluation
+
+## Simplified Source
+
+```c
+Expr *make_opclause(Oid opno, Oid opresulttype, bool opretset,
+                    Expr *leftop, Expr *rightop,
+                    Oid opcollid, Oid inputcollid) {
+    // Create new OpExpr node
+    OpExpr *expr = makeNode(OpExpr);
+
+    // Set operator identification and result information
+    expr->opno = opno;
+    expr->opfuncid = InvalidOid;         // Will be resolved later
+    expr->opresulttype = opresulttype;
+    expr->opretset = opretset;
+
+    // Set collation information
+    expr->opcollid = opcollid;
+    expr->inputcollid = inputcollid;
+
+    // Build argument list (binary or unary operator)
+    if (rightop)
+        expr->args = list_make2(leftop, rightop);    // Binary operator
+    else
+        expr->args = list_make1(leftop);             // Unary operator
+
+    expr->location = -1;  // Unknown source location
+
+    return (Expr *) expr;
+}
+```

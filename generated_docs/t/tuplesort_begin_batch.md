@@ -45,4 +45,56 @@ The function ensures that sufficient memory is available for the minimal tuple a
 - Prepares state for subsequent tuple insertion and sorting operations
 - Part of PostgreSQL's memory-efficient tuple sorting architecture
 - Essential for supporting multiple sort batches with the same sort state
+
+## Simplified Source
+
+```c
+static void
+tuplesort_begin_batch(Tuplesortstate *state)
+{
+    MemoryContext oldcontext;
+
+    oldcontext = MemoryContextSwitchTo(state->base.maincontext);
+
+    // Create tuple context - choose optimal allocator type
+    if (TupleSortUseBumpTupleCxt(state->base.sortopt))
+        state->base.tuplecontext = BumpContextCreate(state->base.sortcontext,
+                                                     "Caller tuples",
+                                                     ALLOCSET_DEFAULT_SIZES);
+    else
+        state->base.tuplecontext = AllocSetContextCreate(state->base.sortcontext,
+                                                         "Caller tuples",
+                                                         ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize sort state
+    state->status = TSS_INITIAL;
+    state->bounded = false;
+    state->boundUsed = false;
+    state->availMem = state->allowedMem;
+    state->tapeset = NULL;
+    state->memtupcount = 0;
+
+    // Initialize or reset tuple storage array
+    state->growmemtuples = true;
+    state->slabAllocatorUsed = false;
+    if (state->memtuples != NULL && state->memtupsize != INITIAL_MEMTUPSIZE) {
+        pfree(state->memtuples);
+        state->memtuples = NULL;
+        state->memtupsize = INITIAL_MEMTUPSIZE;
+    }
+    if (state->memtuples == NULL) {
+        state->memtuples = (SortTuple *) palloc(state->memtupsize * sizeof(SortTuple));
+        USEMEM(state, GetMemoryChunkSpace(state->memtuples));
+    }
+
+    // Ensure sufficient memory
+    if (LACKMEM(state))
+        elog(ERROR, "insufficient memory allowed for sort");
+
+    state->currentRun = 0;
+    state->result_tape = NULL;
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```
 - Memory context selection optimizes for different allocation patterns in bounded vs unbounded sorts

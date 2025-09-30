@@ -44,3 +44,42 @@ The function performs a catalog table scan using the specified criteria and dele
 - Essential for maintaining referential integrity when databases or roles are dropped
 - The function is called during DROP DATABASE and DROP ROLE operations to prevent orphaned configuration entries
 - [Scan](../S/Scan.md) keys are built dynamically based on which OID parameters are valid, allowing flexible deletion patterns
+
+## Simplified Source
+
+```c
+void DropSetting(Oid databaseid, Oid roleid) {
+    Relation relsetting;
+    TableScanDesc scan;
+    ScanKeyData keys[2];
+    HeapTuple tup;
+    int numkeys = 0;
+
+    // Step 1: Open pg_db_role_setting catalog for modification
+    relsetting = table_open(DbRoleSettingRelationId, RowExclusiveLock);
+
+    // Step 2: Build scan keys based on provided parameters
+    if (OidIsValid(databaseid)) {
+        ScanKeyInit(&keys[numkeys], Anum_pg_db_role_setting_setdatabase,
+                    BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(databaseid));
+        numkeys++;
+    }
+    if (OidIsValid(roleid)) {
+        ScanKeyInit(&keys[numkeys], Anum_pg_db_role_setting_setrole,
+                    BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(roleid));
+        numkeys++;
+    }
+
+    // Step 3: Begin catalog scan with constructed scan keys
+    scan = table_beginscan_catalog(relsetting, numkeys, keys);
+
+    // Step 4: Delete all matching configuration settings
+    while (HeapTupleIsValid(tup = heap_getnext(scan, ForwardScanDirection))) {
+        CatalogTupleDelete(relsetting, &tup->t_self);
+    }
+
+    // Step 5: Clean up scan and close catalog
+    table_endscan(scan);
+    table_close(relsetting, RowExclusiveLock);
+}
+```

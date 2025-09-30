@@ -35,3 +35,19 @@ If the specified join relation ID cannot be found in the join tree, the function
 - Outer joins are included (include_outer_joins = true) as they are typically part of standard relid sets
 - The function will terminate the process with an ERROR if the joinrelid cannot be found, indicating a programming error or corrupted query structure
 - This is a higher-level interface that abstracts the complexity of join tree traversal for callers who need to work with specific joins
+
+## Simplified Source
+
+```c
+Relids get_relids_for_join(Query *query, int joinrelid) {
+    Node *jtnode;
+
+    // Find the join tree node for the specified join relation ID
+    jtnode = find_jointree_node_for_rel((Node *) query->jointree, joinrelid);
+    if (!jtnode)
+        elog(ERROR, "could not find join node %d", joinrelid);
+
+    // Extract all base and outer join relids from the join tree node
+    return get_relids_in_jointree(jtnode, true, false);
+}
+```

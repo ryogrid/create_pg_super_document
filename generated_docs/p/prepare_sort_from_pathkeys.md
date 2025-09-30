@@ -72,3 +72,108 @@ This function is essential for bridging the gap between the optimizer's abstract
 - May allocate memory for sort specification arrays that must be preserved for plan execution
 - The reqColIdx parameter is specifically used when creating child plans for MergeAppend nodes
 - Located at src/backend/optimizer/plan/createplan.c:6165-6346
+
+## Simplified Source
+
+```c
+static Plan *
+prepare_sort_from_pathkeys(Plan *lefttree, List *pathkeys,
+                           Relids relids, const AttrNumber *reqColIdx,
+                           bool adjust_tlist_in_place,
+                           int *p_numsortkeys, AttrNumber **p_sortColIdx,
+                           Oid **p_sortOperators, Oid **p_collations,
+                           bool **p_nullsFirst)
+{
+    List *tlist = lefttree->targetlist;
+    int numsortkeys = list_length(pathkeys);
+
+    // Allocate arrays for sort specifications
+    AttrNumber *sortColIdx = palloc(numsortkeys * sizeof(AttrNumber));
+    Oid *sortOperators = palloc(numsortkeys * sizeof(Oid));
+    Oid *collations = palloc(numsortkeys * sizeof(Oid));
+    bool *nullsFirst = palloc(numsortkeys * sizeof(bool));
+
+    numsortkeys = 0;
+
+    // Process each pathkey to build sort specification
+    foreach(i, pathkeys) {
+        PathKey *pathkey = (PathKey *) lfirst(i);
+        EquivalenceClass *ec = pathkey->pk_eclass;
+        TargetEntry *tle = NULL;
+        Oid pk_datatype = InvalidOid;
+
+        // Handle different pathkey scenarios
+        if (ec->ec_has_volatile) {
+            // Volatile EC must match specific ORDER BY clause
+            tle = get_sortgroupref_tle(ec->ec_sortref, tlist);
+            pk_datatype = ((EquivalenceMember *) linitial(ec->ec_members))->em_datatype;
+        } else if (reqColIdx != NULL) {
+            // Match required column for MergeAppend
+            tle = get_tle_by_resno(tlist, reqColIdx[numsortkeys]);
+            if (tle) {
+                EquivalenceMember *em = find_ec_member_matching_expr(ec, tle->expr, relids);
+                if (em) {
+                    pk_datatype = em->em_datatype;
+                } else {
+                    tle = NULL;
+                }
+            }
+        } else {
+            // Find existing expression in targetlist
+            foreach(j, tlist) {
+                tle = (TargetEntry *) lfirst(j);
+                EquivalenceMember *em = find_ec_member_matching_expr(ec, tle->expr, relids);
+                if (em) {
+                    pk_datatype = em->em_datatype;
+                    break;
+                }
+                tle = NULL;
+            }
+        }
+
+        // If no matching targetlist entry, create resjunk entry
+        if (!tle) {
+            EquivalenceMember *em = find_computable_ec_member(NULL, ec, tlist, relids, false);
+            if (!em)
+                elog(ERROR, "could not find pathkey item to sort");
+            pk_datatype = em->em_datatype;
+
+            // Add projection plan if needed
+            if (!adjust_tlist_in_place && !is_projection_capable_plan(lefttree)) {
+                tlist = copyObject(tlist);
+                lefttree = inject_projection_plan(lefttree, tlist, lefttree->parallel_safe);
+            }
+            adjust_tlist_in_place = true;
+
+            // Add resjunk targetlist entry
+            tle = makeTargetEntry(copyObject(em->em_expr),
+                                  list_length(tlist) + 1, NULL, true);
+            tlist = lappend(tlist, tle);
+            lefttree->targetlist = tlist;
+        }
+
+        // Get sort operator for this pathkey
+        Oid sortop = get_opfamily_member(pathkey->pk_opfamily,
+                                         pk_datatype, pk_datatype,
+                                         pathkey->pk_strategy);
+        if (!OidIsValid(sortop))
+            elog(ERROR, "missing operator in opfamily");
+
+        // Store sort specification
+        sortColIdx[numsortkeys] = tle->resno;
+        sortOperators[numsortkeys] = sortop;
+        collations[numsortkeys] = ec->ec_collation;
+        nullsFirst[numsortkeys] = pathkey->pk_nulls_first;
+        numsortkeys++;
+    }
+
+    // Return results through output parameters
+    *p_numsortkeys = numsortkeys;
+    *p_sortColIdx = sortColIdx;
+    *p_sortOperators = sortOperators;
+    *p_collations = collations;
+    *p_nullsFirst = nullsFirst;
+
+    return lefttree;
+}
+```

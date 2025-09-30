@@ -38,3 +38,27 @@ This is an internal implementation function used by the public list insertion AP
 - Returns pointer to new cell, but cell data is uninitialized and must be set by caller
 - Automatically handles list expansion when capacity is exceeded
 - More complex than append operations due to need for element shifting
+
+## Simplified Source
+
+```c
+static ListCell *
+insert_new_cell(List *list, int pos)
+{
+    // Validate position is within bounds
+    Assert(pos >= 0 && pos <= list->length);
+
+    // Expand list capacity if needed
+    if (list->length >= list->max_length)
+        enlarge_list(list, list->length + 1);
+
+    // Shift existing elements to make room
+    if (pos < list->length)
+        memmove(&list->elements[pos + 1], &list->elements[pos],
+                (list->length - pos) * sizeof(ListCell));
+
+    // Update list length and return new cell
+    list->length++;
+    return &list->elements[pos];
+}
+```

@@ -33,3 +33,17 @@ None - this is a parameter-less function.
 - Part of PostgreSQL's bootstrap mechanism for early catalog access
 - The returned descriptor has the same limitations as BuildHardcodedDescriptor (incorrect rowtype OID, missing TupleConstr)
 - Essential for accessing pg_class catalog entries during relcache initialization
+
+## Simplified Source
+
+```c
+static TupleDesc GetPgClassDescriptor(void) {
+    static TupleDesc pgclassdesc = NULL;
+
+    // Build descriptor on first call (lazy initialization)
+    if (pgclassdesc == NULL)
+        pgclassdesc = BuildHardcodedDescriptor(Natts_pg_class, Desc_pg_class);
+
+    return pgclassdesc;
+}
+```

@@ -43,3 +43,71 @@ Two critical checkpoints are performed: one before copying to ensure all dirty b
 - Critical checkpoints ensure consistency: the pre-copy checkpoint flushes all dirty buffers and processes pending unlinks, while the post-copy checkpoint ensures XLOG_DBASE_CREATE_FILE_COPY operations don't need replay during ordinary crash recovery
 - The approach has documented limitations during PITR scenarios, particularly when base backups are being taken concurrently with database creation
 - Alternative strategies like CreateDatabaseUsingWalLog() address some of the limitations of this file-copy approach
+
+## Simplified Source
+
+```c
+static void CreateDatabaseUsingFileCopy(Oid src_dboid, Oid dst_dboid,
+                                      Oid src_tsid, Oid dst_tsid) {
+    TableScanDesc scan;
+    Relation rel;
+    HeapTuple tuple;
+
+    // Force checkpoint to ensure source database is consistent on disk
+    RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE |
+                     CHECKPOINT_WAIT | CHECKPOINT_FLUSH_ALL);
+
+    // Scan all tablespaces and copy each one
+    rel = table_open(TableSpaceRelationId, AccessShareLock);
+    scan = table_beginscan_catalog(rel, 0, NULL);
+
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL) {
+        Form_pg_tablespace spaceform = (Form_pg_tablespace) GETSTRUCT(tuple);
+        Oid srctablespace = spaceform->oid;
+        Oid dsttablespace;
+        char *srcpath, *dstpath;
+        struct stat st;
+
+        // Skip global tablespace
+        if (srctablespace == GLOBALTABLESPACE_OID)
+            continue;
+
+        // Get source directory path
+        srcpath = GetDatabasePath(src_dboid, srctablespace);
+
+        // Skip if source doesn't exist or is empty
+        if (stat(srcpath, &st) < 0 || !S_ISDIR(st.st_mode) ||
+            directory_is_empty(srcpath)) {
+            pfree(srcpath);
+            continue;
+        }
+
+        // Determine destination tablespace (may be remapped)
+        dsttablespace = (srctablespace == src_tsid) ? dst_tsid : srctablespace;
+        dstpath = GetDatabasePath(dst_dboid, dsttablespace);
+
+        // Copy directory structure
+        copydir(srcpath, dstpath, false);
+
+        // Log the filesystem copy operation in WAL
+        xl_dbase_create_file_copy_rec xlrec;
+        xlrec.db_id = dst_dboid;
+        xlrec.tablespace_id = dsttablespace;
+        xlrec.src_db_id = src_dboid;
+        xlrec.src_tablespace_id = srctablespace;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, sizeof(xl_dbase_create_file_copy_rec));
+        XLogInsert(RM_DBASE_ID, XLOG_DBASE_CREATE_FILE_COPY | XLR_SPECIAL_REL_UPDATE);
+
+        pfree(srcpath);
+        pfree(dstpath);
+    }
+
+    table_endscan(scan);
+    table_close(rel, AccessShareLock);
+
+    // Force final checkpoint to avoid replay issues during crash recovery
+    RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE | CHECKPOINT_WAIT);
+}
+```

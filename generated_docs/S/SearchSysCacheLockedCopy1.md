@@ -42,3 +42,26 @@ The function first searches for the tuple using SearchSysCacheLocked1, which ret
 - Proper cleanup is essential: after using the returned tuple for heap_update(), callers must call UnlockTuple(InplaceUpdateTupleLock) and heap_freetuple()
 - The function returns an invalid HeapTuple if no matching entry is found in the cache
 - This function is typically used in DDL operations where catalog tuples need to be modified
+
+## Simplified Source
+
+```c
+HeapTuple SearchSysCacheLockedCopy1(int cacheId, Datum key1) {
+    HeapTuple tuple, newtuple;
+
+    // Search system cache with locking
+    tuple = SearchSysCacheLocked1(cacheId, key1);
+
+    // Return NULL if not found
+    if (!HeapTupleIsValid(tuple))
+        return tuple;
+
+    // Create a copy of the tuple
+    newtuple = heap_copytuple(tuple);
+
+    // Release the original cached tuple
+    ReleaseSysCache(tuple);
+
+    return newtuple;
+}
+```

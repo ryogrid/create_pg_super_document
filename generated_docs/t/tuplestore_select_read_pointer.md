@@ -48,3 +48,50 @@ For file-based storage, the function carefully manages file positioning by:
 - Handles both EOF and non-EOF pointer positions correctly
 - File seek operations can fail and will raise PostgreSQL errors
 - Used extensively in CTE (Common Table Expression) scanning and window aggregate operations
+
+## Simplified Source
+
+```c
+void tuplestore_select_read_pointer(Tuplestorestate *state, int ptr) {
+    TSReadPointer *readptr;
+    TSReadPointer *oldptr;
+
+    // Validate pointer index and check if already active
+    Assert(ptr >= 0 && ptr < state->readptrcount);
+    if (ptr == state->activeptr)
+        return;
+
+    readptr = &state->readptrs[ptr];
+    oldptr = &state->readptrs[state->activeptr];
+
+    switch (state->status) {
+        case TSS_INMEM:
+        case TSS_WRITEFILE:
+            // No file position management needed for in-memory storage
+            break;
+
+        case TSS_READFILE:
+            // Save current position of old active pointer
+            if (!oldptr->eof_reached)
+                BufFileTell(state->myfile, &oldptr->file, &oldptr->offset);
+
+            // Seek to position of new active pointer
+            if (readptr->eof_reached) {
+                // Seek to EOF using saved write position
+                BufFileSeek(state->myfile, state->writepos_file,
+                           state->writepos_offset, SEEK_SET);
+            } else {
+                // Seek to stored position of read pointer
+                BufFileSeek(state->myfile, readptr->file,
+                           readptr->offset, SEEK_SET);
+            }
+            break;
+
+        default:
+            elog(ERROR, "invalid tuplestore state");
+    }
+
+    // Activate the new pointer
+    state->activeptr = ptr;
+}
+```

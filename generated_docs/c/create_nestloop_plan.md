@@ -44,3 +44,64 @@ This function creates a NestLoop execution plan node from a NestPath. Nested loo
 - Sets up nestloop parameters that allow the inner scan to be filtered based on outer relation values
 - Located at src/backend/optimizer/plan/createplan.c:4348-4439
 - Part of the JOIN METHODS section of the planner
+
+## Simplified Source
+
+```c
+static NestLoop *create_nestloop_plan(PlannerInfo *root, NestPath *best_path) {
+    List *tlist = build_path_tlist(root, &best_path->jpath.path);
+
+    // Reparameterize inner path if needed
+    best_path->jpath.innerjoinpath = reparameterize_path_by_child(root,
+                                                                 best_path->jpath.innerjoinpath,
+                                                                 best_path->jpath.outerjoinpath->parent);
+
+    Assert(best_path->jpath.innerjoinpath != NULL);
+
+    // Create outer plan
+    Plan *outer_plan = create_plan_recurse(root, best_path->jpath.outerjoinpath, 0);
+
+    // Update curOuterRels context for inner plan creation
+    Relids saveOuterRels = root->curOuterRels;
+    root->curOuterRels = bms_union(root->curOuterRels,
+                                  best_path->jpath.outerjoinpath->parent->relids);
+
+    // Create inner plan with updated context
+    Plan *inner_plan = create_plan_recurse(root, best_path->jpath.innerjoinpath, 0);
+
+    // Restore curOuterRels context
+    bms_free(root->curOuterRels);
+    root->curOuterRels = saveOuterRels;
+
+    // Process join clauses
+    List *joinrestrictclauses = order_qual_clauses(root, best_path->jpath.joinrestrictinfo);
+    List *joinclauses, *otherclauses;
+
+    if (IS_OUTER_JOIN(best_path->jpath.jointype)) {
+        extract_actual_join_clauses(joinrestrictclauses,
+                                   best_path->jpath.path.parent->relids,
+                                   &joinclauses, &otherclauses);
+    } else {
+        joinclauses = extract_actual_clauses(joinrestrictclauses, false);
+        otherclauses = NIL;
+    }
+
+    // Replace outer-relation variables with nestloop params
+    if (best_path->jpath.path.param_info) {
+        joinclauses = (List *) replace_nestloop_params(root, (Node *) joinclauses);
+        otherclauses = (List *) replace_nestloop_params(root, (Node *) otherclauses);
+    }
+
+    // Identify nestloop parameters for this join
+    Relids outerrelids = best_path->jpath.outerjoinpath->parent->relids;
+    List *nestParams = identify_current_nestloop_params(root, outerrelids);
+
+    // Create NestLoop node
+    NestLoop *join_plan = make_nestloop(tlist, joinclauses, otherclauses, nestParams,
+                                       outer_plan, inner_plan,
+                                       best_path->jpath.jointype, best_path->jpath.inner_unique);
+
+    copy_generic_path_info(&join_plan->join.plan, &best_path->jpath.path);
+    return join_plan;
+}
+```

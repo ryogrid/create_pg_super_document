@@ -30,3 +30,26 @@ This function processes a list of SortGroupClause structures and extracts the co
 
 ## Notes and Other Information
 This function is essential for query planning operations that need to analyze groups of expressions together. It's particularly important in window function processing, distinct path creation, and group-by optimization where the planner needs to understand the collective behavior of multiple sort/group expressions. The function returns a newly allocated list that contains references to the expression nodes.
+
+## Simplified Source
+
+```c
+List *
+get_sortgrouplist_exprs(List *sgClauses, List *targetList)
+{
+    List *result = NIL;
+
+    // Process each SortGroupClause to extract its expression
+    foreach(lc, sgClauses) {
+        SortGroupClause *sortcl = (SortGroupClause *) lfirst(lc);
+
+        // Get the expression referenced by this clause
+        Node *sortexpr = get_sortgroupclause_expr(sortcl, targetList);
+
+        // Add to result list
+        result = lappend(result, sortexpr);
+    }
+
+    return result;
+}
+```

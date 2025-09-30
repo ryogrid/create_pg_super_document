@@ -42,3 +42,37 @@ The function returns an ObjectAddress representing the modified publication, whi
 - Returns ObjectAddress for integration with PostgreSQL's object management system
 - Serves as a wrapper around AlterPublicationOwner_internal, handling the publication lookup and resource management
 - Used by the ALTER PUBLICATION OWNER TO command infrastructure
+
+## Simplified Source
+
+```c
+ObjectAddress AlterPublicationOwner(const char *name, Oid newOwnerId)
+{
+    // Open publication catalog
+    Relation rel = table_open(PublicationRelationId, RowExclusiveLock);
+
+    // Find publication by name
+    HeapTuple tup = SearchSysCacheCopy1(PUBLICATIONNAME, CStringGetDatum(name));
+
+    if (!HeapTupleIsValid(tup))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("publication \"%s\" does not exist", name)));
+
+    // Get publication OID
+    Form_pg_publication pubform = (Form_pg_publication) GETSTRUCT(tup);
+    Oid publication_oid = pubform->oid;
+
+    // Delegate to internal function for actual ownership change
+    AlterPublicationOwner_internal(rel, tup, newOwnerId);
+
+    // Build return address
+    ObjectAddress address;
+    ObjectAddressSet(address, PublicationRelationId, publication_oid);
+
+    // Cleanup
+    heap_freetuple(tup);
+    table_close(rel, RowExclusiveLock);
+
+    return address;
+}
+```

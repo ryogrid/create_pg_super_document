@@ -35,3 +35,16 @@ The function follows the standard comparison function interface required by Post
 - The size parameter is unused, following the common pattern in PostgreSQL comparison functions
 - Works in conjunction with record_type_typmod_hash() to provide complete hash table key functionality
 - Part of PostgreSQL's record type caching mechanism that assigns unique typmod values to anonymous record types
+
+## Simplified Source
+
+```c
+static int record_type_typmod_compare(const void *a, const void *b, size_t size) {
+    // Cast to RecordCacheEntry pointers
+    RecordCacheEntry *left = (RecordCacheEntry *) a;
+    RecordCacheEntry *right = (RecordCacheEntry *) b;
+
+    // Compare the tuple descriptors for equality
+    return equalRowTypes(left->tupdesc, right->tupdesc) ? 0 : 1;
+}
+```

@@ -47,3 +47,88 @@ The function iterates through all objects that depend on the extension (via pg_d
 - Updates both pg_extension.extnamespace and dependency records
 - Uses RowExclusiveLock on pg_extension to prevent concurrent modifications
 - Located in src/backend/commands/extension.c:2772-2986
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterExtensionNamespace(const char *extensionName, const char *newschema, Oid *oldschema)
+{
+    // Get extension and target namespace OIDs
+    Oid extensionOid = get_extension_oid(extensionName, false);
+    Oid nspOid = LookupCreationNamespace(newschema);
+
+    // Permission checks: must own extension and have CREATE rights in target schema
+    if (!object_ownercheck(ExtensionRelationId, extensionOid, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_EXTENSION, extensionName);
+
+    AclResult aclresult = object_aclcheck(NamespaceRelationId, nspOid, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, newschema);
+
+    // Prevent dependency loops: target schema cannot be owned by extension
+    if (getExtensionOfObject(NamespaceRelationId, nspOid) == extensionOid)
+        ereport(ERROR, "cannot move extension into schema it contains");
+
+    // Get extension tuple from catalog
+    Relation extRel = table_open(ExtensionRelationId, RowExclusiveLock);
+    HeapTuple extTup = /* find extension tuple by OID */;
+    Form_pg_extension extForm = (Form_pg_extension) GETSTRUCT(extTup);
+
+    // If already in target schema, do nothing
+    if (extForm->extnamespace == nspOid) {
+        table_close(extRel, RowExclusiveLock);
+        return InvalidObjectAddress;
+    }
+
+    // Check extension is relocatable
+    if (!extForm->extrelocatable)
+        ereport(ERROR, "extension does not support SET SCHEMA");
+
+    Oid oldNspOid = extForm->extnamespace;
+
+    // Move all extension member objects to new schema
+    Relation depRel = table_open(DependRelationId, AccessShareLock);
+    SysScanDesc depScan = /* scan dependencies on this extension */;
+
+    while (HeapTupleIsValid(depTup = systable_getnext(depScan))) {
+        Form_pg_depend pg_depend = (Form_pg_depend) GETSTRUCT(depTup);
+
+        // Check for no-relocate constraints from dependent extensions
+        if (pg_depend->deptype == DEPENDENCY_NORMAL &&
+            pg_depend->classid == ExtensionRelationId) {
+            // Check if dependent extension has no_relocate request
+            ExtensionControlFile *dcontrol = read_extension_control_file(depextname);
+            // Error if this extension is in no_relocate list
+        }
+
+        // Skip non-membership dependencies
+        if (pg_depend->deptype != DEPENDENCY_EXTENSION)
+            continue;
+
+        // Move the dependent object to new schema
+        ObjectAddress dep = {pg_depend->classid, pg_depend->objid, pg_depend->objsubid};
+        AlterObjectNamespace_oid(dep.classId, dep.objectId, nspOid, objsMoved);
+    }
+
+    // Update extension's schema in catalog
+    extForm->extnamespace = nspOid;
+    CatalogTupleUpdate(extRel, &extTup->t_self, extTup);
+
+    // Update dependency record for extension's schema
+    changeDependencyFor(ExtensionRelationId, extensionOid,
+                       NamespaceRelationId, oldNspOid, nspOid);
+
+    // Report old schema if requested
+    if (oldschema)
+        *oldschema = oldNspOid;
+
+    // Cleanup and return
+    table_close(extRel, RowExclusiveLock);
+    InvokeObjectPostAlterHook(ExtensionRelationId, extensionOid, 0);
+
+    ObjectAddress extAddr;
+    ObjectAddressSet(extAddr, ExtensionRelationId, extensionOid);
+    return extAddr;
+}
+```

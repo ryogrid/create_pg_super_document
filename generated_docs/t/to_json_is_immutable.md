@@ -37,4 +37,49 @@ The function uses  to classify the input type into one of several JSON type cate
 - For numeric, cast, and other types: returns  only if the output function is immutable
 - This function is used by the PostgreSQL query optimizer to determine if JSON conversion expressions can be pre-computed
 - Future enhancements may include recursive analysis of array elements and composite type fields
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+bool
+to_json_is_immutable(Oid typoid)
+{
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Categorize the type for JSON processing
+    json_categorize_type(typoid, false, &tcategory, &outfuncoid);
+
+    switch (tcategory)
+    {
+        case JSONTYPE_BOOL:
+        case JSONTYPE_JSON:
+        case JSONTYPE_JSONB:
+        case JSONTYPE_NULL:
+            return true;
+
+        case JSONTYPE_DATE:
+        case JSONTYPE_TIMESTAMP:
+        case JSONTYPE_TIMESTAMPTZ:
+            // Date/time types depend on timezone settings
+            return false;
+
+        case JSONTYPE_ARRAY:
+            // TODO: recursively check array elements
+            return false;
+
+        case JSONTYPE_COMPOSITE:
+            // TODO: recursively check composite fields
+            return false;
+
+        case JSONTYPE_NUMERIC:
+        case JSONTYPE_CAST:
+        case JSONTYPE_OTHER:
+            // Check if output function is immutable
+            return func_volatile(outfuncoid) == PROVOLATILE_IMMUTABLE;
+    }
+
+    return false;
+}
+``` 

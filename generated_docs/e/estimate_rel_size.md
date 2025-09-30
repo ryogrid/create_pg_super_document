@@ -62,3 +62,66 @@ When statistical data is unavailable (e.g., never vacuumed), the function estima
 - Intentionally ignores alignment considerations in width estimation for platform independence
 - Foreign tables receive direct pg_class values (FDW must handle reltuples = -1)
 - Zero pages results in immediate return with zero tuples and all-visible fraction
+
+## Simplified Source
+
+```c
+void estimate_rel_size(Relation rel, int32 *attr_widths, BlockNumber *pages, double *tuples, double *allvisfrac) {
+    // For tables with table access methods, delegate to AM-specific function
+    if (RELKIND_HAS_TABLE_AM(rel->rd_rel->relkind)) {
+        table_relation_estimate_size(rel, attr_widths, pages, tuples, allvisfrac);
+        return;
+    }
+
+    // Handle indexes
+    if (rel->rd_rel->relkind == RELKIND_INDEX) {
+        BlockNumber curpages = RelationGetNumberOfBlocks(rel);
+        *pages = curpages;
+
+        // Quick exit for empty relations
+        if (curpages == 0) {
+            *tuples = 0;
+            *allvisfrac = 0;
+            return;
+        }
+
+        // Get statistics from pg_class
+        BlockNumber relpages = rel->rd_rel->relpages;
+        double reltuples = rel->rd_rel->reltuples;
+        BlockNumber relallvisible = rel->rd_rel->relallvisible;
+
+        // Adjust for metapage (btree, hash, GIN)
+        if (relpages > 0) {
+            curpages--;
+            relpages--;
+        }
+
+        // Calculate tuple density
+        double density;
+        if (reltuples >= 0 && relpages > 0) {
+            density = reltuples / (double) relpages;
+        } else {
+            // Estimate from attribute widths when no statistics available
+            int32 tuple_width = get_rel_data_width(rel, attr_widths);
+            tuple_width += MAXALIGN(SizeofHeapTupleHeader) + sizeof(ItemIdData);
+            density = (BLCKSZ - SizeOfPageHeaderData) / tuple_width;
+        }
+
+        *tuples = rint(density * (double) curpages);
+
+        // Calculate all-visible fraction for index-only scans
+        if (relallvisible == 0 || curpages <= 0) {
+            *allvisfrac = 0;
+        } else if ((double) relallvisible >= curpages) {
+            *allvisfrac = 1;
+        } else {
+            *allvisfrac = (double) relallvisible / curpages;
+        }
+    } else {
+        // Use pg_class values directly for foreign tables, sequences, etc.
+        *pages = rel->rd_rel->relpages;
+        *tuples = rel->rd_rel->reltuples;
+        *allvisfrac = 0;
+    }
+}
+```

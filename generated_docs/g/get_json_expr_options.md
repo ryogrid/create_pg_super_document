@@ -36,9 +36,40 @@ The wrapper handling logic accounts for different JsonWrapperType values, treati
   - [get_json_table_columns](get_json_table_columns.md) (for JSON table column formatting)
 
 ## Notes and Other Information
-- This is a static function within ruleutils.c, specifically for SQL/JSON functionality  
+- This is a static function within ruleutils.c, specifically for SQL/JSON functionality
 - Only processes wrapper and quote options for JSON_QUERY operations
 - Optimizes output by omitting default behaviors to reduce SQL verbosity
 - Handles both explicit and unspecified wrapper types consistently
 - Essential for proper SQL/JSON syntax reconstruction in rule decompilation
 - Location: src/backend/utils/adt/ruleutils.c:8915-8955
+
+## Simplified Source
+
+```c
+static void get_json_expr_options(JsonExpr *jsexpr, deparse_context *context,
+                                  JsonBehaviorType default_behavior) {
+    // Handle JSON_QUERY specific options
+    if (jsexpr->op == JSON_QUERY_OP) {
+        // Format wrapper options
+        if (jsexpr->wrapper == JSW_CONDITIONAL)
+            appendStringInfoString(context->buf, " WITH CONDITIONAL WRAPPER");
+        else if (jsexpr->wrapper == JSW_UNCONDITIONAL)
+            appendStringInfoString(context->buf, " WITH UNCONDITIONAL WRAPPER");
+        else if (jsexpr->wrapper == JSW_NONE || jsexpr->wrapper == JSW_UNSPEC)
+            appendStringInfoString(context->buf, " WITHOUT WRAPPER");
+
+        // Format quote handling options
+        if (jsexpr->omit_quotes)
+            appendStringInfoString(context->buf, " OMIT QUOTES");
+        else
+            appendStringInfoString(context->buf, " KEEP QUOTES");
+    }
+
+    // Only output non-default behaviors to keep SQL concise
+    if (jsexpr->on_empty && jsexpr->on_empty->btype != default_behavior)
+        get_json_behavior(jsexpr->on_empty, context, "EMPTY");
+
+    if (jsexpr->on_error && jsexpr->on_error->btype != default_behavior)
+        get_json_behavior(jsexpr->on_error, context, "ERROR");
+}
+```

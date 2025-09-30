@@ -31,3 +31,17 @@ The function includes the same safety check as its counterpart, returning early 
 - Used to restore normal event trigger command collection after a period of inhibition
 - Essential for ensuring that DDL commands are properly collected and made available to event trigger functions when appropriate
 - Part of the broader DDL command collection framework that supports pg_event_trigger_ddl_commands()
+
+## Simplified Source
+
+```c
+void EventTriggerUndoInhibitCommandCollection(void)
+{
+    // Skip if event trigger state not active
+    if (!currentEventTriggerState)
+        return;
+
+    // Re-enable command collection
+    currentEventTriggerState->commandCollectionInhibited = false;
+}
+```

@@ -41,3 +41,17 @@ The function is commonly used throughout the PostgreSQL parser when processing S
 - The actual type coercion logic, including error handling for incompatible types and set-returning expressions, is implemented in 
 - Widely used across the parser for enforcing type constraints in various SQL constructs
 - Part of PostgreSQL's type coercion system located in src/backend/parser/parse_coerce.c
+
+## Simplified Source
+
+```c
+Node *
+coerce_to_specific_type(ParseState *pstate, Node *node,
+                       Oid targetTypeId,
+                       const char *constructName) {
+    // Delegate to the full function with default typmod (-1)
+    return coerce_to_specific_type_typmod(pstate, node,
+                                        targetTypeId, -1,
+                                        constructName);
+}
+```

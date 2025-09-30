@@ -44,3 +44,24 @@ The function accumulates the following key metrics:
 - This function is essential for accurate EXPLAIN ANALYZE output, ensuring that peak performance characteristics are captured even when multiple hash table instances are used
 - The space_peak metric tracks the maximum memory footprint achieved by any hash table instance
 - The function is called during hash table shutdown and rescan operations to maintain cumulative statistics
+
+## Simplified Source
+
+```c
+void ExecHashAccumInstrumentation(HashInstrumentation *instrument,
+                                  HashJoinTable hashtable) {
+    // Accumulate maximum values for all key metrics
+    // This captures peak resource usage across multiple hash table instances
+
+    instrument->nbuckets = Max(instrument->nbuckets,
+                              hashtable->nbuckets);
+    instrument->nbuckets_original = Max(instrument->nbuckets_original,
+                                       hashtable->nbuckets_original);
+    instrument->nbatch = Max(instrument->nbatch,
+                            hashtable->nbatch);
+    instrument->nbatch_original = Max(instrument->nbatch_original,
+                                     hashtable->nbatch_original);
+    instrument->space_peak = Max(instrument->space_peak,
+                                hashtable->spacePeak);
+}
+```

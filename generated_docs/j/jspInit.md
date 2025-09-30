@@ -40,3 +40,17 @@ This function serves as a convenient wrapper around jspInitByBuffer that initial
 - The JSONPATH_LAX flag is stripped during version checking but doesn't affect initialization
 - Essential entry point for all JSON path expression evaluation and analysis functions
 - The Assert macro ensures version compatibility and will terminate execution if an incompatible version is detected
+
+## Simplified Source
+
+```c
+void
+jspInit(JsonPathItem *v, JsonPath *js)
+{
+    // Validate JSON path version (ignore LAX flag)
+    Assert((js->header & ~JSONPATH_LAX) == JSONPATH_VERSION);
+
+    // Initialize JsonPathItem from data buffer at offset 0
+    jspInitByBuffer(v, js->data, 0);
+}
+```

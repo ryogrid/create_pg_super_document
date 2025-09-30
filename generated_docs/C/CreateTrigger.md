@@ -48,3 +48,18 @@ CreateTrigger is a simplified interface for creating triggers that delegates to 
 - Requires ACL_TRIGGER permissions on the relation and ACL_EXECUTE on trigger function for non-internal triggers
 - Internal triggers bypass permission checks but caller must handle them appropriately
 - Returns ObjectAddress of the created trigger for dependency tracking
+
+## Simplified Source
+
+```c
+ObjectAddress CreateTrigger(CreateTrigStmt *stmt, const char *queryString,
+                           Oid relOid, Oid refRelOid, Oid constraintOid, Oid indexOid,
+                           Oid funcoid, Oid parentTriggerOid, Node *whenClause,
+                           bool isInternal, bool in_partition) {
+    // Delegate to CreateTriggerFiringOn with default firing behavior
+    return CreateTriggerFiringOn(stmt, queryString, relOid, refRelOid,
+                                constraintOid, indexOid, funcoid,
+                                parentTriggerOid, whenClause, isInternal,
+                                in_partition, TRIGGER_FIRES_ON_ORIGIN);
+}
+```

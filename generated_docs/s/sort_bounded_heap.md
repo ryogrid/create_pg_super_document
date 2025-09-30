@@ -47,3 +47,40 @@ This approach is memory-efficient as it requires no additional storage beyond th
 - Uses reversed direction during heap operations, then restores original direction
 - Sets boundUsed flag to true to indicate the bound was actually utilized
 - The heapsort is performed in-place for memory efficiency
+
+## Simplified Source
+
+```c
+static void
+sort_bounded_heap(Tuplesortstate *state)
+{
+    int tupcount = state->memtupcount;
+
+    Assert(state->status == TSS_BOUNDED);
+    Assert(state->bounded);
+    Assert(tupcount == state->bound);
+    Assert(SERIAL(state));
+
+    // Convert heap to sorted array by repeatedly extracting maximum
+    // and placing it at the end (in-place heapsort)
+    while (state->memtupcount > 1) {
+        SortTuple stup = state->memtuples[0];  // Save the top (max) element
+
+        // Remove top element and re-heapify, decreases memtupcount
+        tuplesort_heap_delete_top(state);
+
+        // Place the saved max element in the newly freed position at end
+        state->memtuples[state->memtupcount] = stup;
+    }
+
+    // Restore original tuple count
+    state->memtupcount = tupcount;
+
+    // Restore original sort direction (was reversed for heap operations)
+    reversedirection(state);
+
+    // Mark as sorted in memory and bound as used
+    state->status = TSS_SORTEDINMEM;
+    state->boundUsed = true;
+}
+```

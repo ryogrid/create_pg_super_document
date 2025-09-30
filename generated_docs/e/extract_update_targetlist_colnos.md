@@ -32,3 +32,29 @@ The function is also used for INSERT ... ON CONFLICT ... UPDATE statements, thou
 
 ## Notes and Other Information
 This function is located in src/backend/optimizer/prep/preptlist.c:348-381. It's a utility function that handles the conversion between two different numbering conventions used in PostgreSQL: the parser/rewriter convention (using actual column numbers) and the planner/executor convention (using sequential numbers). The returned list of column numbers is essential for the executor to know which table columns to update.
+
+## Simplified Source
+
+```c
+List *extract_update_targetlist_colnos(List *tlist)
+{
+    List *update_colnos = NIL;
+    AttrNumber nextresno = 1;
+    ListCell *lc;
+
+    // Process each targetlist entry
+    foreach(lc, tlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+
+        // For non-resjunk entries, extract the original column number
+        if (!tle->resjunk)
+            update_colnos = lappend_int(update_colnos, tle->resno);
+
+        // Renumber to sequential convention (1, 2, 3, ...)
+        tle->resno = nextresno++;
+    }
+
+    return update_colnos;  // List of target table column numbers
+}
+```

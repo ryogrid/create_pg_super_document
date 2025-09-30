@@ -38,3 +38,43 @@ The function distinguishes between binary and prefix operators by examining the 
 - Parentheses are added conditionally based on the PRETTY_PAREN context setting
 - The function handles both binary operators (2 arguments) and prefix operators (1 argument)
 - Operator name resolution requires both the operator OID and operand types for disambiguation
+
+## Simplified Source
+
+```c
+static void get_oper_expr(OpExpr *expr, deparse_context *context) {
+    StringInfo buf = context->buf;
+    Oid opno = expr->opno;
+    List *args = expr->args;
+
+    // Add opening parenthesis if not in pretty mode
+    if (!PRETTY_PAREN(context))
+        appendStringInfoChar(buf, '(');
+
+    if (list_length(args) == 2) {
+        // Binary operator: arg1 operator arg2
+        Node *arg1 = (Node *) linitial(args);
+        Node *arg2 = (Node *) lsecond(args);
+
+        get_rule_expr_paren(arg1, context, true, (Node *) expr);
+        appendStringInfo(buf, " %s ",
+                         generate_operator_name(opno,
+                                                exprType(arg1),
+                                                exprType(arg2)));
+        get_rule_expr_paren(arg2, context, true, (Node *) expr);
+    } else {
+        // Prefix operator: operator arg
+        Node *arg = (Node *) linitial(args);
+
+        appendStringInfo(buf, "%s ",
+                         generate_operator_name(opno,
+                                                InvalidOid,
+                                                exprType(arg)));
+        get_rule_expr_paren(arg, context, true, (Node *) expr);
+    }
+
+    // Add closing parenthesis if not in pretty mode
+    if (!PRETTY_PAREN(context))
+        appendStringInfoChar(buf, ')');
+}
+```

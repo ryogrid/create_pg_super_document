@@ -43,3 +43,43 @@ queue_listen serves as the shared implementation for all listening-related SQL c
 - Does not perform deduplication or conflict resolution of actions
 - Action execution is deferred until transaction commit via commit hooks
 - Allocates ActionList in TopTransactionContext to handle nesting level changes during subtransaction commit
+
+## Simplified Source
+
+```c
+static void queue_listen(ListenActionKind action, const char *channel)
+{
+    MemoryContext oldcontext;
+    ListenAction *action_record;
+    int current_nesting_level = GetCurrentTransactionNestLevel();
+
+    // Switch to transaction context for allocation
+    oldcontext = MemoryContextSwitchTo(CurTransactionContext);
+
+    // Create action record with channel name
+    action_record = (ListenAction *) palloc(offsetof(ListenAction, channel) +
+                                           strlen(channel) + 1);
+    action_record->action = action;
+    strcpy(action_record->channel, channel);
+
+    // Check if we need a new action list for this nesting level
+    if (pendingActions == NULL || current_nesting_level > pendingActions->nestingLevel)
+    {
+        ActionList *actions;
+
+        // Create new action list in TopTransactionContext
+        actions = (ActionList *) MemoryContextAlloc(TopTransactionContext, sizeof(ActionList));
+        actions->nestingLevel = current_nesting_level;
+        actions->actions = list_make1(action_record);
+        actions->upper = pendingActions;
+        pendingActions = actions;
+    }
+    else
+    {
+        // Add to existing action list
+        pendingActions->actions = lappend(pendingActions->actions, action_record);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

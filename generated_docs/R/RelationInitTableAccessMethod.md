@@ -47,3 +47,38 @@ After determining the handler, the function calls InitTableAmRoutine() to fetch 
 - The function assumes catalog relations always use HEAP_TABLE_AM_OID for efficiency
 - Error handling is provided for cases where the access method lookup fails
 - This is part of the relation cache (relcache) infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+void RelationInitTableAccessMethod(Relation relation) {
+    if (relation->rd_rel->relkind == RELKIND_SEQUENCE) {
+        // Sequences use heap table access method directly
+        Assert(relation->rd_rel->relam == InvalidOid);
+        relation->rd_amhandler = F_HEAP_TABLEAM_HANDLER;
+    }
+    else if (IsCatalogRelation(relation)) {
+        // Catalog relations use heap AM, avoid syscache lookup for performance
+        Assert(relation->rd_rel->relam == HEAP_TABLE_AM_OID);
+        relation->rd_amhandler = F_HEAP_TABLEAM_HANDLER;
+    }
+    else {
+        // Regular relations: lookup access method in pg_am catalog
+        Assert(relation->rd_rel->relam != InvalidOid);
+
+        HeapTuple tuple = SearchSysCache1(AMOID,
+                                         ObjectIdGetDatum(relation->rd_rel->relam));
+        if (!HeapTupleIsValid(tuple)) {
+            elog(ERROR, "cache lookup failed for access method %u",
+                 relation->rd_rel->relam);
+        }
+
+        Form_pg_am aform = (Form_pg_am) GETSTRUCT(tuple);
+        relation->rd_amhandler = aform->amhandler;
+        ReleaseSysCache(tuple);
+    }
+
+    // Initialize the table access method's API struct
+    InitTableAmRoutine(relation);
+}
+```

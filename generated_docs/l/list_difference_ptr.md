@@ -39,3 +39,31 @@ The function iterates through each element in  and checks if that exact pointer 
 - Uses pointer equality (==) for membership testing, not content comparison
 - The result list maintains the original order of elements from list1
 - Memory for the result list is newly allocated and should be freed when no longer needed
+
+## Simplified Source
+
+```c
+List *list_difference_ptr(const List *list1, const List *list2) {
+    const ListCell *cell;
+    List *result = NIL;
+
+    // Validate inputs are pointer lists
+    Assert(IsPointerList(list1));
+    Assert(IsPointerList(list2));
+
+    // If exclusion list is empty, return copy of list1
+    if (list2 == NIL) {
+        return list_copy(list1);
+    }
+
+    // Build result with elements from list1 not in list2
+    foreach(cell, list1) {
+        if (!list_member_ptr(list2, lfirst(cell))) {
+            result = lappend(result, lfirst(cell));
+        }
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

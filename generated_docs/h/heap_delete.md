@@ -61,3 +61,175 @@ The function is designed to handle edge cases like tuple updates during deletion
 - Performs extensive validation and assertion checking to ensure data consistency
 - Uses critical sections to ensure atomic updates that can be properly recovered from crashes
 - The function can return various TM_Result codes indicating success, conflicts, or other conditions requiring caller attention
+
+## Simplified Source
+
+```c
+TM_Result heap_delete(Relation relation, ItemPointer tid, CommandId cid,
+                     Snapshot crosscheck, bool wait, TM_FailureData *tmfd,
+                     bool changingPart) {
+    TM_Result result;
+    TransactionId xid = GetCurrentTransactionId();
+    HeapTupleData tp;
+    Page page;
+    Buffer buffer;
+    Buffer vmbuffer = InvalidBuffer;
+    bool have_tuple_lock = false;
+    HeapTuple old_key_tuple = NULL;
+
+    // Basic validation
+    Assert(ItemPointerIsValid(tid));
+    if (IsInParallelMode())
+        ereport(ERROR, (errmsg("cannot delete tuples during a parallel operation")));
+
+    // Read the page containing the tuple
+    BlockNumber block = ItemPointerGetBlockNumber(tid);
+    buffer = ReadBuffer(relation, block);
+    page = BufferGetPage(buffer);
+
+    // Pin visibility map if page is all-visible
+    if (PageIsAllVisible(page))
+        visibilitymap_pin(relation, block, &vmbuffer);
+
+    LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+
+    // Set up tuple structure
+    ItemId lp = PageGetItemId(page, ItemPointerGetOffsetNumber(tid));
+    tp.t_tableOid = RelationGetRelid(relation);
+    tp.t_data = (HeapTupleHeader) PageGetItem(page, lp);
+    tp.t_len = ItemIdGetLength(lp);
+    tp.t_self = *tid;
+
+retry:
+    // Check if we can delete this tuple
+    result = HeapTupleSatisfiesUpdate(&tp, cid, buffer);
+
+    if (result == TM_Invisible) {
+        UnlockReleaseBuffer(buffer);
+        ereport(ERROR, (errmsg("attempted to delete invisible tuple")));
+    }
+
+    // Handle concurrent modifications
+    if (result == TM_BeingModified && wait) {
+        TransactionId xwait = HeapTupleHeaderGetRawXmax(tp.t_data);
+        uint16 infomask = tp.t_data->t_infomask;
+
+        // Wait for concurrent transaction
+        if (infomask & HEAP_XMAX_IS_MULTI) {
+            // Handle multi-transaction case
+            MultiXactIdWait((MultiXactId) xwait, MultiXactStatusUpdate, infomask,
+                           relation, &(tp.t_self), XLTW_Delete, NULL);
+        } else if (!TransactionIdIsCurrentTransactionId(xwait)) {
+            // Wait for single transaction
+            XactLockTableWait(xwait, relation, &(tp.t_self), XLTW_Delete);
+        }
+
+        LockBuffer(buffer, BUFFER_LOCK_EXCLUSIVE);
+        // Check if conditions changed during wait
+        if (xmax_infomask_changed(tp.t_data->t_infomask, infomask))
+            goto retry;
+
+        // Update hint bits after waiting
+        UpdateXmaxHintBits(tp.t_data, buffer, xwait);
+    }
+
+    // Check final visibility after waiting
+    if (crosscheck != InvalidSnapshot && result == TM_Ok) {
+        if (!HeapTupleSatisfiesVisibility(&tp, crosscheck, buffer))
+            result = TM_Updated;
+    }
+
+    // Handle deletion failures
+    if (result != TM_Ok) {
+        tmfd->ctid = tp.t_data->t_ctid;
+        tmfd->xmax = HeapTupleHeaderGetUpdateXid(tp.t_data);
+        if (result == TM_SelfModified)
+            tmfd->cmax = HeapTupleHeaderGetCmax(tp.t_data);
+        UnlockReleaseBuffer(buffer);
+        return result;
+    }
+
+    // Check for serializable conflicts
+    CheckForSerializableConflictIn(relation, tid, BufferGetBlockNumber(buffer));
+
+    // Extract replica identity for logical replication
+    old_key_tuple = ExtractReplicaIdentity(relation, &tp, true, NULL);
+
+    START_CRIT_SECTION();
+
+    // Mark page as prunable and clear visibility
+    PageSetPrunable(page, xid);
+    if (PageIsAllVisible(page)) {
+        PageClearAllVisible(page);
+        visibilitymap_clear(relation, BufferGetBlockNumber(buffer), vmbuffer,
+                           VISIBILITYMAP_VALID_BITS);
+    }
+
+    // Update tuple header to mark as deleted
+    uint16 new_infomask, new_infomask2;
+    TransactionId new_xmax;
+    compute_new_xmax_infomask(HeapTupleHeaderGetRawXmax(tp.t_data),
+                             tp.t_data->t_infomask, tp.t_data->t_infomask2,
+                             xid, LockTupleExclusive, true,
+                             &new_xmax, &new_infomask, &new_infomask2);
+
+    tp.t_data->t_infomask = new_infomask;
+    tp.t_data->t_infomask2 = new_infomask2;
+    HeapTupleHeaderSetXmax(tp.t_data, new_xmax);
+    HeapTupleHeaderSetCmax(tp.t_data, cid, false);
+    tp.t_data->t_ctid = tp.t_self;
+
+    if (changingPart)
+        HeapTupleHeaderSetMovedPartitions(tp.t_data);
+
+    MarkBufferDirty(buffer);
+
+    // WAL logging
+    if (RelationNeedsWAL(relation)) {
+        XLogRecPtr recptr;
+        xl_heap_delete xlrec;
+
+        xlrec.offnum = ItemPointerGetOffsetNumber(&tp.t_self);
+        xlrec.xmax = new_xmax;
+        xlrec.flags = changingPart ? XLH_DELETE_IS_PARTITION_MOVE : 0;
+
+        XLogBeginInsert();
+        XLogRegisterData((char *) &xlrec, SizeOfHeapDelete);
+        XLogRegisterBuffer(0, buffer, REGBUF_STANDARD);
+
+        if (old_key_tuple != NULL) {
+            // Log old tuple for logical replication
+            xl_heap_header xlhdr;
+            xlhdr.t_infomask2 = old_key_tuple->t_data->t_infomask2;
+            xlhdr.t_infomask = old_key_tuple->t_data->t_infomask;
+            xlhdr.t_hoff = old_key_tuple->t_data->t_hoff;
+            XLogRegisterData((char *) &xlhdr, SizeOfHeapHeader);
+        }
+
+        recptr = XLogInsert(RM_HEAP_ID, XLOG_HEAP_DELETE);
+        PageSetLSN(page, recptr);
+    }
+
+    END_CRIT_SECTION();
+
+    LockBuffer(buffer, BUFFER_LOCK_UNLOCK);
+
+    // Clean up TOAST data if present
+    if (HeapTupleHasExternal(&tp))
+        heap_toast_delete(relation, &tp, false);
+
+    // Invalidate system caches
+    CacheInvalidateHeapTuple(relation, &tp, NULL);
+
+    // Resource cleanup
+    ReleaseBuffer(buffer);
+    if (vmbuffer != InvalidBuffer)
+        ReleaseBuffer(vmbuffer);
+    if (have_tuple_lock)
+        UnlockTupleTuplock(relation, &(tp.t_self), LockTupleExclusive);
+
+    pgstat_count_heap_delete(relation);
+
+    return TM_Ok;
+}
+```

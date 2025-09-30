@@ -1,7 +1,7 @@
 # is_simple_values
 
 ## Location
-[src/backend/optimizer/prep/prepjointree.c:1895-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1895-L1953)
+[src/backend/optimizer/prep/prepjointree.c:1895-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1895-1953)
 
 ## Overview
 Determines whether a VALUES RTE (Range Table Entry) is simple enough to be pulled up and optimized by replacing it with a more efficient RESULT RTE.
@@ -34,7 +34,7 @@ The restrictions mirror those applied to subquery pullup optimization, ensuring 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [list_length](../l/list_length.md)
-  - [expression_returns_set](../e/expression_returns_set.md)  
+  - [expression_returns_set](../e/expression_returns_set.md)
   - [contain_volatile_functions](../c/contain_volatile_functions.md)
   - linitial
 - Called from (representative examples):
@@ -44,7 +44,31 @@ The restrictions mirror those applied to subquery pullup optimization, ensuring 
 - The function is static, limiting its scope to the prepjointree.c compilation unit
 - Returns true only if the VALUES clause meets all criteria for safe pullup optimization
 - The single-row restriction is fundamental to the optimization - multi-row VALUES would require different optimization strategies
-- LATERAL considerations are explicitly noted as not applying since VALUES cannot appear under outer joins in contexts where pullup would be attempted  
+- LATERAL considerations are explicitly noted as not applying since VALUES cannot appear under outer joins in contexts where pullup would be attempted
 - The single RTE restriction reflects current parser limitations and simplifies the pullup implementation significantly
 - The function uses assertions to verify that the RTE is indeed of type RTE_VALUES, indicating it should only be called in appropriate contexts
 - This function works in conjunction with  to provide a complete optimization path for simple constant value expressions
+
+## Simplified Source
+
+```c
+static bool
+is_simple_values(PlannerInfo *root, RangeTblEntry *rte)
+{
+    // Must have exactly one VALUES row
+    if (list_length(rte->values_lists) != 1)
+        return false;
+
+    // Reject set-returning or volatile functions
+    if (expression_returns_set((Node *) rte->values_lists) ||
+        contain_volatile_functions((Node *) rte->values_lists))
+        return false;
+
+    // VALUES must be the only RTE in the query
+    if (list_length(root->parse->rtable) != 1 ||
+        rte != (RangeTblEntry *) linitial(root->parse->rtable))
+        return false;
+
+    return true;
+}
+```

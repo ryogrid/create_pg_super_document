@@ -48,3 +48,78 @@ For different RTE kinds:
 - The optimization is especially valuable for wide tables where projection costs would be significant
 - Conservative approach ensures type safety by avoiding issues with dropped column types
 - Location: src/backend/optimizer/util/plancat.c:1764-1884
+
+## Simplified Source
+
+```c
+List *build_physical_tlist(PlannerInfo *root, RelOptInfo *rel) {
+    List *tlist = NIL;
+    Index varno = rel->relid;
+    RangeTblEntry *rte = planner_rt_fetch(varno, root);
+
+    switch (rte->rtekind) {
+        case RTE_RELATION: {
+            // Handle base relations - check for dropped/missing columns
+            Relation relation = table_open(rte->relid, NoLock);
+            int numattrs = RelationGetNumberOfAttributes(relation);
+
+            for (int attrno = 1; attrno <= numattrs; attrno++) {
+                Form_pg_attribute att_tup = TupleDescAttr(relation->rd_att, attrno - 1);
+
+                // Punt if any columns are dropped or have missing values
+                if (att_tup->attisdropped || att_tup->atthasmissing) {
+                    tlist = NIL;
+                    break;
+                }
+
+                // Create Var and TargetEntry for this column
+                Var *var = makeVar(varno, attrno, att_tup->atttypid,
+                                  att_tup->atttypmod, att_tup->attcollation, 0);
+                tlist = lappend(tlist, makeTargetEntry((Expr *) var, attrno, NULL, false));
+            }
+            table_close(relation, NoLock);
+            break;
+        }
+
+        case RTE_SUBQUERY: {
+            // Handle subqueries - map target list entries to Vars
+            Query *subquery = rte->subquery;
+            foreach(l, subquery->targetList) {
+                TargetEntry *tle = lfirst(l);
+                Var *var = makeVarFromTargetEntry(varno, tle);
+                tlist = lappend(tlist, makeTargetEntry((Expr *) var, tle->resno, NULL, tle->resjunk));
+            }
+            break;
+        }
+
+        case RTE_FUNCTION:
+        case RTE_TABLEFUNC:
+        case RTE_VALUES:
+        case RTE_CTE:
+        case RTE_NAMEDTUPLESTORE:
+        case RTE_RESULT: {
+            // Handle other RTE kinds using expandRTE
+            List *colvars;
+            expandRTE(rte, varno, 0, -1, true, NULL, &colvars);
+
+            foreach(l, colvars) {
+                Var *var = lfirst(l);
+
+                // Punt if expandRTE returned a non-Var (dropped column)
+                if (!IsA(var, Var)) {
+                    tlist = NIL;
+                    break;
+                }
+
+                tlist = lappend(tlist, makeTargetEntry((Expr *) var, var->varattno, NULL, false));
+            }
+            break;
+        }
+
+        default:
+            elog(ERROR, "unsupported RTE kind %d in build_physical_tlist", (int) rte->rtekind);
+    }
+
+    return tlist;
+}
+```

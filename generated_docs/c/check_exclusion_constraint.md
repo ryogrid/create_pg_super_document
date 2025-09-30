@@ -44,3 +44,17 @@ The function uses the  mode internally, which means it will wait for concurrent 
 - This is explicitly described as a "dumbed down version" for external callers who don't need the special modes available in the full constraint checking function
 - The function always uses  mode and passes  for the  parameter to the underlying implementation
 - Part of PostgreSQL's constraint enforcement system, specifically handling exclusion constraints which prevent certain combinations of values from coexisting in a table
+
+## Simplified Source
+
+```c
+void check_exclusion_constraint(Relation heap, Relation index, IndexInfo *indexInfo,
+                               ItemPointer tupleid, const Datum *values,
+                               const bool *isnull, EState *estate, bool newIndex) {
+    // Simple wrapper around the full constraint checking function
+    // Uses CEOUC_WAIT mode and no special options
+    (void) check_exclusion_or_unique_constraint(heap, index, indexInfo, tupleid,
+                                               values, isnull, estate, newIndex,
+                                               CEOUC_WAIT, false, NULL);
+}
+```

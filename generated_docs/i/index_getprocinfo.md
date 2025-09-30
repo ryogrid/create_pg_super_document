@@ -42,3 +42,50 @@ The returned pointer references cached data that becomes invalid during relcache
 - Handles opclass options initialization for non-options procedures
 - The function assumes IndexSupportInitialize has already populated the rd_support array
 - Critical for performance as it avoids repeated function lookups during index operations
+
+## Simplified Source
+
+```c
+FmgrInfo *index_getprocinfo(Relation irel,
+                           AttrNumber attnum,
+                           uint16 procnum) {
+    int nproc = irel->rd_indam->amsupport;
+    int optsproc = irel->rd_indam->amoptsprocnum;
+
+    // Validate procedure number
+    Assert(procnum > 0 && procnum <= (uint16) nproc);
+
+    // Calculate index into support info array
+    int procindex = (nproc * (attnum - 1)) + (procnum - 1);
+
+    FmgrInfo *locinfo = irel->rd_supportinfo;
+    Assert(locinfo != NULL);
+
+    locinfo += procindex;
+
+    // Initialize lookup info if first time through
+    if (locinfo->fn_oid == InvalidOid) {
+        RegProcedure *loc = irel->rd_support;
+        RegProcedure procId = loc[procindex];
+
+        // Validate that support function exists
+        if (!RegProcedureIsValid(procId)) {
+            elog(ERROR, "missing support function %d for attribute %d of index \"%s\"",
+                 procnum, attnum, RelationGetRelationName(irel));
+        }
+
+        // Initialize function manager info
+        fmgr_info_cxt(procId, locinfo, irel->rd_indexcxt);
+
+        // Set up opclass options for non-options procedures
+        if (procnum != optsproc) {
+            bytea **attoptions = RelationGetIndexAttOptions(irel, false);
+            MemoryContext oldcxt = MemoryContextSwitchTo(irel->rd_indexcxt);
+            set_fn_opclass_options(locinfo, attoptions[attnum - 1]);
+            MemoryContextSwitchTo(oldcxt);
+        }
+    }
+
+    return locinfo;
+}
+```

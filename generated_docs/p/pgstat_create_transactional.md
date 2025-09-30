@@ -41,3 +41,22 @@ The actual transactional behavior is implemented by delegating to `create_drop_t
 - The transactional nature means the statistics creation is tied to the success of the current transaction
 - Works in conjunction with `pgstat_drop_transactional` to provide complete transactional semantics for statistics management
 - The function uses TopTransactionContext for memory allocation to ensure proper cleanup on transaction abort
+
+## Simplified Source
+
+```c
+void pgstat_create_transactional(PgStat_Kind kind, Oid dboid, Oid objoid) {
+    // Check if statistics entry already exists
+    if (pgstat_get_entry_ref(kind, dboid, objoid, false, NULL)) {
+        // Warn and reset existing statistics
+        ereport(WARNING,
+                errmsg("resetting existing statistics for kind %s, db=%u, oid=%u",
+                       (pgstat_get_kind_info(kind))->name, dboid, objoid));
+
+        pgstat_reset(kind, dboid, objoid);
+    }
+
+    // Create the statistics entry with transactional semantics
+    create_drop_transactional_internal(kind, dboid, objoid, /* create */ true);
+}
+```

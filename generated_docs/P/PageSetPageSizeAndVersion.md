@@ -32,3 +32,15 @@ PageSetPageSizeAndVersion initializes the pd_pagesize_version field in a page he
 - The size parameter should already be properly masked to fit in the upper 8 bits
 - The version parameter should be a valid page layout version number
 - Part of the core page initialization infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+static inline void PageSetPageSizeAndVersion(Page page, Size size, uint8 version) {
+    Assert((size & 0xFF00) == size);
+    Assert((version & 0x00FF) == version);
+
+    // Combine size and version into single field
+    ((PageHeader) page)->pd_pagesize_version = size | version;
+}
+```

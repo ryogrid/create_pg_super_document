@@ -43,3 +43,58 @@ The function ensures that the executor has the necessary information to locate a
 - Foreign tables require special handling because they don't have physical ctid values and may need custom row identification mechanisms
 - The function works in conjunction with add_row_identity_var to maintain a global registry of row identity variables
 - This is a core component of PostgreSQL's support for DML operations on inheritance hierarchies and partitioned tables
+
+## Simplified Source
+
+```c
+void add_row_identity_columns(PlannerInfo *root, Index rtindex,
+                              RangeTblEntry *target_rte,
+                              Relation target_relation)
+{
+    CmdType commandType = root->parse->commandType;
+    char relkind = target_relation->rd_rel->relkind;
+    Var *var;
+
+    // Only valid for UPDATE/DELETE/MERGE operations
+    Assert(commandType == CMD_UPDATE || commandType == CMD_DELETE || commandType == CMD_MERGE);
+
+    if (relkind == RELKIND_RELATION ||
+        relkind == RELKIND_MATVIEW ||
+        relkind == RELKIND_PARTITIONED_TABLE)
+    {
+        // For regular tables: add CTID system column for row identification
+        var = makeVar(rtindex,
+                      SelfItemPointerAttributeNumber,
+                      TIDOID,
+                      -1,
+                      InvalidOid,
+                      0);
+        add_row_identity_var(root, var, rtindex, "ctid");
+    }
+    else if (relkind == RELKIND_FOREIGN_TABLE)
+    {
+        // For foreign tables: delegate to FDW for custom row identification
+        FdwRoutine *fdwroutine = GetFdwRoutineForRelation(target_relation, false);
+
+        if (fdwroutine->AddForeignUpdateTargets != NULL)
+            fdwroutine->AddForeignUpdateTargets(root, rtindex,
+                                                target_rte, target_relation);
+
+        // Add whole-row variable for UPDATEs or when row triggers exist
+        // This ensures executor has complete row data when needed
+        if (commandType == CMD_UPDATE ||
+            (target_relation->trigdesc &&
+             (target_relation->trigdesc->trig_delete_after_row ||
+              target_relation->trigdesc->trig_delete_before_row)))
+        {
+            var = makeVar(rtindex,
+                          InvalidAttrNumber,  // Whole-row reference
+                          RECORDOID,
+                          -1,
+                          InvalidOid,
+                          0);
+            add_row_identity_var(root, var, rtindex, "wholerow");
+        }
+    }
+}
+```

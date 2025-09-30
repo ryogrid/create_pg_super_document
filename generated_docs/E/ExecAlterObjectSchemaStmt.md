@@ -46,3 +46,84 @@ For generic objects, the function resolves the object address, opens the appropr
 - The function maintains backward compatibility by optionally reporting the original schema
 - Error handling includes an assertion that relation should be NULL for generic path objects
 - Falls back to elog(ERROR) for unrecognized object types
+
+## Simplified Source
+
+```c
+ObjectAddress ExecAlterObjectSchemaStmt(AlterObjectSchemaStmt *stmt, ObjectAddress *oldSchemaAddr) {
+    ObjectAddress address;
+    Oid oldNspOid;
+
+    switch (stmt->objectType) {
+        // Extension objects
+        case OBJECT_EXTENSION:
+            address = AlterExtensionNamespace(strVal(stmt->object), stmt->newschema,
+                                            oldSchemaAddr ? &oldNspOid : NULL);
+            break;
+
+        // Table-like objects
+        case OBJECT_FOREIGN_TABLE:
+        case OBJECT_SEQUENCE:
+        case OBJECT_TABLE:
+        case OBJECT_VIEW:
+        case OBJECT_MATVIEW:
+            address = AlterTableNamespace(stmt, oldSchemaAddr ? &oldNspOid : NULL);
+            break;
+
+        // Type objects
+        case OBJECT_DOMAIN:
+        case OBJECT_TYPE:
+            address = AlterTypeNamespace(castNode(List, stmt->object), stmt->newschema,
+                                       stmt->objectType, oldSchemaAddr ? &oldNspOid : NULL);
+            break;
+
+        // Generic objects
+        case OBJECT_AGGREGATE:
+        case OBJECT_COLLATION:
+        case OBJECT_CONVERSION:
+        case OBJECT_FUNCTION:
+        case OBJECT_OPERATOR:
+        case OBJECT_OPCLASS:
+        case OBJECT_OPFAMILY:
+        case OBJECT_PROCEDURE:
+        case OBJECT_ROUTINE:
+        case OBJECT_STATISTIC_EXT:
+        case OBJECT_TSCONFIGURATION:
+        case OBJECT_TSDICTIONARY:
+        case OBJECT_TSPARSER:
+        case OBJECT_TSTEMPLATE:
+        {
+            Relation catalog;
+            Relation relation;
+            Oid classId;
+            Oid nspOid;
+
+            // Resolve object address
+            address = get_object_address(stmt->objectType, stmt->object,
+                                       &relation, AccessExclusiveLock, false);
+            Assert(relation == NULL);
+
+            // Open catalog and lookup target namespace
+            classId = address.classId;
+            catalog = table_open(classId, RowExclusiveLock);
+            nspOid = LookupCreationNamespace(stmt->newschema);
+
+            // Change the namespace
+            oldNspOid = AlterObjectNamespace_internal(catalog, address.objectId, nspOid);
+            table_close(catalog, RowExclusiveLock);
+        }
+        break;
+
+        default:
+            elog(ERROR, "unrecognized AlterObjectSchemaStmt type: %d", (int) stmt->objectType);
+            return InvalidObjectAddress;
+    }
+
+    // Set old schema address if requested
+    if (oldSchemaAddr) {
+        ObjectAddressSet(*oldSchemaAddr, NamespaceRelationId, oldNspOid);
+    }
+
+    return address;
+}
+```

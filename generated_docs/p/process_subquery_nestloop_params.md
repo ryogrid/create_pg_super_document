@@ -53,3 +53,72 @@ For Vars, it validates that the referenced relation (varno) is in curOuterRels. 
 - The function performs sanity checks but does not modify the subplan itself, as parameter conversion was done during subquery planning
 - Critical error checking ensures non-LATERAL parameters are rejected, maintaining SQL standard compliance
 - De-duplication is based on paramId matching rather than expression equality, reflecting the pre-assigned parameter slot approach
+
+## Simplified Source
+
+```c
+void process_subquery_nestloop_params(PlannerInfo *root, List *subplan_params) {
+    ListCell *lc;
+
+    // Process each parameter needed by the subquery
+    foreach(lc, subplan_params) {
+        PlannerParamItem *pitem = lfirst_node(PlannerParamItem, lc);
+
+        if (IsA(pitem->item, Var)) {
+            // Handle Var parameters
+            Var *var = (Var *) pitem->item;
+
+            // Validate this is a LATERAL reference
+            if (!bms_is_member(var->varno, root->curOuterRels))
+                elog(ERROR, "non-LATERAL parameter required by subquery");
+
+            // Check if parameter already exists
+            ListCell *lc2;
+            NestLoopParam *nlp = NULL;
+            foreach(lc2, root->curOuterParams) {
+                nlp = (NestLoopParam *) lfirst(lc2);
+                if (nlp->paramno == pitem->paramId) {
+                    // Already present, nothing to do
+                    break;
+                }
+            }
+
+            // Add new parameter if not found
+            if (lc2 == NULL) {
+                nlp = makeNode(NestLoopParam);
+                nlp->paramno = pitem->paramId;
+                nlp->paramval = copyObject(var);
+                root->curOuterParams = lappend(root->curOuterParams, nlp);
+            }
+        }
+        else if (IsA(pitem->item, PlaceHolderVar)) {
+            // Handle PlaceHolderVar parameters
+            PlaceHolderVar *phv = (PlaceHolderVar *) pitem->item;
+
+            // Validate this is a LATERAL reference
+            if (!bms_is_subset(find_placeholder_info(root, phv)->ph_eval_at,
+                              root->curOuterRels))
+                elog(ERROR, "non-LATERAL parameter required by subquery");
+
+            // Check if parameter already exists and add if needed
+            ListCell *lc2;
+            NestLoopParam *nlp = NULL;
+            foreach(lc2, root->curOuterParams) {
+                nlp = (NestLoopParam *) lfirst(lc2);
+                if (nlp->paramno == pitem->paramId)
+                    break;
+            }
+
+            if (lc2 == NULL) {
+                nlp = makeNode(NestLoopParam);
+                nlp->paramno = pitem->paramId;
+                nlp->paramval = (Var *) copyObject(phv);
+                root->curOuterParams = lappend(root->curOuterParams, nlp);
+            }
+        }
+        else {
+            elog(ERROR, "unexpected type of subquery parameter");
+        }
+    }
+}
+```

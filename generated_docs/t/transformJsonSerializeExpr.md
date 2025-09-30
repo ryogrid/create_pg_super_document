@@ -38,3 +38,44 @@ The transformJsonSerializeExpr function handles the transformation of JSON_SERIA
 
 ## Notes and Other Information
 This function is part of PostgreSQL's SQL/JSON support implementation. It enforces strict type checking for the RETURNING clause, ensuring only string types or bytea are allowed. The function provides detailed error messages when invalid types are specified in the RETURNING clause, helping users understand the correct usage. Located at src/backend/parser/parse_expr.c:4225-4270.
+
+## Simplified Source
+
+```c
+static Node *transformJsonSerializeExpr(ParseState *pstate, JsonSerializeExpr *expr) {
+    // Transform the JSON input expression
+    Node *arg = transformJsonValueExpr(pstate, "JSON_SERIALIZE()",
+                                      expr->expr, JS_FORMAT_JSON,
+                                      InvalidOid, false);
+
+    JsonReturning *returning;
+    if (expr->output) {
+        // Process explicit output specification
+        returning = transformJsonOutput(pstate, expr->output, true);
+
+        // Validate return type: must be string type or bytea
+        if (returning->typid != BYTEAOID) {
+            char typcategory;
+            bool typispreferred;
+
+            get_type_category_preferred(returning->typid, &typcategory, &typispreferred);
+            if (typcategory != TYPCATEGORY_STRING) {
+                ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                               errmsg("cannot use type %s in RETURNING clause of %s",
+                                      format_type_be(returning->typid), "JSON_SERIALIZE()"),
+                               errhint("Try returning a string type or bytea.")));
+            }
+        }
+    } else {
+        // Default: RETURNING TEXT FORMAT JSON
+        returning = makeNode(JsonReturning);
+        returning->format = makeJsonFormat(JS_FORMAT_JSON, JS_ENC_DEFAULT, -1);
+        returning->typid = TEXTOID;
+        returning->typmod = -1;
+    }
+
+    // Create the JSON serialize constructor expression
+    return makeJsonConstructorExpr(pstate, JSCTOR_JSON_SERIALIZE, list_make1(arg),
+                                  NULL, returning, false, false, expr->location);
+}
+```

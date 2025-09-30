@@ -36,3 +36,15 @@ The phase number increments each time all participants reach the barrier and pro
 - Extensively used in parallel hash join operations to coordinate different phases of hash table construction and probing
 - The caller must be attached to the barrier for this function to work correctly
 - Located in src/backend/storage/ipc/barrier.c:265-280
+
+## Simplified Source
+
+```c
+int BarrierPhase(Barrier *barrier)
+{
+    // Return current phase - safe to read without locking
+    // because caller must be attached and phase can't change
+    // without our participation
+    return barrier->phase;
+}
+```

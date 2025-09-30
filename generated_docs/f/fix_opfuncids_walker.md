@@ -37,3 +37,25 @@ The function takes advantage of struct equivalence between OpExpr, DistinctExpr,
 - Returns false to continue tree traversal (standard behavior for expression_tree_walker)
 - Relies on struct equivalence between OpExpr, DistinctExpr, and NullIfExpr to simplify code
 - Part of the operator function ID fixing infrastructure in PostgreSQL's expression handling
+
+## Simplified Source
+
+```c
+static bool fix_opfuncids_walker(Node *node, void *context) {
+    if (node == NULL)
+        return false;
+
+    // Set operator function IDs for different expression types
+    if (IsA(node, OpExpr))
+        set_opfuncid((OpExpr *) node);
+    else if (IsA(node, DistinctExpr))
+        set_opfuncid((OpExpr *) node);  // Same structure as OpExpr
+    else if (IsA(node, NullIfExpr))
+        set_opfuncid((OpExpr *) node);  // Same structure as OpExpr
+    else if (IsA(node, ScalarArrayOpExpr))
+        set_sa_opfuncid((ScalarArrayOpExpr *) node);
+
+    // Continue traversing the expression tree
+    return expression_tree_walker(node, fix_opfuncids_walker, context);
+}
+```

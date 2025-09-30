@@ -35,3 +35,23 @@ The check is performed by examining the `has_generated_stored` flag in the relat
 - Used during query planning to determine if special handling is needed for stored generated columns in DML operations
 - The check is efficient as it only examines metadata rather than scanning actual column definitions
 - Part of the query planner's catalog utilities for handling generated column semantics
+
+## Simplified Source
+
+```c
+bool
+has_stored_generated_columns(PlannerInfo *root, Index rti)
+{
+    // Get the range table entry and open the relation
+    RangeTblEntry *rte = planner_rt_fetch(rti, root);
+    Relation relation = table_open(rte->relid, NoLock);
+
+    // Get the tuple descriptor and check for stored generated columns
+    TupleDesc tupdesc = RelationGetDescr(relation);
+    bool result = tupdesc->constr && tupdesc->constr->has_generated_stored;
+
+    // Clean up and return result
+    table_close(relation, NoLock);
+    return result;
+}
+```

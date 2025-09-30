@@ -63,3 +63,57 @@ The function is particularly important for handling composite-returning function
 - The offset parameter enables this function to be used for individual functions within RTE_FUNCTION entries that return multiple result sets
 - Critical for ensuring that column expansion preserves proper type information, collation, and type modifiers
 - Forms the foundation for more complex expansion operations like expandRTE and expandRelation
+
+## Simplified Source
+
+```c
+static void expandTupleDesc(TupleDesc tupdesc, Alias *eref, int count, int offset,
+                           int rtindex, int sublevels_up,
+                           int location, bool include_dropped,
+                           List **colnames, List **colvars) {
+    ListCell *aliascell;
+
+    // Position aliascell to the correct starting point based on offset
+    aliascell = (offset < list_length(eref->colnames)) ?
+        list_nth_cell(eref->colnames, offset) : NULL;
+
+    // Process each attribute in the specified range
+    for (int varattno = 0; varattno < count; varattno++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, varattno);
+
+        // Handle dropped columns
+        if (attr->attisdropped) {
+            if (include_dropped) {
+                if (colnames)
+                    *colnames = lappend(*colnames, makeString(pstrdup("")));
+                if (colvars)
+                    *colvars = lappend(*colvars, makeNullConst(INT4OID, -1, InvalidOid));
+            }
+            if (aliascell)
+                aliascell = lnext(eref->colnames, aliascell);
+            continue;
+        }
+
+        // Generate column name (alias or underlying name)
+        if (colnames) {
+            char *label;
+            if (aliascell) {
+                label = strVal(lfirst(aliascell));
+                aliascell = lnext(eref->colnames, aliascell);
+            } else {
+                label = NameStr(attr->attname);
+            }
+            *colnames = lappend(*colnames, makeString(pstrdup(label)));
+        }
+
+        // Generate Var node with proper type information
+        if (colvars) {
+            Var *varnode = makeVar(rtindex, varattno + offset + 1,
+                                 attr->atttypid, attr->atttypmod,
+                                 attr->attcollation, sublevels_up);
+            varnode->location = location;
+            *colvars = lappend(*colvars, varnode);
+        }
+    }
+}
+```

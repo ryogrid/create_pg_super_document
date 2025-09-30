@@ -44,3 +44,27 @@ The implementation uses pointer arithmetic to start copying from the correct off
 - Commonly used in parsing and query processing to remove processed elements from parameter lists
 - The copied list maintains the same type as the original
 - Returns NIL if nskip >= oldlist->length
+
+## Simplified Source
+
+```c
+List *list_copy_tail(const List *oldlist, int nskip) {
+    // Handle edge cases for nskip parameter
+    if (nskip < 0)
+        nskip = 0;
+
+    // Return NIL if no elements to copy
+    if (oldlist == NIL || nskip >= oldlist->length)
+        return NIL;
+
+    // Create new list with appropriate size
+    List *newlist = new_list(oldlist->type, oldlist->length - nskip);
+
+    // Copy elements starting from nskip position
+    memcpy(newlist->elements, &oldlist->elements[nskip],
+           newlist->length * sizeof(ListCell));
+
+    check_list_invariants(newlist);
+    return newlist;
+}
+```

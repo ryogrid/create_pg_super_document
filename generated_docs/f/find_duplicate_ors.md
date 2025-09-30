@@ -57,3 +57,104 @@ The function handles both OR and AND clauses differently:
 - Essential for optimizing machine-generated queries that often contain redundant boolean structures
 - Returns the original expression unchanged if no optimizations can be applied
 - Part of PostgreSQL's boolean expression optimization pipeline in the query planner
+
+## Simplified Source
+
+```c
+static Expr *
+find_duplicate_ors(Expr *qual, bool is_check)
+{
+    // Handle OR clauses - look for common terms to extract
+    if (is_orclause(qual))
+    {
+        List *orlist = NIL;
+        ListCell *temp;
+
+        // Recursively process each OR argument
+        foreach(temp, ((BoolExpr *) qual)->args)
+        {
+            Expr *arg = (Expr *) lfirst(temp);
+            arg = find_duplicate_ors(arg, is_check);
+
+            // Handle constant expressions in OR
+            if (arg && IsA(arg, Const))
+            {
+                Const *carg = (Const *) arg;
+
+                if (is_check)
+                {
+                    // In CHECK: drop FALSE, TRUE/NULL makes entire OR true
+                    if (!carg->constisnull && !DatumGetBool(carg->constvalue))
+                        continue;  // Skip FALSE
+                    return (Expr *) makeBoolConst(true, false);  // TRUE or NULL
+                }
+                else
+                {
+                    // In WHERE: drop FALSE/NULL, TRUE makes entire OR true
+                    if (carg->constisnull || !DatumGetBool(carg->constvalue))
+                        continue;  // Skip FALSE/NULL
+                    return arg;  // TRUE
+                }
+            }
+
+            orlist = lappend(orlist, arg);
+        }
+
+        // Flatten nested ORs and process duplicates
+        orlist = pull_ors(orlist);
+        return process_duplicate_ors(orlist);
+    }
+
+    // Handle AND clauses
+    else if (is_andclause(qual))
+    {
+        List *andlist = NIL;
+        ListCell *temp;
+
+        // Recursively process each AND argument
+        foreach(temp, ((BoolExpr *) qual)->args)
+        {
+            Expr *arg = (Expr *) lfirst(temp);
+            arg = find_duplicate_ors(arg, is_check);
+
+            // Handle constant expressions in AND
+            if (arg && IsA(arg, Const))
+            {
+                Const *carg = (Const *) arg;
+
+                if (is_check)
+                {
+                    // In CHECK: drop TRUE/NULL, FALSE makes entire AND false
+                    if (carg->constisnull || DatumGetBool(carg->constvalue))
+                        continue;  // Skip TRUE/NULL
+                    return arg;  // FALSE
+                }
+                else
+                {
+                    // In WHERE: drop TRUE, FALSE/NULL makes entire AND false
+                    if (!carg->constisnull && DatumGetBool(carg->constvalue))
+                        continue;  // Skip TRUE
+                    return (Expr *) makeBoolConst(false, false);  // FALSE/NULL
+                }
+            }
+
+            andlist = lappend(andlist, arg);
+        }
+
+        // Flatten nested ANDs
+        andlist = pull_ands(andlist);
+
+        // Simplify AND expression
+        if (andlist == NIL)
+            return (Expr *) makeBoolConst(true, false);  // Empty AND is TRUE
+        if (list_length(andlist) == 1)
+            return (Expr *) linitial(andlist);  // Single argument
+
+        return make_andclause(andlist);
+    }
+
+    // Other expression types - return unchanged
+    else
+        return qual;
+}
+```

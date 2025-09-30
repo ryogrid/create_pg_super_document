@@ -95,3 +95,80 @@ The function returns one of several path types indicating the coercion method re
 - The function uses enum ordering to efficiently check coercion context compatibility
 - Recursive calls enable element-wise array coercion when direct array casts aren't available
 - PL/pgSQL context gets special treatment allowing I/O coercion as last resort
+
+## Simplified Source
+
+```c
+CoercionPathType find_coercion_pathway(Oid targetTypeId, Oid sourceTypeId,
+                                     CoercionContext ccontext, Oid *funcid) {
+    CoercionPathType result = COERCION_PATH_NONE;
+    *funcid = InvalidOid;
+
+    // Convert domains to their base types
+    sourceTypeId = getBaseType(sourceTypeId);
+    targetTypeId = getBaseType(targetTypeId);
+
+    // Same types can be relabeled
+    if (sourceTypeId == targetTypeId)
+        return COERCION_PATH_RELABELTYPE;
+
+    // Look for explicit cast in pg_cast catalog
+    HeapTuple tuple = SearchSysCache2(CASTSOURCETARGET,
+                                    ObjectIdGetDatum(sourceTypeId),
+                                    ObjectIdGetDatum(targetTypeId));
+
+    if (HeapTupleIsValid(tuple)) {
+        Form_pg_cast castForm = (Form_pg_cast) GETSTRUCT(tuple);
+
+        // Check if cast context allows this coercion
+        CoercionContext castcontext = convert_cast_context(castForm->castcontext);
+
+        if (ccontext >= castcontext) {
+            // Determine coercion method
+            switch (castForm->castmethod) {
+                case COERCION_METHOD_FUNCTION:
+                    result = COERCION_PATH_FUNC;
+                    *funcid = castForm->castfunc;
+                    break;
+                case COERCION_METHOD_INOUT:
+                    result = COERCION_PATH_COERCEVIAIO;
+                    break;
+                case COERCION_METHOD_BINARY:
+                    result = COERCION_PATH_RELABELTYPE;
+                    break;
+            }
+        }
+        ReleaseSysCache(tuple);
+    }
+    else {
+        // Try array coercion if both types are arrays
+        if (targetTypeId != OIDVECTOROID && targetTypeId != INT2VECTOROID) {
+            Oid targetElem = get_element_type(targetTypeId);
+            Oid sourceElem = get_element_type(sourceTypeId);
+
+            if (targetElem != InvalidOid && sourceElem != InvalidOid) {
+                // Recursively check element type coercion
+                CoercionPathType elempathtype = find_coercion_pathway(targetElem, sourceElem,
+                                                                    ccontext, &elemfuncid);
+                if (elempathtype != COERCION_PATH_NONE) {
+                    result = COERCION_PATH_ARRAYCOERCE;
+                }
+            }
+        }
+
+        // Try I/O coercion for string types
+        if (result == COERCION_PATH_NONE) {
+            if ((ccontext >= COERCION_ASSIGNMENT && TypeCategory(targetTypeId) == TYPCATEGORY_STRING) ||
+                (ccontext >= COERCION_EXPLICIT && TypeCategory(sourceTypeId) == TYPCATEGORY_STRING)) {
+                result = COERCION_PATH_COERCEVIAIO;
+            }
+        }
+    }
+
+    // PL/pgSQL gets I/O coercion as fallback
+    if (result == COERCION_PATH_NONE && ccontext == COERCION_PLPGSQL)
+        result = COERCION_PATH_COERCEVIAIO;
+
+    return result;
+}
+```

@@ -40,3 +40,42 @@ The function allocates memory for the returned username string using , making th
 - Thread-safe on platforms where underlying system calls are thread-safe
 - Buffer sizes: Windows uses UNLEN+1 (257 chars), Unix uses BUFSIZ for temporary storage
 - Handles out-of-memory conditions gracefully with appropriate error reporting
+
+## Simplified Source
+
+```c
+char *pg_fe_getusername(uid_t user_id, PQExpBuffer errorMessage) {
+    char *result = NULL;
+    const char *name = NULL;
+
+#ifdef WIN32
+    // Windows: get current user name (user_id parameter ignored)
+    char username[257];  // UNLEN+1 where UNLEN=256
+    DWORD namesize = sizeof(username);
+
+    if (GetUserName(username, &namesize)) {
+        name = username;
+    } else if (errorMessage) {
+        libpq_append_error(errorMessage, "user name lookup failure: error code %lu", GetLastError());
+    }
+#else
+    // Unix: lookup user by ID
+    char pwdbuf[BUFSIZ];
+
+    if (pg_get_user_name(user_id, pwdbuf, sizeof(pwdbuf))) {
+        name = pwdbuf;
+    } else if (errorMessage) {
+        appendPQExpBuffer(errorMessage, "%s\n", pwdbuf);
+    }
+#endif
+
+    // Duplicate the name string if lookup succeeded
+    if (name) {
+        result = strdup(name);
+        if (result == NULL && errorMessage)
+            libpq_append_error(errorMessage, "out of memory");
+    }
+
+    return result;
+}
+```

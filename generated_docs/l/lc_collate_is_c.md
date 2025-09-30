@@ -36,3 +36,44 @@ This function provides a fast way to determine if a collation uses C-style colla
 - Handles different collation providers: BUILTIN (always C-equivalent), ICU (never C-equivalent), LIBC (depends on system locale)
 - Critical for performance in text processing functions that can use faster algorithms when collation is C/POSIX
 - Used extensively throughout the codebase for collation-aware string operations
+
+## Simplified Source
+
+```c
+bool lc_collate_is_c(Oid collation) {
+    // Return false for invalid collation to trigger error handling
+    if (!OidIsValid(collation))
+        return false;
+
+    // Handle default collation with caching
+    if (collation == DEFAULT_COLLATION_OID) {
+        static int result = -1;
+
+        if (result >= 0)
+            return (bool) result;
+
+        // Check collation provider type
+        if (default_locale.provider == COLLPROVIDER_BUILTIN) {
+            result = true;  // Built-in is always C-equivalent
+        } else if (default_locale.provider == COLLPROVIDER_ICU) {
+            result = false; // ICU is never C-equivalent
+        } else if (default_locale.provider == COLLPROVIDER_LIBC) {
+            // Check system locale setting
+            const char *localeptr = setlocale(LC_COLLATE, NULL);
+            if (!localeptr)
+                elog(ERROR, "invalid LC_COLLATE setting");
+
+            result = (strcmp(localeptr, "C") == 0 || strcmp(localeptr, "POSIX") == 0);
+        }
+
+        return (bool) result;
+    }
+
+    // Built-in C/POSIX collations are always C-equivalent
+    if (collation == C_COLLATION_OID || collation == POSIX_COLLATION_OID)
+        return true;
+
+    // Look up other collations in cache
+    return lookup_collation_cache(collation, true)->collate_is_c;
+}
+```

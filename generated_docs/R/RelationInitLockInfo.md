@@ -41,3 +41,25 @@ This initialization must be called during the creation of any relation descripto
 - Critical for proper functioning of PostgreSQL's locking system
 - Handles both shared and non-shared relations appropriately
 - Part of the lock manager (lmgr) subsystem located in src/backend/storage/lmgr/lmgr.c:71-88
+
+## Simplified Source
+
+```c
+void RelationInitLockInfo(Relation relation) {
+    // Validate relation and its OID
+    Assert(RelationIsValid(relation));
+    Assert(OidIsValid(RelationGetRelid(relation)));
+
+    // Set the relation ID for locking
+    relation->rd_lockInfo.lockRelId.relId = RelationGetRelid(relation);
+
+    // Set database ID based on whether relation is shared
+    if (relation->rd_rel->relisshared) {
+        // Shared relations use InvalidOid (accessible from all databases)
+        relation->rd_lockInfo.lockRelId.dbId = InvalidOid;
+    } else {
+        // Regular relations use current database ID
+        relation->rd_lockInfo.lockRelId.dbId = MyDatabaseId;
+    }
+}
+```

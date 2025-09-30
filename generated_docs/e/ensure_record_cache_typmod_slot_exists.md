@@ -36,3 +36,28 @@ The function uses PostgreSQL's memory management facilities, allocating memory i
 - Memory is allocated in CacheMemoryContext to persist across transactions
 - The expansion strategy balances memory efficiency with reallocation overhead
 - Both RecordCacheArray and RecordCacheArrayLen global variables are managed by this function
+
+## Simplified Source
+
+```c
+static void ensure_record_cache_typmod_slot_exists(int32 typmod) {
+    // Initialize array if not yet allocated
+    if (RecordCacheArray == NULL) {
+        RecordCacheArray = (RecordCacheArrayEntry *)
+            MemoryContextAllocZero(CacheMemoryContext,
+                                   64 * sizeof(RecordCacheArrayEntry));
+        RecordCacheArrayLen = 64;
+    }
+
+    // Expand array if typmod exceeds current capacity
+    if (typmod >= RecordCacheArrayLen) {
+        int32 newlen = pg_nextpower2_32(typmod + 1);
+
+        RecordCacheArray = repalloc0_array(RecordCacheArray,
+                                           RecordCacheArrayEntry,
+                                           RecordCacheArrayLen,
+                                           newlen);
+        RecordCacheArrayLen = newlen;
+    }
+}
+```

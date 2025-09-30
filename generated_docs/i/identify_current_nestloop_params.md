@@ -34,3 +34,55 @@ When parameters are identified as suitable, they are removed from the root->curO
 
 ## Notes and Other Information
 This function contains important logic for handling outer join identity transformations, specifically identity 3. The nullingrel adjustment is a workaround for cases where the parser creates lateral references with different nullingrel specifications than what will be available at execution. The comments note this weakens setrefs.c's cross-checking capabilities but avoids the expense of generating multiple versions of laterally-parameterized subqueries.
+
+## Simplified Source
+
+```c
+List *
+identify_current_nestloop_params(PlannerInfo *root, Relids leftrelids)
+{
+    List *result = NIL;
+    ListCell *cell;
+
+    // Scan through current outer parameters
+    foreach(cell, root->curOuterParams)
+    {
+        NestLoopParam *nlp = (NestLoopParam *) lfirst(cell);
+
+        // Check if this is a Var that can be supplied by lefthand relations
+        if (IsA(nlp->paramval, Var) &&
+            bms_is_member(nlp->paramval->varno, leftrelids))
+        {
+            Var *var = (Var *) nlp->paramval;
+
+            // Remove from current outer params list
+            root->curOuterParams = foreach_delete_current(root->curOuterParams, cell);
+
+            // Adjust nullingrels to match what's available from outer side
+            var->varnullingrels = bms_intersect(var->varnullingrels, leftrelids);
+
+            // Add to result list
+            result = lappend(result, nlp);
+        }
+        // Check if this is a PlaceHolderVar that can be supplied by lefthand relations
+        else if (IsA(nlp->paramval, PlaceHolderVar) &&
+                 bms_is_subset(find_placeholder_info(root,
+                                   (PlaceHolderVar *) nlp->paramval)->ph_eval_at,
+                               leftrelids))
+        {
+            PlaceHolderVar *phv = (PlaceHolderVar *) nlp->paramval;
+
+            // Remove from current outer params list
+            root->curOuterParams = foreach_delete_current(root->curOuterParams, cell);
+
+            // Adjust nullingrels to match what's available from outer side
+            phv->phnullingrels = bms_intersect(phv->phnullingrels, leftrelids);
+
+            // Add to result list
+            result = lappend(result, nlp);
+        }
+    }
+
+    return result;
+}
+```

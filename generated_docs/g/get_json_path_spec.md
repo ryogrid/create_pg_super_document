@@ -40,3 +40,16 @@ This design allows the function to handle both simple constant JSON paths (like 
 - The function is designed to handle the variety of ways JSON paths can be specified in SQL
 - Part of PostgreSQL's broader JSON path expression support introduced for SQL/JSON standard compliance
 - Located in src/backend/utils/adt/ruleutils.c:11285-11296
+
+## Simplified Source
+
+```c
+static void get_json_path_spec(Node *path_spec, deparse_context *context, bool showimplicit) {
+    // Handle constant path specifications directly
+    if (IsA(path_spec, Const))
+        get_const_expr((Const *) path_spec, context, -1);
+    else
+        // Handle dynamic/complex path expressions
+        get_rule_expr(path_spec, context, showimplicit);
+}
+```

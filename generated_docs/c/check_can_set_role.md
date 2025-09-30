@@ -47,3 +47,18 @@ This function is commonly used in ownership transfer operations and other admini
 - Typically used in DDL commands that change object ownership
 - Error includes the target role name for better debugging and user feedback
 - Part of PostgreSQL's defensive programming pattern for permission validation
+
+## Simplified Source
+
+```c
+void check_can_set_role(Oid member, Oid role)
+{
+    // Check if member can assume the target role
+    if (!member_can_set_role(member, role)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("must be able to SET ROLE \"%s\"",
+                        GetUserNameFromId(role, false))));
+    }
+}
+```

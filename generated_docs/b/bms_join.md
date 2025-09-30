@@ -44,3 +44,51 @@ This approach is more flexible than functions like bms_add_members or bms_int_me
 - Supports conditional reallocation based on REALLOCATE_BITMAPSETS compile flag
 - Extensively used in PostgreSQL's query optimization, particularly in join processing
 - The 'pure paranoia' check ensures the smaller set is only freed if it's different from result
+
+## Simplified Source
+
+```c
+Bitmapset *
+bms_join(Bitmapset *a, Bitmapset *b)
+{
+    Bitmapset *result;
+    Bitmapset *other;
+    int otherlen;
+    int i;
+
+    Assert(bms_is_valid_set(a));
+    Assert(bms_is_valid_set(b));
+
+    // Handle NULL inputs - return the non-NULL one
+    if (a == NULL)
+        return b;
+    if (b == NULL)
+        return a;
+
+    // Choose the larger bitmap set as the result to minimize copying
+    if (a->nwords < b->nwords)
+    {
+        result = b;  // b is larger, use it as base
+        other = a;   // union a into b
+    }
+    else
+    {
+        result = a;  // a is larger or equal, use it as base
+        other = b;   // union b into a
+    }
+
+    // Union the smaller set into the larger one using bitwise OR
+    otherlen = other->nwords;
+    i = 0;
+    do
+    {
+        result->words[i] |= other->words[i];
+    } while (++i < otherlen);
+
+    // Free the smaller input set (paranoia check ensures it's different)
+    if (other != result)
+        pfree(other);
+
+    return result;
+}
+```

@@ -45,3 +45,44 @@ The function includes an optimization: if max_prepared_xacts is 0 (two-phase com
 - Short-circuits when two-phase commit is disabled (max_prepared_xacts == 0)
 - Part of PostgreSQL's two-phase commit and virtual transaction locking infrastructure
 - Critical for ensuring proper waiting behavior when virtual transactions have been prepared
+
+## Simplified Source
+
+```c
+static bool XactLockForVirtualXact(VirtualTransactionId vxid,
+                                 TransactionId xid, bool wait) {
+    bool more = false;
+
+    // Skip if two-phase commit is disabled
+    if (max_prepared_xacts == 0)
+        return true;
+
+    do {
+        LOCKTAG tag;
+
+        // Reset state for next iteration
+        if (more) {
+            xid = InvalidTransactionId;
+            more = false;
+        }
+
+        // Find prepared transaction ID if not provided
+        if (!TransactionIdIsValid(xid)) {
+            xid = TwoPhaseGetXidByVirtualXID(vxid, &more);
+            if (!TransactionIdIsValid(xid))
+                return true;
+        }
+
+        // Wait for transaction completion by acquiring its lock
+        SET_LOCKTAG_TRANSACTION(tag, xid);
+        LockAcquireResult lar = LockAcquire(&tag, ShareLock, false, !wait);
+
+        if (lar == LOCKACQUIRE_NOT_AVAIL)
+            return false;  // Transaction still active and not waiting
+
+        LockRelease(&tag, ShareLock, false);
+    } while (more);  // Process all prepared transactions for this vxid
+
+    return true;
+}
+```

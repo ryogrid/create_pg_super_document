@@ -37,3 +37,27 @@ The function operates at the global level (root->glob) to ensure it doesn't inte
 - Initial values: phnullingrels is set to NULL, phlevelsup is set to 0
 - The function only touches root->glob to avoid interfering with query-level planning
 - PlaceHolderVars are crucial for maintaining correct expression evaluation semantics in complex queries involving outer joins
+
+## Simplified Source
+
+```c
+PlaceHolderVar *
+make_placeholder_expr(PlannerInfo *root, Expr *expr, Relids phrels)
+{
+    // Create new PlaceHolderVar node
+    PlaceHolderVar *phv = makeNode(PlaceHolderVar);
+
+    // Set the expression and location info
+    phv->phexpr = expr;
+    phv->phrels = phrels;
+
+    // Initialize default values (caller may adjust later)
+    phv->phnullingrels = NULL;
+    phv->phlevelsup = 0;
+
+    // Assign unique identifier
+    phv->phid = ++(root->glob->lastPHId);
+
+    return phv;
+}
+```

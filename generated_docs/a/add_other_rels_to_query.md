@@ -42,3 +42,31 @@ This is a crucial step in query planning for partitioned tables and inheritance 
 - Only processes RELOPT_BASEREL relations, ignoring any "otherrels" that were already added
 - After completion, there should be RelOptInfos for all relations that will be scanned by the query
 - Located in src/backend/optimizer/plan/initsplan.c at lines 195-233
+
+## Simplified Source
+
+```c
+void add_other_rels_to_query(PlannerInfo *root)
+{
+    int rti;
+
+    // Scan through all relations in the simple_rel_array
+    for (rti = 1; rti < root->simple_rel_array_size; rti++)
+    {
+        RelOptInfo *rel = root->simple_rel_array[rti];
+        RangeTblEntry *rte = root->simple_rte_array[rti];
+
+        // Skip empty slots (non-baserel RTEs)
+        if (rel == NULL)
+            continue;
+
+        // Skip relations that are not base relations
+        if (rel->reloptkind != RELOPT_BASEREL)
+            continue;
+
+        // If this relation has inheritance, expand its children
+        if (rte->inh)
+            expand_inherited_rtentry(root, rel, rte, rti);
+    }
+}
+```

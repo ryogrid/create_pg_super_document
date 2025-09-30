@@ -38,3 +38,39 @@ The function establishes a parent-child relationship by linking the new command 
 - Initializes the subcmds list as NIL, which gets populated as subcommands are processed
 - Sets objectId to InvalidOid initially - the actual relation OID is set later via EventTriggerAlterTableRelid
 - Only operates when event trigger context is active and collection is not inhibited
+
+## Simplified Source
+
+```c
+void
+EventTriggerAlterTableStart(Node *parsetree)
+{
+    MemoryContext oldcxt;
+    CollectedCommand *command;
+
+    // Check if event trigger context is active
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create new CollectedCommand for ALTER TABLE
+    command = palloc(sizeof(CollectedCommand));
+    command->type = SCT_AlterTable;
+    command->in_extension = creating_extension;
+
+    // Initialize ALTER TABLE specific fields
+    command->d.alterTable.classId = RelationRelationId;
+    command->d.alterTable.objectId = InvalidOid;  // Set later by EventTriggerAlterTableRelid
+    command->d.alterTable.subcmds = NIL;
+
+    // Copy parse tree and set up parent-child relationship
+    command->parsetree = copyObject(parsetree);
+    command->parent = currentEventTriggerState->currentCommand;
+    currentEventTriggerState->currentCommand = command;
+
+    MemoryContextSwitchTo(oldcxt);
+}
+```

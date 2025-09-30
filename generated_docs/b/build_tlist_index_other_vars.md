@@ -48,3 +48,52 @@ The primary use case is in contexts like RETURNING clauses where you need to ref
 - Preserves varnullingrels information for proper outer join null handling
 - Designed for specialized use cases like RETURNING clause processing where target relation variables should be excluded
 - The resulting structure can be freed with a single pfree() call
+
+## Simplified Source
+
+```c
+static indexed_tlist *
+build_tlist_index_other_vars(List *tlist, int ignore_rel)
+{
+    indexed_tlist *itlist;
+    tlist_vinfo *vinfo;
+
+    // Allocate index structure with space for all entries
+    itlist = palloc(offsetof(indexed_tlist, vars) +
+                   list_length(tlist) * sizeof(tlist_vinfo));
+
+    // Initialize structure
+    itlist->tlist = tlist;
+    itlist->has_ph_vars = false;
+    itlist->has_non_vars = false;
+
+    // Process each target list entry
+    vinfo = itlist->vars;
+    foreach(l, tlist)
+    {
+        TargetEntry *tle = lfirst(l);
+
+        // Index Vars from relations other than ignore_rel
+        if (tle->expr && IsA(tle->expr, Var))
+        {
+            Var *var = (Var *) tle->expr;
+
+            if (var->varno != ignore_rel)
+            {
+                // Store variable information in index
+                vinfo->varno = var->varno;
+                vinfo->varattno = var->varattno;
+                vinfo->resno = tle->resno;
+                vinfo->varnullingrels = var->varnullingrels;
+                vinfo++;
+            }
+        }
+        // Note presence of PlaceHolderVars
+        else if (tle->expr && IsA(tle->expr, PlaceHolderVar))
+            itlist->has_ph_vars = true;
+    }
+
+    itlist->num_vars = (vinfo - itlist->vars);
+    return itlist;
+}
+```

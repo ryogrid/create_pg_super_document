@@ -42,3 +42,19 @@ A key insight in this function is handling the precision issues when long is 64-
 - Used primarily in plan creation where integer cardinalities are needed
 - Part of the interface between floating-point estimates and integer plan parameters
 - Critical for preventing numeric overflow in plan node creation
+
+## Simplified Source
+
+```c
+long clamp_cardinality_to_long(Cardinality x) {
+    // Handle special cases: NaN and negative values
+    if (isnan(x))
+        return LONG_MAX;
+    if (x <= 0)
+        return 0;
+
+    // Safely convert to long, avoiding overflow
+    // Use careful comparison to prevent precision issues with 64-bit long
+    return (x < (double) LONG_MAX) ? (long) x : LONG_MAX;
+}
+```

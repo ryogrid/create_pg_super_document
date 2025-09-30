@@ -44,3 +44,28 @@ This function implements an efficient binary search algorithm to check whether a
 - Returns true if the code point falls within any range in the table, false otherwise
 - Critical for efficient Unicode property lookup in PostgreSQL's character classification system
 - The algorithm assumes the input table is sorted by range boundaries for correct binary search operation
+
+## Simplified Source
+
+```c
+static bool range_search(const pg_unicode_range *tbl, size_t size, pg_wchar code) {
+    int min = 0;
+    int max = size - 1;
+
+    Assert(code <= 0x10ffff);  // Valid Unicode range check
+
+    // Standard binary search algorithm
+    while (max >= min) {
+        int mid = (min + max) / 2;
+
+        if (code > tbl[mid].last)
+            min = mid + 1;           // Search upper half
+        else if (code < tbl[mid].first)
+            max = mid - 1;           // Search lower half
+        else
+            return true;             // Found: code is within this range
+    }
+
+    return false;  // Not found in any range
+}
+```

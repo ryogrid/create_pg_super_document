@@ -46,3 +46,88 @@ Critical safety features include preventing drops of template databases, the cur
 - Uses process signal barriers to ensure all backends close file handles before filesystem removal
 - Forces synchronous commit to minimize the window between filesystem removal and transaction commit
 - Cannot drop template databases, the current database, databases with active backends (unless forced), databases with active replication slots, or databases with subscriptions
+
+## Simplified Source
+
+```c
+void dropdb(const char *dbname, bool missing_ok, bool force) {
+    Oid db_id;
+    bool db_istemplate;
+    Relation pgdbrel;
+
+    // Step 1: Lock database catalog and look up target database
+    pgdbrel = table_open(DatabaseRelationId, RowExclusiveLock);
+
+    if (!get_db_info(dbname, AccessExclusiveLock, &db_id, NULL, NULL,
+                     &db_istemplate, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)) {
+        if (!missing_ok) {
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_DATABASE),
+                           errmsg("database \"%s\" does not exist", dbname)));
+        } else {
+            // Database doesn't exist, just issue notice and return
+            table_close(pgdbrel, RowExclusiveLock);
+            ereport(NOTICE, (errmsg("database \"%s\" does not exist, skipping", dbname)));
+            return;
+        }
+    }
+
+    // Step 2: Validate permissions and safety constraints
+    if (!object_ownercheck(DatabaseRelationId, db_id, GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, dbname);
+
+    if (db_istemplate)
+        ereport(ERROR, (errmsg("cannot drop a template database")));
+
+    if (db_id == MyDatabaseId)
+        ereport(ERROR, (errmsg("cannot drop the currently open database")));
+
+    // Step 3: Check for active connections and dependencies
+    int nslots, nslots_active;
+    ReplicationSlotsCountDBSlots(db_id, &nslots, &nslots_active);
+    if (nslots_active)
+        ereport(ERROR, (errmsg("database is used by active logical replication slot")));
+
+    int nsubscriptions = CountDBSubscriptions(db_id);
+    if (nsubscriptions > 0)
+        ereport(ERROR, (errmsg("database is being used by logical replication subscription")));
+
+    // Step 4: Terminate connections if forced
+    if (force)
+        TerminateOtherDBBackends(db_id);
+
+    int notherbackends, npreparedxacts;
+    if (CountOtherDBBackends(db_id, &notherbackends, &npreparedxacts))
+        ereport(ERROR, (errmsg("database is being accessed by other users")));
+
+    // Step 5: Clean up metadata and dependencies
+    DeleteSharedComments(db_id, DatabaseRelationId);
+    DeleteSharedSecurityLabel(db_id, DatabaseRelationId);
+    DropSetting(db_id, InvalidOid);
+    dropDatabaseDependencies(db_id);
+    pgstat_drop_database(db_id);
+
+    // Step 6: Mark database as invalid and delete catalog entry
+    // In-place update to mark as invalid before filesystem operations
+    mark_database_invalid(pgdbrel, dbname, db_id);
+    XLogFlush(XactLastRecEnd);  // Ensure durability
+
+    // Delete the catalog tuple
+    delete_database_tuple(pgdbrel, dbname);
+
+    // Step 7: Clean up resources and filesystem
+    ReplicationSlotsDropDBSlots(db_id);
+    DropDatabaseBuffers(db_id);
+    ForgetDatabaseSyncRequests(db_id);
+
+    // Force checkpoint and wait for all backends to release file handles
+    RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE | CHECKPOINT_WAIT);
+    WaitForProcSignalBarrier(EmitProcSignalBarrier(PROCSIGNAL_BARRIER_SMGRRELEASE));
+
+    // Remove database files from all tablespaces
+    remove_dbtablespaces(db_id);
+
+    // Close catalog and force synchronous commit
+    table_close(pgdbrel, NoLock);
+    ForceSyncCommit();
+}
+```

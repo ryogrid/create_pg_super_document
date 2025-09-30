@@ -46,3 +46,59 @@ The computation considers both heap and index scan costs separately, then takes 
 - Overflow protection prevents threshold calculations from exceeding INT_MAX/3
 - When both heap and index pages are specified, the minimum of the two computed worker counts is used
 - The parallel_workers reloption allows per-table override of the calculated parallelism
+
+## Simplified Source
+
+```c
+int compute_parallel_worker(RelOptInfo *rel, double heap_pages, double index_pages, int max_workers) {
+    int parallel_workers = 0;
+
+    // Use user-specified parallel_workers setting if available
+    if (rel->rel_parallel_workers != -1) {
+        parallel_workers = rel->rel_parallel_workers;
+    } else {
+        // Check minimum size thresholds (skip for inheritance children)
+        if (rel->reloptkind == RELOPT_BASEREL &&
+            ((heap_pages >= 0 && heap_pages < min_parallel_table_scan_size) ||
+             (index_pages >= 0 && index_pages < min_parallel_index_scan_size))) {
+            return 0;
+        }
+
+        // Calculate workers for heap scan using logarithmic scaling
+        if (heap_pages >= 0) {
+            int heap_workers = 1;
+            int threshold = Max(min_parallel_table_scan_size, 1);
+
+            // Add one worker for every 3x increase in pages
+            while (heap_pages >= threshold * 3) {
+                heap_workers++;
+                threshold *= 3;
+                if (threshold > INT_MAX / 3) break; // overflow protection
+            }
+            parallel_workers = heap_workers;
+        }
+
+        // Calculate workers for index scan using same algorithm
+        if (index_pages >= 0) {
+            int index_workers = 1;
+            int threshold = Max(min_parallel_index_scan_size, 1);
+
+            while (index_pages >= threshold * 3) {
+                index_workers++;
+                threshold *= 3;
+                if (threshold > INT_MAX / 3) break;
+            }
+
+            // Use minimum of heap and index workers
+            if (parallel_workers > 0) {
+                parallel_workers = Min(parallel_workers, index_workers);
+            } else {
+                parallel_workers = index_workers;
+            }
+        }
+    }
+
+    // Respect caller's maximum limit
+    return Min(parallel_workers, max_workers);
+}
+```

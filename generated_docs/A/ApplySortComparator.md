@@ -44,3 +44,44 @@ The function returns a standard 3-way comparison result: negative for less-than,
 
 ## Notes and Other Information
 This is a critical utility function used throughout PostgreSQL's sorting infrastructure. It ensures consistent NULL handling and sort direction behavior across all sorting operations. The function is declared as inline for performance reasons since it's called frequently during sort operations. The NULL comparison logic follows SQL standard semantics where NULLs can be ordered either first or last depending on the sort specification.
+
+## Simplified Source
+
+```c
+static inline int
+ApplySortComparator(Datum datum1, bool isNull1,
+                    Datum datum2, bool isNull2,
+                    SortSupport ssup)
+{
+    int compare;
+
+    // Handle NULL values first
+    if (isNull1)
+    {
+        if (isNull2)
+            compare = 0;  // NULL = NULL
+        else if (ssup->ssup_nulls_first)
+            compare = -1; // NULL < NOT_NULL
+        else
+            compare = 1;  // NULL > NOT_NULL
+    }
+    else if (isNull2)
+    {
+        if (ssup->ssup_nulls_first)
+            compare = 1;  // NOT_NULL > NULL
+        else
+            compare = -1; // NOT_NULL < NULL
+    }
+    else
+    {
+        // Compare actual values using comparator function
+        compare = ssup->comparator(datum1, datum2, ssup);
+
+        // Invert result for reverse sorting
+        if (ssup->ssup_reverse)
+            INVERT_COMPARE_RESULT(compare);
+    }
+
+    return compare;
+}
+```

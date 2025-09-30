@@ -40,3 +40,25 @@ The  function creates a copy of a tuple descriptor in shared memory managed by a
 - Used primarily for sharing record type information across parallel workers
 - The typmod field is explicitly set after copying, allowing customization of the type modifier
 - Memory allocation in shared area enables efficient sharing without serialization overhead
+
+## Simplified Source
+```c
+static dsa_pointer
+share_tupledesc(dsa_area *area, TupleDesc tupdesc, uint32 typmod)
+{
+    dsa_pointer shared_dp;
+    TupleDesc shared;
+
+    // Allocate space in shared memory
+    shared_dp = dsa_allocate(area, TupleDescSize(tupdesc));
+
+    // Get local address for the shared memory
+    shared = (TupleDesc) dsa_get_address(area, shared_dp);
+
+    // Copy tuple descriptor and set typmod
+    TupleDescCopy(shared, tupdesc);
+    shared->tdtypmod = typmod;
+
+    return shared_dp;
+}
+```

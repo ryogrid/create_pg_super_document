@@ -47,3 +47,52 @@ This function constructs a RecursiveUnion plan node, which is the core operator 
 - The wtParam links this node to a specific working table that stores intermediate results between recursive iterations
 - The function handles the case where no duplicate detection is needed (numCols = 0) gracefully
 - The plan.qual is always set to NIL since qualification is handled by the child plans
+
+## Simplified Source
+
+```c
+static RecursiveUnion *
+make_recursive_union(List *tlist, Plan *lefttree, Plan *righttree,
+                    int wtParam, List *distinctList, long numGroups) {
+    // Create and initialize the RecursiveUnion node
+    RecursiveUnion *node = makeNode(RecursiveUnion);
+    Plan *plan = &node->plan;
+
+    // Set basic plan properties
+    plan->targetlist = tlist;
+    plan->qual = NIL;  // No qualification needed at this level
+    plan->lefttree = lefttree;   // Base case plan
+    plan->righttree = righttree; // Recursive case plan
+    node->wtParam = wtParam;     // Working table parameter
+
+    // Set up duplicate detection for termination
+    int numCols = list_length(distinctList);
+    node->numCols = numCols;
+
+    if (numCols > 0) {
+        // Allocate arrays for duplicate detection
+        AttrNumber *dupColIdx = palloc(sizeof(AttrNumber) * numCols);
+        Oid *dupOperators = palloc(sizeof(Oid) * numCols);
+        Oid *dupCollations = palloc(sizeof(Oid) * numCols);
+
+        // Convert distinctList to executor-friendly arrays
+        int keyno = 0;
+        foreach(slitem, distinctList) {
+            SortGroupClause *sortcl = lfirst(slitem);
+            TargetEntry *tle = get_sortgroupclause_tle(sortcl, plan->targetlist);
+
+            dupColIdx[keyno] = tle->resno;
+            dupOperators[keyno] = sortcl->eqop;
+            dupCollations[keyno] = exprCollation((Node *) tle->expr);
+            keyno++;
+        }
+
+        node->dupColIdx = dupColIdx;
+        node->dupOperators = dupOperators;
+        node->dupCollations = dupCollations;
+    }
+
+    node->numGroups = numGroups;
+    return node;
+}
+```

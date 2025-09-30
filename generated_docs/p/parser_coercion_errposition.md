@@ -37,3 +37,19 @@ The function serves as a specialized wrapper around `parser_errposition`, design
 - Uses a simple but effective heuristic: prefer explicit syntax locations over expression locations
 - Part of PostgreSQL's comprehensive error reporting system that helps users identify exact locations of SQL syntax issues
 - The comment suggests this pattern might be useful beyond coercion errors and could be generalized in the future
+
+## Simplified Source
+
+```c
+int parser_coercion_errposition(ParseState *pstate,
+                               int coerce_location,
+                               Node *input_expr) {
+    // Prefer explicit coercion location (CAST, ::) if available
+    if (coerce_location >= 0) {
+        return parser_errposition(pstate, coerce_location);
+    }
+
+    // Fall back to input expression location for implicit coercions
+    return parser_errposition(pstate, exprLocation(input_expr));
+}
+```

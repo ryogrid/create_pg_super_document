@@ -54,3 +54,105 @@ The function also handles special logic for JSONB types and can discover explici
 - Used extensively throughout JSON and JSONB functionality for type-appropriate conversions
 - Returns appropriate output functions that can handle the specific type conversion requirements
 - The function ensures that all PostgreSQL types can be represented in JSON in some form, whether through direct conversion, casting, or fallback to text representation
+
+## Simplified Source
+
+```c
+void
+json_categorize_type(Oid typoid, bool is_jsonb,
+                    JsonTypeCategory *tcategory, Oid *outfuncoid)
+{
+    bool typisvarlena;
+
+    // Resolve domain types to their base types
+    typoid = getBaseType(typoid);
+
+    *outfuncoid = InvalidOid;
+
+    // Handle specific built-in types
+    switch (typoid)
+    {
+        case BOOLOID:
+            *outfuncoid = F_BOOLOUT;
+            *tcategory = JSONTYPE_BOOL;
+            break;
+
+        case INT2OID:
+        case INT4OID:
+        case INT8OID:
+        case FLOAT4OID:
+        case FLOAT8OID:
+        case NUMERICOID:
+            getTypeOutputInfo(typoid, outfuncoid, &typisvarlena);
+            *tcategory = JSONTYPE_NUMERIC;
+            break;
+
+        case DATEOID:
+            *outfuncoid = F_DATE_OUT;
+            *tcategory = JSONTYPE_DATE;
+            break;
+
+        case TIMESTAMPOID:
+            *outfuncoid = F_TIMESTAMP_OUT;
+            *tcategory = JSONTYPE_TIMESTAMP;
+            break;
+
+        case TIMESTAMPTZOID:
+            *outfuncoid = F_TIMESTAMPTZ_OUT;
+            *tcategory = JSONTYPE_TIMESTAMPTZ;
+            break;
+
+        case JSONOID:
+            getTypeOutputInfo(typoid, outfuncoid, &typisvarlena);
+            *tcategory = JSONTYPE_JSON;
+            break;
+
+        case JSONBOID:
+            getTypeOutputInfo(typoid, outfuncoid, &typisvarlena);
+            *tcategory = is_jsonb ? JSONTYPE_JSONB : JSONTYPE_JSON;
+            break;
+
+        default:
+            // Handle arrays, composites, and user-defined types
+            if (OidIsValid(get_element_type(typoid)) || typoid == ANYARRAYOID ||
+                typoid == ANYCOMPATIBLEARRAYOID || typoid == RECORDARRAYOID)
+            {
+                *outfuncoid = F_ARRAY_OUT;
+                *tcategory = JSONTYPE_ARRAY;
+            }
+            else if (type_is_rowtype(typoid))
+            {
+                *outfuncoid = F_RECORD_OUT;
+                *tcategory = JSONTYPE_COMPOSITE;
+            }
+            else
+            {
+                *tcategory = JSONTYPE_OTHER;
+
+                // Look for explicit cast to JSON for user-defined types
+                if (typoid >= FirstNormalObjectId)
+                {
+                    Oid castfunc;
+                    CoercionPathType ctype = find_coercion_pathway(JSONOID, typoid,
+                                                                  COERCION_EXPLICIT,
+                                                                  &castfunc);
+                    if (ctype == COERCION_PATH_FUNC && OidIsValid(castfunc))
+                    {
+                        *outfuncoid = castfunc;
+                        *tcategory = JSONTYPE_CAST;
+                    }
+                    else
+                    {
+                        getTypeOutputInfo(typoid, outfuncoid, &typisvarlena);
+                    }
+                }
+                else
+                {
+                    // Built-in type without special handling
+                    getTypeOutputInfo(typoid, outfuncoid, &typisvarlena);
+                }
+            }
+            break;
+    }
+}
+```

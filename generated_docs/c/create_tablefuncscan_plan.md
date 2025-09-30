@@ -49,3 +49,43 @@ Key processing steps include:
 - More specialized than regular function scans due to the structured nature of table functions
 - Supports lateral references and parameterized table functions
 - Essential for SQL/XML and SQL/JSON standard compliance
+
+## Simplified Source
+
+```c
+static TableFuncScan *
+create_tablefuncscan_plan(PlannerInfo *root, Path *best_path,
+                          List *tlist, List *scan_clauses)
+{
+    TableFuncScan *scan_plan;
+    Index scan_relid = best_path->parent->relid;
+    RangeTblEntry *rte;
+    TableFunc *tablefunc;
+
+    // Validate that we have a table function relation
+    Assert(scan_relid > 0);
+    rte = planner_rt_fetch(scan_relid, root);
+    Assert(rte->rtekind == RTE_TABLEFUNC);
+    tablefunc = rte->tablefunc;
+
+    // Optimize scan clauses for best execution order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Convert RestrictInfo structures to plain expressions
+    scan_clauses = extract_actual_clauses(scan_clauses, false);
+
+    // Handle parameterized paths: replace params in both scan clauses and table function
+    if (best_path->param_info) {
+        scan_clauses = (List *) replace_nestloop_params(root, (Node *) scan_clauses);
+        tablefunc = (TableFunc *) replace_nestloop_params(root, (Node *) tablefunc);
+    }
+
+    // Create the TableFuncScan plan node
+    scan_plan = make_tablefuncscan(tlist, scan_clauses, scan_relid, tablefunc);
+
+    // Copy standard path information (costs, etc.) to the plan
+    copy_generic_path_info(&scan_plan->scan.plan, best_path);
+
+    return scan_plan;
+}
+```

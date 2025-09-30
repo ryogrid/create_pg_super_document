@@ -48,3 +48,36 @@ This function is particularly useful for commands like EXPLAIN that need to outp
 - Empty lines (consecutive newlines) will result in empty string tuples in the output
 - Used primarily by the EXPLAIN command to output query plans as structured results
 - Memory management is handled correctly with pfree() calls to prevent leaks
+
+## Simplified Source
+
+```c
+void do_text_output_multiline(TupOutputState *tstate, const char *txt) {
+    Datum values[1];
+    bool isnull[1] = {false};
+
+    // Process text line by line, splitting at newlines
+    while (*txt) {
+        const char *eol;
+        int len;
+
+        // Find next newline or end of string
+        eol = strchr(txt, '\n');
+        if (eol) {
+            len = eol - txt;  // Length of current line
+            eol++;            // Move past newline
+        } else {
+            len = strlen(txt); // Length to end of string
+            eol = txt + len;   // Point to end
+        }
+
+        // Convert line to PostgreSQL text datum and output as tuple
+        values[0] = PointerGetDatum(cstring_to_text_with_len(txt, len));
+        do_tup_output(tstate, values, isnull);
+
+        // Clean up memory and advance to next line
+        pfree(DatumGetPointer(values[0]));
+        txt = eol;
+    }
+}
+```

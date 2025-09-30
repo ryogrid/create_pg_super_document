@@ -39,3 +39,45 @@ This function creates a CustomScan execution plan node from a CustomPath. Custom
 - Automatically handles parameter replacement for nested loop scenarios
 - Custom scan providers must register their methods including the PlanCustomPath callback
 - Located at src/backend/optimizer/plan/createplan.c:4277-4347
+
+## Simplified Source
+
+```c
+static CustomScan *
+create_customscan_plan(PlannerInfo *root, CustomPath *best_path,
+                      List *tlist, List *scan_clauses) {
+    RelOptInfo *rel = best_path->path.parent;
+    List *custom_plans = NIL;
+
+    // Recursively create plans for child paths
+    foreach(lc, best_path->custom_paths) {
+        Plan *plan = create_plan_recurse(root, lfirst(lc), CP_EXACT_TLIST);
+        custom_plans = lappend(custom_plans, plan);
+    }
+
+    // Optimize scan clause order
+    scan_clauses = order_qual_clauses(root, scan_clauses);
+
+    // Delegate to custom scan provider to create the actual plan
+    CustomScan *cplan = castNode(CustomScan,
+                                best_path->methods->PlanCustomPath(root, rel, best_path,
+                                                                  tlist, scan_clauses,
+                                                                  custom_plans));
+
+    // Copy standard path info to plan
+    copy_generic_path_info(&cplan->scan.plan, &best_path->path);
+
+    // Set the relation IDs represented by this custom scan
+    cplan->custom_relids = best_path->path.parent->relids;
+
+    // Handle nestloop parameter replacement
+    if (best_path->path.param_info) {
+        cplan->scan.plan.qual = (List *)
+            replace_nestloop_params(root, (Node *) cplan->scan.plan.qual);
+        cplan->custom_exprs = (List *)
+            replace_nestloop_params(root, (Node *) cplan->custom_exprs);
+    }
+
+    return cplan;
+}
+```

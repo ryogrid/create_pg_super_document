@@ -35,3 +35,11 @@ The function is particularly important in SSL/TLS connections because the SSL la
 - Does not perform any I/O operations itself, only queries internal SSL buffer state
 - Part of the secure connection interface for PostgreSQL's libpq client library
 - Location: src/interfaces/libpq/fe-secure-openssl.c:256-261
+
+## Simplified Source
+```c
+bool pgtls_read_pending(PGconn *conn) {
+    // Check if SSL has buffered data ready to read
+    return SSL_pending(conn->ssl) > 0;
+}
+```

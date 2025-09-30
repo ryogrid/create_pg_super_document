@@ -53,3 +53,15 @@ When a Var or PlaceHolderVar is replaced with a Param, corresponding entries are
 
 ## Notes and Other Information
 This function is part of PostgreSQL's supporting routines for plan creation and is used extensively throughout the plan creation process for various scan and join operations. It's a critical component in the nested loop join implementation, ensuring that outer relation references are properly parameterized for efficient execution. The function is defined in src/backend/optimizer/plan/createplan.c at lines 4936-4942.
+
+## Simplified Source
+
+```c
+static Node *
+replace_nestloop_params(PlannerInfo *root, Node *expr)
+{
+    // Simple wrapper that delegates to the actual mutator function
+    // No setup needed for tree walk
+    return replace_nestloop_params_mutator(expr, root);
+}
+```

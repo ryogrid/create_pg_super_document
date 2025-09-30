@@ -59,3 +59,70 @@ The function handles several complex scenarios including recursive cache lookups
 - Supports both index and sequential scans depending on available indexes
 - Immediately sets reference count to 1 for found entries to track usage
 - Updates cache statistics when CATCACHE_STATS is enabled
+
+## Simplified Source
+
+```c
+static HeapTuple SearchCatCacheMiss(CatCache *cache, int nkeys, uint32 hashValue,
+                                  Index hashIndex, Datum v1, Datum v2, Datum v3, Datum v4) {
+    ScanKeyData cur_skey[CATCACHE_MAXKEYS];
+    Relation relation;
+    SysScanDesc scandesc;
+    HeapTuple ntp;
+    CatCTup *ct;
+    bool stale;
+    Datum arguments[4] = {v1, v2, v3, v4};
+
+    // Open catalog relation for scanning
+    relation = table_open(cache->cc_reloid, AccessShareLock);
+
+    do {
+        // Prepare scan keys with current arguments
+        memcpy(cur_skey, cache->cc_skey, sizeof(ScanKeyData) * nkeys);
+        cur_skey[0].sk_argument = v1;
+        cur_skey[1].sk_argument = v2;
+        cur_skey[2].sk_argument = v3;
+        cur_skey[3].sk_argument = v4;
+
+        // Begin system catalog scan
+        scandesc = systable_beginscan(relation, cache->cc_indexoid,
+                                    IndexScanOK(cache, cur_skey), NULL, nkeys, cur_skey);
+
+        ct = NULL;
+        stale = false;
+
+        // Search for matching tuple
+        while (HeapTupleIsValid(ntp = systable_getnext(scandesc))) {
+            // Create cache entry for found tuple
+            ct = CatalogCacheCreateEntry(cache, ntp, NULL, hashValue, hashIndex);
+
+            if (ct == NULL) {
+                stale = true;  // Tuple became stale, retry needed
+                break;
+            }
+
+            // Set reference count and track ownership
+            ResourceOwnerEnlarge(CurrentResourceOwner);
+            ct->refcount++;
+            ResourceOwnerRememberCatCacheRef(CurrentResourceOwner, &ct->tuple);
+            break;  // Found our tuple
+        }
+
+        systable_endscan(scandesc);
+    } while (stale);  // Retry if tuple became stale
+
+    table_close(relation, AccessShareLock);
+
+    // Handle case where no tuple was found
+    if (ct == NULL) {
+        if (IsBootstrapProcessingMode())
+            return NULL;  // No negative entries in bootstrap mode
+
+        // Create negative cache entry
+        ct = CatalogCacheCreateEntry(cache, NULL, arguments, hashValue, hashIndex);
+        return NULL;  // Don't return negative entries to caller
+    }
+
+    return &ct->tuple;
+}
+```

@@ -48,3 +48,92 @@ This function validates an existing check constraint on a domain type by first l
 - Updates the convalidated flag in a copied tuple to ensure proper catalog semantics
 - Properly manages system cache and relation locks throughout the operation
 - Triggers post-alter hooks for proper event notification in the constraint system
+
+## Simplified Source
+
+```c
+ObjectAddress
+AlterDomainValidateConstraint(List *names, const char *constrName)
+{
+    TypeName *typename;
+    Oid domainoid;
+    Relation typrel;
+    Relation conrel;
+    HeapTuple tup;
+    Form_pg_constraint con;
+    Form_pg_constraint copy_con;
+    char *conbin;
+    SysScanDesc scan;
+    HeapTuple tuple;
+    HeapTuple copyTuple;
+    ScanKeyData skey[3];
+    ObjectAddress address;
+
+    // Convert name list to typename and resolve domain OID
+    typename = makeTypeNameFromNameList(names);
+    domainoid = typenameTypeId(NULL, typename);
+
+    // Open type catalog and get domain tuple
+    typrel = table_open(TypeRelationId, AccessShareLock);
+    tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(domainoid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for type %u", domainoid);
+
+    // Check domain ownership permissions
+    checkDomainOwner(tup);
+
+    // Open constraint catalog for scanning
+    conrel = table_open(ConstraintRelationId, RowExclusiveLock);
+
+    // Set up scan keys to find the constraint
+    ScanKeyInit(&skey[0], Anum_pg_constraint_conrelid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(InvalidOid));
+    ScanKeyInit(&skey[1], Anum_pg_constraint_contypid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(domainoid));
+    ScanKeyInit(&skey[2], Anum_pg_constraint_conname, BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(constrName));
+
+    // Scan for the target constraint
+    scan = systable_beginscan(conrel, ConstraintRelidTypidNameIndexId, true, NULL, 3, skey);
+
+    if (!HeapTupleIsValid(tuple = systable_getnext(scan)))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("constraint \"%s\" of domain \"%s\" does not exist",
+                       constrName, TypeNameToString(typename))));
+
+    con = (Form_pg_constraint) GETSTRUCT(tuple);
+
+    // Verify it's a check constraint
+    if (con->contype != CONSTRAINT_CHECK)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("constraint \"%s\" of domain \"%s\" is not a check constraint",
+                       constrName, TypeNameToString(typename))));
+
+    // Extract constraint expression
+    val = SysCacheGetAttrNotNull(CONSTROID, tuple, Anum_pg_constraint_conbin);
+    conbin = TextDatumGetCString(val);
+
+    // Validate all existing domain values against the constraint
+    validateDomainCheckConstraint(domainoid, conbin);
+
+    // Update catalog to mark constraint as validated
+    copyTuple = heap_copytuple(tuple);
+    copy_con = (Form_pg_constraint) GETSTRUCT(copyTuple);
+    copy_con->convalidated = true;
+    CatalogTupleUpdate(conrel, &copyTuple->t_self, copyTuple);
+
+    // Trigger post-alter hooks
+    InvokeObjectPostAlterHook(ConstraintRelationId, con->oid, 0);
+
+    ObjectAddressSet(address, TypeRelationId, domainoid);
+
+    // Clean up
+    heap_freetuple(copyTuple);
+    systable_endscan(scan);
+    table_close(typrel, AccessShareLock);
+    table_close(conrel, RowExclusiveLock);
+    ReleaseSysCache(tup);
+
+    return address;
+}
+```

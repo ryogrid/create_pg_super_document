@@ -58,3 +58,52 @@ The function constructs scan keys to efficiently locate dependency records for t
 - The drop_subobjects flag enables bulk removal of all subobject dependencies for an object
 - Efficient scanning strategy using btree index on (dbid, classid, objid, objsubid)
 - Assumes caller has proper locking on the pg_shdepend relation
+
+## Simplified Source
+
+```c
+static void shdepDropDependency(Relation sdepRel, Oid classId, Oid objectId, int32 objsubId,
+                               bool drop_subobjects, Oid refclassId, Oid refobjId,
+                               SharedDependencyType deptype) {
+    ScanKeyData key[4];
+    int nkeys;
+
+    // Set up scan keys for dependent object
+    ScanKeyInit(&key[0], Anum_pg_shdepend_dbid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(classIdGetDbId(classId)));
+    ScanKeyInit(&key[1], Anum_pg_shdepend_classid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(classId));
+    ScanKeyInit(&key[2], Anum_pg_shdepend_objid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(objectId));
+
+    // Include subobject ID unless dropping all subobjects
+    if (drop_subobjects) {
+        nkeys = 3;
+    } else {
+        ScanKeyInit(&key[3], Anum_pg_shdepend_objsubid, BTEqualStrategyNumber, F_INT4EQ,
+                    Int32GetDatum(objsubId));
+        nkeys = 4;
+    }
+
+    // Scan for matching entries
+    SysScanDesc scan = systable_beginscan(sdepRel, SharedDependDependerIndexId, true, NULL, nkeys, key);
+
+    HeapTuple tup;
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Form_pg_shdepend shdepForm = (Form_pg_shdepend) GETSTRUCT(tup);
+
+        // Apply additional filters
+        if (OidIsValid(refclassId) && shdepForm->refclassid != refclassId)
+            continue;
+        if (OidIsValid(refobjId) && shdepForm->refobjid != refobjId)
+            continue;
+        if (deptype != SHARED_DEPENDENCY_INVALID && shdepForm->deptype != deptype)
+            continue;
+
+        // Delete matching entry
+        CatalogTupleDelete(sdepRel, &tup->t_self);
+    }
+
+    systable_endscan(scan);
+}
+```

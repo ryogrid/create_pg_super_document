@@ -53,3 +53,63 @@ The function optimizes updates by only processing roles that have actually chang
 - Uses RowExclusiveLock on SharedDependRelationId for atomic updates
 - Frees input arrays before returning to prevent memory leaks
 - Core implementation shared by both public ACL dependency update functions
+
+## Simplified Source
+
+```c
+static void updateAclDependenciesWorker(Oid classId, Oid objectId, int32 objsubId,
+                                       Oid ownerId, SharedDependencyType deptype,
+                                       int noldmembers, Oid *oldmembers,
+                                       int nnewmembers, Oid *newmembers) {
+    Relation sdepRel;
+    int i;
+
+    // Remove common entries between old and new lists
+    getOidListDiff(oldmembers, &noldmembers, newmembers, &nnewmembers);
+
+    if (noldmembers > 0 || nnewmembers > 0) {
+        sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+        // Add new dependencies
+        for (i = 0; i < nnewmembers; i++) {
+            Oid roleid = newmembers[i];
+
+            // Skip owner for ACL dependencies (owner has separate OWNER dependency)
+            if (deptype == SHARED_DEPENDENCY_ACL && roleid == ownerId)
+                continue;
+
+            // Skip pinned system roles
+            if (IsPinnedObject(AuthIdRelationId, roleid))
+                continue;
+
+            shdepAddDependency(sdepRel, classId, objectId, objsubId,
+                              AuthIdRelationId, roleid, deptype);
+        }
+
+        // Remove old dependencies that are no longer needed
+        for (i = 0; i < noldmembers; i++) {
+            Oid roleid = oldmembers[i];
+
+            // Skip owner for ACL dependencies
+            if (deptype == SHARED_DEPENDENCY_ACL && roleid == ownerId)
+                continue;
+
+            // Skip pinned system roles
+            if (IsPinnedObject(AuthIdRelationId, roleid))
+                continue;
+
+            shdepDropDependency(sdepRel, classId, objectId, objsubId,
+                               false,  /* exact match on objsubId */
+                               AuthIdRelationId, roleid, deptype);
+        }
+
+        table_close(sdepRel, RowExclusiveLock);
+    }
+
+    // Clean up memory
+    if (oldmembers)
+        pfree(oldmembers);
+    if (newmembers)
+        pfree(newmembers);
+}
+```

@@ -41,3 +41,35 @@ The function ensures that JIT instrumentation data survives beyond the parallel 
 - Provides essential data for understanding JIT compilation overhead and effectiveness in parallel queries
 - Works in conjunction with the regular instrumentation retrieval to provide comprehensive performance analysis
 - The combined instrumentation (es_jit_worker_instr) is lazily allocated only when needed
+
+## Simplified Source
+
+```c
+static void ExecParallelRetrieveJitInstrumentation(PlanState *planstate,
+                                                  SharedJitInstrumentation *shared_jit) {
+    JitInstrumentation *combined;
+    int ibytes;
+    int n;
+
+    // Allocate combined JIT instrumentation if not already present
+    if (!planstate->state->es_jit_worker_instr) {
+        planstate->state->es_jit_worker_instr =
+            MemoryContextAllocZero(planstate->state->es_query_cxt, sizeof(JitInstrumentation));
+    }
+    combined = planstate->state->es_jit_worker_instr;
+
+    // Aggregate JIT statistics from all workers
+    for (n = 0; n < shared_jit->num_workers; ++n) {
+        InstrJitAgg(combined, &shared_jit->jit_instr[n]);
+    }
+
+    // Store per-worker JIT detail in query memory context
+    ibytes = offsetof(SharedJitInstrumentation, jit_instr) +
+             mul_size(shared_jit->num_workers, sizeof(JitInstrumentation));
+    planstate->worker_jit_instrument =
+        MemoryContextAlloc(planstate->state->es_query_cxt, ibytes);
+
+    // Copy all worker JIT instrumentation data
+    memcpy(planstate->worker_jit_instrument, shared_jit, ibytes);
+}
+```

@@ -58,3 +58,37 @@ The coercion step utilizes a cache (json_coercion_cache) that gets populated dur
 - The exists_cast_to_int optimization handles the common case where JSON_EXISTS results need to be converted to integers
 - Essential for PostgreSQL's JSON/SQL standard compliance, enabling proper type coercion for JSON_VALUE and JSON_QUERY operations
 - Works in conjunction with the json_populate_type() function during actual execution
+
+## Simplified Source
+
+```c
+static void
+ExecInitJsonCoercion(ExprState *state, JsonReturning *returning,
+                     ErrorSaveContext *escontext, bool omit_quotes,
+                     bool exists_coerce, Datum *resv, bool *resnull)
+{
+    ExprEvalStep scratch = {0};
+
+    // Set up JSON coercion step for json_populate_type()
+    scratch.opcode = EEOP_JSONEXPR_COERCION;
+    scratch.resvalue = resv;
+    scratch.resnull = resnull;
+
+    // Configure target type information
+    scratch.d.jsonexpr_coercion.targettype = returning->typid;
+    scratch.d.jsonexpr_coercion.targettypmod = returning->typmod;
+    scratch.d.jsonexpr_coercion.json_coercion_cache = NULL;
+    scratch.d.jsonexpr_coercion.escontext = escontext;
+    scratch.d.jsonexpr_coercion.omit_quotes = omit_quotes;
+    scratch.d.jsonexpr_coercion.exists_coerce = exists_coerce;
+
+    // Optimize for EXISTS operations
+    scratch.d.jsonexpr_coercion.exists_cast_to_int = exists_coerce &&
+        getBaseType(returning->typid) == INT4OID;
+    scratch.d.jsonexpr_coercion.exists_check_domain = exists_coerce &&
+        DomainHasConstraints(returning->typid);
+
+    // Add the step to expression state
+    ExprEvalPushStep(state, &scratch);
+}
+```

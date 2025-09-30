@@ -46,3 +46,21 @@ The function operates on the assumption that the top level of the jointree is al
 - Subquery pull-up is a critical optimization that can significantly improve query performance by reducing the number of subplan executions
 - The function starts recursion with no containing join or appendrel context (NULL parameters)
 - Pull-up operations must preserve query semantics while potentially rewriting the query structure significantly
+
+## Simplified Source
+
+```c
+void pull_up_subqueries(PlannerInfo *root) {
+    // Verify we start with a FromExpr at the top level
+    Assert(IsA(root->parse->jointree, FromExpr));
+
+    // Recursively pull up subqueries starting from the root jointree
+    // NULL parameters indicate no containing join or appendrel context
+    root->parse->jointree = (FromExpr *)
+        pull_up_subqueries_recurse(root, (Node *) root->parse->jointree,
+                                   NULL, NULL);
+
+    // Ensure we still have a FromExpr after processing
+    Assert(IsA(root->parse->jointree, FromExpr));
+}
+```

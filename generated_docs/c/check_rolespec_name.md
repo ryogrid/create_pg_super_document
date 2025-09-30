@@ -41,3 +41,33 @@ The error reporting includes both a standard error message indicating the role n
 - The detail_msg parameter must already be translated if provided
 - Part of PostgreSQL's role management and security validation system
 - Located in src/backend/utils/adt/acl.c:5578-5600
+
+## Simplified Source
+
+```c
+void
+check_rolespec_name(const RoleSpec *role, const char *detail_msg)
+{
+    // Safety checks - return early if invalid input
+    if (!role)
+        return;
+
+    if (role->roletype != ROLESPEC_CSTRING)
+        return;
+
+    // Check if the role name is reserved
+    if (IsReservedName(role->rolename))
+    {
+        // Report error with optional detail message
+        if (detail_msg)
+            ereport(ERROR,
+                    (errcode(ERRCODE_RESERVED_NAME),
+                     errmsg("role name \"%s\" is reserved", role->rolename),
+                     errdetail_internal("%s", detail_msg)));
+        else
+            ereport(ERROR,
+                    (errcode(ERRCODE_RESERVED_NAME),
+                     errmsg("role name \"%s\" is reserved", role->rolename)));
+    }
+}
+```

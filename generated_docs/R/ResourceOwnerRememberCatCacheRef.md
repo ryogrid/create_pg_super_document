@@ -34,3 +34,12 @@ ResourceOwnerRememberCatCacheRef is a static inline wrapper function that simpli
 - Uses the catcache_resowner_desc descriptor which has release_phase RESOURCE_RELEASE_AFTER_LOCKS
 - Essential for preventing catalog cache reference leaks during error recovery
 - The function converts the HeapTuple pointer to a Datum for storage in the resource owner's tracking structures
+
+## Simplified Source
+
+```c
+static inline void ResourceOwnerRememberCatCacheRef(ResourceOwner owner, HeapTuple tuple) {
+    // Register catalog cache reference with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(tuple), &catcache_resowner_desc);
+}
+```

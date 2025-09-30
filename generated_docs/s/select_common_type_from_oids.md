@@ -50,3 +50,75 @@ The function is primarily used internally for generic type consistency checking 
 - Contains logic for UNKNOWNOID handling that is currently dead code since callers don't pass UNKNOWN types, but maintained for consistency with `select_common_type`
 - Used specifically for polymorphic function type resolution where consistency between generic types (anyarray, anyelement, etc.) must be enforced
 - Like its expression-based counterpart, determines compatibility but doesn't guarantee coercibility - callers should verify with `verify_common_type_from_oids`
+
+## Simplified Source
+
+```c
+static Oid
+select_common_type_from_oids(int nargs, const Oid *typeids, bool noerror)
+{
+    Oid ptype;
+    TYPCATEGORY pcategory;
+    bool pispreferred;
+    int i = 1;
+
+    Assert(nargs > 0);
+    ptype = typeids[0];
+
+    // Fast path: if all types are identical, return that type
+    if (ptype != UNKNOWNOID) {
+        for (; i < nargs; i++) {
+            if (typeids[i] != ptype)
+                break;
+        }
+        if (i == nargs)
+            return ptype;
+    }
+
+    // Initialize with first type's base type and category
+    ptype = getBaseType(ptype);
+    get_type_category_preferred(ptype, &pcategory, &pispreferred);
+
+    // Compare each remaining type
+    for (; i < nargs; i++) {
+        Oid ntype = getBaseType(typeids[i]);
+
+        if (ntype != UNKNOWNOID && ntype != ptype) {
+            TYPCATEGORY ncategory;
+            bool nispreferred;
+
+            get_type_category_preferred(ntype, &ncategory, &nispreferred);
+
+            if (ptype == UNKNOWNOID) {
+                // First known type - accept it
+                ptype = ntype;
+                pcategory = ncategory;
+                pispreferred = nispreferred;
+            }
+            else if (ncategory != pcategory) {
+                // Different categories - incompatible
+                if (noerror)
+                    return InvalidOid;
+                ereport(ERROR,
+                        (errcode(ERRCODE_DATATYPE_MISMATCH),
+                         errmsg("argument types %s and %s cannot be matched",
+                                format_type_be(ptype), format_type_be(ntype))));
+            }
+            else if (!pispreferred &&
+                     can_coerce_type(1, &ptype, &ntype, COERCION_IMPLICIT) &&
+                     !can_coerce_type(1, &ntype, &ptype, COERCION_IMPLICIT)) {
+                // Switch to new type if it's "better" (more general)
+                ptype = ntype;
+                pcategory = ncategory;
+                pispreferred = nispreferred;
+            }
+        }
+    }
+
+    // Default to TEXT if all inputs were UNKNOWN
+    if (ptype == UNKNOWNOID)
+        ptype = TEXTOID;
+
+    return ptype;
+}
+```

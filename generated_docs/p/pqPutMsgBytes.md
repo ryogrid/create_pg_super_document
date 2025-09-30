@@ -38,3 +38,19 @@ The function performs buffer space validation using  and then uses  to efficient
 - The caller is responsible for Pfdebug calls as noted in the source comment
 - This function is part of the message construction layer in the PostgreSQL wire protocol implementation
 - The function directly manipulates the connection's output buffer () and message end position ()
+
+## Simplified Source
+
+```c
+static int pqPutMsgBytes(const void *buf, size_t len, PGconn *conn) {
+    // Ensure sufficient buffer space for the new data
+    if (pqCheckOutBufferSpace(conn->outMsgEnd + len, conn))
+        return EOF;
+
+    // Copy data to output buffer at current end position
+    memcpy(conn->outBuffer + conn->outMsgEnd, buf, len);
+    conn->outMsgEnd += len;
+
+    return 0;
+}
+```

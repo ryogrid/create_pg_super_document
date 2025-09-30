@@ -38,3 +38,59 @@ This function parses a comma-separated string of namespace names and converts th
 - Sets temp_missing flag when pg_temp is first in path but no temporary namespace exists
 - Returns a newly-allocated list that must be freed by the caller
 - Does not allow duplicate namespace entries in the result list
+
+## Simplified Source
+
+```c
+static List *preprocessNamespacePath(const char *searchPath, Oid roleid, bool *temp_missing) {
+    char *rawname = pstrdup(searchPath);
+    List *namelist;
+    List *oidlist = NIL;
+
+    // Parse comma-separated string into identifier list
+    if (!SplitIdentifierString(rawname, ',', &namelist))
+        elog(ERROR, "invalid list syntax");
+
+    *temp_missing = false;
+
+    // Convert names to OIDs with access checks
+    foreach(lc, namelist) {
+        char *curname = (char *) lfirst(lc);
+        Oid namespaceId;
+
+        if (strcmp(curname, "$user") == 0) {
+            // Handle $user special reference
+            HeapTuple tuple = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+            if (HeapTupleIsValid(tuple)) {
+                char *rname = NameStr(((Form_pg_authid) GETSTRUCT(tuple))->rolname);
+                namespaceId = get_namespace_oid(rname, true);
+                ReleaseSysCache(tuple);
+
+                if (OidIsValid(namespaceId) &&
+                    object_aclcheck(NamespaceRelationId, namespaceId, roleid, ACL_USAGE) == ACLCHECK_OK)
+                    oidlist = lappend_oid(oidlist, namespaceId);
+            }
+        }
+        else if (strcmp(curname, "pg_temp") == 0) {
+            // Handle pg_temp special reference
+            if (OidIsValid(myTempNamespace))
+                oidlist = lappend_oid(oidlist, myTempNamespace);
+            else if (oidlist == NIL)
+                *temp_missing = true;
+        }
+        else {
+            // Handle normal namespace name
+            namespaceId = get_namespace_oid(curname, true);
+            if (OidIsValid(namespaceId) &&
+                object_aclcheck(NamespaceRelationId, namespaceId, roleid, ACL_USAGE) == ACLCHECK_OK)
+                oidlist = lappend_oid(oidlist, namespaceId);
+        }
+    }
+
+    // Clean up
+    pfree(rawname);
+    list_free(namelist);
+
+    return oidlist;
+}
+```

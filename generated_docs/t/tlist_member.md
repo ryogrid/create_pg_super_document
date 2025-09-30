@@ -34,3 +34,24 @@ The  function performs a linear search through a target list to find the first  
 - Uses linear search, so performance degrades with large target lists
 - Critical for target list management and avoiding duplicate expressions
 - Part of the target list utilities in the optimizer subsystem
+
+## Simplified Source
+
+```c
+TargetEntry *tlist_member(Expr *node, List *targetlist)
+{
+    ListCell *temp;
+
+    // Search through the target list
+    foreach(temp, targetlist)
+    {
+        TargetEntry *tlentry = (TargetEntry *) lfirst(temp);
+
+        // Compare expressions using deep equality
+        if (equal(node, tlentry->expr))
+            return tlentry;  // Found matching entry
+    }
+
+    return NULL;  // No matching entry found
+}
+```

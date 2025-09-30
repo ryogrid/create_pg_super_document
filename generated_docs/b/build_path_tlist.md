@@ -53,3 +53,36 @@ The function iterates through each expression in the path's pathtarget, creates 
 - Essential for converting optimizer path representations into executable plan target lists
 - The function is widely used throughout plan creation for various node types requiring target list construction
 - Located at src/backend/optimizer/plan/createplan.c:826-865
+
+## Simplified Source
+
+```c
+static List *
+build_path_tlist(PlannerInfo *root, Path *path)
+{
+    List *tlist = NIL;
+    Index *sortgrouprefs = path->pathtarget->sortgrouprefs;
+    int resno = 1;
+
+    // Process each expression in the path's target list
+    foreach(v, path->pathtarget->exprs)
+    {
+        Node *node = (Node *) lfirst(v);
+
+        // Replace lateral references with Params for parameterized paths
+        if (path->param_info)
+            node = replace_nestloop_params(root, node);
+
+        // Create target entry with proper resource number
+        TargetEntry *tle = makeTargetEntry((Expr *) node, resno, NULL, false);
+
+        // Preserve sort/group reference if present
+        if (sortgrouprefs)
+            tle->ressortgroupref = sortgrouprefs[resno - 1];
+
+        tlist = lappend(tlist, tle);
+        resno++;
+    }
+    return tlist;
+}
+```

@@ -45,3 +45,50 @@ The function delegates the actual renaming work to rename_constraint_internal, p
 - Returns InvalidObjectAddress if the relation does not exist and missing_ok is true
 - Passes inheritance information from the RangeVar to control recursive constraint renaming
 - Part of the broader constraint management infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+ObjectAddress RenameConstraint(RenameStmt *stmt)
+{
+    Oid relid = InvalidOid;
+    Oid typid = InvalidOid;
+
+    if (stmt->renameType == OBJECT_DOMCONSTRAINT) {
+        // Handle domain constraint renaming
+        typid = typenameTypeId(NULL, makeTypeNameFromNameList(stmt->object));
+
+        // Validate domain ownership
+        Relation rel = table_open(TypeRelationId, RowExclusiveLock);
+        HeapTuple tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+        if (!HeapTupleIsValid(tup))
+            elog(ERROR, "cache lookup failed for type %u", typid);
+
+        checkDomainOwner(tup);
+        ReleaseSysCache(tup);
+        table_close(rel, NoLock);
+    }
+    else {
+        // Handle table constraint renaming
+        relid = RangeVarGetRelidExtended(stmt->relation, AccessExclusiveLock,
+                                         stmt->missing_ok ? RVR_MISSING_OK : 0,
+                                         RangeVarCallbackForRenameAttribute,
+                                         NULL);
+
+        if (!OidIsValid(relid)) {
+            ereport(NOTICE, (errmsg("relation \"%s\" does not exist, skipping",
+                                    stmt->relation->relname)));
+            return InvalidObjectAddress;
+        }
+    }
+
+    // Delegate to internal function for actual renaming
+    return rename_constraint_internal(relid, typid,
+                                      stmt->subname,       // old name
+                                      stmt->newname,       // new name
+                                      (stmt->relation && stmt->relation->inh), // recursive?
+                                      false,               // recursing?
+                                      0);                  // expected inhcount
+}
+```

@@ -54,3 +54,81 @@ The function maintains proper resource management by closing relations opened du
 - The function supports both explicit provider specification and automatic provider selection when only one provider is loaded
 - Security label providers can veto label application through their hook functions by throwing errors
 - Maintains transactional semantics - locks are held until commit time to ensure consistency
+
+## Simplified Source
+
+```c
+ObjectAddress ExecSecLabelStmt(SecLabelStmt *stmt) {
+    LabelProvider *provider = NULL;
+    ObjectAddress address;
+    Relation relation;
+    ListCell *lc;
+
+    // Find the security label provider
+    if (stmt->provider == NULL) {
+        // No provider specified - use the only one if exactly one is loaded
+        if (label_provider_list == NIL) {
+            ereport(ERROR, "no security label providers have been loaded");
+        }
+        if (list_length(label_provider_list) != 1) {
+            ereport(ERROR, "must specify provider when multiple security label providers have been loaded");
+        }
+        provider = (LabelProvider *) linitial(label_provider_list);
+    } else {
+        // Find the specified provider
+        foreach(lc, label_provider_list) {
+            LabelProvider *lp = lfirst(lc);
+            if (strcmp(stmt->provider, lp->provider_name) == 0) {
+                provider = lp;
+                break;
+            }
+        }
+        if (provider == NULL) {
+            ereport(ERROR, "security label provider \"%s\" is not loaded", stmt->provider);
+        }
+    }
+
+    // Check if object type supports security labels
+    if (!SecLabelSupportsObjectType(stmt->objtype)) {
+        ereport(ERROR, "security labels are not supported for this type of object");
+    }
+
+    // Resolve the target object and acquire lock
+    address = get_object_address(stmt->objtype, stmt->object,
+                               &relation, ShareUpdateExclusiveLock, false);
+
+    // Check ownership
+    check_object_ownership(GetUserId(), stmt->objtype, address, stmt->object, relation);
+
+    // Additional validation for column objects
+    switch (stmt->objtype) {
+        case OBJECT_COLUMN:
+            // Only allow labels on columns of supported relation kinds
+            if (relation->rd_rel->relkind != RELKIND_RELATION &&
+                relation->rd_rel->relkind != RELKIND_VIEW &&
+                relation->rd_rel->relkind != RELKIND_MATVIEW &&
+                relation->rd_rel->relkind != RELKIND_COMPOSITE_TYPE &&
+                relation->rd_rel->relkind != RELKIND_FOREIGN_TABLE &&
+                relation->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+                ereport(ERROR, "cannot set security label on relation \"%s\"",
+                       RelationGetRelationName(relation));
+            }
+            break;
+        default:
+            break;
+    }
+
+    // Let provider validate/veto the label
+    provider->hook(&address, stmt->label);
+
+    // Apply the security label
+    SetSecurityLabel(&address, provider->provider_name, stmt->label);
+
+    // Close relation if opened (but keep locks until commit)
+    if (relation != NULL) {
+        relation_close(relation, NoLock);
+    }
+
+    return address;
+}
+```

@@ -47,3 +47,44 @@ No constraints are generated for the resulting tuple descriptor, making it suita
 - The function assumes all input lists contain valid, properly typed elements
 - Uses parallel list iteration (forfour) to process all attributes efficiently
 - Each attribute is numbered starting from 1 (PostgreSQL convention for attribute numbers)
+
+## Simplified Source
+
+```c
+TupleDesc
+BuildDescFromLists(const List *names, const List *types, const List *typmods, const List *collations)
+{
+    int natts;
+    AttrNumber attnum;
+    TupleDesc desc;
+
+    // Verify all lists have the same length
+    natts = list_length(names);
+    Assert(natts == list_length(types));
+    Assert(natts == list_length(typmods));
+    Assert(natts == list_length(collations));
+
+    // Create empty tuple descriptor
+    desc = CreateTemplateTupleDesc(natts);
+
+    // Initialize each attribute from the four parallel lists
+    attnum = 0;
+    forfour(l1, names, l2, types, l3, typmods, l4, collations)
+    {
+        char *attname = strVal(lfirst(l1));           // Column name
+        Oid atttypid = lfirst_oid(l2);               // Data type OID
+        int32 atttypmod = lfirst_int(l3);            // Type modifier
+        Oid attcollation = lfirst_oid(l4);           // Collation OID
+
+        attnum++;
+
+        // Set up basic attribute info (name, type, typmod)
+        TupleDescInitEntry(desc, attnum, attname, atttypid, atttypmod, 0);
+
+        // Set collation for this attribute
+        TupleDescInitEntryCollation(desc, attnum, attcollation);
+    }
+
+    return desc;
+}
+```

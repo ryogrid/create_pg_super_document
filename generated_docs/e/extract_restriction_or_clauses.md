@@ -49,3 +49,44 @@ The function iterates through each base relation in the query, examines associat
 - Only works with base relations (RELOPT_BASEREL), ignoring other relation types
 - Relies on the parameterized-path machinery's safety checks for clause movement decisions
 - The selectivity compensation mechanism depends on cached selectivities and may not work correctly with nonlinear size estimations (outer and IN joins)
+
+## Simplified Source
+
+```c
+void extract_restriction_or_clauses(PlannerInfo *root)
+{
+    Index rti;
+
+    // Examine each baserel for potential join OR clauses
+    for (rti = 1; rti < root->simple_rel_array_size; rti++) {
+        RelOptInfo *rel = root->simple_rel_array[rti];
+
+        // Skip empty slots and non-baserel RTEs
+        if (rel == NULL)
+            continue;
+
+        Assert(rel->relid == rti);  // sanity check
+
+        // Only process base relations, not "other rels"
+        if (rel->reloptkind != RELOPT_BASEREL)
+            continue;
+
+        // Look for interesting OR joinclauses that can be moved to this relation
+        foreach(lc, rel->joininfo) {
+            RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+
+            // Check if this is an OR clause that can be safely moved
+            if (restriction_is_or_clause(rinfo) &&
+                join_clause_is_movable_to(rinfo, rel)) {
+
+                // Try to extract a restriction clause for this relation only
+                Expr *orclause = extract_or_clause(rinfo, rel);
+
+                // If successful, consider whether to add it to the relation
+                if (orclause)
+                    consider_new_or_clause(root, rel, orclause, rinfo);
+            }
+        }
+    }
+}
+```

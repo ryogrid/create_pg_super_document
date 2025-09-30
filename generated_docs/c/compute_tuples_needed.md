@@ -36,3 +36,19 @@ For normal LIMIT/OFFSET operations, it returns the sum of count + offset, which 
 - The -1 return value follows PostgreSQL conventions for unlimited tuple bounds
 - Critical for efficient execution planning, especially with large datasets where early termination can provide significant performance benefits
 - The WITH TIES option prevents optimization because the final tuple count is indeterminate until execution
+
+## Simplified Source
+
+```c
+static int64
+compute_tuples_needed(LimitState *node)
+{
+    // Return unlimited if no count or WITH TIES option
+    if ((node->noCount) || (node->limitOption == LIMIT_OPTION_WITH_TIES))
+        return -1;
+
+    // Calculate total tuples needed: OFFSET + LIMIT
+    // Note: overflow produces negative value, which means unlimited
+    return node->count + node->offset;
+}
+```

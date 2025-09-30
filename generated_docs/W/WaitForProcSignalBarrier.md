@@ -59,3 +59,46 @@ The function specifically monitors pss_barrierGeneration rather than pss_barrier
 - The function is designed to be robust against slow or unresponsive backends
 - Debug logging helps track barrier synchronization progress
 - Located in src/backend/storage/ipc/procsignal.c:389-447
+
+## Simplified Source
+
+```c
+void WaitForProcSignalBarrier(uint64 generation) {
+    // Validate that generation is not beyond current barrier generation
+    Assert(generation <= pg_atomic_read_u64(&ProcSignal->psh_barrierGeneration));
+
+    elog(DEBUG1, "waiting for all backends to process ProcSignalBarrier generation " UINT64_FORMAT, generation);
+
+    // Step 1: Check each backend slot in reverse order
+    for (int i = NumProcSignalSlots - 1; i >= 0; i--) {
+        ProcSignalSlot *slot = &ProcSignal->psh_slot[i];
+        uint64 oldval;
+
+        // Step 2: Monitor barrier generation for this backend
+        // Use pss_barrierGeneration (not pss_barrierCheckMask) for strong guarantee
+        oldval = pg_atomic_read_u64(&slot->pss_barrierGeneration);
+
+        // Step 3: Wait until backend processes the target generation
+        while (oldval < generation) {
+            // Wait up to 5 seconds, then log warning for slow backends
+            if (ConditionVariableTimedSleep(&slot->pss_barrierCV, 5000,
+                                           WAIT_EVENT_PROC_SIGNAL_BARRIER)) {
+                ereport(LOG, (errmsg("still waiting for backend with PID %d to accept ProcSignalBarrier",
+                                    (int) slot->pss_pid)));
+            }
+
+            // Re-read generation value after wait
+            oldval = pg_atomic_read_u64(&slot->pss_barrierGeneration);
+        }
+
+        // Clean up condition variable wait state
+        ConditionVariableCancelSleep();
+    }
+
+    elog(DEBUG1, "finished waiting for all backends to process ProcSignalBarrier generation " UINT64_FORMAT, generation);
+
+    // Step 4: Insert memory barrier to separate barrier check from subsequent operations
+    // This ensures proper ordering for shared state access after barrier completion
+    pg_memory_barrier();
+}
+```

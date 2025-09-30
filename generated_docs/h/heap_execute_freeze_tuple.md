@@ -49,3 +49,24 @@ This function assumes that all validation and safety checks were performed durin
 - **Infomask Updates**: Applies both t_infomask and t_infomask2 changes to reflect new transaction states
 - **WAL Integration**: Used in WAL recovery scenarios to replay freeze operations
 - **Buffer Requirements**: Typically used with shared buffers that have been exclusively locked
+
+## Simplified Source
+
+```c
+static inline void heap_execute_freeze_tuple(HeapTupleHeader tuple, HeapTupleFreeze *frz)
+{
+    // Apply the new xmax value from freeze plan
+    HeapTupleHeaderSetXmax(tuple, frz->xmax);
+
+    // Handle xvac field modifications based on freeze flags
+    if (frz->frzflags & XLH_FREEZE_XVAC)
+        HeapTupleHeaderSetXvac(tuple, FrozenTransactionId);
+
+    if (frz->frzflags & XLH_INVALID_XVAC)
+        HeapTupleHeaderSetXvac(tuple, InvalidTransactionId);
+
+    // Apply updated infomask bits to reflect new transaction state
+    tuple->t_infomask = frz->t_infomask;
+    tuple->t_infomask2 = frz->t_infomask2;
+}
+```

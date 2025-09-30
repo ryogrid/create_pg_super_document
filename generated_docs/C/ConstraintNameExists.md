@@ -39,3 +39,43 @@ This function searches the pg_constraint catalog to determine if a constraint na
 - More restrictive than ConstraintNameIsUsed which only checks within a single object
 - Essential for preventing name collisions during automatic constraint name generation
 - Part of the broader constraint naming infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+bool
+ConstraintNameExists(const char *conname, Oid namespaceid)
+{
+    bool found;
+    Relation conDesc;
+    SysScanDesc conscan;
+    ScanKeyData skey[2];
+
+    // Open pg_constraint catalog for reading
+    conDesc = table_open(ConstraintRelationId, AccessShareLock);
+
+    // Set up scan keys to search by constraint name and namespace
+    ScanKeyInit(&skey[0],
+                Anum_pg_constraint_conname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(conname));
+
+    ScanKeyInit(&skey[1],
+                Anum_pg_constraint_connamespace,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(namespaceid));
+
+    // Start scan using constraint name/namespace index
+    conscan = systable_beginscan(conDesc, ConstraintNameNspIndexId, true,
+                                NULL, 2, skey);
+
+    // Check if any matching constraint was found
+    found = (HeapTupleIsValid(systable_getnext(conscan)));
+
+    // Clean up
+    systable_endscan(conscan);
+    table_close(conDesc, AccessShareLock);
+
+    return found;
+}
+```

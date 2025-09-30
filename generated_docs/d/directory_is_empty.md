@@ -36,3 +36,30 @@ This utility function verifies whether a specified directory contains any files 
 - Proper resource management is implemented with FreeDir() called in both success and failure paths
 - This function is primarily used in database and tablespace management operations where directory state verification is required
 - The function handles standard Unix directory entries ("." and "..") by explicitly ignoring them
+
+## Simplified Source
+
+```c
+bool directory_is_empty(const char *path) {
+    DIR *dirdesc;
+    struct dirent *de;
+
+    // Open directory for reading
+    dirdesc = AllocateDir(path);
+
+    // Check each directory entry
+    while ((de = ReadDir(dirdesc, path)) != NULL) {
+        // Skip standard directory entries
+        if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+            continue;
+
+        // Found a real file or subdirectory - directory is not empty
+        FreeDir(dirdesc);
+        return false;
+    }
+
+    // No entries found (except . and ..) - directory is empty
+    FreeDir(dirdesc);
+    return true;
+}
+```

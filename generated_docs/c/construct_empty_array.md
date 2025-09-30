@@ -51,3 +51,20 @@ The resulting array has ndim set to 0, dataoffset set to 0 (indicating no null b
 - This function is frequently used as a starting point or fallback for array operations that may result in empty collections
 - The empty array maintains type information even though it contains no elements
 - Used extensively throughout PostgreSQL's array handling code as the canonical representation of empty arrays
+
+## Simplified Source
+
+```c
+ArrayType *construct_empty_array(Oid elmtype) {
+    // Allocate memory for the basic ArrayType structure
+    ArrayType *result = (ArrayType *) palloc0(sizeof(ArrayType));
+
+    // Set the size and basic array properties
+    SET_VARSIZE(result, sizeof(ArrayType));
+    result->ndim = 0;           // Zero dimensions (empty)
+    result->dataoffset = 0;     // No null bitmap
+    result->elemtype = elmtype; // Element type for type safety
+
+    return result;
+}
+```

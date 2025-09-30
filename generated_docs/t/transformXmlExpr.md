@@ -40,3 +40,96 @@ The function processes named arguments by transforming ResTarget nodes, extracti
 - Named argument processing includes validation for duplicate attribute names in XMLELEMENT
 - Different XML operations require different type coercions for their arguments
 - The function is located in src/backend/parser/parse_expr.c:2355-2483
+
+## Simplified Source
+
+```c
+static Node *
+transformXmlExpr(ParseState *pstate, XmlExpr *x)
+{
+    XmlExpr *newx = makeNode(XmlExpr);
+    ListCell *lc;
+    int i;
+
+    // Copy basic fields
+    newx->op = x->op;
+    newx->name = x->name ? map_sql_identifier_to_xml_name(x->name, false, false) : NULL;
+    newx->xmloption = x->xmloption;
+    newx->type = XMLOID;  // Mark as transformed
+    newx->typmod = -1;
+    newx->location = x->location;
+
+    // Process named arguments (for attributes/elements)
+    newx->named_args = NIL;
+    newx->arg_names = NIL;
+
+    foreach(lc, x->named_args) {
+        ResTarget *r = lfirst_node(ResTarget, lc);
+        Node *expr = transformExprRecurse(pstate, r->val);
+        char *argname;
+
+        // Determine argument name
+        if (r->name) {
+            argname = map_sql_identifier_to_xml_name(r->name, false, false);
+        } else if (IsA(r->val, ColumnRef)) {
+            argname = map_sql_identifier_to_xml_name(FigureColname(r->val), true, false);
+        } else {
+            ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                           errmsg("unnamed XML element value must be a column reference")));
+        }
+
+        // Check for duplicate attribute names in XMLELEMENT
+        if (x->op == IS_XMLELEMENT) {
+            foreach(lc2, newx->arg_names) {
+                if (strcmp(argname, strVal(lfirst(lc2))) == 0)
+                    ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                                   errmsg("XML attribute name \"%s\" appears more than once", argname)));
+            }
+        }
+
+        newx->named_args = lappend(newx->named_args, expr);
+        newx->arg_names = lappend(newx->arg_names, makeString(argname));
+    }
+
+    // Process regular arguments with type coercion
+    newx->args = NIL;
+    i = 0;
+    foreach(lc, x->args) {
+        Node *e = (Node *) lfirst(lc);
+        Node *newe = transformExprRecurse(pstate, e);
+
+        // Apply operation-specific type coercion
+        switch (x->op) {
+            case IS_XMLCONCAT:
+            case IS_XMLFOREST:
+                newe = coerce_to_specific_type(pstate, newe, XMLOID, "XMLCONCAT");
+                break;
+            case IS_XMLPARSE:
+                if (i == 0)
+                    newe = coerce_to_specific_type(pstate, newe, TEXTOID, "XMLPARSE");
+                else
+                    newe = coerce_to_boolean(pstate, newe, "XMLPARSE");
+                break;
+            case IS_XMLPI:
+                newe = coerce_to_specific_type(pstate, newe, TEXTOID, "XMLPI");
+                break;
+            case IS_XMLROOT:
+                if (i == 0)
+                    newe = coerce_to_specific_type(pstate, newe, XMLOID, "XMLROOT");
+                else if (i == 1)
+                    newe = coerce_to_specific_type(pstate, newe, TEXTOID, "XMLROOT");
+                else
+                    newe = coerce_to_specific_type(pstate, newe, INT4OID, "XMLROOT");
+                break;
+            case IS_DOCUMENT:
+                newe = coerce_to_specific_type(pstate, newe, XMLOID, "IS DOCUMENT");
+                break;
+        }
+
+        newx->args = lappend(newx->args, newe);
+        i++;
+    }
+
+    return (Node *) newx;
+}
+```

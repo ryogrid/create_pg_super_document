@@ -40,3 +40,14 @@ In query execution, the scan tuple typically represents the current tuple being 
 - Used in scan operations where the tuples being scanned are guaranteed to be in virtual slot format
 - Always returns the result from ExecJustAssignVarVirtImpl (typically 0 for assignment operations)
 - Associated with computed goto optimizations in the expression interpreter
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustAssignScanVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Assign scan tuple variable to result slot using virtual slot optimization
+    return ExecJustAssignVarVirtImpl(state, econtext->ecxt_scantuple, isnull);
+}
+```

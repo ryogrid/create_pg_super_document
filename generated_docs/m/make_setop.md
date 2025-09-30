@@ -47,3 +47,54 @@ The SetOp node assumes its input is already sorted according to the distinctList
 - The flagColIdx and firstFlag parameters are used to distinguish between different input relations in complex set operations
 - Memory allocation for operator arrays uses palloc, which is PostgreSQL's memory management system
 - The numGroups parameter helps the executor estimate memory usage and choose appropriate algorithms
+
+## Simplified Source
+
+```c
+static SetOp *
+make_setop(SetOpCmd cmd, SetOpStrategy strategy, Plan *lefttree,
+           List *distinctList, AttrNumber flagColIdx, int firstFlag,
+           long numGroups)
+{
+    SetOp *node = makeNode(SetOp);
+    Plan *plan = &node->plan;
+
+    // Set up basic plan structure
+    plan->targetlist = lefttree->targetlist;
+    plan->qual = NIL;
+    plan->lefttree = lefttree;
+    plan->righttree = NULL;
+
+    // Convert SortGroupClause list to arrays for executor
+    int numCols = list_length(distinctList);
+    AttrNumber *dupColIdx = palloc(sizeof(AttrNumber) * numCols);
+    Oid *dupOperators = palloc(sizeof(Oid) * numCols);
+    Oid *dupCollations = palloc(sizeof(Oid) * numCols);
+
+    // Extract column info from each sort clause
+    int keyno = 0;
+    foreach(cell, distinctList)
+    {
+        SortGroupClause *sortcl = lfirst(cell);
+        TargetEntry *tle = get_sortgroupclause_tle(sortcl, plan->targetlist);
+
+        dupColIdx[keyno] = tle->resno;
+        dupOperators[keyno] = sortcl->eqop;
+        dupCollations[keyno] = exprCollation(tle->expr);
+        keyno++;
+    }
+
+    // Configure SetOp node parameters
+    node->cmd = cmd;
+    node->strategy = strategy;
+    node->numCols = numCols;
+    node->dupColIdx = dupColIdx;
+    node->dupOperators = dupOperators;
+    node->dupCollations = dupCollations;
+    node->flagColIdx = flagColIdx;
+    node->firstFlag = firstFlag;
+    node->numGroups = numGroups;
+
+    return node;
+}
+```

@@ -59,3 +59,105 @@ The `infile` function is a comprehensive file parser that processes timezone def
 - Special handling for PostgreSQL-specific comments in leap second files for expiration tracking
 - Uses a lookup table approach to efficiently dispatch different line types to their respective handlers
 - Will terminate the program on critical errors like file access failures or malformed input
+
+## Simplified Source
+
+```c
+static void infile(const char *name)
+{
+    FILE *fp;
+    char **fields;
+    char *cp;
+    const struct lookup *lp;
+    int nfields;
+    bool want_continuation;
+    lineno_t line_number;
+    char buf[BUFSIZ];
+
+    // Open file (stdin if name is "-")
+    if (strcmp(name, "-") == 0)
+    {
+        name = "standard input";
+        fp = stdin;
+    }
+    else if ((fp = fopen(name, "r")) == NULL)
+    {
+        fprintf(stderr, "%s: Cannot open %s: %s\n", progname, name, strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    want_continuation = false;
+
+    // Process file line by line
+    for (line_number = 1;; ++line_number)
+    {
+        eat(name, line_number);  // Set error context
+
+        if (fgets(buf, sizeof buf, fp) != buf)
+            break;  // End of file
+
+        // Remove newline and validate line length
+        cp = strchr(buf, '\n');
+        if (cp == NULL)
+        {
+            error("line too long");
+            exit(EXIT_FAILURE);
+        }
+        *cp = '\0';
+
+        // Parse line into fields
+        fields = getfields(buf);
+        nfields = 0;
+        while (fields[nfields] != NULL)
+        {
+            if (strcmp(fields[nfields], "-") == 0)
+                fields[nfields] = &nada;  // Convert "-" to empty
+            ++nfields;
+        }
+
+        // Process based on line content
+        if (nfields == 0)
+        {
+            // Handle special comments in leap second files
+            if (name == leapsec && *buf == '#')
+            {
+                long cl_tmp;
+                sscanf(buf, "#expires %ld", &cl_tmp);
+                comment_leapexpires = cl_tmp;
+            }
+        }
+        else if (want_continuation)
+        {
+            want_continuation = inzcont(fields, nfields);
+        }
+        else
+        {
+            // Look up line type and dispatch to handler
+            struct lookup const *line_codes =
+                name == leapsec ? leap_line_codes : zi_line_codes;
+
+            lp = byword(fields[0], line_codes);
+            if (lp == NULL)
+                error("input line of unknown type");
+            else
+                switch (lp->l_value)
+                {
+                    case LC_RULE:   inrule(fields, nfields);   want_continuation = false; break;
+                    case LC_ZONE:   want_continuation = inzone(fields, nfields);           break;
+                    case LC_LINK:   inlink(fields, nfields);   want_continuation = false; break;
+                    case LC_LEAP:   inleap(fields, nfields);   want_continuation = false; break;
+                    case LC_EXPIRES: inexpires(fields, nfields); want_continuation = false; break;
+                    default:
+                        fprintf(stderr, "%s: panic: Invalid l_value %d\n", progname, lp->l_value);
+                        exit(EXIT_FAILURE);
+                }
+        }
+        free(fields);
+    }
+
+    close_file(fp, NULL, filename);
+
+    if (want_continuation)
+        error("expected continuation line not found");
+}
+```

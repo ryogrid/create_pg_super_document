@@ -41,3 +41,64 @@ AlterRoleSet handles the ALTER ROLE ... SET syntax that allows setting configura
 - Uses shared dependency locking to ensure role and database objects don't disappear during the operation
 - The actual parameter setting logic is handled by the AlterSetting function
 - Supports both SET and RESET operations through the embedded VariableSetStmt
+
+## Simplified Source
+
+```c
+Oid AlterRoleSet(AlterRoleSetStmt *stmt) {
+    HeapTuple roletuple;
+    Form_pg_authid roleform;
+    Oid databaseid = InvalidOid;
+    Oid roleid = InvalidOid;
+
+    // Handle role-specific settings
+    if (stmt->role) {
+        check_rolespec_name(stmt->role, "Cannot alter reserved roles.");
+
+        roletuple = get_rolespec_tuple(stmt->role);
+        roleform = (Form_pg_authid) GETSTRUCT(roletuple);
+        roleid = roleform->oid;
+
+        // Lock the role to ensure it doesn't disappear
+        shdepLockAndCheckObject(AuthIdRelationId, roleid);
+
+        // Permission checks
+        if (roleform->rolsuper) {
+            // Superuser role - only superusers can modify
+            if (!superuser())
+                ereport(ERROR, "permission denied to alter role");
+        } else {
+            // Non-superuser role - need CREATEROLE + ADMIN or be the role owner
+            if ((!have_createrole_privilege() || !is_admin_of_role(GetUserId(), roleid))
+                && roleid != GetUserId())
+                ereport(ERROR, "permission denied to alter role");
+        }
+
+        ReleaseSysCache(roletuple);
+    }
+
+    // Handle database-specific settings
+    if (stmt->database != NULL) {
+        databaseid = get_database_oid(stmt->database, false);
+        shdepLockAndCheckObject(DatabaseRelationId, databaseid);
+
+        if (!stmt->role) {
+            // No role specified - equivalent to ALTER DATABASE ... SET
+            if (!object_ownercheck(DatabaseRelationId, databaseid, GetUserId()))
+                aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_DATABASE, stmt->database);
+        }
+    }
+
+    // Handle global settings
+    if (!stmt->role && !stmt->database) {
+        // Global settings require superuser privileges
+        if (!superuser())
+            ereport(ERROR, "permission denied to alter setting globally");
+    }
+
+    // Delegate to AlterSetting to handle the actual parameter change
+    AlterSetting(databaseid, roleid, stmt->setstmt);
+
+    return roleid;
+}
+```

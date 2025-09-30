@@ -41,3 +41,26 @@ The function is essential for PostgreSQL's statistics tracking system to properl
 - Memory allocation uses TopTransactionContext to ensure proper cleanup when transactions end
 - The linking strategy maintains both forward (next) and backward (upper) chains for efficient traversal
 - This is part of PostgreSQL's sophisticated statistics tracking system that must handle complex transaction scenarios including nested savepoints
+
+## Simplified Source
+
+```c
+static void add_tabstat_xact_level(PgStat_TableStatus *pgstat_info, int nest_level) {
+    // Ensure the transaction stack level exists for this nesting level
+    PgStat_SubXactStatus *xact_state = pgstat_get_xact_stack_level(nest_level);
+
+    // Create a new per-table transaction state record
+    PgStat_TableXactStatus *trans = (PgStat_TableXactStatus *)
+        MemoryContextAllocZero(TopTransactionContext, sizeof(PgStat_TableXactStatus));
+
+    // Set up the transaction state linkages
+    trans->nest_level = nest_level;
+    trans->upper = pgstat_info->trans;        // Link to previous level
+    trans->parent = pgstat_info;              // Link back to table info
+    trans->next = xact_state->first;          // Link to transaction stack
+
+    // Update the chain pointers
+    xact_state->first = trans;
+    pgstat_info->trans = trans;
+}
+```

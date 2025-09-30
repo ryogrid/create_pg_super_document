@@ -33,3 +33,15 @@ The function is designed to work with PostgreSQL's hash table infrastructure, fo
 - The hash value computation is delegated to hashRowType(), which ensures consistency with row type equality semantics
 - The size parameter is unused, following the common pattern in PostgreSQL hash functions where the data structure itself determines the hash computation
 - Part of PostgreSQL's record type caching mechanism that assigns unique typmod values to anonymous record types
+
+## Simplified Source
+
+```c
+static uint32 record_type_typmod_hash(const void *data, size_t size) {
+    // Cast to RecordCacheEntry pointer
+    RecordCacheEntry *entry = (RecordCacheEntry *) data;
+
+    // Compute hash based on the tuple descriptor
+    return hashRowType(entry->tupdesc);
+}
+```

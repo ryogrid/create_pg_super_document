@@ -45,3 +45,28 @@ The function relies on the canonical nature of equivalence classes, where pointe
 - Handles complex cases like constant propagation and equivalent expressions
 - Does not compare operator families or sort directions when checking EC equivalence
 - Located in src/backend/optimizer/path/pathkeys.c:158-196
+
+## Simplified Source
+
+```c
+static bool pathkey_is_redundant(PathKey *new_pathkey, List *pathkeys) {
+    EquivalenceClass *new_ec = new_pathkey->pk_eclass;
+    ListCell *lc;
+
+    // Case 1: Check if equivalence class contains a constant
+    // If so, it's always redundant (e.g., WHERE x = 42 ORDER BY x)
+    if (EC_MUST_BE_REDUNDANT(new_ec))
+        return true;
+
+    // Case 2: Check if same equivalence class already exists in list
+    foreach(lc, pathkeys) {
+        PathKey *old_pathkey = (PathKey *) lfirst(lc);
+
+        // Same EC means redundant, regardless of sort direction
+        if (new_ec == old_pathkey->pk_eclass)
+            return true;
+    }
+
+    return false;
+}
+```

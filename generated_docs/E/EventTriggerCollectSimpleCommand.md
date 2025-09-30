@@ -42,3 +42,37 @@ The function allocates memory in the event trigger context, creates a CollectedC
 - The secondaryObject parameter provides additional context specific to each command type (e.g., source schema for ALTER SET SCHEMA commands)
 - Creates a deep copy of the parse tree to ensure data integrity across different execution contexts
 - Collected commands become available to event trigger functions via pg_event_trigger_ddl_commands()
+
+## Simplified Source
+
+```c
+void EventTriggerCollectSimpleCommand(ObjectAddress address,
+                                     ObjectAddress secondaryObject,
+                                     Node *parsetree)
+{
+    CollectedCommand *command;
+
+    // Return early if event triggers not active or collection disabled
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Switch to event trigger memory context
+    MemoryContext oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create and populate command structure
+    command = palloc(sizeof(CollectedCommand));
+    command->type = SCT_Simple;
+    command->in_extension = creating_extension;
+    command->d.simple.address = address;
+    command->d.simple.secondaryObject = secondaryObject;
+    command->parsetree = copyObject(parsetree);
+
+    // Add to command list
+    currentEventTriggerState->commandList =
+        lappend(currentEventTriggerState->commandList, command);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

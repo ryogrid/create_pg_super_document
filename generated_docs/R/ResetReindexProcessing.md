@@ -31,3 +31,15 @@ ResetReindexProcessing is a static function that clears the global reindexing st
 - The reindexingNestLevel remains set until the end of the transaction/subtransaction for proper abort handling
 - This is a static function within src/backend/catalog/index.c and is not exposed outside this module
 - Called both during normal completion of reindex operations and during cleanup scenarios
+
+## Simplified Source
+
+```c
+static void ResetReindexProcessing(void) {
+    // Clear the currently reindexed object identifiers
+    currentlyReindexedHeap = InvalidOid;
+    currentlyReindexedIndex = InvalidOid;
+
+    // Note: reindexingNestLevel remains set until end of transaction
+}
+```

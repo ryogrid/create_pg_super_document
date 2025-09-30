@@ -40,3 +40,25 @@ The function uses the forboth() macro to iterate through both the indexorderbys 
 
 ## Notes and Other Information
 This function is essential for index scans that need to maintain specific ordering, such as those used to satisfy ORDER BY clauses in queries. It ensures that ORDER BY expressions are properly transformed for execution while maintaining the correct association between expressions and index columns. The simplified design compared to fix_indexqual_references reflects the fact that ORDER BY clauses typically have simpler structure than WHERE clause qualifications. The function is part of the index scan planning infrastructure in PostgreSQL's query planner. Located in src/backend/optimizer/plan/createplan.c at lines 5064-5092.
+
+## Simplified Source
+
+```c
+static List *fix_indexorderby_references(PlannerInfo *root, IndexPath *index_path) {
+    IndexOptInfo *index = index_path->indexinfo;
+    List *fixed_indexorderbys = NIL;
+    ListCell *lcc, *lci;
+
+    // Process each ORDER BY clause with its corresponding index column
+    forboth(lcc, index_path->indexorderbys, lci, index_path->indexorderbycols) {
+        Node *clause = (Node *) lfirst(lcc);
+        int indexcol = lfirst_int(lci);
+
+        // Apply same transformations as indexqual clauses
+        clause = fix_indexqual_clause(root, index, indexcol, clause, NIL);
+        fixed_indexorderbys = lappend(fixed_indexorderbys, clause);
+    }
+
+    return fixed_indexorderbys;
+}
+```

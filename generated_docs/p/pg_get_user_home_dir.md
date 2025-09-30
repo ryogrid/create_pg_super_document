@@ -39,3 +39,37 @@ On successful lookup, the function copies the home directory path into the provi
 - Part of PostgreSQL's portability layer, providing consistent home directory lookup across different platforms
 - Returns the  field from the passwd structure, which contains the user's home directory path
 - Used by PostgreSQL components that need to resolve user home directories for configuration files or data storage
+
+## Simplified Source
+
+```c
+bool pg_get_user_home_dir(uid_t user_id, char *buffer, size_t buflen) {
+    char pwdbuf[BUFSIZ];
+    struct passwd pwdstr;
+    struct passwd *pw = NULL;
+    int pwerr;
+
+    // Thread-safe lookup of user information by ID
+    pwerr = getpwuid_r(user_id, &pwdstr, pwdbuf, sizeof(pwdbuf), &pw);
+
+    if (pw != NULL) {
+        // Success: copy home directory path
+        strlcpy(buffer, pw->pw_dir, buflen);
+        return true;
+    }
+
+    // Handle lookup failure with appropriate error message
+    if (pwerr != 0) {
+        snprintf(buffer, buflen,
+                _("could not look up local user ID %d: %s"),
+                (int) user_id,
+                strerror_r(pwerr, pwdbuf, sizeof(pwdbuf)));
+    } else {
+        snprintf(buffer, buflen,
+                _("local user with ID %d does not exist"),
+                (int) user_id);
+    }
+
+    return false;
+}
+```

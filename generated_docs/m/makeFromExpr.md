@@ -41,3 +41,18 @@ This node type is fundamental in PostgreSQL's query processing, serving as a con
 - Used extensively throughout the parser for different statement types (SELECT, UPDATE, DELETE, MERGE)
 - Also used in query optimization phases for subquery pullup and join processing
 - Located in src/backend/nodes/makefuncs.c:334-347
+
+## Simplified Source
+
+```c
+FromExpr *makeFromExpr(List *fromlist, Node *quals) {
+    // Create new FromExpr node
+    FromExpr *f = makeNode(FromExpr);
+
+    // Set FROM clause relations and WHERE clause conditions
+    f->fromlist = fromlist;
+    f->quals = quals;
+
+    return f;
+}
+```

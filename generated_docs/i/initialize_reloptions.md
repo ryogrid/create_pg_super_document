@@ -56,3 +56,40 @@ This function takes no parameters.
 - Lock mode compatibility is verified for each option using DoLockModesConflict assertions
 - The relOpts array is null-terminated for safe iteration
 - Custom options registered via add_reloption are included in the unified array
+
+## Simplified Source
+
+```c
+static void initialize_reloptions(void) {
+    int total_options = 0;
+
+    // Count all relation options across different types
+    total_options += count_options(boolRelOpts);
+    total_options += count_options(intRelOpts);
+    total_options += count_options(realRelOpts);
+    total_options += count_options(enumRelOpts);
+    total_options += count_options(stringRelOpts);
+    total_options += num_custom_options;
+
+    // Allocate memory for consolidated options array
+    if (relOpts)
+        pfree(relOpts);
+    relOpts = MemoryContextAlloc(TopMemoryContext,
+                                (total_options + 1) * sizeof(relopt_gen *));
+
+    // Populate array with all option types
+    int index = 0;
+    index += populate_options(boolRelOpts, RELOPT_TYPE_BOOL, index);
+    index += populate_options(intRelOpts, RELOPT_TYPE_INT, index);
+    index += populate_options(realRelOpts, RELOPT_TYPE_REAL, index);
+    index += populate_options(enumRelOpts, RELOPT_TYPE_ENUM, index);
+    index += populate_options(stringRelOpts, RELOPT_TYPE_STRING, index);
+    index += populate_custom_options(index);
+
+    // Null-terminate the array
+    relOpts[index] = NULL;
+
+    // Mark initialization complete
+    need_initialization = false;
+}
+```

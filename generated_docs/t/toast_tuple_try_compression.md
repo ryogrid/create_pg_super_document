@@ -43,3 +43,29 @@ This is a key component of PostgreSQL's TOAST strategy, which attempts compressi
 - Memory management is carefully handled to avoid leaks when replacing values
 - The compressed value replaces the original in the ToastTupleContext for subsequent processing
 - Compression is attempted using algorithms like PGLZ or LZ4 depending on configuration
+
+## Simplified Source
+
+```c
+void toast_tuple_try_compression(ToastTupleContext *ttc, int attribute) {
+    Datum *value = &ttc->ttc_values[attribute];
+    ToastAttrInfo *attr = &ttc->ttc_attr[attribute];
+
+    // Try to compress the datum using the configured compression method
+    Datum compressed_value = toast_compress_datum(*value, attr->tai_compression);
+
+    if (DatumGetPointer(compressed_value) != NULL) {
+        // Compression succeeded - replace original with compressed version
+        if ((attr->tai_colflags & TOASTCOL_NEEDS_FREE) != 0)
+            pfree(DatumGetPointer(*value));
+
+        *value = compressed_value;
+        attr->tai_colflags |= TOASTCOL_NEEDS_FREE;
+        attr->tai_size = VARSIZE(DatumGetPointer(*value));
+        ttc->ttc_flags |= (TOAST_NEEDS_CHANGE | TOAST_NEEDS_FREE);
+    } else {
+        // Compression failed - mark as incompressible for future attempts
+        attr->tai_colflags |= TOASTCOL_INCOMPRESSIBLE;
+    }
+}
+```

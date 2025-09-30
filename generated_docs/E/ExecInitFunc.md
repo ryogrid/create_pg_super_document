@@ -48,3 +48,85 @@ The function is designed to be called during expression compilation and prepares
 - Optimizes constant arguments by pre-evaluating them during setup rather than at every execution
 - Selects different opcodes based on function strictness and statistics tracking level to optimize runtime performance
 - The function is static and only used internally within the expression evaluation system
+
+## Simplified Source
+
+```c
+static void ExecInitFunc(ExprEvalStep *scratch, Expr *node, List *args, Oid funcid,
+                        Oid inputcollid, ExprState *state)
+{
+    int nargs = list_length(args);
+    AclResult aclresult;
+    FmgrInfo *flinfo;
+    FunctionCallInfo fcinfo;
+    int argno;
+    ListCell *arg_cell;
+
+    // Check permission to execute function
+    aclresult = object_aclcheck(ProcedureRelationId, funcid, GetUserId(), ACL_EXECUTE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_FUNCTION, get_func_name(funcid));
+    InvokeFunctionExecuteHook(funcid);
+
+    // Validate argument count
+    if (nargs > FUNC_MAX_ARGS)
+        ereport(ERROR,
+                (errcode(ERRCODE_TOO_MANY_ARGUMENTS),
+                 errmsg_plural("cannot pass more than %d argument to a function",
+                              "cannot pass more than %d arguments to a function",
+                              FUNC_MAX_ARGS, FUNC_MAX_ARGS)));
+
+    // Allocate function call structures
+    scratch->d.func.finfo = palloc0(sizeof(FmgrInfo));
+    scratch->d.func.fcinfo_data = palloc0(SizeForFunctionCallInfo(nargs));
+    flinfo = scratch->d.func.finfo;
+    fcinfo = scratch->d.func.fcinfo_data;
+
+    // Set up function manager info
+    fmgr_info(funcid, flinfo);
+    fmgr_info_set_expr((Node *) node, flinfo);
+
+    // Initialize function call parameter structure
+    InitFunctionCallInfoData(*fcinfo, flinfo, nargs, inputcollid, NULL, NULL);
+
+    // Cache function address and argument count for runtime efficiency
+    scratch->d.func.fn_addr = flinfo->fn_addr;
+    scratch->d.func.nargs = nargs;
+
+    // Reject set-returning functions in scalar context
+    if (flinfo->fn_retset)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("set-valued function called in context that cannot accept a set"),
+                 state->parent ?
+                 executor_errposition(state->parent->state, exprLocation((Node *) node)) : 0));
+
+    // Initialize arguments: optimize constants, evaluate variables at runtime
+    argno = 0;
+    foreach(arg_cell, args) {
+        Expr *arg = (Expr *) lfirst(arg_cell);
+
+        if (IsA(arg, Const)) {
+            // Pre-evaluate constant arguments for efficiency
+            Const *const_arg = (Const *) arg;
+            fcinfo->args[argno].value = const_arg->constvalue;
+            fcinfo->args[argno].isnull = const_arg->constisnull;
+        } else {
+            // Set up runtime evaluation for variable arguments
+            ExecInitExprRec(arg, state,
+                           &fcinfo->args[argno].value,
+                           &fcinfo->args[argno].isnull);
+        }
+        argno++;
+    }
+
+    // Choose opcode based on function characteristics and statistics tracking
+    if (pgstat_track_functions <= flinfo->fn_stats) {
+        scratch->opcode = (flinfo->fn_strict && nargs > 0) ?
+                         EEOP_FUNCEXPR_STRICT : EEOP_FUNCEXPR;
+    } else {
+        scratch->opcode = (flinfo->fn_strict && nargs > 0) ?
+                         EEOP_FUNCEXPR_STRICT_FUSAGE : EEOP_FUNCEXPR_FUSAGE;
+    }
+}
+```

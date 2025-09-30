@@ -37,3 +37,38 @@ This function serves as a security-aware wrapper that ensures only authorized us
 - The operation is atomic and either succeeds completely or fails without partial changes
 - Related to the already documented shdepReassignOwned function which performs the lower-level reassignment logic
 - Commonly used during role cleanup or reorganization scenarios where objects need to be preserved under new ownership
+
+## Simplified Source
+
+```c
+void ReassignOwnedObjects(ReassignOwnedStmt *stmt) {
+    List *role_ids = roleSpecsToIds(stmt->roles);
+    ListCell *cell;
+    Oid newrole;
+
+    // Check that current user has privileges of all source roles
+    foreach(cell, role_ids) {
+        Oid roleid = lfirst_oid(cell);
+
+        if (!has_privs_of_role(GetUserId(), roleid))
+            ereport(ERROR,
+                    (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                     errmsg("permission denied to reassign objects"),
+                     errdetail("Only roles with privileges of role \"%s\" may reassign objects owned by it.",
+                              GetUserNameFromId(roleid, false))));
+    }
+
+    // Check that current user has privileges of the target role
+    newrole = get_rolespec_oid(stmt->newrole, false);
+
+    if (!has_privs_of_role(GetUserId(), newrole))
+        ereport(ERROR,
+                (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                 errmsg("permission denied to reassign objects"),
+                 errdetail("Only roles with privileges of role \"%s\" may reassign objects to it.",
+                          GetUserNameFromId(newrole, false))));
+
+    // Perform the actual ownership transfer
+    shdepReassignOwned(role_ids, newrole);
+}
+```

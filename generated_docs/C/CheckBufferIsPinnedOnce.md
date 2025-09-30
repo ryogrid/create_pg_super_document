@@ -35,3 +35,21 @@ For local buffers, it checks the LocalRefCount array which tracks pin counts for
 - Different checking mechanisms for local vs shared buffers
 - Used primarily in buffer management code to ensure correct pin/unpin discipline
 - The function name suggests it should be used only when the caller expects exactly one pin
+
+## Simplified Source
+
+```c
+void CheckBufferIsPinnedOnce(Buffer buffer) {
+    if (BufferIsLocal(buffer)) {
+        // Check local buffer pin count
+        if (LocalRefCount[-buffer - 1] != 1)
+            elog(ERROR, "incorrect local pin count: %d",
+                 LocalRefCount[-buffer - 1]);
+    } else {
+        // Check shared buffer pin count for this backend
+        if (GetPrivateRefCount(buffer) != 1)
+            elog(ERROR, "incorrect local pin count: %d",
+                 GetPrivateRefCount(buffer));
+    }
+}
+```

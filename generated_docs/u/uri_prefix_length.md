@@ -40,3 +40,20 @@ This function is noted as a duplicate of a similar function in libpq, indicating
 - Returns the exact byte length of the prefix, which can be used to skip over the prefix when parsing the rest of the URI
 - Essential for distinguishing between URI-style and keyword=value style connection strings
 - The function only validates the prefix, not the entire URI syntax
+
+## Simplified Source
+
+```c
+static int uri_prefix_length(const char *connstr) {
+    // Check for standard "postgresql://" prefix
+    if (strncmp(connstr, "postgresql://", 13) == 0)
+        return 13;
+
+    // Check for short "postgres://" prefix
+    if (strncmp(connstr, "postgres://", 11) == 0)
+        return 11;
+
+    // No valid URI prefix found
+    return 0;
+}
+```

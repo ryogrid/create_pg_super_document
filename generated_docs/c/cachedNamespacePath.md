@@ -42,3 +42,45 @@ When object access hooks are present, the finalPath must be recomputed each time
 - When object_access_hook is set, the forceRecompute flag ensures consistent behavior across calls
 - The returned cache entry is only valid until the next call to this function
 - This is a static function, only accessible within the namespace.c compilation unit
+
+## Simplified Source
+
+```c
+static const SearchPathCacheEntry *
+cachedNamespacePath(const char *searchPath, Oid roleid)
+{
+    MemoryContext oldcxt;
+    SearchPathCacheEntry *entry;
+
+    // Initialize cache if needed
+    spcache_init();
+
+    // Get or create cache entry
+    entry = spcache_insert(searchPath, roleid);
+
+    // Compute missing oidlist (may be missing due to OOM)
+    if (entry->oidlist == NIL) {
+        oldcxt = MemoryContextSwitchTo(SearchPathCacheContext);
+        entry->oidlist = preprocessNamespacePath(searchPath, roleid,
+                                                &entry->temp_missing);
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    // Recompute finalPath if missing or if hooks might affect result
+    if (entry->finalPath == NIL || object_access_hook || entry->forceRecompute) {
+        // Clean up old finalPath
+        list_free(entry->finalPath);
+        entry->finalPath = NIL;
+
+        // Compute new finalPath from oidlist
+        oldcxt = MemoryContextSwitchTo(SearchPathCacheContext);
+        entry->finalPath = finalNamespacePath(entry->oidlist, &entry->firstNS);
+        MemoryContextSwitchTo(oldcxt);
+
+        // Mark for recomputation if hooks are active
+        entry->forceRecompute = object_access_hook ? true : false;
+    }
+
+    return entry;
+}
+```

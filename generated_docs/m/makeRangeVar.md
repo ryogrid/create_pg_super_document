@@ -39,3 +39,24 @@ The `makeRangeVar` function creates a RangeVar node that represents a reference 
 - This is a simplified constructor - more complex RangeVar nodes may need additional configuration
 - Used throughout PostgreSQL for representing table/relation references in various contexts
 - Essential for parsing and processing SQL statements that reference database objects
+
+## Simplified Source
+
+```c
+RangeVar *makeRangeVar(char *schemaname, char *relname, int location) {
+    RangeVar *r = makeNode(RangeVar);
+
+    // Set basic relation identification
+    r->catalogname = NULL;              // No cross-database references
+    r->schemaname = schemaname;         // Schema name (can be NULL)
+    r->relname = relname;               // Relation name
+
+    // Set default properties
+    r->inh = true;                      // Enable inheritance by default
+    r->relpersistence = RELPERSISTENCE_PERMANENT;  // Assume permanent table
+    r->alias = NULL;                    // No table alias
+    r->location = location;             // Source location for error reporting
+
+    return r;
+}
+```

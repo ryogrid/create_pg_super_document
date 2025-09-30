@@ -55,3 +55,79 @@ The function supports two value formats:
 - The function modifies a working copy of the input string during parsing
 - Quoted strings must be properly terminated or the function will fail with an error
 - Whitespace around parameter names, equals signs, and values is properly handled and ignored
+
+## Simplified Source
+
+```c
+static PQconninfoOption *conninfo_parse(const char *conninfo, PQExpBuffer errorMessage, bool use_defaults) {
+    PQconninfoOption *options;
+    char *buf, *cp, *pname, *pval;
+
+    // Initialize connection options structure
+    options = conninfo_init(errorMessage);
+    if (options == NULL)
+        return NULL;
+
+    // Create working copy of input string
+    buf = strdup(conninfo);
+    if (buf == NULL) {
+        libpq_append_error(errorMessage, "out of memory");
+        PQconninfoFree(options);
+        return NULL;
+    }
+
+    cp = buf;
+    while (*cp) {
+        // Skip whitespace before parameter name
+        while (isspace(*cp)) cp++;
+        if (!*cp) break;
+
+        // Extract parameter name (until '=' or whitespace)
+        pname = cp;
+        while (*cp && *cp != '=' && !isspace(*cp)) cp++;
+
+        // Skip whitespace after name
+        while (isspace(*cp)) cp++;
+
+        // Expect '=' separator
+        if (*cp != '=') {
+            libpq_append_error(errorMessage, "missing \"=\" after \"%s\"", pname);
+            goto cleanup_error;
+        }
+        *cp++ = '\0';
+
+        // Skip whitespace after '='
+        while (isspace(*cp)) cp++;
+
+        // Extract parameter value (quoted or unquoted)
+        pval = cp;
+        if (*cp == '\'') {
+            // Handle quoted value with escape sequences
+            cp = parse_quoted_value(cp, &pval, errorMessage);
+            if (cp == NULL) goto cleanup_error;
+        } else {
+            // Handle unquoted value with escape sequences
+            cp = parse_unquoted_value(cp, &pval);
+        }
+
+        // Store the parameter
+        if (!conninfo_storeval(options, pname, pval, errorMessage, false, false))
+            goto cleanup_error;
+    }
+
+    free(buf);
+
+    // Add defaults if requested
+    if (use_defaults && !conninfo_add_defaults(options, errorMessage)) {
+        PQconninfoFree(options);
+        return NULL;
+    }
+
+    return options;
+
+cleanup_error:
+    PQconninfoFree(options);
+    free(buf);
+    return NULL;
+}
+```

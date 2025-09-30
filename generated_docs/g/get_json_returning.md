@@ -44,3 +44,24 @@ The function includes logic to avoid redundant FORMAT specifications: it only ca
 - Optimizes output by omitting redundant format specifications when they match expected defaults
 - The function handles the special case where JSONB types should default to JSONB format
 - Located in src/backend/utils/adt/ruleutils.c:11322-11341
+
+## Simplified Source
+
+```c
+static void get_json_returning(JsonReturning *returning, StringInfo buf,
+                               bool json_format_by_default) {
+    // Skip if no return type specified
+    if (!OidIsValid(returning->typid))
+        return;
+
+    // Output RETURNING clause with type
+    appendStringInfo(buf, " RETURNING %s",
+                     format_type_with_typemod(returning->typid, returning->typmod));
+
+    // Only output format if it differs from expected default
+    if (!json_format_by_default ||
+        returning->format->format_type !=
+        (returning->typid == JSONBOID ? JS_FORMAT_JSONB : JS_FORMAT_JSON))
+        get_json_format(returning->format, buf);
+}
+```

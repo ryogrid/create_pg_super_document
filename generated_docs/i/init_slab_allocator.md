@@ -48,3 +48,34 @@ The slab allocator provides O(1) allocation and deallocation of fixed-size memor
 - Memory usage is properly tracked through the  mechanism
 - The slab allocator is particularly beneficial during merge phases where many tuple headers need to be allocated and freed rapidly
 - Part of PostgreSQL's optimization strategy for external sorting performance
+
+## Simplified Source
+
+```c
+static void init_slab_allocator(Tuplesortstate *state, int numSlots) {
+    if (numSlots > 0) {
+        char *p;
+        int i;
+
+        // Allocate contiguous memory block for all slots
+        state->slabMemoryBegin = palloc(numSlots * SLAB_SLOT_SIZE);
+        state->slabMemoryEnd = state->slabMemoryBegin + numSlots * SLAB_SLOT_SIZE;
+        state->slabFreeHead = (SlabSlot *) state->slabMemoryBegin;
+        USEMEM(state, numSlots * SLAB_SLOT_SIZE);
+
+        // Link all slots together in a free list
+        p = state->slabMemoryBegin;
+        for (i = 0; i < numSlots - 1; i++) {
+            ((SlabSlot *) p)->nextfree = (SlabSlot *) (p + SLAB_SLOT_SIZE);
+            p += SLAB_SLOT_SIZE;
+        }
+        ((SlabSlot *) p)->nextfree = NULL;  // Last slot points to NULL
+    } else {
+        // No slab allocation - set all pointers to NULL
+        state->slabMemoryBegin = state->slabMemoryEnd = NULL;
+        state->slabFreeHead = NULL;
+    }
+
+    state->slabAllocatorUsed = true;
+}
+```

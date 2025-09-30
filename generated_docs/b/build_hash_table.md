@@ -50,3 +50,38 @@ The hash table is stored in the perhash structure corresponding to the given gro
 - Uses three different memory contexts: metacxt for metadata, hashcxt for per-tuple data, and tmpcxt for temporary allocations
 - The hash table size estimation helps ensure it doesn't exceed hash_mem configuration limits
 - The DO_AGGSPLIT_SKIPFINAL parameter controls whether final aggregation functions should be skipped
+
+## Simplified Source
+
+```c
+static void
+build_hash_table(AggState *aggstate, int setno, long nbuckets)
+{
+    AggStatePerHash perhash = &aggstate->perhash[setno];
+    MemoryContext metacxt = aggstate->hash_metacxt;
+    MemoryContext hashcxt = aggstate->hashcontext->ecxt_per_tuple_memory;
+    MemoryContext tmpcxt = aggstate->tmpcontext->ecxt_per_tuple_memory;
+    Size additionalsize;
+
+    // Ensure we're using hash-based aggregation
+    Assert(aggstate->aggstrategy == AGG_HASHED || aggstate->aggstrategy == AGG_MIXED);
+
+    // Calculate space needed for transition data
+    additionalsize = aggstate->numtrans * sizeof(AggStatePerGroupData);
+
+    // Build the hash table with all necessary parameters
+    perhash->hashtable = BuildTupleHashTableExt(&aggstate->ss.ps,
+                                               perhash->hashslot->tts_tupleDescriptor,
+                                               perhash->numCols,
+                                               perhash->hashGrpColIdxHash,
+                                               perhash->eqfuncoids,
+                                               perhash->hashfunctions,
+                                               perhash->aggnode->grpCollations,
+                                               nbuckets,
+                                               additionalsize,
+                                               metacxt,
+                                               hashcxt,
+                                               tmpcxt,
+                                               DO_AGGSPLIT_SKIPFINAL(aggstate->aggsplit));
+}
+```

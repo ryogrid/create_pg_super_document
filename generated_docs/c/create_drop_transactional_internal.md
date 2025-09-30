@@ -36,7 +36,7 @@ This design enables proper transactional semantics for statistics operations, en
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgStat_Kind](../P/PgStat_Kind.md) (enum type)
-  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (structure type) 
+  - [PgStat_SubXactStatus](../P/PgStat_SubXactStatus.md) (structure type)
   - [PgStat_PendingDroppedStatsItem](../P/PgStat_PendingDroppedStatsItem.md) (structure type)
   - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
   - [pgstat_get_xact_stack_level](../p/pgstat_get_xact_stack_level.md)
@@ -56,3 +56,27 @@ This design enables proper transactional semantics for statistics operations, en
 - Supports nested transactions through proper nesting level management
 - The dual-purpose design (create/drop) with the is_create flag reduces code duplication
 - Items added to pending_drops are later processed by pgstat_get_transactional_drops() and pgstat_execute_transactional_drops()
+
+## Simplified Source
+```c
+static void create_drop_transactional_internal(PgStat_Kind kind, Oid dboid, Oid objoid, bool is_create) {
+    // Get current transaction nesting level
+    int nest_level = GetCurrentTransactionNestLevel();
+
+    // Get transaction state for this nesting level
+    PgStat_SubXactStatus *xact_state = pgstat_get_xact_stack_level(nest_level);
+
+    // Allocate pending drop item in transaction context
+    PgStat_PendingDroppedStatsItem *drop = MemoryContextAlloc(
+        TopTransactionContext, sizeof(PgStat_PendingDroppedStatsItem));
+
+    // Fill in the statistics item details
+    drop->is_create = is_create;
+    drop->item.kind = kind;
+    drop->item.dboid = dboid;
+    drop->item.objoid = objoid;
+
+    // Add to pending drops list for later processing
+    dclist_push_tail(&xact_state->pending_drops, &drop->node);
+}
+```

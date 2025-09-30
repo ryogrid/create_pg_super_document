@@ -35,3 +35,15 @@ This function performs a simple but critical check to determine if an object nam
 - Returns true if the name starts with exactly "pg_", false otherwise
 - This check is essential for maintaining the separation between system and user objects
 - The reserved prefix policy has evolved over PostgreSQL versions, expanding from schemas and tablespaces to include roles
+
+## Simplified Source
+
+```c
+bool IsReservedName(const char *name) {
+    // Check if name starts with "pg_" prefix
+    // Optimized for speed with direct character comparison
+    return (name[0] == 'p' &&
+            name[1] == 'g' &&
+            name[2] == '_');
+}
+```

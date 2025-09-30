@@ -38,3 +38,30 @@ The function deliberately delays unsetting the all_visible flag to allow dead tu
 - Deliberately delays unsetting all_visible flag to allow freezing of pages with removable dead tuples
 - Part of PostgreSQL's heap pruning and HOT cleanup mechanism
 - Works in coordination with VACUUM for complete dead tuple cleanup
+
+## Simplified Source
+
+```c
+static void
+heap_prune_record_dead(PruneState *prstate, OffsetNumber offnum, bool was_normal)
+{
+    // Mark offset as processed to prevent reprocessing
+    Assert(!prstate->processed[offnum]);
+    prstate->processed[offnum] = true;
+
+    // Add to dead tuples array
+    Assert(prstate->ndead < MaxHeapTuplesPerPage);
+    prstate->nowdead[prstate->ndead] = offnum;
+    prstate->ndead++;
+
+    // Record offset for vacuum processing
+    prstate->deadoffsets[prstate->lpdead_items++] = offnum;
+
+    // Count deletion if it was a normal tuple (not a redirect)
+    if (was_normal)
+        prstate->ndeleted++;
+
+    // Note: deliberately delay unsetting all_visible flag to allow
+    // dead tuples that are removable to not prevent page freezing
+}
+```

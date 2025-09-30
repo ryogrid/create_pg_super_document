@@ -59,3 +59,70 @@ The function centralizes the common logic between JSON_OBJECTAGG and JSON_ARRAYA
 - Aggregate-specific fields (aggtranstype, aggargtypes, etc.) are set by subsequent processing functions
 - The function properly handles both filtered and unfiltered aggregates
 - All location information is preserved for accurate error reporting throughout the transformation process
+
+## Simplified Source
+
+```c
+static Node *
+transformJsonAggConstructor(ParseState *pstate, JsonAggConstructor *agg_ctor,
+                           JsonReturning *returning, List *args,
+                           Oid aggfnoid, Oid aggtype,
+                           JsonConstructorType ctor_type,
+                           bool unique, bool absent_on_null) {
+    Node *node;
+    Expr *aggfilter;
+
+    // Transform any FILTER clause
+    aggfilter = agg_ctor->agg_filter
+        ? (Expr *) transformWhereClause(pstate, agg_ctor->agg_filter,
+                                       EXPR_KIND_FILTER, "FILTER")
+        : NULL;
+
+    if (agg_ctor->over) {
+        // Create window function
+        WindowFunc *wfunc = makeNode(WindowFunc);
+
+        wfunc->winfnoid = aggfnoid;
+        wfunc->wintype = aggtype;
+        wfunc->args = args;
+        wfunc->aggfilter = aggfilter;
+        wfunc->runCondition = NIL;
+        wfunc->winstar = false;
+        wfunc->winagg = true;
+        wfunc->location = agg_ctor->location;
+
+        // ORDER BY not supported in window functions
+        if (agg_ctor->agg_order != NIL) {
+            ereport(ERROR, "aggregate ORDER BY not implemented for window functions");
+        }
+
+        // Process window-specific transformation
+        transformWindowFuncCall(pstate, wfunc, agg_ctor->over);
+        node = (Node *) wfunc;
+    } else {
+        // Create regular aggregate
+        Aggref *aggref = makeNode(Aggref);
+
+        aggref->aggfnoid = aggfnoid;
+        aggref->aggtype = aggtype;
+        aggref->aggfilter = aggfilter;
+        aggref->aggstar = false;
+        aggref->aggvariadic = false;
+        aggref->aggkind = AGGKIND_NORMAL;
+        aggref->aggpresorted = false;
+        aggref->aggsplit = AGGSPLIT_SIMPLE;
+        aggref->aggno = -1;      // Set by planner
+        aggref->aggtransno = -1; // Set by planner
+        aggref->location = agg_ctor->location;
+
+        // Process aggregate-specific transformation
+        transformAggregateCall(pstate, aggref, args, agg_ctor->agg_order, false);
+        node = (Node *) aggref;
+    }
+
+    // Wrap in JSON constructor expression
+    return makeJsonConstructorExpr(pstate, ctor_type, NIL, (Expr *) node,
+                                  returning, unique, absent_on_null,
+                                  agg_ctor->location);
+}
+```

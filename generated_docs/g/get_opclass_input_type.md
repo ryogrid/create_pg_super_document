@@ -47,3 +47,35 @@ This function is essential for index operations, type validation, and ensuring c
 - Used extensively in index validation (hash, btree) and compatibility checking
 - Essential for replication infrastructure where exact type matching is required
 - The opcintype field represents the "input type" that the operator class can handle
+
+## Simplified Source
+
+```c
+// Simplified version of get_opclass_input_type
+Oid
+get_opclass_input_type(Oid opclass)
+{
+    HeapTuple tuple;
+    Form_pg_opclass opclass_form;
+    Oid result;
+
+    // Look up the operator class in system cache
+    tuple = SearchSysCache1(CLAOID, ObjectIdGetDatum(opclass));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for opclass %u", opclass);
+
+    // Extract the input type from the operator class record
+    opclass_form = (Form_pg_opclass) GETSTRUCT(tuple);
+    result = opclass_form->opcintype;
+
+    // Clean up and return
+    ReleaseSysCache(tuple);
+    return result;
+}
+```
+
+Key simplifications made:
+- Used more descriptive variable names (tuple instead of tp, opclass_form instead of cla_tup)
+- Added clear comments explaining each step
+- Preserved all error handling as it's essential for this function
+- Simplified the structure while maintaining the exact same logic

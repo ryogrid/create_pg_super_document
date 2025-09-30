@@ -38,3 +38,14 @@ This function is typically used in scenarios where PostgreSQL's query planner an
 - The function is part of a family of optimized variable access functions for different tuple slot types
 - Uses ExecJustVarVirtImpl as the underlying implementation, which includes assertions to verify that the slot is indeed virtual and properly initialized
 - This optimization is possible because virtual slots store values in arrays that can be directly accessed without tuple deforming
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustScanVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Optimized wrapper for virtual slots - direct array access
+    return ExecJustVarVirtImpl(state, econtext->ecxt_scantuple, isnull);
+}
+```

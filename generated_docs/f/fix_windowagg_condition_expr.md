@@ -37,3 +37,24 @@ The function uses a mutator pattern to recursively traverse the condition expres
 - The function creates a context structure to pass state information to the recursive mutator function
 - Part of the broader plan tree reference fixing process that ensures all variable references are properly resolved after plan construction
 - Critical for window aggregate optimization and execution correctness
+
+## Simplified Source
+
+```c
+static List *
+fix_windowagg_condition_expr(PlannerInfo *root,
+                           List *runcondition,
+                           indexed_tlist *subplan_itlist)
+{
+    fix_windowagg_cond_context context;
+
+    // Setup context for mutator function
+    context.root = root;
+    context.subplan_itlist = subplan_itlist;
+    context.newvarno = 0;
+
+    // Use mutator to recursively convert WindowFunc references to Vars
+    return (List *) fix_windowagg_condition_expr_mutator((Node *) runcondition,
+                                                        &context);
+}
+```

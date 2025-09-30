@@ -45,3 +45,28 @@ This function is part of PostgreSQL's rule deparsing infrastructure, used when c
 - Unlike some other quoting functions, this does not use the E (escape) syntax, making it suitable for contexts where standard SQL string literals are preferred
 - The function is widely used throughout the rule deparsing system for any context where string literals need to be generated
 - Character doubling is handled by the SQL_STR_DOUBLE macro, which abstracts the logic for determining which characters require escaping
+
+## Simplified Source
+
+```c
+static void simple_quote_literal(StringInfo buf, const char *val) {
+    const char *valptr;
+
+    // Start the SQL string literal with a single quote
+    appendStringInfoChar(buf, '\'');
+
+    // Process each character in the input string
+    for (valptr = val; *valptr; valptr++) {
+        char ch = *valptr;
+
+        // Double characters that need escaping according to SQL standards
+        if (SQL_STR_DOUBLE(ch, !standard_conforming_strings)) {
+            appendStringInfoChar(buf, ch);
+        }
+        appendStringInfoChar(buf, ch);
+    }
+
+    // End the SQL string literal with a single quote
+    appendStringInfoChar(buf, '\'');
+}
+```

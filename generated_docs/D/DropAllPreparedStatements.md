@@ -40,3 +40,26 @@ This function takes no parameters.
 - The function is safe to call even when no prepared statements exist
 - This operation cannot be rolled back as it involves releasing cached plans
 - Typically used in scenarios requiring complete session cleanup or explicit discard operations
+
+## Simplified Source
+
+```c
+void DropAllPreparedStatements(void) {
+    HASH_SEQ_STATUS seq;
+    PreparedStatement *entry;
+
+    // Early return if no prepared statements cached
+    if (!prepared_queries)
+        return;
+
+    // Walk through all entries in the hash table
+    hash_seq_init(&seq, prepared_queries);
+    while ((entry = hash_seq_search(&seq)) != NULL) {
+        // Release the cached plan
+        DropCachedPlan(entry->plansource);
+
+        // Remove entry from hash table
+        hash_search(prepared_queries, entry->stmt_name, HASH_REMOVE, NULL);
+    }
+}
+```

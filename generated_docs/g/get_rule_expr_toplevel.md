@@ -41,3 +41,17 @@ For all other node types, it simply delegates to the standard  function.
 - Essential for proper deparsing of ROW() expressions and VALUES() clauses
 - Maintains semantic correctness when reparsing top-level variable references
 - Part of PostgreSQL's rule system infrastructure for accurate SQL reconstruction
+
+## Simplified Source
+
+```c
+static void get_rule_expr_toplevel(Node *node, deparse_context *context,
+                                  bool showimplicit)
+{
+    // Special handling for variable nodes at top level
+    if (node && IsA(node, Var))
+        get_variable((Var *) node, 0, true, context);
+    else
+        get_rule_expr(node, context, showimplicit);
+}
+```

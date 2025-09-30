@@ -114,3 +114,94 @@ The function uses TablespaceCreateLock to coordinate with concurrent tablespace 
 - Forces synchronous commit to ensure atomicity between filesystem and catalog changes
 - Maintains TablespaceCreateLock during critical filesystem operations
 - Supports IF EXISTS syntax through missing_ok parameter
+
+## Simplified Source
+
+```c
+void DropTableSpace(DropTableSpaceStmt *stmt) {
+    char *tablespacename = stmt->tablespacename;
+    Relation rel;
+    HeapTuple tuple;
+    Oid tablespaceoid;
+
+    // Find the tablespace in catalog
+    rel = table_open(TableSpaceRelationId, RowExclusiveLock);
+    ScanKeyInit(&entry[0], Anum_pg_tablespace_spcname,
+                BTEqualStrategyNumber, F_NAMEEQ,
+                CStringGetDatum(tablespacename));
+    scandesc = table_beginscan_catalog(rel, 1, entry);
+    tuple = heap_getnext(scandesc, ForwardScanDirection);
+
+    // Handle tablespace not found
+    if (!HeapTupleIsValid(tuple)) {
+        if (!stmt->missing_ok) {
+            ereport(ERROR, "tablespace does not exist");
+        } else {
+            ereport(NOTICE, "tablespace does not exist, skipping");
+            // cleanup and return
+        }
+        return;
+    }
+
+    // Get tablespace OID and validate ownership
+    spcform = (Form_pg_tablespace) GETSTRUCT(tuple);
+    tablespaceoid = spcform->oid;
+
+    if (!object_ownercheck(TableSpaceRelationId, tablespaceoid, GetUserId())) {
+        aclcheck_error(ACLCHECK_NOT_OWNER, OBJECT_TABLESPACE, tablespacename);
+    }
+
+    // Prevent dropping system tablespaces
+    if (IsPinnedObject(TableSpaceRelationId, tablespaceoid)) {
+        aclcheck_error(ACLCHECK_NO_PRIV, OBJECT_TABLESPACE, tablespacename);
+    }
+
+    // Check for dependent objects
+    if (checkSharedDependencies(TableSpaceRelationId, tablespaceoid, &detail, &detail_log)) {
+        ereport(ERROR, "tablespace cannot be dropped because some objects depend on it");
+    }
+
+    // Invoke drop hooks
+    InvokeObjectDropHook(TableSpaceRelationId, tablespaceoid, 0);
+
+    // Remove from catalog
+    CatalogTupleDelete(rel, &tuple->t_self);
+    table_endscan(scandesc);
+
+    // Clean up metadata
+    DeleteSharedComments(tablespaceoid, TableSpaceRelationId);
+    DeleteSharedSecurityLabel(tablespaceoid, TableSpaceRelationId);
+    deleteSharedDependencyRecordsFor(TableSpaceRelationId, tablespaceoid, 0);
+
+    // Remove physical directories with retry logic
+    LWLockAcquire(TablespaceCreateLock, LW_EXCLUSIVE);
+
+    if (!destroy_tablespace_directories(tablespaceoid, false)) {
+        // Force checkpoint to clean lingering files
+        RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE | CHECKPOINT_WAIT);
+
+        // On Windows, wait for file handles to close
+        LWLockRelease(TablespaceCreateLock);
+        WaitForProcSignalBarrier(EmitProcSignalBarrier(PROCSIGNAL_BARRIER_SMGRRELEASE));
+        LWLockAcquire(TablespaceCreateLock, LW_EXCLUSIVE);
+
+        // Try again
+        if (!destroy_tablespace_directories(tablespaceoid, false)) {
+            ereport(ERROR, "tablespace is not empty");
+        }
+    }
+
+    // Log the operation to WAL
+    xl_tblspc_drop_rec xlrec;
+    xlrec.ts_id = tablespaceoid;
+    XLogBeginInsert();
+    XLogRegisterData((char *) &xlrec, sizeof(xl_tblspc_drop_rec));
+    XLogInsert(RM_TBLSPC_ID, XLOG_TBLSPC_DROP);
+
+    // Force synchronous commit for consistency
+    ForceSyncCommit();
+
+    LWLockRelease(TablespaceCreateLock);
+    table_close(rel, NoLock);
+}
+```

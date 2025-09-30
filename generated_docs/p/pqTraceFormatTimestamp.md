@@ -36,3 +36,23 @@ pqTraceFormatTimestamp is an internal utility function that generates formatted 
 - Provides microsecond precision for detailed protocol timing analysis
 - Uses safe string functions (strftime, snprintf) to prevent buffer overflows
 - Essential component of libpq's timestamped trace output functionality
+
+## Simplified Source
+
+```c
+static void pqTraceFormatTimestamp(char *timestr, size_t ts_len) {
+    struct timeval tval;
+    time_t now;
+
+    // Get current time with microsecond precision
+    gettimeofday(&tval, NULL);
+
+    // Convert to local time for formatting
+    now = tval.tv_sec;
+    strftime(timestr, ts_len, "%Y-%m-%d %H:%M:%S", localtime(&now));
+
+    // Append microseconds to the formatted timestamp
+    snprintf(timestr + strlen(timestr), ts_len - strlen(timestr),
+             ".%06u", (unsigned int)(tval.tv_usec));
+}
+```

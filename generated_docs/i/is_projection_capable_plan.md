@@ -37,3 +37,39 @@ The `is_projection_capable_plan` function evaluates whether a specific plan node
 - This function is used during plan tree manipulation to determine if projection operations can be pushed down into existing nodes
 - The restriction on ProjectSet may be relaxed in future PostgreSQL versions
 - Closely related to `is_projection_capable_path` but operates on the execution plan rather than the planning path
+
+## Simplified Source
+
+```c
+bool is_projection_capable_plan(Plan *plan) {
+    // Check plan node type - most can project, so list the exceptions
+    switch (nodeTag(plan)) {
+        // These plan types cannot perform projection
+        case T_Hash:
+        case T_Material:
+        case T_Memoize:
+        case T_Sort:
+        case T_Unique:
+        case T_SetOp:
+        case T_LockRows:
+        case T_Limit:
+        case T_ModifyTable:
+        case T_Append:
+        case T_MergeAppend:
+        case T_RecursiveUnion:
+            return false;
+
+        // CustomScan can project only if it has the projection flag
+        case T_CustomScan:
+            return (((CustomScan *) plan)->flags & CUSTOMPATH_SUPPORT_PROJECTION);
+
+        // ProjectSet is restricted to preserve SRF semantics
+        case T_ProjectSet:
+            return false;
+
+        // All other plan types can perform projection
+        default:
+            return true;
+    }
+}
+```

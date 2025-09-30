@@ -36,3 +36,33 @@ The `transformCollateClause` function processes explicit COLLATE clauses in SQL 
 - Preserves location information for accurate error reporting
 - The UNKNOWN type receives special handling as it's processed separately by coerce_type()
 - Reports clear error messages when attempting to apply collations to non-collatable data types
+
+## Simplified Source
+
+```c
+static Node *
+transformCollateClause(ParseState *pstate, CollateClause *c)
+{
+    CollateExpr *newc = makeNode(CollateExpr);
+
+    // Transform the argument expression
+    newc->arg = (Expr *) transformExprRecurse(pstate, c->arg);
+
+    // Get the argument's data type
+    Oid argtype = exprType((Node *) newc->arg);
+
+    // Check if the type supports collation (unknown type is allowed)
+    if (!type_is_collatable(argtype) && argtype != UNKNOWNOID)
+        ereport(ERROR,
+                (errcode(ERRCODE_DATATYPE_MISMATCH),
+                 errmsg("collations are not supported by type %s",
+                        format_type_be(argtype)),
+                 parser_errposition(pstate, c->location)));
+
+    // Look up the collation name and store its OID
+    newc->collOid = LookupCollation(pstate, c->collname, c->location);
+    newc->location = c->location;
+
+    return (Node *) newc;
+}
+```

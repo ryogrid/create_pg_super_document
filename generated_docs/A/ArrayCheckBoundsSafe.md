@@ -40,3 +40,24 @@ The function supports both exception-throwing mode (when escontext is NULL) and 
 - Core safety mechanism for preventing array bounds overflow vulnerabilities  
 - Provides the underlying validation logic for both soft and hard error handling scenarios
 - Essential for maintaining memory safety in PostgreSQL's array operations
+
+## Simplified Source
+
+```c
+bool ArrayCheckBoundsSafe(int ndim, const int *dims, const int *lb, struct Node *escontext) {
+    // Check each dimension for potential overflow
+    for (int i = 0; i < ndim; i++) {
+        int32 sum;
+
+        // Test if adding dimension size to lower bound would overflow
+        if (pg_add_s32_overflow(dims[i], lb[i], &sum)) {
+            // Report overflow error with soft error handling
+            ereturn(escontext, false,
+                    (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                     errmsg("array lower bound is too large: %d", lb[i])));
+        }
+    }
+
+    return true;  // All bounds are safe
+}
+```

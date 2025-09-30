@@ -44,3 +44,44 @@ The function initializes all the hash-specific fields including hash clauses, op
 - [Hash](../H/Hash.md) joins require equality conditions in the join clauses to work effectively
 - The hash-specific parameters (hashclauses, hashoperators, etc.) are crucial for the hash table construction and probing phases
 - Memory usage for the hash table is a key consideration - if it doesn't fit in work_mem, PostgreSQL may spill to disk or choose a different join algorithm
+
+## Simplified Source
+
+```c
+static HashJoin *
+make_hashjoin(List *tlist,
+              List *joinclauses,
+              List *otherclauses,
+              List *hashclauses,
+              List *hashoperators,
+              List *hashcollations,
+              List *hashkeys,
+              Plan *lefttree,
+              Plan *righttree,
+              JoinType jointype,
+              bool inner_unique)
+{
+    // Create a new HashJoin plan node
+    HashJoin *node = makeNode(HashJoin);
+    Plan *plan = &node->join.plan;
+
+    // Set basic plan properties
+    plan->targetlist = tlist;
+    plan->qual = otherclauses;
+    plan->lefttree = lefttree;
+    plan->righttree = righttree;
+
+    // Set hash-specific properties
+    node->hashclauses = hashclauses;
+    node->hashoperators = hashoperators;
+    node->hashcollations = hashcollations;
+    node->hashkeys = hashkeys;
+
+    // Set join properties
+    node->join.jointype = jointype;
+    node->join.inner_unique = inner_unique;
+    node->join.joinqual = joinclauses;
+
+    return node;
+}
+```

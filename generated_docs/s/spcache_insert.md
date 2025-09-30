@@ -21,7 +21,7 @@ This function implements a lookup-or-insert operation for PostgreSQL's search pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md) (cache entry structure type)
-  - [SearchPathCacheKey](../S/SearchPathCacheKey.md) (key structure for hash table operations)  
+  - [SearchPathCacheKey](../S/SearchPathCacheKey.md) (key structure for hash table operations)
   - nsphash_lookup (hash table lookup function)
   - nsphash_insert (hash table insertion function)
   - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (creates persistent string copy in cache context)
@@ -39,3 +39,44 @@ This function implements a lookup-or-insert operation for PostgreSQL's search pa
 - Handles memory allocation safely to prevent OOM issues from creating invalid cache entries
 - Does not touch the entry->status field as it's managed by the simplehash implementation
 - Returns a valid SearchPathCacheEntry pointer in all successful cases, never NULL
+
+## Simplified Source
+
+```c
+static SearchPathCacheEntry *spcache_insert(const char *searchPath, Oid roleid) {
+    // Check last used entry for quick access optimization
+    if (LastSearchPathCacheEntry &&
+        LastSearchPathCacheEntry->key.roleid == roleid &&
+        strcmp(LastSearchPathCacheEntry->key.searchPath, searchPath) == 0) {
+        return LastSearchPathCacheEntry;
+    }
+
+    // Setup key for lookup
+    SearchPathCacheKey cachekey = {
+        .searchPath = searchPath,
+        .roleid = roleid
+    };
+
+    // Try to find existing entry
+    SearchPathCacheEntry *entry = nsphash_lookup(SearchPathCache, cachekey);
+
+    if (!entry) {
+        // Create new entry with persistent string copy
+        bool found;
+        cachekey.searchPath = MemoryContextStrdup(SearchPathCacheContext, searchPath);
+        entry = nsphash_insert(SearchPathCache, cachekey, &found);
+        Assert(!found);
+
+        // Initialize new entry with safe defaults
+        entry->oidlist = NIL;
+        entry->finalPath = NIL;
+        entry->firstNS = InvalidOid;
+        entry->temp_missing = false;
+        entry->forceRecompute = false;
+    }
+
+    // Update optimization cache and return
+    LastSearchPathCacheEntry = entry;
+    return entry;
+}
+```

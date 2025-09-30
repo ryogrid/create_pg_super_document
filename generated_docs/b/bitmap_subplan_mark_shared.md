@@ -36,3 +36,27 @@ This function recursively traverses bitmap scan plan trees and sets the 'isshare
 - Includes error handling for unexpected node types to ensure robust operation
 - Critical for enabling parallel bitmap heap scans where shared bitmaps are required
 - The isshared flag affects memory allocation strategy during plan execution
+
+## Simplified Source
+
+```c
+static void bitmap_subplan_mark_shared(Plan *plan) {
+    // Handle BitmapAnd: recursively process first child
+    if (IsA(plan, BitmapAnd)) {
+        bitmap_subplan_mark_shared(linitial(((BitmapAnd *) plan)->bitmapplans));
+    }
+    // Handle BitmapOr: mark as shared and process first child
+    else if (IsA(plan, BitmapOr)) {
+        ((BitmapOr *) plan)->isshared = true;
+        bitmap_subplan_mark_shared(linitial(((BitmapOr *) plan)->bitmapplans));
+    }
+    // Handle BitmapIndexScan: mark as shared
+    else if (IsA(plan, BitmapIndexScan)) {
+        ((BitmapIndexScan *) plan)->isshared = true;
+    }
+    // Error for unexpected node types
+    else {
+        elog(ERROR, "unrecognized node type: %d", nodeTag(plan));
+    }
+}
+```

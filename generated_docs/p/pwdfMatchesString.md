@@ -37,3 +37,54 @@ The parsing continues character by character, tracking escape sequences to ensur
 - The function is specifically designed for parsing PostgreSQL .pgpass file format
 - Used extensively by passwordFromFile function to match hostname, port, database, and username fields
 - The bslash flag tracks whether the current character is being escaped to prevent treating escaped colons as field separators
+
+## Simplified Source
+
+```c
+static char *pwdfMatchesString(char *buf, const char *token) {
+    char *tbuf;
+    const char *ttok;
+    bool bslash = false;
+
+    // Handle null inputs
+    if (buf == NULL || token == NULL)
+        return NULL;
+
+    // Handle wildcard case - '*:' matches anything
+    if (buf[0] == '*' && buf[1] == ':')
+        return buf + 2;
+
+    tbuf = buf;
+    ttok = token;
+
+    // Match character by character
+    while (*tbuf != 0) {
+        // Handle escape sequences
+        if (*tbuf == '\\' && !bslash) {
+            tbuf++;
+            bslash = true;
+            continue;
+        }
+
+        // Check for successful match at field boundary
+        if (*tbuf == ':' && *ttok == 0 && !bslash)
+            return tbuf + 1;
+
+        bslash = false;
+
+        // Fail if token is exhausted but buffer continues
+        if (*ttok == 0)
+            return NULL;
+
+        // Compare characters
+        if (*tbuf == *ttok) {
+            tbuf++;
+            ttok++;
+        } else {
+            return NULL;
+        }
+    }
+
+    return NULL;
+}
+```

@@ -28,7 +28,7 @@ The function is conservative in its approach - it only approves subqueries that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetOperationStmt](../S/SetOperationStmt.md)
-  - CMD_SELECT  
+  - CMD_SELECT
   - [is_simple_union_all_recurse](is_simple_union_all_recurse.md)
 - Called from:
   - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md)
@@ -40,3 +40,31 @@ The function is conservative in its approach - it only approves subqueries that 
 - The actual recursive validation of the set operation tree is delegated to is_simple_union_all_recurse
 - This function is part of the subquery pullup optimization infrastructure
 - Located in src/backend/optimizer/prep/prepjointree.c:2072-2099
+
+## Simplified Source
+
+```c
+static bool
+is_simple_union_all(Query *subquery)
+{
+    SetOperationStmt *topop;
+
+    // Basic validity check
+    if (!IsA(subquery, Query) || subquery->commandType != CMD_SELECT)
+        return false;
+
+    // Must have set operations
+    topop = castNode(SetOperationStmt, subquery->setOperations);
+    if (!topop)
+        return false;
+
+    // Reject complicating clauses
+    if (subquery->sortClause || subquery->limitOffset ||
+        subquery->limitCount || subquery->rowMarks ||
+        subquery->cteList)
+        return false;
+
+    // Recursively validate the set operation tree
+    return is_simple_union_all_recurse((Node *) topop, subquery, topop->colTypes);
+}
+```

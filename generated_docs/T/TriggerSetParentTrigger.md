@@ -45,3 +45,64 @@ TriggerSetParentTrigger manages the parent-child relationship between triggers i
 - Validates that a trigger doesn't already have a parent before setting one
 - Can reverse the operation by passing InvalidOid as parentTrigId to remove linkage
 - Part of PostgreSQL's partitioned table trigger inheritance system
+
+## Simplified Source
+
+```c
+void TriggerSetParentTrigger(Relation trigRel,
+                            Oid childTrigId,
+                            Oid parentTrigId,
+                            Oid childTableId) {
+    SysScanDesc tgscan;
+    ScanKeyData skey[1];
+    Form_pg_trigger trigForm;
+    HeapTuple tuple, newtup;
+    ObjectAddress depender, referenced;
+
+    // Find the child trigger record
+    ScanKeyInit(&skey[0], Anum_pg_trigger_oid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(childTrigId));
+
+    tgscan = systable_beginscan(trigRel, TriggerOidIndexId, true, NULL, 1, skey);
+    tuple = systable_getnext(tgscan);
+
+    if (!HeapTupleIsValid(tuple)) {
+        elog(ERROR, "could not find tuple for trigger %u", childTrigId);
+    }
+
+    newtup = heap_copytuple(tuple);
+    trigForm = (Form_pg_trigger) GETSTRUCT(newtup);
+
+    if (OidIsValid(parentTrigId)) {
+        // Setting parent relationship
+        if (OidIsValid(trigForm->tgparentid)) {
+            elog(ERROR, "trigger %u already has a parent trigger", childTrigId);
+        }
+
+        // Update the parent ID
+        trigForm->tgparentid = parentTrigId;
+        CatalogTupleUpdate(trigRel, &tuple->t_self, newtup);
+
+        // Create partition dependencies
+        ObjectAddressSet(depender, TriggerRelationId, childTrigId);
+        ObjectAddressSet(referenced, TriggerRelationId, parentTrigId);
+        recordDependencyOn(&depender, &referenced, DEPENDENCY_PARTITION_PRI);
+
+        ObjectAddressSet(referenced, RelationRelationId, childTableId);
+        recordDependencyOn(&depender, &referenced, DEPENDENCY_PARTITION_SEC);
+    } else {
+        // Removing parent relationship
+        trigForm->tgparentid = InvalidOid;
+        CatalogTupleUpdate(trigRel, &tuple->t_self, newtup);
+
+        // Remove partition dependencies
+        deleteDependencyRecordsForClass(TriggerRelationId, childTrigId,
+                                       TriggerRelationId, DEPENDENCY_PARTITION_PRI);
+        deleteDependencyRecordsForClass(TriggerRelationId, childTrigId,
+                                       RelationRelationId, DEPENDENCY_PARTITION_SEC);
+    }
+
+    heap_freetuple(newtup);
+    systable_endscan(tgscan);
+}
+```

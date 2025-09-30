@@ -49,3 +49,99 @@ The function operates in two phases:
 - For RowExprs, cleans up the temporary storage when processing the last column
 - The function is static, indicating it's only used within the parse_expr.c module
 - Error handling includes syntax errors for column count mismatches and unsupported source types
+
+## Simplified Source
+
+```c
+static Node *transformMultiAssignRef(ParseState *pstate, MultiAssignRef *maref) {
+    // Ensure we're in UPDATE context
+    Assert(pstate->p_expr_kind == EXPR_KIND_UPDATE_SOURCE);
+
+    TargetEntry *tle;
+
+    // First column: transform the source expression
+    if (maref->colno == 1) {
+        if (IsA(maref->source, SubLink) &&
+            ((SubLink *) maref->source)->subLinkType == EXPR_SUBLINK) {
+
+            // Handle subquery source
+            SubLink *sublink = (SubLink *) maref->source;
+            sublink->subLinkType = MULTIEXPR_SUBLINK;
+            sublink = (SubLink *) transformExprRecurse(pstate, (Node *) sublink);
+
+            Query *qtree = castNode(Query, sublink->subselect);
+
+            // Validate column count
+            if (count_nonjunk_tlist_entries(qtree->targetList) != maref->ncolumns) {
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                               errmsg("number of columns does not match number of values"),
+                               parser_errposition(pstate, sublink->location)));
+            }
+
+            // Store in multiassign list and assign unique ID
+            tle = makeTargetEntry((Expr *) sublink, 0, NULL, true);
+            pstate->p_multiassign_exprs = lappend(pstate->p_multiassign_exprs, tle);
+            sublink->subLinkId = list_length(pstate->p_multiassign_exprs);
+
+        } else if (IsA(maref->source, RowExpr)) {
+            // Handle row expression source
+            RowExpr *rexpr = (RowExpr *) transformRowExpr(pstate,
+                                                         (RowExpr *) maref->source, true);
+
+            // Validate column count
+            if (list_length(rexpr->args) != maref->ncolumns) {
+                ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                               errmsg("number of columns does not match number of values"),
+                               parser_errposition(pstate, rexpr->location)));
+            }
+
+            // Store temporarily in multiassign list
+            tle = makeTargetEntry((Expr *) rexpr, 0, NULL, true);
+            pstate->p_multiassign_exprs = lappend(pstate->p_multiassign_exprs, tle);
+
+        } else {
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                           errmsg("source for a multiple-column UPDATE item must be a sub-SELECT or ROW() expression"),
+                           parser_errposition(pstate, exprLocation(maref->source))));
+        }
+    } else {
+        // Subsequent columns: retrieve from stored expression
+        Assert(pstate->p_multiassign_exprs != NIL);
+        tle = (TargetEntry *) llast(pstate->p_multiassign_exprs);
+    }
+
+    // Generate appropriate output expression
+    if (IsA(tle->expr, SubLink)) {
+        // Create parameter for subquery column
+        SubLink *sublink = (SubLink *) tle->expr;
+        Query *qtree = castNode(Query, sublink->subselect);
+        TargetEntry *target_tle = (TargetEntry *) list_nth(qtree->targetList, maref->colno - 1);
+
+        Param *param = makeNode(Param);
+        param->paramkind = PARAM_MULTIEXPR;
+        param->paramid = (sublink->subLinkId << 16) | maref->colno;
+        param->paramtype = exprType((Node *) target_tle->expr);
+        param->paramtypmod = exprTypmod((Node *) target_tle->expr);
+        param->paramcollid = exprCollation((Node *) target_tle->expr);
+        param->location = exprLocation((Node *) target_tle->expr);
+
+        return (Node *) param;
+    }
+
+    if (IsA(tle->expr, RowExpr)) {
+        // Extract element from row expression
+        RowExpr *rexpr = (RowExpr *) tle->expr;
+        Node *result = (Node *) list_nth(rexpr->args, maref->colno - 1);
+
+        // Clean up on last column
+        if (maref->colno == maref->ncolumns) {
+            pstate->p_multiassign_exprs = list_delete_last(pstate->p_multiassign_exprs);
+        }
+
+        return result;
+    }
+
+    elog(ERROR, "unexpected expr type in multiassign list");
+    return NULL;
+}
+```

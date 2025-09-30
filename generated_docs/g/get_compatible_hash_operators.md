@@ -44,3 +44,78 @@ If the input operator is already single-type (left and right types are the same)
 - Handles both single-type and cross-type operators appropriately
 - If multiple hash operator families contain the operator, uses the first valid match found
 - Essential for hash join planning and subplan execution where hash compatibility is required
+
+## Simplified Source
+
+```c
+bool
+get_compatible_hash_operators(Oid opno, Oid *lhs_opno, Oid *rhs_opno)
+{
+    bool result = false;
+    CatCList *catlist;
+
+    // Initialize output parameters
+    if (lhs_opno)
+        *lhs_opno = InvalidOid;
+    if (rhs_opno)
+        *rhs_opno = InvalidOid;
+
+    // Search for operator in hash operator families
+    catlist = SearchSysCacheList1(AMOPOPID, ObjectIdGetDatum(opno));
+
+    for (int i = 0; i < catlist->n_members; i++)
+    {
+        HeapTuple tuple = &catlist->members[i]->tuple;
+        Form_pg_amop aform = (Form_pg_amop) GETSTRUCT(tuple);
+
+        // Check if this is a hash equality operator
+        if (aform->amopmethod == HASH_AM_OID &&
+            aform->amopstrategy == HTEqualStrategyNumber)
+        {
+            // Handle single-type operator case
+            if (aform->amoplefttype == aform->amoprighttype)
+            {
+                if (lhs_opno)
+                    *lhs_opno = opno;
+                if (rhs_opno)
+                    *rhs_opno = opno;
+                result = true;
+                break;
+            }
+
+            // Handle cross-type operator case
+            // Find matching single-type operators for each side
+            if (lhs_opno)
+            {
+                *lhs_opno = get_opfamily_member(aform->amopfamily,
+                                                aform->amoplefttype,
+                                                aform->amoplefttype,
+                                                HTEqualStrategyNumber);
+                if (!OidIsValid(*lhs_opno))
+                    continue;
+            }
+
+            if (rhs_opno)
+            {
+                *rhs_opno = get_opfamily_member(aform->amopfamily,
+                                                aform->amoprighttype,
+                                                aform->amoprighttype,
+                                                HTEqualStrategyNumber);
+                if (!OidIsValid(*rhs_opno))
+                {
+                    // Reset LHS if RHS lookup failed
+                    if (lhs_opno)
+                        *lhs_opno = InvalidOid;
+                    continue;
+                }
+            }
+
+            result = true;
+            break;
+        }
+    }
+
+    ReleaseSysCacheList(catlist);
+    return result;
+}
+```

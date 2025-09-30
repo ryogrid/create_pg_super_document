@@ -50,3 +50,102 @@ DoCopyTo performs the core execution of COPY TO operations by coordinating data 
 
 ## Notes and Other Information
 The function handles two distinct data sources: direct table scans for relation-based copies and query execution for complex queries. It manages memory efficiently by creating a temporary row context that gets reset for each row, preventing accumulation of memory during large copy operations. The function supports both binary and text formats, with binary format requiring special signatures and trailers. Progress reporting is integrated throughout the process to provide feedback on large operations. The function returns the total number of processed rows for reporting purposes.
+
+## Simplified Source
+
+```c
+uint64 DoCopyTo(CopyToState cstate) {
+    bool pipe = (cstate->filename == NULL && cstate->data_dest_cb == NULL);
+    bool fe_copy = (pipe && whereToSendOutput == DestRemote);
+    TupleDesc tupDesc;
+    uint64 processed;
+
+    // Start frontend copy protocol if needed
+    if (fe_copy) {
+        SendCopyBegin(cstate);
+    }
+
+    // Get tuple descriptor from relation or query
+    if (cstate->rel) {
+        tupDesc = RelationGetDescr(cstate->rel);
+    } else {
+        tupDesc = cstate->queryDesc->tupDesc;
+    }
+
+    // Set up output buffer and functions
+    cstate->fe_msgbuf = makeStringInfo();
+    setup_output_functions(cstate, tupDesc);
+
+    // Create temporary memory context for row processing
+    cstate->rowcontext = AllocSetContextCreate(CurrentMemoryContext,
+                                               "COPY TO", ALLOCSET_DEFAULT_SIZES);
+
+    // Handle binary or text format headers
+    if (cstate->opts.binary) {
+        // Send binary format signature and headers
+        CopySendData(cstate, BinarySignature, 11);
+        CopySendInt32(cstate, 0); // flags
+        CopySendInt32(cstate, 0); // header extension
+    } else {
+        // Handle encoding conversion for text format
+        if (cstate->need_transcoding) {
+            cstate->opts.null_print_client = pg_server_to_any(
+                cstate->opts.null_print, cstate->opts.null_print_len,
+                cstate->file_encoding);
+        }
+
+        // Send CSV header line if requested
+        if (cstate->opts.header_line) {
+            send_csv_header(cstate, tupDesc);
+        }
+    }
+
+    // Process data based on source type
+    if (cstate->rel) {
+        // Direct table scan
+        TableScanDesc scandesc;
+        TupleTableSlot *slot;
+
+        scandesc = table_beginscan(cstate->rel, GetActiveSnapshot(), 0, NULL);
+        slot = table_slot_create(cstate->rel, NULL);
+
+        processed = 0;
+        while (table_scan_getnextslot(scandesc, ForwardScanDirection, slot)) {
+            CHECK_FOR_INTERRUPTS();
+
+            // Get all attribute values from the slot
+            slot_getallattrs(slot);
+
+            // Format and send the row data
+            CopyOneRowTo(cstate, slot);
+
+            // Update progress reporting
+            pgstat_progress_update_param(PROGRESS_COPY_TUPLES_PROCESSED, ++processed);
+        }
+
+        // Cleanup table scan
+        ExecDropSingleTupleTableSlot(slot);
+        table_endscan(scandesc);
+    } else {
+        // Query execution - let the dest receiver handle tuples
+        ExecutorRun(cstate->queryDesc, ForwardScanDirection, 0, true);
+        processed = ((DR_copy *) cstate->queryDesc->dest)->processed;
+    }
+
+    // Send binary format trailer if needed
+    if (cstate->opts.binary) {
+        CopySendInt16(cstate, -1);  // end marker
+        CopySendEndOfRow(cstate);   // flush trailer
+    }
+
+    // Cleanup memory context
+    MemoryContextDelete(cstate->rowcontext);
+
+    // End frontend copy protocol if needed
+    if (fe_copy) {
+        SendCopyEnd(cstate);
+    }
+
+    return processed;
+}
+```

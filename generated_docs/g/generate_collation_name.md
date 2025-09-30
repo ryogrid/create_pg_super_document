@@ -41,3 +41,41 @@ The function returns a newly allocated string containing the appropriately forma
 - Essential for proper collation specification in decompiled expressions and definitions
 - Part of the rule decompilation system used for displaying stored database objects
 - Public function (not static) indicating broader usage across the codebase
+
+## Simplified Source
+
+```c
+char *generate_collation_name(Oid collid) {
+    HeapTuple tp;
+    Form_pg_collation colltup;
+    char *collname;
+    char *nspname;
+    char *result;
+
+    // Look up collation information in system cache
+    tp = SearchSysCache1(COLLOID, ObjectIdGetDatum(collid));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for collation %u", collid);
+
+    // Extract collation name from tuple
+    colltup = (Form_pg_collation) GETSTRUCT(tp);
+    collname = NameStr(colltup->collname);
+
+    // Determine if schema qualification is needed
+    if (!CollationIsVisible(collid)) {
+        // Not visible in search path - need schema qualification
+        nspname = get_namespace_name_or_temp(colltup->collnamespace);
+    } else {
+        // Visible in search path - no schema needed
+        nspname = NULL;
+    }
+
+    // Create properly quoted and qualified name
+    result = quote_qualified_identifier(nspname, collname);
+
+    // Clean up cache reference
+    ReleaseSysCache(tp);
+
+    return result;
+}
+```

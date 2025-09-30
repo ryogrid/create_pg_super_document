@@ -51,3 +51,26 @@ The caller must pre-initialize the SortSupport structure by zeroing it and setti
 - Provides a user-friendly interface for setting up sorts based on SQL operators
 - Automatically handles the complexity of mapping operators to operator families and comparison functions
 - Essential for operations like ORDER BY clauses, merge joins, and various sorting algorithms throughout PostgreSQL
+
+## Simplified Source
+
+```c
+void PrepareSortSupportFromOrderingOp(Oid orderingOp, SortSupport ssup) {
+    Oid opfamily;
+    Oid opcintype;
+    int16 strategy;
+
+    // Validate that comparator hasn't been set yet
+    Assert(ssup->comparator == NULL);
+
+    // Look up operator properties in pg_amop catalog
+    if (!get_ordering_op_properties(orderingOp, &opfamily, &opcintype, &strategy))
+        elog(ERROR, "operator %u is not a valid ordering operator", orderingOp);
+
+    // Set sort direction based on operator strategy
+    ssup->ssup_reverse = (strategy == BTGreaterStrategyNumber);
+
+    // Configure the comparison function
+    FinishSortSupportFunction(opfamily, opcintype, ssup);
+}
+```

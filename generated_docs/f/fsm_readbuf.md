@@ -53,3 +53,44 @@ The function employs a careful locking strategy for page initialization to avoid
 - Implements double-checked locking pattern for page initialization to handle concurrency
 - The function may return a buffer while another backend is still initializing it, which is safe for callers that will take their own buffer locks
 - Cache invalidation is handled carefully to balance performance with correctness
+
+## Simplified Source
+
+```c
+static Buffer fsm_readbuf(Relation rel, FSMAddress addr, bool extend) {
+    BlockNumber blkno = fsm_logical_to_physical(addr);
+    Buffer buf;
+    SMgrRelation reln = RelationGetSmgr(rel);
+
+    // Check and update cached FSM size if needed
+    if (reln->smgr_cached_nblocks[FSM_FORKNUM] == InvalidBlockNumber ||
+        blkno >= reln->smgr_cached_nblocks[FSM_FORKNUM]) {
+
+        reln->smgr_cached_nblocks[FSM_FORKNUM] = InvalidBlockNumber;
+        if (smgrexists(reln, FSM_FORKNUM))
+            smgrnblocks(reln, FSM_FORKNUM);
+        else
+            reln->smgr_cached_nblocks[FSM_FORKNUM] = 0;
+    }
+
+    // Read or extend the page as needed
+    if (blkno >= reln->smgr_cached_nblocks[FSM_FORKNUM]) {
+        if (extend)
+            buf = fsm_extend(rel, blkno + 1);
+        else
+            return InvalidBuffer;
+    } else {
+        buf = ReadBufferExtended(rel, FSM_FORKNUM, blkno, RBM_ZERO_ON_ERROR, NULL);
+    }
+
+    // Initialize page if new (with concurrency protection)
+    if (PageIsNew(BufferGetPage(buf))) {
+        LockBuffer(buf, BUFFER_LOCK_EXCLUSIVE);
+        if (PageIsNew(BufferGetPage(buf)))  // Double-check after locking
+            PageInit(BufferGetPage(buf), BLCKSZ, 0);
+        LockBuffer(buf, BUFFER_LOCK_UNLOCK);
+    }
+
+    return buf;
+}
+```

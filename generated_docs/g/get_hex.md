@@ -37,3 +37,21 @@ The function is declared as `static inline` for optimal performance since it's c
 - The function is inlined for performance as it's called in tight loops during decoding
 - Part of PostgreSQL's core hex decoding infrastructure
 - Used extensively by both backend and interface library code
+
+## Simplified Source
+
+```c
+static inline bool get_hex(const char *cp, char *out) {
+    unsigned char c = (unsigned char) *cp;
+    int res = -1;
+
+    // Check if character is in ASCII range before lookup
+    if (c < 127)
+        res = hexlookup[c];  // Use lookup table for conversion
+
+    *out = (char) res;
+
+    // Return true if valid hex digit (res >= 0), false otherwise
+    return (res >= 0);
+}
+```

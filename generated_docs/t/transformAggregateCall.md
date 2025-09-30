@@ -41,3 +41,82 @@ For ordered-set aggregates (like percentile functions), it splits the argument l
 - For ordered-set aggregates, direct arguments are stored separately from aggregated arguments
 - The function modifies p_next_resno during ORDER BY processing to properly number new target list entries
 - Resjunk entries added by ORDER BY/DISTINCT processing are ignored when building the final argument type list
+
+## Simplified Source
+
+```c
+void transformAggregateCall(ParseState *pstate, Aggref *agg,
+                           List *args, List *aggorder, bool agg_distinct) {
+    List *argtypes = NIL;
+    List *tlist = NIL;
+    List *torder = NIL;
+    List *tdistinct = NIL;
+    AttrNumber attno = 1;
+
+    if (AGGKIND_IS_ORDERED_SET(agg->aggkind)) {
+        // Ordered-set aggregate: split direct args from aggregated args
+        int numDirectArgs = list_length(args) - list_length(aggorder);
+        List *aargs = list_copy_tail(args, numDirectArgs);
+        agg->aggdirectargs = list_truncate(args, numDirectArgs);
+
+        // Build target list and sort list from aggregated args
+        ListCell *lc, *lc2;
+        forboth(lc, aargs, lc2, aggorder) {
+            Expr *arg = (Expr *) lfirst(lc);
+            SortBy *sortby = (SortBy *) lfirst(lc2);
+
+            TargetEntry *tle = makeTargetEntry(arg, attno++, NULL, false);
+            tlist = lappend(tlist, tle);
+            torder = addTargetToSortList(pstate, tle, torder, tlist, sortby);
+        }
+    } else {
+        // Regular aggregate: no direct args
+        agg->aggdirectargs = NIL;
+
+        // Convert all args to target list entries
+        foreach(lc, args) {
+            Expr *arg = (Expr *) lfirst(lc);
+            TargetEntry *tle = makeTargetEntry(arg, attno++, NULL, false);
+            tlist = lappend(tlist, tle);
+        }
+
+        // Handle ORDER BY clause
+        if (aggorder) {
+            torder = transformSortClause(pstate, aggorder, &tlist,
+                                        EXPR_KIND_ORDER_BY, true);
+        }
+
+        // Handle DISTINCT clause
+        if (agg_distinct) {
+            tdistinct = transformDistinctClause(pstate, &tlist, torder, true);
+
+            // Validate that all DISTINCT args are sortable
+            foreach(lc, tdistinct) {
+                SortGroupClause *sortcl = (SortGroupClause *) lfirst(lc);
+                if (!OidIsValid(sortcl->sortop)) {
+                    ereport(ERROR, "DISTINCT aggregate args must be sortable");
+                }
+            }
+        }
+    }
+
+    // Update the Aggref with results
+    agg->args = tlist;
+    agg->aggorder = torder;
+    agg->aggdistinct = tdistinct;
+
+    // Build argument types list (excluding resjunk entries)
+    foreach(lc, agg->aggdirectargs) {
+        argtypes = lappend_oid(argtypes, exprType((Node *) lfirst(lc)));
+    }
+    foreach(lc, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+        if (!tle->resjunk) {
+            argtypes = lappend_oid(argtypes, exprType((Node *) tle->expr));
+        }
+    }
+    agg->aggargtypes = argtypes;
+
+    check_agglevels_and_constraints(pstate, (Node *) agg);
+}
+```

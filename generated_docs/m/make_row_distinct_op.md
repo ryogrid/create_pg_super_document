@@ -40,3 +40,46 @@ The `make_row_distinct_op` function handles row-level DISTINCT FROM operations b
 - Uses `make_distinct_op` for individual element comparisons to leverage existing DISTINCT semantics
 - Builds the result incrementally by chaining OR expressions for each pairwise comparison
 - The function implements the SQL standard semantics where row DISTINCT considers NULL values properly
+
+## Simplified Source
+
+```c
+static Node *
+make_row_distinct_op(ParseState *pstate, List *opname,
+                     RowExpr *lrow, RowExpr *rrow, int location)
+{
+    Node *result = NULL;
+    List *largs = lrow->args;
+    List *rargs = rrow->args;
+    ListCell *l, *r;
+
+    // Validate equal number of elements
+    if (list_length(largs) != list_length(rargs))
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("unequal number of entries in row expressions"),
+                       parser_errposition(pstate, location)));
+
+    // Compare each pair of elements with DISTINCT
+    forboth(l, largs, r, rargs)
+    {
+        Node *larg = (Node *) lfirst(l);
+        Node *rarg = (Node *) lfirst(r);
+        Node *cmp;
+
+        // Create DISTINCT comparison for this pair
+        cmp = (Node *) make_distinct_op(pstate, opname, larg, rarg, location);
+
+        // Chain with OR: any distinct pair makes the whole row distinct
+        if (result == NULL)
+            result = cmp;
+        else
+            result = (Node *) makeBoolExpr(OR_EXPR, list_make2(result, cmp), location);
+    }
+
+    // Handle zero-length rows (should return FALSE)
+    if (result == NULL)
+        result = makeBoolConst(false, false);
+
+    return result;
+}
+```

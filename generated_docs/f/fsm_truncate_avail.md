@@ -39,3 +39,30 @@ The function is part of PostgreSQL's Free Space Map implementation, which tracks
 - After clearing leaf nodes, the function always calls  if any changes were made to ensure the FSM tree structure remains consistent
 - This function is critical for maintaining FSM integrity during VACUUM and relation truncation operations
 - The clearing operation works on the fp_nodes array, starting from the leaf nodes section (NonLeafNodesPerPage + nslots)
+
+## Simplified Source
+
+```c
+bool fsm_truncate_avail(Page page, int nslots)
+{
+    FSMPage fsmpage = (FSMPage) PageGetContents(page);
+    uint8 *ptr;
+    bool changed = false;
+
+    Assert(nslots >= 0 && nslots < LeafNodesPerPage);
+
+    // Clear all leaf nodes from nslots onwards
+    ptr = &fsmpage->fp_nodes[NonLeafNodesPerPage + nslots];
+    for (; ptr < &fsmpage->fp_nodes[NodesPerPage]; ptr++) {
+        if (*ptr != 0)
+            changed = true;
+        *ptr = 0;
+    }
+
+    // Rebuild upper levels if anything changed
+    if (changed)
+        fsm_rebuild_page(page);
+
+    return changed;
+}
+```

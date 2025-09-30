@@ -42,3 +42,29 @@ The makeVar function is a fundamental constructor utility that creates Var nodes
 - Sets location to -1 (unknown) by default - callers should update if source location is available
 - Widely used throughout the parser, optimizer, and rewriter for creating column references
 - Part of the core expression node construction utilities in makefuncs.c
+
+## Simplified Source
+
+```c
+Var *makeVar(int varno, AttrNumber varattno, Oid vartype, int32 vartypmod,
+             Oid varcollid, Index varlevelsup) {
+    // Create new Var node
+    Var *var = makeNode(Var);
+
+    // Set core variable identification fields
+    var->varno = varno;
+    var->varattno = varattno;
+    var->vartype = vartype;
+    var->vartypmod = vartypmod;
+    var->varcollid = varcollid;
+    var->varlevelsup = varlevelsup;
+
+    // Initialize advanced fields to defaults (can be modified later)
+    var->varnullingrels = NULL;
+    var->varnosyn = (Index) varno;      // Syntactic form matches semantic form
+    var->varattnosyn = varattno;
+    var->location = -1;                 // Unknown source location
+
+    return var;
+}
+```

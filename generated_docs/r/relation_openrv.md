@@ -48,3 +48,24 @@ This function is the standard interface when relation names are available rather
 - Lock acquisition happens during namespace resolution rather than in the final relation_open call
 - This is the preferred interface for SQL commands that work with relation names rather than OIDs
 - The design allows for proper namespace resolution while reusing all the core relation opening logic
+
+## Simplified Source
+
+```c
+Relation
+relation_openrv(const RangeVar *relation, LOCKMODE lockmode)
+{
+    Oid relOid;
+
+    // Process cache invalidation messages if locking
+    // Ensures we see current ACL information for GRANT/REVOKE
+    if (lockmode != NoLock)
+        AcceptInvalidationMessages();
+
+    // Resolve relation name to OID and acquire lock
+    relOid = RangeVarGetRelid(relation, lockmode, false);
+
+    // Open the relation (lock already acquired above)
+    return relation_open(relOid, NoLock);
+}
+```

@@ -44,3 +44,32 @@ The function initializes all necessary fields of the Gather node, including the 
 - Initializes  to false and  to NULL for proper node state
 - The  is particularly important for handling parameterized nested loop joins in parallel contexts
 - The  parameter is crucial for handling parallel-unsafe operations that should only be executed once across all workers
+
+## Simplified Source
+
+```c
+static Gather *
+make_gather(List *qptlist, List *qpqual, int nworkers,
+            int rescan_param, bool single_copy, Plan *subplan)
+{
+    Gather *node = makeNode(Gather);
+    Plan *plan = &node->plan;
+
+    // Initialize the base plan structure
+    plan->targetlist = qptlist;
+    plan->qual = qpqual;
+    plan->lefttree = subplan;
+    plan->righttree = NULL;
+
+    // Set parallel execution parameters
+    node->num_workers = nworkers;
+    node->rescan_param = rescan_param;
+    node->single_copy = single_copy;
+
+    // Initialize additional Gather-specific fields
+    node->invisible = false;
+    node->initParam = NULL;
+
+    return node;
+}
+```

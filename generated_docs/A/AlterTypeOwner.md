@@ -54,3 +54,70 @@ The function implements a complete permission model where the current user must 
 - Uses RowExclusiveLock on TypeRelationId to prevent concurrent modifications
 - Provides comprehensive error reporting with hints directing users to appropriate alternative commands
 - Delegates the actual ownership change to AlterTypeOwner_oid for implementation
+
+## Simplified Source
+
+```c
+ObjectAddress AlterTypeOwner(List *names, Oid newOwnerId, ObjectType objecttype)
+{
+    // Open type catalog
+    Relation rel = table_open(TypeRelationId, RowExclusiveLock);
+
+    // Convert name list to TypeName and look up the type
+    TypeName *typename = makeTypeNameFromNameList(names);
+    HeapTuple tup = LookupTypeName(NULL, typename, NULL, false);
+
+    if (!tup)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("type \"%s\" does not exist",
+                       TypeNameToString(typename))));
+
+    Oid typeOid = typeTypeId(tup);
+
+    // Get a modifiable copy of the type tuple
+    HeapTuple newtup = heap_copytuple(tup);
+    ReleaseSysCache(tup);
+    Form_pg_type typTup = (Form_pg_type) GETSTRUCT(newtup);
+
+    // Validate object type constraints
+    validate_type_ownership_constraints(typTup, typeOid, objecttype);
+
+    // Check permissions and change ownership if needed
+    if (typTup->typowner != newOwnerId) {
+        if (!superuser()) {
+            check_type_ownership_permissions(typTup, newOwnerId);
+        }
+        AlterTypeOwner_oid(typeOid, newOwnerId, true);
+    }
+
+    // Build return address
+    ObjectAddress address;
+    ObjectAddressSet(address, TypeRelationId, typeOid);
+
+    table_close(rel, RowExclusiveLock);
+    return address;
+}
+
+static void validate_type_ownership_constraints(Form_pg_type typTup,
+                                                Oid typeOid,
+                                                ObjectType objecttype)
+{
+    // Prevent ALTER DOMAIN on non-domain types
+    if (objecttype == OBJECT_DOMAIN && typTup->typtype != TYPTYPE_DOMAIN)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("%s is not a domain", format_type_be(typeOid))));
+
+    // Prevent ownership changes on table row types
+    if (typTup->typtype == TYPTYPE_COMPOSITE &&
+        get_rel_relkind(typTup->typrelid) != RELKIND_COMPOSITE_TYPE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("%s is a table's row type", format_type_be(typeOid)),
+                errhint("Use ALTER TABLE instead.")));
+
+    // Prevent direct changes on array and multirange types
+    if (IsTrueArrayType(typTup) || typTup->typtype == TYPTYPE_MULTIRANGE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                errmsg("cannot alter %s type directly",
+                       typTup->typtype == TYPTYPE_MULTIRANGE ? "multirange" : "array")));
+}
+```

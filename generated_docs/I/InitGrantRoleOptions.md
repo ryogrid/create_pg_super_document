@@ -36,3 +36,16 @@ This initialization is crucial for maintaining consistent behavior across role c
 - Used consistently across role management operations to ensure uniform default behavior
 - The function is static and only accessible within the user.c module
 - Simple but essential for maintaining consistent role option semantics throughout the system
+
+## Simplified Source
+
+```c
+static void
+InitGrantRoleOptions(GrantRoleOptions *popt)
+{
+    popt->specified = 0;      // No options explicitly specified
+    popt->admin = false;      // No admin privileges by default
+    popt->inherit = false;    // No inheritance by default
+    popt->set = true;         // Allow SET ROLE by default
+}
+```

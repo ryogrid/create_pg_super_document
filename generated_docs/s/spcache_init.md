@@ -18,7 +18,7 @@ This function manages the lifecycle of PostgreSQL's search path cache, which is 
 This function takes no parameters but operates on several global variables:
 - `SearchPathCache`: Global pointer to the hash table cache
 - `searchPathCacheValid`: Boolean flag indicating cache validity
-- `baseSearchPathValid`: Boolean flag for base search path validity  
+- `baseSearchPathValid`: Boolean flag for base search path validity
 - `LastSearchPathCacheEntry`: Pointer to the last accessed cache entry
 - `SearchPathCacheContext`: Memory context for the cache
 
@@ -40,3 +40,35 @@ This function takes no parameters but operates on several global variables:
 - Handles memory management through dedicated SearchPathCacheContext
 - Sets cache validity flags after successful initialization
 - Designed to be safe against initialization failures by nullifying pointers first
+
+## Simplified Source
+
+```c
+static void spcache_init(void) {
+    // Check if cache is valid and under size threshold
+    if (SearchPathCache && searchPathCacheValid &&
+        SearchPathCache->members < SPCACHE_RESET_THRESHOLD)
+        return;
+
+    // Invalidate cache flags
+    searchPathCacheValid = false;
+    baseSearchPathValid = false;
+
+    // Clear pointers to prevent dangling references during initialization
+    SearchPathCache = NULL;
+    LastSearchPathCacheEntry = NULL;
+
+    // Create or reset memory context
+    if (SearchPathCacheContext == NULL) {
+        SearchPathCacheContext = AllocSetContextCreate(TopMemoryContext,
+                                                       "search_path processing cache",
+                                                       ALLOCSET_DEFAULT_SIZES);
+    } else {
+        MemoryContextReset(SearchPathCacheContext);
+    }
+
+    // Create new hash table with initial capacity of 16 elements
+    SearchPathCache = nsphash_create(SearchPathCacheContext, 16, NULL);
+    searchPathCacheValid = true;
+}
+```

@@ -38,3 +38,43 @@ Notably, the function omits  because it requires special treatment since it cont
 - Does not handle RowCompareExpr due to its multiple input collation requirements
 - Simpler and more focused than exprSetCollation, with only 8 handled node types
 - Located in src/backend/nodes/nodeFuncs.c:1316-1379
+
+## Simplified Source
+
+```c
+void
+exprSetInputCollation(Node *expr, Oid inputcollation)
+{
+    switch (nodeTag(expr))
+    {
+        // Expression types that need input collation
+        case T_Aggref:
+            ((Aggref *) expr)->inputcollid = inputcollation;
+            break;
+        case T_WindowFunc:
+            ((WindowFunc *) expr)->inputcollid = inputcollation;
+            break;
+        case T_FuncExpr:
+            ((FuncExpr *) expr)->inputcollid = inputcollation;
+            break;
+        case T_OpExpr:
+            ((OpExpr *) expr)->inputcollid = inputcollation;
+            break;
+        case T_DistinctExpr:
+            ((DistinctExpr *) expr)->inputcollid = inputcollation;
+            break;
+        case T_NullIfExpr:
+            ((NullIfExpr *) expr)->inputcollid = inputcollation;
+            break;
+        case T_ScalarArrayOpExpr:
+            ((ScalarArrayOpExpr *) expr)->inputcollid = inputcollation;
+            break;
+        case T_MinMaxExpr:
+            ((MinMaxExpr *) expr)->inputcollid = inputcollation;
+            break;
+        default:
+            // No-op for other node types
+            break;
+    }
+}
+```

@@ -40,3 +40,14 @@ The function delegates the actual work to ExecTypeFromTLInternal with the 'hasoi
 - The function is part of a broader set of TupleDescriptor creation functions that the codebase comments suggest could benefit from consolidation
 - Uses ExecTypeFromTLInternal with hasoid=false, meaning OID columns are not supported in the result
 - The resulting TupleDesc must be properly managed for memory cleanup by the caller
+
+## Simplified Source
+
+```c
+TupleDesc
+ExecTypeFromTL(List *targetList)
+{
+    // Delegate to internal implementation with hasoid=false
+    return ExecTypeFromTLInternal(targetList, false);
+}
+```

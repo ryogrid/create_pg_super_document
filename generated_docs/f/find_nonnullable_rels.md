@@ -38,3 +38,15 @@ This function differs from `find_nonnullable_vars()` in that it focuses on entir
 - Used in conjunction with outer join reduction logic to simplify query plans
 - Part of the query optimization infrastructure that helps convert outer joins to more efficient inner joins when possible
 - Located in src/backend/optimizer/util/clauses.c:1456-1461
+
+## Simplified Source
+
+```c
+Relids find_nonnullable_rels(Node *clause)
+{
+    // Delegate to walker function with top_level=true
+    // This analyzes which base relations must be non-null
+    // for the clause to potentially return TRUE
+    return find_nonnullable_rels_walker(clause, true);
+}
+```

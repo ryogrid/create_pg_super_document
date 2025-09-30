@@ -37,3 +37,18 @@ The function accepts two types of signal reasons:
 - Employs a 'ask first, decide later' strategy where backends self-determine their fate upon receiving the signal
 - Part of the broader recovery conflict resolution mechanism in PostgreSQL hot standby
 - The function includes an assertion to validate that only appropriate signal reasons are used
+
+## Simplified Source
+
+```c
+static void SendRecoveryConflictWithBufferPin(ProcSignalReason reason) {
+    // Validate that reason is one of the expected buffer pin conflict types
+    Assert(reason == PROCSIG_RECOVERY_CONFLICT_BUFFERPIN ||
+           reason == PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK);
+
+    // Send signal to all backends asking them to check their buffer pins
+    // Parameters: InvalidOid (all databases), reason (signal type), false (don't set conflict flag)
+    // Each backend will examine its own state and decide appropriate action
+    CancelDBBackends(InvalidOid, reason, false);
+}
+```

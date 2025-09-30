@@ -47,3 +47,51 @@ This optimization can significantly improve query performance by enabling more e
 - The function processes both explicit join clauses and equivalence class-derived join clauses
 - This is a global optimization function called during the main query planning phase
 - Located in src/backend/optimizer/plan/analyzejoins.c at lines 730-805
+
+## Simplified Source
+
+```c
+void reduce_unique_semijoins(PlannerInfo *root) {
+    ListCell *lc;
+
+    // Scan through all special joins to find semijoins
+    foreach(lc, root->join_info_list) {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(lc);
+        int innerrelid;
+        RelOptInfo *innerrel;
+        Relids joinrelids;
+        List *restrictlist;
+
+        // Only process semijoins to single base relations
+        if (sjinfo->jointype != JOIN_SEMI)
+            continue;
+
+        if (!bms_get_singleton_member(sjinfo->min_righthand, &innerrelid))
+            continue;
+
+        innerrel = find_base_rel(root, innerrelid);
+
+        // Quick check: can this relation support uniqueness analysis?
+        if (!rel_supports_distinctness(root, innerrel))
+            continue;
+
+        // Compute the complete join relid set
+        joinrelids = bms_union(sjinfo->min_lefthand, sjinfo->min_righthand);
+
+        // Collect all relevant join clauses (explicit + EC-derived)
+        restrictlist = list_concat(
+            generate_join_implied_equalities(root, joinrelids,
+                                             sjinfo->min_lefthand,
+                                             innerrel, NULL),
+            innerrel->joininfo);
+
+        // Test if the inner relation is unique for these join clauses
+        if (!innerrel_is_unique(root, joinrelids, sjinfo->min_lefthand,
+                                innerrel, JOIN_SEMI, restrictlist, true))
+            continue;
+
+        // Remove the semijoin - it can be treated as an inner join
+        root->join_info_list = foreach_delete_current(root->join_info_list, lc);
+    }
+}
+```

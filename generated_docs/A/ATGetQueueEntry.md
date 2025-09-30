@@ -53,3 +53,46 @@ The function initializes several important fields in the AlteredTableInfo struct
 - Part of PostgreSQL's multi-pass ALTER TABLE processing framework that handles complex interdependencies
 - Critical for ensuring that all affected tables are properly tracked and processed during ALTER TABLE operations
 - Located at src/backend/commands/tablecmds.c:6364-6397
+
+## Simplified Source
+
+```c
+static AlteredTableInfo *
+ATGetQueueEntry(List **wqueue, Relation rel)
+{
+    Oid relid = RelationGetRelid(rel);
+    AlteredTableInfo *tab;
+    ListCell *ltab;
+
+    // Search for existing entry in work queue
+    foreach(ltab, *wqueue)
+    {
+        tab = (AlteredTableInfo *) lfirst(ltab);
+        if (tab->relid == relid)
+            return tab;  // Found existing entry
+    }
+
+    // Create new entry if not found
+    tab = (AlteredTableInfo *) palloc0(sizeof(AlteredTableInfo));
+
+    // Initialize basic relation info
+    tab->relid = relid;
+    tab->rel = NULL;  // Set later during processing
+    tab->relkind = rel->rd_rel->relkind;
+
+    // Save copy of current table descriptor
+    tab->oldDesc = CreateTupleDescCopyConstr(RelationGetDescr(rel));
+
+    // Initialize change flags to defaults
+    tab->newAccessMethod = InvalidOid;
+    tab->chgAccessMethod = false;
+    tab->newTableSpace = InvalidOid;
+    tab->newrelpersistence = RELPERSISTENCE_PERMANENT;
+    tab->chgPersistence = false;
+
+    // Add to work queue
+    *wqueue = lappend(*wqueue, tab);
+
+    return tab;
+}
+```

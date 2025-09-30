@@ -36,3 +36,26 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 - Supports PostgreSQL's TABLESAMPLE functionality introduced in SQL standard for statistical sampling
 - The caller is responsible for filling in cost and width information from the corresponding Path node
 - Used for implementing queries like 'SELECT * FROM table TABLESAMPLE SYSTEM (10)'
+
+## Simplified Source
+
+```c
+static SampleScan *make_samplescan(List *qptlist, List *qpqual,
+                                  Index scanrelid, TableSampleClause *tsc) {
+    // Create new SampleScan node
+    SampleScan *node = makeNode(SampleScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set basic plan properties
+    plan->targetlist = qptlist;  // Output columns
+    plan->qual = qpqual;         // Filter conditions
+    plan->lefttree = NULL;       // No child plans (leaf node)
+    plan->righttree = NULL;
+
+    // Configure sample scan specifics
+    node->scan.scanrelid = scanrelid;  // Table to sample
+    node->tablesample = tsc;           // Sampling method and parameters
+
+    return node;
+}
+```

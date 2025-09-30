@@ -52,3 +52,69 @@ Enum types are internally represented as OIDs (4 bytes) and are always passed by
 - No support for type modifiers, analysis functions, or subscripting on the base enum type
 - Enum types cannot have default values or collation specifications
 - The order of values in the CREATE TYPE statement determines the sort order permanently
+
+## Simplified Source
+
+```c
+ObjectAddress DefineEnum(CreateEnumStmt *stmt) {
+    char *enumName;
+    char *enumArrayName;
+    Oid enumNamespace;
+    Oid enumArrayOid;
+    ObjectAddress enumTypeAddr;
+
+    // Parse qualified name and get target namespace
+    enumNamespace = QualifiedNameGetCreationNamespace(stmt->typeName, &enumName);
+
+    // Check creation permissions in target namespace
+    aclresult = object_aclcheck(NamespaceRelationId, enumNamespace, GetUserId(), ACL_CREATE);
+    if (aclresult != ACLCHECK_OK)
+        aclcheck_error(aclresult, OBJECT_SCHEMA, get_namespace_name(enumNamespace));
+
+    // Handle name collision with existing type
+    old_type_oid = GetSysCacheOid2(TYPENAMENSP, Anum_pg_type_oid,
+                                   CStringGetDatum(enumName),
+                                   ObjectIdGetDatum(enumNamespace));
+    if (OidIsValid(old_type_oid)) {
+        if (!moveArrayTypeName(old_type_oid, enumName, enumNamespace))
+            ereport(ERROR, (errcode(ERRCODE_DUPLICATE_OBJECT),
+                           errmsg("type \"%s\" already exists", enumName)));
+    }
+
+    // Allocate OID for array type
+    enumArrayOid = AssignTypeArrayOid();
+
+    // Create the main enum type
+    enumTypeAddr = TypeCreate(
+        InvalidOid,        // no predetermined OID
+        enumName,          // type name
+        enumNamespace,     // namespace
+        GetUserId(),       // owner
+        sizeof(Oid),       // internal size (4 bytes)
+        TYPTYPE_ENUM,      // enum type
+        TYPCATEGORY_ENUM,  // enum category
+        F_ENUM_IN,         // input function
+        F_ENUM_OUT,        // output function
+        enumArrayOid,      // associated array type
+        true,              // passed by value
+        TYPALIGN_INT       // integer alignment
+    );
+
+    // Create enum values in pg_enum catalog
+    EnumValuesCreate(enumTypeAddr.objectId, stmt->vals);
+
+    // Create corresponding array type
+    enumArrayName = makeArrayTypeName(enumName, enumNamespace);
+    TypeCreate(
+        enumArrayOid,           // force this OID
+        enumArrayName,          // array type name
+        enumNamespace,          // same namespace
+        enumTypeAddr.objectId,  // element type (the enum)
+        true,                   // this is an array type
+        TYPCATEGORY_ARRAY       // array category
+    );
+
+    pfree(enumArrayName);
+    return enumTypeAddr;
+}
+```

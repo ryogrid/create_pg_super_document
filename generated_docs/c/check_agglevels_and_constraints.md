@@ -36,3 +36,115 @@ The function contains an extensive switch statement that validates the context i
 - Uses two error reporting schemes: custom messages for complex contexts and generic messages with ParseExprKindName for simple keyword contexts
 - The switch statement intentionally has no default case to ensure compiler warnings when new expression kinds are added
 - Properly handles query nesting by walking up the parse state hierarchy to mark the correct level as having aggregates
+
+## Simplified Source
+
+```c
+static void
+check_agglevels_and_constraints(ParseState *pstate, Node *expr) {
+    List *directargs = NIL;
+    List *args = NIL;
+    Expr *filter = NULL;
+    int min_varlevel;
+    int location = -1;
+    Index *p_levelsup;
+    const char *err = NULL;
+    bool errkind = false;
+    bool isAgg = IsA(expr, Aggref);
+
+    // Extract arguments and location based on expression type
+    if (isAgg) {
+        Aggref *agg = (Aggref *) expr;
+        directargs = agg->aggdirectargs;
+        args = agg->args;
+        filter = agg->aggfilter;
+        location = agg->location;
+        p_levelsup = &agg->agglevelsup;
+    } else {
+        GroupingFunc *grp = (GroupingFunc *) expr;
+        args = grp->args;
+        location = grp->location;
+        p_levelsup = &grp->agglevelsup;
+    }
+
+    // Determine the nesting level for this aggregate
+    min_varlevel = check_agg_arguments(pstate, directargs, args, filter);
+    *p_levelsup = min_varlevel;
+
+    // Mark the appropriate parse state level as having aggregates
+    while (min_varlevel-- > 0) {
+        pstate = pstate->parentParseState;
+    }
+    pstate->p_hasAggs = true;
+
+    // Check if aggregate is in a valid context
+    switch (pstate->p_expr_kind) {
+        case EXPR_KIND_NONE:
+            Assert(false);  // Should not happen
+            break;
+
+        // Allow these contexts
+        case EXPR_KIND_OTHER:
+        case EXPR_KIND_HAVING:
+        case EXPR_KIND_WINDOW_PARTITION:
+        case EXPR_KIND_WINDOW_ORDER:
+        case EXPR_KIND_SELECT_TARGET:
+        case EXPR_KIND_ORDER_BY:
+        case EXPR_KIND_DISTINCT_ON:
+            break;
+
+        // Contexts that use generic error messages
+        case EXPR_KIND_WHERE:
+        case EXPR_KIND_FILTER:
+        case EXPR_KIND_INSERT_TARGET:
+        case EXPR_KIND_UPDATE_SOURCE:
+        case EXPR_KIND_UPDATE_TARGET:
+        case EXPR_KIND_GROUP_BY:
+        case EXPR_KIND_LIMIT:
+        case EXPR_KIND_OFFSET:
+        case EXPR_KIND_RETURNING:
+        case EXPR_KIND_MERGE_RETURNING:
+        case EXPR_KIND_VALUES:
+        case EXPR_KIND_VALUES_SINGLE:
+        case EXPR_KIND_CYCLE_MARK:
+            errkind = true;
+            break;
+
+        // Contexts with custom error messages
+        case EXPR_KIND_JOIN_ON:
+        case EXPR_KIND_JOIN_USING:
+            err = isAgg ? "aggregate functions are not allowed in JOIN conditions"
+                        : "grouping operations are not allowed in JOIN conditions";
+            break;
+
+        case EXPR_KIND_FROM_SUBSELECT:
+            err = isAgg ? "aggregate functions are not allowed in FROM clause"
+                        : "grouping operations are not allowed in FROM clause";
+            break;
+
+        // ... (many other specific error cases)
+        default:
+            // Additional cases handled with specific error messages
+            if (/* various constraint contexts */) {
+                err = isAgg ? "aggregate functions not allowed in constraints"
+                            : "grouping operations not allowed in constraints";
+            }
+            break;
+    }
+
+    // Report errors
+    if (err) {
+        ereport(ERROR, (errcode(ERRCODE_GROUPING_ERROR),
+                       errmsg_internal("%s", err),
+                       parser_errposition(pstate, location)));
+    }
+
+    if (errkind) {
+        err = isAgg ? "aggregate functions are not allowed in %s"
+                    : "grouping operations are not allowed in %s";
+        ereport(ERROR, (errcode(ERRCODE_GROUPING_ERROR),
+                       errmsg_internal(err, ParseExprKindName(pstate->p_expr_kind)),
+                       parser_errposition(pstate, location)));
+    }
+}
+```

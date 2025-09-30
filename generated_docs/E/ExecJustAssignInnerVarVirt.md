@@ -38,3 +38,14 @@ In join operations, the inner tuple typically represents the tuple from the inne
 - The optimization is possible because virtual slots store values in arrays that can be directly accessed and copied
 - Used in join operations where the inner relation's tuples are guaranteed to be in virtual slot format
 - Always returns the result from ExecJustAssignVarVirtImpl (typically 0 for assignment operations)
+
+## Simplified Source
+
+```c
+static Datum
+ExecJustAssignInnerVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+{
+    // Assign inner tuple variable to result slot using virtual slot optimization
+    return ExecJustAssignVarVirtImpl(state, econtext->ecxt_innertuple, isnull);
+}
+```

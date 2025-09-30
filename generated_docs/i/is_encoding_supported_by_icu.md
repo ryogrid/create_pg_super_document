@@ -29,3 +29,18 @@ This function determines if a specified character encoding can be used with ICU-
 - Returns false for invalid backend encodings or encodings without ICU support
 - Essential for ICU-related database operations like creating ICU collations or databases with ICU locales
 - Located in src/common/encnames.c:461-471
+
+## Simplified Source
+
+```c
+bool
+is_encoding_supported_by_icu(int encoding)
+{
+    // Check if encoding is valid for backend use
+    if (!PG_VALID_BE_ENCODING(encoding))
+        return false;
+
+    // Check if ICU mapping exists for this encoding
+    return (pg_enc2icu_tbl[encoding] != NULL);
+}
+```

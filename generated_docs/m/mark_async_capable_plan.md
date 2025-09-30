@@ -41,3 +41,62 @@ The `mark_async_capable_plan` function evaluates whether a given execution plan 
 - The function returns false for all other path types, indicating they cannot be executed asynchronously
 - The async_capable flag is set on the plan node when the function determines it can be executed asynchronously
 - This functionality is part of PostgreSQL's async append execution feature for parallel query processing
+
+## Simplified Source
+
+```c
+static bool
+mark_async_capable_plan(Plan *plan, Path *path)
+{
+    switch (nodeTag(path)) {
+        case T_SubqueryScanPath:
+            {
+                SubqueryScan *scan_plan = (SubqueryScan *) plan;
+
+                // Result nodes cannot execute asynchronously
+                if (IsA(plan, Result))
+                    return false;
+
+                // Check if trivial subquery scan with async-capable subplan
+                if (trivial_subqueryscan(scan_plan) &&
+                    mark_async_capable_plan(scan_plan->subplan,
+                                            ((SubqueryScanPath *) path)->subpath))
+                    break;
+                return false;
+            }
+
+        case T_ForeignPath:
+            {
+                FdwRoutine *fdwroutine = path->parent->fdwroutine;
+
+                // Result nodes cannot execute asynchronously
+                if (IsA(plan, Result))
+                    return false;
+
+                // Check FDW async capability
+                Assert(fdwroutine != NULL);
+                if (fdwroutine->IsForeignPathAsyncCapable != NULL &&
+                    fdwroutine->IsForeignPathAsyncCapable((ForeignPath *) path))
+                    break;
+                return false;
+            }
+
+        case T_ProjectionPath:
+            // Result nodes cannot execute asynchronously
+            if (IsA(plan, Result))
+                return false;
+
+            // Check subpath capability (projection was pulled up)
+            if (mark_async_capable_plan(plan, ((ProjectionPath *) path)->subpath))
+                return true;
+            return false;
+
+        default:
+            return false;
+    }
+
+    // Mark plan as async-capable and return success
+    plan->async_capable = true;
+    return true;
+}
+```

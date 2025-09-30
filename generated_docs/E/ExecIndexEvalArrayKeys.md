@@ -59,3 +59,67 @@ If any array is null or empty, the function returns false, indicating that no ma
 - Critical for implementing array comparison operators (ANY, ALL) in index scans
 - Must be followed by calls to ExecIndexAdvanceArrayKeys to iterate through remaining array elements
 - Early termination on first null/empty array optimizes performance by avoiding unnecessary work
+
+## Simplified Source
+
+```c
+bool ExecIndexEvalArrayKeys(ExprContext *econtext,
+                           IndexArrayKeyInfo *arrayKeys, int numArrayKeys) {
+    bool result = true;
+
+    // Switch to per-tuple memory context for array storage
+    MemoryContext oldContext = MemoryContextSwitchTo(econtext->ecxt_per_tuple_memory);
+
+    // Process each array key
+    for (int j = 0; j < numArrayKeys; j++) {
+        ScanKey scan_key = arrayKeys[j].scan_key;
+        ExprState *array_expr = arrayKeys[j].array_expr;
+
+        // Evaluate the array expression
+        bool isNull;
+        Datum arraydatum = ExecEvalExpr(array_expr, econtext, &isNull);
+
+        if (isNull) {
+            result = false;
+            break;  // No point continuing if any array is null
+        }
+
+        // Deconstruct the array into individual elements
+        ArrayType *arrayval = DatumGetArrayTypeP(arraydatum);
+        int16 elmlen;
+        bool elmbyval;
+        char elmalign;
+
+        get_typlenbyvalalign(ARR_ELEMTYPE(arrayval), &elmlen, &elmbyval, &elmalign);
+
+        Datum *elem_values;
+        bool *elem_nulls;
+        int num_elems;
+
+        deconstruct_array(arrayval, ARR_ELEMTYPE(arrayval),
+                         elmlen, elmbyval, elmalign,
+                         &elem_values, &elem_nulls, &num_elems);
+
+        if (num_elems <= 0) {
+            result = false;
+            break;  // Empty array means no matches possible
+        }
+
+        // Store array elements and initialize scan key with first element
+        arrayKeys[j].elem_values = elem_values;
+        arrayKeys[j].elem_nulls = elem_nulls;
+        arrayKeys[j].num_elems = num_elems;
+        arrayKeys[j].next_elem = 1;
+
+        // Set up scan key with first element
+        scan_key->sk_argument = elem_values[0];
+        if (elem_nulls[0])
+            scan_key->sk_flags |= SK_ISNULL;
+        else
+            scan_key->sk_flags &= ~SK_ISNULL;
+    }
+
+    MemoryContextSwitchTo(oldContext);
+    return result;
+}
+```

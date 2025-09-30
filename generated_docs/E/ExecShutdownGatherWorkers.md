@@ -29,3 +29,19 @@ ExecShutdownGatherWorkers is a static helper function that handles the shutdown 
 
 ## Notes and Other Information
 This is a static function internal to nodeGather.c and is not exposed outside the module. It serves as a centralized cleanup routine used by multiple functions that need to shut down parallel workers. The function safely handles null pointers for both the parallel execution info (pei) and reader array, making it safe to call multiple times or when no parallel workers were actually started.
+
+## Simplified Source
+
+```c
+static void ExecShutdownGatherWorkers(GatherState *node)
+{
+    // Stop all parallel workers
+    if (node->pei != NULL)
+        ExecParallelFinish(node->pei);
+
+    // Clean up reader array for worker communication
+    if (node->reader)
+        pfree(node->reader);
+    node->reader = NULL;
+}
+```

@@ -48,3 +48,30 @@ This variant is particularly useful when working with text data that may contain
 - Heavily used in PostgreSQL's hash functions for text types to ensure consistent hashing across different locales
 - The function comment specifically notes that callers with null-terminated strings should prefer pg_strxfrm() for efficiency
 - Critical component for locale-aware hashing and indexing operations
+
+## Simplified Source
+
+```c
+size_t pg_strnxfrm(char *dest, size_t destsize, const char *src, size_t srclen,
+                   pg_locale_t locale) {
+    size_t result = 0;
+
+    // Dispatch to appropriate implementation based on provider
+    if (!locale || locale->provider == COLLPROVIDER_LIBC) {
+        // Use libc implementation (may need to null-terminate src)
+        result = pg_strnxfrm_libc(dest, src, srclen, destsize, locale);
+    }
+#ifdef USE_ICU
+    else if (locale->provider == COLLPROVIDER_ICU) {
+        // Use ICU implementation (handles non-null-terminated strings)
+        result = pg_strnxfrm_icu(dest, src, srclen, destsize, locale);
+    }
+#endif
+    else {
+        // Unsupported provider
+        PGLOCALE_SUPPORT_ERROR(locale->provider);
+    }
+
+    return result;
+}
+```

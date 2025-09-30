@@ -42,3 +42,49 @@ This static function serves as the core parsing engine for relation options in P
 - Uses string matching with strncmp to identify option names
 - Error handling includes specific error codes (ERRCODE_INVALID_PARAMETER_VALUE) for invalid parameters
 - The function expects options in "key=value" format and will truncate the key name at the '=' for error reporting
+
+## Simplified Source
+
+```c
+static void parseRelOptionsInternal(Datum options, bool validate,
+                                  relopt_value *reloptions, int numoptions) {
+    ArrayType *array = DatumGetArrayTypeP(options);
+    Datum *optiondatums;
+    int noptions;
+
+    // Extract individual option strings from array
+    deconstruct_array_builtin(array, TEXTOID, &optiondatums, NULL, &noptions);
+
+    // Process each option string
+    for (int i = 0; i < noptions; i++) {
+        char *option_text = VARDATA(optiondatums[i]);
+        int option_len = VARSIZE(optiondatums[i]) - VARHDRSZ;
+
+        // Find matching relation option
+        bool found = false;
+        for (int j = 0; j < numoptions; j++) {
+            int name_len = reloptions[j].gen->namelen;
+
+            // Check if option matches pattern "name=value"
+            if (option_len > name_len && option_text[name_len] == '=' &&
+                strncmp(option_text, reloptions[j].gen->name, name_len) == 0) {
+                parse_one_reloption(&reloptions[j], option_text, option_len, validate);
+                found = true;
+                break;
+            }
+        }
+
+        // Report error for unrecognized options if validating
+        if (!found && validate) {
+            char *option_name = extract_option_name(optiondatums[i]);
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg("unrecognized parameter \"%s\"", option_name)));
+        }
+    }
+
+    // Clean up allocated memory
+    pfree(optiondatums);
+    if (array != DatumGetPointer(options))
+        pfree(array);
+}
+```

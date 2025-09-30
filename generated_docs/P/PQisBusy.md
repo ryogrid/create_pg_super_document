@@ -41,3 +41,20 @@ This function is essential for implementing non-blocking query processing patter
 - Part of the public libpq API for asynchronous query processing
 - Essential for event-driven and non-blocking database applications
 - Returns 0 (false) if results are available, 1 (true) if PQgetResult would block
+
+## Simplified Source
+
+```c
+int PQisBusy(PGconn *conn) {
+    // Handle null connection
+    if (!conn)
+        return false;
+
+    // Parse any available buffered data
+    parseInput(conn);
+
+    // Return true if query is busy and connection is healthy
+    // PQgetResult would block only in PGASYNC_BUSY state with good connection
+    return conn->asyncStatus == PGASYNC_BUSY && conn->status != CONNECTION_BAD;
+}
+```

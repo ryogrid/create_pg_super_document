@@ -48,3 +48,34 @@ The file is opened with O_RDWR | O_CREAT | O_TRUNC | PG_BINARY flags but deliber
 - Uses resource owner tracking to ensure proper cleanup even in error scenarios
 - Integrates with PostgreSQL's temp_file_limit mechanism for disk space management
 - The absence of O_EXCL allows recovery from crashes that leave orphaned temp files
+
+## Simplified Source
+
+```c
+File PathNameCreateTemporaryFile(const char *path, bool error_on_failure) {
+    File file;
+
+    // Ensure temporary file access is enabled and resource tracking available
+    Assert(temporary_files_allowed);
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Create/open the file (allow reuse of orphaned files)
+    file = PathNameOpenFile(path, O_RDWR | O_CREAT | O_TRUNC | PG_BINARY);
+    if (file <= 0) {
+        if (error_on_failure) {
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not create temporary file \"%s\": %m", path)));
+        } else {
+            return file;  // Return failure indicator
+        }
+    }
+
+    // Mark file for temp_file_limit accounting
+    VfdCache[file].fdstate |= FD_TEMP_FILE_LIMIT;
+
+    // Register for automatic close at transaction end
+    RegisterTemporaryFile(file);
+
+    return file;
+}
+```

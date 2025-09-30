@@ -48,3 +48,78 @@ The function updates the parent context with the stronger collation state, or ma
 - Implicit collation conflicts are deferred to allow potential resolution by later COLLATE clauses
 - Non-default implicit collations take precedence over default collations to provide more specific behavior
 - The conflict information (collation2, location2) is preserved to generate meaningful error messages if conflicts cannot be resolved
+
+## Simplified Source
+
+```c
+static void
+merge_collation_state(Oid collation,
+                      CollateStrength strength,
+                      int location,
+                      Oid collation2,
+                      int location2,
+                      assign_collations_context *context)
+{
+    // Higher strength always dominates
+    if (strength > context->strength)
+    {
+        // Override previous parent state
+        context->collation = collation;
+        context->strength = strength;
+        context->location = location;
+
+        // Preserve conflict info if applicable
+        if (strength == COLLATE_CONFLICT)
+        {
+            context->collation2 = collation2;
+            context->location2 = location2;
+        }
+    }
+    else if (strength == context->strength)
+    {
+        // Same strength - merge or detect conflicts
+        switch (strength)
+        {
+            case COLLATE_NONE:
+                // Nothing + nothing = nothing
+                break;
+
+            case COLLATE_IMPLICIT:
+                if (collation != context->collation)
+                {
+                    // Non-default beats default
+                    if (context->collation == DEFAULT_COLLATION_OID)
+                    {
+                        context->collation = collation;
+                        context->location = location;
+                    }
+                    else if (collation != DEFAULT_COLLATION_OID)
+                    {
+                        // Conflict detected - defer error
+                        context->strength = COLLATE_CONFLICT;
+                        context->collation2 = collation;
+                        context->location2 = location;
+                    }
+                }
+                break;
+
+            case COLLATE_EXPLICIT:
+                if (collation != context->collation)
+                {
+                    // Immediate error for explicit conflicts
+                    ereport(ERROR,
+                            (errcode(ERRCODE_COLLATION_MISMATCH),
+                             errmsg("collation mismatch between explicit collations \"%s\" and \"%s\"",
+                                    get_collation_name(context->collation),
+                                    get_collation_name(collation)),
+                             parser_errposition(context->pstate, location)));
+                }
+                break;
+
+            case COLLATE_CONFLICT:
+                // Still conflicted
+                break;
+        }
+    }
+}
+```

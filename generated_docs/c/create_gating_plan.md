@@ -36,3 +36,32 @@ The `create_gating_plan` function creates a Result node that acts as a "gate" in
 - The parallel safety flag is inherited from the Path rather than the Plan to account for potentially unsafe gating quals
 - Gating quals are typically pseudoconstant conditions that can be evaluated once and used to control execution flow
 - The function always returns the path's requested target list, ensuring compatibility with parent node expectations
+
+## Simplified Source
+
+```c
+static Plan *create_gating_plan(PlannerInfo *root, Path *path, Plan *plan, List *gating_quals) {
+    Assert(gating_quals);
+
+    Plan *splan = plan;
+
+    // Avoid stacking Result nodes - check if input is already trivial Result
+    if (IsA(plan, Result)) {
+        Result *rplan = (Result *) plan;
+        if (rplan->plan.lefttree == NULL && rplan->resconstantqual == NULL)
+            splan = NULL;  // Discard trivial Result
+    }
+
+    // Create gating Result node with pseudoconstant quals
+    Plan *gplan = (Plan *) make_result(build_path_tlist(root, path),
+                                      (Node *) gating_quals, splan);
+
+    // Copy cost estimates (gating assumed to succeed)
+    copy_plan_costsize(gplan, plan);
+
+    // Use Path's safety flag (gating quals could be unsafe)
+    gplan->parallel_safe = path->parallel_safe;
+
+    return gplan;
+}
+```

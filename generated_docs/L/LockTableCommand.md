@@ -37,3 +37,38 @@ LockTableCommand is the main entry point for executing LOCK TABLE statements in 
 - Special handling is provided for views, which require locking their underlying base tables rather than the view itself
 - Inheritance is handled through the recurse flag, automatically including child tables when appropriate
 - The NOWAIT option is passed through to underlying lock acquisition functions to maintain consistent behavior
+
+## Simplified Source
+
+```c
+void LockTableCommand(LockStmt *lockstmt)
+{
+    ListCell *p;
+
+    // Process each relation in the LOCK statement
+    foreach(p, lockstmt->relations)
+    {
+        RangeVar *rv = (RangeVar *) lfirst(p);
+        bool recurse = rv->inh;
+        Oid reloid;
+
+        // Get relation OID and acquire the requested lock
+        reloid = RangeVarGetRelidExtended(rv, lockstmt->mode,
+                                         lockstmt->nowait ? RVR_NOWAIT : 0,
+                                         RangeVarCallbackForLockTable,
+                                         (void *) &lockstmt->mode);
+
+        // Handle different relation types appropriately
+        if (get_rel_relkind(reloid) == RELKIND_VIEW)
+        {
+            // For views, lock the underlying base tables
+            LockViewRecurse(reloid, lockstmt->mode, lockstmt->nowait, NIL);
+        }
+        else if (recurse)
+        {
+            // For tables with inheritance, lock child tables too
+            LockTableRecurse(reloid, lockstmt->mode, lockstmt->nowait);
+        }
+    }
+}
+```

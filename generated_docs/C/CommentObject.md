@@ -39,3 +39,62 @@ The function includes special handling for database objects during dump restorat
 - Column comments are restricted to specific relation kinds to avoid issues with index column naming changes
 - Acquires ShareUpdateExclusiveLock on target objects to prevent concurrent modifications
 - Retains locks until transaction commit even after closing relations for concurrency safety
+
+## Simplified Source
+
+```c
+ObjectAddress CommentObject(CommentStmt *stmt) {
+    Relation relation;
+    ObjectAddress address = InvalidObjectAddress;
+
+    // Special case: Handle database comments during dump restoration
+    if (stmt->objtype == OBJECT_DATABASE) {
+        char *database = strVal(stmt->object);
+
+        if (!OidIsValid(get_database_oid(database, true))) {
+            // Warn instead of error to avoid pg_restore failures
+            ereport(WARNING, "database \"%s\" does not exist", database);
+            return address;
+        }
+    }
+
+    // Resolve object specification to address and acquire lock
+    address = get_object_address(stmt->objtype, stmt->object,
+                                &relation, ShareUpdateExclusiveLock, false);
+
+    // Verify user owns the target object
+    check_object_ownership(GetUserId(), stmt->objtype, address,
+                          stmt->object, relation);
+
+    // Additional validation for column comments
+    if (stmt->objtype == OBJECT_COLUMN) {
+        // Only allow comments on specific relation types
+        if (relation->rd_rel->relkind != RELKIND_RELATION &&
+            relation->rd_rel->relkind != RELKIND_VIEW &&
+            relation->rd_rel->relkind != RELKIND_MATVIEW &&
+            relation->rd_rel->relkind != RELKIND_COMPOSITE_TYPE &&
+            relation->rd_rel->relkind != RELKIND_FOREIGN_TABLE &&
+            relation->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+            ereport(ERROR, "cannot set comment on this relation type");
+        }
+    }
+
+    // Store comment in appropriate catalog table
+    if (stmt->objtype == OBJECT_DATABASE ||
+        stmt->objtype == OBJECT_TABLESPACE ||
+        stmt->objtype == OBJECT_ROLE) {
+        // Cluster-wide objects use shared catalog
+        CreateSharedComments(address.objectId, address.classId, stmt->comment);
+    } else {
+        // Regular objects use standard catalog
+        CreateComments(address.objectId, address.classId,
+                      address.objectSubId, stmt->comment);
+    }
+
+    // Close relation but keep locks until commit
+    if (relation != NULL)
+        relation_close(relation, NoLock);
+
+    return address;
+}
+```
