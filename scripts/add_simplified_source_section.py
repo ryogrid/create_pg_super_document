@@ -125,42 +125,46 @@ class FunctionSimplificationOrchestrator:
         """
         functions_json = json.dumps(function_batch, indent=2)
 
-        prompt = f"""# Batch Function Source Code Simplification Task
+        prompt = f"""You are tasked with processing a batch of PostgreSQL functions to create simplified, readable versions of their source code and update documentation files accordingly.
 
-You will process a batch of {len(function_batch)} PostgreSQL functions based on the provided JSON data.
-
-## Your Task
-For each function object in the JSON data below:
-1.  Use the `name` key for the function's name and the `path` key for its documentation file path.
-2.  Retrieve the function's source code.
-3.  Create a simplified, readable version.
-4.  Directly append this simplified version to the specified documentation file.
-5.  DO NOT create temporary files.
-6.  After processing all functions, provide a single JSON array summarizing the outcome for each function.
-
-## Function Batch to Process (JSON format)```json
+<function_batch_data>
 {functions_json}
-```
+</function_batch_data>
 
-## Available MCP Server Tools
-You have access to the following MCP server functions for PostgreSQL symbol information:
+You will be processing {str(len(function_batch))} functions based on the JSON data provided above.
 
+## Available Tools
+
+You have access to these MCP server functions for PostgreSQL symbol information:
 - **pg_symbol_source(symbol_name)**: Retrieve the complete source code for a symbol
-- **pg_symbol_overview(symbol_name)**: Get a concise overview/summary of the symbol
+- **pg_symbol_overview(symbol_name)**: Get a concise overview/summary of the symbol  
 - **pg_symbol_document(symbol_name)**: Fetch detailed documentation for the symbol
 - **pg_references_from(symbol_name)**: List symbols referenced by the given symbol
 - **pg_references_to(symbol_name)**: List symbols that reference the given symbol
 
-## Processing Loop
-Iterate through each JSON object in the array above. For each object, perform the simplification task.
+## Your Task
 
-### For each `function` object (`{{ "name": "...", "path": "..." }}`):
+For each function object in the JSON data:
 
-1.  **Retrieve Source**: Use `pg_symbol_source(function.name)`.
-2.  **Simplify Code**: Reduce complexity while preserving essential logic.
-Apply these simplification techniques:
+1. **Extract Information**: Use the `name` key for the function's name and the `path` key for its documentation file path.
+
+2. **Retrieve Source Code**: Use `pg_symbol_source(function.name)` to get the complete source code.
+
+3. **Create Simplified Version**: Apply the simplification techniques detailed below to create a readable version that preserves essential logic while being 20-50% of the original length.
+
+4. **Update Documentation**: 
+   - Read the file at `function.path`
+   - Append the simplified version to the file using the appropriate write tool
+   - Do NOT create temporary files - append directly to the documentation file
+
+5. **Track Results**: Record the outcome for each function to include in your final status report.
+
+## Simplification Guidelines
+
+Apply these techniques to reduce complexity while preserving essential logic:
+
 - Remove non-essential error handling (keep only critical checks)
-- Simplify complex conditions into clearer logic flow
+- Simplify complex conditions into clearer logic flow  
 - Replace detailed memory operations with high-level comments
 - Use descriptive variable names instead of cryptic ones
 - Add brief explanatory comments for complex logic
@@ -168,15 +172,7 @@ Apply these simplification techniques:
 - Consolidate similar cases or branches
 - Target: 20-50% of original length while preserving essential algorithm
 
-3.  **Update Documentation**:
-    - Read the file at `function.path`.
-    - If "## Simplified Source" already exists, do nothing for this file.
-    - Otherwise, append the new section to the file using the Write tool.
-
-## Important Guidelines at Simplification
-- Preserve the essential algorithm and logic flow
-- Don't oversimplify to lose important functionality
-- Maintain correctness - represent what the function actually does
+**Important**: Preserve the essential algorithm and logic flow. Don't oversimplify to lose important functionality. Maintain correctness - represent what the function actually does.
 
 ## Simplification Example
 
@@ -196,33 +192,46 @@ ReturnType FunctionName(Parameters) {{
 }}
 ```
 
-## Final Status Reporting
-After attempting to process ALL functions, you MUST output a single JSON array containing a result object for each function. The output must ONLY be the JSON array, enclosed in ```json ... ```.
+## Process Optimization
 
-### Required JSON Output Format
+Before processing the batch, create a detailed plan in <batch_processing_plan> tags inside your thinking block that considers:
+- First, examine the JSON structure to understand what fields are available for each function
+- List out each function name from the batch data to track progress
+- Create a step-by-step processing strategy for each function while preserving quality
+- Plan specific error handling approaches for each potential failure mode (symbol not found, MCP errors, write errors, etc.)
+- Consider token-efficient approaches to code simplification that maintain essential logic
+- Strategy for checking if documentation already contains "## Simplified Source" section
+
+It's OK for this section to be quite long as you work through the batch systematically.
+
+## Required Output Format
+
+After processing ALL functions, output a single JSON array containing a result object for each function. Each object must include:
+
+- `"function"`: The function name from the input data
+- `"status"`: One of the following values:
+  - `"COMPLETED"`: Successfully added the simplified source
+  - `"ALREADY_PROCESSED"`: The "## Simplified Source" section was already present  
+  - `"NOT_A_FUNCTION"`: The symbol is not a function
+  - `"NOT_FOUND"`: The symbol was not found
+  - `"MCP_ERROR"`: An MCP tool error occurred
+  - `"WRITE_ERROR"`: A file writing error occurred
+
+Example output format:
 ```json
 [
   {{
-    "function": "function_name_from_input",
+    "function": "example_function_name", 
     "status": "COMPLETED"
   }},
   {{
     "function": "another_function_name",
     "status": "NOT_FOUND",
-    "details": "Symbol not found using pg_symbol_source."
   }}
 ]
 ```
 
-### Possible `status` values:
-- `COMPLETED`: Successfully added the simplified source.
-- `ALREADY_PROCESSED`: The "## Simplified Source" section was already present.
-- `NOT_A_FUNCTION`: The symbol is not a function.
-- `NOT_FOUND`: The symbol was not found.
-- `MCP_ERROR`: An MCP tool error occurred.
-- `WRITE_ERROR`: A file writing error occurred.
-
-Start processing the batch now. Your final output should be only the JSON array.
+Begin by creating your processing plan, then proceed with the batch processing. Your final output should contain ONLY the JSON array with results for all functions processed, and should not duplicate or rehash any of the planning work you did in the thinking block.
 """
         return prompt
 
