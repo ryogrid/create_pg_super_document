@@ -1,0 +1,23 @@
+# Build settings for GitHub Pages (Jekyll)
+# Place this file at your site root:
+# - If Pages source is "Deploy from a branch" with "/" (root): put at repository root
+# - If Pages source is "/docs": put inside the docs/ folder
+
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-default-layout
+
+markdown: kramdown
+highlighter: rouge
+
+# Apply the "doc" layout automatically to all files under generated_docs/
+# without requiring front matter in each Markdown file.
+defaults:
+  - scope:
+      path: "generated_docs"   # Change to "" to apply site-wide
+    values:
+      layout: doc
+
+# Optional: set a site title/description if desired
+title: "PostgreSQL Symbol Document"
+description: "LLM Auto-generated documentations"
