@@ -298,6 +298,15 @@ Begin by creating your processing plan, then proceed with the batch processing. 
                                 self.work_queue.put(func_info) # Requeue
                         time.sleep(3600)
                         continue
+                    elif "Weekly limit reached" in output:
+                        logging.error(f"[Worker {worker_id}] ✗ Weekly limit reached. sleeping.")
+                        with self.lock:
+                            for func_info in unprocessed_batch:
+                                self.failed.append((func_info['name'], "Weekly limit"))
+                                self.stats['failed'] += 1
+                                self.work_queue.put(func_info) # Requeue
+                        time.sleep(86400)
+                        continue
 
                     # 5. Find, parse, and process the JSON output
                     json_results = []
