@@ -1,0 +1,30 @@
+# Jekyll configuration for GitHub Pages build
+# Placed at the repository root so Actions/Jekyll picks it up
+
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-default-layout
+
+markdown: kramdown
+highlighter: rouge
+
+# Apply the "doc" layout by default to all markdown/html under generated_docs/
+# You can change the scope path to "" to apply site-wide if desired.
+# Note: scope.path is relative to the site source. Since source is set to generated_docs in the action,
+# we keep path: "" here to cover the entire site content.
+
+# IMPORTANT: Because the GitHub Action sets `source: ./generated_docs`, the site root for Jekyll
+# is that folder. Thus defaults.scope.path must be "" (empty) to apply across the site contents.
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: doc
+
+# Optional: Site metadata
+# When source is ./generated_docs, site.title and site.description are still read from this root config
+# and can be used inside layouts.
+
+title: "PostgreSQL Symbol Document"
+description: "LLM Auto-generated documentations"

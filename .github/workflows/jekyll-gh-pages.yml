@@ -33,6 +33,8 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
+          # Jekyll source is the `generated_docs` folder, but Jekyll will still read `_config.yml`
+          # from the repository root. The defaults in that file apply to all content under this source.
           source: ./generated_docs
           destination: ./_site
       - name: Upload artifact
