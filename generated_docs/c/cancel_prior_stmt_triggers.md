@@ -53,3 +53,58 @@ The function is particularly important in scenarios involving foreign key enforc
 - This function is a key component in preventing the "odd behavior" that could occur when multiple FK enforcement triggers operate on the same table
 - The function marks cancelled triggers with AFTER_TRIGGER_DONE flag and clears any AFTER_TRIGGER_IN_PROGRESS flag
 - Works in conjunction with the before_stmt_triggers_fired function to maintain comprehensive statement trigger semantics
+
+## Simplified Source
+
+```c
+static void
+cancel_prior_stmt_triggers(Oid relid, CmdType cmdType, int tgevent) {
+    AfterTriggersTableData *table;
+    AfterTriggersQueryData *qs = &afterTriggers.query_stack[afterTriggers.query_depth];
+
+    // Get table data for this relation/command
+    table = GetAfterTriggersTableData(relid, cmdType);
+
+    // If we have previously queued statement triggers, cancel them
+    if (table->after_trig_done) {
+        AfterTriggerEvent event;
+        AfterTriggerEventChunk *chunk;
+
+        // Start scanning from saved position or current head
+        if (table->after_trig_events.tail) {
+            chunk = table->after_trig_events.tail;
+            event = (AfterTriggerEvent) table->after_trig_events.tailfree;
+        } else {
+            chunk = qs->events.head;
+            event = NULL;
+        }
+
+        // Scan through events and cancel matching AFTER STATEMENT triggers
+        for_each_chunk_from(chunk) {
+            if (event == NULL)
+                event = (AfterTriggerEvent) CHUNK_DATA_START(chunk);
+
+            for_each_event_from(event, chunk) {
+                AfterTriggerShared evtshared = GetTriggerSharedData(event);
+
+                // Stop if this event doesn't match our criteria
+                if (evtshared->ats_relid != relid ||
+                    (evtshared->ats_event & TRIGGER_EVENT_OPMASK) != tgevent ||
+                    !TRIGGER_FIRED_FOR_STATEMENT(evtshared->ats_event) ||
+                    !TRIGGER_FIRED_AFTER(evtshared->ats_event))
+                    goto done;
+
+                // Mark the trigger as done (cancelled)
+                event->ate_flags &= ~AFTER_TRIGGER_IN_PROGRESS;
+                event->ate_flags |= AFTER_TRIGGER_DONE;
+            }
+            event = NULL; // Reset for next chunk
+        }
+    }
+
+done:
+    // Save current position for next invocation
+    table->after_trig_done = true;
+    table->after_trig_events = qs->events;
+}
+```

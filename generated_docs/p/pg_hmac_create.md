@@ -48,3 +48,57 @@ pg_hmac_create is the primary constructor function for HMAC contexts in PostgreS
 - Properly handles cleanup on partial initialization failures
 - Uses explicit_bzero for secure memory clearing on error paths
 - Part of PostgreSQL's cryptographic infrastructure, heavily used in SCRAM authentication
+
+## Simplified Source
+
+```c
+pg_hmac_ctx *pg_hmac_create(pg_cryptohash_type type) {
+    // Allocate and initialize context
+    pg_hmac_ctx *ctx = ALLOC(sizeof(pg_hmac_ctx));
+    if (ctx == NULL)
+        return NULL;
+
+    memset(ctx, 0, sizeof(pg_hmac_ctx));
+    ctx->type = type;
+    ctx->error = PG_HMAC_ERROR_NONE;
+    ctx->errreason = NULL;
+
+    // Set algorithm-specific parameters
+    switch (type) {
+        case PG_MD5:
+            ctx->digest_size = MD5_DIGEST_LENGTH;
+            ctx->block_size = MD5_BLOCK_SIZE;
+            break;
+        case PG_SHA1:
+            ctx->digest_size = SHA1_DIGEST_LENGTH;
+            ctx->block_size = SHA1_BLOCK_SIZE;
+            break;
+        case PG_SHA224:
+            ctx->digest_size = PG_SHA224_DIGEST_LENGTH;
+            ctx->block_size = PG_SHA224_BLOCK_LENGTH;
+            break;
+        case PG_SHA256:
+            ctx->digest_size = PG_SHA256_DIGEST_LENGTH;
+            ctx->block_size = PG_SHA256_BLOCK_LENGTH;
+            break;
+        case PG_SHA384:
+            ctx->digest_size = PG_SHA384_DIGEST_LENGTH;
+            ctx->block_size = PG_SHA384_BLOCK_LENGTH;
+            break;
+        case PG_SHA512:
+            ctx->digest_size = PG_SHA512_DIGEST_LENGTH;
+            ctx->block_size = PG_SHA512_BLOCK_LENGTH;
+            break;
+    }
+
+    // Create underlying hash context
+    ctx->hash = pg_cryptohash_create(type);
+    if (ctx->hash == NULL) {
+        explicit_bzero(ctx, sizeof(pg_hmac_ctx));
+        FREE(ctx);
+        return NULL;
+    }
+
+    return ctx;
+}
+```

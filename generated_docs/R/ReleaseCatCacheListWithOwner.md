@@ -37,3 +37,29 @@ The function includes safety assertions to verify the list's magic number and en
 - Part of PostgreSQL's resource management system to prevent memory leaks
 - Only removes the list from cache when both dead=true and refcount=0
 - The function is safe to call with NULL resowner (no resource tracking occurs)
+
+## Simplified Source
+
+```c
+static void ReleaseCatCacheListWithOwner(CatCList *list, ResourceOwner resowner) {
+    // Safety checks for valid cache list
+    Assert(list->cl_magic == CL_MAGIC);
+    Assert(list->refcount > 0);
+
+    // Decrement reference count
+    list->refcount--;
+
+    // Remove from resource owner tracking if specified
+    if (resowner)
+        ResourceOwnerForgetCatCacheListRef(CurrentResourceOwner, list);
+
+    // Remove from cache if no longer referenced and marked dead
+    if (
+#ifndef CATCACHE_FORCE_RELEASE
+        list->dead &&
+#endif
+        list->refcount == 0) {
+        CatCacheRemoveCList(list->my_cache, list);
+    }
+}
+```

@@ -59,3 +59,59 @@ The function uses sophisticated sscanf pattern matching to handle all valid form
 - Returns 0 for NULL or empty input strings, treating them as neutral time offsets
 - The complex sscanf pattern handles up to 9 different parsing scenarios in a single call
 - Fractional seconds are rounded to the nearest second using banker's rounding (round to even)
+
+## Simplified Source
+
+```c
+static zic_t gethms(char const *string, char const *errstring) {
+    int hh, sign, mm = 0, ss = 0;
+    char hhx, mmx, ssx, xr = '0', xs;
+    int tenths = 0;
+    bool ok = true;
+
+    // Handle null/empty string
+    if (string == NULL || *string == '\0')
+        return 0;
+
+    // Parse sign
+    if (*string == '-') {
+        sign = -1;
+        ++string;
+    } else {
+        sign = 1;
+    }
+
+    // Parse time components using complex sscanf pattern
+    switch (sscanf(string, "%d%c%d%c%d%c%1d%*[0]%c%*[0123456789]%c",
+                   &hh, &hhx, &mm, &mmx, &ss, &ssx, &tenths, &xr, &xs)) {
+        case 8: ok = '0' <= xr && xr <= '9'; /* fallthrough */
+        case 7: ok &= ssx == '.'; /* fallthrough */
+        case 5: ok &= mmx == ':'; /* fallthrough */
+        case 3: ok &= hhx == ':'; /* fallthrough */
+        case 1: break;
+        default: ok = false; break;
+    }
+
+    // Validate parsing result and ranges
+    if (!ok || hh < 0 || mm < 0 || mm >= MINSPERHOUR ||
+        ss < 0 || ss > SECSPERMIN) {
+        error("%s", errstring);
+        return 0;
+    }
+
+    // Check for hour overflow on 64-bit systems
+#if INT_MAX > PG_INT32_MAX
+    if (ZIC_MAX / SECSPERHOUR < hh) {
+        error(_("time overflow"));
+        return 0;
+    }
+#endif
+
+    // Round fractional seconds to even
+    ss += 5 + ((ss ^ 1) & (xr == '0')) <= tenths;
+
+    // Convert to total seconds with overflow protection
+    return oadd(sign * (zic_t) hh * SECSPERHOUR,
+                sign * (mm * SECSPERMIN + ss));
+}
+```

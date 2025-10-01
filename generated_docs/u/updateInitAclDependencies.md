@@ -43,3 +43,22 @@ The function delegates to updateAclDependenciesWorker with SHARED_DEPENDENCY_INI
 - Essential for proper dependency tracking of extension-granted privileges
 - Input arrays must be sorted and de-duplicated before calling
 - Part of PostgreSQL's initial privilege preservation system for extensions
+
+## Simplified Source
+
+```c
+void
+updateInitAclDependencies(Oid classId, Oid objectId, int32 objsubId,
+                          int noldmembers, Oid *oldmembers,
+                          int nnewmembers, Oid *newmembers)
+{
+    // Delegate to worker function with INITACL dependency type
+    // Pass InvalidOid as owner since initial privileges treat
+    // owners and non-owners uniformly
+    updateAclDependenciesWorker(classId, objectId, objsubId,
+                                InvalidOid, // ownerId not consulted
+                                SHARED_DEPENDENCY_INITACL,
+                                noldmembers, oldmembers,
+                                nnewmembers, newmembers);
+}
+```

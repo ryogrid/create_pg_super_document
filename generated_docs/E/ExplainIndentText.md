@@ -32,3 +32,16 @@ ExplainIndentText handles indentation for TEXT format EXPLAIN output by adding t
 
 ## Notes and Other Information
 This is a static function internal to explain.c and only applies to TEXT format output. The function uses an assertion to ensure it's only called for TEXT format. The indentation logic accounts for parallel worker output where content may already exist on the current line, maintaining proper formatting in all scenarios. Each indentation level corresponds to two spaces in the output.
+
+## Simplified Source
+
+```c
+static void ExplainIndentText(ExplainState *es)
+{
+    Assert(es->format == EXPLAIN_FORMAT_TEXT);
+
+    // Only indent if we're at the start of a line
+    if (es->str->len == 0 || es->str->data[es->str->len - 1] == '\n')
+        appendStringInfoSpaces(es->str, es->indent * 2);
+}
+```

@@ -42,3 +42,30 @@ This function calculates the ClientKey as defined in the SCRAM specification by 
 - Part of the SCRAM key derivation chain: Password → SaltedPassword → ClientKey → StoredKey
 - Handles memory management automatically with proper cleanup via pg_hmac_free()
 - Thread-safe as it uses local variables and doesn't modify global state
+
+## Simplified Source
+
+```c
+int scram_ClientKey(const uint8 *salted_password,
+                    pg_cryptohash_type hash_type, int key_length,
+                    uint8 *result, const char **errstr) {
+    // Create HMAC context
+    pg_hmac_ctx *ctx = pg_hmac_create(hash_type);
+    if (ctx == NULL) {
+        *errstr = pg_hmac_error(NULL);
+        return -1;
+    }
+
+    // Compute HMAC(SaltedPassword, "Client Key")
+    if (pg_hmac_init(ctx, salted_password, key_length) < 0 ||
+        pg_hmac_update(ctx, (uint8 *) "Client Key", strlen("Client Key")) < 0 ||
+        pg_hmac_final(ctx, result, key_length) < 0) {
+        *errstr = pg_hmac_error(ctx);
+        pg_hmac_free(ctx);
+        return -1;
+    }
+
+    pg_hmac_free(ctx);
+    return 0;
+}
+```

@@ -51,3 +51,38 @@ The function operates by:
 - Uses assertions to validate proper slot usage for each event type
 - The function assumes mutual exclusivity between oldslot and newslot (exactly one should be non-NULL)
 - Returns NULL when no appropriate tuplestore is found or configured for the given combination of event and slot
+
+## Simplified Source
+
+```c
+static Tuplestorestate *
+GetAfterTriggersTransitionTable(int event,
+                               TupleTableSlot *oldslot,
+                               TupleTableSlot *newslot,
+                               TransitionCaptureState *transition_capture) {
+    Tuplestorestate *tuplestore = NULL;
+
+    // Extract configuration flags
+    bool delete_old_table = transition_capture->tcs_delete_old_table;
+    bool update_old_table = transition_capture->tcs_update_old_table;
+    bool update_new_table = transition_capture->tcs_update_new_table;
+    bool insert_new_table = transition_capture->tcs_insert_new_table;
+
+    // Handle OLD tuple cases (DELETE and UPDATE old values)
+    if (!TupIsNull(oldslot)) {
+        if (event == TRIGGER_EVENT_DELETE && delete_old_table)
+            tuplestore = transition_capture->tcs_private->old_del_tuplestore;
+        else if (event == TRIGGER_EVENT_UPDATE && update_old_table)
+            tuplestore = transition_capture->tcs_private->old_upd_tuplestore;
+    }
+    // Handle NEW tuple cases (INSERT and UPDATE new values)
+    else if (!TupIsNull(newslot)) {
+        if (event == TRIGGER_EVENT_INSERT && insert_new_table)
+            tuplestore = transition_capture->tcs_private->new_ins_tuplestore;
+        else if (event == TRIGGER_EVENT_UPDATE && update_new_table)
+            tuplestore = transition_capture->tcs_private->new_upd_tuplestore;
+    }
+
+    return tuplestore;
+}
+```

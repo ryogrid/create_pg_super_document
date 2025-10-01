@@ -50,3 +50,50 @@ The function handles several scenarios:
 - Implements sophisticated NULL handling logic according to SQL standard foreign key match types
 - Part of PostgreSQL's referential integrity optimization system
 - Returns false when the trigger can be safely skipped, true when it must be executed
+
+## Simplified Source
+
+```c
+bool
+RI_FKey_fk_upd_check_required(Trigger *trigger, Relation fk_rel,
+                             TupleTableSlot *oldslot, TupleTableSlot *newslot) {
+    const RI_ConstraintInfo *riinfo;
+    int ri_nullcheck;
+
+    // Get constraint information
+    riinfo = ri_FetchConstraintInfo(trigger, fk_rel, false);
+
+    // Check NULL status of new foreign key values
+    ri_nullcheck = ri_NullCheck(RelationGetDescr(fk_rel), newslot, riinfo, false);
+
+    // All NULL values satisfy the constraint
+    if (ri_nullcheck == RI_KEYS_ALL_NULL)
+        return false;
+
+    // Handle partial NULL cases based on match type
+    if (ri_nullcheck == RI_KEYS_SOME_NULL) {
+        switch (riinfo->confmatchtype) {
+            case FKCONSTR_MATCH_SIMPLE:
+                // Any NULL satisfies constraint
+                return false;
+            case FKCONSTR_MATCH_FULL:
+                // Some NULLs violate constraint
+                return true;
+            case FKCONSTR_MATCH_PARTIAL:
+                // Must run full check
+                break;
+        }
+    }
+
+    // If row was inserted by current transaction, must check
+    if (slot_is_current_xact_tuple(oldslot))
+        return true;
+
+    // If keys unchanged, no check needed
+    if (ri_KeysEqual(fk_rel, oldslot, newslot, riinfo, false))
+        return false;
+
+    // Otherwise trigger is required
+    return true;
+}
+```

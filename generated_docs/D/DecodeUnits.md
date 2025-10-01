@@ -45,3 +45,38 @@ The function first checks if there's a cached entry for the given field, and if 
 - Uses strncmp with TOKMAXLEN to support truncated token matching
 - The val parameter is set to 0 if the token is not recognized
 - This function is crucial for parsing interval expressions and date/time arithmetic operations
+
+## Simplified Source
+
+```c
+int
+DecodeUnits(int field, const char *lowtoken, int *val)
+{
+    int type;
+    const datetkn *tp;
+
+    // First try cache lookup for performance
+    tp = deltacache[field];
+    if (tp == NULL || strncmp(lowtoken, tp->token, TOKMAXLEN) != 0)
+    {
+        // Cache miss - search the main token table
+        tp = datebsearch(lowtoken, deltatktbl, szdeltatktbl);
+    }
+
+    if (tp == NULL)
+    {
+        // Token not found
+        type = UNKNOWN_FIELD;
+        *val = 0;
+    }
+    else
+    {
+        // Found - cache result and return values
+        deltacache[field] = tp;
+        type = tp->type;
+        *val = tp->value;
+    }
+
+    return type;
+}
+```

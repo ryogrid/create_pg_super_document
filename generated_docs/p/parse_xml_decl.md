@@ -58,3 +58,117 @@ The function also validates that all characters in the parsed declaration are AS
 - Validates ASCII-only content in the declaration portion
 - Handles both single and double quote delimiters for attribute values
 - Distinguishes between absent declaration (success) vs malformed declaration (error)
+
+## Simplified Source
+
+```c
+static int
+parse_xml_decl(const xmlChar *str, size_t *lenp,
+               xmlChar **version, xmlChar **encoding, int *standalone)
+{
+    const xmlChar *p;
+
+    // Initialize libxml and set output defaults
+    pg_xml_init_library();
+    if (version) *version = NULL;
+    if (encoding) *encoding = NULL;
+    if (standalone) *standalone = -1;
+
+    p = str;
+
+    // Check for XML declaration start "<?xml"
+    if (xmlStrncmp(p, (xmlChar *) "<?xml", 5) != 0)
+        goto finished;
+
+    // Ensure it's not a processing instruction like <?xml-stylesheet
+    int utf8len = strnlen((const char *) (p + 5), MAX_MULTIBYTE_CHAR_LEN);
+    int utf8char = xmlGetUTF8Char(p + 5, &utf8len);
+    if (PG_XMLISNAMECHAR(utf8char))
+        goto finished;
+
+    p += 5;
+
+    // Parse required version attribute
+    SKIP_XML_SPACE(p);
+    if (xmlStrncmp(p, (xmlChar *) "version", 7) != 0)
+        return XML_ERR_VERSION_MISSING;
+    p += 7;
+    SKIP_XML_SPACE(p);
+    if (*p != '=') return XML_ERR_VERSION_MISSING;
+    p++;
+    SKIP_XML_SPACE(p);
+
+    // Extract version value in quotes
+    if (*p == '\'' || *p == '"') {
+        const xmlChar *q = xmlStrchr(p + 1, *p);
+        if (!q) return XML_ERR_VERSION_MISSING;
+        if (version) *version = xml_pnstrdup(p + 1, q - p - 1);
+        p = q + 1;
+    } else {
+        return XML_ERR_VERSION_MISSING;
+    }
+
+    // Parse optional encoding attribute
+    const xmlChar *save_p = p;
+    SKIP_XML_SPACE(p);
+    if (xmlStrncmp(p, (xmlChar *) "encoding", 8) == 0) {
+        p += 8;
+        SKIP_XML_SPACE(p);
+        if (*p != '=') return XML_ERR_MISSING_ENCODING;
+        p++;
+        SKIP_XML_SPACE(p);
+
+        if (*p == '\'' || *p == '"') {
+            const xmlChar *q = xmlStrchr(p + 1, *p);
+            if (!q) return XML_ERR_MISSING_ENCODING;
+            if (encoding) *encoding = xml_pnstrdup(p + 1, q - p - 1);
+            p = q + 1;
+        } else {
+            return XML_ERR_MISSING_ENCODING;
+        }
+    } else {
+        p = save_p;
+    }
+
+    // Parse optional standalone attribute
+    save_p = p;
+    SKIP_XML_SPACE(p);
+    if (xmlStrncmp(p, (xmlChar *) "standalone", 10) == 0) {
+        p += 10;
+        SKIP_XML_SPACE(p);
+        if (*p != '=') return XML_ERR_STANDALONE_VALUE;
+        p++;
+        SKIP_XML_SPACE(p);
+
+        if (xmlStrncmp(p, (xmlChar *) "'yes'", 5) == 0 ||
+            xmlStrncmp(p, (xmlChar *) "\"yes\"", 5) == 0) {
+            if (standalone) *standalone = 1;
+            p += 5;
+        } else if (xmlStrncmp(p, (xmlChar *) "'no'", 4) == 0 ||
+                   xmlStrncmp(p, (xmlChar *) "\"no\"", 4) == 0) {
+            if (standalone) *standalone = 0;
+            p += 4;
+        } else {
+            return XML_ERR_STANDALONE_VALUE;
+        }
+    } else {
+        p = save_p;
+    }
+
+    // Check for proper declaration end "?>"
+    SKIP_XML_SPACE(p);
+    if (xmlStrncmp(p, (xmlChar *) "?>", 2) != 0)
+        return XML_ERR_XMLDECL_NOT_FINISHED;
+    p += 2;
+
+finished:
+    // Validate ASCII-only content and return length
+    size_t len = p - str;
+    for (const xmlChar *check = str; check < str + len; check++) {
+        if (*check > 127) return XML_ERR_INVALID_CHAR;
+    }
+
+    if (lenp) *lenp = len;
+    return XML_ERR_OK;
+}
+```

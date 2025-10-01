@@ -46,3 +46,63 @@ The function ensures that only valid Unicode recomposition rules are applied and
 - Follows Unicode Standard Annex #15 (Unicode Normalization Forms)
 - Critical for implementing NFC (Normalization Form Composed) normalization
 - Hangul syllable composition follows Unicode algorithmic rules for efficiency
+
+## Simplified Source
+
+```c
+static bool
+recompose_code(uint32 start, uint32 code, uint32 *result)
+{
+    // Hangul L + V → LV syllable
+    if (start >= LBASE && start < LBASE + LCOUNT &&
+        code >= VBASE && code < VBASE + VCOUNT) {
+        uint32 lindex = start - LBASE;
+        uint32 vindex = code - VBASE;
+        *result = SBASE + (lindex * VCOUNT + vindex) * TCOUNT;
+        return true;
+    }
+
+    // Hangul LV + T → LVT syllable
+    if (start >= SBASE && start < (SBASE + SCOUNT) &&
+        ((start - SBASE) % TCOUNT) == 0 &&
+        code >= TBASE && code < (TBASE + TCOUNT)) {
+        *result = start + (code - TBASE);
+        return true;
+    }
+
+    // For other characters, lookup in decomposition table
+#ifndef FRONTEND
+    // Backend: Use perfect hash for efficient lookup
+    uint64 hashkey = pg_hton64(((uint64) start << 32) | (uint64) code);
+    pg_unicode_recompinfo recompinfo = UnicodeRecompInfo;
+    int h = recompinfo.hash(&hashkey);
+
+    if (h >= 0 && h < recompinfo.num_recomps) {
+        const pg_unicode_decomposition *entry =
+            &UnicodeDecompMain[recompinfo.inverse_lookup[h]];
+
+        if (start == UnicodeDecomp_codepoints[entry->dec_index] &&
+            code == UnicodeDecomp_codepoints[entry->dec_index + 1]) {
+            *result = entry->codepoint;
+            return true;
+        }
+    }
+#else
+    // Frontend: Linear search through decomposition table
+    for (int i = 0; i < lengthof(UnicodeDecompMain); i++) {
+        const pg_unicode_decomposition *entry = &UnicodeDecompMain[i];
+
+        if (DECOMPOSITION_SIZE(entry) != 2 || DECOMPOSITION_NO_COMPOSE(entry))
+            continue;
+
+        if (start == UnicodeDecomp_codepoints[entry->dec_index] &&
+            code == UnicodeDecomp_codepoints[entry->dec_index + 1]) {
+            *result = entry->codepoint;
+            return true;
+        }
+    }
+#endif
+
+    return false;  // No recomposition possible
+}
+```

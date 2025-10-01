@@ -52,3 +52,118 @@ The function operates in a temporary memory context to manage memory efficiently
 - Uses a dedicated memory context for efficient memory management
 - Provides progress reporting through the statistics analysis progress infrastructure
 - Handles four types of extended statistics: NDISTINCT, DEPENDENCIES, MCV, and EXPRESSIONS
+
+## Simplified Source
+
+```c
+void BuildRelationExtStatistics(Relation onerel, bool inh, double totalrows,
+                               int numrows, HeapTuple *rows,
+                               int natts, VacAttrStats **vacattrstats) {
+    Relation pg_stext;
+    List *statslist;
+    MemoryContext cxt, oldcxt;
+    int64 ext_cnt = 0;
+
+    // Early return if no columns to analyze
+    if (!natts)
+        return;
+
+    // Get list of extended statistics objects for this relation
+    pg_stext = table_open(StatisticExtRelationId, RowExclusiveLock);
+    statslist = fetch_statentries_for_relation(pg_stext, RelationGetRelid(onerel));
+
+    // Create memory context for statistics building
+    cxt = AllocSetContextCreate(CurrentMemoryContext, "BuildRelationExtStatistics", ALLOCSET_DEFAULT_SIZES);
+    oldcxt = MemoryContextSwitchTo(cxt);
+
+    // Report progress if we have statistics to compute
+    if (statslist != NIL) {
+        const int index[] = {PROGRESS_ANALYZE_PHASE, PROGRESS_ANALYZE_EXT_STATS_TOTAL};
+        const int64 val[] = {PROGRESS_ANALYZE_PHASE_COMPUTE_EXT_STATS, list_length(statslist)};
+        pgstat_progress_update_multi_param(2, index, val);
+    }
+
+    // Process each extended statistics object
+    foreach(lc, statslist) {
+        StatExtEntry *stat = (StatExtEntry *) lfirst(lc);
+        VacAttrStats **stats;
+        int stattarget;
+
+        // Check if we can build stats for the required columns
+        stats = lookup_var_attr_stats(onerel, stat->columns, stat->exprs, natts, vacattrstats);
+        if (!stats) {
+            // Issue warning unless in autovacuum
+            if (!AmAutoVacuumWorkerProcess()) {
+                ereport(WARNING, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                    errmsg("statistics object \"%s.%s\" could not be computed for relation \"%s.%s\"",
+                           stat->schema, stat->name,
+                           get_namespace_name(onerel->rd_rel->relnamespace),
+                           RelationGetRelationName(onerel)),
+                    errtable(onerel)));
+            }
+            continue;
+        }
+
+        // Compute statistics target for this object
+        stattarget = statext_compute_stattarget(stat->stattarget, bms_num_members(stat->columns), stats);
+
+        // Skip if statistics target is 0
+        if (stattarget == 0)
+            continue;
+
+        // Prepare data for statistics computation
+        StatsBuildData *data = make_build_data(onerel, stat, numrows, rows, stats, stattarget);
+
+        // Initialize statistics objects
+        MVNDistinct *ndistinct = NULL;
+        MVDependencies *dependencies = NULL;
+        MCVList *mcv = NULL;
+        Datum exprstats = (Datum) 0;
+
+        // Compute each requested type of statistic
+        foreach(lc2, stat->types) {
+            char t = (char) lfirst_int(lc2);
+
+            switch (t) {
+                case STATS_EXT_NDISTINCT:
+                    ndistinct = statext_ndistinct_build(totalrows, data);
+                    break;
+
+                case STATS_EXT_DEPENDENCIES:
+                    dependencies = statext_dependencies_build(data);
+                    break;
+
+                case STATS_EXT_MCV:
+                    mcv = statext_mcv_build(data, totalrows, stattarget);
+                    break;
+
+                case STATS_EXT_EXPRESSIONS:
+                    if (!stat->exprs)
+                        elog(ERROR, "requested expression stats, but there are no expressions");
+
+                    AnlExprData *exprdata = build_expr_data(stat->exprs, stattarget);
+                    int nexprs = list_length(stat->exprs);
+
+                    compute_expr_stats(onerel, totalrows, exprdata, nexprs, rows, numrows);
+                    exprstats = serialize_expr_stats(exprdata, nexprs);
+                    break;
+            }
+        }
+
+        // Store computed statistics in catalog
+        statext_store(stat->statOid, inh, ndistinct, dependencies, mcv, exprstats, stats);
+
+        // Update progress reporting
+        pgstat_progress_update_param(PROGRESS_ANALYZE_EXT_STATS_COMPUTED, ++ext_cnt);
+
+        // Reset memory context for next statistics object
+        MemoryContextReset(cxt);
+    }
+
+    // Clean up
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(cxt);
+    list_free(statslist);
+    table_close(pg_stext, RowExclusiveLock);
+}
+```

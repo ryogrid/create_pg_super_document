@@ -57,3 +57,49 @@ The function must be called with elements in sequential order (index 0, 1, 2, et
 - The function automatically handles memory alignment requirements for different data types
 - [Variable](../V/Variable.md)-length elements require proper length calculation using att_addlength_pointer
 - The caller is responsible for providing the correct element index and type information
+
+## Simplified Source
+
+```c
+static inline Datum
+array_iter_next(array_iter *it, bool *isnull, int i,
+                int elmlen, bool elmbyval, char elmalign)
+{
+    Datum ret;
+
+    if (it->datumptr)
+    {
+        // Fast path: expanded array with direct Datum access
+        ret = it->datumptr[i];
+        *isnull = it->isnullptr ? it->isnullptr[i] : false;
+    }
+    else
+    {
+        // Flat array: check null bitmap and extract from binary data
+        if (it->bitmapptr && (*(it->bitmapptr) & it->bitmask) == 0)
+        {
+            *isnull = true;
+            ret = (Datum) 0;
+        }
+        else
+        {
+            *isnull = false;
+            ret = fetch_att(it->dataptr, elmbyval, elmlen);
+            // Advance to next element position
+            it->dataptr = att_addlength_pointer(it->dataptr, elmlen, it->dataptr);
+            it->dataptr = (char *) att_align_nominal(it->dataptr, elmalign);
+        }
+
+        // Update bitmask for next null check
+        it->bitmask <<= 1;
+        if (it->bitmask == 0x100)
+        {
+            if (it->bitmapptr)
+                it->bitmapptr++;
+            it->bitmask = 1;
+        }
+    }
+
+    return ret;
+}
+```

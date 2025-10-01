@@ -59,3 +59,54 @@ This function is typically not called directly but serves as the implementation 
 - Proper indentation and line ending handling is maintained across all formats
 - The function handles NULL unit parameters gracefully
 - XML output uses X_NOWHITESPACE flags to create compact element formatting without extra whitespace
+
+## Simplified Source
+
+```c
+static void ExplainProperty(const char *qlabel, const char *unit, const char *value,
+                           bool numeric, ExplainState *es) {
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+            // Text format: "label: value unit"
+            ExplainIndentText(es);
+            if (unit)
+                appendStringInfo(es->str, "%s: %s %s\n", qlabel, value, unit);
+            else
+                appendStringInfo(es->str, "%s: %s\n", qlabel, value);
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            // XML format: <label>value</label>
+            appendStringInfoSpaces(es->str, es->indent * 2);
+            ExplainXMLTag(qlabel, X_OPENING | X_NOWHITESPACE, es);
+            char *escaped_xml = escape_xml(value);
+            appendStringInfoString(es->str, escaped_xml);
+            pfree(escaped_xml);
+            ExplainXMLTag(qlabel, X_CLOSING | X_NOWHITESPACE, es);
+            appendStringInfoChar(es->str, '\n');
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            // JSON format: "label": value (unquoted if numeric)
+            ExplainJSONLineEnding(es);
+            appendStringInfoSpaces(es->str, es->indent * 2);
+            escape_json(es->str, qlabel);
+            appendStringInfoString(es->str, ": ");
+            if (numeric)
+                appendStringInfoString(es->str, value);
+            else
+                escape_json(es->str, value);
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            // YAML format: label: value
+            ExplainYAMLLineStarting(es);
+            appendStringInfo(es->str, "%s: ", qlabel);
+            if (numeric)
+                appendStringInfoString(es->str, value);
+            else
+                escape_yaml(es->str, value);
+            break;
+    }
+}
+```

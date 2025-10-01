@@ -54,3 +54,45 @@ The manual implementation is particularly sophisticated, using the mathematical 
 - Manual algorithm checks all four sign combinations: (+,+), (+,-), (-,+), (-,-)
 - Critical for financial calculations, timestamp arithmetic, and high-precision numeric operations
 - The sqrt-based optimization significantly improves performance for common cases where operands fit in 32-bit range
+
+## Simplified Source
+
+```c
+static inline bool
+pg_mul_s64_overflow(int64 a, int64 b, int64 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler builtin for optimal performance
+    return __builtin_mul_overflow(a, b, result);
+
+#elif defined(HAVE_INT128)
+    // Use 128-bit arithmetic to detect overflow
+    int128 res = (int128) a * (int128) b;
+
+    if (res > PG_INT64_MAX || res < PG_INT64_MIN) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;       // Overflow detected
+    }
+    *result = (int64) res;
+    return false;
+
+#else
+    // Manual overflow detection - optimized approach
+    // Quick check: if both values fit in 32-bit range, no overflow possible
+    if ((a > PG_INT32_MAX || a < PG_INT32_MIN ||
+         b > PG_INT32_MAX || b < PG_INT32_MIN) &&
+        a != 0 && a != 1 && b != 0 && b != 1 &&
+        // Check all sign combinations for overflow
+        ((a > 0 && b > 0 && a > PG_INT64_MAX / b) ||
+         (a > 0 && b < 0 && b < PG_INT64_MIN / a) ||
+         (a < 0 && b > 0 && a < PG_INT64_MIN / b) ||
+         (a < 0 && b < 0 && a < PG_INT64_MAX / b))) {
+        *result = 0x5EED;  // Dummy value
+        return true;       // Overflow detected
+    }
+
+    *result = a * b;
+    return false;  // No overflow
+#endif
+}
+```

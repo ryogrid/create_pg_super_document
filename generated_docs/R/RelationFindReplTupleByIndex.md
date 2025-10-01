@@ -59,3 +59,87 @@ The function includes sophisticated retry logic to handle concurrent modificatio
 - Maintains index lock until transaction commit for consistency
 - Designed specifically for logical replication scenarios where precise tuple identification and locking is critical
 - Handles moved partitions as a special case of concurrent updates
+
+## Simplified Source
+
+```c
+bool RelationFindReplTupleByIndex(Relation rel, Oid idxoid, LockTupleMode lockmode,
+                                  TupleTableSlot *searchslot, TupleTableSlot *outslot) {
+    ScanKeyData skey[INDEX_MAX_KEYS];
+    IndexScanDesc scan;
+    SnapshotData snap;
+    Relation idxrel;
+    bool found;
+    bool isIdxSafeToSkipDuplicates;
+
+    // Open index and check if it's primary key/replica identity (safe to skip equality checks)
+    idxrel = index_open(idxoid, RowExclusiveLock);
+    isIdxSafeToSkipDuplicates = (GetRelationIdentityOrPK(rel) == idxoid);
+
+    // Build scan key and start index scan
+    InitDirtySnapshot(snap);
+    int skey_attoff = build_replindex_scan_key(skey, rel, idxrel, searchslot);
+    scan = index_beginscan(rel, idxrel, &snap, skey_attoff, 0);
+
+retry:
+    found = false;
+    index_rescan(scan, skey, skey_attoff, NULL, 0);
+
+    // Search for matching tuple
+    while (index_getnext_slot(scan, ForwardScanDirection, outslot)) {
+        // Skip expensive equality check for primary key/replica identity indexes
+        if (!isIdxSafeToSkipDuplicates) {
+            if (eq == NULL)
+                eq = palloc0(sizeof(*eq) * outslot->tts_tupleDescriptor->natts);
+            if (!tuples_equal(outslot, searchslot, eq))
+                continue;
+        }
+
+        ExecMaterializeSlot(outslot);
+
+        // Handle concurrent transactions
+        TransactionId xwait = TransactionIdIsValid(snap.xmin) ? snap.xmin : snap.xmax;
+        if (TransactionIdIsValid(xwait)) {
+            XactLockTableWait(xwait, NULL, NULL, XLTW_None);
+            goto retry;
+        }
+
+        found = true;
+        break;
+    }
+
+    // Lock the found tuple
+    if (found) {
+        TM_FailureData tmfd;
+        PushActiveSnapshot(GetLatestSnapshot());
+
+        TM_Result res = table_tuple_lock(rel, &(outslot->tts_tid), GetActiveSnapshot(),
+                                        outslot, GetCurrentCommandId(false), lockmode,
+                                        LockWaitBlock, 0, &tmfd);
+
+        PopActiveSnapshot();
+
+        // Handle concurrent modifications
+        switch (res) {
+            case TM_Ok:
+                break;
+            case TM_Updated:
+            case TM_Deleted:
+                // Log and retry for concurrent changes
+                ereport(LOG, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                             errmsg("concurrent modification, retrying")));
+                goto retry;
+            case TM_Invisible:
+                elog(ERROR, "attempted to lock invisible tuple");
+                break;
+            default:
+                elog(ERROR, "unexpected table_tuple_lock status: %u", res);
+                break;
+        }
+    }
+
+    index_endscan(scan);
+    index_close(idxrel, NoLock);
+    return found;
+}
+```

@@ -45,3 +45,62 @@ This function serves as a central control point for vacuum operations, providing
 - Resets VacuumCostBalance to 0 after sleeping
 - Includes special handling for postmaster death detection during long delays
 - Updates autovacuum cost limits periodically for better load balancing across workers
+
+## Simplified Source
+
+```c
+void vacuum_delay_point(void)
+{
+    double msec = 0;
+
+    // Always check for interrupts first
+    CHECK_FOR_INTERRUPTS();
+
+    // Early return if no delays needed or interrupts pending
+    if (InterruptPending || (!VacuumCostActive && !ConfigReloadPending))
+        return;
+
+    // Handle config reload for autovacuum workers
+    if (ConfigReloadPending && AmAutoVacuumWorkerProcess()) {
+        ConfigReloadPending = false;
+        ProcessConfigFile(PGC_SIGHUP);
+        VacuumUpdateCosts();
+    }
+
+    // Exit if cost-based delays were disabled after config reload
+    if (!VacuumCostActive)
+        return;
+
+    // Calculate delay time based on cost balance
+    if (VacuumSharedCostBalance != NULL) {
+        // Parallel vacuum - use shared cost balance
+        msec = compute_parallel_delay();
+    } else if (VacuumCostBalance >= vacuum_cost_limit) {
+        // Regular vacuum - calculate proportional delay
+        msec = vacuum_cost_delay * VacuumCostBalance / vacuum_cost_limit;
+    }
+
+    // Apply delay if needed
+    if (msec > 0) {
+        // Cap maximum delay to prevent excessive waits
+        if (msec > vacuum_cost_delay * 4)
+            msec = vacuum_cost_delay * 4;
+
+        // Sleep with wait event reporting
+        pgstat_report_wait_start(WAIT_EVENT_VACUUM_DELAY);
+        pg_usleep(msec * 1000);
+        pgstat_report_wait_end();
+
+        // Check for postmaster death during long delays
+        if (IsUnderPostmaster && !PostmasterIsAlive())
+            exit(1);
+
+        // Reset cost balance and update autovacuum limits
+        VacuumCostBalance = 0;
+        AutoVacuumUpdateCostLimit();
+
+        // Check for interrupts after sleeping
+        CHECK_FOR_INTERRUPTS();
+    }
+}
+```

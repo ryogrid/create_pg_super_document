@@ -44,3 +44,51 @@ The function maintains the same owner privilege handling as , where owners impli
 - Used primarily in privilege granting scenarios where direct grants matter
 - Returns 0 immediately if mask is 0 or if ACL is NULL (with error)
 - Critical for determining valid grantors in the privilege system
+
+## Simplified Source
+
+```c
+static AclMode aclmask_direct(const Acl *acl, Oid roleid, Oid ownerId,
+                             AclMode mask, AclMaskHow how) {
+    AclMode result;
+    AclItem *aidat;
+    int i, num;
+
+    // Validate inputs
+    if (acl == NULL)
+        elog(ERROR, "null ACL");
+    check_acl(acl);
+
+    // Quick exit for no permissions requested
+    if (mask == 0)
+        return 0;
+
+    result = 0;
+
+    // Owner implicitly has all grant options
+    if ((mask & ACLITEM_ALL_GOPTION_BITS) && roleid == ownerId) {
+        result = mask & ACLITEM_ALL_GOPTION_BITS;
+        if ((how == ACLMASK_ALL) ? (result == mask) : (result != 0))
+            return result;
+    }
+
+    // Check ACL entries for direct grants to this role
+    num = ACL_NUM(acl);
+    aidat = ACL_DAT(acl);
+
+    for (i = 0; i < num; i++) {
+        AclItem *aidata = &aidat[i];
+
+        if (aidata->ai_grantee == roleid) {
+            // Found direct grant - accumulate privileges
+            result |= aidata->ai_privs & mask;
+
+            // Early exit if we have what we need
+            if ((how == ACLMASK_ALL) ? (result == mask) : (result != 0))
+                return result;
+        }
+    }
+
+    return result;
+}
+```

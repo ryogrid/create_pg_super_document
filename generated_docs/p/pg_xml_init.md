@@ -42,3 +42,56 @@ This function provides a complete initialization setup for libxml2 operations th
 - Error strictness levels control whether certain XML issues are treated as errors or warnings
 - Used extensively throughout PostgreSQL's XML processing subsystem for any operation requiring error handling
 - The function is exported for use by contrib/xml2 and other extensions that need libxml2 error handling
+
+## Simplified Source
+
+```c
+PgXmlErrorContext *
+pg_xml_init(PgXmlStrictness strictness)
+{
+    PgXmlErrorContext *errcxt;
+    void *new_errcxt;
+
+    // Initialize libxml2 library
+    pg_xml_init_library();
+
+    // Create and initialize error context
+    errcxt = (PgXmlErrorContext *) palloc(sizeof(PgXmlErrorContext));
+    errcxt->magic = ERRCXT_MAGIC;
+    errcxt->strictness = strictness;
+    errcxt->err_occurred = false;
+    initStringInfo(&errcxt->err_buf);
+
+    // Save current error handler and context
+    errcxt->saved_errfunc = xmlStructuredError;
+#ifdef HAVE_XMLSTRUCTUREDERRORCONTEXT
+    errcxt->saved_errcxt = xmlStructuredErrorContext;
+#else
+    errcxt->saved_errcxt = xmlGenericErrorContext;
+#endif
+
+    // Install PostgreSQL's error handler
+    xmlSetStructuredErrorFunc((void *) errcxt, xml_errorHandler);
+
+    // Verify error context was set correctly (compatibility check)
+#ifdef HAVE_XMLSTRUCTUREDERRORCONTEXT
+    new_errcxt = xmlStructuredErrorContext;
+#else
+    new_errcxt = xmlGenericErrorContext;
+#endif
+
+    if (new_errcxt != (void *) errcxt)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not set up XML error handler"),
+                 errhint("This probably indicates that the version of libxml2"
+                        " being used is not compatible with the libxml2"
+                        " header files that PostgreSQL was built with.")));
+
+    // Install secure entity loader to prevent external access
+    errcxt->saved_entityfunc = xmlGetExternalEntityLoader();
+    xmlSetExternalEntityLoader(xmlPgEntityLoader);
+
+    return errcxt;
+}
+```

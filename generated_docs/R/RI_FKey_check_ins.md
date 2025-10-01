@@ -42,3 +42,15 @@ This function follows PostgreSQL's trigger function interface:
 - The function returns `Datum` following PostgreSQL's function call convention
 - Part of PostgreSQL's referential integrity (RI) system located in src/backend/utils/adt/ri_triggers.c:424-431
 - Handles constraint validation for all INSERT operations where foreign key constraints are defined
+
+## Simplified Source
+
+```c
+Datum RI_FKey_check_ins(PG_FUNCTION_ARGS) {
+    // Validate this is called from correct trigger context (INSERT)
+    ri_CheckTrigger(fcinfo, "RI_FKey_check_ins", RI_TRIGTYPE_INSERT);
+
+    // Delegate to shared foreign key validation logic
+    return RI_FKey_check((TriggerData *) fcinfo->context);
+}
+```

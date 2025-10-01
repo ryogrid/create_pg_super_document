@@ -33,3 +33,11 @@ The function returns true only when both conditions are met, ensuring the sampli
 - Used internally by BlockSampler_Next to determine when to continue the sampling process
 - Always called before BlockSampler_Next to avoid unnecessary computation when sampling is complete
 - Return value of false indicates the sampling process is finished and no more blocks will be selected
+
+## Simplified Source
+```c
+bool BlockSampler_HasMore(BlockSampler bs) {
+    // Continue sampling if: more blocks to examine AND sample not yet complete
+    return (bs->t < bs->N) && (bs->m < bs->n);
+}
+```

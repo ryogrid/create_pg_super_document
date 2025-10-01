@@ -41,3 +41,73 @@ The  function performs subtraction of absolute values between two NumericVar ope
 - Uses local variable copies for performance optimization in the inner loop
 - Automatically strips leading and trailing zeros from the result
 - Memory-safe: result parameter can alias with either input operand
+
+## Simplified Source
+
+```c
+static void
+sub_abs(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+{
+    NumericDigit *res_buf, *res_digits;
+    int res_ndigits, res_weight, res_dscale;
+    int borrow = 0;
+
+    // Copy input values for faster loop access
+    int var1ndigits = var1->ndigits;
+    int var2ndigits = var2->ndigits;
+    NumericDigit *var1digits = var1->digits;
+    NumericDigit *var2digits = var2->digits;
+
+    // Calculate result dimensions
+    res_weight = var1->weight;
+    res_dscale = Max(var1->dscale, var2->dscale);
+
+    int rscale1 = var1->ndigits - var1->weight - 1;
+    int rscale2 = var2->ndigits - var2->weight - 1;
+    int res_rscale = Max(rscale1, rscale2);
+
+    res_ndigits = res_rscale + res_weight + 1;
+    if (res_ndigits <= 0)
+        res_ndigits = 1;
+
+    // Allocate result buffer
+    res_buf = digitbuf_alloc(res_ndigits + 1);
+    res_digits = res_buf + 1;
+
+    // Perform digit-by-digit subtraction with borrowing
+    int i1 = res_rscale + var1->weight + 1;
+    int i2 = res_rscale + var2->weight + 1;
+
+    for (int i = res_ndigits - 1; i >= 0; i--) {
+        i1--; i2--;
+
+        // Add digit from var1
+        if (i1 >= 0 && i1 < var1ndigits)
+            borrow += var1digits[i1];
+
+        // Subtract digit from var2
+        if (i2 >= 0 && i2 < var2ndigits)
+            borrow -= var2digits[i2];
+
+        // Handle borrowing
+        if (borrow < 0) {
+            res_digits[i] = borrow + NBASE;
+            borrow = -1;
+        } else {
+            res_digits[i] = borrow;
+            borrow = 0;
+        }
+    }
+
+    // Store result
+    digitbuf_free(result->buf);
+    result->ndigits = res_ndigits;
+    result->buf = res_buf;
+    result->digits = res_digits;
+    result->weight = res_weight;
+    result->dscale = res_dscale;
+
+    // Clean up result
+    strip_var(result);
+}
+```

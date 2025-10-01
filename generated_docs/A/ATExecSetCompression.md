@@ -9,12 +9,8 @@ ATExecSetCompression handles the ALTER TABLE ALTER COLUMN SET COMPRESSION comman
 ## Definition
 
 ```c
-structTupleDescriptor()).
-	 */
-	SetIndexStorageProperties(rel, attrel, attnum,
-							  false, 0,
-							  true, cmethod,
-							  lockmode);
+static ObjectAddress
+ATExecSetCompression(Relation rel, const char *column, Node *newValue, LOCKMODE lockmode)
 ```
 ## Detailed Description
 This function implements column-level compression setting for ALTER TABLE operations. It validates that the specified column exists and is not a system column, checks that the column type supports compression, converts the compression method name to its internal code, updates the pg_attribute catalog, and applies the compression setting to any simple index columns that reference this table column.
@@ -58,3 +54,64 @@ The function performs these key operations:
 - Uses RowExclusiveLock when accessing the pg_attribute catalog
 - [CommandCounterIncrement](../C/CommandCounterIncrement.md) ensures the changes are visible to subsequent operations in the same transaction
 - The function matches the behavior of index.c ConstructTupleDescriptor() when handling index columns
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecSetCompression(Relation rel, const char *column, Node *newValue, LOCKMODE lockmode)
+{
+    Relation attrel;
+    HeapTuple tuple;
+    Form_pg_attribute atttableform;
+    AttrNumber attnum;
+    char *compression;
+    char cmethod;
+    ObjectAddress address;
+
+    // Extract compression method name from the node
+    compression = strVal(newValue);
+
+    // Open pg_attribute catalog for updates
+    attrel = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Find the column in the system catalog
+    tuple = SearchSysCacheCopyAttName(RelationGetRelid(rel), column);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                       errmsg("column \"%s\" of relation \"%s\" does not exist",
+                              column, RelationGetRelationName(rel))));
+
+    // Validate column can be modified
+    atttableform = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = atttableform->attnum;
+    if (attnum <= 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot alter system column \"%s\"", column)));
+
+    // Validate compression method is compatible with column type
+    cmethod = GetAttributeCompression(atttableform->atttypid, compression);
+
+    // Update the pg_attribute entry
+    atttableform->attcompression = cmethod;
+    CatalogTupleUpdate(attrel, &tuple->t_self, tuple);
+
+    // Trigger post-alter hooks
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attnum);
+
+    // Apply compression to related index columns
+    SetIndexStorageProperties(rel, attrel, attnum,
+                             false, 0,       // storage parameters
+                             true, cmethod,  // compression parameters
+                             lockmode);
+
+    // Cleanup and make changes visible
+    heap_freetuple(tuple);
+    table_close(attrel, RowExclusiveLock);
+    CommandCounterIncrement();
+
+    // Return object address for the modified column
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+    return address;
+}
+```

@@ -49,3 +49,49 @@ This function prepares for setting a NOT NULL constraint on a column during ALTE
 - The optimization for partitioned tables with existing NOT NULL columns can significantly improve performance in bulk operations
 - The function handles a design limitation where traditional inheritance doesn't properly enforce NOT NULL constraints from parent to child tables
 - For partitioned tables with ONLY clause, it transforms SET NOT NULL to CHECK NOT NULL for children to maintain proper constraint validation
+
+## Simplified Source
+
+```c
+static void
+ATPrepSetNotNull(List **wqueue, Relation rel, AlterTableCmd *cmd,
+                bool recurse, bool recursing, LOCKMODE lockmode,
+                AlterTableUtilityContext *context)
+{
+    // Skip if already recursing to avoid duplicate processing
+    if (recursing)
+        return;
+
+    // Optimization for partitioned tables: skip if column already NOT NULL
+    if (rel->rd_rel->relhassubclass &&
+        rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+
+        HeapTuple tuple = SearchSysCacheAttName(RelationGetRelid(rel), cmd->name);
+
+        // Validate column exists
+        if (!HeapTupleIsValid(tuple))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                           errmsg("column \"%s\" of relation \"%s\" does not exist",
+                                  cmd->name, RelationGetRelationName(rel))));
+
+        bool attnotnull = ((Form_pg_attribute) GETSTRUCT(tuple))->attnotnull;
+        ReleaseSysCache(tuple);
+
+        // Skip recursion if already NOT NULL
+        if (attnotnull)
+            return;
+    }
+
+    // Handle partitioned table with ONLY clause specially
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE && !recurse) {
+        // Convert to CHECK NOT NULL for children
+        AlterTableCmd *newcmd = makeNode(AlterTableCmd);
+        newcmd->subtype = AT_CheckNotNull;
+        newcmd->name = pstrdup(cmd->name);
+        ATSimpleRecursion(wqueue, rel, newcmd, true, lockmode, context);
+    } else {
+        // Use normal recursion logic
+        ATSimpleRecursion(wqueue, rel, cmd, recurse, lockmode, context);
+    }
+}
+```

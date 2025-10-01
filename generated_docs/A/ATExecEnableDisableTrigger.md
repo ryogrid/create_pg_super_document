@@ -42,3 +42,21 @@ The  function is the execution handler for ALTER TABLE ENABLE/DISABLE TRIGGER co
 - Integrates with the event trigger system through post-alter hooks
 - The actual trigger manipulation logic is implemented in the trigger subsystem (trigger.c)
 - Supports skipping system triggers when appropriate
+
+## Simplified Source
+
+```c
+static void
+ATExecEnableDisableTrigger(Relation rel, const char *trigname,
+                          char fires_when, bool skip_system, bool recurse,
+                          LOCKMODE lockmode)
+{
+    // Delegate to the trigger subsystem with InvalidOid for trigoid
+    EnableDisableTrigger(rel, trigname, InvalidOid,
+                        fires_when, skip_system, recurse,
+                        lockmode);
+
+    // Invoke post-alter hooks for event triggers
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+}
+```

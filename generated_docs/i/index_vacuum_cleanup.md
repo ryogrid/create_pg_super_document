@@ -44,3 +44,18 @@ Like other index access method functions, it delegates the actual work to the ac
 - The cleanup phase may be more expensive than bulk deletion for some index types, as it performs structural optimizations
 - Different index types use this opportunity for various maintenance: B-trees may consolidate pages, GIN may merge posting lists, etc.
 - Part of PostgreSQL's two-phase vacuum approach: bulk delete followed by cleanup for maximum efficiency
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *index_vacuum_cleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *istat) {
+    Relation indexRelation = info->index;
+
+    // Validate relation and access method
+    RELATION_CHECKS;
+    CHECK_REL_PROCEDURE(amvacuumcleanup);
+
+    // Delegate to access method specific cleanup function
+    return indexRelation->rd_indam->amvacuumcleanup(info, istat);
+}
+```

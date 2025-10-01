@@ -43,3 +43,53 @@ The function ensures cache counter overflow protection by calling DCH_prevent_co
 - The LRU (Least Recently Used) replacement policy helps maintain frequently used formats in cache
 - Returned entries require caller to populate the format field and set valid=true to complete initialization
 - Cache size is bounded by DCH_CACHE_ENTRIES constant to prevent unbounded memory growth
+
+## Simplified Source
+
+```c
+static DCHCacheEntry *
+DCH_cache_getnew(const char *str, bool std)
+{
+    DCHCacheEntry *ent;
+
+    // Prevent counter overflow before incrementing ages
+    DCH_prevent_counter_overflow();
+
+    // Handle cache full scenario - find entry to recycle
+    if (n_DCHCache >= DCH_CACHE_ENTRIES) {
+        DCHCacheEntry *oldest = DCHCache[0];
+
+        // Look for invalid entry first, then oldest valid entry
+        if (oldest->valid) {
+            for (int i = 1; i < DCH_CACHE_ENTRIES; i++) {
+                ent = DCHCache[i];
+                if (!ent->valid) {
+                    oldest = ent;  // Found invalid entry - use it
+                    break;
+                }
+                if (ent->age < oldest->age)
+                    oldest = ent;  // Track oldest entry
+            }
+        }
+
+        // Recycle the selected entry
+        oldest->valid = false;
+        strlcpy(oldest->str, str, DCH_CACHE_SIZE + 1);
+        oldest->age = (++DCHCounter);
+        return oldest;
+    } else {
+        // Cache has space - allocate new entry
+        ent = (DCHCacheEntry *) MemoryContextAllocZero(TopMemoryContext,
+                                                       sizeof(DCHCacheEntry));
+        DCHCache[n_DCHCache] = ent;
+
+        ent->valid = false;  // Caller will set valid after filling format
+        strlcpy(ent->str, str, DCH_CACHE_SIZE + 1);
+        ent->std = std;
+        ent->age = (++DCHCounter);
+
+        ++n_DCHCache;
+        return ent;
+    }
+}
+```

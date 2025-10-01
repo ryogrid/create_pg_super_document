@@ -38,3 +38,34 @@ This function provides flexible initialization of JsonLexContext objects with su
 
 ## Notes and Other Information
 This function is the primary entry point for setting up JSON parsing contexts in PostgreSQL. The flexible memory management allows for optimal performance in different scenarios - stack allocation for temporary parsing and heap allocation for longer-lived contexts. The need_escapes parameter provides an important optimization, as escape processing is expensive and should only be enabled when the unescaped string values are actually needed. The function properly handles memory management flags to ensure correct cleanup behavior.
+
+## Simplified Source
+
+```c
+JsonLexContext *
+makeJsonLexContextCstringLen(JsonLexContext *lex, const char *json,
+                           size_t len, int encoding, bool need_escapes)
+{
+    // Allocate new context if none provided
+    if (lex == NULL) {
+        lex = palloc0(sizeof(JsonLexContext));
+        lex->flags |= JSONLEX_FREE_STRUCT;
+    } else {
+        memset(lex, 0, sizeof(JsonLexContext));
+    }
+
+    // Initialize parsing state
+    lex->input = lex->token_terminator = lex->line_start = json;
+    lex->line_number = 1;
+    lex->input_length = len;
+    lex->input_encoding = encoding;
+
+    // Setup escape processing if needed
+    if (need_escapes) {
+        lex->strval = makeStringInfo();
+        lex->flags |= JSONLEX_FREE_STRVAL;
+    }
+
+    return lex;
+}
+```

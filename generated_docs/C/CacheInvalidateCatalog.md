@@ -32,3 +32,24 @@ The function determines whether the catalog is shared across databases or specif
 - The caller is expected to verify that the relation is actually a system catalog, though no harm occurs if it isn't (just a wasted invalidation message)
 - The function handles both shared and non-shared catalogs appropriately by setting the database ID to InvalidOid for shared relations
 - This is a more heavyweight operation compared to invalidating individual tuples, as it invalidates the entire catalog content
+
+## Simplified Source
+
+```c
+void CacheInvalidateCatalog(Oid catalogId)
+{
+    Oid databaseId;
+
+    // Prepare invalidation state
+    PrepareInvalidationState();
+
+    // Determine database scope for invalidation
+    if (IsSharedRelation(catalogId))
+        databaseId = InvalidOid;  // Shared across all databases
+    else
+        databaseId = MyDatabaseId;  // Current database only
+
+    // Register catalog invalidation
+    RegisterCatalogInvalidation(databaseId, catalogId);
+}
+```

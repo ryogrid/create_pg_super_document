@@ -49,3 +49,84 @@ The function uses a systematic approach: it first searches for existing entries,
 - Specifically designed for INITPRIVS_EXTENSION privilege type
 - Includes CommandCounterIncrement to handle multiple object processing
 - Does not check creating_extension flag unlike its wrapper function
+
+## Simplified Source
+
+```c
+static void recordExtensionInitPrivWorker(Oid objoid, Oid classoid, int objsubid, Acl *new_acl) {
+    Relation relation;
+    ScanKeyData key[3];
+    SysScanDesc scan;
+    HeapTuple tuple, oldtuple;
+    int noldmembers, nnewmembers;
+    Oid *oldmembers, *newmembers;
+
+    // Extract role membership from new ACL
+    nnewmembers = aclmembers(new_acl, &newmembers);
+
+    // Open pg_init_privs catalog for search and modification
+    relation = table_open(InitPrivsRelationId, RowExclusiveLock);
+
+    // Set up scan keys to find existing entry
+    ScanKeyInit(&key[0], Anum_pg_init_privs_objoid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(objoid));
+    ScanKeyInit(&key[1], Anum_pg_init_privs_classoid, BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classoid));
+    ScanKeyInit(&key[2], Anum_pg_init_privs_objsubid, BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(objsubid));
+
+    scan = systable_beginscan(relation, InitPrivsObjIndexId, true, NULL, 3, key);
+    oldtuple = systable_getnext(scan);
+
+    if (HeapTupleIsValid(oldtuple)) {
+        // Found existing entry - update or delete it
+        Datum oldAclDatum;
+        bool isNull;
+        Acl *old_acl;
+
+        // Get old ACL for dependency tracking
+        oldAclDatum = heap_getattr(oldtuple, Anum_pg_init_privs_initprivs, RelationGetDescr(relation), &isNull);
+        Assert(!isNull);
+        old_acl = DatumGetAclP(oldAclDatum);
+        noldmembers = aclmembers(old_acl, &oldmembers);
+
+        // Update role dependencies
+        updateInitAclDependencies(classoid, objoid, objsubid, noldmembers, oldmembers, nnewmembers, newmembers);
+
+        if (new_acl && ACL_NUM(new_acl) != 0) {
+            // Update existing entry with new ACL
+            Datum values[Natts_pg_init_privs] = {0};
+            bool nulls[Natts_pg_init_privs] = {0};
+            bool replace[Natts_pg_init_privs] = {0};
+
+            values[Anum_pg_init_privs_initprivs - 1] = PointerGetDatum(new_acl);
+            replace[Anum_pg_init_privs_initprivs - 1] = true;
+
+            oldtuple = heap_modify_tuple(oldtuple, RelationGetDescr(relation), values, nulls, replace);
+            CatalogTupleUpdate(relation, &oldtuple->t_self, oldtuple);
+        } else {
+            // New ACL is NULL/empty - delete the entry
+            CatalogTupleDelete(relation, &oldtuple->t_self);
+        }
+    } else if (new_acl && ACL_NUM(new_acl) != 0) {
+        // No existing entry found - create new one
+        Datum values[Natts_pg_init_privs] = {0};
+        bool nulls[Natts_pg_init_privs] = {0};
+
+        values[Anum_pg_init_privs_objoid - 1] = ObjectIdGetDatum(objoid);
+        values[Anum_pg_init_privs_classoid - 1] = ObjectIdGetDatum(classoid);
+        values[Anum_pg_init_privs_objsubid - 1] = Int32GetDatum(objsubid);
+        values[Anum_pg_init_privs_privtype - 1] = CharGetDatum(INITPRIVS_EXTENSION);
+        values[Anum_pg_init_privs_initprivs - 1] = PointerGetDatum(new_acl);
+
+        tuple = heap_form_tuple(RelationGetDescr(relation), values, nulls);
+        CatalogTupleInsert(relation, tuple);
+
+        // Update dependencies for new entry
+        noldmembers = 0;
+        oldmembers = NULL;
+        updateInitAclDependencies(classoid, objoid, objsubid, noldmembers, oldmembers, nnewmembers, newmembers);
+    }
+
+    systable_endscan(scan);
+    CommandCounterIncrement();  // Prevent errors when processing multiple objects
+    table_close(relation, RowExclusiveLock);
+}
+```

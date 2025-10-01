@@ -68,3 +68,152 @@ The function implements sophisticated logic for different expression types:
 - Uses different cache fields for INNER vs. outer joins to handle examination with different join types
 - Contains extensive comments explaining caching conditions and join type variations
 - The function is central to PostgreSQL's cost-based optimization and affects query plan selection significantly
+
+## Simplified Source
+
+```c
+Selectivity clause_selectivity_ext(PlannerInfo *root, Node *clause, int varRelid,
+                                  JoinType jointype, SpecialJoinInfo *sjinfo,
+                                  bool use_extended_stats) {
+    Selectivity s1 = 0.5;  // Default selectivity
+    RestrictInfo *rinfo = NULL;
+    bool cacheable = false;
+
+    if (clause == NULL)
+        return s1;
+
+    // Handle RestrictInfo wrapper
+    if (IsA(clause, RestrictInfo)) {
+        rinfo = (RestrictInfo *) clause;
+
+        // Pseudoconstant clauses return 1.0 (except FALSE)
+        if (rinfo->pseudoconstant) {
+            if (!IsA(rinfo->clause, Const))
+                return 1.0;
+        }
+
+        // Check if result can be cached
+        if (varRelid == 0 || rinfo->num_base_rels == 0 ||
+            (rinfo->num_base_rels == 1 &&
+             bms_is_member(varRelid, rinfo->clause_relids))) {
+
+            // Return cached result if available
+            if (jointype == JOIN_INNER && rinfo->norm_selec >= 0)
+                return rinfo->norm_selec;
+            else if (jointype != JOIN_INNER && rinfo->outer_selec >= 0)
+                return rinfo->outer_selec;
+
+            cacheable = true;
+        }
+
+        // Extract the actual clause
+        clause = rinfo->orclause ? (Node *) rinfo->orclause : (Node *) rinfo->clause;
+    }
+
+    // Process different clause types
+    if (IsA(clause, Var)) {
+        Var *var = (Var *) clause;
+        if (var->varlevelsup == 0 &&
+            (varRelid == 0 || varRelid == (int) var->varno)) {
+            s1 = boolvarsel(root, (Node *) var, varRelid);
+        }
+    }
+    else if (IsA(clause, Const)) {
+        Const *con = (Const *) clause;
+        s1 = con->constisnull ? 0.0 :
+             DatumGetBool(con->constvalue) ? 1.0 : 0.0;
+    }
+    else if (IsA(clause, Param)) {
+        Node *subst = estimate_expression_value(root, clause);
+        if (IsA(subst, Const)) {
+            Const *con = (Const *) subst;
+            s1 = con->constisnull ? 0.0 :
+                 DatumGetBool(con->constvalue) ? 1.0 : 0.0;
+        }
+    }
+    else if (is_notclause(clause)) {
+        // NOT clause: invert selectivity
+        s1 = 1.0 - clause_selectivity_ext(root,
+                                         (Node *) get_notclausearg((Expr *) clause),
+                                         varRelid, jointype, sjinfo, use_extended_stats);
+    }
+    else if (is_andclause(clause)) {
+        // AND clause: use clauselist_selectivity
+        s1 = clauselist_selectivity_ext(root, ((BoolExpr *) clause)->args,
+                                       varRelid, jointype, sjinfo, use_extended_stats);
+    }
+    else if (is_orclause(clause)) {
+        // OR clause: use OR-specific logic
+        s1 = clauselist_selectivity_or(root, ((BoolExpr *) clause)->args,
+                                      varRelid, jointype, sjinfo, use_extended_stats);
+    }
+    else if (is_opclause(clause) || IsA(clause, DistinctExpr)) {
+        OpExpr *opclause = (OpExpr *) clause;
+
+        if (treat_as_join_clause(root, clause, rinfo, varRelid, sjinfo)) {
+            s1 = join_selectivity(root, opclause->opno, opclause->args,
+                                 opclause->inputcollid, jointype, sjinfo);
+        } else {
+            s1 = restriction_selectivity(root, opclause->opno, opclause->args,
+                                        opclause->inputcollid, varRelid);
+        }
+
+        // DistinctExpr: negate the result
+        if (IsA(clause, DistinctExpr))
+            s1 = 1.0 - s1;
+    }
+    else if (is_funcclause(clause)) {
+        FuncExpr *funcclause = (FuncExpr *) clause;
+        s1 = function_selectivity(root, funcclause->funcid, funcclause->args,
+                                 funcclause->inputcollid,
+                                 treat_as_join_clause(root, clause, rinfo, varRelid, sjinfo),
+                                 varRelid, jointype, sjinfo);
+    }
+    else if (IsA(clause, ScalarArrayOpExpr)) {
+        s1 = scalararraysel(root, (ScalarArrayOpExpr *) clause,
+                           treat_as_join_clause(root, clause, rinfo, varRelid, sjinfo),
+                           varRelid, jointype, sjinfo);
+    }
+    else if (IsA(clause, RowCompareExpr)) {
+        s1 = rowcomparesel(root, (RowCompareExpr *) clause, varRelid, jointype, sjinfo);
+    }
+    else if (IsA(clause, NullTest)) {
+        NullTest *nulltest = (NullTest *) clause;
+        s1 = nulltestsel(root, nulltest->nulltesttype, (Node *) nulltest->arg,
+                        varRelid, jointype, sjinfo);
+    }
+    else if (IsA(clause, BooleanTest)) {
+        BooleanTest *booltest = (BooleanTest *) clause;
+        s1 = booltestsel(root, booltest->booltesttype, (Node *) booltest->arg,
+                        varRelid, jointype, sjinfo);
+    }
+    else if (IsA(clause, CurrentOfExpr)) {
+        CurrentOfExpr *cexpr = (CurrentOfExpr *) clause;
+        RelOptInfo *crel = find_base_rel(root, cexpr->cvarno);
+        if (crel->tuples > 0)
+            s1 = 1.0 / crel->tuples;
+    }
+    else if (IsA(clause, RelabelType)) {
+        s1 = clause_selectivity_ext(root, (Node *) ((RelabelType *) clause)->arg,
+                                   varRelid, jointype, sjinfo, use_extended_stats);
+    }
+    else if (IsA(clause, CoerceToDomain)) {
+        s1 = clause_selectivity_ext(root, (Node *) ((CoerceToDomain *) clause)->arg,
+                                   varRelid, jointype, sjinfo, use_extended_stats);
+    }
+    else {
+        // Default: treat as boolean variable
+        s1 = boolvarsel(root, clause, varRelid);
+    }
+
+    // Cache the result if possible
+    if (cacheable) {
+        if (jointype == JOIN_INNER)
+            rinfo->norm_selec = s1;
+        else
+            rinfo->outer_selec = s1;
+    }
+
+    return s1;
+}
+```

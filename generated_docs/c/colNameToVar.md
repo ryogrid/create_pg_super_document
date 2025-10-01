@@ -40,3 +40,65 @@ The search process iterates through all namespace items in the current parse sta
 - Handles lateral reference validation through check_lateral_ref_ok
 - The function maintains consistency by using the original parse state for scanNSItemForColumn calls
 - Supports hierarchical namespace searching unless localonly is specified
+
+## Simplified Source
+
+```c
+Node *
+colNameToVar(ParseState *pstate, const char *colname, bool localonly,
+             int location)
+{
+    Node *result = NULL;
+    int sublevels_up = 0;
+    ParseState *orig_pstate = pstate;
+
+    // Search through parse state hierarchy
+    while (pstate != NULL)
+    {
+        ListCell *l;
+
+        // Check each namespace item in current parse state
+        foreach(l, pstate->p_namespace)
+        {
+            ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(l);
+            Node *newresult;
+
+            // Skip items that aren't column-visible
+            if (!nsitem->p_cols_visible)
+                continue;
+            // Skip lateral-only items when not in lateral context
+            if (nsitem->p_lateral_only && !pstate->p_lateral_active)
+                continue;
+
+            // Search for column in this namespace item
+            newresult = scanNSItemForColumn(orig_pstate, nsitem, sublevels_up,
+                                            colname, location);
+
+            if (newresult)
+            {
+                // Check for ambiguous column reference
+                if (result)
+                    ereport(ERROR,
+                            (errcode(ERRCODE_AMBIGUOUS_COLUMN),
+                             errmsg("column reference \"%s\" is ambiguous",
+                                    colname),
+                             parser_errposition(pstate, location)));
+
+                // Validate lateral reference if applicable
+                check_lateral_ref_ok(pstate, nsitem, location);
+                result = newresult;
+            }
+        }
+
+        // Stop if found or only searching locally
+        if (result != NULL || localonly)
+            break;
+
+        // Move up to parent parse state
+        pstate = pstate->parentParseState;
+        sublevels_up++;
+    }
+
+    return result;
+}
+```

@@ -47,3 +47,49 @@ The function supports both canonical and compatibility decomposition modes, wher
 - Returns early for characters with no decomposition or when compatibility is disabled for compat-only decompositions
 - Critical for implementing NFD (Normalization Form Decomposed) and NFKD (Normalization Form Compatibility Decomposed)
 - Follows Unicode Standard Annex #15 decomposition rules
+
+## Simplified Source
+
+```c
+static void
+decompose_code(pg_wchar code, bool compat, pg_wchar **result, int *current)
+{
+    // Fast path: Hangul characters (algorithmic decomposition)
+    if (code >= SBASE && code < SBASE + SCOUNT) {
+        pg_wchar *res = *result;
+        uint32 sindex = code - SBASE;
+
+        // Calculate L, V, T components
+        uint32 l = LBASE + sindex / (VCOUNT * TCOUNT);
+        uint32 v = VBASE + (sindex % (VCOUNT * TCOUNT)) / TCOUNT;
+        uint32 tindex = sindex % TCOUNT;
+
+        // Store L and V components
+        res[(*current)++] = l;
+        res[(*current)++] = v;
+
+        // Store T component if present
+        if (tindex != 0)
+            res[(*current)++] = TBASE + tindex;
+        return;
+    }
+
+    // Get decomposition table entry
+    const pg_unicode_decomposition *entry = get_code_entry(code);
+
+    // No decomposition available - store original character
+    if (entry == NULL || DECOMPOSITION_SIZE(entry) == 0 ||
+        (!compat && DECOMPOSITION_IS_COMPAT(entry))) {
+        (*result)[(*current)++] = code;
+        return;
+    }
+
+    // Recursively decompose each component
+    int dec_size;
+    const uint32 *decomp = get_code_decomposition(entry, &dec_size);
+
+    for (int i = 0; i < dec_size; i++) {
+        decompose_code((pg_wchar) decomp[i], compat, result, current);
+    }
+}
+```

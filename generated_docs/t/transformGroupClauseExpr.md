@@ -61,3 +61,56 @@ The function ensures that both the targetlist (for expression evaluation) and th
 - For grouping sets, modifies null ordering to support sorted aggregation algorithms
 - The function ensures that expressions have assigned sortgrouprefs for proper query processing
 - Supports both SQL92 and SQL99 interpretation modes for backward compatibility
+
+## Simplified Source
+
+```c
+static Index transformGroupClauseExpr(List **flatresult, Bitmapset *seen_local,
+                                    ParseState *pstate, Node *gexpr,
+                                    List **targetlist, List *sortClause,
+                                    ParseExprKind exprKind, bool useSQL99, bool toplevel) {
+    TargetEntry *tle;
+    bool found = false;
+
+    // Find or create target list entry based on SQL standard
+    if (useSQL99)
+        tle = findTargetlistEntrySQL99(pstate, gexpr, targetlist, exprKind);
+    else
+        tle = findTargetlistEntrySQL92(pstate, gexpr, targetlist, exprKind);
+
+    if (tle->ressortgroupref > 0) {
+        // Eliminate local duplicates using bitmapset
+        if (bms_is_member(tle->ressortgroupref, seen_local))
+            return 0;
+
+        // Check if already in flat clause list
+        found = targetIsInSortList(tle, InvalidOid, *flatresult);
+        if (found)
+            return tle->ressortgroupref;
+
+        // Copy operator info from matching ORDER BY item
+        foreach(sl, sortClause) {
+            SortGroupClause *sc = (SortGroupClause *) lfirst(sl);
+
+            if (sc->tleSortGroupRef == tle->ressortgroupref) {
+                SortGroupClause *grpc = copyObject(sc);
+
+                // Force NULLS LAST for grouping sets (for sorted aggregation)
+                if (!toplevel)
+                    grpc->nulls_first = false;
+
+                *flatresult = lappend(*flatresult, grpc);
+                found = true;
+                break;
+            }
+        }
+    }
+
+    // Add to result using default semantics if no ORDER BY match
+    if (!found)
+        *flatresult = addTargetToGroupList(pstate, tle, *flatresult, *targetlist,
+                                         exprLocation(gexpr));
+
+    return tle->ressortgroupref;
+}
+```

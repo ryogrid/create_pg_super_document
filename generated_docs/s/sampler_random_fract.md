@@ -32,3 +32,20 @@ This function provides a random floating-point number generator specifically des
 
 ## Notes and Other Information
 The function uses a do-while loop with the unlikely() macro to optimize for the common case where pg_prng_double() doesn't return 0.0. This approach ensures mathematical correctness for sampling algorithms while maintaining good performance. The function is widely used throughout PostgreSQL's sampling infrastructure, including table analysis, block sampling, and reservoir sampling algorithms.
+
+## Simplified Source
+
+```c
+double
+sampler_random_fract(pg_prng_state *randstate)
+{
+    double result;
+
+    // Generate random value in [0.0, 1.0) and reject 0.0 to ensure (0, 1)
+    do {
+        result = pg_prng_double(randstate);
+    } while (unlikely(result == 0.0));
+
+    return result;
+}
+```

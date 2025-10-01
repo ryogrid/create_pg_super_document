@@ -36,3 +36,41 @@ This function implements a sophisticated cost-based delay mechanism specifically
 - Resets VacuumCostBalanceLocal to 0 after computing delay
 - The delay calculation is proportional: delay = vacuum_cost_delay * local_balance / vacuum_cost_limit
 - Ensures workers doing more I/O are throttled more than those doing less I/O
+
+## Simplified Source
+```c
+static double compute_parallel_delay(void) {
+    double msec = 0;
+    uint32 shared_balance;
+    int nworkers;
+
+    // Ensure parallel vacuum is active
+    Assert(VacuumSharedCostBalance);
+
+    // Get number of active workers (at least 1)
+    nworkers = pg_atomic_read_u32(VacuumActiveNWorkers);
+    Assert(nworkers >= 1);
+
+    // Update shared cost balance atomically
+    shared_balance = pg_atomic_add_fetch_u32(VacuumSharedCostBalance, VacuumCostBalance);
+
+    // Track local cost balance for this worker
+    VacuumCostBalanceLocal += VacuumCostBalance;
+
+    // Sleep if shared balance exceeds limit AND this worker has done >50% of fair share
+    if ((shared_balance >= vacuum_cost_limit) &&
+        (VacuumCostBalanceLocal > 0.5 * ((double) vacuum_cost_limit / nworkers))) {
+
+        // Calculate proportional delay time
+        msec = vacuum_cost_delay * VacuumCostBalanceLocal / vacuum_cost_limit;
+
+        // Reduce shared balance by local amount and reset local balance
+        pg_atomic_sub_fetch_u32(VacuumSharedCostBalance, VacuumCostBalanceLocal);
+        VacuumCostBalanceLocal = 0;
+    }
+
+    // Reset local balance (accumulated into shared)
+    VacuumCostBalance = 0;
+    return msec;
+}
+```

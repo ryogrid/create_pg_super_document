@@ -64,3 +64,100 @@ The function handles sophisticated scheduling logic, determining which pass each
 - The function ensures that operations cannot be scheduled into passes that have already been completed
 - Returns the transformed version of the original subcommand, or NULL if no direct transformation occurred
 - Located at src/backend/commands/tablecmds.c:5567-5701
+
+## Simplified Source
+
+```c
+static AlterTableCmd *
+ATParseTransformCmd(List **wqueue, AlteredTableInfo *tab, Relation rel,
+                    AlterTableCmd *cmd, bool recurse, LOCKMODE lockmode,
+                    AlterTablePass cur_pass, AlterTableUtilityContext *context)
+{
+    AlterTableCmd *newcmd = NULL;
+    AlterTableStmt *atstmt = makeNode(AlterTableStmt);
+    List       *beforeStmts;
+    List       *afterStmts;
+    ListCell   *lc;
+
+    // Create temporary AlterTableStmt for transformation
+    atstmt->relation = makeRangeVar(get_namespace_name(RelationGetNamespace(rel)),
+                                   pstrdup(RelationGetRelationName(rel)), -1);
+    atstmt->relation->inh = recurse;
+    atstmt->cmds = list_make1(cmd);
+    atstmt->objtype = OBJECT_TABLE;
+    atstmt->missing_ok = false;
+
+    // Transform the statement (may generate additional commands)
+    atstmt = transformAlterTableStmt(RelationGetRelid(rel), atstmt,
+                                     context->queryString,
+                                     &beforeStmts, &afterStmts);
+
+    // Execute pre-statements immediately
+    foreach(lc, beforeStmts)
+    {
+        Node *stmt = (Node *) lfirst(lc);
+        ProcessUtilityForAlterTable(stmt, context);
+        CommandCounterIncrement();
+    }
+
+    // Schedule transformed subcommands into appropriate passes
+    foreach(lc, atstmt->cmds)
+    {
+        AlterTableCmd *cmd2 = lfirst_node(AlterTableCmd, lc);
+        AlterTablePass pass;
+
+        // Determine execution pass based on command type
+        switch (cmd2->subtype)
+        {
+            case AT_SetNotNull:
+                ATPrepSetNotNull(wqueue, rel, cmd2, recurse, false, lockmode, context);
+                pass = AT_PASS_COL_ATTRS;
+                break;
+            case AT_AddIndex:
+                pass = AT_PASS_ADD_INDEX;
+                break;
+            case AT_AddIndexConstraint:
+                pass = AT_PASS_ADD_INDEXCONSTR;
+                break;
+            case AT_AddConstraint:
+                if (recurse)
+                    cmd2->recurse = true;
+                // Schedule based on constraint type
+                switch (castNode(Constraint, cmd2->def)->contype)
+                {
+                    case CONSTR_PRIMARY:
+                    case CONSTR_UNIQUE:
+                    case CONSTR_EXCLUSION:
+                        pass = AT_PASS_ADD_INDEXCONSTR;
+                        break;
+                    default:
+                        pass = AT_PASS_ADD_OTHERCONSTR;
+                        break;
+                }
+                break;
+            default:
+                pass = cur_pass;
+                break;
+        }
+
+        // Schedule command into appropriate pass
+        if (pass < cur_pass)
+            elog(ERROR, "ALTER TABLE scheduling failure: too late for pass %d", pass);
+        else if (pass > cur_pass)
+            tab->subcmds[pass] = lappend(tab->subcmds[pass], cmd2);
+        else
+        {
+            // Current pass - this should be the transformed original command
+            if (newcmd == NULL && cmd->subtype == cmd2->subtype)
+                newcmd = cmd2;
+            else
+                elog(ERROR, "ALTER TABLE scheduling failure: bogus item for pass %d", pass);
+        }
+    }
+
+    // Queue after-statements for final execution
+    tab->afterStmts = list_concat(tab->afterStmts, afterStmts);
+
+    return newcmd;
+}
+```

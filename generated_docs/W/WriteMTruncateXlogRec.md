@@ -42,3 +42,29 @@ This function creates and writes a TRUNCATE xlog record (xl_multixact_truncate) 
 - Uses the MULTIXACT resource manager (RM_MULTIXACT_ID) for xlog operations
 - Part of the multixact subsystem that manages multiple transaction IDs sharing locks
 - Located in src/backend/access/transam/multixact.c:3361-3385
+
+## Simplified Source
+
+```c
+static void
+WriteMTruncateXlogRec(Oid oldestMultiDB,
+                      MultiXactId startTruncOff, MultiXactId endTruncOff,
+                      MultiXactOffset startTruncMemb, MultiXactOffset endTruncMemb)
+{
+    XLogRecPtr recptr;
+    xl_multixact_truncate xlrec;
+
+    // Prepare the multixact truncation record
+    xlrec.oldestMultiDB = oldestMultiDB;
+    xlrec.startTruncOff = startTruncOff;
+    xlrec.endTruncOff = endTruncOff;
+    xlrec.startTruncMemb = startTruncMemb;
+    xlrec.endTruncMemb = endTruncMemb;
+
+    // Write and flush the WAL record
+    XLogBeginInsert();
+    XLogRegisterData((char *) (&xlrec), SizeOfMultiXactTruncate);
+    recptr = XLogInsert(RM_MULTIXACT_ID, XLOG_MULTIXACT_TRUNCATE_ID);
+    XLogFlush(recptr);  // Must flush for consistency
+}
+```

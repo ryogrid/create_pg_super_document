@@ -46,3 +46,26 @@ The function serves as a gate-keeper and setup routine, ensuring that the subseq
 - Cannot use normal ALTER TABLE recursion due to runtime inheritance count decisions
 - Sets the recurse flag on the command structure for later processing phases
 - Part of the two-phase ALTER TABLE processing (preparation and execution phases)
+
+## Simplified Source
+
+```c
+static void
+ATPrepDropColumn(List **wqueue, Relation rel, bool recurse, bool recursing,
+                AlterTableCmd *cmd, LOCKMODE lockmode,
+                AlterTableUtilityContext *context)
+{
+    // Prevent dropping columns from typed tables unless recursing
+    if (rel->rd_rel->reloftype && !recursing)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("cannot drop column from typed table")));
+
+    // Handle composite type recursion
+    if (rel->rd_rel->relkind == RELKIND_COMPOSITE_TYPE)
+        ATTypedTableRecursion(wqueue, rel, cmd, lockmode, context);
+
+    // Set recursion flag if requested
+    if (recurse)
+        cmd->recurse = true;
+}
+```

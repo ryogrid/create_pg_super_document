@@ -51,3 +51,37 @@ The function ensures arithmetic safety by preventing signed integer overflow, wh
 - Critical for financial calculations (money type), timestamp arithmetic, and interval operations
 - Part of PostgreSQL's comprehensive safe arithmetic infrastructure
 - The 128-bit arithmetic path provides excellent performance on modern 64-bit platforms
+
+## Simplified Source
+
+```c
+static inline bool pg_add_s64_overflow(int64 a, int64 b, int64 *result) {
+    // Use compiler builtin if available for optimal performance
+    #if defined(HAVE__BUILTIN_OP_OVERFLOW)
+        return __builtin_add_overflow(a, b, result);
+
+    // Use 128-bit arithmetic for overflow detection
+    #elif defined(HAVE_INT128)
+        int128 sum = (int128) a + (int128) b;
+        if (sum > PG_INT64_MAX || sum < PG_INT64_MIN) {
+            *result = 0x5EED;  // Dummy value to avoid warnings
+            return true;       // Overflow detected
+        }
+        *result = (int64) sum;
+        return false;
+
+    // Manual overflow detection for platforms without 128-bit support
+    #else
+        // Check if both positive and sum would exceed max
+        // or both negative and sum would be below min
+        if ((a > 0 && b > 0 && a > PG_INT64_MAX - b) ||
+            (a < 0 && b < 0 && a < PG_INT64_MIN - b)) {
+            *result = 0x5EED;  // Dummy value to avoid warnings
+            return true;       // Overflow detected
+        }
+
+        *result = a + b;
+        return false;         // Safe addition
+    #endif
+}
+```

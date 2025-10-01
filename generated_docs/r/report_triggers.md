@@ -41,3 +41,65 @@ The output format depends on the explain format specified in the ExplainState. F
 - Timing information is only included when es->timing is enabled
 - Memory allocated for constraint names is properly freed using pfree
 - Output formatting varies significantly between text and structured formats
+
+## Simplified Source
+
+```c
+static void report_triggers(ResultRelInfo *rInfo, bool show_relname, ExplainState *es) {
+    // Return early if no triggers or instrumentation data
+    if (!rInfo->ri_TrigDesc || !rInfo->ri_TrigInstrument)
+        return;
+
+    // Iterate through all triggers on the relation
+    for (int nt = 0; nt < rInfo->ri_TrigDesc->numtriggers; nt++) {
+        Trigger *trig = rInfo->ri_TrigDesc->triggers + nt;
+        Instrumentation *instr = rInfo->ri_TrigInstrument + nt;
+
+        // Clean up instrumentation state
+        InstrEndLoop(instr);
+
+        // Skip triggers that were never invoked
+        if (instr->ntuples == 0)
+            continue;
+
+        ExplainOpenGroup("Trigger", NULL, true, es);
+
+        // Get relation and constraint names
+        char *relname = RelationGetRelationName(rInfo->ri_RelationDesc);
+        char *conname = OidIsValid(trig->tgconstraint) ?
+                       get_constraint_name(trig->tgconstraint) : NULL;
+
+        // Format output based on explain format
+        if (es->format == EXPLAIN_FORMAT_TEXT) {
+            // Text format: compact representation
+            appendStringInfo(es->str, "Trigger %s", trig->tgname);
+            if (conname)
+                appendStringInfo(es->str, " for constraint %s", conname);
+            if (show_relname)
+                appendStringInfo(es->str, " on %s", relname);
+
+            // Add timing and call information
+            if (es->timing)
+                appendStringInfo(es->str, ": time=%.3f calls=%.0f\n",
+                               1000.0 * instr->total, instr->ntuples);
+            else
+                appendStringInfo(es->str, ": calls=%.0f\n", instr->ntuples);
+        } else {
+            // Structured format: detailed properties
+            ExplainPropertyText("Trigger Name", trig->tgname, es);
+            if (conname)
+                ExplainPropertyText("Constraint Name", conname, es);
+            ExplainPropertyText("Relation", relname, es);
+            if (es->timing)
+                ExplainPropertyFloat("Time", "ms", 1000.0 * instr->total, 3, es);
+            ExplainPropertyFloat("Calls", NULL, instr->ntuples, 0, es);
+        }
+
+        // Clean up memory
+        if (conname)
+            pfree(conname);
+
+        ExplainCloseGroup("Trigger", NULL, true, es);
+    }
+}
+```

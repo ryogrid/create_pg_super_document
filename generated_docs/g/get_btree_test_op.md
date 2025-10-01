@@ -31,3 +31,20 @@ The function acts as a simple accessor to the cached proof information, delegati
 
 ## Notes and Other Information
 This function provides a clean interface for retrieving test operators without exposing cache implementation details. It returns InvalidOid when no suitable comparison operator can be determined for the given operator pair.
+
+## Simplified Source
+
+```c
+static Oid
+get_btree_test_op(Oid pred_op, Oid clause_op, bool refute_it)
+{
+    // Look up the cached proof information for these operators
+    OprProofCacheEntry *cache_entry = lookup_proof_cache(pred_op, clause_op, refute_it);
+
+    // Return the appropriate test operator based on proof type
+    if (refute_it)
+        return cache_entry->refute_test_op;    // For refutation proofs
+    else
+        return cache_entry->implic_test_op;    // For implication proofs
+}
+```

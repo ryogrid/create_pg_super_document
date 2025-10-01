@@ -33,3 +33,13 @@ This function provides a fallback implementation for testing an atomic flag's st
 - Should be used with caution in concurrent scenarios due to potential race conditions
 - Part of PostgreSQL's portable atomic operations infrastructure
 - Commonly used in conjunction with proper atomic operations for optimization
+
+## Simplified Source
+
+```c
+bool pg_atomic_unlocked_test_flag_impl(volatile pg_atomic_flag *ptr)
+{
+    // Simply check if flag is clear (unlocked read, no atomicity guarantees)
+    return ptr->value == 0;
+}
+```

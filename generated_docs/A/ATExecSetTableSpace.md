@@ -49,3 +49,71 @@ The function operates by opening the relation, validating the move operation, al
 - Does not work on pg_class itself or its indexes due to bootstrap constraints
 - Ensures visibility of changes through CommandCounterIncrement before processing related objects
 - Maintains proper locking throughout the operation to prevent concurrent access issues
+
+## Simplified Source
+
+```c
+static void
+ATExecSetTableSpace(Oid tableOid, Oid newTableSpace, LOCKMODE lockmode)
+{
+    Relation rel;
+    Oid reltoastrelid;
+    RelFileNumber newrelfilenumber;
+    RelFileLocator newrlocator;
+    List *reltoastidxids = NIL;
+    ListCell *lc;
+
+    // Open relation and validate the move operation
+    rel = relation_open(tableOid, lockmode);
+
+    if (!CheckRelationTableSpaceMove(rel, newTableSpace))
+    {
+        InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+        relation_close(rel, NoLock);
+        return;
+    }
+
+    // Get TOAST table info if present
+    reltoastrelid = rel->rd_rel->reltoastrelid;
+    if (OidIsValid(reltoastrelid))
+    {
+        Relation toastRel = relation_open(reltoastrelid, lockmode);
+        reltoastidxids = RelationGetIndexList(toastRel);
+        relation_close(toastRel, lockmode);
+    }
+
+    // Allocate new relfilenumber in target tablespace
+    newrelfilenumber = GetNewRelFileNumber(newTableSpace, NULL,
+                                           rel->rd_rel->relpersistence);
+
+    // Set up new relation locator
+    newrlocator = rel->rd_locator;
+    newrlocator.relNumber = newrelfilenumber;
+    newrlocator.spcOid = newTableSpace;
+
+    // Copy data using appropriate access method
+    if (rel->rd_rel->relkind == RELKIND_INDEX)
+        index_copy_data(rel, newrlocator);
+    else
+        table_relation_copy_data(rel, &newrlocator);
+
+    // Update system catalog
+    SetRelationTableSpace(rel, newTableSpace, newrelfilenumber);
+
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+    RelationAssumeNewRelfilelocator(rel);
+    relation_close(rel, NoLock);
+
+    // Make changes visible
+    CommandCounterIncrement();
+
+    // Recursively move TOAST table and indexes
+    if (OidIsValid(reltoastrelid))
+        ATExecSetTableSpace(reltoastrelid, newTableSpace, lockmode);
+
+    foreach(lc, reltoastidxids)
+        ATExecSetTableSpace(lfirst_oid(lc), newTableSpace, lockmode);
+
+    list_free(reltoastidxids);
+}
+```

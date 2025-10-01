@@ -42,3 +42,37 @@ The function determines which case applies based on the ResultRelInfo structure'
 - Handles the complexity of PostgreSQL's inheritance and partitioning system where child relations may not have their own permission information
 - Returns NULL for trigger-only relations that don't require permission checks
 - Critical for proper permission checking in DML operations involving inheritance hierarchies
+
+## Simplified Source
+
+```c
+static RTEPermissionInfo *
+GetResultRTEPermissionInfo(ResultRelInfo *relinfo, EState *estate)
+{
+    Index rti;
+    RangeTblEntry *rte;
+    RTEPermissionInfo *perminfo = NULL;
+
+    // Determine which range table index to use
+    if (relinfo->ri_RootResultRelInfo) {
+        // For inheritance children, use root parent's RTE
+        rti = relinfo->ri_RootResultRelInfo->ri_RangeTableIndex;
+    }
+    else if (relinfo->ri_RangeTableIndex != 0) {
+        // Non-child relations have their own RTEPermissionInfo
+        rti = relinfo->ri_RangeTableIndex;
+    }
+    else {
+        // Trigger-only relations not in range table
+        rti = 0;
+    }
+
+    // Fetch permission info if we have a valid range table index
+    if (rti > 0) {
+        rte = exec_rt_fetch(rti, estate);
+        perminfo = getRTEPermissionInfo(estate->es_rteperminfos, rte);
+    }
+
+    return perminfo;
+}
+```

@@ -40,3 +40,24 @@ The search algorithm:
 - The function assumes the KeySuffix array is NULL-terminated (name field)
 - Type filtering allows the same suffix name to be used in different contexts
 - Returns NULL if no matching suffix is found
+
+## Simplified Source
+
+```c
+static const KeySuffix *
+suff_search(const char *str, const KeySuffix *suf, int type)
+{
+    // Search through NULL-terminated suffix array
+    for (const KeySuffix *s = suf; s->name != NULL; s++) {
+        // Skip suffixes that don't match the required type
+        if (s->type != type)
+            continue;
+
+        // Check if string matches this suffix
+        if (strncmp(str, s->name, s->len) == 0)
+            return s;  // Found matching suffix
+    }
+
+    return NULL;  // No match found
+}
+```

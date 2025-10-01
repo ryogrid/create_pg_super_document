@@ -33,3 +33,21 @@ makeJsonLexContext provides a simplified interface for creating JSON lexical con
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's JSON processing pipeline as it bridges the gap between PostgreSQL's internal text representation and the JSON parser's string-based interface. The automatic detoasting ensures compatibility with both toasted and non-toasted text values, making it safe to use with data of any size. The function is widely used throughout the JSON function library as the standard entry point for text-to-JSON conversion operations.
+
+## Simplified Source
+
+```c
+JsonLexContext *
+makeJsonLexContext(JsonLexContext *lex, text *json, bool need_escapes)
+{
+    // Ensure input is detoasted for safe access
+    json = pg_detoast_datum_packed(json);
+
+    // Create lexical context with extracted string data
+    return makeJsonLexContextCstringLen(lex,
+                                        VARDATA_ANY(json),
+                                        VARSIZE_ANY_EXHDR(json),
+                                        GetDatabaseEncoding(),
+                                        need_escapes);
+}
+```

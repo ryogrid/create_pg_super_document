@@ -42,3 +42,32 @@ Key behavioral characteristics:
 - Preserves duplicates from list1 if they exist in list2
 - Specialized variant of `list_intersection` optimized for integer comparison
 - More efficient than generic `list_intersection` for integer lists due to direct integer comparison
+
+## Simplified Source
+
+```c
+List *
+list_intersection_int(const List *list1, const List *list2)
+{
+    List *result;
+    const ListCell *cell;
+
+    // Handle empty lists
+    if (list1 == NIL || list2 == NIL)
+        return NIL;
+
+    Assert(IsIntegerList(list1));
+    Assert(IsIntegerList(list2));
+
+    result = NIL;
+
+    // Iterate through first list, include elements that exist in both lists
+    foreach(cell, list1) {
+        if (list_member_int(list2, lfirst_int(cell)))
+            result = lappend_int(result, lfirst_int(cell));
+    }
+
+    check_list_invariants(result);
+    return result;
+}
+```

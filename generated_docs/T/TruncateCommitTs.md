@@ -45,3 +45,26 @@ The implementation is efficient in that it first checks whether any files can ac
 - WAL logging ensures that the truncation is properly handled during recovery
 - This is typically called during vacuum operations to reclaim space from old commit timestamp data
 - The function is exported via commit_ts.h for use by vacuum and other cleanup processes
+
+## Simplified Source
+
+```c
+void
+TruncateCommitTs(TransactionId oldestXact)
+{
+    int64 cutoffPage;
+
+    // Calculate the page containing the oldest transaction to keep
+    cutoffPage = TransactionIdToCTsPage(oldestXact);
+
+    // Check if there are any removable commit timestamp files
+    if (!SlruScanDirectory(CommitTsCtl, SlruScanDirCbReportPresence, &cutoffPage))
+        return; // Nothing to remove
+
+    // Write WAL record for the truncation
+    WriteTruncateXlogRec(cutoffPage, oldestXact);
+
+    // Remove the old commit timestamp segments
+    SimpleLruTruncate(CommitTsCtl, cutoffPage);
+}
+```

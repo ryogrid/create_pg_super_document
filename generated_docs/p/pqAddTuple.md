@@ -52,3 +52,52 @@ The function uses realloc() for memory expansion, with special handling for the 
 - Returns false on allocation failure or overflow conditions, true on success
 - The tuple array positions beyond res->ntups contain garbage data, not necessarily NULL
 - Enforces a hard limit of INT_MAX tuples per result set since row numbers use integers
+
+## Simplified Source
+
+```c
+static bool pqAddTuple(PGresult *res, PGresAttValue *tup, const char **errmsgp) {
+    // Check if we need to grow the tuple array
+    if (res->ntups >= res->tupArrSize) {
+        int newSize;
+        PGresAttValue **newTuples;
+
+        // Calculate new size: double current size or start with 128
+        if (res->tupArrSize <= INT_MAX / 2)
+            newSize = (res->tupArrSize > 0) ? res->tupArrSize * 2 : 128;
+        else if (res->tupArrSize < INT_MAX)
+            newSize = INT_MAX;
+        else {
+            *errmsgp = libpq_gettext("PGresult cannot support more than INT_MAX tuples");
+            return false;
+        }
+
+        // Check for size_t overflow on 32-bit platforms
+        #if INT_MAX >= (SIZE_MAX / 2)
+        if (newSize > SIZE_MAX / sizeof(PGresAttValue *)) {
+            *errmsgp = libpq_gettext("size_t overflow");
+            return false;
+        }
+        #endif
+
+        // Allocate or reallocate memory
+        if (res->tuples == NULL)
+            newTuples = malloc(newSize * sizeof(PGresAttValue *));
+        else
+            newTuples = realloc(res->tuples, newSize * sizeof(PGresAttValue *));
+
+        if (!newTuples)
+            return false;  // Memory allocation failed
+
+        // Update memory tracking and array size
+        res->memorySize += (newSize - res->tupArrSize) * sizeof(PGresAttValue *);
+        res->tupArrSize = newSize;
+        res->tuples = newTuples;
+    }
+
+    // Add the new tuple and increment count
+    res->tuples[res->ntups] = tup;
+    res->ntups++;
+    return true;
+}
+```

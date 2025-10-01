@@ -48,3 +48,71 @@ The function handles special cases like steps with no source IDs (indicating no 
 - For UNION operations, progressively adds partition indexes and sets scan flags to true if any step requires scanning null/default partitions
 - For INTERSECT operations, starts with the first step's results and progressively narrows down to common partition indexes, setting scan flags to false if any step doesn't require scanning null/default partitions
 - Located in src/backend/partitioning/partprune.c:3564-3672
+
+## Simplified Source
+
+```c
+static PruneStepResult *perform_pruning_combine_step(PartitionPruneContext *context,
+                                                     PartitionPruneStepCombine *cstep,
+                                                     PruneStepResult **step_results) {
+    PruneStepResult *result = palloc0(sizeof(PruneStepResult));
+
+    // No source steps means no pruning - return all partitions
+    if (cstep->source_stepids == NIL) {
+        PartitionBoundInfo boundinfo = context->boundinfo;
+        result->bound_offsets = bms_add_range(NULL, 0, boundinfo->nindexes - 1);
+        result->scan_default = partition_bound_has_default(boundinfo);
+        result->scan_null = partition_bound_accepts_nulls(boundinfo);
+        return result;
+    }
+
+    switch (cstep->combineOp) {
+        case PARTPRUNE_COMBINE_UNION:
+            // Union: combine all matching partitions from source steps
+            foreach(lc1, cstep->source_stepids) {
+                int step_id = lfirst_int(lc1);
+                PruneStepResult *step_result = step_results[step_id];
+
+                // Add partition indexes from this step
+                result->bound_offsets = bms_add_members(result->bound_offsets,
+                                                      step_result->bound_offsets);
+
+                // Set scan flags if any step requires scanning
+                if (!result->scan_null)
+                    result->scan_null = step_result->scan_null;
+                if (!result->scan_default)
+                    result->scan_default = step_result->scan_default;
+            }
+            break;
+
+        case PARTPRUNE_COMBINE_INTERSECT:
+            // Intersect: find partitions common to all source steps
+            bool firststep = true;
+            foreach(lc1, cstep->source_stepids) {
+                int step_id = lfirst_int(lc1);
+                PruneStepResult *step_result = step_results[step_id];
+
+                if (firststep) {
+                    // Copy first step's results
+                    result->bound_offsets = bms_copy(step_result->bound_offsets);
+                    result->scan_null = step_result->scan_null;
+                    result->scan_default = step_result->scan_default;
+                    firststep = false;
+                } else {
+                    // Intersect with subsequent steps
+                    result->bound_offsets = bms_int_members(result->bound_offsets,
+                                                          step_result->bound_offsets);
+
+                    // Clear scan flags if any step doesn't require scanning
+                    if (result->scan_null)
+                        result->scan_null = step_result->scan_null;
+                    if (result->scan_default)
+                        result->scan_default = step_result->scan_default;
+                }
+            }
+            break;
+    }
+
+    return result;
+}
+```

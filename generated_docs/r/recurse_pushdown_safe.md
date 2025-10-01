@@ -45,3 +45,41 @@ The recursive nature ensures that all components of complex nested set operation
 - Handles arbitrarily complex nested set operation structures
 - Critical for maintaining correctness when optimizing queries with multiple UNION/INTERSECT/EXCEPT clauses
 - Works in conjunction with subquery_is_pushdown_safe to provide comprehensive safety analysis
+
+## Simplified Source
+```c
+static bool
+recurse_pushdown_safe(Node *setOp, Query *topquery,
+                     pushdown_safety_info *safetyInfo)
+{
+    if (IsA(setOp, RangeTblRef)) {
+        // Leaf node: check individual subquery safety
+        RangeTblRef *rtr = (RangeTblRef *) setOp;
+        RangeTblEntry *rte = rt_fetch(rtr->rtindex, topquery->rtable);
+        Query *subquery = rte->subquery;
+
+        Assert(subquery != NULL);
+        return subquery_is_pushdown_safe(subquery, topquery, safetyInfo);
+    }
+    else if (IsA(setOp, SetOperationStmt)) {
+        // Internal node: handle set operations
+        SetOperationStmt *op = (SetOperationStmt *) setOp;
+
+        // EXCEPT operations are not safe for qual pushdown
+        if (op->op == SETOP_EXCEPT)
+            return false;
+
+        // Recursively check both left and right arguments
+        if (!recurse_pushdown_safe(op->larg, topquery, safetyInfo))
+            return false;
+        if (!recurse_pushdown_safe(op->rarg, topquery, safetyInfo))
+            return false;
+    }
+    else {
+        // Unexpected node type
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(setOp));
+    }
+
+    return true;
+}
+```

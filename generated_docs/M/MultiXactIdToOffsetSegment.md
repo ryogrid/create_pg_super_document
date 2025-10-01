@@ -34,3 +34,11 @@ The function is essential for file-level operations in the MultiXact system, suc
 - Used primarily for file-level operations like truncation and WAL replay
 - The function chain (MultiXactId -> Segment -> Page -> Entry) provides complete addressing for the SLRU structure
 - Essential for managing the physical storage of MultiXact offset data across multiple files
+
+## Simplified Source
+```c
+static inline int64 MultiXactIdToOffsetSegment(MultiXactId multi) {
+    // Convert MultiXact ID to segment number by dividing page number by pages per segment
+    return MultiXactIdToOffsetPage(multi) / SLRU_PAGES_PER_SEGMENT;
+}
+```

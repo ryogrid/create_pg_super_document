@@ -45,3 +45,34 @@ The function supports both hard error (exception throwing) and soft error (error
 - The function handles memory context management, defaulting to CurrentMemoryContext if none specified
 - Critical part of PostgreSQL's domain constraint enforcement mechanism
 - Located at src/backend/utils/adt/domains.c:371-406
+
+## Simplified Source
+
+```c
+static bool domain_check_internal(Datum value, bool isnull, Oid domainType,
+                                 void **extra, MemoryContext mcxt,
+                                 Node *escontext) {
+    DomainIOData *my_extra = NULL;
+
+    // Use current memory context if none specified
+    if (mcxt == NULL)
+        mcxt = CurrentMemoryContext;
+
+    // Cache domain state for performance - reuse if same domain type
+    if (extra)
+        my_extra = (DomainIOData *) *extra;
+
+    if (my_extra == NULL || my_extra->domain_type != domainType) {
+        // Setup domain state for constraint checking
+        my_extra = domain_state_setup(domainType, true, mcxt);
+        if (extra)
+            *extra = (void *) my_extra;
+    }
+
+    // Perform the actual domain constraint validation
+    domain_check_input(value, isnull, my_extra, escontext);
+
+    // Return false only if soft error occurred, true otherwise
+    return !SOFT_ERROR_OCCURRED(escontext);
+}
+```

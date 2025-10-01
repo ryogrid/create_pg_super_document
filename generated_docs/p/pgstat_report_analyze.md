@@ -47,3 +47,68 @@ The function adjusts the provided live and dead tuple estimates by subtracting t
 - Optionally resets mod_since_analyze counter, which affects scheduling of future analyze operations
 - Immediately flushes IO statistics similar to vacuum operations
 - Handles both shared and non-shared relations appropriately
+
+## Simplified Source
+
+```c
+void pgstat_report_analyze(Relation rel, PgStat_Counter livetuples,
+                          PgStat_Counter deadtuples, bool resetcounter) {
+    PgStat_EntryRef *entry_ref;
+    PgStatShared_Relation *shtabentry;
+    PgStat_StatTabEntry *tabentry;
+    Oid dboid = (rel->rd_rel->relisshared ? InvalidOid : MyDatabaseId);
+
+    // Early return if stats tracking is disabled
+    if (!pgstat_track_counts)
+        return;
+
+    // Adjust counts for modifications made during ANALYZE to avoid double-counting
+    if (pgstat_should_count_relation(rel) &&
+        rel->rd_rel->relkind != RELKIND_PARTITIONED_TABLE) {
+
+        // Walk through all transaction levels to subtract out modifications
+        for (PgStat_TableXactStatus *trans = rel->pgstat_info->trans;
+             trans; trans = trans->upper) {
+            livetuples -= trans->tuples_inserted - trans->tuples_deleted;
+            deadtuples -= trans->tuples_updated + trans->tuples_deleted;
+        }
+
+        // Subtract dead tuples from aborted subtransactions
+        deadtuples -= rel->pgstat_info->counts.delta_dead_tuples;
+
+        // Ensure counts don't underflow due to estimation errors
+        livetuples = Max(livetuples, 0);
+        deadtuples = Max(deadtuples, 0);
+    }
+
+    // Get locked reference to statistics entry
+    entry_ref = pgstat_get_entry_ref_locked(PGSTAT_KIND_RELATION, dboid,
+                                           RelationGetRelid(rel), false);
+    Assert(entry_ref != NULL && entry_ref->shared_stats != NULL);
+
+    shtabentry = (PgStatShared_Relation *) entry_ref->shared_stats;
+    tabentry = &shtabentry->stats;
+
+    // Update live and dead tuple counts
+    tabentry->live_tuples = livetuples;
+    tabentry->dead_tuples = deadtuples;
+
+    // Reset modification counter if requested
+    if (resetcounter)
+        tabentry->mod_since_analyze = 0;
+
+    // Update timing and count based on whether this is autovacuum or manual analyze
+    if (AmAutoVacuumWorkerProcess()) {
+        tabentry->last_autoanalyze_time = GetCurrentTimestamp();
+        tabentry->autoanalyze_count++;
+    } else {
+        tabentry->last_analyze_time = GetCurrentTimestamp();
+        tabentry->analyze_count++;
+    }
+
+    pgstat_unlock_entry(entry_ref);
+
+    // Flush IO statistics similar to vacuum
+    pgstat_flush_io(false);
+}
+```

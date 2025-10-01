@@ -56,3 +56,61 @@ This function serves as the central dispatcher for converting JSON/JSONB values 
 
 ## Notes and Other Information
 This function is the core of PostgreSQL's JSON-to-PostgreSQL type conversion system. It implements a recursive approach that can handle arbitrarily nested structures. The function includes an important optimization where JSON strings can be converted to complex types (arrays, composites) through their text input functions, providing flexibility in JSON structure handling. Stack depth checking prevents infinite recursion in pathological cases. The function properly handles PostgreSQL's domain types, which require constraint checking even for null values. Error context support allows for graceful error handling in contexts where exceptions are not appropriate.
+
+## Simplified Source
+
+```c
+static Datum populate_record_field(ColumnIOData *col, Oid typid, int32 typmod,
+                                   const char *colname, MemoryContext mcxt,
+                                   Datum defaultval, JsValue *jsv, bool *isnull,
+                                   Node *escontext, bool omit_scalar_quotes) {
+    TypeCat typcat;
+
+    // Prevent stack overflow in recursive calls
+    check_stack_depth();
+
+    // Prepare column metadata cache if type changed
+    if (col->typid != typid || col->typmod != typmod)
+        prepare_column_cache(col, typid, typmod, mcxt, true);
+
+    *isnull = JsValueIsNull(jsv);
+    typcat = col->typcat;
+
+    // Convert JSON strings to complex types via input function
+    if (JsValueIsString(jsv) &&
+        (typcat == TYPECAT_ARRAY ||
+         typcat == TYPECAT_COMPOSITE ||
+         typcat == TYPECAT_COMPOSITE_DOMAIN))
+        typcat = TYPECAT_SCALAR;
+
+    // Handle nulls (domains still need constraint checking)
+    if (*isnull && typcat != TYPECAT_DOMAIN && typcat != TYPECAT_COMPOSITE_DOMAIN)
+        return (Datum) 0;
+
+    // Dispatch to appropriate type-specific population function
+    switch (typcat) {
+        case TYPECAT_SCALAR:
+            return populate_scalar(&col->scalar_io, typid, typmod, jsv,
+                                 isnull, escontext, omit_scalar_quotes);
+
+        case TYPECAT_ARRAY:
+            return populate_array(&col->io.array, colname, mcxt, jsv,
+                                isnull, escontext);
+
+        case TYPECAT_COMPOSITE:
+        case TYPECAT_COMPOSITE_DOMAIN:
+            return populate_composite(&col->io.composite, typid, colname, mcxt,
+                                    DatumGetPointer(defaultval) ?
+                                    DatumGetHeapTupleHeader(defaultval) : NULL,
+                                    jsv, isnull, escontext);
+
+        case TYPECAT_DOMAIN:
+            return populate_domain(&col->io.domain, typid, colname, mcxt,
+                                 jsv, isnull, escontext, omit_scalar_quotes);
+
+        default:
+            elog(ERROR, "unrecognized type category '%c'", typcat);
+            return (Datum) 0;
+    }
+}
+```

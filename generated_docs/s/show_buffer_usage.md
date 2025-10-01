@@ -50,3 +50,54 @@ The function must stay synchronized with  to ensure consistent buffer usage repo
 - I/O timing display is conditional on the  configuration setting
 - Must remain synchronized with  function for consistency
 - Part of PostgreSQL's EXPLAIN infrastructure for query performance analysis
+
+## Simplified Source
+
+```c
+static void show_buffer_usage(ExplainState *es, const BufferUsage *usage) {
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Text format: compact, grouped output
+        bool has_shared = (usage->shared_blks_hit > 0 || /* other shared counters */ );
+        bool has_local = (usage->local_blks_hit > 0 || /* other local counters */ );
+        bool has_temp = (usage->temp_blks_read > 0 || usage->temp_blks_written > 0);
+
+        // Display buffer counters
+        if (has_shared || has_local || has_temp) {
+            ExplainIndentText(es);
+            appendStringInfoString(es->str, "Buffers:");
+
+            // Show shared buffer stats
+            if (has_shared) {
+                appendStringInfoString(es->str, " shared");
+                if (usage->shared_blks_hit > 0)
+                    appendStringInfo(es->str, " hit=%lld", usage->shared_blks_hit);
+                // ... other shared stats
+            }
+
+            // Show local and temp buffer stats similarly
+            // ...
+
+            appendStringInfoChar(es->str, '\n');
+        }
+
+        // Display I/O timing if present
+        if (/* has timing info */) {
+            ExplainIndentText(es);
+            appendStringInfoString(es->str, "I/O Timings:");
+            // Format timing information for shared/local/temp
+            appendStringInfoChar(es->str, '\n');
+        }
+    } else {
+        // Structured formats: individual properties
+        ExplainPropertyInteger("Shared Hit Blocks", NULL, usage->shared_blks_hit, es);
+        ExplainPropertyInteger("Shared Read Blocks", NULL, usage->shared_blks_read, es);
+        // ... all other properties
+
+        if (track_io_timing) {
+            ExplainPropertyFloat("Shared I/O Read Time", "ms",
+                               INSTR_TIME_GET_MILLISEC(usage->shared_blk_read_time), 3, es);
+            // ... other timing properties
+        }
+    }
+}
+```

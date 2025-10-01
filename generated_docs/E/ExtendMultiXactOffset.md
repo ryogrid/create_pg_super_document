@@ -36,3 +36,30 @@ When extension is required, it acquires an exclusive lock on the appropriate SLR
 - Handles wraparound cases correctly with FirstMultiXactId
 - Creates XLOG entries for crash recovery consistency
 - Uses SLRU bank locking for fine-grained concurrency control
+
+## Simplified Source
+
+```c
+static void
+ExtendMultiXactOffset(MultiXactId multi)
+{
+    int64 pageno;
+    LWLock *lock;
+
+    // Only work at first MultiXactId of a page (or after wraparound)
+    if (MultiXactIdToOffsetEntry(multi) != 0 &&
+        multi != FirstMultiXactId)
+        return;
+
+    // Get page number and acquire exclusive lock
+    pageno = MultiXactIdToOffsetPage(multi);
+    lock = SimpleLruGetBankLock(MultiXactOffsetCtl, pageno);
+
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Zero the page and log the operation
+    ZeroMultiXactOffsetPage(pageno, true);
+
+    LWLockRelease(lock);
+}
+```

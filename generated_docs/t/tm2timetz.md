@@ -46,3 +46,20 @@ The function is fundamental to PostgreSQL's time zone-aware time operations and 
 - Part of PostgreSQL's Time With Time Zone ADT implementation in src/backend/utils/adt/date.c
 - The timezone offset is stored as seconds from UTC (positive for east of UTC, negative for west)
 - Used extensively in time parsing and timezone conversion operations
+
+## Simplified Source
+
+```c
+int
+tm2timetz(struct pg_tm *tm, fsec_t fsec, int tz, TimeTzADT *result)
+{
+    // Convert time components to microseconds since midnight
+    result->time = ((((tm->tm_hour * MINS_PER_HOUR + tm->tm_min) * SECS_PER_MINUTE) + tm->tm_sec) *
+                    USECS_PER_SEC) + fsec;
+
+    // Store timezone offset
+    result->zone = tz;
+
+    return 0;  // Always succeeds
+}
+```

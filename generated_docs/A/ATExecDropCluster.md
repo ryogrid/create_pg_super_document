@@ -33,3 +33,15 @@ The operation is straightforward - it simply delegates to mark_index_clustered w
 - Removes clustering designation without affecting the physical table storage or index structures
 - Part of the ALTER TABLE command execution framework in PostgreSQL
 - Located in src/backend/commands/tablecmds.c:14883-14894
+
+## Simplified Source
+
+```c
+static void
+ATExecDropCluster(Relation rel, LOCKMODE lockmode)
+{
+    // Remove clustering designation from all indexes on the table
+    // InvalidOid means "no clustering index"
+    mark_index_clustered(rel, InvalidOid, false);
+}
+```

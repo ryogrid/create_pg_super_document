@@ -37,3 +37,23 @@ This function serves as an error callback specifically designed for ReindexParti
 - Error context messages include both schema and relation names for precise identification of the problematic relation
 - The function only handles partitioned tables and partitioned indexes, as asserted by the RELKIND_HAS_PARTITIONS check
 - Provides user-friendly error messages that help identify exactly which partitioned relation was being processed when an error occurred
+
+## Simplified Source
+
+```c
+static void reindex_error_callback(void *arg)
+{
+    ReindexErrorInfo *errinfo = (ReindexErrorInfo *) arg;
+
+    // Ensure we're dealing with a partitioned relation
+    Assert(RELKIND_HAS_PARTITIONS(errinfo->relkind));
+
+    // Provide context based on relation type
+    if (errinfo->relkind == RELKIND_PARTITIONED_TABLE)
+        errcontext("while reindexing partitioned table \"%s.%s\"",
+                   errinfo->relnamespace, errinfo->relname);
+    else if (errinfo->relkind == RELKIND_PARTITIONED_INDEX)
+        errcontext("while reindexing partitioned index \"%s.%s\"",
+                   errinfo->relnamespace, errinfo->relname);
+}
+```

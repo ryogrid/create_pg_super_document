@@ -49,3 +49,56 @@ deleteOneObject orchestrates the complete removal of a database object by perfor
 - Performs comprehensive cleanup including dependency records, shared dependencies, and metadata
 - Uses CommandCounterIncrement to ensure all changes are visible for subsequent operations
 - The order of operations is critical - object deletion occurs before dependency cleanup to handle concurrent cases properly
+
+## Simplified Source
+
+```c
+static void deleteOneObject(const ObjectAddress *object, Relation *depRel, int flags) {
+    // Invoke drop hooks for the object
+    InvokeObjectDropHookArg(object->classId, object->objectId,
+                           object->objectSubId, flags);
+
+    // Handle concurrent deletion by closing relation
+    if (flags & PERFORM_DELETION_CONCURRENTLY)
+        table_close(*depRel, RowExclusiveLock);
+
+    // Delete the object itself using object-specific logic
+    doDeletion(object, flags);
+
+    // Reopen relation if it was closed for concurrent deletion
+    if (flags & PERFORM_DELETION_CONCURRENTLY)
+        *depRel = table_open(DependRelationId, RowExclusiveLock);
+
+    // Remove dependency records from pg_depend
+    ScanKeyData key[3];
+    ScanKeyInit(&key[0], Anum_pg_depend_classid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(object->classId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(object->objectId));
+
+    int nkeys = 2;
+    if (object->objectSubId != 0) {
+        ScanKeyInit(&key[2], Anum_pg_depend_objsubid, BTEqualStrategyNumber,
+                    F_INT4EQ, Int32GetDatum(object->objectSubId));
+        nkeys = 3;
+    }
+
+    SysScanDesc scan = systable_beginscan(*depRel, DependDependerIndexId,
+                                         true, NULL, nkeys, key);
+    HeapTuple tup;
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        CatalogTupleDelete(*depRel, &tup->t_self);
+    }
+    systable_endscan(scan);
+
+    // Clean up shared dependencies and metadata
+    deleteSharedDependencyRecordsFor(object->classId, object->objectId,
+                                    object->objectSubId);
+    DeleteComments(object->objectId, object->classId, object->objectSubId);
+    DeleteSecurityLabel(object);
+    DeleteInitPrivs(object);
+
+    // Ensure all changes are visible
+    CommandCounterIncrement();
+}
+```

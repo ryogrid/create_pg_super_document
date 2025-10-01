@@ -38,3 +38,30 @@ The function ensures proper locking semantics by checking if the caller already 
 - The scratch target mechanism is crucial for safe manipulation of the predicate lock hash table
 - The function expects that the scratch target does not already exist in the hash table (asserts !found)
 - Part of PostgreSQL's Serializable Snapshot Isolation (SSI) implementation for preventing serialization anomalies
+
+## Simplified Source
+
+```c
+static void
+RestoreScratchTarget(bool lockheld)
+{
+    bool found;
+
+    Assert(LWLockHeldByMe(SerializablePredicateListLock));
+
+    // Acquire partition lock if not already held
+    if (!lockheld)
+        LWLockAcquire(ScratchPartitionLock, LW_EXCLUSIVE);
+
+    // Re-insert the dummy scratch target into hash table
+    hash_search_with_hash_value(PredicateLockTargetHash,
+                                &ScratchTargetTag,
+                                ScratchTargetTagHash,
+                                HASH_ENTER, &found);
+    Assert(!found);  // Should not already exist
+
+    // Release partition lock if we acquired it
+    if (!lockheld)
+        LWLockRelease(ScratchPartitionLock);
+}
+```

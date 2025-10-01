@@ -59,3 +59,32 @@ The recursive approach ensures that every component subquery within complex nest
 - Each component subquery gets its own copy of the restriction clause through the recursive process
 - Part of PostgreSQL's broader qualifier pushdown optimization framework
 - Located in src/backend/optimizer/path/allpaths.c:4003-4054
+
+## Simplified Source
+```c
+static void
+recurse_push_qual(Node *setOp, Query *topquery,
+                 RangeTblEntry *rte, Index rti, Node *qual)
+{
+    if (IsA(setOp, RangeTblRef)) {
+        // Leaf node: push qual into this subquery
+        RangeTblRef *rtr = (RangeTblRef *) setOp;
+        RangeTblEntry *subrte = rt_fetch(rtr->rtindex, topquery->rtable);
+        Query *subquery = subrte->subquery;
+
+        Assert(subquery != NULL);
+        subquery_push_qual(subquery, rte, rti, qual);
+    }
+    else if (IsA(setOp, SetOperationStmt)) {
+        // Internal node: recursively push to both children
+        SetOperationStmt *op = (SetOperationStmt *) setOp;
+
+        recurse_push_qual(op->larg, topquery, rte, rti, qual);
+        recurse_push_qual(op->rarg, topquery, rte, rti, qual);
+    }
+    else {
+        // Unexpected node type
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(setOp));
+    }
+}
+```

@@ -34,3 +34,24 @@ This function is the cleanup counterpart to vac_open_indexes. It iterates throug
 - Indexes are closed in reverse order (from nindexes-1 down to 0)
 - The function frees the Irel array memory using pfree() after closing all indexes
 - This is a cleanup function that should be called to properly release resources acquired during vacuum operations
+
+## Simplified Source
+
+```c
+void
+vac_close_indexes(int nindexes, Relation *Irel, LOCKMODE lockmode)
+{
+    // Handle NULL input gracefully
+    if (Irel == NULL)
+        return;
+
+    // Close all indexes in reverse order
+    while (nindexes--) {
+        Relation index = Irel[nindexes];
+        index_close(index, lockmode);
+    }
+
+    // Free the index relation array
+    pfree(Irel);
+}
+```

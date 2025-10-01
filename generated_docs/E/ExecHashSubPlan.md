@@ -47,3 +47,66 @@ Key features include:
 - Explicitly clears projected tuples to prevent double-free situations in per-tuple contexts
 - Returns FALSE for empty subplans, TRUE for exact matches, and UNKNOWN for ambiguous cases
 - The combining operators are assumed to never yield NULL when both inputs are non-null
+
+## Simplified Source
+
+```c
+static Datum ExecHashSubPlan(SubPlanState *node, ExprContext *econtext, bool *isNull) {
+    // Ensure no direct correlation (not supported for hashed subplans)
+    if (node->subplan->parParam != NIL || node->args != NIL)
+        elog(ERROR, "hashed subplan with direct correlation not supported");
+
+    // Build hash table if first time or parameters changed
+    if (node->hashtable == NULL || node->planstate->chgParam != NULL)
+        buildSubPlanHash(node, econtext);
+
+    // Return FALSE for empty subplans
+    *isNull = false;
+    if (!node->havehashrows && !node->havenullrows)
+        return BoolGetDatum(false);
+
+    // Project left-hand expressions into a tuple
+    node->projLeft->pi_exprContext = econtext;
+    TupleTableSlot *slot = ExecProject(node->projLeft);
+
+    // Handle non-null LHS: probe main hash table, then check nulls table
+    if (slotNoNulls(slot)) {
+        // Check for exact match in main hash table
+        if (node->havehashrows &&
+            FindTupleHashEntry(node->hashtable, slot, node->cur_eq_comp, node->lhs_hash_funcs) != NULL) {
+            ExecClearTuple(slot);
+            return BoolGetDatum(true);
+        }
+        // Check for partial match in nulls table (returns UNKNOWN)
+        if (node->havenullrows && findPartialMatch(node->hashnulls, slot, node->cur_eq_funcs)) {
+            ExecClearTuple(slot);
+            *isNull = true;
+            return BoolGetDatum(false);
+        }
+        ExecClearTuple(slot);
+        return BoolGetDatum(false);
+    }
+
+    // Handle NULL LHS: return UNKNOWN if all nulls, otherwise scan for partial matches
+    if (node->hashnulls == NULL) {
+        ExecClearTuple(slot);
+        return BoolGetDatum(false);
+    }
+    if (slotAllNulls(slot)) {
+        ExecClearTuple(slot);
+        *isNull = true;
+        return BoolGetDatum(false);
+    }
+
+    // Scan both tables for partial matches
+    if ((node->havenullrows && findPartialMatch(node->hashnulls, slot, node->cur_eq_funcs)) ||
+        (node->havehashrows && findPartialMatch(node->hashtable, slot, node->cur_eq_funcs))) {
+        ExecClearTuple(slot);
+        *isNull = true;
+        return BoolGetDatum(false);
+    }
+
+    ExecClearTuple(slot);
+    return BoolGetDatum(false);
+}
+```

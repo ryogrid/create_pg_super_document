@@ -33,3 +33,15 @@ The `memcheck` function serves as a wrapper for validating memory allocation res
 - Provides detailed error information by using strerror(errno) to convert system error codes to human-readable messages
 - Acts as a centralized validation point for all memory allocation operations
 - The function either returns a valid pointer or terminates the program - it never returns NULL
+
+## Simplified Source
+
+```c
+static void *memcheck(void *ptr) {
+    // Check if memory allocation failed
+    if (ptr == NULL)
+        memory_exhausted(strerror(errno));  // Terminate with error message
+
+    return ptr;  // Return valid pointer
+}
+```

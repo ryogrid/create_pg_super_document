@@ -34,3 +34,37 @@ This function remaps a list of partition column numbers using a provided attribu
 - Performs error checking to ensure attribute numbers are within valid bounds
 - Returns a new list with remapped column numbers, does not modify the original list
 - Used in partition pruning operations to handle attribute number mapping between parent and child relations
+
+## Simplified Source
+
+```c
+static List *
+adjust_partition_colnos_using_map(List *colnos, AttrMap *attrMap)
+{
+    List *new_colnos = NIL;
+    ListCell *lc;
+
+    Assert(attrMap != NULL);
+
+    // Remap each column number using the attribute map
+    foreach(lc, colnos)
+    {
+        AttrNumber parentattrno = lfirst_int(lc);
+
+        // Validate attribute number is within map bounds
+        if (parentattrno <= 0 ||
+            parentattrno > attrMap->maplen ||
+            attrMap->attnums[parentattrno - 1] == 0)
+        {
+            elog(ERROR, "unexpected attno %d in target column list",
+                 parentattrno);
+        }
+
+        // Add the mapped attribute number to the new list
+        new_colnos = lappend_int(new_colnos,
+                                attrMap->attnums[parentattrno - 1]);
+    }
+
+    return new_colnos;
+}
+```

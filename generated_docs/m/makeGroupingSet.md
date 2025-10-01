@@ -43,3 +43,23 @@ The function creates a minimal structure that captures the type of grouping oper
 - Used extensively during query parsing to represent complex aggregation patterns
 - The location field enables precise error reporting when grouping set syntax is invalid
 - Part of the SQL standard compliance features for analytical queries and data warehousing operations
+
+## Simplified Source
+
+```c
+GroupingSet *makeGroupingSet(GroupingSetKind kind, List *content, int location) {
+    // Create and initialize a new GroupingSet node
+    GroupingSet *grouping_set = makeNode(GroupingSet);
+
+    // Set the type of grouping operation (ROLLUP, CUBE, etc.)
+    grouping_set->kind = kind;
+
+    // Set the list of columns/expressions for this grouping
+    grouping_set->content = content;
+
+    // Set source location for error reporting
+    grouping_set->location = location;
+
+    return grouping_set;
+}
+```

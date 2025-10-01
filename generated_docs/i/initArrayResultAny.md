@@ -42,3 +42,38 @@ The function uses get_array_type() to determine if the input_type is a scalar (h
 - **API unification**: Part of a three-function unified API: initArrayResultAny/accumArrayResultAny/makeArrayResultAny
 - **Flexibility**: Allows the same code path to handle both scalar and array accumulation without prior knowledge of input type
 - **Consistency**: Type detection logic matches get_promoted_array_type behavior for edge cases
+
+## Simplified Source
+
+```c
+ArrayBuildStateAny *
+initArrayResultAny(Oid input_type, MemoryContext rcontext, bool subcontext)
+{
+    ArrayBuildStateAny *astate;
+
+    // Determine if input type is array or scalar
+    // (check get_array_type for consistency with get_promoted_array_type)
+    if (!OidIsValid(get_array_type(input_type)))
+    {
+        // Array input: initialize array state
+        ArrayBuildStateArr *arraystate = initArrayResultArr(input_type, InvalidOid, rcontext, subcontext);
+
+        astate = (ArrayBuildStateAny *) MemoryContextAlloc(arraystate->mcontext,
+                                                           sizeof(ArrayBuildStateAny));
+        astate->scalarstate = NULL;
+        astate->arraystate = arraystate;
+    }
+    else
+    {
+        // Scalar input: initialize scalar state
+        ArrayBuildState *scalarstate = initArrayResult(input_type, rcontext, subcontext);
+
+        astate = (ArrayBuildStateAny *) MemoryContextAlloc(scalarstate->mcontext,
+                                                           sizeof(ArrayBuildStateAny));
+        astate->scalarstate = scalarstate;
+        astate->arraystate = NULL;
+    }
+
+    return astate;
+}
+```

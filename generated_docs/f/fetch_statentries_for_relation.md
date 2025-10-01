@@ -50,3 +50,80 @@ This function performs a catalog scan of pg_statistic_ext to find all extended s
 - Builds bitmapsets for column membership from the stxkeys array
 - Each returned StatExtEntry contains complete metadata needed for statistics computation
 - Uses system catalog indexes for efficient scanning by relation OID
+
+## Simplified Source
+
+```c
+static List *fetch_statentries_for_relation(Relation pg_statext, Oid relid)
+{
+    SysScanDesc scan;
+    ScanKeyData skey;
+    HeapTuple htup;
+    List *result = NIL;
+
+    // Set up scan to find statistics objects for this relation
+    ScanKeyInit(&skey, Anum_pg_statistic_ext_stxrelid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(relid));
+    scan = systable_beginscan(pg_statext, StatisticExtRelidIndexId, true, NULL, 1, &skey);
+
+    // Process each statistics object found
+    while (HeapTupleIsValid(htup = systable_getnext(scan)))
+    {
+        StatExtEntry *entry;
+        Datum datum;
+        bool isnull;
+        int i;
+        ArrayType *arr;
+        char *enabled;
+        Form_pg_statistic_ext staForm;
+        List *exprs = NIL;
+
+        // Create entry and extract basic info
+        entry = palloc0(sizeof(StatExtEntry));
+        staForm = (Form_pg_statistic_ext) GETSTRUCT(htup);
+        entry->statOid = staForm->oid;
+        entry->schema = get_namespace_name(staForm->stxnamespace);
+        entry->name = pstrdup(NameStr(staForm->stxname));
+
+        // Extract column numbers
+        for (i = 0; i < staForm->stxkeys.dim1; i++)
+        {
+            entry->columns = bms_add_member(entry->columns, staForm->stxkeys.values[i]);
+        }
+
+        // Get statistics target
+        datum = SysCacheGetAttr(STATEXTOID, htup, Anum_pg_statistic_ext_stxstattarget, &isnull);
+        entry->stattarget = isnull ? -1 : DatumGetInt16(datum);
+
+        // Parse enabled statistics types
+        datum = SysCacheGetAttrNotNull(STATEXTOID, htup, Anum_pg_statistic_ext_stxkind);
+        arr = DatumGetArrayTypeP(datum);
+        if (ARR_NDIM(arr) != 1 || ARR_HASNULL(arr) || ARR_ELEMTYPE(arr) != CHAROID)
+            elog(ERROR, "stxkind is not a 1-D char array");
+        enabled = (char *) ARR_DATA_PTR(arr);
+        for (i = 0; i < ARR_DIMS(arr)[0]; i++)
+        {
+            entry->types = lappend_int(entry->types, (int) enabled[i]);
+        }
+
+        // Parse expressions if present
+        datum = SysCacheGetAttr(STATEXTOID, htup, Anum_pg_statistic_ext_stxexprs, &isnull);
+        if (!isnull)
+        {
+            char *exprsString = TextDatumGetCString(datum);
+            exprs = (List *) stringToNode(exprsString);
+            pfree(exprsString);
+
+            // Process expressions for planner compatibility
+            exprs = (List *) eval_const_expressions(NULL, (Node *) exprs);
+            fix_opfuncids((Node *) exprs);
+        }
+
+        entry->exprs = exprs;
+        result = lappend(result, entry);
+    }
+
+    systable_endscan(scan);
+    return result;
+}
+```

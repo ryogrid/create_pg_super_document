@@ -37,3 +37,16 @@ The function works as the counterpart to jsonb_in_array_start, completing the br
 - Returns JSON_SUCCESS to indicate successful processing of the array end token
 - The WJB_END_ARRAY token triggers finalization of the parsed array in the JSONB value construction process
 - Handles proper cleanup and consolidation of array elements parsed between the start and end tokens
+
+## Simplified Source
+
+```c
+static JsonParseErrorType jsonb_in_array_end(void *pstate) {
+    JsonbInState *_state = (JsonbInState *) pstate;
+
+    // Signal the end of array parsing by pushing END_ARRAY token
+    _state->res = pushJsonbValue(&_state->parseState, WJB_END_ARRAY, NULL);
+
+    return JSON_SUCCESS;
+}
+```

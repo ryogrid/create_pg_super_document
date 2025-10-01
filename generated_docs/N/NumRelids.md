@@ -42,3 +42,27 @@ This information is crucial for query optimization decisions, particularly in de
 - Used extensively in query optimization for join ordering and selectivity calculations
 - Returns 0 for pseudo-constant clauses that reference no base relations
 - Memory management is handled internally - the function cleans up any allocated bitmap structures
+
+## Simplified Source
+
+```c
+int
+NumRelids(PlannerInfo *root, Node *clause)
+{
+    int result;
+    Relids varnos;
+
+    // Extract all relation IDs referenced by variables in the clause
+    varnos = pull_varnos(root, clause);
+
+    // Remove outer join relations (handled specially in planning)
+    varnos = bms_del_members(varnos, root->outer_join_rels);
+
+    // Count the remaining base relations
+    result = bms_num_members(varnos);
+
+    // Clean up allocated memory
+    bms_free(varnos);
+    return result;
+}
+```

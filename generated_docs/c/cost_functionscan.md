@@ -38,3 +38,48 @@ The `cost_functionscan` function calculates the cost of scanning a table-valued 
 - Row count estimates for functions are often imprecise, affecting cost accuracy
 - Target list evaluation costs are applied per output row, not per scanned tuple
 - Handles both parameterized and non-parameterized function scans
+
+## Simplified Source
+
+```c
+void
+cost_functionscan(Path *path, PlannerInfo *root,
+                  RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    QualCost qual_cost;
+    Cost cpu_per_tuple;
+    RangeTblEntry *rte;
+    QualCost expr_cost;
+
+    // Get the function RTE
+    rte = planner_rt_fetch(baserel->relid, root);
+
+    // Set row count from param_info or baserel
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Calculate function execution cost
+    // Functions execute to completion before returning rows (cached in tuplestore)
+    // So function eval cost is startup cost, not per-row cost
+    cost_qual_eval_node(&expr_cost, (Node *) rte->functions, root);
+    startup_cost += expr_cost.startup + expr_cost.per_tuple;
+
+    // Add restriction qualification costs
+    get_restriction_qual_cost(root, baserel, param_info, &qual_cost);
+    startup_cost += qual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qual_cost.per_tuple;
+    run_cost += cpu_per_tuple * baserel->tuples;
+
+    // Target list evaluation costs are per output row
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    // Set final costs
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

@@ -39,3 +39,15 @@ The function is designed to handle lookup failures with full error reporting tre
 - Provides backward compatibility and simplified API for callers that don't need snapshot control
 - The function is heavily used by `pg_aclmask` for handling various object types like databases, functions, languages, schemas, tablespaces, foreign data wrappers, foreign servers, and types
 - Error handling for invalid OIDs is implemented in the extended function this delegates to
+
+## Simplified Source
+
+```c
+static AclMode
+object_aclmask(Oid classid, Oid objectid, Oid roleid,
+               AclMode mask, AclMaskHow how)
+{
+    // Delegate to extended version with default snapshot
+    return object_aclmask_ext(classid, objectid, roleid, mask, how, NULL);
+}
+```

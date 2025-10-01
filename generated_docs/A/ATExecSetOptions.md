@@ -42,3 +42,69 @@ The function ensures that only valid attribute options are applied and maintains
 - The isReset flag determines whether to clear existing options or merge with new ones
 - Uses transformRelOptions to handle the complex logic of option merging and validation
 - Returns the ObjectAddress of the modified column for dependency tracking
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecSetOptions(Relation rel, const char *colName, Node *options,
+                 bool isReset, LOCKMODE lockmode)
+{
+    Relation attrelation;
+    HeapTuple tuple, newtuple;
+    Form_pg_attribute attrtuple;
+    AttrNumber attnum;
+    Datum datum, newOptions;
+    bool isnull;
+    ObjectAddress address;
+    Datum repl_val[Natts_pg_attribute];
+    bool repl_null[Natts_pg_attribute];
+    bool repl_repl[Natts_pg_attribute];
+
+    // Open attribute relation and find column
+    attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheAttName(RelationGetRelid(rel), colName);
+
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "column does not exist");
+    attrtuple = (Form_pg_attribute) GETSTRUCT(tuple);
+
+    attnum = attrtuple->attnum;
+    if (attnum <= 0)
+        ereport(ERROR, "cannot alter system column");
+
+    // Get current options and transform with new ones
+    datum = SysCacheGetAttr(ATTNAME, tuple, Anum_pg_attribute_attoptions, &isnull);
+    newOptions = transformRelOptions(isnull ? (Datum) 0 : datum,
+                                     castNode(List, options), NULL, NULL,
+                                     false, isReset);
+
+    // Validate new options
+    (void) attribute_reloptions(newOptions, true);
+
+    // Build modified tuple
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+    if (newOptions != (Datum) 0)
+        repl_val[Anum_pg_attribute_attoptions - 1] = newOptions;
+    else
+        repl_null[Anum_pg_attribute_attoptions - 1] = true;
+    repl_repl[Anum_pg_attribute_attoptions - 1] = true;
+
+    newtuple = heap_modify_tuple(tuple, RelationGetDescr(attrelation),
+                                 repl_val, repl_null, repl_repl);
+
+    // Update catalog
+    CatalogTupleUpdate(attrelation, &newtuple->t_self, newtuple);
+
+    // Post-alter processing and cleanup
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attrtuple->attnum);
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+
+    heap_freetuple(newtuple);
+    ReleaseSysCache(tuple);
+    table_close(attrelation, RowExclusiveLock);
+
+    return address;
+}
+```

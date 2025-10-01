@@ -39,3 +39,38 @@ The algorithm maintains the invariant that K = N - t (remaining blocks equals to
 - The algorithm handles the edge case where all remaining blocks must be selected (k >= K) efficiently
 - Returns the current block number (bs->t) before incrementing it, following the convention of returning the block being selected
 - Must only be called when BlockSampler_HasMore returns true to avoid assertion failures
+
+## Simplified Source
+```c
+BlockNumber BlockSampler_Next(BlockSampler bs) {
+    BlockNumber K = bs->N - bs->t;  // remaining blocks
+    int k = bs->n - bs->m;          // blocks still to sample
+    double p;                       // probability to skip block
+    double V;                       // random value
+
+    Assert(BlockSampler_HasMore(bs));
+
+    // If we need all remaining blocks, select current block
+    if ((BlockNumber) k >= K) {
+        bs->m++;
+        return bs->t++;
+    }
+
+    // Optimized Algorithm S: single random call per selected block
+    V = sampler_random_fract(&bs->randstate);
+    p = 1.0 - (double) k / (double) K;  // probability to skip
+
+    // Skip blocks while random value is below probability threshold
+    while (V < p) {
+        bs->t++;  // skip current block
+        K--;      // decrement remaining blocks
+
+        // Adjust probability for reduced range
+        p *= 1.0 - (double) k / (double) K;
+    }
+
+    // Select current block
+    bs->m++;
+    return bs->t++;
+}
+```

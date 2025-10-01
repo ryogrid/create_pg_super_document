@@ -53,3 +53,51 @@ When a constraint name is specified, the function resolves it to get the constra
 - Supports partial unique index inference through WHERE clause transformation using EXPR_KIND_INDEX_PREDICATE
 - The transformation reuses CREATE INDEX infrastructure but adapts it specifically for conflict resolution purposes
 - After transformation, uses dedicated primnode representation for inference elements that works with the query collation assignment system
+
+## Simplified Source
+
+```c
+void transformOnConflictArbiter(ParseState *pstate,
+                              OnConflictClause *onConflictClause,
+                              List **arbiterExpr, Node **arbiterWhere,
+                              Oid *constraint) {
+    InferClause *infer = onConflictClause->infer;
+
+    // Initialize output parameters
+    *arbiterExpr = NIL;
+    *arbiterWhere = NULL;
+    *constraint = InvalidOid;
+
+    // ON CONFLICT DO UPDATE requires inference specification
+    if (onConflictClause->action == ONCONFLICT_UPDATE && !infer)
+        ereport(ERROR, "ON CONFLICT DO UPDATE requires inference specification or constraint name");
+
+    // Reject ON CONFLICT on system catalog tables
+    if (IsCatalogRelation(pstate->p_target_relation) ||
+        RelationIsUsedAsCatalogTable(pstate->p_target_relation))
+        ereport(ERROR, "ON CONFLICT not supported with system catalog tables");
+
+    // Process inference specification if provided
+    if (infer) {
+        // Transform index element expressions
+        if (infer->indexElems)
+            *arbiterExpr = resolve_unique_index_expr(pstate, infer, pstate->p_target_relation);
+
+        // Transform WHERE clause for partial unique index inference
+        if (infer->whereClause)
+            *arbiterWhere = transformExpr(pstate, infer->whereClause, EXPR_KIND_INDEX_PREDICATE);
+
+        // Handle constraint name specification
+        if (infer->conname) {
+            Oid relid = RelationGetRelid(pstate->p_target_relation);
+            RTEPermissionInfo *perminfo = pstate->p_target_nsitem->p_perminfo;
+
+            // Get constraint column numbers and mark for SELECT access
+            Bitmapset *constrained_cols = get_relation_constraint_attnos(relid, infer->conname,
+                                                                       false, constraint);
+            perminfo->requiredPerms |= ACL_SELECT;
+            perminfo->selectedCols = bms_add_members(perminfo->selectedCols, constrained_cols);
+        }
+    }
+}
+```

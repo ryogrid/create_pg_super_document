@@ -128,3 +128,89 @@ For indirection cases, the function distinguishes between INSERT and UPDATE oper
 - System columns cannot be assigned to, triggering an error if attempted
 - DEFAULT expressions cannot be used for partial column updates (subfields or array elements)
 - The function is essential for implementing PostgreSQL's assignment semantics with proper type safety
+
+## Simplified Source
+
+```c
+Expr *
+transformAssignedExpr(ParseState *pstate, Expr *expr, ParseExprKind exprKind,
+                      const char *colname, int attrno, List *indirection, int location)
+{
+    Relation rd = pstate->p_target_relation;
+    Oid type_id;        // type of value provided
+    Oid attrtype;       // type of target column
+    int32 attrtypmod;
+    Oid attrcollation;  // collation of target column
+    ParseExprKind sv_expr_kind;
+
+    // Save current expression kind and set new one
+    sv_expr_kind = pstate->p_expr_kind;
+    pstate->p_expr_kind = exprKind;
+
+    // Validate target column
+    if (attrno <= 0)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+            errmsg("cannot assign to system column \"%s\"", colname)));
+
+    // Get target column type information
+    attrtype = attnumTypeId(rd, attrno);
+    attrtypmod = TupleDescAttr(rd->rd_att, attrno - 1)->atttypmod;
+    attrcollation = TupleDescAttr(rd->rd_att, attrno - 1)->attcollation;
+
+    // Handle DEFAULT placeholder
+    if (expr && IsA(expr, SetToDefault)) {
+        SetToDefault *def = (SetToDefault *) expr;
+        def->typeId = attrtype;
+        def->typeMod = attrtypmod;
+        def->collation = attrcollation;
+
+        // DEFAULT cannot be used with indirection
+        if (indirection) {
+            if (IsA(linitial(indirection), A_Indices))
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("cannot set an array element to DEFAULT")));
+            else
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("cannot set a subfield to DEFAULT")));
+        }
+    }
+
+    type_id = exprType((Node *) expr);
+
+    // Handle indirection (subfield or array element assignment)
+    if (indirection) {
+        Node *colVar;
+
+        if (pstate->p_is_insert) {
+            // For INSERT with indirection, start with NULL
+            colVar = (Node *) makeNullConst(attrtype, attrtypmod, attrcollation);
+        } else {
+            // For UPDATE with indirection, build Var for existing column
+            Var *var = makeVar(pstate->p_target_nsitem->p_rtindex, attrno,
+                              attrtype, attrtypmod, attrcollation, 0);
+            var->location = location;
+            colVar = (Node *) var;
+        }
+
+        expr = (Expr *) transformAssignmentIndirection(pstate, colVar, colname, false,
+            attrtype, attrtypmod, attrcollation, indirection, list_head(indirection),
+            (Node *) expr, COERCION_ASSIGNMENT, location);
+    } else {
+        // Normal assignment - coerce expression to target type
+        Node *orig_expr = (Node *) expr;
+
+        expr = (Expr *) coerce_to_target_type(pstate, orig_expr, type_id,
+            attrtype, attrtypmod, COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST, -1);
+
+        if (expr == NULL)
+            ereport(ERROR, (errcode(ERRCODE_DATATYPE_MISMATCH),
+                errmsg("column \"%s\" is of type %s but expression is of type %s",
+                    colname, format_type_be(attrtype), format_type_be(type_id)),
+                errhint("You will need to rewrite or cast the expression.")));
+    }
+
+    // Restore previous expression kind
+    pstate->p_expr_kind = sv_expr_kind;
+    return expr;
+}
+```

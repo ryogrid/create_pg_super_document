@@ -41,3 +41,44 @@ This function is a parser-specific wrapper around table_openrv_extended() that e
 - Uses missing_ok=true when calling table_openrv_extended to handle error reporting internally
 - Error position callbacks ensure parse location is included in error messages for better user experience
 - Part of the parser infrastructure for robust table access during query analysis
+
+## Simplified Source
+
+```c
+Relation
+parserOpenTable(ParseState *pstate, const RangeVar *relation, int lockmode)
+{
+    Relation rel;
+    ParseCallbackState pcbstate;
+
+    // Set up error position callback for better error reporting
+    setup_parser_errposition_callback(&pcbstate, pstate, relation->location);
+
+    // Attempt to open the table
+    rel = table_openrv_extended(relation, lockmode, true);
+
+    if (rel == NULL) {
+        // Provide enhanced error messages based on qualification
+        if (relation->schemaname) {
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_TABLE),
+                errmsg("relation \"%s.%s\" does not exist",
+                    relation->schemaname, relation->relname)));
+        } else {
+            // Check for forward CTE references for better error messages
+            if (isFutureCTE(pstate, relation->relname)) {
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_TABLE),
+                    errmsg("relation \"%s\" does not exist", relation->relname),
+                    errdetail("There is a WITH item named \"%s\", but it cannot be referenced from this part of the query.", relation->relname),
+                    errhint("Use WITH RECURSIVE, or re-order the WITH items to remove forward references.")));
+            } else {
+                ereport(ERROR, (errcode(ERRCODE_UNDEFINED_TABLE),
+                    errmsg("relation \"%s\" does not exist", relation->relname)));
+            }
+        }
+    }
+
+    // Clean up error callback
+    cancel_parser_errposition_callback(&pcbstate);
+    return rel;
+}
+```

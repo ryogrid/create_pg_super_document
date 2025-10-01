@@ -42,3 +42,64 @@ The function distinguishes between merged columns (those combined due to USING c
 - Critical for proper column name resolution in complex join expressions during rule decompilation
 - The function works in conjunction with set_using_names to complete the join column name resolution process
 - Merged columns from USING clauses are treated specially and appear first in the output column list
+
+## Simplified Source
+
+```c
+static void identify_join_columns(JoinExpr *j, RangeTblEntry *jrte,
+                                 deparse_columns *colinfo) {
+    int numjoincols;
+    int jcolno;
+    int rcolno;
+    ListCell *lc;
+
+    // Extract left child RT index
+    if (IsA(j->larg, RangeTblRef))
+        colinfo->leftrti = ((RangeTblRef *) j->larg)->rtindex;
+    else if (IsA(j->larg, JoinExpr))
+        colinfo->leftrti = ((JoinExpr *) j->larg)->rtindex;
+    else
+        elog(ERROR, "unrecognized node type in jointree: %d", (int) nodeTag(j->larg));
+
+    // Extract right child RT index
+    if (IsA(j->rarg, RangeTblRef))
+        colinfo->rightrti = ((RangeTblRef *) j->rarg)->rtindex;
+    else if (IsA(j->rarg, JoinExpr))
+        colinfo->rightrti = ((JoinExpr *) j->rarg)->rtindex;
+    else
+        elog(ERROR, "unrecognized node type in jointree: %d", (int) nodeTag(j->rarg));
+
+    // Validate processing order
+    Assert(colinfo->leftrti < j->rtindex);
+    Assert(colinfo->rightrti < j->rtindex);
+
+    // Initialize column mapping arrays
+    numjoincols = list_length(jrte->joinaliasvars);
+    Assert(numjoincols == list_length(jrte->eref->colnames));
+    colinfo->leftattnos = (int *) palloc0(numjoincols * sizeof(int));
+    colinfo->rightattnos = (int *) palloc0(numjoincols * sizeof(int));
+
+    // Process left column mappings
+    jcolno = 0;
+    foreach(lc, jrte->joinleftcols) {
+        int leftattno = lfirst_int(lc);
+        colinfo->leftattnos[jcolno++] = leftattno;
+    }
+
+    // Process right column mappings (handling merged columns specially)
+    rcolno = 0;
+    foreach(lc, jrte->joinrightcols) {
+        int rightattno = lfirst_int(lc);
+
+        if (rcolno < jrte->joinmergedcols) {
+            // Merged column from USING clause
+            colinfo->rightattnos[rcolno] = rightattno;
+        } else {
+            // Unmerged column
+            colinfo->rightattnos[jcolno++] = rightattno;
+        }
+        rcolno++;
+    }
+    Assert(jcolno == numjoincols);
+}
+```

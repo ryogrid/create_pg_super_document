@@ -54,3 +54,49 @@ This approach is more efficient than name-based lookup when the OID is already a
 - More efficient than name-based lookup when the OID is already known
 - Proper memory management includes cleanup of detoasted ACL data
 - The function assumes the ACL entry should exist, unlike the name-based variant that handles missing entries gracefully
+
+## Simplified Source
+
+```c
+static AclMode
+pg_parameter_acl_aclmask(Oid acl_oid, Oid roleid, AclMode mask, AclMaskHow how)
+{
+    AclMode result;
+    HeapTuple tuple;
+    Datum aclDatum;
+    bool isNull;
+    Acl *acl;
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid))
+        return mask;
+
+    // Get the ACL from pg_parameter_acl
+    tuple = SearchSysCache1(PARAMETERACLOID, ObjectIdGetDatum(acl_oid));
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("parameter ACL with OID %u does not exist", acl_oid)));
+
+    // Extract ACL data from tuple
+    aclDatum = SysCacheGetAttr(PARAMETERACLOID, tuple,
+                              Anum_pg_parameter_acl_paracl, &isNull);
+
+    if (isNull) {
+        // No ACL defined, use default ACL
+        acl = acldefault(OBJECT_PARAMETER_ACL, BOOTSTRAP_SUPERUSERID);
+    } else {
+        // Detoast ACL if necessary
+        acl = DatumGetAclP(aclDatum);
+    }
+
+    // Check permissions using the ACL
+    result = aclmask(acl, roleid, BOOTSTRAP_SUPERUSERID, mask, how);
+
+    // Clean up resources
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+        pfree(acl);
+    ReleaseSysCache(tuple);
+
+    return result;
+}
+```

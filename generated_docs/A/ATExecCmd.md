@@ -92,3 +92,115 @@ After executing each subcommand, the function reports the operation to event tri
 - The function ensures proper command counter incrementation after each operation to maintain transaction visibility
 - Event trigger reporting is performed for each executed subcommand to maintain proper DDL auditing
 - Located at src/backend/commands/tablecmds.c:5232-5566
+
+## Simplified Source
+
+```c
+static void
+ATExecCmd(List **wqueue, AlteredTableInfo *tab,
+          AlterTableCmd *cmd, LOCKMODE lockmode, AlterTablePass cur_pass,
+          AlterTableUtilityContext *context)
+{
+    ObjectAddress address = InvalidObjectAddress;
+    Relation rel = tab->rel;
+
+    // Dispatch ALTER TABLE subcommand to appropriate execution function
+    switch (cmd->subtype)
+    {
+        case AT_AddColumn:
+        case AT_AddColumnToView:
+            address = ATExecAddColumn(wqueue, tab, rel, &cmd,
+                                      cmd->recurse, false, lockmode, cur_pass, context);
+            break;
+
+        case AT_ColumnDefault:
+            address = ATExecColumnDefault(rel, cmd->name, cmd->def, lockmode);
+            break;
+
+        case AT_DropColumn:
+            address = ATExecDropColumn(wqueue, rel, cmd->name,
+                                       cmd->behavior, cmd->recurse, false,
+                                       cmd->missing_ok, lockmode, NULL);
+            break;
+
+        case AT_AddConstraint:
+            // Transform command during constraint addition pass
+            if (cur_pass == AT_PASS_ADD_CONSTR)
+                cmd = ATParseTransformCmd(wqueue, tab, rel, cmd,
+                                          cmd->recurse, lockmode, cur_pass, context);
+            if (cmd != NULL)
+                address = ATExecAddConstraint(wqueue, tab, rel,
+                                              (Constraint *) cmd->def,
+                                              cmd->recurse, false, lockmode);
+            break;
+
+        case AT_DropConstraint:
+            ATExecDropConstraint(rel, cmd->name, cmd->behavior,
+                                 cmd->recurse, false, cmd->missing_ok, lockmode);
+            break;
+
+        case AT_SetNotNull:
+            address = ATExecSetNotNull(tab, rel, cmd->name, lockmode);
+            break;
+
+        case AT_DropNotNull:
+            address = ATExecDropNotNull(rel, cmd->name, lockmode);
+            break;
+
+        case AT_AddIndex:
+            address = ATExecAddIndex(tab, rel, (IndexStmt *) cmd->def, false, lockmode);
+            break;
+
+        // Trigger operations
+        case AT_EnableTrig:
+            ATExecEnableDisableTrigger(rel, cmd->name, TRIGGER_FIRES_ON_ORIGIN,
+                                       false, cmd->recurse, lockmode);
+            break;
+
+        case AT_DisableTrig:
+            ATExecEnableDisableTrigger(rel, cmd->name, TRIGGER_DISABLED,
+                                       false, cmd->recurse, lockmode);
+            break;
+
+        // Inheritance operations
+        case AT_AddInherit:
+            address = ATExecAddInherit(rel, (RangeVar *) cmd->def, lockmode);
+            break;
+
+        case AT_DropInherit:
+            address = ATExecDropInherit(rel, (RangeVar *) cmd->def, lockmode);
+            break;
+
+        // Partitioning operations
+        case AT_AttachPartition:
+            cmd = ATParseTransformCmd(wqueue, tab, rel, cmd, false, lockmode,
+                                      cur_pass, context);
+            if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+                address = ATExecAttachPartition(wqueue, rel, (PartitionCmd *) cmd->def, context);
+            else
+                address = ATExecAttachPartitionIdx(wqueue, rel, ((PartitionCmd *) cmd->def)->name);
+            break;
+
+        case AT_DetachPartition:
+            cmd = ATParseTransformCmd(wqueue, tab, rel, cmd, false, lockmode,
+                                      cur_pass, context);
+            address = ATExecDetachPartition(wqueue, tab, rel,
+                                            ((PartitionCmd *) cmd->def)->name,
+                                            ((PartitionCmd *) cmd->def)->concurrent);
+            break;
+
+        // ... many other cases for column operations, table options, etc.
+
+        default:
+            elog(ERROR, "unrecognized alter table type: %d", (int) cmd->subtype);
+            break;
+    }
+
+    // Report subcommand to event triggers
+    if (cmd)
+        EventTriggerCollectAlterTableSubcmd((Node *) cmd, address);
+
+    // Increment command counter for transaction visibility
+    CommandCounterIncrement();
+}
+```

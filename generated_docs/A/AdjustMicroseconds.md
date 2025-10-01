@@ -38,3 +38,16 @@ This function is critical for accurate time interval calculations, ensuring that
 - Used extensively in both standard and ISO 8601 interval parsing routines
 - Located at src/backend/utils/adt/datetime.c:618-632
 - The two-stage approach (integer then fractional) ensures optimal precision handling
+
+## Simplified Source
+
+```c
+static bool AdjustMicroseconds(int64 val, double fval, int64 scale, struct pg_itm_in *itm_in) {
+    // Handle integer part: multiply val by scale and add to microseconds
+    if (!int64_multiply_add(val, scale, &itm_in->tm_usec))
+        return false;  // Integer overflow
+
+    // Handle fractional part using specialized function
+    return AdjustFractMicroseconds(fval, scale, itm_in);
+}
+```

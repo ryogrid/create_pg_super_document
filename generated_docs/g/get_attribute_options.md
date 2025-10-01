@@ -56,3 +56,63 @@ A key implementation detail is the careful ordering of operations: the pg_attrib
 - Part of PostgreSQL's performance optimization infrastructure for avoiding repeated catalog lookups
 - Primarily used by ANALYZE command and statistics collection subsystems
 - Located in src/backend/utils/cache/attoptcache.c as the main entry point for the attribute options caching system
+
+## Simplified Source
+
+```c
+AttributeOpts *get_attribute_options(Oid attrelid, int attnum) {
+    AttoptCacheKey key;
+    AttoptCacheEntry *attopt;
+    AttributeOpts *result;
+
+    // Initialize cache if needed
+    if (!AttoptCacheHash)
+        InitializeAttoptCache();
+
+    // Set up cache key
+    memset(&key, 0, sizeof(key));
+    key.attrelid = attrelid;
+    key.attnum = attnum;
+
+    // Look for existing cache entry
+    attopt = (AttoptCacheEntry *) hash_search(AttoptCacheHash, &key, HASH_FIND, NULL);
+
+    // If not found, create new cache entry
+    if (!attopt) {
+        AttributeOpts *opts = NULL;
+
+        // Lookup attribute in pg_attribute catalog
+        HeapTuple tp = SearchSysCache2(ATTNUM, ObjectIdGetDatum(attrelid), Int16GetDatum(attnum));
+
+        if (HeapTupleIsValid(tp)) {
+            Datum datum;
+            bool isNull;
+
+            // Get the attoptions field
+            datum = SysCacheGetAttr(ATTNUM, tp, Anum_pg_attribute_attoptions, &isNull);
+
+            if (!isNull) {
+                // Parse attribute options
+                bytea *bytea_opts = attribute_reloptions(datum, false);
+
+                // Allocate in cache memory context
+                opts = MemoryContextAlloc(CacheMemoryContext, VARSIZE(bytea_opts));
+                memcpy(opts, bytea_opts, VARSIZE(bytea_opts));
+            }
+            ReleaseSysCache(tp);
+        }
+
+        // Create cache entry (after reading catalog to avoid race conditions)
+        attopt = (AttoptCacheEntry *) hash_search(AttoptCacheHash, &key, HASH_ENTER, NULL);
+        attopt->opts = opts;
+    }
+
+    // Return copy in caller's memory context
+    if (attopt->opts == NULL)
+        return NULL;
+
+    result = palloc(VARSIZE(attopt->opts));
+    memcpy(result, attopt->opts, VARSIZE(attopt->opts));
+    return result;
+}
+```

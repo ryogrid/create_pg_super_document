@@ -48,3 +48,54 @@ Special handling ensures that expressions won't be misinterpreted during reparsi
 - Forces parentheses around function-like expressions to prevent parsing ambiguities
 - Uses varInOrderBy context flag to enable proper variable name conflict detection
 - Part of PostgreSQL's rule system for maintaining view definitions and query deparsing
+
+## Simplified Source
+
+```c
+static Node *get_rule_sortgroupclause(Index ref, List *tlist, bool force_colno,
+                                     deparse_context *context) {
+    StringInfo buf = context->buf;
+    TargetEntry *tle;
+    Node *expr;
+
+    // Get the target list entry for this reference
+    tle = get_sortgroupref_tle(ref, tlist);
+    expr = (Node *) tle->expr;
+
+    if (force_colno) {
+        // Output column number format
+        Assert(!tle->resjunk);
+        appendStringInfo(buf, "%d", tle->resno);
+    }
+    else if (!expr) {
+        // Null expression - do nothing
+    }
+    else if (IsA(expr, Const)) {
+        // Constants need explicit casting to avoid ambiguity
+        get_const_expr((Const *) expr, context, 1);
+    }
+    else if (IsA(expr, Var)) {
+        // Variables need conflict checking for name disambiguation
+        bool save_varinorderby = context->varInOrderBy;
+        context->varInOrderBy = true;
+        get_variable((Var *) expr, 0, false, context);
+        context->varInOrderBy = save_varinorderby;
+    }
+    else {
+        // Complex expressions - add parentheses to prevent misinterpretation
+        bool need_paren = (PRETTY_PAREN(context) ||
+                          IsA(expr, FuncExpr) ||
+                          IsA(expr, Aggref) ||
+                          IsA(expr, WindowFunc) ||
+                          IsA(expr, JsonConstructorExpr));
+
+        if (need_paren)
+            appendStringInfoChar(context->buf, '(');
+        get_rule_expr(expr, context, true);
+        if (need_paren)
+            appendStringInfoChar(context->buf, ')');
+    }
+
+    return expr;
+}
+```

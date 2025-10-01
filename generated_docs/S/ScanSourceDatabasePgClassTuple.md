@@ -53,3 +53,47 @@ For relations that pass these filters, the function:
 - Sets permanence flag based on relpersistence field (permanent vs unlogged)
 - Part of the database creation process that determines which relations to copy
 - Located at src/backend/commands/dbcommands.c:391-455
+
+## Simplified Source
+
+```c
+CreateDBRelInfo *ScanSourceDatabasePgClassTuple(HeapTupleData *tuple, Oid tbid, Oid dbid, char *srcpath)
+{
+    CreateDBRelInfo *relinfo;
+    Form_pg_class classForm;
+    RelFileNumber relfilenumber = InvalidRelFileNumber;
+
+    classForm = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Skip objects that don't need copying
+    if (classForm->reltablespace == GLOBALTABLESPACE_OID ||      // Shared objects
+        !RELKIND_HAS_STORAGE(classForm->relkind) ||             // No storage
+        classForm->relpersistence == RELPERSISTENCE_TEMP)       // Temporary
+        return NULL;
+
+    // Get relation file number
+    if (RelFileNumberIsValid(classForm->relfilenode))
+        relfilenumber = classForm->relfilenode;
+    else
+        relfilenumber = RelationMapOidToFilenumberForDatabase(srcpath, classForm->oid);
+
+    if (!RelFileNumberIsValid(relfilenumber))
+        elog(ERROR, "relation with OID %u does not have a valid relfilenumber", classForm->oid);
+
+    // Create relation info structure
+    relinfo = (CreateDBRelInfo *) palloc(sizeof(CreateDBRelInfo));
+
+    // Set tablespace (use relation's or default)
+    if (OidIsValid(classForm->reltablespace))
+        relinfo->rlocator.spcOid = classForm->reltablespace;
+    else
+        relinfo->rlocator.spcOid = tbid;
+
+    relinfo->rlocator.dbOid = dbid;
+    relinfo->rlocator.relNumber = relfilenumber;
+    relinfo->reloid = classForm->oid;
+    relinfo->permanent = (classForm->relpersistence == RELPERSISTENCE_PERMANENT);
+
+    return relinfo;
+}
+```

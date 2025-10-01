@@ -41,3 +41,72 @@ The operation involves multiple steps: validating the column, updating the pg_at
 - The function ensures proper cleanup of both the pg_attribute entry and the pg_attrdef dependency records
 - Uses RESTRICT mode when removing the attribute default for safety
 - Invokes post-alter hooks to notify other subsystems of the change
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecDropExpression(Relation rel, const char *colName, bool missing_ok, LOCKMODE lockmode)
+{
+    HeapTuple tuple;
+    Form_pg_attribute attTup;
+    AttrNumber attnum;
+    Relation attrelation;
+    Oid attrdefoid;
+    ObjectAddress address;
+
+    // Open attribute catalog for updates
+    attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Find the target column
+    tuple = SearchSysCacheCopyAttName(RelationGetRelid(rel), colName);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errmsg("column \"%s\" of relation \"%s\" does not exist",
+                               colName, RelationGetRelationName(rel))));
+
+    attTup = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = attTup->attnum;
+
+    // Validate column type
+    if (attnum <= 0)
+        ereport(ERROR, (errmsg("cannot alter system column \"%s\"", colName)));
+
+    // Check if column is a stored generated column
+    if (attTup->attgenerated != ATTRIBUTE_GENERATED_STORED)
+    {
+        if (missing_ok)
+        {
+            ereport(NOTICE, (errmsg("column \"%s\" is not a stored generated column, skipping", colName)));
+            heap_freetuple(tuple);
+            table_close(attrelation, RowExclusiveLock);
+            return InvalidObjectAddress;
+        }
+        ereport(ERROR, (errmsg("column \"%s\" is not a stored generated column", colName)));
+    }
+
+    // Mark column as no longer generated
+    attTup->attgenerated = '\0';
+    CatalogTupleUpdate(attrelation, &tuple->t_self, tuple);
+
+    // Notify other subsystems of the change
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attnum);
+    heap_freetuple(tuple);
+    table_close(attrelation, RowExclusiveLock);
+
+    // Remove dependency records for the generated expression
+    attrdefoid = GetAttrDefaultOid(RelationGetRelid(rel), attnum);
+    if (!OidIsValid(attrdefoid))
+        elog(ERROR, "could not find attrdef tuple for relation %u attnum %d",
+             RelationGetRelid(rel), attnum);
+
+    deleteDependencyRecordsFor(AttrDefaultRelationId, attrdefoid, false);
+    CommandCounterIncrement();
+
+    // Remove the generated expression itself
+    RemoveAttrDefault(RelationGetRelid(rel), attnum, DROP_RESTRICT, false, false);
+
+    // Return address of the modified column
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+    return address;
+}
+```

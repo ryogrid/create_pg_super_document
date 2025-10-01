@@ -47,3 +47,39 @@ The function follows PostgreSQL's standard cost model by separating startup cost
 - Cost estimation for list evaluation is acknowledged as "probably pretty bogus" in the code comments, using a simplified model of one operator cost per tuple
 - The function properly handles both parameterized and non-parameterized paths
 - Target list evaluation costs are applied per output row rather than per tuple scanned, which is important for queries that filter the VALUES list
+
+## Simplified Source
+
+```c
+void cost_valuesscan(Path *path, PlannerInfo *root,
+                     RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+
+    // Set row estimate based on parameterization
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Estimate list evaluation cost - simplified model of one operator per tuple
+    cpu_per_tuple = cpu_operator_cost;
+
+    // Add restriction qualification costs
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+    startup_cost += qpqual_cost.startup;
+    cpu_per_tuple += cpu_tuple_cost + qpqual_cost.per_tuple;
+    run_cost += cpu_per_tuple * baserel->tuples;
+
+    // Add target list evaluation costs (per output row)
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    // Store final costs
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

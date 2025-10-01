@@ -39,3 +39,28 @@ The function constructs the path by combining the extension's script directory w
 - Uses MAXPGPATH constant to limit the maximum path length
 - The auxiliary control file naming convention uses "--" as a separator between extension name and version
 - Properly manages memory by freeing the temporary scriptdir allocation before returning
+
+## Simplified Source
+
+```c
+static char *
+get_extension_aux_control_filename(ExtensionControlFile *control,
+                                   const char *version)
+{
+    char *result;
+    char *scriptdir;
+
+    // Get the extension's script directory
+    scriptdir = get_extension_script_directory(control);
+
+    // Build the auxiliary control filename: "name--version.control"
+    result = (char *) palloc(MAXPGPATH);
+    snprintf(result, MAXPGPATH, "%s/%s--%s.control",
+             scriptdir, control->name, version);
+
+    // Clean up temporary allocation
+    pfree(scriptdir);
+
+    return result;
+}
+```

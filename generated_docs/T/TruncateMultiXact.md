@@ -48,3 +48,87 @@ The function includes extensive safety checks to handle edge cases like wraparou
 - Updates both in-memory state and persistent storage atomically
 - Extensive DEBUG1 logging for troubleshooting truncation operations
 - Gracefully handles cases where truncation cannot proceed safely
+
+## Simplified Source
+
+```c
+void TruncateMultiXact(MultiXactId newOldestMulti, Oid newOldestMultiDB)
+{
+    MultiXactId oldestMulti, nextMulti;
+    MultiXactOffset newOldestOffset, oldestOffset, nextOffset;
+    mxtruncinfo trunc;
+    MultiXactId earliest;
+
+    Assert(!RecoveryInProgress());
+
+    // Acquire exclusive lock to prevent concurrent truncations
+    LWLockAcquire(MultiXactTruncationLock, LW_EXCLUSIVE);
+
+    // Get current state
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+    nextMulti = MultiXactState->nextMXact;
+    nextOffset = MultiXactState->nextOffset;
+    oldestMulti = MultiXactState->oldestMultiXactId;
+    LWLockRelease(MultiXactGenLock);
+
+    // Check if truncation is needed
+    if (MultiXactIdPrecedesOrEquals(newOldestMulti, oldestMulti)) {
+        LWLockRelease(MultiXactTruncationLock);
+        return;
+    }
+
+    // Find earliest existing page to determine safe truncation point
+    trunc.earliestExistingPage = -1;
+    SlruScanDirectory(MultiXactOffsetCtl, SlruScanDirCbFindEarliest, &trunc);
+    earliest = trunc.earliestExistingPage * MULTIXACT_OFFSETS_PER_PAGE;
+    if (earliest < FirstMultiXactId)
+        earliest = FirstMultiXactId;
+
+    // Nothing to remove
+    if (MultiXactIdPrecedes(oldestMulti, earliest)) {
+        LWLockRelease(MultiXactTruncationLock);
+        return;
+    }
+
+    // Compute truncation points for members
+    if (oldestMulti == nextMulti) {
+        oldestOffset = nextOffset;  // No MultiXacts exist
+    } else if (!find_multixact_start(oldestMulti, &oldestOffset)) {
+        ereport(LOG, (errmsg("oldest MultiXact %u not found, skipping truncation", oldestMulti)));
+        LWLockRelease(MultiXactTruncationLock);
+        return;
+    }
+
+    if (newOldestMulti == nextMulti) {
+        newOldestOffset = nextOffset;  // No MultiXacts exist
+    } else if (!find_multixact_start(newOldestMulti, &newOldestOffset)) {
+        ereport(LOG, (errmsg("cannot truncate up to MultiXact %u, skipping truncation", newOldestMulti)));
+        LWLockRelease(MultiXactTruncationLock);
+        return;
+    }
+
+    // Perform truncation in critical section for atomicity
+    START_CRIT_SECTION();
+
+    // Prevent concurrent checkpoints
+    MyProc->delayChkptFlags |= DELAY_CHKPT_START;
+
+    // Log truncation to WAL
+    WriteMTruncateXlogRec(newOldestMultiDB, oldestMulti, newOldestMulti,
+                          oldestOffset, newOldestOffset);
+
+    // Update in-memory limits before truncation
+    LWLockAcquire(MultiXactGenLock, LW_EXCLUSIVE);
+    MultiXactState->oldestMultiXactId = newOldestMulti;
+    MultiXactState->oldestMultiXactDB = newOldestMultiDB;
+    LWLockRelease(MultiXactGenLock);
+
+    // Perform actual truncation
+    PerformMembersTruncation(oldestOffset, newOldestOffset);
+    PerformOffsetsTruncation(oldestMulti, newOldestMulti);
+
+    MyProc->delayChkptFlags &= ~DELAY_CHKPT_START;
+    END_CRIT_SECTION();
+    LWLockRelease(MultiXactTruncationLock);
+}
+```

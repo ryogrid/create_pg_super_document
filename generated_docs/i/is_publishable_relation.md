@@ -43,3 +43,12 @@ The publishability criteria are the same as `is_publishable_class()`:
 - The function signature is declared in src/include/catalog/pg_publication.h
 - Very lightweight - just extracts relation metadata and delegates to the core logic
 - Location: src/backend/catalog/pg_publication.c:150-162
+
+## Simplified Source
+
+```c
+bool is_publishable_relation(Relation rel) {
+    // Delegate to is_publishable_class with relation OID and tuple
+    return is_publishable_class(RelationGetRelid(rel), rel->rd_rel);
+}
+```

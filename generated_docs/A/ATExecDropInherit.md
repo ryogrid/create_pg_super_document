@@ -36,3 +36,34 @@ ATExecDropInherit implements the core logic for the ALTER TABLE NO INHERIT SQL c
 - Does not check ownership of the parent table, assuming ownership of the child table provides sufficient rights
 - Keeps the lock on the parent relation until transaction commit for consistency
 - Returns ObjectAddress of the parent relation that was removed from inheritance
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecDropInherit(Relation rel, RangeVar *parent, LOCKMODE lockmode)
+{
+    ObjectAddress address;
+    Relation parent_rel;
+
+    // Prevent inheritance changes on partitioned tables
+    if (rel->rd_rel->relispartition)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("cannot change inheritance of a partition")));
+
+    // Open parent table with AccessShareLock for schema inspection
+    parent_rel = table_openrv(parent, AccessShareLock);
+
+    // Delegate to RemoveInheritance for the actual work
+    RemoveInheritance(rel, parent_rel, false);
+
+    // Set up return address for the parent relation
+    ObjectAddressSet(address, RelationRelationId,
+                     RelationGetRelid(parent_rel));
+
+    // Close parent relation but keep lock until commit
+    table_close(parent_rel, NoLock);
+
+    return address;
+}
+```

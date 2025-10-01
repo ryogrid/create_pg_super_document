@@ -57,3 +57,37 @@ The function operates through these paths:
 - The original_insert_tuple optimization avoids redundant conversions when the correct format is already available
 - Uses GetAfterTriggersStoreSlot to obtain a properly formatted slot for conversion operations
 - Critical for ensuring trigger OLD/NEW tables contain tuples in the expected format regardless of the source table structure
+
+## Simplified Source
+
+```c
+static void
+TransitionTableAddTuple(EState *estate,
+                       TransitionCaptureState *transition_capture,
+                       ResultRelInfo *relinfo,
+                       TupleTableSlot *slot,
+                       TupleTableSlot *original_insert_tuple,
+                       Tuplestorestate *tuplestore) {
+    TupleConversionMap *map;
+
+    // Skip if no tuplestore provided
+    if (tuplestore == NULL)
+        return;
+
+    // Use original tuple if available (no conversion needed)
+    if (original_insert_tuple) {
+        tuplestore_puttupleslot(tuplestore, original_insert_tuple);
+    }
+    // Apply tuple conversion for inheritance/partitioning
+    else if ((map = ExecGetChildToRootMap(relinfo)) != NULL) {
+        TupleTableSlot *storeslot = GetAfterTriggersStoreSlot(
+            transition_capture->tcs_private, map->outdesc);
+        execute_attr_map_slot(map->attrMap, slot, storeslot);
+        tuplestore_puttupleslot(tuplestore, storeslot);
+    }
+    // Store directly when no conversion required
+    else {
+        tuplestore_puttupleslot(tuplestore, slot);
+    }
+}
+```

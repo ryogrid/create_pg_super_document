@@ -37,3 +37,57 @@ This function analyzes the transformation expression used in ALTER COLUMN TYPE t
 - Returns true (rewrite required) for any unrecognized transformation patterns
 - Critical for performance of large table alterations in PostgreSQL
 - Part of the ALTER TABLE optimization infrastructure
+
+## Simplified Source
+
+```c
+static bool ATColumnChangeRequiresRewrite(Node *expr, AttrNumber varattno) {
+    Assert(expr != NULL);
+
+    // Recursively analyze the transformation expression
+    for (;;) {
+        if (IsA(expr, Var) && ((Var *) expr)->varattno == varattno) {
+            // Direct column reference - no transformation needed
+            return false;
+        }
+        else if (IsA(expr, RelabelType)) {
+            // Binary-compatible type conversion - unwrap and continue
+            expr = (Node *) ((RelabelType *) expr)->arg;
+        }
+        else if (IsA(expr, CoerceToDomain)) {
+            // Domain coercion
+            CoerceToDomain *d = (CoerceToDomain *) expr;
+
+            if (DomainHasConstraints(d->resulttype)) {
+                // Constrained domain requires rewrite for validation
+                return true;
+            }
+            // Unconstrained domain - continue analysis
+            expr = (Node *) d->arg;
+        }
+        else if (IsA(expr, FuncExpr)) {
+            // Function call - check for special timestamp conversions
+            FuncExpr *f = (FuncExpr *) expr;
+
+            switch (f->funcid) {
+                case F_TIMESTAMPTZ_TIMESTAMP:
+                case F_TIMESTAMP_TIMESTAMPTZ:
+                    // Timestamp conversions are safe only in UTC timezone
+                    if (TimestampTimestampTzRequiresRewrite()) {
+                        return true;
+                    } else {
+                        expr = linitial(f->args);
+                        break;
+                    }
+                default:
+                    // Any other function requires rewrite
+                    return true;
+            }
+        }
+        else {
+            // Unrecognized expression type requires rewrite
+            return true;
+        }
+    }
+}
+```

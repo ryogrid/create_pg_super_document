@@ -37,3 +37,30 @@ The function follows the standard qsort comparator convention, returning negativ
 - Compares block numbers first, then offset numbers within blocks for complete ordering
 - Returns -1, 0, or 1 following standard C library qsort comparator conventions
 - The arg parameter is unused but required for compatibility with qsort_interruptible interface
+
+## Simplified Source
+
+```c
+static int compare_rows(const void *a, const void *b, void *arg)
+{
+    // Extract HeapTuple pointers from void pointers
+    HeapTuple ha = *(const HeapTuple *) a;
+    HeapTuple hb = *(const HeapTuple *) b;
+
+    // Get block and offset numbers for both tuples
+    BlockNumber ba = ItemPointerGetBlockNumber(&ha->t_self);
+    OffsetNumber oa = ItemPointerGetOffsetNumber(&ha->t_self);
+    BlockNumber bb = ItemPointerGetBlockNumber(&hb->t_self);
+    OffsetNumber ob = ItemPointerGetOffsetNumber(&hb->t_self);
+
+    // Compare by block number first
+    if (ba < bb) return -1;
+    if (ba > bb) return 1;
+
+    // Then by offset number within block
+    if (oa < ob) return -1;
+    if (oa > ob) return 1;
+
+    return 0;  // Equal positions
+}
+```

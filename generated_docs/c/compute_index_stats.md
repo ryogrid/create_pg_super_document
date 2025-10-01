@@ -50,3 +50,116 @@ The function creates a separate memory context for index processing, sets up exe
 - Processes expression values in strided format for efficient statistics computation
 - Properly manages memory contexts to prevent leaks during expression evaluation
 - Resets expression context for each row to reclaim temporary memory used during evaluation
+
+## Simplified Source
+
+```c
+static void compute_index_stats(Relation onerel, double totalrows,
+                               AnlIndexData *indexdata, int nindexes,
+                               HeapTuple *rows, int numrows,
+                               MemoryContext col_context) {
+    MemoryContext ind_context, old_context;
+    Datum values[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+
+    // Create dedicated memory context for index processing
+    ind_context = AllocSetContextCreate(anl_context, "Analyze Index", ALLOCSET_DEFAULT_SIZES);
+    old_context = MemoryContextSwitchTo(ind_context);
+
+    // Process each index
+    for (int ind = 0; ind < nindexes; ind++) {
+        AnlIndexData *thisdata = &indexdata[ind];
+        IndexInfo *indexInfo = thisdata->indexInfo;
+        int attr_cnt = thisdata->attr_cnt;
+
+        // Skip indexes with no analyzable content
+        if (attr_cnt == 0 && indexInfo->ii_Predicate == NIL)
+            continue;
+
+        // Set up execution environment for expression evaluation
+        EState *estate = CreateExecutorState();
+        ExprContext *econtext = GetPerTupleExprContext(estate);
+        TupleTableSlot *slot = MakeSingleTupleTableSlot(RelationGetDescr(onerel), &TTSOpsHeapTuple);
+        econtext->ecxt_scantuple = slot;
+
+        // Prepare partial index predicate if it exists
+        ExprState *predicate = ExecPrepareQual(indexInfo->ii_Predicate, estate);
+
+        // Allocate arrays for expression values
+        Datum *exprvals = palloc(numrows * attr_cnt * sizeof(Datum));
+        bool *exprnulls = palloc(numrows * attr_cnt * sizeof(bool));
+
+        int numindexrows = 0, tcnt = 0;
+
+        // Process each sampled row
+        for (int rowno = 0; rowno < numrows; rowno++) {
+            HeapTuple heapTuple = rows[rowno];
+
+            vacuum_delay_point();
+            ResetExprContext(econtext);
+            ExecStoreHeapTuple(heapTuple, slot, false);
+
+            // Check partial index predicate if present
+            if (predicate != NULL) {
+                if (!ExecQual(predicate, econtext))
+                    continue;  // Row doesn't satisfy predicate
+            }
+            numindexrows++;
+
+            // Evaluate expressions if this index has analyzable columns
+            if (attr_cnt > 0) {
+                // Compute index expressions for this row
+                FormIndexDatum(indexInfo, slot, estate, values, isnull);
+
+                // Extract and store values for statistics
+                for (int i = 0; i < attr_cnt; i++) {
+                    VacAttrStats *stats = thisdata->vacattrstats[i];
+                    int attnum = stats->tupattnum;
+
+                    if (isnull[attnum - 1]) {
+                        exprvals[tcnt] = (Datum) 0;
+                        exprnulls[tcnt] = true;
+                    } else {
+                        exprvals[tcnt] = datumCopy(values[attnum - 1],
+                                                  stats->attrtype->typbyval,
+                                                  stats->attrtype->typlen);
+                        exprnulls[tcnt] = false;
+                    }
+                    tcnt++;
+                }
+            }
+        }
+
+        // Calculate fraction of rows that pass predicate
+        thisdata->tupleFract = (double) numindexrows / (double) numrows;
+        double totalindexrows = ceil(thisdata->tupleFract * totalrows);
+
+        // Compute statistics for expression columns
+        if (numindexrows > 0) {
+            MemoryContextSwitchTo(col_context);
+            for (int i = 0; i < attr_cnt; i++) {
+                VacAttrStats *stats = thisdata->vacattrstats[i];
+
+                // Set up statistics computation parameters
+                stats->exprvals = exprvals + i;
+                stats->exprnulls = exprnulls + i;
+                stats->rowstride = attr_cnt;
+
+                // Compute the actual statistics
+                stats->compute_stats(stats, ind_fetch_func, numindexrows, totalindexrows);
+                MemoryContextReset(col_context);
+            }
+        }
+
+        // Clean up this index's execution environment
+        MemoryContextSwitchTo(ind_context);
+        ExecDropSingleTupleTableSlot(slot);
+        FreeExecutorState(estate);
+        MemoryContextReset(ind_context);
+    }
+
+    // Restore memory context and clean up
+    MemoryContextSwitchTo(old_context);
+    MemoryContextDelete(ind_context);
+}
+```

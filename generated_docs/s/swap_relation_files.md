@@ -59,3 +59,172 @@ The function handles the complexity of PostgreSQL's dual approach to relation st
 - Maintains dependency information for TOAST tables when using link-based swapping
 - Critical for the atomicity of table reorganization operations like CLUSTER and ALTER TABLE
 - The function is recursive - it calls itself to handle TOAST table and index swapping
+
+## Simplified Source
+
+```c
+static void
+swap_relation_files(Oid r1, Oid r2, bool target_is_pg_class,
+                    bool swap_toast_by_content, bool is_internal,
+                    TransactionId frozenXid, MultiXactId cutoffMulti,
+                    Oid *mapped_tables)
+{
+    Relation relRelation;
+    HeapTuple reltup1, reltup2;
+    Form_pg_class relform1, relform2;
+    RelFileNumber relfilenumber1, relfilenumber2;
+
+    // Open pg_class and get tuples for both relations
+    relRelation = table_open(RelationRelationId, RowExclusiveLock);
+
+    reltup1 = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(r1));
+    if (!HeapTupleIsValid(reltup1))
+        elog(ERROR, "cache lookup failed for relation %u", r1);
+    relform1 = (Form_pg_class) GETSTRUCT(reltup1);
+
+    reltup2 = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(r2));
+    if (!HeapTupleIsValid(reltup2))
+        elog(ERROR, "cache lookup failed for relation %u", r2);
+    relform2 = (Form_pg_class) GETSTRUCT(reltup2);
+
+    relfilenumber1 = relform1->relfilenode;
+    relfilenumber2 = relform2->relfilenode;
+
+    // Handle file number swapping differently for mapped vs regular relations
+    if (RelFileNumberIsValid(relfilenumber1) && RelFileNumberIsValid(relfilenumber2)) {
+        // Normal relations: swap physical attributes in pg_class
+
+        // Swap file numbers, tablespaces, access methods, persistence
+        RelFileNumber temp = relform1->relfilenode;
+        relform1->relfilenode = relform2->relfilenode;
+        relform2->relfilenode = temp;
+
+        temp = relform1->reltablespace;
+        relform1->reltablespace = relform2->reltablespace;
+        relform2->reltablespace = temp;
+
+        temp = relform1->relam;
+        relform1->relam = relform2->relam;
+        relform2->relam = temp;
+
+        char tmpchr = relform1->relpersistence;
+        relform1->relpersistence = relform2->relpersistence;
+        relform2->relpersistence = tmpchr;
+
+        // Swap TOAST links if using link-based swapping
+        if (!swap_toast_by_content) {
+            temp = relform1->reltoastrelid;
+            relform1->reltoastrelid = relform2->reltoastrelid;
+            relform2->reltoastrelid = temp;
+        }
+    } else {
+        // Mapped relations: update relation mappings instead
+
+        // Validate that both relations are mapped and compatible
+        if (RelFileNumberIsValid(relfilenumber1) || RelFileNumberIsValid(relfilenumber2))
+            elog(ERROR, "cannot swap mapped relation with non-mapped relation");
+
+        // Get current mappings and update them with swapped values
+        relfilenumber1 = RelationMapOidToFilenumber(r1, relform1->relisshared);
+        relfilenumber2 = RelationMapOidToFilenumber(r2, relform2->relisshared);
+
+        RelationMapUpdateMap(r1, relfilenumber2, relform1->relisshared, false);
+        RelationMapUpdateMap(r2, relfilenumber1, relform2->relisshared, false);
+
+        *mapped_tables++ = r2;  // Track mapped tables for caller
+    }
+
+    // Update subtransaction tracking for proper cleanup
+    {
+        Relation rel1 = relation_open(r1, NoLock);
+        Relation rel2 = relation_open(r2, NoLock);
+        rel2->rd_createSubid = rel1->rd_createSubid;
+        rel2->rd_newRelfilelocatorSubid = rel1->rd_newRelfilelocatorSubid;
+        rel2->rd_firstRelfilelocatorSubid = rel1->rd_firstRelfilelocatorSubid;
+        RelationAssumeNewRelfilelocator(rel1);
+        relation_close(rel1, NoLock);
+        relation_close(rel2, NoLock);
+    }
+
+    // Set freeze information for non-index relations
+    if (relform1->relkind != RELKIND_INDEX) {
+        relform1->relfrozenxid = frozenXid;
+        relform1->relminmxid = cutoffMulti;
+    }
+
+    // Swap table statistics (pages, tuples, all-visible pages)
+    {
+        int32 temp_pages = relform1->relpages;
+        relform1->relpages = relform2->relpages;
+        relform2->relpages = temp_pages;
+
+        float4 temp_tuples = relform1->reltuples;
+        relform1->reltuples = relform2->reltuples;
+        relform2->reltuples = temp_tuples;
+
+        int32 temp_allvisible = relform1->relallvisible;
+        relform1->relallvisible = relform2->relallvisible;
+        relform2->relallvisible = temp_allvisible;
+    }
+
+    // Update pg_class entries (unless we're swapping pg_class itself)
+    if (!target_is_pg_class) {
+        CatalogIndexState indstate = CatalogOpenIndexes(relRelation);
+        CatalogTupleUpdateWithInfo(relRelation, &reltup1->t_self, reltup1, indstate);
+        CatalogTupleUpdateWithInfo(relRelation, &reltup2->t_self, reltup2, indstate);
+        CatalogCloseIndexes(indstate);
+    } else {
+        // Invalidate cache for pg_class swaps
+        CacheInvalidateRelcacheByTuple(reltup1);
+        CacheInvalidateRelcacheByTuple(reltup2);
+    }
+
+    // Update access method dependencies if they changed
+    if (relform1->relam != relform2->relam) {
+        changeDependencyFor(RelationRelationId, r1, AccessMethodRelationId,
+                           relform1->relam, relform2->relam);
+        changeDependencyFor(RelationRelationId, r2, AccessMethodRelationId,
+                           relform2->relam, relform1->relam);
+    }
+
+    // Handle TOAST tables recursively
+    if (relform1->reltoastrelid || relform2->reltoastrelid) {
+        if (swap_toast_by_content) {
+            // Recursively swap TOAST table contents
+            if (relform1->reltoastrelid && relform2->reltoastrelid) {
+                swap_relation_files(relform1->reltoastrelid, relform2->reltoastrelid,
+                                   target_is_pg_class, swap_toast_by_content, is_internal,
+                                   frozenXid, cutoffMulti, mapped_tables);
+            }
+        } else {
+            // Update TOAST table dependencies for link-based swapping
+            // (Simplified - update dependency records)
+            if (relform1->reltoastrelid) {
+                deleteDependencyRecordsFor(RelationRelationId, relform1->reltoastrelid, false);
+                recordDependencyOn(/* new TOAST->base dependency */);
+            }
+            if (relform2->reltoastrelid) {
+                deleteDependencyRecordsFor(RelationRelationId, relform2->reltoastrelid, false);
+                recordDependencyOn(/* new TOAST->base dependency */);
+            }
+        }
+    }
+
+    // For TOAST tables, also swap their indexes
+    if (swap_toast_by_content &&
+        relform1->relkind == RELKIND_TOASTVALUE &&
+        relform2->relkind == RELKIND_TOASTVALUE) {
+        Oid toastIndex1 = toast_get_valid_index(r1, AccessExclusiveLock);
+        Oid toastIndex2 = toast_get_valid_index(r2, AccessExclusiveLock);
+
+        swap_relation_files(toastIndex1, toastIndex2, target_is_pg_class,
+                           swap_toast_by_content, is_internal,
+                           InvalidTransactionId, InvalidMultiXactId, mapped_tables);
+    }
+
+    // Clean up
+    heap_freetuple(reltup1);
+    heap_freetuple(reltup2);
+    table_close(relRelation, RowExclusiveLock);
+}
+```

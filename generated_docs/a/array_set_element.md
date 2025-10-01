@@ -64,3 +64,168 @@ The `array_set_element` function creates a new array identical to the input arra
 - Comprehensive null bitmap management preserves and updates NULL element tracking
 - Critical function for PostgreSQL's array assignment infrastructure
 - Located in `src/backend/utils/adt/arrayfuncs.c` at lines 2201-2500
+
+## Simplified Source
+
+```c
+Datum
+array_set_element(Datum arraydatum, int nSubscripts, int *indx,
+                  Datum dataValue, bool isNull,
+                  int arraytyplen, int elmlen, bool elmbyval, char elmalign)
+{
+    ArrayType *array, *newarray;
+    int ndim, dim[MAXDIM], lb[MAXDIM];
+    int oldnitems, newnitems, newsize;
+    int offset, lenbefore, lenafter, olditemlen, newitemlen;
+    bool newhasnulls;
+
+    // Handle fixed-length arrays (simple case)
+    if (arraytyplen > 0) {
+        char *resultarray;
+
+        // Validate subscripts and create copy
+        if (nSubscripts != 1 || indx[0] < 0 || indx[0] >= arraytyplen / elmlen)
+            ereport(ERROR, /* invalid subscripts */);
+        if (isNull)
+            ereport(ERROR, /* cannot assign NULL to fixed array */);
+
+        // Copy array and set element
+        resultarray = (char *) palloc(arraytyplen);
+        memcpy(resultarray, DatumGetPointer(arraydatum), arraytyplen);
+        ArrayCastAndSet(dataValue, elmlen, elmbyval, elmalign,
+                       resultarray + indx[0] * elmlen);
+        return PointerGetDatum(resultarray);
+    }
+
+    // Validate inputs
+    if (nSubscripts <= 0 || nSubscripts > MAXDIM)
+        ereport(ERROR, /* wrong number of subscripts */);
+
+    // Detoast input if needed
+    if (elmlen == -1 && !isNull)
+        dataValue = PointerGetDatum(PG_DETOAST_DATUM(dataValue));
+
+    // Handle expanded arrays separately
+    if (VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(arraydatum)))
+        return array_set_element_expanded(/* parameters */);
+
+    array = DatumGetArrayTypeP(arraydatum);
+    ndim = ARR_NDIM(array);
+
+    // Create new array from empty array
+    if (ndim == 0) {
+        for (int i = 0; i < nSubscripts; i++) {
+            dim[i] = 1;
+            lb[i] = indx[i];
+        }
+        return PointerGetDatum(construct_md_array(&dataValue, &isNull,
+                                                 nSubscripts, dim, lb,
+                                                 ARR_ELEMTYPE(array),
+                                                 elmlen, elmbyval, elmalign));
+    }
+
+    // Validate dimensions match
+    if (ndim != nSubscripts)
+        ereport(ERROR, /* dimension mismatch */);
+
+    // Copy dimensions and bounds
+    memcpy(dim, ARR_DIMS(array), ndim * sizeof(int));
+    memcpy(lb, ARR_LBOUND(array), ndim * sizeof(int));
+    newhasnulls = (ARR_HASNULL(array) || isNull);
+
+    // Handle array extension for 1D arrays
+    int addedbefore = 0, addedafter = 0;
+    if (ndim == 1) {
+        // Extend before if needed
+        if (indx[0] < lb[0]) {
+            addedbefore = lb[0] - indx[0];
+            dim[0] += addedbefore;
+            lb[0] = indx[0];
+            if (addedbefore > 1) newhasnulls = true;
+        }
+        // Extend after if needed
+        if (indx[0] >= (dim[0] + lb[0])) {
+            addedafter = indx[0] - (dim[0] + lb[0]) + 1;
+            dim[0] += addedafter;
+            if (addedafter > 1) newhasnulls = true;
+        }
+    } else {
+        // Multi-dimensional: no extension, strict bounds check
+        for (int i = 0; i < ndim; i++) {
+            if (indx[i] < lb[i] || indx[i] >= (dim[i] + lb[i]))
+                ereport(ERROR, /* subscript out of range */);
+        }
+    }
+
+    // Calculate sizes and positions
+    newnitems = ArrayGetNItems(ndim, dim);
+    int overheadlen = newhasnulls ? ARR_OVERHEAD_WITHNULLS(ndim, newnitems)
+                                  : ARR_OVERHEAD_NONULLS(ndim);
+
+    // Find element position and calculate copy lengths
+    if (addedbefore) {
+        lenbefore = 0;
+        olditemlen = 0;
+        lenafter = ARR_SIZE(array) - ARR_DATA_OFFSET(array);
+    } else if (addedafter) {
+        lenbefore = ARR_SIZE(array) - ARR_DATA_OFFSET(array);
+        olditemlen = 0;
+        lenafter = 0;
+    } else {
+        offset = ArrayGetOffset(nSubscripts, dim, lb, indx);
+        // Calculate data copy lengths around the target element
+        char *elt_ptr = array_seek(ARR_DATA_PTR(array), 0, ARR_NULLBITMAP(array),
+                                  offset, elmlen, elmbyval, elmalign);
+        lenbefore = (int) (elt_ptr - ARR_DATA_PTR(array));
+        olditemlen = array_get_isnull(ARR_NULLBITMAP(array), offset) ? 0 :
+                    att_align_nominal(att_addlength_pointer(0, elmlen, elt_ptr), elmalign);
+        lenafter = ARR_SIZE(array) - ARR_DATA_OFFSET(array) - lenbefore - olditemlen;
+    }
+
+    // Calculate new element size
+    newitemlen = isNull ? 0 : att_align_nominal(att_addlength_datum(0, elmlen, dataValue), elmalign);
+    newsize = overheadlen + lenbefore + newitemlen + lenafter;
+
+    // Create and initialize new array
+    newarray = (ArrayType *) palloc0(newsize);
+    SET_VARSIZE(newarray, newsize);
+    newarray->ndim = ndim;
+    newarray->dataoffset = newhasnulls ? overheadlen : 0;
+    newarray->elemtype = ARR_ELEMTYPE(array);
+    memcpy(ARR_DIMS(newarray), dim, ndim * sizeof(int));
+    memcpy(ARR_LBOUND(newarray), lb, ndim * sizeof(int));
+
+    // Copy data: before + new element + after
+    memcpy((char *) newarray + overheadlen,
+           (char *) array + ARR_DATA_OFFSET(array), lenbefore);
+    if (!isNull)
+        ArrayCastAndSet(dataValue, elmlen, elmbyval, elmalign,
+                       (char *) newarray + overheadlen + lenbefore);
+    memcpy((char *) newarray + overheadlen + lenbefore + newitemlen,
+           (char *) array + ARR_DATA_OFFSET(array) + lenbefore + olditemlen,
+           lenafter);
+
+    // Update null bitmap if needed
+    if (newhasnulls) {
+        bits8 *newnullbitmap = ARR_NULLBITMAP(newarray);
+
+        // Set null status for new element
+        if (addedafter)
+            array_set_isnull(newnullbitmap, newnitems - 1, isNull);
+        else
+            array_set_isnull(newnullbitmap, offset, isNull);
+
+        // Copy null bitmap sections
+        if (addedbefore)
+            array_bitmap_copy(newnullbitmap, addedbefore, ARR_NULLBITMAP(array), 0, oldnitems);
+        else {
+            array_bitmap_copy(newnullbitmap, 0, ARR_NULLBITMAP(array), 0, offset);
+            if (addedafter == 0)
+                array_bitmap_copy(newnullbitmap, offset + 1, ARR_NULLBITMAP(array),
+                                 offset + 1, oldnitems - offset - 1);
+        }
+    }
+
+    return PointerGetDatum(newarray);
+}
+```

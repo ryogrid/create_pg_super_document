@@ -39,3 +39,18 @@ The function operates by:
 - Critical for logical replication functionality in PostgreSQL
 - The replica identity index is cached in the relation descriptor for performance
 - Located in src/backend/utils/cache/relcache.c:5018-5042
+
+## Simplified Source
+
+```c
+Oid RelationGetReplicaIndex(Relation relation) {
+    // Ensure index information is current
+    if (!relation->rd_indexvalid) {
+        List *ilist = RelationGetIndexList(relation);
+        list_free(ilist);
+    }
+
+    // Return the cached replica identity index OID
+    return relation->rd_replidindex;
+}
+```

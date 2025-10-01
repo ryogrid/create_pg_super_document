@@ -53,3 +53,34 @@ This setting only has an effect when row-level security is also enabled for the 
 - Error handling includes cache lookup failure detection with appropriate error messages
 - The operation is transactionally safe and will be rolled back if the transaction fails
 - This feature provides enhanced security by ensuring even privileged users are subject to row security policies when needed
+
+## Simplified Source
+
+```c
+static void
+ATExecForceNoForceRowSecurity(Relation rel, bool force_rls)
+{
+    Relation pg_class;
+    Oid relid;
+    HeapTuple tuple;
+
+    relid = RelationGetRelid(rel);
+
+    // Open pg_class catalog for updates
+    pg_class = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Retrieve the relation's catalog entry
+    tuple = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Update the force row security flag
+    ((Form_pg_class) GETSTRUCT(tuple))->relforcerowsecurity = force_rls;
+    CatalogTupleUpdate(pg_class, &tuple->t_self, tuple);
+
+    // Trigger post-alter hooks and cleanup
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+    table_close(pg_class, RowExclusiveLock);
+    heap_freetuple(tuple);
+}
+```

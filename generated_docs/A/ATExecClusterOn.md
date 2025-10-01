@@ -38,3 +38,32 @@ The function validates that the index exists in the same namespace as the table,
 - Validates index existence and clustering suitability before making changes
 - Part of the ALTER TABLE command execution framework in PostgreSQL
 - Located in src/backend/commands/tablecmds.c:14851-14882
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecClusterOn(Relation rel, const char *indexName, LOCKMODE lockmode)
+{
+    Oid indexOid;
+    ObjectAddress address;
+
+    // Find the index by name in the table's namespace
+    indexOid = get_relname_relid(indexName, rel->rd_rel->relnamespace);
+
+    // Verify index exists
+    if (!OidIsValid(indexOid))
+        ereport(ERROR, (errmsg("index \"%s\" for table \"%s\" does not exist",
+                               indexName, RelationGetRelationName(rel))));
+
+    // Validate that this index can be used for clustering
+    check_index_is_clusterable(rel, indexOid, lockmode);
+
+    // Set this index as the clustering index for the table
+    mark_index_clustered(rel, indexOid, false);
+
+    // Return address of the clustering index
+    ObjectAddressSet(address, RelationRelationId, indexOid);
+    return address;
+}
+```

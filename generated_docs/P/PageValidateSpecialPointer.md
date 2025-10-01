@@ -32,3 +32,20 @@ PageValidateSpecialPointer performs assertion-based validation of the pd_special
 - The lower bound check ensures space exists for the standard page header
 - The upper bound check ensures the special pointer doesn't exceed page size
 - Part of the debugging and validation infrastructure for PostgreSQL page management
+
+## Simplified Source
+
+```c
+static inline void
+PageValidateSpecialPointer(Page page)
+{
+    // Basic validation: page pointer must be valid
+    Assert(page);
+
+    // Special pointer must be within page bounds
+    Assert(((PageHeader) page)->pd_special <= BLCKSZ);
+
+    // Special pointer must be after page header
+    Assert(((PageHeader) page)->pd_special >= SizeOfPageHeaderData);
+}
+```

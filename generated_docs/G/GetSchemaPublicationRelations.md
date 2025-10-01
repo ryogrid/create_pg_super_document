@@ -40,3 +40,53 @@ The function performs a catalog scan on the pg_class relation, filtering by sche
 - Uses AccessShareLock for safe concurrent access to system catalogs
 - Returns NIL (empty list) if no publishable relations are found in the schema
 - Part of PostgreSQL's logical replication infrastructure for schema-level publication management
+
+## Simplified Source
+
+```c
+List *
+GetSchemaPublicationRelations(Oid schemaid, PublicationPartOpt pub_partopt)
+{
+    Relation    classRel;
+    ScanKeyData key[1];
+    TableScanDesc scan;
+    HeapTuple   tuple;
+    List       *result = NIL;
+
+    // Open pg_class catalog to scan for relations in schema
+    classRel = table_open(RelationRelationId, AccessShareLock);
+
+    // Set up scan key to filter by schema namespace
+    ScanKeyInit(&key[0], Anum_pg_class_relnamespace,
+                BTEqualStrategyNumber, F_OIDEQ, schemaid);
+
+    // Scan all relations in the specified schema
+    scan = table_beginscan_catalog(classRel, 1, key);
+    while ((tuple = heap_getnext(scan, ForwardScanDirection)) != NULL)
+    {
+        Form_pg_class relForm = (Form_pg_class) GETSTRUCT(tuple);
+        Oid relid = relForm->oid;
+
+        // Skip non-publishable relations
+        if (!is_publishable_class(relid, relForm))
+            continue;
+
+        char relkind = get_rel_relkind(relid);
+
+        // Handle regular tables
+        if (relkind == RELKIND_RELATION)
+            result = lappend_oid(result, relid);
+        // Handle partitioned tables - include partitions based on options
+        else if (relkind == RELKIND_PARTITIONED_TABLE)
+        {
+            List *partitionrels = GetPubPartitionOptionRelations(NIL, pub_partopt, relForm->oid);
+            result = list_concat_unique_oid(result, partitionrels);
+        }
+    }
+
+    // Clean up and return results
+    table_endscan(scan);
+    table_close(classRel, AccessShareLock);
+    return result;
+}
+```

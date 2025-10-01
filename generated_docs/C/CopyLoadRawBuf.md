@@ -45,3 +45,51 @@ The function handles the critical transition from having data to reaching EOF by
 - Progress reporting integration allows users to monitor COPY operations through PostgreSQL's progress views
 - RAW_BUF_BYTES macro is used to calculate remaining unprocessed bytes efficiently
 - The function sets raw_reached_eof when CopyGetData returns 0 bytes, signaling end of input to calling functions
+
+## Simplified Source
+
+```c
+static void CopyLoadRawBuf(CopyFromState cstate)
+{
+    int nbytes;
+    int inbytes;
+
+    // Verify buffer consistency (no encoding conversion case)
+    if (cstate->raw_buf == cstate->input_buf)
+    {
+        Assert(!cstate->need_transcoding);
+        Assert(cstate->raw_buf_index == cstate->input_buf_index);
+        Assert(cstate->input_buf_len <= cstate->raw_buf_len);
+    }
+
+    // Preserve unprocessed data by moving to buffer start
+    nbytes = RAW_BUF_BYTES(cstate);
+    if (nbytes > 0 && cstate->raw_buf_index > 0)
+        memmove(cstate->raw_buf, cstate->raw_buf + cstate->raw_buf_index, nbytes);
+
+    cstate->raw_buf_len -= cstate->raw_buf_index;
+    cstate->raw_buf_index = 0;
+
+    // Sync input buffer if sharing same memory
+    if (cstate->raw_buf == cstate->input_buf)
+    {
+        cstate->input_buf_len -= cstate->input_buf_index;
+        cstate->input_buf_index = 0;
+    }
+
+    // Load new data from source
+    inbytes = CopyGetData(cstate, cstate->raw_buf + cstate->raw_buf_len,
+                          1, RAW_BUF_SIZE - cstate->raw_buf_len);
+    nbytes += inbytes;
+    cstate->raw_buf[nbytes] = '\0';  // Null terminate
+    cstate->raw_buf_len = nbytes;
+
+    // Update progress tracking
+    cstate->bytes_processed += inbytes;
+    pgstat_progress_update_param(PROGRESS_COPY_BYTES_PROCESSED, cstate->bytes_processed);
+
+    // Check for EOF
+    if (inbytes == 0)
+        cstate->raw_reached_eof = true;
+}
+```

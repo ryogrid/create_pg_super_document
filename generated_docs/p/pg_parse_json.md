@@ -35,3 +35,61 @@ pg_parse_json serves as the main interface for parsing JSON data in PostgreSQL. 
 
 ## Notes and Other Information
 The function includes conditional compilation support for FORCE_JSON_PSTACK which enables the non-recursive parser for testing and validation. This mode may produce different error messages related to stack depth but should otherwise behave identically. The parser requires the lexing context to be properly initialized via makeJsonLexContext() before use and will return JSON_INVALID_LEXER_TYPE if called with an incremental lexer in standard mode.
+
+## Simplified Source
+
+```c
+JsonParseErrorType
+pg_parse_json(JsonLexContext *lex, JsonSemAction *sem)
+{
+#ifdef FORCE_JSON_PSTACK
+    // Initialize non-recursive parser mode
+    lex->incremental = true;
+    lex->inc_state = palloc0(sizeof(JsonIncrementalState));
+    initStringInfo(&(lex->inc_state->partial_token));
+
+    // Set up parser stack
+    lex->pstack = palloc(sizeof(JsonParserStack));
+    lex->pstack->stack_size = JS_STACK_CHUNK_SIZE;
+    lex->pstack->prediction = palloc(JS_STACK_CHUNK_SIZE * JS_MAX_PROD_LEN);
+    lex->pstack->pred_index = 0;
+    lex->pstack->fnames = palloc(JS_STACK_CHUNK_SIZE * sizeof(char *));
+    lex->pstack->fnull = palloc(JS_STACK_CHUNK_SIZE * sizeof(bool));
+
+    return pg_parse_json_incremental(lex, sem, lex->input, lex->input_length, true);
+#else
+    JsonTokenType tok;
+    JsonParseErrorType result;
+
+    // Check lexer type compatibility
+    if (lex->incremental)
+        return JSON_INVALID_LEXER_TYPE;
+
+    // Get initial token
+    result = json_lex(lex);
+    if (result != JSON_SUCCESS)
+        return result;
+
+    tok = lex_peek(lex);
+
+    // Parse by recursive descent based on first token
+    switch (tok)
+    {
+        case JSON_TOKEN_OBJECT_START:
+            result = parse_object(lex, sem);
+            break;
+        case JSON_TOKEN_ARRAY_START:
+            result = parse_array(lex, sem);
+            break;
+        default:
+            result = parse_scalar(lex, sem);  // JSON can be bare scalar
+    }
+
+    // Verify end of input
+    if (result == JSON_SUCCESS)
+        result = lex_expect(JSON_PARSE_END, lex, JSON_TOKEN_END);
+
+    return result;
+#endif
+}
+```

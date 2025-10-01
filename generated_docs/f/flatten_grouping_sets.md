@@ -55,3 +55,77 @@ The function preserves CUBE and ROLLUP syntax within GROUPING SETS to maintain t
 - At the top level, empty grouping sets are skipped (caller can supply canonical GROUP BY () if needed)
 - The function creates new lists but doesn't deep-copy old nodes except for GroupingSet nodes
 - Sets the hasGroupingSets flag as a side effect when GroupingSet nodes are encountered
+
+## Simplified Source
+
+```c
+static Node *flatten_grouping_sets(Node *expr, bool toplevel, bool *hasGroupingSets) {
+    // Prevent stack overflow on pathological input
+    check_stack_depth();
+
+    if (expr == (Node *) NIL)
+        return (Node *) NIL;
+
+    switch (expr->type) {
+        case T_RowExpr: {
+            RowExpr *r = (RowExpr *) expr;
+            // Handle implicit cast row expressions
+            if (r->row_format == COERCE_IMPLICIT_CAST)
+                return flatten_grouping_sets((Node *) r->args, false, NULL);
+            break;
+        }
+
+        case T_GroupingSet: {
+            GroupingSet *gset = (GroupingSet *) expr;
+            List *result_set = NIL;
+
+            if (hasGroupingSets)
+                *hasGroupingSets = true;
+
+            // Skip empty grouping sets at top level
+            if (toplevel && gset->kind == GROUPING_SET_EMPTY)
+                return (Node *) NIL;
+
+            // Process each element in the grouping set
+            foreach(l2, gset->content) {
+                Node *n1 = lfirst(l2);
+                Node *n2 = flatten_grouping_sets(n1, false, NULL);
+
+                // Flatten nested GROUPING SETS
+                if (IsA(n1, GroupingSet) && ((GroupingSet *) n1)->kind == GROUPING_SET_SETS)
+                    result_set = list_concat(result_set, (List *) n2);
+                else
+                    result_set = lappend(result_set, n2);
+            }
+
+            // Handle top level vs nested grouping sets
+            if (toplevel || (gset->kind != GROUPING_SET_SETS))
+                return (Node *) makeGroupingSet(gset->kind, result_set, gset->location);
+            else
+                return (Node *) result_set;
+        }
+
+        case T_List: {
+            List *result = NIL;
+
+            // Recursively process list elements
+            foreach(l, (List *) expr) {
+                Node *n = flatten_grouping_sets(lfirst(l), toplevel, hasGroupingSets);
+
+                if (n != (Node *) NIL) {
+                    if (IsA(n, List))
+                        result = list_concat(result, (List *) n);
+                    else
+                        result = lappend(result, n);
+                }
+            }
+            return (Node *) result;
+        }
+
+        default:
+            break;
+    }
+
+    return expr;  // Return unchanged for other node types
+}
+```

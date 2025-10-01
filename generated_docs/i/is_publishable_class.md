@@ -49,3 +49,20 @@ The function includes a notable design consideration: it excludes all tables cre
 - The FirstNormalObjectId check is considered somewhat inadequate as information_schema could be dropped and recreated
 - Returns a simple boolean rather than generating detailed error messages like the check_* functions
 - Location: src/backend/catalog/pg_publication.c:137-149
+
+## Simplified Source
+
+```c
+static bool is_publishable_class(Oid relid, Form_pg_class reltuple) {
+    // Check all publishability criteria:
+    // 1. Must be a regular table or partitioned table
+    // 2. Must not be a catalog relation
+    // 3. Must be a permanent table (not temporary/unlogged)
+    // 4. Must be created after initdb (user-created)
+    return (reltuple->relkind == RELKIND_RELATION ||
+            reltuple->relkind == RELKIND_PARTITIONED_TABLE) &&
+           !IsCatalogRelationOid(relid) &&
+           reltuple->relpersistence == RELPERSISTENCE_PERMANENT &&
+           relid >= FirstNormalObjectId;
+}
+```

@@ -38,3 +38,20 @@ The smgrextend function is a storage manager interface for extending relation fi
 - Updates the cached block count (smgr_cached_nblocks) optimistically, invalidating it if the expectation doesn't match
 - Part of the storage manager abstraction layer, allowing different storage implementations
 - Critical for relation extension operations during table growth and index expansion
+
+## Simplified Source
+
+```c
+void smgrextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+                const void *buffer, bool skipFsync)
+{
+    // Delegate to storage manager implementation
+    smgrsw[reln->smgr_which].smgr_extend(reln, forknum, blocknum, buffer, skipFsync);
+
+    // Update cached block count
+    if (reln->smgr_cached_nblocks[forknum] == blocknum)
+        reln->smgr_cached_nblocks[forknum] = blocknum + 1;  // Expected extension
+    else
+        reln->smgr_cached_nblocks[forknum] = InvalidBlockNumber;  // Invalidate cache
+}
+```

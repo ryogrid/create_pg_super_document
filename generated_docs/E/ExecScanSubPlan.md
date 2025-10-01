@@ -54,3 +54,100 @@ The function properly handles parameter passing for correlated subqueries, memor
 - Handles all sublink types in a single unified function with branching logic
 - Properly restores memory context after execution
 - For MULTIEXPR_SUBLINK, the return value is dummy (false) as real results go to setParam parameters
+
+## Simplified Source
+
+```c
+static Datum ExecScanSubPlan(SubPlanState *node, ExprContext *econtext, bool *isNull) {
+    SubLinkType subLinkType = node->subplan->subLinkType;
+    MemoryContext oldcontext;
+    bool found = false;
+    ArrayBuildStateAny *astate = NULL;
+
+    // Initialize array builder for ARRAY_SUBLINK
+    if (subLinkType == ARRAY_SUBLINK)
+        astate = initArrayResultAny(node->subplan->firstColType, CurrentMemoryContext, true);
+
+    // Switch to per-query context for subplan execution
+    oldcontext = MemoryContextSwitchTo(econtext->ecxt_per_query_memory);
+
+    // Set correlation parameters from parent plan
+    forboth(l, node->subplan->parParam, pvar, node->args) {
+        int paramid = lfirst_int(l);
+        ParamExecData *prm = &(econtext->ecxt_param_exec_vals[paramid]);
+        prm->value = ExecEvalExprSwitchContext((ExprState *) lfirst(pvar), econtext, &(prm->isnull));
+        node->planstate->chgParam = bms_add_member(node->planstate->chgParam, paramid);
+    }
+
+    // Reset and scan subplan
+    ExecReScan(node->planstate);
+    Datum result = BoolGetDatum(subLinkType == ALL_SUBLINK);
+    *isNull = false;
+
+    for (TupleTableSlot *slot = ExecProcNode(node->planstate);
+         !TupIsNull(slot);
+         slot = ExecProcNode(node->planstate)) {
+
+        if (subLinkType == EXISTS_SUBLINK) {
+            result = BoolGetDatum(true);
+            break;
+        }
+        else if (subLinkType == EXPR_SUBLINK) {
+            if (found)
+                ereport(ERROR, (errcode(ERRCODE_CARDINALITY_VIOLATION),
+                               errmsg("more than one row returned by a subquery used as an expression")));
+            found = true;
+            if (node->curTuple) heap_freetuple(node->curTuple);
+            node->curTuple = ExecCopySlotHeapTuple(slot);
+            result = heap_getattr(node->curTuple, 1, slot->tts_tupleDescriptor, isNull);
+            continue;
+        }
+        else if (subLinkType == ARRAY_SUBLINK) {
+            found = true;
+            Datum dvalue = slot_getattr(slot, 1, &disnull);
+            astate = accumArrayResultAny(astate, dvalue, disnull, node->subplan->firstColType, oldcontext);
+            continue;
+        }
+        else if (subLinkType == ANY_SUBLINK || subLinkType == ALL_SUBLINK) {
+            // Load parameters and evaluate test expression
+            int col = 1;
+            foreach(plst, node->subplan->paramIds) {
+                int paramid = lfirst_int(plst);
+                ParamExecData *prmdata = &(econtext->ecxt_param_exec_vals[paramid]);
+                prmdata->value = slot_getattr(slot, col++, &(prmdata->isnull));
+            }
+
+            Datum rowresult = ExecEvalExprSwitchContext(node->testexpr, econtext, &rownull);
+
+            if (subLinkType == ANY_SUBLINK) {
+                if (rownull) *isNull = true;
+                else if (DatumGetBool(rowresult)) {
+                    result = BoolGetDatum(true);
+                    *isNull = false;
+                    break;
+                }
+            } else { // ALL_SUBLINK
+                if (rownull) *isNull = true;
+                else if (!DatumGetBool(rowresult)) {
+                    result = BoolGetDatum(false);
+                    *isNull = false;
+                    break;
+                }
+            }
+        }
+        found = true;
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+
+    // Handle result based on sublink type
+    if (subLinkType == ARRAY_SUBLINK) {
+        result = makeArrayResultAny(astate, oldcontext, true);
+    } else if (!found && (subLinkType == EXPR_SUBLINK || subLinkType == ROWCOMPARE_SUBLINK)) {
+        result = (Datum) 0;
+        *isNull = true;
+    }
+
+    return result;
+}
+```

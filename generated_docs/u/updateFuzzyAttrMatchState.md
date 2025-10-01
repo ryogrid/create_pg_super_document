@@ -40,3 +40,65 @@ This static function implements fuzzy matching logic for PostgreSQL's column nam
 - Manages complex state tracking for first/best and second-best matches to handle tie-breaking
 - Essential component of PostgreSQL's user-friendly error reporting for column name typos
 - Located in src/backend/parser/parse_relation.c:587-679
+
+## Simplified Source
+
+```c
+static void
+updateFuzzyAttrMatchState(int fuzzy_rte_penalty,
+                          FuzzyAttrMatchState *fuzzystate, RangeTblEntry *rte,
+                          const char *actual, const char *match, int attnum)
+{
+    int columndistance;
+    int matchlen;
+
+    // Early exit if RTE penalty already exceeds best distance
+    if (fuzzy_rte_penalty > fuzzystate->distance)
+        return;
+
+    // Reject dropped columns (indicated by empty actual names)
+    if (actual[0] == '\0')
+        return;
+
+    // Calculate Levenshtein distance between column names
+    matchlen = strlen(match);
+    columndistance = varstr_levenshtein_less_equal(actual, strlen(actual), match, matchlen,
+                                                   1, 1, 1,
+                                                   fuzzystate->distance + 1 - fuzzy_rte_penalty,
+                                                   true);
+
+    // Reject if more than half the characters are different
+    if (columndistance > matchlen / 2)
+        return;
+
+    // Add RTE penalty to column distance
+    columndistance += fuzzy_rte_penalty;
+
+    // Update fuzzy state based on distance comparison
+    if (columndistance < fuzzystate->distance)
+    {
+        // New best match: store as first match
+        fuzzystate->distance = columndistance;
+        fuzzystate->rfirst = rte;
+        fuzzystate->first = attnum;
+        fuzzystate->rsecond = NULL;
+    }
+    else if (columndistance == fuzzystate->distance)
+    {
+        // Same distance as current best
+        if (fuzzystate->rsecond != NULL)
+        {
+            // Too many matches at same distance: clear to avoid ambiguity
+            fuzzystate->rfirst = NULL;
+            fuzzystate->rsecond = NULL;
+        }
+        else if (fuzzystate->rfirst != NULL)
+        {
+            // Record as second match
+            fuzzystate->rsecond = rte;
+            fuzzystate->second = attnum;
+        }
+        // If rfirst is NULL, ignore this match (distance too high)
+    }
+}
+```

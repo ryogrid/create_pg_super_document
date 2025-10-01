@@ -41,3 +41,24 @@ The function performs a linear search through the namespace list to locate the m
 - Different combinations of rel_visible and cols_visible flags provide fine-grained control over name resolution
 - Breaking out of the loop early after finding the matching RTE provides minor performance optimization
 - This function is crucial for implementing the complex visibility rules required by MERGE statement semantics
+
+## Simplified Source
+
+```c
+static void setNamespaceVisibilityForRTE(List *namespace, RangeTblEntry *rte,
+                                        bool rel_visible, bool cols_visible) {
+    ListCell *lc;
+
+    // Search through namespace to find matching RTE
+    foreach(lc, namespace) {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(lc);
+
+        if (nsitem->p_rte == rte) {
+            // Update visibility flags for this namespace item
+            nsitem->p_rel_visible = rel_visible;     // Relation visibility
+            nsitem->p_cols_visible = cols_visible;   // Column visibility
+            break;
+        }
+    }
+}
+```

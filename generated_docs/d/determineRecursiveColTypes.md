@@ -41,3 +41,44 @@ This approach ensures that recursive CTEs have consistent column definitions acr
 
 ## Notes and Other Information
 This function is specifically designed for recursive CTE processing and is called during the parse analysis phase. It assumes the input represents a valid set operation structure where the leftmost leaf is a RangeTblRef. The function creates dummy target entries to facilitate type analysis without executing the actual queries. The resulting column information becomes part of the parent CTE's structure and is used for type checking throughout the recursive CTE processing.
+
+## Simplified Source
+
+```c
+static void determineRecursiveColTypes(ParseState *pstate, Node *larg, List *nrtargetlist) {
+    Node *node;
+    int leftmostRTI;
+    Query *leftmostQuery;
+    List *targetList;
+    ListCell *left_tlist;
+    ListCell *nrtl;
+    int next_resno;
+
+    // Find leftmost leaf SELECT in the set operation tree
+    node = larg;
+    while (node && IsA(node, SetOperationStmt))
+        node = ((SetOperationStmt *) node)->larg;
+
+    Assert(node && IsA(node, RangeTblRef));
+    leftmostRTI = ((RangeTblRef *) node)->rtindex;
+    leftmostQuery = rt_fetch(leftmostRTI, pstate->p_rtable)->subquery;
+
+    // Generate dummy targetlist combining leftmost SELECT column names
+    // with non-recursive term expression types
+    targetList = NIL;
+    next_resno = 1;
+
+    forboth(nrtl, nrtargetlist, left_tlist, leftmostQuery->targetList) {
+        TargetEntry *nrtle = (TargetEntry *) lfirst(nrtl);
+        TargetEntry *lefttle = (TargetEntry *) lfirst(left_tlist);
+
+        // Use column name from leftmost SELECT and expression from non-recursive term
+        char *colName = pstrdup(lefttle->resname);
+        TargetEntry *tle = makeTargetEntry(nrtle->expr, next_resno++, colName, false);
+        targetList = lappend(targetList, tle);
+    }
+
+    // Analyze and set up the CTE's output column structure
+    analyzeCTETargetList(pstate, pstate->p_parent_cte, targetList);
+}
+```

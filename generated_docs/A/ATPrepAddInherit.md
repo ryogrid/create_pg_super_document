@@ -38,3 +38,26 @@ The function enforces PostgreSQL's inheritance rules by preventing inheritance m
 - The actual inheritance establishment is handled by ATExecAddInherit
 - These restrictions help maintain the integrity of PostgreSQL's type system and partitioning framework
 - Failure in this function prevents the ALTER TABLE INHERIT command from proceeding
+
+## Simplified Source
+
+```c
+static void
+ATPrepAddInherit(Relation child_rel)
+{
+    // Check if table is a typed table (created with OF type_name)
+    if (child_rel->rd_rel->reloftype)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("cannot change inheritance of typed table")));
+
+    // Check if table is a partition
+    if (child_rel->rd_rel->relispartition)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("cannot change inheritance of a partition")));
+
+    // Check if table is a partitioned table
+    if (child_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("cannot change inheritance of partitioned table")));
+}
+```

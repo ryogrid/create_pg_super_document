@@ -46,3 +46,39 @@ The function assumes that typmod differences are acceptable as long as the base 
 - Resjunk columns are ignored as they don't participate in the final result set
 - Error checking ensures the target list length matches the expected column types list length
 - Located in src/backend/optimizer/path/allpaths.c:3779-3811
+
+## Simplified Source
+```c
+static void
+compare_tlist_datatypes(List *tlist, List *colTypes,
+                       pushdown_safety_info *safetyInfo)
+{
+    ListCell *l;
+    ListCell *colType = list_head(colTypes);
+
+    // Compare each target list entry with expected column types
+    foreach(l, tlist) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+        // Skip resjunk columns
+        if (tle->resjunk)
+            continue;
+
+        // Validate we have matching number of types
+        if (colType == NULL)
+            elog(ERROR, "wrong number of tlist entries");
+
+        // Check for type mismatch
+        if (exprType((Node *) tle->expr) != lfirst_oid(colType)) {
+            // Mark this column as unsafe for pushdown
+            safetyInfo->unsafeFlags[tle->resno] |= UNSAFE_TYPE_MISMATCH;
+        }
+
+        colType = lnext(colTypes, colType);
+    }
+
+    // Ensure all expected types were consumed
+    if (colType != NULL)
+        elog(ERROR, "wrong number of tlist entries");
+}
+```

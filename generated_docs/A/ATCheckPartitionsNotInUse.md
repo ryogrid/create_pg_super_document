@@ -39,3 +39,37 @@ ATCheckPartitionsNotInUse performs safety validation specifically for partitione
 - Relies on find_all_inheritors for proper locking, using NoLock for subsequent table operations
 - Memory management includes explicit list_free call to clean up the inheritance list
 - Designed to prevent unsafe ALTER TABLE operations on busy partitioned table systems
+
+## Simplified Source
+
+```c
+static void
+ATCheckPartitionsNotInUse(Relation rel, LOCKMODE lockmode)
+{
+    // Only check partitioned tables
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+    {
+        List       *inh;
+        ListCell   *cell;
+
+        // Get all partitions with proper locking
+        inh = find_all_inheritors(RelationGetRelid(rel), lockmode, NULL);
+
+        // Check each partition (skip parent at index 0)
+        for_each_from(cell, inh, 1)
+        {
+            Relation    childrel;
+
+            // Open partition (already locked by find_all_inheritors)
+            childrel = table_open(lfirst_oid(cell), NoLock);
+
+            // Verify partition is safe for ALTER operations
+            CheckAlterTableIsSafe(childrel);
+
+            table_close(childrel, NoLock);
+        }
+
+        list_free(inh);
+    }
+}
+```

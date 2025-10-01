@@ -9,21 +9,7 @@ A utility function that finds the parse location of an expression in the origina
 ## Definition
 
 ```c
-structure for unique index
-		 * inference clause, and so will accept opclasses by name and so on.
-		 *
-		 * Make no attempt to match ASC or DESC ordering or NULLS FIRST/NULLS
-		 * LAST ordering, since those are not significant for inference
-		 * purposes (any unique index matching the inference specification in
-		 * other regards is accepted indifferently).  Actively reject this as
-		 * wrong-headed.
-		 */
-		if (ielem->ordering != SORTBY_DEFAULT)
-			ereport(ERROR,
-					(errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
-					 errmsg("ASC/DESC is not allowed in ON CONFLICT clause"),
-					 parser_errposition(pstate,
-										exprLocation((Node *) infer))));
+static int get_matching_location(int sortgroupref, List *sortgrouprefs, List *exprs)
 ```
 ## Detailed Description
 This static helper function is designed specifically to support error reporting in DISTINCT ON clause processing. When PostgreSQL needs to report an error about a problematic DISTINCT ON entry, it must point to the location in the original user query where that expression appeared. However, during query transformation, expressions get moved around and assigned to target list entries that may point to different locations (like matching SELECT list or ORDER BY entries).
@@ -50,3 +36,22 @@ The function takes a sort group reference number and searches through parallel l
 - The function includes an elog(ERROR) if no matching sort group reference is found, indicating a programming error in the caller
 - The parallel lists (sortgrouprefs and exprs) must be one-to-one corresponding, maintained during DISTINCT ON processing
 - Returns -1 as a fallback to keep the compiler quiet, though this should never be reached due to the error call
+
+## Simplified Source
+
+```c
+static int get_matching_location(int sortgroupref, List *sortgrouprefs, List *exprs) {
+    ListCell *lcs;
+    ListCell *lce;
+
+    // Search through parallel lists for matching sortgroupref
+    forboth(lcs, sortgrouprefs, lce, exprs) {
+        if (lfirst_int(lcs) == sortgroupref)
+            return exprLocation((Node *) lfirst(lce));
+    }
+
+    // Programming error if no match found
+    elog(ERROR, "get_matching_location: no matching sortgroupref");
+    return -1;  // Keep compiler quiet
+}
+```

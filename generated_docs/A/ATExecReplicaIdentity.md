@@ -60,3 +60,88 @@ The validation ensures the index can reliably identify rows for replication, mai
 - The function assumes the caller holds appropriate locks on the target relation
 - Expression and partial indexes are rejected due to replication complexity
 - Deferred uniqueness constraints cannot guarantee immediate uniqueness needed for replication
+
+## Simplified Source
+
+```c
+static void
+ATExecReplicaIdentity(Relation rel, ReplicaIdentityStmt *stmt, LOCKMODE lockmode)
+{
+    Oid indexOid;
+    Relation indexRel;
+    int key;
+
+    // Handle simple cases: DEFAULT, FULL, NOTHING
+    if (stmt->identity_type == REPLICA_IDENTITY_DEFAULT ||
+        stmt->identity_type == REPLICA_IDENTITY_FULL ||
+        stmt->identity_type == REPLICA_IDENTITY_NOTHING)
+    {
+        relation_mark_replica_identity(rel, stmt->identity_type, InvalidOid, true);
+        return;
+    }
+    else if (stmt->identity_type != REPLICA_IDENTITY_INDEX)
+    {
+        elog(ERROR, "unexpected identity type %u", stmt->identity_type);
+    }
+
+    // For USING INDEX, validate the specified index
+    indexOid = get_relname_relid(stmt->name, rel->rd_rel->relnamespace);
+    if (!OidIsValid(indexOid))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("index \"%s\" for table \"%s\" does not exist",
+                              stmt->name, RelationGetRelationName(rel))));
+
+    indexRel = index_open(indexOid, ShareLock);
+
+    // Verify index belongs to this table
+    if (indexRel->rd_index == NULL ||
+        indexRel->rd_index->indrelid != RelationGetRelid(rel))
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("\"%s\" is not an index for table \"%s\"",
+                              RelationGetRelationName(indexRel),
+                              RelationGetRelationName(rel))));
+
+    // Validate index characteristics for replica identity
+    if (!indexRel->rd_indam->amcanunique || !indexRel->rd_index->indisunique)
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("cannot use non-unique index \"%s\" as replica identity",
+                              RelationGetRelationName(indexRel))));
+
+    if (!indexRel->rd_index->indimmediate)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot use non-immediate index \"%s\" as replica identity",
+                              RelationGetRelationName(indexRel))));
+
+    if (RelationGetIndexExpressions(indexRel) != NIL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot use expression index \"%s\" as replica identity",
+                              RelationGetRelationName(indexRel))));
+
+    if (RelationGetIndexPredicate(indexRel) != NIL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot use partial index \"%s\" as replica identity",
+                              RelationGetRelationName(indexRel))));
+
+    // Check all index columns are NOT NULL and not system columns
+    for (key = 0; key < IndexRelationGetNumberOfKeyAttributes(indexRel); key++)
+    {
+        int16 attno = indexRel->rd_index->indkey.values[key];
+        Form_pg_attribute attr;
+
+        if (attno <= 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                           errmsg("index \"%s\" cannot be used as replica identity because column %d is a system column",
+                                  RelationGetRelationName(indexRel), attno)));
+
+        attr = TupleDescAttr(rel->rd_att, attno - 1);
+        if (!attr->attnotnull)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("index \"%s\" cannot be used as replica identity because column \"%s\" is nullable",
+                                  RelationGetRelationName(indexRel), NameStr(attr->attname))));
+    }
+
+    // Index is suitable - mark it as replica identity
+    relation_mark_replica_identity(rel, stmt->identity_type, indexOid, true);
+    index_close(indexRel, NoLock);
+}
+```

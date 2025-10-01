@@ -44,3 +44,62 @@ The function only outputs information when the SETTINGS option is enabled in the
 - Settings are retrieved by name and formatted consistently regardless of their data type
 - The selection of which GUCs are "explain-relevant" is determined by get_explain_guc_options()
 - This feature helps with query performance analysis by showing configuration context that affects planning decisions
+
+## Simplified Source
+
+```c
+static void
+ExplainPrintSettings(ExplainState *es)
+{
+    int num;
+    struct config_generic **gucs;
+
+    // Skip if settings not requested
+    if (!es->settings)
+        return;
+
+    // Get array of relevant GUC settings
+    gucs = get_explain_guc_options(&num);
+
+    if (es->format != EXPLAIN_FORMAT_TEXT) {
+        // Structured format: individual properties
+        ExplainOpenGroup("Settings", "Settings", true, es);
+
+        for (int i = 0; i < num; i++) {
+            char *setting;
+            struct config_generic *conf = gucs[i];
+
+            setting = GetConfigOptionByName(conf->name, NULL, true);
+            ExplainPropertyText(conf->name, setting, es);
+        }
+
+        ExplainCloseGroup("Settings", "Settings", true, es);
+    } else {
+        // Text format: comma-separated line
+        StringInfoData str;
+
+        // Skip if no settings to show
+        if (num <= 0)
+            return;
+
+        initStringInfo(&str);
+
+        for (int i = 0; i < num; i++) {
+            char *setting;
+            struct config_generic *conf = gucs[i];
+
+            if (i > 0)
+                appendStringInfoString(&str, ", ");
+
+            setting = GetConfigOptionByName(conf->name, NULL, true);
+
+            if (setting)
+                appendStringInfo(&str, "%s = '%s'", conf->name, setting);
+            else
+                appendStringInfo(&str, "%s = NULL", conf->name);
+        }
+
+        ExplainPropertyText("Settings", str.data, es);
+    }
+}
+```

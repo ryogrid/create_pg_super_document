@@ -31,3 +31,33 @@ This function creates and initializes the data structures needed to analyze expr
 
 ## Notes and Other Information
 The function uses palloc0 to allocate zero-initialized memory for the AnlExprData array, ensuring all fields start in a clean state. The stattarget parameter is passed through to examine_expression where it controls the granularity of statistics collection - higher values result in more detailed histograms and statistics. The resulting AnlExprData array is used by subsequent functions like compute_expr_stats to evaluate expressions against sample data and generate the actual statistical summaries.
+
+## Simplified Source
+
+```c
+static AnlExprData *build_expr_data(List *exprs, int stattarget)
+{
+    int nexprs = list_length(exprs);
+    AnlExprData *exprdata;
+    ListCell *lc;
+    int idx;
+
+    // Allocate array for all expression data
+    exprdata = (AnlExprData *) palloc0(nexprs * sizeof(AnlExprData));
+
+    // Process each expression
+    idx = 0;
+    foreach(lc, exprs)
+    {
+        Node *expr = (Node *) lfirst(lc);
+        AnlExprData *thisdata = &exprdata[idx];
+
+        // Store expression and analyze it for stats
+        thisdata->expr = expr;
+        thisdata->vacattrstat = examine_expression(expr, stattarget);
+        idx++;
+    }
+
+    return exprdata;
+}
+```

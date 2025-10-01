@@ -46,3 +46,62 @@ The resulting structure contains:
 - Results are stored with STATS_NDISTINCT_MAGIC and STATS_NDISTINCT_TYPE_BASIC identifiers
 - The function ensures exact consumption of the allocated output array through assertions
 - Part of PostgreSQL's multivariate statistics infrastructure for query optimization
+
+## Simplified Source
+
+```c
+MVNDistinct *
+statext_ndistinct_build(double totalrows, StatsBuildData *data)
+{
+    MVNDistinct *result;
+    int numattrs = data->nattnums;
+    int numcombs = num_combinations(numattrs);
+    int itemcnt = 0;
+
+    // Allocate result structure with space for all combinations
+    result = palloc(offsetof(MVNDistinct, items) +
+                   numcombs * sizeof(MVNDistinctItem));
+    result->magic = STATS_NDISTINCT_MAGIC;
+    result->type = STATS_NDISTINCT_TYPE_BASIC;
+    result->nitems = numcombs;
+
+    // Generate all combinations from size 2 up to all attributes
+    for (int k = 2; k <= numattrs; k++)
+    {
+        int *combination;
+        CombinationGenerator *generator;
+
+        // Generate all combinations of k attributes
+        generator = generator_init(numattrs, k);
+
+        while ((combination = generator_next(generator)))
+        {
+            MVNDistinctItem *item = &result->items[itemcnt];
+
+            // Allocate and populate attribute array
+            item->attributes = palloc(sizeof(AttrNumber) * k);
+            item->nattributes = k;
+
+            // Translate indexes to actual attribute numbers
+            for (int j = 0; j < k; j++)
+            {
+                item->attributes[j] = data->attnums[combination[j]];
+                Assert(AttributeNumberIsValid(item->attributes[j]));
+            }
+
+            // Compute ndistinct estimate for this combination
+            item->ndistinct = ndistinct_for_combination(totalrows, data, k, combination);
+
+            itemcnt++;
+            Assert(itemcnt <= result->nitems);
+        }
+
+        generator_free(generator);
+    }
+
+    // Verify we filled the entire output array
+    Assert(itemcnt == result->nitems);
+
+    return result;
+}
+```

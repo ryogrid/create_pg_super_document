@@ -40,3 +40,27 @@ The function initializes all necessary state variables and sets up the random nu
 - Returns the effective sample size, which may be smaller than requested if the table has fewer blocks
 - The random seed parameter allows for reproducible sampling results across multiple runs
 - This is part of PostgreSQL's ANALYZE command infrastructure for collecting table statistics
+
+## Simplified Source
+
+```c
+BlockNumber BlockSampler_Init(BlockSampler bs, BlockNumber nblocks, int samplesize,
+                              uint32 randseed)
+{
+    // Set total table size
+    bs->N = nblocks;
+
+    // Set desired sample size (could be reduced for small tables)
+    bs->n = samplesize;
+
+    // Initialize counters
+    bs->t = 0;  // blocks scanned so far
+    bs->m = 0;  // blocks selected so far
+
+    // Initialize random number generator with provided seed
+    sampler_random_init_state(randseed, &bs->randstate);
+
+    // Return actual number of blocks that will be sampled
+    return Min(bs->n, bs->N);
+}
+```

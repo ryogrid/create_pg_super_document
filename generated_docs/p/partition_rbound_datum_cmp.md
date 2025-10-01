@@ -51,6 +51,39 @@ The function returns:
 - This is a public function, accessible from other modules as declared in partbounds.h
 - Critical for runtime tuple routing performance in partitioned tables
 - MINVALUE boundaries are always considered smaller than any tuple data
-- MAXVALUE boundaries are always considered larger than any tuple data  
+- MAXVALUE boundaries are always considered larger than any tuple data
 - Used extensively in both executor (for INSERT/UPDATE routing) and optimizer (for partition pruning) components
 - The function assumes tuple_datums contains exactly n_tuple_datums valid partitioning key values
+
+## Simplified Source
+
+```c
+int32
+partition_rbound_datum_cmp(FmgrInfo *partsupfunc, Oid *partcollation,
+                          Datum *rb_datums, PartitionRangeDatumKind *rb_kind,
+                          Datum *tuple_datums, int n_tuple_datums)
+{
+    int32 cmpval = -1;
+
+    // Compare each partitioning column
+    for (int i = 0; i < n_tuple_datums; i++) {
+        // Handle special boundary values
+        if (rb_kind[i] == PARTITION_RANGE_DATUM_MINVALUE)
+            return -1;  // MINVALUE is always smaller
+        else if (rb_kind[i] == PARTITION_RANGE_DATUM_MAXVALUE)
+            return 1;   // MAXVALUE is always larger
+
+        // Compare actual values using appropriate comparison function
+        cmpval = DatumGetInt32(FunctionCall2Coll(&partsupfunc[i],
+                                                partcollation[i],
+                                                rb_datums[i],
+                                                tuple_datums[i]));
+
+        // Return on first non-equal comparison
+        if (cmpval != 0)
+            break;
+    }
+
+    return cmpval;
+}
+```

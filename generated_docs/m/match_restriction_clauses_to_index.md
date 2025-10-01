@@ -31,3 +31,15 @@ This function is a specialized wrapper that focuses specifically on restriction 
 - The function includes a comment noting that clauses implied by the index predicate can be ignored
 - Part of the broader index path optimization routines in PostgreSQL's query planner
 - Location: src/backend/optimizer/path/indxpath.c:1968-1982
+
+## Simplified Source
+
+```c
+static void match_restriction_clauses_to_index(PlannerInfo *root,
+                                              IndexOptInfo *index,
+                                              IndexClauseSet *clauseset)
+{
+    // Delegate to general clause matching function with restriction clauses
+    match_clauses_to_index(root, index->indrestrictinfo, index, clauseset);
+}
+```

@@ -45,3 +45,55 @@ For ScalarArrayOpExpr clauses that cannot be handled natively by the index AM, t
 - Plain IndexPaths can represent either IndexScan or IndexOnlyScan operations
 - Bitmap paths are only considered if they have selectivity (indexselectivity < 1.0) or no ordering requirements (pathkeys == NIL)
 - The  flag tracks whether ScalarArrayOpExpr clauses need special bitmap scan handling
+
+## Simplified Source
+
+```c
+static void
+get_index_paths(PlannerInfo *root, RelOptInfo *rel,
+               IndexOptInfo *index, IndexClauseSet *clauses,
+               List **bitindexpaths)
+{
+    List *indexpaths;
+    bool skip_nonnative_saop = false;
+    ListCell *lc;
+
+    // Build simple index paths using clauses
+    // Allow ScalarArrayOpExpr clauses only if index AM supports them natively
+    indexpaths = build_index_paths(root, rel,
+                                  index, clauses,
+                                  index->predOK,
+                                  ST_ANYSCAN,
+                                  &skip_nonnative_saop);
+
+    // Process each generated index path
+    foreach(lc, indexpaths)
+    {
+        IndexPath *ipath = (IndexPath *) lfirst(lc);
+
+        // Submit paths that can form plain IndexScan plans to add_path
+        // (covers both IndexScan and IndexOnlyScan)
+        if (index->amhasgettuple)
+            add_path(rel, (Path *) ipath);
+
+        // Collect paths usable as bitmap scans
+        // Must support bitmap scans and have selectivity or no ordering
+        if (index->amhasgetbitmap &&
+            (ipath->path.pathkeys == NIL ||
+             ipath->indexselectivity < 1.0))
+            *bitindexpaths = lappend(*bitindexpaths, ipath);
+    }
+
+    // Handle ScalarArrayOpExpr clauses that index can't handle natively
+    // Generate bitmap scan paths with executor-managed ScalarArrayOpExpr
+    if (skip_nonnative_saop)
+    {
+        indexpaths = build_index_paths(root, rel,
+                                      index, clauses,
+                                      false,
+                                      ST_BITMAPSCAN,
+                                      NULL);
+        *bitindexpaths = list_concat(*bitindexpaths, indexpaths);
+    }
+}
+```

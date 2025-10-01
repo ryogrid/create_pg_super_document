@@ -44,3 +44,27 @@ If no matching RecursiveUnion is found, the function raises an error, as this in
 - Part of the broader recursive query support infrastructure in PostgreSQL
 - The function assumes that wtParam values are unique within the plan tree
 - Used specifically in the context of rule decompilation where the plan tree structure needs to be analyzed and converted back to SQL text
+
+## Simplified Source
+
+```c
+static Plan *find_recursive_union(deparse_namespace *dpns, WorkTableScan *wtscan) {
+    ListCell *lc;
+
+    // Search through ancestor plans for matching RecursiveUnion
+    foreach(lc, dpns->ancestors) {
+        Plan *ancestor = (Plan *) lfirst(lc);
+
+        // Check if this ancestor is a RecursiveUnion with matching wtParam
+        if (IsA(ancestor, RecursiveUnion) &&
+            ((RecursiveUnion *) ancestor)->wtParam == wtscan->wtParam) {
+            return ancestor;
+        }
+    }
+
+    // Error if no matching RecursiveUnion found
+    elog(ERROR, "could not find RecursiveUnion for WorkTableScan with wtParam %d",
+         wtscan->wtParam);
+    return NULL;
+}
+```

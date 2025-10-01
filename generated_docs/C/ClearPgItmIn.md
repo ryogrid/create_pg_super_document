@@ -29,3 +29,15 @@ This is a simple utility function that initializes a pg_itm_in structure to a cl
 - The function clears tm_usec (microseconds), tm_mday (day), tm_mon (month), and tm_year (year) fields
 - Used as initialization step before parsing interval strings to ensure consistent starting state
 - The pg_itm_in structure represents interval time components for PostgreSQL's internal time processing
+
+## Simplified Source
+
+```c
+static inline void ClearPgItmIn(struct pg_itm_in *itm_in) {
+    // Zero out all time component fields
+    itm_in->tm_usec = 0;  // Microseconds
+    itm_in->tm_mday = 0;  // Days
+    itm_in->tm_mon = 0;   // Months
+    itm_in->tm_year = 0;  // Years
+}
+```

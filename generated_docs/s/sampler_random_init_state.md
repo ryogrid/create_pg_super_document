@@ -31,3 +31,11 @@ This function serves as a wrapper around PostgreSQL's pseudo-random number gener
 
 ## Notes and Other Information
 This function is part of PostgreSQL's sampling infrastructure and is used by various sampling algorithms including block sampling for table analysis and reservoir sampling. The function provides a consistent interface for initializing random states across different sampling contexts, ensuring reproducible results when the same seed is used.
+
+## Simplified Source
+```c
+void sampler_random_init_state(uint32 seed, pg_prng_state *randstate) {
+    // Initialize PRNG state with seed value (converted to 64-bit)
+    pg_prng_seed(randstate, (uint64) seed);
+}
+```

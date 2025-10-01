@@ -35,3 +35,21 @@ This function manages the indentation and line formatting for YAML output in Pos
 - Uses a two-space indentation standard per YAML specification
 - The grouping_stack tracks whether this is the first property in a group to determine line break behavior
 - Part of PostgreSQL's EXPLAIN output formatting system for structured data formats
+
+## Simplified Source
+
+```c
+static void ExplainYAMLLineStarting(ExplainState *es)
+{
+    Assert(es->format == EXPLAIN_FORMAT_YAML);
+
+    if (linitial_int(es->grouping_stack) == 0) {
+        // First property in group - mark as started
+        linitial_int(es->grouping_stack) = 1;
+    } else {
+        // Add newline and proper YAML indentation (2 spaces per level)
+        appendStringInfoChar(es->str, '\n');
+        appendStringInfoSpaces(es->str, es->indent * 2);
+    }
+}
+```

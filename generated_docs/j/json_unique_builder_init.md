@@ -37,3 +37,18 @@ The function sets up the infrastructure needed for building JSON objects while e
 - Part of PostgreSQL's JSON object construction infrastructure that ensures proper key handling and JSON standard compliance
 - The memory context reference enables proper resource management during JSON building operations
 - Used in both aggregation scenarios (multiple input rows) and direct building scenarios (function calls)
+
+## Simplified Source
+
+```c
+static void json_unique_builder_init(JsonUniqueBuilderState *cxt) {
+    // Initialize hash table for key uniqueness checking
+    json_unique_check_init(&cxt->check);
+
+    // Set memory context for key management
+    cxt->mcxt = CurrentMemoryContext;
+
+    // Initialize skipped keys buffer to NULL (lazy initialization)
+    cxt->skipped_keys.data = NULL;
+}
+```

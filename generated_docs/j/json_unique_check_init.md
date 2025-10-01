@@ -46,3 +46,27 @@ The function configures the hash table with custom hash and match functions ( an
 - Essential for preventing duplicate keys in JSON objects, which would violate JSON standards
 - Part of PostgreSQL's comprehensive JSON validation and construction infrastructure
 - The hash table name "json object hashtable" is used for debugging and monitoring purposes
+
+## Simplified Source
+
+```c
+static void
+json_unique_check_init(JsonUniqueCheckState *cxt)
+{
+    HASHCTL ctl;
+
+    // Set up hash table configuration
+    memset(&ctl, 0, sizeof(ctl));
+    ctl.keysize = sizeof(JsonUniqueHashEntry);
+    ctl.entrysize = sizeof(JsonUniqueHashEntry);
+    ctl.hcxt = CurrentMemoryContext;
+    ctl.hash = json_unique_hash;
+    ctl.match = json_unique_hash_match;
+
+    // Create hash table for JSON key uniqueness checking
+    *cxt = hash_create("json object hashtable",
+                       32,
+                       &ctl,
+                       HASH_ELEM | HASH_CONTEXT | HASH_FUNCTION | HASH_COMPARE);
+}
+```

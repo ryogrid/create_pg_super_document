@@ -46,3 +46,14 @@ The function operates as an inline wrapper that calls the appropriate table acce
 - The function parameters are the same as table_tuple_insert() except for taking multiple tuples as input
 - This is an inline function defined in the header file, so it has no separate implementation file
 - Performance benefits depend on the underlying table access method's implementation of the multi_insert operation
+
+## Simplified Source
+
+```c
+static inline void
+table_multi_insert(Relation rel, TupleTableSlot **slots, int nslots,
+                   CommandId cid, int options, struct BulkInsertStateData *bistate) {
+    // Delegate to table access method's bulk insert implementation
+    rel->rd_tableam->multi_insert(rel, slots, nslots, cid, options, bistate);
+}
+```

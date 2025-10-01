@@ -30,3 +30,15 @@ The function is part of PostgreSQL's extension management infrastructure and ser
 - Returns true only if the filename ends exactly with ".sql"
 - Used primarily during extension version discovery when scanning for available script files
 - Extension script files follow naming conventions like extension--version.sql or extension--oldver--newver.sql for upgrade scripts
+
+## Simplified Source
+
+```c
+static bool is_extension_script_filename(const char *filename) {
+    // Find the last dot in the filename
+    const char *extension = strrchr(filename, '.');
+
+    // Check if extension exists and equals ".sql"
+    return (extension != NULL) && (strcmp(extension, ".sql") == 0);
+}
+```

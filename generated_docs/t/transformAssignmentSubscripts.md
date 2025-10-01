@@ -74,3 +74,63 @@ The function handles the distinction between direct container assignments and as
 - Critical for implementing PostgreSQL's array and container assignment semantics
 - Works closely with the rewriter to handle multiple assignments to the same container in a single statement
 - The function assumes that subscripts list is not empty (NIL) as enforced by assertion
+
+## Simplified Source
+
+```c
+static Node *transformAssignmentSubscripts(ParseState *pstate,
+                                         Node *basenode,
+                                         const char *targetName,
+                                         Oid targetTypeId,
+                                         int32 targetTypMod,
+                                         Oid targetCollation,
+                                         List *subscripts,
+                                         List *indirection,
+                                         ListCell *next_indirection,
+                                         Node *rhs,
+                                         CoercionContext ccontext,
+                                         int location) {
+    SubscriptingRef *sbsref;
+    Oid containerType = targetTypeId;
+    int32 containerTypMod = targetTypMod;
+
+    // Identify actual container type (handle domains)
+    transformContainerType(&containerType, &containerTypMod);
+
+    // Process subscripts and create SubscriptingRef node
+    sbsref = transformContainerSubscripts(pstate, basenode, containerType,
+                                        containerTypMod, subscripts, true);
+
+    // Determine required type for RHS
+    Oid typeNeeded = sbsref->refrestype;
+    int32 typmodNeeded = sbsref->reftypmod;
+
+    // Handle collation (special case for domains over containers)
+    Oid collationNeeded = (containerType == targetTypeId) ?
+                         targetCollation : get_typcollation(containerType);
+
+    // Recursively process remaining indirection
+    rhs = transformAssignmentIndirection(pstate, NULL, targetName, true,
+                                       typeNeeded, typmodNeeded, collationNeeded,
+                                       indirection, next_indirection, rhs,
+                                       ccontext, location);
+
+    // Set assignment expression and restore container type
+    sbsref->refassgnexpr = (Expr *) rhs;
+    sbsref->refrestype = containerType;
+    sbsref->reftypmod = containerTypMod;
+
+    Node *result = (Node *) sbsref;
+
+    // Coerce to domain if target was domain over container
+    if (containerType != targetTypeId) {
+        result = coerce_to_target_type(pstate, result, exprType(result),
+                                     targetTypeId, targetTypMod, ccontext,
+                                     COERCE_IMPLICIT_CAST, -1);
+        if (result == NULL)
+            ereport(ERROR, "cannot cast type to target type");
+    }
+
+    return result;
+}
+```

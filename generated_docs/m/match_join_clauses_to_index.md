@@ -36,3 +36,38 @@ This function processes join clauses associated with a relation to determine whi
 - Part of the index path creation logic in PostgreSQL's cost-based query optimizer
 - The function uses PostgreSQL's list manipulation macros (foreach, lfirst, lappend)
 - Location: src/backend/optimizer/path/indxpath.c:1983-2012
+
+## Simplified Source
+
+```c
+static void
+match_join_clauses_to_index(PlannerInfo *root,
+                           RelOptInfo *rel, IndexOptInfo *index,
+                           IndexClauseSet *clauseset,
+                           List **joinorclauses)
+{
+    ListCell *lc;
+
+    // Scan through all join clauses for this relation
+    foreach(lc, rel->joininfo)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(lc);
+
+        // Check if this join clause can be moved to the current relation
+        if (!join_clause_is_movable_to(rinfo, rel))
+            continue;
+
+        // Process potentially usable clauses
+        if (restriction_is_or_clause(rinfo))
+        {
+            // Collect OR clauses for special handling
+            *joinorclauses = lappend(*joinorclauses, rinfo);
+        }
+        else
+        {
+            // Try to match regular join clause to the index
+            match_clause_to_index(root, rinfo, index, clauseset);
+        }
+    }
+}
+```

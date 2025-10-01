@@ -34,3 +34,29 @@ This function performs a linear search through a list of TSTokenTypeItem structu
 - Performs case-sensitive string matching using strcmp
 - Returns false if the token name is not found in the list or if the list is empty
 - The function is part of PostgreSQL's text search configuration management functionality
+
+## Simplified Source
+
+```c
+static bool
+tstoken_list_member(char *token_name, List *tokens)
+{
+    ListCell   *c;
+    bool        found = false;
+
+    // Search through the token list
+    foreach(c, tokens)
+    {
+        TSTokenTypeItem *ts = (TSTokenTypeItem *) lfirst(c);
+
+        // Compare token names
+        if (strcmp(token_name, ts->name) == 0)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    return found;
+}
+```

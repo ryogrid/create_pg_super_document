@@ -31,3 +31,13 @@ This function serves as a wrapper around `name_matches_visible_ENR` to check if 
 - It specifically deals with ephemeral named relations, which are distinct from permanent catalog relations
 - The function is declared in src/include/parser/parse_relation.h
 - Returns true if a matching ENR is found, false otherwise
+
+## Simplified Source
+
+```c
+bool
+scanNameSpaceForENR(ParseState *pstate, const char *refname)
+{
+    return name_matches_visible_ENR(pstate, refname);
+}
+```

@@ -59,3 +59,93 @@ For other cases, it creates a flat representation by detoasting and copying the 
 - The metacache parameter enables cross-call caching of element type information to improve performance
 - Returns a read/write pointer to the expanded array using EOHPGetRWDatum
 - The expanded array initially contains only the flat representation; deconstructed representation is created on demand
+
+## Simplified Source
+
+```c
+Datum
+expand_array(Datum arraydatum, MemoryContext parentcontext,
+             ArrayMetaState *metacache)
+{
+    ArrayType *array;
+    ExpandedArrayHeader *eah;
+    MemoryContext objcxt;
+    ArrayMetaState fakecache;
+
+    // Create private memory context for expanded array
+    objcxt = AllocSetContextCreate(parentcontext,
+                                   "expanded array",
+                                   ALLOCSET_START_SMALL_SIZES);
+
+    // Allocate and initialize expanded array header
+    eah = (ExpandedArrayHeader *) MemoryContextAlloc(objcxt, sizeof(ExpandedArrayHeader));
+    EOH_init_header(&eah->hdr, &EA_methods, objcxt);
+    eah->ea_magic = EA_MAGIC;
+
+    // Check if source is already an expanded array
+    if (VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(arraydatum)))
+    {
+        ExpandedArrayHeader *oldeah = (ExpandedArrayHeader *) DatumGetEOHP(arraydatum);
+
+        // Update metadata cache
+        if (metacache == NULL)
+            metacache = &fakecache;
+        metacache->element_type = oldeah->element_type;
+        metacache->typlen = oldeah->typlen;
+        metacache->typbyval = oldeah->typbyval;
+        metacache->typalign = oldeah->typalign;
+
+        // Optimization: copy pass-by-value expanded array directly
+        if (oldeah->typbyval && oldeah->dvalues != NULL)
+        {
+            copy_byval_expanded_array(eah, oldeah);
+            return EOHPGetRWDatum(&eah->hdr);
+        }
+    }
+
+    // Convert to flat array representation
+    MemoryContext oldcxt = MemoryContextSwitchTo(objcxt);
+    array = DatumGetArrayTypePCopy(arraydatum);
+    MemoryContextSwitchTo(oldcxt);
+
+    // Set array metadata
+    eah->ndims = ARR_NDIM(array);
+    eah->dims = ARR_DIMS(array);
+    eah->lbound = ARR_LBOUND(array);
+    eah->element_type = ARR_ELEMTYPE(array);
+
+    // Get element type information (use cache if available)
+    if (metacache && metacache->element_type == eah->element_type)
+    {
+        eah->typlen = metacache->typlen;
+        eah->typbyval = metacache->typbyval;
+        eah->typalign = metacache->typalign;
+    }
+    else
+    {
+        get_typlenbyvalalign(eah->element_type,
+                           &eah->typlen, &eah->typbyval, &eah->typalign);
+        if (metacache)
+        {
+            metacache->element_type = eah->element_type;
+            metacache->typlen = eah->typlen;
+            metacache->typbyval = eah->typbyval;
+            metacache->typalign = eah->typalign;
+        }
+    }
+
+    // Initialize deconstructed representation as empty
+    eah->dvalues = NULL;
+    eah->dnulls = NULL;
+    eah->dvalueslen = 0;
+    eah->nelems = 0;
+    eah->flat_size = 0;
+
+    // Set flat representation pointers
+    eah->fvalue = array;
+    eah->fstartptr = ARR_DATA_PTR(array);
+    eah->fendptr = ((char *) array) + ARR_SIZE(array);
+
+    return EOHPGetRWDatum(&eah->hdr);
+}
+```

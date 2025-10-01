@@ -46,3 +46,80 @@ The function uses proper memory management with a per-tuple memory context to pr
 - Supports query cancellation through CHECK_FOR_INTERRUPTS()
 - Part of the table rewriting process during ALTER TABLE operations
 - Simulates INSERT trigger behavior to validate foreign key constraints on existing data
+
+## Simplified Source
+
+```c
+static void
+validateForeignKeyConstraint(char *conname,
+                             Relation rel,
+                             Relation pkrel,
+                             Oid pkindOid,
+                             Oid constraintOid)
+{
+    TupleTableSlot *slot;
+    TableScanDesc scan;
+    Trigger trig = {0};
+    Snapshot snapshot;
+    MemoryContext perTupCxt;
+
+    ereport(DEBUG1, (errmsg_internal("validating foreign key constraint \"%s\"", conname)));
+
+    // Build trigger structure for validation
+    trig.tgoid = InvalidOid;
+    trig.tgname = conname;
+    trig.tgenabled = TRIGGER_FIRES_ON_ORIGIN;
+    trig.tgisinternal = true;
+    trig.tgconstrrelid = RelationGetRelid(pkrel);
+    trig.tgconstrindid = pkindOid;
+    trig.tgconstraint = constraintOid;
+    trig.tgdeferrable = false;
+    trig.tginitdeferred = false;
+
+    // Try optimized LEFT JOIN validation first
+    if (RI_Initial_Check(&trig, rel, pkrel))
+        return;
+
+    // Fall back to tuple-by-tuple validation
+    snapshot = RegisterSnapshot(GetLatestSnapshot());
+    slot = table_slot_create(rel, NULL);
+    scan = table_beginscan(rel, snapshot, 0, NULL);
+
+    // Create per-tuple memory context to prevent memory bloat
+    perTupCxt = AllocSetContextCreate(CurrentMemoryContext,
+                                      "validateForeignKeyConstraint",
+                                      ALLOCSET_SMALL_SIZES);
+
+    // Validate each tuple as if it were being inserted
+    while (table_scan_getnextslot(scan, ForwardScanDirection, slot))
+    {
+        LOCAL_FCINFO(fcinfo, 0);
+        TriggerData trigdata = {0};
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Set up trigger call context
+        MemSet(fcinfo, 0, SizeForFunctionCallInfo(0));
+
+        trigdata.type = T_TriggerData;
+        trigdata.tg_event = TRIGGER_EVENT_INSERT | TRIGGER_EVENT_ROW;
+        trigdata.tg_relation = rel;
+        trigdata.tg_trigtuple = ExecFetchSlotHeapTuple(slot, false, NULL);
+        trigdata.tg_trigslot = slot;
+        trigdata.tg_trigger = &trig;
+
+        fcinfo->context = (Node *) &trigdata;
+
+        // Call foreign key check function
+        RI_FKey_check_ins(fcinfo);
+
+        MemoryContextReset(perTupCxt);
+    }
+
+    // Clean up resources
+    MemoryContextDelete(perTupCxt);
+    table_endscan(scan);
+    UnregisterSnapshot(snapshot);
+    ExecDropSingleTupleTableSlot(slot);
+}
+```

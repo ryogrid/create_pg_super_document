@@ -46,3 +46,85 @@ The function operates by opening the necessary system catalogs (pg_foreign_table
 - Fires post-alter hooks for proper event handling
 - Handles both addition/modification and removal of options
 - Requires the relation to be a foreign table registered in pg_foreign_table
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAlterColumnGenericOptions(Relation rel,
+                               const char *colName,
+                               List *options,
+                               LOCKMODE lockmode)
+{
+    Relation ftrel, attrel;
+    ForeignServer *server;
+    ForeignDataWrapper *fdw;
+    HeapTuple tuple, newtuple;
+    Form_pg_foreign_table fttableform;
+    Form_pg_attribute atttableform;
+    AttrNumber attnum;
+    ObjectAddress address;
+    Datum datum;
+    bool isnull;
+    Datum repl_val[Natts_pg_attribute] = {0};
+    bool repl_null[Natts_pg_attribute] = {false};
+    bool repl_repl[Natts_pg_attribute] = {false};
+
+    if (options == NIL)
+        return InvalidObjectAddress;
+
+    // Get FDW validator from foreign table definition
+    ftrel = table_open(ForeignTableRelationId, AccessShareLock);
+    tuple = SearchSysCache1(FOREIGNTABLEREL, ObjectIdGetDatum(rel->rd_id));
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "foreign table \"%s\" does not exist", RelationGetRelationName(rel));
+
+    fttableform = (Form_pg_foreign_table) GETSTRUCT(tuple);
+    server = GetForeignServer(fttableform->ftserver);
+    fdw = GetForeignDataWrapper(server->fdwid);
+    table_close(ftrel, AccessShareLock);
+    ReleaseSysCache(tuple);
+
+    // Find the target column
+    attrel = table_open(AttributeRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheAttName(RelationGetRelid(rel), colName);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "column \"%s\" of relation \"%s\" does not exist",
+                colName, RelationGetRelationName(rel));
+
+    // Prevent modification of system columns
+    atttableform = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = atttableform->attnum;
+    if (attnum <= 0)
+        ereport(ERROR, "cannot alter system column \"%s\"", colName);
+
+    // Get current options and transform them using FDW validator
+    datum = SysCacheGetAttr(ATTNAME, tuple, Anum_pg_attribute_attfdwoptions, &isnull);
+    if (isnull)
+        datum = PointerGetDatum(NULL);
+
+    datum = transformGenericOptions(AttributeRelationId, datum, options, fdw->fdwvalidator);
+
+    // Prepare update values
+    if (PointerIsValid(DatumGetPointer(datum)))
+        repl_val[Anum_pg_attribute_attfdwoptions - 1] = datum;
+    else
+        repl_null[Anum_pg_attribute_attfdwoptions - 1] = true;
+    repl_repl[Anum_pg_attribute_attfdwoptions - 1] = true;
+
+    // Update the catalog
+    newtuple = heap_modify_tuple(tuple, RelationGetDescr(attrel),
+                                repl_val, repl_null, repl_repl);
+    CatalogTupleUpdate(attrel, &newtuple->t_self, newtuple);
+
+    // Fire post-alter hook and cleanup
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attnum);
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+
+    ReleaseSysCache(tuple);
+    table_close(attrel, RowExclusiveLock);
+    heap_freetuple(newtuple);
+
+    return address;
+}
+```

@@ -49,3 +49,48 @@ This function serves as a variable resolver in the jsonpath execution engine. It
 - Memory is allocated for the result JsonbValue using palloc
 - Used by higher-level jsonpath functions like JsonPathExists, JsonPathQuery, and JsonPathValue
 - Part of PostgreSQL's SQL/JSON path expression variable resolution system
+
+## Simplified Source
+
+```c
+static JsonbValue *
+GetJsonPathVar(void *cxt, char *varName, int varNameLen,
+               JsonbValue *baseObject, int *baseObjectId)
+{
+    List *vars = cxt;
+    ListCell *lc;
+    int id = 1;
+
+    // Search through variable list for matching name
+    foreach(lc, vars)
+    {
+        JsonPathVariable *curvar = lfirst(lc);
+
+        if (curvar->namelen == varNameLen &&
+            strncmp(curvar->name, varName, varNameLen) == 0)
+        {
+            // Variable found - convert to JsonbValue
+            JsonbValue *result = palloc(sizeof(JsonbValue));
+
+            if (curvar->isnull)
+            {
+                *baseObjectId = 0;
+                result->type = jbvNull;
+            }
+            else
+            {
+                JsonItemFromDatum(curvar->value, curvar->typid, curvar->typmod, result);
+            }
+
+            *baseObject = *result;
+            *baseObjectId = id;
+            return result;
+        }
+        id++;
+    }
+
+    // Variable not found
+    *baseObjectId = -1;
+    return NULL;
+}
+```

@@ -38,3 +38,49 @@ The function operates as part of PostgreSQL's expression validation system, usin
 - Error messages provide specific details about why the reference is invalid, including column names and parser positions
 - System columns are explicitly excluded from validation as they are handled separately in the parser
 - The function is part of PostgreSQL's generated column feature introduced to maintain data consistency
+
+## Simplified Source
+
+```c
+static bool check_nested_generated_walker(Node *node, void *context) {
+    ParseState *pstate = context;
+
+    if (node == NULL)
+        return false;
+
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Get relation and attribute info
+        Oid relid = rt_fetch(var->varno, pstate->p_rtable)->relid;
+        if (!OidIsValid(relid))
+            return false;
+
+        AttrNumber attnum = var->varattno;
+
+        // Check for reference to another generated column
+        if (attnum > 0 && get_attgenerated(relid, attnum)) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                     errmsg("cannot use generated column \"%s\" in column generation expression",
+                            get_attname(relid, attnum, false)),
+                     errdetail("A generated column cannot reference another generated column."),
+                     parser_errposition(pstate, var->location)));
+        }
+
+        // Prohibit whole-row variable references (self-referential)
+        if (attnum == 0) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                     errmsg("cannot use whole-row variable in column generation expression"),
+                     errdetail("This would cause the generated column to depend on its own value."),
+                     parser_errposition(pstate, var->location)));
+        }
+
+        return false;
+    }
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, check_nested_generated_walker, context);
+}
+```

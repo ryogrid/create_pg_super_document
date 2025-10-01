@@ -37,3 +37,16 @@ The function operates within PostgreSQL's streaming JSON parser framework, worki
 - Returns JSON_SUCCESS to indicate successful processing of the array start token
 - Handles the structural parsing of arrays independently from their element values
 - Essential for maintaining proper nesting levels in complex JSON documents containing arrays
+
+## Simplified Source
+
+```c
+static JsonParseErrorType jsonb_in_array_start(void *pstate) {
+    JsonbInState *_state = (JsonbInState *) pstate;
+
+    // Signal the start of array parsing by pushing BEGIN_ARRAY token
+    _state->res = pushJsonbValue(&_state->parseState, WJB_BEGIN_ARRAY, NULL);
+
+    return JSON_SUCCESS;
+}
+```

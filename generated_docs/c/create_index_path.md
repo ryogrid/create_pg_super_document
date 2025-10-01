@@ -68,3 +68,47 @@ The function delegates cost calculation to , which considers factors like index 
 - The loop_count parameter helps estimate caching benefits when the scan is repeated
 - Parallel awareness is handled at higher levels; individual IndexPath nodes are not parallel-aware
 - The function supports complex index operations like distance ordering for spatial indexes through indexorderbys
+
+## Simplified Source
+
+```c
+IndexPath *
+create_index_path(PlannerInfo *root,
+                  IndexOptInfo *index,
+                  List *indexclauses,
+                  List *indexorderbys,
+                  List *indexorderbycols,
+                  List *pathkeys,
+                  ScanDirection indexscandir,
+                  bool indexonly,
+                  Relids required_outer,
+                  double loop_count,
+                  bool partial_path)
+{
+    // Create and initialize new IndexPath node
+    IndexPath *pathnode = makeNode(IndexPath);
+    RelOptInfo *rel = index->rel;
+
+    // Set basic path properties
+    pathnode->path.pathtype = indexonly ? T_IndexOnlyScan : T_IndexScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Set index-specific properties
+    pathnode->indexinfo = index;
+    pathnode->indexclauses = indexclauses;
+    pathnode->indexorderbys = indexorderbys;
+    pathnode->indexorderbycols = indexorderbycols;
+    pathnode->indexscandir = indexscandir;
+
+    // Calculate cost estimates
+    cost_index(pathnode, root, loop_count, partial_path);
+
+    return pathnode;
+}
+```

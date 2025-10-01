@@ -41,3 +41,34 @@ The function initializes the standard Path structure fields and calls cost_tidsc
 - TID scans are generally very fast for accessing small numbers of specific tuples
 - The tidquals list contains expressions that evaluate to TID values, often involving the CTID system column
 - Cost estimation considers the number of TIDs to fetch and the random I/O pattern typical of TID access
+
+## Simplified Source
+
+```c
+TidPath *create_tidscan_path(PlannerInfo *root, RelOptInfo *rel, List *tidquals,
+                             Relids required_outer)
+{
+    // Create TID scan path node
+    TidPath *pathnode = makeNode(TidPath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_TidScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // TID scans are not parallel-aware, always unordered
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.pathkeys = NIL;  // Always unordered
+
+    // Store TID qualifications
+    pathnode->tidquals = tidquals;
+
+    // Calculate costs for this scan method
+    cost_tidscan(&pathnode->path, root, rel, tidquals, pathnode->path.param_info);
+
+    return pathnode;
+}
+```

@@ -31,3 +31,19 @@ This utility function creates a new temporary table name by combining a base tem
 - Part of the materialized view refresh infrastructure for creating uniquely named temporary tables
 - The function comment notes potential future limitations with double-quoted table names containing special characters
 - Designed for internal use in materialized view operations where multiple temporary tables may be needed with related but distinct names
+
+## Simplified Source
+
+```c
+static char *make_temptable_name_n(char *tempname, int n)
+{
+    StringInfoData namebuf;
+
+    // Build new name: tempname + "_" + n
+    initStringInfo(&namebuf);
+    appendStringInfoString(&namebuf, tempname);
+    appendStringInfo(&namebuf, "_%d", n);
+
+    return namebuf.data;  // Caller must free this palloc'd string
+}
+```

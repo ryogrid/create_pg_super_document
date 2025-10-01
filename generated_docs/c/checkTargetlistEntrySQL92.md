@@ -48,3 +48,46 @@ The validation is necessary because when a targetlist entry is referenced by pos
 - Error positioning information is preserved to help users identify the problematic part of their SQL query
 - The validation logic is specific to SQL92 standard compliance requirements
 - Window functions and aggregate functions are treated as distinct categories of prohibited expressions in GROUP BY clauses
+
+## Simplified Source
+
+```c
+static void
+checkTargetlistEntrySQL92(ParseState *pstate, TargetEntry *tle,
+                          ParseExprKind exprKind)
+{
+    switch (exprKind)
+    {
+        case EXPR_KIND_GROUP_BY:
+            // Reject aggregate functions in GROUP BY
+            if (pstate->p_hasAggs &&
+                contain_aggs_of_level((Node *) tle->expr, 0))
+                ereport(ERROR,
+                        (errcode(ERRCODE_GROUPING_ERROR),
+                         errmsg("aggregate functions are not allowed in %s",
+                                ParseExprKindName(exprKind)),
+                         parser_errposition(pstate,
+                                            locate_agg_of_level((Node *) tle->expr, 0))));
+
+            // Reject window functions in GROUP BY
+            if (pstate->p_hasWindowFuncs &&
+                contain_windowfuncs((Node *) tle->expr))
+                ereport(ERROR,
+                        (errcode(ERRCODE_WINDOWING_ERROR),
+                         errmsg("window functions are not allowed in %s",
+                                ParseExprKindName(exprKind)),
+                         parser_errposition(pstate,
+                                            locate_windowfunc((Node *) tle->expr))));
+            break;
+
+        case EXPR_KIND_ORDER_BY:
+        case EXPR_KIND_DISTINCT_ON:
+            // No additional checks needed for these clause types
+            break;
+
+        default:
+            elog(ERROR, "unexpected exprKind in checkTargetlistEntrySQL92");
+            break;
+    }
+}
+```

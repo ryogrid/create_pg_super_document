@@ -46,3 +46,24 @@ The function allocates the result bitmap in the per-tuple memory context, which 
 - Critical for lock mode optimization - understanding the complete set of affected columns helps determine minimal necessary locking
 - Combines both user-specified updates and system-generated updates (generated columns) into a single comprehensive view
 - Used extensively by the trigger system to ensure proper trigger firing based on complete column change information
+
+## Simplified Source
+
+```c
+Bitmapset *ExecGetAllUpdatedCols(ResultRelInfo *relinfo, EState *estate) {
+    MemoryContext oldcxt;
+    Bitmapset *ret;
+
+    // Switch to per-tuple memory context for short-lived allocation
+    oldcxt = MemoryContextSwitchTo(GetPerTupleMemoryContext(estate));
+
+    // Combine explicitly updated columns with generated columns that need updating
+    ret = bms_union(ExecGetUpdatedCols(relinfo, estate),
+                    ExecGetExtraUpdatedCols(relinfo, estate));
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+
+    return ret;
+}
+```

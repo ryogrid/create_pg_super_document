@@ -58,3 +58,38 @@ The function handles various types of relations including tables, views, indexes
 - When the object parameter is provided, it returns a two-element list containing schema name and relation name
 - Part of PostgreSQL's comprehensive relation identification infrastructure used throughout the system
 - Widely used by getObjectIdentityParts for various object types that reference relations
+
+## Simplified Source
+
+```c
+static void
+getRelationIdentity(StringInfo buffer, Oid relid, List **object, bool missing_ok)
+{
+    HeapTuple relTup;
+    Form_pg_class relForm;
+    char *schema;
+
+    // Look up relation in system catalog
+    relTup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(relTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for relation %u", relid);
+
+        if (object)
+            *object = NIL;
+        return;
+    }
+    relForm = (Form_pg_class) GETSTRUCT(relTup);
+
+    // Build schema-qualified identifier
+    schema = get_namespace_name_or_temp(relForm->relnamespace);
+    appendStringInfoString(buffer,
+                          quote_qualified_identifier(schema, NameStr(relForm->relname)));
+
+    // Optionally return decomposed object parts
+    if (object)
+        *object = list_make2(schema, pstrdup(NameStr(relForm->relname)));
+
+    ReleaseSysCache(relTup);
+}
+```

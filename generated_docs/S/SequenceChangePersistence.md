@@ -39,3 +39,37 @@ The function performs a complete sequence state preservation cycle: it reads the
 - The WAL logging check and GetTopTransactionId() call ensures proper transaction handling for WAL-logged sequences
 - Part of the ALTER TABLE infrastructure for handling owned sequences
 - Critical for maintaining sequence consistency across persistence changes
+
+## Simplified Source
+
+```c
+void
+SequenceChangePersistence(Oid relid, char newrelpersistence)
+{
+    SeqTable elm;
+    Relation seqrel;
+    Buffer buf;
+    HeapTupleData seqdatatuple;
+
+    // Lock sequence to prevent concurrent nextval() calls from losing increments
+    LockRelationOid(relid, AccessExclusiveLock);
+    init_sequence(relid, &elm, &seqrel);
+
+    // Ensure proper WAL handling for logged sequences
+    if (RelationNeedsWAL(seqrel))
+        GetTopTransactionId();
+
+    // Read current sequence state
+    (void) read_seq_tuple(seqrel, &buf, &seqdatatuple);
+
+    // Create new relfilenode with new persistence setting
+    RelationSetNewRelfilenumber(seqrel, newrelpersistence);
+
+    // Fill new relation with existing sequence data
+    fill_seq_with_data(seqrel, &seqdatatuple);
+
+    // Clean up
+    UnlockReleaseBuffer(buf);
+    sequence_close(seqrel, NoLock);
+}
+```

@@ -43,3 +43,32 @@ AdjustTimeForTypmod adjusts the precision of TIME data type values according to 
 - Located in src/backend/utils/adt/date.c:1645-1679
 - Modifies the input time value in place rather than returning a new value
 - Critical component in PostgreSQL's temporal data type precision handling system
+
+## Simplified Source
+
+```c
+void AdjustTimeForTypmod(TimeADT *time, int32 typmod) {
+    // Pre-calculated scaling factors for each precision level (0-6)
+    static const int64 TimeScales[MAX_TIME_PRECISION + 1] = {
+        INT64CONST(1000000), INT64CONST(100000), INT64CONST(10000),
+        INT64CONST(1000), INT64CONST(100), INT64CONST(10), INT64CONST(1)
+    };
+
+    // Pre-calculated rounding offsets for each precision level
+    static const int64 TimeOffsets[MAX_TIME_PRECISION + 1] = {
+        INT64CONST(500000), INT64CONST(50000), INT64CONST(5000),
+        INT64CONST(500), INT64CONST(50), INT64CONST(5), INT64CONST(0)
+    };
+
+    // Only adjust if typmod is valid (0 to MAX_TIME_PRECISION)
+    if (typmod >= 0 && typmod <= MAX_TIME_PRECISION) {
+        if (*time >= 0) {
+            // Round positive values: add offset, divide by scale, multiply back
+            *time = ((*time + TimeOffsets[typmod]) / TimeScales[typmod]) * TimeScales[typmod];
+        } else {
+            // Round negative values: negate, round, negate back
+            *time = -((((-*time) + TimeOffsets[typmod]) / TimeScales[typmod]) * TimeScales[typmod]);
+        }
+    }
+}
+```

@@ -40,3 +40,30 @@ The function delegates the actual finalization work to DetachPartitionFinalize()
 - Requires AccessExclusiveLock on the partition being finalized
 - Returns ObjectAddress of the detached partition for further processing
 - Cannot be used for initial detachment - only for completing interrupted detachments
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecDetachPartitionFinalize(Relation rel, RangeVar *name)
+{
+    Relation partRel;
+    ObjectAddress address;
+    Snapshot snap = GetActiveSnapshot();
+
+    // Open the partition with exclusive lock
+    partRel = table_openrv(name, AccessExclusiveLock);
+
+    // Wait for all transactions that might have seen the partition as attached
+    // This ensures catalog consistency before completing detachment
+    WaitForOlderSnapshots(snap->xmin, false);
+
+    // Complete the partition detachment process
+    DetachPartitionFinalize(rel, partRel, true, InvalidOid);
+
+    // Return address of the detached partition
+    ObjectAddressSet(address, RelationRelationId, RelationGetRelid(partRel));
+    table_close(partRel, NoLock);
+    return address;
+}
+```

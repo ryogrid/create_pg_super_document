@@ -56,3 +56,37 @@ The function intentionally focuses on simple TidEqual clauses, as more complex e
 - Creates paths that can be efficiently executed when outer relation values are available
 - Essential for nested loop join optimizations involving direct tuple access
 - Each clause generates a separate parameterized path rather than combining compatible clauses
+
+## Simplified Source
+
+```c
+static void BuildParameterizedTidPaths(PlannerInfo *root, RelOptInfo *rel, List *clauses)
+{
+    ListCell *l;
+
+    foreach(l, clauses)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+        // Skip invalid clauses: pseudoconstant, non-promotable, or non-TidEqual
+        if (rinfo->pseudoconstant ||
+            !restriction_is_securely_promotable(rinfo, rel) ||
+            !IsTidEqualClause(rinfo, rel))
+            continue;
+
+        // Skip clauses that can't be moved to this relation
+        if (!join_clause_is_movable_to(rinfo, rel))
+            continue;
+
+        // Create TID scan path with this clause
+        List *tidquals = list_make1(rinfo);
+
+        // Compute required outer relations (exclude current relation)
+        Relids required_outer = bms_union(rinfo->required_relids, rel->lateral_relids);
+        required_outer = bms_del_member(required_outer, rel->relid);
+
+        // Add the parameterized TID scan path
+        add_path(rel, (Path *) create_tidscan_path(root, rel, tidquals, required_outer));
+    }
+}
+```

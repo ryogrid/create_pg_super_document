@@ -42,3 +42,25 @@ The manual approach works by:
 - It automatically selects the best available implementation at compile time
 - The lookup table approach, while slower than hardware instructions, is still more efficient than bit-by-bit counting
 - This function is part of PostgreSQL's bit utilities infrastructure and serves as the foundation for other popcount operations
+
+## Simplified Source
+
+```c
+static inline int pg_popcount32_slow(uint32 word) {
+#ifdef HAVE__BUILTIN_POPCOUNT
+    // Use compiler built-in if available
+    return __builtin_popcount(word);
+#else
+    // Manual implementation using lookup table
+    int result = 0;
+
+    while (word != 0) {
+        // Count bits in each byte using lookup table
+        result += pg_number_of_ones[word & 255];
+        word >>= 8;
+    }
+
+    return result;
+#endif
+}
+```

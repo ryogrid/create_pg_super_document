@@ -37,3 +37,17 @@ This function is particularly useful in comparison operations, constraint checki
 - Located in src/backend/utils/fmgr/fmgr.c at lines 1421-1430
 - Frequently used in comparison and constraint validation operations where binary functions with collation are needed
 - Part of a family including OidFunctionCall0Coll, OidFunctionCall1Coll, etc. for different argument counts
+
+## Simplified Source
+
+```c
+Datum OidFunctionCall2Coll(Oid functionId, Oid collation, Datum arg1, Datum arg2) {
+    FmgrInfo flinfo;
+
+    // Initialize function manager info for the given function OID
+    fmgr_info(functionId, &flinfo);
+
+    // Execute the function with collation and two arguments
+    return FunctionCall2Coll(&flinfo, collation, arg1, arg2);
+}
+```

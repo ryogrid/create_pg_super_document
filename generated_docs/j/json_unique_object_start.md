@@ -37,3 +37,26 @@ The `json_unique_object_start` function is a semantic action callback used durin
 - Essential for implementing JSON object key uniqueness validation
 - Works in conjunction with json_unique_object_end to manage object lifecycle
 - Stack-based approach handles arbitrary nesting levels efficiently
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+json_unique_object_start(void *_state)
+{
+    JsonUniqueParsingState *state = _state;
+    JsonUniqueStackEntry *entry;
+
+    // Skip if uniqueness checking is disabled
+    if (!state->unique)
+        return JSON_SUCCESS;
+
+    // Create and push new object entry to stack
+    entry = palloc(sizeof(*entry));
+    entry->object_id = state->id_counter++;
+    entry->parent = state->stack;
+    state->stack = entry;
+
+    return JSON_SUCCESS;
+}
+```

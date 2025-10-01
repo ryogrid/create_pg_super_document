@@ -36,3 +36,21 @@ This function determines whether an operator is strict, meaning it returns NULL 
 - The function will raise an ERROR if the operator OID does not exist or has no associated function
 - Strictness information is used in partition pruning and join optimization
 - This is a simple wrapper that delegates the actual strictness check to the function-level func_strict() function
+
+## Simplified Source
+
+```c
+bool
+op_strict(Oid opno)
+{
+    // Get the function implementing this operator
+    RegProcedure funcid = get_opcode(opno);
+
+    // Validate the operator exists
+    if (funcid == (RegProcedure) InvalidOid)
+        elog(ERROR, "operator %u does not exist", opno);
+
+    // Check strictness of the underlying function
+    return func_strict((Oid) funcid);
+}
+```

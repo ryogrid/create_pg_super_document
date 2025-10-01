@@ -47,3 +47,77 @@ The function uses a DependencyGenerator to enumerate all possible attribute comb
 - Part of PostgreSQL's extended statistics framework for multivariate analysis
 - For n columns, generates n*(n-1) two-column dependencies plus higher-order combinations
 - Memory management is carefully handled with context switching and resets during intensive computations
+
+## Simplified Source
+
+```c
+MVDependencies *
+statext_dependencies_build(StatsBuildData *data)
+{
+    MVDependencies *dependencies = NULL;
+    MemoryContext temp_context;
+
+    Assert(data->nattnums >= 2);
+
+    // Create temporary context for dependency calculations
+    temp_context = AllocSetContextCreate(CurrentMemoryContext,
+                                       "dependency_degree cxt",
+                                       ALLOCSET_DEFAULT_SIZES);
+
+    // Try all possible column combinations from size 2 to all columns
+    for (int k = 2; k <= data->nattnums; k++)
+    {
+        AttrNumber *combination;
+        DependencyGenerator generator = DependencyGenerator_init(data->nattnums, k);
+
+        // Generate all combinations of k columns
+        while ((combination = DependencyGenerator_next(generator)))
+        {
+            double degree;
+            MVDependency *dependency;
+            MemoryContext old_context;
+
+            // Calculate dependency strength in temporary context
+            old_context = MemoryContextSwitchTo(temp_context);
+            degree = dependency_degree(data, k, combination);
+            MemoryContextSwitchTo(old_context);
+            MemoryContextReset(temp_context);
+
+            // Skip invalid dependencies
+            if (degree == 0.0)
+                continue;
+
+            // Create dependency structure
+            dependency = palloc0(offsetof(MVDependency, attributes) +
+                               k * sizeof(AttrNumber));
+            dependency->degree = degree;
+            dependency->nattributes = k;
+
+            // Copy attribute numbers
+            for (int i = 0; i < k; i++)
+                dependency->attributes[i] = data->attnums[combination[i]];
+
+            // Initialize or expand dependencies list
+            if (dependencies == NULL)
+            {
+                dependencies = palloc0(sizeof(MVDependencies));
+                dependencies->magic = STATS_DEPS_MAGIC;
+                dependencies->type = STATS_DEPS_TYPE_BASIC;
+                dependencies->ndeps = 0;
+            }
+
+            // Add new dependency to list
+            dependencies->ndeps++;
+            dependencies = repalloc(dependencies,
+                                  offsetof(MVDependencies, deps) +
+                                  dependencies->ndeps * sizeof(MVDependency *));
+            dependencies->deps[dependencies->ndeps - 1] = dependency;
+        }
+
+        DependencyGenerator_free(generator);
+    }
+
+    MemoryContextDelete(temp_context);
+    return dependencies;
+}
+```

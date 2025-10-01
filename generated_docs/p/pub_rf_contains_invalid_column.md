@@ -50,3 +50,56 @@ The validation process involves retrieving the row filter expression from the pg
 - Creates a bitmap of REPLICA IDENTITY columns for efficient validation
 - Returns false if no row filter is defined (rfisnull case)
 - Located in src/backend/commands/publicationcmds.c:258-333
+
+## Simplified Source
+
+```c
+bool pub_rf_contains_invalid_column(Oid pubid, Relation relation,
+                                   List *ancestors, bool pubviaroot) {
+    Oid relid = RelationGetRelid(relation);
+    Oid publish_as_relid = relid;
+
+    // REPLICA IDENTITY FULL allows all columns in row filters
+    if (relation->rd_rel->relreplident == REPLICA_IDENTITY_FULL)
+        return false;
+
+    // For partitions with pubviaroot, find the topmost ancestor
+    if (pubviaroot && relation->rd_rel->relispartition) {
+        publish_as_relid = GetTopMostAncestorInPublication(pubid, ancestors, NULL);
+        if (!OidIsValid(publish_as_relid))
+            publish_as_relid = relid;
+    }
+
+    // Look up the row filter for this publication-relation pair
+    HeapTuple rftuple = SearchSysCache2(PUBLICATIONRELMAP,
+                                       ObjectIdGetDatum(publish_as_relid),
+                                       ObjectIdGetDatum(pubid));
+    if (!HeapTupleIsValid(rftuple))
+        return false;
+
+    Datum rfdatum;
+    bool rfisnull;
+    rfdatum = SysCacheGetAttr(PUBLICATIONRELMAP, rftuple,
+                             Anum_pg_publication_rel_prqual, &rfisnull);
+
+    bool result = false;
+    if (!rfisnull) {
+        // Set up context for column validation
+        rf_context context = {0};
+        context.pubviaroot = pubviaroot;
+        context.parentid = publish_as_relid;
+        context.relid = relid;
+
+        // Get replica identity columns for validation
+        context.bms_replident = RelationGetIndexAttrBitmap(relation,
+                                                          INDEX_ATTR_BITMAP_IDENTITY_KEY);
+
+        // Parse and validate the row filter expression
+        Node *rfnode = stringToNode(TextDatumGetCString(rfdatum));
+        result = contain_invalid_rfcolumn_walker(rfnode, &context);
+    }
+
+    ReleaseSysCache(rftuple);
+    return result;
+}
+```

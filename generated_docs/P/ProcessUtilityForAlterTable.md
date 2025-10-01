@@ -43,3 +43,34 @@ The function creates a complete PlannedStmt wrapper for the subcommand, inheriti
 - Context preservation allows subcommands to access the same parameters and query environment as the parent ALTER TABLE operation
 - The PROCESS_UTILITY_SUBCOMMAND context ensures that subcommands are treated appropriately by the utility processing system
 - This design enables ALTER TABLE to generate complex sequences of DDL operations while maintaining transactional consistency and proper event trigger semantics
+
+## Simplified Source
+
+```c
+void ProcessUtilityForAlterTable(Node *stmt, AlterTableUtilityContext *context) {
+    // Close current event trigger context for proper ordering
+    EventTriggerAlterTableEnd();
+
+    // Create wrapper for the subcommand
+    PlannedStmt *wrapper = makeNode(PlannedStmt);
+    wrapper->commandType = CMD_UTILITY;
+    wrapper->canSetTag = false;
+    wrapper->utilityStmt = stmt;
+    wrapper->stmt_location = context->pstmt->stmt_location;
+    wrapper->stmt_len = context->pstmt->stmt_len;
+
+    // Execute the subcommand using main ProcessUtility
+    ProcessUtility(wrapper,
+                   context->queryString,
+                   false,
+                   PROCESS_UTILITY_SUBCOMMAND,
+                   context->params,
+                   context->queryEnv,
+                   None_Receiver,
+                   NULL);
+
+    // Re-establish ALTER TABLE event trigger context
+    EventTriggerAlterTableStart(context->pstmt->utilityStmt);
+    EventTriggerAlterTableRelid(context->relid);
+}
+```

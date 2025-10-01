@@ -52,3 +52,45 @@ The execution uses default parsing mode (RAW_PARSE_DEFAULT) and enables parallel
 - Thread-safe through SPI call context management
 - Located in src/backend/executor/spi.c:596-629
 - Part of PostgreSQL's Server Programming Interface (SPI)
+
+## Simplified Source
+
+```c
+int SPI_execute(const char *src, bool read_only, long tcount)
+{
+    _SPI_plan plan;
+    SPIExecuteOptions options;
+    int res;
+
+    // Validate input arguments
+    if (src == NULL || tcount < 0)
+        return SPI_ERROR_ARGUMENT;
+
+    // Begin SPI call context
+    res = _SPI_begin_call(true);
+    if (res < 0)
+        return res;
+
+    // Initialize plan structure for oneshot execution
+    memset(&plan, 0, sizeof(_SPI_plan));
+    plan.magic = _SPI_PLAN_MAGIC;
+    plan.parse_mode = RAW_PARSE_DEFAULT;
+    plan.cursor_options = CURSOR_OPT_PARALLEL_OK;
+
+    // Parse and prepare the SQL query
+    _SPI_prepare_oneshot_plan(src, &plan);
+
+    // Set up execution options
+    memset(&options, 0, sizeof(options));
+    options.read_only = read_only;
+    options.tcount = tcount;
+
+    // Execute the prepared plan
+    res = _SPI_execute_plan(&plan, &options,
+                           InvalidSnapshot, InvalidSnapshot, true);
+
+    // Clean up call context and return result
+    _SPI_end_call(true);
+    return res;
+}
+```

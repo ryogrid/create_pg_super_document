@@ -37,3 +37,19 @@ This function is a utility routine used within the PostgreSQL parser to manage t
 - Both  and  flags are set simultaneously to maintain consistent lateral state
 - The function modifies the namespace items in-place rather than creating new copies
 - Proper lateral state management is critical for preventing improper cross-references in SQL queries
+
+## Simplified Source
+
+```c
+static void
+setNamespaceLateralState(List *namespace, bool lateral_only, bool lateral_ok)
+{
+    // Update LATERAL flags for all items in the namespace list
+    foreach(lc, namespace) {
+        ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(lc);
+
+        nsitem->p_lateral_only = lateral_only;
+        nsitem->p_lateral_ok = lateral_ok;
+    }
+}
+```

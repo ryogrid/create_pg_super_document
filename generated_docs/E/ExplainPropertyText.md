@@ -53,3 +53,14 @@ This function provides a clean, type-safe interface for the most common use case
 - Automatically handles proper escaping and quoting for string values across all output formats
 - The function is simple but essential, providing type safety and API consistency for string property display
 - Used extensively for displaying node types, relation names, index names, expressions, and other textual information in query plans
+
+## Simplified Source
+
+```c
+void
+ExplainPropertyText(const char *qlabel, const char *value, ExplainState *es)
+{
+    // Delegate to generic property function with string-specific parameters
+    ExplainProperty(qlabel, NULL, value, false, es);
+}
+```

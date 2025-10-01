@@ -35,3 +35,17 @@ The  function is a specialized fetch function used during index analysis operati
 - Uses rowstride from the stats structure to calculate the correct array index
 - Designed for efficiency during index expression analysis by avoiding tuple construction overhead
 - Part of PostgreSQL's ANALYZE command implementation for gathering statistics on index expressions
+
+## Simplified Source
+
+```c
+static Datum ind_fetch_func(VacAttrStatsP stats, int rownum, bool *isNull)
+{
+    // Calculate array index using rowstride
+    int i = rownum * stats->rowstride;
+
+    // Set null indicator and return value from pre-computed arrays
+    *isNull = stats->exprnulls[i];
+    return stats->exprvals[i];
+}
+```

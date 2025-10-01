@@ -50,3 +50,93 @@ The function supports various node types including operators (OpExpr, DistinctEx
 - System columns are excluded because they aren't replicated to subscribers
 - The function provides detailed error messages with specific reasons for rejection
 - Supports complex expressions with AND/OR combinations as long as individual components are valid
+
+## Simplified Source
+
+```c
+static bool
+check_simple_rowfilter_expr_walker(Node *node, ParseState *pstate)
+{
+    char *errdetail_msg = NULL;
+
+    if (node == NULL)
+        return false;
+
+    // Check node type and apply restrictions
+    switch (nodeTag(node))
+    {
+        case T_Var:
+            // System columns not allowed
+            if (((Var *) node)->varattno < InvalidAttrNumber)
+                errdetail_msg = _("System columns are not allowed.");
+            break;
+
+        case T_OpExpr:
+        case T_DistinctExpr:
+        case T_NullIfExpr:
+            // Only built-in operators allowed
+            if (((OpExpr *) node)->opno >= FirstNormalObjectId)
+                errdetail_msg = _("User-defined operators are not allowed.");
+            break;
+
+        case T_ScalarArrayOpExpr:
+            // Only built-in operators allowed
+            if (((ScalarArrayOpExpr *) node)->opno >= FirstNormalObjectId)
+                errdetail_msg = _("User-defined operators are not allowed.");
+            break;
+
+        case T_RowCompareExpr:
+            // Check all operators in row comparison
+            foreach(opid, ((RowCompareExpr *) node)->opnos)
+            {
+                if (lfirst_oid(opid) >= FirstNormalObjectId)
+                {
+                    errdetail_msg = _("User-defined operators are not allowed.");
+                    break;
+                }
+            }
+            break;
+
+        case T_Const:
+        case T_FuncExpr:
+        case T_BoolExpr:
+        case T_RelabelType:
+        case T_CollateExpr:
+        case T_CaseExpr:
+        case T_NullTest:
+        case T_List:
+            // These node types are supported
+            break;
+
+        default:
+            errdetail_msg = _("Only columns, constants, built-in operators, built-in data types, built-in collations, and immutable built-in functions are allowed.");
+            break;
+    }
+
+    // Additional checks for supported nodes
+    if (!errdetail_msg && !IsA(node, List))
+    {
+        // Check for user-defined types
+        if (exprType(node) >= FirstNormalObjectId)
+            errdetail_msg = _("User-defined types are not allowed.");
+        // Check for mutable or user-defined functions
+        else if (check_functions_in_node(node, contain_mutable_or_user_functions_checker, pstate))
+            errdetail_msg = _("User-defined or built-in mutable functions are not allowed.");
+        // Check for user-defined collations
+        else if (exprCollation(node) >= FirstNormalObjectId ||
+                 exprInputCollation(node) >= FirstNormalObjectId)
+            errdetail_msg = _("User-defined collations are not allowed.");
+    }
+
+    // Report error if found
+    if (errdetail_msg)
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("invalid publication WHERE expression"),
+                 errdetail_internal("%s", errdetail_msg),
+                 parser_errposition(pstate, exprLocation(node))));
+
+    // Continue walking the expression tree
+    return expression_tree_walker(node, check_simple_rowfilter_expr_walker, pstate);
+}
+```

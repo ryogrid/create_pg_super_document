@@ -41,3 +41,37 @@ The function only operates when event trigger context is active and command coll
 - Uses the event trigger's memory context to ensure collected data persists beyond the current operation
 - The collected subcommands are stored in the currentCommand's d.alterTable.subcmds list for later event trigger processing
 - Part of PostgreSQL's comprehensive event trigger system that provides hooks into DDL operations
+
+## Simplified Source
+
+```c
+void EventTriggerCollectAlterTableSubcmd(Node *subcmd, ObjectAddress address) {
+    CollectedATSubcmd *newsub;
+    MemoryContext oldcxt;
+
+    // Skip if event trigger context not active or collection disabled
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->commandCollectionInhibited)
+        return;
+
+    // Validate inputs - must be AlterTableCmd with valid command state
+    Assert(IsA(subcmd, AlterTableCmd));
+    Assert(currentEventTriggerState->currentCommand != NULL);
+    Assert(OidIsValid(currentEventTriggerState->currentCommand->d.alterTable.objectId));
+
+    // Switch to event trigger memory context for persistence
+    oldcxt = MemoryContextSwitchTo(currentEventTriggerState->cxt);
+
+    // Create new subcommand collection entry
+    newsub = palloc(sizeof(CollectedATSubcmd));
+    newsub->address = address;
+    newsub->parsetree = copyObject(subcmd);
+
+    // Add to current command's subcommand list
+    currentEventTriggerState->currentCommand->d.alterTable.subcmds =
+        lappend(currentEventTriggerState->currentCommand->d.alterTable.subcmds, newsub);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

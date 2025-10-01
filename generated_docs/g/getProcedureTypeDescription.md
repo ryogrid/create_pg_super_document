@@ -47,3 +47,36 @@ The function handles missing procedures gracefully when missing_ok is true, fall
 - The function distinguishes between three types of callable objects: aggregates, procedures, and functions (including window functions)
 - Proper cache management is implemented with ReleaseSysCache to prevent memory leaks
 - The function is part of PostgreSQL's object address and identification infrastructure
+
+## Simplified Source
+
+```c
+static void
+getProcedureTypeDescription(StringInfo buffer, Oid procid, bool missing_ok)
+{
+    HeapTuple procTup;
+    Form_pg_proc procForm;
+
+    // Look up procedure in system catalog
+    procTup = SearchSysCache1(PROCOID, ObjectIdGetDatum(procid));
+    if (!HeapTupleIsValid(procTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for procedure %u", procid);
+
+        // Fallback to generic description
+        appendStringInfoString(buffer, "routine");
+        return;
+    }
+    procForm = (Form_pg_proc) GETSTRUCT(procTup);
+
+    // Determine procedure type based on prokind field
+    if (procForm->prokind == PROKIND_AGGREGATE)
+        appendStringInfoString(buffer, "aggregate");
+    else if (procForm->prokind == PROKIND_PROCEDURE)
+        appendStringInfoString(buffer, "procedure");
+    else // function or window function
+        appendStringInfoString(buffer, "function");
+
+    ReleaseSysCache(procTup);
+}
+```

@@ -48,3 +48,52 @@ The function provides essential context information about the table being rewrit
 - Part of PostgreSQL's comprehensive event trigger system for monitoring table structure changes
 - Unlike most other event trigger functions, it increments the command counter after trigger execution
 - Enables trigger functions to access rewrite details through pg_event_trigger_table_rewrite_oid
+
+## Simplified Source
+
+```c
+void
+EventTriggerTableRewrite(Node *parsetree, Oid tableOid, int reason)
+{
+    List *runlist;
+    EventTriggerData trigdata;
+
+    // Check if event triggers are enabled and state is active
+    if (!IsUnderPostmaster || !event_triggers)
+        return;
+
+    if (!currentEventTriggerState)
+        return;
+
+    // Find applicable table_rewrite event triggers
+    runlist = EventTriggerCommonSetup(parsetree,
+                                      EVT_TableRewrite,
+                                      "table_rewrite",
+                                      &trigdata, false);
+    if (runlist == NIL)
+        return;
+
+    // Set context information for trigger functions
+    currentEventTriggerState->table_rewrite_oid = tableOid;
+    currentEventTriggerState->table_rewrite_reason = reason;
+
+    // Execute triggers with exception handling for cleanup
+    PG_TRY();
+    {
+        EventTriggerInvoke(runlist, &trigdata);
+    }
+    PG_FINALLY();
+    {
+        // Always reset state even if triggers fail
+        currentEventTriggerState->table_rewrite_oid = InvalidOid;
+        currentEventTriggerState->table_rewrite_reason = 0;
+    }
+    PG_END_TRY();
+
+    // Clean up trigger list
+    list_free(runlist);
+
+    // Make trigger changes visible to main command
+    CommandCounterIncrement();
+}
+```

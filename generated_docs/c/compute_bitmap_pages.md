@@ -44,3 +44,67 @@ This function estimates how many heap pages will be accessed during a bitmap hea
 - Critical for accurate bitmap heap scan cost estimation
 - Accounts for the reality that bitmap scans may need to access entire pages when memory is limited
 - The function carefully handles edge cases like T <= 1 and ensures page estimates don't exceed the total relation size
+
+## Simplified Source
+
+```c
+double compute_bitmap_pages(PlannerInfo *root, RelOptInfo *baserel,
+                            Path *bitmapqual, double loop_count,
+                            Cost *cost_p, double *tuples_p) {
+    Cost indexTotalCost;
+    Selectivity indexSelectivity;
+    double T, pages_fetched, tuples_fetched, heap_pages;
+    long maxentries;
+
+    // Get cost and selectivity of the bitmap qualification
+    cost_bitmap_tree_node(bitmapqual, &indexTotalCost, &indexSelectivity);
+
+    // Estimate tuples to be fetched
+    tuples_fetched = clamp_row_est(indexSelectivity * baserel->tuples);
+    T = (baserel->pages > 1) ? (double) baserel->pages : 1.0;
+
+    // Apply Mackert and Lohman formula for single scan
+    pages_fetched = (2.0 * T * tuples_fetched) / (2.0 * T + tuples_fetched);
+
+    // Calculate heap pages and bitmap memory limits
+    heap_pages = Min(pages_fetched, baserel->pages);
+    maxentries = tbm_calculate_entries(work_mem * 1024L);
+
+    // Adjust for multiple scans
+    if (loop_count > 1) {
+        pages_fetched = index_pages_fetched(tuples_fetched * loop_count,
+                                          baserel->pages,
+                                          get_indexpath_pages(bitmapqual),
+                                          root);
+        pages_fetched /= loop_count;
+    }
+
+    // Ensure we don't exceed total relation size
+    pages_fetched = (pages_fetched >= T) ? T : ceil(pages_fetched);
+
+    // Handle lossy pages when bitmap exceeds memory
+    if (maxentries < heap_pages) {
+        double exact_pages, lossy_pages;
+
+        // Estimate lossy vs exact pages
+        lossy_pages = Max(0, heap_pages - maxentries / 2);
+        exact_pages = heap_pages - lossy_pages;
+
+        // Recalculate tuples when lossy pages are present
+        if (lossy_pages > 0) {
+            tuples_fetched = clamp_row_est(
+                indexSelectivity *
+                ((exact_pages / heap_pages) * baserel->tuples +
+                 (lossy_pages / heap_pages) * baserel->tuples));
+        }
+    }
+
+    // Return optional output parameters
+    if (cost_p)
+        *cost_p = indexTotalCost;
+    if (tuples_p)
+        *tuples_p = tuples_fetched;
+
+    return pages_fetched;
+}
+```

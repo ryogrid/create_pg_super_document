@@ -35,3 +35,17 @@ For numeric characters, it subtracts the ASCII value of '0' to get the decimal v
 - Used specifically for parsing \x escape sequences in COPY FROM text input
 - Does not perform error checking - calling code must validate hex character validity
 - Efficient implementation using simple arithmetic operations rather than lookup tables
+
+## Simplified Source
+
+```c
+static int
+GetDecimalFromHex(char hex)
+{
+    // Convert hex digit to decimal value (0-15)
+    if (isdigit((unsigned char) hex))
+        return hex - '0';           // '0'-'9' -> 0-9
+    else
+        return tolower((unsigned char) hex) - 'a' + 10;  // 'a'-'f'/'A'-'F' -> 10-15
+}
+```

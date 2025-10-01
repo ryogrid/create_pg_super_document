@@ -29,3 +29,14 @@ This function serves as a callback checker used by the PostgreSQL optimizer to i
 - The function implements a simple boolean callback interface compatible with check_functions_in_node
 - Part of the PostgreSQL query optimizer's expression analysis infrastructure
 - Located in src/backend/optimizer/util/clauses.c at lines 999-1004
+
+## Simplified Source
+
+```c
+static bool
+contain_nonstrict_functions_checker(Oid func_id, void *context)
+{
+    // Return true if function is non-strict (can return non-NULL with NULL inputs)
+    return !func_strict(func_id);
+}
+```

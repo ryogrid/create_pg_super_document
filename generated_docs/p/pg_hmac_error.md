@@ -37,3 +37,30 @@ The pg_hmac_error function provides detailed error information for debugging and
 - Used for error reporting and debugging throughout SCRAM authentication
 - All error messages are translated for internationalization support
 - Includes assertion to catch unexpected error states during development
+
+## Simplified Source
+
+```c
+const char *pg_hmac_error(pg_hmac_ctx *ctx) {
+    // Handle NULL context (out-of-memory condition)
+    if (ctx == NULL)
+        return _("out of memory");
+
+    // Return specific error reason if available
+    if (ctx->errreason)
+        return ctx->errreason;
+
+    // Translate error code to message
+    switch (ctx->error) {
+        case PG_HMAC_ERROR_NONE:
+            return _("success");
+        case PG_HMAC_ERROR_INTERNAL:
+            return _("internal error");
+        case PG_HMAC_ERROR_OOM:
+            return _("out of memory");
+    }
+
+    Assert(false);  // Should never reach here
+    return _("success");
+}
+```

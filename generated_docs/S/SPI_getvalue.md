@@ -43,3 +43,42 @@ The function supports both regular attributes (positive attribute numbers) and s
 - The string representation follows PostgreSQL's standard output format for each data type
 - System attributes (ctid, oid, etc.) are properly handled with their specific output functions
 - Essential for debugging, logging, and interfacing with external systems that expect string data
+
+## Simplified Source
+
+```c
+char *SPI_getvalue(HeapTuple tuple, TupleDesc tupdesc, int fnumber)
+{
+    Datum val;
+    bool isnull;
+    Oid typoid, foutoid;
+    bool typisvarlena;
+
+    SPI_result = 0;
+
+    // Validate attribute number
+    if (fnumber > tupdesc->natts || fnumber == 0 ||
+        fnumber <= FirstLowInvalidHeapAttributeNumber)
+    {
+        SPI_result = SPI_ERROR_NOATTRIBUTE;
+        return NULL;
+    }
+
+    // Extract the attribute value from the tuple
+    val = heap_getattr(tuple, fnumber, tupdesc, &isnull);
+    if (isnull)
+        return NULL;
+
+    // Get the data type OID for this attribute
+    if (fnumber > 0)
+        typoid = TupleDescAttr(tupdesc, fnumber - 1)->atttypid;
+    else
+        typoid = (SystemAttributeDefinition(fnumber))->atttypid;
+
+    // Get the output function for this data type
+    getTypeOutputInfo(typoid, &foutoid, &typisvarlena);
+
+    // Convert the value to string using the appropriate output function
+    return OidOutputFunctionCall(foutoid, val);
+}
+```

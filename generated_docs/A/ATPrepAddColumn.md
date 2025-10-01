@@ -50,3 +50,27 @@ The function assumes that constraints like CHECK, NOT NULL, and FOREIGN KEY have
 - For composite types, the function ensures that dependent typed tables are updated accordingly
 - The recursion handling is more complex than other ALTER TABLE operations due to inheritance merge scenarios
 - Constraints are handled separately from the column addition itself in the ALTER TABLE processing pipeline
+
+## Simplified Source
+
+```c
+static void
+ATPrepAddColumn(List **wqueue, Relation rel, bool recurse, bool recursing,
+                bool is_view, AlterTableCmd *cmd, LOCKMODE lockmode,
+                AlterTableUtilityContext *context)
+{
+    // Prevent adding columns to typed tables (except during recursion)
+    if (rel->rd_rel->reloftype && !recursing)
+        ereport(ERROR,
+                (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                 errmsg("cannot add column to typed table")));
+
+    // Handle composite types - propagate to dependent typed tables
+    if (rel->rd_rel->relkind == RELKIND_COMPOSITE_TYPE)
+        ATTypedTableRecursion(wqueue, rel, cmd, lockmode, context);
+
+    // Set recursion flag for regular tables (not views)
+    if (recurse && !is_view)
+        cmd->recurse = true;
+}
+```

@@ -42,3 +42,44 @@ The function performs a systematic scan of the pg_init_privs table using the obj
 - Part of PostgreSQL's extension privilege management system
 - Critical for maintaining catalog consistency during object deletion operations
 - The function scans using InitPrivsObjIndexId for efficient lookup by object identifiers
+
+## Simplified Source
+
+```c
+static void DeleteInitPrivs(const ObjectAddress *object) {
+    Relation relation;
+    ScanKeyData key[3];
+    int nkeys;
+    SysScanDesc scan;
+    HeapTuple oldtuple;
+
+    // Open pg_init_privs catalog table
+    relation = table_open(InitPrivsRelationId, RowExclusiveLock);
+
+    // Set up scan keys for object and class OID
+    ScanKeyInit(&key[0], Anum_pg_init_privs_objoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(object->objectId));
+    ScanKeyInit(&key[1], Anum_pg_init_privs_classoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(object->classId));
+
+    // Add sub-object key if needed
+    if (object->objectSubId != 0) {
+        ScanKeyInit(&key[2], Anum_pg_init_privs_objsubid,
+                    BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(object->objectSubId));
+        nkeys = 3;  // Specific sub-object
+    } else {
+        nkeys = 2;  // All sub-objects
+    }
+
+    // Scan and delete all matching privilege records
+    scan = systable_beginscan(relation, InitPrivsObjIndexId, true, NULL, nkeys, key);
+
+    while (HeapTupleIsValid(oldtuple = systable_getnext(scan))) {
+        CatalogTupleDelete(relation, &oldtuple->t_self);
+    }
+
+    // Clean up
+    systable_endscan(scan);
+    table_close(relation, RowExclusiveLock);
+}
+```

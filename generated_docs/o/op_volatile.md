@@ -35,3 +35,20 @@ This function determines the volatility level of an operator by examining the vo
 - This information affects whether expressions can be pre-evaluated, cached, or used in indexes
 - The function will raise an ERROR if the operator OID does not exist or has no associated function
 - Used primarily in query optimization and partition pruning logic
+
+## Simplified Source
+
+```c
+char
+op_volatile(Oid opno)
+{
+    // Get the function that implements this operator
+    RegProcedure funcid = get_opcode(opno);
+
+    if (funcid == (RegProcedure) InvalidOid)
+        elog(ERROR, "operator %u does not exist", opno);
+
+    // Return the volatility of the implementing function
+    return func_volatile((Oid) funcid);
+}
+```

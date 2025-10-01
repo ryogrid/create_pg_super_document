@@ -53,3 +53,65 @@ This function is essential for query optimization as NULL handling has significa
 - Ensures results are clamped to valid probability range [0.0, 1.0]
 - Critical for optimizing queries with NULL checks, which are common in real-world applications
 - Supports only two null test types: IS_NULL and IS_NOT_NULL
+
+## Simplified Source
+
+```c
+Selectivity
+nulltestsel(PlannerInfo *root, NullTestType nulltesttype, Node *arg,
+            int varRelid, JoinType jointype, SpecialJoinInfo *sjinfo)
+{
+    VariableStatData vardata;
+    double selec;
+
+    // Get variable statistics for the argument
+    examine_variable(root, arg, varRelid, &vardata);
+
+    if (HeapTupleIsValid(vardata.statsTuple))
+    {
+        // Use actual statistics from ANALYZE
+        Form_pg_statistic stats = (Form_pg_statistic) GETSTRUCT(vardata.statsTuple);
+        double freq_null = stats->stanullfrac;
+
+        switch (nulltesttype)
+        {
+            case IS_NULL:
+                selec = freq_null;                // Use null fraction directly
+                break;
+            case IS_NOT_NULL:
+                selec = 1.0 - freq_null;          // Complement of null fraction
+                break;
+            default:
+                elog(ERROR, "unrecognized nulltesttype: %d", (int) nulltesttype);
+                return (Selectivity) 0;
+        }
+    }
+    else if (vardata.var && IsA(vardata.var, Var) &&
+             ((Var *) vardata.var)->varattno < 0)
+    {
+        // System columns are never NULL
+        selec = (nulltesttype == IS_NULL) ? 0.0 : 1.0;
+    }
+    else
+    {
+        // No statistics available, use defaults
+        switch (nulltesttype)
+        {
+            case IS_NULL:
+                selec = DEFAULT_UNK_SEL;
+                break;
+            case IS_NOT_NULL:
+                selec = DEFAULT_NOT_UNK_SEL;
+                break;
+            default:
+                elog(ERROR, "unrecognized nulltesttype: %d", (int) nulltesttype);
+                return (Selectivity) 0;
+        }
+    }
+
+    ReleaseVariableStats(vardata);
+    CLAMP_PROBABILITY(selec);           // Ensure valid probability range
+
+    return (Selectivity) selec;
+}
+```

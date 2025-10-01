@@ -72,3 +72,191 @@ Special considerations include key_scalar mode where certain complex types are r
 - Handles both scalar and non-scalar JSONB inputs with different processing paths
 - Uses recursive parsing for JSON text input and iterative processing for existing JSONB structures
 - The function is designed to be part of a larger parsing state machine managed by JsonbInState
+
+## Simplified Source
+
+```c
+static void datum_to_jsonb_internal(Datum val, bool is_null, JsonbInState *result,
+                                   JsonTypeCategory tcategory, Oid outfuncoid,
+                                   bool key_scalar) {
+    char *outputstr;
+    bool numeric_error;
+    JsonbValue jb;
+    bool scalar_jsonb = false;
+
+    check_stack_depth();
+
+    // Handle null values
+    if (is_null) {
+        Assert(!key_scalar);
+        jb.type = jbvNull;
+    }
+    // Reject complex types as keys
+    else if (key_scalar && (tcategory == JSONTYPE_ARRAY ||
+                           tcategory == JSONTYPE_COMPOSITE ||
+                           tcategory == JSONTYPE_JSON ||
+                           tcategory == JSONTYPE_JSONB ||
+                           tcategory == JSONTYPE_CAST)) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("key value must be scalar, not array, composite, or json")));
+    }
+    else {
+        // Apply cast function if needed
+        if (tcategory == JSONTYPE_CAST)
+            val = OidFunctionCall1(outfuncoid, val);
+
+        // Convert based on type category
+        switch (tcategory) {
+            case JSONTYPE_ARRAY:
+                array_to_jsonb_internal(val, result);
+                break;
+
+            case JSONTYPE_COMPOSITE:
+                composite_to_jsonb(val, result);
+                break;
+
+            case JSONTYPE_BOOL:
+                if (key_scalar) {
+                    // Keys must be strings, convert boolean to string
+                    outputstr = DatumGetBool(val) ? "true" : "false";
+                    jb.type = jbvString;
+                    jb.val.string.len = strlen(outputstr);
+                    jb.val.string.val = outputstr;
+                } else {
+                    jb.type = jbvBool;
+                    jb.val.boolean = DatumGetBool(val);
+                }
+                break;
+
+            case JSONTYPE_NUMERIC:
+                outputstr = OidOutputFunctionCall(outfuncoid, val);
+                if (key_scalar) {
+                    // Always quote keys
+                    jb.type = jbvString;
+                    jb.val.string.len = strlen(outputstr);
+                    jb.val.string.val = outputstr;
+                } else {
+                    // Check if valid JSON number (no 'N' or 'n' for NaN/Infinity)
+                    numeric_error = (strchr(outputstr, 'N') != NULL ||
+                                   strchr(outputstr, 'n') != NULL);
+                    if (!numeric_error) {
+                        // Valid number, store as numeric
+                        Datum numd = DirectFunctionCall3(numeric_in,
+                                                        CStringGetDatum(outputstr),
+                                                        ObjectIdGetDatum(InvalidOid),
+                                                        Int32GetDatum(-1));
+                        jb.type = jbvNumeric;
+                        jb.val.numeric = DatumGetNumeric(numd);
+                        pfree(outputstr);
+                    } else {
+                        // Invalid number, store as string
+                        jb.type = jbvString;
+                        jb.val.string.len = strlen(outputstr);
+                        jb.val.string.val = outputstr;
+                    }
+                }
+                break;
+
+            case JSONTYPE_DATE:
+            case JSONTYPE_TIMESTAMP:
+            case JSONTYPE_TIMESTAMPTZ:
+                // Convert temporal types to ISO string format
+                jb.type = jbvString;
+                jb.val.string.val = JsonEncodeDateTime(NULL, val,
+                    (tcategory == JSONTYPE_DATE) ? DATEOID :
+                    (tcategory == JSONTYPE_TIMESTAMP) ? TIMESTAMPOID : TIMESTAMPTZOID,
+                    NULL);
+                jb.val.string.len = strlen(jb.val.string.val);
+                break;
+
+            case JSONTYPE_CAST:
+            case JSONTYPE_JSON:
+                // Parse JSON text directly into result structure
+                {
+                    JsonLexContext lex;
+                    JsonSemAction sem;
+                    text *json = DatumGetTextPP(val);
+
+                    makeJsonLexContext(&lex, json, true);
+                    memset(&sem, 0, sizeof(sem));
+                    sem.semstate = (void *) result;
+                    // Set up parsing callbacks for building JSONB
+                    sem.object_start = jsonb_in_object_start;
+                    sem.array_start = jsonb_in_array_start;
+                    sem.object_end = jsonb_in_object_end;
+                    sem.array_end = jsonb_in_array_end;
+                    sem.scalar = jsonb_in_scalar;
+                    sem.object_field_start = jsonb_in_object_field_start;
+
+                    pg_parse_json_or_ereport(&lex, &sem);
+                    freeJsonLexContext(&lex);
+                }
+                break;
+
+            case JSONTYPE_JSONB:
+                // Process existing JSONB value
+                {
+                    Jsonb *jsonb = DatumGetJsonbP(val);
+                    JsonbIterator *it = JsonbIteratorInit(&jsonb->root);
+
+                    if (JB_ROOT_IS_SCALAR(jsonb)) {
+                        // Extract scalar value from JSONB wrapper
+                        JsonbIteratorNext(&it, &jb, true); // Skip array wrapper
+                        JsonbIteratorNext(&it, &jb, true); // Get actual value
+                        scalar_jsonb = true;
+                    } else {
+                        // Copy entire JSONB structure
+                        JsonbIteratorToken type;
+                        while ((type = JsonbIteratorNext(&it, &jb, false)) != WJB_DONE) {
+                            if (type == WJB_END_ARRAY || type == WJB_END_OBJECT ||
+                                type == WJB_BEGIN_ARRAY || type == WJB_BEGIN_OBJECT)
+                                result->res = pushJsonbValue(&result->parseState, type, NULL);
+                            else
+                                result->res = pushJsonbValue(&result->parseState, type, &jb);
+                        }
+                    }
+                }
+                break;
+
+            default:
+                // Convert other types to strings
+                outputstr = OidOutputFunctionCall(outfuncoid, val);
+                jb.type = jbvString;
+                jb.val.string.len = strlen(outputstr);
+                checkStringLen(jb.val.string.len, NULL);
+                jb.val.string.val = outputstr;
+                break;
+        }
+    }
+
+    // Insert the JsonbValue into the result structure
+    if (!is_null && !scalar_jsonb && tcategory >= JSONTYPE_JSON && tcategory <= JSONTYPE_CAST) {
+        // Work was done recursively, nothing more needed
+        return;
+    } else if (result->parseState == NULL) {
+        // Single root scalar - wrap in array
+        JsonbValue va;
+        va.type = jbvArray;
+        va.val.array.rawScalar = true;
+        va.val.array.nElems = 1;
+
+        result->res = pushJsonbValue(&result->parseState, WJB_BEGIN_ARRAY, &va);
+        result->res = pushJsonbValue(&result->parseState, WJB_ELEM, &jb);
+        result->res = pushJsonbValue(&result->parseState, WJB_END_ARRAY, NULL);
+    } else {
+        // Add to existing array or object
+        JsonbValue *o = &result->parseState->contVal;
+        switch (o->type) {
+            case jbvArray:
+                result->res = pushJsonbValue(&result->parseState, WJB_ELEM, &jb);
+                break;
+            case jbvObject:
+                result->res = pushJsonbValue(&result->parseState,
+                                           key_scalar ? WJB_KEY : WJB_VALUE, &jb);
+                break;
+            default:
+                elog(ERROR, "unexpected parent of nested structure");
+        }
+    }
+}
+```

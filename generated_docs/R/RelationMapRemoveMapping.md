@@ -34,3 +34,27 @@ The  function is responsible for removing a specific relation mapping from the a
 - Essential for VACUUM FULL/CLUSTER operations which create temporary file mappings that must be cleaned up
 - Throws an error if the mapping is not found, indicating a programming error or inconsistent state
 - Part of PostgreSQL's transactional relation mapping system that supports rollback of mapping changes
+
+## Simplified Source
+
+```c
+void RelationMapRemoveMapping(Oid relationId)
+{
+    RelMapFile *map = &active_local_updates;
+
+    // Search for the relation mapping in active local updates
+    for (int i = 0; i < map->num_mappings; i++)
+    {
+        if (relationId == map->mappings[i].mapoid)
+        {
+            // Remove mapping by moving last entry to this position
+            map->mappings[i] = map->mappings[map->num_mappings - 1];
+            map->num_mappings--;
+            return;
+        }
+    }
+
+    // Error if mapping not found
+    elog(ERROR, "could not find temporary mapping for relation %u", relationId);
+}
+```

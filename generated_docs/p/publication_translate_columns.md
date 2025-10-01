@@ -51,3 +51,73 @@ The function uses a Bitmapset during processing to efficiently check for duplica
 - Uses a temporary Bitmapset for efficient duplicate detection, which is freed before returning
 - Error messages provide specific details about which column and relation caused the problem
 - Location: src/backend/catalog/pg_publication.c:502-569
+
+## Simplified Source
+
+```c
+static void
+publication_translate_columns(Relation targetrel, List *columns,
+                             int *natts, AttrNumber **attrs)
+{
+    AttrNumber *attarray = NULL;
+    Bitmapset  *set = NULL;
+    ListCell   *lc;
+    int         n = 0;
+    TupleDesc   tupdesc = RelationGetDescr(targetrel);
+
+    // Early return if no column list provided
+    if (!columns)
+        return;
+
+    // Allocate array to hold attribute numbers
+    attarray = palloc(sizeof(AttrNumber) * list_length(columns));
+
+    // Process each column name
+    foreach(lc, columns)
+    {
+        char       *colname = strVal(lfirst(lc));
+        AttrNumber  attnum = get_attnum(RelationGetRelid(targetrel), colname);
+
+        // Check column exists
+        if (attnum == InvalidAttrNumber)
+            ereport(ERROR,
+                    (errcode(ERRCODE_UNDEFINED_COLUMN),
+                     errmsg("column \"%s\" of relation \"%s\" does not exist",
+                            colname, RelationGetRelationName(targetrel))));
+
+        // System columns not allowed
+        if (!AttrNumberIsForUserDefinedAttr(attnum))
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                     errmsg("cannot use system column \"%s\" in publication column list",
+                            colname)));
+
+        // Generated columns not allowed
+        if (TupleDescAttr(tupdesc, attnum - 1)->attgenerated)
+            ereport(ERROR,
+                    (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                     errmsg("cannot use generated column \"%s\" in publication column list",
+                            colname)));
+
+        // Check for duplicates
+        if (bms_is_member(attnum, set))
+            ereport(ERROR,
+                    (errcode(ERRCODE_DUPLICATE_OBJECT),
+                     errmsg("duplicate column \"%s\" in publication column list",
+                            colname)));
+
+        // Add to set and array
+        set = bms_add_member(set, attnum);
+        attarray[n++] = attnum;
+    }
+
+    // Sort for consistent catalog representation
+    qsort(attarray, n, sizeof(AttrNumber), compare_int16);
+
+    // Set output parameters
+    *natts = n;
+    *attrs = attarray;
+
+    bms_free(set);
+}
+```

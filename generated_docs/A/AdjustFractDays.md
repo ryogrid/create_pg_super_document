@@ -44,3 +44,25 @@ The function operates through these steps:
 - There is also a simpler ECPG version in src/interfaces/ecpg/pgtypeslib/interval.c that works with struct tm instead of pg_itm_in and doesn't include overflow checking
 - Uses PostgreSQL's overflow-safe arithmetic functions to prevent integer overflow
 - Part of the broader datetime/interval parsing infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+static bool AdjustFractDays(double frac, int scale, struct pg_itm_in *itm_in) {
+    // Fast path for zero - no work needed
+    if (frac == 0)
+        return true;
+
+    // Scale the fraction to get total days (whole + fractional)
+    frac *= scale;
+    int extra_days = (int) frac;  // Extract whole days
+
+    // Safely add whole days to existing day count
+    if (pg_add_s32_overflow(itm_in->tm_mday, extra_days, &itm_in->tm_mday))
+        return false;  // Overflow in day addition
+
+    // Handle the remaining fractional part
+    frac -= extra_days;  // Get fractional remainder
+    return AdjustFractMicroseconds(frac, USECS_PER_DAY, itm_in);
+}
+```

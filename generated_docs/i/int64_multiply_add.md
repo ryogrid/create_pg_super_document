@@ -41,3 +41,20 @@ If either operation would cause an overflow, the function returns false and leav
 - Commonly used in interval and timestamp processing where large time values might cause overflow
 - The function ensures that if overflow is detected at any stage, the original sum value remains unchanged
 - Used extensively in time unit conversions where multiplication by large factors (like microseconds per day) is common
+
+## Simplified Source
+
+```c
+static bool
+int64_multiply_add(int64 val, int64 multiplier, int64 *sum)
+{
+    int64 product;
+
+    // Safely multiply val * multiplier, then add to sum
+    if (pg_mul_s64_overflow(val, multiplier, &product) ||
+        pg_add_s64_overflow(*sum, product, sum))
+        return false;    // Overflow occurred
+
+    return true;         // Success
+}
+```

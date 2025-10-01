@@ -56,3 +56,69 @@ The function maintains proper SQL syntax while providing readable formatting thr
 - Supports both pretty-printed and compact output formats
 - Part of PostgreSQL's comprehensive query deparsing system used for view definitions, rule actions, and debugging
 - The function preserves semantic correctness while optimizing readability
+
+## Simplified Source
+
+```c
+static void get_from_clause(Query *query, const char *prefix, deparse_context *context) {
+    StringInfo buf = context->buf;
+    bool first = true;
+    ListCell *l;
+
+    // Iterate through query's joint tree fromlist
+    foreach(l, query->jointree->fromlist) {
+        Node *jtnode = (Node *) lfirst(l);
+
+        // Skip auto-added RTEs not marked for inclusion in FROM clause
+        if (IsA(jtnode, RangeTblRef)) {
+            int varno = ((RangeTblRef *) jtnode)->rtindex;
+            RangeTblEntry *rte = rt_fetch(varno, query->rtable);
+
+            if (!rte->inFromCl)
+                continue;
+        }
+
+        if (first) {
+            // Output prefix keyword (FROM/USING) and first item
+            appendContextKeyword(context, prefix,
+                                -PRETTYINDENT_STD, PRETTYINDENT_STD, 2);
+            first = false;
+            get_from_clause_item(jtnode, query, context);
+        }
+        else {
+            // Handle subsequent items with comma separation and line wrapping
+            StringInfoData itembuf;
+
+            appendStringInfoString(buf, ", ");
+
+            // Use temporary buffer to evaluate formatting needs
+            initStringInfo(&itembuf);
+            context->buf = &itembuf;
+            get_from_clause_item(jtnode, query, context);
+            context->buf = buf;
+
+            // Apply line wrapping logic if enabled
+            if (PRETTY_INDENT(context) && context->wrapColumn >= 0) {
+                if (itembuf.len > 0 && itembuf.data[0] == '\n') {
+                    removeStringInfoSpaces(buf);
+                } else {
+                    char *trailing_nl = strrchr(buf->data, '\n');
+                    if (trailing_nl == NULL)
+                        trailing_nl = buf->data;
+                    else
+                        trailing_nl++;
+
+                    // Add newline if content would exceed wrap column
+                    if (strlen(trailing_nl) + itembuf.len > context->wrapColumn)
+                        appendContextKeyword(context, "", -PRETTYINDENT_STD,
+                                           PRETTYINDENT_STD, PRETTYINDENT_VAR);
+                }
+            }
+
+            // Append the formatted item and cleanup
+            appendBinaryStringInfo(buf, itembuf.data, itembuf.len);
+            pfree(itembuf.data);
+        }
+    }
+}
+```

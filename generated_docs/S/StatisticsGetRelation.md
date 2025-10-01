@@ -40,3 +40,32 @@ The function uses PostgreSQL system cache for efficient lookups and includes pro
 - Returns InvalidOid when missing_ok is true and statistics object not found
 - Part of PostgreSQL extended statistics management infrastructure
 - Located in src/backend/commands/statscmds.c (lines 898-917)
+
+## Simplified Source
+
+```c
+Oid StatisticsGetRelation(Oid statId, bool missing_ok) {
+    HeapTuple tuple;
+    Form_pg_statistic_ext stx;
+    Oid result;
+
+    // Look up statistics object in system cache
+    tuple = SearchSysCache1(STATEXTOID, ObjectIdGetDatum(statId));
+
+    // Handle not found case
+    if (!HeapTupleIsValid(tuple)) {
+        if (missing_ok)
+            return InvalidOid;
+        elog(ERROR, "cache lookup failed for statistics object %u", statId);
+    }
+
+    // Extract relation OID from statistics object
+    stx = (Form_pg_statistic_ext) GETSTRUCT(tuple);
+    Assert(stx->oid == statId);
+    result = stx->stxrelid;
+
+    // Clean up cache reference
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

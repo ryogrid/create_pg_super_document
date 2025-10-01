@@ -51,3 +51,59 @@ The function implements an optimization where if the input value already fits wi
 - Handles both short and long numeric representations efficiently
 - Critical for maintaining data integrity in numeric columns with precision/scale constraints
 - Part of the core numeric type implementation in src/backend/utils/adt/numeric.c:1244-1321
+
+## Simplified Source
+
+```c
+Datum numeric(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    int32 typmod = PG_GETARG_INT32(1);
+    Numeric new;
+    int precision, scale, ddigits, maxdigits, dscale;
+    NumericVar var;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        (void) apply_typmod_special(num, typmod, NULL);
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+    }
+
+    // If invalid typmod, return copy unchanged
+    if (!is_valid_numeric_typmod(typmod)) {
+        PG_RETURN_NUMERIC(duplicate_numeric(num));
+    }
+
+    // Extract precision and scale from typmod
+    precision = numeric_typmod_precision(typmod);
+    scale = numeric_typmod_scale(typmod);
+    maxdigits = precision - scale;
+    dscale = Max(scale, 0);
+
+    // Optimization: if value already fits constraints, just adjust scale
+    ddigits = (NUMERIC_WEIGHT(num) + 1) * DEC_DIGITS;
+    if (ddigits <= maxdigits && scale >= NUMERIC_DSCALE(num) &&
+        (NUMERIC_CAN_BE_SHORT(dscale, NUMERIC_WEIGHT(num)) || !NUMERIC_IS_SHORT(num))) {
+
+        new = duplicate_numeric(num);
+        // Update scale fields based on representation type
+        if (NUMERIC_IS_SHORT(num)) {
+            new->choice.n_short.n_header =
+                (num->choice.n_short.n_header & ~NUMERIC_SHORT_DSCALE_MASK) |
+                (dscale << NUMERIC_SHORT_DSCALE_SHIFT);
+        } else {
+            new->choice.n_long.n_sign_dscale = NUMERIC_SIGN(new) |
+                ((uint16) dscale & NUMERIC_DSCALE_MASK);
+        }
+        PG_RETURN_NUMERIC(new);
+    }
+
+    // Need to apply constraints with rounding/truncation
+    init_var(&var);
+    set_var_from_num(num, &var);
+    (void) apply_typmod(&var, typmod, NULL);
+    new = make_result(&var);
+    free_var(&var);
+
+    PG_RETURN_NUMERIC(new);
+}
+```

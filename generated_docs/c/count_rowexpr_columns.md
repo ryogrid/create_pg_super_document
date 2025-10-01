@@ -46,3 +46,36 @@ The function is intentionally limited in scope since its only used for hint gene
 - Provides hints like "Did you accidentally use extra parentheses?" when column counts match but structure is wrong
 - Not exhaustive in its detection capabilities since its only meant for hint generation
 - Focuses on the most common cases where users create unintended row expressions
+
+## Simplified Source
+
+```c
+static int count_rowexpr_columns(ParseState *pstate, Node *expr) {
+    if (expr == NULL)
+        return -1;
+
+    // Direct ROW() expression - count arguments
+    if (IsA(expr, RowExpr))
+        return list_length(((RowExpr *) expr)->args);
+
+    // Variable reference - check if it points to a row expression
+    if (IsA(expr, Var)) {
+        Var *var = (Var *) expr;
+
+        // Only examine RECORD-typed variables with valid attribute numbers
+        if (var->varattno > 0 && var->vartype == RECORDOID) {
+            RangeTblEntry *rte = GetRTEByRangeTablePosn(pstate, var->varno, var->varlevelsup);
+
+            // Check subquery target lists for row expressions
+            if (rte->rtekind == RTE_SUBQUERY) {
+                TargetEntry *target_entry = get_tle_by_resno(rte->subquery->targetList, var->varattno);
+
+                if (target_entry && !target_entry->resjunk && IsA(target_entry->expr, RowExpr))
+                    return list_length(((RowExpr *) target_entry->expr)->args);
+            }
+        }
+    }
+
+    return -1;  // Not a row expression or cannot determine
+}
+```

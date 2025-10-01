@@ -57,3 +57,106 @@ Key processing steps:
 - The function processes complex indirection patterns including nested field stores, array subscripts, and domain coercions
 - Resjunk entries in the targetList are skipped as they are internal bookkeeping entries
 - Part of the broader UPDATE statement deparsing infrastructure used across INSERT, UPDATE, and MERGE operations
+
+## Simplified Source
+
+```c
+static void get_update_query_targetlist_def(Query *query, List *targetList,
+                                           deparse_context *context, RangeTblEntry *rte) {
+    StringInfo buf = context->buf;
+    ListCell *l;
+    ListCell *next_ma_cell;
+    int remaining_ma_columns;
+    const char *sep;
+    SubLink *cur_ma_sublink;
+    List *ma_sublinks;
+
+    // Collect MULTIEXPR sublinks for multi-assignment handling
+    ma_sublinks = NIL;
+    if (query->hasSubLinks) {
+        foreach(l, targetList) {
+            TargetEntry *tle = (TargetEntry *) lfirst(l);
+
+            if (tle->resjunk && IsA(tle->expr, SubLink)) {
+                SubLink *sl = (SubLink *) tle->expr;
+
+                if (sl->subLinkType == MULTIEXPR_SUBLINK) {
+                    ma_sublinks = lappend(ma_sublinks, sl);
+                    Assert(sl->subLinkId == list_length(ma_sublinks));
+                }
+            }
+        }
+    }
+    next_ma_cell = list_head(ma_sublinks);
+    cur_ma_sublink = NULL;
+    remaining_ma_columns = 0;
+
+    // Generate comma-separated list of 'column = value' assignments
+    sep = "";
+    foreach(l, targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(l);
+        Node *expr;
+
+        if (tle->resjunk)
+            continue;  // Skip junk entries
+
+        appendStringInfoString(buf, sep);
+        sep = ", ";
+
+        // Check for start of multi-assignment group
+        if (next_ma_cell != NULL && cur_ma_sublink == NULL) {
+            // Search for PARAM_MULTIEXPR through indirection layers
+            expr = (Node *) tle->expr;
+            while (expr) {
+                if (IsA(expr, FieldStore)) {
+                    FieldStore *fstore = (FieldStore *) expr;
+                    expr = (Node *) linitial(fstore->newvals);
+                }
+                else if (IsA(expr, SubscriptingRef)) {
+                    SubscriptingRef *sbsref = (SubscriptingRef *) expr;
+                    if (sbsref->refassgnexpr == NULL)
+                        break;
+                    expr = (Node *) sbsref->refassgnexpr;
+                }
+                else if (IsA(expr, CoerceToDomain)) {
+                    CoerceToDomain *cdomain = (CoerceToDomain *) expr;
+                    if (cdomain->coercionformat != COERCE_IMPLICIT_CAST)
+                        break;
+                    expr = (Node *) cdomain->arg;
+                }
+                else
+                    break;
+            }
+            expr = strip_implicit_coercions(expr);
+
+            if (expr && IsA(expr, Param) &&
+                ((Param *) expr)->paramkind == PARAM_MULTIEXPR) {
+                cur_ma_sublink = (SubLink *) lfirst(next_ma_cell);
+                next_ma_cell = lnext(ma_sublinks, next_ma_cell);
+                remaining_ma_columns = count_nonjunk_tlist_entries(((Query *) cur_ma_sublink->subselect)->targetList);
+                Assert(((Param *) expr)->paramid == ((cur_ma_sublink->subLinkId << 16) | 1));
+                appendStringInfoChar(buf, '(');
+            }
+        }
+
+        // Output target column name from system catalog
+        appendStringInfoString(buf,
+                              quote_identifier(get_attname(rte->relid, tle->resno, false)));
+
+        // Handle field/array indirection
+        expr = processIndirection((Node *) tle->expr, context);
+
+        // Handle multi-assignment completion
+        if (cur_ma_sublink != NULL) {
+            if (--remaining_ma_columns > 0)
+                continue;  // Not the last column yet
+            appendStringInfoChar(buf, ')');
+            expr = (Node *) cur_ma_sublink;
+            cur_ma_sublink = NULL;
+        }
+
+        appendStringInfoString(buf, " = ");
+        get_rule_expr(expr, context, false);
+    }
+}
+```

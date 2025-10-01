@@ -38,3 +38,13 @@ None - this is a parameter-less function that modifies global state.
 - Critical component of the security mechanism that prevents unauthorized materialized view modifications
 - Part of the infrastructure designed to support both current REFRESH operations and future incremental maintenance features
 - The static declaration limits its scope to the matview.c file, maintaining encapsulation of the maintenance context system
+
+## Simplified Source
+
+```c
+static void OpenMatViewIncrementalMaintenance(void)
+{
+    // Increment the maintenance nesting depth counter
+    matview_maintenance_depth++;
+}
+```

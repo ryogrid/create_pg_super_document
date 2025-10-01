@@ -42,3 +42,36 @@ This is essential for correctly handling inheritance hierarchies and partitioned
 - This is crucial for inheritance and partitioning scenarios where there can be multiple levels of parent-child relationships
 - The function operates at lines 1521-1556 in src/backend/optimizer/util/relnode.c
 - Returns a Relids bitmapset containing all parent relation IDs
+
+## Simplified Source
+```c
+Relids
+find_childrel_parents(PlannerInfo *root, RelOptInfo *rel)
+{
+    Relids result = NULL;
+
+    // Validate input: must be an appendrel child
+    Assert(rel->reloptkind == RELOPT_OTHER_MEMBER_REL);
+    Assert(rel->relid > 0 && rel->relid < root->simple_rel_array_size);
+
+    // Walk up the appendrel hierarchy
+    do {
+        // Get parent info from append_rel_array
+        AppendRelInfo *appinfo = root->append_rel_array[rel->relid];
+        Index parent_relid = appinfo->parent_relid;
+
+        // Add parent to result set
+        result = bms_add_member(result, parent_relid);
+
+        // Move to parent relation
+        rel = find_base_rel(root, parent_relid);
+
+        // Continue if parent is also a child relation
+    } while (rel->reloptkind == RELOPT_OTHER_MEMBER_REL);
+
+    // Verify we reached a proper base relation
+    Assert(rel->reloptkind == RELOPT_BASEREL);
+
+    return result;
+}
+```

@@ -32,3 +32,22 @@ The function uses the SLRU control structure's PagePrecedes function to compare 
 - Updates the earliestExistingPage field in the truncation info structure
 - Part of the MultiXact cleanup and maintenance system
 - Uses SLRU-specific page ordering logic via the PagePrecedes function pointer
+
+## Simplified Source
+
+```c
+static bool
+SlruScanDirCbFindEarliest(SlruCtl ctl, char *filename, int64 segpage, void *data)
+{
+    mxtruncinfo *trunc = (mxtruncinfo *) data;
+
+    // Update earliest page if this is the first or if it's earlier
+    if (trunc->earliestExistingPage == -1 ||
+        ctl->PagePrecedes(segpage, trunc->earliestExistingPage))
+    {
+        trunc->earliestExistingPage = segpage;
+    }
+
+    return false;   // Continue scanning
+}
+```

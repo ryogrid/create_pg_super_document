@@ -40,3 +40,70 @@ The function uses a system catalog scan to iterate through all attributes of the
 - Maintains transactional consistency by updating the catalog within the same transaction
 - Essential for preserving column-level security permissions during ownership transfers
 - Works in conjunction with relation-level ACL updates performed by the calling function
+
+## Simplified Source
+
+```c
+static void
+change_owner_fix_column_acls(Oid relationOid, Oid oldOwnerId, Oid newOwnerId)
+{
+    Relation attRelation;
+    SysScanDesc scan;
+    ScanKeyData key[1];
+    HeapTuple attributeTuple;
+
+    // Open pg_attribute catalog for scanning
+    attRelation = table_open(AttributeRelationId, RowExclusiveLock);
+    ScanKeyInit(&key[0],
+                Anum_pg_attribute_attrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relationOid));
+    scan = systable_beginscan(attRelation, AttributeRelidNumIndexId,
+                              true, NULL, 1, key);
+
+    // Process each column of the relation
+    while (HeapTupleIsValid(attributeTuple = systable_getnext(scan)))
+    {
+        Form_pg_attribute att = (Form_pg_attribute) GETSTRUCT(attributeTuple);
+        Datum repl_val[Natts_pg_attribute];
+        bool repl_null[Natts_pg_attribute];
+        bool repl_repl[Natts_pg_attribute];
+        Acl *newAcl;
+        Datum aclDatum;
+        bool isNull;
+        HeapTuple newtuple;
+
+        // Skip dropped columns
+        if (att->attisdropped)
+            continue;
+
+        // Get existing ACL, skip if null
+        aclDatum = heap_getattr(attributeTuple,
+                                Anum_pg_attribute_attacl,
+                                RelationGetDescr(attRelation),
+                                &isNull);
+        if (isNull)
+            continue;
+
+        // Update ACL with new owner
+        memset(repl_null, false, sizeof(repl_null));
+        memset(repl_repl, false, sizeof(repl_repl));
+
+        newAcl = aclnewowner(DatumGetAclP(aclDatum),
+                             oldOwnerId, newOwnerId);
+        repl_repl[Anum_pg_attribute_attacl - 1] = true;
+        repl_val[Anum_pg_attribute_attacl - 1] = PointerGetDatum(newAcl);
+
+        // Update the catalog tuple
+        newtuple = heap_modify_tuple(attributeTuple,
+                                     RelationGetDescr(attRelation),
+                                     repl_val, repl_null, repl_repl);
+
+        CatalogTupleUpdate(attRelation, &newtuple->t_self, newtuple);
+        heap_freetuple(newtuple);
+    }
+
+    systable_endscan(scan);
+    table_close(attRelation, RowExclusiveLock);
+}
+```

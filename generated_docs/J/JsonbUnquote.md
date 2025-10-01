@@ -44,3 +44,33 @@ This utility function converts JSONB values to C-string format with special hand
 - Throws ERROR for unrecognized JSONB value types
 - Memory management: caller is responsible for freeing returned string
 - Located in src/backend/utils/adt/jsonb.c:2166-2191
+
+## Simplified Source
+
+```c
+char *JsonbUnquote(Jsonb *jb) {
+    if (JB_ROOT_IS_SCALAR(jb)) {
+        JsonbValue v;
+
+        // Extract the scalar value from JSONB root
+        JsonbExtractScalar(&jb->root, &v);
+
+        // Convert different scalar types to unquoted strings
+        if (v.type == jbvString)
+            return pnstrdup(v.val.string.val, v.val.string.len);
+        else if (v.type == jbvBool)
+            return pstrdup(v.val.boolean ? "true" : "false");
+        else if (v.type == jbvNumeric)
+            return DatumGetCString(DirectFunctionCall1(numeric_out,
+                                                      PointerGetDatum(v.val.numeric)));
+        else if (v.type == jbvNull)
+            return pstrdup("null");
+        else
+            elog(ERROR, "unrecognized jsonb value type %d", v.type);
+    }
+    else {
+        // For non-scalar values, return full JSON representation
+        return JsonbToCString(NULL, &jb->root, VARSIZE(jb));
+    }
+}
+```

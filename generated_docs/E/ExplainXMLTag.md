@@ -34,3 +34,34 @@ ExplainXMLTag generates properly formatted XML tags for EXPLAIN output. The func
 
 ## Notes and Other Information
 This is a static function internal to explain.c. The character validation ensures XML compliance by restricting tag names to alphanumeric characters, hyphens, underscores, and periods. Invalid characters are replaced with dashes. The function is essential for generating well-formed XML output in EXPLAIN XML format.
+
+## Simplified Source
+
+```c
+static void ExplainXMLTag(const char *tagname, int flags, ExplainState *es)
+{
+    const char *valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.";
+
+    // Add indentation unless suppressed
+    if ((flags & X_NOWHITESPACE) == 0)
+        appendStringInfoSpaces(es->str, 2 * es->indent);
+
+    // Start tag
+    appendStringInfoCharMacro(es->str, '<');
+    if ((flags & X_CLOSING) != 0)
+        appendStringInfoCharMacro(es->str, '/');
+
+    // Sanitize tag name: replace invalid XML characters with dashes
+    for (const char *s = tagname; *s; s++)
+        appendStringInfoChar(es->str, strchr(valid, *s) ? *s : '-');
+
+    // Handle self-closing tags
+    if ((flags & X_CLOSE_IMMEDIATE) != 0)
+        appendStringInfoString(es->str, " /");
+
+    // Close tag and add newline unless suppressed
+    appendStringInfoCharMacro(es->str, '>');
+    if ((flags & X_NOWHITESPACE) == 0)
+        appendStringInfoCharMacro(es->str, '\n');
+}
+```

@@ -41,3 +41,30 @@ The function can optionally manage the partition lock itself, or work with an al
 - Part of PostgreSQL's hash table space management for predicate locks
 - Conditionally acquires/releases ScratchPartitionLock based on lockheld parameter
 - Essential for managing memory pressure in the predicate locking system
+
+## Simplified Source
+
+```c
+static void
+RemoveScratchTarget(bool lockheld)
+{
+    bool found;
+
+    Assert(LWLockHeldByMe(SerializablePredicateListLock));
+
+    // Acquire partition lock if not already held
+    if (!lockheld)
+        LWLockAcquire(ScratchPartitionLock, LW_EXCLUSIVE);
+
+    // Remove the dummy scratch target from hash table
+    hash_search_with_hash_value(PredicateLockTargetHash,
+                                &ScratchTargetTag,
+                                ScratchTargetTagHash,
+                                HASH_REMOVE, &found);
+    Assert(found);
+
+    // Release partition lock if we acquired it
+    if (!lockheld)
+        LWLockRelease(ScratchPartitionLock);
+}
+```

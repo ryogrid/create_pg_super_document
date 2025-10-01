@@ -38,3 +38,16 @@ The function performs safe integer arithmetic using PostgreSQL's overflow-checki
 - Part of PostgreSQL's datetime/interval parsing infrastructure in datetime.c
 - The overflow check ensures robustness when dealing with extreme input values
 - Located at src/backend/utils/adt/datetime.c:601-617
+
+## Simplified Source
+
+```c
+static bool AdjustFractYears(double frac, int scale, struct pg_itm_in *itm_in) {
+    // Convert fractional years to months with proper rounding
+    // frac * scale = years, then * 12 = months
+    int extra_months = (int) rint(frac * scale * MONTHS_PER_YEAR);
+
+    // Safely add months to existing count
+    return !pg_add_s32_overflow(itm_in->tm_mon, extra_months, &itm_in->tm_mon);
+}
+```

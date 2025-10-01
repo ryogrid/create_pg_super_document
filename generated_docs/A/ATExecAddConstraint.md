@@ -48,3 +48,54 @@ The function includes robust error handling for duplicate constraint names and u
 - Returns InvalidObjectAddress when no constraint is actually added
 - Part of the larger ALTER TABLE infrastructure and integrates with the work queue system for complex multi-step operations
 - Uses a switch statement design pattern to make adding new constraint types straightforward
+
+## Simplified Source
+
+```c
+static ObjectAddress ATExecAddConstraint(List **wqueue, AlteredTableInfo *tab, Relation rel,
+                                        Constraint *newConstraint, bool recurse, bool is_readd,
+                                        LOCKMODE lockmode) {
+    ObjectAddress address = InvalidObjectAddress;
+
+    Assert(IsA(newConstraint, Constraint));
+
+    // Dispatch to appropriate constraint handler based on type
+    switch (newConstraint->contype) {
+        case CONSTR_CHECK:
+            // Handle CHECK constraints
+            address = ATAddCheckConstraint(wqueue, tab, rel, newConstraint,
+                                         recurse, false, is_readd, lockmode);
+            break;
+
+        case CONSTR_FOREIGN:
+            // Handle FOREIGN KEY constraints
+
+            // Validate or generate constraint name
+            if (newConstraint->conname) {
+                // Check if name already exists
+                if (ConstraintNameIsUsed(CONSTRAINT_RELATION, RelationGetRelid(rel),
+                                       newConstraint->conname)) {
+                    ereport(ERROR, "constraint \"%s\" for relation \"%s\" already exists",
+                           newConstraint->conname, RelationGetRelationName(rel));
+                }
+            } else {
+                // Auto-generate foreign key constraint name
+                newConstraint->conname = ChooseConstraintName(
+                    RelationGetRelationName(rel),
+                    ChooseForeignKeyConstraintNameAddition(newConstraint->fk_attrs),
+                    "fkey",
+                    RelationGetNamespace(rel),
+                    NIL);
+            }
+
+            address = ATAddForeignKeyConstraint(wqueue, tab, rel, newConstraint,
+                                              recurse, false, lockmode);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized constraint type: %d", (int) newConstraint->contype);
+    }
+
+    return address;
+}
+```

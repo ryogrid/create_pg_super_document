@@ -40,3 +40,54 @@ This function determines the sample size requirements for extended statistics co
 - Uses a temporary memory context for safe memory management
 - Does not report warnings for incomputable statistics (deferred to BuildRelationExtStatistics)
 - The 300x multiplier ensures sufficient sample size for accurate extended statistics computation
+
+## Simplified Source
+
+```c
+int ComputeExtStatisticsRows(Relation onerel, int natts, VacAttrStats **vacattrstats) {
+    Relation pg_stext;
+    List *lstats;
+    MemoryContext cxt, oldcxt;
+    int result = 0;
+
+    // Return 0 if no columns to analyze
+    if (!natts)
+        return 0;
+
+    // Create memory context for computation
+    cxt = AllocSetContextCreate(CurrentMemoryContext, "ComputeExtStatisticsRows", ALLOCSET_DEFAULT_SIZES);
+    oldcxt = MemoryContextSwitchTo(cxt);
+
+    // Get list of extended statistics objects for this relation
+    pg_stext = table_open(StatisticExtRelationId, RowExclusiveLock);
+    lstats = fetch_statentries_for_relation(pg_stext, RelationGetRelid(onerel));
+
+    // Process each statistics object to find maximum target
+    foreach(lc, lstats) {
+        StatExtEntry *stat = (StatExtEntry *) lfirst(lc);
+        VacAttrStats **stats;
+        int stattarget;
+        int nattrs = bms_num_members(stat->columns);
+
+        // Check if we can build this statistics object with available columns
+        stats = lookup_var_attr_stats(onerel, stat->columns, stat->exprs, natts, vacattrstats);
+        if (!stats)
+            continue;  // Skip if required columns aren't analyzed
+
+        // Compute statistics target for this object
+        stattarget = statext_compute_stattarget(stat->stattarget, nattrs, stats);
+
+        // Keep track of the largest target
+        if (stattarget > result)
+            result = stattarget;
+    }
+
+    // Clean up
+    table_close(pg_stext, RowExclusiveLock);
+    MemoryContextSwitchTo(oldcxt);
+    MemoryContextDelete(cxt);
+
+    // Return sample size: 300 rows per statistics target unit
+    return (300 * result);
+}
+```

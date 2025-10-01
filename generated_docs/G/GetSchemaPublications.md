@@ -33,3 +33,25 @@ The function performs a systematic search through the PUBLICATIONNAMESPACEMAP sy
 - The function handles memory management by releasing the system cache list after processing
 - Part of PostgreSQL's logical replication infrastructure for schema-level publication support
 - The result list contains publication OIDs that can be used for further publication-related operations
+
+## Simplified Source
+
+```c
+List *GetSchemaPublications(Oid schemaid) {
+    List *result = NIL;
+    CatCList *pubschlist;
+
+    // Find all publications associated with this schema
+    pubschlist = SearchSysCacheList1(PUBLICATIONNAMESPACEMAP, ObjectIdGetDatum(schemaid));
+
+    // Extract publication OIDs from each matching entry
+    for (int i = 0; i < pubschlist->n_members; i++) {
+        HeapTuple tup = &pubschlist->members[i]->tuple;
+        Oid pubid = ((Form_pg_publication_namespace) GETSTRUCT(tup))->pnpubid;
+        result = lappend_oid(result, pubid);
+    }
+
+    ReleaseSysCacheList(pubschlist);
+    return result;
+}
+```

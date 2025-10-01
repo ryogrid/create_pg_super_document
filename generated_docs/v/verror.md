@@ -37,3 +37,23 @@ The function outputs errors in a format compatible with the "cc" compiler to ena
 - Uses internationalization macros (_(.)) for error message localization
 - Forms the foundation for both error() and warning() functions in the timezone compiler
 - The format specifically matches "cc" compiler output for tool integration
+
+## Simplified Source
+
+```c
+static void verror(const char *string, va_list args) {
+    // Print filename and line number if available
+    if (filename)
+        fprintf(stderr, _("\"%s\", line %d: "), filename, linenum);
+
+    // Print the formatted error message
+    vfprintf(stderr, string, args);
+
+    // Print rule file context if available
+    if (rfilename != NULL)
+        fprintf(stderr, _(" (rule from \"%s\", line %d)"), rfilename, rlinenum);
+
+    // End with newline
+    fprintf(stderr, "\n");
+}
+```

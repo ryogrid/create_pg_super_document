@@ -33,3 +33,26 @@ SetReindexProcessing is a static function that establishes the global reindexing
 - The function automatically removes the index from any pending reindex state
 - Sets the reindexing transaction nesting level to enable proper cleanup on transaction abort
 - This is a static function within src/backend/catalog/index.c and is not exposed outside this module
+
+## Simplified Source
+
+```c
+static void SetReindexProcessing(Oid heapOid, Oid indexOid) {
+    // Validate input parameters
+    Assert(OidIsValid(heapOid) && OidIsValid(indexOid));
+
+    // Prevent re-entrant reindexing
+    if (OidIsValid(currentlyReindexedHeap))
+        elog(ERROR, "cannot reindex while reindexing");
+
+    // Set global reindexing state
+    currentlyReindexedHeap = heapOid;
+    currentlyReindexedIndex = indexOid;
+
+    // Remove from pending reindex list
+    RemoveReindexPending(indexOid);
+
+    // Track transaction nesting level for cleanup
+    reindexingNestLevel = GetCurrentTransactionNestLevel();
+}
+```

@@ -36,3 +36,14 @@ This is a simple utility function that counts the number of variables available 
 - Used by higher-level jsonpath functions that need to know the variable count
 - Part of PostgreSQL's SQL/JSON path expression variable management system
 - The function assumes the context parameter is always a valid List pointer
+
+## Simplified Source
+
+```c
+static int CountJsonPathVars(void *cxt) {
+    List *vars = (List *) cxt;
+
+    // Return count of variables in the list
+    return list_length(vars);
+}
+```

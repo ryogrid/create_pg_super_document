@@ -53,3 +53,28 @@ This design allows the function to gracefully handle boundary conditions while s
 - The clamping behavior allows operations to continue when one operand is already at a boundary
 - Still calls time_overflow() for genuine overflow cases to maintain data integrity
 - Commonly used in contexts where time values may approach or reach system time limits
+
+## Simplified Source
+
+```c
+static zic_t tadd(zic_t t1, zic_t t2) {
+    if (t1 < 0) {
+        // Check for underflow when t1 is negative
+        if (t2 < min_time - t1) {
+            if (t1 != min_time)
+                time_overflow();  // Error if not already at minimum
+            return min_time;      // Clamp to minimum
+        }
+    } else {
+        // Check for overflow when t1 is non-negative
+        if (max_time - t1 < t2) {
+            if (t1 != max_time)
+                time_overflow();  // Error if not already at maximum
+            return max_time;      // Clamp to maximum
+        }
+    }
+
+    // Safe to add
+    return t1 + t2;
+}
+```

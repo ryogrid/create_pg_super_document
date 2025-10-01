@@ -59,3 +59,68 @@ The recursive nature handles complex partition hierarchies where a partition can
 - Returns working copy to caller while caching separate copy in relcache
 - [Variable](../V/Variable.md) attribute number mapping ensures constraints reference correct columns in target partition
 - Handles the case where partition bounds may be NULL (no constraints)
+
+## Simplified Source
+
+```c
+static List *
+generate_partition_qual(Relation rel)
+{
+    List *my_qual = NIL, *result = NIL;
+    Oid parentrelid;
+    Relation parent;
+
+    // Guard against infinite recursion in deep partition trees
+    check_stack_depth();
+
+    // Return cached result if already computed
+    if (rel->rd_partcheckvalid)
+        return copyObject(rel->rd_partcheck);
+
+    // Open parent relation with lock
+    parentrelid = get_partition_parent(RelationGetRelid(rel), true);
+    parent = relation_open(parentrelid, AccessShareLock);
+
+    // Get partition bounds from pg_class.relpartbound
+    HeapTuple tuple = SearchSysCache1(RELOID, ObjectIdGetDatum(RelationGetRelid(rel)));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", RelationGetRelid(rel));
+
+    // Extract and parse partition bounds
+    bool isnull;
+    Datum boundDatum = SysCacheGetAttr(RELOID, tuple, Anum_pg_class_relpartbound, &isnull);
+    if (!isnull) {
+        PartitionBoundSpec *bound = castNode(PartitionBoundSpec,
+                                           stringToNode(TextDatumGetCString(boundDatum)));
+        my_qual = get_qual_from_partbound(parent, bound);
+    }
+    ReleaseSysCache(tuple);
+
+    // Recursively get parent constraints and combine with local ones
+    if (parent->rd_rel->relispartition)
+        result = list_concat(generate_partition_qual(parent), my_qual);
+    else
+        result = my_qual;
+
+    // Map variable attribute numbers to match this partition's schema
+    result = map_partition_varattnos(result, 1, rel, parent);
+
+    // Cache the result if non-empty
+    if (result != NIL) {
+        rel->rd_partcheckcxt = AllocSetContextCreate(CacheMemoryContext,
+                                                    "partition constraint",
+                                                    ALLOCSET_SMALL_SIZES);
+        MemoryContext oldcxt = MemoryContextSwitchTo(rel->rd_partcheckcxt);
+        rel->rd_partcheck = copyObject(result);
+        MemoryContextSwitchTo(oldcxt);
+    } else {
+        rel->rd_partcheck = NIL;
+    }
+    rel->rd_partcheckvalid = true;
+
+    // Keep parent locked until commit
+    relation_close(parent, NoLock);
+
+    return result;
+}
+```

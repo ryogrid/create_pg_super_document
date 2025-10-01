@@ -41,3 +41,21 @@ The function returns true only when both conditions are satisfied, providing a c
 - CREATE privilege on the database is required, not just USAGE or other lower-level privileges
 - This function is part of PostgreSQL's broader trusted extension framework introduced to allow safer extension installation
 - The comment mentions that error hint logic should be updated if this policy changes, indicating this function's role in security messaging
+
+## Simplified Source
+
+```c
+static bool extension_is_trusted(ExtensionControlFile *control) {
+    // First check: extension must be marked as trusted
+    if (!control->trusted)
+        return false;
+
+    // Second check: user must have CREATE privilege on current database
+    AclResult aclresult = object_aclcheck(DatabaseRelationId, MyDatabaseId,
+                                         GetUserId(), ACL_CREATE);
+    if (aclresult == ACLCHECK_OK)
+        return true;
+
+    return false;
+}
+```

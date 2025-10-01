@@ -39,3 +39,18 @@ The  function is the execution handler for ALTER TABLE ENABLE/DISABLE RULE comma
 - The actual rule manipulation logic is implemented in the rewrite rule subsystem (rewriteDefine.c)
 - Unlike the trigger version, this function does not support recursion or skip_system flags
 - Rules are part of PostgreSQL's query rewrite system for implementing views and other query transformations
+
+## Simplified Source
+
+```c
+static void
+ATExecEnableDisableRule(Relation rel, const char *rulename,
+                       char fires_when, LOCKMODE lockmode)
+{
+    // Delegate to the rewrite rule subsystem
+    EnableDisableRule(rel, rulename, fires_when);
+
+    // Invoke post-alter hooks for event triggers
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+}
+```

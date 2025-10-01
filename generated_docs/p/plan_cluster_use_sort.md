@@ -53,3 +53,77 @@ The function returns true if sorting is cheaper, false if index scanning is more
 - Index expression costs are doubled in sort comparison because tuplesort re-evaluates expressions
 - Considers only btree indexes as input (validated by caller)
 - Returns true (use sort) as fallback when index is not available for use
+
+## Simplified Source
+
+```c
+bool
+plan_cluster_use_sort(Oid tableOid, Oid indexOid)
+{
+    PlannerInfo *root;
+    Query *query;
+    RangeTblEntry *rte;
+    RelOptInfo *rel;
+    IndexOptInfo *indexInfo;
+    Path *seqScanPath, seqScanAndSortPath;
+    IndexPath *indexScanPath;
+    QualCost indexExprCost;
+    Cost comparisonCost;
+
+    // Short-circuit if index scans are disabled
+    if (!enable_indexscan)
+        return true;  // use sort
+
+    // Set up minimal planner state
+    query = makeNode(Query);
+    query->commandType = CMD_SELECT;
+    root = makeNode(PlannerInfo);
+    root->parse = query;
+
+    // Build minimal RTE for the relation
+    rte = makeNode(RangeTblEntry);
+    rte->rtekind = RTE_RELATION;
+    rte->relid = tableOid;
+    query->rtable = list_make1(rte);
+
+    // Set up relation arrays and build RelOptInfo
+    setup_simple_rel_arrays(root);
+    rel = build_simple_rel(root, 1, NULL);
+
+    // Find the target index in the relation's index list
+    indexInfo = NULL;
+    foreach(lc, rel->indexlist) {
+        indexInfo = lfirst_node(IndexOptInfo, lc);
+        if (indexInfo->indexoid == indexOid)
+            break;
+    }
+
+    // If index not found, use sort as fallback
+    if (lc == NULL)
+        return true;
+
+    // Set up basic relation statistics
+    rel->rows = rel->tuples;
+    rel->reltarget->width = get_relation_data_width(tableOid, NULL);
+    root->total_table_pages = rel->pages;
+
+    // Calculate index expression evaluation costs (doubled for sort comparisons)
+    cost_qual_eval(&indexExprCost, indexInfo->indexprs, root);
+    comparisonCost = 2.0 * (indexExprCost.startup + indexExprCost.per_tuple);
+
+    // Estimate cost of sequential scan + sort
+    seqScanPath = create_seqscan_path(root, rel, NULL, 0);
+    cost_sort(&seqScanAndSortPath, root, NIL,
+              seqScanPath->total_cost, rel->tuples, rel->reltarget->width,
+              comparisonCost, maintenance_work_mem, -1.0);
+
+    // Estimate cost of index scan
+    indexScanPath = create_index_path(root, indexInfo,
+                                      NIL, NIL, NIL, NIL,
+                                      ForwardScanDirection, false,
+                                      NULL, 1.0, false);
+
+    // Return true if sort is cheaper than index scan
+    return (seqScanAndSortPath.total_cost < indexScanPath->path.total_cost);
+}
+```

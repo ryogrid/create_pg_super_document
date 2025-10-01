@@ -41,3 +41,28 @@ Before performing any counter updates, the function proactively calls DCH_preven
 - The dual-key search (string + std flag) ensures format interpretation consistency
 - Cache hits are relatively efficient due to the bounded cache size (DCH_CACHE_ENTRIES)
 - Forms part of the three-function cache management system alongside DCH_cache_getnew and DCH_cache_fetch
+
+## Simplified Source
+
+```c
+static DCHCacheEntry *
+DCH_cache_search(const char *str, bool std)
+{
+    // Prevent counter overflow before updating ages
+    DCH_prevent_counter_overflow();
+
+    // Linear search through all cached entries
+    for (int i = 0; i < n_DCHCache; i++) {
+        DCHCacheEntry *ent = DCHCache[i];
+
+        // Check for exact match: valid entry, same string, same std flag
+        if (ent->valid && strcmp(ent->str, str) == 0 && ent->std == std) {
+            // Update age to mark as recently accessed (LRU)
+            ent->age = (++DCHCounter);
+            return ent;  // Cache hit
+        }
+    }
+
+    return NULL;  // Cache miss
+}
+```

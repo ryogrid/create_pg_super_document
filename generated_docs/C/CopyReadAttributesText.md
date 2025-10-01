@@ -61,3 +61,146 @@ The parsed field values are stored as null-terminated strings in , with NULL poi
 - Non-ASCII characters generated through escape sequences trigger encoding validation to ensure database compatibility
 - Zero-column table handling is a special case that simply validates empty input lines
 - Error reporting includes detailed context about column names and expected formats for better user experience
+
+## Simplified Source
+
+```c
+static int
+CopyReadAttributesText(CopyFromState cstate)
+{
+    char delimc = cstate->opts.delim[0];
+    int fieldno;
+    char *output_ptr, *cur_ptr, *line_end_ptr;
+
+    // Handle zero-column tables
+    if (cstate->max_fields <= 0) {
+        if (cstate->line_buf.len != 0)
+            ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                           errmsg("extra data after last expected column")));
+        return 0;
+    }
+
+    // Setup output buffer
+    resetStringInfo(&cstate->attribute_buf);
+    if (cstate->attribute_buf.maxlen <= cstate->line_buf.len)
+        enlargeStringInfo(&cstate->attribute_buf, cstate->line_buf.len);
+
+    output_ptr = cstate->attribute_buf.data;
+    cur_ptr = cstate->line_buf.data;
+    line_end_ptr = cstate->line_buf.data + cstate->line_buf.len;
+
+    // Parse each field
+    fieldno = 0;
+    for (;;) {
+        bool found_delim = false;
+        char *start_ptr, *end_ptr;
+        bool saw_non_ascii = false;
+
+        // Expand fields array if needed
+        if (fieldno >= cstate->max_fields) {
+            cstate->max_fields *= 2;
+            cstate->raw_fields = repalloc(cstate->raw_fields,
+                                        cstate->max_fields * sizeof(char *));
+        }
+
+        start_ptr = cur_ptr;
+        cstate->raw_fields[fieldno] = output_ptr;
+
+        // Parse field with escape sequence handling
+        for (;;) {
+            char c;
+            end_ptr = cur_ptr;
+            if (cur_ptr >= line_end_ptr) break;
+
+            c = *cur_ptr++;
+            if (c == delimc) {
+                found_delim = true;
+                break;
+            }
+
+            // Handle escape sequences
+            if (c == '\\') {
+                if (cur_ptr >= line_end_ptr) break;
+                c = *cur_ptr++;
+
+                switch (c) {
+                    case '0': case '1': case '2': case '3':
+                    case '4': case '5': case '6': case '7':
+                        // Octal sequences (\013)
+                        {
+                            int val = OCTVALUE(c);
+                            if (cur_ptr < line_end_ptr && ISOCTAL(*cur_ptr)) {
+                                val = (val << 3) + OCTVALUE(*cur_ptr++);
+                                if (cur_ptr < line_end_ptr && ISOCTAL(*cur_ptr))
+                                    val = (val << 3) + OCTVALUE(*cur_ptr++);
+                            }
+                            c = val & 0377;
+                            if (c == '\0' || IS_HIGHBIT_SET(c))
+                                saw_non_ascii = true;
+                        }
+                        break;
+                    case 'x':
+                        // Hexadecimal sequences (\x3F)
+                        if (cur_ptr < line_end_ptr && isxdigit((unsigned char) *cur_ptr)) {
+                            int val = GetDecimalFromHex(*cur_ptr++);
+                            if (cur_ptr < line_end_ptr && isxdigit((unsigned char) *cur_ptr))
+                                val = (val << 4) + GetDecimalFromHex(*cur_ptr++);
+                            c = val & 0xff;
+                            if (c == '\0' || IS_HIGHBIT_SET(c))
+                                saw_non_ascii = true;
+                        }
+                        break;
+                    case 'b': c = '\b'; break;
+                    case 'f': c = '\f'; break;
+                    case 'n': c = '\n'; break;
+                    case 'r': c = '\r'; break;
+                    case 't': c = '\t'; break;
+                    case 'v': c = '\v'; break;
+                    // All other cases: take character literally
+                }
+            }
+
+            *output_ptr++ = c;
+        }
+
+        // Check for NULL and DEFAULT markers
+        int input_len = end_ptr - start_ptr;
+        if (input_len == cstate->opts.null_print_len &&
+            strncmp(start_ptr, cstate->opts.null_print, input_len) == 0) {
+            cstate->raw_fields[fieldno] = NULL;
+        } else if (fieldno < list_length(cstate->attnumlist) &&
+                   cstate->opts.default_print &&
+                   input_len == cstate->opts.default_print_len &&
+                   strncmp(start_ptr, cstate->opts.default_print, input_len) == 0) {
+            // Handle DEFAULT marker
+            int m = list_nth_int(cstate->attnumlist, fieldno) - 1;
+            if (cstate->defexprs[m] != NULL) {
+                cstate->defaults[m] = true;
+            } else {
+                TupleDesc tupDesc = RelationGetDescr(cstate->rel);
+                Form_pg_attribute att = TupleDescAttr(tupDesc, m);
+                ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                               errmsg("unexpected default marker in COPY data"),
+                               errdetail("Column \"%s\" has no default value.",
+                                        NameStr(att->attname))));
+            }
+        } else {
+            // Validate encoding for non-ASCII characters
+            if (saw_non_ascii) {
+                char *fld = cstate->raw_fields[fieldno];
+                pg_verifymbstr(fld, output_ptr - fld, false);
+            }
+        }
+
+        *output_ptr++ = '\0';
+        fieldno++;
+        if (!found_delim) break;
+    }
+
+    // Finalize output buffer
+    output_ptr--;
+    cstate->attribute_buf.len = (output_ptr - cstate->attribute_buf.data);
+
+    return fieldno;
+}
+```

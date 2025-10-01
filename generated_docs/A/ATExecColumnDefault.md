@@ -54,3 +54,57 @@ The function ensures data integrity by validating column types and providing cle
 - The function reuses AddRelationNewConstraints() which was designed for CREATE TABLE but works with single-item lists
 - Returns the ObjectAddress of the modified column for dependency tracking and event system integration
 - Identity columns require specific ALTER IDENTITY syntax, while generated columns require ALTER EXPRESSION syntax
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecColumnDefault(Relation rel, const char *colName,
+                    Node *newDefault, LOCKMODE lockmode)
+{
+    TupleDesc tupdesc = RelationGetDescr(rel);
+    AttrNumber attnum;
+    ObjectAddress address;
+
+    // Get column number by name
+    attnum = get_attnum(RelationGetRelid(rel), colName);
+    if (attnum == InvalidAttrNumber)
+        ereport(ERROR, (errmsg("column \"%s\" of relation \"%s\" does not exist",
+                               colName, RelationGetRelationName(rel))));
+
+    // Validate column type - reject system columns
+    if (attnum <= 0)
+        ereport(ERROR, (errmsg("cannot alter system column \"%s\"", colName)));
+
+    // Reject identity columns - they have special syntax
+    if (TupleDescAttr(tupdesc, attnum - 1)->attidentity)
+        ereport(ERROR, (errmsg("column \"%s\" is an identity column", colName)));
+
+    // Reject generated columns - they have special syntax
+    if (TupleDescAttr(tupdesc, attnum - 1)->attgenerated)
+        ereport(ERROR, (errmsg("column \"%s\" is a generated column", colName)));
+
+    // Remove any existing default value
+    RemoveAttrDefault(RelationGetRelid(rel), attnum, DROP_RESTRICT, false,
+                      newDefault != NULL);
+
+    // Add new default if specified (SET DEFAULT case)
+    if (newDefault)
+    {
+        RawColumnDefault *rawEnt = palloc(sizeof(RawColumnDefault));
+        rawEnt->attnum = attnum;
+        rawEnt->raw_default = newDefault;
+        rawEnt->missingMode = false;
+        rawEnt->generated = '\0';
+
+        // Add the new default constraint
+        AddRelationNewConstraints(rel, list_make1(rawEnt), NIL,
+                                  false, true, false, NULL);
+    }
+
+    // Return address of the modified column
+    ObjectAddressSubSet(address, RelationRelationId,
+                        RelationGetRelid(rel), attnum);
+    return address;
+}
+```

@@ -33,3 +33,14 @@ This implementation ensures consistent behavior across different systems and loc
 - Locale-independent implementation ensures consistent behavior across different system configurations
 - Part of PostgreSQL's timezone compilation utilities (zic)
 - Commonly used in case-insensitive string comparison operations within the timezone handling code
+
+## Simplified Source
+
+```c
+static char lowerit(char a) {
+    // Convert uppercase ASCII letters to lowercase, leave others unchanged
+    if (a >= 'A' && a <= 'Z')
+        return a + ('a' - 'A');  // Add 32 to convert case
+    return a;
+}
+```

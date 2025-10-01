@@ -40,3 +40,31 @@ The function follows PostgreSQL's standard input/output function convention, tak
 - Returns a palloc'd string that must be freed by the caller
 - Throws an error if the timestamp value is out of range
 - The output format depends on the current  setting
+
+## Simplified Source
+
+```c
+Datum timestamptz_out(PG_FUNCTION_ARGS) {
+    TimestampTz dt = PG_GETARG_TIMESTAMPTZ(0);
+    char *result;
+    char buf[MAXDATELEN + 1];
+
+    // Handle special timestamp values (infinity, -infinity)
+    if (TIMESTAMP_NOT_FINITE(dt)) {
+        EncodeSpecialTimestamp(dt, buf);
+    }
+    // Convert finite timestamp to formatted string
+    else if (timestamp2tm(dt, &tz, tm, &fsec, &tzn, NULL) == 0) {
+        EncodeDateTime(tm, fsec, true, tz, tzn, DateStyle, buf);
+    }
+    // Handle conversion errors
+    else {
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+    }
+
+    // Return palloc'd copy of formatted string
+    result = pstrdup(buf);
+    PG_RETURN_CSTRING(result);
+}
+```

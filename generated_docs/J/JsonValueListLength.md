@@ -38,3 +38,14 @@ This function is used throughout the JSON path execution engine to determine the
 - Part of the JSON path expression evaluation system in PostgreSQL
 - Used for both validation (ensuring single values where required) and iteration control
 - The JsonValueList structure uses a singleton optimization to avoid list overhead for single values
+
+## Simplified Source
+
+```c
+static int
+JsonValueListLength(const JsonValueList *jvl)
+{
+    // Return 1 for singleton, otherwise get list length
+    return jvl->singleton ? 1 : list_length(jvl->list);
+}
+```

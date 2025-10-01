@@ -62,3 +62,82 @@ The operation is complex because changing a generated expression affects not onl
 - The new expression is processed through expression_planner() to optimize it for execution
 - Creates a NewColumnValue structure to prepare for the table rewrite phase
 - Does not support regular inheritance propagation - only works on the specific relation specified
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecSetExpression(AlteredTableInfo *tab, Relation rel, const char *colName,
+                    Node *newExpr, LOCKMODE lockmode)
+{
+    HeapTuple tuple;
+    Form_pg_attribute attTup;
+    AttrNumber attnum;
+    Oid attrdefoid;
+    ObjectAddress address;
+    Expr *defval;
+    NewColumnValue *newval;
+    RawColumnDefault *rawEnt;
+
+    // Find and validate the target column
+    tuple = SearchSysCacheAttName(RelationGetRelid(rel), colName);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "column does not exist");
+
+    attTup = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = attTup->attnum;
+
+    // Validate column can be altered
+    if (attnum <= 0)
+        ereport(ERROR, "cannot alter system column");
+    if (attTup->attgenerated != ATTRIBUTE_GENERATED_STORED)
+        ereport(ERROR, "column is not a generated column");
+    ReleaseSysCache(tuple);
+
+    // Clear missing values since we're rewriting the table
+    RelationClearMissing(rel);
+    CommandCounterIncrement();
+
+    // Record dependencies for rebuilding after rewrite
+    RememberAllDependentForRebuilding(tab, AT_SetExpression, rel, attnum, colName);
+
+    // Remove old expression and its dependencies
+    attrdefoid = GetAttrDefaultOid(RelationGetRelid(rel), attnum);
+    if (!OidIsValid(attrdefoid))
+        elog(ERROR, "could not find attrdef tuple");
+    deleteDependencyRecordsFor(AttrDefaultRelationId, attrdefoid, false);
+    CommandCounterIncrement();
+
+    // Remove the old generated expression
+    RemoveAttrDefault(RelationGetRelid(rel), attnum, DROP_RESTRICT, false, false);
+
+    // Store the new expression
+    rawEnt = (RawColumnDefault *) palloc(sizeof(RawColumnDefault));
+    rawEnt->attnum = attnum;
+    rawEnt->raw_default = newExpr;
+    rawEnt->missingMode = false;
+    rawEnt->generated = ATTRIBUTE_GENERATED_STORED;
+
+    AddRelationNewConstraints(rel, list_make1(rawEnt), NIL, false, true, false, NULL);
+    CommandCounterIncrement();
+
+    // Prepare for table rewrite - build new column value
+    defval = (Expr *) build_column_default(rel, attnum);
+    newval = (NewColumnValue *) palloc0(sizeof(NewColumnValue));
+    newval->attnum = attnum;
+    newval->expr = expression_planner(defval);
+    newval->is_generated = true;
+
+    // Mark table for rewrite and add new value
+    tab->newvals = lappend(tab->newvals, newval);
+    tab->rewrite |= AT_REWRITE_DEFAULT_VAL;
+
+    // Remove old statistics since they're invalid now
+    RemoveStatistics(RelationGetRelid(rel), attnum);
+
+    // Invoke post-alter hooks and return address
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attnum);
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+    return address;
+}
+```

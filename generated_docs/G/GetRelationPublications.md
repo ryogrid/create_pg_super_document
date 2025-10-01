@@ -38,3 +38,25 @@ The function uses the PUBLICATIONRELMAP system cache to perform the lookup, whic
 - Properly manages memory by releasing the system cache list after use
 - The returned list contains publication OIDs that can be used for further publication-related operations
 - This function is commonly used in replication contexts to determine which publications need to be considered for a given table
+
+## Simplified Source
+
+```c
+List *GetRelationPublications(Oid relid) {
+    List *result = NIL;
+    CatCList *pubrellist;
+
+    // Find all publications associated with this relation
+    pubrellist = SearchSysCacheList1(PUBLICATIONRELMAP, ObjectIdGetDatum(relid));
+
+    // Extract publication OIDs from each matching entry
+    for (int i = 0; i < pubrellist->n_members; i++) {
+        HeapTuple tup = &pubrellist->members[i]->tuple;
+        Oid pubid = ((Form_pg_publication_rel) GETSTRUCT(tup))->prpubid;
+        result = lappend_oid(result, pubid);
+    }
+
+    ReleaseSysCacheList(pubrellist);
+    return result;
+}
+```

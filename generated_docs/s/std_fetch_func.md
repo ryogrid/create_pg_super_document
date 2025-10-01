@@ -37,3 +37,16 @@ The function is designed to be passed as a function pointer to various statistic
 - Returns the attribute value as a Datum, with null indication via the isNull parameter
 - Typically used as a function pointer argument to compute_stats and related routines
 - Part of the pluggable statistics computation framework in PostgreSQL's ANALYZE system
+
+## Simplified Source
+
+```c
+static Datum std_fetch_func(VacAttrStatsP stats, int rownum, bool *isNull) {
+    int attnum = stats->tupattnum;
+    HeapTuple tuple = stats->rows[rownum];
+    TupleDesc tupDesc = stats->tupDesc;
+
+    // Extract attribute value from the specified tuple
+    return heap_getattr(tuple, attnum, tupDesc, isNull);
+}
+```

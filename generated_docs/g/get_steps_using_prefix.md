@@ -47,3 +47,46 @@ When the prefix is empty (single partition key case), it directly generates a si
 
 ## Notes and Other Information
 The function includes important assertions to ensure correct usage based on partitioning strategy. For HASH partitioned tables, step_nullkeys provides a mechanism to handle missing clauses for certain partition keys, which is essential for hash partitioning semantics. The prefix list must be properly sorted by keyno to ensure correct step generation. This function is crucial for multi-column partition key pruning optimization.
+
+## Simplified Source
+
+```c
+static List *
+get_steps_using_prefix(GeneratePruningStepsContext *context,
+                       StrategyNumber step_opstrategy,
+                       bool step_op_is_ne,
+                       Expr *step_lastexpr,
+                       Oid step_lastcmpfn,
+                       Bitmapset *step_nullkeys,
+                       List *prefix)
+{
+    // Validate step_nullkeys usage (only for HASH partitioning)
+    Assert(step_nullkeys == NULL ||
+           context->rel->part_scheme->strategy == PARTITION_STRATEGY_HASH);
+
+    // Handle simple case: single partition key column
+    if (prefix == NIL)
+    {
+        PartitionPruneStep *step;
+
+        step = gen_prune_step_op(context,
+                                step_opstrategy,
+                                step_op_is_ne,
+                                list_make1(step_lastexpr),
+                                list_make1_oid(step_lastcmpfn),
+                                step_nullkeys);
+        return list_make1(step);
+    }
+
+    // Multiple partition keys: use recursive helper to generate all combinations
+    return get_steps_using_prefix_recurse(context,
+                                         step_opstrategy,
+                                         step_op_is_ne,
+                                         step_lastexpr,
+                                         step_lastcmpfn,
+                                         step_nullkeys,
+                                         prefix,
+                                         list_head(prefix),
+                                         NIL, NIL);
+}
+```

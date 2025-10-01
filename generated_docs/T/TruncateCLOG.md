@@ -43,3 +43,31 @@ Since CLOG segments contain many transactions, actual removal opportunities are 
 - The cutoff point is the start of the segment containing oldestXact
 - Removal opportunities are rare since CLOG segments hold many transactions
 - Essential for preventing unlimited CLOG growth in long-running PostgreSQL instances
+
+## Simplified Source
+
+```c
+void
+TruncateCLOG(TransactionId oldestXact, Oid oldestxid_datoid)
+{
+    int64 cutoffPage;
+
+    // Calculate the page containing the oldest transaction to keep
+    cutoffPage = TransactionIdToPage(oldestXact);
+
+    // Check if there are any removable CLOG files
+    if (!SlruScanDirectory(XactCtl, SlruScanDirCbReportPresence, &cutoffPage))
+        return; // Nothing to remove
+
+    // Advance the oldest CLOG XID before truncation to prevent
+    // concurrent lookups from accessing truncated data
+    AdvanceOldestClogXid(oldestXact);
+
+    // Write WAL record and flush to ensure crash safety
+    // This prevents unfrozen tuples from referencing removed CLOG data
+    WriteTruncateXlogRec(cutoffPage, oldestXact, oldestxid_datoid);
+
+    // Now safe to remove the old CLOG segments
+    SimpleLruTruncate(XactCtl, cutoffPage);
+}
+```

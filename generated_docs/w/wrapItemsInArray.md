@@ -38,3 +38,26 @@ This function takes a JsonValueList containing multiple JsonbValue items and con
 - Essential for JSON path operations that return multiple values as arrays
 - Memory management for the constructed array is handled by the JSONB construction infrastructure
 - The resulting array preserves the order of items as they appear in the input JsonValueList
+
+## Simplified Source
+
+```c
+static JsonbValue *
+wrapItemsInArray(const JsonValueList *items)
+{
+    JsonbParseState *ps = NULL;
+    JsonValueListIterator it;
+    JsonbValue *jbv;
+
+    // Start building JSON array
+    pushJsonbValue(&ps, WJB_BEGIN_ARRAY, NULL);
+
+    // Add each item as array element
+    JsonValueListInitIterator(items, &it);
+    while ((jbv = JsonValueListNext(items, &it)))
+        pushJsonbValue(&ps, WJB_ELEM, jbv);
+
+    // Complete the array and return result
+    return pushJsonbValue(&ps, WJB_END_ARRAY, NULL);
+}
+```

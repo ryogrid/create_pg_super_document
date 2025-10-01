@@ -44,3 +44,104 @@ The `rpytime` function calculates the exact timestamp when a timezone rule takes
 - Validates day-of-week rules to ensure dates remain within month boundaries
 - Uses EPOCH_YEAR (1970) as the reference point for all calculations
 - The "nod to Margaret O." comment refers to a humorous variable name for day offset
+
+## Simplified Source
+
+```c
+static zic_t
+rpytime(const struct rule *rp, zic_t wantedy)
+{
+    int m, i;
+    zic_t dayoff, t, y;
+
+    // Handle boundary cases
+    if (wantedy == ZIC_MIN) return min_time;
+    if (wantedy == ZIC_MAX) return max_time;
+
+    // Initialize to epoch year and calculate day offset
+    dayoff = 0;
+    m = TM_JANUARY;
+    y = EPOCH_YEAR;
+
+    // Handle year cycling for efficiency with distant years
+    if (y < wantedy) {
+        wantedy -= y;
+        dayoff = (wantedy / YEARSPERREPEAT) * (SECSPERREPEAT / SECSPERDAY);
+        wantedy %= YEARSPERREPEAT;
+        wantedy += y;
+    } else if (wantedy < 0) {
+        dayoff = (wantedy / YEARSPERREPEAT) * (SECSPERREPEAT / SECSPERDAY);
+        wantedy %= YEARSPERREPEAT;
+    }
+
+    // Count days from epoch year to target year
+    while (wantedy != y) {
+        if (wantedy > y) {
+            i = len_years[isleap(y)];
+            ++y;
+        } else {
+            --y;
+            i = -len_years[isleap(y)];
+        }
+        dayoff = oadd(dayoff, i);
+    }
+
+    // Add days for months leading up to target month
+    while (m != rp->r_month) {
+        i = len_months[isleap(y)][m];
+        dayoff = oadd(dayoff, i);
+        ++m;
+    }
+
+    // Handle day of month, with special February 29th logic
+    i = rp->r_dayofmonth;
+    if (m == TM_FEBRUARY && i == 29 && !isleap(y)) {
+        if (rp->r_dycode == DC_DOWLEQ)
+            --i;
+        else {
+            error(_("use of 2/29 in non leap-year"));
+            exit(EXIT_FAILURE);
+        }
+    }
+    --i;  // Convert to 0-based
+    dayoff = oadd(dayoff, i);
+
+    // Handle day-of-week rules (e.g., "last Sunday", "first Monday >= 8")
+    if (rp->r_dycode == DC_DOWGEQ || rp->r_dycode == DC_DOWLEQ) {
+        zic_t wday = EPOCH_WDAY;
+
+        // Calculate current day of week
+        if (dayoff >= 0)
+            wday = (wday + dayoff) % DAYSPERWEEK;
+        else {
+            wday -= ((-dayoff) % DAYSPERWEEK);
+            if (wday < 0) wday += DAYSPERWEEK;
+        }
+
+        // Adjust to target day of week
+        while (wday != rp->r_wday) {
+            if (rp->r_dycode == DC_DOWGEQ) {
+                dayoff = oadd(dayoff, 1);
+                if (++wday >= DAYSPERWEEK) wday = 0;
+                ++i;
+            } else {
+                dayoff = oadd(dayoff, -1);
+                if (--wday < 0) wday = DAYSPERWEEK - 1;
+                --i;
+            }
+        }
+
+        // Warn if rule goes past month boundaries
+        if (i < 0 || i >= len_months[isleap(y)][m]) {
+            if (noise)
+                warning(_("rule goes past start/end of month"));
+        }
+    }
+
+    // Convert days to seconds and add time-of-day
+    if (dayoff < min_time / SECSPERDAY) return min_time;
+    if (dayoff > max_time / SECSPERDAY) return max_time;
+    t = (zic_t) dayoff * SECSPERDAY;
+    return tadd(t, rp->r_tod);
+}
+```

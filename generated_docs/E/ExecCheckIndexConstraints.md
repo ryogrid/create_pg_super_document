@@ -63,3 +63,79 @@ Key characteristics:
 - Used primarily in the implementation of INSERT ... ON CONFLICT functionality
 - The lack of locking means race conditions are possible, but this is acceptable for its intended use case
 - Validation ensures that when specific arbiter indexes are requested, at least one valid index is actually checked
+
+## Simplified Source
+
+```c
+bool ExecCheckIndexConstraints(ResultRelInfo *resultRelInfo, TupleTableSlot *slot,
+                              EState *estate, ItemPointer conflictTid,
+                              List *arbiterIndexes) {
+    int numIndices = resultRelInfo->ri_NumIndices;
+    RelationPtr relationDescs = resultRelInfo->ri_IndexRelationDescs;
+    IndexInfo **indexInfoArray = resultRelInfo->ri_IndexRelationInfo;
+    Relation heapRelation = resultRelInfo->ri_RelationDesc;
+    bool checkedIndex = false;
+
+    // Initialize conflict TID to invalid
+    ItemPointerSetInvalid(conflictTid);
+
+    // Get expression evaluation context
+    ExprContext *econtext = GetPerTupleExprContext(estate);
+    econtext->ecxt_scantuple = slot;
+
+    // Check each index for constraint violations
+    for (int i = 0; i < numIndices; i++) {
+        Relation indexRelation = relationDescs[i];
+        IndexInfo *indexInfo = indexInfoArray[i];
+
+        // Skip non-constraint indexes
+        if (indexRelation == NULL || (!indexInfo->ii_Unique && !indexInfo->ii_ExclusionOps))
+            continue;
+
+        // Skip indexes not ready for inserts
+        if (!indexInfo->ii_ReadyForInserts)
+            continue;
+
+        // If specific arbiter indexes requested, only check those
+        if (arbiterIndexes != NIL &&
+            !list_member_oid(arbiterIndexes, indexRelation->rd_index->indexrelid))
+            continue;
+
+        // Reject deferrable constraints
+        if (!indexRelation->rd_index->indimmediate)
+            ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                           errmsg("ON CONFLICT does not support deferrable unique constraints/exclusion constraints as arbiters")));
+
+        checkedIndex = true;
+
+        // Check partial index predicate if present
+        if (indexInfo->ii_Predicate != NIL) {
+            ExprState *predicate = indexInfo->ii_PredicateState;
+            if (predicate == NULL) {
+                predicate = ExecPrepareQual(indexInfo->ii_Predicate, estate);
+                indexInfo->ii_PredicateState = predicate;
+            }
+            if (!ExecQual(predicate, econtext))
+                continue;
+        }
+
+        // Form index datum and check for constraint violations
+        Datum values[INDEX_MAX_KEYS];
+        bool isnull[INDEX_MAX_KEYS];
+        FormIndexDatum(indexInfo, slot, estate, values, isnull);
+
+        // Check for constraint violation
+        if (!check_exclusion_or_unique_constraint(heapRelation, indexRelation, indexInfo,
+                                                 &invalidItemPtr, values, isnull, estate,
+                                                 false, CEOUC_WAIT, true, conflictTid)) {
+            return false; // Conflict found
+        }
+    }
+
+    // Ensure at least one arbiter index was checked when requested
+    if (arbiterIndexes != NIL && !checkedIndex)
+        elog(ERROR, "unexpected failure to find arbiter index");
+
+    return true; // No conflicts
+}
+```

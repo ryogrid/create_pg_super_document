@@ -36,3 +36,42 @@ This function processes EquivalenceClass (EC) information to find join clauses t
 - The function excludes clauses that would create joins to lateral_referencers to avoid problematic query plans
 - Part of PostgreSQL's advanced join optimization using EquivalenceClass analysis
 - Location: src/backend/optimizer/path/indxpath.c:2013-2050
+
+## Simplified Source
+
+```c
+static void
+match_eclass_clauses_to_index(PlannerInfo *root, IndexOptInfo *index,
+                             IndexClauseSet *clauseset)
+{
+    int indexcol;
+
+    // Early exit if relation not involved in any EquivalenceClass joins
+    if (!index->rel->has_eclass_joins)
+        return;
+
+    // Process each key column of the index
+    for (indexcol = 0; indexcol < index->nkeycolumns; indexcol++)
+    {
+        ec_member_matches_arg arg;
+        List *clauses;
+
+        // Set up argument structure for callback
+        arg.index = index;
+        arg.indexcol = indexcol;
+
+        // Generate implied equality clauses for this column
+        // Skip any that would join to lateral_referencers
+        clauses = generate_implied_equalities_for_column(root,
+                                                        index->rel,
+                                                        ec_member_matches_indexcol,
+                                                        (void *) &arg,
+                                                        index->rel->lateral_referencers);
+
+        // Verify generated clauses actually match the index
+        // This is necessary because EC equality operators might not be
+        // in the index opclass for non-btree indexes
+        match_clauses_to_index(root, clauses, index, clauseset);
+    }
+}
+```

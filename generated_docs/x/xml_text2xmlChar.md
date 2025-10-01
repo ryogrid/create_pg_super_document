@@ -40,3 +40,15 @@ The conversion handles the TOAST (The Oversized-Attribute Storage Technique) dec
 - [Result](../R/Result.md) is a null-terminated string suitable for libxml2 functions
 - Memory management follows PostgreSQL conventions (result is palloc'd)
 - Essential for interfacing PostgreSQL text data with libxml2 API
+
+## Simplified Source
+
+```c
+static xmlChar *
+xml_text2xmlChar(text *in)
+{
+    // Convert PostgreSQL text type to libxml2 xmlChar string
+    // Extracts null-terminated C string from PostgreSQL's length-prefixed text
+    return (xmlChar *) text_to_cstring(in);
+}
+```

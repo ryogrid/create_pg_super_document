@@ -35,3 +35,15 @@ The function is designed to be called from arithmetic helper functions when they
 - Used specifically for time arithmetic overflow detection in timezone calculations
 - Serves as a fail-fast mechanism to prevent incorrect timezone data generation due to overflow conditions
 - The error message is translated using the _() macro for internationalization support
+
+## Simplified Source
+
+```c
+static void
+time_overflow(void)
+{
+    // Report localized error message and terminate
+    error(_("time overflow"));
+    exit(EXIT_FAILURE);
+}
+```

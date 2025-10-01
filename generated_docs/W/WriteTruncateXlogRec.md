@@ -40,3 +40,25 @@ This function creates and writes a WAL record to log the truncation of CLOG (com
 - Also used by commit timestamp functionality through the XactCtl function pointer mechanism
 - The flush operation (XLogFlush) ensures that the truncation record is durably stored before any actual page truncation occurs
 - Essential for crash recovery to maintain proper CLOG state across system restarts
+
+## Simplified Source
+
+```c
+static void
+WriteTruncateXlogRec(int64 pageno, TransactionId oldestXact, Oid oldestXactDb)
+{
+    XLogRecPtr recptr;
+    xl_clog_truncate xlrec;
+
+    // Prepare the truncation record
+    xlrec.pageno = pageno;
+    xlrec.oldestXact = oldestXact;
+    xlrec.oldestXactDb = oldestXactDb;
+
+    // Write and flush the WAL record
+    XLogBeginInsert();
+    XLogRegisterData((char *) (&xlrec), sizeof(xl_clog_truncate));
+    recptr = XLogInsert(RM_CLOG_ID, CLOG_TRUNCATE);
+    XLogFlush(recptr);  // Must flush before returning!
+}
+```

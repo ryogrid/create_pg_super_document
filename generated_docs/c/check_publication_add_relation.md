@@ -49,3 +49,42 @@ The function uses PostgreSQL's error reporting mechanism to provide detailed err
 - Error messages are standardized and include both the relation name and specific reason for rejection
 - The function is designed to fail fast - it stops at the first validation error encountered
 - Location: src/backend/catalog/pg_publication.c:59-97
+
+## Simplified Source
+
+```c
+static void
+check_publication_add_relation(Relation targetrel)
+{
+    // Only regular and partitioned tables allowed
+    if (RelationGetForm(targetrel)->relkind != RELKIND_RELATION &&
+        RelationGetForm(targetrel)->relkind != RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot add relation \"%s\" to publication",
+                        RelationGetRelationName(targetrel)),
+                 errdetail_relkind_not_supported(RelationGetForm(targetrel)->relkind)));
+
+    // System/catalog tables cannot be published
+    if (IsCatalogRelation(targetrel))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot add relation \"%s\" to publication",
+                        RelationGetRelationName(targetrel)),
+                 errdetail("This operation is not supported for system tables.")));
+
+    // Check table persistence - temp and unlogged tables not allowed
+    if (targetrel->rd_rel->relpersistence == RELPERSISTENCE_TEMP)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot add relation \"%s\" to publication",
+                        RelationGetRelationName(targetrel)),
+                 errdetail("This operation is not supported for temporary tables.")));
+    else if (targetrel->rd_rel->relpersistence == RELPERSISTENCE_UNLOGGED)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot add relation \"%s\" to publication",
+                        RelationGetRelationName(targetrel)),
+                 errdetail("This operation is not supported for unlogged tables.")));
+}
+```

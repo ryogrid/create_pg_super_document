@@ -88,3 +88,73 @@ The function implements a "delete-then-insert" strategy rather than update-or-in
 - The function is called only after all extended statistics have been successfully computed
 - Storage format uses PostgreSQL's standard bytea serialization for complex data structures
 - The inheritance flag allows for separate storage of regular and inheritance-based statistics
+
+## Simplified Source
+
+```c
+static void
+statext_store(Oid statOid, bool inh,
+              MVNDistinct *ndistinct, MVDependencies *dependencies,
+              MCVList *mcv, Datum exprs, VacAttrStats **stats)
+{
+    Relation pg_stextdata;
+    HeapTuple stup;
+    Datum values[Natts_pg_statistic_ext_data];
+    bool nulls[Natts_pg_statistic_ext_data];
+
+    // Open the statistics catalog table
+    pg_stextdata = table_open(StatisticExtDataRelationId, RowExclusiveLock);
+
+    // Initialize arrays
+    memset(nulls, true, sizeof(nulls));
+    memset(values, 0, sizeof(values));
+
+    // Set basic identification fields
+    values[Anum_pg_statistic_ext_data_stxoid - 1] = ObjectIdGetDatum(statOid);
+    nulls[Anum_pg_statistic_ext_data_stxoid - 1] = false;
+
+    values[Anum_pg_statistic_ext_data_stxdinherit - 1] = BoolGetDatum(inh);
+    nulls[Anum_pg_statistic_ext_data_stxdinherit - 1] = false;
+
+    // Serialize and store ndistinct statistics
+    if (ndistinct != NULL)
+    {
+        bytea *data = statext_ndistinct_serialize(ndistinct);
+        nulls[Anum_pg_statistic_ext_data_stxdndistinct - 1] = (data == NULL);
+        values[Anum_pg_statistic_ext_data_stxdndistinct - 1] = PointerGetDatum(data);
+    }
+
+    // Serialize and store dependencies statistics
+    if (dependencies != NULL)
+    {
+        bytea *data = statext_dependencies_serialize(dependencies);
+        nulls[Anum_pg_statistic_ext_data_stxddependencies - 1] = (data == NULL);
+        values[Anum_pg_statistic_ext_data_stxddependencies - 1] = PointerGetDatum(data);
+    }
+
+    // Serialize and store MCV statistics
+    if (mcv != NULL)
+    {
+        bytea *data = statext_mcv_serialize(mcv, stats);
+        nulls[Anum_pg_statistic_ext_data_stxdmcv - 1] = (data == NULL);
+        values[Anum_pg_statistic_ext_data_stxdmcv - 1] = PointerGetDatum(data);
+    }
+
+    // Store expression statistics
+    if (exprs != (Datum) 0)
+    {
+        nulls[Anum_pg_statistic_ext_data_stxdexpr - 1] = false;
+        values[Anum_pg_statistic_ext_data_stxdexpr - 1] = exprs;
+    }
+
+    // Remove old statistics data and insert new tuple
+    RemoveStatisticsDataById(statOid, inh);
+
+    // Create and insert new tuple
+    stup = heap_form_tuple(RelationGetDescr(pg_stextdata), values, nulls);
+    CatalogTupleInsert(pg_stextdata, stup);
+
+    heap_freetuple(stup);
+    table_close(pg_stextdata, RowExclusiveLock);
+}
+```

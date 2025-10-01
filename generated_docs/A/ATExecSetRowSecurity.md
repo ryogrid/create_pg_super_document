@@ -49,3 +49,33 @@ Note that enabling RLS alone does not restrict access - actual row security poli
 - Post-alter hooks ensure proper event propagation for monitoring and replication systems
 - Error handling includes cache lookup failure detection with appropriate error messages
 - The operation is transactionally safe and will be rolled back if the transaction fails
+
+## Simplified Source
+
+```c
+static void
+ATExecSetRowSecurity(Relation rel, bool rls)
+{
+    Relation pg_class;
+    Oid relid;
+    HeapTuple tuple;
+
+    relid = RelationGetRelid(rel);
+
+    // Open pg_class and get the relation tuple
+    pg_class = table_open(RelationRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(relid));
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Update the row-level security flag
+    ((Form_pg_class) GETSTRUCT(tuple))->relrowsecurity = rls;
+    CatalogTupleUpdate(pg_class, &tuple->t_self, tuple);
+
+    // Trigger post-alter hooks and cleanup
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), 0);
+    table_close(pg_class, RowExclusiveLock);
+    heap_freetuple(tuple);
+}
+```

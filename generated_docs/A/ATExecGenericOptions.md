@@ -52,3 +52,76 @@ The function performs several key operations:
 - The options validation is performed by the foreign data wrapper's validator function
 - Cache invalidation ensures that all sessions see the updated options immediately
 - Post-alter hooks are invoked to allow extensions to react to the option changes
+
+## Simplified Source
+
+```c
+static void
+ATExecGenericOptions(Relation rel, List *options)
+{
+    Relation ftrel;
+    ForeignServer *server;
+    ForeignDataWrapper *fdw;
+    HeapTuple tuple;
+    bool isnull;
+    Datum repl_val[Natts_pg_foreign_table];
+    bool repl_null[Natts_pg_foreign_table];
+    bool repl_repl[Natts_pg_foreign_table];
+    Datum datum;
+    Form_pg_foreign_table tableform;
+
+    // Exit early if no options provided
+    if (options == NIL)
+        return;
+
+    // Open pg_foreign_table catalog
+    ftrel = table_open(ForeignTableRelationId, RowExclusiveLock);
+
+    // Find the foreign table entry
+    tuple = SearchSysCacheCopy1(FOREIGNTABLEREL, ObjectIdGetDatum(rel->rd_id));
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("foreign table \"%s\" does not exist",
+                              RelationGetRelationName(rel))));
+
+    // Get FDW info for validation
+    tableform = (Form_pg_foreign_table) GETSTRUCT(tuple);
+    server = GetForeignServer(tableform->ftserver);
+    fdw = GetForeignDataWrapper(server->fdwid);
+
+    // Initialize replacement arrays
+    memset(repl_val, 0, sizeof(repl_val));
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+
+    // Extract current options from catalog
+    datum = SysCacheGetAttr(FOREIGNTABLEREL, tuple,
+                           Anum_pg_foreign_table_ftoptions, &isnull);
+    if (isnull)
+        datum = PointerGetDatum(NULL);
+
+    // Transform and validate options using FDW validator
+    datum = transformGenericOptions(ForeignTableRelationId, datum, options,
+                                   fdw->fdwvalidator);
+
+    // Set up replacement values
+    if (PointerIsValid(DatumGetPointer(datum)))
+        repl_val[Anum_pg_foreign_table_ftoptions - 1] = datum;
+    else
+        repl_null[Anum_pg_foreign_table_ftoptions - 1] = true;
+    repl_repl[Anum_pg_foreign_table_ftoptions - 1] = true;
+
+    // Update the catalog tuple
+    tuple = heap_modify_tuple(tuple, RelationGetDescr(ftrel),
+                             repl_val, repl_null, repl_repl);
+    CatalogTupleUpdate(ftrel, &tuple->t_self, tuple);
+
+    // Invalidate caches and trigger hooks
+    CacheInvalidateRelcache(rel);
+    InvokeObjectPostAlterHook(ForeignTableRelationId, RelationGetRelid(rel), 0);
+
+    // Cleanup
+    table_close(ftrel, RowExclusiveLock);
+    heap_freetuple(tuple);
+}
+```

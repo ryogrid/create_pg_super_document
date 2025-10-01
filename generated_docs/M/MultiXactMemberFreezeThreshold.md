@@ -45,3 +45,37 @@ No parameters - the function reads current system state internally.
 - Critical for preventing multixact member space exhaustion
 - Works in conjunction with vacuum_get_cutoffs() to influence freeze behavior
 - Function is located at src/backend/access/transam/multixact.c:2970-3006
+
+## Simplified Source
+
+```c
+int
+MultiXactMemberFreezeThreshold(void)
+{
+    MultiXactOffset members;
+    uint32 multixacts;
+
+    // Can't determine usage - assume worst case
+    if (!ReadMultiXactCounts(&multixacts, &members))
+        return 0;
+
+    // Member space usage is low - no special action needed
+    if (members <= MULTIXACT_MEMBER_SAFE_THRESHOLD)
+        return autovacuum_multixact_freeze_max_age;
+
+    // Calculate how aggressively we need to freeze based on member usage
+    double fraction = (double)(members - MULTIXACT_MEMBER_SAFE_THRESHOLD) /
+                     (MULTIXACT_MEMBER_DANGER_THRESHOLD - MULTIXACT_MEMBER_SAFE_THRESHOLD);
+
+    uint32 victim_multixacts = multixacts * fraction;
+
+    // Calculate effective freeze threshold
+    if (victim_multixacts > multixacts)
+        return 0;  // Maximum aggression - freeze everything
+
+    int result = multixacts - victim_multixacts;
+
+    // Never be less aggressive than normal autovacuum settings
+    return Min(result, autovacuum_multixact_freeze_max_age);
+}
+```

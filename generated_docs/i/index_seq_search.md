@@ -41,3 +41,33 @@ The search algorithm:
 - Uses character-based indexing optimization to avoid scanning the entire keyword array
 - Returns NULL if no match is found or if the initial character filter fails
 - The function assumes the keyword array is properly structured with matching index array
+
+## Simplified Source
+
+```c
+static const KeyWord *
+index_seq_search(const char *str, const KeyWord *kw, const int *index)
+{
+    // Quick filter: reject invalid starting characters
+    if (!KeyWord_INDEX_FILTER(*str))
+        return NULL;
+
+    // Look up starting position in keyword array using character index
+    int position = *(index + (*str - ' '));
+    if (position > -1) {
+        const KeyWord *k = kw + position;
+
+        // Search sequentially from the indexed position
+        do {
+            if (strncmp(str, k->name, k->len) == 0)
+                return k;  // Found match
+
+            k++;
+            if (!k->name)
+                return NULL;  // End of keywords
+        } while (*str == *k->name);  // Continue while first char matches
+    }
+
+    return NULL;  // No match found
+}
+```

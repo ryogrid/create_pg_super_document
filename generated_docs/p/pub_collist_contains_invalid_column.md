@@ -54,3 +54,68 @@ For REPLICA IDENTITY FULL tables, the function immediately returns true (invalid
 - Uses efficient bitmap operations for column membership testing
 - Properly manages memory by freeing allocated bitmapsets
 - Located in src/backend/commands/publicationcmds.c:334-437
+
+## Simplified Source
+
+```c
+bool pub_collist_contains_invalid_column(Oid pubid, Relation relation,
+                                         List *ancestors, bool pubviaroot) {
+    Oid relid = RelationGetRelid(relation);
+    Oid publish_as_relid = relid;
+
+    // For partitions with pubviaroot, find the topmost ancestor
+    if (pubviaroot && relation->rd_rel->relispartition) {
+        publish_as_relid = GetTopMostAncestorInPublication(pubid, ancestors, NULL);
+        if (!OidIsValid(publish_as_relid))
+            publish_as_relid = relid;
+    }
+
+    // Look up the column list for this publication-relation pair
+    HeapTuple tuple = SearchSysCache2(PUBLICATIONRELMAP,
+                                     ObjectIdGetDatum(publish_as_relid),
+                                     ObjectIdGetDatum(pubid));
+    if (!HeapTupleIsValid(tuple))
+        return false;
+
+    Datum datum;
+    bool isnull;
+    datum = SysCacheGetAttr(PUBLICATIONRELMAP, tuple,
+                           Anum_pg_publication_rel_prattrs, &isnull);
+
+    bool result = false;
+    if (!isnull) {
+        // REPLICA IDENTITY FULL is incompatible with column lists
+        if (relation->rd_rel->relreplident == REPLICA_IDENTITY_FULL) {
+            result = true;
+        } else {
+            // Check if all replica identity columns are in the column list
+            Bitmapset *columns = pub_collist_to_bitmapset(NULL, datum, NULL);
+            Bitmapset *idattrs = RelationGetIndexAttrBitmap(relation,
+                                                          INDEX_ATTR_BITMAP_IDENTITY_KEY);
+
+            // Verify each replica identity column is covered
+            int x = -1;
+            while ((x = bms_next_member(idattrs, x)) >= 0) {
+                AttrNumber attnum = (x + FirstLowInvalidHeapAttributeNumber);
+
+                // Handle pubviaroot column mapping
+                if (pubviaroot) {
+                    char *colname = get_attname(relid, attnum, false);
+                    attnum = get_attnum(publish_as_relid, colname);
+                }
+
+                if (!bms_is_member(attnum, columns)) {
+                    result = true;
+                    break;
+                }
+            }
+
+            bms_free(idattrs);
+            bms_free(columns);
+        }
+    }
+
+    ReleaseSysCache(tuple);
+    return result;
+}
+```

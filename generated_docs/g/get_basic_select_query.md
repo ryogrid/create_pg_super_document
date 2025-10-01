@@ -45,3 +45,105 @@ The function handles various SQL features including:
 - Maintains proper SQL formatting and indentation through the deparse_context
 - Optimizes simple VALUES patterns by bypassing full SELECT structure when possible
 - Properly manages context state like inGroupBy flag to ensure correct expression formatting
+
+## Simplified Source
+
+```c
+static void
+get_basic_select_query(Query *query, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+
+    // Handle pretty indentation
+    if (PRETTY_INDENT(context)) {
+        context->indentLevel += PRETTYINDENT_STD;
+        appendStringInfoChar(buf, ' ');
+    }
+
+    // Check for simple VALUES clause optimization
+    RangeTblEntry *values_rte = get_simple_values_rte(query, context->resultDesc);
+    if (values_rte) {
+        get_values_def(values_rte->values_lists, context);
+        return;
+    }
+
+    // Build SELECT or RETURN keyword
+    if (query->isReturn)
+        appendStringInfoString(buf, "RETURN");
+    else
+        appendStringInfoString(buf, "SELECT");
+
+    // Add DISTINCT clause if present
+    if (query->distinctClause != NIL) {
+        if (query->hasDistinctOn) {
+            appendStringInfoString(buf, " DISTINCT ON (");
+            // Add distinct expressions with commas
+            char *sep = "";
+            foreach(l, query->distinctClause) {
+                SortGroupClause *srt = (SortGroupClause *) lfirst(l);
+                appendStringInfoString(buf, sep);
+                get_rule_sortgroupclause(srt->tleSortGroupRef, query->targetList, false, context);
+                sep = ", ";
+            }
+            appendStringInfoChar(buf, ')');
+        } else {
+            appendStringInfoString(buf, " DISTINCT");
+        }
+    }
+
+    // Generate target list (what to select)
+    get_target_list(query->targetList, context);
+
+    // Add FROM clause
+    get_from_clause(query, " FROM ", context);
+
+    // Add WHERE clause
+    if (query->jointree->quals != NULL) {
+        appendContextKeyword(context, " WHERE ", -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+        get_rule_expr(query->jointree->quals, context, false);
+    }
+
+    // Add GROUP BY clause
+    if (query->groupClause != NULL || query->groupingSets != NULL) {
+        appendContextKeyword(context, " GROUP BY ", -PRETTYINDENT_STD, PRETTYINDENT_STD, 1);
+
+        if (query->groupDistinct)
+            appendStringInfoString(buf, "DISTINCT ");
+
+        bool save_ingroupby = context->inGroupBy;
+        context->inGroupBy = true;
+
+        if (query->groupingSets == NIL) {
+            // Regular GROUP BY
+            char *sep = "";
+            foreach(l, query->groupClause) {
+                SortGroupClause *grp = (SortGroupClause *) lfirst(l);
+                appendStringInfoString(buf, sep);
+                get_rule_sortgroupclause(grp->tleSortGroupRef, query->targetList, false, context);
+                sep = ", ";
+            }
+        } else {
+            // GROUPING SETS
+            char *sep = "";
+            foreach(l, query->groupingSets) {
+                GroupingSet *grp = lfirst(l);
+                appendStringInfoString(buf, sep);
+                get_rule_groupingset(grp, query->targetList, true, context);
+                sep = ", ";
+            }
+        }
+
+        context->inGroupBy = save_ingroupby;
+    }
+
+    // Add HAVING clause
+    if (query->havingQual != NULL) {
+        appendContextKeyword(context, " HAVING ", -PRETTYINDENT_STD, PRETTYINDENT_STD, 0);
+        get_rule_expr(query->havingQual, context, false);
+    }
+
+    // Add WINDOW clause
+    if (query->windowClause != NIL)
+        get_rule_windowclause(query, context);
+}
+```

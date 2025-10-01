@@ -34,3 +34,30 @@ add_json serves as a simplified interface for JSON conversion that combines type
 
 ## Notes and Other Information
 The function includes input validation to ensure val_type is not InvalidOid, reporting an error if an invalid type is encountered. For NULL values, it bypasses type categorization and directly sets JSONTYPE_NULL category with InvalidOid output function. The function is designed as a convenience wrapper but carries a performance warning - applications converting many values of the same type should perform json_categorize_type once and reuse the results rather than calling this function repeatedly.
+
+## Simplified Source
+
+```c
+static void add_json(Datum val, bool is_null, StringInfo result,
+                     Oid val_type, bool key_scalar) {
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Validate input type
+    if (val_type == InvalidOid)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("could not determine input data type")));
+
+    // Handle null values without type categorization
+    if (is_null) {
+        tcategory = JSONTYPE_NULL;
+        outfuncoid = InvalidOid;
+    } else {
+        // Categorize the type to determine conversion approach
+        json_categorize_type(val_type, false, &tcategory, &outfuncoid);
+    }
+
+    // Delegate to the main conversion function
+    datum_to_json_internal(val, is_null, result, tcategory, outfuncoid, key_scalar);
+}
+```

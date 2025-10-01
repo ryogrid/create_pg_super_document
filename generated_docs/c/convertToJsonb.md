@@ -42,3 +42,30 @@ The `convertToJsonb` function is the primary converter that transforms in-memory
 - Sets the proper varlena size using SET_VARSIZE macro before returning
 - The function is the main entry point for converting from the internal JsonbValue representation to the on-disk/network JSONB format
 - Used primarily by JsonbValueToJsonb, which is the public interface for this conversion
+
+## Simplified Source
+
+```c
+static Jsonb *
+convertToJsonb(JsonbValue *val)
+{
+    StringInfoData buffer;
+    JEntry jentry;
+    Jsonb *res;
+
+    // Initialize output buffer for binary representation
+    initStringInfo(&buffer);
+
+    // Reserve space for PostgreSQL varlena header
+    reserveFromBuffer(&buffer, VARHDRSZ);
+
+    // Convert JsonbValue to binary format
+    convertJsonbValue(&buffer, &jentry, val, 0);
+
+    // Create final Jsonb structure with proper varlena header
+    res = (Jsonb *) buffer.data;
+    SET_VARSIZE(res, buffer.len);
+
+    return res;
+}
+```

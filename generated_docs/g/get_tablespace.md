@@ -56,3 +56,51 @@ A key design consideration is that cache entries are created only after reading 
 - The function is designed to be safe against cache invalidation events
 - Options are deep-copied into cache memory to ensure data persistence
 - Part of PostgreSQL's broader caching strategy for frequently accessed catalog information
+
+## Simplified Source
+
+```c
+static TableSpaceCacheEntry *get_tablespace(Oid spcid) {
+    TableSpaceCacheEntry *spc;
+    HeapTuple tp;
+    TableSpaceOpts *opts;
+
+    // Use default tablespace if InvalidOid specified
+    if (spcid == InvalidOid)
+        spcid = MyDatabaseTableSpace;
+
+    // Initialize cache if needed and search for existing entry
+    if (!TableSpaceCacheHash)
+        InitializeTableSpaceCache();
+
+    spc = hash_search(TableSpaceCacheHash, &spcid, HASH_FIND, NULL);
+    if (spc)
+        return spc;
+
+    // Not in cache - look up in system catalog
+    tp = SearchSysCache1(TABLESPACEOID, ObjectIdGetDatum(spcid));
+    if (!HeapTupleIsValid(tp)) {
+        opts = NULL;  // Non-existent tablespace
+    } else {
+        // Extract and parse tablespace options
+        Datum datum;
+        bool isNull;
+
+        datum = SysCacheGetAttr(TABLESPACEOID, tp,
+                               Anum_pg_tablespace_spcoptions, &isNull);
+        if (isNull) {
+            opts = NULL;
+        } else {
+            bytea *bytea_opts = tablespace_reloptions(datum, false);
+            opts = MemoryContextAlloc(CacheMemoryContext, VARSIZE(bytea_opts));
+            memcpy(opts, bytea_opts, VARSIZE(bytea_opts));
+        }
+        ReleaseSysCache(tp);
+    }
+
+    // Create and cache the entry
+    spc = hash_search(TableSpaceCacheHash, &spcid, HASH_ENTER, NULL);
+    spc->opts = opts;
+    return spc;
+}
+```

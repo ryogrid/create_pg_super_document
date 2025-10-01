@@ -40,3 +40,52 @@ The `std_typanalyze` function serves as the standard type analysis dispatcher fo
 - The sampling strategy is designed to be robust across different table sizes due to logarithmic scaling
 - Allocates StdAnalyzeData structure to pass operator information to the selected compute_stats function
 - Always returns true to indicate successful setup of analysis parameters
+
+## Simplified Source
+
+```c
+bool
+std_typanalyze(VacAttrStats *stats)
+{
+    Oid ltopr, eqopr;
+    StdAnalyzeData *mystats;
+
+    // Use default statistics target if not specified
+    if (stats->attstattarget < 0)
+        stats->attstattarget = default_statistics_target;
+
+    // Find available operators for this data type
+    get_sort_group_operators(stats->attrtypid,
+                           false, false, false,
+                           &ltopr, &eqopr, NULL, NULL);
+
+    // Store operator information for compute_stats functions
+    mystats = palloc(sizeof(StdAnalyzeData));
+    mystats->eqopr = eqopr;
+    mystats->eqfunc = OidIsValid(eqopr) ? get_opcode(eqopr) : InvalidOid;
+    mystats->ltopr = ltopr;
+    stats->extra_data = mystats;
+
+    // Choose analysis algorithm based on available operators
+    if (OidIsValid(eqopr) && OidIsValid(ltopr))
+    {
+        // Full scalar analysis: both equality and ordering available
+        stats->compute_stats = compute_scalar_stats;
+        stats->minrows = 300 * stats->attstattarget;
+    }
+    else if (OidIsValid(eqopr))
+    {
+        // Distinct value analysis: only equality available
+        stats->compute_stats = compute_distinct_stats;
+        stats->minrows = 300 * stats->attstattarget;
+    }
+    else
+    {
+        // Basic analysis: no useful operators
+        stats->compute_stats = compute_trivial_stats;
+        stats->minrows = 300 * stats->attstattarget;
+    }
+
+    return true;
+}
+```

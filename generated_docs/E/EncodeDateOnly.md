@@ -47,3 +47,74 @@ The function handles BC dates (years <= 0) by appending " BC" to the formatted s
 - The output buffer must be large enough to accommodate the formatted string plus null terminator
 - Date ordering (DMY vs MDY) affects SQL and PostgreSQL style formatting
 - Zero-padding is used consistently across all formats for consistent field widths
+
+## Simplified Source
+
+```c
+void EncodeDateOnly(struct pg_tm *tm, int style, char *str) {
+    // Validate month range
+    Assert(tm->tm_mon >= 1 && tm->tm_mon <= MONTHS_PER_YEAR);
+
+    // Format year handling BC dates
+    int display_year = (tm->tm_year > 0) ? tm->tm_year : -(tm->tm_year - 1);
+
+    switch (style) {
+        case USE_ISO_DATES:
+        case USE_XSD_DATES:
+            // ISO format: YYYY-MM-DD
+            str = pg_ultostr_zeropad(str, display_year, 4);
+            *str++ = '-';
+            str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            *str++ = '-';
+            str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            break;
+
+        case USE_SQL_DATES:
+            // SQL format: MM/DD/YYYY or DD/MM/YYYY based on DateOrder
+            if (DateOrder == DATEORDER_DMY) {
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+                *str++ = '/';
+                str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            } else {
+                str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+                *str++ = '/';
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            }
+            *str++ = '/';
+            str = pg_ultostr_zeropad(str, display_year, 4);
+            break;
+
+        case USE_GERMAN_DATES:
+            // German format: DD.MM.YYYY
+            str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            *str++ = '.';
+            str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            *str++ = '.';
+            str = pg_ultostr_zeropad(str, display_year, 4);
+            break;
+
+        case USE_POSTGRES_DATES:
+        default:
+            // PostgreSQL format: MM-DD-YYYY or DD-MM-YYYY based on DateOrder
+            if (DateOrder == DATEORDER_DMY) {
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+                *str++ = '-';
+                str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+            } else {
+                str = pg_ultostr_zeropad(str, tm->tm_mon, 2);
+                *str++ = '-';
+                str = pg_ultostr_zeropad(str, tm->tm_mday, 2);
+            }
+            *str++ = '-';
+            str = pg_ultostr_zeropad(str, display_year, 4);
+            break;
+    }
+
+    // Add BC suffix for historical dates
+    if (tm->tm_year <= 0) {
+        memcpy(str, " BC", 3);
+        str += 3;
+    }
+    *str = '\0';
+}
+```

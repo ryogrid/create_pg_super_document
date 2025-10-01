@@ -34,3 +34,42 @@ The function uses AttributeNumberIsValid to validate the attribute number, ensur
 
 ## Notes and Other Information
 This function is more efficient than GetAttributeByName since it avoids the linear search for attribute names, but still requires a type cache lookup on each call. For performance-critical code, consider caching the tuple descriptor and using heap_getattr directly. The attribute numbering follows PostgreSQL's convention where user attributes start at 1, and system attributes have negative numbers.
+
+## Simplified Source
+
+```c
+Datum
+GetAttributeByNum(HeapTupleHeader tuple, AttrNumber attrno, bool *isNull)
+{
+    // Validate input parameters
+    if (!AttributeNumberIsValid(attrno))
+        elog(ERROR, "invalid attribute number %d", attrno);
+
+    if (isNull == NULL)
+        elog(ERROR, "a NULL isNull pointer was passed");
+
+    if (tuple == NULL) {
+        *isNull = true;
+        return (Datum) 0;
+    }
+
+    // Get tuple type information and descriptor
+    Oid tupType = HeapTupleHeaderGetTypeId(tuple);
+    int32 tupTypmod = HeapTupleHeaderGetTypMod(tuple);
+    TupleDesc tupDesc = lookup_rowtype_tupdesc(tupType, tupTypmod);
+
+    // Create temporary HeapTuple structure for heap_getattr
+    HeapTupleData tmptup;
+    tmptup.t_len = HeapTupleHeaderGetDatumLength(tuple);
+    ItemPointerSetInvalid(&(tmptup.t_self));
+    tmptup.t_tableOid = InvalidOid;
+    tmptup.t_data = tuple;
+
+    // Extract the attribute value
+    Datum result = heap_getattr(&tmptup, attrno, tupDesc, isNull);
+
+    // Cleanup and return
+    ReleaseTupleDesc(tupDesc);
+    return result;
+}
+```

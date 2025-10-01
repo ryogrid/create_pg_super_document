@@ -44,3 +44,29 @@ The function follows PostgreSQL's standard output function conventions and ensur
 - Ensures round-trip conversion compatibility with `numeric_in()`
 - The output format is deterministic and platform-independent
 - Used extensively in JSON operations, formatting functions, and type conversion scenarios
+
+## Simplified Source
+
+```c
+Datum numeric_out(PG_FUNCTION_ARGS) {
+    Numeric num = PG_GETARG_NUMERIC(0);
+    NumericVar x;
+    char *str;
+
+    // Handle special values (NaN, infinity)
+    if (NUMERIC_IS_SPECIAL(num)) {
+        if (NUMERIC_IS_PINF(num))
+            PG_RETURN_CSTRING(pstrdup("Infinity"));
+        else if (NUMERIC_IS_NINF(num))
+            PG_RETURN_CSTRING(pstrdup("-Infinity"));
+        else
+            PG_RETURN_CSTRING(pstrdup("NaN"));
+    }
+
+    // Convert to variable format and generate string
+    init_var_from_num(num, &x);
+    str = get_str_from_var(&x);
+
+    PG_RETURN_CSTRING(str);
+}
+```

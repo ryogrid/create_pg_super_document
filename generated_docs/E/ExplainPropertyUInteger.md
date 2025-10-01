@@ -33,3 +33,17 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 - The `true` parameter passed to ExplainProperty indicates this is a numeric property
 - Complements ExplainPropertyInteger for complete integer type coverage in explain output
 - Primarily used for memory sizes, byte counts, and other inherently non-negative statistics
+
+## Simplified Source
+
+```c
+void ExplainPropertyUInteger(const char *qlabel, const char *unit, uint64 value, ExplainState *es) {
+    char buf[32];
+
+    // Format the uint64 value as a string
+    snprintf(buf, sizeof(buf), UINT64_FORMAT, value);
+
+    // Delegate to generic property explanation function
+    ExplainProperty(qlabel, unit, buf, true, es);
+}
+```

@@ -48,3 +48,40 @@ The function ensures all iterator fields are properly initialized to prevent com
 - The bitmask is initialized to 1, corresponding to the first bit in the null bitmap
 - All pointer fields are explicitly set (including unused ones) to prevent compiler warnings
 - Works with both regular ArrayType and expanded array representations through the AnyArrayType union
+
+## Simplified Source
+
+```c
+static inline void
+array_iter_setup(array_iter *it, AnyArrayType *a)
+{
+    if (VARATT_IS_EXPANDED_HEADER(a))
+    {
+        if (a->xpn.dvalues)
+        {
+            // Expanded array with direct Datum access
+            it->datumptr = a->xpn.dvalues;
+            it->isnullptr = a->xpn.dnulls;
+            it->dataptr = NULL;
+            it->bitmapptr = NULL;
+        }
+        else
+        {
+            // Expanded array with embedded flat array
+            it->datumptr = NULL;
+            it->isnullptr = NULL;
+            it->dataptr = ARR_DATA_PTR(a->xpn.fvalue);
+            it->bitmapptr = ARR_NULLBITMAP(a->xpn.fvalue);
+        }
+    }
+    else
+    {
+        // Regular flat array
+        it->datumptr = NULL;
+        it->isnullptr = NULL;
+        it->dataptr = ARR_DATA_PTR((ArrayType *) a);
+        it->bitmapptr = ARR_NULLBITMAP((ArrayType *) a);
+    }
+    it->bitmask = 1;
+}
+```

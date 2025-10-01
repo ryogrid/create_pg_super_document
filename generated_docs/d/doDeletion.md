@@ -58,3 +58,129 @@ doDeletion implements a comprehensive switch statement that handles deletion for
 - Uses specialized removal functions to ensure proper cleanup for complex object types
 - Supports concurrent deletion modes for index objects
 - The switch statement covers all major catalog relation IDs, with fallback error handling for unsupported types
+
+## Simplified Source
+
+```c
+static void doDeletion(const ObjectAddress *object, int flags) {
+    switch (object->classId) {
+        case RelationRelationId:
+            {
+                char relKind = get_rel_relkind(object->objectId);
+
+                // Handle indexes and partitioned indexes
+                if (relKind == RELKIND_INDEX || relKind == RELKIND_PARTITIONED_INDEX) {
+                    bool concurrent = ((flags & PERFORM_DELETION_CONCURRENTLY) != 0);
+                    bool concurrent_lock = ((flags & PERFORM_DELETION_CONCURRENT_LOCK) != 0);
+                    index_drop(object->objectId, concurrent, concurrent_lock);
+                } else {
+                    // Handle table attributes or entire relations
+                    if (object->objectSubId != 0)
+                        RemoveAttributeById(object->objectId, object->objectSubId);
+                    else
+                        heap_drop_with_catalog(object->objectId);
+                }
+
+                // Special cleanup for sequences
+                if (relKind == RELKIND_SEQUENCE)
+                    DeleteSequenceTuple(object->objectId);
+                break;
+            }
+
+        // Functions and procedures
+        case ProcedureRelationId:
+            RemoveFunctionById(object->objectId);
+            break;
+
+        // Data types
+        case TypeRelationId:
+            RemoveTypeById(object->objectId);
+            break;
+
+        // Constraints
+        case ConstraintRelationId:
+            RemoveConstraintById(object->objectId);
+            break;
+
+        // Attribute defaults
+        case AttrDefaultRelationId:
+            RemoveAttrDefaultById(object->objectId);
+            break;
+
+        // Large objects
+        case LargeObjectRelationId:
+            LargeObjectDrop(object->objectId);
+            break;
+
+        // Core database objects with specialized removal functions
+        case OperatorRelationId:
+            RemoveOperatorById(object->objectId);
+            break;
+        case RewriteRelationId:
+            RemoveRewriteRuleById(object->objectId);
+            break;
+        case TriggerRelationId:
+            RemoveTriggerById(object->objectId);
+            break;
+        case StatisticExtRelationId:
+            RemoveStatisticsById(object->objectId);
+            break;
+        case TSConfigRelationId:
+            RemoveTSConfigurationById(object->objectId);
+            break;
+        case ExtensionRelationId:
+            RemoveExtensionById(object->objectId);
+            break;
+        case PolicyRelationId:
+            RemovePolicyById(object->objectId);
+            break;
+
+        // Publication objects
+        case PublicationNamespaceRelationId:
+            RemovePublicationSchemaById(object->objectId);
+            break;
+        case PublicationRelRelationId:
+            RemovePublicationRelById(object->objectId);
+            break;
+        case PublicationRelationId:
+            RemovePublicationById(object->objectId);
+            break;
+
+        // Simple catalog objects using generic deletion
+        case CastRelationId:
+        case CollationRelationId:
+        case ConversionRelationId:
+        case LanguageRelationId:
+        case OperatorClassRelationId:
+        case OperatorFamilyRelationId:
+        case AccessMethodRelationId:
+        case AccessMethodOperatorRelationId:
+        case AccessMethodProcedureRelationId:
+        case NamespaceRelationId:
+        case TSParserRelationId:
+        case TSDictionaryRelationId:
+        case TSTemplateRelationId:
+        case ForeignDataWrapperRelationId:
+        case ForeignServerRelationId:
+        case UserMappingRelationId:
+        case DefaultAclRelationId:
+        case EventTriggerRelationId:
+        case TransformRelationId:
+        case AuthMemRelationId:
+            DropObjectById(object);
+            break;
+
+        // Global objects are not supported
+        case AuthIdRelationId:
+        case DatabaseRelationId:
+        case TableSpaceRelationId:
+        case SubscriptionRelationId:
+        case ParameterAclRelationId:
+            elog(ERROR, "global objects cannot be deleted by doDeletion");
+            break;
+
+        default:
+            elog(ERROR, "unsupported object class: %u", object->classId);
+    }
+}
+```

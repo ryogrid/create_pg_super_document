@@ -42,3 +42,27 @@ The time_out function serves as the output function for PostgreSQL's time data t
 - Returns a palloc'd string that will be automatically freed by PostgreSQL's memory management
 - Respects the current DateStyle setting for output formatting
 - Part of PostgreSQL's type input/output infrastructure in src/backend/utils/adt/date.c
+
+## Simplified Source
+
+```c
+Datum
+time_out(PG_FUNCTION_ARGS)
+{
+    TimeADT time = PG_GETARG_TIMEADT(0);
+    char *result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    char buf[MAXDATELEN + 1];
+
+    // Convert time to broken-down components
+    time2tm(time, tm, &fsec);
+
+    // Format time as string according to DateStyle
+    EncodeTimeOnly(tm, fsec, false, 0, DateStyle, buf);
+
+    // Return duplicated string
+    result = pstrdup(buf);
+    PG_RETURN_CSTRING(result);
+}
+```

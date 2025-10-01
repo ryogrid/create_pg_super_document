@@ -37,3 +37,23 @@ The function implements lazy initialization - if the buffer hasn't been created 
 - The buffer is specifically used for temporary key storage during duplicate detection
 - Memory context switching ensures proper allocation in the builder's memory context
 - Performance optimization to avoid repeated memory allocation/deallocation cycles
+
+## Simplified Source
+
+```c
+static StringInfo json_unique_builder_get_throwawaybuf(JsonUniqueBuilderState *cxt) {
+    StringInfo out = &cxt->skipped_keys;
+
+    if (!out->data) {
+        // Initialize buffer on first use
+        MemoryContext oldcxt = MemoryContextSwitchTo(cxt->mcxt);
+        initStringInfo(out);
+        MemoryContextSwitchTo(oldcxt);
+    } else {
+        // Reuse existing buffer by resetting length
+        out->len = 0;
+    }
+
+    return out;
+}
+```

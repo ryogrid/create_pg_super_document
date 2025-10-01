@@ -42,3 +42,50 @@ The function performs the following operations:
 - This function is typically called during object deletion as part of the dependency cleanup process
 - Deletes ALL security labels for the object regardless of provider, making it suitable for complete cleanup
 - The function is part of PostgreSQL's object deletion cascade system managed by the dependency subsystem
+
+## Simplified Source
+
+```c
+void DeleteSecurityLabel(const ObjectAddress *object) {
+    Relation pg_seclabel;
+    ScanKeyData skey[3];
+    SysScanDesc scan;
+    HeapTuple oldtup;
+    int nkeys;
+
+    // Shared objects use different catalog - delegate to shared handler
+    if (IsSharedRelation(object->classId)) {
+        DeleteSharedSecurityLabel(object->objectId, object->classId);
+        return;
+    }
+
+    // Set up scan keys for object and class OID
+    ScanKeyInit(&skey[0], Anum_pg_seclabel_objoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(object->objectId));
+    ScanKeyInit(&skey[1], Anum_pg_seclabel_classoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(object->classId));
+
+    // Add sub-object key if needed
+    if (object->objectSubId != 0) {
+        ScanKeyInit(&skey[2], Anum_pg_seclabel_objsubid,
+                    BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(object->objectSubId));
+        nkeys = 3;  // Specific sub-object
+    } else {
+        nkeys = 2;  // All sub-objects
+    }
+
+    // Open pg_seclabel catalog table
+    pg_seclabel = table_open(SecLabelRelationId, RowExclusiveLock);
+
+    // Scan and delete all matching security labels
+    scan = systable_beginscan(pg_seclabel, SecLabelObjectIndexId, true,
+                             NULL, nkeys, skey);
+    while (HeapTupleIsValid(oldtup = systable_getnext(scan))) {
+        CatalogTupleDelete(pg_seclabel, &oldtup->t_self);
+    }
+
+    // Clean up
+    systable_endscan(scan);
+    table_close(pg_seclabel, RowExclusiveLock);
+}
+```

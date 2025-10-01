@@ -35,3 +35,27 @@ The function creates a local copy of instrumentation data to avoid modifying the
 - Handles both single-process and parallel execution scenarios
 - Part of PostgreSQLs EXPLAIN infrastructure for displaying query execution details
 - Located in src/backend/commands/explain.c:985-1010
+
+## Simplified Source
+
+```c
+void ExplainPrintJITSummary(ExplainState *es, QueryDesc *queryDesc)
+{
+    JitInstrumentation ji = {0};
+
+    // Early return if JIT wasn't performed
+    if (!(queryDesc->estate->es_jit_flags & PGJIT_PERFORM))
+        return;
+
+    // Aggregate JIT stats from leader process
+    if (queryDesc->estate->es_jit)
+        InstrJitAgg(&ji, &queryDesc->estate->es_jit->instr);
+
+    // Add parallel worker JIT stats if present
+    if (queryDesc->estate->es_jit_worker_instr)
+        InstrJitAgg(&ji, queryDesc->estate->es_jit_worker_instr);
+
+    // Print the aggregated JIT statistics
+    ExplainPrintJIT(es, queryDesc->estate->es_jit_flags, &ji);
+}
+```

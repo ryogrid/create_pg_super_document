@@ -39,3 +39,15 @@ The function is part of PostgreSQL's lowest-level numeric operations that work o
 - Commonly used in arithmetic operations where the sign is handled separately from magnitude
 - Simple wrapper function that extracts NumericVar components and delegates to cmp_abs_common()
 - Essential for implementing addition, subtraction, division, and other numeric operations that need magnitude comparisons
+
+## Simplified Source
+
+```c
+static int
+cmp_abs(const NumericVar *var1, const NumericVar *var2)
+{
+    // Compare absolute values by delegating to common comparison function
+    return cmp_abs_common(var1->digits, var1->ndigits, var1->weight,
+                         var2->digits, var2->ndigits, var2->weight);
+}
+```

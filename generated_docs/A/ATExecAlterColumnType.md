@@ -64,3 +64,164 @@ The function ensures data integrity by carefully managing all dependent objects 
 - Updates compression method to invalid when changing types
 - Maintains array dimension information from the type specification
 - Uses RESTRICT mode when removing old defaults for safety
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAlterColumnType(AlteredTableInfo *tab, Relation rel,
+                     AlterTableCmd *cmd, LOCKMODE lockmode)
+{
+    char *colName = cmd->name;
+    ColumnDef *def = (ColumnDef *) cmd->def;
+    TypeName *typeName = def->typeName;
+    HeapTuple heapTup, typeTuple;
+    Form_pg_attribute attTup, attOldTup;
+    AttrNumber attnum;
+    Oid targettype, targetcollid;
+    int32 targettypmod;
+    Node *defaultexpr;
+    Relation attrelation;
+    ObjectAddress address;
+
+    // Clear missing values if rewriting table
+    if (tab->rewrite) {
+        Relation newrel = table_open(RelationGetRelid(rel), NoLock);
+        RelationClearMissing(newrel);
+        relation_close(newrel, NoLock);
+        CommandCounterIncrement();
+    }
+
+    // Look up target column and validate
+    attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+    heapTup = SearchSysCacheCopyAttName(RelationGetRelid(rel), colName);
+    if (!HeapTupleIsValid(heapTup))
+        ereport(ERROR, "column \"%s\" does not exist", colName);
+
+    attTup = (Form_pg_attribute) GETSTRUCT(heapTup);
+    attnum = attTup->attnum;
+    attOldTup = TupleDescAttr(tab->oldDesc, attnum - 1);
+
+    // Prevent multiple ALTER TYPE on same column
+    if (attTup->atttypid != attOldTup->atttypid ||
+        attTup->atttypmod != attOldTup->atttypmod)
+        ereport(ERROR, "cannot alter type of column \"%s\" twice", colName);
+
+    // Look up target type and collation
+    typeTuple = typenameType(NULL, typeName, &targettypmod);
+    Form_pg_type tform = (Form_pg_type) GETSTRUCT(typeTuple);
+    targettype = tform->oid;
+    targetcollid = GetColumnDefCollation(NULL, def, targettype);
+
+    // Validate default expression can be coerced to new type
+    if (attTup->atthasdef) {
+        defaultexpr = build_column_default(rel, attnum);
+        defaultexpr = strip_implicit_coercions(defaultexpr);
+        defaultexpr = coerce_to_target_type(NULL, defaultexpr, exprType(defaultexpr),
+                                          targettype, targettypmod,
+                                          COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST, -1);
+        if (defaultexpr == NULL) {
+            if (attTup->attgenerated)
+                ereport(ERROR, "generation expression cannot be cast to type %s",
+                        format_type_be(targettype));
+            else
+                ereport(ERROR, "default cannot be cast to type %s",
+                        format_type_be(targettype));
+        }
+    } else {
+        defaultexpr = NULL;
+    }
+
+    // Record dependencies for rebuilding
+    RememberAllDependentForRebuilding(tab, AT_AlterColumnType, rel, attnum, colName);
+
+    // Remove old type/collation dependencies
+    Relation depRel = table_open(DependRelationId, RowExclusiveLock);
+    ScanKeyData key[3];
+    ScanKeyInit(&key[0], Anum_pg_depend_classid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1], Anum_pg_depend_objid, BTEqualStrategyNumber,
+                F_OIDEQ, ObjectIdGetDatum(RelationGetRelid(rel)));
+    ScanKeyInit(&key[2], Anum_pg_depend_objsubid, BTEqualStrategyNumber,
+                F_INT4EQ, Int32GetDatum((int32) attnum));
+
+    SysScanDesc scan = systable_beginscan(depRel, DependDependerIndexId, true, NULL, 3, key);
+    HeapTuple depTup;
+    while (HeapTupleIsValid(depTup = systable_getnext(scan))) {
+        Form_pg_depend foundDep = (Form_pg_depend) GETSTRUCT(depTup);
+        // Validate it's expected type/collation dependency then delete
+        if (foundDep->deptype != DEPENDENCY_NORMAL ||
+            (!(foundDep->refclassid == TypeRelationId && foundDep->refobjid == attTup->atttypid) &&
+             !(foundDep->refclassid == CollationRelationId && foundDep->refobjid == attTup->attcollation)))
+            elog(ERROR, "found unexpected dependency for column");
+        CatalogTupleDelete(depRel, &depTup->t_self);
+    }
+    systable_endscan(scan);
+    table_close(depRel, RowExclusiveLock);
+
+    // Handle missing value array update for new type
+    if (attTup->atthasmissing && !tab->rewrite) {
+        bool isnull;
+        Datum missingval = heap_getattr(heapTup, Anum_pg_attribute_attmissingval,
+                                       attrelation->rd_att, &isnull);
+        if (!isnull) {
+            // Rebuild missing value array with new type metadata
+            bool isNull;
+            int one = 1;
+            missingval = array_get_element(missingval, 1, &one, 0,
+                                         attTup->attlen, attTup->attbyval, attTup->attalign, &isNull);
+            missingval = PointerGetDatum(construct_array(&missingval, 1, targettype,
+                                                       tform->typlen, tform->typbyval, tform->typalign));
+            // Update tuple with new missing value
+            Datum valuesAtt[Natts_pg_attribute] = {0};
+            bool nullsAtt[Natts_pg_attribute] = {0};
+            bool replacesAtt[Natts_pg_attribute] = {0};
+            valuesAtt[Anum_pg_attribute_attmissingval - 1] = missingval;
+            replacesAtt[Anum_pg_attribute_attmissingval - 1] = true;
+            HeapTuple newTup = heap_modify_tuple(heapTup, RelationGetDescr(attrelation),
+                                               valuesAtt, nullsAtt, replacesAtt);
+            heap_freetuple(heapTup);
+            heapTup = newTup;
+            attTup = (Form_pg_attribute) GETSTRUCT(heapTup);
+        }
+    }
+
+    // Update column type information
+    attTup->atttypid = targettype;
+    attTup->atttypmod = targettypmod;
+    attTup->attcollation = targetcollid;
+    attTup->attndims = list_length(typeName->arrayBounds);
+    attTup->attlen = tform->typlen;
+    attTup->attbyval = tform->typbyval;
+    attTup->attalign = tform->typalign;
+    attTup->attstorage = tform->typstorage;
+    attTup->attcompression = InvalidCompressionMethod;
+
+    // Update catalog and install new dependencies
+    ReleaseSysCache(typeTuple);
+    CatalogTupleUpdate(attrelation, &heapTup->t_self, heapTup);
+    table_close(attrelation, RowExclusiveLock);
+
+    add_column_datatype_dependency(RelationGetRelid(rel), attnum, targettype);
+    add_column_collation_dependency(RelationGetRelid(rel), attnum, targetcollid);
+
+    // Remove obsolete statistics
+    RemoveStatistics(RelationGetRelid(rel), attnum);
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attnum);
+
+    // Update default expression if present
+    if (defaultexpr) {
+        if (attTup->attgenerated) {
+            Oid attrdefoid = GetAttrDefaultOid(RelationGetRelid(rel), attnum);
+            (void) deleteDependencyRecordsFor(AttrDefaultRelationId, attrdefoid, false);
+        }
+        CommandCounterIncrement();
+        RemoveAttrDefault(RelationGetRelid(rel), attnum, DROP_RESTRICT, true, true);
+        StoreAttrDefault(rel, attnum, defaultexpr, true, false);
+    }
+
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+    heap_freetuple(heapTup);
+    return address;
+}
+```

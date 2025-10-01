@@ -37,3 +37,26 @@ The function performs a two-step operation: first removing any existing default 
 - Uses RESTRICT mode for safety when removing old defaults, even though dependencies are typically not expected
 - Handles edge cases involving LIKE clauses with inheritance where defaults might unexpectedly exist
 - Returns an ObjectAddress that can be used for dependency tracking and catalog operations
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecCookedColumnDefault(Relation rel, AttrNumber attnum,
+                          Node *newDefault)
+{
+    ObjectAddress address;
+
+    // Remove any existing default for this column
+    // (Use RESTRICT for safety, though no dependencies expected)
+    RemoveAttrDefault(RelationGetRelid(rel), attnum, DROP_RESTRICT, false, true);
+
+    // Store the new pre-processed default expression
+    StoreAttrDefault(rel, attnum, newDefault, true, false);
+
+    // Return address of the modified column
+    ObjectAddressSubSet(address, RelationRelationId,
+                        RelationGetRelid(rel), attnum);
+    return address;
+}
+```

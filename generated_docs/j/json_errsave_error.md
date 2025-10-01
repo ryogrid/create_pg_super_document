@@ -37,3 +37,34 @@ json_errsave_error serves as the central error reporting mechanism for PostgreSQ
 
 ## Notes and Other Information
 This function is critical for maintaining consistent error reporting across PostgreSQL's JSON functionality. It ensures that JSON parsing errors are properly categorized with appropriate SQL error codes (ERRCODE_UNTRANSLATABLE_CHARACTER for Unicode issues, ERRCODE_INVALID_TEXT_REPRESENTATION for syntax errors) and provides detailed context to help users identify and fix JSON input problems. The function's integration with PostgreSQL's error handling framework allows for both immediate error reporting and deferred error collection in bulk processing scenarios.
+
+## Simplified Source
+
+```c
+void json_errsave_error(JsonParseErrorType error, JsonLexContext *lex, Node *escontext) {
+    // Handle Unicode-related errors
+    if (error == JSON_UNICODE_HIGH_ESCAPE ||
+        error == JSON_UNICODE_UNTRANSLATABLE ||
+        error == JSON_UNICODE_CODE_POINT_ZERO) {
+        errsave(escontext,
+                (errcode(ERRCODE_UNTRANSLATABLE_CHARACTER),
+                 errmsg("unsupported Unicode escape sequence"),
+                 errdetail_internal("%s", json_errdetail(error, lex)),
+                 report_json_context(lex)));
+    }
+    // Handle semantic action failures
+    else if (error == JSON_SEM_ACTION_FAILED) {
+        // Semantic action should have already reported the error
+        if (!SOFT_ERROR_OCCURRED(escontext))
+            elog(ERROR, "JSON semantic action function did not provide error information");
+    }
+    // Handle general syntax errors
+    else {
+        errsave(escontext,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s", "json"),
+                 errdetail_internal("%s", json_errdetail(error, lex)),
+                 report_json_context(lex)));
+    }
+}
+```

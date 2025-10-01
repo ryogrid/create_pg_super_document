@@ -39,3 +39,19 @@ The function is designed for scenarios where it's important to amortize the cost
 - All catalog constraints are checked before insertion to maintain system catalog integrity
 - The TU_All flag indicates that all indexes should be updated during the insertion operation
 - This function is commonly used in statistics updates and large object operations where multiple catalog modifications occur
+
+## Simplified Source
+
+```c
+void CatalogTupleInsertWithInfo(Relation heapRel, HeapTuple tup, CatalogIndexState indstate)
+{
+    // Check constraints to maintain catalog integrity
+    CatalogTupleCheckConstraints(heapRel, tup);
+
+    // Insert tuple into heap relation
+    simple_heap_insert(heapRel, tup);
+
+    // Update all indexes for the new tuple
+    CatalogIndexInsert(indstate, tup, TU_All);
+}
+```

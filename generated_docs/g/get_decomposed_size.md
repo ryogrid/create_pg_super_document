@@ -48,3 +48,39 @@ The function returns 1 for characters that cannot be decomposed further or have 
 - Hangul syllables (U+AC00-U+D7A3) decompose algorithmically into 2-3 Jamo characters
 - Returns 1 for characters with no decomposition or when compatibility decompositions are excluded
 - Essential for pre-calculating buffer sizes during Unicode normalization to avoid memory allocation errors
+
+## Simplified Source
+
+```c
+static int
+get_decomposed_size(pg_wchar code, bool compat)
+{
+    // Fast path: Hangul characters (algorithmic calculation)
+    if (code >= SBASE && code < SBASE + SCOUNT) {
+        uint32 sindex = code - SBASE;
+        uint32 tindex = sindex % TCOUNT;
+
+        // Return 3 if has trailing consonant, otherwise 2
+        return (tindex != 0) ? 3 : 2;
+    }
+
+    // Look up character in decomposition table
+    const pg_unicode_decomposition *entry = get_code_entry(code);
+
+    // No decomposition available - character counts as 1
+    if (entry == NULL || DECOMPOSITION_SIZE(entry) == 0 ||
+        (!compat && DECOMPOSITION_IS_COMPAT(entry)))
+        return 1;
+
+    // Recursively calculate size of all decomposed components
+    int size = 0;
+    int dec_size;
+    const uint32 *decomp = get_code_decomposition(entry, &dec_size);
+
+    for (int i = 0; i < dec_size; i++) {
+        size += get_decomposed_size(decomp[i], compat);
+    }
+
+    return size;
+}
+```

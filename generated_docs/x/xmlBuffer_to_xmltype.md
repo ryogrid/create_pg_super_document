@@ -39,3 +39,18 @@ The function extracts both the content pointer and length from the xmlBuffer usi
 - Used primarily in functions that process XML using libxml2's parsing and manipulation capabilities
 - The function handles the memory layout differences between libxml2 buffers and PostgreSQL text values
 - No validation is performed; the function assumes the xmlBuffer contains valid XML data
+
+## Simplified Source
+
+```c
+static xmltype *
+xmlBuffer_to_xmltype(xmlBufferPtr buf)
+{
+    // Convert libxml2 buffer to PostgreSQL xmltype
+    // Extract content and length from xmlBuffer, then create text value
+    return (xmltype *) cstring_to_text_with_len(
+        (const char *) xmlBufferContent(buf),
+        xmlBufferLength(buf)
+    );
+}
+```

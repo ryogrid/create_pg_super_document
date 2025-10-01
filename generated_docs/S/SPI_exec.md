@@ -35,3 +35,13 @@ The function exists to maintain compatibility with older code that was written b
 - Very simple implementation - just a thin wrapper
 - Located in src/backend/executor/spi.c:630-636
 - Still used in some internal PostgreSQL code, particularly in materialized view refresh operations
+
+## Simplified Source
+
+```c
+int SPI_exec(const char *src, long tcount)
+{
+    // Obsolete wrapper that delegates to SPI_execute with read_only=false
+    return SPI_execute(src, false, tcount);
+}
+```

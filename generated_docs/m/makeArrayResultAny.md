@@ -36,3 +36,35 @@ This function finalizes the array construction process by converting the accumul
 - Empty arrays (0 elements) are handled by setting ndims to 0
 - The release parameter allows callers to control memory cleanup of the working state
 - The function automatically determines the appropriate finalization method based on the state structure type
+
+## Simplified Source
+
+```c
+Datum
+makeArrayResultAny(ArrayBuildStateAny *astate,
+                   MemoryContext rcontext, bool release)
+{
+    Datum result;
+
+    if (astate->scalarstate)
+    {
+        // Scalar case: create 1-dimensional array
+        int ndims, dims[1], lbs[1];
+
+        // Handle empty arrays by setting ndims to 0
+        ndims = (astate->scalarstate->nelems > 0) ? 1 : 0;
+        dims[0] = astate->scalarstate->nelems;
+        lbs[0] = 1;  // Lower bound is 1
+
+        result = makeMdArrayResult(astate->scalarstate, ndims, dims, lbs,
+                                   rcontext, release);
+    }
+    else
+    {
+        // Array case: delegate to array-specific finalizer
+        result = makeArrayResultArr(astate->arraystate, rcontext, release);
+    }
+
+    return result;
+}
+```

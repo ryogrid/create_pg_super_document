@@ -34,3 +34,22 @@ The function iterates through the provided list, comparing each WindowClause's n
 - Used during parsing of SQL window functions and OVER clauses
 - Critical for resolving named window specifications in complex window function queries
 - The function safely handles NULL window clause names by checking wc->name before comparison
+
+## Simplified Source
+
+```c
+static WindowClause *findWindowClause(List *wclist, const char *name) {
+    ListCell *l;
+
+    // Search through the list of window clauses
+    foreach(l, wclist) {
+        WindowClause *wc = (WindowClause *) lfirst(l);
+
+        // Check if this window clause has the name we're looking for
+        if (wc->name && strcmp(wc->name, name) == 0)
+            return wc;
+    }
+
+    return NULL;  // Not found
+}
+```

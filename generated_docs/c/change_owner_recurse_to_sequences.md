@@ -45,3 +45,65 @@ The function specifically targets SERIAL sequences by looking for dependencies w
 - Only sequences with auto or internal dependencies are processed, ensuring that manually created dependencies are not affected
 - The recursive call to ATExecChangeOwner handles the actual ownership change for each sequence
 - Located in src/backend/commands/tablecmds.c:14782-14850
+
+## Simplified Source
+
+```c
+static void
+change_owner_recurse_to_sequences(Oid relationOid, Oid newOwnerId, LOCKMODE lockmode)
+{
+    Relation depRel;
+    SysScanDesc scan;
+    ScanKeyData key[2];
+    HeapTuple tup;
+
+    // Open pg_depend catalog to find sequence dependencies
+    depRel = table_open(DependRelationId, AccessShareLock);
+
+    // Set up scan keys to find dependencies on this relation
+    ScanKeyInit(&key[0],
+                Anum_pg_depend_refclassid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(RelationRelationId));
+    ScanKeyInit(&key[1],
+                Anum_pg_depend_refobjid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relationOid));
+
+    scan = systable_beginscan(depRel, DependReferenceIndexId, true,
+                              NULL, 2, key);
+
+    // Process each dependency record
+    while (HeapTupleIsValid(tup = systable_getnext(scan)))
+    {
+        Form_pg_depend depForm = (Form_pg_depend) GETSTRUCT(tup);
+        Relation seqRel;
+
+        // Only process auto/internal dependencies on columns that are sequences
+        if (depForm->refobjsubid == 0 ||
+            depForm->classid != RelationRelationId ||
+            depForm->objsubid != 0 ||
+            !(depForm->deptype == DEPENDENCY_AUTO || depForm->deptype == DEPENDENCY_INTERNAL))
+            continue;
+
+        // Open the potentially dependent relation
+        seqRel = relation_open(depForm->objid, lockmode);
+
+        // Skip if not actually a sequence
+        if (RelationGetForm(seqRel)->relkind != RELKIND_SEQUENCE)
+        {
+            relation_close(seqRel, lockmode);
+            continue;
+        }
+
+        // Recursively change the sequence owner
+        ATExecChangeOwner(depForm->objid, newOwnerId, true, lockmode);
+
+        // Keep the lock until end of transaction
+        relation_close(seqRel, NoLock);
+    }
+
+    systable_endscan(scan);
+    relation_close(depRel, AccessShareLock);
+}
+```

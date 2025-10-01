@@ -57,3 +57,119 @@ The function performs comprehensive analysis including:
 - LATERAL reference handling ensures nestloop implementation feasibility and prevents dangerous parameterized hash variable scenarios
 - The function's validation is essential for preventing the generation of invalid execution plans that could produce incorrect query results
 - Static function scope restricts usage to within the same source file
+
+## Simplified Source
+
+```c
+static bool join_is_legal(PlannerInfo *root, RelOptInfo *rel1, RelOptInfo *rel2,
+                         Relids joinrelids, SpecialJoinInfo **sjinfo_p, bool *reversed_p) {
+    SpecialJoinInfo *match_sjinfo = NULL;
+    bool reversed = false;
+    bool must_be_leftjoin = false;
+    ListCell *l;
+
+    // Initialize output parameters
+    *sjinfo_p = NULL;
+    *reversed_p = false;
+
+    // Check special join constraints
+    foreach(l, root->join_info_list) {
+        SpecialJoinInfo *sjinfo = (SpecialJoinInfo *) lfirst(l);
+
+        // Skip if not relevant to this join
+        if (!bms_overlap(sjinfo->min_righthand, joinrelids) ||
+            bms_is_subset(joinrelids, sjinfo->min_righthand))
+            continue;
+
+        // Skip if special join already done within input relations
+        if ((bms_is_subset(sjinfo->min_lefthand, rel1->relids) &&
+             bms_is_subset(sjinfo->min_righthand, rel1->relids)) ||
+            (bms_is_subset(sjinfo->min_lefthand, rel2->relids) &&
+             bms_is_subset(sjinfo->min_righthand, rel2->relids)))
+            continue;
+
+        // Check if this join matches the special join pattern
+        if (bms_is_subset(sjinfo->min_lefthand, rel1->relids) &&
+            bms_is_subset(sjinfo->min_righthand, rel2->relids)) {
+            if (match_sjinfo) return false; // Multiple matches invalid
+            match_sjinfo = sjinfo;
+            reversed = false;
+        }
+        else if (bms_is_subset(sjinfo->min_lefthand, rel2->relids) &&
+                 bms_is_subset(sjinfo->min_righthand, rel1->relids)) {
+            if (match_sjinfo) return false; // Multiple matches invalid
+            match_sjinfo = sjinfo;
+            reversed = true;
+        }
+        // Handle semijoin unique-ification cases
+        else if (sjinfo->jointype == JOIN_SEMI &&
+                 ((bms_equal(sjinfo->syn_righthand, rel2->relids) &&
+                   create_unique_path(root, rel2, rel2->cheapest_total_path, sjinfo) != NULL) ||
+                  (bms_equal(sjinfo->syn_righthand, rel1->relids) &&
+                   create_unique_path(root, rel1, rel1->cheapest_total_path, sjinfo) != NULL))) {
+            if (match_sjinfo) return false;
+            match_sjinfo = sjinfo;
+            reversed = bms_equal(sjinfo->syn_righthand, rel1->relids);
+        }
+        else {
+            // Check if join can associate into special join RHS
+            if (bms_overlap(rel1->relids, sjinfo->min_righthand) &&
+                bms_overlap(rel2->relids, sjinfo->min_righthand))
+                continue; // Assume valid previous violation
+
+            // Must be LEFT join to associate into RHS
+            if (sjinfo->jointype != JOIN_LEFT ||
+                bms_overlap(joinrelids, sjinfo->min_lefthand))
+                return false;
+
+            must_be_leftjoin = true;
+        }
+    }
+
+    // Validate that required LEFT join constraint is satisfied
+    if (must_be_leftjoin &&
+        (match_sjinfo == NULL ||
+         match_sjinfo->jointype != JOIN_LEFT ||
+         !match_sjinfo->lhs_strict))
+        return false;
+
+    // Check LATERAL reference constraints
+    if (root->hasLateralRTEs) {
+        bool lateral_fwd = bms_overlap(rel1->relids, rel2->lateral_relids);
+        bool lateral_rev = bms_overlap(rel2->relids, rel1->lateral_relids);
+
+        // Cannot have lateral references in both directions
+        if (lateral_fwd && lateral_rev)
+            return false;
+
+        // Check nestloop implementation feasibility
+        if (lateral_fwd || lateral_rev) {
+            if (match_sjinfo && (match_sjinfo->jointype == JOIN_FULL))
+                return false;
+
+            // Verify direct references and safety
+            if (lateral_fwd) {
+                if (!bms_overlap(rel1->relids, rel2->direct_lateral_relids) ||
+                    have_dangerous_phv(root, rel1->relids, rel2->lateral_relids))
+                    return false;
+            } else {
+                if (!bms_overlap(rel2->relids, rel1->direct_lateral_relids) ||
+                    have_dangerous_phv(root, rel2->relids, rel1->lateral_relids))
+                    return false;
+            }
+        }
+
+        // Check for impossible parameterization scenarios
+        Relids join_lateral_rels = min_join_parameterization(root, joinrelids, rel1, rel2);
+        if (join_lateral_rels) {
+            // Complex logic to verify join compatibility with outer joins
+            // (simplified here for brevity)
+        }
+    }
+
+    // Join is legal
+    *sjinfo_p = match_sjinfo;
+    *reversed_p = reversed;
+    return true;
+}
+```

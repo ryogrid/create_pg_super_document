@@ -38,3 +38,26 @@ This ordering is crucial for recursive WITH clauses because it ensures that when
 - The Assert ensures that innerwiths is properly cleaned up after each CTE analysis
 - Essential for preventing forward reference errors in recursive WITH clauses
 - The topological sort will detect and report circular dependencies between CTEs
+
+## Simplified Source
+
+```c
+static void
+makeDependencyGraph(CteState *cstate)
+{
+    int i;
+
+    // Analyze dependencies for each CTE
+    for (i = 0; i < cstate->numitems; i++) {
+        CommonTableExpr *cte = cstate->items[i].cte;
+
+        cstate->curitem = i;
+        cstate->innerwiths = NIL;
+        makeDependencyGraphWalker((Node *) cte->ctequery, cstate);
+        Assert(cstate->innerwiths == NIL);
+    }
+
+    // Sort CTEs based on dependencies using topological sort
+    TopologicalSort(cstate->pstate, cstate->items, cstate->numitems);
+}
+```

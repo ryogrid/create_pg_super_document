@@ -36,3 +36,34 @@ The function checks three categories of buffer usage: shared buffers, local buff
 - Checks all buffer categories: shared_blks_*, local_blks_*, temp_blks_*, and their associated timing counters
 - Used to avoid displaying empty buffer usage sections in EXPLAIN output when no buffer activity occurred
 - Part of PostgreSQL's buffer usage tracking and reporting infrastructure for query performance analysis
+
+## Simplified Source
+
+```c
+static bool peek_buffer_usage(ExplainState *es, const BufferUsage *usage) {
+    if (usage == NULL)
+        return false;
+
+    // Non-text formats always show buffer usage (even if all zeros)
+    if (es->format != EXPLAIN_FORMAT_TEXT)
+        return true;
+
+    // For text format, only show if there are non-zero values
+    bool has_shared = (usage->shared_blks_hit > 0 || usage->shared_blks_read > 0 ||
+                      usage->shared_blks_dirtied > 0 || usage->shared_blks_written > 0);
+
+    bool has_local = (usage->local_blks_hit > 0 || usage->local_blks_read > 0 ||
+                     usage->local_blks_dirtied > 0 || usage->local_blks_written > 0);
+
+    bool has_temp = (usage->temp_blks_read > 0 || usage->temp_blks_written > 0);
+
+    bool has_timing = (!INSTR_TIME_IS_ZERO(usage->shared_blk_read_time) ||
+                      !INSTR_TIME_IS_ZERO(usage->shared_blk_write_time) ||
+                      !INSTR_TIME_IS_ZERO(usage->local_blk_read_time) ||
+                      !INSTR_TIME_IS_ZERO(usage->local_blk_write_time) ||
+                      !INSTR_TIME_IS_ZERO(usage->temp_blk_read_time) ||
+                      !INSTR_TIME_IS_ZERO(usage->temp_blk_write_time));
+
+    return has_shared || has_local || has_temp || has_timing;
+}
+```

@@ -44,3 +44,23 @@ The function is part of PostgreSQL's extended statistics system, which allows fo
 - Part of the extended statistics infrastructure for multivariate statistics
 - Supports rebuilding statistics that become invalid after column type changes
 - Function parameters tab, rel, is_rebuild, and lockmode are accepted but not used in current implementation
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAddStatistics(AlteredTableInfo *tab, Relation rel,
+                   CreateStatsStmt *stmt, bool is_rebuild, LOCKMODE lockmode)
+{
+    ObjectAddress address;
+
+    // Validate input - stmt should be a transformed CreateStatsStmt
+    Assert(IsA(stmt, CreateStatsStmt));
+    Assert(stmt->transformed);
+
+    // Delegate to standard statistics creation infrastructure
+    address = CreateStatistics(stmt);
+
+    return address;
+}
+```

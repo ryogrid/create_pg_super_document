@@ -40,3 +40,26 @@ This function provides a unified interface for accumulating array elements durin
 - The function automatically determines whether to use scalar or array accumulation based on the state structure
 - Memory management is handled through the provided memory context
 - The function is designed to be called iteratively to build up array results element by element
+
+## Simplified Source
+
+```c
+ArrayBuildStateAny *
+accumArrayResultAny(ArrayBuildStateAny *astate,
+                    Datum dvalue, bool disnull,
+                    Oid input_type,
+                    MemoryContext rcontext)
+{
+    // Initialize state on first call if needed
+    if (astate == NULL)
+        astate = initArrayResultAny(input_type, rcontext, true);
+
+    // Delegate to appropriate accumulation function based on state type
+    if (astate->scalarstate)
+        accumArrayResult(astate->scalarstate, dvalue, disnull, input_type, rcontext);
+    else
+        accumArrayResultArr(astate->arraystate, dvalue, disnull, input_type, rcontext);
+
+    return astate;
+}
+```

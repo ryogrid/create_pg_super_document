@@ -48,3 +48,32 @@ LC_ALL=: PostgreSQL locale object containing collation information, or NULL to u
 - Includes platform-specific optimizations for Windows UTF-8 handling
 - Asserts that if a locale is provided, it must be a libc-based locale provider
 - Part of PostgreSQL's abstraction layer for cross-platform locale support
+
+## Simplified Source
+
+```c
+static int
+pg_strcoll_libc(const char *arg1, const char *arg2, pg_locale_t locale)
+{
+    int result;
+
+    // Ensure locale is libc-based if provided
+    Assert(!locale || locale->provider == COLLPROVIDER_LIBC);
+
+    // On Windows with UTF-8, use specialized Unicode collation
+    #ifdef WIN32
+    if (GetDatabaseEncoding() == PG_UTF8) {
+        size_t len1 = strlen(arg1);
+        size_t len2 = strlen(arg2);
+        result = pg_strncoll_libc_win32_utf8(arg1, len1, arg2, len2, locale);
+    } else
+    #endif
+    // Use locale-specific or default collation
+    if (locale)
+        result = strcoll_l(arg1, arg2, locale->info.lt);
+    else
+        result = strcoll(arg1, arg2);
+
+    return result;
+}
+```

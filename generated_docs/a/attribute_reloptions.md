@@ -38,3 +38,23 @@ The `attribute_reloptions` function is a specialized option parser for PostgreSQ
 - These options are primarily used for performance tuning when the automatic statistics collection doesn't accurately capture column cardinality
 - Attribute options are stored per-column and can be set using ALTER TABLE ... ALTER COLUMN ... SET STATISTICS or similar commands
 - The options directly influence the PostgreSQL cost-based optimizer's decision-making process for join order, index usage, and other query plan choices
+
+## Simplified Source
+
+```c
+bytea *
+attribute_reloptions(Datum reloptions, bool validate)
+{
+    // Define supported attribute options
+    static const relopt_parse_elt tab[] = {
+        {"n_distinct", RELOPT_TYPE_REAL, offsetof(AttributeOpts, n_distinct)},
+        {"n_distinct_inherited", RELOPT_TYPE_REAL, offsetof(AttributeOpts, n_distinct_inherited)}
+    };
+
+    // Parse and build attribute options using standard infrastructure
+    return (bytea *) build_reloptions(reloptions, validate,
+                                     RELOPT_KIND_ATTRIBUTE,
+                                     sizeof(AttributeOpts),
+                                     tab, lengthof(tab));
+}
+```

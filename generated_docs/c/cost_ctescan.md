@@ -48,3 +48,45 @@ Important note: The costs of initially evaluating/computing the CTE query itself
 - The cost model assumes tuplestore-based access, charging double cpu_tuple_cost (once for tuplestore manipulation, once for standard tuple processing)
 - CTE evaluation costs are excluded here because they're handled as initplan costs in the overall query plan
 - Target list costs are applied per output row rather than per scanned tuple, accounting for potential filtering
+
+## Simplified Source
+```c
+void
+cost_ctescan(Path *path, PlannerInfo *root,
+            RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    QualCost qual_cost;
+    Cost cpu_per_tuple;
+
+    // Validate this is a CTE relation
+    Assert(baserel->relid > 0);
+    Assert(baserel->rtekind == RTE_CTE);
+
+    // Set row estimate (parameterized or base estimate)
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Base cost: one CPU tuple cost for tuplestore access
+    cpu_per_tuple = cpu_tuple_cost;
+
+    // Add qualification costs (WHERE clauses)
+    get_restriction_qual_cost(root, baserel, param_info, &qual_cost);
+    startup_cost += qual_cost.startup;
+    cpu_per_tuple += cpu_tuple_cost + qual_cost.per_tuple;
+
+    // Total scan cost = cpu cost × number of tuples
+    run_cost += cpu_per_tuple * baserel->tuples;
+
+    // Add target list evaluation costs (applied per output row)
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    // Set final costs
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

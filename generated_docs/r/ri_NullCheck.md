@@ -45,3 +45,35 @@ The function is essential for implementing proper foreign key semantics where pa
 - Used to implement SQL standard foreign key NULL semantics where any NULL in a composite foreign key makes the entire key NULL
 - The tupDesc parameter is accepted but not used in the current implementation
 - Critical for determining when foreign key constraint checks should be skipped
+
+## Simplified Source
+
+```c
+static int ri_NullCheck(TupleDesc tupDesc, TupleTableSlot *slot,
+                       const RI_ConstraintInfo *riinfo, bool rel_is_pk) {
+    const int16 *attnums;
+    bool allnull = true;
+    bool nonenull = true;
+
+    // Choose appropriate attribute numbers (PK or FK)
+    if (rel_is_pk)
+        attnums = riinfo->pk_attnums;
+    else
+        attnums = riinfo->fk_attnums;
+
+    // Check NULL state of each key attribute
+    for (int i = 0; i < riinfo->nkeys; i++) {
+        if (slot_attisnull(slot, attnums[i]))
+            nonenull = false;  // Found a NULL
+        else
+            allnull = false;   // Found a non-NULL
+    }
+
+    // Return appropriate NULL state
+    if (allnull)
+        return RI_KEYS_ALL_NULL;
+    if (nonenull)
+        return RI_KEYS_NONE_NULL;
+    return RI_KEYS_SOME_NULL;
+}
+```

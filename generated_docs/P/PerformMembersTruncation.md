@@ -35,3 +35,26 @@ The function deletes all segments in the range [oldestOffset, newOldestOffset) b
 - More complex than offset truncation due to the different filling patterns of member data
 - Part of the MultiXact cleanup system that manages transaction membership information
 - Preserves the last segment in the range to avoid deleting partially valid data
+
+## Simplified Source
+```c
+static void PerformMembersTruncation(MultiXactOffset oldestOffset, MultiXactOffset newOldestOffset) {
+    // Calculate segment range to delete
+    const int64 maxsegment = MXOffsetToMemberSegment(MaxMultiXactOffset);
+    int64 startsegment = MXOffsetToMemberSegment(oldestOffset);
+    int64 endsegment = MXOffsetToMemberSegment(newOldestOffset);
+    int64 segment = startsegment;
+
+    // Delete all segments except the last one (may contain valid data)
+    while (segment != endsegment) {
+        elog(DEBUG2, "truncating multixact members segment %llx", (unsigned long long) segment);
+        SlruDeleteSegment(MultiXactMemberCtl, segment);
+
+        // Handle wraparound: reset to 0 after max segment
+        if (segment == maxsegment)
+            segment = 0;
+        else
+            segment += 1;
+    }
+}
+```

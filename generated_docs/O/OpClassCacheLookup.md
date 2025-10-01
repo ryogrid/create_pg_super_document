@@ -42,3 +42,55 @@ The function includes comprehensive error handling, generating detailed error me
 - Uses different syscache keys (CLAAMNAMENSP and CLAOID) compared to the operator family lookup functions
 - Error reporting includes both the operator class name and access method name for better diagnostics
 - Supports PostgreSQL's namespace resolution mechanism for both qualified and unqualified names
+
+## Simplified Source
+
+```c
+static HeapTuple OpClassCacheLookup(Oid amID, List *opclassname, bool missing_ok)
+{
+    char *schemaname;
+    char *opcname;
+    HeapTuple htup;
+
+    // Parse the qualified name
+    DeconstructQualifiedName(opclassname, &schemaname, &opcname);
+
+    if (schemaname)
+    {
+        // Look in specific schema
+        Oid namespaceId = LookupExplicitNamespace(schemaname, missing_ok);
+        if (!OidIsValid(namespaceId))
+            htup = NULL;
+        else
+            htup = SearchSysCache3(CLAAMNAMENSP,
+                                   ObjectIdGetDatum(amID),
+                                   PointerGetDatum(opcname),
+                                   ObjectIdGetDatum(namespaceId));
+    }
+    else
+    {
+        // Search through search path
+        Oid opcID = OpclassnameGetOpcid(amID, opcname);
+        if (!OidIsValid(opcID))
+            htup = NULL;
+        else
+            htup = SearchSysCache1(CLAOID, ObjectIdGetDatum(opcID));
+    }
+
+    // Handle not found case
+    if (!HeapTupleIsValid(htup) && !missing_ok)
+    {
+        HeapTuple amtup = SearchSysCache1(AMOID, ObjectIdGetDatum(amID));
+        if (!HeapTupleIsValid(amtup))
+            elog(ERROR, "cache lookup failed for access method %u", amID);
+
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("operator class \"%s\" does not exist for access method \"%s\"",
+                        NameListToString(opclassname),
+                        NameStr(((Form_pg_am) GETSTRUCT(amtup))->amname))));
+    }
+
+    return htup;
+}
+```

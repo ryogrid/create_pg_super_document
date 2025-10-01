@@ -45,3 +45,129 @@ The function uses an optimized approach by processing input in chunks when possi
 - Uses local variables for input buffer access to optimize the tight parsing loop
 - Maintains line number counting for embedded newlines in CSV quoted fields
 - Supports proper escape sequence handling where escape and quote characters may be the same or different
+
+## Simplified Source
+
+```c
+static bool
+CopyReadLineText(CopyFromState cstate)
+{
+    char *copy_input_buf;
+    int input_buf_ptr;
+    int copy_buf_len;
+    bool need_data = false;
+    bool hit_eof = false;
+    bool result = false;
+
+    // CSV state variables
+    bool first_char_in_line = true;
+    bool in_quote = false, last_was_esc = false;
+    char quotec = '\0', escapec = '\0';
+
+    // Initialize CSV mode settings
+    if (cstate->opts.csv_mode) {
+        quotec = cstate->opts.quote[0];
+        escapec = cstate->opts.escape[0];
+        if (quotec == escapec) escapec = '\0';  // Ignore if same as quote
+    }
+
+    // Optimize buffer access with local variables
+    copy_input_buf = cstate->input_buf;
+    input_buf_ptr = cstate->input_buf_index;
+    copy_buf_len = cstate->input_buf_len;
+
+    for (;;) {
+        char c;
+
+        // Load more data if needed
+        if (input_buf_ptr >= copy_buf_len || need_data) {
+            REFILL_LINEBUF;
+            CopyLoadInputBuf(cstate);
+            // Update local variables after buffer reload
+            hit_eof = cstate->input_reached_eof;
+            input_buf_ptr = cstate->input_buf_index;
+            copy_buf_len = cstate->input_buf_len;
+
+            if (INPUT_BUF_BYTES(cstate) <= 0) {
+                result = true;  // EOF reached
+                break;
+            }
+            need_data = false;
+        }
+
+        // Get next character
+        int prev_raw_ptr = input_buf_ptr;
+        c = copy_input_buf[input_buf_ptr++];
+
+        // Handle CSV quote/escape logic
+        if (cstate->opts.csv_mode) {
+            // Force lookahead for special characters
+            if (c == '\\' || c == '\r') {
+                IF_NEED_REFILL_AND_NOT_EOF_CONTINUE(0);
+            }
+
+            // Update CSV state
+            if (in_quote && c == escapec) last_was_esc = !last_was_esc;
+            if (c == quotec && !last_was_esc) in_quote = !in_quote;
+            if (c != escapec) last_was_esc = false;
+
+            // Track line numbers for embedded newlines in quotes
+            if (in_quote && c == (cstate->eol_type == EOL_NL ? '\n' : '\r'))
+                cstate->cur_lineno++;
+        }
+
+        // Handle carriage return (\r)
+        if (c == '\r' && (!cstate->opts.csv_mode || !in_quote)) {
+            // Detect and handle \r\n vs \r line endings
+            if (cstate->eol_type == EOL_UNKNOWN || cstate->eol_type == EOL_CRNL) {
+                IF_NEED_REFILL_AND_NOT_EOF_CONTINUE(0);
+                c = copy_input_buf[input_buf_ptr];
+                if (c == '\n') {
+                    input_buf_ptr++;
+                    cstate->eol_type = EOL_CRNL;
+                } else {
+                    cstate->eol_type = EOL_CR;
+                }
+            }
+            break;  // Line terminator found
+        }
+
+        // Handle newline (\n)
+        if (c == '\n' && (!cstate->opts.csv_mode || !in_quote)) {
+            cstate->eol_type = EOL_NL;
+            break;  // Line terminator found
+        }
+
+        // Handle end-of-copy marker (\.)
+        if (c == '\\' && (!cstate->opts.csv_mode || first_char_in_line)) {
+            IF_NEED_REFILL_AND_NOT_EOF_CONTINUE(0);
+            char c2 = copy_input_buf[input_buf_ptr];
+
+            if (c2 == '.') {
+                input_buf_ptr++;  // Consume the '.'
+
+                // Validate end-of-copy marker format
+                // (Detailed validation logic for different EOL types)
+
+                // Transfer data before \. to line buffer
+                if (prev_raw_ptr > cstate->input_buf_index) {
+                    appendBinaryStringInfo(&cstate->line_buf,
+                                         cstate->input_buf + cstate->input_buf_index,
+                                         prev_raw_ptr - cstate->input_buf_index);
+                }
+                cstate->input_buf_index = input_buf_ptr;
+                result = true;  // EOF marker found
+                break;
+            } else if (!cstate->opts.csv_mode) {
+                input_buf_ptr++;  // Skip character after backslash
+            }
+        }
+
+        first_char_in_line = false;
+    }
+
+    // Transfer any remaining data to line buffer
+    REFILL_LINEBUF;
+    return result;
+}
+```

@@ -40,3 +40,16 @@ This is used in ISO 8601 parsing contexts where the number of digits in the inte
 - There is also an ECPG version in src/interfaces/ecpg/pgtypeslib/interval.c with identical functionality
 - Part of the broader ISO 8601 interval parsing infrastructure in PostgreSQL
 - Used primarily for format validation and interpretation in ISO 8601 interval strings
+
+## Simplified Source
+
+```c
+static int ISO8601IntegerWidth(char *fieldstart) {
+    // Skip leading minus sign if present
+    if (*fieldstart == '-')
+        fieldstart++;
+
+    // Count consecutive decimal digits
+    return strspn(fieldstart, "0123456789");
+}
+```

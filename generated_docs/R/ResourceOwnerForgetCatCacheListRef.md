@@ -35,3 +35,12 @@ ResourceOwnerForgetCatCacheListRef is a static inline wrapper function that remo
 - Essential for maintaining accurate resource tracking of CatCList objects and preventing resource leaks or double-frees
 - Works specifically with CatCList pointers, which are distinct from individual catalog cache tuple references
 - Part of PostgreSQL's comprehensive resource management system for catalog cache operations
+
+## Simplified Source
+
+```c
+static inline void ResourceOwnerForgetCatCacheListRef(ResourceOwner owner, CatCList *list) {
+    // Remove catalog cache list reference from resource owner tracking
+    ResourceOwnerForget(owner, PointerGetDatum(list), &catlistref_resowner_desc);
+}
+```

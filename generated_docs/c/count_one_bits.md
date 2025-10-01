@@ -38,3 +38,20 @@ The implementation relies on `AclMode` being an unsigned integer type to ensure 
 - The algorithm has O(n) time complexity where n is the number of bits in `AclMode`
 - Essential for permission analysis in PostgreSQL's role-based access control system
 - Located in `src/backend/utils/adt/acl.c:5321-5360`
+
+## Simplified Source
+
+```c
+static int count_one_bits(AclMode mask) {
+    int nbits = 0;
+
+    // Count set bits by checking each bit position
+    while (mask) {
+        if (mask & 1)
+            nbits++;
+        mask >>= 1;  // Shift right to check next bit
+    }
+
+    return nbits;
+}
+```

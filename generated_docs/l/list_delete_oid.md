@@ -38,3 +38,26 @@ When a matching OID is found, the cell is removed using `list_delete_cell()` and
 - Part of PostgreSQL's typed list API for managing collections of database object identifiers
 - The `lfirst_oid()` macro safely extracts OID values from list cells
 - Commonly used in catalog operations and object management where OID tracking is required
+
+## Simplified Source
+
+```c
+List *list_delete_oid(List *list, Oid datum) {
+    ListCell *cell;
+
+    // Ensure this is a valid OID list
+    Assert(IsOidList(list));
+    check_list_invariants(list);
+
+    // Search for the first matching OID
+    foreach(cell, list) {
+        if (lfirst_oid(cell) == datum) {
+            // Found match - delete this cell and return modified list
+            return list_delete_cell(list, cell);
+        }
+    }
+
+    // No match found - return original list unchanged
+    return list;
+}
+```

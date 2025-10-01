@@ -37,3 +37,32 @@ This function is a specialized JSON parsing callback that ensures object field n
 - When uniqueness is violated, the function performs cleanup by popping and freeing all stack entries
 - The function returns JSON_SUCCESS in all cases, as the uniqueness violation is recorded in the state rather than reported as a parse error
 - Part of PostgreSQL's JSON validation infrastructure for ensuring well-formed JSON objects
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+json_unique_object_field_start(void *_state, char *field, bool isnull)
+{
+    JsonUniqueParsingState *state = _state;
+    JsonUniqueStackEntry *entry;
+
+    // Skip if uniqueness checking is disabled
+    if (!state->unique)
+        return JSON_SUCCESS;
+
+    // Check for key collision in current object
+    if (json_unique_check_key(&state->check, field, state->stack->object_id))
+        return JSON_SUCCESS;
+
+    // Mark as non-unique and cleanup stack
+    state->unique = false;
+    while ((entry = state->stack))
+    {
+        state->stack = entry->parent;
+        pfree(entry);
+    }
+
+    return JSON_SUCCESS;
+}
+```

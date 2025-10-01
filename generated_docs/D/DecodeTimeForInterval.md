@@ -51,3 +51,32 @@ The function is specifically designed for interval parsing contexts where time c
 - Static function indicating it's an internal utility within the datetime parsing system
 - The accumulated microsecond approach allows for easier interval addition, subtraction, and scaling operations
 - Critical for PostgreSQL's interval type implementation where durations are stored as consolidated microsecond values
+
+## Simplified Source
+
+```c
+static int
+DecodeTimeForInterval(char *str, int fmask, int range,
+                      int *tmask, struct pg_itm_in *itm_in)
+{
+    struct pg_itm itm;
+    int dterr;
+
+    // Use common time parsing logic
+    dterr = DecodeTimeCommon(str, fmask, range, tmask, &itm);
+    if (dterr)
+        return dterr;
+
+    // Start with microseconds from parsed time
+    itm_in->tm_usec = itm.tm_usec;
+
+    // Convert and accumulate hours, minutes, seconds to microseconds
+    // Using safe arithmetic to prevent overflow
+    if (!int64_multiply_add(itm.tm_hour, USECS_PER_HOUR, &itm_in->tm_usec) ||
+        !int64_multiply_add(itm.tm_min, USECS_PER_MINUTE, &itm_in->tm_usec) ||
+        !int64_multiply_add(itm.tm_sec, USECS_PER_SEC, &itm_in->tm_usec))
+        return DTERR_FIELD_OVERFLOW;
+
+    return 0;  // Success
+}
+```

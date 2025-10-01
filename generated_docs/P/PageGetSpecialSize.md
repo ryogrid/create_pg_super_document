@@ -33,3 +33,12 @@ PageGetSpecialSize computes the size of the special space area at the end of a p
 - The pd_special field in PageHeader contains the offset where special space begins
 - A pd_special value equal to page size indicates no special space is allocated
 - Part of the page special data function family in PostgreSQL storage system
+
+## Simplified Source
+
+```c
+static inline uint16 PageGetSpecialSize(Page page) {
+    // Calculate special space size: total page size minus special offset
+    return PageGetPageSize(page) - ((PageHeader) page)->pd_special;
+}
+```

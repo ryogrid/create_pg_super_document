@@ -41,3 +41,20 @@ The function maintains a trailing null terminator even for binary data, though t
 - The trailing null terminator is generally not meaningful for true binary data
 - Used internally by other PQExpBuffer functions like appendPQExpBufferStr
 - Located in src/interfaces/libpq/pqexpbuffer.c:397-412
+
+## Simplified Source
+
+```c
+void appendBinaryPQExpBuffer(PQExpBuffer str, const char *data, size_t datalen) {
+    // Ensure buffer has enough space for the new data
+    if (!enlargePQExpBuffer(str, datalen))
+        return;
+
+    // Copy the binary data to the buffer
+    memcpy(str->data + str->len, data, datalen);
+    str->len += datalen;
+
+    // Maintain trailing null terminator for consistency
+    str->data[str->len] = '\0';
+}
+```

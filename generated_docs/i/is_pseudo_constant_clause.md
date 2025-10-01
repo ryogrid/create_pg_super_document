@@ -41,3 +41,19 @@ Important limitation: This function does not check for aggregates (Aggrefs) or w
 - Does not detect aggregates or window functions - use contain_agg_clause() for complete pseudo-constness checking in other contexts
 - Performance-optimized with a two-stage checking strategy
 - Critical for determining whether expressions can be used as index scan keys or moved to different parts of the query plan
+
+## Simplified Source
+
+```c
+bool
+is_pseudo_constant_clause(Node *clause)
+{
+    // Two-stage check for performance optimization:
+    // 1. Check for variables first (faster)
+    // 2. Only check volatile functions if no variables found
+    if (!contain_var_clause(clause) &&
+        !contain_volatile_functions(clause))
+        return true;
+    return false;
+}
+```

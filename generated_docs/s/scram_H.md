@@ -42,3 +42,29 @@ This function performs a straightforward cryptographic hash operation on input d
 - Handles memory management automatically with proper cleanup via pg_cryptohash_free()
 - Thread-safe as it uses local variables and doesn't modify global state
 - The function name 'H' follows SCRAM specification notation where H() represents the hash function
+
+## Simplified Source
+
+```c
+int scram_H(const uint8 *input, pg_cryptohash_type hash_type, int key_length,
+            uint8 *result, const char **errstr) {
+    // Create hash context
+    pg_cryptohash_ctx *ctx = pg_cryptohash_create(hash_type);
+    if (ctx == NULL) {
+        *errstr = pg_cryptohash_error(NULL);
+        return -1;
+    }
+
+    // Compute hash of input data
+    if (pg_cryptohash_init(ctx) < 0 ||
+        pg_cryptohash_update(ctx, input, key_length) < 0 ||
+        pg_cryptohash_final(ctx, result, key_length) < 0) {
+        *errstr = pg_cryptohash_error(ctx);
+        pg_cryptohash_free(ctx);
+        return -1;
+    }
+
+    pg_cryptohash_free(ctx);
+    return 0;
+}
+```

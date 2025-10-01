@@ -41,3 +41,37 @@ The function is specifically designed to work within the context of sub-joinlist
 - Memory management is carefully handled with  calls to prevent leaks
 - The function specifically excludes relations that are already part of the input relation (using  check)
 - Located in src/backend/optimizer/path/joinrels.c:1241-1304
+
+## Simplified Source
+
+```c
+static bool has_legal_joinclause(PlannerInfo *root, RelOptInfo *rel) {
+    ListCell *lc;
+
+    // Check each relation in initial_rels for potential joins
+    foreach(lc, root->initial_rels) {
+        RelOptInfo *rel2 = (RelOptInfo *) lfirst(lc);
+
+        // Skip relations already included in rel
+        if (bms_overlap(rel->relids, rel2->relids))
+            continue;
+
+        // Check for relevant join clauses
+        if (have_relevant_joinclause(root, rel, rel2)) {
+            Relids joinrelids = bms_union(rel->relids, rel2->relids);
+            SpecialJoinInfo *sjinfo;
+            bool reversed;
+
+            // Verify the join is legal
+            if (join_is_legal(root, rel, rel2, joinrelids, &sjinfo, &reversed)) {
+                bms_free(joinrelids);
+                return true;
+            }
+
+            bms_free(joinrelids);
+        }
+    }
+
+    return false;
+}
+```

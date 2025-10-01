@@ -66,3 +66,137 @@ Special handling is provided for "future" transaction IDs that appear corrupt, w
 - Provides warnings when overwriting seemingly corrupt "future" transaction IDs
 - The in-place update mechanism requires the statistics being updated to be fixed-size, not-null columns
 - Transaction ID validation prevents relfrozenxid from going backwards unless the stored value appears to be corrupt ("in the future")
+
+## Simplified Source
+
+```c
+void
+vac_update_relstats(Relation relation,
+                    BlockNumber num_pages, double num_tuples,
+                    BlockNumber num_all_visible_pages,
+                    bool hasindex, TransactionId frozenxid,
+                    MultiXactId minmulti,
+                    bool *frozenxid_updated, bool *minmulti_updated,
+                    bool in_outer_xact)
+{
+    Oid relid = RelationGetRelid(relation);
+    Relation pg_class_rel;
+    ScanKeyData key[1];
+    HeapTuple tuple;
+    void *inplace_state;
+    Form_pg_class pgc_form;
+    bool dirty = false;
+
+    // Open pg_class catalog for in-place updates
+    pg_class_rel = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Find the pg_class tuple for this relation
+    ScanKeyInit(&key[0], Anum_pg_class_oid, BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(relid));
+    systable_inplace_update_begin(pg_class_rel, ClassOidIndexId, true,
+                                  NULL, 1, key, &tuple, &inplace_state);
+
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "pg_class entry for relid %u vanished during vacuuming", relid);
+
+    pgc_form = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Update basic statistics (always safe to update)
+    if (pgc_form->relpages != (int32) num_pages) {
+        pgc_form->relpages = (int32) num_pages;
+        dirty = true;
+    }
+    if (pgc_form->reltuples != (float4) num_tuples) {
+        pgc_form->reltuples = (float4) num_tuples;
+        dirty = true;
+    }
+    if (pgc_form->relallvisible != (int32) num_all_visible_pages) {
+        pgc_form->relallvisible = (int32) num_all_visible_pages;
+        dirty = true;
+    }
+
+    // Update DDL flags, but only outside of outer transactions
+    if (!in_outer_xact) {
+        // Clear relhasindex if no indexes found
+        if (pgc_form->relhasindex && !hasindex) {
+            pgc_form->relhasindex = false;
+            dirty = true;
+        }
+
+        // Clear relhasrules if no rules present
+        if (pgc_form->relhasrules && relation->rd_rules == NULL) {
+            pgc_form->relhasrules = false;
+            dirty = true;
+        }
+
+        // Clear relhastriggers if no triggers present
+        if (pgc_form->relhastriggers && relation->trigdesc == NULL) {
+            pgc_form->relhastriggers = false;
+            dirty = true;
+        }
+    }
+
+    // Update relfrozenxid with validation
+    TransactionId old_frozenxid = pgc_form->relfrozenxid;
+    bool future_xid = false;
+    if (frozenxid_updated)
+        *frozenxid_updated = false;
+
+    if (TransactionIdIsNormal(frozenxid) && old_frozenxid != frozenxid) {
+        bool update = false;
+
+        // Allow forward movement or correction of "future" XIDs
+        if (TransactionIdPrecedes(old_frozenxid, frozenxid))
+            update = true;
+        else if (TransactionIdPrecedes(ReadNextTransactionId(), old_frozenxid))
+            future_xid = update = true;  // Corrupt "future" XID
+
+        if (update) {
+            pgc_form->relfrozenxid = frozenxid;
+            dirty = true;
+            if (frozenxid_updated)
+                *frozenxid_updated = true;
+        }
+    }
+
+    // Update relminmxid with similar validation
+    MultiXactId old_minmulti = pgc_form->relminmxid;
+    bool future_mxid = false;
+    if (minmulti_updated)
+        *minmulti_updated = false;
+
+    if (MultiXactIdIsValid(minmulti) && old_minmulti != minmulti) {
+        bool update = false;
+
+        if (MultiXactIdPrecedes(old_minmulti, minmulti))
+            update = true;
+        else if (MultiXactIdPrecedes(ReadNextMultiXactId(), old_minmulti))
+            future_mxid = update = true;  // Corrupt "future" MXID
+
+        if (update) {
+            pgc_form->relminmxid = minmulti;
+            dirty = true;
+            if (minmulti_updated)
+                *minmulti_updated = true;
+        }
+    }
+
+    // Commit or cancel the in-place update
+    if (dirty)
+        systable_inplace_update_finish(inplace_state, tuple);
+    else
+        systable_inplace_update_cancel(inplace_state);
+
+    table_close(pg_class_rel, RowExclusiveLock);
+
+    // Warn about corrupt transaction IDs that were corrected
+    if (future_xid)
+        ereport(WARNING, (errcode(ERRCODE_DATA_CORRUPTED),
+                errmsg_internal("overwrote invalid relfrozenxid value %u with new value %u for table \"%s\"",
+                               old_frozenxid, frozenxid, RelationGetRelationName(relation))));
+    if (future_mxid)
+        ereport(WARNING, (errcode(ERRCODE_DATA_CORRUPTED),
+                errmsg_internal("overwrote invalid relminmxid value %u with new value %u for table \"%s\"",
+                               old_minmulti, minmulti, RelationGetRelationName(relation))));
+}
+```

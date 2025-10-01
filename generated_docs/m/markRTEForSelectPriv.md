@@ -49,3 +49,55 @@ When dealing with relation RTEs, the function updates the `RTEPermissionInfo` st
 - Does not require privilege marking for RTE types other than relations and joins
 - Critical for PostgreSQL's row-level security and privilege checking system
 - The function maintains the principle that all accessed columns must be explicitly tracked for security auditing
+
+## Simplified Source
+
+```c
+static void
+markRTEForSelectPriv(ParseState *pstate, int rtindex, AttrNumber col)
+{
+    RangeTblEntry *rte = rt_fetch(rtindex, pstate->p_rtable);
+
+    if (rte->rtekind == RTE_RELATION)
+    {
+        RTEPermissionInfo *perminfo;
+
+        // Mark relation for SELECT access and add column to selected set
+        perminfo = getRTEPermissionInfo(pstate->p_rteperminfos, rte);
+        perminfo->requiredPerms |= ACL_SELECT;
+        perminfo->selectedCols =
+            bms_add_member(perminfo->selectedCols,
+                           col - FirstLowInvalidHeapAttributeNumber);
+    }
+    else if (rte->rtekind == RTE_JOIN)
+    {
+        if (col == InvalidAttrNumber)
+        {
+            // Whole-row reference: mark both join inputs
+            JoinExpr *j;
+
+            if (rtindex > 0 && rtindex <= list_length(pstate->p_joinexprs))
+                j = list_nth_node(JoinExpr, pstate->p_joinexprs, rtindex - 1);
+            else
+                j = NULL;
+            if (j == NULL)
+                elog(ERROR, "could not find JoinExpr for whole-row reference");
+
+            // Mark left join input
+            if (IsA(j->larg, RangeTblRef))
+                markRTEForSelectPriv(pstate, ((RangeTblRef *) j->larg)->rtindex, InvalidAttrNumber);
+            else if (IsA(j->larg, JoinExpr))
+                markRTEForSelectPriv(pstate, ((JoinExpr *) j->larg)->rtindex, InvalidAttrNumber);
+
+            // Mark right join input
+            if (IsA(j->rarg, RangeTblRef))
+                markRTEForSelectPriv(pstate, ((RangeTblRef *) j->rarg)->rtindex, InvalidAttrNumber);
+            else if (IsA(j->rarg, JoinExpr))
+                markRTEForSelectPriv(pstate, ((JoinExpr *) j->rarg)->rtindex, InvalidAttrNumber);
+        }
+        // For ordinary column references in joins, no action needed
+        // (will be marked through join's qual clause)
+    }
+    // Other RTE types don't require privilege marking
+}
+```

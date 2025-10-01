@@ -34,3 +34,15 @@ The `memory_exhausted` function serves as a centralized error handler for memory
 - The function uses gettext internationalization (_) to provide localized error messages
 - It represents a defensive programming practice by providing a single point of failure handling for memory allocation errors
 - The function never returns, as it always calls exit() with EXIT_FAILURE status
+
+## Simplified Source
+
+```c
+static void memory_exhausted(const char *msg) {
+    // Print error message with program name and context
+    fprintf(stderr, _("%s: Memory exhausted: %s\n"), progname, msg);
+
+    // Terminate program with failure status
+    exit(EXIT_FAILURE);
+}
+```

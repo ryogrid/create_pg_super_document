@@ -44,3 +44,30 @@ Note that while this function initializes the tuple slots, it does not initializ
 - Memory management is handled automatically through registration with estate->es_tupleTable
 - This function is also used by partition initialization code, making it a shared utility for MERGE operations across different relation types
 - The ri_projectNewInfoValid flag prevents duplicate initialization and indicates that the ResultRelInfo is ready for MERGE projections
+
+## Simplified Source
+
+```c
+void
+ExecInitMergeTupleSlots(ModifyTableState *mtstate,
+                       ResultRelInfo *resultRelInfo)
+{
+    EState *estate = mtstate->ps.state;
+
+    // Ensure this hasn't been called before
+    Assert(!resultRelInfo->ri_projectNewInfoValid);
+
+    // Create slot for existing target tuples (MATCHED operations)
+    resultRelInfo->ri_oldTupleSlot =
+        table_slot_create(resultRelInfo->ri_RelationDesc,
+                         &estate->es_tupleTable);
+
+    // Create slot for new/updated tuples (INSERT/UPDATE operations)
+    resultRelInfo->ri_newTupleSlot =
+        table_slot_create(resultRelInfo->ri_RelationDesc,
+                         &estate->es_tupleTable);
+
+    // Mark tuple slots as initialized
+    resultRelInfo->ri_projectNewInfoValid = true;
+}
+```

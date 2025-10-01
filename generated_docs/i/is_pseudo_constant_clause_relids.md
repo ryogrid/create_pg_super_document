@@ -36,3 +36,18 @@ This optimization is valuable when the caller has already computed the relation 
 - Assumes the caller has accurately computed the relids parameter
 - Like its counterpart, does not check for aggregates or window functions
 - Primarily used in query optimization contexts where relation analysis has already been performed
+
+## Simplified Source
+
+```c
+bool
+is_pseudo_constant_clause_relids(Node *clause, Relids relids)
+{
+    // Optimized version: use pre-computed relation membership
+    // instead of scanning the expression tree for variables
+    if (bms_is_empty(relids) &&         // No relation references
+        !contain_volatile_functions(clause))  // No volatile functions
+        return true;
+    return false;
+}
+```

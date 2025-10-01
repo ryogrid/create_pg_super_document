@@ -40,3 +40,50 @@ The function distinguishes between statically allocated tuple descriptors (tdref
 - The function ensures proper cleanup by registering ER_mc_callback when managing refcounted descriptors
 - Part of PostgreSQL's expanded object infrastructure for efficient composite type handling
 - Internal code can access erh->er_tupdesc directly when ER_FLAG_DVALUES_VALID is set
+
+## Simplified Source
+
+```c
+TupleDesc
+expanded_record_fetch_tupdesc(ExpandedRecordHeader *erh)
+{
+    TupleDesc tupdesc;
+
+    // Return cached descriptor if available
+    if (erh->er_tupdesc)
+        return erh->er_tupdesc;
+
+    // Look up the composite type's tupdesc
+    tupdesc = lookup_rowtype_tupdesc(erh->er_typeid, erh->er_typmod);
+
+    if (tupdesc->tdrefcount >= 0)
+    {
+        // Refcounted tupdesc: manage with memory context callback
+        if (erh->er_mcb.arg == NULL)
+        {
+            erh->er_mcb.func = ER_mc_callback;
+            erh->er_mcb.arg = (void *) erh;
+            MemoryContextRegisterResetCallback(erh->hdr.eoh_context,
+                                               &erh->er_mcb);
+        }
+
+        // Cache and increment reference count
+        erh->er_tupdesc = tupdesc;
+        tupdesc->tdrefcount++;
+
+        // Release the pin from lookup_rowtype_tupdesc
+        ReleaseTupleDesc(tupdesc);
+    }
+    else
+    {
+        // Static tupdesc: just cache the pointer
+        erh->er_tupdesc = tupdesc;
+    }
+
+    // Get process-global ID for this tupdesc
+    erh->er_tupdesc_id = assign_record_type_identifier(tupdesc->tdtypeid,
+                                                       tupdesc->tdtypmod);
+
+    return tupdesc;
+}
+```

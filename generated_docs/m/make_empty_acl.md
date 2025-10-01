@@ -31,3 +31,14 @@ The  function is a utility function that creates a completely empty ACL structur
 - The returned ACL has zero entries but is properly initialized and can be extended with  or similar functions
 - Memory allocated by this function should be managed according to PostgreSQL's memory context system
 - Essential for scenarios where an empty ACL needs to be explicitly created rather than using NULL
+
+## Simplified Source
+
+```c
+Acl *
+make_empty_acl(void)
+{
+    // Allocate ACL structure with zero entries
+    return allocacl(0);
+}
+```

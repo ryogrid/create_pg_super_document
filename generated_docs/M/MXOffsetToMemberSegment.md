@@ -38,3 +38,11 @@ This function works with MultiXactOffset values (positions within the members sp
 - Works with the members SLRU file system, complementing the offsets SLRU addressing functions
 - Essential for managing the physical storage of MultiXact member data across multiple segment files
 - The function chain (MultiXactOffset -> Segment -> Page -> Entry) provides complete addressing for the members SLRU structure
+
+## Simplified Source
+```c
+static inline int64 MXOffsetToMemberSegment(MultiXactOffset offset) {
+    // Convert offset to segment number by dividing page number by pages per segment
+    return MXOffsetToMemberPage(offset) / SLRU_PAGES_PER_SEGMENT;
+}
+```

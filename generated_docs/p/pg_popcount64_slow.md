@@ -44,3 +44,26 @@ The manual approach processes all 8 bytes of the 64-bit word sequentially, accum
 - The function includes compile-time checks to ensure 64-bit integer support exists
 - Similar to the 32-bit version but handles twice the data, making the manual implementation correspondingly slower
 - Part of PostgreSQL's comprehensive bit manipulation utilities
+
+## Simplified Source
+
+```c
+static inline int pg_popcount64_slow(uint64 word) {
+    // Use compiler builtin if available
+    #ifdef HAVE__BUILTIN_POPCOUNT
+        #if defined(HAVE_LONG_INT_64)
+            return __builtin_popcountl(word);
+        #elif defined(HAVE_LONG_LONG_INT_64)
+            return __builtin_popcountll(word);
+        #endif
+    #else
+        // Manual byte-by-byte counting using lookup table
+        int result = 0;
+        while (word != 0) {
+            result += pg_number_of_ones[word & 255];  // Count bits in lower 8 bits
+            word >>= 8;                               // Shift to next byte
+        }
+        return result;
+    #endif
+}
+```

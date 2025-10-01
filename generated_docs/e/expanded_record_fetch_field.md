@@ -55,3 +55,46 @@ The function is designed as the "slow path" complement to the inline expanded_re
 - The function ensures proper bounds checking and handles empty records gracefully
 - Performance is optimized for the common case through the inline wrapper function
 - System column access requires a materialized tuple (fvalue) to be present
+
+## Simplified Source
+
+```c
+Datum
+expanded_record_fetch_field(ExpandedRecordHeader *erh, int fnumber,
+                            bool *isnull)
+{
+    if (fnumber > 0)
+    {
+        // User-defined field access
+        if (ExpandedRecordIsEmpty(erh))
+        {
+            *isnull = true;
+            return (Datum) 0;
+        }
+
+        // Ensure record is deconstructed
+        deconstruct_expanded_record(erh);
+
+        // Check bounds - out-of-range reads as null
+        if (unlikely(fnumber > erh->nfields))
+        {
+            *isnull = true;
+            return (Datum) 0;
+        }
+
+        *isnull = erh->dnulls[fnumber - 1];
+        return erh->dvalues[fnumber - 1];
+    }
+    else
+    {
+        // System column access requires flat tuple
+        if (erh->fvalue == NULL)
+        {
+            *isnull = true;
+            return (Datum) 0;
+        }
+
+        return heap_getsysattr(erh->fvalue, fnumber, NULL, isnull);
+    }
+}
+```

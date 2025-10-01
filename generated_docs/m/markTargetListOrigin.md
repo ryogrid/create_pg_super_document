@@ -44,3 +44,73 @@ The function performs different actions based on the RTE (Range Table Entry) typ
 - Does not process recursive CTE self-references to avoid incomplete analysis
 - Returns early if the input variable is NULL or not a Var node
 - Critical for implementing column-level security and query optimization features that depend on column provenance
+
+## Simplified Source
+
+```c
+static void markTargetListOrigin(ParseState *pstate, TargetEntry *tle,
+                                 Var *var, int levelsup) {
+    int netlevelsup;
+    RangeTblEntry *rte;
+    AttrNumber attnum;
+
+    // Early exit if not a Var node
+    if (var == NULL || !IsA(var, Var))
+        return;
+
+    // Calculate effective nesting level and get range table entry
+    netlevelsup = var->varlevelsup + levelsup;
+    rte = GetRTEByRangeTablePosn(pstate, var->varno, netlevelsup);
+    attnum = var->varattno;
+
+    switch (rte->rtekind) {
+        case RTE_RELATION:
+            // Direct table/view reference - mark with origin
+            tle->resorigtbl = rte->relid;
+            tle->resorigcol = attnum;
+            break;
+
+        case RTE_SUBQUERY:
+            // Subquery - copy origin from subquery's target list
+            if (attnum != InvalidAttrNumber) {
+                TargetEntry *ste = get_tle_by_resno(rte->subquery->targetList, attnum);
+                if (ste && !ste->resjunk) {
+                    tle->resorigtbl = ste->resorigtbl;
+                    tle->resorigcol = ste->resorigcol;
+                }
+            }
+            break;
+
+        case RTE_CTE:
+            // CTE reference - copy from CTE target list (if not self-reference)
+            if (attnum != InvalidAttrNumber && !rte->self_reference) {
+                CommonTableExpr *cte = GetCTEForRTE(pstate, rte, netlevelsup);
+                List *tl = GetCTETargetList(cte);
+
+                // Handle search/cycle columns that aren't in original subquery
+                int extra_cols = 0;
+                if (cte->search_clause) extra_cols += 1;
+                if (cte->cycle_clause) extra_cols += 2;
+
+                if (!(extra_cols && attnum > list_length(tl) &&
+                      attnum <= list_length(tl) + extra_cols)) {
+                    TargetEntry *ste = get_tle_by_resno(tl, attnum);
+                    if (ste && !ste->resjunk) {
+                        tle->resorigtbl = ste->resorigtbl;
+                        tle->resorigcol = ste->resorigcol;
+                    }
+                }
+            }
+            break;
+
+        case RTE_JOIN:
+        case RTE_FUNCTION:
+        case RTE_VALUES:
+        case RTE_TABLEFUNC:
+        case RTE_NAMEDTUPLESTORE:
+        case RTE_RESULT:
+            // Not a simple relation - leave unmarked
+            break;
+    }
+}
+```

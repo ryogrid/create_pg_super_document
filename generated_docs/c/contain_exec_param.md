@@ -32,3 +32,14 @@ This function provides a high-level interface for detecting the presence of PARA
 - Part of the parameter analysis infrastructure in PostgreSQL's query planner
 - Located in src/backend/optimizer/util/clauses.c at lines 1137-1142
 - Returns true if any matching PARAM_EXEC parameter is found
+
+## Simplified Source
+
+```c
+bool
+contain_exec_param(Node *clause, List *param_ids)
+{
+    // Delegate to walker function to recursively search the clause tree
+    return contain_exec_param_walker(clause, param_ids);
+}
+```

@@ -49,3 +49,36 @@ The function ensures that the EXPLAIN output is properly structured and syntacti
 - The function manages indentation levels and grouping stacks to maintain proper structure across different output formats
 - For JSON and YAML formats, the grouping stack is maintained to track nested structures
 - Located in src/backend/commands/explain.c:4925-4957
+
+## Simplified Source
+
+```c
+void ExplainCloseGroup(const char *objtype, const char *labelname,
+                      bool labeled, ExplainState *es)
+{
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+            // No action needed for text format
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            es->indent--;
+            ExplainXMLTag(objtype, X_CLOSING, es);
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            es->indent--;
+            appendStringInfoChar(es->str, '\n');
+            appendStringInfoSpaces(es->str, 2 * es->indent);
+            // Close with } for labeled groups, ] for unlabeled arrays
+            appendStringInfoChar(es->str, labeled ? '}' : ']');
+            es->grouping_stack = list_delete_first(es->grouping_stack);
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            es->indent--;
+            es->grouping_stack = list_delete_first(es->grouping_stack);
+            break;
+    }
+}
+```

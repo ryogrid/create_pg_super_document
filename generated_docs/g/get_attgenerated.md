@@ -39,3 +39,30 @@ This function performs a system cache lookup to retrieve the attgenerated field 
 - The returned value can be used directly in Boolean contexts since '\\0' evaluates to false
 - Essential for validating and processing generated column constraints and dependencies
 - Used primarily in DDL operations and constraint validation logic
+
+## Simplified Source
+
+```c
+char get_attgenerated(Oid relid, AttrNumber attnum) {
+    HeapTuple tp;
+    Form_pg_attribute att_tup;
+    char result;
+
+    // Look up attribute in system cache
+    tp = SearchSysCache2(ATTNUM, ObjectIdGetDatum(relid), Int16GetDatum(attnum));
+
+    // Error if attribute not found
+    if (!HeapTupleIsValid(tp)) {
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u",
+             attnum, relid);
+    }
+
+    // Extract attgenerated field from attribute tuple
+    att_tup = (Form_pg_attribute) GETSTRUCT(tp);
+    result = att_tup->attgenerated;
+
+    // Release cache entry and return result
+    ReleaseSysCache(tp);
+    return result;
+}
+```

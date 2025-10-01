@@ -48,3 +48,31 @@ This function is essential for creating proper composite Datums from heap tuples
 - Performance-critical callers should consider ensuring no TOAST pointers exist in heap_form_tuple output to avoid the overhead
 - This represents a transition from the original macro implementation to handle modern TOAST requirements
 - The function includes extensive commentary about potential future improvements to create composite Datums more directly
+
+## Simplified Source
+
+```c
+Datum
+HeapTupleHeaderGetDatum(HeapTupleHeader tuple)
+{
+    Datum result;
+    TupleDesc tupDesc;
+
+    // Fast path: no external TOAST pointers
+    if (!HeapTupleHeaderHasExternal(tuple))
+        return PointerGetDatum(tuple);
+
+    // Look up the rowtype using stored type info
+    tupDesc = lookup_rowtype_tupdesc(HeapTupleHeaderGetTypeId(tuple),
+                                     HeapTupleHeaderGetTypMod(tuple));
+
+    // Flatten the tuple to inline all TOAST values
+    result = toast_flatten_tuple_to_datum(tuple,
+                                          HeapTupleHeaderGetDatumLength(tuple),
+                                          tupDesc);
+
+    ReleaseTupleDesc(tupDesc);
+
+    return result;
+}
+```

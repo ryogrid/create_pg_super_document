@@ -41,3 +41,21 @@ This produces output components like "2Y", "6M", "7D", "1H", "30M", "45S" that c
 - ISO 8601 format assumes positive values; sign handling is typically done at the interval level with a leading minus sign
 - No pluralization is needed since ISO 8601 uses single-character unit designators
 - The format produces compact, standardized output suitable for machine processing and international interchange
+
+## Simplified Source
+
+```c
+static char *
+AddISO8601IntPart(char *cp, int64 value, char units)
+{
+    // Skip zero values (ISO 8601 standard)
+    if (value == 0)
+        return cp;
+
+    // Format: numeric value + unit character (e.g., "2Y", "30M", "15S")
+    sprintf(cp, "%lld%c", (long long) value, units);
+
+    // Return pointer to end of string for next append
+    return cp + strlen(cp);
+}
+```

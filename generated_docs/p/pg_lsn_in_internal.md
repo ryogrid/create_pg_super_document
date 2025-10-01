@@ -39,3 +39,42 @@ The LSN format consists of two 32-bit hexadecimal numbers separated by a forward
 - The function performs strict validation of input format before attempting conversion
 - Used as the foundation for user-facing LSN input functions that need different error handling strategies
 - Each LSN component is limited by MAXPG_LSNCOMPONENT to prevent overflow conditions
+
+## Simplified Source
+
+```c
+XLogRecPtr
+pg_lsn_in_internal(const char *str, bool *have_error)
+{
+    int      len1, len2;
+    uint32   id, off;
+    XLogRecPtr result;
+
+    *have_error = false;
+
+    // Validate first component (before '/')
+    len1 = strspn(str, "0123456789abcdefABCDEF");
+    if (len1 < 1 || len1 > MAXPG_LSNCOMPONENT || str[len1] != '/')
+    {
+        *have_error = true;
+        return InvalidXLogRecPtr;
+    }
+
+    // Validate second component (after '/')
+    len2 = strspn(str + len1 + 1, "0123456789abcdefABCDEF");
+    if (len2 < 1 || len2 > MAXPG_LSNCOMPONENT || str[len1 + 1 + len2] != '\0')
+    {
+        *have_error = true;
+        return InvalidXLogRecPtr;
+    }
+
+    // Parse hex components: timeline ID and offset
+    id = (uint32) strtoul(str, NULL, 16);
+    off = (uint32) strtoul(str + len1 + 1, NULL, 16);
+
+    // Combine into 64-bit LSN
+    result = ((uint64) id << 32) | off;
+
+    return result;
+}
+```

@@ -36,3 +36,17 @@ Combining classes range from 0 to 255, with 0 indicating a base character and hi
 - Essential for canonical ordering during Unicode normalization
 - Characters with combining class 0 are starter characters that can begin a new combining sequence
 - Non-zero combining classes indicate the relative ordering priority of combining marks
+
+## Simplified Source
+
+```c
+static uint8
+get_canonical_class(pg_wchar code)
+{
+    // Look up character in decomposition table
+    const pg_unicode_decomposition *entry = get_code_entry(code);
+
+    // Return combining class, or 0 if no entry found
+    return entry ? entry->comb_class : 0;
+}
+```

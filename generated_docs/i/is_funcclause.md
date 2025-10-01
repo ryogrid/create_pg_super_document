@@ -36,3 +36,14 @@ This function provides a type-safe way to determine if a clause represents a fun
 - The function is NULL-safe, returning false when clause is NULL
 - Part of a family of similar type-checking functions for different node types in PostgreSQL's parse tree
 - Commonly used in selectivity estimation, predicate testing, and function support routines
+
+## Simplified Source
+
+```c
+static inline bool
+is_funcclause(const void *clause)
+{
+    // Check if clause is non-NULL and is a FuncExpr node
+    return clause != NULL && IsA(clause, FuncExpr);
+}
+```

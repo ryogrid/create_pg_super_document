@@ -36,3 +36,17 @@ The handle represents the underlying DSM segment handle that contains the DSA co
 - Contains assertion to verify handle validity before returning
 - Used in parallel vacuum operations, logical replication, and DSM registry management
 - Located in src/backend/utils/mmgr/dsa.c:498-509
+
+## Simplified Source
+
+```c
+dsa_handle
+dsa_get_handle(dsa_area *area)
+{
+    // Verify the area has a valid handle (not created with dsa_create_in_place)
+    Assert(area->control->handle != DSA_HANDLE_INVALID);
+
+    // Return the handle for inter-process sharing
+    return area->control->handle;
+}
+```

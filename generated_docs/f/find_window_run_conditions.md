@@ -55,3 +55,88 @@ This function implements an optimization for window functions by detecting cases
 - Creates WindowFuncRunCondition nodes that are attached to the WindowFunc
 - Located in src/backend/optimizer/path/allpaths.c at lines 2214-2406
 - Critical optimization for queries with window functions and filtering conditions
+
+## Simplified Source
+```c
+static bool
+find_window_run_conditions(Query *subquery, RangeTblEntry *rte, Index rti,
+                          AttrNumber attno, WindowFunc *wfunc, OpExpr *opexpr,
+                          bool wfunc_left, bool *keep_original,
+                          Bitmapset **run_cond_attrs)
+{
+    Oid prosupport;
+    Expr *otherexpr;
+    SupportRequestWFuncMonotonic req;
+    SupportRequestWFuncMonotonic *res;
+    WindowClause *wclause;
+    OpExpr *runopexpr = NULL;
+    Oid runoperator = InvalidOid;
+
+    *keep_original = true;
+
+    // Strip RelabelType wrapper if present
+    while (IsA(wfunc, RelabelType))
+        wfunc = (WindowFunc *) ((RelabelType *) wfunc)->arg;
+
+    // Must be a WindowFunc
+    if (!IsA(wfunc, WindowFunc))
+        return false;
+
+    // Skip if contains subplans (complexity)
+    if (contain_subplans((Node *) wfunc))
+        return false;
+
+    // Get support function
+    prosupport = get_func_support(wfunc->winfnoid);
+    if (!OidIsValid(prosupport))
+        return false;
+
+    // Get the comparison value (must be constant)
+    otherexpr = wfunc_left ? lsecond(opexpr->args) : linitial(opexpr->args);
+    if (!is_pseudo_constant_clause((Node *) otherexpr))
+        return false;
+
+    // Find window clause and call support function
+    wclause = (WindowClause *) list_nth(subquery->windowClause, wfunc->winref - 1);
+    req.type = T_SupportRequestWFuncMonotonic;
+    req.window_func = wfunc;
+    req.window_clause = wclause;
+
+    res = (SupportRequestWFuncMonotonic *)
+        DatumGetPointer(OidFunctionCall1(prosupport, PointerGetDatum(&req)));
+
+    // Must be monotonic
+    if (res == NULL || res->monotonic == MONOTONICFUNC_NONE)
+        return false;
+
+    // Find suitable operator based on monotonicity and comparison type
+    List *opinfos = get_op_btree_interpretation(opexpr->opno);
+    foreach(lc, opinfos) {
+        OpBtreeInterpretation *opinfo = (OpBtreeInterpretation *) lfirst(lc);
+
+        // Handle different comparison strategies
+        if (can_create_run_condition(opinfo->strategy, res->monotonic, wfunc_left)) {
+            *keep_original = determine_keep_original(opinfo->strategy);
+            runopexpr = opexpr;
+            runoperator = determine_run_operator(opinfo, res->monotonic, wfunc_left);
+            break;
+        }
+    }
+
+    // Create run condition if suitable operator found
+    if (runopexpr != NULL) {
+        WindowFuncRunCondition *wfuncrc = makeNode(WindowFuncRunCondition);
+        wfuncrc->opno = runoperator;
+        wfuncrc->inputcollid = runopexpr->inputcollid;
+        wfuncrc->wfunc_left = wfunc_left;
+        wfuncrc->arg = copyObject(otherexpr);
+
+        wfunc->runCondition = lappend(wfunc->runCondition, wfuncrc);
+        *run_cond_attrs = bms_add_member(*run_cond_attrs,
+                                        attno - FirstLowInvalidHeapAttributeNumber);
+        return true;
+    }
+
+    return false;
+}
+```

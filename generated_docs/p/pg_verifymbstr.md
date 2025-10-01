@@ -49,4 +49,15 @@ By using the current database encoding, it ensures that all text data conforms t
 - Widely used across PostgreSQL core and procedural language implementations
 - Critical for maintaining data integrity when processing external text input
 - Essential component in PostgreSQL's multi-byte character support infrastructure
+
+## Simplified Source
+
+```c
+bool
+pg_verifymbstr(const char *mbstr, int len, bool noError)
+{
+    // Verify string using current database encoding
+    return pg_verify_mbstr(GetDatabaseEncoding(), mbstr, len, noError);
+}
+```
 - Helps prevent encoding-related corruption and ensures consistent text handling

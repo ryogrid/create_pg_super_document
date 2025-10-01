@@ -36,3 +36,16 @@ This function takes no parameters.
 - Part of the materialized view refresh infrastructure that allows transactional semantics while permitting concurrent reads
 - The depth counter mechanism helps prevent issues that could arise from recursive or improperly nested maintenance operations
 - Located at src/backend/commands/matview.c:964-968
+
+## Simplified Source
+
+```c
+static void CloseMatViewIncrementalMaintenance(void)
+{
+    // Decrement the maintenance nesting depth counter
+    matview_maintenance_depth--;
+
+    // Ensure depth never goes negative (catches programming errors)
+    Assert(matview_maintenance_depth >= 0);
+}
+```

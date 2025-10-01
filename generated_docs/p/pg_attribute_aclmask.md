@@ -40,3 +40,16 @@ Unlike many other ACL functions, this function does not include special handling
 - Acts as a simplified wrapper around the more comprehensive `pg_attribute_aclmask_ext`
 - Used by `pg_aclmask` when handling OBJECT_COLUMN access checks
 - The function design emphasizes the separation of column-level and table-level privilege checking, requiring explicit combination by callers
+
+## Simplified Source
+
+```c
+static AclMode
+pg_attribute_aclmask(Oid table_oid, AttrNumber attnum, Oid roleid,
+                     AclMode mask, AclMaskHow how)
+{
+    // Delegate to extended version with default snapshot
+    return pg_attribute_aclmask_ext(table_oid, attnum, roleid,
+                                   mask, how, NULL);
+}
+```

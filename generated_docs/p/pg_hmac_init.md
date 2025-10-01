@@ -54,3 +54,66 @@ pg_hmac_init implements the HMAC (Hash-based Message Authentication Code) initia
 - Uses temporary buffer for key shrinking that is securely cleared
 - Critical component of PostgreSQL's SCRAM-SHA authentication implementation
 - Must be called after pg_hmac_create and before pg_hmac_update operations
+
+## Simplified Source
+
+```c
+int pg_hmac_init(pg_hmac_ctx *ctx, const uint8 *key, size_t len) {
+    int i;
+    uint8 *shrinkbuf = NULL;
+
+    if (ctx == NULL)
+        return -1;
+
+    // Initialize padding arrays with HMAC constants
+    memset(ctx->k_opad, HMAC_OPAD, ctx->block_size);  // 0x5C
+    memset(ctx->k_ipad, HMAC_IPAD, ctx->block_size);  // 0x36
+
+    // If key is too long, hash it to shrink it down
+    if (len > ctx->block_size) {
+        pg_cryptohash_ctx *hash_ctx;
+
+        // Allocate temporary buffer for hashed key
+        shrinkbuf = ALLOC(ctx->digest_size);
+        if (shrinkbuf == NULL) {
+            ctx->error = PG_HMAC_ERROR_OOM;
+            return -1;
+        }
+
+        // Hash the key to reduce its size
+        hash_ctx = pg_cryptohash_create(ctx->type);
+        if (hash_ctx == NULL ||
+            pg_cryptohash_init(hash_ctx) < 0 ||
+            pg_cryptohash_update(hash_ctx, key, len) < 0 ||
+            pg_cryptohash_final(hash_ctx, shrinkbuf, ctx->digest_size) < 0) {
+            ctx->error = PG_HMAC_ERROR_INTERNAL;
+            if (hash_ctx) pg_cryptohash_free(hash_ctx);
+            FREE(shrinkbuf);
+            return -1;
+        }
+
+        // Use the hashed key
+        key = shrinkbuf;
+        len = ctx->digest_size;
+        pg_cryptohash_free(hash_ctx);
+    }
+
+    // XOR key with padding arrays
+    for (i = 0; i < len; i++) {
+        ctx->k_ipad[i] ^= key[i];
+        ctx->k_opad[i] ^= key[i];
+    }
+
+    // Initialize hash with inner padding for first phase
+    if (pg_cryptohash_init(ctx->hash) < 0 ||
+        pg_cryptohash_update(ctx->hash, ctx->k_ipad, ctx->block_size) < 0) {
+        ctx->error = PG_HMAC_ERROR_INTERNAL;
+        if (shrinkbuf) FREE(shrinkbuf);
+        return -1;
+    }
+
+    if (shrinkbuf)
+        FREE(shrinkbuf);
+    return 0;
+}
+```

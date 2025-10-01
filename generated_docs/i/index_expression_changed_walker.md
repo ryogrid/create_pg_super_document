@@ -40,3 +40,33 @@ For non-Var nodes, the function delegates to the standard  mechanism, which hand
 - The function performs short-circuit evaluation - it returns true immediately upon finding the first variable that references an updated column
 - Attribute number adjustment using FirstLowInvalidHeapAttributeNumber accounts for PostgreSQL's internal attribute numbering scheme
 - Essential for determining whether indexes with expressions can benefit from the 'indexUnchanged' optimization hint during UPDATE operations
+
+## Simplified Source
+
+```c
+static bool
+index_expression_changed_walker(Node *node, Bitmapset *allUpdatedCols)
+{
+    if (node == NULL)
+        return false;
+
+    // Check if this is a variable reference
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+
+        // Check if this variable's column was updated
+        if (bms_is_member(var->varattno - FirstLowInvalidHeapAttributeNumber,
+                         allUpdatedCols)) {
+            // Found an updated column - expression has changed
+            return true;
+        }
+
+        // This variable wasn't updated
+        return false;
+    }
+
+    // For other node types, recursively check child nodes
+    return expression_tree_walker(node, index_expression_changed_walker,
+                                 (void *) allUpdatedCols);
+}
+```

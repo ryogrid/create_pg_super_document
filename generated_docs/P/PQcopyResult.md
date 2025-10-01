@@ -43,3 +43,74 @@ The function supports copying attributes (column metadata), tuples (data rows), 
 - Event handlers receive PGEVT_RESULTCOPY notifications when copied
 - Memory management ensures proper cleanup on any failure during copying process
 - Cannot be used with PQsetResultAttrs if PG_COPYRES_ATTRS or PG_COPYRES_TUPLES flags are used
+
+## Simplified Source
+
+```c
+PGresult *PQcopyResult(const PGresult *src, int flags) {
+    PGresult *dest;
+    int i;
+
+    if (!src)
+        return NULL;
+
+    // Create empty result with TUPLES_OK status
+    dest = PQmakeEmptyPGresult(NULL, PGRES_TUPLES_OK);
+    if (!dest)
+        return NULL;
+
+    // Always copy basic info
+    dest->client_encoding = src->client_encoding;
+    strcpy(dest->cmdStatus, src->cmdStatus);
+
+    // Copy attributes if requested (or needed for tuples)
+    if (flags & (PG_COPYRES_ATTRS | PG_COPYRES_TUPLES)) {
+        if (!PQsetResultAttrs(dest, src->numAttributes, src->attDescs)) {
+            PQclear(dest);
+            return NULL;
+        }
+    }
+
+    // Copy tuple data if requested
+    if (flags & PG_COPYRES_TUPLES) {
+        for (int tup = 0; tup < src->ntups; tup++) {
+            for (int field = 0; field < src->numAttributes; field++) {
+                if (!PQsetvalue(dest, tup, field,
+                              src->tuples[tup][field].value,
+                              src->tuples[tup][field].len)) {
+                    PQclear(dest);
+                    return NULL;
+                }
+            }
+        }
+    }
+
+    // Copy notice hooks if requested
+    if (flags & PG_COPYRES_NOTICEHOOKS)
+        dest->noticeHooks = src->noticeHooks;
+
+    // Copy events if requested
+    if ((flags & PG_COPYRES_EVENTS) && src->nEvents > 0) {
+        dest->events = dupEvents(src->events, src->nEvents, &dest->memorySize);
+        if (!dest->events) {
+            PQclear(dest);
+            return NULL;
+        }
+        dest->nEvents = src->nEvents;
+    }
+
+    // Trigger RESULTCOPY events for initialized event handlers
+    for (i = 0; i < dest->nEvents; i++) {
+        if (src->events[i].resultInitialized) {
+            PGEventResultCopy evt;
+            evt.src = src;
+            evt.dest = dest;
+            if (dest->events[i].proc(PGEVT_RESULTCOPY, &evt,
+                                   dest->events[i].passThrough))
+                dest->events[i].resultInitialized = true;
+        }
+    }
+
+    return dest;
+}
+```

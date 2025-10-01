@@ -46,3 +46,31 @@ This function performs a single system cache lookup to retrieve three related pi
 - Used primarily in parser operations, rule deparsing, and type system operations
 - All three output parameters are guaranteed to be populated if the function returns successfully
 - Part of PostgreSQL's type system infrastructure for efficient type information retrieval
+
+## Simplified Source
+
+```c
+void get_atttypetypmodcoll(Oid relid, AttrNumber attnum,
+                         Oid *typid, int32 *typmod, Oid *collid) {
+    HeapTuple tp;
+    Form_pg_attribute att_tup;
+
+    // Lookup attribute in system cache
+    tp = SearchSysCache2(ATTNUM,
+                        ObjectIdGetDatum(relid),
+                        Int16GetDatum(attnum));
+
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for attribute %d of relation %u", attnum, relid);
+
+    // Extract attribute information
+    att_tup = (Form_pg_attribute) GETSTRUCT(tp);
+
+    // Return type information through output parameters
+    *typid = att_tup->atttypid;      // Type OID
+    *typmod = att_tup->atttypmod;    // Type modifier
+    *collid = att_tup->attcollation; // Collation OID
+
+    ReleaseSysCache(tp);
+}
+```

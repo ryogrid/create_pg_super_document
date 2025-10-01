@@ -50,3 +50,48 @@ The function processes both simple join clauses (jclauseset) and EquivalenceClas
 - Represents each set of outer relations as a maximum set of clause_relids (including the indexed relation itself)
 - Maintains considered_relids list to avoid redundant processing of the same relation combinations
 - Plain index paths are sent directly to add_path(), while bitmap paths are collected for later batch processing
+
+## Simplified Source
+
+```c
+static void
+consider_index_join_clauses(PlannerInfo *root, RelOptInfo *rel,
+                           IndexOptInfo *index,
+                           IndexClauseSet *rclauseset,
+                           IndexClauseSet *jclauseset,
+                           IndexClauseSet *eclauseset,
+                           List **bitindexpaths)
+{
+    int considered_clauses = 0;
+    List *considered_relids = NIL;
+    int indexcol;
+
+    // Strategy: identify useful sets of outer relations for indexable join clauses
+    // For each set, select all available join clauses from those outer rels,
+    // add indexable restriction clauses, and generate index paths
+    //
+    // Based on assumption: always better to apply clause as indexqual than filter
+
+    // Process each index column for join clause opportunities
+    for (indexcol = 0; indexcol < index->nkeycolumns; indexcol++)
+    {
+        // Consider simple join clauses for this column
+        considered_clauses += list_length(jclauseset->indexclauses[indexcol]);
+        consider_index_join_outer_rels(root, rel, index,
+                                      rclauseset, jclauseset, eclauseset,
+                                      bitindexpaths,
+                                      jclauseset->indexclauses[indexcol],
+                                      considered_clauses,
+                                      &considered_relids);
+
+        // Consider EquivalenceClass-derived join clauses for this column
+        considered_clauses += list_length(eclauseset->indexclauses[indexcol]);
+        consider_index_join_outer_rels(root, rel, index,
+                                      rclauseset, jclauseset, eclauseset,
+                                      bitindexpaths,
+                                      eclauseset->indexclauses[indexcol],
+                                      considered_clauses,
+                                      &considered_relids);
+    }
+}
+```

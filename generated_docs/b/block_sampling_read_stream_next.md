@@ -37,3 +37,18 @@ The function acts as a bridge between the generic read stream framework and the 
 - The BlockSamplerData maintains the sampling algorithm's internal state including random selection
 - Used specifically for the block sampling approach to table analysis, which is more efficient than reading entire tables
 - Integrates with PostgreSQL's read stream infrastructure for optimized I/O patterns and prefetching
+
+## Simplified Source
+
+```c
+static BlockNumber block_sampling_read_stream_next(ReadStream *stream,
+                                                   void *callback_private_data,
+                                                   void *per_buffer_data)
+{
+    // Extract the block sampler state
+    BlockSamplerData *bs = callback_private_data;
+
+    // Return next block from sampler, or invalid block if done
+    return BlockSampler_HasMore(bs) ? BlockSampler_Next(bs) : InvalidBlockNumber;
+}
+```

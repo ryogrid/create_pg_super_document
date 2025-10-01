@@ -35,3 +35,23 @@ pg_parse_json_or_errsave serves as a wrapper around pg_parse_json that provides 
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's JSON processing infrastructure where error recovery is critical. It enables parsing operations to continue even when individual JSON values are malformed, which is particularly important in bulk data processing scenarios. The function follows PostgreSQL's standard error handling patterns by supporting both immediate error reporting and soft error collection through the ErrorSaveContext mechanism.
+
+## Simplified Source
+
+```c
+bool
+pg_parse_json_or_errsave(JsonLexContext *lex, JsonSemAction *sem,
+                        Node *escontext)
+{
+    // Parse JSON using standard parser
+    JsonParseErrorType result = pg_parse_json(lex, sem);
+
+    // Handle errors through error context system
+    if (result != JSON_SUCCESS) {
+        json_errsave_error(result, lex, escontext);
+        return false;
+    }
+
+    return true;
+}
+```

@@ -44,3 +44,65 @@ If the relation is not found and missing_ok is false, it throws an error. If mis
 - Uses system cache for efficient relation metadata lookup
 - Falls back gracefully when relations are missing and missing_ok is true
 - Located in src/backend/catalog/objectaddress.c:4603-4665
+
+## Simplified Source
+
+```c
+static void
+getRelationTypeDescription(StringInfo buffer, Oid relid, int32 objectSubId, bool missing_ok)
+{
+    HeapTuple relTup;
+    Form_pg_class relForm;
+
+    // Look up relation in system catalog
+    relTup = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(relTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for relation %u", relid);
+
+        // Fallback to generic description
+        appendStringInfoString(buffer, "relation");
+        return;
+    }
+    relForm = (Form_pg_class) GETSTRUCT(relTup);
+
+    // Determine relation type based on relkind field
+    switch (relForm->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_PARTITIONED_TABLE:
+            appendStringInfoString(buffer, "table");
+            break;
+        case RELKIND_INDEX:
+        case RELKIND_PARTITIONED_INDEX:
+            appendStringInfoString(buffer, "index");
+            break;
+        case RELKIND_SEQUENCE:
+            appendStringInfoString(buffer, "sequence");
+            break;
+        case RELKIND_TOASTVALUE:
+            appendStringInfoString(buffer, "toast table");
+            break;
+        case RELKIND_VIEW:
+            appendStringInfoString(buffer, "view");
+            break;
+        case RELKIND_MATVIEW:
+            appendStringInfoString(buffer, "materialized view");
+            break;
+        case RELKIND_COMPOSITE_TYPE:
+            appendStringInfoString(buffer, "composite type");
+            break;
+        case RELKIND_FOREIGN_TABLE:
+            appendStringInfoString(buffer, "foreign table");
+            break;
+        default:
+            appendStringInfoString(buffer, "relation");
+            break;
+    }
+
+    // Add column qualifier for sub-objects
+    if (objectSubId != 0)
+        appendStringInfoString(buffer, " column");
+
+    ReleaseSysCache(relTup);
+}
+```

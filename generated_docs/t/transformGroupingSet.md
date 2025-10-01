@@ -50,3 +50,50 @@ This function processes GroupingSet nodes, which can contain various types of co
 - The function enforces that GROUPING_SET_SETS cannot appear at non-toplevel positions
 - Converts expressions to ressortgroupref indices for efficient internal representation
 - Part of PostgreSQL's advanced GROUP BY functionality including GROUPING SETS, CUBE, and ROLLUP
+
+## Simplified Source
+
+```c
+static Node *transformGroupingSet(List **flatresult,
+                                ParseState *pstate, GroupingSet *gset,
+                                List **targetlist, List *sortClause,
+                                ParseExprKind exprKind, bool useSQL99, bool toplevel) {
+    ListCell *gl;
+    List *content = NIL;
+
+    // Ensure GROUPING_SET_SETS only appears at top level
+    Assert(toplevel || gset->kind != GROUPING_SET_SETS);
+
+    // Process each element in the grouping set content
+    foreach(gl, gset->content) {
+        Node *n = lfirst(gl);
+
+        if (IsA(n, List)) {
+            // Transform expression list and wrap in simple grouping set
+            List *l = transformGroupClauseList(flatresult, pstate, (List *) n,
+                                             targetlist, sortClause, exprKind, useSQL99, false);
+            content = lappend(content, makeGroupingSet(GROUPING_SET_SIMPLE, l, exprLocation(n)));
+
+        } else if (IsA(n, GroupingSet)) {
+            // Recursively transform nested grouping set
+            GroupingSet *gset2 = (GroupingSet *) lfirst(gl);
+            content = lappend(content, transformGroupingSet(flatresult, pstate, gset2,
+                                                          targetlist, sortClause, exprKind, useSQL99, false));
+        } else {
+            // Transform single expression
+            Index ref = transformGroupClauseExpr(flatresult, NULL, pstate, n,
+                                               targetlist, sortClause, exprKind, useSQL99, false);
+            content = lappend(content, makeGroupingSet(GROUPING_SET_SIMPLE,
+                                                     list_make1_int(ref), exprLocation(n)));
+        }
+    }
+
+    // Limit CUBE to 12 elements to prevent exponential growth
+    if (gset->kind == GROUPING_SET_CUBE) {
+        if (list_length(content) > 12)
+            ereport(ERROR, "CUBE is limited to 12 elements");
+    }
+
+    return (Node *) makeGroupingSet(gset->kind, content, gset->location);
+}
+```

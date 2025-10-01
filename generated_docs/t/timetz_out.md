@@ -45,3 +45,26 @@ The output format depends on PostgreSQL's DateStyle setting and includes both th
 - The function handles timezone formatting automatically based on the stored timezone offset
 - Typically invoked automatically by PostgreSQL when TIME WITH TIME ZONE values need to be displayed or converted to text
 - The resulting string format is suitable for both human reading and for input back into timetz_in
+
+## Simplified Source
+
+```c
+Datum timetz_out(PG_FUNCTION_ARGS) {
+    TimeTzADT *time = PG_GETARG_TIMETZADT_P(0);
+    char *result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+    char buf[MAXDATELEN + 1];
+
+    // Convert internal time structure to broken-down time
+    timetz2tm(time, tm, &fsec, &tz);
+
+    // Format time with timezone to string buffer
+    EncodeTimeOnly(tm, fsec, true, tz, DateStyle, buf);
+
+    // Return palloc'd copy of formatted string
+    result = pstrdup(buf);
+    PG_RETURN_CSTRING(result);
+}
+```

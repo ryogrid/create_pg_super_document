@@ -33,3 +33,14 @@ The function is critical for transaction isolation and MVCC (Multi-Version Concu
 - The actual implementation varies by slot type through the tts_ops function table
 - Primarily used in foreign key constraint checking and other referential integrity operations
 - Part of the TupleTableSlot abstraction layer that provides uniform access to different tuple storage formats
+
+## Simplified Source
+
+```c
+static inline bool
+slot_is_current_xact_tuple(TupleTableSlot *slot)
+{
+    // Delegate to slot-specific implementation via function pointer
+    return slot->tts_ops->is_current_xact_tuple(slot);
+}
+```

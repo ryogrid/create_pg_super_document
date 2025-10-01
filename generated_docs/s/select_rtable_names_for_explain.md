@@ -29,3 +29,26 @@ This function is specifically designed to support the EXPLAIN command by determi
 - The function only computes relation aliases, not column aliases (as noted in the comment)
 - Returns the rtable_names list from the deparse_namespace structure
 - The function initializes several fields of deparse_namespace to appropriate default values (NIL, NULL) before processing
+
+## Simplified Source
+
+```c
+List *
+select_rtable_names_for_explain(List *rtable, Bitmapset *rels_used)
+{
+    deparse_namespace dpns;
+
+    // Initialize deparse namespace for EXPLAIN operations
+    memset(&dpns, 0, sizeof(dpns));
+    dpns.rtable = rtable;
+    dpns.subplans = NIL;
+    dpns.ctes = NIL;
+    dpns.appendrels = NULL;
+
+    // Compute relation aliases using standard algorithm
+    set_rtable_names(&dpns, NIL, rels_used);
+
+    // Return computed aliases (column aliases not needed for EXPLAIN)
+    return dpns.rtable_names;
+}
+```

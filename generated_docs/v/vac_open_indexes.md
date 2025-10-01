@@ -50,3 +50,45 @@ The function allocates memory for the maximum possible number of indexes but onl
 - Even invalid indexes (indisvalid = false) are processed if they are ready, which is crucial for maintaining data integrity in unique indexes
 - The function is used by both regular vacuum operations and analyze operations
 - The returned array contains exactly *nindexes valid Relation pointers
+
+## Simplified Source
+
+```c
+void
+vac_open_indexes(Relation relation, LOCKMODE lockmode,
+                 int *nindexes, Relation **Irel)
+{
+    List *indexoidlist;
+    int total_indexes, ready_count = 0;
+
+    Assert(lockmode != NoLock);
+
+    // Get list of all indexes for this relation
+    indexoidlist = RelationGetIndexList(relation);
+    total_indexes = list_length(indexoidlist);
+
+    // Allocate memory for maximum possible number of indexes
+    if (total_indexes > 0)
+        *Irel = (Relation *) palloc(total_indexes * sizeof(Relation));
+    else
+        *Irel = NULL;
+
+    // Open each index and filter for ready (insertable) ones
+    ListCell *cell;
+    foreach(cell, indexoidlist) {
+        Oid indexoid = lfirst_oid(cell);
+        Relation index_rel = index_open(indexoid, lockmode);
+
+        // Only keep indexes that are ready for insertion
+        if (index_rel->rd_index->indisready) {
+            (*Irel)[ready_count++] = index_rel;
+        } else {
+            // Close indexes that aren't ready (e.g., from failed CREATE INDEX CONCURRENTLY)
+            index_close(index_rel, lockmode);
+        }
+    }
+
+    *nindexes = ready_count;
+    list_free(indexoidlist);
+}
+```

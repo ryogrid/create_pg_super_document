@@ -44,3 +44,38 @@ The output is wrapped in a "Triggers" group for structured formats (JSON, XML, Y
 - [Trigger](../T/Trigger.md) statistics include timing information, number of calls, and potentially other execution metrics depending on the instrumentation level
 - The function assumes that trigger instrumentation was enabled during query execution to collect meaningful statistics
 - Empty result lists are handled gracefully - the function will output an empty triggers section if no triggers were executed
+
+## Simplified Source
+
+```c
+void ExplainPrintTriggers(ExplainState *es, QueryDesc *queryDesc) {
+    // Get the three types of relations that may have triggers
+    List *resultrels = queryDesc->estate->es_opened_result_relations;
+    List *routerels = queryDesc->estate->es_tuple_routing_result_relations;
+    List *targrels = queryDesc->estate->es_trig_target_relations;
+
+    ExplainOpenGroup("Triggers", "Triggers", false, es);
+
+    // Show relation names if multiple relations are involved
+    bool show_relname = (list_length(resultrels) > 1 ||
+                        routerels != NIL || targrels != NIL);
+
+    // Report triggers for each relation type
+    foreach_cell(l, resultrels) {
+        ResultRelInfo *rInfo = (ResultRelInfo *) lfirst(l);
+        report_triggers(rInfo, show_relname, es);
+    }
+
+    foreach_cell(l, routerels) {
+        ResultRelInfo *rInfo = (ResultRelInfo *) lfirst(l);
+        report_triggers(rInfo, show_relname, es);
+    }
+
+    foreach_cell(l, targrels) {
+        ResultRelInfo *rInfo = (ResultRelInfo *) lfirst(l);
+        report_triggers(rInfo, show_relname, es);
+    }
+
+    ExplainCloseGroup("Triggers", "Triggers", false, es);
+}
+```

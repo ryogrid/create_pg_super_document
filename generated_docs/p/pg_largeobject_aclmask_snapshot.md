@@ -64,3 +64,76 @@ The snapshot parameter is crucial for maintaining consistency when large objects
 - Proper resource management includes closing the relation and ending the scan
 - Default ACL creation uses OBJECT_LARGEOBJECT type with the actual object owner
 - Memory management includes cleanup of detoasted ACL data
+
+## Simplified Source
+
+```c
+static AclMode
+pg_largeobject_aclmask_snapshot(Oid lobj_oid, Oid roleid,
+                               AclMode mask, AclMaskHow how,
+                               Snapshot snapshot)
+{
+    AclMode result;
+    Relation pg_lo_meta;
+    ScanKeyData entry[1];
+    SysScanDesc scan;
+    HeapTuple tuple;
+    Datum aclDatum;
+    bool isNull;
+    Acl *acl;
+    Oid ownerId;
+
+    // Superusers bypass all permission checking
+    if (superuser_arg(roleid))
+        return mask;
+
+    // Open large object metadata catalog
+    pg_lo_meta = table_open(LargeObjectMetadataRelationId, AccessShareLock);
+
+    // Set up scan for the specific large object
+    ScanKeyInit(&entry[0],
+                Anum_pg_largeobject_metadata_oid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(lobj_oid));
+
+    scan = systable_beginscan(pg_lo_meta,
+                             LargeObjectMetadataOidIndexId, true,
+                             snapshot, 1, entry);
+
+    // Find the large object metadata
+    tuple = systable_getnext(scan);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("large object %u does not exist", lobj_oid)));
+
+    // Get owner and ACL information
+    ownerId = ((Form_pg_largeobject_metadata) GETSTRUCT(tuple))->lomowner;
+
+    aclDatum = heap_getattr(tuple, Anum_pg_largeobject_metadata_lomacl,
+                           RelationGetDescr(pg_lo_meta), &isNull);
+
+    // Handle ACL - use default if none exists
+    if (isNull)
+    {
+        acl = acldefault(OBJECT_LARGEOBJECT, ownerId);
+        aclDatum = (Datum) 0;
+    }
+    else
+    {
+        acl = DatumGetAclP(aclDatum);
+    }
+
+    // Check permissions using standard ACL evaluation
+    result = aclmask(acl, roleid, ownerId, mask, how);
+
+    // Clean up resources
+    if (acl && (Pointer) acl != DatumGetPointer(aclDatum))
+        pfree(acl);
+
+    systable_endscan(scan);
+    table_close(pg_lo_meta, AccessShareLock);
+
+    return result;
+}
+```

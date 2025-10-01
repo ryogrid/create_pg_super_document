@@ -33,3 +33,14 @@ This is a static inline convenience wrapper around the generic ResourceOwnerReme
 - Part of PostgreSQL's resource owner system for automatic memory management
 - Should be paired with ResourceOwnerForgetTupleDesc when the TupleDesc is no longer needed before the resource owner is released
 - The function converts the TupleDesc pointer to a Datum using PointerGetDatum for storage in the generic resource owner system
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberTupleDesc(ResourceOwner owner, TupleDesc tupdesc)
+{
+    // Register TupleDesc with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(tupdesc), &tupdesc_resowner_desc);
+}
+```

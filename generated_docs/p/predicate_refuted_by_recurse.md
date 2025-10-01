@@ -57,3 +57,89 @@ The function includes special handling for NOT-clauses:
 - Strong NOT-clause handling allows proving refutation when the NOTs argument is false
 - The logic applies equally to both strong and weak refutation modes
 - Designed to work with flattened AND/OR expressions from eval_const_expressions()
+
+## Simplified Source
+```c
+static bool
+predicate_refuted_by_recurse(Node *clause, Node *predicate, bool weak)
+{
+    PredClass clause_class, pred_class;
+    Node *not_arg;
+    bool result;
+
+    // Strip RestrictInfo wrapper if present
+    if (IsA(clause, RestrictInfo))
+        clause = ((RestrictInfo *) clause)->clause;
+
+    // Classify both expressions as AND/OR/ATOM
+    clause_class = predicate_classify(clause, &clause_info);
+    pred_class = predicate_classify(predicate, &pred_info);
+
+    switch (clause_class) {
+        case CLASS_AND:
+            switch (pred_class) {
+                case CLASS_AND:
+                    // AND R=> AND: clause refutes any predicate component
+                    // OR any clause component refutes predicate
+                    return check_any_refutes_any(clause, predicate, weak);
+
+                case CLASS_OR:
+                    // AND R=> OR: clause must refute each predicate component
+                    return check_refutes_all(clause, predicate, weak);
+
+                case CLASS_ATOM:
+                    // Handle NOT-clauses specially
+                    not_arg = extract_not_arg(predicate);
+                    if (not_arg && predicate_implied_by_recurse(clause, not_arg, false))
+                        return true;
+                    // AND R=> atom: any clause component refutes predicate
+                    return check_any_component_refutes(clause, predicate, weak);
+            }
+
+        case CLASS_OR:
+            switch (pred_class) {
+                case CLASS_OR:
+                    // OR R=> OR: clause must refute each predicate component
+                    return check_refutes_all(clause, predicate, weak);
+
+                case CLASS_AND:
+                    // OR R=> AND: each clause component must refute some predicate component
+                    return check_each_refutes_any(clause, predicate, weak);
+
+                case CLASS_ATOM:
+                    // Handle NOT-clauses
+                    not_arg = extract_not_arg(predicate);
+                    if (not_arg && predicate_implied_by_recurse(clause, not_arg, false))
+                        return true;
+                    // OR R=> atom: each clause component must refute predicate
+                    return check_all_refute(clause, predicate, weak);
+            }
+
+        case CLASS_ATOM:
+            // Handle strong NOT-clauses in clause
+            not_arg = extract_strong_not_arg(clause);
+            if (not_arg && predicate_implied_by_recurse(predicate, not_arg, !weak))
+                return true;
+
+            switch (pred_class) {
+                case CLASS_AND:
+                    // atom R=> AND: refute any predicate component
+                    return check_refutes_any(clause, predicate, weak);
+
+                case CLASS_OR:
+                    // atom R=> OR: refute each predicate component
+                    return check_refutes_all(clause, predicate, weak);
+
+                case CLASS_ATOM:
+                    // Handle NOT-clauses in predicate
+                    not_arg = extract_not_arg(predicate);
+                    if (not_arg && predicate_implied_by_recurse(clause, not_arg, false))
+                        return true;
+                    // Base case: use simple clause refutation
+                    return predicate_refuted_by_simple_clause(predicate, clause, weak);
+            }
+    }
+
+    return false;
+}
+```

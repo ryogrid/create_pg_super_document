@@ -38,3 +38,15 @@ DatumGetTimestamp is an inline function that extracts a Timestamp value from a D
 - The function relies on the fact that Timestamp and int64 have identical memory layouts
 - Used extensively throughout the codebase for timestamp operations in JSON processing, statistical functions, range operations, and XML conversion
 - Location: src/include/utils/timestamp.h:28-33
+
+## Simplified Source
+
+```c
+static inline Timestamp
+DatumGetTimestamp(Datum X)
+{
+    // Convert Datum to Timestamp by extracting as 64-bit integer
+    // Timestamp is internally represented as int64 (microseconds since PostgreSQL epoch)
+    return (Timestamp) DatumGetInt64(X);
+}
+```

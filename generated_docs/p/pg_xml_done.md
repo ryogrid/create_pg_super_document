@@ -57,3 +57,40 @@ The function includes safety checks to ensure proper error handling state manage
 - Memory cleanup is performed for both the error buffer and the context structure itself
 - The magic number invalidation prevents accidental reuse of deallocated context structures
 - Error recovery scenarios are handled differently - pending errors are allowed during error conditions
+
+## Simplified Source
+
+```c
+void
+pg_xml_done(PgXmlErrorContext *errcxt, bool isError)
+{
+    void *cur_errcxt;
+
+    // Validate error context structure
+    Assert(errcxt->magic == ERRCXT_MAGIC);
+
+    // In normal exit, all errors should be handled (except during error recovery)
+    Assert(!errcxt->err_occurred || isError);
+
+    // Check libxml global state synchronization
+#ifdef HAVE_XMLSTRUCTUREDERRORCONTEXT
+    cur_errcxt = xmlStructuredErrorContext;
+#else
+    cur_errcxt = xmlGenericErrorContext;
+#endif
+
+    if (cur_errcxt != (void *) errcxt)
+        elog(WARNING, "libxml error handling state is out of sync with xml.c");
+
+    // Restore previously saved libxml handlers
+    xmlSetStructuredErrorFunc(errcxt->saved_errcxt, errcxt->saved_errfunc);
+    xmlSetExternalEntityLoader(errcxt->saved_entityfunc);
+
+    // Invalidate context to prevent reuse
+    errcxt->magic = 0;
+
+    // Clean up allocated memory
+    pfree(errcxt->err_buf.data);
+    pfree(errcxt);
+}
+```

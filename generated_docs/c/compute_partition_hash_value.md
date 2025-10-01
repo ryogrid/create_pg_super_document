@@ -50,3 +50,29 @@ The function ignores NULL values during hash computation, meaning tuples with NU
 - NULL values are completely ignored in hash computation, which means tuples with different NULL patterns but same non-NULL values will hash to the same partition
 - The hash combination strategy ensures good distribution across partitions while maintaining deterministic behavior
 - This function is critical for hash partitioning functionality in PostgreSQL's partitioning system
+
+## Simplified Source
+
+```c
+uint64
+compute_partition_hash_value(int partnatts, FmgrInfo *partsupfunc, const Oid *partcollation,
+                            const Datum *values, const bool *isnull)
+{
+    uint64 rowHash = 0;
+    Datum seed = UInt64GetDatum(HASH_PARTITION_SEED);
+
+    // Hash each non-NULL partition key attribute
+    for (int i = 0; i < partnatts; i++) {
+        if (!isnull[i]) {
+            // Call datatype-specific hash function for this attribute
+            Datum hash = FunctionCall2Coll(&partsupfunc[i], partcollation[i],
+                                         values[i], seed);
+
+            // Combine with running hash value
+            rowHash = hash_combine64(rowHash, DatumGetUInt64(hash));
+        }
+    }
+
+    return rowHash;
+}
+```

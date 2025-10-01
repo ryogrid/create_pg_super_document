@@ -40,3 +40,30 @@ The function operates efficiently by returning true immediately upon finding the
 - Handles both Query substructures and regular expression trees through recursive calls
 - The context parameter is not used but maintained for walker function signature compatibility
 - Part of PostgreSQL's parameter analysis infrastructure
+
+## Simplified Source
+
+```c
+static bool
+query_contains_extern_params_walker(Node *node, void *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check for external parameter
+    if (IsA(node, Param)) {
+        Param *param = (Param *) node;
+        if (param->paramkind == PARAM_EXTERN)
+            return true;  // Found external parameter, stop search
+        return false;
+    }
+
+    // Handle subqueries recursively
+    if (IsA(node, Query)) {
+        return query_tree_walker((Query *) node, query_contains_extern_params_walker, context, 0);
+    }
+
+    // Continue traversal for other node types
+    return expression_tree_walker(node, query_contains_extern_params_walker, context);
+}
+```

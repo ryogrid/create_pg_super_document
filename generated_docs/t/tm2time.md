@@ -40,3 +40,15 @@ The tm2time function performs a conversion from a broken-down time representatio
 - The function assumes input values are valid and within reasonable ranges
 - [Result](../R/Result.md) is stored in microseconds since midnight
 - Part of PostgreSQL's date/time handling infrastructure in src/backend/utils/adt/date.c
+
+## Simplified Source
+
+```c
+int tm2time(struct pg_tm *tm, fsec_t fsec, TimeADT *result) {
+    // Convert time components to total microseconds since midnight
+    // Formula: ((hours * 60 + minutes) * 60 + seconds) * 1,000,000 + fractional_seconds
+    *result = ((((tm->tm_hour * MINS_PER_HOUR + tm->tm_min) * SECS_PER_MINUTE) + tm->tm_sec)
+               * USECS_PER_SEC) + fsec;
+    return 0;
+}
+```

@@ -49,3 +49,61 @@ The function implements a strict "all-or-nothing" policy - if statistics for any
 - The function is part of the extended statistics infrastructure that improves query planning for correlated columns and complex expressions
 - The Bitmapset iteration uses a standard PostgreSQL pattern with bms_next_member starting from -1
 - Each expression is processed through examine_attribute, which may call examine_expression internally for proper expression analysis
+
+## Simplified Source
+
+```c
+static VacAttrStats **lookup_var_attr_stats(Relation rel, Bitmapset *attrs, List *exprs,
+                                             int nvacatts, VacAttrStats **vacatts)
+{
+    int i = 0;
+    int x = -1;
+    int natts;
+    VacAttrStats **stats;
+    ListCell *lc;
+
+    // Calculate total number of attributes and expressions
+    natts = bms_num_members(attrs) + list_length(exprs);
+    stats = (VacAttrStats **) palloc(natts * sizeof(VacAttrStats *));
+
+    // Find VacAttrStats for each requested column
+    while ((x = bms_next_member(attrs, x)) >= 0)
+    {
+        int j;
+
+        stats[i] = NULL;
+        for (j = 0; j < nvacatts; j++)
+        {
+            if (x == vacatts[j]->tupattnum)
+            {
+                stats[i] = vacatts[j];
+                break;
+            }
+        }
+
+        // If any column stats missing, can't build extended stats
+        if (!stats[i])
+        {
+            pfree(stats);
+            return NULL;
+        }
+
+        i++;
+    }
+
+    // Add VacAttrStats for expressions
+    foreach(lc, exprs)
+    {
+        Node *expr = (Node *) lfirst(lc);
+
+        stats[i] = examine_attribute(expr);
+
+        // Copy tuple descriptor from first column stat (workaround)
+        stats[i]->tupDesc = vacatts[0]->tupDesc;
+
+        i++;
+    }
+
+    return stats;
+}
+```

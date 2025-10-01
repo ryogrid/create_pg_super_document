@@ -36,3 +36,27 @@ This function serves as an error context callback specifically designed to provi
 - Memory allocated by relpathbackend() is properly freed using pfree()
 - Part of PostgreSQL error reporting infrastructure for local buffer management operations
 - Provides critical debugging information for local buffer I/O failures
+
+## Simplified Source
+
+```c
+static void
+local_buffer_write_error_callback(void *arg)
+{
+    BufferDesc *bufHdr = (BufferDesc *) arg;
+
+    if (bufHdr != NULL)
+    {
+        // Build backend-specific file path for the relation
+        char *path = relpathbackend(BufTagGetRelFileLocator(&bufHdr->tag),
+                                   MyProcNumber,
+                                   BufTagGetForkNum(&bufHdr->tag));
+
+        // Add error context with block number and relation path
+        errcontext("writing block %u of relation %s",
+                   bufHdr->tag.blockNum, path);
+
+        pfree(path);
+    }
+}
+```

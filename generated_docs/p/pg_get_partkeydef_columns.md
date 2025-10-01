@@ -28,6 +28,20 @@ This function is an internal version of the partition key definition retrieval t
   - RULE_INDEXDEF_KEYS_ONLY (constant definition in ruleutils.h)
 
 ## Notes and Other Information
-- This is an internal function that provides a simplified interface to the more general 
-- The function calls the worker with parameters  where the third parameter (true) indicates columns-only mode and the fourth parameter (false) indicates not to include the full partition clause
+- This is an internal function that provides a simplified interface to the more general
+- The function calls the worker with parameters where the third parameter (true) indicates columns-only mode and the fourth parameter (false) indicates not to include the full partition clause
 - Used primarily for diagnostic and informational purposes when only the column information is needed, rather than the full partition definition syntax
+
+## Simplified Source
+
+```c
+char *
+pg_get_partkeydef_columns(Oid relid, bool pretty)
+{
+    // Convert pretty flag to formatting flags
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Call worker function with columns-only mode enabled
+    return pg_get_partkeydef_worker(relid, prettyFlags, true, false);
+}
+```

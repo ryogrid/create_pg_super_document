@@ -42,3 +42,20 @@ This is a foundational utility function used throughout the rule decompilation p
 - Returns a direct pointer to the stored alias name string (not a copy)
 - Essential for maintaining consistent table/relation naming during rule decompilation
 - Part of the broader deparse context management system that tracks namespace information during SQL generation
+
+## Simplified Source
+
+```c
+static char *
+get_rtable_name(int rtindex, deparse_context *context)
+{
+    // Get the topmost namespace from context
+    deparse_namespace *dpns = (deparse_namespace *) linitial(context->namespaces);
+
+    // Validate rtindex is within bounds (1-based indexing)
+    Assert(rtindex > 0 && rtindex <= list_length(dpns->rtable_names));
+
+    // Return the RTE alias name (convert to 0-based index)
+    return (char *) list_nth(dpns->rtable_names, rtindex - 1);
+}
+```

@@ -43,3 +43,16 @@ When a suitable tuple is found, it is stored in the provided slot and the functi
 - Part of the table access method abstraction layer
 - When this function returns false, it releases any resources acquired by the corresponding `table_scan_analyze_next_block()` call
 - The OldestXmin parameter ensures consistent visibility determination across the analysis operation
+
+## Simplified Source
+
+```c
+static inline bool table_scan_analyze_next_tuple(TableScanDesc scan, TransactionId OldestXmin,
+                                                 double *liverows, double *deadrows,
+                                                 TupleTableSlot *slot)
+{
+    // Delegate to table access method's tuple iteration implementation
+    return scan->rs_rd->rd_tableam->scan_analyze_next_tuple(scan, OldestXmin,
+                                                            liverows, deadrows, slot);
+}
+```

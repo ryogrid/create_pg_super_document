@@ -46,3 +46,70 @@ ATSimplePermissions serves as a critical security gatekeeper for ALTER TABLE ope
 - Respects the allowSystemTableMods configuration setting for system catalog modifications
 - Used extensively throughout the ALTER TABLE command processing pipeline as a standard permission check
 - The allowed_targets parameter enables fine-grained control over which relation types can be targeted by specific ALTER operations
+
+## Simplified Source
+
+```c
+static void
+ATSimplePermissions(AlterTableType cmdtype, Relation rel, int allowed_targets)
+{
+    int actual_target;
+
+    // Map relation kind to target type
+    switch (rel->rd_rel->relkind) {
+        case RELKIND_RELATION:
+        case RELKIND_PARTITIONED_TABLE:
+            actual_target = ATT_TABLE;
+            break;
+        case RELKIND_VIEW:
+            actual_target = ATT_VIEW;
+            break;
+        case RELKIND_MATVIEW:
+            actual_target = ATT_MATVIEW;
+            break;
+        case RELKIND_INDEX:
+            actual_target = ATT_INDEX;
+            break;
+        case RELKIND_PARTITIONED_INDEX:
+            actual_target = ATT_PARTITIONED_INDEX;
+            break;
+        case RELKIND_COMPOSITE_TYPE:
+            actual_target = ATT_COMPOSITE_TYPE;
+            break;
+        case RELKIND_FOREIGN_TABLE:
+            actual_target = ATT_FOREIGN_TABLE;
+            break;
+        case RELKIND_SEQUENCE:
+            actual_target = ATT_SEQUENCE;
+            break;
+        default:
+            actual_target = 0;
+            break;
+    }
+
+    // Check if target type is allowed for this operation
+    if ((actual_target & allowed_targets) == 0) {
+        const char *action_str = alter_table_type_to_string(cmdtype);
+
+        if (action_str)
+            ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                           errmsg("ALTER action %s cannot be performed on relation \"%s\"",
+                                  action_str, RelationGetRelationName(rel)),
+                           errdetail_relkind_not_supported(rel->rd_rel->relkind)));
+        else
+            elog(ERROR, "invalid ALTER action attempted on relation \"%s\"",
+                 RelationGetRelationName(rel));
+    }
+
+    // Check ownership
+    if (!object_ownercheck(RelationRelationId, RelationGetRelid(rel), GetUserId()))
+        aclcheck_error(ACLCHECK_NOT_OWNER, get_relkind_objtype(rel->rd_rel->relkind),
+                      RelationGetRelationName(rel));
+
+    // Prevent system catalog modifications
+    if (!allowSystemTableMods && IsSystemRelation(rel))
+        ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                       errmsg("permission denied: \"%s\" is a system catalog",
+                              RelationGetRelationName(rel))));
+}
+```

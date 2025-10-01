@@ -37,3 +37,24 @@ The function is designed for scenarios where code needs to work with arrays with
 - The function handles both read-write and read-only expanded arrays uniformly
 - Detoasting is performed automatically for compressed or externally stored regular arrays
 - This abstraction allows callers to work with arrays without knowing their specific storage format
+
+## Simplified Source
+
+```c
+AnyArrayType *
+DatumGetAnyArrayP(Datum d)
+{
+    ExpandedArrayHeader *eah;
+
+    // Check if it's an expanded array (RW or RO)
+    if (VARATT_IS_EXTERNAL_EXPANDED(DatumGetPointer(d)))
+    {
+        eah = (ExpandedArrayHeader *) DatumGetEOHP(d);
+        Assert(eah->ea_magic == EA_MAGIC);
+        return (AnyArrayType *) eah;
+    }
+
+    // Regular array: detoast if needed
+    return (AnyArrayType *) PG_DETOAST_DATUM(d);
+}
+```

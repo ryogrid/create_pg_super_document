@@ -33,3 +33,15 @@ The `erealloc` function is a safe wrapper around the standard library `realloc()
 - The function either returns a valid pointer or terminates the program - never returns NULL
 - Follows the common naming convention of prefixing error-checking wrappers with "e"
 - If ptr is NULL, behaves like malloc(size); if size is 0, behavior is implementation-defined (typically frees the memory)
+
+## Simplified Source
+
+```c
+static void *
+erealloc(void *ptr, size_t size)
+{
+    // Reallocate memory and check for failure
+    // If realloc fails, memcheck will terminate the program
+    return memcheck(realloc(ptr, size));
+}
+```

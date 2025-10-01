@@ -50,3 +50,124 @@ Key features:
 - Manages proper indentation for deeply nested set operation trees
 - Uses recursion with stack depth protection for safety
 - Critical for view definition storage and rule system functionality
+
+## Simplified Source
+
+```c
+static void
+get_setop_query(Node *setOp, Query *query, deparse_context *context)
+{
+    StringInfo buf = context->buf;
+    bool need_paren;
+
+    // Prevent stack overflow and interruption
+    CHECK_FOR_INTERRUPTS();
+    check_stack_depth();
+
+    if (IsA(setOp, RangeTblRef)) {
+        // Handle leaf query (base table or subquery)
+        RangeTblRef *rtr = (RangeTblRef *) setOp;
+        RangeTblEntry *rte = rt_fetch(rtr->rtindex, query->rtable);
+        Query *subquery = rte->subquery;
+
+        Assert(subquery != NULL);
+
+        // Need parentheses if query has WITH, ORDER BY, FOR UPDATE, LIMIT, or set operations
+        need_paren = (subquery->cteList ||
+                      subquery->sortClause ||
+                      subquery->rowMarks ||
+                      subquery->limitOffset ||
+                      subquery->limitCount ||
+                      subquery->setOperations);
+
+        if (need_paren)
+            appendStringInfoChar(buf, '(');
+
+        get_query_def(subquery, buf, context->namespaces,
+                      context->resultDesc, context->colNamesVisible,
+                      context->prettyFlags, context->wrapColumn,
+                      context->indentLevel);
+
+        if (need_paren)
+            appendStringInfoChar(buf, ')');
+    }
+    else if (IsA(setOp, SetOperationStmt)) {
+        // Handle set operation (UNION, INTERSECT, EXCEPT)
+        SetOperationStmt *op = (SetOperationStmt *) setOp;
+        int subindent;
+        bool save_colnamesvisible;
+
+        // Determine if left operand needs parentheses
+        // Avoid parens when left operand is same type of set operation
+        if (IsA(op->larg, SetOperationStmt)) {
+            SetOperationStmt *lop = (SetOperationStmt *) op->larg;
+            need_paren = !(op->op == lop->op && op->all == lop->all);
+        } else {
+            need_paren = false;
+        }
+
+        // Process left operand with parentheses if needed
+        if (need_paren) {
+            appendStringInfoChar(buf, '(');
+            subindent = PRETTYINDENT_STD;
+            appendContextKeyword(context, "", subindent, 0, 0);
+        } else {
+            subindent = 0;
+        }
+
+        get_setop_query(op->larg, query, context);
+
+        if (need_paren)
+            appendContextKeyword(context, ") ", -subindent, 0, 0);
+        else if (PRETTY_INDENT(context))
+            appendContextKeyword(context, "", -subindent, 0, 0);
+        else
+            appendStringInfoChar(buf, ' ');
+
+        // Add set operation keyword
+        switch (op->op) {
+            case SETOP_UNION:
+                appendStringInfoString(buf, "UNION ");
+                break;
+            case SETOP_INTERSECT:
+                appendStringInfoString(buf, "INTERSECT ");
+                break;
+            case SETOP_EXCEPT:
+                appendStringInfoString(buf, "EXCEPT ");
+                break;
+            default:
+                elog(ERROR, "unrecognized set op: %d", (int) op->op);
+        }
+
+        if (op->all)
+            appendStringInfoString(buf, "ALL ");
+
+        // Process right operand (always parenthesize if it's another setop)
+        need_paren = IsA(op->rarg, SetOperationStmt);
+
+        if (need_paren) {
+            appendStringInfoChar(buf, '(');
+            subindent = PRETTYINDENT_STD;
+        } else {
+            subindent = 0;
+        }
+        appendContextKeyword(context, "", subindent, 0, 0);
+
+        // Hide column names for right operand
+        save_colnamesvisible = context->colNamesVisible;
+        context->colNamesVisible = false;
+
+        get_setop_query(op->rarg, query, context);
+
+        context->colNamesVisible = save_colnamesvisible;
+
+        if (PRETTY_INDENT(context))
+            context->indentLevel -= subindent;
+        if (need_paren)
+            appendContextKeyword(context, ")", 0, 0, 0);
+    }
+    else {
+        elog(ERROR, "unrecognized node type: %d", (int) nodeTag(setOp));
+    }
+}
+```

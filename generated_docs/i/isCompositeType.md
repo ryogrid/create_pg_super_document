@@ -40,3 +40,23 @@ The determination affects whether PostgreSQL will use JSON_VALUE() (for scalar t
 - Special handling for JSON/JSONB types ensures proper JSON processing semantics
 - The composite classification affects SQL/JSON standard compliance in JSON table operations
 - Domain types inherit the composite classification from their base types
+
+## Simplified Source
+
+```c
+static bool
+isCompositeType(Oid typid)
+{
+    char typtype = get_typtype(typid);
+
+    // Check for specific composite types
+    return typid == JSONOID ||
+           typid == JSONBOID ||
+           typid == RECORDOID ||
+           type_is_array(typid) ||
+           typtype == TYPTYPE_COMPOSITE ||
+           // Recursively check domain base types
+           (typtype == TYPTYPE_DOMAIN &&
+            isCompositeType(getBaseType(typid)));
+}
+```

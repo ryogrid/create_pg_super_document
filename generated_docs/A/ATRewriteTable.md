@@ -79,3 +79,208 @@ The function processes each tuple by first extracting data from the old tuple, a
 - Provides detailed error reporting with table and column context for constraint violations
 - Processes generated columns in two phases: first non-generated, then generated columns
 - Located at src/backend/commands/tablecmds.c:5988-6363
+
+## Simplified Source
+
+```c
+static void
+ATRewriteTable(AlteredTableInfo *tab, Oid OIDNewHeap, LOCKMODE lockmode)
+{
+    Relation oldrel, newrel;
+    TupleDesc oldTupDesc, newTupDesc;
+    bool needscan = false;
+    List *notnull_attrs;
+    EState *estate;
+    CommandId mycid;
+    BulkInsertState bistate;
+
+    // Open old table and possibly new table
+    oldrel = table_open(tab->relid, NoLock);
+    oldTupDesc = tab->oldDesc;
+    newTupDesc = RelationGetDescr(oldrel);
+
+    if (OidIsValid(OIDNewHeap))
+        newrel = table_open(OIDNewHeap, lockmode);
+    else
+        newrel = NULL;
+
+    // Set up bulk insert state for new table
+    if (newrel)
+    {
+        mycid = GetCurrentCommandId(true);
+        bistate = GetBulkInsertState();
+    }
+
+    // Create executor state for expression evaluation
+    estate = CreateExecutorState();
+
+    // Prepare constraint expressions
+    foreach(l, tab->constraints)
+    {
+        NewConstraint *con = lfirst(l);
+        if (con->contype == CONSTR_CHECK)
+        {
+            needscan = true;
+            con->qualstate = ExecPrepareExpr((Expr *) con->qual, estate);
+        }
+    }
+
+    // Prepare partition constraint if present
+    if (tab->partition_constraint)
+    {
+        needscan = true;
+        partqualstate = ExecPrepareExpr(tab->partition_constraint, estate);
+    }
+
+    // Prepare column transformation expressions
+    foreach(l, tab->newvals)
+    {
+        NewColumnValue *ex = lfirst(l);
+        ex->exprstate = ExecInitExpr((Expr *) ex->expr, NULL);
+    }
+
+    // Build list of NOT NULL columns to check
+    if (newrel || tab->verify_new_notnull)
+    {
+        for (i = 0; i < newTupDesc->natts; i++)
+        {
+            Form_pg_attribute attr = TupleDescAttr(newTupDesc, i);
+            if (attr->attnotnull && !attr->attisdropped)
+                notnull_attrs = lappend_int(notnull_attrs, i);
+        }
+        if (notnull_attrs)
+            needscan = true;
+    }
+
+    // Main tuple processing loop
+    if (newrel || needscan)
+    {
+        ExprContext *econtext;
+        TupleTableSlot *oldslot, *newslot;
+        TableScanDesc scan;
+        Snapshot snapshot;
+
+        // Set up tuple slots and scan
+        if (tab->rewrite)
+        {
+            oldslot = MakeSingleTupleTableSlot(oldTupDesc, table_slot_callbacks(oldrel));
+            newslot = MakeSingleTupleTableSlot(newTupDesc, table_slot_callbacks(newrel));
+            ExecStoreAllNullTuple(newslot);
+        }
+        else
+        {
+            oldslot = MakeSingleTupleTableSlot(newTupDesc, table_slot_callbacks(oldrel));
+            newslot = NULL;
+        }
+
+        econtext = GetPerTupleExprContext(estate);
+        snapshot = RegisterSnapshot(GetLatestSnapshot());
+        scan = table_beginscan(oldrel, snapshot, 0, NULL);
+
+        // Process each tuple
+        while (table_scan_getnextslot(scan, ForwardScanDirection, oldslot))
+        {
+            TupleTableSlot *insertslot;
+
+            if (tab->rewrite > 0)
+            {
+                // Copy old tuple data to new slot
+                slot_getallattrs(oldslot);
+                ExecClearTuple(newslot);
+                memcpy(newslot->tts_values, oldslot->tts_values,
+                       sizeof(Datum) * oldslot->tts_nvalid);
+                memcpy(newslot->tts_isnull, oldslot->tts_isnull,
+                       sizeof(bool) * oldslot->tts_nvalid);
+
+                // Apply column transformations
+                econtext->ecxt_scantuple = oldslot;
+                foreach(l, tab->newvals)
+                {
+                    NewColumnValue *ex = lfirst(l);
+                    if (!ex->is_generated)
+                    {
+                        newslot->tts_values[ex->attnum - 1] =
+                            ExecEvalExpr(ex->exprstate, econtext,
+                                         &newslot->tts_isnull[ex->attnum - 1]);
+                    }
+                }
+
+                ExecStoreVirtualTuple(newslot);
+
+                // Evaluate generated columns
+                econtext->ecxt_scantuple = newslot;
+                foreach(l, tab->newvals)
+                {
+                    NewColumnValue *ex = lfirst(l);
+                    if (ex->is_generated)
+                    {
+                        newslot->tts_values[ex->attnum - 1] =
+                            ExecEvalExpr(ex->exprstate, econtext,
+                                         &newslot->tts_isnull[ex->attnum - 1]);
+                    }
+                }
+
+                insertslot = newslot;
+            }
+            else
+            {
+                insertslot = oldslot;
+            }
+
+            // Validate constraints
+            econtext->ecxt_scantuple = insertslot;
+
+            // Check NOT NULL constraints
+            foreach(l, notnull_attrs)
+            {
+                int attn = lfirst_int(l);
+                if (slot_attisnull(insertslot, attn + 1))
+                    ereport(ERROR, (errcode(ERRCODE_NOT_NULL_VIOLATION),
+                                    errmsg("column contains null values")));
+            }
+
+            // Check CHECK constraints
+            foreach(l, tab->constraints)
+            {
+                NewConstraint *con = lfirst(l);
+                if (con->contype == CONSTR_CHECK)
+                {
+                    if (!ExecCheck(con->qualstate, econtext))
+                        ereport(ERROR, (errcode(ERRCODE_CHECK_VIOLATION),
+                                        errmsg("check constraint violated")));
+                }
+            }
+
+            // Check partition constraint
+            if (partqualstate && !ExecCheck(partqualstate, econtext))
+                ereport(ERROR, (errcode(ERRCODE_CHECK_VIOLATION),
+                                errmsg("partition constraint violated")));
+
+            // Insert tuple into new table if rewriting
+            if (newrel)
+                table_tuple_insert(newrel, insertslot, mycid,
+                                   TABLE_INSERT_SKIP_FSM, bistate);
+
+            ResetExprContext(econtext);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Clean up scan resources
+        table_endscan(scan);
+        UnregisterSnapshot(snapshot);
+        ExecDropSingleTupleTableSlot(oldslot);
+        if (newslot)
+            ExecDropSingleTupleTableSlot(newslot);
+    }
+
+    // Clean up
+    FreeExecutorState(estate);
+    table_close(oldrel, NoLock);
+    if (newrel)
+    {
+        FreeBulkInsertState(bistate);
+        table_finish_bulk_insert(newrel, TABLE_INSERT_SKIP_FSM);
+        table_close(newrel, NoLock);
+    }
+}
+```

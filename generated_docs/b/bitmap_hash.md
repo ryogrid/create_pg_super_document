@@ -35,3 +35,17 @@ This function is intended for use with PostgreSQL's hash table infrastructure, w
 - Includes runtime assertion to verify correct key size usage
 - Part of the standard interface for using Bitmapsets as hash table keys
 - Enables efficient hash-based lookups and storage of Bitmapset-keyed data structures
+
+## Simplified Source
+
+```c
+uint32
+bitmap_hash(const void *key, Size keysize)
+{
+    // Verify we're dealing with a Bitmapset pointer
+    Assert(keysize == sizeof(Bitmapset *));
+
+    // Extract the Bitmapset from the pointer and compute hash
+    return bms_hash_value(*((const Bitmapset *const *) key));
+}
+```

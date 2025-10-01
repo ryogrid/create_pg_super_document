@@ -51,3 +51,40 @@ This function takes no parameters and operates on the current SPI connection sta
 - Returns SPI_ERROR_UNCONNECTED if called without an active SPI connection
 - After calling SPI_finish, any tuple tables or other data from the finished connection become invalid
 - Located in src/backend/executor/spi.c:182-221
+
+## Simplified Source
+
+```c
+int SPI_finish(void)
+{
+    int res;
+
+    // Verify we have an active SPI connection
+    res = _SPI_begin_call(false);
+    if (res < 0)
+        return res;
+
+    // Restore memory context from before procedure call
+    MemoryContextSwitchTo(_SPI_current->savedcxt);
+
+    // Clean up memory contexts used during SPI operations
+    MemoryContextDelete(_SPI_current->execCxt);
+    _SPI_current->execCxt = NULL;
+    MemoryContextDelete(_SPI_current->procCxt);
+    _SPI_current->procCxt = NULL;
+
+    // Restore global SPI variables to outer state
+    SPI_processed = _SPI_current->outer_processed;
+    SPI_tuptable = _SPI_current->outer_tuptable;
+    SPI_result = _SPI_current->outer_result;
+
+    // Exit current stack level and update connection pointer
+    _SPI_connected--;
+    if (_SPI_connected < 0)
+        _SPI_current = NULL;
+    else
+        _SPI_current = &(_SPI_stack[_SPI_connected]);
+
+    return SPI_OK_FINISH;
+}
+```

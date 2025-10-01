@@ -40,3 +40,30 @@ Upon successful DSM attachment, it calls attach_internal() to set up the DSA str
 - Used in tuple ID stores, logical replication, and DSM registry systems
 - Handle represents the DSM segment handle of the first segment containing control object
 - Located in src/backend/utils/mmgr/dsa.c:510-544
+
+## Simplified Source
+
+```c
+dsa_area *
+dsa_attach(dsa_handle handle)
+{
+    dsm_segment *segment;
+    dsa_area    *area;
+
+    // Attach to the DSM segment using the handle
+    segment = dsm_attach(handle);
+    if (segment == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("could not attach to dynamic shared area")));
+
+    // Set up the DSA area structures
+    area = attach_internal(dsm_segment_address(segment), segment, handle);
+
+    // Register cleanup callback for when the control segment detaches
+    on_dsm_detach(segment, &dsa_on_dsm_detach_release_in_place,
+                  PointerGetDatum(dsm_segment_address(segment)));
+
+    return area;
+}
+```

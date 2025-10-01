@@ -62,6 +62,61 @@ This function implements a sophisticated analysis algorithm with several importa
 
 **Performance Considerations**:
 - Uses efficient bitmap operations for relation membership testing
-- Implements early termination when multi-relation clauses are detected  
+- Implements early termination when multi-relation clauses are detected
 - Avoids expensive pull_varnos() operations by preferring RestrictInfo structures
 - The recursive nature handles nested AND expressions efficiently while maintaining single-relation constraints
+
+## Simplified Source
+
+```c
+static RelOptInfo *
+find_single_rel_for_clauses(PlannerInfo *root, List *clauses)
+{
+    int lastrelid = 0;
+    ListCell *l;
+
+    foreach(l, clauses)
+    {
+        RestrictInfo *rinfo = (RestrictInfo *) lfirst(l);
+        int relid;
+
+        // Handle special case: AND clauses need recursive processing
+        if (is_andclause(rinfo))
+        {
+            RelOptInfo *rel = find_single_rel_for_clauses(root,
+                                ((BoolExpr *) rinfo)->args);
+            if (rel == NULL)
+                return NULL;
+            if (lastrelid == 0)
+                lastrelid = rel->relid;
+            else if (rel->relid != lastrelid)
+                return NULL;
+            continue;
+        }
+
+        // Must be a RestrictInfo for extended stats processing
+        if (!IsA(rinfo, RestrictInfo))
+            return NULL;
+
+        // Skip variable-free clauses (constants)
+        if (bms_is_empty(rinfo->clause_relids))
+            continue;
+
+        // Check if clause references exactly one relation
+        if (!bms_get_singleton_member(rinfo->clause_relids, &relid))
+            return NULL;  // Multiple relations found
+
+        // Track relation consistency across all clauses
+        if (lastrelid == 0)
+            lastrelid = relid;  // First relation found
+        else if (relid != lastrelid)
+            return NULL;  // Different relation found
+    }
+
+    // Return the single relation if found, NULL otherwise
+    if (lastrelid != 0)
+        return find_base_rel(root, lastrelid);
+
+    return NULL;
+}
+```

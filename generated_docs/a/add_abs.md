@@ -52,3 +52,71 @@ The function is designed to be safe for in-place operations where the result poi
 - [Result](../R/Result.md) weight is set to Max(var1->weight, var2->weight) + 1 to handle potential overflow
 - Decimal scale (dscale) is set to the maximum of the input scales to preserve precision
 - Essential building block for all numeric addition and subtraction operations in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+add_abs(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+{
+    NumericDigit *res_buf, *res_digits;
+    int res_ndigits, res_weight, res_dscale;
+    int carry = 0;
+
+    // Copy input values for faster loop access
+    int var1ndigits = var1->ndigits;
+    int var2ndigits = var2->ndigits;
+    NumericDigit *var1digits = var1->digits;
+    NumericDigit *var2digits = var2->digits;
+
+    // Calculate result dimensions (allow for potential carry)
+    res_weight = Max(var1->weight, var2->weight) + 1;
+    res_dscale = Max(var1->dscale, var2->dscale);
+
+    int rscale1 = var1->ndigits - var1->weight - 1;
+    int rscale2 = var2->ndigits - var2->weight - 1;
+    int res_rscale = Max(rscale1, rscale2);
+
+    res_ndigits = res_rscale + res_weight + 1;
+    if (res_ndigits <= 0)
+        res_ndigits = 1;
+
+    // Allocate result buffer
+    res_buf = digitbuf_alloc(res_ndigits + 1);
+    res_digits = res_buf + 1;
+
+    // Perform digit-by-digit addition with carry
+    int i1 = res_rscale + var1->weight + 1;
+    int i2 = res_rscale + var2->weight + 1;
+
+    for (int i = res_ndigits - 1; i >= 0; i--) {
+        i1--; i2--;
+
+        // Add digits from both operands
+        if (i1 >= 0 && i1 < var1ndigits)
+            carry += var1digits[i1];
+        if (i2 >= 0 && i2 < var2ndigits)
+            carry += var2digits[i2];
+
+        // Handle carry to next digit
+        if (carry >= NBASE) {
+            res_digits[i] = carry - NBASE;
+            carry = 1;
+        } else {
+            res_digits[i] = carry;
+            carry = 0;
+        }
+    }
+
+    // Store result
+    digitbuf_free(result->buf);
+    result->ndigits = res_ndigits;
+    result->buf = res_buf;
+    result->digits = res_digits;
+    result->weight = res_weight;
+    result->dscale = res_dscale;
+
+    // Clean up result
+    strip_var(result);
+}
+```

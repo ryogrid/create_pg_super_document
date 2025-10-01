@@ -43,3 +43,25 @@ The function can be used for all text search caches by passing the appropriate h
 - The decision to invalidate all entries rather than specific ones is a design trade-off that prioritizes simplicity over fine-grained cache management
 - Special handling exists for the configuration cache (TSConfigCacheHash) where an additional global cache variable is invalidated
 - The cacheid and hashvalue parameters are part of the standard syscache callback interface but are not used by this particular implementation
+
+## Simplified Source
+
+```c
+static void InvalidateTSCacheCallBack(Datum arg, int cacheid, uint32 hashvalue) {
+    // Get the hash table to invalidate
+    HTAB *hash = (HTAB *) DatumGetPointer(arg);
+    HASH_SEQ_STATUS status;
+    TSAnyCacheEntry *entry;
+
+    // Invalidate all entries in the hash table
+    hash_seq_init(&status, hash);
+    while ((entry = (TSAnyCacheEntry *) hash_seq_search(&status)) != NULL) {
+        entry->isvalid = false;
+    }
+
+    // Special case: also invalidate current config cache for ts_config
+    if (hash == TSConfigCacheHash) {
+        TSCurrentConfigCache = InvalidOid;
+    }
+}
+```

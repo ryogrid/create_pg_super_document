@@ -79,3 +79,147 @@ The function ensures race condition safety by relying on the passed relid rather
 - The three-phase execution model (before/main/after) ensures proper dependency ordering
 - Partition operations receive special handling through dedicated transformation functions
 - The function is essential for maintaining data integrity during complex table modifications
+
+## Simplified Source
+
+```c
+AlterTableStmt *transformAlterTableStmt(Oid relid, AlterTableStmt *stmt,
+                                       const char *queryString,
+                                       List **beforeStmts, List **afterStmts) {
+    Relation rel;
+    ParseState *pstate;
+    CreateStmtContext cxt;
+    List *newcmds = NIL;
+    bool skipValidation = true;
+
+    // Open relation and setup parse state
+    rel = relation_open(relid, NoLock);
+    pstate = make_parsestate(NULL);
+    pstate->p_sourcetext = queryString;
+
+    // Add relation to parse state namespace
+    ParseNamespaceItem *nsitem = addRangeTableEntryForRelation(pstate, rel,
+                                                              AccessShareLock, NULL, false, true);
+    addNSItemToQuery(pstate, nsitem, false, true, true);
+
+    // Initialize transformation context
+    memset(&cxt, 0, sizeof(cxt));
+    cxt.pstate = pstate;
+    cxt.stmtType = (rel->rd_rel->relkind == RELKIND_FOREIGN_TABLE) ?
+                   "ALTER FOREIGN TABLE" : "ALTER TABLE";
+    cxt.relation = stmt->relation;
+    cxt.rel = rel;
+    cxt.isalter = true;
+    cxt.ispartitioned = (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE);
+
+    // Transform each ALTER TABLE subcommand
+    foreach(lcmd, stmt->cmds) {
+        AlterTableCmd *cmd = (AlterTableCmd *) lfirst(lcmd);
+
+        switch (cmd->subtype) {
+            case AT_AddColumn:
+                {
+                    // Transform column definition and handle constraints
+                    ColumnDef *def = castNode(ColumnDef, cmd->def);
+                    transformColumnDefinition(&cxt, def);
+
+                    if (def->raw_default != NULL) {
+                        skipValidation = false;
+                    }
+                    def->constraints = NIL; // Processed separately
+                    newcmds = lappend(newcmds, cmd);
+                    break;
+                }
+
+            case AT_AddConstraint:
+                // Transform table constraints
+                if (IsA(cmd->def, Constraint)) {
+                    transformTableConstraint(&cxt, (Constraint *) cmd->def);
+                    if (((Constraint *) cmd->def)->contype == CONSTR_FOREIGN) {
+                        skipValidation = false;
+                    }
+                }
+                break;
+
+            case AT_AlterColumnType:
+                {
+                    // Handle column type changes and identity sequences
+                    ColumnDef *def = castNode(ColumnDef, cmd->def);
+
+                    if (def->raw_default) {
+                        def->cooked_default = transformExpr(pstate, def->raw_default,
+                                                           EXPR_KIND_ALTER_COL_TRANSFORM);
+                    }
+
+                    // Handle identity column sequence updates
+                    if (!RelationGetForm(rel)->relispartition) {
+                        AttrNumber attnum = get_attnum(relid, cmd->name);
+                        if (attnum > 0 && TupleDescAttr(RelationGetDescr(rel), attnum - 1)->attidentity) {
+                            // Generate ALTER SEQUENCE statement for identity column
+                            Oid seq_relid = getIdentitySequence(rel, attnum, false);
+                            AlterSeqStmt *altseqstmt = makeNode(AlterSeqStmt);
+                            // Setup sequence alteration...
+                            cxt.blist = lappend(cxt.blist, altseqstmt);
+                        }
+                    }
+                    newcmds = lappend(newcmds, cmd);
+                    break;
+                }
+
+            case AT_AddIdentity:
+                // Transform identity column addition
+                generateSerialExtraStmts(&cxt, newdef, get_atttype(relid, attnum),
+                                       def->options, true, true, NULL, NULL);
+                newcmds = lappend(newcmds, cmd);
+                break;
+
+            case AT_AttachPartition:
+            case AT_DetachPartition:
+                // Transform partition commands
+                transformPartitionCmd(&cxt, (PartitionCmd *) cmd->def);
+                newcmds = lappend(newcmds, cmd);
+                break;
+
+            default:
+                // Pass through other subcommands unchanged
+                newcmds = lappend(newcmds, cmd);
+                break;
+        }
+    }
+
+    // Process constraints after all subcommands
+    transformIndexConstraints(&cxt);
+    transformFKConstraints(&cxt, skipValidation, true);
+    transformCheckConstraints(&cxt, false);
+
+    // Convert index statements to ALTER TABLE subcommands
+    foreach(l, cxt.alist) {
+        Node *istmt = lfirst(l);
+        if (IsA(istmt, IndexStmt)) {
+            IndexStmt *idxstmt = transformIndexStmt(relid, (IndexStmt *) istmt, queryString);
+            AlterTableCmd *newcmd = makeNode(AlterTableCmd);
+            newcmd->subtype = OidIsValid(idxstmt->indexOid) ?
+                             AT_AddIndexConstraint : AT_AddIndex;
+            newcmd->def = (Node *) idxstmt;
+            newcmds = lappend(newcmds, newcmd);
+        }
+    }
+
+    // Add constraint commands
+    foreach(l, cxt.ckconstraints) {
+        AlterTableCmd *newcmd = makeNode(AlterTableCmd);
+        newcmd->subtype = AT_AddConstraint;
+        newcmd->def = (Node *) lfirst_node(Constraint, l);
+        newcmds = lappend(newcmds, newcmd);
+    }
+
+    relation_close(rel, NoLock);
+
+    // Return transformed statement with before/after lists
+    stmt->cmds = newcmds;
+    *beforeStmts = cxt.blist;
+    *afterStmts = cxt.alist;
+
+    return stmt;
+}
+```

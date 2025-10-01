@@ -33,3 +33,20 @@ This function handles the specific formatting requirements for JSON output in Po
 - The function includes an assertion to ensure it's only called when format is JSON
 - The grouping_stack is used to track nesting levels and determine comma placement
 - Part of PostgreSQL's EXPLAIN output formatting system for structured data formats
+
+## Simplified Source
+
+```c
+static void ExplainJSONLineEnding(ExplainState *es)
+{
+    Assert(es->format == EXPLAIN_FORMAT_JSON);
+
+    // Add comma if not the first property in this group
+    if (linitial_int(es->grouping_stack) != 0)
+        appendStringInfoChar(es->str, ',');
+    else
+        linitial_int(es->grouping_stack) = 1;  // Mark that we've emitted something
+
+    appendStringInfoChar(es->str, '\n');
+}
+```

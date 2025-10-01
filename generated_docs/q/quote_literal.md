@@ -36,3 +36,32 @@ The `quote_literal` function is a PostgreSQL SQL function that converts input te
 - Part of PostgreSQL's quote utility functions located in `src/backend/utils/adt/quote.c`
 - The actual quoting logic is delegated to the `quote_literal_internal` helper function
 - Used internally by PostgreSQL for subscription and publication management
+
+## Simplified Source
+
+```c
+Datum
+quote_literal(PG_FUNCTION_ARGS)
+{
+    text *t = PG_GETARG_TEXT_PP(0);
+    text *result;
+    char *cp1;
+    char *cp2;
+    int  len;
+
+    // Get input text length
+    len = VARSIZE_ANY_EXHDR(t);
+
+    // Allocate worst-case result buffer (all chars doubled + quotes + header)
+    result = (text *) palloc(len * 2 + 3 + VARHDRSZ);
+
+    // Get data pointers
+    cp1 = VARDATA_ANY(t);
+    cp2 = VARDATA(result);
+
+    // Quote the literal and set result size
+    SET_VARSIZE(result, VARHDRSZ + quote_literal_internal(cp2, cp1, len));
+
+    PG_RETURN_TEXT_P(result);
+}
+```

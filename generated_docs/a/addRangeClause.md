@@ -60,3 +60,69 @@ Key implementation features:
 - The function is static, indicating internal use within the clausesel.c module
 - Critical for the range query optimization that converts "hisel * losel" to "hisel + losel - 1" calculations
 - Handles edge cases where the same variable appears in multiple inequality expressions with different comparison operators
+
+## Simplified Source
+
+```c
+static void addRangeClause(RangeQueryClause **rqlist, Node *clause,
+                          bool varonleft, bool isLTsel, Selectivity s2) {
+    RangeQueryClause *rqelem;
+    Node *var;
+    bool is_lobound;
+
+    // Determine variable and bound type
+    if (varonleft) {
+        var = get_leftop((Expr *) clause);
+        is_lobound = !isLTsel;  // x < something is high bound
+    } else {
+        var = get_rightop((Expr *) clause);
+        is_lobound = isLTsel;   // something < x is low bound
+    }
+
+    // Search for existing entry with same variable
+    for (rqelem = *rqlist; rqelem; rqelem = rqelem->next) {
+        if (!equal(var, rqelem->var))
+            continue;
+
+        // Found matching variable - update bounds
+        if (is_lobound) {
+            if (!rqelem->have_lobound) {
+                rqelem->have_lobound = true;
+                rqelem->lobound = s2;
+            } else {
+                // Keep more restrictive bound (lower selectivity)
+                if (rqelem->lobound > s2)
+                    rqelem->lobound = s2;
+            }
+        } else {
+            if (!rqelem->have_hibound) {
+                rqelem->have_hibound = true;
+                rqelem->hibound = s2;
+            } else {
+                // Keep more restrictive bound (lower selectivity)
+                if (rqelem->hibound > s2)
+                    rqelem->hibound = s2;
+            }
+        }
+        return;
+    }
+
+    // No matching variable found - create new entry
+    rqelem = palloc(sizeof(RangeQueryClause));
+    rqelem->var = var;
+
+    if (is_lobound) {
+        rqelem->have_lobound = true;
+        rqelem->have_hibound = false;
+        rqelem->lobound = s2;
+    } else {
+        rqelem->have_lobound = false;
+        rqelem->have_hibound = true;
+        rqelem->hibound = s2;
+    }
+
+    // Add to front of list
+    rqelem->next = *rqlist;
+    *rqlist = rqelem;
+}
+```

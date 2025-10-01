@@ -40,3 +40,64 @@ This function removes missing value information from all attributes in a relatio
 - Safe to call when all table rows have full attribute complement
 - Improves performance by eliminating unnecessary missing value processing
 - Uses heap_modify_tuple to update pg_attribute entries efficiently
+
+## Simplified Source
+
+```c
+void
+RelationClearMissing(Relation rel)
+{
+    Relation attr_rel;
+    Oid relid = RelationGetRelid(rel);
+    int natts = RelationGetNumberOfAttributes(rel);
+    int attnum;
+    Datum repl_val[Natts_pg_attribute];
+    bool repl_null[Natts_pg_attribute];
+    bool repl_repl[Natts_pg_attribute];
+    Form_pg_attribute attrtuple;
+    HeapTuple tuple, newtuple;
+
+    // Initialize arrays for tuple modification
+    memset(repl_val, 0, sizeof(repl_val));
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+
+    // Set values to clear missing information
+    repl_val[Anum_pg_attribute_atthasmissing - 1] = BoolGetDatum(false);
+    repl_null[Anum_pg_attribute_attmissingval - 1] = true;
+    repl_repl[Anum_pg_attribute_atthasmissing - 1] = true;
+    repl_repl[Anum_pg_attribute_attmissingval - 1] = true;
+
+    // Open pg_attribute for updates
+    attr_rel = table_open(AttributeRelationId, RowExclusiveLock);
+
+    // Process each attribute of the relation
+    for (attnum = 1; attnum <= natts; attnum++) {
+        // Get attribute tuple from system cache
+        tuple = SearchSysCache2(ATTNUM,
+                               ObjectIdGetDatum(relid),
+                               Int16GetDatum(attnum));
+        if (!HeapTupleIsValid(tuple))
+            elog(ERROR, "cache lookup failed for attribute %d of relation %u",
+                 attnum, relid);
+
+        attrtuple = (Form_pg_attribute) GETSTRUCT(tuple);
+
+        // Only update attributes that currently have missing values
+        if (attrtuple->atthasmissing) {
+            // Create modified tuple with cleared missing info
+            newtuple = heap_modify_tuple(tuple, RelationGetDescr(attr_rel),
+                                        repl_val, repl_null, repl_repl);
+
+            // Update the catalog
+            CatalogTupleUpdate(attr_rel, &newtuple->t_self, newtuple);
+            heap_freetuple(newtuple);
+        }
+
+        ReleaseSysCache(tuple);
+    }
+
+    // Close pg_attribute - this will trigger relcache rebuild
+    table_close(attr_rel, RowExclusiveLock);
+}
+```

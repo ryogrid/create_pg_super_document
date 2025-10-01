@@ -48,3 +48,55 @@ The function is designed to be efficient by skipping unnecessary validation when
 - Phase 3 validation (checking for existing NULL values) is only scheduled if no existing constraint can prove the column is already NULL-free
 - System columns (attnum <= 0) cannot be altered and will generate an error
 - The function uses RowExclusiveLock on the attribute relation to ensure safe concurrent access during catalog updates
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecSetNotNull(AlteredTableInfo *tab, Relation rel,
+                 const char *colName, LOCKMODE lockmode)
+{
+    HeapTuple tuple;
+    AttrNumber attnum;
+    Relation attr_rel;
+    ObjectAddress address;
+
+    // Open attribute relation and lookup the column
+    attr_rel = table_open(AttributeRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheCopyAttName(RelationGetRelid(rel), colName);
+
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "column does not exist");
+
+    attnum = ((Form_pg_attribute) GETSTRUCT(tuple))->attnum;
+
+    // Prevent altering system columns
+    if (attnum <= 0)
+        ereport(ERROR, "cannot alter system column");
+
+    // Update catalog if column is not already NOT NULL
+    if (!((Form_pg_attribute) GETSTRUCT(tuple))->attnotnull)
+    {
+        ((Form_pg_attribute) GETSTRUCT(tuple))->attnotnull = true;
+        CatalogTupleUpdate(attr_rel, &tuple->t_self, tuple);
+
+        // Check if we need to verify existing data for NULLs
+        // Skip verification if existing constraints already guarantee NOT NULL
+        if (!tab->verify_new_notnull &&
+            !NotNullImpliedByRelConstraints(rel, (Form_pg_attribute) GETSTRUCT(tuple)))
+        {
+            tab->verify_new_notnull = true;  // Tell Phase 3 to verify constraint
+        }
+
+        ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+    }
+    else
+        address = InvalidObjectAddress;  // Already NOT NULL, no change needed
+
+    // Cleanup and post-alter processing
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attnum);
+    table_close(attr_rel, RowExclusiveLock);
+
+    return address;
+}
+```

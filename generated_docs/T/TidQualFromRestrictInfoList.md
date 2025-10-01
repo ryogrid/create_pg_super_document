@@ -49,3 +49,79 @@ The function's recursive nature allows it to handle arbitrarily nested boolean e
 - Uses simple preference heuristics rather than complex cost-based selection
 - Handles Row Level Security (RLS) quals that may be AND'ed with CurrentOfExpr
 - Returns a list with implicit OR semantics across list elements
+
+## Simplified Source
+
+```c
+static List *TidQualFromRestrictInfoList(PlannerInfo *root, List *rlist, RelOptInfo *rel)
+{
+    RestrictInfo *tidclause = NULL;  // Best simple CTID qual found
+    List *orlist = NIL;              // Best OR'ed CTID qual found
+    ListCell *l;
+
+    foreach(l, rlist)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+        if (restriction_is_or_clause(rinfo))
+        {
+            // Process OR clause - need CTID conditions in ALL sub-clauses
+            List *rlst = NIL;
+            ListCell *j;
+
+            foreach(j, ((BoolExpr *) rinfo->orclause)->args)
+            {
+                Node *orarg = (Node *) lfirst(j);
+                List *sublist;
+
+                // Handle AND clauses recursively, simple clauses directly
+                if (is_andclause(orarg))
+                {
+                    List *andargs = ((BoolExpr *) orarg)->args;
+                    sublist = TidQualFromRestrictInfoList(root, andargs, rel);
+                }
+                else
+                {
+                    RestrictInfo *ri = castNode(RestrictInfo, orarg);
+                    if (RestrictInfoIsTidQual(root, ri, rel))
+                        sublist = list_make1(ri);
+                    else
+                        sublist = NIL;
+                }
+
+                // If any OR branch lacks CTID quals, abandon this OR clause
+                if (sublist == NIL)
+                {
+                    rlst = NIL;
+                    break;
+                }
+
+                rlst = list_concat(rlst, sublist);
+            }
+
+            // Keep shorter OR'ed lists (simple heuristic)
+            if (rlst && (orlist == NIL || list_length(rlst) < list_length(orlist)))
+                orlist = rlst;
+        }
+        else
+        {
+            // Handle simple (non-OR) clauses
+            if (RestrictInfoIsTidQual(root, rinfo, rel))
+            {
+                // CurrentOfExpr has absolute priority - return immediately
+                if (IsCurrentOfClause(rinfo, rel))
+                    return list_make1(rinfo);
+
+                // Remember first simple CTID qual as fallback
+                if (tidclause == NULL)
+                    tidclause = rinfo;
+            }
+        }
+    }
+
+    // Prefer simple CTID quals over complex OR'ed lists
+    if (tidclause)
+        return list_make1(tidclause);
+    return orlist;
+}
+```

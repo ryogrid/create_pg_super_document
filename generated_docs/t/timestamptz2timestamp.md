@@ -45,3 +45,31 @@ For non-finite timestamps (infinity, -infinity), the function simply passes the 
 - The function is fundamental to PostgreSQL's timezone-aware timestamp handling
 - Uses PostgreSQL's standard error reporting mechanism for out-of-range values
 - The conversion is timezone-aware but the result is a timezone-naive timestamp
+
+## Simplified Source
+
+```c
+static Timestamp timestamptz2timestamp(TimestampTz timestamp) {
+    // Handle infinite timestamps (pass through unchanged)
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        return timestamp;
+
+    // Convert finite timestamps by decomposing and reconstructing
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    int tz;
+    Timestamp result;
+
+    // Decompose timestamptz to local time components
+    if (timestamp2tm(timestamp, &tz, tm, &fsec, NULL, NULL) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    // Reconstruct as plain timestamp (without timezone)
+    if (tm2timestamp(tm, fsec, NULL, &result) != 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp out of range")));
+
+    return result;
+}
+```

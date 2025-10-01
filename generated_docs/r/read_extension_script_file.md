@@ -43,3 +43,31 @@ This ensures that extension scripts can be written in different encodings but wi
 - Memory management: The returned string should be freed by the caller
 - Error handling is implicit through the called functions (pg_verify_mbstr and pg_any_to_server will raise errors for invalid encodings)
 - The function is essential for internationalization support in PostgreSQL extensions
+
+## Simplified Source
+
+```c
+static char *read_extension_script_file(const ExtensionControlFile *control,
+                                       const char *filename) {
+    int src_encoding;
+    char *src_str;
+    int len;
+
+    // Read the entire script file into memory
+    src_str = read_whole_file(filename, &len);
+
+    // Determine source encoding (from control file or database default)
+    if (control->encoding < 0)
+        src_encoding = GetDatabaseEncoding();
+    else
+        src_encoding = control->encoding;
+
+    // Validate that the source string is valid in expected encoding
+    (void) pg_verify_mbstr(src_encoding, src_str, len, false);
+
+    // Convert to database encoding
+    char *dest_str = pg_any_to_server(src_str, len, src_encoding);
+
+    return dest_str;
+}
+```

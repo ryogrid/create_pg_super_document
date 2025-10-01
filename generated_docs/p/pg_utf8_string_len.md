@@ -36,3 +36,26 @@ Returns the character count on success, or -1 if any invalid UTF-8 sequences are
 - Essential for SASL string preparation input validation
 - Handles all valid UTF-8 sequences including multi-byte characters
 - Early validation helps prevent downstream Unicode processing errors
+
+## Simplified Source
+
+```c
+static int pg_utf8_string_len(const char *source) {
+    const unsigned char *p = (const unsigned char *) source;
+    int num_chars = 0;
+
+    // Count valid UTF-8 characters
+    while (*p) {
+        int char_len = pg_utf_mblen(p);
+
+        // Validate UTF-8 sequence
+        if (!pg_utf8_islegal(p, char_len))
+            return -1;  // Invalid UTF-8
+
+        p += char_len;
+        num_chars++;
+    }
+
+    return num_chars;
+}
+```

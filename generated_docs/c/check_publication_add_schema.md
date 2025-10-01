@@ -40,3 +40,27 @@ The function uses PostgreSQL's error reporting mechanism to provide clear error 
 - The function follows the same error handling pattern as check_publication_add_relation
 - Unlike table validation, schema validation is simpler and only checks namespace properties
 - Location: src/backend/catalog/pg_publication.c:98-136
+
+## Simplified Source
+
+```c
+static void
+check_publication_add_schema(Oid schemaid)
+{
+    // System namespaces (catalog and toast) cannot be published
+    if (IsCatalogNamespace(schemaid) || IsToastNamespace(schemaid))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot add schema \"%s\" to publication",
+                        get_namespace_name(schemaid)),
+                 errdetail("This operation is not supported for system schemas.")));
+
+    // Temporary namespaces cannot be published
+    if (isAnyTempNamespace(schemaid))
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot add schema \"%s\" to publication",
+                        get_namespace_name(schemaid)),
+                 errdetail("Temporary schemas cannot be replicated.")));
+}
+```

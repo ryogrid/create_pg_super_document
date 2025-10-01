@@ -33,3 +33,14 @@ The function expects that the caller has already performed necessary permission 
 - The function passes  for the  parameter and  for the  parameter to CheckAndCreateToastTable
 - Callers should ensure proper permissions and relation type validation before calling this function
 - The function will increment the command counter if changes are made, affecting catalog visibility
+
+## Simplified Source
+
+```c
+void
+AlterTableCreateToastTable(Oid relOid, Datum reloptions, LOCKMODE lockmode)
+{
+    // Create TOAST table if needed during ALTER TABLE operations
+    CheckAndCreateToastTable(relOid, reloptions, lockmode, true, InvalidOid);
+}
+```

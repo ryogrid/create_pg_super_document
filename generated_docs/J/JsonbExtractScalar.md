@@ -49,3 +49,33 @@ The function first validates that the container is both an array and marked as s
 - Used primarily for type conversion functions that extract scalar values from JSONB
 - Located in src/backend/utils/adt/jsonb.c:1968-2007
 - Critical for proper handling of JSONB scalar values in PostgreSQL's type system
+
+## Simplified Source
+
+```c
+bool
+JsonbExtractScalar(JsonbContainer *jbc, JsonbValue *res)
+{
+    JsonbIterator *it;
+    JsonbValue tmp;
+
+    // Validate container is both array and scalar
+    if (!JsonContainerIsArray(jbc) || !JsonContainerIsScalar(jbc))
+    {
+        // Set result type and return false for non-scalar containers
+        res->type = JsonContainerIsArray(jbc) ? jbvArray : jbvObject;
+        return false;
+    }
+
+    // Initialize iterator for pseudo-array traversal
+    it = JsonbIteratorInit(jbc);
+
+    // Navigate through the single-element array structure
+    JsonbIteratorNext(&it, &tmp, true);     // WJB_BEGIN_ARRAY
+    JsonbIteratorNext(&it, res, true);      // WJB_ELEM (the scalar value)
+    JsonbIteratorNext(&it, &tmp, true);     // WJB_END_ARRAY
+    JsonbIteratorNext(&it, &tmp, true);     // WJB_DONE
+
+    return true;
+}
+```

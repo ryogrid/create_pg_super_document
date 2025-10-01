@@ -44,3 +44,98 @@ The function handles special validation for index columns, ensuring that statist
 - System columns cannot have their statistics targets modified
 - For indexes, statistics can only be set on expression columns, not on regular indexed columns
 - The function supports both setting explicit targets and resetting to default (NULL)
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecSetStatistics(Relation rel, const char *colName, int16 colNum, Node *newValue, LOCKMODE lockmode)
+{
+    int newtarget = 0;
+    bool newtarget_default;
+    Relation attrelation;
+    HeapTuple tuple, newtuple;
+    Form_pg_attribute attrtuple;
+    AttrNumber attnum;
+    ObjectAddress address;
+    Datum repl_val[Natts_pg_attribute];
+    bool repl_null[Natts_pg_attribute];
+    bool repl_repl[Natts_pg_attribute];
+
+    // Only allow column numbers for indexes
+    if (rel->rd_rel->relkind != RELKIND_INDEX &&
+        rel->rd_rel->relkind != RELKIND_PARTITIONED_INDEX &&
+        !colName)
+        ereport(ERROR, "cannot refer to non-index column by number");
+
+    // Parse the new target value (-1 means default)
+    if (newValue && intVal(newValue) != -1)
+    {
+        newtarget = intVal(newValue);
+        newtarget_default = false;
+    }
+    else
+        newtarget_default = true;
+
+    // Validate target range
+    if (!newtarget_default)
+    {
+        if (newtarget < 0)
+            ereport(ERROR, "statistics target is too low");
+        else if (newtarget > MAX_STATISTICS_TARGET)
+        {
+            newtarget = MAX_STATISTICS_TARGET;
+            ereport(WARNING, "lowering statistics target to maximum");
+        }
+    }
+
+    // Open attribute relation and find column
+    attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+    if (colName)
+        tuple = SearchSysCacheAttName(RelationGetRelid(rel), colName);
+    else
+        tuple = SearchSysCacheAttNum(RelationGetRelid(rel), colNum);
+
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "column does not exist");
+
+    attrtuple = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = attrtuple->attnum;
+
+    if (attnum <= 0)
+        ereport(ERROR, "cannot alter system column");
+
+    // Special validation for index columns
+    if (rel->rd_rel->relkind == RELKIND_INDEX ||
+        rel->rd_rel->relkind == RELKIND_PARTITIONED_INDEX)
+    {
+        if (attnum > rel->rd_index->indnkeyatts)
+            ereport(ERROR, "cannot alter statistics on included column");
+        else if (rel->rd_index->indkey.values[attnum - 1] != 0)
+            ereport(ERROR, "cannot alter statistics on non-expression column");
+    }
+
+    // Build new tuple with updated statistics target
+    memset(repl_null, false, sizeof(repl_null));
+    memset(repl_repl, false, sizeof(repl_repl));
+    if (!newtarget_default)
+        repl_val[Anum_pg_attribute_attstattarget - 1] = newtarget;
+    else
+        repl_null[Anum_pg_attribute_attstattarget - 1] = true;
+    repl_repl[Anum_pg_attribute_attstattarget - 1] = true;
+
+    newtuple = heap_modify_tuple(tuple, RelationGetDescr(attrelation),
+                                 repl_val, repl_null, repl_repl);
+    CatalogTupleUpdate(attrelation, &tuple->t_self, newtuple);
+
+    // Cleanup and post-alter processing
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attrtuple->attnum);
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+
+    heap_freetuple(newtuple);
+    ReleaseSysCache(tuple);
+    table_close(attrelation, RowExclusiveLock);
+
+    return address;
+}
+```

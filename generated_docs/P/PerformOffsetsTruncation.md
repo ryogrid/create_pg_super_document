@@ -34,3 +34,13 @@ The function includes a critical optimization where it steps back one MultiXact 
 - Works directly with the standard SLRU truncation mechanism
 - Part of the MultiXact maintenance system that manages transaction offset mappings
 - The step-back logic is crucial for preventing false wraparound detection in SimpleLruTruncate
+
+## Simplified Source
+```c
+static void PerformOffsetsTruncation(MultiXactId oldestMulti, MultiXactId newOldestMulti) {
+    // Step back one multixact to avoid wraparound detection issues
+    // when oldestMulti would be first item on a page and equals nextMulti
+    SimpleLruTruncate(MultiXactOffsetCtl,
+                      MultiXactIdToOffsetPage(PreviousMultiXactId(newOldestMulti)));
+}
+```

@@ -47,3 +47,28 @@ The function delegates the complex expression processing to transformAssignedExp
 - Only used in UPDATE statements and ON CONFLICT DO UPDATE clauses, not in INSERT statements
 - The function modifies the TargetEntry in place rather than returning a new one
 - Part of PostgreSQL's query transformation pipeline for UPDATE statement processing
+
+## Simplified Source
+
+```c
+void updateTargetListEntry(ParseState *pstate,
+                         TargetEntry *tle,
+                         char *colname,
+                         int attrno,
+                         List *indirection,
+                         int location) {
+    // Transform the expression for UPDATE assignment
+    // Handles type coercion and subscripts/field names
+    tle->expr = transformAssignedExpr(pstate,
+                                    tle->expr,
+                                    EXPR_KIND_UPDATE_TARGET,
+                                    colname,
+                                    attrno,
+                                    indirection,
+                                    location);
+
+    // Set target column identification for rewriter and planner
+    tle->resno = (AttrNumber) attrno;      // Required for correct processing
+    tle->resname = colname;                // For debugging only
+}
+```

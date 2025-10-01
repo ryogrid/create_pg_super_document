@@ -54,3 +54,46 @@ The function is designed to work with PostgreSQL's operator family system, which
 - The function handles missing operator families gracefully when missing_ok is true
 - Access method lookup failure always raises an error since the access method should exist if the operator family exists
 - Part of PostgreSQL's operator family and access method infrastructure for index support
+
+## Simplified Source
+
+```c
+static void
+getOpFamilyIdentity(StringInfo buffer, Oid opfid, List **object, bool missing_ok)
+{
+    HeapTuple opfTup, amTup;
+    Form_pg_opfamily opfForm;
+    Form_pg_am amForm;
+    char *schema;
+
+    // Look up operator family
+    opfTup = SearchSysCache1(OPFAMILYOID, ObjectIdGetDatum(opfid));
+    if (!HeapTupleIsValid(opfTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for opfamily %u", opfid);
+        return;
+    }
+    opfForm = (Form_pg_opfamily) GETSTRUCT(opfTup);
+
+    // Look up access method for this operator family
+    amTup = SearchSysCache1(AMOID, ObjectIdGetDatum(opfForm->opfmethod));
+    if (!HeapTupleIsValid(amTup))
+        elog(ERROR, "cache lookup failed for access method %u", opfForm->opfmethod);
+    amForm = (Form_pg_am) GETSTRUCT(amTup);
+
+    // Build identity string: "schema.family_name USING access_method"
+    schema = get_namespace_name_or_temp(opfForm->opfnamespace);
+    appendStringInfo(buffer, "%s USING %s",
+                     quote_qualified_identifier(schema, NameStr(opfForm->opfname)),
+                     NameStr(amForm->amname));
+
+    // Optionally return decomposed object parts
+    if (object)
+        *object = list_make3(pstrdup(NameStr(amForm->amname)),
+                            pstrdup(schema),
+                            pstrdup(NameStr(opfForm->opfname)));
+
+    ReleaseSysCache(amTup);
+    ReleaseSysCache(opfTup);
+}
+```

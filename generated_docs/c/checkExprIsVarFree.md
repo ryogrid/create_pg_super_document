@@ -59,3 +59,18 @@ This function is a validation utility used within the PostgreSQL parser to enfor
 - Essential for maintaining SQL semantic correctness in constructs requiring constant expressions
 - The constructName parameter enables context-specific error messages (e.g., 'LIMIT', 'frame offset')
 - Used primarily in contexts where expression values must remain consistent across all query rows
+
+## Simplified Source
+
+```c
+static void checkExprIsVarFree(ParseState *pstate, Node *expression, const char *constructName) {
+    // Check if expression contains variables from current query level
+    if (contain_vars_of_level(expression, 0)) {
+        // Report error with specific location of the problematic variable
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("argument of %s must not contain variables", constructName),
+                 parser_errposition(pstate, locate_var_of_level(expression, 0))));
+    }
+}
+```

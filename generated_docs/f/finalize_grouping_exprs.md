@@ -46,3 +46,29 @@ The function exists as a separate phase because GROUPING() function processing r
 - Part of PostgreSQL's GROUPING() function implementation for SQL standard compliance
 - Works in coordination with check_ungrouped_columns but handles the specialized GROUPING function semantics
 - The groupClauseCommonVars field is set to NIL since GROUPING function validation doesn't require functional dependency checking
+
+## Simplified Source
+
+```c
+static void
+finalize_grouping_exprs(Node *node, ParseState *pstate, Query *qry,
+                        List *groupClauses, bool hasJoinRTEs,
+                        bool have_non_var_grouping)
+{
+    check_ungrouped_columns_context context;
+
+    // Initialize context for GROUPING function processing
+    context.pstate = pstate;
+    context.qry = qry;
+    context.hasJoinRTEs = hasJoinRTEs;
+    context.groupClauses = groupClauses;
+    context.groupClauseCommonVars = NIL;  // Not needed for GROUPING functions
+    context.have_non_var_grouping = have_non_var_grouping;
+    context.func_grouped_rels = NULL;     // Not used for GROUPING processing
+    context.sublevels_up = 0;
+    context.in_agg_direct_args = false;
+
+    // Process GROUPING functions with in-place modifications
+    finalize_grouping_exprs_walker(node, &context);
+}
+```

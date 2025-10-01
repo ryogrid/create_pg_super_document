@@ -36,3 +36,34 @@ The function performs a direct update to the pg_class system catalog using prope
 - Uses RowExclusiveLock on the pg_class catalog to ensure safe concurrent modifications
 - Part of the table command infrastructure that manages ALTER TABLE and similar DDL operations
 - The relrewrite field is used during operations like CLUSTER, VACUUM FULL, and certain ALTER TABLE commands that require rebuilding the entire table
+
+## Simplified Source
+
+```c
+void ResetRelRewrite(Oid myrelid)
+{
+    Relation relrelation;
+    HeapTuple reltup;
+    Form_pg_class relform;
+
+    // Open pg_class catalog with exclusive lock
+    relrelation = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Find the relation's tuple in pg_class
+    reltup = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(myrelid));
+    if (!HeapTupleIsValid(reltup))
+        elog(ERROR, "cache lookup failed for relation %u", myrelid);
+
+    relform = (Form_pg_class) GETSTRUCT(reltup);
+
+    // Clear the relrewrite field
+    relform->relrewrite = InvalidOid;
+
+    // Update the catalog tuple
+    CatalogTupleUpdate(relrelation, &reltup->t_self, reltup);
+
+    // Clean up
+    heap_freetuple(reltup);
+    table_close(relrelation, RowExclusiveLock);
+}
+```

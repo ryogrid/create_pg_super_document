@@ -59,3 +59,103 @@ The function is designed to be idempotent - if the attachment already exists in 
 - AccessExclusiveLock is used on the partition index to prevent concurrent modifications during attachment
 - Error messages are detailed and provide specific information about validation failures
 - The function maintains transactional semantics - all changes are committed together or rolled back on error
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAttachPartitionIdx(List **wqueue, Relation parentIdx, RangeVar *name)
+{
+    Relation partIdx, partTbl, parentTbl;
+    ObjectAddress address;
+    Oid partIdxId, currParent;
+    struct AttachIndexCallbackState state;
+
+    // Lock ordering: table before index to prevent deadlocks
+    state.partitionOid = InvalidOid;
+    state.parentTblOid = parentIdx->rd_index->indrelid;
+    state.lockedParentTbl = false;
+
+    // Get partition index with locks
+    partIdxId = RangeVarGetRelidExtended(name, AccessExclusiveLock, 0,
+                                        RangeVarCallbackForAttachIndex, &state);
+    if (!OidIsValid(partIdxId))
+        ereport(ERROR, "index \"%s\" does not exist", name->relname);
+
+    // Open all required relations
+    partIdx = relation_open(partIdxId, AccessExclusiveLock);
+    parentTbl = relation_open(parentIdx->rd_index->indrelid, AccessShareLock);
+    partTbl = relation_open(partIdx->rd_index->indrelid, NoLock);
+
+    ObjectAddressSet(address, RelationRelationId, RelationGetRelid(partIdx));
+
+    // Check if already attached to the correct parent
+    currParent = partIdx->rd_rel->relispartition ?
+        get_partition_parent(partIdxId, false) : InvalidOid;
+
+    if (currParent != RelationGetRelid(parentIdx)) {
+        IndexInfo *childInfo, *parentInfo;
+        AttrMap *attmap;
+        PartitionDesc partDesc;
+        Oid constraintOid, cldConstrId = InvalidOid;
+        bool found;
+        int i;
+
+        // Prevent duplicate attachment
+        refuseDupeIndexAttach(parentIdx, partIdx, partTbl);
+
+        if (OidIsValid(currParent))
+            ereport(ERROR, "cannot attach index \"%s\" as partition of index \"%s\"",
+                    RelationGetRelationName(partIdx), RelationGetRelationName(parentIdx));
+
+        // Verify partition table relationship
+        partDesc = RelationGetPartitionDesc(parentTbl, true);
+        found = false;
+        for (i = 0; i < partDesc->nparts; i++) {
+            if (partDesc->oids[i] == state.partitionOid) {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            ereport(ERROR, "index \"%s\" is not on any partition of table \"%s\"",
+                    RelationGetRelationName(partIdx), RelationGetRelationName(parentTbl));
+
+        // Compare index definitions for compatibility
+        childInfo = BuildIndexInfo(partIdx);
+        parentInfo = BuildIndexInfo(parentIdx);
+        attmap = build_attrmap_by_name(RelationGetDescr(partTbl),
+                                      RelationGetDescr(parentTbl), false);
+
+        if (!CompareIndexInfo(childInfo, parentInfo,
+                             partIdx->rd_indcollation, parentIdx->rd_indcollation,
+                             partIdx->rd_opfamily, parentIdx->rd_opfamily, attmap))
+            ereport(ERROR, "cannot attach index - definitions do not match");
+
+        // Handle constraint relationships
+        constraintOid = get_relation_idx_constraint_oid(RelationGetRelid(parentTbl),
+                                                       RelationGetRelid(parentIdx));
+        if (OidIsValid(constraintOid)) {
+            cldConstrId = get_relation_idx_constraint_oid(RelationGetRelid(partTbl), partIdxId);
+            if (!OidIsValid(cldConstrId))
+                ereport(ERROR, "parent index has constraint but partition index does not");
+        }
+
+        // Perform the attachment
+        IndexSetParentIndex(partIdx, RelationGetRelid(parentIdx));
+        if (OidIsValid(constraintOid))
+            ConstraintSetParentConstraint(cldConstrId, constraintOid,
+                                        RelationGetRelid(partTbl));
+
+        free_attrmap(attmap);
+        validatePartitionedIndex(parentIdx, parentTbl);
+    }
+
+    // Cleanup and maintain locks until commit
+    relation_close(parentTbl, AccessShareLock);
+    relation_close(partTbl, NoLock);
+    relation_close(partIdx, NoLock);
+
+    return address;
+}
+```

@@ -41,3 +41,31 @@ The function is designed to be optimistic and may occasionally return false posi
 - Only examines equivalence classes mentioning both input relations
 - Part of PostgreSQL's join ordering optimization framework
 - Located in src/backend/optimizer/path/equivclass.c:3087-3162
+
+## Simplified Source
+
+```c
+bool have_relevant_eclass_joinclause(PlannerInfo *root,
+                                     RelOptInfo *rel1, RelOptInfo *rel2) {
+    Bitmapset *matching_ecs;
+    int i;
+
+    // Find equivalence classes that mention both relations
+    matching_ecs = get_common_eclass_indexes(root, rel1->relids, rel2->relids);
+
+    // Check each matching equivalence class
+    i = -1;
+    while ((i = bms_next_member(matching_ecs, i)) >= 0) {
+        EquivalenceClass *ec = (EquivalenceClass *) list_nth(root->eq_classes, i);
+
+        // Skip single-member equivalence classes (won't generate join clauses)
+        if (list_length(ec->ec_members) <= 1)
+            continue;
+
+        // Found a multi-member EC involving both relations
+        return true;
+    }
+
+    return false;
+}
+```

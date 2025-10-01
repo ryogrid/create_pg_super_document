@@ -38,3 +38,20 @@ This translation is necessary because:
 - The comment explicitly states that this function "mustn't be called if no adjustment is required", emphasizing that callers should check whether adjustment is needed before calling
 - This function is part of the infrastructure that allows UPDATE operations to work transparently across partitioned tables despite schema differences
 - The returned List contains the adjusted column numbers that can be used for operations on the specific partition
+
+## Simplified Source
+
+```c
+static List *
+adjust_partition_colnos(List *colnos, ResultRelInfo *leaf_part_rri)
+{
+    // Get the attribute mapping from child to root
+    TupleConversionMap *map = ExecGetChildToRootMap(leaf_part_rri);
+
+    // Must have a conversion map if this function is called
+    Assert(map != NULL);
+
+    // Delegate to the general mapping function
+    return adjust_partition_colnos_using_map(colnos, map->attrMap);
+}
+```

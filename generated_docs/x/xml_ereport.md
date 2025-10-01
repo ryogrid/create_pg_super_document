@@ -43,3 +43,32 @@ The function validates the error context, resets error state flags, and construc
 - Automatically resets the err_occurred flag after reporting to prevent double-reporting
 - Only includes libxml detail information if the error buffer contains text
 - Used extensively throughout PostgreSQL's XML functionality for consistent error reporting
+
+## Simplified Source
+
+```c
+void
+xml_ereport(PgXmlErrorContext *errcxt, int level, int sqlcode, const char *msg)
+{
+    char *detail;
+
+    // Validate error context structure
+    if (errcxt->magic != ERRCXT_MAGIC)
+        elog(ERROR, "xml_ereport called with invalid PgXmlErrorContext");
+
+    // Mark error as processed
+    errcxt->err_occurred = false;
+
+    // Use libxml error details if available
+    if (errcxt->err_buf.len > 0)
+        detail = errcxt->err_buf.data;
+    else
+        detail = NULL;
+
+    // Report error with SQL message and optional libxml details
+    ereport(level,
+            (errcode(sqlcode),
+             errmsg_internal("%s", msg),
+             detail ? errdetail_internal("%s", detail) : 0));
+}
+```

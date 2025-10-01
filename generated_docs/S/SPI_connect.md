@@ -45,3 +45,13 @@ This function takes no parameters and uses default connection options (atomic mo
 - The SPI connection is stored on a stack, allowing for nested SPI connections
 - Memory contexts created during connection are automatically cleaned up during transaction end or explicit SPI_finish()
 - Located in src/backend/executor/spi.c:94-99
+
+## Simplified Source
+
+```c
+int SPI_connect(void)
+{
+    // Simply delegates to the extended version with default options (atomic mode)
+    return SPI_connect_ext(0);
+}
+```

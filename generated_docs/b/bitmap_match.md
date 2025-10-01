@@ -37,3 +37,19 @@ The logic inverts the result of `bms_equal` because PostgreSQL's hash table impl
 - Includes runtime assertion to verify correct key size usage
 - Essential component for using Bitmapsets as hash table keys in PostgreSQL's hash table infrastructure
 - The return value semantics follow PostgreSQL's hash table match function conventions
+
+## Simplified Source
+
+```c
+int
+bitmap_match(const void *key1, const void *key2, Size keysize)
+{
+    // Verify we're dealing with Bitmapset pointers
+    Assert(keysize == sizeof(Bitmapset *));
+
+    // Extract Bitmapsets and compare for equality
+    // Return 0 for match, non-zero for non-match (inverted from bms_equal)
+    return !bms_equal(*((const Bitmapset *const *) key1),
+                      *((const Bitmapset *const *) key2));
+}
+```

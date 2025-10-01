@@ -41,3 +41,19 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 - The ndigits parameter allows for consistent precision control across different metric types
 - Essential for displaying performance-related statistics that require fractional precision
 - The `true` parameter passed to ExplainProperty indicates this is a numeric property
+
+## Simplified Source
+
+```c
+void ExplainPropertyFloat(const char *qlabel, const char *unit, double value,
+                         int ndigits, ExplainState *es) {
+    // Format the float value with specified precision
+    char *buf = psprintf("%.*f", ndigits, value);
+
+    // Pass to generic property function for output formatting
+    ExplainProperty(qlabel, unit, buf, true, es);
+
+    // Clean up allocated memory
+    pfree(buf);
+}
+```

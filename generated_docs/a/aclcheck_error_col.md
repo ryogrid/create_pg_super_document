@@ -41,3 +41,33 @@ This function is primarily used when checking column-level privileges such as SE
 - The function assumes the objtype represents a relation-like object that can contain columns
 - This is a specialized variant of aclcheck_error designed specifically for column-level permission failures
 - Provides more granular error reporting than the general aclcheck_error function
+
+## Simplified Source
+
+```c
+void aclcheck_error_col(AclResult aclerr, ObjectType objtype,
+                       const char *objectname, const char *colname) {
+    switch (aclerr) {
+        case ACLCHECK_OK:
+            // No error, return normally
+            break;
+
+        case ACLCHECK_NO_PRIV:
+            // Report column-specific permission denied error
+            ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                           errmsg("permission denied for column \"%s\" of relation \"%s\"",
+                                  colname, objectname)));
+            break;
+
+        case ACLCHECK_NOT_OWNER:
+            // Delegate to standard error handler (columns inherit ownership)
+            aclcheck_error(aclerr, objtype, objectname);
+            break;
+
+        default:
+            // Handle unexpected error codes
+            elog(ERROR, "unrecognized AclResult: %d", (int) aclerr);
+            break;
+    }
+}
+```

@@ -36,3 +36,31 @@ The function includes the same safety check as its wrapper to never match dummy 
 - Used internally by BackendPidGetProc and by functions that need extended access to PGPROC
 - More efficient than BackendPidGetProc when multiple operations are needed on the same PGPROC
 - The function is declared in src/include/storage/procarray.h
+
+## Simplified Source
+
+```c
+PGPROC *
+BackendPidGetProcWithLock(int pid)
+{
+    PGPROC *result = NULL;
+    ProcArrayStruct *arrayP = procArray;
+    int index;
+
+    // Never match dummy PGPROCs (PID 0)
+    if (pid == 0)
+        return NULL;
+
+    // Linear search through active processes
+    for (index = 0; index < arrayP->numProcs; index++) {
+        PGPROC *proc = &allProcs[arrayP->pgprocnos[index]];
+
+        if (proc->pid == pid) {
+            result = proc;
+            break;
+        }
+    }
+
+    return result;
+}
+```

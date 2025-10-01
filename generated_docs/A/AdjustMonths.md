@@ -35,3 +35,16 @@ The function implements two levels of safety checking: first ensuring the 64-bit
 - Part of PostgreSQL's suite of overflow-safe datetime arithmetic functions
 - Located at src/backend/utils/adt/datetime.c:649-660
 - The comment explicitly notes that no scaling is needed since val is already in months
+
+## Simplified Source
+
+```c
+static bool AdjustMonths(int64 val, struct pg_itm_in *itm_in) {
+    // Check if 64-bit value fits in 32-bit range
+    if (val < INT_MIN || val > INT_MAX)
+        return false;
+
+    // Safely add months to existing count (no scaling needed)
+    return !pg_add_s32_overflow(itm_in->tm_mon, (int32) val, &itm_in->tm_mon);
+}
+```

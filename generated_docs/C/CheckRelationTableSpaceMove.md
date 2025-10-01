@@ -37,3 +37,35 @@ This function serves as a gatekeeper for tablespace move operations, ensuring th
 - System relations (mapped relations) cannot be moved to different tablespaces
 - Only shared relations can be placed in pg_global tablespace
 - Temporary tables from other sessions cannot be moved due to buffer manager limitations
+
+## Simplified Source
+
+```c
+bool CheckRelationTableSpaceMove(Relation rel, Oid newTableSpaceId) {
+    Oid oldTableSpaceId;
+
+    // Check if this would be a no-op (MyDatabaseTableSpace is stored as 0)
+    oldTableSpaceId = rel->rd_rel->reltablespace;
+    if (newTableSpaceId == oldTableSpaceId ||
+        (newTableSpaceId == MyDatabaseTableSpace && oldTableSpaceId == 0))
+        return false;
+
+    // Cannot move mapped relations (system catalogs)
+    if (RelationIsMapped(rel))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot move system relation \"%s\"",
+                              RelationGetRelationName(rel))));
+
+    // Cannot move non-shared relations to pg_global
+    if (newTableSpaceId == GLOBALTABLESPACE_OID)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("only shared relations can be placed in pg_global tablespace")));
+
+    // Cannot move temp tables from other sessions
+    if (RELATION_IS_OTHER_TEMP(rel))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("cannot move temporary tables of other sessions")));
+
+    return true;
+}
+```

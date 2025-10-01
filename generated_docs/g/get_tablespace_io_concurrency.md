@@ -43,3 +43,17 @@ Like other tablespace parameter functions, this is not transaction-locked, meani
 - Used by the executor to configure parallel I/O operations appropriately
 - Part of PostgreSQL's adaptive I/O system that can be tuned per tablespace
 - The function assumes the cache entry will always be valid (no explicit null check on spc)
+
+## Simplified Source
+```c
+int get_tablespace_io_concurrency(Oid spcid) {
+    // Get cached tablespace entry
+    TableSpaceCacheEntry *spc = get_tablespace(spcid);
+
+    // Return tablespace-specific value or global default
+    if (!spc->opts || spc->opts->effective_io_concurrency < 0)
+        return effective_io_concurrency;  // use global default
+    else
+        return spc->opts->effective_io_concurrency;  // use tablespace setting
+}
+```

@@ -43,3 +43,65 @@ The function uses a switch statement to handle different plan node types and ext
 - The function is recursive, calling itself through the planstate_tree_walker mechanism
 - Essential for proper alias generation in EXPLAIN output to avoid confusion
 - Uses PostgreSQL's bitmapset data structure to efficiently track relation usage
+
+## Simplified Source
+
+```c
+static bool
+ExplainPreScanNode(PlanState *planstate, Bitmapset **rels_used)
+{
+    Plan *plan = planstate->plan;
+
+    // Add relation IDs based on node type
+    switch (nodeTag(plan)) {
+        case T_SeqScan:
+        case T_IndexScan:
+        case T_BitmapHeapScan:
+        case T_SubqueryScan:
+        case T_FunctionScan:
+        case T_ValuesScan:
+        case T_CteScan:
+        // ... other simple scan types
+            *rels_used = bms_add_member(*rels_used,
+                                        ((Scan *) plan)->scanrelid);
+            break;
+
+        case T_ForeignScan:
+            *rels_used = bms_add_members(*rels_used,
+                                         ((ForeignScan *) plan)->fs_base_relids);
+            break;
+
+        case T_CustomScan:
+            *rels_used = bms_add_members(*rels_used,
+                                         ((CustomScan *) plan)->custom_relids);
+            break;
+
+        case T_ModifyTable:
+            // Add nominal relation
+            *rels_used = bms_add_member(*rels_used,
+                                        ((ModifyTable *) plan)->nominalRelation);
+            // Add excluded relation if present
+            if (((ModifyTable *) plan)->exclRelRTI)
+                *rels_used = bms_add_member(*rels_used,
+                                            ((ModifyTable *) plan)->exclRelRTI);
+            break;
+
+        case T_Append:
+            *rels_used = bms_add_members(*rels_used,
+                                         ((Append *) plan)->apprelids);
+            break;
+
+        case T_MergeAppend:
+            *rels_used = bms_add_members(*rels_used,
+                                         ((MergeAppend *) plan)->apprelids);
+            break;
+
+        default:
+            // No relations to add for other node types
+            break;
+    }
+
+    // Recursively process child nodes
+    return planstate_tree_walker(planstate, ExplainPreScanNode, rels_used);
+}
+```

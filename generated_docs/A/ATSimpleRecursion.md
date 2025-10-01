@@ -44,3 +44,41 @@ ATSimpleRecursion implements the standard recursion pattern for ALTER TABLE oper
 - Relies on find_all_inheritors for proper locking, using NoLock for subsequent operations
 - Each child relation undergoes safety validation via CheckAlterTableIsSafe before command preparation
 - Represents the standard recursion pattern used by most ALTER TABLE operations that support inheritance
+
+## Simplified Source
+
+```c
+static void
+ATSimpleRecursion(List **wqueue, Relation rel,
+                  AlterTableCmd *cmd, bool recurse, LOCKMODE lockmode,
+                  AlterTableUtilityContext *context)
+{
+    // Only recurse if requested and relation has child tables
+    if (recurse && rel->rd_rel->relhassubclass)
+    {
+        Oid relid = RelationGetRelid(rel);
+        List *children;
+        ListCell *child;
+
+        // Find all tables in inheritance hierarchy
+        children = find_all_inheritors(relid, lockmode, NULL);
+
+        // Process each child table
+        foreach(child, children)
+        {
+            Oid childrelid = lfirst_oid(child);
+            Relation childrel;
+
+            // Skip the original relation itself
+            if (childrelid == relid)
+                continue;
+
+            // Open child relation and apply ALTER command
+            childrel = relation_open(childrelid, NoLock);
+            CheckAlterTableIsSafe(childrel);
+            ATPrepCmd(wqueue, childrel, cmd, false, true, lockmode, context);
+            relation_close(childrel, NoLock);
+        }
+    }
+}
+```

@@ -33,3 +33,18 @@ This function is primarily used by errtablecol() internally, but can also be use
 - Part of PostgreSQL's structured error reporting system for enhanced debugging
 - The return value (0) does not matter and is ignored by callers
 - Builds upon errtable() to provide complete table and column context in error messages
+
+## Simplified Source
+
+```c
+int
+errtablecolname(Relation rel, const char *colname) {
+    // Add table information to error context
+    errtable(rel);
+
+    // Add column name to error context
+    err_generic_string(PG_DIAG_COLUMN_NAME, colname);
+
+    return 0; // Return value does not matter
+}
+```

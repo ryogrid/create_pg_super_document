@@ -59,3 +59,132 @@ The parser ensures strict CSV compliance by requiring proper termination of quot
 - The function maintains the same API as  to allow transparent format switching
 - Memory management follows the same optimization strategy as the text parser, pre-allocating buffers to avoid mid-parse reallocations
 - The state machine design ensures proper handling of edge cases like adjacent quotes and escape sequences at field boundaries
+
+## Simplified Source
+
+```c
+static int
+CopyReadAttributesCSV(CopyFromState cstate)
+{
+    char delimc = cstate->opts.delim[0];
+    char quotec = cstate->opts.quote[0];
+    char escapec = cstate->opts.escape[0];
+    int fieldno;
+    char *output_ptr, *cur_ptr, *line_end_ptr;
+
+    // Handle zero-column tables
+    if (cstate->max_fields <= 0) {
+        if (cstate->line_buf.len != 0)
+            ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                           errmsg("extra data after last expected column")));
+        return 0;
+    }
+
+    // Setup output buffer and pointers
+    resetStringInfo(&cstate->attribute_buf);
+    if (cstate->attribute_buf.maxlen <= cstate->line_buf.len)
+        enlargeStringInfo(&cstate->attribute_buf, cstate->line_buf.len);
+
+    output_ptr = cstate->attribute_buf.data;
+    cur_ptr = cstate->line_buf.data;
+    line_end_ptr = cstate->line_buf.data + cstate->line_buf.len;
+
+    // Parse each field
+    fieldno = 0;
+    for (;;) {
+        bool found_delim = false;
+        bool saw_quote = false;
+        char *start_ptr, *end_ptr;
+
+        // Expand fields array if needed
+        if (fieldno >= cstate->max_fields) {
+            cstate->max_fields *= 2;
+            cstate->raw_fields = repalloc(cstate->raw_fields,
+                                        cstate->max_fields * sizeof(char *));
+        }
+
+        start_ptr = cur_ptr;
+        cstate->raw_fields[fieldno] = output_ptr;
+
+        // State machine: parse field content
+        for (;;) {
+            // Not in quote mode: look for delimiters and quote starts
+            for (;;) {
+                end_ptr = cur_ptr;
+                if (cur_ptr >= line_end_ptr) goto endfield;
+
+                char c = *cur_ptr++;
+                if (c == delimc) {
+                    found_delim = true;
+                    goto endfield;
+                }
+                if (c == quotec) {
+                    saw_quote = true;
+                    break;  // Enter quote mode
+                }
+                *output_ptr++ = c;
+            }
+
+            // In quote mode: handle escape sequences and quote ends
+            for (;;) {
+                end_ptr = cur_ptr;
+                if (cur_ptr >= line_end_ptr)
+                    ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                                   errmsg("unterminated CSV quoted field")));
+
+                char c = *cur_ptr++;
+
+                // Handle escape sequences
+                if (c == escapec && cur_ptr < line_end_ptr) {
+                    char nextc = *cur_ptr;
+                    if (nextc == escapec || nextc == quotec) {
+                        *output_ptr++ = nextc;
+                        cur_ptr++;
+                        continue;
+                    }
+                }
+
+                // End of quoted field
+                if (c == quotec) break;
+                *output_ptr++ = c;
+            }
+        }
+
+endfield:
+        *output_ptr++ = '\0';
+
+        // Check for NULL and DEFAULT markers (only in unquoted fields)
+        int input_len = end_ptr - start_ptr;
+        if (!saw_quote && input_len == cstate->opts.null_print_len &&
+            strncmp(start_ptr, cstate->opts.null_print, input_len) == 0) {
+            cstate->raw_fields[fieldno] = NULL;
+        } else if (fieldno < list_length(cstate->attnumlist) &&
+                   cstate->opts.default_print &&
+                   input_len == cstate->opts.default_print_len &&
+                   strncmp(start_ptr, cstate->opts.default_print, input_len) == 0) {
+            // Handle DEFAULT marker
+            int m = list_nth_int(cstate->attnumlist, fieldno) - 1;
+            if (cstate->defexprs[m] != NULL) {
+                cstate->defaults[m] = true;
+            } else {
+                // Error: column has no default
+                TupleDesc tupDesc = RelationGetDescr(cstate->rel);
+                Form_pg_attribute att = TupleDescAttr(tupDesc, m);
+                ereport(ERROR, (errcode(ERRCODE_BAD_COPY_FILE_FORMAT),
+                               errmsg("unexpected default marker in COPY data"),
+                               errdetail("Column \"%s\" has no default value.",
+                                        NameStr(att->attname))));
+            }
+        }
+
+        fieldno++;
+        if (!found_delim) break;  // End of line
+    }
+
+    // Finalize output buffer
+    output_ptr--;
+    cstate->attribute_buf.len = (output_ptr - cstate->attribute_buf.data);
+
+    return fieldno;
+}
+```

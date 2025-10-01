@@ -42,3 +42,35 @@ After parsing the flags, it delegates the actual replacement work to  with appro
 - Uses PostgreSQL's standard function argument handling macros (PG_GETARG_TEXT_PP)
 - Supports both single and global replacement modes based on the 'g' flag
 - Part of PostgreSQL's regular expression functionality in the regexp.c module
+
+## Simplified Source
+
+```c
+Datum textregexreplace(PG_FUNCTION_ARGS) {
+    text *source = PG_GETARG_TEXT_PP(0);
+    text *pattern = PG_GETARG_TEXT_PP(1);
+    text *replacement = PG_GETARG_TEXT_PP(2);
+    text *options = PG_GETARG_TEXT_PP(3);
+
+    // Check for numeric flag (user confusion detection)
+    if (VARSIZE_ANY_EXHDR(options) > 0) {
+        char *opt_p = VARDATA_ANY(options);
+        if (*opt_p >= '0' && *opt_p <= '9') {
+            ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("invalid regular expression option: \"%.*s\"",
+                        pg_mblen(opt_p), opt_p),
+                 errhint("If you meant to use regexp_replace() with a start parameter, cast the fourth argument to integer explicitly.")));
+        }
+    }
+
+    // Parse regex flags from options string
+    pg_re_flags flags;
+    parse_re_flags(&flags, options);
+
+    // Perform replacement (single or global based on flags)
+    PG_RETURN_TEXT_P(replace_text_regexp(source, pattern, replacement,
+                                        flags.cflags, PG_GET_COLLATION(),
+                                        0, flags.glob ? 0 : 1));
+}
+```

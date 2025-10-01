@@ -45,3 +45,15 @@ This function is essential for the timezone compiler's arithmetic operations, en
 - Essential for maintaining data integrity in timezone rule processing
 - Returns the sum only when it's guaranteed to be within valid bounds
 - Works with both positive and negative time values commonly used in timezone calculations
+
+## Simplified Source
+
+```c
+static zic_t oadd(zic_t t1, zic_t t2) {
+    // Check for overflow: negative t1 checks underflow, positive t1 checks overflow
+    if (t1 < 0 ? t2 < ZIC_MIN - t1 : ZIC_MAX - t1 < t2)
+        time_overflow();  // Terminate on overflow
+
+    return t1 + t2;  // Safe to add
+}
+```

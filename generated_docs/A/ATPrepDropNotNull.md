@@ -38,3 +38,24 @@ The function enforces a key restriction: NOT NULL constraints cannot be removed 
 - Does not perform the actual constraint removal - that's handled in the execution phase
 - The check only applies to partitioned tables (RELKIND_PARTITIONED_TABLE)
 - Uses Assert to ensure partition descriptor is valid when dealing with partitioned tables
+
+## Simplified Source
+
+```c
+static void
+ATPrepDropNotNull(Relation rel, bool recurse, bool recursing)
+{
+    // Check if this is a partitioned table
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE) {
+        PartitionDesc partdesc = RelationGetPartitionDesc(rel, true);
+
+        Assert(partdesc != NULL);
+
+        // Cannot drop NOT NULL from parent only when partitions exist
+        if (partdesc->nparts > 0 && !recurse && !recursing)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot remove constraint from only the partitioned table when partitions exist"),
+                           errhint("Do not specify the ONLY keyword.")));
+    }
+}
+```

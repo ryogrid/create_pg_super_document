@@ -49,3 +49,64 @@ The function enforces PostgreSQL's inheritance rules by validating ownership per
 - Returns ObjectAddress of the parent relation for event trigger integration
 - Maintains lock on parent relation until transaction commit
 - Part of the comprehensive ALTER TABLE infrastructure supporting table inheritance
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAddInherit(Relation child_rel, RangeVar *parent, LOCKMODE lockmode)
+{
+    Relation parent_rel;
+    List *children;
+    ObjectAddress address;
+    const char *trigger_name;
+
+    // Open parent with exclusive lock to prevent concurrent changes
+    parent_rel = table_openrv(parent, ShareUpdateExclusiveLock);
+
+    // Check permissions on parent table
+    ATSimplePermissions(AT_AddInherit, parent_rel, ATT_TABLE | ATT_FOREIGN_TABLE);
+
+    // Validate table persistence rules
+    if (parent_rel->rd_rel->relpersistence == RELPERSISTENCE_TEMP &&
+        child_rel->rd_rel->relpersistence != RELPERSISTENCE_TEMP)
+        ereport(ERROR, "cannot inherit from temporary relation");
+
+    // Check temp table session ownership
+    if (parent_rel->rd_rel->relpersistence == RELPERSISTENCE_TEMP &&
+        !parent_rel->rd_islocaltemp)
+        ereport(ERROR, "cannot inherit from temporary relation of another session");
+
+    if (child_rel->rd_rel->relpersistence == RELPERSISTENCE_TEMP &&
+        !child_rel->rd_islocaltemp)
+        ereport(ERROR, "cannot inherit to temporary relation of another session");
+
+    // Reject partitioned tables and partitions
+    if (parent_rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR, "cannot inherit from partitioned table");
+
+    if (parent_rel->rd_rel->relispartition)
+        ereport(ERROR, "cannot inherit from a partition");
+
+    // Prevent circular inheritance by checking if parent inherits from child
+    children = find_all_inheritors(RelationGetRelid(child_rel), AccessShareLock, NULL);
+    if (list_member_oid(children, RelationGetRelid(parent_rel)))
+        ereport(ERROR, "circular inheritance not allowed");
+
+    // Check for incompatible triggers with transition tables
+    trigger_name = FindTriggerIncompatibleWithInheritance(child_rel->trigdesc);
+    if (trigger_name != NULL)
+        ereport(ERROR, "trigger \"%s\" prevents table from becoming inheritance child",
+                trigger_name);
+
+    // All validations passed - create the inheritance relationship
+    CreateInheritance(child_rel, parent_rel, false);
+
+    // Return parent relation address for event triggers
+    ObjectAddressSet(address, RelationRelationId, RelationGetRelid(parent_rel));
+
+    // Keep lock on parent until commit
+    table_close(parent_rel, NoLock);
+    return address;
+}
+```

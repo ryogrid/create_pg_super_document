@@ -37,3 +37,31 @@ This function is responsible for formatting individual components of PostgreSQL 
 - Implements a specific PostgreSQL formatting behavior where negative values in one field affect the sign display of positive values in the next field
 - Returns an updated pointer to the end of the newly written content for easy chaining of multiple interval parts
 - Part of PostgreSQL's interval data type formatting system, specifically for the traditional PostgreSQL output style
+
+## Simplified Source
+
+```c
+static char *
+AddPostgresIntPart(char *cp, int64 value, const char *units,
+                   bool *is_zero, bool *is_before)
+{
+    // Skip zero values
+    if (value == 0)
+        return cp;
+
+    // Format: [space] [+] value units[s]
+    sprintf(cp, "%s%s%lld %s%s",
+            (!*is_zero) ? " " : "",                    // Space separator (except first field)
+            (*is_before && value > 0) ? "+" : "",      // Plus sign for positive after negative
+            (long long) value,                         // The numeric value
+            units,                                     // Unit name ("year", "month", etc.)
+            (value != 1) ? "s" : "");                  // Pluralize unless exactly 1
+
+    // Update state for next field formatting
+    *is_before = (value < 0);  // Next field gets "+" if this was negative
+    *is_zero = false;          // No longer the first field
+
+    // Return pointer to end for chaining
+    return cp + strlen(cp);
+}
+```

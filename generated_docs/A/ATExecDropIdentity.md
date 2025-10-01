@@ -59,3 +59,98 @@ The cleanup process includes removing the identity flag from pg_attribute and de
 - Sequence deletion only occurs in the top-level call (not during recursion) to avoid duplicate cleanup
 - Sets the attidentity field to '\0' (null character) to indicate the column is no longer an identity column
 - The function is also used during partition detachment operations to clean up identity sequences
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecDropIdentity(Relation rel, const char *colName, bool missing_ok, LOCKMODE lockmode,
+                   bool recurse, bool recursing)
+{
+    HeapTuple tuple;
+    Form_pg_attribute attTup;
+    AttrNumber attnum;
+    Relation attrelation;
+    ObjectAddress address;
+    Oid seqid;
+    ObjectAddress seqaddress;
+    bool ispartitioned;
+
+    // Validate partitioned table operations
+    ispartitioned = (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE);
+    if (ispartitioned && !recurse)
+        ereport(ERROR, (errmsg("cannot drop identity from a column of only the partitioned table")));
+
+    if (rel->rd_rel->relispartition && !recursing)
+        ereport(ERROR, (errmsg("cannot drop identity from a column of a partition")));
+
+    // Open attribute catalog and find the column
+    attrelation = table_open(AttributeRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheCopyAttName(RelationGetRelid(rel), colName);
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, (errmsg("column \"%s\" of relation \"%s\" does not exist",
+                               colName, RelationGetRelationName(rel))));
+
+    attTup = (Form_pg_attribute) GETSTRUCT(tuple);
+    attnum = attTup->attnum;
+
+    // Validate column type
+    if (attnum <= 0)
+        ereport(ERROR, (errmsg("cannot alter system column \"%s\"", colName)));
+
+    // Check if column is an identity column
+    if (!attTup->attidentity)
+    {
+        if (missing_ok)
+        {
+            ereport(NOTICE, (errmsg("column \"%s\" is not an identity column, skipping", colName)));
+            heap_freetuple(tuple);
+            table_close(attrelation, RowExclusiveLock);
+            return InvalidObjectAddress;
+        }
+        ereport(ERROR, (errmsg("column \"%s\" is not an identity column", colName)));
+    }
+
+    // Remove identity flag from column
+    attTup->attidentity = '\0';
+    CatalogTupleUpdate(attrelation, &tuple->t_self, tuple);
+
+    // Notify other subsystems and prepare return value
+    InvokeObjectPostAlterHook(RelationRelationId, RelationGetRelid(rel), attTup->attnum);
+    ObjectAddressSubSet(address, RelationRelationId, RelationGetRelid(rel), attnum);
+
+    heap_freetuple(tuple);
+    table_close(attrelation, RowExclusiveLock);
+
+    // Handle partitioned tables - recurse to children
+    if (recurse && ispartitioned)
+    {
+        List *children = find_inheritance_children(RelationGetRelid(rel), lockmode);
+        ListCell *lc;
+
+        foreach(lc, children)
+        {
+            Relation childrel = table_open(lfirst_oid(lc), NoLock);
+            ATExecDropIdentity(childrel, colName, false, lockmode, recurse, true);
+            table_close(childrel, NoLock);
+        }
+    }
+
+    // Clean up the identity sequence (only at top level)
+    if (!recursing)
+    {
+        // Find and delete the associated identity sequence
+        seqid = getIdentitySequence(rel, attnum, false);
+        deleteDependencyRecordsForClass(RelationRelationId, seqid,
+                                        RelationRelationId, DEPENDENCY_INTERNAL);
+        CommandCounterIncrement();
+
+        seqaddress.classId = RelationRelationId;
+        seqaddress.objectId = seqid;
+        seqaddress.objectSubId = 0;
+        performDeletion(&seqaddress, DROP_RESTRICT, PERFORM_DELETION_INTERNAL);
+    }
+
+    return address;
+}
+```

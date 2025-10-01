@@ -36,3 +36,13 @@ The function may acquire resources such as locks that are held until the corresp
 - Part of the table access method abstraction layer
 - Resources acquired by this function are released when  returns false
 - This is an inline function that provides a consistent interface across different table access methods
+
+## Simplified Source
+
+```c
+static inline bool table_scan_analyze_next_block(TableScanDesc scan, ReadStream *stream)
+{
+    // Delegate to table access method's block preparation implementation
+    return scan->rs_rd->rd_tableam->scan_analyze_next_block(scan, stream);
+}
+```

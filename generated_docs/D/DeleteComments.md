@@ -39,3 +39,46 @@ The function performs a systematic scan using the DescriptionObjIndexId and dele
 - Acquires RowExclusiveLock on pg_description during both open and close operations
 - No memory management complexity since it only deletes existing tuples
 - Typically invoked by the dependency tracking system during CASCADE deletions
+
+## Simplified Source
+
+```c
+void DeleteComments(Oid oid, Oid classoid, int32 subid) {
+    Relation description;
+    ScanKeyData skey[3];
+    int nkeys;
+    SysScanDesc sd;
+    HeapTuple oldtuple;
+
+    // Set up scan keys for object and class OID
+    ScanKeyInit(&skey[0], Anum_pg_description_objoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(oid));
+    ScanKeyInit(&skey[1], Anum_pg_description_classoid,
+                BTEqualStrategyNumber, F_OIDEQ, ObjectIdGetDatum(classoid));
+
+    // If subid specified, add it as a third scan key
+    if (subid != 0) {
+        ScanKeyInit(&skey[2], Anum_pg_description_objsubid,
+                    BTEqualStrategyNumber, F_INT4EQ, Int32GetDatum(subid));
+        nkeys = 3;  // Search for specific sub-object
+    } else {
+        nkeys = 2;  // Search for all sub-objects
+    }
+
+    // Open pg_description catalog table
+    description = table_open(DescriptionRelationId, RowExclusiveLock);
+
+    // Begin indexed scan using object index
+    sd = systable_beginscan(description, DescriptionObjIndexId, true,
+                           NULL, nkeys, skey);
+
+    // Delete all matching comment tuples
+    while ((oldtuple = systable_getnext(sd)) != NULL) {
+        CatalogTupleDelete(description, &oldtuple->t_self);
+    }
+
+    // Clean up scan and close table
+    systable_endscan(sd);
+    table_close(description, RowExclusiveLock);
+}
+```

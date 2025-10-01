@@ -45,3 +45,52 @@ The unsafeFlags array is indexed by column position (resno) and uses bitwise fla
 - Critical for maximizing optimization opportunities while preserving correctness
 - Enables partial qual pushdown when only some columns have safety issues
 - Supports complex subqueries with multiple concurrent safety concerns per column
+
+## Simplified Source
+```c
+static void
+check_output_expressions(Query *subquery, pushdown_safety_info *safetyInfo)
+{
+    ListCell *lc;
+
+    // Examine each target list entry for safety issues
+    foreach(lc, subquery->targetList) {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+
+        // Skip resjunk columns (they're not user-visible)
+        if (tle->resjunk)
+            continue;
+
+        // Check 1: Set-returning functions are unsafe
+        if (subquery->hasTargetSRFs &&
+            !(safetyInfo->unsafeFlags[tle->resno] & UNSAFE_HAS_SET_FUNC) &&
+            expression_returns_set((Node *) tle->expr)) {
+            safetyInfo->unsafeFlags[tle->resno] |= UNSAFE_HAS_SET_FUNC;
+            continue;
+        }
+
+        // Check 2: Volatile functions are unsafe
+        if (!(safetyInfo->unsafeFlags[tle->resno] & UNSAFE_HAS_VOLATILE_FUNC) &&
+            contain_volatile_functions((Node *) tle->expr)) {
+            safetyInfo->unsafeFlags[tle->resno] |= UNSAFE_HAS_VOLATILE_FUNC;
+            continue;
+        }
+
+        // Check 3: DISTINCT ON - non-DISTINCT columns are unsafe
+        if (subquery->hasDistinctOn &&
+            !(safetyInfo->unsafeFlags[tle->resno] & UNSAFE_NOTIN_DISTINCTON_CLAUSE) &&
+            !targetIsInSortList(tle, InvalidOid, subquery->distinctClause)) {
+            safetyInfo->unsafeFlags[tle->resno] |= UNSAFE_NOTIN_DISTINCTON_CLAUSE;
+            continue;
+        }
+
+        // Check 4: Window functions - columns not in all PARTITION BY clauses
+        if (subquery->hasWindowFuncs &&
+            !(safetyInfo->unsafeFlags[tle->resno] & UNSAFE_NOTIN_PARTITIONBY_CLAUSE) &&
+            !targetIsInAllPartitionLists(tle, subquery)) {
+            safetyInfo->unsafeFlags[tle->resno] |= UNSAFE_NOTIN_PARTITIONBY_CLAUSE;
+            continue;
+        }
+    }
+}
+```

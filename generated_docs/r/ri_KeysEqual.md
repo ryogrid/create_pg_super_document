@@ -42,3 +42,50 @@ The function returns false immediately if any key attribute is NULL in either tu
 - Could potentially be enhanced to support "IS NOT DISTINCT" semantics to treat NULLs as equal
 - Performance optimization opportunity exists to fetch all required attributes at once rather than individually
 - Critical component for determining when referential integrity constraint checks are needed during updates
+
+## Simplified Source
+
+```c
+static bool ri_KeysEqual(Relation rel, TupleTableSlot *oldslot,
+                        TupleTableSlot *newslot,
+                        const RI_ConstraintInfo *riinfo, bool rel_is_pk) {
+    const int16 *attnums;
+
+    // Choose appropriate attribute numbers (PK or FK)
+    if (rel_is_pk)
+        attnums = riinfo->pk_attnums;
+    else
+        attnums = riinfo->fk_attnums;
+
+    // Compare each key attribute
+    for (int i = 0; i < riinfo->nkeys; i++) {
+        Datum oldvalue, newvalue;
+        bool isnull;
+
+        // Get old value - return false if NULL
+        oldvalue = slot_getattr(oldslot, attnums[i], &isnull);
+        if (isnull)
+            return false;
+
+        // Get new value - return false if NULL
+        newvalue = slot_getattr(newslot, attnums[i], &isnull);
+        if (isnull)
+            return false;
+
+        if (rel_is_pk) {
+            // PK table: Use bytewise comparison for physical changes
+            Form_pg_attribute att = TupleDescAttr(oldslot->tts_tupleDescriptor,
+                                                 attnums[i] - 1);
+            if (!datum_image_eq(oldvalue, newvalue, att->attbyval, att->attlen))
+                return false;
+        } else {
+            // FK table: Use semantic equality comparison
+            if (!ri_AttributesEqual(riinfo->ff_eq_oprs[i], RIAttType(rel, attnums[i]),
+                                   oldvalue, newvalue))
+                return false;
+        }
+    }
+
+    return true;
+}
+```

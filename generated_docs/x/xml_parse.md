@@ -64,3 +64,128 @@ The function first extracts and validates any XML declaration, then determines t
 - Handles empty XML content gracefully in CONTENT mode
 - Comprehensive resource cleanup in exception handlers prevents memory leaks
 - Sets document encoding to UTF-8 and preserves standalone attribute from XML declaration
+
+## Simplified Source
+
+```c
+static xmlDocPtr
+xml_parse(text *data, XmlOptionType xmloption_arg,
+          bool preserve_whitespace, int encoding,
+          XmlOptionType *parsed_xmloptiontype, xmlNodePtr *parsed_nodes,
+          Node *escontext)
+{
+    // Convert input data to UTF-8 string
+    int32 len = VARSIZE_ANY_EXHDR(data);
+    xmlChar *string = xml_text2xmlChar(data);
+    xmlChar *utf8string = pg_do_encoding_conversion(string, len, encoding, PG_UTF8);
+
+    // Initialize XML parsing context
+    PgXmlErrorContext *xmlerrcxt = pg_xml_init(PG_XML_STRICTNESS_WELLFORMED);
+    volatile xmlDocPtr doc = NULL;
+    volatile xmlParserCtxtPtr ctxt = NULL;
+    volatile int save_keep_blanks = -1;
+
+    PG_TRY();
+    {
+        xmlInitParser();
+        bool parse_as_document = false;
+
+        // Determine parsing mode (DOCUMENT vs CONTENT)
+        if (xmloption_arg == XMLOPTION_DOCUMENT) {
+            parse_as_document = true;
+        } else {
+            // Parse XML declaration and check for DOCTYPE
+            size_t count = 0;
+            xmlChar *version = NULL;
+            int standalone = 0;
+
+            int res_code = parse_xml_decl(utf8string, &count, &version, NULL, &standalone);
+            if (res_code != 0) {
+                errsave(escontext, errcode(ERRCODE_INVALID_XML_CONTENT),
+                        errmsg_internal("invalid XML content: invalid XML declaration"));
+                goto fail;
+            }
+
+            if (xml_doctype_in_content(utf8string + count))
+                parse_as_document = true;
+        }
+
+        // Set output parameters
+        if (parsed_xmloptiontype != NULL)
+            *parsed_xmloptiontype = parse_as_document ? XMLOPTION_DOCUMENT : XMLOPTION_CONTENT;
+        if (parsed_nodes != NULL)
+            *parsed_nodes = NULL;
+
+        if (parse_as_document) {
+            // Parse as complete XML document
+            ctxt = xmlNewParserCtxt();
+            if (ctxt == NULL || xmlerrcxt->err_occurred)
+                xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                           "could not allocate parser context");
+
+            int options = XML_PARSE_NOENT | XML_PARSE_DTDATTR
+                         | (preserve_whitespace ? 0 : XML_PARSE_NOBLANKS);
+
+            doc = xmlCtxtReadDoc(ctxt, utf8string, NULL, "UTF-8", options);
+
+            if (doc == NULL || xmlerrcxt->err_occurred) {
+                if (xmloption_arg == XMLOPTION_DOCUMENT)
+                    xml_errsave(escontext, xmlerrcxt, ERRCODE_INVALID_XML_DOCUMENT,
+                               "invalid XML document");
+                else
+                    xml_errsave(escontext, xmlerrcxt, ERRCODE_INVALID_XML_CONTENT,
+                               "invalid XML content");
+                goto fail;
+            }
+        } else {
+            // Parse as XML content fragment
+            doc = xmlNewDoc(version);
+            if (doc == NULL || xmlerrcxt->err_occurred)
+                xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                           "could not allocate XML document");
+
+            doc->encoding = xmlStrdup((const xmlChar *) "UTF-8");
+            doc->standalone = standalone;
+
+            save_keep_blanks = xmlKeepBlanksDefault(preserve_whitespace ? 1 : 0);
+
+            // Parse content if not empty
+            if (*(utf8string + count)) {
+                int res_code = xmlParseBalancedChunkMemory(doc, NULL, NULL, 0,
+                                                          utf8string + count,
+                                                          parsed_nodes);
+                if (res_code != 0 || xmlerrcxt->err_occurred) {
+                    xml_errsave(escontext, xmlerrcxt, ERRCODE_INVALID_XML_CONTENT,
+                               "invalid XML content");
+                    goto fail;
+                }
+            }
+        }
+
+fail:
+        ;
+    }
+    PG_CATCH();
+    {
+        // Cleanup on exception
+        if (save_keep_blanks != -1)
+            xmlKeepBlanksDefault(save_keep_blanks);
+        if (doc != NULL)
+            xmlFreeDoc(doc);
+        if (ctxt != NULL)
+            xmlFreeParserCtxt(ctxt);
+        pg_xml_done(xmlerrcxt, true);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    // Normal cleanup
+    if (save_keep_blanks != -1)
+        xmlKeepBlanksDefault(save_keep_blanks);
+    if (ctxt != NULL)
+        xmlFreeParserCtxt(ctxt);
+    pg_xml_done(xmlerrcxt, false);
+
+    return doc;
+}
+```

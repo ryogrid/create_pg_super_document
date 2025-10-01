@@ -43,3 +43,32 @@ This function is typically used in replication contexts where the system needs t
 - Properly manages catalog relation lifecycle with table_open/table_close
 - This is complementary to GetPublicationRelations which handles FOR TABLE publications
 - The returned list can be used to quickly determine if any publications include all tables without individual table lookups
+
+## Simplified Source
+
+```c
+List *GetAllTablesPublications(void) {
+    List *result = NIL;
+    Relation rel;
+    ScanKeyData scankey;
+    SysScanDesc scan;
+    HeapTuple tup;
+
+    // Open publication catalog and scan for puballtables=true
+    rel = table_open(PublicationRelationId, AccessShareLock);
+    ScanKeyInit(&scankey, Anum_pg_publication_puballtables,
+                BTEqualStrategyNumber, F_BOOLEQ, BoolGetDatum(true));
+    scan = systable_beginscan(rel, InvalidOid, false, NULL, 1, &scankey);
+
+    // Collect all publication OIDs that are marked FOR ALL TABLES
+    while (HeapTupleIsValid(tup = systable_getnext(scan))) {
+        Oid oid = ((Form_pg_publication) GETSTRUCT(tup))->oid;
+        result = lappend_oid(result, oid);
+    }
+
+    // Clean up and return results
+    systable_endscan(scan);
+    table_close(rel, AccessShareLock);
+    return result;
+}
+```

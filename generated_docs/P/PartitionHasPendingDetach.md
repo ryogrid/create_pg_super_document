@@ -42,3 +42,42 @@ The function assumes there should only be one pg_inherits entry for a partition 
 - Critical for managing concurrent partition detach operations in PostgreSQL's partitioning system
 - The inhdetachpending flag is part of PostgreSQL's mechanism for safe concurrent partition management
 - Location: src/backend/catalog/pg_inherits.c:620-656
+
+## Simplified Source
+
+```c
+bool
+PartitionHasPendingDetach(Oid partoid)
+{
+    Relation catalogRelation;
+    ScanKeyData key;
+    SysScanDesc scan;
+    HeapTuple inheritsTuple;
+
+    // Open pg_inherits catalog for scanning
+    catalogRelation = table_open(InheritsRelationId, RowExclusiveLock);
+
+    // Set up scan key to find partition's inheritance entry
+    ScanKeyInit(&key, Anum_pg_inherits_inhrelid,
+                BTEqualStrategyNumber, F_OIDEQ,
+                ObjectIdGetDatum(partoid));
+
+    scan = systable_beginscan(catalogRelation, InheritsRelidSeqnoIndexId,
+                              true, NULL, 1, &key);
+
+    // Check if partition has pending detach flag set
+    while (HeapTupleIsValid(inheritsTuple = systable_getnext(scan)))
+    {
+        bool detached = ((Form_pg_inherits) GETSTRUCT(inheritsTuple))->inhdetachpending;
+
+        // Clean up and return result
+        systable_endscan(scan);
+        table_close(catalogRelation, RowExclusiveLock);
+        return detached;
+    }
+
+    // No inheritance entry found - not a partition
+    elog(ERROR, "relation %u is not a partition", partoid);
+    return false;
+}
+```

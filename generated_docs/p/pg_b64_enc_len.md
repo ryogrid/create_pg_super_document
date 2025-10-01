@@ -41,3 +41,13 @@ This ensures that even partial final groups (1 or 2 bytes) are properly accounte
 - Commonly used in SCRAM authentication for sizing buffers for encoded cryptographic data
 - Simple mathematical formula with no error conditions
 - Essential for preventing buffer overflows in encoding operations
+
+## Simplified Source
+
+```c
+int pg_b64_enc_len(int srclen) {
+    // Base64 converts every 3 bytes to 4 characters
+    // Round up division to handle partial groups
+    return (srclen + 2) / 3 * 4;
+}
+```

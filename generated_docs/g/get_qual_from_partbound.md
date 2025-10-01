@@ -38,3 +38,36 @@ The generated constraint expressions are used internally by PostgreSQL to enforc
 - Returns NIL (empty list) if no constraints are generated
 - This function is part of the partition constraint generation pipeline and works closely with the partition cache system
 - The generated constraints are essential for both partition pruning during query execution and validation during partition attachment operations
+
+## Simplified Source
+
+```c
+List *
+get_qual_from_partbound(Relation parent, PartitionBoundSpec *spec)
+{
+    PartitionKey key = RelationGetPartitionKey(parent);
+    List *my_qual = NIL;
+
+    Assert(key != NULL);
+
+    // Dispatch to strategy-specific function based on partition type
+    switch (key->strategy) {
+        case PARTITION_STRATEGY_HASH:
+            Assert(spec->strategy == PARTITION_STRATEGY_HASH);
+            my_qual = get_qual_for_hash(parent, spec);
+            break;
+
+        case PARTITION_STRATEGY_LIST:
+            Assert(spec->strategy == PARTITION_STRATEGY_LIST);
+            my_qual = get_qual_for_list(parent, spec);
+            break;
+
+        case PARTITION_STRATEGY_RANGE:
+            Assert(spec->strategy == PARTITION_STRATEGY_RANGE);
+            my_qual = get_qual_for_range(parent, spec, false);
+            break;
+    }
+
+    return my_qual;
+}
+```

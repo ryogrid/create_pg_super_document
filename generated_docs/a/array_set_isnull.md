@@ -35,3 +35,23 @@ The implementation calculates the appropriate byte position and creates a bitmas
 - Part of PostgreSQL's internal array support routines
 - The function is static, meaning it's only accessible within the arrayfuncs.c compilation unit
 - Complements array_get_isnull for complete null bitmap management
+
+## Simplified Source
+
+```c
+static void
+array_set_isnull(bits8 *nullbitmap, int offset, bool isNull)
+{
+    int bitmask;
+
+    // Navigate to the correct byte and create bit mask
+    nullbitmap += offset / 8;
+    bitmask = 1 << (offset % 8);
+
+    // Set or clear the bit (0 = NULL, 1 = not-NULL)
+    if (isNull)
+        *nullbitmap &= ~bitmask;    // Clear bit for NULL
+    else
+        *nullbitmap |= bitmask;     // Set bit for not-NULL
+}
+```

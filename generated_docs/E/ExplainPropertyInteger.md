@@ -40,3 +40,20 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 - Uses a 32-byte buffer for formatting, which is sufficient for any 64-bit integer representation
 - The `true` parameter passed to ExplainProperty indicates this is a numeric property
 - Part of a family of type-specific property explanation functions (Integer, UInteger, Float, Bool)
+
+## Simplified Source
+
+```c
+void
+ExplainPropertyInteger(const char *qlabel, const char *unit, int64 value,
+                       ExplainState *es)
+{
+    char buf[32];
+
+    // Format the integer value to string
+    snprintf(buf, sizeof(buf), INT64_FORMAT, value);
+
+    // Delegate to generic property function
+    ExplainProperty(qlabel, unit, buf, true, es);
+}
+```

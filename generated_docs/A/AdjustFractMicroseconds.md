@@ -46,3 +46,27 @@ The function assumes the input fractional value has an absolute value less than 
 - Commonly used with scale values like USECS_PER_SEC, USECS_PER_MINUTE, etc.
 - The fractional input assumption (abs(frac) < 1) is critical for preventing overflow during scaling
 - Used extensively in ISO8601 interval parsing where fractional seconds, minutes, hours, etc. need to be converted to microseconds
+
+## Simplified Source
+
+```c
+static bool AdjustFractMicroseconds(double frac, int64 scale, struct pg_itm_in *itm_in) {
+    // Fast path: no work needed for zero
+    if (frac == 0)
+        return true;
+
+    // Scale the fraction to get microseconds
+    frac *= scale;
+    int64 usec = (int64) frac;
+
+    // Round fractional microseconds to nearest whole number
+    frac -= usec;  // Get fractional remainder
+    if (frac > 0.5)
+        usec++;        // Round up
+    else if (frac < -0.5)
+        usec--;        // Round down (toward zero for negative)
+
+    // Safely add microseconds to existing value
+    return !pg_add_s64_overflow(itm_in->tm_usec, usec, &itm_in->tm_usec);
+}
+```

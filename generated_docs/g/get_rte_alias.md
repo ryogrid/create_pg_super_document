@@ -49,3 +49,47 @@ The function appends the alias to the context buffer with either a space or " AS
 - Ensures SQL standard compliance for subqueries and VALUES clauses
 - Automatically quoted identifiers are used to handle special characters in names
 - The function is conservative about printing aliases to avoid unnecessary verbosity while ensuring correctness
+
+## Simplified Source
+
+```c
+static void get_rte_alias(RangeTblEntry *rte, int varno, bool use_as,
+                         deparse_context *context) {
+    deparse_namespace *dpns = (deparse_namespace *) linitial(context->namespaces);
+    char *refname = get_rtable_name(varno, context);
+    deparse_columns *colinfo = deparse_columns_fetch(varno, dpns);
+    bool printalias = false;
+
+    if (rte->alias != NULL) {
+        // Always print user-provided aliases
+        printalias = true;
+    }
+    else if (colinfo->printaliases) {
+        // Print alias when column aliases are needed
+        printalias = true;
+    }
+    else if (rte->rtekind == RTE_RELATION) {
+        // Print if computed name differs from actual relation name
+        if (strcmp(refname, get_relation_name(rte->relid)) != 0)
+            printalias = true;
+    }
+    else if (rte->rtekind == RTE_FUNCTION) {
+        // Always print for functions (handles renaming and stability)
+        printalias = true;
+    }
+    else if (rte->rtekind == RTE_SUBQUERY || rte->rtekind == RTE_VALUES) {
+        // Always print for SQL standard compliance
+        printalias = true;
+    }
+    else if (rte->rtekind == RTE_CTE) {
+        // Print if computed name differs from CTE name
+        if (strcmp(refname, rte->ctename) != 0)
+            printalias = true;
+    }
+
+    if (printalias)
+        appendStringInfo(context->buf, "%s%s",
+                        use_as ? " AS " : " ",
+                        quote_identifier(refname));
+}
+```

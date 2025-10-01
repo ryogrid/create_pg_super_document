@@ -68,3 +68,58 @@ Key responsibilities include:
 - Located in src/backend/utils/adt/jsonpath_exec.c:679-734
 - Maintains pointers into input values, requiring them to remain available during execution
 - Supports variable substitution through callback mechanisms for dynamic JSONPath expressions
+
+## Simplified Source
+
+```c
+static JsonPathExecResult executeJsonPath(JsonPath *path, void *vars,
+                                         JsonPathGetVarCallback getVar,
+                                         JsonPathCountVarsCallback countVars,
+                                         Jsonb *json, bool throwErrors,
+                                         JsonValueList *result, bool useTz) {
+    JsonPathExecContext cxt;
+    JsonPathExecResult res;
+    JsonPathItem jsp;
+    JsonbValue jbv;
+
+    // Initialize JSONPath parser
+    jspInit(&jsp, path);
+
+    // Extract root value from JSONB document
+    if (!JsonbExtractScalar(&json->root, &jbv)) {
+        JsonbInitBinary(&jbv, json);
+    }
+
+    // Set up execution context
+    cxt.vars = vars;
+    cxt.getVar = getVar;
+    cxt.laxMode = (path->header & JSONPATH_LAX) != 0;
+    cxt.ignoreStructuralErrors = cxt.laxMode;
+    cxt.root = &jbv;
+    cxt.current = &jbv;
+    cxt.baseObject.jbc = NULL;
+    cxt.baseObject.id = 0;
+    cxt.lastGeneratedObjectId = 1 + countVars(vars);
+    cxt.innermostArraySize = -1;
+    cxt.throwErrors = throwErrors;
+    cxt.useTz = useTz;
+
+    // Optimization for strict mode existence checks
+    if (jspStrictAbsenceOfErrors(&cxt) && !result) {
+        JsonValueList vals = {0};
+        res = executeItem(&cxt, &jsp, &jbv, &vals);
+
+        if (jperIsError(res))
+            return res;
+
+        return JsonValueListIsEmpty(&vals) ? jperNotFound : jperOk;
+    }
+
+    // Execute JSONPath expression
+    res = executeItem(&cxt, &jsp, &jbv, result);
+
+    Assert(!throwErrors || !jperIsError(res));
+
+    return res;
+}
+```

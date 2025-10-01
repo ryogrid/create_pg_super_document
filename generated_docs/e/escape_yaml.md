@@ -31,3 +31,14 @@ This function handles string escaping for YAML format in PostgreSQL's EXPLAIN co
 - The approach of quoting everything avoids the complexity of YAML's intricate quoting rules
 - Prevents misinterpretation of string values as YAML constants or special types
 - Part of PostgreSQL's EXPLAIN output formatting system for structured data formats
+
+## Simplified Source
+
+```c
+static void escape_yaml(StringInfo buf, const char *str)
+{
+    // YAML is a superset of JSON, so use JSON escaping for simplicity
+    // This avoids the complex YAML quoting rules while ensuring safety
+    escape_json(buf, str);
+}
+```

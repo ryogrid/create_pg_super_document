@@ -42,3 +42,47 @@ The function ignores lateral-only flags when checking conflicts (all items are c
 - Lateral-only flags are ignored for conflict detection purposes
 - Function is declared in src/include/parser/parse_relation.h
 - Used during FROM clause processing to ensure namespace consistency
+
+## Simplified Source
+
+```c
+void
+checkNameSpaceConflicts(ParseState *pstate, List *namespace1, List *namespace2)
+{
+    // Check each item in namespace1 against all items in namespace2
+    foreach(l1, namespace1) {
+        ParseNamespaceItem *nsitem1 = (ParseNamespaceItem *) lfirst(l1);
+        RangeTblEntry *rte1 = nsitem1->p_rte;
+        const char *aliasname1 = nsitem1->p_names->aliasname;
+
+        // Skip columns-only items (not relation-visible)
+        if (!nsitem1->p_rel_visible)
+            continue;
+
+        foreach(l2, namespace2) {
+            ParseNamespaceItem *nsitem2 = (ParseNamespaceItem *) lfirst(l2);
+            RangeTblEntry *rte2 = nsitem2->p_rte;
+            const char *aliasname2 = nsitem2->p_names->aliasname;
+
+            // Skip columns-only items
+            if (!nsitem2->p_rel_visible)
+                continue;
+
+            // No conflict if names are different
+            if (strcmp(aliasname2, aliasname1) != 0)
+                continue;
+
+            // SQL rule: alias-less plain relations with same name but different OIDs don't conflict
+            if (rte1->rtekind == RTE_RELATION && rte1->alias == NULL &&
+                rte2->rtekind == RTE_RELATION && rte2->alias == NULL &&
+                rte1->relid != rte2->relid)
+                continue;
+
+            // Found a conflict - report error
+            ereport(ERROR,
+                    (errcode(ERRCODE_DUPLICATE_ALIAS),
+                     errmsg("table name \"%s\" specified more than once", aliasname1)));
+        }
+    }
+}
+```

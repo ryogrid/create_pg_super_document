@@ -34,3 +34,29 @@ This function opens a TOAST relation and finds its valid index. TOAST relations 
 - The function uses NoLock when closing relations since it only needs to hold the lock during the search operation
 - This is commonly used during table clustering and relation swapping operations where TOAST index information needs to be preserved
 - The function is part of PostgreSQL's internal TOAST management system and handles the complexity of index validation automatically
+
+## Simplified Source
+
+```c
+Oid
+toast_get_valid_index(Oid toastoid, LOCKMODE lock)
+{
+    int num_indexes, validIndex;
+    Oid validIndexOid;
+    Relation *toastidxs;
+    Relation toastrel;
+
+    // Open the TOAST relation with specified lock
+    toastrel = table_open(toastoid, lock);
+
+    // Find the valid index among all indexes of the TOAST relation
+    validIndex = toast_open_indexes(toastrel, lock, &toastidxs, &num_indexes);
+    validIndexOid = RelationGetRelid(toastidxs[validIndex]);
+
+    // Clean up - close indexes and relation
+    toast_close_indexes(toastidxs, num_indexes, NoLock);
+    table_close(toastrel, NoLock);
+
+    return validIndexOid;
+}
+```

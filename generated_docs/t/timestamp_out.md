@@ -52,3 +52,31 @@ The conversion process involves checking for special values first, then breaking
 - The function never applies timezone conversion since TIMESTAMP is timezone-naive
 - Error handling includes specific error codes for out-of-range values
 - Part of PostgreSQL's type system infrastructure for displaying timestamp values
+
+## Simplified Source
+
+```c
+Datum
+timestamp_out(PG_FUNCTION_ARGS)
+{
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+    char *result;
+    struct pg_tm tt, *tm = &tt;
+    fsec_t fsec;
+    char buf[MAXDATELEN + 1];
+
+    // Handle special timestamp values (infinity, -infinity)
+    if (TIMESTAMP_NOT_FINITE(timestamp))
+        EncodeSpecialTimestamp(timestamp, buf);
+    else if (timestamp2tm(timestamp, NULL, tm, &fsec, NULL, NULL) == 0)
+        EncodeDateTime(tm, fsec, false, 0, NULL, DateStyle, buf);
+    else
+        ereport(ERROR,
+                (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                 errmsg("timestamp out of range")));
+
+    // Return duplicated string
+    result = pstrdup(buf);
+    PG_RETURN_CSTRING(result);
+}
+```

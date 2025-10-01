@@ -46,3 +46,27 @@ The function has two implementation paths:
 - The function is declared as  for optimal performance in arithmetic-intensive operations
 - This is part of PostgreSQL's safe arithmetic library that prevents integer overflow vulnerabilities
 - The built-in overflow detection path provides better performance when supported by the compiler
+
+## Simplified Source
+
+```c
+static inline bool
+pg_mul_s32_overflow(int32 a, int32 b, int32 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_mul_overflow(a, b, result);
+#else
+    // Manual overflow detection using 64-bit arithmetic
+    int64 res = (int64) a * (int64) b;
+
+    if (res > PG_INT32_MAX || res < PG_INT32_MIN)
+    {
+        *result = 0x5EED;    // Avoid spurious warnings
+        return true;         // Overflow detected
+    }
+    *result = (int32) res;
+    return false;            // No overflow
+#endif
+}
+```

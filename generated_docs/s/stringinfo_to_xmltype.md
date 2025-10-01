@@ -48,3 +48,14 @@ The function works by extracting both the data pointer and length from the Strin
 - The conversion preserves binary data exactly, including the length
 - Widely used throughout PostgreSQL's XML generation functions
 - The function is essentially a type cast from StringInfo to xmltype
+
+## Simplified Source
+
+```c
+static xmltype *
+stringinfo_to_xmltype(StringInfo buf)
+{
+    // Convert StringInfo buffer to xmltype (which is internally text)
+    return (xmltype *) cstring_to_text_with_len(buf->data, buf->len);
+}
+```

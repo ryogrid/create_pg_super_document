@@ -62,3 +62,73 @@ The function uses checkWellFormedRecursionWalker to perform the actual tree trav
 - Error messages include specific parse locations to help users identify problematic constructs
 - The function handles nested WITH clauses but prohibits self-references within them for recursive CTEs
 - PostgreSQL's recursive CTE implementation is based on iteration rather than true recursion, requiring these structural constraints
+
+## Simplified Source
+
+```c
+static void
+checkWellFormedRecursion(CteState *cstate)
+{
+    int i;
+
+    for (i = 0; i < cstate->numitems; i++) {
+        CommonTableExpr *cte = cstate->items[i].cte;
+        SelectStmt *stmt = (SelectStmt *) cte->ctequery;
+
+        // Skip non-recursive CTEs
+        if (!cte->cterecursive)
+            continue;
+
+        // Must be a SELECT statement (no data-modifying statements)
+        if (!IsA(stmt, SelectStmt))
+            ereport(ERROR, (errcode(ERRCODE_INVALID_RECURSION),
+                errmsg("recursive query \"%s\" must not contain data-modifying statements", cte->ctename)));
+
+        // Must have top-level UNION
+        if (stmt->op != SETOP_UNION)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_RECURSION),
+                errmsg("recursive query \"%s\" does not have the form non-recursive-term UNION [ALL] recursive-term", cte->ctename)));
+
+        // Check for self-references in WITH clause
+        if (stmt->withClause) {
+            cstate->curitem = i;
+            cstate->innerwiths = NIL;
+            cstate->selfrefcount = 0;
+            cstate->context = RECURSION_SUBLINK;
+            checkWellFormedRecursionWalker((Node *) stmt->withClause->ctes, cstate);
+        }
+
+        // Disallow unsupported clauses (ORDER BY, LIMIT, etc.)
+        if (stmt->sortClause)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("ORDER BY in a recursive query is not implemented")));
+        if (stmt->limitOffset)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("OFFSET in a recursive query is not implemented")));
+        if (stmt->limitCount)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("LIMIT in a recursive query is not implemented")));
+        if (stmt->lockingClause)
+            ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                errmsg("FOR UPDATE/SHARE in a recursive query is not implemented")));
+
+        // Validate UNION operands
+        // Left operand must have zero self-references
+        cstate->curitem = i;
+        cstate->innerwiths = NIL;
+        cstate->selfrefcount = 0;
+        cstate->context = RECURSION_NONRECURSIVETERM;
+        checkWellFormedRecursionWalker((Node *) stmt->larg, cstate);
+
+        // Right operand must have exactly one self-reference
+        cstate->curitem = i;
+        cstate->innerwiths = NIL;
+        cstate->selfrefcount = 0;
+        cstate->context = RECURSION_OK;
+        checkWellFormedRecursionWalker((Node *) stmt->rarg, cstate);
+
+        if (cstate->selfrefcount != 1)
+            elog(ERROR, "missing recursive reference");
+    }
+}
+```

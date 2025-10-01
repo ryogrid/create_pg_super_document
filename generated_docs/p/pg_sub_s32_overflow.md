@@ -44,3 +44,28 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
 - Commonly used in array operations and date/time interval calculations
 - Subtraction overflow can occur when subtracting a large negative number from a positive number (resulting in a value too large), or subtracting a large positive number from a negative number (resulting in a value too small)
 - Essential for safe arithmetic in PostgreSQL's array indexing and interval arithmetic operations
+
+## Simplified Source
+
+```c
+static inline bool
+pg_sub_s32_overflow(int32 a, int32 b, int32 *result)
+{
+    // Use compiler builtin if available for optimal performance
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    return __builtin_sub_overflow(a, b, result);
+#else
+    // Manual overflow detection using 64-bit arithmetic
+    int64 res = (int64) a - (int64) b;
+
+    // Check if result exceeds 32-bit range
+    if (res > PG_INT32_MAX || res < PG_INT32_MIN) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;       // Overflow occurred
+    }
+
+    *result = (int32) res;
+    return false;          // No overflow
+#endif
+}
+```

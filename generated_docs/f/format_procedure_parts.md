@@ -46,3 +46,41 @@ The function handles missing procedures gracefully when the missing_ok parameter
 - It builds two output lists: objnames contains [namespace, procedure_name] and objargs contains qualified type names for each argument
 - The function properly manages system cache resources by releasing the heap tuple after use
 - This function is essential for object identity operations and is used in dependency tracking and object addressing within PostgreSQL
+
+## Simplified Source
+
+```c
+void
+format_procedure_parts(Oid procedure_oid, List **objnames, List **objargs, bool missing_ok)
+{
+    HeapTuple proctup;
+    Form_pg_proc procform;
+    int nargs, i;
+
+    // Look up procedure in system catalog
+    proctup = SearchSysCache1(PROCOID, ObjectIdGetDatum(procedure_oid));
+
+    if (!HeapTupleIsValid(proctup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for procedure with OID %u", procedure_oid);
+        return;
+    }
+
+    // Extract procedure information
+    procform = (Form_pg_proc) GETSTRUCT(proctup);
+    nargs = procform->pronargs;
+
+    // Build names list: [namespace, procedure_name]
+    *objnames = list_make2(get_namespace_name_or_temp(procform->pronamespace),
+                          pstrdup(NameStr(procform->proname)));
+
+    // Build argument types list
+    *objargs = NIL;
+    for (i = 0; i < nargs; i++) {
+        Oid argtype = procform->proargtypes.values[i];
+        *objargs = lappend(*objargs, format_type_be_qualified(argtype));
+    }
+
+    ReleaseSysCache(proctup);
+}
+```

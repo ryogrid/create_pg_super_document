@@ -33,3 +33,16 @@ The function acts as a wrapper around the table access method's scan_begin funct
 - ANALYZE scans have different performance characteristics and may use sampling techniques
 - The scan is initialized without a snapshot or key constraints since ANALYZE typically samples the entire table
 - Part of PostgreSQL's table access method (TAM) abstraction layer
+
+## Simplified Source
+
+```c
+static inline TableScanDesc table_beginscan_analyze(Relation rel)
+{
+    // Set up scan flags for ANALYZE operation
+    uint32 flags = SO_TYPE_ANALYZE;
+
+    // Initialize table scan with no snapshot/keys, just analysis flag
+    return rel->rd_tableam->scan_begin(rel, NULL, 0, NULL, NULL, flags);
+}
+```

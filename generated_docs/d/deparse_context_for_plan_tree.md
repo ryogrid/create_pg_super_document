@@ -30,3 +30,49 @@ This function creates a deparse context optimized for Plan tree deparsing by usi
 
 ## Notes and Other Information
 This function is specifically designed for EXPLAIN output generation where many expressions from the same plan tree need to be deparsed. The expensive column name setup is done once and reused, providing significant performance benefits for complex plans with large range tables. The function handles append relations by creating an array indexed by child relation ID, which is essential for proper variable resolution in partitioned tables. The context remains incomplete until set_deparse_context_plan() is called to specify the current plan node being processed. Join RTEs will produce somewhat bogus column name results, but this doesn't affect correctness since plan trees don't contain join alias Vars.
+
+## Simplified Source
+
+```c
+List *
+deparse_context_for_plan_tree(PlannedStmt *pstmt, List *rtable_names)
+{
+    deparse_namespace *dpns;
+
+    // Allocate and initialize the deparse namespace
+    dpns = (deparse_namespace *) palloc0(sizeof(deparse_namespace));
+
+    // Set up basic plan tree information
+    dpns->rtable = pstmt->rtable;
+    dpns->rtable_names = rtable_names;
+    dpns->subplans = pstmt->subplans;
+    dpns->ctes = NIL;
+
+    // Handle append relations (used for partitioning)
+    if (pstmt->appendRelations) {
+        int ntables = list_length(dpns->rtable);
+        ListCell *lc;
+
+        // Create array indexed by child relation ID
+        dpns->appendrels = (AppendRelInfo **)
+            palloc0((ntables + 1) * sizeof(AppendRelInfo *));
+
+        foreach(lc, pstmt->appendRelations) {
+            AppendRelInfo *appinfo = lfirst_node(AppendRelInfo, lc);
+            Index child_relid = appinfo->child_relid;
+
+            Assert(child_relid > 0 && child_relid <= ntables);
+            Assert(dpns->appendrels[child_relid] == NULL);
+            dpns->appendrels[child_relid] = appinfo;
+        }
+    } else {
+        dpns->appendrels = NULL;
+    }
+
+    // Set up column name aliases for simple variables
+    set_simple_column_names(dpns);
+
+    // Return single-level namespace stack
+    return list_make1(dpns);
+}
+```

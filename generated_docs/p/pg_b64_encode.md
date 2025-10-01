@@ -47,3 +47,54 @@ The function includes buffer overflow protection and will return an error if the
 - Primarily used in SCRAM authentication for encoding cryptographic data
 - Buffer overflow protection ensures safe operation with pre-allocated buffers
 - No whitespace characters are included in the output (strict base64 format)
+
+## Simplified Source
+
+```c
+int pg_b64_encode(const char *src, int len, char *dst, int dstlen) {
+    char *p = dst;
+    const char *s = src;
+    const char *end = src + len;
+    int pos = 2;
+    uint32 buf = 0;
+
+    // Process input in 3-byte groups
+    while (s < end) {
+        buf |= (unsigned char) *s << (pos << 3);
+        pos--;
+        s++;
+
+        // Output 4 base64 characters when we have 3 input bytes
+        if (pos < 0) {
+            if ((p - dst + 4) > dstlen)
+                goto error;  // Buffer overflow check
+
+            // Convert 24 bits to 4 base64 characters
+            *p++ = _base64[(buf >> 18) & 0x3f];
+            *p++ = _base64[(buf >> 12) & 0x3f];
+            *p++ = _base64[(buf >> 6) & 0x3f];
+            *p++ = _base64[buf & 0x3f];
+
+            pos = 2;
+            buf = 0;
+        }
+    }
+
+    // Handle remaining bytes with padding
+    if (pos != 2) {
+        if ((p - dst + 4) > dstlen)
+            goto error;
+
+        *p++ = _base64[(buf >> 18) & 0x3f];
+        *p++ = _base64[(buf >> 12) & 0x3f];
+        *p++ = (pos == 0) ? _base64[(buf >> 6) & 0x3f] : '=';
+        *p++ = '=';
+    }
+
+    return p - dst;  // Return encoded length
+
+error:
+    memset(dst, 0, dstlen);
+    return -1;
+}
+```

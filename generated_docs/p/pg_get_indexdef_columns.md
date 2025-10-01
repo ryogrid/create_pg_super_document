@@ -34,3 +34,20 @@ The function processes the pretty formatting flag to determine output formatting
 - The function passes hardcoded boolean parameters to pg_get_indexdef_worker: (true, true, false, false) which control what parts of the index definition are included
 - The function is part of PostgreSQL's rule utilities system, which handles the formatting and display of database object definitions
 - Returns a palloc'd string that should be freed by the caller when no longer needed
+
+## Simplified Source
+
+```c
+char *
+pg_get_indexdef_columns(Oid indexrelid, bool pretty)
+{
+    // Convert pretty flag to formatting flags
+    int prettyFlags = GET_PRETTY_FLAGS(pretty);
+
+    // Delegate to worker function with parameters for key columns only
+    return pg_get_indexdef_worker(indexrelid, 0, NULL,
+                                  true, true,    // Include key columns, include expressions
+                                  false, false, // Don't include tablespace or full definition
+                                  prettyFlags, false);
+}
+```

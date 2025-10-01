@@ -49,3 +49,39 @@ The function validates input format, performs range checking, extracts integer a
 - Includes an assertion to verify the fractional part constraint for debugging builds
 - There is also an ECPG version in src/interfaces/ecpg/pgtypeslib/interval.c with similar functionality but slightly different parameter types
 - Part of the broader ISO 8601 interval parsing infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+static int
+ParseISO8601Number(char *str, char **endptr, int64 *ipart, double *fpart)
+{
+    double val;
+
+    // Basic format validation - must start with digit, minus, or decimal
+    if (!(isdigit((unsigned char) *str) || *str == '-' || *str == '.'))
+        return DTERR_BAD_FORMAT;
+
+    // Parse the number using standard library
+    errno = 0;
+    val = strtod(str, endptr);
+
+    // Check if parsing failed
+    if (*endptr == str || errno != 0)
+        return DTERR_BAD_FORMAT;
+
+    // Validate range and reject NaN/infinity (limit: 1.0e15 for precision)
+    if (isnan(val) || val < -1.0e15 || val > 1.0e15)
+        return DTERR_FIELD_OVERFLOW;
+
+    // Split into integer and fractional parts, truncating toward zero
+    if (val >= 0)
+        *ipart = (int64) floor(val);
+    else
+        *ipart = (int64) -floor(-val);  // Truncate toward zero for negatives
+
+    *fpart = val - *ipart;  // Fractional remainder
+
+    return 0;  // Success
+}
+```

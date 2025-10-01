@@ -30,4 +30,20 @@ SlruScanDirCbReportPresence is a specialized callback function designed to work 
 ## Notes and Other Information
 - Returns true immediately when finding the first segment eligible for deletion, providing early termination optimization
 - Part of the SLRU infrastructure used for transaction log management
+
+## Simplified Source
+
+```c
+bool
+SlruScanDirCbReportPresence(SlruCtl ctl, char *filename, int64 segpage, void *data)
+{
+    int64 cutoffPage = *(int64 *) data;
+
+    // Check if this segment can be deleted (is wholly prior to cutoff)
+    if (SlruMayDeleteSegment(ctl, segpage, cutoffPage))
+        return true;    // Found one; stop scanning
+
+    return false;       // Keep going
+}
+```
 - The callback follows the standard SlruScanDirectory callback pattern but is optimized for presence detection rather than performing actual operations

@@ -189,3 +189,116 @@ For each join type, the function evaluates whether the join can produce any resu
 - Handles constant-false restrictions differently for pushed-down vs non-pushed-down cases in outer joins
 - Always attempts partitionwise joining as a final optimization opportunity
 - Critical for ensuring all viable execution paths are considered while avoiding impossible joins
+
+## Simplified Source
+
+```c
+static void
+populate_joinrel_with_paths(PlannerInfo *root, RelOptInfo *rel1,
+                           RelOptInfo *rel2, RelOptInfo *joinrel,
+                           SpecialJoinInfo *sjinfo, List *restrictlist)
+{
+    // Main join path generation based on join type
+    switch (sjinfo->jointype)
+    {
+        case JOIN_INNER:
+            // Check for empty relations or impossible conditions
+            if (is_dummy_rel(rel1) || is_dummy_rel(rel2) ||
+                restriction_is_constant_false(restrictlist, joinrel, false))
+            {
+                mark_dummy_rel(joinrel);
+                break;
+            }
+            // Add paths for both join directions
+            add_paths_to_joinrel(root, joinrel, rel1, rel2, JOIN_INNER, sjinfo, restrictlist);
+            add_paths_to_joinrel(root, joinrel, rel2, rel1, JOIN_INNER, sjinfo, restrictlist);
+            break;
+
+        case JOIN_LEFT:
+            // Left join: check if left side is empty
+            if (is_dummy_rel(rel1) ||
+                restriction_is_constant_false(restrictlist, joinrel, true))
+            {
+                mark_dummy_rel(joinrel);
+                break;
+            }
+            // Handle constant-false non-pushed-down restrictions
+            if (restriction_is_constant_false(restrictlist, joinrel, false) &&
+                bms_is_subset(rel2->relids, sjinfo->syn_righthand))
+                mark_dummy_rel(rel2);
+
+            add_paths_to_joinrel(root, joinrel, rel1, rel2, JOIN_LEFT, sjinfo, restrictlist);
+            add_paths_to_joinrel(root, joinrel, rel2, rel1, JOIN_RIGHT, sjinfo, restrictlist);
+            break;
+
+        case JOIN_FULL:
+            // Full join: both sides must be empty to make join empty
+            if ((is_dummy_rel(rel1) && is_dummy_rel(rel2)) ||
+                restriction_is_constant_false(restrictlist, joinrel, true))
+            {
+                mark_dummy_rel(joinrel);
+                break;
+            }
+            add_paths_to_joinrel(root, joinrel, rel1, rel2, JOIN_FULL, sjinfo, restrictlist);
+            add_paths_to_joinrel(root, joinrel, rel2, rel1, JOIN_FULL, sjinfo, restrictlist);
+
+            // Ensure we have valid join conditions for FULL JOIN
+            if (joinrel->pathlist == NIL)
+                ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                    errmsg("FULL JOIN is only supported with merge-joinable or hash-joinable join conditions")));
+            break;
+
+        case JOIN_SEMI:
+            // Try normal semijoin if we have proper relation subsets
+            if (bms_is_subset(sjinfo->min_lefthand, rel1->relids) &&
+                bms_is_subset(sjinfo->min_righthand, rel2->relids))
+            {
+                if (is_dummy_rel(rel1) || is_dummy_rel(rel2) ||
+                    restriction_is_constant_false(restrictlist, joinrel, false))
+                {
+                    mark_dummy_rel(joinrel);
+                    break;
+                }
+                add_paths_to_joinrel(root, joinrel, rel1, rel2, JOIN_SEMI, sjinfo, restrictlist);
+            }
+
+            // Try unique-ifying RHS and doing regular join
+            if (bms_equal(sjinfo->syn_righthand, rel2->relids) &&
+                create_unique_path(root, rel2, rel2->cheapest_total_path, sjinfo) != NULL)
+            {
+                if (is_dummy_rel(rel1) || is_dummy_rel(rel2) ||
+                    restriction_is_constant_false(restrictlist, joinrel, false))
+                {
+                    mark_dummy_rel(joinrel);
+                    break;
+                }
+                add_paths_to_joinrel(root, joinrel, rel1, rel2, JOIN_UNIQUE_INNER, sjinfo, restrictlist);
+                add_paths_to_joinrel(root, joinrel, rel2, rel1, JOIN_UNIQUE_OUTER, sjinfo, restrictlist);
+            }
+            break;
+
+        case JOIN_ANTI:
+            // Anti join: similar to left join logic
+            if (is_dummy_rel(rel1) ||
+                restriction_is_constant_false(restrictlist, joinrel, true))
+            {
+                mark_dummy_rel(joinrel);
+                break;
+            }
+            if (restriction_is_constant_false(restrictlist, joinrel, false) &&
+                bms_is_subset(rel2->relids, sjinfo->syn_righthand))
+                mark_dummy_rel(rel2);
+
+            add_paths_to_joinrel(root, joinrel, rel1, rel2, JOIN_ANTI, sjinfo, restrictlist);
+            add_paths_to_joinrel(root, joinrel, rel2, rel1, JOIN_RIGHT_ANTI, sjinfo, restrictlist);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized join type: %d", (int) sjinfo->jointype);
+            break;
+    }
+
+    // Always try partitionwise join optimization
+    try_partitionwise_join(root, rel1, rel2, joinrel, sjinfo, restrictlist);
+}
+```

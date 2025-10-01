@@ -52,3 +52,43 @@ The function uses the standard PostgreSQL short-circuit tree walker pattern, ret
 - [PlaceHolderVar](../P/PlaceHolderVar.md) nodes are handled more simply than in the contain variant - no level checking, just traversal of contained expressions
 - The context structure is modified in-place when managing subquery nesting levels
 - Returns the location of the first matching Var encountered during traversal
+
+## Simplified Source
+
+```c
+static bool
+locate_var_of_level_walker(Node *node, locate_var_of_level_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check for variable at target level with valid location
+    if (IsA(node, Var)) {
+        Var *var = (Var *) node;
+        if (var->varlevelsup == context->sublevels_up && var->location >= 0) {
+            context->var_location = var->location;
+            return true;  // Found target variable, stop traversal
+        }
+        return false;
+    }
+
+    // CurrentOfExpr doesn't carry location information
+    if (IsA(node, CurrentOfExpr)) {
+        return false;
+    }
+
+    // PlaceHolderVar: just traverse contained expression (no special handling needed)
+
+    // Handle subqueries with level adjustment
+    if (IsA(node, Query)) {
+        bool result;
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node, locate_var_of_level_walker, context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Continue traversal for other node types
+    return expression_tree_walker(node, locate_var_of_level_walker, context);
+}
+```

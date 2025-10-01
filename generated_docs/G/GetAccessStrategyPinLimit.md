@@ -38,3 +38,25 @@ When no strategy is provided (NULL), it returns NBuffers, effectively removing a
 - Other strategy types are limited to half the ring size to balance look-ahead and write performance
 - Callers should combine this limit with other relevant constraints and take the minimum
 - Critical for preventing buffer ring escape and excessive WAL traffic during look-ahead operations
+
+## Simplified Source
+
+```c
+int GetAccessStrategyPinLimit(BufferAccessStrategy strategy)
+{
+    // No strategy means no ring constraints
+    if (strategy == NULL)
+        return NBuffers;
+
+    switch (strategy->btype)
+    {
+        case BAS_BULKREAD:
+            // Bulk read can pin entire ring (dirty buffers handled by StrategyRejectBuffer)
+            return strategy->nbuffers;
+
+        default:
+            // Other strategies limited to half ring to balance look-ahead vs writes
+            return strategy->nbuffers / 2;
+    }
+}
+```

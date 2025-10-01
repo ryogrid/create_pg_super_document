@@ -45,3 +45,31 @@ This approach ensures that partitioned tables maintain consistency - if the pare
 - Provides helpful error messages when partitions don't comply, including a hint to remove the ONLY keyword
 - Part of PostgreSQL's strategy to maintain constraint consistency across partition hierarchies without modifying child tables
 - Future versions may extend this to support constraint inheritance counting mechanisms
+
+## Simplified Source
+
+```c
+static void
+ATExecCheckNotNull(AlteredTableInfo *tab, Relation rel,
+                  const char *colName, LOCKMODE lockmode)
+{
+    HeapTuple tuple;
+
+    // Look up the column in the system catalog
+    tuple = SearchSysCacheAttName(RelationGetRelid(rel), colName);
+
+    // Validate column exists
+    if (!HeapTupleIsValid(tuple))
+        ereport(ERROR, "column \"%s\" of relation \"%s\" does not exist",
+                colName, RelationGetRelationName(rel));
+
+    // Check if column already has NOT NULL constraint
+    if (!((Form_pg_attribute) GETSTRUCT(tuple))->attnotnull)
+        ereport(ERROR, "constraint must be added to child tables too",
+                "Column \"%s\" of relation \"%s\" is not already NOT NULL.",
+                colName, RelationGetRelationName(rel),
+                "Do not specify the ONLY keyword.");
+
+    ReleaseSysCache(tuple);
+}
+```

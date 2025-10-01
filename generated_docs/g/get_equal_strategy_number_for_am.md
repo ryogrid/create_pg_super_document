@@ -39,3 +39,20 @@ The function uses a simple switch statement to map access method OIDs to their c
 - This function is part of the replication infrastructure in PostgreSQL
 - The limitation to B-tree and Hash indexes is explicitly documented in the code comments
 - Other index types like GIN, GiST, SP-GiST, and BRIN are not supported because they don't have fixed equality strategy numbers
+
+## Simplified Source
+
+```c
+StrategyNumber get_equal_strategy_number_for_am(Oid am) {
+    // Return the fixed strategy number for equality operator based on access method
+    switch (am) {
+        case BTREE_AM_OID:
+            return BTEqualStrategyNumber;
+        case HASH_AM_OID:
+            return HTEqualStrategyNumber;
+        default:
+            // Other access methods don't have fixed equality strategy numbers
+            return InvalidStrategy;
+    }
+}
+```

@@ -40,3 +40,27 @@ The function implements several optimization strategies:
 - The function is located in src/backend/utils/adt/ri_triggers.c:1226-1257
 - Returns false when the trigger can be safely skipped, true when it must be executed
 - Part of PostgreSQL's referential integrity enforcement system
+
+## Simplified Source
+
+```c
+bool
+RI_FKey_pk_upd_check_required(Trigger *trigger, Relation pk_rel,
+                             TupleTableSlot *oldslot, TupleTableSlot *newslot) {
+    const RI_ConstraintInfo *riinfo;
+
+    // Get constraint information
+    riinfo = ri_FetchConstraintInfo(trigger, pk_rel, true);
+
+    // If any old key value is NULL, no FK could reference this row
+    if (ri_NullCheck(RelationGetDescr(pk_rel), oldslot, riinfo, true) != RI_KEYS_NONE_NULL)
+        return false;
+
+    // If all old and new key values are equal, no check needed
+    if (newslot && ri_KeysEqual(pk_rel, oldslot, newslot, riinfo, true))
+        return false;
+
+    // Otherwise trigger is required
+    return true;
+}
+```

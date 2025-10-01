@@ -40,3 +40,20 @@ Since reservoir sampling in PostgreSQL doesn't need to return repeatable results
 - The initial W computation follows the mathematical foundation of Algorithm Z for determining skip distances
 - Must be called before using reservoir_get_next_S to ensure proper algorithm state
 - Part of PostgreSQL's ANALYZE command infrastructure for statistical sampling when table size is unknown in advance
+
+## Simplified Source
+
+```c
+void
+reservoir_init_selection_state(ReservoirState rs, int n)
+{
+    // Initialize random number generator with random seed
+    // (non-deterministic since sampling doesn't need reproducibility)
+    sampler_random_init_state(pg_prng_uint32(&pg_global_prng_state),
+                              &rs->randstate);
+
+    // Compute initial W value for Algorithm Z
+    // W = exp(-log(U)/n) where U is uniform random in (0,1)
+    rs->W = exp(-log(sampler_random_fract(&rs->randstate)) / n);
+}
+```

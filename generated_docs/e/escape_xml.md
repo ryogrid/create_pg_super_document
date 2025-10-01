@@ -46,3 +46,41 @@ All other characters are copied unchanged to the output buffer. This focused app
 - The carriage return escaping helps preserve exact whitespace formatting in cross-platform scenarios
 - Designed for escaping XML text content, not attribute values (which may require additional escaping)
 - Performance optimized with direct character comparisons and efficient string buffer operations
+
+## Simplified Source
+
+```c
+char *
+escape_xml(const char *str)
+{
+    StringInfoData buf;
+    const char *p;
+
+    // Initialize output buffer
+    initStringInfo(&buf);
+
+    // Process each character in input string
+    for (p = str; *p; p++) {
+        switch (*p) {
+            case '&':
+                appendStringInfoString(&buf, "&amp;");
+                break;
+            case '<':
+                appendStringInfoString(&buf, "&lt;");
+                break;
+            case '>':
+                appendStringInfoString(&buf, "&gt;");
+                break;
+            case '\r':
+                appendStringInfoString(&buf, "&#x0d;");
+                break;
+            default:
+                // Copy regular characters unchanged
+                appendStringInfoCharMacro(&buf, *p);
+                break;
+        }
+    }
+
+    return buf.data;
+}
+```

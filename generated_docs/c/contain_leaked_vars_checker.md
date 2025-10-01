@@ -32,3 +32,13 @@ This function is designed to be used as a callback function in conjunction with 
 - The context parameter is not used in the current implementation but follows a standard callback pattern
 - Part of PostgreSQL's security barrier mechanism to prevent data leakage
 - Located in src/backend/optimizer/util/clauses.c:1269-1274
+
+## Simplified Source
+```c
+static bool
+contain_leaked_vars_checker(Oid func_id, void *context)
+{
+    // Return true if function is NOT leakproof (i.e., potentially leaky)
+    return !get_func_leakproof(func_id);
+}
+```

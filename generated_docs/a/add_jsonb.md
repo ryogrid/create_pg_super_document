@@ -39,3 +39,36 @@ The add_jsonb function is a utility function that converts a PostgreSQL Datum va
 - For NULL values, the function sets tcategory to JSONTYPE_NULL and outfuncoid to InvalidOid
 - The function is designed as a convenience wrapper; for scenarios where the same type will be processed multiple times, it's more efficient to call json_categorize_type once and use datum_to_jsonb_internal directly
 - The function is static, meaning it's only accessible within the jsonb.c compilation unit
+
+## Simplified Source
+
+```c
+static void
+add_jsonb(Datum val, bool is_null, JsonbInState *result,
+          Oid val_type, bool key_scalar)
+{
+    JsonTypeCategory tcategory;
+    Oid outfuncoid;
+
+    // Validate input type
+    if (val_type == InvalidOid)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("could not determine input data type")));
+
+    // Handle NULL values
+    if (is_null)
+    {
+        tcategory = JSONTYPE_NULL;
+        outfuncoid = InvalidOid;
+    }
+    else
+    {
+        // Categorize PostgreSQL type to JSON type
+        json_categorize_type(val_type, true, &tcategory, &outfuncoid);
+    }
+
+    // Convert datum to JSONB and append to result
+    datum_to_jsonb_internal(val, is_null, result, tcategory, outfuncoid, key_scalar);
+}
+```

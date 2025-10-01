@@ -34,3 +34,17 @@ The function is the counterpart to read_stream_begin_relation and must be called
 - Safe to call even if the stream has already been reset or partially consumed
 - After calling this function, the stream pointer becomes invalid and must not be used
 - Deallocates the single memory allocation made in read_stream_begin_relation containing the stream object, buffer array, I/O tracking, and per-buffer data
+
+## Simplified Source
+
+```c
+void
+read_stream_end(ReadStream *stream)
+{
+    // Clean up all resources (buffers, I/O operations)
+    read_stream_reset(stream);
+
+    // Free the stream object itself
+    pfree(stream);
+}
+```

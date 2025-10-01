@@ -41,3 +41,77 @@ Algorithm X uses a straightforward approach, generating random values and increm
 - The complex mathematical computations in Algorithm Z implement acceptance/rejection testing for optimal performance
 - Used in PostgreSQL's ANALYZE command when the total number of table records is unknown in advance
 - More efficient than simple random sampling for large datasets due to reduced random number generation overhead
+
+## Simplified Source
+
+```c
+double
+reservoir_get_next_S(ReservoirState rs, double t, int n)
+{
+    double S;
+
+    // Use Algorithm X for smaller datasets (t <= 22*n)
+    if (t <= (22.0 * n)) {
+        // Simple algorithm: find minimum S satisfying acceptance condition
+        double V = sampler_random_fract(&rs->randstate);
+        S = 0;
+        t += 1;
+        double quotient = (t - (double) n) / t;
+
+        // Find minimum S where quotient^S > V
+        while (quotient > V) {
+            S += 1;
+            t += 1;
+            quotient *= (t - (double) n) / t;
+        }
+    }
+    else {
+        // Use Algorithm Z for larger datasets - more efficient
+        double W = rs->W;
+        double term = t - (double) n + 1;
+
+        for (;;) {
+            // Generate candidate skip count S
+            double U = sampler_random_fract(&rs->randstate);
+            double X = t * (W - 1.0);
+            S = floor(X);
+
+            // Test acceptance conditions using Vitter's probability formulas
+            double tmp = (t + 1) / term;
+            double lhs = exp(log(((U * tmp * tmp) * (term + S)) / (t + X)) / n);
+            double rhs = (((t + X) / (term + S)) * term) / t;
+
+            if (lhs <= rhs) {
+                W = rhs / lhs;
+                break;
+            }
+
+            // Secondary acceptance test
+            double y = (((U * (t + 1)) / term) * (t + S + 1)) / (t + X);
+
+            // Adjust computation based on relative sizes of n and S
+            double denominator, numerator_limit;
+            if ((double) n < S) {
+                denominator = t;
+                numerator_limit = term + S;
+            } else {
+                denominator = t - (double) n + S;
+                numerator_limit = t + 1;
+            }
+
+            // Product computation for acceptance probability
+            for (double numerator = t + S; numerator >= numerator_limit; numerator -= 1) {
+                y *= numerator / denominator;
+                denominator -= 1;
+            }
+
+            W = exp(-log(sampler_random_fract(&rs->randstate)) / n);
+            if (exp(log(y) / n) <= (t + X) / t)
+                break;
+        }
+        rs->W = W;  // Save W for next iteration
+    }
+
+    return S;
+}
+```

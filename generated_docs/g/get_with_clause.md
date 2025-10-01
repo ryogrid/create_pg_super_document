@@ -52,3 +52,131 @@ For recursive CTEs, it uses "WITH RECURSIVE" instead of just "WITH". The functio
 
 ## Notes and Other Information
 This function implements support for PostgreSQL's comprehensive CTE feature set, including SQL:1999 standard recursive CTEs and PostgreSQL-specific extensions. The SEARCH clause allows controlling traversal order in recursive queries (breadth-first vs depth-first), while the CYCLE clause enables automatic cycle detection with customizable mark values. The materialization hints control PostgreSQL's query optimizer behavior for CTE evaluation. The function carefully handles proper SQL syntax generation, including comma separation between multiple CTEs and correct parentheses placement around nested queries and column lists.
+
+## Simplified Source
+
+```c
+static void get_with_clause(Query *query, deparse_context *context) {
+    StringInfo buf = context->buf;
+    const char *sep;
+    ListCell *l;
+
+    if (query->cteList == NIL)
+        return;
+
+    // Handle indentation if pretty printing
+    if (PRETTY_INDENT(context)) {
+        context->indentLevel += PRETTYINDENT_STD;
+        appendStringInfoChar(buf, ' ');
+    }
+
+    // Start WITH clause (recursive or non-recursive)
+    sep = query->hasRecursive ? "WITH RECURSIVE " : "WITH ";
+
+    foreach(l, query->cteList) {
+        CommonTableExpr *cte = (CommonTableExpr *) lfirst(l);
+
+        appendStringInfoString(buf, sep);
+        appendStringInfoString(buf, quote_identifier(cte->ctename));
+
+        // Add column aliases if present
+        if (cte->aliascolnames) {
+            bool first = true;
+            ListCell *col;
+
+            appendStringInfoChar(buf, '(');
+            foreach(col, cte->aliascolnames) {
+                if (first)
+                    first = false;
+                else
+                    appendStringInfoString(buf, ", ");
+                appendStringInfoString(buf, quote_identifier(strVal(lfirst(col))));
+            }
+            appendStringInfoChar(buf, ')');
+        }
+
+        // Add AS clause with materialization hint
+        appendStringInfoString(buf, " AS ");
+        switch (cte->ctematerialized) {
+            case CTEMaterializeAlways:
+                appendStringInfoString(buf, "MATERIALIZED ");
+                break;
+            case CTEMaterializeNever:
+                appendStringInfoString(buf, "NOT MATERIALIZED ");
+                break;
+            case CTEMaterializeDefault:
+            default:
+                break;
+        }
+
+        // Format CTE query
+        appendStringInfoChar(buf, '(');
+        if (PRETTY_INDENT(context))
+            appendContextKeyword(context, "", 0, 0, 0);
+        get_query_def((Query *) cte->ctequery, buf, context->namespaces, NULL,
+                     true, context->prettyFlags, context->wrapColumn, context->indentLevel);
+        if (PRETTY_INDENT(context))
+            appendContextKeyword(context, "", 0, 0, 0);
+        appendStringInfoChar(buf, ')');
+
+        // Add SEARCH clause if present
+        if (cte->search_clause) {
+            bool first = true;
+            ListCell *lc;
+
+            appendStringInfo(buf, " SEARCH %s FIRST BY ",
+                           cte->search_clause->search_breadth_first ? "BREADTH" : "DEPTH");
+
+            foreach(lc, cte->search_clause->search_col_list) {
+                if (first)
+                    first = false;
+                else
+                    appendStringInfoString(buf, ", ");
+                appendStringInfoString(buf, quote_identifier(strVal(lfirst(lc))));
+            }
+            appendStringInfo(buf, " SET %s", quote_identifier(cte->search_clause->search_seq_column));
+        }
+
+        // Add CYCLE clause if present
+        if (cte->cycle_clause) {
+            bool first = true;
+            ListCell *lc;
+
+            appendStringInfoString(buf, " CYCLE ");
+            foreach(lc, cte->cycle_clause->cycle_col_list) {
+                if (first)
+                    first = false;
+                else
+                    appendStringInfoString(buf, ", ");
+                appendStringInfoString(buf, quote_identifier(strVal(lfirst(lc))));
+            }
+
+            appendStringInfo(buf, " SET %s", quote_identifier(cte->cycle_clause->cycle_mark_column));
+
+            // Add custom mark values if not default boolean values
+            Const *cmv = castNode(Const, cte->cycle_clause->cycle_mark_value);
+            Const *cmd = castNode(Const, cte->cycle_clause->cycle_mark_default);
+
+            if (!(cmv->consttype == BOOLOID && !cmv->constisnull && DatumGetBool(cmv->constvalue) == true &&
+                  cmd->consttype == BOOLOID && !cmd->constisnull && DatumGetBool(cmd->constvalue) == false)) {
+                appendStringInfoString(buf, " TO ");
+                get_rule_expr(cte->cycle_clause->cycle_mark_value, context, false);
+                appendStringInfoString(buf, " DEFAULT ");
+                get_rule_expr(cte->cycle_clause->cycle_mark_default, context, false);
+            }
+
+            appendStringInfo(buf, " USING %s", quote_identifier(cte->cycle_clause->cycle_path_column));
+        }
+
+        sep = ", ";
+    }
+
+    // Restore indentation
+    if (PRETTY_INDENT(context)) {
+        context->indentLevel -= PRETTYINDENT_STD;
+        appendContextKeyword(context, "", 0, 0, 0);
+    } else {
+        appendStringInfoChar(buf, ' ');
+    }
+}
+```

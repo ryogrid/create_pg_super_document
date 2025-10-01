@@ -8,6 +8,8 @@ plugins:
 markdown: kramdown
 highlighter: rouge
 
+theme: null
+
 # Apply the "doc" layout by default to all markdown/html under generated_docs/
 # You can change the scope path to "" to apply site-wide if desired.
 # Note: scope.path is relative to the site source. Since source is set to generated_docs in the action,
@@ -19,8 +21,6 @@ highlighter: rouge
 defaults:
   - scope:
       path: ""
-    values:
-      layout: doc
 
 # Optional: Site metadata
 # When source is ./generated_docs, site.title and site.description are still read from this root config

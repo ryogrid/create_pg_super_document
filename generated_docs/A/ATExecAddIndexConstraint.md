@@ -42,3 +42,65 @@ The function performs several key validations: it rejects operations on partitio
 - Supports both PRIMARY KEY and UNIQUE constraints, but not EXCLUSION constraints
 - Handles deferred and deferrable constraint options through appropriate flags
 - Returns an ObjectAddress for the newly created constraint for dependency tracking
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecAddIndexConstraint(AlteredTableInfo *tab, Relation rel,
+                        IndexStmt *stmt, LOCKMODE lockmode)
+{
+    Oid index_oid = stmt->indexOid;
+    Relation indexRel;
+    char *indexName;
+    char *constraintName;
+    char constraintType;
+    ObjectAddress address;
+    bits16 flags;
+
+    // Reject partitioned tables - not supported
+    if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        ereport(ERROR, "ADD CONSTRAINT USING INDEX not supported on partitioned tables");
+
+    // Open the index and get its info
+    indexRel = index_open(index_oid, AccessShareLock);
+    indexName = pstrdup(RelationGetRelationName(indexRel));
+    IndexInfo *indexInfo = BuildIndexInfo(indexRel);
+
+    // Verify index is unique
+    if (!indexInfo->ii_Unique)
+        elog(ERROR, "index \"%s\" is not unique", indexName);
+
+    // Handle constraint naming - constraint and index must have same name
+    constraintName = stmt->idxname;
+    if (constraintName == NULL)
+        constraintName = indexName;
+    else if (strcmp(constraintName, indexName) != 0) {
+        // Rename index to match constraint name
+        ereport(NOTICE, "will rename index \"%s\" to \"%s\"", indexName, constraintName);
+        RenameRelationInternal(index_oid, constraintName, false, true);
+    }
+
+    // Additional validation for primary key constraints
+    if (stmt->primary)
+        index_check_primary_key(rel, indexInfo, true, stmt);
+
+    // Determine constraint type
+    constraintType = stmt->primary ? CONSTRAINT_PRIMARY : CONSTRAINT_UNIQUE;
+
+    // Set up flags for constraint creation
+    flags = INDEX_CONSTR_CREATE_UPDATE_INDEX |
+            INDEX_CONSTR_CREATE_REMOVE_OLD_DEPS |
+            (stmt->initdeferred ? INDEX_CONSTR_CREATE_INIT_DEFERRED : 0) |
+            (stmt->deferrable ? INDEX_CONSTR_CREATE_DEFERRABLE : 0) |
+            (stmt->primary ? INDEX_CONSTR_CREATE_MARK_AS_PRIMARY : 0);
+
+    // Create the constraint catalog entries
+    address = index_constraint_create(rel, index_oid, InvalidOid, indexInfo,
+                                    constraintName, constraintType, flags,
+                                    allowSystemTableMods, false);
+
+    index_close(indexRel, NoLock);
+    return address;
+}
+```

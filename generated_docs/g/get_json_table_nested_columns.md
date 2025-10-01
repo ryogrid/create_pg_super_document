@@ -47,3 +47,39 @@ The function formats the output with proper SQL syntax, including comma separati
 - The function handles recursive data structures, making it capable of processing arbitrarily nested JSON table column specifications
 - Part of the broader JSON_TABLE functionality introduced in PostgreSQL for parsing JSON data into relational format
 - The function preserves the original SQL syntax structure when reconstructing queries from internal representations
+
+## Simplified Source
+
+```c
+static void
+get_json_table_nested_columns(TableFunc *tf, JsonTablePlan *plan,
+                              deparse_context *context, bool showimplicit,
+                              bool needcomma)
+{
+    if (IsA(plan, JsonTablePathScan)) {
+        // Handle NESTED PATH clause
+        JsonTablePathScan *scan = castNode(JsonTablePathScan, plan);
+
+        if (needcomma)
+            appendStringInfoChar(context->buf, ',');
+
+        appendStringInfoChar(context->buf, ' ');
+        appendContextKeyword(context, "NESTED PATH ", 0, 0, 0);
+
+        // Add the path expression and alias
+        get_const_expr(scan->path->value, context, -1);
+        appendStringInfo(context->buf, " AS %s", quote_identifier(scan->path->name));
+
+        // Generate column specifications for this nested path
+        get_json_table_columns(tf, scan, context, showimplicit);
+    }
+    else if (IsA(plan, JsonTableSiblingJoin)) {
+        // Handle multiple nested paths (sibling joins)
+        JsonTableSiblingJoin *join = (JsonTableSiblingJoin *) plan;
+
+        // Recursively process left and right nested plans
+        get_json_table_nested_columns(tf, join->lplan, context, showimplicit, needcomma);
+        get_json_table_nested_columns(tf, join->rplan, context, showimplicit, true);
+    }
+}
+```

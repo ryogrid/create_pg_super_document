@@ -50,3 +50,70 @@ Key design decisions include avoiding SPI to prevent issues with forward referen
 - Memory management uses per-statement contexts to prevent excessive memory usage
 - Essential for proper extension installation where scripts may contain interdependent DDL statements
 - The sequential execution model ensures that each statement sees the effects of previous statements
+
+## Simplified Source
+
+```c
+static void execute_sql_string(const char *sql) {
+    // Parse SQL string into individual statements
+    List *raw_parsetree_list = pg_parse_query(sql);
+
+    // Discard all SELECT output
+    DestReceiver *dest = CreateDestReceiver(DestNone);
+
+    // Process each statement sequentially
+    foreach(lc1, raw_parsetree_list) {
+        RawStmt *parsetree = lfirst_node(RawStmt, lc1);
+
+        // Create per-statement memory context
+        MemoryContext per_stmt_context = AllocSetContextCreate(
+            CurrentMemoryContext,
+            "execute_sql_string per-statement context",
+            ALLOCSET_DEFAULT_SIZES);
+        MemoryContext oldcontext = MemoryContextSwitchTo(per_stmt_context);
+
+        // Make previous DDL changes visible
+        CommandCounterIncrement();
+
+        // Analyze, rewrite, and plan the statement
+        List *stmt_list = pg_analyze_and_rewrite_fixedparams(parsetree, sql, NULL, 0, NULL);
+        stmt_list = pg_plan_queries(stmt_list, sql, CURSOR_OPT_PARALLEL_OK, NULL);
+
+        // Execute each planned statement
+        foreach(lc2, stmt_list) {
+            PlannedStmt *stmt = lfirst_node(PlannedStmt, lc2);
+
+            CommandCounterIncrement();
+            PushActiveSnapshot(GetTransactionSnapshot());
+
+            if (stmt->utilityStmt == NULL) {
+                // Execute regular query
+                QueryDesc *qdesc = CreateQueryDesc(stmt, sql, GetActiveSnapshot(),
+                                                  NULL, dest, NULL, NULL, 0);
+                ExecutorStart(qdesc, 0);
+                ExecutorRun(qdesc, ForwardScanDirection, 0, true);
+                ExecutorFinish(qdesc);
+                ExecutorEnd(qdesc);
+                FreeQueryDesc(qdesc);
+            } else {
+                // Execute utility statement (DDL)
+                if (IsA(stmt->utilityStmt, TransactionStmt))
+                    ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                                   errmsg("transaction control statements are not allowed within an extension script")));
+
+                ProcessUtility(stmt, sql, false, PROCESS_UTILITY_QUERY,
+                             NULL, NULL, dest, NULL);
+            }
+
+            PopActiveSnapshot();
+        }
+
+        // Clean up per-statement memory
+        MemoryContextSwitchTo(oldcontext);
+        MemoryContextDelete(per_stmt_context);
+    }
+
+    // Ensure final changes are visible
+    CommandCounterIncrement();
+}
+```

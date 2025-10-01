@@ -42,3 +42,30 @@ The function follows PostgreSQL's multi-phase ALTER TABLE design where preparati
 - Allows moving to the database's default tablespace without special CREATE permissions
 - The function validates that the target tablespace exists and the user has CREATE permission on it
 - Uses MyDatabaseTableSpace global variable to identify the database's default tablespace
+
+## Simplified Source
+
+```c
+static void
+ATPrepSetTableSpace(AlteredTableInfo *tab, Relation rel, const char *tablespacename, LOCKMODE lockmode)
+{
+    // Resolve tablespace name to OID
+    Oid tablespaceId = get_tablespace_oid(tablespacename, false);
+
+    // Check permissions (except for database's default tablespace)
+    if (OidIsValid(tablespaceId) && tablespaceId != MyDatabaseTableSpace) {
+        AclResult aclresult = object_aclcheck(TableSpaceRelationId, tablespaceId, GetUserId(), ACL_CREATE);
+
+        if (aclresult != ACLCHECK_OK)
+            aclcheck_error(aclresult, OBJECT_TABLESPACE, tablespacename);
+    }
+
+    // Prevent multiple SET TABLESPACE commands
+    if (OidIsValid(tab->newTableSpace))
+        ereport(ERROR, (errcode(ERRCODE_SYNTAX_ERROR),
+                       errmsg("cannot have multiple SET TABLESPACE subcommands")));
+
+    // Save for Phase 3 execution
+    tab->newTableSpace = tablespaceId;
+}
+```

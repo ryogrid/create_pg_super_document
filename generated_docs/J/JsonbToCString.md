@@ -38,3 +38,12 @@ This function provides a simple interface for converting JSONB data to its strin
 - Used extensively throughout PostgreSQL's JSONB subsystem for text conversion
 - The function design allows for both in-place buffer writing and new string allocation
 - Part of PostgreSQL's JSONB API for external consumption
+
+## Simplified Source
+
+```c
+char *JsonbToCString(StringInfo out, JsonbContainer *in, int estimated_len) {
+    // Convert JSONB to string without indentation
+    return JsonbToCStringWorker(out, in, estimated_len, false);
+}
+```

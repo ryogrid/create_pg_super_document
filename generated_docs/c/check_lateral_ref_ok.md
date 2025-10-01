@@ -44,3 +44,31 @@ The function provides context-aware error messages, giving different hints depen
 - Uses ERRCODE_INVALID_COLUMN_REFERENCE error code
 - The function name suggests it checks if lateral references are "ok", but it actually enforces restrictions
 - Used throughout the parser when resolving references that might be lateral-only
+
+## Simplified Source
+
+```c
+static void
+check_lateral_ref_ok(ParseState *pstate, ParseNamespaceItem *nsitem,
+                     int location)
+{
+    // Check if this is a disallowed lateral reference
+    if (nsitem->p_lateral_only && !nsitem->p_lateral_ok)
+    {
+        RangeTblEntry *rte = nsitem->p_rte;
+        char *refname = nsitem->p_names->aliasname;
+
+        // Provide context-specific error message
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+                 errmsg("invalid reference to FROM-clause entry for table \"%s\"",
+                        refname),
+                 (pstate->p_target_nsitem != NULL &&
+                  rte == pstate->p_target_nsitem->p_rte) ?
+                 errhint("There is an entry for table \"%s\", but it cannot be referenced from this part of the query.",
+                         refname) :
+                 errdetail("The combining JOIN type must be INNER or LEFT for a LATERAL reference."),
+                 parser_errposition(pstate, location)));
+    }
+}
+```

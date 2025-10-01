@@ -50,3 +50,48 @@ The function is critical for ensuring that referential integrity triggers operat
 - Throws errors for invalid constraint OIDs, mismatched constraint data, or unsupported MATCH PARTIAL constraints
 - The function performs different validation logic depending on whether the relation is a primary key table or foreign key table
 - Located in src/backend/utils/adt/ri_triggers.c:2058-2111
+
+## Simplified Source
+
+```c
+static const RI_ConstraintInfo *ri_FetchConstraintInfo(Trigger *trigger,
+                                                      Relation trig_rel,
+                                                      bool rel_is_pk) {
+    Oid constraintOid = trigger->tgconstraint;
+
+    // Validate constraint OID exists
+    if (!OidIsValid(constraintOid))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                       errmsg("no pg_constraint entry for trigger \"%s\" on table \"%s\"",
+                              trigger->tgname, RelationGetRelationName(trig_rel))));
+
+    // Load constraint information from cache/catalog
+    const RI_ConstraintInfo *riinfo = ri_LoadConstraintInfo(constraintOid);
+
+    // Validate constraint matches trigger metadata
+    if (rel_is_pk) {
+        if (riinfo->fk_relid != trigger->tgconstrrelid ||
+            riinfo->pk_relid != RelationGetRelid(trig_rel))
+            elog(ERROR, "wrong pg_constraint entry for trigger \"%s\" on table \"%s\"",
+                 trigger->tgname, RelationGetRelationName(trig_rel));
+    } else {
+        if (riinfo->fk_relid != RelationGetRelid(trig_rel) ||
+            riinfo->pk_relid != trigger->tgconstrrelid)
+            elog(ERROR, "wrong pg_constraint entry for trigger \"%s\" on table \"%s\"",
+                 trigger->tgname, RelationGetRelationName(trig_rel));
+    }
+
+    // Validate match type
+    if (riinfo->confmatchtype != FKCONSTR_MATCH_FULL &&
+        riinfo->confmatchtype != FKCONSTR_MATCH_PARTIAL &&
+        riinfo->confmatchtype != FKCONSTR_MATCH_SIMPLE)
+        elog(ERROR, "unrecognized confmatchtype: %d", riinfo->confmatchtype);
+
+    // MATCH PARTIAL not supported
+    if (riinfo->confmatchtype == FKCONSTR_MATCH_PARTIAL)
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("MATCH PARTIAL not yet implemented")));
+
+    return riinfo;
+}
+```

@@ -45,3 +45,78 @@ The function handles cross-type comparisons by setting up appropriate comparison
 - For range partitioning, the function respects the constraint that values must form a prefix of the partition key
 - The function handles all three PostgreSQL partitioning strategies (hash, list, range) through delegation
 - Part of PostgreSQL's constraint exclusion and partition-wise optimization infrastructure
+
+## Simplified Source
+
+```c
+static PruneStepResult *perform_pruning_base_step(PartitionPruneContext *context,
+                                                  PartitionPruneStepOp *opstep) {
+    Datum values[PARTITION_MAX_KEYS];
+    int keyno, nvalues = 0;
+    ListCell *lc1 = list_head(opstep->exprs);
+    ListCell *lc2 = list_head(opstep->cmpfns);
+
+    // Build partition lookup key from expressions
+    for (keyno = 0; keyno < context->partnatts; keyno++) {
+        // Skip null keys for hash partitioning
+        if (bms_is_member(keyno, opstep->nullkeys))
+            continue;
+
+        // Range partitioning requires prefix of keys
+        if (keyno > nvalues && context->strategy == PARTITION_STRATEGY_RANGE)
+            break;
+
+        if (lc1 != NULL) {
+            Expr *expr = lfirst(lc1);
+            Datum datum;
+            bool isnull;
+
+            // Extract datum value from expression
+            partkey_datum_from_expr(context, expr,
+                                  PruneCxtStateIdx(context->partnatts, opstep->step.step_id, keyno),
+                                  &datum, &isnull);
+
+            // Null values cause no partitions to match (strict operators)
+            if (isnull) {
+                PruneStepResult *result = palloc(sizeof(PruneStepResult));
+                result->bound_offsets = NULL;
+                result->scan_default = false;
+                result->scan_null = false;
+                return result;
+            }
+
+            // Set up comparison function if needed
+            Oid cmpfn = lfirst_oid(lc2);
+            int stateidx = PruneCxtStateIdx(context->partnatts, opstep->step.step_id, keyno);
+            if (cmpfn != context->stepcmpfuncs[stateidx].fn_oid) {
+                if (cmpfn == context->partsupfunc[keyno].fn_oid)
+                    fmgr_info_copy(&context->stepcmpfuncs[stateidx],
+                                 &context->partsupfunc[keyno], context->ppccontext);
+                else
+                    fmgr_info_cxt(cmpfn, &context->stepcmpfuncs[stateidx], context->ppccontext);
+            }
+
+            values[keyno] = datum;
+            nvalues++;
+            lc1 = lnext(opstep->exprs, lc1);
+            lc2 = lnext(opstep->cmpfns, lc2);
+        }
+    }
+
+    // Delegate to strategy-specific function
+    FmgrInfo *partsupfunc = &context->stepcmpfuncs[PruneCxtStateIdx(context->partnatts, opstep->step.step_id, 0)];
+
+    switch (context->strategy) {
+        case PARTITION_STRATEGY_HASH:
+            return get_matching_hash_bounds(context, opstep->opstrategy, values, nvalues, partsupfunc, opstep->nullkeys);
+        case PARTITION_STRATEGY_LIST:
+            return get_matching_list_bounds(context, opstep->opstrategy, values[0], nvalues, &partsupfunc[0], opstep->nullkeys);
+        case PARTITION_STRATEGY_RANGE:
+            return get_matching_range_bounds(context, opstep->opstrategy, values, nvalues, partsupfunc, opstep->nullkeys);
+        default:
+            elog(ERROR, "unexpected partition strategy: %d", (int) context->strategy);
+    }
+
+    return NULL;
+}
+```

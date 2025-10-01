@@ -36,3 +36,21 @@ The function operates within PostgreSQL's streaming JSON parser framework, where
 - Sets up unique_keys validation when configured in the parsing state
 - Returns JSON_SUCCESS to indicate successful processing of the object start token
 - Works in conjunction with jsonb_in_object_end to bracket object parsing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+jsonb_in_object_start(void *pstate)
+{
+    JsonbInState *state = (JsonbInState *) pstate;
+
+    // Push object start token onto parse stack
+    state->res = pushJsonbValue(&state->parseState, WJB_BEGIN_OBJECT, NULL);
+
+    // Configure unique key validation
+    state->parseState->unique_keys = state->unique_keys;
+
+    return JSON_SUCCESS;
+}
+```

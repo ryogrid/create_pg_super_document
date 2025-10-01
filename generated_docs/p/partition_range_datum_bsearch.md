@@ -40,3 +40,42 @@ This function implements a binary search algorithm for range partition bounds wh
 - Differs from partition_range_bsearch by accepting raw datum values instead of PartitionRangeBound structures
 - The `is_equal` parameter helps determine whether a tuple falls exactly on a partition boundary
 - Used extensively in partition pruning operations for query optimization
+
+## Simplified Source
+
+```c
+int
+partition_range_datum_bsearch(FmgrInfo *partsupfunc, Oid *partcollation,
+                             PartitionBoundInfo boundinfo,
+                             int nvalues, Datum *values, bool *is_equal)
+{
+    int lo = -1;
+    int hi = boundinfo->ndatums - 1;
+
+    // Binary search for the greatest bound <= input tuple
+    while (lo < hi) {
+        int mid = (lo + hi + 1) / 2;
+
+        // Compare input tuple with partition bound at mid
+        int32 cmpval = partition_rbound_datum_cmp(partsupfunc,
+                                                 partcollation,
+                                                 boundinfo->datums[mid],
+                                                 boundinfo->kind[mid],
+                                                 values,
+                                                 nvalues);
+
+        if (cmpval <= 0) {
+            lo = mid;
+            *is_equal = (cmpval == 0);
+
+            if (*is_equal)
+                break;  // Found exact match
+        }
+        else {
+            hi = mid - 1;
+        }
+    }
+
+    return lo;  // Index of greatest bound <= tuple, or -1 if none
+}
+```

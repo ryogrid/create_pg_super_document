@@ -45,3 +45,30 @@ None - this is a void function with no parameters.
 - Registers for ATTNUM syscache invalidations to maintain consistency with pg_attribute changes
 - Part of the broader PostgreSQL caching infrastructure for performance optimization
 - Located in src/backend/utils/cache/attoptcache.c as part of the attribute options caching subsystem
+
+## Simplified Source
+
+```c
+static void
+InitializeAttoptCache(void)
+{
+    HASHCTL ctl;
+
+    // Configure hash table parameters
+    ctl.keysize = sizeof(AttoptCacheKey);
+    ctl.entrysize = sizeof(AttoptCacheEntry);
+
+    // Create the attribute options cache hash table
+    AttoptCacheHash = hash_create("Attopt cache", 256, &ctl,
+                                 HASH_ELEM | HASH_BLOBS);
+
+    // Ensure cache memory context is available
+    if (!CacheMemoryContext)
+        CreateCacheMemoryContext();
+
+    // Register for invalidation events on pg_attribute changes
+    CacheRegisterSyscacheCallback(ATTNUM,
+                                 InvalidateAttoptCacheCallback,
+                                 (Datum) 0);
+}
+```

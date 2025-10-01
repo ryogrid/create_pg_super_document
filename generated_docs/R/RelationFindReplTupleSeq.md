@@ -48,3 +48,79 @@ Note that this approach can be quite slow on large tables since it performs a fu
 - Designed specifically for replication scenarios where exact tuple matching is critical
 - Uses dirty snapshots for scanning but latest snapshots for locking to ensure consistency
 - Handles partition tuple movements and concurrent updates with appropriate logging
+
+## Simplified Source
+
+```c
+bool RelationFindReplTupleSeq(Relation rel, LockTupleMode lockmode,
+                              TupleTableSlot *searchslot, TupleTableSlot *outslot) {
+    TableScanDesc scan;
+    TupleTableSlot *scanslot;
+    SnapshotData snap;
+    TypeCacheEntry **eq;
+    bool found;
+
+    // Initialize equality comparison cache and start sequential scan
+    eq = palloc0(sizeof(*eq) * outslot->tts_tupleDescriptor->natts);
+    InitDirtySnapshot(snap);
+    scan = table_beginscan(rel, &snap, 0, NULL);
+    scanslot = table_slot_create(rel, NULL);
+
+retry:
+    found = false;
+    table_rescan(scan, NULL);
+
+    // Sequential scan through all tuples
+    while (table_scan_getnextslot(scan, ForwardScanDirection, scanslot)) {
+        // Check if this tuple matches our search criteria
+        if (!tuples_equal(scanslot, searchslot, eq))
+            continue;
+
+        found = true;
+        ExecCopySlot(outslot, scanslot);
+
+        // Handle concurrent transactions
+        TransactionId xwait = TransactionIdIsValid(snap.xmin) ? snap.xmin : snap.xmax;
+        if (TransactionIdIsValid(xwait)) {
+            XactLockTableWait(xwait, NULL, NULL, XLTW_None);
+            goto retry;
+        }
+
+        break;
+    }
+
+    // Lock the found tuple
+    if (found) {
+        TM_FailureData tmfd;
+        PushActiveSnapshot(GetLatestSnapshot());
+
+        TM_Result res = table_tuple_lock(rel, &(outslot->tts_tid), GetActiveSnapshot(),
+                                        outslot, GetCurrentCommandId(false), lockmode,
+                                        LockWaitBlock, 0, &tmfd);
+
+        PopActiveSnapshot();
+
+        // Handle concurrent modifications
+        switch (res) {
+            case TM_Ok:
+                break;
+            case TM_Updated:
+            case TM_Deleted:
+                // Log and retry for concurrent changes
+                ereport(LOG, (errcode(ERRCODE_T_R_SERIALIZATION_FAILURE),
+                             errmsg("concurrent modification, retrying")));
+                goto retry;
+            case TM_Invisible:
+                elog(ERROR, "attempted to lock invisible tuple");
+                break;
+            default:
+                elog(ERROR, "unexpected table_tuple_lock status: %u", res);
+                break;
+        }
+    }
+
+    table_endscan(scan);
+    ExecDropSingleTupleTableSlot(scanslot);
+    return found;
+}
+```

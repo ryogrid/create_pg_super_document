@@ -36,3 +36,22 @@ The pg_hmac_free function properly deallocates a HMAC context structure and ensu
 - Part of proper resource management for HMAC contexts
 - Essential for security to prevent key material from remaining in memory
 - Frees both the internal hash context and the HMAC context itself
+
+## Simplified Source
+
+```c
+void pg_hmac_free(pg_hmac_ctx *ctx) {
+    // Check for null pointer - safe to call with NULL
+    if (ctx == NULL)
+        return;
+
+    // Free the underlying cryptographic hash context
+    pg_cryptohash_free(ctx->hash);
+
+    // Securely clear the entire context structure
+    explicit_bzero(ctx, sizeof(pg_hmac_ctx));
+
+    // Free the context memory
+    FREE(ctx);
+}
+```

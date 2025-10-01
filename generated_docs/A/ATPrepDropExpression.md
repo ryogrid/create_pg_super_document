@@ -37,3 +37,32 @@ The function implements two key safety checks: first, it rejects ONLY operations
 - Generated expressions are treated differently from DEFAULT values in inheritance scenarios
 - The function ensures that inheritance relationships are properly maintained when dropping column expressions
 - Error messages provide clear feedback about unsupported operations and missing columns
+
+## Simplified Source
+
+```c
+static void
+ATPrepDropExpression(Relation rel, AlterTableCmd *cmd, bool recurse, bool recursing, LOCKMODE lockmode)
+{
+    // Require recursion if child tables exist (ONLY not supported)
+    if (!recurse && find_inheritance_children(RelationGetRelid(rel), lockmode))
+        ereport(ERROR, (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                       errmsg("ALTER TABLE / DROP EXPRESSION must be applied to child tables too")));
+
+    // Cannot drop generation expression from inherited columns
+    if (!recursing) {
+        HeapTuple tuple = SearchSysCacheCopyAttName(RelationGetRelid(rel), cmd->name);
+
+        if (!HeapTupleIsValid(tuple))
+            ereport(ERROR, (errcode(ERRCODE_UNDEFINED_COLUMN),
+                           errmsg("column \"%s\" of relation \"%s\" does not exist",
+                                  cmd->name, RelationGetRelationName(rel))));
+
+        Form_pg_attribute attTup = (Form_pg_attribute) GETSTRUCT(tuple);
+
+        if (attTup->attinhcount > 0)
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TABLE_DEFINITION),
+                           errmsg("cannot drop generation expression from inherited column")));
+    }
+}
+```

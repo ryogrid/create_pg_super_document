@@ -44,3 +44,51 @@ This function handles the opening of logical groups in explain output, providing
 - The labeled parameter affects JSON output format (using curly braces {} for labeled, square brackets [] for unlabeled)
 - TEXT format implementation is minimal since it relies primarily on indentation for grouping
 - Essential for creating nested structures like JIT information, trigger details, and parallel worker data
+
+## Simplified Source
+
+```c
+void ExplainOpenGroup(const char *objtype, const char *labelname,
+                     bool labeled, ExplainState *es)
+{
+    switch (es->format) {
+        case EXPLAIN_FORMAT_TEXT:
+            // Nothing needed for text format
+            break;
+
+        case EXPLAIN_FORMAT_XML:
+            ExplainXMLTag(objtype, X_OPENING, es);
+            es->indent++;
+            break;
+
+        case EXPLAIN_FORMAT_JSON:
+            ExplainJSONLineEnding(es);
+            appendStringInfoSpaces(es->str, 2 * es->indent);
+
+            if (labelname) {
+                escape_json(es->str, labelname);
+                appendStringInfoString(es->str, ": ");
+            }
+
+            // Use {} for labeled groups, [] for unlabeled arrays
+            appendStringInfoChar(es->str, labeled ? '{' : '[');
+            es->grouping_stack = lcons_int(0, es->grouping_stack);
+            es->indent++;
+            break;
+
+        case EXPLAIN_FORMAT_YAML:
+            ExplainYAMLLineStarting(es);
+
+            if (labelname) {
+                appendStringInfo(es->str, "%s: ", labelname);
+                es->grouping_stack = lcons_int(1, es->grouping_stack);
+            } else {
+                appendStringInfoString(es->str, "- ");
+                es->grouping_stack = lcons_int(0, es->grouping_stack);
+            }
+
+            es->indent++;
+            break;
+    }
+}
+```

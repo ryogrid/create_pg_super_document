@@ -47,3 +47,27 @@ This information helps identify queries that consume significant memory and aids
 - Helps identify memory-intensive query operations and potential memory leaks
 - Always displays both used and allocated memory, unlike buffer/WAL usage which filters zero values
 - Memory statistics are particularly useful for analyzing hash joins, sorts, and other memory-intensive operations
+
+## Simplified Source
+
+```c
+static void show_memory_counters(ExplainState *es, const MemoryContextCounters *mem_counters) {
+    // Calculate memory metrics in kilobytes
+    int64 memUsedkB = BYTES_TO_KILOBYTES(mem_counters->totalspace -
+                                        mem_counters->freespace);
+    int64 memAllocatedkB = BYTES_TO_KILOBYTES(mem_counters->totalspace);
+
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Text format: compact single line
+        ExplainIndentText(es);
+        appendStringInfo(es->str,
+                        "Memory: used=" INT64_FORMAT "kB  allocated=" INT64_FORMAT "kB",
+                        memUsedkB, memAllocatedkB);
+        appendStringInfoChar(es->str, '\n');
+    } else {
+        // Structured formats: individual properties
+        ExplainPropertyInteger("Memory Used", "kB", memUsedkB, es);
+        ExplainPropertyInteger("Memory Allocated", "kB", memAllocatedkB, es);
+    }
+}
+```

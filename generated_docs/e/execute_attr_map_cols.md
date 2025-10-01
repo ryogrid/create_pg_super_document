@@ -37,3 +37,47 @@ The conversion process iterates through each possible output column position and
 - Attribute number 0 is skipped as it's invalid in PostgreSQL's column numbering
 - The bitmap offset handling ensures compatibility with RangeTblEntry column bitmaps and other PostgreSQL structures that use this numbering convention
 - Used primarily in executor utilities for determining which columns are involved in INSERT and UPDATE operations
+
+## Simplified Source
+
+```c
+Bitmapset *
+execute_attr_map_cols(AttrMap *attrMap, Bitmapset *in_cols) {
+    Bitmapset *out_cols;
+    int out_attnum;
+
+    // Fast path for NULL input
+    if (in_cols == NULL)
+        return NULL;
+
+    out_cols = NULL;
+
+    // Iterate through all possible output columns
+    for (out_attnum = FirstLowInvalidHeapAttributeNumber;
+         out_attnum <= attrMap->maplen;
+         out_attnum++) {
+        int in_attnum;
+
+        // Handle system columns (negative numbers)
+        if (out_attnum < 0) {
+            in_attnum = out_attnum; // Direct mapping for system columns
+        }
+        // Skip invalid attribute number 0
+        else if (out_attnum == 0) {
+            continue;
+        }
+        // Handle user columns
+        else {
+            in_attnum = attrMap->attnums[out_attnum - 1];
+            if (in_attnum == 0)
+                continue; // Skip unmapped columns
+        }
+
+        // If input column is present, add corresponding output column
+        if (bms_is_member(in_attnum - FirstLowInvalidHeapAttributeNumber, in_cols))
+            out_cols = bms_add_member(out_cols, out_attnum - FirstLowInvalidHeapAttributeNumber);
+    }
+
+    return out_cols;
+}
+```

@@ -33,3 +33,29 @@ The function is a key component in PostgreSQL's extension version resolution sys
 - Only considers vertices where distance_known is false (unprocessed vertices)
 - Returns NULL if no unprocessed vertices remain
 - Static function - only used within extension.c module
+
+## Simplified Source
+
+```c
+static ExtensionVersionInfo *
+get_nearest_unprocessed_vertex(List *evi_list)
+{
+    ExtensionVersionInfo *closest = NULL;
+    ListCell *lc;
+
+    // Find the unprocessed vertex with smallest distance
+    foreach(lc, evi_list) {
+        ExtensionVersionInfo *current = (ExtensionVersionInfo *) lfirst(lc);
+
+        // Skip already processed vertices
+        if (current->distance_known)
+            continue;
+
+        // Update closest if this vertex is nearer
+        if (closest == NULL || closest->distance > current->distance)
+            closest = current;
+    }
+
+    return closest;
+}
+```

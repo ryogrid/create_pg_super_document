@@ -43,3 +43,38 @@ ATTypedTableRecursion handles the complex propagation of ALTER TYPE operations o
 - Performs safety validation on each dependent typed table before processing
 - Essential for maintaining consistency between composite types and their dependent typed tables
 - The function ensures that structural changes to composite types are properly reflected in all tables defined as being "OF" that type
+
+## Simplified Source
+
+```c
+static void ATTypedTableRecursion(List **wqueue, Relation rel, AlterTableCmd *cmd,
+                                 LOCKMODE lockmode, AlterTableUtilityContext *context) {
+    List *children;
+
+    // Ensure we're working with a composite type
+    Assert(rel->rd_rel->relkind == RELKIND_COMPOSITE_TYPE);
+
+    // Find all typed tables that depend on this composite type
+    children = find_typed_table_dependencies(rel->rd_rel->reltype,
+                                           RelationGetRelationName(rel),
+                                           cmd->behavior);
+
+    // Process each dependent typed table
+    foreach(child, children) {
+        Oid childrelid = lfirst_oid(child);
+        Relation childrel;
+
+        // Open the dependent typed table
+        childrel = relation_open(childrelid, lockmode);
+
+        // Validate that the table can be safely altered
+        CheckAlterTableIsSafe(childrel);
+
+        // Add the ALTER command to the work queue for this typed table
+        // Enable recursion to propagate to inheritance children
+        ATPrepCmd(wqueue, childrel, cmd, true, true, lockmode, context);
+
+        relation_close(childrel, NoLock);
+    }
+}
+```

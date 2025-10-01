@@ -37,3 +37,48 @@ The output follows standard SQL VALUES syntax:
 
 ## Notes and Other Information
 This function is specifically designed to handle VALUES clauses that can appear in various SQL contexts, including INSERT statements (INSERT INTO table VALUES ...), SELECT statements (SELECT * FROM (VALUES ...) AS t), and other contexts where VALUES is used as a table expression. The function maintains proper comma placement and parentheses structure to ensure syntactically correct SQL output. The use of  ensures that complex expressions within VALUES clauses are properly formatted, including handling of special PostgreSQL-specific constructs like whole-row variables.
+
+## Simplified Source
+
+```c
+static void get_values_def(List *values_lists, deparse_context *context) {
+    StringInfo buf = context->buf;
+    bool first_list = true;
+    ListCell *vtl;
+
+    appendStringInfoString(buf, "VALUES ");
+
+    // Process each row (value list)
+    foreach(vtl, values_lists) {
+        List *sublist = (List *) lfirst(vtl);
+        bool first_col = true;
+        ListCell *lc;
+
+        // Add comma between rows
+        if (first_list)
+            first_list = false;
+        else
+            appendStringInfoString(buf, ", ");
+
+        // Start row with opening parenthesis
+        appendStringInfoChar(buf, '(');
+
+        // Process each column value in the row
+        foreach(lc, sublist) {
+            Node *col = (Node *) lfirst(lc);
+
+            // Add comma between column values
+            if (first_col)
+                first_col = false;
+            else
+                appendStringInfoChar(buf, ',');
+
+            // Format the value expression (handles whole-row Vars specially)
+            get_rule_expr_toplevel(col, context, false);
+        }
+
+        // Close row with closing parenthesis
+        appendStringInfoChar(buf, ')');
+    }
+}
+```

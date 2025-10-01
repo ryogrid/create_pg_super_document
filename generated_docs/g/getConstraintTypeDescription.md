@@ -46,3 +46,41 @@ If neither conrelid nor contypid is valid, the constraint is considered invalid 
 - Falls back gracefully when constraints are missing and missing_ok is true
 - Throws an error for invalid constraints that have neither relation nor type associations
 - Located in src/backend/catalog/objectaddress.c:4666-4702
+
+## Simplified Source
+
+```c
+static void
+getConstraintTypeDescription(StringInfo buffer, Oid constroid, bool missing_ok)
+{
+    Relation constraRel;
+    HeapTuple constraTup;
+    Form_pg_constraint constraForm;
+
+    // Open constraint catalog table
+    constraRel = table_open(ConstraintRelationId, AccessShareLock);
+    constraTup = get_catalog_object_by_oid(constraRel, Anum_pg_constraint_oid, constroid);
+
+    if (!HeapTupleIsValid(constraTup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for constraint %u", constroid);
+
+        table_close(constraRel, AccessShareLock);
+        // Fallback to generic description
+        appendStringInfoString(buffer, "constraint");
+        return;
+    }
+
+    constraForm = (Form_pg_constraint) GETSTRUCT(constraTup);
+
+    // Determine constraint type based on what it's attached to
+    if (OidIsValid(constraForm->conrelid))
+        appendStringInfoString(buffer, "table constraint");
+    else if (OidIsValid(constraForm->contypid))
+        appendStringInfoString(buffer, "domain constraint");
+    else
+        elog(ERROR, "invalid constraint %u", constraForm->oid);
+
+    table_close(constraRel, AccessShareLock);
+}
+```

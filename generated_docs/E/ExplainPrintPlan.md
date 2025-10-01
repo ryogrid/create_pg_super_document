@@ -47,3 +47,45 @@ The function coordinates the overall EXPLAIN output generation process, delegati
 - [Query](../Q/Query.md) identifiers are displayed as signed 64-bit integers to match pg_stat_statements output format
 - [Plan](../P/Plan.md)-tree-specific fields in ExplainState are initialized by this function and used by subsequent explain operations
 - The deparse context created here enables proper SQL fragment reconstruction throughout the explanation process
+
+## Simplified Source
+
+```c
+void ExplainPrintPlan(ExplainState *es, QueryDesc *queryDesc)
+{
+    Bitmapset  *rels_used = NULL;
+    PlanState  *ps;
+
+    // Initialize ExplainState for this plan tree
+    Assert(queryDesc->plannedstmt != NULL);
+    es->pstmt = queryDesc->plannedstmt;
+    es->rtable = queryDesc->plannedstmt->rtable;
+
+    // Pre-scan to determine which relations are used
+    ExplainPreScanNode(queryDesc->planstate, &rels_used);
+    es->rtable_names = select_rtable_names_for_explain(es->rtable, rels_used);
+    es->deparse_cxt = deparse_context_for_plan_tree(queryDesc->plannedstmt,
+                                                   es->rtable_names);
+    es->printed_subplans = NULL;
+
+    // Handle special "invisible" Gather nodes for regression testing
+    ps = queryDesc->planstate;
+    if (IsA(ps, GatherState) && ((Gather *) ps->plan)->invisible) {
+        ps = outerPlanState(ps);
+        es->hide_workers = true;
+    }
+
+    // Process the entire plan tree
+    ExplainNode(ps, NIL, NULL, NULL, es);
+
+    // Show modified GUC settings if requested
+    ExplainPrintSettings(es);
+
+    // Show query identifier in verbose mode (except regression testing)
+    if (es->verbose && queryDesc->plannedstmt->queryId != UINT64CONST(0) &&
+        compute_query_id != COMPUTE_QUERY_ID_REGRESS) {
+        ExplainPropertyInteger("Query Identifier", NULL,
+                              (int64) queryDesc->plannedstmt->queryId, es);
+    }
+}
+```

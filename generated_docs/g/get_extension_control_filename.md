@@ -33,3 +33,24 @@ The function uses PostgreSQL's standard path resolution mechanisms and memory ma
 - No validation is performed on the extension name parameter - the caller is responsible for ensuring it's valid
 - my_exec_path is a global variable containing the path to the PostgreSQL executable used as a reference for path resolution
 - The .control extension is automatically appended to the provided extension name
+
+## Simplified Source
+
+```c
+static char *
+get_extension_control_filename(const char *extname)
+{
+    char sharepath[MAXPGPATH];
+    char *result;
+
+    // Get PostgreSQL share directory path
+    get_share_path(my_exec_path, sharepath);
+
+    // Build control file path: $SHAREPATH/extension/extname.control
+    result = (char *) palloc(MAXPGPATH);
+    snprintf(result, MAXPGPATH, "%s/extension/%s.control",
+             sharepath, extname);
+
+    return result;
+}
+```

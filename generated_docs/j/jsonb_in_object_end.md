@@ -36,3 +36,16 @@ The function works as the counterpart to jsonb_in_object_start, completing the b
 - Works in conjunction with jsonb_in_object_start to bracket object parsing
 - Returns JSON_SUCCESS to indicate successful processing of the object end token
 - The WJB_END_OBJECT token triggers finalization of the parsed object in the JSONB value construction process
+
+## Simplified Source
+
+```c
+static JsonParseErrorType jsonb_in_object_end(void *pstate) {
+    JsonbInState *_state = (JsonbInState *) pstate;
+
+    // Signal the end of object parsing by pushing END_OBJECT token
+    _state->res = pushJsonbValue(&_state->parseState, WJB_END_OBJECT, NULL);
+
+    return JSON_SUCCESS;
+}
+```

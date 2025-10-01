@@ -42,3 +42,42 @@ The pg_hmac_final function completes the HMAC computation process by implementin
 - Sets appropriate error codes (PG_HMAC_ERROR_OOM for memory allocation failures)
 - Uses the outer padding key (k_opad) stored in the context during initialization
 - After calling this function, the context should be freed with pg_hmac_free
+
+## Simplified Source
+
+```c
+int pg_hmac_final(pg_hmac_ctx *ctx, uint8 *dest, size_t len) {
+    if (ctx == NULL)
+        return -1;
+
+    // Allocate buffer for intermediate hash result
+    uint8 *h = ALLOC(ctx->digest_size);
+    if (h == NULL) {
+        ctx->error = PG_HMAC_ERROR_OOM;
+        return -1;
+    }
+    memset(h, 0, ctx->digest_size);
+
+    // Finalize inner hash: H(K XOR ipad, text)
+    if (pg_cryptohash_final(ctx->hash, h, ctx->digest_size) < 0) {
+        ctx->error = PG_HMAC_ERROR_INTERNAL;
+        ctx->errreason = pg_cryptohash_error(ctx->hash);
+        FREE(h);
+        return -1;
+    }
+
+    // Compute outer hash: H(K XOR opad, inner_hash)
+    if (pg_cryptohash_init(ctx->hash) < 0 ||
+        pg_cryptohash_update(ctx->hash, ctx->k_opad, ctx->block_size) < 0 ||
+        pg_cryptohash_update(ctx->hash, h, ctx->digest_size) < 0 ||
+        pg_cryptohash_final(ctx->hash, dest, len) < 0) {
+        ctx->error = PG_HMAC_ERROR_INTERNAL;
+        ctx->errreason = pg_cryptohash_error(ctx->hash);
+        FREE(h);
+        return -1;
+    }
+
+    FREE(h);
+    return 0;
+}
+```

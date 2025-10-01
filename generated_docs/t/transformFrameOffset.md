@@ -54,3 +54,84 @@ The function also validates that the offset expression contains no variables, en
 - Error messages provide specific guidance about type casting when automatic coercion fails
 - The function enforces that frame offsets must be constant expressions (no variables allowed)
 - Located in src/backend/parser/parse_clause.c:3686-3822
+
+## Simplified Source
+
+```c
+static Node *transformFrameOffset(ParseState *pstate, int frameOptions,
+                                  Oid rangeopfamily, Oid rangeopcintype, Oid *inRangeFunc,
+                                  Node *clause) {
+    const char *constructName = NULL;
+    Node *node;
+
+    *inRangeFunc = InvalidOid;
+
+    // Quick exit if no offset expression
+    if (clause == NULL)
+        return NULL;
+
+    if (frameOptions & FRAMEOPTION_ROWS) {
+        // Transform and coerce to int8 for row count
+        node = transformExpr(pstate, clause, EXPR_KIND_WINDOW_FRAME_ROWS);
+        constructName = "ROWS";
+        node = coerce_to_specific_type(pstate, node, INT8OID, constructName);
+
+    } else if (frameOptions & FRAMEOPTION_RANGE) {
+        // Transform expression and find compatible in_range function
+        node = transformExpr(pstate, clause, EXPR_KIND_WINDOW_FRAME_RANGE);
+        Oid nodeType = exprType(node);
+        Oid preferredType = (nodeType != UNKNOWNOID) ? nodeType : rangeopcintype;
+
+        // Search system catalog for compatible in_range functions
+        CatCList *proclist = SearchSysCacheList2(AMPROCNUM,
+                                                ObjectIdGetDatum(rangeopfamily),
+                                                ObjectIdGetDatum(rangeopcintype));
+
+        Oid selectedType = InvalidOid;
+        Oid selectedFunc = InvalidOid;
+        int nfuncs = 0, nmatches = 0;
+
+        // Find best matching in_range function
+        for (int i = 0; i < proclist->n_members; i++) {
+            HeapTuple proctup = &proclist->members[i]->tuple;
+            Form_pg_amproc procform = (Form_pg_amproc) GETSTRUCT(proctup);
+
+            if (procform->amprocnum != BTINRANGE_PROC)
+                continue;
+            nfuncs++;
+
+            if (!can_coerce_type(1, &nodeType, &procform->amprocrighttype, COERCION_IMPLICIT))
+                continue;
+            nmatches++;
+
+            // Prefer exact type match
+            if (selectedType != preferredType) {
+                selectedType = procform->amprocrighttype;
+                selectedFunc = procform->amproc;
+            }
+        }
+
+        ReleaseCatCacheList(proclist);
+
+        // Error handling for unsupported types
+        if (nfuncs == 0 || nmatches == 0) {
+            ereport(ERROR, /* appropriate error message */);
+        }
+
+        constructName = "RANGE";
+        node = coerce_to_specific_type(pstate, node, selectedType, constructName);
+        *inRangeFunc = selectedFunc;
+
+    } else if (frameOptions & FRAMEOPTION_GROUPS) {
+        // Transform and coerce to int8 for group count
+        node = transformExpr(pstate, clause, EXPR_KIND_WINDOW_FRAME_GROUPS);
+        constructName = "GROUPS";
+        node = coerce_to_specific_type(pstate, node, INT8OID, constructName);
+    }
+
+    // Ensure offset expression contains no variables
+    checkExprIsVarFree(pstate, node, constructName);
+
+    return node;
+}
+```

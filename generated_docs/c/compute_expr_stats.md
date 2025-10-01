@@ -47,3 +47,98 @@ This function evaluates expressions on a sample of table rows and computes detai
 
 ## Notes and Other Information
 The function creates a dedicated memory context for expression evaluation to prevent memory leaks and ensure proper cleanup. Each expression is evaluated against all sample rows using PostgreSQL's expression evaluation infrastructure. The computed statistics are stored in the VacAttrStats structure and can be overridden by table-specific n_distinct options. Memory management is critical as expression evaluation can generate significant temporary data, so the function resets the per-tuple context after each row evaluation and cleans up all resources at the end.
+
+## Simplified Source
+
+```c
+static void compute_expr_stats(Relation onerel, double totalrows,
+                               AnlExprData *exprdata, int nexprs,
+                               HeapTuple *rows, int numrows)
+{
+    MemoryContext expr_context, old_context;
+    int ind, i;
+
+    // Create memory context for expression evaluation
+    expr_context = AllocSetContextCreate(CurrentMemoryContext,
+                                         "Analyze Expression",
+                                         ALLOCSET_DEFAULT_SIZES);
+    old_context = MemoryContextSwitchTo(expr_context);
+
+    // Process each expression
+    for (ind = 0; ind < nexprs; ind++)
+    {
+        AnlExprData *thisdata = &exprdata[ind];
+        VacAttrStats *stats = thisdata->vacattrstat;
+        Node *expr = thisdata->expr;
+        TupleTableSlot *slot;
+        EState *estate;
+        ExprContext *econtext;
+        Datum *exprvals;
+        bool *exprnulls;
+        ExprState *exprstate;
+        int tcnt;
+
+        // Set up expression evaluation infrastructure
+        estate = CreateExecutorState();
+        econtext = GetPerTupleExprContext(estate);
+        exprstate = ExecPrepareExpr((Expr *) expr, estate);
+        slot = MakeSingleTupleTableSlot(RelationGetDescr(onerel), &TTSOpsHeapTuple);
+        econtext->ecxt_scantuple = slot;
+
+        // Allocate arrays for expression results
+        exprvals = (Datum *) palloc(numrows * sizeof(Datum));
+        exprnulls = (bool *) palloc(numrows * sizeof(bool));
+
+        // Evaluate expression against each sample row
+        tcnt = 0;
+        for (i = 0; i < numrows; i++)
+        {
+            Datum datum;
+            bool isnull;
+
+            // Reset context and store current tuple
+            ResetExprContext(econtext);
+            ExecStoreHeapTuple(rows[i], slot, false);
+
+            // Evaluate expression and store result
+            datum = ExecEvalExprSwitchContext(exprstate, GetPerTupleExprContext(estate), &isnull);
+            if (isnull)
+            {
+                exprvals[tcnt] = (Datum) 0;
+                exprnulls[tcnt] = true;
+            }
+            else
+            {
+                exprvals[tcnt] = datumCopy(datum, stats->attrtype->typbyval, stats->attrtype->typlen);
+                exprnulls[tcnt] = false;
+            }
+            tcnt++;
+        }
+
+        // Compute statistics if we have data
+        if (tcnt > 0)
+        {
+            AttributeOpts *aopt = get_attribute_options(onerel->rd_id, stats->tupattnum);
+
+            stats->exprvals = exprvals;
+            stats->exprnulls = exprnulls;
+            stats->rowstride = 1;
+            stats->compute_stats(stats, expr_fetch_func, tcnt, tcnt);
+
+            // Override with table-specific n_distinct if specified
+            if (aopt != NULL && aopt->n_distinct != 0.0)
+                stats->stadistinct = aopt->n_distinct;
+        }
+
+        // Clean up expression resources
+        MemoryContextSwitchTo(expr_context);
+        ExecDropSingleTupleTableSlot(slot);
+        FreeExecutorState(estate);
+        MemoryContextReset(expr_context);
+    }
+
+    // Clean up expression context
+    MemoryContextSwitchTo(old_context);
+    MemoryContextDelete(expr_context);
+}
+```

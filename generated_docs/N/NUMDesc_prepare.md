@@ -57,3 +57,89 @@ The function processes various numeric format patterns:
   - Cannot have multiple decimal points
 - Sets need_locale flag when locale-specific formatting is required
 - Manages complex state tracking for sign positioning (pre vs post decimal)
+
+## Simplified Source
+
+```c
+static void
+NUMDesc_prepare(NUMDesc *num, FormatNode *n)
+{
+    if (n->type != NODE_TYPE_ACTION)
+        return;
+
+    // Validate EEEE placement - must be last
+    if (IS_EEEE(num) && n->key->id != NUM_E)
+        ereport(ERROR, "EEEE must be the last pattern used");
+
+    switch (n->key->id) {
+        case NUM_9:    // Digit placeholder
+            // Validate placement and update counters
+            if (IS_BRACKET(num)) ereport(ERROR, "9 must be ahead of PR");
+            if (IS_MULTI(num)) ++num->multi;
+            else if (IS_DECIMAL(num)) ++num->post;
+            else ++num->pre;
+            break;
+
+        case NUM_0:    // Zero-padded digit
+            // Similar to NUM_9 but enables zero padding
+            if (IS_BRACKET(num)) ereport(ERROR, "0 must be ahead of PR");
+            if (!IS_ZERO(num) && !IS_DECIMAL(num)) {
+                num->flag |= NUM_F_ZERO;
+                num->zero_start = num->pre + 1;
+            }
+            if (!IS_DECIMAL(num)) ++num->pre;
+            else ++num->post;
+            num->zero_end = num->pre + num->post;
+            break;
+
+        case NUM_D:    // Locale decimal point
+            num->flag |= NUM_F_LDECIMAL;
+            num->need_locale = true;
+            // FALLTHROUGH
+        case NUM_DEC:  // Regular decimal point
+            if (IS_DECIMAL(num)) ereport(ERROR, "multiple decimal points");
+            if (IS_MULTI(num)) ereport(ERROR, "cannot use V and decimal point together");
+            num->flag |= NUM_F_DECIMAL;
+            break;
+
+        case NUM_FM:   // Fill mode
+            num->flag |= NUM_F_FILLMODE;
+            break;
+
+        case NUM_S:    // Sign indicator
+            // Complex sign validation and positioning logic
+            if (IS_LSIGN(num)) ereport(ERROR, "cannot use S twice");
+            if (IS_PLUS(num) || IS_MINUS(num) || IS_BRACKET(num))
+                ereport(ERROR, "cannot use S and PL/MI/SG/PR together");
+
+            if (!IS_DECIMAL(num)) {
+                num->lsign = NUM_LSIGN_PRE;
+                num->pre_lsign_num = num->pre;
+            } else if (num->lsign == NUM_LSIGN_NONE) {
+                num->lsign = NUM_LSIGN_POST;
+            }
+            num->need_locale = true;
+            num->flag |= NUM_F_LSIGN;
+            break;
+
+        case NUM_MI:   // Minus sign
+        case NUM_PL:   // Plus sign
+        case NUM_SG:   // Sign (both + and -)
+        case NUM_PR:   // Brackets for negatives
+            // Handle various sign indicators with validation
+            // Each has specific compatibility rules
+            break;
+
+        case NUM_E:    // Scientific notation
+            if (IS_EEEE(num)) ereport(ERROR, "cannot use EEEE twice");
+            // Validate EEEE compatibility with other formats
+            if (IS_BLANK(num) || IS_FILLMODE(num) || /* other incompatible flags */)
+                ereport(ERROR, "EEEE is incompatible with other formats");
+            num->flag |= NUM_F_EEEE;
+            break;
+
+        // Additional cases: NUM_B, NUM_rn/RN, NUM_L/G, NUM_V
+        // Each sets appropriate flags and performs validation
+    }
+}
+```

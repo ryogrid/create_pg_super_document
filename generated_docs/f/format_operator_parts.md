@@ -49,3 +49,38 @@ The function queries the pg_operator system catalog and populates two output lis
 - The missing_ok parameter allows graceful handling of invalid operator OIDs
 - Does not allocate return strings - caller is responsible for list memory management
 - Located in src/backend/utils/adt/regproc.c:806-838
+
+## Simplified Source
+
+```c
+void
+format_operator_parts(Oid operator_oid, List **objnames, List **objargs, bool missing_ok)
+{
+    HeapTuple opertup;
+    Form_pg_operator oprForm;
+
+    // Look up operator in system catalog
+    opertup = SearchSysCache1(OPEROID, ObjectIdGetDatum(operator_oid));
+    if (!HeapTupleIsValid(opertup)) {
+        if (!missing_ok)
+            elog(ERROR, "cache lookup failed for operator with OID %u", operator_oid);
+        return;
+    }
+
+    // Extract operator information
+    oprForm = (Form_pg_operator) GETSTRUCT(opertup);
+
+    // Build names list: [schema_name, operator_name]
+    *objnames = list_make2(get_namespace_name_or_temp(oprForm->oprnamespace),
+                          pstrdup(NameStr(oprForm->oprname)));
+
+    // Build argument types list
+    *objargs = NIL;
+    if (oprForm->oprleft)
+        *objargs = lappend(*objargs, format_type_be_qualified(oprForm->oprleft));
+    if (oprForm->oprright)
+        *objargs = lappend(*objargs, format_type_be_qualified(oprForm->oprright));
+
+    ReleaseSysCache(opertup);
+}
+```

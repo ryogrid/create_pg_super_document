@@ -54,3 +54,26 @@ During the copy process, the function collects important statistics about tuple 
 - Transaction visibility management ensures MVCC consistency during the copy process
 - The function delegates to table access method implementations for storage-specific optimizations
 - Performance is critical as this function processes all table data during clustering operations
+
+## Simplified Source
+
+```c
+static inline void
+table_relation_copy_for_cluster(Relation OldTable, Relation NewTable,
+                                Relation OldIndex,
+                                bool use_sort,
+                                TransactionId OldestXmin,
+                                TransactionId *xid_cutoff,
+                                MultiXactId *multi_cutoff,
+                                double *num_tuples,
+                                double *tups_vacuumed,
+                                double *tups_recently_dead)
+{
+    // Delegate to the table access method's copy implementation
+    OldTable->rd_tableam->relation_copy_for_cluster(OldTable, NewTable, OldIndex,
+                                                    use_sort, OldestXmin,
+                                                    xid_cutoff, multi_cutoff,
+                                                    num_tuples, tups_vacuumed,
+                                                    tups_recently_dead);
+}
+```

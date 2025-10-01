@@ -50,3 +50,103 @@ For each MCV item, the function calculates both the observed frequency and the b
 - Uses binary search to efficiently find column frequencies when calculating base frequencies
 - Allocates memory for MCVList structure and individual MCVItem components
 - The algorithm specifically handles multi-column scenarios where traditional single-column approaches are insufficient
+
+## Simplified Source
+
+```c
+MCVList *
+statext_mcv_build(StatsBuildData *data, double totalrows, int stattarget)
+{
+    int numattrs = data->nattnums;
+    int numrows = data->numrows;
+    int nitems, ngroups;
+    double mincount;
+    SortItem *items, *groups;
+    MCVList *mcvlist = NULL;
+    MultiSortSupport mss;
+
+    // Step 1: Build comparator and sort the rows
+    mss = build_mss(data);
+    items = build_sorted_items(data, &nitems, mss, numattrs, data->attnums);
+
+    if (!items)
+        return NULL;
+
+    // Step 2: Transform sorted rows into distinct groups (sorted by frequency)
+    groups = build_distinct_groups(nitems, items, mss, &ngroups);
+
+    // Step 3: Determine how many items to keep
+    nitems = stattarget;
+    if (nitems > ngroups)
+        nitems = ngroups;
+
+    // Calculate minimum count threshold
+    mincount = get_mincount_for_mcv_list(numrows, totalrows);
+
+    // Find first group below threshold
+    for (int i = 0; i < nitems; i++)
+    {
+        if (groups[i].count < mincount)
+        {
+            nitems = i;
+            break;
+        }
+    }
+
+    // Step 4: Build MCV list if we have items to keep
+    if (nitems > 0)
+    {
+        SortItem **freqs;
+        int *nfreqs;
+
+        // Compute frequencies for values in each column
+        nfreqs = palloc0(sizeof(int) * numattrs);
+        freqs = build_column_frequencies(groups, ngroups, mss, nfreqs);
+
+        // Allocate MCV list structure
+        mcvlist = palloc0(offsetof(MCVList, items) +
+                         sizeof(MCVItem) * nitems);
+
+        mcvlist->magic = STATS_MCV_MAGIC;
+        mcvlist->type = STATS_MCV_TYPE_BASIC;
+        mcvlist->ndimensions = numattrs;
+        mcvlist->nitems = nitems;
+
+        // Store data type OIDs
+        for (int i = 0; i < numattrs; i++)
+            mcvlist->types[i] = data->stats[i]->attrtypid;
+
+        // Copy groups into result
+        for (int i = 0; i < nitems; i++)
+        {
+            MCVItem *item = &mcvlist->items[i];
+
+            // Allocate and copy values
+            item->values = palloc(sizeof(Datum) * numattrs);
+            item->isnull = palloc(sizeof(bool) * numattrs);
+            memcpy(item->values, groups[i].values, sizeof(Datum) * numattrs);
+            memcpy(item->isnull, groups[i].isnull, sizeof(bool) * numattrs);
+
+            // Calculate actual frequency
+            item->frequency = (double) groups[i].count / numrows;
+
+            // Calculate base frequency (assuming independence)
+            item->base_frequency = 1.0;
+            for (int j = 0; j < numattrs; j++)
+            {
+                SortItem key = {&groups[i].values[j], &groups[i].isnull[j]};
+                SortItem *freq = bsearch_arg(&key, freqs[j], nfreqs[j],
+                                           sizeof(SortItem), multi_sort_compare, mss);
+                item->base_frequency *= ((double) freq->count) / numrows;
+            }
+        }
+
+        pfree(nfreqs);
+        pfree(freqs);
+    }
+
+    pfree(items);
+    pfree(groups);
+    return mcvlist;
+}
+```

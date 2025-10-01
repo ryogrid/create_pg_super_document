@@ -40,3 +40,48 @@ This function performs the actual catalog update when moving a relation to a new
 - Dependency tracking is only updated for relations without physical storage (views, etc.)
 - The caller is responsible for making the change visible and managing the overall transaction
 - Uses row-exclusive lock on pg_class during the update operation
+
+## Simplified Source
+
+```c
+void SetRelationTableSpace(Relation rel, Oid newTableSpaceId, RelFileNumber newRelFilenumber) {
+    Relation pg_class;
+    HeapTuple tuple;
+    ItemPointerData otid;
+    Form_pg_class rd_rel;
+    Oid reloid = RelationGetRelid(rel);
+
+    // Validate that move is allowed
+    Assert(CheckRelationTableSpaceMove(rel, newTableSpaceId));
+
+    // Open pg_class for modification
+    pg_class = table_open(RelationRelationId, RowExclusiveLock);
+
+    // Get the relation's pg_class tuple
+    tuple = SearchSysCacheLockedCopy1(RELOID, ObjectIdGetDatum(reloid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", reloid);
+    otid = tuple->t_self;
+    rd_rel = (Form_pg_class) GETSTRUCT(tuple);
+
+    // Update tablespace (store MyDatabaseTableSpace as InvalidOid)
+    rd_rel->reltablespace = (newTableSpaceId == MyDatabaseTableSpace) ?
+        InvalidOid : newTableSpaceId;
+
+    // Update file number if specified
+    if (RelFileNumberIsValid(newRelFilenumber))
+        rd_rel->relfilenode = newRelFilenumber;
+
+    // Write the updated tuple
+    CatalogTupleUpdate(pg_class, &otid, tuple);
+    UnlockTuple(pg_class, &otid, InplaceUpdateTupleLock);
+
+    // Update dependencies for relations without storage
+    if (!RELKIND_HAS_STORAGE(rel->rd_rel->relkind))
+        changeDependencyOnTablespace(RelationRelationId, reloid, rd_rel->reltablespace);
+
+    // Cleanup
+    heap_freetuple(tuple);
+    table_close(pg_class, RowExclusiveLock);
+}
+```

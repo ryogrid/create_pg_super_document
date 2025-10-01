@@ -32,3 +32,16 @@ This function provides a fast, lock-free method to retrieve the current write po
 - The written position represents data received and written to WAL buffers but not necessarily durably stored
 - Simpler interface compared to GetWalRcvFlushRecPtr as it only returns the write position
 - Located in src/backend/replication/walreceiverfuncs.c:352-363
+
+## Simplified Source
+
+```c
+XLogRecPtr
+GetWalRcvWriteRecPtr(void)
+{
+    WalRcvData *walrcv = WalRcv;
+
+    // Return the last written position using atomic read
+    return pg_atomic_read_u64(&walrcv->writtenUpto);
+}
+```

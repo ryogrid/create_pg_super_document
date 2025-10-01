@@ -34,3 +34,14 @@ This is a static inline convenience wrapper around the generic ResourceOwnerForg
 - Should be called as the counterpart to ResourceOwnerRememberTupleDesc when manually cleaning up a TupleDesc
 - The function converts the TupleDesc pointer to a Datum using PointerGetDatum for removal from the generic resource owner system
 - Prevents double-cleanup by removing the TupleDesc from automatic resource owner cleanup when it's being manually freed
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerForgetTupleDesc(ResourceOwner owner, TupleDesc tupdesc)
+{
+    // Unregister TupleDesc from resource owner to prevent double-cleanup
+    ResourceOwnerForget(owner, PointerGetDatum(tupdesc), &tupdesc_resowner_desc);
+}
+```

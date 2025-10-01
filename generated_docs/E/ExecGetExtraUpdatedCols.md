@@ -38,3 +38,18 @@ The "extra updated columns" represent columns that aren't explicitly mentioned i
 - Critical for maintaining data consistency in tables with generated columns
 - The returned bitmap complements the explicitly updated columns to provide a complete picture of all columns that will change
 - Essential for index maintenance decisions - indexes on generated columns may need updates even when those columns aren't explicitly mentioned in the UPDATE statement
+
+## Simplified Source
+
+```c
+Bitmapset *
+ExecGetExtraUpdatedCols(ResultRelInfo *relinfo, EState *estate)
+{
+    // Initialize generated column info if not already done
+    if (relinfo->ri_GeneratedExprsU == NULL)
+        ExecInitStoredGenerated(relinfo, estate, CMD_UPDATE);
+
+    // Return bitmap of generated columns that need updating
+    return relinfo->ri_extraUpdatedCols;
+}
+```

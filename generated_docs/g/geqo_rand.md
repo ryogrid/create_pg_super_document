@@ -32,3 +32,15 @@ This function is fundamental to the genetic algorithm's operation, providing the
 - Essential for implementing probabilistic decisions in genetic algorithm operations
 - Part of the GEQO subsystem's random number generation infrastructure
 - The quality of randomness directly affects the effectiveness of the genetic optimization process
+
+## Simplified Source
+
+```c
+double geqo_rand(PlannerInfo *root) {
+    // Access GEQO private data containing random state
+    GeqoPrivateData *private = (GeqoPrivateData *) root->join_search_private;
+
+    // Generate random double in range [0.0, 1.0)
+    return pg_prng_double(&private->random_state);
+}
+```

@@ -36,3 +36,14 @@ The function returns true only if the function is volatile AND is not nextval(),
 - The special treatment of F_NEXTVAL reflects COPY operation requirements
 - Returns true only for volatile functions that are not nextval()
 - Part of the specialized volatility checking system for bulk operations
+
+## Simplified Source
+
+```c
+static bool contain_volatile_functions_not_nextval_checker(Oid func_id, void *context)
+{
+    // Return true if function is volatile but not nextval()
+    return (func_id != F_NEXTVAL &&
+            func_volatile(func_id) == PROVOLATILE_VOLATILE);
+}
+```

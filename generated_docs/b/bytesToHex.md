@@ -34,3 +34,20 @@ The conversion process iterates through each of the 16 input bytes, splits each 
 - The output string is always null-terminated
 - Assumes the output buffer  has sufficient space (33 bytes minimum) - no bounds checking is performed
 - This is a utility function specifically designed for MD5 hash formatting in PostgreSQL's cryptographic operations
+
+## Simplified Source
+
+```c
+static void bytesToHex(uint8 b[16], char *s) {
+    static const char *hex = "0123456789abcdef";
+    int w = 0;
+
+    // Convert each byte to two hex characters
+    for (int q = 0; q < 16; q++) {
+        s[w++] = hex[(b[q] >> 4) & 0x0F];  // High nibble
+        s[w++] = hex[b[q] & 0x0F];         // Low nibble
+    }
+
+    s[w] = '\0';  // Null-terminate the string
+}
+```

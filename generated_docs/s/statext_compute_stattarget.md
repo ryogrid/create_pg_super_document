@@ -36,3 +36,32 @@ This function implements a three-tier hierarchy for determining the statistics t
 - Validates final result with Assert to ensure it's within valid range [0, MAX_STATISTICS_TARGET]
 - Maintains backwards compatibility by honoring per-column statistics targets
 - A target of 0 disables building the statistics object entirely
+
+## Simplified Source
+
+```c
+static int statext_compute_stattarget(int stattarget, int nattrs, VacAttrStats **stats)
+{
+    int i;
+
+    // Use statistics object's own target if explicitly set (>= 0)
+    if (stattarget >= 0)
+        return stattarget;
+
+    // Find maximum target from individual attributes
+    for (i = 0; i < nattrs; i++)
+    {
+        if (stats[i]->attstattarget > stattarget)
+            stattarget = stats[i]->attstattarget;
+    }
+
+    // Fall back to system default if still unset
+    if (stattarget < 0)
+        stattarget = default_statistics_target;
+
+    // Ensure valid target range
+    Assert((stattarget >= 0) && (stattarget <= MAX_STATISTICS_TARGET));
+
+    return stattarget;
+}
+```

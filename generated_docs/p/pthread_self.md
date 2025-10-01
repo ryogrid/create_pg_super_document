@@ -29,3 +29,12 @@ This function provides a Windows-compatible implementation of the POSIX pthread_
 - Returns a DWORD value representing the thread ID, which differs from the pthread_t type used in standard POSIX implementations
 - Part of PostgreSQL's threading compatibility layer that allows the same threading code to work across different platforms
 - The function is referenced in pthread-win32.h for type definitions
+
+## Simplified Source
+
+```c
+DWORD pthread_self(void) {
+    // Return the current thread's unique identifier on Windows
+    return GetCurrentThreadId();
+}
+```

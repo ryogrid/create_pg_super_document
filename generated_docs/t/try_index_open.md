@@ -36,3 +36,23 @@ The function is useful in scenarios where the existence of an index is uncertain
 - Still validates that the relation is an index if it does exist
 - Useful for conditional index operations where the index may or may not exist
 - Located in src/backend/access/index/indexam.c:152-176
+
+## Simplified Source
+
+```c
+Relation try_index_open(Oid relationId, LOCKMODE lockmode) {
+    Relation r;
+
+    // Try to open the relation - returns NULL if doesn't exist
+    r = try_relation_open(relationId, lockmode);
+
+    // Return NULL if index doesn't exist
+    if (!r)
+        return NULL;
+
+    // Validate that this is actually an index
+    validate_relation_kind(r);
+
+    return r;
+}
+```

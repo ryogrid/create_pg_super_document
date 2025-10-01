@@ -39,3 +39,45 @@ The `cost_tablefuncscan` function calculates the cost of scanning a table functi
 - Target list evaluation costs are applied per output row, not per scanned tuple
 - Handles both parameterized and non-parameterized table function scans
 - Used for table functions like XMLTABLE, JSON_TABLE, and other SQL standard table functions
+
+## Simplified Source
+
+```c
+void cost_tablefuncscan(Path *path, PlannerInfo *root,
+                        RelOptInfo *baserel, ParamPathInfo *param_info)
+{
+    Cost startup_cost = 0;
+    Cost run_cost = 0;
+    QualCost qpqual_cost;
+    Cost cpu_per_tuple;
+    RangeTblEntry *rte;
+    QualCost exprcost;
+
+    // Verify this is a table function relation
+    rte = planner_rt_fetch(baserel->relid, root);
+
+    // Set row estimate based on parameterization
+    if (param_info)
+        path->rows = param_info->ppi_rows;
+    else
+        path->rows = baserel->rows;
+
+    // Calculate cost of executing the table function expression
+    cost_qual_eval_node(&exprcost, (Node *) rte->tablefunc, root);
+    startup_cost += exprcost.startup + exprcost.per_tuple;
+
+    // Add restriction qualification costs
+    get_restriction_qual_cost(root, baserel, param_info, &qpqual_cost);
+    startup_cost += qpqual_cost.startup;
+    cpu_per_tuple = cpu_tuple_cost + qpqual_cost.per_tuple;
+    run_cost += cpu_per_tuple * baserel->tuples;
+
+    // Add target list evaluation costs (per output row)
+    startup_cost += path->pathtarget->cost.startup;
+    run_cost += path->pathtarget->cost.per_tuple * path->rows;
+
+    // Store final costs
+    path->startup_cost = startup_cost;
+    path->total_cost = startup_cost + run_cost;
+}
+```

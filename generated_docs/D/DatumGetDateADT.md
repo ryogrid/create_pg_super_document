@@ -39,3 +39,15 @@ The function is defined as a static inline function in the header file, meaning 
 - As a static inline function, it provides zero-overhead abstraction for type conversion
 - The function is heavily used throughout PostgreSQL's date/time processing, JSON operations, range types, and XML functionality
 - Located in src/include/utils/date.h, making it available to all components that include this header file
+
+## Simplified Source
+
+```c
+static inline DateADT
+DatumGetDateADT(Datum X)
+{
+    // Convert Datum to DateADT by extracting as 32-bit integer
+    // DateADT is internally represented as int32
+    return (DateADT) DatumGetInt32(X);
+}
+```

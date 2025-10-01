@@ -35,3 +35,17 @@ The maintenance I/O concurrency setting controls how many concurrent I/O operati
 - Uses a negative value check to determine if the default global setting should be used
 - The function provides a clean interface for accessing tablespace-specific or global maintenance I/O concurrency settings
 - Located in src/backend/utils/cache/spccache.c at lines 229-237
+
+## Simplified Source
+```c
+int get_tablespace_maintenance_io_concurrency(Oid spcid) {
+    // Get cached tablespace entry
+    TableSpaceCacheEntry *spc = get_tablespace(spcid);
+
+    // Return tablespace-specific value or global default
+    if (!spc->opts || spc->opts->maintenance_io_concurrency < 0)
+        return maintenance_io_concurrency;  // use global default
+    else
+        return spc->opts->maintenance_io_concurrency;  // use tablespace setting
+}
+```

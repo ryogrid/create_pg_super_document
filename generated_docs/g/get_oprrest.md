@@ -47,3 +47,28 @@ Restriction selectivity is used for conditions like "column op constant" where t
 - Common selectivity functions include eqsel (equality), scalarltsel (less than), neqsel (not equal), etc.
 - This function is essential for cost-based query optimization, helping the planner estimate cardinalities and choose optimal join orders and access methods
 - If no specific selectivity function is provided, PostgreSQL uses default estimation methods
+
+## Simplified Source
+
+```c
+RegProcedure
+get_oprrest(Oid opno)
+{
+    HeapTuple tp;
+
+    // Look up operator in system catalog
+    tp = SearchSysCache1(OPEROID, ObjectIdGetDatum(opno));
+    if (HeapTupleIsValid(tp))
+    {
+        Form_pg_operator optup = (Form_pg_operator) GETSTRUCT(tp);
+        RegProcedure result;
+
+        // Extract restriction selectivity function OID
+        result = optup->oprrest;
+        ReleaseSysCache(tp);
+        return result;
+    }
+    else
+        return (RegProcedure) InvalidOid;  // Operator not found
+}
+```

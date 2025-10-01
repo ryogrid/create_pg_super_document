@@ -45,3 +45,45 @@ The key difference from contain_aggs_of_level_walker is the additional location 
 - Critical for providing precise error messages with source location information
 - Handles proper level adjustment when recursing into subqueries
 - Optimized for first-match scenarios typical in error reporting
+
+## Simplified Source
+
+```c
+static bool
+locate_agg_of_level_walker(Node *node, locate_agg_of_level_context *context)
+{
+    if (node == NULL)
+        return false;
+
+    // Check for aggregate function at target level
+    if (IsA(node, Aggref)) {
+        Aggref *aggref = (Aggref *) node;
+        if (aggref->agglevelsup == context->sublevels_up && aggref->location >= 0) {
+            context->agg_location = aggref->location;
+            return true;  // Found target aggregate, stop traversal
+        }
+        // Continue to examine aggregate arguments
+    }
+
+    // Check for GROUPING function at target level
+    if (IsA(node, GroupingFunc)) {
+        GroupingFunc *groupfunc = (GroupingFunc *) node;
+        if (groupfunc->agglevelsup == context->sublevels_up && groupfunc->location >= 0) {
+            context->agg_location = groupfunc->location;
+            return true;  // Found target grouping function, stop traversal
+        }
+    }
+
+    // Handle subqueries with level adjustment
+    if (IsA(node, Query)) {
+        bool result;
+        context->sublevels_up++;
+        result = query_tree_walker((Query *) node, locate_agg_of_level_walker, context, 0);
+        context->sublevels_up--;
+        return result;
+    }
+
+    // Continue traversal for other node types
+    return expression_tree_walker(node, locate_agg_of_level_walker, context);
+}
+```

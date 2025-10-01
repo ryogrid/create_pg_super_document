@@ -49,3 +49,30 @@ The function implements SQL's GROUP BY semantics by ensuring that any variable r
 - The limitation on subquery grouping expressions exists because implementing full equal() comparison across different sublevels_up would be complex
 - Assumes join variables have been flattened by the caller for proper equality comparison
 - Part of PostgreSQL's comprehensive GROUP BY validation system
+
+## Simplified Source
+
+```c
+static void
+check_ungrouped_columns(Node *node, ParseState *pstate, Query *qry,
+                        List *groupClauses, List *groupClauseCommonVars,
+                        bool have_non_var_grouping,
+                        List **func_grouped_rels)
+{
+    check_ungrouped_columns_context context;
+
+    // Initialize validation context
+    context.pstate = pstate;
+    context.qry = qry;
+    context.hasJoinRTEs = false;  // Assume caller flattened join vars
+    context.groupClauses = groupClauses;
+    context.groupClauseCommonVars = groupClauseCommonVars;
+    context.have_non_var_grouping = have_non_var_grouping;
+    context.func_grouped_rels = func_grouped_rels;
+    context.sublevels_up = 0;
+    context.in_agg_direct_args = false;
+
+    // Perform the actual validation using expression tree walker
+    check_ungrouped_columns_walker(node, &context);
+}
+```

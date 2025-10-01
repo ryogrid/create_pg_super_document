@@ -47,3 +47,96 @@ The function considers various age parameters and system limits to balance perfo
 - Computes effective freeze thresholds based on available multixact member space
 - Ensures computed limits never exceed safe boundaries to prevent wraparound issues
 - Location: src/backend/commands/vacuum.c:1083-1250
+
+## Simplified Source
+
+```c
+bool
+vacuum_get_cutoffs(Relation rel, const VacuumParams *params,
+                   struct VacuumCutoffs *cutoffs)
+{
+    int freeze_min_age, multixact_freeze_min_age;
+    int freeze_table_age, multixact_freeze_table_age;
+    TransactionId nextXID, safeOldestXmin, aggressiveXIDCutoff;
+    MultiXactId nextMXID, safeOldestMxact, aggressiveMXIDCutoff;
+
+    // Use mutable copies of freeze age parameters
+    freeze_min_age = params->freeze_min_age;
+    multixact_freeze_min_age = params->multixact_freeze_min_age;
+    freeze_table_age = params->freeze_table_age;
+    multixact_freeze_table_age = params->multixact_freeze_table_age;
+
+    // Initialize cutoffs from relation metadata
+    cutoffs->relfrozenxid = rel->rd_rel->relfrozenxid;
+    cutoffs->relminmxid = rel->rd_rel->relminmxid;
+
+    // Get oldest non-removable transaction ID and multixact
+    cutoffs->OldestXmin = GetOldestNonRemovableTransactionId(rel);
+    cutoffs->OldestMxact = GetOldestMultiXactId();
+
+    // Get next transaction IDs for age calculations
+    nextXID = ReadNextTransactionId();
+    nextMXID = ReadNextMultiXactId();
+
+    // Check for dangerous wraparound conditions and warn if needed
+    safeOldestXmin = nextXID - autovacuum_freeze_max_age;
+    if (!TransactionIdIsNormal(safeOldestXmin))
+        safeOldestXmin = FirstNormalTransactionId;
+    safeOldestMxact = nextMXID - MultiXactMemberFreezeThreshold();
+    if (safeOldestMxact < FirstMultiXactId)
+        safeOldestMxact = FirstMultiXactId;
+
+    if (TransactionIdPrecedes(cutoffs->OldestXmin, safeOldestXmin))
+        ereport(WARNING, (errmsg("cutoff for removing and freezing tuples is far in the past")));
+    if (MultiXactIdPrecedes(cutoffs->OldestMxact, safeOldestMxact))
+        ereport(WARNING, (errmsg("cutoff for freezing multixacts is far in the past")));
+
+    // Compute freeze limits
+    if (freeze_min_age < 0)
+        freeze_min_age = vacuum_freeze_min_age;
+    freeze_min_age = Min(freeze_min_age, autovacuum_freeze_max_age / 2);
+
+    cutoffs->FreezeLimit = nextXID - freeze_min_age;
+    if (!TransactionIdIsNormal(cutoffs->FreezeLimit))
+        cutoffs->FreezeLimit = FirstNormalTransactionId;
+    if (TransactionIdPrecedes(cutoffs->OldestXmin, cutoffs->FreezeLimit))
+        cutoffs->FreezeLimit = cutoffs->OldestXmin;
+
+    // Compute multixact freeze limits
+    if (multixact_freeze_min_age < 0)
+        multixact_freeze_min_age = vacuum_multixact_freeze_min_age;
+    multixact_freeze_min_age = Min(multixact_freeze_min_age,
+                                   MultiXactMemberFreezeThreshold() / 2);
+
+    cutoffs->MultiXactCutoff = nextMXID - multixact_freeze_min_age;
+    if (cutoffs->MultiXactCutoff < FirstMultiXactId)
+        cutoffs->MultiXactCutoff = FirstMultiXactId;
+    if (MultiXactIdPrecedes(cutoffs->OldestMxact, cutoffs->MultiXactCutoff))
+        cutoffs->MultiXactCutoff = cutoffs->OldestMxact;
+
+    // Determine if aggressive vacuum is needed
+    if (freeze_table_age < 0)
+        freeze_table_age = vacuum_freeze_table_age;
+    freeze_table_age = Min(freeze_table_age, autovacuum_freeze_max_age * 0.95);
+
+    aggressiveXIDCutoff = nextXID - freeze_table_age;
+    if (!TransactionIdIsNormal(aggressiveXIDCutoff))
+        aggressiveXIDCutoff = FirstNormalTransactionId;
+    if (TransactionIdPrecedesOrEquals(cutoffs->relfrozenxid, aggressiveXIDCutoff))
+        return true;
+
+    // Check multixact age for aggressive vacuum
+    if (multixact_freeze_table_age < 0)
+        multixact_freeze_table_age = vacuum_multixact_freeze_table_age;
+    multixact_freeze_table_age = Min(multixact_freeze_table_age,
+                                     MultiXactMemberFreezeThreshold() * 0.95);
+
+    aggressiveMXIDCutoff = nextMXID - multixact_freeze_table_age;
+    if (aggressiveMXIDCutoff < FirstMultiXactId)
+        aggressiveMXIDCutoff = FirstMultiXactId;
+    if (MultiXactIdPrecedesOrEquals(cutoffs->relminmxid, aggressiveMXIDCutoff))
+        return true;
+
+    return false;  // Non-aggressive vacuum
+}
+```

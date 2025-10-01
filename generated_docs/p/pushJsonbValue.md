@@ -55,3 +55,69 @@ The function maintains state through the JsonbParseState pointer, enabling incre
 - **Raw scalar handling**: Special logic for scalar values wrapped in pseudo-array containers
 - **Token sequencing**: Expects tokens in proper JSON structural order (begin/end pairs must be balanced)
 - **Return value**: Returns the final JsonbValue when structure is complete, NULL for intermediate calls
+
+## Simplified Source
+
+```c
+JsonbValue *
+pushJsonbValue(JsonbParseState **pstate, JsonbIteratorToken seq, JsonbValue *jbval)
+{
+    JsonbIterator *it;
+    JsonbValue *res = NULL;
+    JsonbValue v;
+    JsonbIteratorToken tok;
+    int i;
+
+    // Handle complex objects - recursively expand into key-value pairs
+    if (jbval && (seq == WJB_ELEM || seq == WJB_VALUE) && jbval->type == jbvObject)
+    {
+        pushJsonbValue(pstate, WJB_BEGIN_OBJECT, NULL);
+        for (i = 0; i < jbval->val.object.nPairs; i++)
+        {
+            pushJsonbValue(pstate, WJB_KEY, &jbval->val.object.pairs[i].key);
+            pushJsonbValue(pstate, WJB_VALUE, &jbval->val.object.pairs[i].value);
+        }
+        return pushJsonbValue(pstate, WJB_END_OBJECT, NULL);
+    }
+
+    // Handle complex arrays - recursively expand into elements
+    if (jbval && (seq == WJB_ELEM || seq == WJB_VALUE) && jbval->type == jbvArray)
+    {
+        pushJsonbValue(pstate, WJB_BEGIN_ARRAY, NULL);
+        for (i = 0; i < jbval->val.array.nElems; i++)
+        {
+            pushJsonbValue(pstate, WJB_ELEM, &jbval->val.array.elems[i]);
+        }
+        return pushJsonbValue(pstate, WJB_END_ARRAY, NULL);
+    }
+
+    // Handle simple values and structural tokens
+    if (!jbval || (seq != WJB_ELEM && seq != WJB_VALUE) || jbval->type != jbvBinary)
+    {
+        return pushJsonbValueScalar(pstate, seq, jbval);
+    }
+
+    // Handle binary data - unpack and process each component
+    it = JsonbIteratorInit(jbval->val.binary.data);
+
+    // Special handling for scalar values wrapped in pseudo-arrays
+    if ((jbval->val.binary.data->header & JB_FSCALAR) && *pstate)
+    {
+        tok = JsonbIteratorNext(&it, &v, true);  // WJB_BEGIN_ARRAY
+        tok = JsonbIteratorNext(&it, &v, true);  // WJB_ELEM
+        res = pushJsonbValueScalar(pstate, seq, &v);
+        tok = JsonbIteratorNext(&it, &v, true);  // WJB_END_ARRAY
+        return res;
+    }
+
+    // Process all tokens from binary data
+    while ((tok = JsonbIteratorNext(&it, &v, false)) != WJB_DONE)
+    {
+        res = pushJsonbValueScalar(pstate, tok,
+                                   tok < WJB_BEGIN_ARRAY ||
+                                   (tok == WJB_BEGIN_ARRAY && v.val.array.rawScalar) ? &v : NULL);
+    }
+
+    return res;
+}
+```

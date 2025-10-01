@@ -44,3 +44,40 @@ The function assumes that ownership of the table provides sufficient rights to p
 - The function uses RowExclusiveLock when modifying the pg_class catalog
 - Post-alter hooks are invoked to maintain consistency with PostgreSQL's event system
 - Error handling includes both user-facing errors (wrong object type) and internal errors (cache lookup failures)
+
+## Simplified Source
+
+```c
+static void
+ATExecDropOf(Relation rel, LOCKMODE lockmode)
+{
+    Oid relid = RelationGetRelid(rel);
+    Relation relationRelation;
+    HeapTuple tuple;
+
+    // Verify this is actually a typed table
+    if (!OidIsValid(rel->rd_rel->reloftype))
+        ereport(ERROR, (errcode(ERRCODE_WRONG_OBJECT_TYPE),
+                       errmsg("\"%s\" is not a typed table",
+                              RelationGetRelationName(rel))));
+
+    // Remove the dependency between table and type
+    drop_parent_dependency(relid, TypeRelationId, rel->rd_rel->reloftype,
+                          DEPENDENCY_NORMAL);
+
+    // Clear the reloftype field in pg_class catalog
+    relationRelation = table_open(RelationRelationId, RowExclusiveLock);
+    tuple = SearchSysCacheCopy1(RELOID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for relation %u", relid);
+
+    // Update the catalog entry
+    ((Form_pg_class) GETSTRUCT(tuple))->reloftype = InvalidOid;
+    CatalogTupleUpdate(relationRelation, &tuple->t_self, tuple);
+
+    // Trigger post-alter hooks and cleanup
+    InvokeObjectPostAlterHook(RelationRelationId, relid, 0);
+    heap_freetuple(tuple);
+    table_close(relationRelation, RowExclusiveLock);
+}
+```

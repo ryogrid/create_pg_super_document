@@ -38,3 +38,33 @@ The function opens the shared dependency relation with exclusive row lock, then 
 - Uses RowExclusiveLock on SharedDependRelationId to ensure atomic updates
 - Handles default tablespace case by removing dependency records rather than creating them
 - Part of the shared dependency management system for tracking cross-database dependencies
+
+## Simplified Source
+
+```c
+void
+changeDependencyOnTablespace(Oid classId, Oid objectId, Oid newTablespaceId)
+{
+    Relation sdepRel;
+
+    // Open shared dependency relation for updates
+    sdepRel = table_open(SharedDependRelationId, RowExclusiveLock);
+
+    if (newTablespaceId != DEFAULTTABLESPACE_OID && newTablespaceId != InvalidOid) {
+        // Create/update dependency on new tablespace
+        shdepChangeDep(sdepRel,
+                       classId, objectId, 0,
+                       TableSpaceRelationId, newTablespaceId,
+                       SHARED_DEPENDENCY_TABLESPACE);
+    } else {
+        // Remove tablespace dependency (using default tablespace)
+        shdepDropDependency(sdepRel,
+                           classId, objectId, 0, true,
+                           InvalidOid, InvalidOid,
+                           SHARED_DEPENDENCY_INVALID);
+    }
+
+    // Close the relation
+    table_close(sdepRel, RowExclusiveLock);
+}
+```

@@ -55,3 +55,70 @@ Key behaviors:
 - Handles edge cases like empty strings and no matches gracefully
 - Critical component of PostgreSQL's text manipulation capabilities
 - Supports interruption for long-running operations on large texts
+
+## Simplified Source
+
+```c
+Datum replace_text(PG_FUNCTION_ARGS) {
+    text *src_text = PG_GETARG_TEXT_PP(0);
+    text *from_sub_text = PG_GETARG_TEXT_PP(1);
+    text *to_sub_text = PG_GETARG_TEXT_PP(2);
+
+    int src_text_len = VARSIZE_ANY_EXHDR(src_text);
+    int from_sub_text_len = VARSIZE_ANY_EXHDR(from_sub_text);
+
+    // Return original string if empty source or pattern
+    if (src_text_len < 1 || from_sub_text_len < 1) {
+        PG_RETURN_TEXT_P(src_text);
+    }
+
+    // Set up text position search
+    TextPositionState state;
+    text_position_setup(src_text, from_sub_text, PG_GET_COLLATION(), &state);
+
+    // Check if pattern exists
+    bool found = text_position_next(&state);
+    if (!found) {
+        text_position_cleanup(&state);
+        PG_RETURN_TEXT_P(src_text);
+    }
+
+    // Build result string with replacements
+    StringInfoData str;
+    initStringInfo(&str);
+
+    char *start_ptr = VARDATA_ANY(src_text);
+    char *curr_ptr;
+
+    do {
+        CHECK_FOR_INTERRUPTS();
+
+        curr_ptr = text_position_get_match_ptr(&state);
+
+        // Copy text before match
+        int chunk_len = curr_ptr - start_ptr;
+        appendBinaryStringInfo(&str, start_ptr, chunk_len);
+
+        // Append replacement text
+        appendStringInfoText(&str, to_sub_text);
+
+        // Move past the matched pattern
+        start_ptr = curr_ptr + from_sub_text_len;
+
+        // Find next match
+        found = text_position_next(&state);
+    } while (found);
+
+    // Copy remaining text
+    int final_chunk_len = ((char *) src_text + VARSIZE_ANY(src_text)) - start_ptr;
+    appendBinaryStringInfo(&str, start_ptr, final_chunk_len);
+
+    text_position_cleanup(&state);
+
+    // Convert result to text and cleanup
+    text *ret_text = cstring_to_text_with_len(str.data, str.len);
+    pfree(str.data);
+
+    PG_RETURN_TEXT_P(ret_text);
+}
+```

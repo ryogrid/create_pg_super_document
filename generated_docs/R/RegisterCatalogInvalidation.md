@@ -32,3 +32,15 @@ The function operates at the command level, meaning invalidations registered dur
 - Part of the transaction-level invalidation state management
 - Works in conjunction with the command counter mechanism to ensure proper timing of invalidations
 - The actual invalidation processing happens later when the command completes
+
+## Simplified Source
+
+```c
+static void
+RegisterCatalogInvalidation(Oid dbId, Oid catId)
+{
+    // Add catalog invalidation message to current command's queue
+    AddCatalogInvalidationMessage(&transInvalInfo->CurrentCmdInvalidMsgs,
+                                  dbId, catId);
+}
+```

@@ -40,3 +40,26 @@ The function uses TTSOpsVirtual for the slot operations, which is appropriate fo
 - Allocated in CurTransactionContext for appropriate lifetime management
 - Part of PostgreSQL's transition table infrastructure used by AFTER triggers to access OLD/NEW row data
 - The slot will be automatically cleaned up by AfterTriggerFreeQuery when the query completes
+
+## Simplified Source
+
+```c
+static TupleTableSlot *GetAfterTriggersStoreSlot(AfterTriggersTableData *table,
+                                                TupleDesc tupdesc) {
+    // Create slot if not already done (lazy initialization)
+    if (!table->storeslot) {
+        MemoryContext oldcxt;
+
+        // Switch to transaction context for proper lifetime management
+        oldcxt = MemoryContextSwitchTo(CurTransactionContext);
+
+        // Copy tupdesc to ensure proper lifetime, create virtual slot
+        tupdesc = CreateTupleDescCopy(tupdesc);
+        table->storeslot = MakeSingleTupleTableSlot(tupdesc, &TTSOpsVirtual);
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    return table->storeslot;
+}
+```

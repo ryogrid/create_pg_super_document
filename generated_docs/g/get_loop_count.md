@@ -42,3 +42,52 @@ This heuristic assumes the nested loop will be driven by the smallest outer rela
 - Accounts for semijoin unique-ification effects through adjust_rowcount_for_semijoins
 - Requires that base relation size estimates be established before path computation begins
 - Falls back to 1.0 if no valid outer relations are found (defensive programming)
+
+## Simplified Source
+
+```c
+static double
+get_loop_count(PlannerInfo *root, Index cur_relid, Relids outer_relids)
+{
+    double result;
+    int outer_relid;
+
+    // Non-parameterized path: executed once
+    if (outer_relids == NULL)
+        return 1.0;
+
+    result = 0.0;
+    outer_relid = -1;
+
+    // Find smallest row count among outer relations
+    while ((outer_relid = bms_next_member(outer_relids, outer_relid)) >= 0)
+    {
+        RelOptInfo *outer_rel;
+        double rowcount;
+
+        // Skip invalid relation indexes
+        if (outer_relid >= root->simple_rel_array_size)
+            continue;
+        outer_rel = root->simple_rel_array[outer_relid];
+        if (outer_rel == NULL)
+            continue;
+
+        // Skip empty relations
+        if (IS_DUMMY_REL(outer_rel))
+            continue;
+
+        // Adjust for semijoin effects - use unique-ified count if needed
+        rowcount = adjust_rowcount_for_semijoins(root,
+                                               cur_relid,
+                                               outer_relid,
+                                               outer_rel->rows);
+
+        // Keep track of smallest row count (conservative estimate)
+        if (result == 0.0 || result > rowcount)
+            result = rowcount;
+    }
+
+    // Fallback if no valid relations found
+    return (result > 0.0) ? result : 1.0;
+}
+```

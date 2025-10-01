@@ -35,3 +35,13 @@ The function allows passing an old TOAST table OID, which can be useful for oper
 - The  parameter is set to false when calling CheckAndCreateToastTable, which affects the validation behavior
 - The OIDOldToast parameter allows coordination with existing TOAST tables during table rebuilding operations
 - Commonly used in table rebuilding operations like CLUSTER that create entirely new physical table structures
+
+## Simplified Source
+
+```c
+void NewHeapCreateToastTable(Oid relOid, Datum reloptions, LOCKMODE lockmode, Oid OIDOldToast)
+{
+    // Delegate to main TOAST creation function for new heap
+    CheckAndCreateToastTable(relOid, reloptions, lockmode, false, OIDOldToast);
+}
+```

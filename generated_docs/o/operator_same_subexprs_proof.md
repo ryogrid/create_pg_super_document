@@ -34,3 +34,25 @@ The function assumes immutability of the pred_op and relies on the fact that com
 
 ## Notes and Other Information
 This function handles the straightforward cases of operator relationships before falling back to more complex btree opfamily analysis. The "same operator" case typically won't reach this function when called directly, but can occur after operator commutation in the calling function.
+
+## Simplified Source
+
+```c
+static bool
+operator_same_subexprs_proof(Oid pred_op, Oid clause_op, bool refute_it)
+{
+    // Apply simple logical rules first
+    if (refute_it) {
+        // For refutation: check if pred_op and clause_op are negators
+        if (get_negator(pred_op) == clause_op)
+            return true;  // Successfully refuted
+    } else {
+        // For proof: check if operators are identical
+        if (pred_op == clause_op)
+            return true;  // Successfully proven
+    }
+
+    // Fall back to btree opfamily relationship analysis
+    return operator_same_subexprs_lookup(pred_op, clause_op, refute_it);
+}
+```

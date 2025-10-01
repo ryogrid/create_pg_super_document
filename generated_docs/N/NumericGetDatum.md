@@ -57,3 +57,12 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 - Used extensively in numeric operations, JSON processing, formatting functions, and aggregate functions
 - The conversion is essentially a type cast since both Numeric and Datum are pointer-sized values
 - Critical component for PostgreSQL's polymorphic function system and data type abstraction
+
+## Simplified Source
+
+```c
+static inline Datum NumericGetDatum(Numeric X) {
+    // Convert Numeric pointer to Datum for PostgreSQL's type system
+    return PointerGetDatum(X);
+}
+```

@@ -37,3 +37,25 @@ The function includes multiple layers of overflow protection: first checking tha
 - Part of PostgreSQL's comprehensive overflow-safe datetime arithmetic system
 - Located at src/backend/utils/adt/datetime.c:633-648
 - The function demonstrates defensive programming with multiple overflow checks
+
+## Simplified Source
+
+```c
+static bool AdjustDays(int64 val, int scale, struct pg_itm_in *itm_in) {
+    // Check if input value fits in 32-bit range
+    if (val < INT_MIN || val > INT_MAX)
+        return false;
+
+    int days;
+
+    // Safely multiply value by scale to get days
+    if (pg_mul_s32_overflow((int32) val, scale, &days))
+        return false;  // Multiplication overflow
+
+    // Safely add result to existing days in structure
+    if (pg_add_s32_overflow(itm_in->tm_mday, days, &itm_in->tm_mday))
+        return false;  // Addition overflow
+
+    return true;  // Success
+}
+```

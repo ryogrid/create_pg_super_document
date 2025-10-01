@@ -37,3 +37,35 @@ This function formats individual components of PostgreSQL interval values in ver
 - Handles pluralization by omitting 's' for singular values and appending 's' for plural values
 - Part of PostgreSQL's interval data type formatting system, specifically for verbose output style
 - Always prefixes output with a space for consistent formatting
+
+## Simplified Source
+
+```c
+static char *
+AddVerboseIntPart(char *cp, int64 value, const char *units,
+                  bool *is_zero, bool *is_before)
+{
+    // Skip zero values
+    if (value == 0)
+        return cp;
+
+    // First nonzero value determines overall sign direction
+    if (*is_zero) {
+        *is_before = (value < 0);     // Set sign direction for entire interval
+        value = i64abs(value);        // Use absolute value for display
+    }
+    else if (*is_before) {
+        value = -value;               // Apply negative sign if interval is negative
+    }
+
+    // Format: space + value + units[s] (no individual signs)
+    sprintf(cp, " %lld %s%s",
+            (long long) value,
+            units,
+            (value == 1) ? "" : "s");  // Pluralize unless exactly 1
+
+    *is_zero = false;  // No longer the first field
+
+    return cp + strlen(cp);
+}
+```

@@ -35,3 +35,22 @@ This function safely extracts serialization performance metrics from a destinati
 - The function is defensive in nature, preventing crashes from invalid receiver type assumptions
 - Part of the performance monitoring infrastructure for EXPLAIN (SERIALIZE) operations
 - The returned SerializeMetrics structure contains timing and other performance data collected during serialization
+
+## Simplified Source
+
+```c
+static SerializeMetrics GetSerializationMetrics(DestReceiver *dest) {
+    // Check if this is actually a serialize destination receiver
+    if (dest->mydest == DestExplainSerialize) {
+        // Return actual metrics from SerializeDestReceiver
+        return ((SerializeDestReceiver *) dest)->metrics;
+    }
+
+    // Return zero-initialized metrics for other receiver types
+    SerializeMetrics empty;
+    memset(&empty, 0, sizeof(SerializeMetrics));
+    INSTR_TIME_SET_ZERO(empty.timeSpent);
+
+    return empty;
+}
+```

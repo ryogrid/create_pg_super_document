@@ -37,3 +37,21 @@ The pg_hmac_update function feeds data into an existing HMAC context for increme
 - Can be called multiple times to process data incrementally
 - Sets ctx->error to PG_HMAC_ERROR_INTERNAL and ctx->errreason on failure
 - Validates that the context pointer is not NULL before processing
+
+## Simplified Source
+
+```c
+int pg_hmac_update(pg_hmac_ctx *ctx, const uint8 *data, size_t len) {
+    if (ctx == NULL)
+        return -1;
+
+    // Update the underlying hash with the data
+    if (pg_cryptohash_update(ctx->hash, data, len) < 0) {
+        ctx->error = PG_HMAC_ERROR_INTERNAL;
+        ctx->errreason = pg_cryptohash_error(ctx->hash);
+        return -1;
+    }
+
+    return 0;
+}
+```

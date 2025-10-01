@@ -36,3 +36,30 @@ The function first resolves the access method name to its OID using get_table_am
 - Handles special case for partitioned tables where DEFAULT means clearing the access method
 - The actual access method change happens in the execution phase, not during preparation
 - Located in src/backend/commands/tablecmds.c:14895-14928
+
+## Simplified Source
+
+```c
+static void
+ATPrepSetAccessMethod(AlteredTableInfo *tab, Relation rel, const char *amname)
+{
+    Oid amoid;
+
+    // Resolve access method name to OID
+    if (amname != NULL)
+        amoid = get_table_am_oid(amname, false);
+    else if (rel->rd_rel->relkind == RELKIND_PARTITIONED_TABLE)
+        amoid = InvalidOid;  // DEFAULT for partitioned table means reset
+    else
+        amoid = get_table_am_oid(default_table_access_method, false);
+
+    // Skip if no change needed
+    if (rel->rd_rel->relam == amoid)
+        return;
+
+    // Mark table for rewrite and save new access method
+    tab->rewrite |= AT_REWRITE_ACCESS_METHOD;
+    tab->newAccessMethod = amoid;
+    tab->chgAccessMethod = true;
+}
+```

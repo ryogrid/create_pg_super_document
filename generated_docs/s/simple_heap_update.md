@@ -49,3 +49,46 @@ The function handles all possible heap_update results:
 - Commonly used for catalog updates and system table modifications
 - Part of PostgreSQL's heap access method providing simplified update interface
 - Does not return failure codes - either succeeds or throws an error
+
+## Simplified Source
+
+```c
+void
+simple_heap_update(Relation relation, ItemPointer otid, HeapTuple tup,
+                   TU_UpdateIndexes *update_indexes)
+{
+    TM_Result    result;
+    TM_FailureData tmfd;
+    LockTupleMode lockmode;
+
+    // Perform the heap update
+    result = heap_update(relation, otid, tup,
+                         GetCurrentCommandId(true), InvalidSnapshot,
+                         true /* wait for commit */,
+                         &tmfd, &lockmode, update_indexes);
+
+    // Handle results - convert failures to errors
+    switch (result)
+    {
+        case TM_Ok:
+            // Update succeeded
+            break;
+
+        case TM_SelfModified:
+            elog(ERROR, "tuple already updated by self");
+            break;
+
+        case TM_Updated:
+            elog(ERROR, "tuple concurrently updated");
+            break;
+
+        case TM_Deleted:
+            elog(ERROR, "tuple concurrently deleted");
+            break;
+
+        default:
+            elog(ERROR, "unrecognized heap_update status: %u", result);
+            break;
+    }
+}
+```

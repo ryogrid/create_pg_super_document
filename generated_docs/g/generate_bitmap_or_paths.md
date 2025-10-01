@@ -55,3 +55,82 @@ The function handles nested OR structures through recursion and uses both curren
 - The function is self-recursive to handle arbitrarily deep OR/AND nesting
 - Uses bitmap scan capabilities exclusively - not suitable for regular index scans
 - The  combination provides fuller context for index path matching than either clause list alone
+
+## Simplified Source
+
+```c
+static List *
+generate_bitmap_or_paths(PlannerInfo *root, RelOptInfo *rel,
+                        List *clauses, List *other_clauses)
+{
+    List *result = NIL;
+    List *all_clauses;
+    ListCell *lc;
+
+    // Combine current and other clauses for context in build_paths_for_OR
+    all_clauses = list_concat_copy(clauses, other_clauses);
+
+    // Search through clauses for OR expressions
+    foreach(lc, clauses)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc);
+        List *pathlist;
+        Path *bitmapqual;
+        ListCell *j;
+
+        // Skip non-OR clauses
+        if (!restriction_is_or_clause(rinfo))
+            continue;
+
+        // Must be able to match index to each arm of the OR
+        pathlist = NIL;
+        foreach(j, ((BoolExpr *) rinfo->orclause)->args)
+        {
+            Node *orarg = (Node *) lfirst(j);
+            List *indlist;
+
+            if (is_andclause(orarg))
+            {
+                // Handle AND clause arms
+                List *andargs = ((BoolExpr *) orarg)->args;
+
+                indlist = build_paths_for_OR(root, rel, andargs, all_clauses);
+
+                // Recursively handle any nested ORs within the AND
+                indlist = list_concat(indlist,
+                                    generate_bitmap_or_paths(root, rel,
+                                                           andargs,
+                                                           all_clauses));
+            }
+            else
+            {
+                // Handle single RestrictInfo arms
+                RestrictInfo *ri = castNode(RestrictInfo, orarg);
+                List *orargs = list_make1(ri);
+
+                indlist = build_paths_for_OR(root, rel, orargs, all_clauses);
+            }
+
+            // If any arm can't be matched, abandon this OR clause
+            if (indlist == NIL)
+            {
+                pathlist = NIL;
+                break;
+            }
+
+            // Choose best AND combination for this arm
+            bitmapqual = choose_bitmap_and(root, rel, indlist);
+            pathlist = lappend(pathlist, bitmapqual);
+        }
+
+        // If all arms have viable paths, create BitmapOrPath
+        if (pathlist != NIL)
+        {
+            bitmapqual = (Path *) create_bitmap_or_path(root, rel, pathlist);
+            result = lappend(result, bitmapqual);
+        }
+    }
+
+    return result;
+}
+```

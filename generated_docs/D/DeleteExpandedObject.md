@@ -37,3 +37,19 @@ The function performs a complete cleanup by calling MemoryContextDelete on the e
 - After calling this function, the Datum pointer becomes invalid and must not be used
 - Commonly used in aggregate operations and window functions for cleaning up temporary expanded objects
 - The deletion is performed through PostgreSQL's memory context system, ensuring proper cleanup of nested allocations
+
+## Simplified Source
+
+```c
+void
+DeleteExpandedObject(Datum d)
+{
+    ExpandedObjectHeader *eohptr = DatumGetEOHP(d);
+
+    // Verify this is a read-write expanded object
+    Assert(VARATT_IS_EXTERNAL_EXPANDED_RW(DatumGetPointer(d)));
+
+    // Delete the entire memory context (frees all allocated memory)
+    MemoryContextDelete(eohptr->eoh_context);
+}
+```

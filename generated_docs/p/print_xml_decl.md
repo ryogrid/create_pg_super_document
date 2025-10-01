@@ -53,3 +53,47 @@ When a declaration is generated, it follows XML 1.0 specification format with pr
 - Minimizes XML declaration generation to avoid verbose output for simple cases
 - Always includes version attribute when declaration is present (XML requirement)
 - UTF-8 encoding is considered default and doesn't trigger declaration generation
+
+## Simplified Source
+
+```c
+static bool
+print_xml_decl(StringInfo buf, const xmlChar *version,
+               pg_enc encoding, int standalone)
+{
+    // Only generate declaration if non-default values are present
+    if ((version && strcmp((const char *) version, PG_XML_DEFAULT_VERSION) != 0) ||
+        (encoding && encoding != PG_UTF8) ||
+        standalone != -1) {
+
+        // Start XML declaration
+        appendStringInfoString(buf, "<?xml");
+
+        // Add version attribute (required when declaration is present)
+        if (version)
+            appendStringInfo(buf, " version=\"%s\"", version);
+        else
+            appendStringInfo(buf, " version=\"%s\"", PG_XML_DEFAULT_VERSION);
+
+        // Add encoding if specified and not UTF-8
+        if (encoding && encoding != PG_UTF8) {
+            appendStringInfo(buf, " encoding=\"%s\"",
+                           pg_encoding_to_char(encoding));
+        }
+
+        // Add standalone attribute if specified
+        if (standalone == 1)
+            appendStringInfoString(buf, " standalone=\"yes\"");
+        else if (standalone == 0)
+            appendStringInfoString(buf, " standalone=\"no\"");
+
+        // Close declaration
+        appendStringInfoString(buf, "?>");
+        return true;
+    }
+    else {
+        // No declaration needed for default values
+        return false;
+    }
+}
+```

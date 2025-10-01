@@ -38,3 +38,97 @@ CopyGetData is the core data reading function for COPY operations that handles t
 - Supports callback-based data sources for extensibility
 - Sets raw_reached_eof flag when end-of-data conditions are detected
 - Ignores Flush and Sync messages for client library compatibility
+
+## Simplified Source
+
+```c
+static int
+CopyGetData(CopyFromState cstate, void *databuf, int minread, int maxread)
+{
+    int bytesread = 0;
+
+    switch (cstate->copy_src) {
+        case COPY_FILE:
+            // Read from file
+            bytesread = fread(databuf, 1, maxread, cstate->copy_file);
+            if (ferror(cstate->copy_file))
+                ereport(ERROR, (errcode_for_file_access(),
+                              errmsg("could not read from COPY file: %m")));
+            if (bytesread == 0)
+                cstate->raw_reached_eof = true;
+            break;
+
+        case COPY_FRONTEND:
+            // Read from frontend via protocol messages
+            while (maxread > 0 && bytesread < minread && !cstate->raw_reached_eof) {
+                // Ensure we have data in the message buffer
+                while (cstate->fe_msgbuf->cursor >= cstate->fe_msgbuf->len) {
+                    // Read next protocol message
+                    HOLD_CANCEL_INTERRUPTS();
+                    pq_startmsgread();
+                    int mtype = pq_getbyte();
+
+                    if (mtype == EOF)
+                        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                                      errmsg("unexpected EOF on client connection")));
+
+                    // Handle different message types
+                    int maxmsglen;
+                    switch (mtype) {
+                        case PqMsg_CopyData:
+                            maxmsglen = PQ_LARGE_MESSAGE_LIMIT;
+                            break;
+                        case PqMsg_CopyDone:
+                        case PqMsg_CopyFail:
+                        case PqMsg_Flush:
+                        case PqMsg_Sync:
+                            maxmsglen = PQ_SMALL_MESSAGE_LIMIT;
+                            break;
+                        default:
+                            ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                                          errmsg("unexpected message type 0x%02X", mtype)));
+                    }
+
+                    // Read message body
+                    if (pq_getmessage(cstate->fe_msgbuf, maxmsglen))
+                        ereport(ERROR, (errcode(ERRCODE_CONNECTION_FAILURE),
+                                      errmsg("unexpected EOF on client connection")));
+                    RESUME_CANCEL_INTERRUPTS();
+
+                    // Process message
+                    switch (mtype) {
+                        case PqMsg_CopyData:
+                            break;  // Continue to copy data
+                        case PqMsg_CopyDone:
+                            cstate->raw_reached_eof = true;
+                            return bytesread;
+                        case PqMsg_CopyFail:
+                            ereport(ERROR, (errcode(ERRCODE_QUERY_CANCELED),
+                                          errmsg("COPY from stdin failed: %s",
+                                               pq_getmsgstring(cstate->fe_msgbuf))));
+                        case PqMsg_Flush:
+                        case PqMsg_Sync:
+                            continue;  // Ignore these messages
+                    }
+                }
+
+                // Copy available data from message buffer
+                int avail = cstate->fe_msgbuf->len - cstate->fe_msgbuf->cursor;
+                if (avail > maxread)
+                    avail = maxread;
+                pq_copymsgbytes(cstate->fe_msgbuf, databuf, avail);
+                databuf = (char *)databuf + avail;
+                maxread -= avail;
+                bytesread += avail;
+            }
+            break;
+
+        case COPY_CALLBACK:
+            // Delegate to callback function
+            bytesread = cstate->data_source_cb(databuf, minread, maxread);
+            break;
+    }
+
+    return bytesread;
+}
+```

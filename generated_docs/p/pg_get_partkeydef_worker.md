@@ -44,3 +44,101 @@ This is the core implementation function for generating string representations o
 - Uses StringInfo for efficient string building
 - Implements proper error handling for missing relations and malformed partition expressions
 - The function reconstructs the original partition key definition from stored catalog data, not from cached parsed structures
+
+## Simplified Source
+
+```c
+static char *
+pg_get_partkeydef_worker(Oid relid, int prettyFlags, bool attrsOnly, bool missing_ok)
+{
+    Form_pg_partitioned_table form;
+    HeapTuple tuple;
+    oidvector *partclass, *partcollation;
+    List *partexprs;
+    StringInfoData buf;
+
+    // Look up partition info in system catalog
+    tuple = SearchSysCache1(PARTRELID, ObjectIdGetDatum(relid));
+    if (!HeapTupleIsValid(tuple)) {
+        if (missing_ok) return NULL;
+        elog(ERROR, "cache lookup failed for partition key of %u", relid);
+    }
+
+    form = (Form_pg_partitioned_table) GETSTRUCT(tuple);
+
+    // Get partition class and collation info
+    partclass = (oidvector *) DatumGetPointer(
+        SysCacheGetAttrNotNull(PARTRELID, tuple, Anum_pg_partitioned_table_partclass));
+    partcollation = (oidvector *) DatumGetPointer(
+        SysCacheGetAttrNotNull(PARTRELID, tuple, Anum_pg_partitioned_table_partcollation));
+
+    // Get partition expressions if any
+    if (!heap_attisnull(tuple, Anum_pg_partitioned_table_partexprs, NULL)) {
+        Datum exprsDatum = SysCacheGetAttrNotNull(PARTRELID, tuple,
+                                                  Anum_pg_partitioned_table_partexprs);
+        char *exprsString = TextDatumGetCString(exprsDatum);
+        partexprs = (List *) stringToNode(exprsString);
+        pfree(exprsString);
+    } else {
+        partexprs = NIL;
+    }
+
+    initStringInfo(&buf);
+
+    // Add partition strategy prefix
+    if (!attrsOnly) {
+        switch (form->partstrat) {
+            case PARTITION_STRATEGY_HASH:
+                appendStringInfoString(&buf, "HASH (");
+                break;
+            case PARTITION_STRATEGY_LIST:
+                appendStringInfoString(&buf, "LIST (");
+                break;
+            case PARTITION_STRATEGY_RANGE:
+                appendStringInfoString(&buf, "RANGE (");
+                break;
+        }
+    }
+
+    // Build column/expression list
+    char *sep = "";
+    ListCell *partexpr_item = list_head(partexprs);
+    List *context = deparse_context_for(get_relation_name(relid), relid);
+
+    for (int keyno = 0; keyno < form->partnatts; keyno++) {
+        AttrNumber attnum = form->partattrs.values[keyno];
+        appendStringInfoString(&buf, sep);
+        sep = ", ";
+
+        if (attnum != 0) {
+            // Simple column reference
+            char *attname = get_attname(relid, attnum, false);
+            appendStringInfoString(&buf, quote_identifier(attname));
+        } else {
+            // Expression - deparse and add parentheses if needed
+            Node *partkey = (Node *) lfirst(partexpr_item);
+            partexpr_item = lnext(partexprs, partexpr_item);
+
+            char *str = deparse_expression_pretty(partkey, context, false, false, prettyFlags, 0);
+            if (looks_like_function(partkey))
+                appendStringInfoString(&buf, str);
+            else
+                appendStringInfo(&buf, "(%s)", str);
+        }
+
+        // Add collation and operator class if not default
+        if (!attrsOnly) {
+            Oid partcoll = partcollation->values[keyno];
+            if (OidIsValid(partcoll) && partcoll != keycolcollation)
+                appendStringInfo(&buf, " COLLATE %s", generate_collation_name(partcoll));
+            get_opclass_name(partclass->values[keyno], keycoltype, &buf);
+        }
+    }
+
+    if (!attrsOnly)
+        appendStringInfoChar(&buf, ')');
+
+    ReleaseSysCache(tuple);
+    return buf.data;
+}
+```

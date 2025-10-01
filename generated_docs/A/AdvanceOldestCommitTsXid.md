@@ -31,3 +31,20 @@ This function moves forward the oldest commit timestamp transaction ID (oldestCo
 - Only advances the ID forward - never moves it backward, maintaining monotonicity
 - The check for InvalidTransactionId prevents updating from an uninitialized state
 - Part of the commit timestamp subsystem that tracks when transactions were committed for logical replication and other features
+
+## Simplified Source
+
+```c
+void AdvanceOldestCommitTsXid(TransactionId oldestXact)
+{
+    // Acquire exclusive lock to protect shared state
+    LWLockAcquire(CommitTsLock, LW_EXCLUSIVE);
+
+    // Only advance if current value is valid and new value is newer
+    if (TransamVariables->oldestCommitTsXid != InvalidTransactionId &&
+        TransactionIdPrecedes(TransamVariables->oldestCommitTsXid, oldestXact))
+        TransamVariables->oldestCommitTsXid = oldestXact;
+
+    LWLockRelease(CommitTsLock);
+}
+```

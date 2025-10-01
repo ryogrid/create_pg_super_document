@@ -41,3 +41,28 @@ This function is simpler than its counterpart TidQualFromRestrictInfoList becaus
 - Part of PostgreSQL's TID range scan optimization infrastructure
 - Access method capability check prevents unnecessary processing for unsupported storage engines
 - [Range](../R/Range.md) scans are useful for inequality conditions on CTID values (e.g., ctid > '(1,1)' AND ctid < '(10,100)')
+
+## Simplified Source
+
+```c
+static List *TidRangeQualFromRestrictInfoList(List *rlist, RelOptInfo *rel)
+{
+    List *rlst = NIL;
+    ListCell *l;
+
+    // Check if access method supports TID range scans
+    if ((rel->amflags & AMFLAG_HAS_TID_RANGE) == 0)
+        return NIL;
+
+    // Collect all valid TID range clauses
+    foreach(l, rlist)
+    {
+        RestrictInfo *rinfo = lfirst_node(RestrictInfo, l);
+
+        if (IsTidRangeClause(rinfo, rel))
+            rlst = lappend(rlst, rinfo);
+    }
+
+    return rlst;
+}
+```

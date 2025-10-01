@@ -34,3 +34,19 @@ The function performs a simple but important check: it verifies that the equival
 - Returns true only when the member expression is both a Var node and represents the target relation's CTID
 - The callback design allows for flexible equivalence class member filtering during path generation
 - This function enables detection of CTID equality conditions that may have been transformed into equivalence classes during query preprocessing
+
+## Simplified Source
+
+```c
+static bool ec_member_matches_ctid(PlannerInfo *root, RelOptInfo *rel,
+                                   EquivalenceClass *ec, EquivalenceMember *em,
+                                   void *arg)
+{
+    // Check if member expression is a Var representing this relation's CTID
+    if (em->em_expr && IsA(em->em_expr, Var) &&
+        IsCTIDVar((Var *) em->em_expr, rel))
+        return true;
+
+    return false;
+}
+```

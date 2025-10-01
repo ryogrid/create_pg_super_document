@@ -37,3 +37,25 @@ The `json_unique_object_end` function is a semantic action callback used during 
 - Works in conjunction with json_unique_object_start to manage object lifecycle
 - Maintains proper stack discipline for nested object parsing
 - Ensures clean resource management even with deeply nested JSON structures
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+json_unique_object_end(void *_state)
+{
+    JsonUniqueParsingState *state = _state;
+    JsonUniqueStackEntry *entry;
+
+    // Skip if uniqueness checking is disabled
+    if (!state->unique)
+        return JSON_SUCCESS;
+
+    // Pop current object from stack and free memory
+    entry = state->stack;
+    state->stack = entry->parent;
+    pfree(entry);
+
+    return JSON_SUCCESS;
+}
+```

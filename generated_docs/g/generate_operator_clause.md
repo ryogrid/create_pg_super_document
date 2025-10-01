@@ -46,3 +46,44 @@ The output format is: `leftop [::cast] OPERATOR(schema.op) rightop [::cast]` whe
 - Automatically handles type casting to ensure operator resolution correctness
 - Designed for internal SQL generation where precision trumps readability
 - The caller must ensure leftop and rightop are suitable for casting (preferably parenthesized if complex expressions)
+
+## Simplified Source
+
+```c
+void generate_operator_clause(StringInfo buf,
+                            const char *leftop, Oid leftoptype,
+                            Oid opoid,
+                            const char *rightop, Oid rightoptype)
+{
+    HeapTuple opertup;
+    Form_pg_operator operform;
+    char *oprname;
+    char *nspname;
+
+    // Look up the operator in the system catalog
+    opertup = SearchSysCache1(OPEROID, ObjectIdGetDatum(opoid));
+    if (!HeapTupleIsValid(opertup))
+        elog(ERROR, "cache lookup failed for operator %u", opoid);
+
+    operform = (Form_pg_operator) GETSTRUCT(opertup);
+    Assert(operform->oprkind == 'b');  // Only binary operators supported
+    oprname = NameStr(operform->oprname);
+
+    // Get the operator's namespace name for qualification
+    nspname = get_namespace_name(operform->oprnamespace);
+
+    // Build the clause: leftop [::cast] OPERATOR(schema.op) rightop [::cast]
+    appendStringInfoString(buf, leftop);
+    if (leftoptype != operform->oprleft)
+        add_cast_to(buf, operform->oprleft);
+
+    appendStringInfo(buf, " OPERATOR(%s.", quote_identifier(nspname));
+    appendStringInfoString(buf, oprname);
+    appendStringInfo(buf, ") %s", rightop);
+
+    if (rightoptype != operform->oprright)
+        add_cast_to(buf, operform->oprright);
+
+    ReleaseSysCache(opertup);
+}
+```

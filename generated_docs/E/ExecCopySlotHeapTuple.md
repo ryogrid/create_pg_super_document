@@ -45,3 +45,17 @@ The function includes an assertion to ensure the slot is not empty before attemp
 - Part of the TupleTableSlot abstraction layer that provides uniform access to different tuple storage formats
 - The copying operation creates an independent copy that doesn't depend on the original slot's storage
 - Commonly used in aggregate operations, sampling, and result set handling where persistent HeapTuple structures are required
+
+## Simplified Source
+
+```c
+static inline HeapTuple
+ExecCopySlotHeapTuple(TupleTableSlot *slot)
+{
+    // Ensure slot contains valid data
+    Assert(!TTS_EMPTY(slot));
+
+    // Delegate to slot-specific copy operation
+    return slot->tts_ops->copy_heap_tuple(slot);
+}
+```

@@ -44,3 +44,29 @@ The function is more complex than the simple start/end callbacks as it handles a
 - Sets up the JsonbValue structure with string type and length information
 - Works in conjunction with value parsing callbacks to complete key-value pair processing
 - Critical for maintaining JSONB key constraints and internal format requirements
+
+## Simplified Source
+
+```c
+static JsonParseErrorType jsonb_in_object_field_start(void *pstate, char *fname, bool isnull) {
+    JsonbInState *_state = (JsonbInState *) pstate;
+    JsonbValue v;
+
+    Assert(fname != NULL);
+
+    // Create string value for the field name
+    v.type = jbvString;
+    v.val.string.len = strlen(fname);
+
+    // Validate string length constraints
+    if (!checkStringLen(v.val.string.len, _state->escontext))
+        return JSON_SEM_ACTION_FAILED;
+
+    v.val.string.val = fname;
+
+    // Push field name as object key
+    _state->res = pushJsonbValue(&_state->parseState, WJB_KEY, &v);
+
+    return JSON_SUCCESS;
+}
+```

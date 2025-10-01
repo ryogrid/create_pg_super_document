@@ -35,3 +35,18 @@ The `boolout` function serves as the output conversion function for PostgreSQL's
 - The function signature follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS
 - Very lightweight implementation optimized for performance with minimal memory usage
 - The output format is consistent with PostgreSQL's traditional boolean representation style
+
+## Simplified Source
+
+```c
+Datum boolout(PG_FUNCTION_ARGS) {
+    bool b = PG_GETARG_BOOL(0);
+    char *result = (char *) palloc(2);
+
+    // Convert boolean to single character: 't' or 'f'
+    result[0] = (b) ? 't' : 'f';
+    result[1] = '\0';
+
+    PG_RETURN_CSTRING(result);
+}
+```

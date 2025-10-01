@@ -38,3 +38,33 @@ The function serves as a bridge between index path creation and parallel executi
 - The created bitmap heap path includes lateral_relids and parallel worker count for proper costing
 - Partial paths are specifically designed for parallel query execution and are separate from regular paths
 - The function relies on max_parallel_workers_per_gather configuration parameter to limit parallelism
+
+## Simplified Source
+
+```c
+void
+create_partial_bitmap_paths(PlannerInfo *root, RelOptInfo *rel,
+                           Path *bitmapqual)
+{
+    int parallel_workers;
+    double pages_fetched;
+
+    // Calculate how many heap pages the bitmap scan will fetch
+    pages_fetched = compute_bitmap_pages(root, rel, bitmapqual, 1.0, NULL, NULL);
+
+    // Determine optimal number of parallel workers based on pages fetched
+    parallel_workers = compute_parallel_worker(rel, pages_fetched, -1,
+                                             max_parallel_workers_per_gather);
+
+    // Only create partial path if parallelization is beneficial
+    if (parallel_workers <= 0)
+        return;
+
+    // Create bitmap heap path with parallel workers and add to partial paths
+    add_partial_path(rel, (Path *) create_bitmap_heap_path(root, rel,
+                                                          bitmapqual,
+                                                          rel->lateral_relids,
+                                                          1.0,
+                                                          parallel_workers));
+}
+```

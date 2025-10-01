@@ -36,3 +36,14 @@ This function is commonly used when operations need to access the first result f
 - Part of the JSON path expression evaluation system in PostgreSQL
 - Optimized for the common case of single-value results through the singleton representation
 - Used extensively in operations that need to extract scalar values from JSON path results
+
+## Simplified Source
+
+```c
+static JsonbValue *
+JsonValueListHead(JsonValueList *jvl)
+{
+    // Return singleton value if present, otherwise first list element
+    return jvl->singleton ? jvl->singleton : linitial(jvl->list);
+}
+```

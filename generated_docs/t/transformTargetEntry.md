@@ -47,3 +47,38 @@ This function is a core component of PostgreSQL's query parser that converts par
 - Automatically generates column names using FigureColname when needed
 - Increments p_next_resno in ParseState for assigning unique resource numbers
 - Central to PostgreSQL's query transformation pipeline from parse tree to execution plan
+
+## Simplified Source
+
+```c
+TargetEntry *
+transformTargetEntry(ParseState *pstate,
+                     Node *node,
+                     Node *expr,
+                     ParseExprKind exprKind,
+                     char *colname,
+                     bool resjunk)
+{
+    // Transform the node if caller didn't do it already
+    if (expr == NULL)
+    {
+        // Special case: allow SetToDefault in UPDATE statements
+        if (exprKind == EXPR_KIND_UPDATE_SOURCE && IsA(node, SetToDefault))
+            expr = node;
+        else
+            expr = transformExpr(pstate, node, exprKind);
+    }
+
+    // Generate column name if needed and not marked as junk
+    if (colname == NULL && !resjunk)
+    {
+        colname = FigureColname(node);
+    }
+
+    // Create and return the target entry
+    return makeTargetEntry((Expr *) expr,
+                           (AttrNumber) pstate->p_next_resno++,
+                           colname,
+                           resjunk);
+}
+```

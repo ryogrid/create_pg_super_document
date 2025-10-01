@@ -40,3 +40,25 @@ Characters like spaces (0x20) and DEL (0x7F) are excluded as they are not consid
 - Returns true for characters like: !, @, #, $, %, ^, &, *, (, ), -, _, +, =, [, ], {, }, |, \, :, ;, ", ', <, >, ,, ., ?, /, ~, `
 - Returns false for spaces, control characters, letters, and digits
 - The function only examines the first character of the input string
+
+## Simplified Source
+
+```c
+static bool
+is_separator_char(const char *str)
+{
+    char c = *str;
+
+    // Must be printable ASCII (excluding space and DEL)
+    if (c <= 0x20 || c >= 0x7F)
+        return false;
+
+    // Exclude letters and digits
+    if ((c >= 'A' && c <= 'Z') ||    // Uppercase letters
+        (c >= 'a' && c <= 'z') ||    // Lowercase letters
+        (c >= '0' && c <= '9'))      // Digits
+        return false;
+
+    return true;  // Valid separator character
+}
+```

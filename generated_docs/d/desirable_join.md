@@ -40,3 +40,18 @@ By returning true only for joins that have clear logical or semantic justificati
 - Works in conjunction with the force parameter in merge_clump for two-phase joining
 - Simple but effective heuristic that significantly impacts query plan quality
 - Part of the improved GEQO implementation that can generate bushy plans unlike earlier left-sided-only versions
+
+## Simplified Source
+
+```c
+static bool desirable_join(PlannerInfo *root,
+                          RelOptInfo *outer_rel, RelOptInfo *inner_rel) {
+    // Join if there are relevant join clauses or join order restrictions
+    if (have_relevant_joinclause(root, outer_rel, inner_rel) ||
+        have_join_order_restriction(root, outer_rel, inner_rel))
+        return true;
+
+    // Otherwise postpone the join
+    return false;
+}
+```

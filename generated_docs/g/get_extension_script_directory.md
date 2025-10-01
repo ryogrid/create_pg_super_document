@@ -43,3 +43,27 @@ This flexible approach allows extensions to store their script files in custom l
 - Supports both absolute and relative paths, providing flexibility in extension deployment
 - my_exec_path is a global variable containing the path to the PostgreSQL executable used as a reference for path resolution
 - The control parameter should not be NULL, as the function accesses its directory member without validation
+
+## Simplified Source
+
+```c
+static char *get_extension_script_directory(ExtensionControlFile *control) {
+    char sharepath[MAXPGPATH];
+    char *result;
+
+    // If no directory specified, use default extension directory
+    if (!control->directory)
+        return get_extension_control_directory();
+
+    // If absolute path, use it directly
+    if (is_absolute_path(control->directory))
+        return pstrdup(control->directory);
+
+    // For relative path, resolve relative to share directory
+    get_share_path(my_exec_path, sharepath);
+    result = (char *) palloc(MAXPGPATH);
+    snprintf(result, MAXPGPATH, "%s/%s", sharepath, control->directory);
+
+    return result;
+}
+```

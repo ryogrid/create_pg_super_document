@@ -45,3 +45,36 @@ The function is particularly useful in parallel query execution and other scenar
 - Unlike PathNameCreateTemporaryFile, this function doesn't set FD_TEMP_FILE_LIMIT since the file was already accounted for during creation
 - Designed for inter-backend cooperation in scenarios like parallel queries or shared work files
 - The automatic addition of PG_BINARY ensures consistent binary mode operation across platforms
+
+## Simplified Source
+
+```c
+File
+PathNameOpenTemporaryFile(const char *path, int mode)
+{
+    File file;
+
+    // Verify temporary file operations are allowed
+    Assert(temporary_files_allowed);
+
+    // Ensure resource tracking has space
+    ResourceOwnerEnlarge(CurrentResourceOwner);
+
+    // Open the file with binary mode
+    file = PathNameOpenFile(path, mode | PG_BINARY);
+
+    // Handle errors (except file not found, which is allowed)
+    if (file <= 0 && errno != ENOENT) {
+        ereport(ERROR,
+                (errcode_for_file_access(),
+                 errmsg("could not open temporary file \"%s\": %m", path)));
+    }
+
+    // Register for automatic cleanup if successfully opened
+    if (file > 0) {
+        RegisterTemporaryFile(file);
+    }
+
+    return file;  // Valid file handle or <= 0 if failed/not found
+}
+```

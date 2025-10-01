@@ -36,3 +36,29 @@ The `quote_literal_cstr` function provides a C-level interface for quoting strin
 - Critical for preventing SQL injection in internal PostgreSQL operations
 - Widely used in replication, table synchronization, and language extension modules
 - The returned string is null-terminated, making it safe for use with standard C string functions
+
+## Simplified Source
+
+```c
+char *
+quote_literal_cstr(const char *rawstr)
+{
+    char *result;
+    int   len;
+    int   newlen;
+
+    // Get input string length
+    len = strlen(rawstr);
+
+    // Allocate worst-case buffer (all chars doubled + quotes + null terminator)
+    result = palloc(len * 2 + 3 + 1);
+
+    // Quote the literal
+    newlen = quote_literal_internal(result, rawstr, len);
+
+    // Null-terminate the result
+    result[newlen] = '\0';
+
+    return result;
+}
+```

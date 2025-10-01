@@ -40,3 +40,23 @@ The function uses PostgreSQL's hash table infrastructure to efficiently track ke
 - The function modifies the hash table state by inserting new entries
 - Returns boolean value indicating uniqueness (true = unique, false = duplicate)
 - Part of PostgreSQL's JSON processing infrastructure for ensuring object key uniqueness
+
+## Simplified Source
+
+```c
+static bool json_unique_check_key(JsonUniqueCheckState *cxt, const char *key, int object_id) {
+    JsonUniqueHashEntry entry;
+    bool found;
+
+    // Set up hash entry with key information
+    entry.key = key;
+    entry.key_len = strlen(key);
+    entry.object_id = object_id;
+
+    // Try to insert into hash table
+    hash_search(*cxt, &entry, HASH_ENTER, &found);
+
+    // Return true if key is unique (not found), false if duplicate
+    return !found;
+}
+```

@@ -46,3 +46,38 @@ For permission management, the function ensures SELECT access is granted at both
 - The function carefully handles permission requirements, ensuring both table-level and column-level SELECT privileges are properly marked
 - Special consideration is given to tables with zero columns, where table-level permission marking is essential
 - The function assumes the namespace item refers to a simple table reference rather than a complex expression or join
+
+## Simplified Source
+
+```c
+static List *
+ExpandSingleTable(ParseState *pstate, ParseNamespaceItem *nsitem,
+                 int sublevels_up, int location, bool make_target_entry)
+{
+    if (make_target_entry) {
+        // Create target list entries with automatic permission handling
+        return expandNSItemAttrs(pstate, nsitem, sublevels_up, true, location);
+    } else {
+        // Create list of Var nodes and handle permissions manually
+        RangeTblEntry *rte = nsitem->p_rte;
+        RTEPermissionInfo *perminfo = nsitem->p_perminfo;
+
+        // Generate Var nodes for all columns
+        List *vars = expandNSItemVars(pstate, nsitem, sublevels_up, location, NULL);
+
+        // Mark table-level SELECT permission (important for zero-column tables)
+        if (rte->rtekind == RTE_RELATION) {
+            perminfo->requiredPerms |= ACL_SELECT;
+        }
+
+        // Mark column-level SELECT permissions
+        ListCell *cell;
+        foreach(cell, vars) {
+            Var *var = (Var *) lfirst(cell);
+            markVarForSelectPriv(pstate, var);
+        }
+
+        return vars;
+    }
+}
+```

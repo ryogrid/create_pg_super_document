@@ -51,3 +51,79 @@ The function ensures referential integrity is maintained during detachment and h
 - The concurrent approach requires careful transaction management to ensure consistency
 - Maintains foreign key integrity throughout the detachment process
 - Returns ObjectAddress of the detached relation for further processing
+
+## Simplified Source
+
+```c
+static ObjectAddress
+ATExecDetachPartition(List **wqueue, AlteredTableInfo *tab, Relation rel,
+                      RangeVar *name, bool concurrent)
+{
+    Relation partRel;
+    ObjectAddress address;
+    Oid defaultPartOid;
+
+    // Check if default partition exists - concurrent mode not supported with defaults
+    defaultPartOid = get_default_oid_from_partdesc(RelationGetPartitionDesc(rel, true));
+    if (OidIsValid(defaultPartOid))
+    {
+        if (concurrent)
+            ereport(ERROR, (errmsg("cannot detach partitions concurrently when a default partition exists")));
+        LockRelationOid(defaultPartOid, AccessExclusiveLock);
+    }
+
+    // Open partition with appropriate lock mode
+    partRel = table_openrv(name, concurrent ? ShareUpdateExclusiveLock : AccessExclusiveLock);
+
+    // Remove inheritance relationship
+    if (!concurrent)
+        RemoveInheritance(partRel, rel, false);
+    else
+        MarkInheritDetached(partRel, rel);  // Mark as pending detach
+
+    // Ensure foreign key constraints still hold
+    ATDetachCheckNoForeignKeyRefs(partRel);
+
+    // Handle concurrent mode with two-transaction approach
+    if (concurrent)
+    {
+        Oid partrelid = RelationGetRelid(partRel);
+        Oid parentrelid = RelationGetRelid(rel);
+
+        // Add constraint to partition if needed
+        DetachAddConstraintIfNeeded(wqueue, partRel);
+
+        // Close relations and commit first transaction
+        table_close(partRel, NoLock);
+        table_close(rel, NoLock);
+        tab->rel = NULL;
+
+        PopActiveSnapshot();
+        CommitTransactionCommand();
+        StartTransactionCommand();
+
+        // Wait for all queries seeing the old state to complete
+        LOCKTAG tag;
+        SET_LOCKTAG_RELATION(tag, MyDatabaseId, parentrelid);
+        WaitForLockersMultiple(list_make1(&tag), AccessExclusiveLock, false);
+
+        // Reopen relations
+        rel = try_relation_open(parentrelid, ShareUpdateExclusiveLock);
+        partRel = try_relation_open(partrelid, AccessExclusiveLock);
+
+        if (rel == NULL || partRel == NULL)
+            ereport(ERROR, (errmsg("relation was removed concurrently")));
+
+        tab->rel = rel;
+    }
+
+    // Complete the detachment process
+    PushActiveSnapshot(GetTransactionSnapshot());
+    DetachPartitionFinalize(rel, partRel, concurrent, defaultPartOid);
+    PopActiveSnapshot();
+
+    ObjectAddressSet(address, RelationRelationId, RelationGetRelid(partRel));
+    table_close(partRel, NoLock);
+    return address;
+}
+```

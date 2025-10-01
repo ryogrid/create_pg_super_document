@@ -49,3 +49,81 @@ The function validates that the partition operator family is a built-in boolean 
 - Handles RelabelType nodes by unwrapping them to access the underlying expression
 - Only works with built-in boolean operator families since partitioning currently only supports built-in access methods
 - Located in src/backend/partitioning/partprune.c:3673-3759
+
+## Simplified Source
+
+```c
+static PartClauseMatchStatus
+match_boolean_partition_clause(Oid partopfamily, Expr *clause, Expr *partkey,
+                               Expr **outconst, bool *notclause)
+{
+    Expr *leftop;
+
+    *outconst = NULL;
+    *notclause = false;
+
+    // Only support built-in boolean operator families
+    if (!IsBuiltinBooleanOpfamily(partopfamily))
+        return PARTCLAUSE_UNSUPPORTED;
+
+    if (IsA(clause, BooleanTest))
+    {
+        BooleanTest *btest = (BooleanTest *) clause;
+
+        // Extract operand, handling RelabelType wrapper
+        leftop = btest->arg;
+        if (IsA(leftop, RelabelType))
+            leftop = ((RelabelType *) leftop)->arg;
+
+        // Check if operand matches partition key
+        if (equal(leftop, partkey))
+        {
+            switch (btest->booltesttype)
+            {
+                case IS_NOT_TRUE:
+                    *notclause = true;
+                    /* fall through */
+                case IS_TRUE:
+                    *outconst = (Expr *) makeBoolConst(true, false);
+                    return PARTCLAUSE_MATCH_CLAUSE;
+
+                case IS_NOT_FALSE:
+                    *notclause = true;
+                    /* fall through */
+                case IS_FALSE:
+                    *outconst = (Expr *) makeBoolConst(false, false);
+                    return PARTCLAUSE_MATCH_CLAUSE;
+
+                case IS_NOT_UNKNOWN:
+                    *notclause = true;
+                    /* fall through */
+                case IS_UNKNOWN:
+                    return PARTCLAUSE_MATCH_NULLNESS;
+
+                default:
+                    return PARTCLAUSE_UNSUPPORTED;
+            }
+        }
+        return PARTCLAUSE_NOMATCH;
+    }
+    else
+    {
+        // Handle direct boolean expressions and NOT clauses
+        bool is_not_clause = is_notclause(clause);
+        leftop = is_not_clause ? get_notclausearg(clause) : clause;
+
+        if (IsA(leftop, RelabelType))
+            leftop = ((RelabelType *) leftop)->arg;
+
+        // Try to match partition key directly or negated
+        if (equal(leftop, partkey))
+            *outconst = (Expr *) makeBoolConst(!is_not_clause, false);
+        else if (equal(negate_clause((Node *) leftop), partkey))
+            *outconst = (Expr *) makeBoolConst(is_not_clause, false);
+        else
+            return PARTCLAUSE_NOMATCH;
+
+        return PARTCLAUSE_MATCH_CLAUSE;
+    }
+}
+```

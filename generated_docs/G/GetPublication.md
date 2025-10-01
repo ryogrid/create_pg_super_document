@@ -39,3 +39,38 @@ The function allocates memory for the Publication structure and its string compo
 - Includes the pubviaroot flag that controls partition publication behavior
 - Essential building block for all publication-related operations in logical replication
 - The Publication structure contains both metadata and behavioral configuration for the publication
+
+## Simplified Source
+
+```c
+Publication *GetPublication(Oid pubid)
+{
+    HeapTuple tup;
+    Publication *pub;
+    Form_pg_publication pubform;
+
+    // Look up publication in system catalog
+    tup = SearchSysCache1(PUBLICATIONOID, ObjectIdGetDatum(pubid));
+    if (!HeapTupleIsValid(tup))
+        elog(ERROR, "cache lookup failed for publication %u", pubid);
+
+    pubform = (Form_pg_publication) GETSTRUCT(tup);
+
+    // Create and populate Publication structure
+    pub = (Publication *) palloc(sizeof(Publication));
+    pub->oid = pubid;
+    pub->name = pstrdup(NameStr(pubform->pubname));
+    pub->alltables = pubform->puballtables;
+
+    // Copy publication action flags
+    pub->pubactions.pubinsert = pubform->pubinsert;
+    pub->pubactions.pubupdate = pubform->pubupdate;
+    pub->pubactions.pubdelete = pubform->pubdelete;
+    pub->pubactions.pubtruncate = pubform->pubtruncate;
+
+    pub->pubviaroot = pubform->pubviaroot;
+
+    ReleaseSysCache(tup);
+    return pub;
+}
+```

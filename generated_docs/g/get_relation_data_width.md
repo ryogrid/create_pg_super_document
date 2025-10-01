@@ -33,3 +33,19 @@ The function opens the relation using  with NoLock, calls the core  function to 
 - It's essentially a convenience wrapper around  for external callers
 - The relcache management is handled transparently for the caller
 - Returns the same int32 result as the underlying  function
+
+## Simplified Source
+
+```c
+int32 get_relation_data_width(Oid relid, int32 *attr_widths) {
+    // Open relation with no additional locking (assumes already locked)
+    Relation relation = table_open(relid, NoLock);
+
+    // Calculate data width using core function
+    int32 result = get_rel_data_width(relation, attr_widths);
+
+    // Close relation and return result
+    table_close(relation, NoLock);
+    return result;
+}
+```

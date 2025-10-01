@@ -41,3 +41,34 @@ The function follows the same initialization pattern as other scan path creators
 - The tidrangequals list contains expressions that evaluate to TID ranges, often involving range operators on CTID
 - Cost estimation considers the number of blocks that need to be accessed within the specified TID ranges
 - Can be significantly more I/O efficient than discrete TID scans when tuples are physically clustered
+
+## Simplified Source
+
+```c
+TidRangePath *create_tidrangescan_path(PlannerInfo *root, RelOptInfo *rel,
+                                       List *tidrangequals, Relids required_outer)
+{
+    // Create TID range scan path node
+    TidRangePath *pathnode = makeNode(TidRangePath);
+
+    // Initialize basic path properties
+    pathnode->path.pathtype = T_TidRangeScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = rel->reltarget;
+    pathnode->path.param_info = get_baserel_parampathinfo(root, rel, required_outer);
+
+    // TID range scans are not parallel-aware, always unordered
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+    pathnode->path.pathkeys = NIL;  // Always unordered
+
+    // Store TID range qualifications
+    pathnode->tidrangequals = tidrangequals;
+
+    // Calculate costs for this scan method
+    cost_tidrangescan(&pathnode->path, root, rel, tidrangequals, pathnode->path.param_info);
+
+    return pathnode;
+}
+```

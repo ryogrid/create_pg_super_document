@@ -43,3 +43,53 @@ The function handles two serialization formats: text and binary, and should not 
 - Converts timing from instr_time to milliseconds and bytes to kilobytes for display
 - Part of PostgreSQLs EXPLAIN infrastructure for displaying query execution details
 - Located in src/backend/commands/explain.c:1109-1168
+
+## Simplified Source
+
+```c
+static void ExplainPrintSerialize(ExplainState *es, SerializeMetrics *metrics)
+{
+    const char *format;
+
+    // Determine serialization format
+    if (es->serialize == EXPLAIN_SERIALIZE_TEXT)
+        format = "text";
+    else {
+        Assert(es->serialize == EXPLAIN_SERIALIZE_BINARY);
+        format = "binary";
+    }
+
+    ExplainOpenGroup("Serialization", "Serialization", true, es);
+
+    if (es->format == EXPLAIN_FORMAT_TEXT) {
+        // Text format output
+        ExplainIndentText(es);
+        if (es->timing)
+            appendStringInfo(es->str, "Serialization: time=%.3f ms  output=" UINT64_FORMAT "kB  format=%s\n",
+                           1000.0 * INSTR_TIME_GET_DOUBLE(metrics->timeSpent),
+                           BYTES_TO_KILOBYTES(metrics->bytesSent), format);
+        else
+            appendStringInfo(es->str, "Serialization: output=" UINT64_FORMAT "kB  format=%s\n",
+                           BYTES_TO_KILOBYTES(metrics->bytesSent), format);
+
+        // Show buffer usage if enabled
+        if (es->buffers && peek_buffer_usage(es, &metrics->bufferUsage)) {
+            es->indent++;
+            show_buffer_usage(es, &metrics->bufferUsage);
+            es->indent--;
+        }
+    } else {
+        // Structured format output
+        if (es->timing)
+            ExplainPropertyFloat("Time", "ms",
+                               1000.0 * INSTR_TIME_GET_DOUBLE(metrics->timeSpent), 3, es);
+        ExplainPropertyUInteger("Output Volume", "kB",
+                              BYTES_TO_KILOBYTES(metrics->bytesSent), es);
+        ExplainPropertyText("Format", format, es);
+        if (es->buffers)
+            show_buffer_usage(es, &metrics->bufferUsage);
+    }
+
+    ExplainCloseGroup("Serialization", "Serialization", true, es);
+}
+```

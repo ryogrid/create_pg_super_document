@@ -38,3 +38,26 @@ The `aclconcat` function combines two ACLs by creating a new ACL that contains a
 - Memory for the new ACL is allocated in the current memory context
 - Both input ACLs remain unmodified (const parameters)
 - Commonly used as an intermediate step in more complex ACL manipulation operations
+
+## Simplified Source
+
+```c
+Acl *aclconcat(const Acl *left_acl, const Acl *right_acl) {
+    Acl *result_acl;
+
+    // Allocate memory for combined ACL entries
+    result_acl = allocacl(ACL_NUM(left_acl) + ACL_NUM(right_acl));
+
+    // Copy left ACL entries first
+    memcpy(ACL_DAT(result_acl),
+           ACL_DAT(left_acl),
+           ACL_NUM(left_acl) * sizeof(AclItem));
+
+    // Append right ACL entries after left ones
+    memcpy(ACL_DAT(result_acl) + ACL_NUM(left_acl),
+           ACL_DAT(right_acl),
+           ACL_NUM(right_acl) * sizeof(AclItem));
+
+    return result_acl;
+}
+```

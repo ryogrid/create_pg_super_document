@@ -43,3 +43,37 @@ The function is optimized for performance and assumes the input is valid UTF-8 -
 - Returns 0xffffffff for invalid UTF-8 lead bytes (intentional error code)
 - Used extensively throughout PostgreSQL for Unicode text processing, normalization, and formatting
 - The function assumes little-endian byte order and uses standard UTF-8 encoding rules
+
+## Simplified Source
+
+```c
+static pg_wchar
+utf8_to_unicode(const unsigned char *c)
+{
+    // 1-byte: ASCII (0xxxxxxx)
+    if ((*c & 0x80) == 0)
+        return (pg_wchar) c[0];
+
+    // 2-byte: 110xxxxx 10xxxxxx
+    else if ((*c & 0xe0) == 0xc0)
+        return (pg_wchar) (((c[0] & 0x1f) << 6) |
+                           (c[1] & 0x3f));
+
+    // 3-byte: 1110xxxx 10xxxxxx 10xxxxxx
+    else if ((*c & 0xf0) == 0xe0)
+        return (pg_wchar) (((c[0] & 0x0f) << 12) |
+                           ((c[1] & 0x3f) << 6) |
+                           (c[2] & 0x3f));
+
+    // 4-byte: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+    else if ((*c & 0xf8) == 0xf0)
+        return (pg_wchar) (((c[0] & 0x07) << 18) |
+                           ((c[1] & 0x3f) << 12) |
+                           ((c[2] & 0x3f) << 6) |
+                           (c[3] & 0x3f));
+
+    // Invalid UTF-8 lead byte
+    else
+        return 0xffffffff;
+}
+```
